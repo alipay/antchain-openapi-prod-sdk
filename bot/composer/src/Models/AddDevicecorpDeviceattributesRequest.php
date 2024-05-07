@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetIotbasicProductinfoRequest extends Model
+class AddDevicecorpDeviceattributesRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -24,15 +24,39 @@ class GetIotbasicProductinfoRequest extends Model
      * @var string
      */
     public $categoryCode;
+
+    // 型号名称
+    /**
+     * @var string
+     */
+    public $modelName;
+
+    // 型号值
+    /**
+     * @var string
+     */
+    public $modelValue;
+
+    // 规格列表，列表json字符串
+    // 没值默认使用标准规格
+    /**
+     * @var string
+     */
+    public $specs;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'categoryCode'      => 'category_code',
+        'modelName'         => 'model_name',
+        'modelValue'        => 'model_value',
+        'specs'             => 'specs',
     ];
 
     public function validate()
     {
         Model::validateRequired('categoryCode', $this->categoryCode, true);
+        Model::validateRequired('modelName', $this->modelName, true);
+        Model::validateRequired('modelValue', $this->modelValue, true);
     }
 
     public function toMap()
@@ -47,6 +71,15 @@ class GetIotbasicProductinfoRequest extends Model
         if (null !== $this->categoryCode) {
             $res['category_code'] = $this->categoryCode;
         }
+        if (null !== $this->modelName) {
+            $res['model_name'] = $this->modelName;
+        }
+        if (null !== $this->modelValue) {
+            $res['model_value'] = $this->modelValue;
+        }
+        if (null !== $this->specs) {
+            $res['specs'] = $this->specs;
+        }
 
         return $res;
     }
@@ -54,7 +87,7 @@ class GetIotbasicProductinfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetIotbasicProductinfoRequest
+     * @return AddDevicecorpDeviceattributesRequest
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +100,15 @@ class GetIotbasicProductinfoRequest extends Model
         }
         if (isset($map['category_code'])) {
             $model->categoryCode = $map['category_code'];
+        }
+        if (isset($map['model_name'])) {
+            $model->modelName = $map['model_name'];
+        }
+        if (isset($map['model_value'])) {
+            $model->modelValue = $map['model_value'];
+        }
+        if (isset($map['specs'])) {
+            $model->specs = $map['specs'];
         }
 
         return $model;

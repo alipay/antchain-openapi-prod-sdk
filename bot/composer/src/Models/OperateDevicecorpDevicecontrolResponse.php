@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterIotbasicCustomerResponse extends Model
+class OperateDevicecorpDevicecontrolResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,30 @@ class RegisterIotbasicCustomerResponse extends Model
      */
     public $resultMsg;
 
-    // 接口调用结果
+    // 操作结果
     /**
      * @var bool
      */
     public $success;
+
+    // 操作成功设备did列表
+    /**
+     * @var string[]
+     */
+    public $successList;
+
+    // 操作失败列表
+    /**
+     * @var DeviceControlFail[]
+     */
+    public $failList;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'success'    => 'success',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'success'     => 'success',
+        'successList' => 'success_list',
+        'failList'    => 'fail_list',
     ];
 
     public function validate()
@@ -57,6 +71,18 @@ class RegisterIotbasicCustomerResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
+        if (null !== $this->successList) {
+            $res['success_list'] = $this->successList;
+        }
+        if (null !== $this->failList) {
+            $res['fail_list'] = [];
+            if (null !== $this->failList && \is_array($this->failList)) {
+                $n = 0;
+                foreach ($this->failList as $item) {
+                    $res['fail_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -64,7 +90,7 @@ class RegisterIotbasicCustomerResponse extends Model
     /**
      * @param array $map
      *
-     * @return RegisterIotbasicCustomerResponse
+     * @return OperateDevicecorpDevicecontrolResponse
      */
     public static function fromMap($map = [])
     {
@@ -80,6 +106,20 @@ class RegisterIotbasicCustomerResponse extends Model
         }
         if (isset($map['success'])) {
             $model->success = $map['success'];
+        }
+        if (isset($map['success_list'])) {
+            if (!empty($map['success_list'])) {
+                $model->successList = $map['success_list'];
+            }
+        }
+        if (isset($map['fail_list'])) {
+            if (!empty($map['fail_list'])) {
+                $model->failList = [];
+                $n               = 0;
+                foreach ($map['fail_list'] as $item) {
+                    $model->failList[$n++] = null !== $item ? DeviceControlFail::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

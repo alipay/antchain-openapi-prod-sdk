@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RegisterIotbasicCustomerRequest extends Model
+class BatchcreateDevicecorpDeviceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,11 +19,11 @@ class RegisterIotbasicCustomerRequest extends Model
      */
     public $productInstanceId;
 
-    // 项目名称
+    // 项目编码
     /**
      * @var string
      */
-    public $projectName;
+    public $projectCode;
 
     // 品类code
     /**
@@ -31,40 +31,24 @@ class RegisterIotbasicCustomerRequest extends Model
      */
     public $categoryCode;
 
-    // 企业名称
+    // 注册设备集合
     /**
-     * @var string
+     * @var IotBasicDeviceRegisterInfo[]
      */
-    public $customerName;
-
-    // 厂商名称
-    /**
-     * @var string
-     */
-    public $corpName;
-
-    // 厂商value
-    /**
-     * @var string
-     */
-    public $corpValue;
+    public $deviceList;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'projectName'       => 'project_name',
+        'projectCode'       => 'project_code',
         'categoryCode'      => 'category_code',
-        'customerName'      => 'customer_name',
-        'corpName'          => 'corp_name',
-        'corpValue'         => 'corp_value',
+        'deviceList'        => 'device_list',
     ];
 
     public function validate()
     {
-        Model::validateRequired('projectName', $this->projectName, true);
+        Model::validateRequired('projectCode', $this->projectCode, true);
         Model::validateRequired('categoryCode', $this->categoryCode, true);
-        Model::validateRequired('customerName', $this->customerName, true);
-        Model::validateRequired('corpName', $this->corpName, true);
-        Model::validateRequired('corpValue', $this->corpValue, true);
+        Model::validateRequired('deviceList', $this->deviceList, true);
     }
 
     public function toMap()
@@ -76,20 +60,20 @@ class RegisterIotbasicCustomerRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->projectName) {
-            $res['project_name'] = $this->projectName;
+        if (null !== $this->projectCode) {
+            $res['project_code'] = $this->projectCode;
         }
         if (null !== $this->categoryCode) {
             $res['category_code'] = $this->categoryCode;
         }
-        if (null !== $this->customerName) {
-            $res['customer_name'] = $this->customerName;
-        }
-        if (null !== $this->corpName) {
-            $res['corp_name'] = $this->corpName;
-        }
-        if (null !== $this->corpValue) {
-            $res['corp_value'] = $this->corpValue;
+        if (null !== $this->deviceList) {
+            $res['device_list'] = [];
+            if (null !== $this->deviceList && \is_array($this->deviceList)) {
+                $n = 0;
+                foreach ($this->deviceList as $item) {
+                    $res['device_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -98,7 +82,7 @@ class RegisterIotbasicCustomerRequest extends Model
     /**
      * @param array $map
      *
-     * @return RegisterIotbasicCustomerRequest
+     * @return BatchcreateDevicecorpDeviceRequest
      */
     public static function fromMap($map = [])
     {
@@ -109,20 +93,20 @@ class RegisterIotbasicCustomerRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['project_name'])) {
-            $model->projectName = $map['project_name'];
+        if (isset($map['project_code'])) {
+            $model->projectCode = $map['project_code'];
         }
         if (isset($map['category_code'])) {
             $model->categoryCode = $map['category_code'];
         }
-        if (isset($map['customer_name'])) {
-            $model->customerName = $map['customer_name'];
-        }
-        if (isset($map['corp_name'])) {
-            $model->corpName = $map['corp_name'];
-        }
-        if (isset($map['corp_value'])) {
-            $model->corpValue = $map['corp_value'];
+        if (isset($map['device_list'])) {
+            if (!empty($map['device_list'])) {
+                $model->deviceList = [];
+                $n                 = 0;
+                foreach ($map['device_list'] as $item) {
+                    $model->deviceList[$n++] = null !== $item ? IotBasicDeviceRegisterInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

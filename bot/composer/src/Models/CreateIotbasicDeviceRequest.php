@@ -116,7 +116,6 @@ class CreateIotbasicDeviceRequest extends Model
         Model::validateRequired('deviceSn', $this->deviceSn, true);
         Model::validateRequired('deviceSpecs', $this->deviceSpecs, true);
         Model::validateRequired('bizScene', $this->bizScene, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
     }
 
     public function toMap()

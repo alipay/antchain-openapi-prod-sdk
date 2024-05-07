@@ -63,7 +63,6 @@ class BatchcreateIotbasicDeviceRequest extends Model
         Model::validateRequired('corpName', $this->corpName, true);
         Model::validateRequired('deviceCategoryCode', $this->deviceCategoryCode, true);
         Model::validateRequired('bizScene', $this->bizScene, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('deviceList', $this->deviceList, true);
     }
 

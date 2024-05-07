@@ -47,7 +47,6 @@ class DeleteIotbasicDeviceRequest extends Model
     public function validate()
     {
         Model::validateRequired('deviceDid', $this->deviceDid, true);
-        Model::validateRequired('userId', $this->userId, true);
         Model::validateRequired('signature', $this->signature, true);
     }
 

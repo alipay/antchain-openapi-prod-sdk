@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AddDeviceAttributeResponse extends Model
+class CreateDevicecorpDeviceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,7 +26,19 @@ class AddDeviceAttributeResponse extends Model
      */
     public $resultMsg;
 
-    // 接口调用结果
+    // did
+    /**
+     * @var string
+     */
+    public $deviceDid;
+
+    // 设备私钥
+    /**
+     * @var string
+     */
+    public $privateKey;
+
+    // 操作结果
     /**
      * @var bool
      */
@@ -35,6 +47,8 @@ class AddDeviceAttributeResponse extends Model
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'deviceDid'  => 'device_did',
+        'privateKey' => 'private_key',
         'success'    => 'success',
     ];
 
@@ -54,6 +68,12 @@ class AddDeviceAttributeResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->deviceDid) {
+            $res['device_did'] = $this->deviceDid;
+        }
+        if (null !== $this->privateKey) {
+            $res['private_key'] = $this->privateKey;
+        }
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
@@ -64,7 +84,7 @@ class AddDeviceAttributeResponse extends Model
     /**
      * @param array $map
      *
-     * @return AddDeviceAttributeResponse
+     * @return CreateDevicecorpDeviceResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,6 +97,12 @@ class AddDeviceAttributeResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['device_did'])) {
+            $model->deviceDid = $map['device_did'];
+        }
+        if (isset($map['private_key'])) {
+            $model->privateKey = $map['private_key'];
         }
         if (isset($map['success'])) {
             $model->success = $map['success'];

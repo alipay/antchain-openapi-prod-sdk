@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetIotbasicProductinfoResponse extends Model
+class QueryDevicecorpCustomerregisterresultResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,19 +26,13 @@ class GetIotbasicProductinfoResponse extends Model
      */
     public $resultMsg;
 
-    // 接口调用结果
+    // 操作结果
     /**
      * @var bool
      */
     public $success;
 
-    // 产品信息，json字符串
-    // productName:产品名称
-    // productCode:产品code
-    // createTime:产品创建时间
-    // productKey:产品key，用于设备的接入认证信息
-    // deviceTotalCount:产品下的设备总数
-    // mqttHost:设备的接入域名
+    // 结果
     /**
      * @var string
      */
@@ -80,7 +74,7 @@ class GetIotbasicProductinfoResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetIotbasicProductinfoResponse
+     * @return QueryDevicecorpCustomerregisterresultResponse
      */
     public static function fromMap($map = [])
     {
