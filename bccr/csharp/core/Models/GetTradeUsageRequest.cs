@@ -28,11 +28,6 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ServiceType { get; set; }
 
-        // 外部业务唯一编号
-        [NameInMap("out_biz_no")]
-        [Validation(Required=true)]
-        public string OutBizNo { get; set; }
-
         // 扩展信息
         [NameInMap("ext_info")]
         [Validation(Required=false)]

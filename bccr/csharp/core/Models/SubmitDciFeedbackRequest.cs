@@ -23,11 +23,6 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ServiceId { get; set; }
 
-        // 作品名称
-        [NameInMap("work_name")]
-        [Validation(Required=true)]
-        public string WorkName { get; set; }
-
         // 联系人
         [NameInMap("contact_name")]
         [Validation(Required=true)]
@@ -42,6 +37,26 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("message")]
         [Validation(Required=true)]
         public string Message { get; set; }
+
+        // 幂等字段
+        [NameInMap("client_token")]
+        [Validation(Required=true)]
+        public string ClientToken { get; set; }
+
+        // 反馈类型
+        [NameInMap("feedback_type")]
+        [Validation(Required=true)]
+        public string FeedbackType { get; set; }
+
+        // 邮箱
+        [NameInMap("email")]
+        [Validation(Required=false)]
+        public string Email { get; set; }
+
+        // 代理信息
+        [NameInMap("proxy_data")]
+        [Validation(Required=false)]
+        public ProxyData ProxyData { get; set; }
 
     }
 

@@ -18,15 +18,15 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 标识某个服务实体的唯一ID，例如dciContentId
-        [NameInMap("service_id")]
+        // 外部业务编号
+        [NameInMap("out_biz_no")]
         [Validation(Required=true)]
-        public string ServiceId { get; set; }
+        public string OutBizNo { get; set; }
 
-        // 业务服务类型，例如DCI、存证等
-        [NameInMap("service_type")]
+        // 业务类型，例如交易检索
+        [NameInMap("biz_type")]
         [Validation(Required=true)]
-        public string ServiceType { get; set; }
+        public string BizType { get; set; }
 
         // 扩展信息
         [NameInMap("ext_info")]
