@@ -14930,16 +14930,28 @@ type CreateContractSignflowRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	//  付款方ID（个人）
+	PayerTuid *string `json:"payer_tuid,omitempty" xml:"payer_tuid,omitempty"`
 	// 是否自动归档，默认false 如设置为true，则在流程开启后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
 	AutoArchive *bool `json:"auto_archive,omitempty" xml:"auto_archive,omitempty"`
+	// 收款方ID(机构)
+	PayeeTuid *string `json:"payee_tuid,omitempty" xml:"payee_tuid,omitempty"`
 	// 是否强制代扣
 	AutoDeductionForce *bool `json:"auto_deduction_force,omitempty" xml:"auto_deduction_force,omitempty"`
+	// 租赁订单Id
+	BclOrderId *string `json:"bcl_order_id,omitempty" xml:"bcl_order_id,omitempty" maxLength:"32"`
 	// 文件主题
 	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty" require:"true"`
+	// 商品id
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" maxLength:"32"`
 	// 任务配置信息
 	ContractSignFlowConfig *ContractSignFlowConfig `json:"contract_sign_flow_config,omitempty" xml:"contract_sign_flow_config,omitempty"`
+	// 统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" maxLength:"199"`
 	// 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
 	InitiatorAccountId *string `json:"initiator_account_id,omitempty" xml:"initiator_account_id,omitempty"`
+	// 商品版本
+	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty" maxLength:"10"`
 	// 发起方主体id，如存在个人代机构发起签约，则需传入机构id；如不传，则默认是对接平台
 	InitiatorAuthorizedAccountId *string `json:"initiator_authorized_account_id,omitempty" xml:"initiator_authorized_account_id,omitempty"`
 	// 代扣规则详情
@@ -14948,18 +14960,6 @@ type CreateContractSignflowRequest struct {
 	SignPlatform *string `json:"sign_platform,omitempty" xml:"sign_platform,omitempty"`
 	// 签署有效截止日期，毫秒，默认3天失效
 	SignValidity *int64 `json:"sign_validity,omitempty" xml:"sign_validity,omitempty"`
-	//  付款方ID（个人）
-	PayerTuid *string `json:"payer_tuid,omitempty" xml:"payer_tuid,omitempty"`
-	// 收款方ID(机构)
-	PayeeTuid *string `json:"payee_tuid,omitempty" xml:"payee_tuid,omitempty"`
-	// 租赁订单Id
-	BclOrderId *string `json:"bcl_order_id,omitempty" xml:"bcl_order_id,omitempty" maxLength:"32"`
-	// 商品id
-	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" maxLength:"128"`
-	// 统一社会信用代码
-	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" maxLength:"32"`
-	// 商品版本
-	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty" maxLength:"32"`
 }
 
 func (s CreateContractSignflowRequest) String() string {
@@ -14980,8 +14980,18 @@ func (s *CreateContractSignflowRequest) SetProductInstanceId(v string) *CreateCo
 	return s
 }
 
+func (s *CreateContractSignflowRequest) SetPayerTuid(v string) *CreateContractSignflowRequest {
+	s.PayerTuid = &v
+	return s
+}
+
 func (s *CreateContractSignflowRequest) SetAutoArchive(v bool) *CreateContractSignflowRequest {
 	s.AutoArchive = &v
+	return s
+}
+
+func (s *CreateContractSignflowRequest) SetPayeeTuid(v string) *CreateContractSignflowRequest {
+	s.PayeeTuid = &v
 	return s
 }
 
@@ -14990,8 +15000,18 @@ func (s *CreateContractSignflowRequest) SetAutoDeductionForce(v bool) *CreateCon
 	return s
 }
 
+func (s *CreateContractSignflowRequest) SetBclOrderId(v string) *CreateContractSignflowRequest {
+	s.BclOrderId = &v
+	return s
+}
+
 func (s *CreateContractSignflowRequest) SetBusinessScene(v string) *CreateContractSignflowRequest {
 	s.BusinessScene = &v
+	return s
+}
+
+func (s *CreateContractSignflowRequest) SetProductId(v string) *CreateContractSignflowRequest {
+	s.ProductId = &v
 	return s
 }
 
@@ -15000,8 +15020,18 @@ func (s *CreateContractSignflowRequest) SetContractSignFlowConfig(v *ContractSig
 	return s
 }
 
+func (s *CreateContractSignflowRequest) SetMerchantId(v string) *CreateContractSignflowRequest {
+	s.MerchantId = &v
+	return s
+}
+
 func (s *CreateContractSignflowRequest) SetInitiatorAccountId(v string) *CreateContractSignflowRequest {
 	s.InitiatorAccountId = &v
+	return s
+}
+
+func (s *CreateContractSignflowRequest) SetProductVersion(v string) *CreateContractSignflowRequest {
+	s.ProductVersion = &v
 	return s
 }
 
@@ -15022,36 +15052,6 @@ func (s *CreateContractSignflowRequest) SetSignPlatform(v string) *CreateContrac
 
 func (s *CreateContractSignflowRequest) SetSignValidity(v int64) *CreateContractSignflowRequest {
 	s.SignValidity = &v
-	return s
-}
-
-func (s *CreateContractSignflowRequest) SetPayerTuid(v string) *CreateContractSignflowRequest {
-	s.PayerTuid = &v
-	return s
-}
-
-func (s *CreateContractSignflowRequest) SetPayeeTuid(v string) *CreateContractSignflowRequest {
-	s.PayeeTuid = &v
-	return s
-}
-
-func (s *CreateContractSignflowRequest) SetBclOrderId(v string) *CreateContractSignflowRequest {
-	s.BclOrderId = &v
-	return s
-}
-
-func (s *CreateContractSignflowRequest) SetProductId(v string) *CreateContractSignflowRequest {
-	s.ProductId = &v
-	return s
-}
-
-func (s *CreateContractSignflowRequest) SetMerchantId(v string) *CreateContractSignflowRequest {
-	s.MerchantId = &v
-	return s
-}
-
-func (s *CreateContractSignflowRequest) SetProductVersion(v string) *CreateContractSignflowRequest {
-	s.ProductVersion = &v
 	return s
 }
 
@@ -47980,7 +47980,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.21"),
+				"sdk_version":      tea.String("1.12.23"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
