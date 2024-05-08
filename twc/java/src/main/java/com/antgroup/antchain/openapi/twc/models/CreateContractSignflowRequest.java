@@ -11,26 +11,54 @@ public class CreateContractSignflowRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    //  付款方ID（个人）
+    @NameInMap("payer_tuid")
+    public String payerTuid;
+
     // 是否自动归档，默认false 如设置为true，则在流程开启后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
     @NameInMap("auto_archive")
     public Boolean autoArchive;
 
+    // 收款方ID(机构)
+    @NameInMap("payee_tuid")
+    public String payeeTuid;
+
     // 是否强制代扣
     @NameInMap("auto_deduction_force")
     public Boolean autoDeductionForce;
+
+    // 租赁订单Id
+    @NameInMap("bcl_order_id")
+    @Validation(maxLength = 32)
+    public String bclOrderId;
 
     // 文件主题
     @NameInMap("business_scene")
     @Validation(required = true)
     public String businessScene;
 
+    // 商品id
+    @NameInMap("product_id")
+    @Validation(maxLength = 32)
+    public String productId;
+
     // 任务配置信息
     @NameInMap("contract_sign_flow_config")
     public ContractSignFlowConfig contractSignFlowConfig;
 
+    // 统一社会信用代码
+    @NameInMap("merchant_id")
+    @Validation(maxLength = 199)
+    public String merchantId;
+
     // 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
     @NameInMap("initiator_account_id")
     public String initiatorAccountId;
+
+    // 商品版本
+    @NameInMap("product_version")
+    @Validation(maxLength = 10)
+    public String productVersion;
 
     // 发起方主体id，如存在个人代机构发起签约，则需传入机构id；如不传，则默认是对接平台
     @NameInMap("initiator_authorized_account_id")
@@ -47,34 +75,6 @@ public class CreateContractSignflowRequest extends TeaModel {
     // 签署有效截止日期，毫秒，默认3天失效
     @NameInMap("sign_validity")
     public Long signValidity;
-
-    //  付款方ID（个人）
-    @NameInMap("payer_tuid")
-    public String payerTuid;
-
-    // 收款方ID(机构)
-    @NameInMap("payee_tuid")
-    public String payeeTuid;
-
-    // 租赁订单Id
-    @NameInMap("bcl_order_id")
-    @Validation(maxLength = 32)
-    public String bclOrderId;
-
-    // 商品id
-    @NameInMap("product_id")
-    @Validation(maxLength = 128)
-    public String productId;
-
-    // 统一社会信用代码
-    @NameInMap("merchant_id")
-    @Validation(maxLength = 32)
-    public String merchantId;
-
-    // 商品版本
-    @NameInMap("product_version")
-    @Validation(maxLength = 32)
-    public String productVersion;
 
     public static CreateContractSignflowRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateContractSignflowRequest self = new CreateContractSignflowRequest();
@@ -97,12 +97,28 @@ public class CreateContractSignflowRequest extends TeaModel {
         return this.productInstanceId;
     }
 
+    public CreateContractSignflowRequest setPayerTuid(String payerTuid) {
+        this.payerTuid = payerTuid;
+        return this;
+    }
+    public String getPayerTuid() {
+        return this.payerTuid;
+    }
+
     public CreateContractSignflowRequest setAutoArchive(Boolean autoArchive) {
         this.autoArchive = autoArchive;
         return this;
     }
     public Boolean getAutoArchive() {
         return this.autoArchive;
+    }
+
+    public CreateContractSignflowRequest setPayeeTuid(String payeeTuid) {
+        this.payeeTuid = payeeTuid;
+        return this;
+    }
+    public String getPayeeTuid() {
+        return this.payeeTuid;
     }
 
     public CreateContractSignflowRequest setAutoDeductionForce(Boolean autoDeductionForce) {
@@ -113,12 +129,28 @@ public class CreateContractSignflowRequest extends TeaModel {
         return this.autoDeductionForce;
     }
 
+    public CreateContractSignflowRequest setBclOrderId(String bclOrderId) {
+        this.bclOrderId = bclOrderId;
+        return this;
+    }
+    public String getBclOrderId() {
+        return this.bclOrderId;
+    }
+
     public CreateContractSignflowRequest setBusinessScene(String businessScene) {
         this.businessScene = businessScene;
         return this;
     }
     public String getBusinessScene() {
         return this.businessScene;
+    }
+
+    public CreateContractSignflowRequest setProductId(String productId) {
+        this.productId = productId;
+        return this;
+    }
+    public String getProductId() {
+        return this.productId;
     }
 
     public CreateContractSignflowRequest setContractSignFlowConfig(ContractSignFlowConfig contractSignFlowConfig) {
@@ -129,12 +161,28 @@ public class CreateContractSignflowRequest extends TeaModel {
         return this.contractSignFlowConfig;
     }
 
+    public CreateContractSignflowRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
+    }
+
     public CreateContractSignflowRequest setInitiatorAccountId(String initiatorAccountId) {
         this.initiatorAccountId = initiatorAccountId;
         return this;
     }
     public String getInitiatorAccountId() {
         return this.initiatorAccountId;
+    }
+
+    public CreateContractSignflowRequest setProductVersion(String productVersion) {
+        this.productVersion = productVersion;
+        return this;
+    }
+    public String getProductVersion() {
+        return this.productVersion;
     }
 
     public CreateContractSignflowRequest setInitiatorAuthorizedAccountId(String initiatorAuthorizedAccountId) {
@@ -167,54 +215,6 @@ public class CreateContractSignflowRequest extends TeaModel {
     }
     public Long getSignValidity() {
         return this.signValidity;
-    }
-
-    public CreateContractSignflowRequest setPayerTuid(String payerTuid) {
-        this.payerTuid = payerTuid;
-        return this;
-    }
-    public String getPayerTuid() {
-        return this.payerTuid;
-    }
-
-    public CreateContractSignflowRequest setPayeeTuid(String payeeTuid) {
-        this.payeeTuid = payeeTuid;
-        return this;
-    }
-    public String getPayeeTuid() {
-        return this.payeeTuid;
-    }
-
-    public CreateContractSignflowRequest setBclOrderId(String bclOrderId) {
-        this.bclOrderId = bclOrderId;
-        return this;
-    }
-    public String getBclOrderId() {
-        return this.bclOrderId;
-    }
-
-    public CreateContractSignflowRequest setProductId(String productId) {
-        this.productId = productId;
-        return this;
-    }
-    public String getProductId() {
-        return this.productId;
-    }
-
-    public CreateContractSignflowRequest setMerchantId(String merchantId) {
-        this.merchantId = merchantId;
-        return this;
-    }
-    public String getMerchantId() {
-        return this.merchantId;
-    }
-
-    public CreateContractSignflowRequest setProductVersion(String productVersion) {
-        this.productVersion = productVersion;
-        return this;
-    }
-    public String getProductVersion() {
-        return this.productVersion;
     }
 
 }
