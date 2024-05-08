@@ -19,17 +19,17 @@ class CancelTradeUsageRequest extends Model
      */
     public $productInstanceId;
 
-    // 标识某个服务实体的唯一ID，例如dciContentId
+    // 外部业务编号
     /**
      * @var string
      */
-    public $serviceId;
+    public $outBizNo;
 
-    // 业务服务类型，例如DCI、存证等
+    // 业务类型，例如交易检索
     /**
      * @var string
      */
-    public $serviceType;
+    public $bizType;
 
     // 扩展信息
     /**
@@ -39,15 +39,15 @@ class CancelTradeUsageRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'serviceId'         => 'service_id',
-        'serviceType'       => 'service_type',
+        'outBizNo'          => 'out_biz_no',
+        'bizType'           => 'biz_type',
         'extInfo'           => 'ext_info',
     ];
 
     public function validate()
     {
-        Model::validateRequired('serviceId', $this->serviceId, true);
-        Model::validateRequired('serviceType', $this->serviceType, true);
+        Model::validateRequired('outBizNo', $this->outBizNo, true);
+        Model::validateRequired('bizType', $this->bizType, true);
     }
 
     public function toMap()
@@ -59,11 +59,11 @@ class CancelTradeUsageRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->serviceId) {
-            $res['service_id'] = $this->serviceId;
+        if (null !== $this->outBizNo) {
+            $res['out_biz_no'] = $this->outBizNo;
         }
-        if (null !== $this->serviceType) {
-            $res['service_type'] = $this->serviceType;
+        if (null !== $this->bizType) {
+            $res['biz_type'] = $this->bizType;
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
@@ -86,11 +86,11 @@ class CancelTradeUsageRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['service_id'])) {
-            $model->serviceId = $map['service_id'];
+        if (isset($map['out_biz_no'])) {
+            $model->outBizNo = $map['out_biz_no'];
         }
-        if (isset($map['service_type'])) {
-            $model->serviceType = $map['service_type'];
+        if (isset($map['biz_type'])) {
+            $model->bizType = $map['biz_type'];
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];

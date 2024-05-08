@@ -25,12 +25,6 @@ class SubmitDciFeedbackRequest extends Model
      */
     public $serviceId;
 
-    // 作品名称
-    /**
-     * @var string
-     */
-    public $workName;
-
     // 联系人
     /**
      * @var string
@@ -48,23 +42,51 @@ class SubmitDciFeedbackRequest extends Model
      * @var string
      */
     public $message;
+
+    // 幂等字段
+    /**
+     * @var string
+     */
+    public $clientToken;
+
+    // 反馈类型
+    /**
+     * @var string
+     */
+    public $feedbackType;
+
+    // 邮箱
+    /**
+     * @var string
+     */
+    public $email;
+
+    // 代理信息
+    /**
+     * @var ProxyData
+     */
+    public $proxyData;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
         'serviceId'          => 'service_id',
-        'workName'           => 'work_name',
         'contactName'        => 'contact_name',
         'contactPhoneNumber' => 'contact_phone_number',
         'message'            => 'message',
+        'clientToken'        => 'client_token',
+        'feedbackType'       => 'feedback_type',
+        'email'              => 'email',
+        'proxyData'          => 'proxy_data',
     ];
 
     public function validate()
     {
         Model::validateRequired('serviceId', $this->serviceId, true);
-        Model::validateRequired('workName', $this->workName, true);
         Model::validateRequired('contactName', $this->contactName, true);
         Model::validateRequired('contactPhoneNumber', $this->contactPhoneNumber, true);
         Model::validateRequired('message', $this->message, true);
+        Model::validateRequired('clientToken', $this->clientToken, true);
+        Model::validateRequired('feedbackType', $this->feedbackType, true);
     }
 
     public function toMap()
@@ -79,9 +101,6 @@ class SubmitDciFeedbackRequest extends Model
         if (null !== $this->serviceId) {
             $res['service_id'] = $this->serviceId;
         }
-        if (null !== $this->workName) {
-            $res['work_name'] = $this->workName;
-        }
         if (null !== $this->contactName) {
             $res['contact_name'] = $this->contactName;
         }
@@ -90,6 +109,18 @@ class SubmitDciFeedbackRequest extends Model
         }
         if (null !== $this->message) {
             $res['message'] = $this->message;
+        }
+        if (null !== $this->clientToken) {
+            $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->feedbackType) {
+            $res['feedback_type'] = $this->feedbackType;
+        }
+        if (null !== $this->email) {
+            $res['email'] = $this->email;
+        }
+        if (null !== $this->proxyData) {
+            $res['proxy_data'] = null !== $this->proxyData ? $this->proxyData->toMap() : null;
         }
 
         return $res;
@@ -112,9 +143,6 @@ class SubmitDciFeedbackRequest extends Model
         if (isset($map['service_id'])) {
             $model->serviceId = $map['service_id'];
         }
-        if (isset($map['work_name'])) {
-            $model->workName = $map['work_name'];
-        }
         if (isset($map['contact_name'])) {
             $model->contactName = $map['contact_name'];
         }
@@ -123,6 +151,18 @@ class SubmitDciFeedbackRequest extends Model
         }
         if (isset($map['message'])) {
             $model->message = $map['message'];
+        }
+        if (isset($map['client_token'])) {
+            $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['feedback_type'])) {
+            $model->feedbackType = $map['feedback_type'];
+        }
+        if (isset($map['email'])) {
+            $model->email = $map['email'];
+        }
+        if (isset($map['proxy_data'])) {
+            $model->proxyData = ProxyData::fromMap($map['proxy_data']);
         }
 
         return $model;

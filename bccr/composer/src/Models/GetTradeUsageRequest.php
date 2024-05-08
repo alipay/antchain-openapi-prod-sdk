@@ -31,12 +31,6 @@ class GetTradeUsageRequest extends Model
      */
     public $serviceType;
 
-    // 外部业务唯一编号
-    /**
-     * @var string
-     */
-    public $outBizNo;
-
     // 扩展信息
     /**
      * @var string
@@ -47,7 +41,6 @@ class GetTradeUsageRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'serviceId'         => 'service_id',
         'serviceType'       => 'service_type',
-        'outBizNo'          => 'out_biz_no',
         'extInfo'           => 'ext_info',
     ];
 
@@ -55,7 +48,6 @@ class GetTradeUsageRequest extends Model
     {
         Model::validateRequired('serviceId', $this->serviceId, true);
         Model::validateRequired('serviceType', $this->serviceType, true);
-        Model::validateRequired('outBizNo', $this->outBizNo, true);
     }
 
     public function toMap()
@@ -72,9 +64,6 @@ class GetTradeUsageRequest extends Model
         }
         if (null !== $this->serviceType) {
             $res['service_type'] = $this->serviceType;
-        }
-        if (null !== $this->outBizNo) {
-            $res['out_biz_no'] = $this->outBizNo;
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
@@ -102,9 +91,6 @@ class GetTradeUsageRequest extends Model
         }
         if (isset($map['service_type'])) {
             $model->serviceType = $map['service_type'];
-        }
-        if (isset($map['out_biz_no'])) {
-            $model->outBizNo = $map['out_biz_no'];
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
