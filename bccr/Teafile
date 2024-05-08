@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BCCR",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-bccr:1.18.27",
-    "go": "github.com/antchain-openapi-sdk-go/bccr/client:v1.18.27",
-    "csharp": "AntChain.SDK.BCCR:1.18.27",
+    "java": "com.antgroup.antchain.openapi:openapi-bccr:1.18.33",
+    "go": "github.com/antchain-openapi-sdk-go/bccr/client:v1.18.33",
+    "csharp": "AntChain.SDK.BCCR:1.18.33",
     "ts": "@antchain/bccr:1.17.79",
-    "php": "antchain/bccr:1.18.27",
-    "python": "antchain_sdk_bccr:1.18.27"
+    "php": "antchain/bccr:1.18.33",
+    "python": "antchain_sdk_bccr:1.18.33"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

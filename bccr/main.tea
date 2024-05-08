@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.18.27',
+    sdk_version = '1.18.33',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -4663,10 +4663,10 @@ model CancelTradeUsageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 标识某个服务实体的唯一ID，例如dciContentId
-  serviceId: string(name='service_id'),
-  // 业务服务类型，例如DCI、存证等
-  serviceType: string(name='service_type'),
+  // 外部业务编号
+  outBizNo: string(name='out_biz_no'),
+  // 业务类型，例如交易检索
+  bizType: string(name='biz_type'),
   // 扩展信息
   extInfo?: string(name='ext_info'),
 }
@@ -4803,8 +4803,6 @@ model GetTradeUsageRequest = {
   serviceId: string(name='service_id'),
   // 服务类型
   serviceType: string(name='service_type'),
-  // 外部业务唯一编号
-  outBizNo: string(name='out_biz_no'),
   // 扩展信息
   extInfo?: string(name='ext_info'),
 }
@@ -4957,14 +4955,20 @@ model SubmitDciFeedbackRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 业务ID
   serviceId: string(name='service_id'),
-  // 作品名称
-  workName: string(name='work_name'),
   // 联系人
   contactName: string(name='contact_name'),
   // 联系电话
   contactPhoneNumber: string(name='contact_phone_number'),
   // 申诉原因
   message: string(name='message'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+  // 反馈类型
+  feedbackType: string(name='feedback_type'),
+  // 邮箱
+  email?: string(name='email'),
+  // 代理信息
+  proxyData?: ProxyData(name='proxy_data'),
 }
 
 model SubmitDciFeedbackResponse = {
