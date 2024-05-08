@@ -11608,10 +11608,10 @@ type CancelTradeUsageRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 标识某个服务实体的唯一ID，例如dciContentId
-	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
-	// 业务服务类型，例如DCI、存证等
-	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
+	// 外部业务编号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 业务类型，例如交易检索
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
 	// 扩展信息
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
@@ -11634,13 +11634,13 @@ func (s *CancelTradeUsageRequest) SetProductInstanceId(v string) *CancelTradeUsa
 	return s
 }
 
-func (s *CancelTradeUsageRequest) SetServiceId(v string) *CancelTradeUsageRequest {
-	s.ServiceId = &v
+func (s *CancelTradeUsageRequest) SetOutBizNo(v string) *CancelTradeUsageRequest {
+	s.OutBizNo = &v
 	return s
 }
 
-func (s *CancelTradeUsageRequest) SetServiceType(v string) *CancelTradeUsageRequest {
-	s.ServiceType = &v
+func (s *CancelTradeUsageRequest) SetBizType(v string) *CancelTradeUsageRequest {
+	s.BizType = &v
 	return s
 }
 
@@ -11899,8 +11899,6 @@ type GetTradeUsageRequest struct {
 	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
 	// 服务类型
 	ServiceType *string `json:"service_type,omitempty" xml:"service_type,omitempty" require:"true"`
-	// 外部业务唯一编号
-	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
 	// 扩展信息
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
@@ -11930,11 +11928,6 @@ func (s *GetTradeUsageRequest) SetServiceId(v string) *GetTradeUsageRequest {
 
 func (s *GetTradeUsageRequest) SetServiceType(v string) *GetTradeUsageRequest {
 	s.ServiceType = &v
-	return s
-}
-
-func (s *GetTradeUsageRequest) SetOutBizNo(v string) *GetTradeUsageRequest {
-	s.OutBizNo = &v
 	return s
 }
 
@@ -12254,14 +12247,20 @@ type SubmitDciFeedbackRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 业务ID
 	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
-	// 作品名称
-	WorkName *string `json:"work_name,omitempty" xml:"work_name,omitempty" require:"true"`
 	// 联系人
 	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
 	// 联系电话
 	ContactPhoneNumber *string `json:"contact_phone_number,omitempty" xml:"contact_phone_number,omitempty" require:"true"`
 	// 申诉原因
 	Message *string `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 反馈类型
+	FeedbackType *string `json:"feedback_type,omitempty" xml:"feedback_type,omitempty" require:"true"`
+	// 邮箱
+	Email *string `json:"email,omitempty" xml:"email,omitempty"`
+	// 代理信息
+	ProxyData *ProxyData `json:"proxy_data,omitempty" xml:"proxy_data,omitempty"`
 }
 
 func (s SubmitDciFeedbackRequest) String() string {
@@ -12287,11 +12286,6 @@ func (s *SubmitDciFeedbackRequest) SetServiceId(v string) *SubmitDciFeedbackRequ
 	return s
 }
 
-func (s *SubmitDciFeedbackRequest) SetWorkName(v string) *SubmitDciFeedbackRequest {
-	s.WorkName = &v
-	return s
-}
-
 func (s *SubmitDciFeedbackRequest) SetContactName(v string) *SubmitDciFeedbackRequest {
 	s.ContactName = &v
 	return s
@@ -12304,6 +12298,26 @@ func (s *SubmitDciFeedbackRequest) SetContactPhoneNumber(v string) *SubmitDciFee
 
 func (s *SubmitDciFeedbackRequest) SetMessage(v string) *SubmitDciFeedbackRequest {
 	s.Message = &v
+	return s
+}
+
+func (s *SubmitDciFeedbackRequest) SetClientToken(v string) *SubmitDciFeedbackRequest {
+	s.ClientToken = &v
+	return s
+}
+
+func (s *SubmitDciFeedbackRequest) SetFeedbackType(v string) *SubmitDciFeedbackRequest {
+	s.FeedbackType = &v
+	return s
+}
+
+func (s *SubmitDciFeedbackRequest) SetEmail(v string) *SubmitDciFeedbackRequest {
+	s.Email = &v
+	return s
+}
+
+func (s *SubmitDciFeedbackRequest) SetProxyData(v *ProxyData) *SubmitDciFeedbackRequest {
+	s.ProxyData = v
 	return s
 }
 
@@ -13308,7 +13322,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.27"),
+				"sdk_version":      tea.String("1.18.33"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
