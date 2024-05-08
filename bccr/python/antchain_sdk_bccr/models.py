@@ -14322,23 +14322,23 @@ class CancelTradeUsageRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        service_id: str = None,
-        service_type: str = None,
+        out_biz_no: str = None,
+        biz_type: str = None,
         ext_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 标识某个服务实体的唯一ID，例如dciContentId
-        self.service_id = service_id
-        # 业务服务类型，例如DCI、存证等
-        self.service_type = service_type
+        # 外部业务编号
+        self.out_biz_no = out_biz_no
+        # 业务类型，例如交易检索
+        self.biz_type = biz_type
         # 扩展信息
         self.ext_info = ext_info
 
     def validate(self):
-        self.validate_required(self.service_id, 'service_id')
-        self.validate_required(self.service_type, 'service_type')
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+        self.validate_required(self.biz_type, 'biz_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -14350,10 +14350,10 @@ class CancelTradeUsageRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.service_id is not None:
-            result['service_id'] = self.service_id
-        if self.service_type is not None:
-            result['service_type'] = self.service_type
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
         return result
@@ -14364,10 +14364,10 @@ class CancelTradeUsageRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('service_id') is not None:
-            self.service_id = m.get('service_id')
-        if m.get('service_type') is not None:
-            self.service_type = m.get('service_type')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
         return self
@@ -14686,7 +14686,6 @@ class GetTradeUsageRequest(TeaModel):
         product_instance_id: str = None,
         service_id: str = None,
         service_type: str = None,
-        out_biz_no: str = None,
         ext_info: str = None,
     ):
         # OAuth模式下的授权token
@@ -14696,15 +14695,12 @@ class GetTradeUsageRequest(TeaModel):
         self.service_id = service_id
         # 服务类型
         self.service_type = service_type
-        # 外部业务唯一编号
-        self.out_biz_no = out_biz_no
         # 扩展信息
         self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.service_id, 'service_id')
         self.validate_required(self.service_type, 'service_type')
-        self.validate_required(self.out_biz_no, 'out_biz_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -14720,8 +14716,6 @@ class GetTradeUsageRequest(TeaModel):
             result['service_id'] = self.service_id
         if self.service_type is not None:
             result['service_type'] = self.service_type
-        if self.out_biz_no is not None:
-            result['out_biz_no'] = self.out_biz_no
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
         return result
@@ -14736,8 +14730,6 @@ class GetTradeUsageRequest(TeaModel):
             self.service_id = m.get('service_id')
         if m.get('service_type') is not None:
             self.service_type = m.get('service_type')
-        if m.get('out_biz_no') is not None:
-            self.out_biz_no = m.get('out_biz_no')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
         return self
@@ -15122,31 +15114,43 @@ class SubmitDciFeedbackRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         service_id: str = None,
-        work_name: str = None,
         contact_name: str = None,
         contact_phone_number: str = None,
         message: str = None,
+        client_token: str = None,
+        feedback_type: str = None,
+        email: str = None,
+        proxy_data: ProxyData = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 业务ID
         self.service_id = service_id
-        # 作品名称
-        self.work_name = work_name
         # 联系人
         self.contact_name = contact_name
         # 联系电话
         self.contact_phone_number = contact_phone_number
         # 申诉原因
         self.message = message
+        # 幂等字段
+        self.client_token = client_token
+        # 反馈类型
+        self.feedback_type = feedback_type
+        # 邮箱
+        self.email = email
+        # 代理信息
+        self.proxy_data = proxy_data
 
     def validate(self):
         self.validate_required(self.service_id, 'service_id')
-        self.validate_required(self.work_name, 'work_name')
         self.validate_required(self.contact_name, 'contact_name')
         self.validate_required(self.contact_phone_number, 'contact_phone_number')
         self.validate_required(self.message, 'message')
+        self.validate_required(self.client_token, 'client_token')
+        self.validate_required(self.feedback_type, 'feedback_type')
+        if self.proxy_data:
+            self.proxy_data.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -15160,14 +15164,20 @@ class SubmitDciFeedbackRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.service_id is not None:
             result['service_id'] = self.service_id
-        if self.work_name is not None:
-            result['work_name'] = self.work_name
         if self.contact_name is not None:
             result['contact_name'] = self.contact_name
         if self.contact_phone_number is not None:
             result['contact_phone_number'] = self.contact_phone_number
         if self.message is not None:
             result['message'] = self.message
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        if self.feedback_type is not None:
+            result['feedback_type'] = self.feedback_type
+        if self.email is not None:
+            result['email'] = self.email
+        if self.proxy_data is not None:
+            result['proxy_data'] = self.proxy_data.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -15178,14 +15188,21 @@ class SubmitDciFeedbackRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('service_id') is not None:
             self.service_id = m.get('service_id')
-        if m.get('work_name') is not None:
-            self.work_name = m.get('work_name')
         if m.get('contact_name') is not None:
             self.contact_name = m.get('contact_name')
         if m.get('contact_phone_number') is not None:
             self.contact_phone_number = m.get('contact_phone_number')
         if m.get('message') is not None:
             self.message = m.get('message')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        if m.get('feedback_type') is not None:
+            self.feedback_type = m.get('feedback_type')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('proxy_data') is not None:
+            temp_model = ProxyData()
+            self.proxy_data = temp_model.from_map(m['proxy_data'])
         return self
 
 
