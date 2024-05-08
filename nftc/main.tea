@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.21',
+    sdk_version = '1.0.23',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -952,6 +952,46 @@ async function queryNftAssetbysku(request: QueryNftAssetbyskuRequest): QueryNftA
 async function queryNftAssetbyskuEx(request: QueryNftAssetbyskuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryNftAssetbyskuResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.nft.assetbysku.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckNftAssetbyskuRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 鲸探用户ID标识，OpenApi场景使用的加密格式
+  openUserId: string(name='open_user_id'),
+  // 数字藏品类标识ID
+  skuId: long(name='sku_id'),
+}
+
+model CheckNftAssetbyskuResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否已拥有对应sku的nft
+  hasOwn?: boolean(name='has_own'),
+}
+
+/**
+ * Description: 根据skuId维度校验藏品是否已拥有
+ * Summary: 根据skuId维度校验藏品是否已拥有
+ */
+async function checkNftAssetbysku(request: CheckNftAssetbyskuRequest): CheckNftAssetbyskuResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkNftAssetbyskuEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据skuId维度校验藏品是否已拥有
+ * Summary: 根据skuId维度校验藏品是否已拥有
+ */
+async function checkNftAssetbyskuEx(request: CheckNftAssetbyskuRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckNftAssetbyskuResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.nft.assetbysku.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SendPromoPrizeRequest = {
