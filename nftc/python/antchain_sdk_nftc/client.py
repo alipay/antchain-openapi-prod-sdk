@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.21',
+                    'sdk_version': '1.0.23',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.21',
+                    'sdk_version': '1.0.23',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -1057,6 +1057,62 @@ class Client:
         return TeaCore.from_map(
             nftc_models.QueryNftAssetbyskuResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.nft.assetbysku.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_nft_assetbysku(
+        self,
+        request: nftc_models.CheckNftAssetbyskuRequest,
+    ) -> nftc_models.CheckNftAssetbyskuResponse:
+        """
+        Description: 根据skuId维度校验藏品是否已拥有
+        Summary: 根据skuId维度校验藏品是否已拥有
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_nft_assetbysku_ex(request, headers, runtime)
+
+    async def check_nft_assetbysku_async(
+        self,
+        request: nftc_models.CheckNftAssetbyskuRequest,
+    ) -> nftc_models.CheckNftAssetbyskuResponse:
+        """
+        Description: 根据skuId维度校验藏品是否已拥有
+        Summary: 根据skuId维度校验藏品是否已拥有
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_nft_assetbysku_ex_async(request, headers, runtime)
+
+    def check_nft_assetbysku_ex(
+        self,
+        request: nftc_models.CheckNftAssetbyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.CheckNftAssetbyskuResponse:
+        """
+        Description: 根据skuId维度校验藏品是否已拥有
+        Summary: 根据skuId维度校验藏品是否已拥有
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.CheckNftAssetbyskuResponse(),
+            self.do_request('1.0', 'antchain.nftc.nft.assetbysku.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_nft_assetbysku_ex_async(
+        self,
+        request: nftc_models.CheckNftAssetbyskuRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.CheckNftAssetbyskuResponse:
+        """
+        Description: 根据skuId维度校验藏品是否已拥有
+        Summary: 根据skuId维度校验藏品是否已拥有
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.CheckNftAssetbyskuResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.nft.assetbysku.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def send_promo_prize(
