@@ -21,11 +21,6 @@ public class GetTradeUsageRequest extends TeaModel {
     @Validation(required = true)
     public String serviceType;
 
-    // 外部业务唯一编号
-    @NameInMap("out_biz_no")
-    @Validation(required = true)
-    public String outBizNo;
-
     // 扩展信息
     @NameInMap("ext_info")
     public String extInfo;
@@ -65,14 +60,6 @@ public class GetTradeUsageRequest extends TeaModel {
     }
     public String getServiceType() {
         return this.serviceType;
-    }
-
-    public GetTradeUsageRequest setOutBizNo(String outBizNo) {
-        this.outBizNo = outBizNo;
-        return this;
-    }
-    public String getOutBizNo() {
-        return this.outBizNo;
     }
 
     public GetTradeUsageRequest setExtInfo(String extInfo) {

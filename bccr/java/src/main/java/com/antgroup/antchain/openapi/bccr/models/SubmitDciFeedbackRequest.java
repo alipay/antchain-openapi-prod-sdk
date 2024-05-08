@@ -16,11 +16,6 @@ public class SubmitDciFeedbackRequest extends TeaModel {
     @Validation(required = true)
     public String serviceId;
 
-    // 作品名称
-    @NameInMap("work_name")
-    @Validation(required = true)
-    public String workName;
-
     // 联系人
     @NameInMap("contact_name")
     @Validation(required = true)
@@ -35,6 +30,24 @@ public class SubmitDciFeedbackRequest extends TeaModel {
     @NameInMap("message")
     @Validation(required = true)
     public String message;
+
+    // 幂等字段
+    @NameInMap("client_token")
+    @Validation(required = true)
+    public String clientToken;
+
+    // 反馈类型
+    @NameInMap("feedback_type")
+    @Validation(required = true)
+    public String feedbackType;
+
+    // 邮箱
+    @NameInMap("email")
+    public String email;
+
+    // 代理信息
+    @NameInMap("proxy_data")
+    public ProxyData proxyData;
 
     public static SubmitDciFeedbackRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitDciFeedbackRequest self = new SubmitDciFeedbackRequest();
@@ -65,14 +78,6 @@ public class SubmitDciFeedbackRequest extends TeaModel {
         return this.serviceId;
     }
 
-    public SubmitDciFeedbackRequest setWorkName(String workName) {
-        this.workName = workName;
-        return this;
-    }
-    public String getWorkName() {
-        return this.workName;
-    }
-
     public SubmitDciFeedbackRequest setContactName(String contactName) {
         this.contactName = contactName;
         return this;
@@ -95,6 +100,38 @@ public class SubmitDciFeedbackRequest extends TeaModel {
     }
     public String getMessage() {
         return this.message;
+    }
+
+    public SubmitDciFeedbackRequest setClientToken(String clientToken) {
+        this.clientToken = clientToken;
+        return this;
+    }
+    public String getClientToken() {
+        return this.clientToken;
+    }
+
+    public SubmitDciFeedbackRequest setFeedbackType(String feedbackType) {
+        this.feedbackType = feedbackType;
+        return this;
+    }
+    public String getFeedbackType() {
+        return this.feedbackType;
+    }
+
+    public SubmitDciFeedbackRequest setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+    public String getEmail() {
+        return this.email;
+    }
+
+    public SubmitDciFeedbackRequest setProxyData(ProxyData proxyData) {
+        this.proxyData = proxyData;
+        return this;
+    }
+    public ProxyData getProxyData() {
+        return this.proxyData;
     }
 
 }

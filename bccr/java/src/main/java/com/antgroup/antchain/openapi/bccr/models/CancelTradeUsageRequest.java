@@ -11,15 +11,15 @@ public class CancelTradeUsageRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 标识某个服务实体的唯一ID，例如dciContentId
-    @NameInMap("service_id")
+    // 外部业务编号
+    @NameInMap("out_biz_no")
     @Validation(required = true)
-    public String serviceId;
+    public String outBizNo;
 
-    // 业务服务类型，例如DCI、存证等
-    @NameInMap("service_type")
+    // 业务类型，例如交易检索
+    @NameInMap("biz_type")
     @Validation(required = true)
-    public String serviceType;
+    public String bizType;
 
     // 扩展信息
     @NameInMap("ext_info")
@@ -46,20 +46,20 @@ public class CancelTradeUsageRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CancelTradeUsageRequest setServiceId(String serviceId) {
-        this.serviceId = serviceId;
+    public CancelTradeUsageRequest setOutBizNo(String outBizNo) {
+        this.outBizNo = outBizNo;
         return this;
     }
-    public String getServiceId() {
-        return this.serviceId;
+    public String getOutBizNo() {
+        return this.outBizNo;
     }
 
-    public CancelTradeUsageRequest setServiceType(String serviceType) {
-        this.serviceType = serviceType;
+    public CancelTradeUsageRequest setBizType(String bizType) {
+        this.bizType = bizType;
         return this;
     }
-    public String getServiceType() {
-        return this.serviceType;
+    public String getBizType() {
+        return this.bizType;
     }
 
     public CancelTradeUsageRequest setExtInfo(String extInfo) {
