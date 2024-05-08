@@ -18609,35 +18609,47 @@ class CreateContractSignflowRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        payer_tuid: str = None,
         auto_archive: bool = None,
+        payee_tuid: str = None,
         auto_deduction_force: bool = None,
+        bcl_order_id: str = None,
         business_scene: str = None,
+        product_id: str = None,
         contract_sign_flow_config: ContractSignFlowConfig = None,
+        merchant_id: str = None,
         initiator_account_id: str = None,
+        product_version: str = None,
         initiator_authorized_account_id: str = None,
         repayment_order_info: List[RepaymentOrderRequest] = None,
         sign_platform: str = None,
         sign_validity: int = None,
-        payer_tuid: str = None,
-        payee_tuid: str = None,
-        bcl_order_id: str = None,
-        product_id: str = None,
-        merchant_id: str = None,
-        product_version: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 付款方ID（个人）
+        self.payer_tuid = payer_tuid
         # 是否自动归档，默认false 如设置为true，则在流程开启后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
         self.auto_archive = auto_archive
+        # 收款方ID(机构)
+        self.payee_tuid = payee_tuid
         # 是否强制代扣
         self.auto_deduction_force = auto_deduction_force
+        # 租赁订单Id
+        self.bcl_order_id = bcl_order_id
         # 文件主题
         self.business_scene = business_scene
+        # 商品id
+        self.product_id = product_id
         # 任务配置信息
         self.contract_sign_flow_config = contract_sign_flow_config
+        # 统一社会信用代码
+        self.merchant_id = merchant_id
         # 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
         self.initiator_account_id = initiator_account_id
+        # 商品版本
+        self.product_version = product_version
         # 发起方主体id，如存在个人代机构发起签约，则需传入机构id；如不传，则默认是对接平台
         self.initiator_authorized_account_id = initiator_authorized_account_id
         # 代扣规则详情
@@ -18646,35 +18658,23 @@ class CreateContractSignflowRequest(TeaModel):
         self.sign_platform = sign_platform
         # 签署有效截止日期，毫秒，默认3天失效
         self.sign_validity = sign_validity
-        # 付款方ID（个人）
-        self.payer_tuid = payer_tuid
-        # 收款方ID(机构)
-        self.payee_tuid = payee_tuid
-        # 租赁订单Id
-        self.bcl_order_id = bcl_order_id
-        # 商品id
-        self.product_id = product_id
-        # 统一社会信用代码
-        self.merchant_id = merchant_id
-        # 商品版本
-        self.product_version = product_version
 
     def validate(self):
+        if self.bcl_order_id is not None:
+            self.validate_max_length(self.bcl_order_id, 'bcl_order_id', 32)
         self.validate_required(self.business_scene, 'business_scene')
+        if self.product_id is not None:
+            self.validate_max_length(self.product_id, 'product_id', 32)
         if self.contract_sign_flow_config:
             self.contract_sign_flow_config.validate()
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 199)
+        if self.product_version is not None:
+            self.validate_max_length(self.product_version, 'product_version', 10)
         if self.repayment_order_info:
             for k in self.repayment_order_info:
                 if k:
                     k.validate()
-        if self.bcl_order_id is not None:
-            self.validate_max_length(self.bcl_order_id, 'bcl_order_id', 32)
-        if self.product_id is not None:
-            self.validate_max_length(self.product_id, 'product_id', 128)
-        if self.merchant_id is not None:
-            self.validate_max_length(self.merchant_id, 'merchant_id', 32)
-        if self.product_version is not None:
-            self.validate_max_length(self.product_version, 'product_version', 32)
 
     def to_map(self):
         _map = super().to_map()
@@ -18686,16 +18686,28 @@ class CreateContractSignflowRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.payer_tuid is not None:
+            result['payer_tuid'] = self.payer_tuid
         if self.auto_archive is not None:
             result['auto_archive'] = self.auto_archive
+        if self.payee_tuid is not None:
+            result['payee_tuid'] = self.payee_tuid
         if self.auto_deduction_force is not None:
             result['auto_deduction_force'] = self.auto_deduction_force
+        if self.bcl_order_id is not None:
+            result['bcl_order_id'] = self.bcl_order_id
         if self.business_scene is not None:
             result['business_scene'] = self.business_scene
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
         if self.contract_sign_flow_config is not None:
             result['contract_sign_flow_config'] = self.contract_sign_flow_config.to_map()
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
         if self.initiator_account_id is not None:
             result['initiator_account_id'] = self.initiator_account_id
+        if self.product_version is not None:
+            result['product_version'] = self.product_version
         if self.initiator_authorized_account_id is not None:
             result['initiator_authorized_account_id'] = self.initiator_authorized_account_id
         result['repayment_order_info'] = []
@@ -18706,18 +18718,6 @@ class CreateContractSignflowRequest(TeaModel):
             result['sign_platform'] = self.sign_platform
         if self.sign_validity is not None:
             result['sign_validity'] = self.sign_validity
-        if self.payer_tuid is not None:
-            result['payer_tuid'] = self.payer_tuid
-        if self.payee_tuid is not None:
-            result['payee_tuid'] = self.payee_tuid
-        if self.bcl_order_id is not None:
-            result['bcl_order_id'] = self.bcl_order_id
-        if self.product_id is not None:
-            result['product_id'] = self.product_id
-        if self.merchant_id is not None:
-            result['merchant_id'] = self.merchant_id
-        if self.product_version is not None:
-            result['product_version'] = self.product_version
         return result
 
     def from_map(self, m: dict = None):
@@ -18726,17 +18726,29 @@ class CreateContractSignflowRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('payer_tuid') is not None:
+            self.payer_tuid = m.get('payer_tuid')
         if m.get('auto_archive') is not None:
             self.auto_archive = m.get('auto_archive')
+        if m.get('payee_tuid') is not None:
+            self.payee_tuid = m.get('payee_tuid')
         if m.get('auto_deduction_force') is not None:
             self.auto_deduction_force = m.get('auto_deduction_force')
+        if m.get('bcl_order_id') is not None:
+            self.bcl_order_id = m.get('bcl_order_id')
         if m.get('business_scene') is not None:
             self.business_scene = m.get('business_scene')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
         if m.get('contract_sign_flow_config') is not None:
             temp_model = ContractSignFlowConfig()
             self.contract_sign_flow_config = temp_model.from_map(m['contract_sign_flow_config'])
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
         if m.get('initiator_account_id') is not None:
             self.initiator_account_id = m.get('initiator_account_id')
+        if m.get('product_version') is not None:
+            self.product_version = m.get('product_version')
         if m.get('initiator_authorized_account_id') is not None:
             self.initiator_authorized_account_id = m.get('initiator_authorized_account_id')
         self.repayment_order_info = []
@@ -18748,18 +18760,6 @@ class CreateContractSignflowRequest(TeaModel):
             self.sign_platform = m.get('sign_platform')
         if m.get('sign_validity') is not None:
             self.sign_validity = m.get('sign_validity')
-        if m.get('payer_tuid') is not None:
-            self.payer_tuid = m.get('payer_tuid')
-        if m.get('payee_tuid') is not None:
-            self.payee_tuid = m.get('payee_tuid')
-        if m.get('bcl_order_id') is not None:
-            self.bcl_order_id = m.get('bcl_order_id')
-        if m.get('product_id') is not None:
-            self.product_id = m.get('product_id')
-        if m.get('merchant_id') is not None:
-            self.merchant_id = m.get('merchant_id')
-        if m.get('product_version') is not None:
-            self.product_version = m.get('product_version')
         return self
 
 
