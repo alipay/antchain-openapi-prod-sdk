@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.21',
+    sdk_version = '1.12.23',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -5788,16 +5788,28 @@ model CreateContractSignflowRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  //  付款方ID（个人）
+  payerTuid?: string(name='payer_tuid'),
   // 是否自动归档，默认false 如设置为true，则在流程开启后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
   autoArchive?: boolean(name='auto_archive'),
+  // 收款方ID(机构)
+  payeeTuid?: string(name='payee_tuid'),
   // 是否强制代扣
   autoDeductionForce?: boolean(name='auto_deduction_force'),
+  // 租赁订单Id
+  bclOrderId?: string(maxLength=32, name='bcl_order_id'),
   // 文件主题
   businessScene: string(name='business_scene'),
+  // 商品id
+  productId?: string(maxLength=32, name='product_id'),
   // 任务配置信息
   contractSignFlowConfig?: ContractSignFlowConfig(name='contract_sign_flow_config'),
+  // 统一社会信用代码
+  merchantId?: string(maxLength=199, name='merchant_id'),
   // 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
   initiatorAccountId?: string(name='initiator_account_id'),
+  // 商品版本
+  productVersion?: string(maxLength=10, name='product_version'),
   // 发起方主体id，如存在个人代机构发起签约，则需传入机构id；如不传，则默认是对接平台
   initiatorAuthorizedAccountId?: string(name='initiator_authorized_account_id'),
   // 代扣规则详情
@@ -5806,18 +5818,6 @@ model CreateContractSignflowRequest = {
   signPlatform?: string(name='sign_platform'),
   // 签署有效截止日期，毫秒，默认3天失效
   signValidity?: long(name='sign_validity'),
-  //  付款方ID（个人）
-  payerTuid?: string(name='payer_tuid'),
-  // 收款方ID(机构)
-  payeeTuid?: string(name='payee_tuid'),
-  // 租赁订单Id
-  bclOrderId?: string(maxLength=32, name='bcl_order_id'),
-  // 商品id
-  productId?: string(maxLength=128, name='product_id'),
-  // 统一社会信用代码
-  merchantId?: string(maxLength=32, name='merchant_id'),
-  // 商品版本
-  productVersion?: string(maxLength=32, name='product_version'),
 }
 
 model CreateContractSignflowResponse = {
