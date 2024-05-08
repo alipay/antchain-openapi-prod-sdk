@@ -21,6 +21,8 @@ use AntChain\NFTC\Models\ApplyResourceFiletokenRequest;
 use AntChain\NFTC\Models\ApplyResourceFiletokenResponse;
 use AntChain\NFTC\Models\BindResourceGeneralresourcefileRequest;
 use AntChain\NFTC\Models\BindResourceGeneralresourcefileResponse;
+use AntChain\NFTC\Models\CheckNftAssetbyskuRequest;
+use AntChain\NFTC\Models\CheckNftAssetbyskuResponse;
 use AntChain\NFTC\Models\ConfirmTaskRewardRequest;
 use AntChain\NFTC\Models\ConfirmTaskRewardResponse;
 use AntChain\NFTC\Models\CreateResourceGeneralresourceRequest;
@@ -198,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.21',
+                    'sdk_version'      => '1.0.23',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -706,6 +708,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryNftAssetbyskuResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.nft.assetbysku.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据skuId维度校验藏品是否已拥有
+     * Summary: 根据skuId维度校验藏品是否已拥有.
+     *
+     * @param CheckNftAssetbyskuRequest $request
+     *
+     * @return CheckNftAssetbyskuResponse
+     */
+    public function checkNftAssetbysku($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkNftAssetbyskuEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据skuId维度校验藏品是否已拥有
+     * Summary: 根据skuId维度校验藏品是否已拥有.
+     *
+     * @param CheckNftAssetbyskuRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CheckNftAssetbyskuResponse
+     */
+    public function checkNftAssetbyskuEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckNftAssetbyskuResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.nft.assetbysku.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
