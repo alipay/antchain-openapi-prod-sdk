@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.15',
+                    'sdk_version': '1.7.26',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.7.15',
+                    'sdk_version': '1.7.26',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -1259,6 +1259,230 @@ class Client:
         return TeaCore.from_map(
             ato_models.GetFundOrderfullinfoResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.orderfullinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_inner_product(
+        self,
+        request: ato_models.GetInnerProductRequest,
+    ) -> ato_models.GetInnerProductResponse:
+        """
+        Description: 内部调用,商品信息获取
+        Summary: 商品信息获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_inner_product_ex(request, headers, runtime)
+
+    async def get_inner_product_async(
+        self,
+        request: ato_models.GetInnerProductRequest,
+    ) -> ato_models.GetInnerProductResponse:
+        """
+        Description: 内部调用,商品信息获取
+        Summary: 商品信息获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_inner_product_ex_async(request, headers, runtime)
+
+    def get_inner_product_ex(
+        self,
+        request: ato_models.GetInnerProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerProductResponse:
+        """
+        Description: 内部调用,商品信息获取
+        Summary: 商品信息获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerProductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.product.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_inner_product_ex_async(
+        self,
+        request: ato_models.GetInnerProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerProductResponse:
+        """
+        Description: 内部调用,商品信息获取
+        Summary: 商品信息获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerProductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.product.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_inner_tenant(
+        self,
+        request: ato_models.GetInnerTenantRequest,
+    ) -> ato_models.GetInnerTenantResponse:
+        """
+        Description: ato内部服务，客户系统不可访问；租户信息获取
+        Summary: 租户信息获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_inner_tenant_ex(request, headers, runtime)
+
+    async def get_inner_tenant_async(
+        self,
+        request: ato_models.GetInnerTenantRequest,
+    ) -> ato_models.GetInnerTenantResponse:
+        """
+        Description: ato内部服务，客户系统不可访问；租户信息获取
+        Summary: 租户信息获取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_inner_tenant_ex_async(request, headers, runtime)
+
+    def get_inner_tenant_ex(
+        self,
+        request: ato_models.GetInnerTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerTenantResponse:
+        """
+        Description: ato内部服务，客户系统不可访问；租户信息获取
+        Summary: 租户信息获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerTenantResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.tenant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_inner_tenant_ex_async(
+        self,
+        request: ato_models.GetInnerTenantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerTenantResponse:
+        """
+        Description: ato内部服务，客户系统不可访问；租户信息获取
+        Summary: 租户信息获取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerTenantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.tenant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_inner_meterforwholeorder(
+        self,
+        request: ato_models.SyncInnerMeterforwholeorderRequest,
+    ) -> ato_models.SyncInnerMeterforwholeorderResponse:
+        """
+        Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+        Summary: 上报整单结算计量信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_inner_meterforwholeorder_ex(request, headers, runtime)
+
+    async def sync_inner_meterforwholeorder_async(
+        self,
+        request: ato_models.SyncInnerMeterforwholeorderRequest,
+    ) -> ato_models.SyncInnerMeterforwholeorderResponse:
+        """
+        Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+        Summary: 上报整单结算计量信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_inner_meterforwholeorder_ex_async(request, headers, runtime)
+
+    def sync_inner_meterforwholeorder_ex(
+        self,
+        request: ato_models.SyncInnerMeterforwholeorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncInnerMeterforwholeorderResponse:
+        """
+        Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+        Summary: 上报整单结算计量信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncInnerMeterforwholeorderResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.meterforwholeorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_inner_meterforwholeorder_ex_async(
+        self,
+        request: ato_models.SyncInnerMeterforwholeorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncInnerMeterforwholeorderResponse:
+        """
+        Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+        Summary: 上报整单结算计量信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncInnerMeterforwholeorderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.meterforwholeorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_inner_meterforagsign(
+        self,
+        request: ato_models.SyncInnerMeterforagsignRequest,
+    ) -> ato_models.SyncInnerMeterforagsignResponse:
+        """
+        Description: 内部调用，合同签署计量上报接口
+        Summary: 合同签署计量上报同步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_inner_meterforagsign_ex(request, headers, runtime)
+
+    async def sync_inner_meterforagsign_async(
+        self,
+        request: ato_models.SyncInnerMeterforagsignRequest,
+    ) -> ato_models.SyncInnerMeterforagsignResponse:
+        """
+        Description: 内部调用，合同签署计量上报接口
+        Summary: 合同签署计量上报同步接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_inner_meterforagsign_ex_async(request, headers, runtime)
+
+    def sync_inner_meterforagsign_ex(
+        self,
+        request: ato_models.SyncInnerMeterforagsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncInnerMeterforagsignResponse:
+        """
+        Description: 内部调用，合同签署计量上报接口
+        Summary: 合同签署计量上报同步接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncInnerMeterforagsignResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.meterforagsign.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_inner_meterforagsign_ex_async(
+        self,
+        request: ato_models.SyncInnerMeterforagsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncInnerMeterforagsignResponse:
+        """
+        Description: 内部调用，合同签署计量上报接口
+        Summary: 合同签署计量上报同步接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncInnerMeterforagsignResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.meterforagsign.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_realperson_facevrf(
