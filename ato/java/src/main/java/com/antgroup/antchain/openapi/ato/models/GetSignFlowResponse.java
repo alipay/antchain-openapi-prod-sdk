@@ -50,6 +50,10 @@ public class GetSignFlowResponse extends TeaModel {
     @NameInMap("alipay_user_id")
     public String alipayUserId;
 
+    // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+    @NameInMap("sign_info")
+    public String signInfo;
+
     public static GetSignFlowResponse build(java.util.Map<String, ?> map) throws Exception {
         GetSignFlowResponse self = new GetSignFlowResponse();
         return TeaModel.build(map, self);
@@ -141,6 +145,14 @@ public class GetSignFlowResponse extends TeaModel {
     }
     public String getAlipayUserId() {
         return this.alipayUserId;
+    }
+
+    public GetSignFlowResponse setSignInfo(String signInfo) {
+        this.signInfo = signInfo;
+        return this;
+    }
+    public String getSignInfo() {
+        return this.signInfo;
     }
 
 }

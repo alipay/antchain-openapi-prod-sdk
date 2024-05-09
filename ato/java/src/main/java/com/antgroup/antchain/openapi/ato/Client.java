@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.7.15"),
+                    new TeaPair("sdk_version", "1.7.26"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -503,6 +503,82 @@ public class Client {
     public GetFundOrderfullinfoResponse getFundOrderfullinfoEx(GetFundOrderfullinfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.orderfullinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetFundOrderfullinfoResponse());
+    }
+
+    /**
+     * Description: 内部调用,商品信息获取
+     * Summary: 商品信息获取
+     */
+    public GetInnerProductResponse getInnerProduct(GetInnerProductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getInnerProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 内部调用,商品信息获取
+     * Summary: 商品信息获取
+     */
+    public GetInnerProductResponse getInnerProductEx(GetInnerProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.product.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInnerProductResponse());
+    }
+
+    /**
+     * Description: ato内部服务，客户系统不可访问；租户信息获取
+     * Summary: 租户信息获取
+     */
+    public GetInnerTenantResponse getInnerTenant(GetInnerTenantRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getInnerTenantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: ato内部服务，客户系统不可访问；租户信息获取
+     * Summary: 租户信息获取
+     */
+    public GetInnerTenantResponse getInnerTenantEx(GetInnerTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.tenant.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInnerTenantResponse());
+    }
+
+    /**
+     * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+     * Summary: 上报整单结算计量信息
+     */
+    public SyncInnerMeterforwholeorderResponse syncInnerMeterforwholeorder(SyncInnerMeterforwholeorderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncInnerMeterforwholeorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+     * Summary: 上报整单结算计量信息
+     */
+    public SyncInnerMeterforwholeorderResponse syncInnerMeterforwholeorderEx(SyncInnerMeterforwholeorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.meterforwholeorder.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncInnerMeterforwholeorderResponse());
+    }
+
+    /**
+     * Description: 内部调用，合同签署计量上报接口
+     * Summary: 合同签署计量上报同步接口
+     */
+    public SyncInnerMeterforagsignResponse syncInnerMeterforagsign(SyncInnerMeterforagsignRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncInnerMeterforagsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 内部调用，合同签署计量上报接口
+     * Summary: 合同签署计量上报同步接口
+     */
+    public SyncInnerMeterforagsignResponse syncInnerMeterforagsignEx(SyncInnerMeterforagsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.meterforagsign.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncInnerMeterforagsignResponse());
     }
 
     /**

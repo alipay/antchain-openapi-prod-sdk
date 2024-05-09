@@ -13,7 +13,7 @@ public class CreateWithholdRefundRequest extends TeaModel {
 
     // 订单id
     @NameInMap("order_id")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 128, minLength = 1)
     public String orderId;
 
     // 第几期
