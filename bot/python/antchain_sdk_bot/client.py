@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.30',
+                    'sdk_version': '1.10.31',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.30',
+                    'sdk_version': '1.10.31',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -5515,6 +5515,174 @@ class Client:
         return TeaCore.from_map(
             bot_models.OperateDevicecorpDevicecontrolResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.devicecorp.devicecontrol.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_devicecorp_thingmodel(
+        self,
+        request: bot_models.CreateDevicecorpThingmodelRequest,
+    ) -> bot_models.CreateDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商创建物模型
+        Summary: iotbasic-设备厂商创建物模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_devicecorp_thingmodel_ex(request, headers, runtime)
+
+    async def create_devicecorp_thingmodel_async(
+        self,
+        request: bot_models.CreateDevicecorpThingmodelRequest,
+    ) -> bot_models.CreateDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商创建物模型
+        Summary: iotbasic-设备厂商创建物模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_devicecorp_thingmodel_ex_async(request, headers, runtime)
+
+    def create_devicecorp_thingmodel_ex(
+        self,
+        request: bot_models.CreateDevicecorpThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商创建物模型
+        Summary: iotbasic-设备厂商创建物模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateDevicecorpThingmodelResponse(),
+            self.do_request('1.0', 'blockchain.bot.devicecorp.thingmodel.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_devicecorp_thingmodel_ex_async(
+        self,
+        request: bot_models.CreateDevicecorpThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商创建物模型
+        Summary: iotbasic-设备厂商创建物模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateDevicecorpThingmodelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.devicecorp.thingmodel.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_devicecorp_thingmodel(
+        self,
+        request: bot_models.UpdateDevicecorpThingmodelRequest,
+    ) -> bot_models.UpdateDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商修改物模型
+        Summary: iotbasic-设备厂商修改物模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_devicecorp_thingmodel_ex(request, headers, runtime)
+
+    async def update_devicecorp_thingmodel_async(
+        self,
+        request: bot_models.UpdateDevicecorpThingmodelRequest,
+    ) -> bot_models.UpdateDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商修改物模型
+        Summary: iotbasic-设备厂商修改物模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_devicecorp_thingmodel_ex_async(request, headers, runtime)
+
+    def update_devicecorp_thingmodel_ex(
+        self,
+        request: bot_models.UpdateDevicecorpThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商修改物模型
+        Summary: iotbasic-设备厂商修改物模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateDevicecorpThingmodelResponse(),
+            self.do_request('1.0', 'blockchain.bot.devicecorp.thingmodel.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_devicecorp_thingmodel_ex_async(
+        self,
+        request: bot_models.UpdateDevicecorpThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商修改物模型
+        Summary: iotbasic-设备厂商修改物模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateDevicecorpThingmodelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.devicecorp.thingmodel.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_devicecorp_thingmodel(
+        self,
+        request: bot_models.DeleteDevicecorpThingmodelRequest,
+    ) -> bot_models.DeleteDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商删除物模型
+        Summary: iotbasic-设备厂商删除物模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_devicecorp_thingmodel_ex(request, headers, runtime)
+
+    async def delete_devicecorp_thingmodel_async(
+        self,
+        request: bot_models.DeleteDevicecorpThingmodelRequest,
+    ) -> bot_models.DeleteDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商删除物模型
+        Summary: iotbasic-设备厂商删除物模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_devicecorp_thingmodel_ex_async(request, headers, runtime)
+
+    def delete_devicecorp_thingmodel_ex(
+        self,
+        request: bot_models.DeleteDevicecorpThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商删除物模型
+        Summary: iotbasic-设备厂商删除物模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteDevicecorpThingmodelResponse(),
+            self.do_request('1.0', 'blockchain.bot.devicecorp.thingmodel.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_devicecorp_thingmodel_ex_async(
+        self,
+        request: bot_models.DeleteDevicecorpThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商删除物模型
+        Summary: iotbasic-设备厂商删除物模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteDevicecorpThingmodelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.devicecorp.thingmodel.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(

@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_bot.
 
-Created on 07/05/2024
+Created on 09/05/2024
 
 @author: Ant Chain SDK
 """
