@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.30"),
+                    new TeaPair("sdk_version", "1.10.31"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1947,6 +1947,63 @@ public class Client {
     public OperateDevicecorpDevicecontrolResponse operateDevicecorpDevicecontrolEx(OperateDevicecorpDevicecontrolRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.devicecontrol.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateDevicecorpDevicecontrolResponse());
+    }
+
+    /**
+     * Description: iotbasic-设备厂商创建物模型
+     * Summary: iotbasic-设备厂商创建物模型
+     */
+    public CreateDevicecorpThingmodelResponse createDevicecorpThingmodel(CreateDevicecorpThingmodelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDevicecorpThingmodelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商创建物模型
+     * Summary: iotbasic-设备厂商创建物模型
+     */
+    public CreateDevicecorpThingmodelResponse createDevicecorpThingmodelEx(CreateDevicecorpThingmodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.thingmodel.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDevicecorpThingmodelResponse());
+    }
+
+    /**
+     * Description: iotbasic-设备厂商修改物模型
+     * Summary: iotbasic-设备厂商修改物模型
+     */
+    public UpdateDevicecorpThingmodelResponse updateDevicecorpThingmodel(UpdateDevicecorpThingmodelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateDevicecorpThingmodelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商修改物模型
+     * Summary: iotbasic-设备厂商修改物模型
+     */
+    public UpdateDevicecorpThingmodelResponse updateDevicecorpThingmodelEx(UpdateDevicecorpThingmodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.thingmodel.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateDevicecorpThingmodelResponse());
+    }
+
+    /**
+     * Description: iotbasic-设备厂商删除物模型
+     * Summary: iotbasic-设备厂商删除物模型
+     */
+    public DeleteDevicecorpThingmodelResponse deleteDevicecorpThingmodel(DeleteDevicecorpThingmodelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteDevicecorpThingmodelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商删除物模型
+     * Summary: iotbasic-设备厂商删除物模型
+     */
+    public DeleteDevicecorpThingmodelResponse deleteDevicecorpThingmodelEx(DeleteDevicecorpThingmodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.thingmodel.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteDevicecorpThingmodelResponse());
     }
 
     /**
