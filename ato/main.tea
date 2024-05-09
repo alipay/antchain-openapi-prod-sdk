@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.15',
+    sdk_version = '1.7.26',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -1015,6 +1015,186 @@ async function getFundOrderfullinfoEx(request: GetFundOrderfullinfoRequest, head
   return doRequest('1.0' ,'antchain.ato.fund.orderfullinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model GetInnerProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户在数科的租户id
+  merchantTenantId: string(maxLength=32, minLength=1, name='merchant_tenant_id'),
+  // 商户统一社会信用代码
+  merchantId: string(maxLength=199, minLength=1, name='merchant_id'),
+  // 商品id
+  productId: string(maxLength=32, minLength=1, name='product_id'),
+  // 商品版本
+  productVersion: string(maxLength=10, minLength=1, name='product_version'),
+}
+
+model GetInnerProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // {}json字符串
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 内部调用,商品信息获取
+ * Summary: 商品信息获取
+ */
+async function getInnerProduct(request: GetInnerProductRequest): GetInnerProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getInnerProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部调用,商品信息获取
+ * Summary: 商品信息获取
+ */
+async function getInnerProductEx(request: GetInnerProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetInnerProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.product.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetInnerTenantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户在数科的租户id
+  merchantTenantId: string(maxLength=32, minLength=1, name='merchant_tenant_id'),
+}
+
+model GetInnerTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // {}租户信息
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: ato内部服务，客户系统不可访问；租户信息获取
+ * Summary: 租户信息获取
+ */
+async function getInnerTenant(request: GetInnerTenantRequest): GetInnerTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getInnerTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: ato内部服务，客户系统不可访问；租户信息获取
+ * Summary: 租户信息获取
+ */
+async function getInnerTenantEx(request: GetInnerTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetInnerTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.tenant.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncInnerMeterforwholeorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户租户id
+  merchantTenantId: string(maxLength=32, minLength=1, name='merchant_tenant_id'),
+  // 商户统一社会信用代码
+  merchantId: string(maxLength=199, minLength=1, name='merchant_id'),
+  // 商户购买的产品code
+  meterProductCode: string(maxLength=64, minLength=1, name='meter_product_code'),
+  // 订单id
+  orderId: string(maxLength=49, minLength=1, name='order_id'),
+  // 订单关联的商品id
+  orderProductId: string(maxLength=32, minLength=1, name='order_product_id'),
+  // 商品的版本
+  orderProductVersion: string(maxLength=10, minLength=1, name='order_product_version'),
+  // 订单总租期
+  orderRentTerm: long(maximum=200, minimum=1, name='order_rent_term'),
+  // 订单总租金，单位为分
+  orderTotalMoney: long(name='order_total_money'),
+  // 系统名称
+  sysName: string(maxLength=32, minLength=1, name='sys_name'),
+}
+
+model SyncInnerMeterforwholeorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+ * Summary: 上报整单结算计量信息
+ */
+async function syncInnerMeterforwholeorder(request: SyncInnerMeterforwholeorderRequest): SyncInnerMeterforwholeorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncInnerMeterforwholeorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+ * Summary: 上报整单结算计量信息
+ */
+async function syncInnerMeterforwholeorderEx(request: SyncInnerMeterforwholeorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerMeterforwholeorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.meterforwholeorder.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncInnerMeterforagsignRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户租户id
+  merchantTenantId: string(maxLength=32, minLength=1, name='merchant_tenant_id'),
+  // 商户社会信用代码
+  merchantId: string(maxLength=199, minLength=1, name='merchant_id'),
+  // 计量上报Code
+  meterProductCode: string(maxLength=64, minLength=1, name='meter_product_code'),
+  // 系统名字
+  sysName: string(maxLength=32, minLength=1, name='sys_name'),
+  // 订单id
+  orderId: string(maxLength=49, minLength=1, name='order_id'),
+  // 合同编号
+  signNo: string(maxLength=64, minLength=1, name='sign_no'),
+}
+
+model SyncInnerMeterforagsignResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 内部调用，合同签署计量上报接口
+ * Summary: 合同签署计量上报同步接口
+ */
+async function syncInnerMeterforagsign(request: SyncInnerMeterforagsignRequest): SyncInnerMeterforagsignResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncInnerMeterforagsignEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部调用，合同签署计量上报接口
+ * Summary: 合同签署计量上报同步接口
+ */
+async function syncInnerMeterforagsignEx(request: SyncInnerMeterforagsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerMeterforagsignResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.meterforagsign.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateRealpersonFacevrfRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1295,6 +1475,8 @@ model GetSignFlowResponse = {
   businessScene?: string(name='business_scene'),
   // 签署合同中的订单的uid。
   alipayUserId?: string(name='alipay_user_id'),
+  // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+  signInfo?: string(name='sign_info'),
 }
 
 /**
@@ -2262,7 +2444,7 @@ model CreateWithholdRefundRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 订单id
-  orderId: string(name='order_id'),
+  orderId: string(maxLength=128, minLength=1, name='order_id'),
   // 第几期
   // 针对用户履约的第几期进行退款申请
   periodNum: long(minimum=1, name='period_num'),
@@ -2314,7 +2496,7 @@ model QueryWithholdRefundRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 订单id
-  orderId: string(name='order_id'),
+  orderId: string(maxLength=128, minLength=1, name='order_id'),
   // 几期
   // 针对用户履约的第几期进行退款申请
   periodNum: long(minimum=1, name='period_num'),
