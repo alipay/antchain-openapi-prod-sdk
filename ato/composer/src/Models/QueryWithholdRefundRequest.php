@@ -50,9 +50,11 @@ class QueryWithholdRefundRequest extends Model
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('periodNum', $this->periodNum, true);
         Model::validateRequired('refundRequestNo', $this->refundRequestNo, true);
-        Model::validateMinimum('periodNum', $this->periodNum, 1);
+        Model::validateMaxLength('orderId', $this->orderId, 128);
         Model::validateMaxLength('refundRequestNo', $this->refundRequestNo, 128);
+        Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('refundRequestNo', $this->refundRequestNo, 1);
+        Model::validateMinimum('periodNum', $this->periodNum, 1);
     }
 
     public function toMap()

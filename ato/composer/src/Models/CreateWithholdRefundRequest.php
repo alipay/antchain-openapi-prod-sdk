@@ -66,11 +66,13 @@ class CreateWithholdRefundRequest extends Model
         Model::validateRequired('periodNum', $this->periodNum, true);
         Model::validateRequired('refundRequestNo', $this->refundRequestNo, true);
         Model::validateRequired('refundMoney', $this->refundMoney, true);
-        Model::validateMinimum('periodNum', $this->periodNum, 1);
-        Model::validateMinimum('refundMoney', $this->refundMoney, 1);
+        Model::validateMaxLength('orderId', $this->orderId, 128);
         Model::validateMaxLength('refundRequestNo', $this->refundRequestNo, 128);
         Model::validateMaxLength('refundReason', $this->refundReason, 200);
+        Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('refundRequestNo', $this->refundRequestNo, 1);
+        Model::validateMinimum('periodNum', $this->periodNum, 1);
+        Model::validateMinimum('refundMoney', $this->refundMoney, 1);
     }
 
     public function toMap()

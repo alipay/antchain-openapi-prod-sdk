@@ -49,6 +49,10 @@ use AntChain\ATO\Models\GetFundUserperformanceRequest;
 use AntChain\ATO\Models\GetFundUserperformanceResponse;
 use AntChain\ATO\Models\GetFundUserpromiseRequest;
 use AntChain\ATO\Models\GetFundUserpromiseResponse;
+use AntChain\ATO\Models\GetInnerProductRequest;
+use AntChain\ATO\Models\GetInnerProductResponse;
+use AntChain\ATO\Models\GetInnerTenantRequest;
+use AntChain\ATO\Models\GetInnerTenantResponse;
 use AntChain\ATO\Models\GetSignFlowRequest;
 use AntChain\ATO\Models\GetSignFlowResponse;
 use AntChain\ATO\Models\GetTradeMerchantfulfillmentRequest;
@@ -91,6 +95,10 @@ use AntChain\ATO\Models\SyncFundSplittingRequest;
 use AntChain\ATO\Models\SyncFundSplittingResponse;
 use AntChain\ATO\Models\SyncFundWithholdingcontractRequest;
 use AntChain\ATO\Models\SyncFundWithholdingcontractResponse;
+use AntChain\ATO\Models\SyncInnerMeterforagsignRequest;
+use AntChain\ATO\Models\SyncInnerMeterforagsignResponse;
+use AntChain\ATO\Models\SyncInnerMeterforwholeorderRequest;
+use AntChain\ATO\Models\SyncInnerMeterforwholeorderResponse;
 use AntChain\ATO\Models\SyncTradeFinanceloanapplyRequest;
 use AntChain\ATO\Models\SyncTradeFinanceloanapplyResponse;
 use AntChain\ATO\Models\SyncTradeRequest;
@@ -248,7 +256,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.15',
+                    'sdk_version'      => '1.7.26',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -873,6 +881,138 @@ class Client
         Utils::validateModel($request);
 
         return GetFundOrderfullinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfullinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部调用,商品信息获取
+     * Summary: 商品信息获取.
+     *
+     * @param GetInnerProductRequest $request
+     *
+     * @return GetInnerProductResponse
+     */
+    public function getInnerProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部调用,商品信息获取
+     * Summary: 商品信息获取.
+     *
+     * @param GetInnerProductRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return GetInnerProductResponse
+     */
+    public function getInnerProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerProductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.product.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ato内部服务，客户系统不可访问；租户信息获取
+     * Summary: 租户信息获取.
+     *
+     * @param GetInnerTenantRequest $request
+     *
+     * @return GetInnerTenantResponse
+     */
+    public function getInnerTenant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerTenantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ato内部服务，客户系统不可访问；租户信息获取
+     * Summary: 租户信息获取.
+     *
+     * @param GetInnerTenantRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return GetInnerTenantResponse
+     */
+    public function getInnerTenantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerTenantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.tenant.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+     * Summary: 上报整单结算计量信息.
+     *
+     * @param SyncInnerMeterforwholeorderRequest $request
+     *
+     * @return SyncInnerMeterforwholeorderResponse
+     */
+    public function syncInnerMeterforwholeorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncInnerMeterforwholeorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+     * Summary: 上报整单结算计量信息.
+     *
+     * @param SyncInnerMeterforwholeorderRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return SyncInnerMeterforwholeorderResponse
+     */
+    public function syncInnerMeterforwholeorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncInnerMeterforwholeorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.meterforwholeorder.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 内部调用，合同签署计量上报接口
+     * Summary: 合同签署计量上报同步接口.
+     *
+     * @param SyncInnerMeterforagsignRequest $request
+     *
+     * @return SyncInnerMeterforagsignResponse
+     */
+    public function syncInnerMeterforagsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncInnerMeterforagsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 内部调用，合同签署计量上报接口
+     * Summary: 合同签署计量上报同步接口.
+     *
+     * @param SyncInnerMeterforagsignRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SyncInnerMeterforagsignResponse
+     */
+    public function syncInnerMeterforagsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncInnerMeterforagsignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.meterforagsign.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
