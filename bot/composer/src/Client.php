@@ -71,6 +71,8 @@ use AntChain\BOT\Models\CreateCustomerEntityRequest;
 use AntChain\BOT\Models\CreateCustomerEntityResponse;
 use AntChain\BOT\Models\CreateDevicecorpDeviceRequest;
 use AntChain\BOT\Models\CreateDevicecorpDeviceResponse;
+use AntChain\BOT\Models\CreateDevicecorpThingmodelRequest;
+use AntChain\BOT\Models\CreateDevicecorpThingmodelResponse;
 use AntChain\BOT\Models\CreateDeviceDatamodelRequest;
 use AntChain\BOT\Models\CreateDeviceDatamodelResponse;
 use AntChain\BOT\Models\CreateDeviceRelationRequest;
@@ -107,6 +109,8 @@ use AntChain\BOT\Models\CreateXrUserticketRequest;
 use AntChain\BOT\Models\CreateXrUserticketResponse;
 use AntChain\BOT\Models\CreateXrXrticketpoolRequest;
 use AntChain\BOT\Models\CreateXrXrticketpoolResponse;
+use AntChain\BOT\Models\DeleteDevicecorpThingmodelRequest;
+use AntChain\BOT\Models\DeleteDevicecorpThingmodelResponse;
 use AntChain\BOT\Models\DeleteDeviceRelationRequest;
 use AntChain\BOT\Models\DeleteDeviceRelationResponse;
 use AntChain\BOT\Models\DeleteIotbasicDeviceRequest;
@@ -425,6 +429,8 @@ use AntChain\BOT\Models\UpdateAlertStrategyRequest;
 use AntChain\BOT\Models\UpdateAlertStrategyResponse;
 use AntChain\BOT\Models\UpdateCustomerEntityRequest;
 use AntChain\BOT\Models\UpdateCustomerEntityResponse;
+use AntChain\BOT\Models\UpdateDevicecorpThingmodelRequest;
+use AntChain\BOT\Models\UpdateDevicecorpThingmodelResponse;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceResponse;
 use AntChain\BOT\Models\UpdateDeviceInfoRequest;
@@ -602,7 +608,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.30',
+                    'sdk_version'      => '1.10.31',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3735,6 +3741,105 @@ class Client
         Utils::validateModel($request);
 
         return OperateDevicecorpDevicecontrolResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicecorp.devicecontrol.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-设备厂商创建物模型
+     * Summary: iotbasic-设备厂商创建物模型.
+     *
+     * @param CreateDevicecorpThingmodelRequest $request
+     *
+     * @return CreateDevicecorpThingmodelResponse
+     */
+    public function createDevicecorpThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDevicecorpThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商创建物模型
+     * Summary: iotbasic-设备厂商创建物模型.
+     *
+     * @param CreateDevicecorpThingmodelRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateDevicecorpThingmodelResponse
+     */
+    public function createDevicecorpThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDevicecorpThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicecorp.thingmodel.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-设备厂商修改物模型
+     * Summary: iotbasic-设备厂商修改物模型.
+     *
+     * @param UpdateDevicecorpThingmodelRequest $request
+     *
+     * @return UpdateDevicecorpThingmodelResponse
+     */
+    public function updateDevicecorpThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateDevicecorpThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商修改物模型
+     * Summary: iotbasic-设备厂商修改物模型.
+     *
+     * @param UpdateDevicecorpThingmodelRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UpdateDevicecorpThingmodelResponse
+     */
+    public function updateDevicecorpThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateDevicecorpThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicecorp.thingmodel.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-设备厂商删除物模型
+     * Summary: iotbasic-设备厂商删除物模型.
+     *
+     * @param DeleteDevicecorpThingmodelRequest $request
+     *
+     * @return DeleteDevicecorpThingmodelResponse
+     */
+    public function deleteDevicecorpThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteDevicecorpThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商删除物模型
+     * Summary: iotbasic-设备厂商删除物模型.
+     *
+     * @param DeleteDevicecorpThingmodelRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return DeleteDevicecorpThingmodelResponse
+     */
+    public function deleteDevicecorpThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteDevicecorpThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicecorp.thingmodel.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
