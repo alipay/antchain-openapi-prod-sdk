@@ -17108,6 +17108,237 @@ func (s *OperateDevicecorpDevicecontrolResponse) SetFailList(v []*DeviceControlF
 	return s
 }
 
+type CreateDevicecorpThingmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 新增的功能定义详情
+	ThingModelJson *string `json:"thing_model_json,omitempty" xml:"thing_model_json,omitempty" require:"true"`
+}
+
+func (s CreateDevicecorpThingmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDevicecorpThingmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDevicecorpThingmodelRequest) SetAuthToken(v string) *CreateDevicecorpThingmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateDevicecorpThingmodelRequest) SetProductInstanceId(v string) *CreateDevicecorpThingmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateDevicecorpThingmodelRequest) SetThingModelJson(v string) *CreateDevicecorpThingmodelRequest {
+	s.ThingModelJson = &v
+	return s
+}
+
+type CreateDevicecorpThingmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s CreateDevicecorpThingmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateDevicecorpThingmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateDevicecorpThingmodelResponse) SetReqMsgId(v string) *CreateDevicecorpThingmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateDevicecorpThingmodelResponse) SetResultCode(v string) *CreateDevicecorpThingmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateDevicecorpThingmodelResponse) SetResultMsg(v string) *CreateDevicecorpThingmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateDevicecorpThingmodelResponse) SetSuccess(v bool) *CreateDevicecorpThingmodelResponse {
+	s.Success = &v
+	return s
+}
+
+type UpdateDevicecorpThingmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 功能原有的标识符
+	Identifier *string `json:"identifier,omitempty" xml:"identifier,omitempty"`
+	// 新的功能定义详情
+	ThingModelJson *string `json:"thing_model_json,omitempty" xml:"thing_model_json,omitempty"`
+}
+
+func (s UpdateDevicecorpThingmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDevicecorpThingmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDevicecorpThingmodelRequest) SetAuthToken(v string) *UpdateDevicecorpThingmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateDevicecorpThingmodelRequest) SetProductInstanceId(v string) *UpdateDevicecorpThingmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateDevicecorpThingmodelRequest) SetIdentifier(v string) *UpdateDevicecorpThingmodelRequest {
+	s.Identifier = &v
+	return s
+}
+
+func (s *UpdateDevicecorpThingmodelRequest) SetThingModelJson(v string) *UpdateDevicecorpThingmodelRequest {
+	s.ThingModelJson = &v
+	return s
+}
+
+type UpdateDevicecorpThingmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s UpdateDevicecorpThingmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateDevicecorpThingmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateDevicecorpThingmodelResponse) SetReqMsgId(v string) *UpdateDevicecorpThingmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateDevicecorpThingmodelResponse) SetResultCode(v string) *UpdateDevicecorpThingmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateDevicecorpThingmodelResponse) SetResultMsg(v string) *UpdateDevicecorpThingmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateDevicecorpThingmodelResponse) SetSuccess(v bool) *UpdateDevicecorpThingmodelResponse {
+	s.Success = &v
+	return s
+}
+
+type DeleteDevicecorpThingmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 需要删除的属性标识符列表
+	PropertyIdentifier []*string `json:"property_identifier,omitempty" xml:"property_identifier,omitempty" type:"Repeated"`
+	// 需要删除的服务标识符列表
+	ServiceIdentifier []*string `json:"service_identifier,omitempty" xml:"service_identifier,omitempty" type:"Repeated"`
+	// 需要删除的事件标识符列表
+	EventIdentifier []*string `json:"event_identifier,omitempty" xml:"event_identifier,omitempty" type:"Repeated"`
+}
+
+func (s DeleteDevicecorpThingmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDevicecorpThingmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDevicecorpThingmodelRequest) SetAuthToken(v string) *DeleteDevicecorpThingmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteDevicecorpThingmodelRequest) SetProductInstanceId(v string) *DeleteDevicecorpThingmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteDevicecorpThingmodelRequest) SetPropertyIdentifier(v []*string) *DeleteDevicecorpThingmodelRequest {
+	s.PropertyIdentifier = v
+	return s
+}
+
+func (s *DeleteDevicecorpThingmodelRequest) SetServiceIdentifier(v []*string) *DeleteDevicecorpThingmodelRequest {
+	s.ServiceIdentifier = v
+	return s
+}
+
+func (s *DeleteDevicecorpThingmodelRequest) SetEventIdentifier(v []*string) *DeleteDevicecorpThingmodelRequest {
+	s.EventIdentifier = v
+	return s
+}
+
+type DeleteDevicecorpThingmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s DeleteDevicecorpThingmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteDevicecorpThingmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteDevicecorpThingmodelResponse) SetReqMsgId(v string) *DeleteDevicecorpThingmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteDevicecorpThingmodelResponse) SetResultCode(v string) *DeleteDevicecorpThingmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteDevicecorpThingmodelResponse) SetResultMsg(v string) *DeleteDevicecorpThingmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteDevicecorpThingmodelResponse) SetSuccess(v bool) *DeleteDevicecorpThingmodelResponse {
+	s.Success = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -29777,7 +30008,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.30"),
+				"sdk_version":      tea.String("1.10.31"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -33019,6 +33250,108 @@ func (client *Client) OperateDevicecorpDevicecontrolEx(request *OperateDevicecor
 	}
 	_result = &OperateDevicecorpDevicecontrolResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.devicecorp.devicecontrol.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-设备厂商创建物模型
+ * Summary: iotbasic-设备厂商创建物模型
+ */
+func (client *Client) CreateDevicecorpThingmodel(request *CreateDevicecorpThingmodelRequest) (_result *CreateDevicecorpThingmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateDevicecorpThingmodelResponse{}
+	_body, _err := client.CreateDevicecorpThingmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-设备厂商创建物模型
+ * Summary: iotbasic-设备厂商创建物模型
+ */
+func (client *Client) CreateDevicecorpThingmodelEx(request *CreateDevicecorpThingmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDevicecorpThingmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateDevicecorpThingmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.devicecorp.thingmodel.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-设备厂商修改物模型
+ * Summary: iotbasic-设备厂商修改物模型
+ */
+func (client *Client) UpdateDevicecorpThingmodel(request *UpdateDevicecorpThingmodelRequest) (_result *UpdateDevicecorpThingmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateDevicecorpThingmodelResponse{}
+	_body, _err := client.UpdateDevicecorpThingmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-设备厂商修改物模型
+ * Summary: iotbasic-设备厂商修改物模型
+ */
+func (client *Client) UpdateDevicecorpThingmodelEx(request *UpdateDevicecorpThingmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateDevicecorpThingmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateDevicecorpThingmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.devicecorp.thingmodel.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-设备厂商删除物模型
+ * Summary: iotbasic-设备厂商删除物模型
+ */
+func (client *Client) DeleteDevicecorpThingmodel(request *DeleteDevicecorpThingmodelRequest) (_result *DeleteDevicecorpThingmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteDevicecorpThingmodelResponse{}
+	_body, _err := client.DeleteDevicecorpThingmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-设备厂商删除物模型
+ * Summary: iotbasic-设备厂商删除物模型
+ */
+func (client *Client) DeleteDevicecorpThingmodelEx(request *DeleteDevicecorpThingmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteDevicecorpThingmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteDevicecorpThingmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.devicecorp.thingmodel.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
