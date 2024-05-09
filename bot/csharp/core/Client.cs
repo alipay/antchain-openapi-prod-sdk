@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.30"},
+                        {"sdk_version", "1.10.31"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.30"},
+                        {"sdk_version", "1.10.31"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4271,6 +4271,132 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateDevicecorpDevicecontrolResponse>(await DoRequestAsync("1.0", "blockchain.bot.devicecorp.devicecontrol.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-设备厂商创建物模型
+         * Summary: iotbasic-设备厂商创建物模型
+         */
+        public CreateDevicecorpThingmodelResponse CreateDevicecorpThingmodel(CreateDevicecorpThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDevicecorpThingmodelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-设备厂商创建物模型
+         * Summary: iotbasic-设备厂商创建物模型
+         */
+        public async Task<CreateDevicecorpThingmodelResponse> CreateDevicecorpThingmodelAsync(CreateDevicecorpThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDevicecorpThingmodelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-设备厂商创建物模型
+         * Summary: iotbasic-设备厂商创建物模型
+         */
+        public CreateDevicecorpThingmodelResponse CreateDevicecorpThingmodelEx(CreateDevicecorpThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDevicecorpThingmodelResponse>(DoRequest("1.0", "blockchain.bot.devicecorp.thingmodel.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-设备厂商创建物模型
+         * Summary: iotbasic-设备厂商创建物模型
+         */
+        public async Task<CreateDevicecorpThingmodelResponse> CreateDevicecorpThingmodelExAsync(CreateDevicecorpThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDevicecorpThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.devicecorp.thingmodel.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-设备厂商修改物模型
+         * Summary: iotbasic-设备厂商修改物模型
+         */
+        public UpdateDevicecorpThingmodelResponse UpdateDevicecorpThingmodel(UpdateDevicecorpThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateDevicecorpThingmodelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-设备厂商修改物模型
+         * Summary: iotbasic-设备厂商修改物模型
+         */
+        public async Task<UpdateDevicecorpThingmodelResponse> UpdateDevicecorpThingmodelAsync(UpdateDevicecorpThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateDevicecorpThingmodelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-设备厂商修改物模型
+         * Summary: iotbasic-设备厂商修改物模型
+         */
+        public UpdateDevicecorpThingmodelResponse UpdateDevicecorpThingmodelEx(UpdateDevicecorpThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateDevicecorpThingmodelResponse>(DoRequest("1.0", "blockchain.bot.devicecorp.thingmodel.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-设备厂商修改物模型
+         * Summary: iotbasic-设备厂商修改物模型
+         */
+        public async Task<UpdateDevicecorpThingmodelResponse> UpdateDevicecorpThingmodelExAsync(UpdateDevicecorpThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateDevicecorpThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.devicecorp.thingmodel.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-设备厂商删除物模型
+         * Summary: iotbasic-设备厂商删除物模型
+         */
+        public DeleteDevicecorpThingmodelResponse DeleteDevicecorpThingmodel(DeleteDevicecorpThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteDevicecorpThingmodelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-设备厂商删除物模型
+         * Summary: iotbasic-设备厂商删除物模型
+         */
+        public async Task<DeleteDevicecorpThingmodelResponse> DeleteDevicecorpThingmodelAsync(DeleteDevicecorpThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteDevicecorpThingmodelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-设备厂商删除物模型
+         * Summary: iotbasic-设备厂商删除物模型
+         */
+        public DeleteDevicecorpThingmodelResponse DeleteDevicecorpThingmodelEx(DeleteDevicecorpThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteDevicecorpThingmodelResponse>(DoRequest("1.0", "blockchain.bot.devicecorp.thingmodel.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-设备厂商删除物模型
+         * Summary: iotbasic-设备厂商删除物模型
+         */
+        public async Task<DeleteDevicecorpThingmodelResponse> DeleteDevicecorpThingmodelExAsync(DeleteDevicecorpThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteDevicecorpThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.devicecorp.thingmodel.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
