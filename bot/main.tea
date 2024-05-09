@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.30',
+    sdk_version = '1.10.31',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -6978,6 +6978,126 @@ async function operateDevicecorpDevicecontrol(request: OperateDevicecorpDeviceco
 async function operateDevicecorpDevicecontrolEx(request: OperateDevicecorpDevicecontrolRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateDevicecorpDevicecontrolResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.devicecorp.devicecontrol.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDevicecorpThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 新增的功能定义详情
+  thingModelJson: string(name='thing_model_json'),
+}
+
+model CreateDevicecorpThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-设备厂商创建物模型
+ * Summary: iotbasic-设备厂商创建物模型
+ */
+async function createDevicecorpThingmodel(request: CreateDevicecorpThingmodelRequest): CreateDevicecorpThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDevicecorpThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备厂商创建物模型
+ * Summary: iotbasic-设备厂商创建物模型
+ */
+async function createDevicecorpThingmodelEx(request: CreateDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDevicecorpThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDevicecorpThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 功能原有的标识符
+  identifier?: string(name='identifier'),
+  // 新的功能定义详情
+  thingModelJson?: string(name='thing_model_json'),
+}
+
+model UpdateDevicecorpThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-设备厂商修改物模型
+ * Summary: iotbasic-设备厂商修改物模型
+ */
+async function updateDevicecorpThingmodel(request: UpdateDevicecorpThingmodelRequest): UpdateDevicecorpThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDevicecorpThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备厂商修改物模型
+ * Summary: iotbasic-设备厂商修改物模型
+ */
+async function updateDevicecorpThingmodelEx(request: UpdateDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDevicecorpThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteDevicecorpThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需要删除的属性标识符列表
+  propertyIdentifier?: [ string ](name='property_identifier'),
+  // 需要删除的服务标识符列表
+  serviceIdentifier?: [ string ](name='service_identifier'),
+  // 需要删除的事件标识符列表
+  eventIdentifier?: [ string ](name='event_identifier'),
+}
+
+model DeleteDevicecorpThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-设备厂商删除物模型
+ * Summary: iotbasic-设备厂商删除物模型
+ */
+async function deleteDevicecorpThingmodel(request: DeleteDevicecorpThingmodelRequest): DeleteDevicecorpThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteDevicecorpThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备厂商删除物模型
+ * Summary: iotbasic-设备厂商删除物模型
+ */
+async function deleteDevicecorpThingmodelEx(request: DeleteDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteDevicecorpThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
