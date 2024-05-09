@@ -1931,6 +1931,384 @@ func (s *GetFundOrderfullinfoResponse) SetResponseData(v string) *GetFundOrderfu
 	return s
 }
 
+type GetInnerProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户在数科的租户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"199" minLength:"1"`
+	// 商品id
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
+	// 商品版本
+	ProductVersion *string `json:"product_version,omitempty" xml:"product_version,omitempty" require:"true" maxLength:"10" minLength:"1"`
+}
+
+func (s GetInnerProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerProductRequest) SetAuthToken(v string) *GetInnerProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInnerProductRequest) SetProductInstanceId(v string) *GetInnerProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetInnerProductRequest) SetMerchantTenantId(v string) *GetInnerProductRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+func (s *GetInnerProductRequest) SetMerchantId(v string) *GetInnerProductRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *GetInnerProductRequest) SetProductId(v string) *GetInnerProductRequest {
+	s.ProductId = &v
+	return s
+}
+
+func (s *GetInnerProductRequest) SetProductVersion(v string) *GetInnerProductRequest {
+	s.ProductVersion = &v
+	return s
+}
+
+type GetInnerProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {}json字符串
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+}
+
+func (s GetInnerProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerProductResponse) SetReqMsgId(v string) *GetInnerProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInnerProductResponse) SetResultCode(v string) *GetInnerProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInnerProductResponse) SetResultMsg(v string) *GetInnerProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInnerProductResponse) SetResponseData(v string) *GetInnerProductResponse {
+	s.ResponseData = &v
+	return s
+}
+
+type GetInnerTenantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户在数科的租户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
+}
+
+func (s GetInnerTenantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerTenantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerTenantRequest) SetAuthToken(v string) *GetInnerTenantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInnerTenantRequest) SetProductInstanceId(v string) *GetInnerTenantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetInnerTenantRequest) SetMerchantTenantId(v string) *GetInnerTenantRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+type GetInnerTenantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {}租户信息
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+}
+
+func (s GetInnerTenantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerTenantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerTenantResponse) SetReqMsgId(v string) *GetInnerTenantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInnerTenantResponse) SetResultCode(v string) *GetInnerTenantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInnerTenantResponse) SetResultMsg(v string) *GetInnerTenantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInnerTenantResponse) SetResponseData(v string) *GetInnerTenantResponse {
+	s.ResponseData = &v
+	return s
+}
+
+type SyncInnerMeterforwholeorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户租户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"199" minLength:"1"`
+	// 商户购买的产品code
+	MeterProductCode *string `json:"meter_product_code,omitempty" xml:"meter_product_code,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"49" minLength:"1"`
+	// 订单关联的商品id
+	OrderProductId *string `json:"order_product_id,omitempty" xml:"order_product_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
+	// 商品的版本
+	OrderProductVersion *string `json:"order_product_version,omitempty" xml:"order_product_version,omitempty" require:"true" maxLength:"10" minLength:"1"`
+	// 订单总租期
+	OrderRentTerm *int64 `json:"order_rent_term,omitempty" xml:"order_rent_term,omitempty" require:"true" maximum:"200" minimum:"1"`
+	// 订单总租金，单位为分
+	OrderTotalMoney *int64 `json:"order_total_money,omitempty" xml:"order_total_money,omitempty" require:"true"`
+	// 系统名称
+	SysName *string `json:"sys_name,omitempty" xml:"sys_name,omitempty" require:"true" maxLength:"32" minLength:"1"`
+}
+
+func (s SyncInnerMeterforwholeorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncInnerMeterforwholeorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetAuthToken(v string) *SyncInnerMeterforwholeorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetProductInstanceId(v string) *SyncInnerMeterforwholeorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetMerchantTenantId(v string) *SyncInnerMeterforwholeorderRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetMerchantId(v string) *SyncInnerMeterforwholeorderRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetMeterProductCode(v string) *SyncInnerMeterforwholeorderRequest {
+	s.MeterProductCode = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetOrderId(v string) *SyncInnerMeterforwholeorderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetOrderProductId(v string) *SyncInnerMeterforwholeorderRequest {
+	s.OrderProductId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetOrderProductVersion(v string) *SyncInnerMeterforwholeorderRequest {
+	s.OrderProductVersion = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetOrderRentTerm(v int64) *SyncInnerMeterforwholeorderRequest {
+	s.OrderRentTerm = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetOrderTotalMoney(v int64) *SyncInnerMeterforwholeorderRequest {
+	s.OrderTotalMoney = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderRequest) SetSysName(v string) *SyncInnerMeterforwholeorderRequest {
+	s.SysName = &v
+	return s
+}
+
+type SyncInnerMeterforwholeorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncInnerMeterforwholeorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncInnerMeterforwholeorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncInnerMeterforwholeorderResponse) SetReqMsgId(v string) *SyncInnerMeterforwholeorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderResponse) SetResultCode(v string) *SyncInnerMeterforwholeorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncInnerMeterforwholeorderResponse) SetResultMsg(v string) *SyncInnerMeterforwholeorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SyncInnerMeterforagsignRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户租户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"32" minLength:"1"`
+	// 商户社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"199" minLength:"1"`
+	// 计量上报Code
+	MeterProductCode *string `json:"meter_product_code,omitempty" xml:"meter_product_code,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 系统名字
+	SysName *string `json:"sys_name,omitempty" xml:"sys_name,omitempty" require:"true" maxLength:"32" minLength:"1"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"49" minLength:"1"`
+	// 合同编号
+	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true" maxLength:"64" minLength:"1"`
+}
+
+func (s SyncInnerMeterforagsignRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncInnerMeterforagsignRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncInnerMeterforagsignRequest) SetAuthToken(v string) *SyncInnerMeterforagsignRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignRequest) SetProductInstanceId(v string) *SyncInnerMeterforagsignRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignRequest) SetMerchantTenantId(v string) *SyncInnerMeterforagsignRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignRequest) SetMerchantId(v string) *SyncInnerMeterforagsignRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignRequest) SetMeterProductCode(v string) *SyncInnerMeterforagsignRequest {
+	s.MeterProductCode = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignRequest) SetSysName(v string) *SyncInnerMeterforagsignRequest {
+	s.SysName = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignRequest) SetOrderId(v string) *SyncInnerMeterforagsignRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignRequest) SetSignNo(v string) *SyncInnerMeterforagsignRequest {
+	s.SignNo = &v
+	return s
+}
+
+type SyncInnerMeterforagsignResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncInnerMeterforagsignResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncInnerMeterforagsignResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncInnerMeterforagsignResponse) SetReqMsgId(v string) *SyncInnerMeterforagsignResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignResponse) SetResultCode(v string) *SyncInnerMeterforagsignResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncInnerMeterforagsignResponse) SetResultMsg(v string) *SyncInnerMeterforagsignResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateRealpersonFacevrfRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2532,6 +2910,8 @@ type GetSignFlowResponse struct {
 	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty"`
 	// 签署合同中的订单的uid。
 	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty"`
+	// 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+	SignInfo *string `json:"sign_info,omitempty" xml:"sign_info,omitempty"`
 }
 
 func (s GetSignFlowResponse) String() string {
@@ -2594,6 +2974,11 @@ func (s *GetSignFlowResponse) SetBusinessScene(v string) *GetSignFlowResponse {
 
 func (s *GetSignFlowResponse) SetAlipayUserId(v string) *GetSignFlowResponse {
 	s.AlipayUserId = &v
+	return s
+}
+
+func (s *GetSignFlowResponse) SetSignInfo(v string) *GetSignFlowResponse {
+	s.SignInfo = &v
 	return s
 }
 
@@ -4481,7 +4866,7 @@ type CreateWithholdRefundRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单id
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
 	// 第几期
 	// 针对用户履约的第几期进行退款申请
 	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
@@ -4595,7 +4980,7 @@ type QueryWithholdRefundRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单id
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
 	// 几期
 	// 针对用户履约的第几期进行退款申请
 	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
@@ -4965,7 +5350,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.15"),
+				"sdk_version":      tea.String("1.7.26"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5623,6 +6008,142 @@ func (client *Client) GetFundOrderfullinfoEx(request *GetFundOrderfullinfoReques
 	}
 	_result = &GetFundOrderfullinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.orderfullinfo.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 内部调用,商品信息获取
+ * Summary: 商品信息获取
+ */
+func (client *Client) GetInnerProduct(request *GetInnerProductRequest) (_result *GetInnerProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInnerProductResponse{}
+	_body, _err := client.GetInnerProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 内部调用,商品信息获取
+ * Summary: 商品信息获取
+ */
+func (client *Client) GetInnerProductEx(request *GetInnerProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInnerProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInnerProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.product.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: ato内部服务，客户系统不可访问；租户信息获取
+ * Summary: 租户信息获取
+ */
+func (client *Client) GetInnerTenant(request *GetInnerTenantRequest) (_result *GetInnerTenantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInnerTenantResponse{}
+	_body, _err := client.GetInnerTenantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: ato内部服务，客户系统不可访问；租户信息获取
+ * Summary: 租户信息获取
+ */
+func (client *Client) GetInnerTenantEx(request *GetInnerTenantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInnerTenantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInnerTenantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.tenant.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+ * Summary: 上报整单结算计量信息
+ */
+func (client *Client) SyncInnerMeterforwholeorder(request *SyncInnerMeterforwholeorderRequest) (_result *SyncInnerMeterforwholeorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncInnerMeterforwholeorderResponse{}
+	_body, _err := client.SyncInnerMeterforwholeorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+ * Summary: 上报整单结算计量信息
+ */
+func (client *Client) SyncInnerMeterforwholeorderEx(request *SyncInnerMeterforwholeorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncInnerMeterforwholeorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncInnerMeterforwholeorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.meterforwholeorder.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 内部调用，合同签署计量上报接口
+ * Summary: 合同签署计量上报同步接口
+ */
+func (client *Client) SyncInnerMeterforagsign(request *SyncInnerMeterforagsignRequest) (_result *SyncInnerMeterforagsignResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncInnerMeterforagsignResponse{}
+	_body, _err := client.SyncInnerMeterforagsignEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 内部调用，合同签署计量上报接口
+ * Summary: 合同签署计量上报同步接口
+ */
+func (client *Client) SyncInnerMeterforagsignEx(request *SyncInnerMeterforagsignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncInnerMeterforagsignResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncInnerMeterforagsignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.meterforagsign.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
