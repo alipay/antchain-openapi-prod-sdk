@@ -66,6 +66,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string AlipayUserId { get; set; }
 
+        // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+        [NameInMap("sign_info")]
+        [Validation(Required=false)]
+        public string SignInfo { get; set; }
+
     }
 
 }

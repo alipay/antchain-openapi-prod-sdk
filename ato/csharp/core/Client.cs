@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.15"},
+                        {"sdk_version", "1.7.26"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.15"},
+                        {"sdk_version", "1.7.26"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1079,6 +1079,174 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetFundOrderfullinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.orderfullinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 内部调用,商品信息获取
+         * Summary: 商品信息获取
+         */
+        public GetInnerProductResponse GetInnerProduct(GetInnerProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetInnerProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 内部调用,商品信息获取
+         * Summary: 商品信息获取
+         */
+        public async Task<GetInnerProductResponse> GetInnerProductAsync(GetInnerProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetInnerProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 内部调用,商品信息获取
+         * Summary: 商品信息获取
+         */
+        public GetInnerProductResponse GetInnerProductEx(GetInnerProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInnerProductResponse>(DoRequest("1.0", "antchain.ato.inner.product.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 内部调用,商品信息获取
+         * Summary: 商品信息获取
+         */
+        public async Task<GetInnerProductResponse> GetInnerProductExAsync(GetInnerProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInnerProductResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.product.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ato内部服务，客户系统不可访问；租户信息获取
+         * Summary: 租户信息获取
+         */
+        public GetInnerTenantResponse GetInnerTenant(GetInnerTenantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetInnerTenantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: ato内部服务，客户系统不可访问；租户信息获取
+         * Summary: 租户信息获取
+         */
+        public async Task<GetInnerTenantResponse> GetInnerTenantAsync(GetInnerTenantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetInnerTenantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: ato内部服务，客户系统不可访问；租户信息获取
+         * Summary: 租户信息获取
+         */
+        public GetInnerTenantResponse GetInnerTenantEx(GetInnerTenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInnerTenantResponse>(DoRequest("1.0", "antchain.ato.inner.tenant.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ato内部服务，客户系统不可访问；租户信息获取
+         * Summary: 租户信息获取
+         */
+        public async Task<GetInnerTenantResponse> GetInnerTenantExAsync(GetInnerTenantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInnerTenantResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.tenant.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+         * Summary: 上报整单结算计量信息
+         */
+        public SyncInnerMeterforwholeorderResponse SyncInnerMeterforwholeorder(SyncInnerMeterforwholeorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncInnerMeterforwholeorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+         * Summary: 上报整单结算计量信息
+         */
+        public async Task<SyncInnerMeterforwholeorderResponse> SyncInnerMeterforwholeorderAsync(SyncInnerMeterforwholeorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncInnerMeterforwholeorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+         * Summary: 上报整单结算计量信息
+         */
+        public SyncInnerMeterforwholeorderResponse SyncInnerMeterforwholeorderEx(SyncInnerMeterforwholeorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerMeterforwholeorderResponse>(DoRequest("1.0", "antchain.ato.inner.meterforwholeorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 内部接口，客户系统不能调用。上报整单结算计量信息
+         * Summary: 上报整单结算计量信息
+         */
+        public async Task<SyncInnerMeterforwholeorderResponse> SyncInnerMeterforwholeorderExAsync(SyncInnerMeterforwholeorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerMeterforwholeorderResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.meterforwholeorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 内部调用，合同签署计量上报接口
+         * Summary: 合同签署计量上报同步接口
+         */
+        public SyncInnerMeterforagsignResponse SyncInnerMeterforagsign(SyncInnerMeterforagsignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncInnerMeterforagsignEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 内部调用，合同签署计量上报接口
+         * Summary: 合同签署计量上报同步接口
+         */
+        public async Task<SyncInnerMeterforagsignResponse> SyncInnerMeterforagsignAsync(SyncInnerMeterforagsignRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncInnerMeterforagsignExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 内部调用，合同签署计量上报接口
+         * Summary: 合同签署计量上报同步接口
+         */
+        public SyncInnerMeterforagsignResponse SyncInnerMeterforagsignEx(SyncInnerMeterforagsignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerMeterforagsignResponse>(DoRequest("1.0", "antchain.ato.inner.meterforagsign.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 内部调用，合同签署计量上报接口
+         * Summary: 合同签署计量上报同步接口
+         */
+        public async Task<SyncInnerMeterforagsignResponse> SyncInnerMeterforagsignExAsync(SyncInnerMeterforagsignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncInnerMeterforagsignResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.meterforagsign.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -20,7 +20,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 订单id
         [NameInMap("order_id")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=128)]
         public string OrderId { get; set; }
 
         // 几期
