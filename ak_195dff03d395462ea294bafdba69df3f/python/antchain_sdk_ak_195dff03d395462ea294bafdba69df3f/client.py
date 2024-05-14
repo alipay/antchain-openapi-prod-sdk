@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -2413,6 +2413,174 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse(),
             await self.do_request_async('1.0', 'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antchain_ato_withhold_refund(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundResponse:
+        """
+        Description: 创建退款请求
+        Summary: 创建退款申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antchain_ato_withhold_refund_ex(request, headers, runtime)
+
+    async def create_antchain_ato_withhold_refund_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundResponse:
+        """
+        Description: 创建退款请求
+        Summary: 创建退款申请
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antchain_ato_withhold_refund_ex_async(request, headers, runtime)
+
+    def create_antchain_ato_withhold_refund_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundResponse:
+        """
+        Description: 创建退款请求
+        Summary: 创建退款申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.refund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antchain_ato_withhold_refund_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundResponse:
+        """
+        Description: 创建退款请求
+        Summary: 创建退款申请
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdRefundResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.refund.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_withhold_refund(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundResponse:
+        """
+        Description: 退款申请结果查询
+        Summary: 退款申请结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_withhold_refund_ex(request, headers, runtime)
+
+    async def query_antchain_ato_withhold_refund_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundResponse:
+        """
+        Description: 退款申请结果查询
+        Summary: 退款申请结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_withhold_refund_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_withhold_refund_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundResponse:
+        """
+        Description: 退款申请结果查询
+        Summary: 退款申请结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_withhold_refund_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundResponse:
+        """
+        Description: 退款申请结果查询
+        Summary: 退款申请结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdRefundResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_antchain_ato_fund_flow(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowResponse:
+        """
+        Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+        Summary: 资方合同文件已上传确认接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_antchain_ato_fund_flow_ex(request, headers, runtime)
+
+    async def notify_antchain_ato_fund_flow_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowResponse:
+        """
+        Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+        Summary: 资方合同文件已上传确认接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_antchain_ato_fund_flow_ex_async(request, headers, runtime)
+
+    def notify_antchain_ato_fund_flow_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowResponse:
+        """
+        Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+        Summary: 资方合同文件已上传确认接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_antchain_ato_fund_flow_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowResponse:
+        """
+        Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+        Summary: 资方合同文件已上传确认接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
