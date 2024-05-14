@@ -75,6 +75,12 @@ class GetAntchainAtoSignFlowResponse extends Model
      * @var string
      */
     public $alipayUserId;
+
+    // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+    /**
+     * @var string
+     */
+    public $signInfo;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -87,6 +93,7 @@ class GetAntchainAtoSignFlowResponse extends Model
         'docList'       => 'doc_list',
         'businessScene' => 'business_scene',
         'alipayUserId'  => 'alipay_user_id',
+        'signInfo'      => 'sign_info',
     ];
 
     public function validate()
@@ -128,6 +135,9 @@ class GetAntchainAtoSignFlowResponse extends Model
         }
         if (null !== $this->alipayUserId) {
             $res['alipay_user_id'] = $this->alipayUserId;
+        }
+        if (null !== $this->signInfo) {
+            $res['sign_info'] = $this->signInfo;
         }
 
         return $res;
@@ -173,6 +183,9 @@ class GetAntchainAtoSignFlowResponse extends Model
         }
         if (isset($map['alipay_user_id'])) {
             $model->alipayUserId = $map['alipay_user_id'];
+        }
+        if (isset($map['sign_info'])) {
+            $model->signInfo = $map['sign_info'];
         }
 
         return $model;

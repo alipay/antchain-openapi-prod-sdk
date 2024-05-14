@@ -31,6 +31,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoRealper
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdActivepayRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdActivepayResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdRefundRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdRefundResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntchainAtoWithholdSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CreateAntcloudGatewayxFileUploadRequest;
@@ -55,10 +57,14 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeReque
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpersonFacevrfRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpersonFacevrfResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdRefundRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdRefundResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RefuseAntchainAtoFundFlowRequest;
@@ -234,7 +240,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.1',
+                    'sdk_version'      => '1.3.0',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1537,6 +1543,105 @@ class Client
         Utils::validateModel($request);
 
         return UploadAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建退款请求
+     * Summary: 创建退款申请.
+     *
+     * @param CreateAntchainAtoWithholdRefundRequest $request
+     *
+     * @return CreateAntchainAtoWithholdRefundResponse
+     */
+    public function createAntchainAtoWithholdRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntchainAtoWithholdRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建退款请求
+     * Summary: 创建退款申请.
+     *
+     * @param CreateAntchainAtoWithholdRefundRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return CreateAntchainAtoWithholdRefundResponse
+     */
+    public function createAntchainAtoWithholdRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntchainAtoWithholdRefundResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.refund.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退款申请结果查询
+     * Summary: 退款申请结果查询.
+     *
+     * @param QueryAntchainAtoWithholdRefundRequest $request
+     *
+     * @return QueryAntchainAtoWithholdRefundResponse
+     */
+    public function queryAntchainAtoWithholdRefund($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoWithholdRefundEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退款申请结果查询
+     * Summary: 退款申请结果查询.
+     *
+     * @param QueryAntchainAtoWithholdRefundRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryAntchainAtoWithholdRefundResponse
+     */
+    public function queryAntchainAtoWithholdRefundEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoWithholdRefundResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+     * Summary: 资方合同文件已上传确认接口.
+     *
+     * @param NotifyAntchainAtoFundFlowRequest $request
+     *
+     * @return NotifyAntchainAtoFundFlowResponse
+     */
+    public function notifyAntchainAtoFundFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyAntchainAtoFundFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+     * Summary: 资方合同文件已上传确认接口.
+     *
+     * @param NotifyAntchainAtoFundFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return NotifyAntchainAtoFundFlowResponse
+     */
+    public function notifyAntchainAtoFundFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
