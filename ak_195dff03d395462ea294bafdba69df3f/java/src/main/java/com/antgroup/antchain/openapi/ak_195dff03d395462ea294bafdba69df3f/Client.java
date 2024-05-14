@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.1"),
+                    new TeaPair("sdk_version", "1.3.0"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -904,6 +904,63 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.flow.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAntchainAtoSignFlowResponse());
+    }
+
+    /**
+     * Description: 创建退款请求
+     * Summary: 创建退款申请
+     */
+    public CreateAntchainAtoWithholdRefundResponse createAntchainAtoWithholdRefund(CreateAntchainAtoWithholdRefundRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createAntchainAtoWithholdRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建退款请求
+     * Summary: 创建退款申请
+     */
+    public CreateAntchainAtoWithholdRefundResponse createAntchainAtoWithholdRefundEx(CreateAntchainAtoWithholdRefundRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.refund.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntchainAtoWithholdRefundResponse());
+    }
+
+    /**
+     * Description: 退款申请结果查询
+     * Summary: 退款申请结果查询
+     */
+    public QueryAntchainAtoWithholdRefundResponse queryAntchainAtoWithholdRefund(QueryAntchainAtoWithholdRefundRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainAtoWithholdRefundEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 退款申请结果查询
+     * Summary: 退款申请结果查询
+     */
+    public QueryAntchainAtoWithholdRefundResponse queryAntchainAtoWithholdRefundEx(QueryAntchainAtoWithholdRefundRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.withhold.refund.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoWithholdRefundResponse());
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+     * Summary: 资方合同文件已上传确认接口
+     */
+    public NotifyAntchainAtoFundFlowResponse notifyAntchainAtoFundFlow(NotifyAntchainAtoFundFlowRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyAntchainAtoFundFlowEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+     * Summary: 资方合同文件已上传确认接口
+     */
+    public NotifyAntchainAtoFundFlowResponse notifyAntchainAtoFundFlowEx(NotifyAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyAntchainAtoFundFlowResponse());
     }
 
     /**

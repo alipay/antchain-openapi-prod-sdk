@@ -50,6 +50,10 @@ public class GetAntchainAtoSignFlowResponse extends TeaModel {
     @NameInMap("alipay_user_id")
     public String alipayUserId;
 
+    // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+    @NameInMap("sign_info")
+    public String signInfo;
+
     public static GetAntchainAtoSignFlowResponse build(java.util.Map<String, ?> map) throws Exception {
         GetAntchainAtoSignFlowResponse self = new GetAntchainAtoSignFlowResponse();
         return TeaModel.build(map, self);
@@ -141,6 +145,14 @@ public class GetAntchainAtoSignFlowResponse extends TeaModel {
     }
     public String getAlipayUserId() {
         return this.alipayUserId;
+    }
+
+    public GetAntchainAtoSignFlowResponse setSignInfo(String signInfo) {
+        this.signInfo = signInfo;
+        return this;
+    }
+    public String getSignInfo() {
+        return this.signInfo;
     }
 
 }
