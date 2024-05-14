@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.31',
+    sdk_version = '1.10.34',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1874,6 +1874,8 @@ model ChainModelResult {
   txTime: string(name='tx_time', example='2022-10-02 09:10:09'),
   // 业务ID
   businessId: string(name='business_id', example='业务ID'),
+  // 上链id
+  antchainId: string(name='antchain_id', example='123'),
 }
 
 // 空间实体身份附加参数请求结构体，应用在注册/更新API的ThingExtraParams
@@ -5115,7 +5117,7 @@ model OperateIotbasicDevicecollectRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 租户id
-  tenantId: string(name='tenant_id'),
+  tenantId?: string(name='tenant_id'),
   // 资产ID
   assetId?: string(name='asset_id'),
   // 数据资产类型
@@ -5511,7 +5513,7 @@ model OperateIotbasicBatchcollectRequest = {
   // 所属业务
   bizScene: string(name='biz_scene'),
   // 租户id
-  tenantId: string(name='tenant_id'),
+  tenantId?: string(name='tenant_id'),
   // 上链数据列表
   collectInfoList: [ CollectInfo ](name='collect_info_list'),
 }
@@ -5891,11 +5893,11 @@ model QueryIotbasicDevicecollectRequest = {
   // 查询结束时间
   endTime?: string(name='end_time'),
   // 资产类型
-  dataScene?: string(name='data_scene'),
+  dataScene: string(name='data_scene'),
   // 所属业务
   bizScene: string(name='biz_scene'),
   // 租户id
-  tenantId: string(name='tenant_id'),
+  tenantId?: string(name='tenant_id'),
   // 上链hash
   antchainId?: string(name='antchain_id'),
   // 上链数据内容 json
@@ -6986,6 +6988,8 @@ model CreateDevicecorpThingmodelRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 新增的功能定义详情
   thingModelJson: string(name='thing_model_json'),
+  // 品类code
+  categoryCode: string(name='category_code'),
 }
 
 model CreateDevicecorpThingmodelResponse = {
@@ -7026,6 +7030,8 @@ model UpdateDevicecorpThingmodelRequest = {
   identifier?: string(name='identifier'),
   // 新的功能定义详情
   thingModelJson?: string(name='thing_model_json'),
+  // 品类code
+  categoryCode: string(name='category_code'),
 }
 
 model UpdateDevicecorpThingmodelResponse = {
@@ -7068,6 +7074,8 @@ model DeleteDevicecorpThingmodelRequest = {
   serviceIdentifier?: [ string ](name='service_identifier'),
   // 需要删除的事件标识符列表
   eventIdentifier?: [ string ](name='event_identifier'),
+  // 品类code
+  categoryCode: string(name='category_code'),
 }
 
 model DeleteDevicecorpThingmodelResponse = {
@@ -7098,6 +7106,44 @@ async function deleteDevicecorpThingmodel(request: DeleteDevicecorpThingmodelReq
 async function deleteDevicecorpThingmodelEx(request: DeleteDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteDevicecorpThingmodelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishDevicecorpThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品类code
+  categoryCode: string(name='category_code'),
+}
+
+model PublishDevicecorpThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-设备厂商发布物模型
+ * Summary: iotbasic-设备厂商发布物模型
+ */
+async function publishDevicecorpThingmodel(request: PublishDevicecorpThingmodelRequest): PublishDevicecorpThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishDevicecorpThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备厂商发布物模型
+ * Summary: iotbasic-设备厂商发布物模型
+ */
+async function publishDevicecorpThingmodelEx(request: PublishDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishDevicecorpThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
