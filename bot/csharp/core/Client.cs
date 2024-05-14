@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.31"},
+                        {"sdk_version", "1.10.34"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.31"},
+                        {"sdk_version", "1.10.34"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4397,6 +4397,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DeleteDevicecorpThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.devicecorp.thingmodel.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-设备厂商发布物模型
+         * Summary: iotbasic-设备厂商发布物模型
+         */
+        public PublishDevicecorpThingmodelResponse PublishDevicecorpThingmodel(PublishDevicecorpThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PublishDevicecorpThingmodelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-设备厂商发布物模型
+         * Summary: iotbasic-设备厂商发布物模型
+         */
+        public async Task<PublishDevicecorpThingmodelResponse> PublishDevicecorpThingmodelAsync(PublishDevicecorpThingmodelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PublishDevicecorpThingmodelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-设备厂商发布物模型
+         * Summary: iotbasic-设备厂商发布物模型
+         */
+        public PublishDevicecorpThingmodelResponse PublishDevicecorpThingmodelEx(PublishDevicecorpThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PublishDevicecorpThingmodelResponse>(DoRequest("1.0", "blockchain.bot.devicecorp.thingmodel.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-设备厂商发布物模型
+         * Summary: iotbasic-设备厂商发布物模型
+         */
+        public async Task<PublishDevicecorpThingmodelResponse> PublishDevicecorpThingmodelExAsync(PublishDevicecorpThingmodelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PublishDevicecorpThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.devicecorp.thingmodel.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

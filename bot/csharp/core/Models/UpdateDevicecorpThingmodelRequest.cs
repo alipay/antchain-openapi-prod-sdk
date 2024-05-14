@@ -28,6 +28,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ThingModelJson { get; set; }
 
+        // 品类code
+        [NameInMap("category_code")]
+        [Validation(Required=true)]
+        public string CategoryCode { get; set; }
+
     }
 
 }

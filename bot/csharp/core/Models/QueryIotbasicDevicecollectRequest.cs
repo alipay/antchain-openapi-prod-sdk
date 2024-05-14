@@ -25,7 +25,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 资产类型
         [NameInMap("data_scene")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string DataScene { get; set; }
 
         // 所属业务
@@ -35,7 +35,7 @@ namespace AntChain.SDK.BOT.Models
 
         // 租户id
         [NameInMap("tenant_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TenantId { get; set; }
 
         // 上链hash

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class OperateIotbasicBatchcollectRequest : TeaModel {
+    public class PublishDevicecorpThingmodelRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 所属业务
-        [NameInMap("biz_scene")]
+        // 品类code
+        [NameInMap("category_code")]
         [Validation(Required=true)]
-        public string BizScene { get; set; }
-
-        // 租户id
-        [NameInMap("tenant_id")]
-        [Validation(Required=false)]
-        public string TenantId { get; set; }
-
-        // 上链数据列表
-        [NameInMap("collect_info_list")]
-        [Validation(Required=true)]
-        public List<CollectInfo> CollectInfoList { get; set; }
+        public string CategoryCode { get; set; }
 
     }
 

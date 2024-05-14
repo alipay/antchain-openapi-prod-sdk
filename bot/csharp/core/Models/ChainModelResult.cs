@@ -45,6 +45,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string BusinessId { get; set; }
 
+        // 上链id
+        [NameInMap("antchain_id")]
+        [Validation(Required=true)]
+        public string AntchainId { get; set; }
+
     }
 
 }
