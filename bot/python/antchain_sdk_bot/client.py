@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.31',
+                    'sdk_version': '1.10.34',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.31',
+                    'sdk_version': '1.10.34',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -5683,6 +5683,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.DeleteDevicecorpThingmodelResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.devicecorp.thingmodel.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_devicecorp_thingmodel(
+        self,
+        request: bot_models.PublishDevicecorpThingmodelRequest,
+    ) -> bot_models.PublishDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商发布物模型
+        Summary: iotbasic-设备厂商发布物模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_devicecorp_thingmodel_ex(request, headers, runtime)
+
+    async def publish_devicecorp_thingmodel_async(
+        self,
+        request: bot_models.PublishDevicecorpThingmodelRequest,
+    ) -> bot_models.PublishDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商发布物模型
+        Summary: iotbasic-设备厂商发布物模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_devicecorp_thingmodel_ex_async(request, headers, runtime)
+
+    def publish_devicecorp_thingmodel_ex(
+        self,
+        request: bot_models.PublishDevicecorpThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PublishDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商发布物模型
+        Summary: iotbasic-设备厂商发布物模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PublishDevicecorpThingmodelResponse(),
+            self.do_request('1.0', 'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_devicecorp_thingmodel_ex_async(
+        self,
+        request: bot_models.PublishDevicecorpThingmodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PublishDevicecorpThingmodelResponse:
+        """
+        Description: iotbasic-设备厂商发布物模型
+        Summary: iotbasic-设备厂商发布物模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PublishDevicecorpThingmodelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(

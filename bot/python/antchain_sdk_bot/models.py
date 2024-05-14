@@ -6859,6 +6859,7 @@ class ChainModelResult(TeaModel):
         tenant_id: str = None,
         tx_time: str = None,
         business_id: str = None,
+        antchain_id: str = None,
     ):
         # 所属业务
         self.biz_scene = biz_scene
@@ -6874,6 +6875,8 @@ class ChainModelResult(TeaModel):
         self.tx_time = tx_time
         # 业务ID
         self.business_id = business_id
+        # 上链id
+        self.antchain_id = antchain_id
 
     def validate(self):
         self.validate_required(self.biz_scene, 'biz_scene')
@@ -6883,6 +6886,7 @@ class ChainModelResult(TeaModel):
         self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.tx_time, 'tx_time')
         self.validate_required(self.business_id, 'business_id')
+        self.validate_required(self.antchain_id, 'antchain_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -6904,6 +6908,8 @@ class ChainModelResult(TeaModel):
             result['tx_time'] = self.tx_time
         if self.business_id is not None:
             result['business_id'] = self.business_id
+        if self.antchain_id is not None:
+            result['antchain_id'] = self.antchain_id
         return result
 
     def from_map(self, m: dict = None):
@@ -6922,6 +6928,8 @@ class ChainModelResult(TeaModel):
             self.tx_time = m.get('tx_time')
         if m.get('business_id') is not None:
             self.business_id = m.get('business_id')
+        if m.get('antchain_id') is not None:
+            self.antchain_id = m.get('antchain_id')
         return self
 
 
@@ -16439,7 +16447,6 @@ class OperateIotbasicDevicecollectRequest(TeaModel):
         self.asset_data = asset_data
 
     def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.data_scene, 'data_scene')
         self.validate_required(self.biz_scene, 'biz_scene')
         self.validate_required(self.asset_data, 'asset_data')
@@ -17512,7 +17519,6 @@ class OperateIotbasicBatchcollectRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.biz_scene, 'biz_scene')
-        self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.collect_info_list, 'collect_info_list')
         if self.collect_info_list:
             for k in self.collect_info_list:
@@ -18612,8 +18618,8 @@ class QueryIotbasicDevicecollectRequest(TeaModel):
         self.start_time = start_time
 
     def validate(self):
+        self.validate_required(self.data_scene, 'data_scene')
         self.validate_required(self.biz_scene, 'biz_scene')
-        self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.page_size, 'page_size')
         if self.page_size is not None:
             self.validate_maximum(self.page_size, 'page_size', 100)
@@ -21501,15 +21507,19 @@ class CreateDevicecorpThingmodelRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         thing_model_json: str = None,
+        category_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 新增的功能定义详情
         self.thing_model_json = thing_model_json
+        # 品类code
+        self.category_code = category_code
 
     def validate(self):
         self.validate_required(self.thing_model_json, 'thing_model_json')
+        self.validate_required(self.category_code, 'category_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -21523,6 +21533,8 @@ class CreateDevicecorpThingmodelRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.thing_model_json is not None:
             result['thing_model_json'] = self.thing_model_json
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
         return result
 
     def from_map(self, m: dict = None):
@@ -21533,6 +21545,8 @@ class CreateDevicecorpThingmodelRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('thing_model_json') is not None:
             self.thing_model_json = m.get('thing_model_json')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
         return self
 
 
@@ -21592,6 +21606,7 @@ class UpdateDevicecorpThingmodelRequest(TeaModel):
         product_instance_id: str = None,
         identifier: str = None,
         thing_model_json: str = None,
+        category_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21600,9 +21615,11 @@ class UpdateDevicecorpThingmodelRequest(TeaModel):
         self.identifier = identifier
         # 新的功能定义详情
         self.thing_model_json = thing_model_json
+        # 品类code
+        self.category_code = category_code
 
     def validate(self):
-        pass
+        self.validate_required(self.category_code, 'category_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -21618,6 +21635,8 @@ class UpdateDevicecorpThingmodelRequest(TeaModel):
             result['identifier'] = self.identifier
         if self.thing_model_json is not None:
             result['thing_model_json'] = self.thing_model_json
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
         return result
 
     def from_map(self, m: dict = None):
@@ -21630,6 +21649,8 @@ class UpdateDevicecorpThingmodelRequest(TeaModel):
             self.identifier = m.get('identifier')
         if m.get('thing_model_json') is not None:
             self.thing_model_json = m.get('thing_model_json')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
         return self
 
 
@@ -21690,6 +21711,7 @@ class DeleteDevicecorpThingmodelRequest(TeaModel):
         property_identifier: List[str] = None,
         service_identifier: List[str] = None,
         event_identifier: List[str] = None,
+        category_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21700,9 +21722,11 @@ class DeleteDevicecorpThingmodelRequest(TeaModel):
         self.service_identifier = service_identifier
         # 需要删除的事件标识符列表
         self.event_identifier = event_identifier
+        # 品类code
+        self.category_code = category_code
 
     def validate(self):
-        pass
+        self.validate_required(self.category_code, 'category_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -21720,6 +21744,8 @@ class DeleteDevicecorpThingmodelRequest(TeaModel):
             result['service_identifier'] = self.service_identifier
         if self.event_identifier is not None:
             result['event_identifier'] = self.event_identifier
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
         return result
 
     def from_map(self, m: dict = None):
@@ -21734,10 +21760,102 @@ class DeleteDevicecorpThingmodelRequest(TeaModel):
             self.service_identifier = m.get('service_identifier')
         if m.get('event_identifier') is not None:
             self.event_identifier = m.get('event_identifier')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
         return self
 
 
 class DeleteDevicecorpThingmodelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class PublishDevicecorpThingmodelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        category_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品类code
+        self.category_code = category_code
+
+    def validate(self):
+        self.validate_required(self.category_code, 'category_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        return self
+
+
+class PublishDevicecorpThingmodelResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
