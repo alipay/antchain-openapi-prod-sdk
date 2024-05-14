@@ -612,6 +612,8 @@ type AllAntchainAtoSignTemplateRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 合同类型，如果不传则返回所有
 	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
+	// 商户统一社会信用代码，SIT环境，非融必填
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" maxLength:"42"`
 	// ● FINANCE 融资
 	// ● NON_FINANCE 非融资
 	FundType *string `json:"fund_type,omitempty" xml:"fund_type,omitempty"`
@@ -639,6 +641,11 @@ func (s *AllAntchainAtoSignTemplateRequest) SetProductInstanceId(v string) *AllA
 
 func (s *AllAntchainAtoSignTemplateRequest) SetContractType(v string) *AllAntchainAtoSignTemplateRequest {
 	s.ContractType = &v
+	return s
+}
+
+func (s *AllAntchainAtoSignTemplateRequest) SetMerchantId(v string) *AllAntchainAtoSignTemplateRequest {
+	s.MerchantId = &v
 	return s
 }
 
@@ -1000,6 +1007,8 @@ type GetAntchainAtoSignFlowResponse struct {
 	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty"`
 	// 签署合同中的订单的uid。
 	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty"`
+	// 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+	SignInfo *string `json:"sign_info,omitempty" xml:"sign_info,omitempty"`
 }
 
 func (s GetAntchainAtoSignFlowResponse) String() string {
@@ -1062,6 +1071,11 @@ func (s *GetAntchainAtoSignFlowResponse) SetBusinessScene(v string) *GetAntchain
 
 func (s *GetAntchainAtoSignFlowResponse) SetAlipayUserId(v string) *GetAntchainAtoSignFlowResponse {
 	s.AlipayUserId = &v
+	return s
+}
+
+func (s *GetAntchainAtoSignFlowResponse) SetSignInfo(v string) *GetAntchainAtoSignFlowResponse {
+	s.SignInfo = &v
 	return s
 }
 
@@ -3828,6 +3842,337 @@ func (s *UploadAntchainAtoSignFlowResponse) SetFileItemNo(v string) *UploadAntch
 	return s
 }
 
+type CreateAntchainAtoWithholdRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 第几期
+	// 针对用户履约的第几期进行退款申请
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
+	// 外部系统传入的退款请求号
+	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 本次请求的退款金额，单位为分
+	// 1234=12.34元
+	RefundMoney *int64 `json:"refund_money,omitempty" xml:"refund_money,omitempty" require:"true" minimum:"1"`
+	// 退款原因
+	RefundReason *string `json:"refund_reason,omitempty" xml:"refund_reason,omitempty" maxLength:"200"`
+}
+
+func (s CreateAntchainAtoWithholdRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntchainAtoWithholdRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntchainAtoWithholdRefundRequest) SetAuthToken(v string) *CreateAntchainAtoWithholdRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundRequest) SetProductInstanceId(v string) *CreateAntchainAtoWithholdRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundRequest) SetOrderId(v string) *CreateAntchainAtoWithholdRefundRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundRequest) SetPeriodNum(v int64) *CreateAntchainAtoWithholdRefundRequest {
+	s.PeriodNum = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundRequest) SetRefundRequestNo(v string) *CreateAntchainAtoWithholdRefundRequest {
+	s.RefundRequestNo = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundRequest) SetRefundMoney(v int64) *CreateAntchainAtoWithholdRefundRequest {
+	s.RefundMoney = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundRequest) SetRefundReason(v string) *CreateAntchainAtoWithholdRefundRequest {
+	s.RefundReason = &v
+	return s
+}
+
+type CreateAntchainAtoWithholdRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 外部系统传入的退款请求号
+	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty"`
+	// ACCEPT : 受理成功
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 请求支付宝的退款单据号
+	RefundOrderNo *string `json:"refund_order_no,omitempty" xml:"refund_order_no,omitempty"`
+}
+
+func (s CreateAntchainAtoWithholdRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntchainAtoWithholdRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntchainAtoWithholdRefundResponse) SetReqMsgId(v string) *CreateAntchainAtoWithholdRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundResponse) SetResultCode(v string) *CreateAntchainAtoWithholdRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundResponse) SetResultMsg(v string) *CreateAntchainAtoWithholdRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundResponse) SetRefundRequestNo(v string) *CreateAntchainAtoWithholdRefundResponse {
+	s.RefundRequestNo = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundResponse) SetStatus(v string) *CreateAntchainAtoWithholdRefundResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundResponse) SetRefundOrderNo(v string) *CreateAntchainAtoWithholdRefundResponse {
+	s.RefundOrderNo = &v
+	return s
+}
+
+type QueryAntchainAtoWithholdRefundRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 几期
+	// 针对用户履约的第几期进行退款申请
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
+	// 外部系统传入的退款请求号
+	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty" require:"true" maxLength:"128" minLength:"1"`
+}
+
+func (s QueryAntchainAtoWithholdRefundRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAtoWithholdRefundRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAtoWithholdRefundRequest) SetAuthToken(v string) *QueryAntchainAtoWithholdRefundRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundRequest) SetProductInstanceId(v string) *QueryAntchainAtoWithholdRefundRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundRequest) SetOrderId(v string) *QueryAntchainAtoWithholdRefundRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundRequest) SetPeriodNum(v int64) *QueryAntchainAtoWithholdRefundRequest {
+	s.PeriodNum = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundRequest) SetRefundRequestNo(v string) *QueryAntchainAtoWithholdRefundRequest {
+	s.RefundRequestNo = &v
+	return s
+}
+
+type QueryAntchainAtoWithholdRefundResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 外部系统传入的退款请求号
+	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty"`
+	// 请求支付宝的退款单据号
+	RefundOrderNo *string `json:"refund_order_no,omitempty" xml:"refund_order_no,omitempty"`
+	// 退款请求状态
+	// ● ACCEPT: 受理成功
+	// ● PENDING: 需人工介入
+	// ● SUCCESS: 成功
+	// ● FAILED : 失败
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 退款失败原因
+	RefundErrorMsg *string `json:"refund_error_msg,omitempty" xml:"refund_error_msg,omitempty"`
+	// 本笔交易总退款金额，单位为分
+	// 12300=123元
+	TotalRefundAmount *int64 `json:"total_refund_amount,omitempty" xml:"total_refund_amount,omitempty"`
+	// 本次退款申请的实际退款金额，单位为分
+	// 12300=123元
+	SendBackAmount *int64 `json:"send_back_amount,omitempty" xml:"send_back_amount,omitempty"`
+	// 实际退款时间,13位时间戳（毫秒）
+	GmtRefundPay *int64 `json:"gmt_refund_pay,omitempty" xml:"gmt_refund_pay,omitempty"`
+}
+
+func (s QueryAntchainAtoWithholdRefundResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAtoWithholdRefundResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetReqMsgId(v string) *QueryAntchainAtoWithholdRefundResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetResultCode(v string) *QueryAntchainAtoWithholdRefundResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetResultMsg(v string) *QueryAntchainAtoWithholdRefundResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetRefundRequestNo(v string) *QueryAntchainAtoWithholdRefundResponse {
+	s.RefundRequestNo = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetRefundOrderNo(v string) *QueryAntchainAtoWithholdRefundResponse {
+	s.RefundOrderNo = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetStatus(v string) *QueryAntchainAtoWithholdRefundResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetRefundErrorMsg(v string) *QueryAntchainAtoWithholdRefundResponse {
+	s.RefundErrorMsg = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetTotalRefundAmount(v int64) *QueryAntchainAtoWithholdRefundResponse {
+	s.TotalRefundAmount = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetSendBackAmount(v int64) *QueryAntchainAtoWithholdRefundResponse {
+	s.SendBackAmount = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundResponse) SetGmtRefundPay(v int64) *QueryAntchainAtoWithholdRefundResponse {
+	s.GmtRefundPay = &v
+	return s
+}
+
+type NotifyAntchainAtoFundFlowRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单所属商户的统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 商户的订单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 签署合同单号
+	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
+	// 返回的文件fileItemNo编号
+	FileItemNo *string `json:"file_item_no,omitempty" xml:"file_item_no,omitempty" require:"true"`
+}
+
+func (s NotifyAntchainAtoFundFlowRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyAntchainAtoFundFlowRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyAntchainAtoFundFlowRequest) SetAuthToken(v string) *NotifyAntchainAtoFundFlowRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyAntchainAtoFundFlowRequest) SetProductInstanceId(v string) *NotifyAntchainAtoFundFlowRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyAntchainAtoFundFlowRequest) SetMerchantId(v string) *NotifyAntchainAtoFundFlowRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *NotifyAntchainAtoFundFlowRequest) SetOrderId(v string) *NotifyAntchainAtoFundFlowRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *NotifyAntchainAtoFundFlowRequest) SetSignNo(v string) *NotifyAntchainAtoFundFlowRequest {
+	s.SignNo = &v
+	return s
+}
+
+func (s *NotifyAntchainAtoFundFlowRequest) SetFileItemNo(v string) *NotifyAntchainAtoFundFlowRequest {
+	s.FileItemNo = &v
+	return s
+}
+
+type NotifyAntchainAtoFundFlowResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s NotifyAntchainAtoFundFlowResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyAntchainAtoFundFlowResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyAntchainAtoFundFlowResponse) SetReqMsgId(v string) *NotifyAntchainAtoFundFlowResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyAntchainAtoFundFlowResponse) SetResultCode(v string) *NotifyAntchainAtoFundFlowResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyAntchainAtoFundFlowResponse) SetResultMsg(v string) *NotifyAntchainAtoFundFlowResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4070,7 +4415,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.1"),
+				"sdk_version":      tea.String("1.3.0"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -5437,6 +5782,108 @@ func (client *Client) UploadAntchainAtoSignFlowEx(request *UploadAntchainAtoSign
 	}
 	_result = &UploadAntchainAtoSignFlowResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.flow.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建退款请求
+ * Summary: 创建退款申请
+ */
+func (client *Client) CreateAntchainAtoWithholdRefund(request *CreateAntchainAtoWithholdRefundRequest) (_result *CreateAntchainAtoWithholdRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntchainAtoWithholdRefundResponse{}
+	_body, _err := client.CreateAntchainAtoWithholdRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建退款请求
+ * Summary: 创建退款申请
+ */
+func (client *Client) CreateAntchainAtoWithholdRefundEx(request *CreateAntchainAtoWithholdRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntchainAtoWithholdRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntchainAtoWithholdRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.withhold.refund.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 退款申请结果查询
+ * Summary: 退款申请结果查询
+ */
+func (client *Client) QueryAntchainAtoWithholdRefund(request *QueryAntchainAtoWithholdRefundRequest) (_result *QueryAntchainAtoWithholdRefundResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainAtoWithholdRefundResponse{}
+	_body, _err := client.QueryAntchainAtoWithholdRefundEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 退款申请结果查询
+ * Summary: 退款申请结果查询
+ */
+func (client *Client) QueryAntchainAtoWithholdRefundEx(request *QueryAntchainAtoWithholdRefundRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainAtoWithholdRefundResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainAtoWithholdRefundResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.withhold.refund.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+ * Summary: 资方合同文件已上传确认接口
+ */
+func (client *Client) NotifyAntchainAtoFundFlow(request *NotifyAntchainAtoFundFlowRequest) (_result *NotifyAntchainAtoFundFlowResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyAntchainAtoFundFlowResponse{}
+	_body, _err := client.NotifyAntchainAtoFundFlowEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+ * Summary: 资方合同文件已上传确认接口
+ */
+func (client *Client) NotifyAntchainAtoFundFlowEx(request *NotifyAntchainAtoFundFlowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyAntchainAtoFundFlowResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyAntchainAtoFundFlowResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.flow.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
