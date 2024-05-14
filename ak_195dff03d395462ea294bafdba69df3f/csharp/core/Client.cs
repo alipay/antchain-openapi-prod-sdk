@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -1965,6 +1965,132 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadAntchainAtoSignFlowResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.flow.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建退款请求
+         * Summary: 创建退款申请
+         */
+        public CreateAntchainAtoWithholdRefundResponse CreateAntchainAtoWithholdRefund(CreateAntchainAtoWithholdRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateAntchainAtoWithholdRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建退款请求
+         * Summary: 创建退款申请
+         */
+        public async Task<CreateAntchainAtoWithholdRefundResponse> CreateAntchainAtoWithholdRefundAsync(CreateAntchainAtoWithholdRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateAntchainAtoWithholdRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建退款请求
+         * Summary: 创建退款申请
+         */
+        public CreateAntchainAtoWithholdRefundResponse CreateAntchainAtoWithholdRefundEx(CreateAntchainAtoWithholdRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntchainAtoWithholdRefundResponse>(DoRequest("1.0", "antchain.ato.withhold.refund.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建退款请求
+         * Summary: 创建退款申请
+         */
+        public async Task<CreateAntchainAtoWithholdRefundResponse> CreateAntchainAtoWithholdRefundExAsync(CreateAntchainAtoWithholdRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateAntchainAtoWithholdRefundResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.refund.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退款申请结果查询
+         * Summary: 退款申请结果查询
+         */
+        public QueryAntchainAtoWithholdRefundResponse QueryAntchainAtoWithholdRefund(QueryAntchainAtoWithholdRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAtoWithholdRefundEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退款申请结果查询
+         * Summary: 退款申请结果查询
+         */
+        public async Task<QueryAntchainAtoWithholdRefundResponse> QueryAntchainAtoWithholdRefundAsync(QueryAntchainAtoWithholdRefundRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAtoWithholdRefundExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 退款申请结果查询
+         * Summary: 退款申请结果查询
+         */
+        public QueryAntchainAtoWithholdRefundResponse QueryAntchainAtoWithholdRefundEx(QueryAntchainAtoWithholdRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoWithholdRefundResponse>(DoRequest("1.0", "antchain.ato.withhold.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 退款申请结果查询
+         * Summary: 退款申请结果查询
+         */
+        public async Task<QueryAntchainAtoWithholdRefundResponse> QueryAntchainAtoWithholdRefundExAsync(QueryAntchainAtoWithholdRefundRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoWithholdRefundResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+         * Summary: 资方合同文件已上传确认接口
+         */
+        public NotifyAntchainAtoFundFlowResponse NotifyAntchainAtoFundFlow(NotifyAntchainAtoFundFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyAntchainAtoFundFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+         * Summary: 资方合同文件已上传确认接口
+         */
+        public async Task<NotifyAntchainAtoFundFlowResponse> NotifyAntchainAtoFundFlowAsync(NotifyAntchainAtoFundFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyAntchainAtoFundFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+         * Summary: 资方合同文件已上传确认接口
+         */
+        public NotifyAntchainAtoFundFlowResponse NotifyAntchainAtoFundFlowEx(NotifyAntchainAtoFundFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyAntchainAtoFundFlowResponse>(DoRequest("1.0", "antchain.ato.fund.flow.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+         * Summary: 资方合同文件已上传确认接口
+         */
+        public async Task<NotifyAntchainAtoFundFlowResponse> NotifyAntchainAtoFundFlowExAsync(NotifyAntchainAtoFundFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyAntchainAtoFundFlowResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.flow.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
