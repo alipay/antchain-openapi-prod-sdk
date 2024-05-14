@@ -79,6 +79,8 @@ export class Config extends $tea.Model {
 
 // 数字人部件素材对象
 export class AvatarMaterialDTO extends $tea.Model {
+  // json配置
+  json: string;
   // 装扮id
   decoId: string;
   // 装扮名称
@@ -100,6 +102,7 @@ export class AvatarMaterialDTO extends $tea.Model {
   falingTextureUrl: string;
   static names(): { [key: string]: string } {
     return {
+      json: 'json',
       decoId: 'deco_id',
       decoName: 'deco_name',
       webAbUrl: 'web_ab_url',
@@ -114,6 +117,7 @@ export class AvatarMaterialDTO extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+      json: 'string',
       decoId: 'string',
       decoName: 'string',
       webAbUrl: 'string',
@@ -135,15 +139,19 @@ export class AvatarMaterialDTO extends $tea.Model {
 export class ExternalOrderItemDTO extends $tea.Model {
   // 购买的sku id
   skuId: number;
+  // 购买后对应发放的藏品nftId，仅当orderStatus为FINISH时返回
+  nftId: string;
   static names(): { [key: string]: string } {
     return {
       skuId: 'sku_id',
+      nftId: 'nft_id',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       skuId: 'number',
+      nftId: 'string',
     };
   }
 
@@ -216,6 +224,10 @@ export class ExternalOrderDTO extends $tea.Model {
 
 // 数字人整体形象
 export class AvatarDTO extends $tea.Model {
+  // 数字人基础脸部模型
+  avatarFaceUrl: string;
+  // 数字人基础脸部Json配置
+  avatarFaceJson: string;
   // 上衣配置
   upcloth: AvatarMaterialDTO;
   // 下衣配置
@@ -272,6 +284,8 @@ export class AvatarDTO extends $tea.Model {
   earring: AvatarMaterialDTO;
   static names(): { [key: string]: string } {
     return {
+      avatarFaceUrl: 'avatar_face_url',
+      avatarFaceJson: 'avatar_face_json',
       upcloth: 'upcloth',
       downcloth: 'downcloth',
       shoe: 'shoe',
@@ -304,6 +318,8 @@ export class AvatarDTO extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+      avatarFaceUrl: 'string',
+      avatarFaceJson: 'string',
       upcloth: AvatarMaterialDTO,
       downcloth: AvatarMaterialDTO,
       shoe: AvatarMaterialDTO,
@@ -432,6 +448,223 @@ export class QueryAvatarProfileResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       avatarInfo: AvatarDTO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPromoteActivityRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 助力活动的活动规则编码
+  promoteId: string;
+  // 用户授权token
+  accessToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      promoteId: 'promote_id',
+      accessToken: 'access_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      promoteId: 'string',
+      accessToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryPromoteActivityResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 助力活动的活动规则编码
+  promoteId?: string;
+  // 活动状态：
+  // ENABLE（进行中）
+  // END（活动结束）
+  status?: string;
+  // 助力活动类型
+  // ONCE（生命周期内一次）
+  // DAILY（每日一次）
+  type?: string;
+  // 活动开始时间
+  startTime?: string;
+  // 活动结束时间
+  endTime?: string;
+  // 最大助力人数
+  maxNum?: number;
+  // 当前助力成功人数
+  curNum?: number;
+  // 参与助力的唯一编码，供三方幂等记录并唯一发奖
+  promoteList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      promoteId: 'promote_id',
+      status: 'status',
+      type: 'type',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      maxNum: 'max_num',
+      curNum: 'cur_num',
+      promoteList: 'promote_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      promoteId: 'string',
+      status: 'string',
+      type: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      maxNum: 'number',
+      curNum: 'number',
+      promoteList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetPromoteShareurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 助力活动的活动规则编码
+  promoteId: string;
+  // 用户授权token
+  accessToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      promoteId: 'promote_id',
+      accessToken: 'access_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      promoteId: 'string',
+      accessToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetPromoteShareurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 经处理过的分享落地页面的链接，该落地页面由鲸探实现
+  shareUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      shareUrl: 'share_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      shareUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmTaskRewardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 鲸探用户唯一标识
+  openUserId: string;
+  // 前置通过消息获取的奖励流水唯—id(可用作幂等键，详情看下文的奖励消息通知)
+  rewardRecordId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      openUserId: 'open_user_id',
+      rewardRecordId: 'reward_record_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      openUserId: 'string',
+      rewardRecordId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ConfirmTaskRewardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -1132,6 +1365,215 @@ export class QueryNftOrderResponse extends $tea.Model {
   }
 }
 
+export class QueryNftAssetbyskuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 具体用户Id标识，支持不同类型的id标识，根据toIdType不同而不同
+  idNo: string;
+  // 参照idType枚举，支持手机号/openUserId
+  idType: string;
+  // 数字藏品类标识ID
+  skuId: string;
+  // 页码，从1开始
+  page: number;
+  // 分页大小-上限10
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      idNo: 'id_no',
+      idType: 'id_type',
+      skuId: 'sku_id',
+      page: 'page',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      idNo: 'string',
+      idType: 'string',
+      skuId: 'string',
+      page: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryNftAssetbyskuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户资产列表
+  assetList?: UserAsset[];
+  // 总数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      assetList: 'asset_list',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      assetList: { 'type': 'array', 'itemType': UserAsset },
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckNftAssetbyskuRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 鲸探用户ID标识，OpenApi场景使用的加密格式
+  openUserId: string;
+  // 数字藏品类标识ID
+  skuId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      openUserId: 'open_user_id',
+      skuId: 'sku_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      openUserId: 'string',
+      skuId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckNftAssetbyskuResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否已拥有对应sku的nft
+  hasOwn?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      hasOwn: 'has_own',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      hasOwn: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendPromoPrizeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 鲸探用户唯一标识
+  openUserId: string;
+  // 海豚活动ID，鲸探运营在海豚创建的活动ID
+  campId: string;
+  // 海豚奖品ID，鲸探运营在海豚创建的奖品ID
+  prizeId: string;
+  // 调用方唯一幂等号
+  bizNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      openUserId: 'open_user_id',
+      campId: 'camp_id',
+      prizeId: 'prize_id',
+      bizNo: 'biz_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      openUserId: 'string',
+      campId: 'string',
+      prizeId: 'string',
+      bizNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendPromoPrizeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateResourceGeneralresourceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1212,11 +1654,15 @@ export class BindResourceGeneralresourcefileRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 小程序的APP ID
-  appId: string;
+  appId?: string;
   // 资源ID
   resourceId: string;
   // 文件ID
   fileId: string;
+  // 文件状态
+  status?: string;
+  // 业务自定义的文本版本号
+  bizVersion?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1224,6 +1670,8 @@ export class BindResourceGeneralresourcefileRequest extends $tea.Model {
       appId: 'app_id',
       resourceId: 'resource_id',
       fileId: 'file_id',
+      status: 'status',
+      bizVersion: 'biz_version',
     };
   }
 
@@ -1234,6 +1682,8 @@ export class BindResourceGeneralresourcefileRequest extends $tea.Model {
       appId: 'string',
       resourceId: 'string',
       fileId: 'string',
+      status: 'string',
+      bizVersion: 'string',
     };
   }
 
@@ -1460,6 +1910,77 @@ export class QueryResourcePatchlistResponse extends $tea.Model {
   }
 }
 
+export class ApplyResourceFiletokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // Token类型
+  tokenType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tokenType: 'token_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tokenType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyResourceFiletokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 临时token信息
+  massToken?: string;
+  // 上传地址
+  url?: string;
+  // afts-appid
+  appId?: string;
+  // afts-bizkey
+  bizKey?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      massToken: 'mass_token',
+      url: 'url',
+      appId: 'app_id',
+      bizKey: 'biz_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      massToken: 'string',
+      url: 'string',
+      appId: 'string',
+      bizKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1487,7 +2008,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -1573,7 +2094,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.12",
+          sdk_version: "1.0.24",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
@@ -1638,6 +2159,63 @@ export default class Client {
   async queryAvatarProfileEx(request: QueryAvatarProfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAvatarProfileResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAvatarProfileResponse>(await this.doRequest("1.0", "antchain.nftc.avatar.profile.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAvatarProfileResponse({}));
+  }
+
+  /**
+   * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+   * Summary: 查询用户助力活动信息
+   */
+  async queryPromoteActivity(request: QueryPromoteActivityRequest): Promise<QueryPromoteActivityResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryPromoteActivityEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据活动编码以及用户的openUid查询用户当前助力活动的状态以及进度
+   * Summary: 查询用户助力活动信息
+   */
+  async queryPromoteActivityEx(request: QueryPromoteActivityRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryPromoteActivityResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryPromoteActivityResponse>(await this.doRequest("1.0", "antchain.nftc.promote.activity.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryPromoteActivityResponse({}));
+  }
+
+  /**
+   * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+   * Summary: 发起助力分享
+   */
+  async getPromoteShareurl(request: GetPromoteShareurlRequest): Promise<GetPromoteShareurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getPromoteShareurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据活动编码以及用户的openUid发起助力，获取分享的url链接
+   * Summary: 发起助力分享
+   */
+  async getPromoteShareurlEx(request: GetPromoteShareurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetPromoteShareurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetPromoteShareurlResponse>(await this.doRequest("1.0", "antchain.nftc.promote.shareurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetPromoteShareurlResponse({}));
+  }
+
+  /**
+   * Description: 确认奖励到账
+   * Summary: 确认奖励到账
+   */
+  async confirmTaskReward(request: ConfirmTaskRewardRequest): Promise<ConfirmTaskRewardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.confirmTaskRewardEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 确认奖励到账
+   * Summary: 确认奖励到账
+   */
+  async confirmTaskRewardEx(request: ConfirmTaskRewardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ConfirmTaskRewardResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ConfirmTaskRewardResponse>(await this.doRequest("1.0", "antchain.nftc.task.reward.confirm", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ConfirmTaskRewardResponse({}));
   }
 
   /**
@@ -1812,6 +2390,63 @@ export default class Client {
   }
 
   /**
+   * Description: 根据skuId维度查询藏品
+   * Summary: 根据skuId维度查询藏品
+   */
+  async queryNftAssetbysku(request: QueryNftAssetbyskuRequest): Promise<QueryNftAssetbyskuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryNftAssetbyskuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据skuId维度查询藏品
+   * Summary: 根据skuId维度查询藏品
+   */
+  async queryNftAssetbyskuEx(request: QueryNftAssetbyskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryNftAssetbyskuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryNftAssetbyskuResponse>(await this.doRequest("1.0", "antchain.nftc.nft.assetbysku.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryNftAssetbyskuResponse({}));
+  }
+
+  /**
+   * Description: 根据skuId维度校验藏品是否已拥有
+   * Summary: 根据skuId维度校验藏品是否已拥有
+   */
+  async checkNftAssetbysku(request: CheckNftAssetbyskuRequest): Promise<CheckNftAssetbyskuResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkNftAssetbyskuEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据skuId维度校验藏品是否已拥有
+   * Summary: 根据skuId维度校验藏品是否已拥有
+   */
+  async checkNftAssetbyskuEx(request: CheckNftAssetbyskuRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckNftAssetbyskuResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckNftAssetbyskuResponse>(await this.doRequest("1.0", "antchain.nftc.nft.assetbysku.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckNftAssetbyskuResponse({}));
+  }
+
+  /**
+   * Description: 支付宝海豚优惠券发放
+   * Summary: 支付宝海豚优惠券发放
+   */
+  async sendPromoPrize(request: SendPromoPrizeRequest): Promise<SendPromoPrizeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendPromoPrizeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 支付宝海豚优惠券发放
+   * Summary: 支付宝海豚优惠券发放
+   */
+  async sendPromoPrizeEx(request: SendPromoPrizeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendPromoPrizeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendPromoPrizeResponse>(await this.doRequest("1.0", "antchain.nftc.promo.prize.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendPromoPrizeResponse({}));
+  }
+
+  /**
    * Description: 创建通用资源
    * Summary: 创建通用资源
    */
@@ -1885,6 +2520,25 @@ export default class Client {
   async queryResourcePatchlistEx(request: QueryResourcePatchlistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryResourcePatchlistResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryResourcePatchlistResponse>(await this.doRequest("1.0", "antchain.nftc.resource.patchlist.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryResourcePatchlistResponse({}));
+  }
+
+  /**
+   * Description: 资源管理平台-申请文件上传token
+   * Summary: 资源管理平台-申请文件上传token
+   */
+  async applyResourceFiletoken(request: ApplyResourceFiletokenRequest): Promise<ApplyResourceFiletokenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyResourceFiletokenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资源管理平台-申请文件上传token
+   * Summary: 资源管理平台-申请文件上传token
+   */
+  async applyResourceFiletokenEx(request: ApplyResourceFiletokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyResourceFiletokenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyResourceFiletokenResponse>(await this.doRequest("1.0", "antchain.nftc.resource.filetoken.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyResourceFiletokenResponse({}));
   }
 
 }
