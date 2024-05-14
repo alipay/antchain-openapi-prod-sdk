@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CreateDevicecorpThingmodelRequest extends TeaModel {
+public class PublishDevicecorpThingmodelRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,22 +11,17 @@ public class CreateDevicecorpThingmodelRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 新增的功能定义详情
-    @NameInMap("thing_model_json")
-    @Validation(required = true)
-    public String thingModelJson;
-
     // 品类code
     @NameInMap("category_code")
     @Validation(required = true)
     public String categoryCode;
 
-    public static CreateDevicecorpThingmodelRequest build(java.util.Map<String, ?> map) throws Exception {
-        CreateDevicecorpThingmodelRequest self = new CreateDevicecorpThingmodelRequest();
+    public static PublishDevicecorpThingmodelRequest build(java.util.Map<String, ?> map) throws Exception {
+        PublishDevicecorpThingmodelRequest self = new PublishDevicecorpThingmodelRequest();
         return TeaModel.build(map, self);
     }
 
-    public CreateDevicecorpThingmodelRequest setAuthToken(String authToken) {
+    public PublishDevicecorpThingmodelRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +29,7 @@ public class CreateDevicecorpThingmodelRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CreateDevicecorpThingmodelRequest setProductInstanceId(String productInstanceId) {
+    public PublishDevicecorpThingmodelRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,15 +37,7 @@ public class CreateDevicecorpThingmodelRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateDevicecorpThingmodelRequest setThingModelJson(String thingModelJson) {
-        this.thingModelJson = thingModelJson;
-        return this;
-    }
-    public String getThingModelJson() {
-        return this.thingModelJson;
-    }
-
-    public CreateDevicecorpThingmodelRequest setCategoryCode(String categoryCode) {
+    public PublishDevicecorpThingmodelRequest setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
         return this;
     }

@@ -23,6 +23,11 @@ public class DeleteDevicecorpThingmodelRequest extends TeaModel {
     @NameInMap("event_identifier")
     public java.util.List<String> eventIdentifier;
 
+    // 品类code
+    @NameInMap("category_code")
+    @Validation(required = true)
+    public String categoryCode;
+
     public static DeleteDevicecorpThingmodelRequest build(java.util.Map<String, ?> map) throws Exception {
         DeleteDevicecorpThingmodelRequest self = new DeleteDevicecorpThingmodelRequest();
         return TeaModel.build(map, self);
@@ -66,6 +71,14 @@ public class DeleteDevicecorpThingmodelRequest extends TeaModel {
     }
     public java.util.List<String> getEventIdentifier() {
         return this.eventIdentifier;
+    }
+
+    public DeleteDevicecorpThingmodelRequest setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+        return this;
+    }
+    public String getCategoryCode() {
+        return this.categoryCode;
     }
 
 }

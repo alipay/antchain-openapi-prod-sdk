@@ -13,7 +13,6 @@ public class OperateIotbasicDevicecollectRequest extends TeaModel {
 
     // 租户id
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
 
     // 资产ID

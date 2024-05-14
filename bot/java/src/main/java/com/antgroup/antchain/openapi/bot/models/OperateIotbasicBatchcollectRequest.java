@@ -18,7 +18,6 @@ public class OperateIotbasicBatchcollectRequest extends TeaModel {
 
     // 租户id
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
 
     // 上链数据列表

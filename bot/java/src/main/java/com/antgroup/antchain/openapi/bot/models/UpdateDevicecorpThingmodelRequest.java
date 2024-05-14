@@ -19,6 +19,11 @@ public class UpdateDevicecorpThingmodelRequest extends TeaModel {
     @NameInMap("thing_model_json")
     public String thingModelJson;
 
+    // 品类code
+    @NameInMap("category_code")
+    @Validation(required = true)
+    public String categoryCode;
+
     public static UpdateDevicecorpThingmodelRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateDevicecorpThingmodelRequest self = new UpdateDevicecorpThingmodelRequest();
         return TeaModel.build(map, self);
@@ -54,6 +59,14 @@ public class UpdateDevicecorpThingmodelRequest extends TeaModel {
     }
     public String getThingModelJson() {
         return this.thingModelJson;
+    }
+
+    public UpdateDevicecorpThingmodelRequest setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+        return this;
+    }
+    public String getCategoryCode() {
+        return this.categoryCode;
     }
 
 }

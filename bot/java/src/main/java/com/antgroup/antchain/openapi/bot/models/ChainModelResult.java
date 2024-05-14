@@ -39,6 +39,11 @@ public class ChainModelResult extends TeaModel {
     @Validation(required = true)
     public String businessId;
 
+    // 上链id
+    @NameInMap("antchain_id")
+    @Validation(required = true)
+    public String antchainId;
+
     public static ChainModelResult build(java.util.Map<String, ?> map) throws Exception {
         ChainModelResult self = new ChainModelResult();
         return TeaModel.build(map, self);
@@ -98,6 +103,14 @@ public class ChainModelResult extends TeaModel {
     }
     public String getBusinessId() {
         return this.businessId;
+    }
+
+    public ChainModelResult setAntchainId(String antchainId) {
+        this.antchainId = antchainId;
+        return this;
+    }
+    public String getAntchainId() {
+        return this.antchainId;
     }
 
 }

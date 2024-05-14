@@ -17,6 +17,7 @@ public class QueryIotbasicDevicecollectRequest extends TeaModel {
 
     // 资产类型
     @NameInMap("data_scene")
+    @Validation(required = true)
     public String dataScene;
 
     // 所属业务
@@ -26,7 +27,6 @@ public class QueryIotbasicDevicecollectRequest extends TeaModel {
 
     // 租户id
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
 
     // 上链hash
