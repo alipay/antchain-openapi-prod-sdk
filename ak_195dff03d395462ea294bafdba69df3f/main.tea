@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.1',
+    sdk_version = '1.3.0',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -380,6 +380,8 @@ model AllAntchainAtoSignTemplateRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 合同类型，如果不传则返回所有
   contractType?: string(name='contract_type'),
+  // 商户统一社会信用代码，SIT环境，非融必填
+  merchantId?: string(maxLength=42, name='merchant_id'),
   // ● FINANCE 融资
   // ● NON_FINANCE 非融资
   fundType?: string(name='fund_type'),
@@ -556,6 +558,8 @@ model GetAntchainAtoSignFlowResponse = {
   businessScene?: string(name='business_scene'),
   // 签署合同中的订单的uid。
   alipayUserId?: string(name='alipay_user_id'),
+  // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+  signInfo?: string(name='sign_info'),
 }
 
 /**
@@ -1967,6 +1971,161 @@ async function uploadAntchainAtoSignFlowEx(request: UploadAntchainAtoSignFlowReq
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntchainAtoWithholdRefundRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(maxLength=128, minLength=1, name='order_id'),
+  // 第几期
+  // 针对用户履约的第几期进行退款申请
+  periodNum: long(minimum=1, name='period_num'),
+  // 外部系统传入的退款请求号
+  refundRequestNo: string(maxLength=128, minLength=1, name='refund_request_no'),
+  // 本次请求的退款金额，单位为分
+  // 1234=12.34元
+  refundMoney: long(minimum=1, name='refund_money'),
+  // 退款原因
+  refundReason?: string(maxLength=200, name='refund_reason'),
+}
+
+model CreateAntchainAtoWithholdRefundResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 外部系统传入的退款请求号
+  refundRequestNo?: string(name='refund_request_no'),
+  // ACCEPT : 受理成功
+  status?: string(name='status'),
+  // 请求支付宝的退款单据号
+  refundOrderNo?: string(name='refund_order_no'),
+}
+
+/**
+ * Description: 创建退款请求
+ * Summary: 创建退款申请
+ */
+async function createAntchainAtoWithholdRefund(request: CreateAntchainAtoWithholdRefundRequest): CreateAntchainAtoWithholdRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntchainAtoWithholdRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建退款请求
+ * Summary: 创建退款申请
+ */
+async function createAntchainAtoWithholdRefundEx(request: CreateAntchainAtoWithholdRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntchainAtoWithholdRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.withhold.refund.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAtoWithholdRefundRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(maxLength=128, minLength=1, name='order_id'),
+  // 几期
+  // 针对用户履约的第几期进行退款申请
+  periodNum: long(minimum=1, name='period_num'),
+  // 外部系统传入的退款请求号
+  refundRequestNo: string(maxLength=128, minLength=1, name='refund_request_no'),
+}
+
+model QueryAntchainAtoWithholdRefundResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 外部系统传入的退款请求号
+  refundRequestNo?: string(name='refund_request_no'),
+  // 请求支付宝的退款单据号
+  refundOrderNo?: string(name='refund_order_no'),
+  // 退款请求状态
+  // ● ACCEPT: 受理成功
+  // ● PENDING: 需人工介入
+  // ● SUCCESS: 成功
+  // ● FAILED : 失败
+  status?: string(name='status'),
+  // 退款失败原因
+  refundErrorMsg?: string(name='refund_error_msg'),
+  // 本笔交易总退款金额，单位为分
+  // 12300=123元
+  totalRefundAmount?: long(name='total_refund_amount'),
+  // 本次退款申请的实际退款金额，单位为分
+  // 12300=123元
+  sendBackAmount?: long(name='send_back_amount'),
+  // 实际退款时间,13位时间戳（毫秒）
+  gmtRefundPay?: long(name='gmt_refund_pay'),
+}
+
+/**
+ * Description: 退款申请结果查询
+ * Summary: 退款申请结果查询
+ */
+async function queryAntchainAtoWithholdRefund(request: QueryAntchainAtoWithholdRefundRequest): QueryAntchainAtoWithholdRefundResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAtoWithholdRefundEx(request, headers, runtime);
+}
+
+/**
+ * Description: 退款申请结果查询
+ * Summary: 退款申请结果查询
+ */
+async function queryAntchainAtoWithholdRefundEx(request: QueryAntchainAtoWithholdRefundRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoWithholdRefundResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyAntchainAtoFundFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 商户的订单号
+  orderId: string(name='order_id'),
+  // 签署合同单号
+  signNo: string(name='sign_no'),
+  // 返回的文件fileItemNo编号
+  fileItemNo: string(name='file_item_no'),
+}
+
+model NotifyAntchainAtoFundFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+ * Summary: 资方合同文件已上传确认接口
+ */
+async function notifyAntchainAtoFundFlow(request: NotifyAntchainAtoFundFlowRequest): NotifyAntchainAtoFundFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyAntchainAtoFundFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+ * Summary: 资方合同文件已上传确认接口
+ */
+async function notifyAntchainAtoFundFlowEx(request: NotifyAntchainAtoFundFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyAntchainAtoFundFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
