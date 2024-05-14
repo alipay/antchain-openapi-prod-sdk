@@ -5509,6 +5509,8 @@ type ChainModelResult struct {
 	TxTime *string `json:"tx_time,omitempty" xml:"tx_time,omitempty" require:"true"`
 	// 业务ID
 	BusinessId *string `json:"business_id,omitempty" xml:"business_id,omitempty" require:"true"`
+	// 上链id
+	AntchainId *string `json:"antchain_id,omitempty" xml:"antchain_id,omitempty" require:"true"`
 }
 
 func (s ChainModelResult) String() string {
@@ -5551,6 +5553,11 @@ func (s *ChainModelResult) SetTxTime(v string) *ChainModelResult {
 
 func (s *ChainModelResult) SetBusinessId(v string) *ChainModelResult {
 	s.BusinessId = &v
+	return s
+}
+
+func (s *ChainModelResult) SetAntchainId(v string) *ChainModelResult {
+	s.AntchainId = &v
 	return s
 }
 
@@ -13080,7 +13087,7 @@ type OperateIotbasicDevicecollectRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 资产ID
 	AssetId *string `json:"asset_id,omitempty" xml:"asset_id,omitempty"`
 	// 数据资产类型
@@ -13952,7 +13959,7 @@ type OperateIotbasicBatchcollectRequest struct {
 	// 所属业务
 	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
 	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 上链数据列表
 	CollectInfoList []*CollectInfo `json:"collect_info_list,omitempty" xml:"collect_info_list,omitempty" require:"true" type:"Repeated"`
 }
@@ -14778,11 +14785,11 @@ type QueryIotbasicDevicecollectRequest struct {
 	// 查询结束时间
 	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty"`
 	// 资产类型
-	DataScene *string `json:"data_scene,omitempty" xml:"data_scene,omitempty"`
+	DataScene *string `json:"data_scene,omitempty" xml:"data_scene,omitempty" require:"true"`
 	// 所属业务
 	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
 	// 租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 上链hash
 	AntchainId *string `json:"antchain_id,omitempty" xml:"antchain_id,omitempty"`
 	// 上链数据内容 json
@@ -17114,6 +17121,8 @@ type CreateDevicecorpThingmodelRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 新增的功能定义详情
 	ThingModelJson *string `json:"thing_model_json,omitempty" xml:"thing_model_json,omitempty" require:"true"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
 }
 
 func (s CreateDevicecorpThingmodelRequest) String() string {
@@ -17136,6 +17145,11 @@ func (s *CreateDevicecorpThingmodelRequest) SetProductInstanceId(v string) *Crea
 
 func (s *CreateDevicecorpThingmodelRequest) SetThingModelJson(v string) *CreateDevicecorpThingmodelRequest {
 	s.ThingModelJson = &v
+	return s
+}
+
+func (s *CreateDevicecorpThingmodelRequest) SetCategoryCode(v string) *CreateDevicecorpThingmodelRequest {
+	s.CategoryCode = &v
 	return s
 }
 
@@ -17186,6 +17200,8 @@ type UpdateDevicecorpThingmodelRequest struct {
 	Identifier *string `json:"identifier,omitempty" xml:"identifier,omitempty"`
 	// 新的功能定义详情
 	ThingModelJson *string `json:"thing_model_json,omitempty" xml:"thing_model_json,omitempty"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
 }
 
 func (s UpdateDevicecorpThingmodelRequest) String() string {
@@ -17213,6 +17229,11 @@ func (s *UpdateDevicecorpThingmodelRequest) SetIdentifier(v string) *UpdateDevic
 
 func (s *UpdateDevicecorpThingmodelRequest) SetThingModelJson(v string) *UpdateDevicecorpThingmodelRequest {
 	s.ThingModelJson = &v
+	return s
+}
+
+func (s *UpdateDevicecorpThingmodelRequest) SetCategoryCode(v string) *UpdateDevicecorpThingmodelRequest {
+	s.CategoryCode = &v
 	return s
 }
 
@@ -17265,6 +17286,8 @@ type DeleteDevicecorpThingmodelRequest struct {
 	ServiceIdentifier []*string `json:"service_identifier,omitempty" xml:"service_identifier,omitempty" type:"Repeated"`
 	// 需要删除的事件标识符列表
 	EventIdentifier []*string `json:"event_identifier,omitempty" xml:"event_identifier,omitempty" type:"Repeated"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
 }
 
 func (s DeleteDevicecorpThingmodelRequest) String() string {
@@ -17297,6 +17320,11 @@ func (s *DeleteDevicecorpThingmodelRequest) SetServiceIdentifier(v []*string) *D
 
 func (s *DeleteDevicecorpThingmodelRequest) SetEventIdentifier(v []*string) *DeleteDevicecorpThingmodelRequest {
 	s.EventIdentifier = v
+	return s
+}
+
+func (s *DeleteDevicecorpThingmodelRequest) SetCategoryCode(v string) *DeleteDevicecorpThingmodelRequest {
+	s.CategoryCode = &v
 	return s
 }
 
@@ -17335,6 +17363,76 @@ func (s *DeleteDevicecorpThingmodelResponse) SetResultMsg(v string) *DeleteDevic
 }
 
 func (s *DeleteDevicecorpThingmodelResponse) SetSuccess(v bool) *DeleteDevicecorpThingmodelResponse {
+	s.Success = &v
+	return s
+}
+
+type PublishDevicecorpThingmodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
+}
+
+func (s PublishDevicecorpThingmodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishDevicecorpThingmodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PublishDevicecorpThingmodelRequest) SetAuthToken(v string) *PublishDevicecorpThingmodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PublishDevicecorpThingmodelRequest) SetProductInstanceId(v string) *PublishDevicecorpThingmodelRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PublishDevicecorpThingmodelRequest) SetCategoryCode(v string) *PublishDevicecorpThingmodelRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+type PublishDevicecorpThingmodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s PublishDevicecorpThingmodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishDevicecorpThingmodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PublishDevicecorpThingmodelResponse) SetReqMsgId(v string) *PublishDevicecorpThingmodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PublishDevicecorpThingmodelResponse) SetResultCode(v string) *PublishDevicecorpThingmodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PublishDevicecorpThingmodelResponse) SetResultMsg(v string) *PublishDevicecorpThingmodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PublishDevicecorpThingmodelResponse) SetSuccess(v bool) *PublishDevicecorpThingmodelResponse {
 	s.Success = &v
 	return s
 }
@@ -30008,7 +30106,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.31"),
+				"sdk_version":      tea.String("1.10.34"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -33352,6 +33450,40 @@ func (client *Client) DeleteDevicecorpThingmodelEx(request *DeleteDevicecorpThin
 	}
 	_result = &DeleteDevicecorpThingmodelResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.devicecorp.thingmodel.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-设备厂商发布物模型
+ * Summary: iotbasic-设备厂商发布物模型
+ */
+func (client *Client) PublishDevicecorpThingmodel(request *PublishDevicecorpThingmodelRequest) (_result *PublishDevicecorpThingmodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PublishDevicecorpThingmodelResponse{}
+	_body, _err := client.PublishDevicecorpThingmodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-设备厂商发布物模型
+ * Summary: iotbasic-设备厂商发布物模型
+ */
+func (client *Client) PublishDevicecorpThingmodelEx(request *PublishDevicecorpThingmodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PublishDevicecorpThingmodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PublishDevicecorpThingmodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.devicecorp.thingmodel.publish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
