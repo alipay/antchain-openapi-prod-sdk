@@ -95,8 +95,8 @@ class QueryIotbasicDevicecollectRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('dataScene', $this->dataScene, true);
         Model::validateRequired('bizScene', $this->bizScene, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
         Model::validateRequired('currentPage', $this->currentPage, true);
         Model::validateMaximum('pageSize', $this->pageSize, 100);

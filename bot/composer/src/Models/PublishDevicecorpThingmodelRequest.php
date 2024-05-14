@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateDevicecorpThingmodelRequest extends Model
+class PublishDevicecorpThingmodelRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,12 +19,6 @@ class CreateDevicecorpThingmodelRequest extends Model
      */
     public $productInstanceId;
 
-    // 新增的功能定义详情
-    /**
-     * @var string
-     */
-    public $thingModelJson;
-
     // 品类code
     /**
      * @var string
@@ -33,13 +27,11 @@ class CreateDevicecorpThingmodelRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'thingModelJson'    => 'thing_model_json',
         'categoryCode'      => 'category_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('thingModelJson', $this->thingModelJson, true);
         Model::validateRequired('categoryCode', $this->categoryCode, true);
     }
 
@@ -52,9 +44,6 @@ class CreateDevicecorpThingmodelRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->thingModelJson) {
-            $res['thing_model_json'] = $this->thingModelJson;
-        }
         if (null !== $this->categoryCode) {
             $res['category_code'] = $this->categoryCode;
         }
@@ -65,7 +54,7 @@ class CreateDevicecorpThingmodelRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateDevicecorpThingmodelRequest
+     * @return PublishDevicecorpThingmodelRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,9 +64,6 @@ class CreateDevicecorpThingmodelRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['thing_model_json'])) {
-            $model->thingModelJson = $map['thing_model_json'];
         }
         if (isset($map['category_code'])) {
             $model->categoryCode = $map['category_code'];

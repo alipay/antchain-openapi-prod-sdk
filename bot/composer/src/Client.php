@@ -259,6 +259,8 @@ use AntChain\BOT\Models\PagequeryXrXrticketpoolRequest;
 use AntChain\BOT\Models\PagequeryXrXrticketpoolResponse;
 use AntChain\BOT\Models\PagequeryXrXrverificationmodelRequest;
 use AntChain\BOT\Models\PagequeryXrXrverificationmodelResponse;
+use AntChain\BOT\Models\PublishDevicecorpThingmodelRequest;
+use AntChain\BOT\Models\PublishDevicecorpThingmodelResponse;
 use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
@@ -608,7 +610,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.31',
+                    'sdk_version'      => '1.10.34',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3840,6 +3842,39 @@ class Client
         Utils::validateModel($request);
 
         return DeleteDevicecorpThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicecorp.thingmodel.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-设备厂商发布物模型
+     * Summary: iotbasic-设备厂商发布物模型.
+     *
+     * @param PublishDevicecorpThingmodelRequest $request
+     *
+     * @return PublishDevicecorpThingmodelResponse
+     */
+    public function publishDevicecorpThingmodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->publishDevicecorpThingmodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商发布物模型
+     * Summary: iotbasic-设备厂商发布物模型.
+     *
+     * @param PublishDevicecorpThingmodelRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return PublishDevicecorpThingmodelResponse
+     */
+    public function publishDevicecorpThingmodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PublishDevicecorpThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -30,15 +30,23 @@ class UpdateDevicecorpThingmodelRequest extends Model
      * @var string
      */
     public $thingModelJson;
+
+    // 品类code
+    /**
+     * @var string
+     */
+    public $categoryCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'identifier'        => 'identifier',
         'thingModelJson'    => 'thing_model_json',
+        'categoryCode'      => 'category_code',
     ];
 
     public function validate()
     {
+        Model::validateRequired('categoryCode', $this->categoryCode, true);
     }
 
     public function toMap()
@@ -55,6 +63,9 @@ class UpdateDevicecorpThingmodelRequest extends Model
         }
         if (null !== $this->thingModelJson) {
             $res['thing_model_json'] = $this->thingModelJson;
+        }
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
         }
 
         return $res;
@@ -79,6 +90,9 @@ class UpdateDevicecorpThingmodelRequest extends Model
         }
         if (isset($map['thing_model_json'])) {
             $model->thingModelJson = $map['thing_model_json'];
+        }
+        if (isset($map['category_code'])) {
+            $model->categoryCode = $map['category_code'];
         }
 
         return $model;

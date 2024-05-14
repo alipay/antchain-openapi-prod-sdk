@@ -47,7 +47,6 @@ class OperateIotbasicBatchcollectRequest extends Model
     public function validate()
     {
         Model::validateRequired('bizScene', $this->bizScene, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('collectInfoList', $this->collectInfoList, true);
     }
 

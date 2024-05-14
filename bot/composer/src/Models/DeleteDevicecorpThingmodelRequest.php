@@ -36,16 +36,24 @@ class DeleteDevicecorpThingmodelRequest extends Model
      * @var string[]
      */
     public $eventIdentifier;
+
+    // 品类code
+    /**
+     * @var string
+     */
+    public $categoryCode;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
         'propertyIdentifier' => 'property_identifier',
         'serviceIdentifier'  => 'service_identifier',
         'eventIdentifier'    => 'event_identifier',
+        'categoryCode'       => 'category_code',
     ];
 
     public function validate()
     {
+        Model::validateRequired('categoryCode', $this->categoryCode, true);
     }
 
     public function toMap()
@@ -65,6 +73,9 @@ class DeleteDevicecorpThingmodelRequest extends Model
         }
         if (null !== $this->eventIdentifier) {
             $res['event_identifier'] = $this->eventIdentifier;
+        }
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
         }
 
         return $res;
@@ -98,6 +109,9 @@ class DeleteDevicecorpThingmodelRequest extends Model
             if (!empty($map['event_identifier'])) {
                 $model->eventIdentifier = $map['event_identifier'];
             }
+        }
+        if (isset($map['category_code'])) {
+            $model->categoryCode = $map['category_code'];
         }
 
         return $model;

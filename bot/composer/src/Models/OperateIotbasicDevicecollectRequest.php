@@ -60,7 +60,6 @@ class OperateIotbasicDevicecollectRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('dataScene', $this->dataScene, true);
         Model::validateRequired('bizScene', $this->bizScene, true);
         Model::validateRequired('assetData', $this->assetData, true);

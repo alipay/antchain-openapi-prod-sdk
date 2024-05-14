@@ -63,6 +63,14 @@ class ChainModelResult extends Model
      * @var string
      */
     public $businessId;
+
+    // 上链id
+    /**
+     * @example 123
+     *
+     * @var string
+     */
+    public $antchainId;
     protected $_name = [
         'bizScene'   => 'biz_scene',
         'dataScene'  => 'data_scene',
@@ -71,6 +79,7 @@ class ChainModelResult extends Model
         'tenantId'   => 'tenant_id',
         'txTime'     => 'tx_time',
         'businessId' => 'business_id',
+        'antchainId' => 'antchain_id',
     ];
 
     public function validate()
@@ -82,6 +91,7 @@ class ChainModelResult extends Model
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('txTime', $this->txTime, true);
         Model::validateRequired('businessId', $this->businessId, true);
+        Model::validateRequired('antchainId', $this->antchainId, true);
     }
 
     public function toMap()
@@ -107,6 +117,9 @@ class ChainModelResult extends Model
         }
         if (null !== $this->businessId) {
             $res['business_id'] = $this->businessId;
+        }
+        if (null !== $this->antchainId) {
+            $res['antchain_id'] = $this->antchainId;
         }
 
         return $res;
@@ -140,6 +153,9 @@ class ChainModelResult extends Model
         }
         if (isset($map['business_id'])) {
             $model->businessId = $map['business_id'];
+        }
+        if (isset($map['antchain_id'])) {
+            $model->antchainId = $map['antchain_id'];
         }
 
         return $model;
