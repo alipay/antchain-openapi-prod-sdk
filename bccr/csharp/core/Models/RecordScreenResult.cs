@@ -75,6 +75,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ErrorMessage { get; set; }
 
+        // 云桌面url
+        [NameInMap("operate_url")]
+        [Validation(Required=true)]
+        public string OperateUrl { get; set; }
+
     }
 
 }

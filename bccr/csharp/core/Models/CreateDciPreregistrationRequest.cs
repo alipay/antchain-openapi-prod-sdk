@@ -123,6 +123,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public List<RecommendCategoryDetail> RecommendCategoryList { get; set; }
 
+        // 证书样式ID
+        [NameInMap("customize_cert_id")]
+        [Validation(Required=false)]
+        public string CustomizeCertId { get; set; }
+
     }
 
 }
