@@ -149,6 +149,192 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 阶段评估明细数据
+type EnterpriseLcaAssessmentItem struct {
+	// 物料编码
+	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
+	// 数据明细名称
+	AssessmentItemName *string `json:"assessment_item_name,omitempty" xml:"assessment_item_name,omitempty" require:"true"`
+	// 物料直接碳排放评估量
+	EmissionAmount *string `json:"emission_amount,omitempty" xml:"emission_amount,omitempty" require:"true"`
+	// 物料运输碳排放评估量
+	TransportEmissionAmount *string `json:"transport_emission_amount,omitempty" xml:"transport_emission_amount,omitempty" require:"true"`
+}
+
+func (s EnterpriseLcaAssessmentItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseLcaAssessmentItem) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseLcaAssessmentItem) SetMaterialCode(v string) *EnterpriseLcaAssessmentItem {
+	s.MaterialCode = &v
+	return s
+}
+
+func (s *EnterpriseLcaAssessmentItem) SetAssessmentItemName(v string) *EnterpriseLcaAssessmentItem {
+	s.AssessmentItemName = &v
+	return s
+}
+
+func (s *EnterpriseLcaAssessmentItem) SetEmissionAmount(v string) *EnterpriseLcaAssessmentItem {
+	s.EmissionAmount = &v
+	return s
+}
+
+func (s *EnterpriseLcaAssessmentItem) SetTransportEmissionAmount(v string) *EnterpriseLcaAssessmentItem {
+	s.TransportEmissionAmount = &v
+	return s
+}
+
+// 运输信息
+type TransportActiveData struct {
+	// 运输方式编码
+	TransportCode *string `json:"transport_code,omitempty" xml:"transport_code,omitempty" require:"true"`
+	// 运输设备
+	Equipment *string `json:"equipment,omitempty" xml:"equipment,omitempty" require:"true"`
+	// 运输里程
+	Distance *string `json:"distance,omitempty" xml:"distance,omitempty" require:"true"`
+	// 是否空载
+	IsEmptyLoad *bool `json:"is_empty_load,omitempty" xml:"is_empty_load,omitempty"`
+}
+
+func (s TransportActiveData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransportActiveData) GoString() string {
+	return s.String()
+}
+
+func (s *TransportActiveData) SetTransportCode(v string) *TransportActiveData {
+	s.TransportCode = &v
+	return s
+}
+
+func (s *TransportActiveData) SetEquipment(v string) *TransportActiveData {
+	s.Equipment = &v
+	return s
+}
+
+func (s *TransportActiveData) SetDistance(v string) *TransportActiveData {
+	s.Distance = &v
+	return s
+}
+
+func (s *TransportActiveData) SetIsEmptyLoad(v bool) *TransportActiveData {
+	s.IsEmptyLoad = &v
+	return s
+}
+
+// 阶段评估数据明细
+type EnterpriseLcaStageAssessmentItem struct {
+	// LCA阶段
+	LcaStage *string `json:"lca_stage,omitempty" xml:"lca_stage,omitempty" require:"true"`
+	// 阶段排放占比
+	LcaStageCarbonRate *string `json:"lca_stage_carbon_rate,omitempty" xml:"lca_stage_carbon_rate,omitempty" require:"true"`
+	// 阶段排放量
+	LcaStageCarbonEmissions *string `json:"lca_stage_carbon_emissions,omitempty" xml:"lca_stage_carbon_emissions,omitempty" require:"true"`
+	// 阶段评估明细数据
+	LcaAssessmentDatum []*EnterpriseLcaAssessmentItem `json:"lca_assessment_datum,omitempty" xml:"lca_assessment_datum,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s EnterpriseLcaStageAssessmentItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EnterpriseLcaStageAssessmentItem) GoString() string {
+	return s.String()
+}
+
+func (s *EnterpriseLcaStageAssessmentItem) SetLcaStage(v string) *EnterpriseLcaStageAssessmentItem {
+	s.LcaStage = &v
+	return s
+}
+
+func (s *EnterpriseLcaStageAssessmentItem) SetLcaStageCarbonRate(v string) *EnterpriseLcaStageAssessmentItem {
+	s.LcaStageCarbonRate = &v
+	return s
+}
+
+func (s *EnterpriseLcaStageAssessmentItem) SetLcaStageCarbonEmissions(v string) *EnterpriseLcaStageAssessmentItem {
+	s.LcaStageCarbonEmissions = &v
+	return s
+}
+
+func (s *EnterpriseLcaStageAssessmentItem) SetLcaAssessmentDatum(v []*EnterpriseLcaAssessmentItem) *EnterpriseLcaStageAssessmentItem {
+	s.LcaAssessmentDatum = v
+	return s
+}
+
+// 存证数据字段值
+type DepositFieldValue struct {
+	// 存证数据字段名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 存证数据字段值
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s DepositFieldValue) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DepositFieldValue) GoString() string {
+	return s.String()
+}
+
+func (s *DepositFieldValue) SetName(v string) *DepositFieldValue {
+	s.Name = &v
+	return s
+}
+
+func (s *DepositFieldValue) SetValue(v string) *DepositFieldValue {
+	s.Value = &v
+	return s
+}
+
+// 输入流活动数据
+type InputStreamActiveData struct {
+	// 物料编码
+	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
+	// 用量，非负，最多6位小数
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 单位
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+	// 运输信息列表
+	TransportList []*TransportActiveData `json:"transport_list,omitempty" xml:"transport_list,omitempty" type:"Repeated"`
+}
+
+func (s InputStreamActiveData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InputStreamActiveData) GoString() string {
+	return s.String()
+}
+
+func (s *InputStreamActiveData) SetMaterialCode(v string) *InputStreamActiveData {
+	s.MaterialCode = &v
+	return s
+}
+
+func (s *InputStreamActiveData) SetAmount(v string) *InputStreamActiveData {
+	s.Amount = &v
+	return s
+}
+
+func (s *InputStreamActiveData) SetUnit(v string) *InputStreamActiveData {
+	s.Unit = &v
+	return s
+}
+
+func (s *InputStreamActiveData) SetTransportList(v []*TransportActiveData) *InputStreamActiveData {
+	s.TransportList = v
+	return s
+}
+
 // 数据值条目
 type AnyAmountItem struct {
 	// 数据项编码
@@ -239,6 +425,60 @@ func (s *LcaStageCarbonItem) SetLcaStageCode(v string) *LcaStageCarbonItem {
 
 func (s *LcaStageCarbonItem) SetLcaStageCarbonAmount(v string) *LcaStageCarbonItem {
 	s.LcaStageCarbonAmount = &v
+	return s
+}
+
+// 输出流活动数据
+type OutputStreamActiveData struct {
+	// 物料编码
+	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
+	// 用量，非负，最多6位小数
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 单位
+	Unit *string `json:"unit,omitempty" xml:"unit,omitempty" require:"true"`
+	// 单价（仅产品用，产品不传时默认为空）
+	UnitPrice *string `json:"unit_price,omitempty" xml:"unit_price,omitempty"`
+	// 处置方式编码（仅废弃物用）
+	DisposalTypeCode *string `json:"disposal_type_code,omitempty" xml:"disposal_type_code,omitempty"`
+	// 运输信息列表（仅废弃物用）
+	TransportList []*TransportActiveData `json:"transport_list,omitempty" xml:"transport_list,omitempty" type:"Repeated"`
+}
+
+func (s OutputStreamActiveData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OutputStreamActiveData) GoString() string {
+	return s.String()
+}
+
+func (s *OutputStreamActiveData) SetMaterialCode(v string) *OutputStreamActiveData {
+	s.MaterialCode = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetAmount(v string) *OutputStreamActiveData {
+	s.Amount = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetUnit(v string) *OutputStreamActiveData {
+	s.Unit = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetUnitPrice(v string) *OutputStreamActiveData {
+	s.UnitPrice = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetDisposalTypeCode(v string) *OutputStreamActiveData {
+	s.DisposalTypeCode = &v
+	return s
+}
+
+func (s *OutputStreamActiveData) SetTransportList(v []*TransportActiveData) *OutputStreamActiveData {
+	s.TransportList = v
 	return s
 }
 
@@ -451,6 +691,53 @@ func (s *CertProductInfoDO) SetAuthProducts(v []*CertProductAuthDO) *CertProduct
 	return s
 }
 
+// Lca速算记录
+type LcaCalcResult struct {
+	// 速算记录编号
+	RecordNo *string `json:"record_no,omitempty" xml:"record_no,omitempty" require:"true"`
+	// 碳足迹排放量
+	CarbonAmount *string `json:"carbon_amount,omitempty" xml:"carbon_amount,omitempty" require:"true"`
+	// 各阶段评估数据明细
+	LcaStageAssessmentDatum []*EnterpriseLcaStageAssessmentItem `json:"lca_stage_assessment_datum,omitempty" xml:"lca_stage_assessment_datum,omitempty" require:"true" type:"Repeated"`
+	// 速算发起时间
+	RecordDate *string `json:"record_date,omitempty" xml:"record_date,omitempty" require:"true"`
+	// 自定义业务标识
+	CustomContext *string `json:"custom_context,omitempty" xml:"custom_context,omitempty"`
+}
+
+func (s LcaCalcResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaCalcResult) GoString() string {
+	return s.String()
+}
+
+func (s *LcaCalcResult) SetRecordNo(v string) *LcaCalcResult {
+	s.RecordNo = &v
+	return s
+}
+
+func (s *LcaCalcResult) SetCarbonAmount(v string) *LcaCalcResult {
+	s.CarbonAmount = &v
+	return s
+}
+
+func (s *LcaCalcResult) SetLcaStageAssessmentDatum(v []*EnterpriseLcaStageAssessmentItem) *LcaCalcResult {
+	s.LcaStageAssessmentDatum = v
+	return s
+}
+
+func (s *LcaCalcResult) SetRecordDate(v string) *LcaCalcResult {
+	s.RecordDate = &v
+	return s
+}
+
+func (s *LcaCalcResult) SetCustomContext(v string) *LcaCalcResult {
+	s.CustomContext = &v
+	return s
+}
+
 //  每月的排放数据
 type AnnualMonthEmissionDatum struct {
 	// 统计的年份
@@ -597,6 +884,46 @@ func (s *DailyEmissions) SetValue(v int64) *DailyEmissions {
 	return s
 }
 
+// 数据资产信息
+type DataAssetInfo struct {
+	// 数据资产DID
+	DatasetDid *string `json:"dataset_did,omitempty" xml:"dataset_did,omitempty" require:"true"`
+	// 数据资产所有方DID
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
+	// 数据资产名称
+	DatasetName *string `json:"dataset_name,omitempty" xml:"dataset_name,omitempty" require:"true"`
+	// 数据类型
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+}
+
+func (s DataAssetInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataAssetInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DataAssetInfo) SetDatasetDid(v string) *DataAssetInfo {
+	s.DatasetDid = &v
+	return s
+}
+
+func (s *DataAssetInfo) SetUserDid(v string) *DataAssetInfo {
+	s.UserDid = &v
+	return s
+}
+
+func (s *DataAssetInfo) SetDatasetName(v string) *DataAssetInfo {
+	s.DatasetName = &v
+	return s
+}
+
+func (s *DataAssetInfo) SetDataType(v string) *DataAssetInfo {
+	s.DataType = &v
+	return s
+}
+
 // 碳抵消统计量
 type EmissionCounteractionStatistics struct {
 	// 碳抵消类别
@@ -705,6 +1032,60 @@ func (s AccountRegisterResponse) GoString() string {
 
 func (s *AccountRegisterResponse) SetUserDid(v string) *AccountRegisterResponse {
 	s.UserDid = &v
+	return s
+}
+
+// 数据存证信息
+type DataDepositInfo struct {
+	// 存证字段值
+	DataValue []*DepositFieldValue `json:"data_value,omitempty" xml:"data_value,omitempty" require:"true" type:"Repeated"`
+	// 数据存证区块链交易ID
+	TxId *string `json:"tx_id,omitempty" xml:"tx_id,omitempty"`
+	// 数据存证操作用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 存证数据内容
+	DepositContent *string `json:"deposit_content,omitempty" xml:"deposit_content,omitempty" require:"true"`
+	// 存证执行状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 存证执行(发起)时间
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+}
+
+func (s DataDepositInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataDepositInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DataDepositInfo) SetDataValue(v []*DepositFieldValue) *DataDepositInfo {
+	s.DataValue = v
+	return s
+}
+
+func (s *DataDepositInfo) SetTxId(v string) *DataDepositInfo {
+	s.TxId = &v
+	return s
+}
+
+func (s *DataDepositInfo) SetUserId(v string) *DataDepositInfo {
+	s.UserId = &v
+	return s
+}
+
+func (s *DataDepositInfo) SetDepositContent(v string) *DataDepositInfo {
+	s.DepositContent = &v
+	return s
+}
+
+func (s *DataDepositInfo) SetStatus(v string) *DataDepositInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *DataDepositInfo) SetTimestamp(v int64) *DataDepositInfo {
+	s.Timestamp = &v
 	return s
 }
 
@@ -1053,6 +1434,46 @@ func (s *AnyKeywordItem) SetItemValue(v string) *AnyKeywordItem {
 	return s
 }
 
+// 数据类型
+type DataTypeInfo struct {
+	// 数据类型编码
+	DataTypeNo *string `json:"data_type_no,omitempty" xml:"data_type_no,omitempty" require:"true"`
+	// 数据类型名称
+	DataTypeName *string `json:"data_type_name,omitempty" xml:"data_type_name,omitempty" require:"true"`
+	// 数据类型配置
+	DataTypeConfig *string `json:"data_type_config,omitempty" xml:"data_type_config,omitempty" require:"true"`
+	// 数据JSON格式检查
+	DataJsonSchema *string `json:"data_json_schema,omitempty" xml:"data_json_schema,omitempty" require:"true"`
+}
+
+func (s DataTypeInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataTypeInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DataTypeInfo) SetDataTypeNo(v string) *DataTypeInfo {
+	s.DataTypeNo = &v
+	return s
+}
+
+func (s *DataTypeInfo) SetDataTypeName(v string) *DataTypeInfo {
+	s.DataTypeName = &v
+	return s
+}
+
+func (s *DataTypeInfo) SetDataTypeConfig(v string) *DataTypeInfo {
+	s.DataTypeConfig = &v
+	return s
+}
+
+func (s *DataTypeInfo) SetDataJsonSchema(v string) *DataTypeInfo {
+	s.DataJsonSchema = &v
+	return s
+}
+
 // LCA碳足迹分析计算数据
 type LcaCarbonDatum struct {
 	// LCA碳排放总量
@@ -1111,6 +1532,39 @@ func (s *LcaCarbonDatum) SetLcaEndDate(v string) *LcaCarbonDatum {
 
 func (s *LcaCarbonDatum) SetLcaStageCarbonDatum(v []*LcaStageCarbonItem) *LcaCarbonDatum {
 	s.LcaStageCarbonDatum = v
+	return s
+}
+
+// 数据授权策略
+type AuthorizePolicy struct {
+	// 授权策略ID
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty" require:"true"`
+	// 授权策略描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 授权策略配置
+	AuthorizeConfig *string `json:"authorize_config,omitempty" xml:"authorize_config,omitempty" require:"true"`
+}
+
+func (s AuthorizePolicy) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthorizePolicy) GoString() string {
+	return s.String()
+}
+
+func (s *AuthorizePolicy) SetPolicyId(v string) *AuthorizePolicy {
+	s.PolicyId = &v
+	return s
+}
+
+func (s *AuthorizePolicy) SetDescription(v string) *AuthorizePolicy {
+	s.Description = &v
+	return s
+}
+
+func (s *AuthorizePolicy) SetAuthorizeConfig(v string) *AuthorizePolicy {
+	s.AuthorizeConfig = &v
 	return s
 }
 
@@ -1435,6 +1889,39 @@ func (s *EmissionsScopeStatistics) SetPercentage(v int64) *EmissionsScopeStatist
 
 func (s *EmissionsScopeStatistics) SetCategoryEmissionsList(v []*EmissionsCategoryStatistics) *EmissionsScopeStatistics {
 	s.CategoryEmissionsList = v
+	return s
+}
+
+// 生命周期阶段活动数据
+type LcaStageActiveData struct {
+	// LCA阶段
+	LcaStage *string `json:"lca_stage,omitempty" xml:"lca_stage,omitempty" require:"true"`
+	// 输入流活动数据列表
+	InputStreamList []*InputStreamActiveData `json:"input_stream_list,omitempty" xml:"input_stream_list,omitempty" require:"true" type:"Repeated"`
+	// 输出流活动数据列表
+	OutputStreamList []*OutputStreamActiveData `json:"output_stream_list,omitempty" xml:"output_stream_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s LcaStageActiveData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LcaStageActiveData) GoString() string {
+	return s.String()
+}
+
+func (s *LcaStageActiveData) SetLcaStage(v string) *LcaStageActiveData {
+	s.LcaStage = &v
+	return s
+}
+
+func (s *LcaStageActiveData) SetInputStreamList(v []*InputStreamActiveData) *LcaStageActiveData {
+	s.InputStreamList = v
+	return s
+}
+
+func (s *LcaStageActiveData) SetOutputStreamList(v []*OutputStreamActiveData) *LcaStageActiveData {
+	s.OutputStreamList = v
 	return s
 }
 
@@ -3507,6 +3994,1161 @@ func (s *QueryPdcpDataResponse) SetPageSize(v int64) *QueryPdcpDataResponse {
 
 func (s *QueryPdcpDataResponse) SetDataList(v []*string) *QueryPdcpDataResponse {
 	s.DataList = v
+	return s
+}
+
+type DetailPdcpDepositRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据类型名称，用户标识记录的数据类型。
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 存证数据ID，存证数据唯一标识ID。
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 数据存证区块链交易ID，对应数据版本号。 若未指定，返回最近的版本。
+	TxId *string `json:"tx_id,omitempty" xml:"tx_id,omitempty"`
+}
+
+func (s DetailPdcpDepositRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailPdcpDepositRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailPdcpDepositRequest) SetAuthToken(v string) *DetailPdcpDepositRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailPdcpDepositRequest) SetProductInstanceId(v string) *DetailPdcpDepositRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailPdcpDepositRequest) SetDataType(v string) *DetailPdcpDepositRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *DetailPdcpDepositRequest) SetDataId(v string) *DetailPdcpDepositRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *DetailPdcpDepositRequest) SetTxId(v string) *DetailPdcpDepositRequest {
+	s.TxId = &v
+	return s
+}
+
+type DetailPdcpDepositResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证数据类型
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty"`
+	// 存证数据唯一ID
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+	// 存证数据内容
+	DepositData *DataDepositInfo `json:"deposit_data,omitempty" xml:"deposit_data,omitempty"`
+}
+
+func (s DetailPdcpDepositResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailPdcpDepositResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailPdcpDepositResponse) SetReqMsgId(v string) *DetailPdcpDepositResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailPdcpDepositResponse) SetResultCode(v string) *DetailPdcpDepositResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailPdcpDepositResponse) SetResultMsg(v string) *DetailPdcpDepositResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailPdcpDepositResponse) SetDataType(v string) *DetailPdcpDepositResponse {
+	s.DataType = &v
+	return s
+}
+
+func (s *DetailPdcpDepositResponse) SetDataId(v string) *DetailPdcpDepositResponse {
+	s.DataId = &v
+	return s
+}
+
+func (s *DetailPdcpDepositResponse) SetDepositData(v *DataDepositInfo) *DetailPdcpDepositResponse {
+	s.DepositData = v
+	return s
+}
+
+type QueryPdcpDtraceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证数据类型名称
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 存证数据ID
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+}
+
+func (s QueryPdcpDtraceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpDtraceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpDtraceRequest) SetAuthToken(v string) *QueryPdcpDtraceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdcpDtraceRequest) SetProductInstanceId(v string) *QueryPdcpDtraceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdcpDtraceRequest) SetDataType(v string) *QueryPdcpDtraceRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *QueryPdcpDtraceRequest) SetDataId(v string) *QueryPdcpDtraceRequest {
+	s.DataId = &v
+	return s
+}
+
+type QueryPdcpDtraceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证数据类型名称
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty"`
+	// 存证数据ID
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty"`
+	// 存证数据版本列表
+	Versions []*DataDepositInfo `json:"versions,omitempty" xml:"versions,omitempty" type:"Repeated"`
+}
+
+func (s QueryPdcpDtraceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpDtraceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpDtraceResponse) SetReqMsgId(v string) *QueryPdcpDtraceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdcpDtraceResponse) SetResultCode(v string) *QueryPdcpDtraceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdcpDtraceResponse) SetResultMsg(v string) *QueryPdcpDtraceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdcpDtraceResponse) SetDataType(v string) *QueryPdcpDtraceResponse {
+	s.DataType = &v
+	return s
+}
+
+func (s *QueryPdcpDtraceResponse) SetDataId(v string) *QueryPdcpDtraceResponse {
+	s.DataId = &v
+	return s
+}
+
+func (s *QueryPdcpDtraceResponse) SetVersions(v []*DataDepositInfo) *QueryPdcpDtraceResponse {
+	s.Versions = v
+	return s
+}
+
+type CheckPdcpDtraceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 存证数据类型名称
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 存证数据ID
+	DataId *string `json:"data_id,omitempty" xml:"data_id,omitempty" require:"true"`
+	// 存证操作区块链交易ID，即存证数据版本号。若未指定，检查当前最新版本。
+	TxId *string `json:"tx_id,omitempty" xml:"tx_id,omitempty"`
+}
+
+func (s CheckPdcpDtraceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckPdcpDtraceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckPdcpDtraceRequest) SetAuthToken(v string) *CheckPdcpDtraceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceRequest) SetProductInstanceId(v string) *CheckPdcpDtraceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceRequest) SetDataType(v string) *CheckPdcpDtraceRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceRequest) SetDataId(v string) *CheckPdcpDtraceRequest {
+	s.DataId = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceRequest) SetTxId(v string) *CheckPdcpDtraceRequest {
+	s.TxId = &v
+	return s
+}
+
+type CheckPdcpDtraceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 存证操作内容
+	DepositData *DataDepositInfo `json:"deposit_data,omitempty" xml:"deposit_data,omitempty"`
+	// 区块链编号
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
+	// 数据存证方式
+	DepositType *string `json:"deposit_type,omitempty" xml:"deposit_type,omitempty"`
+	// 链上数据
+	OnChainData *string `json:"on_chain_data,omitempty" xml:"on_chain_data,omitempty"`
+	// 链下数据
+	OffChainData *string `json:"off_chain_data,omitempty" xml:"off_chain_data,omitempty"`
+	// 链上-链下数据是否一致
+	Consistent *bool `json:"consistent,omitempty" xml:"consistent,omitempty"`
+}
+
+func (s CheckPdcpDtraceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckPdcpDtraceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckPdcpDtraceResponse) SetReqMsgId(v string) *CheckPdcpDtraceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceResponse) SetResultCode(v string) *CheckPdcpDtraceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceResponse) SetResultMsg(v string) *CheckPdcpDtraceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceResponse) SetDepositData(v *DataDepositInfo) *CheckPdcpDtraceResponse {
+	s.DepositData = v
+	return s
+}
+
+func (s *CheckPdcpDtraceResponse) SetBlockNumber(v int64) *CheckPdcpDtraceResponse {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceResponse) SetDepositType(v string) *CheckPdcpDtraceResponse {
+	s.DepositType = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceResponse) SetOnChainData(v string) *CheckPdcpDtraceResponse {
+	s.OnChainData = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceResponse) SetOffChainData(v string) *CheckPdcpDtraceResponse {
+	s.OffChainData = &v
+	return s
+}
+
+func (s *CheckPdcpDtraceResponse) SetConsistent(v bool) *CheckPdcpDtraceResponse {
+	s.Consistent = &v
+	return s
+}
+
+type BatchqueryPdcpDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务数据类型，查询该数据类型的授权数据
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 授权方身份ID，若指定查询该用户授权的数据
+	AuthorizerDid *string `json:"authorizer_did,omitempty" xml:"authorizer_did,omitempty"`
+	// 被授权方身份ID，若指定查询授权给该用户的数据
+	AuthorizedDid *string `json:"authorized_did,omitempty" xml:"authorized_did,omitempty"`
+	// 当前页面，默认1
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty" require:"true"`
+	// 分页大小，默认20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s BatchqueryPdcpDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryPdcpDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryPdcpDataRequest) SetAuthToken(v string) *BatchqueryPdcpDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataRequest) SetProductInstanceId(v string) *BatchqueryPdcpDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataRequest) SetDataType(v string) *BatchqueryPdcpDataRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataRequest) SetAuthorizerDid(v string) *BatchqueryPdcpDataRequest {
+	s.AuthorizerDid = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataRequest) SetAuthorizedDid(v string) *BatchqueryPdcpDataRequest {
+	s.AuthorizedDid = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataRequest) SetPageNumber(v int64) *BatchqueryPdcpDataRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataRequest) SetPageSize(v int64) *BatchqueryPdcpDataRequest {
+	s.PageSize = &v
+	return s
+}
+
+type BatchqueryPdcpDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总记录条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 当前页面
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据列表
+	DataList []*string `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s BatchqueryPdcpDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchqueryPdcpDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *BatchqueryPdcpDataResponse) SetReqMsgId(v string) *BatchqueryPdcpDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataResponse) SetResultCode(v string) *BatchqueryPdcpDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataResponse) SetResultMsg(v string) *BatchqueryPdcpDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataResponse) SetTotal(v int64) *BatchqueryPdcpDataResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataResponse) SetPageNumber(v int64) *BatchqueryPdcpDataResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataResponse) SetPageSize(v int64) *BatchqueryPdcpDataResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *BatchqueryPdcpDataResponse) SetDataList(v []*string) *BatchqueryPdcpDataResponse {
+	s.DataList = v
+	return s
+}
+
+type QueryPdcpOwndataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务数据类型
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 拥有数据的用户
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty"`
+	// 当前分页，默认1
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 分页大小，默认20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryPdcpOwndataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpOwndataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpOwndataRequest) SetAuthToken(v string) *QueryPdcpOwndataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataRequest) SetProductInstanceId(v string) *QueryPdcpOwndataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataRequest) SetDataType(v string) *QueryPdcpOwndataRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataRequest) SetUserDid(v string) *QueryPdcpOwndataRequest {
+	s.UserDid = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataRequest) SetPageNumber(v int64) *QueryPdcpOwndataRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataRequest) SetPageSize(v int64) *QueryPdcpOwndataRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryPdcpOwndataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总记录条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 当前分页
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 分页大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据记录列表
+	DataList []*string `json:"data_list,omitempty" xml:"data_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryPdcpOwndataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpOwndataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpOwndataResponse) SetReqMsgId(v string) *QueryPdcpOwndataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataResponse) SetResultCode(v string) *QueryPdcpOwndataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataResponse) SetResultMsg(v string) *QueryPdcpOwndataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataResponse) SetTotal(v int64) *QueryPdcpOwndataResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataResponse) SetPageNumber(v int64) *QueryPdcpOwndataResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataResponse) SetPageSize(v int64) *QueryPdcpOwndataResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryPdcpOwndataResponse) SetDataList(v []*string) *QueryPdcpOwndataResponse {
+	s.DataList = v
+	return s
+}
+
+type QueryPdcpDataassetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 当前页码，默认1
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小，默认20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据类型
+	DataTypeNo *string `json:"data_type_no,omitempty" xml:"data_type_no,omitempty"`
+	// 数据资产所有者
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty"`
+}
+
+func (s QueryPdcpDataassetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpDataassetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpDataassetRequest) SetAuthToken(v string) *QueryPdcpDataassetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetRequest) SetProductInstanceId(v string) *QueryPdcpDataassetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetRequest) SetPageNumber(v int64) *QueryPdcpDataassetRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetRequest) SetPageSize(v int64) *QueryPdcpDataassetRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetRequest) SetDataTypeNo(v string) *QueryPdcpDataassetRequest {
+	s.DataTypeNo = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetRequest) SetUserDid(v string) *QueryPdcpDataassetRequest {
+	s.UserDid = &v
+	return s
+}
+
+type QueryPdcpDataassetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 当前页面
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 数据资产信息
+	DataAssetList []*DataAssetInfo `json:"data_asset_list,omitempty" xml:"data_asset_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryPdcpDataassetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPdcpDataassetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPdcpDataassetResponse) SetReqMsgId(v string) *QueryPdcpDataassetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetResponse) SetResultCode(v string) *QueryPdcpDataassetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetResponse) SetResultMsg(v string) *QueryPdcpDataassetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetResponse) SetTotal(v int64) *QueryPdcpDataassetResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetResponse) SetPageNumber(v int64) *QueryPdcpDataassetResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetResponse) SetPageSize(v int64) *QueryPdcpDataassetResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryPdcpDataassetResponse) SetDataAssetList(v []*DataAssetInfo) *QueryPdcpDataassetResponse {
+	s.DataAssetList = v
+	return s
+}
+
+type RegisterPdcpDataassetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据类型编码
+	DataTypeNo *string `json:"data_type_no,omitempty" xml:"data_type_no,omitempty" require:"true"`
+	// 数据资产所有者id
+	UserDid *string `json:"user_did,omitempty" xml:"user_did,omitempty" require:"true"`
+}
+
+func (s RegisterPdcpDataassetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterPdcpDataassetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterPdcpDataassetRequest) SetAuthToken(v string) *RegisterPdcpDataassetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RegisterPdcpDataassetRequest) SetProductInstanceId(v string) *RegisterPdcpDataassetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RegisterPdcpDataassetRequest) SetDataTypeNo(v string) *RegisterPdcpDataassetRequest {
+	s.DataTypeNo = &v
+	return s
+}
+
+func (s *RegisterPdcpDataassetRequest) SetUserDid(v string) *RegisterPdcpDataassetRequest {
+	s.UserDid = &v
+	return s
+}
+
+type RegisterPdcpDataassetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 资产id
+	DatasetId *string `json:"dataset_id,omitempty" xml:"dataset_id,omitempty"`
+}
+
+func (s RegisterPdcpDataassetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RegisterPdcpDataassetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RegisterPdcpDataassetResponse) SetReqMsgId(v string) *RegisterPdcpDataassetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RegisterPdcpDataassetResponse) SetResultCode(v string) *RegisterPdcpDataassetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RegisterPdcpDataassetResponse) SetResultMsg(v string) *RegisterPdcpDataassetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RegisterPdcpDataassetResponse) SetDatasetId(v string) *RegisterPdcpDataassetResponse {
+	s.DatasetId = &v
+	return s
+}
+
+type AddAuthAdminRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权策略ID
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty" require:"true"`
+	// 授权策略描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 授权策略配置
+	AuthorizeConfig *string `json:"authorize_config,omitempty" xml:"authorize_config,omitempty" require:"true"`
+}
+
+func (s AddAuthAdminRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddAuthAdminRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddAuthAdminRequest) SetAuthToken(v string) *AddAuthAdminRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddAuthAdminRequest) SetProductInstanceId(v string) *AddAuthAdminRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddAuthAdminRequest) SetPolicyId(v string) *AddAuthAdminRequest {
+	s.PolicyId = &v
+	return s
+}
+
+func (s *AddAuthAdminRequest) SetDescription(v string) *AddAuthAdminRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *AddAuthAdminRequest) SetAuthorizeConfig(v string) *AddAuthAdminRequest {
+	s.AuthorizeConfig = &v
+	return s
+}
+
+type AddAuthAdminResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddAuthAdminResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddAuthAdminResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddAuthAdminResponse) SetReqMsgId(v string) *AddAuthAdminResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddAuthAdminResponse) SetResultCode(v string) *AddAuthAdminResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddAuthAdminResponse) SetResultMsg(v string) *AddAuthAdminResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryAuthAdminRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 当前查询页数
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 每页记录条数，默认为20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s PagequeryAuthAdminRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryAuthAdminRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryAuthAdminRequest) SetAuthToken(v string) *PagequeryAuthAdminRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryAuthAdminRequest) SetProductInstanceId(v string) *PagequeryAuthAdminRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryAuthAdminRequest) SetPageNumber(v int64) *PagequeryAuthAdminRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryAuthAdminRequest) SetPageSize(v int64) *PagequeryAuthAdminRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryAuthAdminResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权策略配置
+	AuthorizePolicyList []*AuthorizePolicy `json:"authorize_policy_list,omitempty" xml:"authorize_policy_list,omitempty" type:"Repeated"`
+	// 总数量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 当前页
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s PagequeryAuthAdminResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryAuthAdminResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryAuthAdminResponse) SetReqMsgId(v string) *PagequeryAuthAdminResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryAuthAdminResponse) SetResultCode(v string) *PagequeryAuthAdminResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryAuthAdminResponse) SetResultMsg(v string) *PagequeryAuthAdminResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryAuthAdminResponse) SetAuthorizePolicyList(v []*AuthorizePolicy) *PagequeryAuthAdminResponse {
+	s.AuthorizePolicyList = v
+	return s
+}
+
+func (s *PagequeryAuthAdminResponse) SetTotal(v int64) *PagequeryAuthAdminResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryAuthAdminResponse) SetPageNumber(v int64) *PagequeryAuthAdminResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryAuthAdminResponse) SetPageSize(v int64) *PagequeryAuthAdminResponse {
+	s.PageSize = &v
+	return s
+}
+
+type QueryAuthAdminRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据授权策略ID
+	PolicyId *string `json:"policy_id,omitempty" xml:"policy_id,omitempty"`
+}
+
+func (s QueryAuthAdminRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthAdminRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthAdminRequest) SetAuthToken(v string) *QueryAuthAdminRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthAdminRequest) SetProductInstanceId(v string) *QueryAuthAdminRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthAdminRequest) SetPolicyId(v string) *QueryAuthAdminRequest {
+	s.PolicyId = &v
+	return s
+}
+
+type QueryAuthAdminResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 授权策略
+	Data *AuthorizePolicy `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryAuthAdminResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthAdminResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthAdminResponse) SetReqMsgId(v string) *QueryAuthAdminResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthAdminResponse) SetResultCode(v string) *QueryAuthAdminResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthAdminResponse) SetResultMsg(v string) *QueryAuthAdminResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthAdminResponse) SetData(v *AuthorizePolicy) *QueryAuthAdminResponse {
+	s.Data = v
+	return s
+}
+
+type AddDataassetTypeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数据类型编码
+	DataTypeNo *string `json:"data_type_no,omitempty" xml:"data_type_no,omitempty" require:"true"`
+	// 数据类型名称
+	DataTypeName *string `json:"data_type_name,omitempty" xml:"data_type_name,omitempty" require:"true"`
+	// 数据类型配置
+	DataTypeConfig *string `json:"data_type_config,omitempty" xml:"data_type_config,omitempty" require:"true"`
+	// 数据JSON格式检查
+	DataJsonSchema *string `json:"data_json_schema,omitempty" xml:"data_json_schema,omitempty" require:"true"`
+}
+
+func (s AddDataassetTypeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddDataassetTypeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddDataassetTypeRequest) SetAuthToken(v string) *AddDataassetTypeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddDataassetTypeRequest) SetProductInstanceId(v string) *AddDataassetTypeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddDataassetTypeRequest) SetDataTypeNo(v string) *AddDataassetTypeRequest {
+	s.DataTypeNo = &v
+	return s
+}
+
+func (s *AddDataassetTypeRequest) SetDataTypeName(v string) *AddDataassetTypeRequest {
+	s.DataTypeName = &v
+	return s
+}
+
+func (s *AddDataassetTypeRequest) SetDataTypeConfig(v string) *AddDataassetTypeRequest {
+	s.DataTypeConfig = &v
+	return s
+}
+
+func (s *AddDataassetTypeRequest) SetDataJsonSchema(v string) *AddDataassetTypeRequest {
+	s.DataJsonSchema = &v
+	return s
+}
+
+type AddDataassetTypeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s AddDataassetTypeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddDataassetTypeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddDataassetTypeResponse) SetReqMsgId(v string) *AddDataassetTypeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddDataassetTypeResponse) SetResultCode(v string) *AddDataassetTypeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddDataassetTypeResponse) SetResultMsg(v string) *AddDataassetTypeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryDataassetTypeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 当前查询页数
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// 每页记录条数，默认为20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s PagequeryDataassetTypeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryDataassetTypeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryDataassetTypeRequest) SetAuthToken(v string) *PagequeryDataassetTypeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryDataassetTypeRequest) SetProductInstanceId(v string) *PagequeryDataassetTypeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryDataassetTypeRequest) SetPageNumber(v int64) *PagequeryDataassetTypeRequest {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryDataassetTypeRequest) SetPageSize(v int64) *PagequeryDataassetTypeRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryDataassetTypeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// DataTypeInfo
+	DataTypeInfo []*DataTypeInfo `json:"data_type_info,omitempty" xml:"data_type_info,omitempty" type:"Repeated"`
+	// 总数量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 1
+	PageNumber *int64 `json:"page_number,omitempty" xml:"page_number,omitempty"`
+	// pageSize
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s PagequeryDataassetTypeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryDataassetTypeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryDataassetTypeResponse) SetReqMsgId(v string) *PagequeryDataassetTypeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryDataassetTypeResponse) SetResultCode(v string) *PagequeryDataassetTypeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryDataassetTypeResponse) SetResultMsg(v string) *PagequeryDataassetTypeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryDataassetTypeResponse) SetDataTypeInfo(v []*DataTypeInfo) *PagequeryDataassetTypeResponse {
+	s.DataTypeInfo = v
+	return s
+}
+
+func (s *PagequeryDataassetTypeResponse) SetTotal(v int64) *PagequeryDataassetTypeResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryDataassetTypeResponse) SetPageNumber(v int64) *PagequeryDataassetTypeResponse {
+	s.PageNumber = &v
+	return s
+}
+
+func (s *PagequeryDataassetTypeResponse) SetPageSize(v int64) *PagequeryDataassetTypeResponse {
+	s.PageSize = &v
 	return s
 }
 
@@ -6184,6 +7826,251 @@ func (s *BatchcreateEcarGreencertificategenerationResponse) SetResultMsg(v strin
 	return s
 }
 
+type SubmitEcarLcacalcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 目标产品编码
+	MaterialCode *string `json:"material_code,omitempty" xml:"material_code,omitempty" require:"true"`
+	// 授权过程编码
+	ProcessNo *string `json:"process_no,omitempty" xml:"process_no,omitempty" require:"true"`
+	// 生命周期边界
+	LifeCycleBoundary *string `json:"life_cycle_boundary,omitempty" xml:"life_cycle_boundary,omitempty" require:"true"`
+	// 产品功能单位
+	FunctionalUnit *string `json:"functional_unit,omitempty" xml:"functional_unit,omitempty" require:"true"`
+	// 功能单位数量
+	FunctionalAmount *string `json:"functional_amount,omitempty" xml:"functional_amount,omitempty" require:"true"`
+	// 各阶段活动数据
+	StageActiveDataList []*LcaStageActiveData `json:"stage_active_data_list,omitempty" xml:"stage_active_data_list,omitempty" require:"true" type:"Repeated"`
+	// 自定义业务标识
+	CustomContext *string `json:"custom_context,omitempty" xml:"custom_context,omitempty"`
+}
+
+func (s SubmitEcarLcacalcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitEcarLcacalcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitEcarLcacalcRequest) SetAuthToken(v string) *SubmitEcarLcacalcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcRequest) SetProductInstanceId(v string) *SubmitEcarLcacalcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcRequest) SetMaterialCode(v string) *SubmitEcarLcacalcRequest {
+	s.MaterialCode = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcRequest) SetProcessNo(v string) *SubmitEcarLcacalcRequest {
+	s.ProcessNo = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcRequest) SetLifeCycleBoundary(v string) *SubmitEcarLcacalcRequest {
+	s.LifeCycleBoundary = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcRequest) SetFunctionalUnit(v string) *SubmitEcarLcacalcRequest {
+	s.FunctionalUnit = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcRequest) SetFunctionalAmount(v string) *SubmitEcarLcacalcRequest {
+	s.FunctionalAmount = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcRequest) SetStageActiveDataList(v []*LcaStageActiveData) *SubmitEcarLcacalcRequest {
+	s.StageActiveDataList = v
+	return s
+}
+
+func (s *SubmitEcarLcacalcRequest) SetCustomContext(v string) *SubmitEcarLcacalcRequest {
+	s.CustomContext = &v
+	return s
+}
+
+type SubmitEcarLcacalcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 速算记录编号
+	RecordNo *string `json:"record_no,omitempty" xml:"record_no,omitempty"`
+}
+
+func (s SubmitEcarLcacalcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitEcarLcacalcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitEcarLcacalcResponse) SetReqMsgId(v string) *SubmitEcarLcacalcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcResponse) SetResultCode(v string) *SubmitEcarLcacalcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcResponse) SetResultMsg(v string) *SubmitEcarLcacalcResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitEcarLcacalcResponse) SetRecordNo(v string) *SubmitEcarLcacalcResponse {
+	s.RecordNo = &v
+	return s
+}
+
+type QueryEcarLcacalcRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 速算记录编号列表
+	RecordNoList []*string `json:"record_no_list,omitempty" xml:"record_no_list,omitempty" type:"Repeated"`
+	// 开始日期，yyyy-MM-dd
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty"`
+	// 结束日期，yyyy-MM-dd
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty"`
+	// 分页查询页码，从1开始，不传时默认为1
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页记录条数，取值范围[10, 200]，不传时默认为20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryEcarLcacalcRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEcarLcacalcRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEcarLcacalcRequest) SetAuthToken(v string) *QueryEcarLcacalcRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcRequest) SetProductInstanceId(v string) *QueryEcarLcacalcRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcRequest) SetRecordNoList(v []*string) *QueryEcarLcacalcRequest {
+	s.RecordNoList = v
+	return s
+}
+
+func (s *QueryEcarLcacalcRequest) SetStartDate(v string) *QueryEcarLcacalcRequest {
+	s.StartDate = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcRequest) SetEndDate(v string) *QueryEcarLcacalcRequest {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcRequest) SetCurrent(v int64) *QueryEcarLcacalcRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcRequest) SetPageSize(v int64) *QueryEcarLcacalcRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryEcarLcacalcResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 当前查询页码
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页记录条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 记录总条数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 开始日期
+	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty"`
+	// 结束日期
+	EndDate *string `json:"end_date,omitempty" xml:"end_date,omitempty"`
+	// Lca速算记录列表
+	List []*LcaCalcResult `json:"list,omitempty" xml:"list,omitempty" type:"Repeated"`
+}
+
+func (s QueryEcarLcacalcResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEcarLcacalcResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEcarLcacalcResponse) SetReqMsgId(v string) *QueryEcarLcacalcResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcResponse) SetResultCode(v string) *QueryEcarLcacalcResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcResponse) SetResultMsg(v string) *QueryEcarLcacalcResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcResponse) SetCurrent(v int64) *QueryEcarLcacalcResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcResponse) SetPageSize(v int64) *QueryEcarLcacalcResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcResponse) SetTotal(v int64) *QueryEcarLcacalcResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcResponse) SetStartDate(v string) *QueryEcarLcacalcResponse {
+	s.StartDate = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcResponse) SetEndDate(v string) *QueryEcarLcacalcResponse {
+	s.EndDate = &v
+	return s
+}
+
+func (s *QueryEcarLcacalcResponse) SetList(v []*LcaCalcResult) *QueryEcarLcacalcResponse {
+	s.List = v
+	return s
+}
+
 type QueryThirdCertRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6533,7 +8420,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.7.4"),
+				"sdk_version":      tea.String("2.8.1"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7298,6 +9185,414 @@ func (client *Client) QueryPdcpDataEx(request *QueryPdcpDataRequest, headers map
 	}
 	_result = &QueryPdcpDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.data.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+ * Summary: 查询存证数据详情
+ */
+func (client *Client) DetailPdcpDeposit(request *DetailPdcpDepositRequest) (_result *DetailPdcpDepositResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailPdcpDepositResponse{}
+	_body, _err := client.DetailPdcpDepositEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+ * Summary: 查询存证数据详情
+ */
+func (client *Client) DetailPdcpDepositEx(request *DetailPdcpDepositRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailPdcpDepositResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailPdcpDepositResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.deposit.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询存证数据历史变更
+ * Summary: 存证数据变更历史追溯查询
+ */
+func (client *Client) QueryPdcpDtrace(request *QueryPdcpDtraceRequest) (_result *QueryPdcpDtraceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdcpDtraceResponse{}
+	_body, _err := client.QueryPdcpDtraceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询存证数据历史变更
+ * Summary: 存证数据变更历史追溯查询
+ */
+func (client *Client) QueryPdcpDtraceEx(request *QueryPdcpDtraceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdcpDtraceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdcpDtraceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.dtrace.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过链山存证内容校验存证数据可信性
+ * Summary: 存证数据可信校验
+ */
+func (client *Client) CheckPdcpDtrace(request *CheckPdcpDtraceRequest) (_result *CheckPdcpDtraceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckPdcpDtraceResponse{}
+	_body, _err := client.CheckPdcpDtraceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过链山存证内容校验存证数据可信性
+ * Summary: 存证数据可信校验
+ */
+func (client *Client) CheckPdcpDtraceEx(request *CheckPdcpDtraceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckPdcpDtraceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckPdcpDtraceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.dtrace.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据授权方和被授权方授权关系批量查询授权数据
+ * Summary: 批量查询授权数据
+ */
+func (client *Client) BatchqueryPdcpData(request *BatchqueryPdcpDataRequest) (_result *BatchqueryPdcpDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &BatchqueryPdcpDataResponse{}
+	_body, _err := client.BatchqueryPdcpDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据授权方和被授权方授权关系批量查询授权数据
+ * Summary: 批量查询授权数据
+ */
+func (client *Client) BatchqueryPdcpDataEx(request *BatchqueryPdcpDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryPdcpDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &BatchqueryPdcpDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.data.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户拥有的数据记录
+ * Summary: 查询拥有的数据
+ */
+func (client *Client) QueryPdcpOwndata(request *QueryPdcpOwndataRequest) (_result *QueryPdcpOwndataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdcpOwndataResponse{}
+	_body, _err := client.QueryPdcpOwndataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询用户拥有的数据记录
+ * Summary: 查询拥有的数据
+ */
+func (client *Client) QueryPdcpOwndataEx(request *QueryPdcpOwndataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdcpOwndataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdcpOwndataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.owndata.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询数据资产
+ * Summary: 数据资产
+ */
+func (client *Client) QueryPdcpDataasset(request *QueryPdcpDataassetRequest) (_result *QueryPdcpDataassetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPdcpDataassetResponse{}
+	_body, _err := client.QueryPdcpDataassetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询数据资产
+ * Summary: 数据资产
+ */
+func (client *Client) QueryPdcpDataassetEx(request *QueryPdcpDataassetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPdcpDataassetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPdcpDataassetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.dataasset.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 注册数据资产
+ * Summary: 注册数据资产
+ */
+func (client *Client) RegisterPdcpDataasset(request *RegisterPdcpDataassetRequest) (_result *RegisterPdcpDataassetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RegisterPdcpDataassetResponse{}
+	_body, _err := client.RegisterPdcpDataassetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 注册数据资产
+ * Summary: 注册数据资产
+ */
+func (client *Client) RegisterPdcpDataassetEx(request *RegisterPdcpDataassetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RegisterPdcpDataassetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RegisterPdcpDataassetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.pdcp.dataasset.register"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 添加数据授权策略
+ * Summary: 添加数据授权策略
+ */
+func (client *Client) AddAuthAdmin(request *AddAuthAdminRequest) (_result *AddAuthAdminResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddAuthAdminResponse{}
+	_body, _err := client.AddAuthAdminEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 添加数据授权策略
+ * Summary: 添加数据授权策略
+ */
+func (client *Client) AddAuthAdminEx(request *AddAuthAdminRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddAuthAdminResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddAuthAdminResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.auth.admin.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询数据授权策略
+ * Summary: 分页查询数据授权策略
+ */
+func (client *Client) PagequeryAuthAdmin(request *PagequeryAuthAdminRequest) (_result *PagequeryAuthAdminResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryAuthAdminResponse{}
+	_body, _err := client.PagequeryAuthAdminEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询数据授权策略
+ * Summary: 分页查询数据授权策略
+ */
+func (client *Client) PagequeryAuthAdminEx(request *PagequeryAuthAdminRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryAuthAdminResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryAuthAdminResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.auth.admin.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询数据授权策略
+ * Summary: 查询数据授权策略
+ */
+func (client *Client) QueryAuthAdmin(request *QueryAuthAdminRequest) (_result *QueryAuthAdminResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthAdminResponse{}
+	_body, _err := client.QueryAuthAdminEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询数据授权策略
+ * Summary: 查询数据授权策略
+ */
+func (client *Client) QueryAuthAdminEx(request *QueryAuthAdminRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthAdminResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthAdminResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.auth.admin.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数据资产添加数据类型
+ * Summary: 添加数据类型
+ */
+func (client *Client) AddDataassetType(request *AddDataassetTypeRequest) (_result *AddDataassetTypeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddDataassetTypeResponse{}
+	_body, _err := client.AddDataassetTypeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据资产添加数据类型
+ * Summary: 添加数据类型
+ */
+func (client *Client) AddDataassetTypeEx(request *AddDataassetTypeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddDataassetTypeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddDataassetTypeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.dataasset.type.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询数据资产类型
+ * Summary: 分页查询数据资产类型
+ */
+func (client *Client) PagequeryDataassetType(request *PagequeryDataassetTypeRequest) (_result *PagequeryDataassetTypeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryDataassetTypeResponse{}
+	_body, _err := client.PagequeryDataassetTypeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询数据资产类型
+ * Summary: 分页查询数据资产类型
+ */
+func (client *Client) PagequeryDataassetTypeEx(request *PagequeryDataassetTypeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryDataassetTypeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryDataassetTypeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.dataasset.type.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -8206,6 +10501,74 @@ func (client *Client) BatchcreateEcarGreencertificategenerationEx(request *Batch
 	}
 	_result = &BatchcreateEcarGreencertificategenerationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.greencertificategeneration.batchcreate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 产品碳足迹速算请求提交
+ * Summary: 产品碳足迹速算请求提交
+ */
+func (client *Client) SubmitEcarLcacalc(request *SubmitEcarLcacalcRequest) (_result *SubmitEcarLcacalcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitEcarLcacalcResponse{}
+	_body, _err := client.SubmitEcarLcacalcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 产品碳足迹速算请求提交
+ * Summary: 产品碳足迹速算请求提交
+ */
+func (client *Client) SubmitEcarLcacalcEx(request *SubmitEcarLcacalcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitEcarLcacalcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitEcarLcacalcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.lcacalc.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 产品碳足迹速算结果查询
+ * Summary: 产品碳足迹速算结果查询
+ */
+func (client *Client) QueryEcarLcacalc(request *QueryEcarLcacalcRequest) (_result *QueryEcarLcacalcResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEcarLcacalcResponse{}
+	_body, _err := client.QueryEcarLcacalcEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 产品碳足迹速算结果查询
+ * Summary: 产品碳足迹速算结果查询
+ */
+func (client *Client) QueryEcarLcacalcEx(request *QueryEcarLcacalcRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEcarLcacalcResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEcarLcacalcResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.lcacalc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
