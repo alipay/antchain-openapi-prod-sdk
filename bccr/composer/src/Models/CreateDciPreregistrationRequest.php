@@ -144,6 +144,12 @@ class CreateDciPreregistrationRequest extends Model
      * @var RecommendCategoryDetail[]
      */
     public $recommendCategoryList;
+
+    // 证书样式ID
+    /**
+     * @var string
+     */
+    public $customizeCertId;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -168,6 +174,7 @@ class CreateDciPreregistrationRequest extends Model
         'applyType'               => 'apply_type',
         'channelTerminal'         => 'channel_terminal',
         'recommendCategoryList'   => 'recommend_category_list',
+        'customizeCertId'         => 'customize_cert_id',
     ];
 
     public function validate()
@@ -264,6 +271,9 @@ class CreateDciPreregistrationRequest extends Model
                 }
             }
         }
+        if (null !== $this->customizeCertId) {
+            $res['customize_cert_id'] = $this->customizeCertId;
+        }
 
         return $res;
     }
@@ -352,6 +362,9 @@ class CreateDciPreregistrationRequest extends Model
                     $model->recommendCategoryList[$n++] = null !== $item ? RecommendCategoryDetail::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['customize_cert_id'])) {
+            $model->customizeCertId = $map['customize_cert_id'];
         }
 
         return $model;

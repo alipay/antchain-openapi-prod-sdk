@@ -111,6 +111,14 @@ class RecordScreenResult extends Model
      * @var string
      */
     public $errorMessage;
+
+    // 云桌面url
+    /**
+     * @example https://www.baidu.com
+     *
+     * @var string
+     */
+    public $operateUrl;
     protected $_name = [
         'evidenceType'       => 'evidence_type',
         'status'             => 'status',
@@ -125,6 +133,7 @@ class RecordScreenResult extends Model
         'evidenceEndTime'    => 'evidence_end_time',
         'errorCode'          => 'error_code',
         'errorMessage'       => 'error_message',
+        'operateUrl'         => 'operate_url',
     ];
 
     public function validate()
@@ -139,6 +148,7 @@ class RecordScreenResult extends Model
         Model::validateRequired('evidenceStartTime', $this->evidenceStartTime, true);
         Model::validateRequired('evidenceEndTime', $this->evidenceEndTime, true);
         Model::validateRequired('errorMessage', $this->errorMessage, true);
+        Model::validateRequired('operateUrl', $this->operateUrl, true);
     }
 
     public function toMap()
@@ -188,6 +198,9 @@ class RecordScreenResult extends Model
         }
         if (null !== $this->errorMessage) {
             $res['error_message'] = $this->errorMessage;
+        }
+        if (null !== $this->operateUrl) {
+            $res['operate_url'] = $this->operateUrl;
         }
 
         return $res;
@@ -245,6 +258,9 @@ class RecordScreenResult extends Model
         }
         if (isset($map['error_message'])) {
             $model->errorMessage = $map['error_message'];
+        }
+        if (isset($map['operate_url'])) {
+            $model->operateUrl = $map['operate_url'];
         }
 
         return $model;
