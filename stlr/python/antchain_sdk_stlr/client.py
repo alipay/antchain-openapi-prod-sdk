@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 数据值条目
+            # 阶段评估明细数据
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.7.4',
+                    'sdk_version': '2.8.1',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 数据值条目
+            # 阶段评估明细数据
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.7.4',
+                    'sdk_version': '2.8.1',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -1449,6 +1449,678 @@ class Client:
         return TeaCore.from_map(
             stlr_models.QueryPdcpDataResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.pdcp.data.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_pdcp_deposit(
+        self,
+        request: stlr_models.DetailPdcpDepositRequest,
+    ) -> stlr_models.DetailPdcpDepositResponse:
+        """
+        Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+        Summary: 查询存证数据详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_pdcp_deposit_ex(request, headers, runtime)
+
+    async def detail_pdcp_deposit_async(
+        self,
+        request: stlr_models.DetailPdcpDepositRequest,
+    ) -> stlr_models.DetailPdcpDepositResponse:
+        """
+        Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+        Summary: 查询存证数据详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_pdcp_deposit_ex_async(request, headers, runtime)
+
+    def detail_pdcp_deposit_ex(
+        self,
+        request: stlr_models.DetailPdcpDepositRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailPdcpDepositResponse:
+        """
+        Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+        Summary: 查询存证数据详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailPdcpDepositResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.deposit.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_pdcp_deposit_ex_async(
+        self,
+        request: stlr_models.DetailPdcpDepositRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.DetailPdcpDepositResponse:
+        """
+        Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+        Summary: 查询存证数据详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.DetailPdcpDepositResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.deposit.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdcp_dtrace(
+        self,
+        request: stlr_models.QueryPdcpDtraceRequest,
+    ) -> stlr_models.QueryPdcpDtraceResponse:
+        """
+        Description: 查询存证数据历史变更
+        Summary: 存证数据变更历史追溯查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdcp_dtrace_ex(request, headers, runtime)
+
+    async def query_pdcp_dtrace_async(
+        self,
+        request: stlr_models.QueryPdcpDtraceRequest,
+    ) -> stlr_models.QueryPdcpDtraceResponse:
+        """
+        Description: 查询存证数据历史变更
+        Summary: 存证数据变更历史追溯查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdcp_dtrace_ex_async(request, headers, runtime)
+
+    def query_pdcp_dtrace_ex(
+        self,
+        request: stlr_models.QueryPdcpDtraceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpDtraceResponse:
+        """
+        Description: 查询存证数据历史变更
+        Summary: 存证数据变更历史追溯查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpDtraceResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.dtrace.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdcp_dtrace_ex_async(
+        self,
+        request: stlr_models.QueryPdcpDtraceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpDtraceResponse:
+        """
+        Description: 查询存证数据历史变更
+        Summary: 存证数据变更历史追溯查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpDtraceResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.dtrace.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_pdcp_dtrace(
+        self,
+        request: stlr_models.CheckPdcpDtraceRequest,
+    ) -> stlr_models.CheckPdcpDtraceResponse:
+        """
+        Description: 通过链山存证内容校验存证数据可信性
+        Summary: 存证数据可信校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_pdcp_dtrace_ex(request, headers, runtime)
+
+    async def check_pdcp_dtrace_async(
+        self,
+        request: stlr_models.CheckPdcpDtraceRequest,
+    ) -> stlr_models.CheckPdcpDtraceResponse:
+        """
+        Description: 通过链山存证内容校验存证数据可信性
+        Summary: 存证数据可信校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_pdcp_dtrace_ex_async(request, headers, runtime)
+
+    def check_pdcp_dtrace_ex(
+        self,
+        request: stlr_models.CheckPdcpDtraceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CheckPdcpDtraceResponse:
+        """
+        Description: 通过链山存证内容校验存证数据可信性
+        Summary: 存证数据可信校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CheckPdcpDtraceResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.dtrace.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_pdcp_dtrace_ex_async(
+        self,
+        request: stlr_models.CheckPdcpDtraceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.CheckPdcpDtraceResponse:
+        """
+        Description: 通过链山存证内容校验存证数据可信性
+        Summary: 存证数据可信校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.CheckPdcpDtraceResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.dtrace.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_pdcp_data(
+        self,
+        request: stlr_models.BatchqueryPdcpDataRequest,
+    ) -> stlr_models.BatchqueryPdcpDataResponse:
+        """
+        Description: 根据授权方和被授权方授权关系批量查询授权数据
+        Summary: 批量查询授权数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_pdcp_data_ex(request, headers, runtime)
+
+    async def batchquery_pdcp_data_async(
+        self,
+        request: stlr_models.BatchqueryPdcpDataRequest,
+    ) -> stlr_models.BatchqueryPdcpDataResponse:
+        """
+        Description: 根据授权方和被授权方授权关系批量查询授权数据
+        Summary: 批量查询授权数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_pdcp_data_ex_async(request, headers, runtime)
+
+    def batchquery_pdcp_data_ex(
+        self,
+        request: stlr_models.BatchqueryPdcpDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.BatchqueryPdcpDataResponse:
+        """
+        Description: 根据授权方和被授权方授权关系批量查询授权数据
+        Summary: 批量查询授权数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.BatchqueryPdcpDataResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.data.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_pdcp_data_ex_async(
+        self,
+        request: stlr_models.BatchqueryPdcpDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.BatchqueryPdcpDataResponse:
+        """
+        Description: 根据授权方和被授权方授权关系批量查询授权数据
+        Summary: 批量查询授权数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.BatchqueryPdcpDataResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.data.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdcp_owndata(
+        self,
+        request: stlr_models.QueryPdcpOwndataRequest,
+    ) -> stlr_models.QueryPdcpOwndataResponse:
+        """
+        Description: 查询用户拥有的数据记录
+        Summary: 查询拥有的数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdcp_owndata_ex(request, headers, runtime)
+
+    async def query_pdcp_owndata_async(
+        self,
+        request: stlr_models.QueryPdcpOwndataRequest,
+    ) -> stlr_models.QueryPdcpOwndataResponse:
+        """
+        Description: 查询用户拥有的数据记录
+        Summary: 查询拥有的数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdcp_owndata_ex_async(request, headers, runtime)
+
+    def query_pdcp_owndata_ex(
+        self,
+        request: stlr_models.QueryPdcpOwndataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpOwndataResponse:
+        """
+        Description: 查询用户拥有的数据记录
+        Summary: 查询拥有的数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpOwndataResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.owndata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdcp_owndata_ex_async(
+        self,
+        request: stlr_models.QueryPdcpOwndataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpOwndataResponse:
+        """
+        Description: 查询用户拥有的数据记录
+        Summary: 查询拥有的数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpOwndataResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.owndata.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_pdcp_dataasset(
+        self,
+        request: stlr_models.QueryPdcpDataassetRequest,
+    ) -> stlr_models.QueryPdcpDataassetResponse:
+        """
+        Description: 分页查询数据资产
+        Summary: 数据资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_pdcp_dataasset_ex(request, headers, runtime)
+
+    async def query_pdcp_dataasset_async(
+        self,
+        request: stlr_models.QueryPdcpDataassetRequest,
+    ) -> stlr_models.QueryPdcpDataassetResponse:
+        """
+        Description: 分页查询数据资产
+        Summary: 数据资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_pdcp_dataasset_ex_async(request, headers, runtime)
+
+    def query_pdcp_dataasset_ex(
+        self,
+        request: stlr_models.QueryPdcpDataassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpDataassetResponse:
+        """
+        Description: 分页查询数据资产
+        Summary: 数据资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpDataassetResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.dataasset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_pdcp_dataasset_ex_async(
+        self,
+        request: stlr_models.QueryPdcpDataassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryPdcpDataassetResponse:
+        """
+        Description: 分页查询数据资产
+        Summary: 数据资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryPdcpDataassetResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.dataasset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_pdcp_dataasset(
+        self,
+        request: stlr_models.RegisterPdcpDataassetRequest,
+    ) -> stlr_models.RegisterPdcpDataassetResponse:
+        """
+        Description: 注册数据资产
+        Summary: 注册数据资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_pdcp_dataasset_ex(request, headers, runtime)
+
+    async def register_pdcp_dataasset_async(
+        self,
+        request: stlr_models.RegisterPdcpDataassetRequest,
+    ) -> stlr_models.RegisterPdcpDataassetResponse:
+        """
+        Description: 注册数据资产
+        Summary: 注册数据资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_pdcp_dataasset_ex_async(request, headers, runtime)
+
+    def register_pdcp_dataasset_ex(
+        self,
+        request: stlr_models.RegisterPdcpDataassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.RegisterPdcpDataassetResponse:
+        """
+        Description: 注册数据资产
+        Summary: 注册数据资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.RegisterPdcpDataassetResponse(),
+            self.do_request('1.0', 'antchain.carbon.pdcp.dataasset.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_pdcp_dataasset_ex_async(
+        self,
+        request: stlr_models.RegisterPdcpDataassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.RegisterPdcpDataassetResponse:
+        """
+        Description: 注册数据资产
+        Summary: 注册数据资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.RegisterPdcpDataassetResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.pdcp.dataasset.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_auth_admin(
+        self,
+        request: stlr_models.AddAuthAdminRequest,
+    ) -> stlr_models.AddAuthAdminResponse:
+        """
+        Description: 添加数据授权策略
+        Summary: 添加数据授权策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_auth_admin_ex(request, headers, runtime)
+
+    async def add_auth_admin_async(
+        self,
+        request: stlr_models.AddAuthAdminRequest,
+    ) -> stlr_models.AddAuthAdminResponse:
+        """
+        Description: 添加数据授权策略
+        Summary: 添加数据授权策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_auth_admin_ex_async(request, headers, runtime)
+
+    def add_auth_admin_ex(
+        self,
+        request: stlr_models.AddAuthAdminRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddAuthAdminResponse:
+        """
+        Description: 添加数据授权策略
+        Summary: 添加数据授权策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddAuthAdminResponse(),
+            self.do_request('1.0', 'antchain.carbon.auth.admin.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_auth_admin_ex_async(
+        self,
+        request: stlr_models.AddAuthAdminRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddAuthAdminResponse:
+        """
+        Description: 添加数据授权策略
+        Summary: 添加数据授权策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddAuthAdminResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.auth.admin.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_auth_admin(
+        self,
+        request: stlr_models.PagequeryAuthAdminRequest,
+    ) -> stlr_models.PagequeryAuthAdminResponse:
+        """
+        Description: 分页查询数据授权策略
+        Summary: 分页查询数据授权策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_auth_admin_ex(request, headers, runtime)
+
+    async def pagequery_auth_admin_async(
+        self,
+        request: stlr_models.PagequeryAuthAdminRequest,
+    ) -> stlr_models.PagequeryAuthAdminResponse:
+        """
+        Description: 分页查询数据授权策略
+        Summary: 分页查询数据授权策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_auth_admin_ex_async(request, headers, runtime)
+
+    def pagequery_auth_admin_ex(
+        self,
+        request: stlr_models.PagequeryAuthAdminRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PagequeryAuthAdminResponse:
+        """
+        Description: 分页查询数据授权策略
+        Summary: 分页查询数据授权策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PagequeryAuthAdminResponse(),
+            self.do_request('1.0', 'antchain.carbon.auth.admin.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_auth_admin_ex_async(
+        self,
+        request: stlr_models.PagequeryAuthAdminRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PagequeryAuthAdminResponse:
+        """
+        Description: 分页查询数据授权策略
+        Summary: 分页查询数据授权策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PagequeryAuthAdminResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.auth.admin.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_admin(
+        self,
+        request: stlr_models.QueryAuthAdminRequest,
+    ) -> stlr_models.QueryAuthAdminResponse:
+        """
+        Description: 查询数据授权策略
+        Summary: 查询数据授权策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_admin_ex(request, headers, runtime)
+
+    async def query_auth_admin_async(
+        self,
+        request: stlr_models.QueryAuthAdminRequest,
+    ) -> stlr_models.QueryAuthAdminResponse:
+        """
+        Description: 查询数据授权策略
+        Summary: 查询数据授权策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_admin_ex_async(request, headers, runtime)
+
+    def query_auth_admin_ex(
+        self,
+        request: stlr_models.QueryAuthAdminRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryAuthAdminResponse:
+        """
+        Description: 查询数据授权策略
+        Summary: 查询数据授权策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryAuthAdminResponse(),
+            self.do_request('1.0', 'antchain.carbon.auth.admin.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_admin_ex_async(
+        self,
+        request: stlr_models.QueryAuthAdminRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryAuthAdminResponse:
+        """
+        Description: 查询数据授权策略
+        Summary: 查询数据授权策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryAuthAdminResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.auth.admin.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_dataasset_type(
+        self,
+        request: stlr_models.AddDataassetTypeRequest,
+    ) -> stlr_models.AddDataassetTypeResponse:
+        """
+        Description: 数据资产添加数据类型
+        Summary: 添加数据类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_dataasset_type_ex(request, headers, runtime)
+
+    async def add_dataasset_type_async(
+        self,
+        request: stlr_models.AddDataassetTypeRequest,
+    ) -> stlr_models.AddDataassetTypeResponse:
+        """
+        Description: 数据资产添加数据类型
+        Summary: 添加数据类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_dataasset_type_ex_async(request, headers, runtime)
+
+    def add_dataasset_type_ex(
+        self,
+        request: stlr_models.AddDataassetTypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddDataassetTypeResponse:
+        """
+        Description: 数据资产添加数据类型
+        Summary: 添加数据类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddDataassetTypeResponse(),
+            self.do_request('1.0', 'antchain.carbon.dataasset.type.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_dataasset_type_ex_async(
+        self,
+        request: stlr_models.AddDataassetTypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.AddDataassetTypeResponse:
+        """
+        Description: 数据资产添加数据类型
+        Summary: 添加数据类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.AddDataassetTypeResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.dataasset.type.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_dataasset_type(
+        self,
+        request: stlr_models.PagequeryDataassetTypeRequest,
+    ) -> stlr_models.PagequeryDataassetTypeResponse:
+        """
+        Description: 分页查询数据资产类型
+        Summary: 分页查询数据资产类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_dataasset_type_ex(request, headers, runtime)
+
+    async def pagequery_dataasset_type_async(
+        self,
+        request: stlr_models.PagequeryDataassetTypeRequest,
+    ) -> stlr_models.PagequeryDataassetTypeResponse:
+        """
+        Description: 分页查询数据资产类型
+        Summary: 分页查询数据资产类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_dataasset_type_ex_async(request, headers, runtime)
+
+    def pagequery_dataasset_type_ex(
+        self,
+        request: stlr_models.PagequeryDataassetTypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PagequeryDataassetTypeResponse:
+        """
+        Description: 分页查询数据资产类型
+        Summary: 分页查询数据资产类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PagequeryDataassetTypeResponse(),
+            self.do_request('1.0', 'antchain.carbon.dataasset.type.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_dataasset_type_ex_async(
+        self,
+        request: stlr_models.PagequeryDataassetTypeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.PagequeryDataassetTypeResponse:
+        """
+        Description: 分页查询数据资产类型
+        Summary: 分页查询数据资产类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.PagequeryDataassetTypeResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.dataasset.type.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_ecar_avitivedata(
@@ -2917,6 +3589,118 @@ class Client:
         return TeaCore.from_map(
             stlr_models.BatchcreateEcarGreencertificategenerationResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.greencertificategeneration.batchcreate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ecar_lcacalc(
+        self,
+        request: stlr_models.SubmitEcarLcacalcRequest,
+    ) -> stlr_models.SubmitEcarLcacalcResponse:
+        """
+        Description: 产品碳足迹速算请求提交
+        Summary: 产品碳足迹速算请求提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ecar_lcacalc_ex(request, headers, runtime)
+
+    async def submit_ecar_lcacalc_async(
+        self,
+        request: stlr_models.SubmitEcarLcacalcRequest,
+    ) -> stlr_models.SubmitEcarLcacalcResponse:
+        """
+        Description: 产品碳足迹速算请求提交
+        Summary: 产品碳足迹速算请求提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ecar_lcacalc_ex_async(request, headers, runtime)
+
+    def submit_ecar_lcacalc_ex(
+        self,
+        request: stlr_models.SubmitEcarLcacalcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.SubmitEcarLcacalcResponse:
+        """
+        Description: 产品碳足迹速算请求提交
+        Summary: 产品碳足迹速算请求提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.SubmitEcarLcacalcResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.lcacalc.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ecar_lcacalc_ex_async(
+        self,
+        request: stlr_models.SubmitEcarLcacalcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.SubmitEcarLcacalcResponse:
+        """
+        Description: 产品碳足迹速算请求提交
+        Summary: 产品碳足迹速算请求提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.SubmitEcarLcacalcResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.lcacalc.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ecar_lcacalc(
+        self,
+        request: stlr_models.QueryEcarLcacalcRequest,
+    ) -> stlr_models.QueryEcarLcacalcResponse:
+        """
+        Description: 产品碳足迹速算结果查询
+        Summary: 产品碳足迹速算结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ecar_lcacalc_ex(request, headers, runtime)
+
+    async def query_ecar_lcacalc_async(
+        self,
+        request: stlr_models.QueryEcarLcacalcRequest,
+    ) -> stlr_models.QueryEcarLcacalcResponse:
+        """
+        Description: 产品碳足迹速算结果查询
+        Summary: 产品碳足迹速算结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ecar_lcacalc_ex_async(request, headers, runtime)
+
+    def query_ecar_lcacalc_ex(
+        self,
+        request: stlr_models.QueryEcarLcacalcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEcarLcacalcResponse:
+        """
+        Description: 产品碳足迹速算结果查询
+        Summary: 产品碳足迹速算结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEcarLcacalcResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.lcacalc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ecar_lcacalc_ex_async(
+        self,
+        request: stlr_models.QueryEcarLcacalcRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryEcarLcacalcResponse:
+        """
+        Description: 产品碳足迹速算结果查询
+        Summary: 产品碳足迹速算结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryEcarLcacalcResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.lcacalc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
