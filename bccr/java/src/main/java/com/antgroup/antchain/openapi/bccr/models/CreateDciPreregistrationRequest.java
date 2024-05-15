@@ -107,6 +107,10 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     @NameInMap("recommend_category_list")
     public java.util.List<RecommendCategoryDetail> recommendCategoryList;
 
+    // 证书样式ID
+    @NameInMap("customize_cert_id")
+    public String customizeCertId;
+
     public static CreateDciPreregistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciPreregistrationRequest self = new CreateDciPreregistrationRequest();
         return TeaModel.build(map, self);
@@ -294,6 +298,14 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     }
     public java.util.List<RecommendCategoryDetail> getRecommendCategoryList() {
         return this.recommendCategoryList;
+    }
+
+    public CreateDciPreregistrationRequest setCustomizeCertId(String customizeCertId) {
+        this.customizeCertId = customizeCertId;
+        return this;
+    }
+    public String getCustomizeCertId() {
+        return this.customizeCertId;
     }
 
 }

@@ -66,6 +66,11 @@ public class RecordScreenResult extends TeaModel {
     @Validation(required = true)
     public String errorMessage;
 
+    // 云桌面url
+    @NameInMap("operate_url")
+    @Validation(required = true)
+    public String operateUrl;
+
     public static RecordScreenResult build(java.util.Map<String, ?> map) throws Exception {
         RecordScreenResult self = new RecordScreenResult();
         return TeaModel.build(map, self);
@@ -173,6 +178,14 @@ public class RecordScreenResult extends TeaModel {
     }
     public String getErrorMessage() {
         return this.errorMessage;
+    }
+
+    public RecordScreenResult setOperateUrl(String operateUrl) {
+        this.operateUrl = operateUrl;
+        return this;
+    }
+    public String getOperateUrl() {
+        return this.operateUrl;
     }
 
 }
