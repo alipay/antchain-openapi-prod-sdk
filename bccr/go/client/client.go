@@ -2427,6 +2427,8 @@ type RecordScreenResult struct {
 	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
 	// 错误信息
 	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty" require:"true"`
+	// 云桌面url
+	OperateUrl *string `json:"operate_url,omitempty" xml:"operate_url,omitempty" require:"true"`
 }
 
 func (s RecordScreenResult) String() string {
@@ -2499,6 +2501,11 @@ func (s *RecordScreenResult) SetErrorCode(v string) *RecordScreenResult {
 
 func (s *RecordScreenResult) SetErrorMessage(v string) *RecordScreenResult {
 	s.ErrorMessage = &v
+	return s
+}
+
+func (s *RecordScreenResult) SetOperateUrl(v string) *RecordScreenResult {
+	s.OperateUrl = &v
 	return s
 }
 
@@ -7043,6 +7050,8 @@ type CreateDciPreregistrationRequest struct {
 	ChannelTerminal *string `json:"channel_terminal,omitempty" xml:"channel_terminal,omitempty"`
 	// 推荐分类明细信息
 	RecommendCategoryList []*RecommendCategoryDetail `json:"recommend_category_list,omitempty" xml:"recommend_category_list,omitempty" type:"Repeated"`
+	// 证书样式ID
+	CustomizeCertId *string `json:"customize_cert_id,omitempty" xml:"customize_cert_id,omitempty"`
 }
 
 func (s CreateDciPreregistrationRequest) String() string {
@@ -7165,6 +7174,11 @@ func (s *CreateDciPreregistrationRequest) SetChannelTerminal(v string) *CreateDc
 
 func (s *CreateDciPreregistrationRequest) SetRecommendCategoryList(v []*RecommendCategoryDetail) *CreateDciPreregistrationRequest {
 	s.RecommendCategoryList = v
+	return s
+}
+
+func (s *CreateDciPreregistrationRequest) SetCustomizeCertId(v string) *CreateDciPreregistrationRequest {
+	s.CustomizeCertId = &v
 	return s
 }
 
@@ -13322,7 +13336,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.33"),
+				"sdk_version":      tea.String("1.18.35"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
