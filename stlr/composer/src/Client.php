@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\STLR\Models\AddAuthAdminRequest;
+use AntChain\STLR\Models\AddAuthAdminResponse;
+use AntChain\STLR\Models\AddDataassetTypeRequest;
+use AntChain\STLR\Models\AddDataassetTypeResponse;
 use AntChain\STLR\Models\AddEcarAvitivedataRequest;
 use AntChain\STLR\Models\AddEcarAvitivedataResponse;
 use AntChain\STLR\Models\AddEcarGreenoperationRequest;
@@ -25,6 +29,10 @@ use AntChain\STLR\Models\AuthEcarOffsetdatumRequest;
 use AntChain\STLR\Models\AuthEcarOffsetdatumResponse;
 use AntChain\STLR\Models\BatchcreateEcarGreencertificategenerationRequest;
 use AntChain\STLR\Models\BatchcreateEcarGreencertificategenerationResponse;
+use AntChain\STLR\Models\BatchqueryPdcpDataRequest;
+use AntChain\STLR\Models\BatchqueryPdcpDataResponse;
+use AntChain\STLR\Models\CheckPdcpDtraceRequest;
+use AntChain\STLR\Models\CheckPdcpDtraceResponse;
 use AntChain\STLR\Models\CountEcarActivedataRequest;
 use AntChain\STLR\Models\CountEcarActivedataResponse;
 use AntChain\STLR\Models\CountEcarGreenoperationRequest;
@@ -49,6 +57,8 @@ use AntChain\STLR\Models\DetailEcarOffsetdatumRequest;
 use AntChain\STLR\Models\DetailEcarOffsetdatumResponse;
 use AntChain\STLR\Models\DetailEcarOffsettranslateRequest;
 use AntChain\STLR\Models\DetailEcarOffsettranslateResponse;
+use AntChain\STLR\Models\DetailPdcpDepositRequest;
+use AntChain\STLR\Models\DetailPdcpDepositResponse;
 use AntChain\STLR\Models\GetEcarPlaformauthtokenRequest;
 use AntChain\STLR\Models\GetEcarPlaformauthtokenResponse;
 use AntChain\STLR\Models\GetPdcpBlockchainRequest;
@@ -59,12 +69,20 @@ use AntChain\STLR\Models\ListEcarGreenoperationRequest;
 use AntChain\STLR\Models\ListEcarGreenoperationResponse;
 use AntChain\STLR\Models\ListEcarOffsetdatumRequest;
 use AntChain\STLR\Models\ListEcarOffsetdatumResponse;
+use AntChain\STLR\Models\PagequeryAuthAdminRequest;
+use AntChain\STLR\Models\PagequeryAuthAdminResponse;
+use AntChain\STLR\Models\PagequeryDataassetTypeRequest;
+use AntChain\STLR\Models\PagequeryDataassetTypeResponse;
 use AntChain\STLR\Models\PreviewEcarAvitivedataRequest;
 use AntChain\STLR\Models\PreviewEcarAvitivedataResponse;
 use AntChain\STLR\Models\PreviewEcarOffsetdatumRequest;
 use AntChain\STLR\Models\PreviewEcarOffsetdatumResponse;
 use AntChain\STLR\Models\PushPdcpBlockchainRequest;
 use AntChain\STLR\Models\PushPdcpBlockchainResponse;
+use AntChain\STLR\Models\QueryAuthAdminRequest;
+use AntChain\STLR\Models\QueryAuthAdminResponse;
+use AntChain\STLR\Models\QueryEcarLcacalcRequest;
+use AntChain\STLR\Models\QueryEcarLcacalcResponse;
 use AntChain\STLR\Models\QueryEcarLcaorderRequest;
 use AntChain\STLR\Models\QueryEcarLcaorderResponse;
 use AntChain\STLR\Models\QueryEcarOffsetaccountRequest;
@@ -87,16 +105,26 @@ use AntChain\STLR\Models\QueryPdcpAccountRequest;
 use AntChain\STLR\Models\QueryPdcpAccountResponse;
 use AntChain\STLR\Models\QueryPdcpAuthRequest;
 use AntChain\STLR\Models\QueryPdcpAuthResponse;
+use AntChain\STLR\Models\QueryPdcpDataassetRequest;
+use AntChain\STLR\Models\QueryPdcpDataassetResponse;
 use AntChain\STLR\Models\QueryPdcpDataRequest;
 use AntChain\STLR\Models\QueryPdcpDataResponse;
+use AntChain\STLR\Models\QueryPdcpDtraceRequest;
+use AntChain\STLR\Models\QueryPdcpDtraceResponse;
+use AntChain\STLR\Models\QueryPdcpOwndataRequest;
+use AntChain\STLR\Models\QueryPdcpOwndataResponse;
 use AntChain\STLR\Models\QueryThirdCertRequest;
 use AntChain\STLR\Models\QueryThirdCertResponse;
 use AntChain\STLR\Models\RegisterEcarEnterprisememberRequest;
 use AntChain\STLR\Models\RegisterEcarEnterprisememberResponse;
 use AntChain\STLR\Models\RegisterPdcpAccountRequest;
 use AntChain\STLR\Models\RegisterPdcpAccountResponse;
+use AntChain\STLR\Models\RegisterPdcpDataassetRequest;
+use AntChain\STLR\Models\RegisterPdcpDataassetResponse;
 use AntChain\STLR\Models\SubmitEcarLcaassementRequest;
 use AntChain\STLR\Models\SubmitEcarLcaassementResponse;
+use AntChain\STLR\Models\SubmitEcarLcacalcRequest;
+use AntChain\STLR\Models\SubmitEcarLcacalcResponse;
 use AntChain\STLR\Models\SubmitEcarLcaorderwithcustomerRequest;
 use AntChain\STLR\Models\SubmitEcarLcaorderwithcustomerResponse;
 use AntChain\STLR\Models\UpdatePdcpAuthRequest;
@@ -226,7 +254,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 数据值条目
+            // 阶段评估明细数据
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -254,7 +282,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.7.4',
+                    'sdk_version'      => '2.8.1',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -993,6 +1021,402 @@ class Client
         Utils::validateModel($request);
 
         return QueryPdcpDataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.data.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+     * Summary: 查询存证数据详情.
+     *
+     * @param DetailPdcpDepositRequest $request
+     *
+     * @return DetailPdcpDepositResponse
+     */
+    public function detailPdcpDeposit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailPdcpDepositEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+     * Summary: 查询存证数据详情.
+     *
+     * @param DetailPdcpDepositRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return DetailPdcpDepositResponse
+     */
+    public function detailPdcpDepositEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailPdcpDepositResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.deposit.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询存证数据历史变更
+     * Summary: 存证数据变更历史追溯查询.
+     *
+     * @param QueryPdcpDtraceRequest $request
+     *
+     * @return QueryPdcpDtraceResponse
+     */
+    public function queryPdcpDtrace($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdcpDtraceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询存证数据历史变更
+     * Summary: 存证数据变更历史追溯查询.
+     *
+     * @param QueryPdcpDtraceRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryPdcpDtraceResponse
+     */
+    public function queryPdcpDtraceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdcpDtraceResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.dtrace.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过链山存证内容校验存证数据可信性
+     * Summary: 存证数据可信校验.
+     *
+     * @param CheckPdcpDtraceRequest $request
+     *
+     * @return CheckPdcpDtraceResponse
+     */
+    public function checkPdcpDtrace($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkPdcpDtraceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过链山存证内容校验存证数据可信性
+     * Summary: 存证数据可信校验.
+     *
+     * @param CheckPdcpDtraceRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CheckPdcpDtraceResponse
+     */
+    public function checkPdcpDtraceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckPdcpDtraceResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.dtrace.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据授权方和被授权方授权关系批量查询授权数据
+     * Summary: 批量查询授权数据.
+     *
+     * @param BatchqueryPdcpDataRequest $request
+     *
+     * @return BatchqueryPdcpDataResponse
+     */
+    public function batchqueryPdcpData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryPdcpDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据授权方和被授权方授权关系批量查询授权数据
+     * Summary: 批量查询授权数据.
+     *
+     * @param BatchqueryPdcpDataRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return BatchqueryPdcpDataResponse
+     */
+    public function batchqueryPdcpDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryPdcpDataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.data.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询用户拥有的数据记录
+     * Summary: 查询拥有的数据.
+     *
+     * @param QueryPdcpOwndataRequest $request
+     *
+     * @return QueryPdcpOwndataResponse
+     */
+    public function queryPdcpOwndata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdcpOwndataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询用户拥有的数据记录
+     * Summary: 查询拥有的数据.
+     *
+     * @param QueryPdcpOwndataRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryPdcpOwndataResponse
+     */
+    public function queryPdcpOwndataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdcpOwndataResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.owndata.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询数据资产
+     * Summary: 数据资产.
+     *
+     * @param QueryPdcpDataassetRequest $request
+     *
+     * @return QueryPdcpDataassetResponse
+     */
+    public function queryPdcpDataasset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPdcpDataassetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询数据资产
+     * Summary: 数据资产.
+     *
+     * @param QueryPdcpDataassetRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryPdcpDataassetResponse
+     */
+    public function queryPdcpDataassetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPdcpDataassetResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.dataasset.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 注册数据资产
+     * Summary: 注册数据资产.
+     *
+     * @param RegisterPdcpDataassetRequest $request
+     *
+     * @return RegisterPdcpDataassetResponse
+     */
+    public function registerPdcpDataasset($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerPdcpDataassetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 注册数据资产
+     * Summary: 注册数据资产.
+     *
+     * @param RegisterPdcpDataassetRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return RegisterPdcpDataassetResponse
+     */
+    public function registerPdcpDataassetEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterPdcpDataassetResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.pdcp.dataasset.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 添加数据授权策略
+     * Summary: 添加数据授权策略.
+     *
+     * @param AddAuthAdminRequest $request
+     *
+     * @return AddAuthAdminResponse
+     */
+    public function addAuthAdmin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addAuthAdminEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 添加数据授权策略
+     * Summary: 添加数据授权策略.
+     *
+     * @param AddAuthAdminRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return AddAuthAdminResponse
+     */
+    public function addAuthAdminEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddAuthAdminResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.auth.admin.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询数据授权策略
+     * Summary: 分页查询数据授权策略.
+     *
+     * @param PagequeryAuthAdminRequest $request
+     *
+     * @return PagequeryAuthAdminResponse
+     */
+    public function pagequeryAuthAdmin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryAuthAdminEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询数据授权策略
+     * Summary: 分页查询数据授权策略.
+     *
+     * @param PagequeryAuthAdminRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return PagequeryAuthAdminResponse
+     */
+    public function pagequeryAuthAdminEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryAuthAdminResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.auth.admin.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询数据授权策略
+     * Summary: 查询数据授权策略.
+     *
+     * @param QueryAuthAdminRequest $request
+     *
+     * @return QueryAuthAdminResponse
+     */
+    public function queryAuthAdmin($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthAdminEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询数据授权策略
+     * Summary: 查询数据授权策略.
+     *
+     * @param QueryAuthAdminRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryAuthAdminResponse
+     */
+    public function queryAuthAdminEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthAdminResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.auth.admin.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据资产添加数据类型
+     * Summary: 添加数据类型.
+     *
+     * @param AddDataassetTypeRequest $request
+     *
+     * @return AddDataassetTypeResponse
+     */
+    public function addDataassetType($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addDataassetTypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据资产添加数据类型
+     * Summary: 添加数据类型.
+     *
+     * @param AddDataassetTypeRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return AddDataassetTypeResponse
+     */
+    public function addDataassetTypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddDataassetTypeResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.dataasset.type.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询数据资产类型
+     * Summary: 分页查询数据资产类型.
+     *
+     * @param PagequeryDataassetTypeRequest $request
+     *
+     * @return PagequeryDataassetTypeResponse
+     */
+    public function pagequeryDataassetType($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryDataassetTypeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询数据资产类型
+     * Summary: 分页查询数据资产类型.
+     *
+     * @param PagequeryDataassetTypeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PagequeryDataassetTypeResponse
+     */
+    public function pagequeryDataassetTypeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryDataassetTypeResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.dataasset.type.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1854,6 +2278,72 @@ class Client
         Utils::validateModel($request);
 
         return BatchcreateEcarGreencertificategenerationResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.greencertificategeneration.batchcreate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品碳足迹速算请求提交
+     * Summary: 产品碳足迹速算请求提交.
+     *
+     * @param SubmitEcarLcacalcRequest $request
+     *
+     * @return SubmitEcarLcacalcResponse
+     */
+    public function submitEcarLcacalc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitEcarLcacalcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品碳足迹速算请求提交
+     * Summary: 产品碳足迹速算请求提交.
+     *
+     * @param SubmitEcarLcacalcRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return SubmitEcarLcacalcResponse
+     */
+    public function submitEcarLcacalcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitEcarLcacalcResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.lcacalc.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 产品碳足迹速算结果查询
+     * Summary: 产品碳足迹速算结果查询.
+     *
+     * @param QueryEcarLcacalcRequest $request
+     *
+     * @return QueryEcarLcacalcResponse
+     */
+    public function queryEcarLcacalc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEcarLcacalcEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 产品碳足迹速算结果查询
+     * Summary: 产品碳足迹速算结果查询.
+     *
+     * @param QueryEcarLcacalcRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryEcarLcacalcResponse
+     */
+    public function queryEcarLcacalcEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEcarLcacalcResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.lcacalc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
