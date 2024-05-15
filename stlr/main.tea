@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.7.4',
+    sdk_version = '2.8.1',
     _prod_code = 'STLR',
     _prod_channel = 'undefined'
   };
@@ -161,6 +161,62 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 阶段评估明细数据
+model EnterpriseLcaAssessmentItem {
+  // 物料编码
+  materialCode: string(name='material_code', example='0601020000'),
+  // 数据明细名称
+  assessmentItemName: string(name='assessment_item_name', example='煤炭'),
+  // 物料直接碳排放评估量
+  emissionAmount: string(name='emission_amount', example='0'),
+  // 物料运输碳排放评估量
+  transportEmissionAmount: string(name='transport_emission_amount', example='123.1'),
+}
+
+// 运输信息
+model TransportActiveData {
+  // 运输方式编码
+  transportCode: string(name='transport_code', example='5201000000'),
+  // 运输设备
+  equipment: string(name='equipment', example='KCTC'),
+  // 运输里程
+  distance: string(name='distance', example='200'),
+  // 是否空载
+  isEmptyLoad?: boolean(name='is_empty_load', example='true, false'),
+}
+
+// 阶段评估数据明细
+model EnterpriseLcaStageAssessmentItem {
+  // LCA阶段
+  lcaStage: string(name='lca_stage', example='ProductManufacture'),
+  // 阶段排放占比
+  lcaStageCarbonRate: string(name='lca_stage_carbon_rate', example='1'),
+  // 阶段排放量
+  lcaStageCarbonEmissions: string(name='lca_stage_carbon_emissions', example='123.12'),
+  // 阶段评估明细数据
+  lcaAssessmentDatum: [ EnterpriseLcaAssessmentItem ](name='lca_assessment_datum', example=''),
+}
+
+// 存证数据字段值
+model DepositFieldValue {
+  // 存证数据字段名
+  name: string(name='name', example='distance'),
+  // 存证数据字段值
+  value?: string(name='value', example='10.0'),
+}
+
+// 输入流活动数据
+model InputStreamActiveData {
+  // 物料编码
+  materialCode: string(name='material_code', example='0601020000'),
+  // 用量，非负，最多6位小数
+  amount: string(name='amount', example='100'),
+  // 单位
+  unit: string(name='unit', example='KG'),
+  // 运输信息列表
+  transportList?: [ TransportActiveData ](name='transport_list', example=''),
+}
+
 // 数据值条目
 model AnyAmountItem {
   // 数据项编码
@@ -188,6 +244,22 @@ model LcaStageCarbonItem {
   lcaStageCode: string(name='lca_stage_code', example='MaterialPurchase'),
   // 阶段碳排放量
   lcaStageCarbonAmount: string(name='lca_stage_carbon_amount', example='223.23'),
+}
+
+// 输出流活动数据
+model OutputStreamActiveData {
+  // 物料编码
+  materialCode: string(name='material_code', example='0102010000'),
+  // 用量，非负，最多6位小数
+  amount: string(name='amount', example='200.12'),
+  // 单位
+  unit: string(name='unit', example='KG'),
+  // 单价（仅产品用，产品不传时默认为空）
+  unitPrice?: string(name='unit_price', example='100'),
+  // 处置方式编码（仅废弃物用）
+  disposalTypeCode?: string(name='disposal_type_code', example='5201000000'),
+  // 运输信息列表（仅废弃物用）
+  transportList?: [ TransportActiveData ](name='transport_list', example=''),
 }
 
 // 文档信息
@@ -252,6 +324,20 @@ model CertProductInfoDO {
   authProducts?: [ CertProductAuthDO ](name='auth_products', example=''),
 }
 
+// Lca速算记录
+model LcaCalcResult {
+  // 速算记录编号
+  recordNo: string(name='record_no', example='0340340000000704'),
+  // 碳足迹排放量
+  carbonAmount: string(name='carbon_amount', example='123.12'),
+  // 各阶段评估数据明细
+  lcaStageAssessmentDatum: [ EnterpriseLcaStageAssessmentItem ](name='lca_stage_assessment_datum', example=''),
+  // 速算发起时间
+  recordDate: string(name='record_date', example='2024-05-01'),
+  // 自定义业务标识
+  customContext?: string(name='custom_context', example='bizNo001'),
+}
+
 //  每月的排放数据
 model AnnualMonthEmissionDatum {
   // 统计的年份
@@ -296,6 +382,18 @@ model DailyEmissions {
   value: long(name='value', example='11.22'),
 }
 
+// 数据资产信息
+model DataAssetInfo {
+  // 数据资产DID
+  datasetDid: string(name='dataset_did', example='111'),
+  // 数据资产所有方DID
+  userDid: string(name='user_did', example='111'),
+  // 数据资产名称
+  datasetName: string(name='dataset_name', example='企业固定化石燃料排放'),
+  // 数据类型
+  dataType: string(name='data_type', example='PERSONAL_GREEN_DATA_METRO'),
+}
+
 // 碳抵消统计量
 model EmissionCounteractionStatistics {
   // 碳抵消类别
@@ -328,6 +426,22 @@ model CarbonAccountInfo {
 model AccountRegisterResponse {
   // 账户did
   userDid: string(name='user_did', example='did:private:xxxcxxxxx'),
+}
+
+// 数据存证信息
+model DataDepositInfo {
+  // 存证字段值
+  dataValue: [ DepositFieldValue ](name='data_value', example=''),
+  // 数据存证区块链交易ID
+  txId?: string(name='tx_id', example='c5fcc677a0b04c62973c2dbc72jcus83271'),
+  // 数据存证操作用户ID
+  userId: string(name='user_id', example='user_001'),
+  // 存证数据内容
+  depositContent: string(name='deposit_content', example='待补充'),
+  // 存证执行状态
+  status: string(name='status', example='status'),
+  // 存证执行(发起)时间
+  timestamp: long(name='timestamp', example=''),
 }
 
 // 碳普惠补偿采集数据条目
@@ -432,6 +546,18 @@ model AnyKeywordItem {
   itemValue: string(name='item_value', example='各种按业务场景的取值'),
 }
 
+// 数据类型
+model DataTypeInfo {
+  // 数据类型编码
+  dataTypeNo: string(name='data_type_no', example='dataTypeNo'),
+  // 数据类型名称
+  dataTypeName: string(name='data_type_name', example='data_type_name'),
+  // 数据类型配置
+  dataTypeConfig: string(name='data_type_config', example='data_type_config'),
+  // 数据JSON格式检查
+  dataJsonSchema: string(name='data_json_schema', example='data_json_schema'),
+}
+
 // LCA碳足迹分析计算数据
 model LcaCarbonDatum {
   // LCA碳排放总量
@@ -448,6 +574,16 @@ model LcaCarbonDatum {
   lcaEndDate: string(name='lca_end_date', example='20231202'),
   // 分阶段碳排放量列表
   lcaStageCarbonDatum: [ LcaStageCarbonItem ](name='lca_stage_carbon_datum', example=''),
+}
+
+// 数据授权策略
+model AuthorizePolicy {
+  // 授权策略ID
+  policyId: string(name='policy_id', example='11'),
+  // 授权策略描述
+  description: string(name='description', example='11'),
+  // 授权策略配置
+  authorizeConfig: string(name='authorize_config', example='授权策略配置'),
 }
 
 // 产品概要信息
@@ -546,6 +682,16 @@ model EmissionsScopeStatistics {
   percentage: long(name='percentage', example='0.11'),
   // 范围下各分类排放数据
   categoryEmissionsList: [ EmissionsCategoryStatistics ](name='category_emissions_list', example=''),
+}
+
+// 生命周期阶段活动数据
+model LcaStageActiveData {
+  // LCA阶段
+  lcaStage: string(name='lca_stage', example='ProductManufacture'),
+  // 输入流活动数据列表
+  inputStreamList: [ InputStreamActiveData ](name='input_stream_list', example=''),
+  // 输出流活动数据列表
+  outputStreamList: [ OutputStreamActiveData ](name='output_stream_list', example=''),
 }
 
 // 按频率统计的绿色行为明细
@@ -1527,6 +1673,552 @@ async function queryPdcpData(request: QueryPdcpDataRequest): QueryPdcpDataRespon
 async function queryPdcpDataEx(request: QueryPdcpDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdcpDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.pdcp.data.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailPdcpDepositRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据类型名称，用户标识记录的数据类型。
+  dataType: string(name='data_type'),
+  // 存证数据ID，存证数据唯一标识ID。
+  dataId: string(name='data_id'),
+  // 数据存证区块链交易ID，对应数据版本号。 若未指定，返回最近的版本。
+  txId?: string(name='tx_id'),
+}
+
+model DetailPdcpDepositResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证数据类型
+  dataType?: string(name='data_type'),
+  // 存证数据唯一ID
+  dataId?: string(name='data_id'),
+  // 存证数据内容
+  depositData?: DataDepositInfo(name='deposit_data'),
+}
+
+/**
+ * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+ * Summary: 查询存证数据详情
+ */
+async function detailPdcpDeposit(request: DetailPdcpDepositRequest): DetailPdcpDepositResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailPdcpDepositEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+ * Summary: 查询存证数据详情
+ */
+async function detailPdcpDepositEx(request: DetailPdcpDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailPdcpDepositResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.deposit.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdcpDtraceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 存证数据类型名称
+  dataType: string(name='data_type'),
+  // 存证数据ID
+  dataId: string(name='data_id'),
+}
+
+model QueryPdcpDtraceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证数据类型名称
+  dataType?: string(name='data_type'),
+  // 存证数据ID
+  dataId?: string(name='data_id'),
+  // 存证数据版本列表
+  versions?: [ DataDepositInfo ](name='versions'),
+}
+
+/**
+ * Description: 查询存证数据历史变更
+ * Summary: 存证数据变更历史追溯查询
+ */
+async function queryPdcpDtrace(request: QueryPdcpDtraceRequest): QueryPdcpDtraceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdcpDtraceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询存证数据历史变更
+ * Summary: 存证数据变更历史追溯查询
+ */
+async function queryPdcpDtraceEx(request: QueryPdcpDtraceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdcpDtraceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.dtrace.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckPdcpDtraceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 存证数据类型名称
+  dataType: string(name='data_type'),
+  // 存证数据ID
+  dataId: string(name='data_id'),
+  // 存证操作区块链交易ID，即存证数据版本号。若未指定，检查当前最新版本。
+  txId?: string(name='tx_id'),
+}
+
+model CheckPdcpDtraceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证操作内容
+  depositData?: DataDepositInfo(name='deposit_data'),
+  // 区块链编号
+  blockNumber?: long(name='block_number'),
+  // 数据存证方式
+  depositType?: string(name='deposit_type'),
+  // 链上数据
+  onChainData?: string(name='on_chain_data'),
+  // 链下数据
+  offChainData?: string(name='off_chain_data'),
+  // 链上-链下数据是否一致
+  consistent?: boolean(name='consistent'),
+}
+
+/**
+ * Description: 通过链山存证内容校验存证数据可信性
+ * Summary: 存证数据可信校验
+ */
+async function checkPdcpDtrace(request: CheckPdcpDtraceRequest): CheckPdcpDtraceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkPdcpDtraceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过链山存证内容校验存证数据可信性
+ * Summary: 存证数据可信校验
+ */
+async function checkPdcpDtraceEx(request: CheckPdcpDtraceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckPdcpDtraceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.dtrace.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryPdcpDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务数据类型，查询该数据类型的授权数据
+  dataType: string(name='data_type'),
+  // 授权方身份ID，若指定查询该用户授权的数据
+  authorizerDid?: string(name='authorizer_did'),
+  // 被授权方身份ID，若指定查询授权给该用户的数据
+  authorizedDid?: string(name='authorized_did'),
+  // 当前页面，默认1
+  pageNumber: long(name='page_number'),
+  // 分页大小，默认20
+  pageSize?: long(name='page_size'),
+}
+
+model BatchqueryPdcpDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总记录条数
+  total?: long(name='total'),
+  // 当前页面
+  pageNumber?: long(name='page_number'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 数据列表
+  dataList?: [ string ](name='data_list'),
+}
+
+/**
+ * Description: 根据授权方和被授权方授权关系批量查询授权数据
+ * Summary: 批量查询授权数据
+ */
+async function batchqueryPdcpData(request: BatchqueryPdcpDataRequest): BatchqueryPdcpDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryPdcpDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据授权方和被授权方授权关系批量查询授权数据
+ * Summary: 批量查询授权数据
+ */
+async function batchqueryPdcpDataEx(request: BatchqueryPdcpDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryPdcpDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.data.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdcpOwndataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务数据类型
+  dataType: string(name='data_type'),
+  // 拥有数据的用户
+  userDid?: string(name='user_did'),
+  // 当前分页，默认1
+  pageNumber?: long(name='page_number'),
+  // 分页大小，默认20
+  pageSize?: long(name='page_size'),
+}
+
+model QueryPdcpOwndataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总记录条数
+  total?: long(name='total'),
+  // 当前分页
+  pageNumber?: long(name='page_number'),
+  // 分页大小
+  pageSize?: long(name='page_size'),
+  // 数据记录列表
+  dataList?: [ string ](name='data_list'),
+}
+
+/**
+ * Description: 查询用户拥有的数据记录
+ * Summary: 查询拥有的数据
+ */
+async function queryPdcpOwndata(request: QueryPdcpOwndataRequest): QueryPdcpOwndataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdcpOwndataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询用户拥有的数据记录
+ * Summary: 查询拥有的数据
+ */
+async function queryPdcpOwndataEx(request: QueryPdcpOwndataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdcpOwndataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.owndata.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPdcpDataassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页码，默认1
+  pageNumber?: long(name='page_number'),
+  // 页面大小，默认20
+  pageSize?: long(name='page_size'),
+  // 数据类型
+  dataTypeNo?: string(name='data_type_no'),
+  // 数据资产所有者
+  userDid?: string(name='user_did'),
+}
+
+model QueryPdcpDataassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总量
+  total?: long(name='total'),
+  // 当前页面
+  pageNumber?: long(name='page_number'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 数据资产信息
+  dataAssetList?: [ DataAssetInfo ](name='data_asset_list'),
+}
+
+/**
+ * Description: 分页查询数据资产
+ * Summary: 数据资产
+ */
+async function queryPdcpDataasset(request: QueryPdcpDataassetRequest): QueryPdcpDataassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPdcpDataassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询数据资产
+ * Summary: 数据资产
+ */
+async function queryPdcpDataassetEx(request: QueryPdcpDataassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdcpDataassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.dataasset.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterPdcpDataassetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据类型编码
+  dataTypeNo: string(name='data_type_no'),
+  // 数据资产所有者id
+  userDid: string(name='user_did'),
+}
+
+model RegisterPdcpDataassetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资产id
+  datasetId?: string(name='dataset_id'),
+}
+
+/**
+ * Description: 注册数据资产
+ * Summary: 注册数据资产
+ */
+async function registerPdcpDataasset(request: RegisterPdcpDataassetRequest): RegisterPdcpDataassetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerPdcpDataassetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 注册数据资产
+ * Summary: 注册数据资产
+ */
+async function registerPdcpDataassetEx(request: RegisterPdcpDataassetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterPdcpDataassetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.pdcp.dataasset.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddAuthAdminRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权策略ID
+  policyId: string(name='policy_id'),
+  // 授权策略描述
+  description: string(name='description'),
+  // 授权策略配置
+  authorizeConfig: string(name='authorize_config'),
+}
+
+model AddAuthAdminResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 添加数据授权策略
+ * Summary: 添加数据授权策略
+ */
+async function addAuthAdmin(request: AddAuthAdminRequest): AddAuthAdminResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addAuthAdminEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加数据授权策略
+ * Summary: 添加数据授权策略
+ */
+async function addAuthAdminEx(request: AddAuthAdminRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddAuthAdminResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.auth.admin.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryAuthAdminRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前查询页数
+  pageNumber?: long(name='page_number'),
+  // 每页记录条数，默认为20
+  pageSize?: long(name='page_size'),
+}
+
+model PagequeryAuthAdminResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权策略配置
+  authorizePolicyList?: [ AuthorizePolicy ](name='authorize_policy_list'),
+  // 总数量
+  total?: long(name='total'),
+  // 当前页
+  pageNumber?: long(name='page_number'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+}
+
+/**
+ * Description: 分页查询数据授权策略
+ * Summary: 分页查询数据授权策略
+ */
+async function pagequeryAuthAdmin(request: PagequeryAuthAdminRequest): PagequeryAuthAdminResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryAuthAdminEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询数据授权策略
+ * Summary: 分页查询数据授权策略
+ */
+async function pagequeryAuthAdminEx(request: PagequeryAuthAdminRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryAuthAdminResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.auth.admin.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthAdminRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据授权策略ID
+  policyId?: string(name='policy_id'),
+}
+
+model QueryAuthAdminResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 授权策略
+  data?: AuthorizePolicy(name='data'),
+}
+
+/**
+ * Description: 查询数据授权策略
+ * Summary: 查询数据授权策略
+ */
+async function queryAuthAdmin(request: QueryAuthAdminRequest): QueryAuthAdminResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthAdminEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询数据授权策略
+ * Summary: 查询数据授权策略
+ */
+async function queryAuthAdminEx(request: QueryAuthAdminRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthAdminResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.auth.admin.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddDataassetTypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数据类型编码
+  dataTypeNo: string(name='data_type_no'),
+  // 数据类型名称
+  dataTypeName: string(name='data_type_name'),
+  // 数据类型配置
+  dataTypeConfig: string(name='data_type_config'),
+  // 数据JSON格式检查
+  dataJsonSchema: string(name='data_json_schema'),
+}
+
+model AddDataassetTypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 数据资产添加数据类型
+ * Summary: 添加数据类型
+ */
+async function addDataassetType(request: AddDataassetTypeRequest): AddDataassetTypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addDataassetTypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据资产添加数据类型
+ * Summary: 添加数据类型
+ */
+async function addDataassetTypeEx(request: AddDataassetTypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddDataassetTypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.dataasset.type.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryDataassetTypeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前查询页数
+  pageNumber?: long(name='page_number'),
+  // 每页记录条数，默认为20
+  pageSize?: long(name='page_size'),
+}
+
+model PagequeryDataassetTypeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // DataTypeInfo
+  dataTypeInfo?: [ DataTypeInfo ](name='data_type_info'),
+  // 总数量
+  total?: long(name='total'),
+  // 1
+  pageNumber?: long(name='page_number'),
+  // pageSize
+  pageSize?: long(name='page_size'),
+}
+
+/**
+ * Description: 分页查询数据资产类型
+ * Summary: 分页查询数据资产类型
+ */
+async function pagequeryDataassetType(request: PagequeryDataassetTypeRequest): PagequeryDataassetTypeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryDataassetTypeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询数据资产类型
+ * Summary: 分页查询数据资产类型
+ */
+async function pagequeryDataassetTypeEx(request: PagequeryDataassetTypeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryDataassetTypeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.dataasset.type.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddEcarAvitivedataRequest = {
@@ -2785,6 +3477,112 @@ async function batchcreateEcarGreencertificategeneration(request: BatchcreateEca
 async function batchcreateEcarGreencertificategenerationEx(request: BatchcreateEcarGreencertificategenerationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchcreateEcarGreencertificategenerationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.greencertificategeneration.batchcreate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitEcarLcacalcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 目标产品编码
+  materialCode: string(name='material_code'),
+  // 授权过程编码
+  processNo: string(name='process_no'),
+  // 生命周期边界
+  lifeCycleBoundary: string(name='life_cycle_boundary'),
+  // 产品功能单位
+  functionalUnit: string(name='functional_unit'),
+  // 功能单位数量
+  functionalAmount: string(name='functional_amount'),
+  // 各阶段活动数据
+  stageActiveDataList: [ LcaStageActiveData ](name='stage_active_data_list'),
+  // 自定义业务标识
+  customContext?: string(name='custom_context'),
+}
+
+model SubmitEcarLcacalcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 速算记录编号
+  recordNo?: string(name='record_no'),
+}
+
+/**
+ * Description: 产品碳足迹速算请求提交
+ * Summary: 产品碳足迹速算请求提交
+ */
+async function submitEcarLcacalc(request: SubmitEcarLcacalcRequest): SubmitEcarLcacalcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitEcarLcacalcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品碳足迹速算请求提交
+ * Summary: 产品碳足迹速算请求提交
+ */
+async function submitEcarLcacalcEx(request: SubmitEcarLcacalcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitEcarLcacalcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.lcacalc.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEcarLcacalcRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 速算记录编号列表
+  recordNoList?: [ string ](name='record_no_list'),
+  // 开始日期，yyyy-MM-dd
+  startDate?: string(name='start_date'),
+  // 结束日期，yyyy-MM-dd
+  endDate?: string(name='end_date'),
+  // 分页查询页码，从1开始，不传时默认为1
+  current?: long(name='current'),
+  // 每页记录条数，取值范围[10, 200]，不传时默认为20
+  pageSize?: long(name='page_size'),
+}
+
+model QueryEcarLcacalcResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前查询页码
+  current?: long(name='current'),
+  // 每页记录条数
+  pageSize?: long(name='page_size'),
+  // 记录总条数
+  total?: long(name='total'),
+  // 开始日期
+  startDate?: string(name='start_date'),
+  // 结束日期
+  endDate?: string(name='end_date'),
+  // Lca速算记录列表
+  list?: [ LcaCalcResult ](name='list'),
+}
+
+/**
+ * Description: 产品碳足迹速算结果查询
+ * Summary: 产品碳足迹速算结果查询
+ */
+async function queryEcarLcacalc(request: QueryEcarLcacalcRequest): QueryEcarLcacalcResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEcarLcacalcEx(request, headers, runtime);
+}
+
+/**
+ * Description: 产品碳足迹速算结果查询
+ * Summary: 产品碳足迹速算结果查询
+ */
+async function queryEcarLcacalcEx(request: QueryEcarLcacalcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEcarLcacalcResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.lcacalc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryThirdCertRequest = {
