@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.7.4"),
+                    new TeaPair("sdk_version", "2.8.1"),
                     new TeaPair("_prod_code", "STLR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -558,6 +558,234 @@ public class Client {
     public QueryPdcpDataResponse queryPdcpDataEx(QueryPdcpDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.data.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdcpDataResponse());
+    }
+
+    /**
+     * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+     * Summary: 查询存证数据详情
+     */
+    public DetailPdcpDepositResponse detailPdcpDeposit(DetailPdcpDepositRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailPdcpDepositEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询存证数据详情，包括存证内容、存证数据值、存证状态、存证交易等信息。 若指定版本，返回指定版本；若未指定，返回最新版本。
+     * Summary: 查询存证数据详情
+     */
+    public DetailPdcpDepositResponse detailPdcpDepositEx(DetailPdcpDepositRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.deposit.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailPdcpDepositResponse());
+    }
+
+    /**
+     * Description: 查询存证数据历史变更
+     * Summary: 存证数据变更历史追溯查询
+     */
+    public QueryPdcpDtraceResponse queryPdcpDtrace(QueryPdcpDtraceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPdcpDtraceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询存证数据历史变更
+     * Summary: 存证数据变更历史追溯查询
+     */
+    public QueryPdcpDtraceResponse queryPdcpDtraceEx(QueryPdcpDtraceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.dtrace.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdcpDtraceResponse());
+    }
+
+    /**
+     * Description: 通过链山存证内容校验存证数据可信性
+     * Summary: 存证数据可信校验
+     */
+    public CheckPdcpDtraceResponse checkPdcpDtrace(CheckPdcpDtraceRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkPdcpDtraceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过链山存证内容校验存证数据可信性
+     * Summary: 存证数据可信校验
+     */
+    public CheckPdcpDtraceResponse checkPdcpDtraceEx(CheckPdcpDtraceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.dtrace.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckPdcpDtraceResponse());
+    }
+
+    /**
+     * Description: 根据授权方和被授权方授权关系批量查询授权数据
+     * Summary: 批量查询授权数据
+     */
+    public BatchqueryPdcpDataResponse batchqueryPdcpData(BatchqueryPdcpDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryPdcpDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据授权方和被授权方授权关系批量查询授权数据
+     * Summary: 批量查询授权数据
+     */
+    public BatchqueryPdcpDataResponse batchqueryPdcpDataEx(BatchqueryPdcpDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.data.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryPdcpDataResponse());
+    }
+
+    /**
+     * Description: 查询用户拥有的数据记录
+     * Summary: 查询拥有的数据
+     */
+    public QueryPdcpOwndataResponse queryPdcpOwndata(QueryPdcpOwndataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPdcpOwndataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询用户拥有的数据记录
+     * Summary: 查询拥有的数据
+     */
+    public QueryPdcpOwndataResponse queryPdcpOwndataEx(QueryPdcpOwndataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.owndata.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdcpOwndataResponse());
+    }
+
+    /**
+     * Description: 分页查询数据资产
+     * Summary: 数据资产
+     */
+    public QueryPdcpDataassetResponse queryPdcpDataasset(QueryPdcpDataassetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPdcpDataassetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询数据资产
+     * Summary: 数据资产
+     */
+    public QueryPdcpDataassetResponse queryPdcpDataassetEx(QueryPdcpDataassetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.dataasset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdcpDataassetResponse());
+    }
+
+    /**
+     * Description: 注册数据资产
+     * Summary: 注册数据资产
+     */
+    public RegisterPdcpDataassetResponse registerPdcpDataasset(RegisterPdcpDataassetRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.registerPdcpDataassetEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 注册数据资产
+     * Summary: 注册数据资产
+     */
+    public RegisterPdcpDataassetResponse registerPdcpDataassetEx(RegisterPdcpDataassetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.pdcp.dataasset.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterPdcpDataassetResponse());
+    }
+
+    /**
+     * Description: 添加数据授权策略
+     * Summary: 添加数据授权策略
+     */
+    public AddAuthAdminResponse addAuthAdmin(AddAuthAdminRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addAuthAdminEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 添加数据授权策略
+     * Summary: 添加数据授权策略
+     */
+    public AddAuthAdminResponse addAuthAdminEx(AddAuthAdminRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.auth.admin.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddAuthAdminResponse());
+    }
+
+    /**
+     * Description: 分页查询数据授权策略
+     * Summary: 分页查询数据授权策略
+     */
+    public PagequeryAuthAdminResponse pagequeryAuthAdmin(PagequeryAuthAdminRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryAuthAdminEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询数据授权策略
+     * Summary: 分页查询数据授权策略
+     */
+    public PagequeryAuthAdminResponse pagequeryAuthAdminEx(PagequeryAuthAdminRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.auth.admin.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryAuthAdminResponse());
+    }
+
+    /**
+     * Description: 查询数据授权策略
+     * Summary: 查询数据授权策略
+     */
+    public QueryAuthAdminResponse queryAuthAdmin(QueryAuthAdminRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthAdminEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询数据授权策略
+     * Summary: 查询数据授权策略
+     */
+    public QueryAuthAdminResponse queryAuthAdminEx(QueryAuthAdminRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.auth.admin.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthAdminResponse());
+    }
+
+    /**
+     * Description: 数据资产添加数据类型
+     * Summary: 添加数据类型
+     */
+    public AddDataassetTypeResponse addDataassetType(AddDataassetTypeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addDataassetTypeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数据资产添加数据类型
+     * Summary: 添加数据类型
+     */
+    public AddDataassetTypeResponse addDataassetTypeEx(AddDataassetTypeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.dataasset.type.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddDataassetTypeResponse());
+    }
+
+    /**
+     * Description: 分页查询数据资产类型
+     * Summary: 分页查询数据资产类型
+     */
+    public PagequeryDataassetTypeResponse pagequeryDataassetType(PagequeryDataassetTypeRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryDataassetTypeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询数据资产类型
+     * Summary: 分页查询数据资产类型
+     */
+    public PagequeryDataassetTypeResponse pagequeryDataassetTypeEx(PagequeryDataassetTypeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.dataasset.type.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryDataassetTypeResponse());
     }
 
     /**
@@ -1075,6 +1303,44 @@ public class Client {
     public BatchcreateEcarGreencertificategenerationResponse batchcreateEcarGreencertificategenerationEx(BatchcreateEcarGreencertificategenerationRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.greencertificategeneration.batchcreate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchcreateEcarGreencertificategenerationResponse());
+    }
+
+    /**
+     * Description: 产品碳足迹速算请求提交
+     * Summary: 产品碳足迹速算请求提交
+     */
+    public SubmitEcarLcacalcResponse submitEcarLcacalc(SubmitEcarLcacalcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitEcarLcacalcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品碳足迹速算请求提交
+     * Summary: 产品碳足迹速算请求提交
+     */
+    public SubmitEcarLcacalcResponse submitEcarLcacalcEx(SubmitEcarLcacalcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.lcacalc.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitEcarLcacalcResponse());
+    }
+
+    /**
+     * Description: 产品碳足迹速算结果查询
+     * Summary: 产品碳足迹速算结果查询
+     */
+    public QueryEcarLcacalcResponse queryEcarLcacalc(QueryEcarLcacalcRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEcarLcacalcEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 产品碳足迹速算结果查询
+     * Summary: 产品碳足迹速算结果查询
+     */
+    public QueryEcarLcacalcResponse queryEcarLcacalcEx(QueryEcarLcacalcRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.carbon.ecar.lcacalc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEcarLcacalcResponse());
     }
 
     /**
