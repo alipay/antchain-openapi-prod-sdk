@@ -2998,6 +2998,7 @@ class RecordScreenResult(TeaModel):
         evidence_end_time: int = None,
         error_code: str = None,
         error_message: str = None,
+        operate_url: str = None,
     ):
         # 取证类型(SCREEN_RECORDING：录屏取证)
         self.evidence_type = evidence_type
@@ -3025,6 +3026,8 @@ class RecordScreenResult(TeaModel):
         self.error_code = error_code
         # 错误信息
         self.error_message = error_message
+        # 云桌面url
+        self.operate_url = operate_url
 
     def validate(self):
         self.validate_required(self.evidence_type, 'evidence_type')
@@ -3041,6 +3044,7 @@ class RecordScreenResult(TeaModel):
         self.validate_required(self.evidence_start_time, 'evidence_start_time')
         self.validate_required(self.evidence_end_time, 'evidence_end_time')
         self.validate_required(self.error_message, 'error_message')
+        self.validate_required(self.operate_url, 'operate_url')
 
     def to_map(self):
         _map = super().to_map()
@@ -3076,6 +3080,8 @@ class RecordScreenResult(TeaModel):
             result['error_code'] = self.error_code
         if self.error_message is not None:
             result['error_message'] = self.error_message
+        if self.operate_url is not None:
+            result['operate_url'] = self.operate_url
         return result
 
     def from_map(self, m: dict = None):
@@ -3109,6 +3115,8 @@ class RecordScreenResult(TeaModel):
             self.error_code = m.get('error_code')
         if m.get('error_message') is not None:
             self.error_message = m.get('error_message')
+        if m.get('operate_url') is not None:
+            self.operate_url = m.get('operate_url')
         return self
 
 
@@ -8685,6 +8693,7 @@ class CreateDciPreregistrationRequest(TeaModel):
         apply_type: str = None,
         channel_terminal: str = None,
         recommend_category_list: List[RecommendCategoryDetail] = None,
+        customize_cert_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8731,6 +8740,8 @@ class CreateDciPreregistrationRequest(TeaModel):
         self.channel_terminal = channel_terminal
         # 推荐分类明细信息
         self.recommend_category_list = recommend_category_list
+        # 证书样式ID
+        self.customize_cert_id = customize_cert_id
 
     def validate(self):
         self.validate_required(self.work_name, 'work_name')
@@ -8812,6 +8823,8 @@ class CreateDciPreregistrationRequest(TeaModel):
         if self.recommend_category_list is not None:
             for k in self.recommend_category_list:
                 result['recommend_category_list'].append(k.to_map() if k else None)
+        if self.customize_cert_id is not None:
+            result['customize_cert_id'] = self.customize_cert_id
         return result
 
     def from_map(self, m: dict = None):
@@ -8869,6 +8882,8 @@ class CreateDciPreregistrationRequest(TeaModel):
             for k in m.get('recommend_category_list'):
                 temp_model = RecommendCategoryDetail()
                 self.recommend_category_list.append(temp_model.from_map(k))
+        if m.get('customize_cert_id') is not None:
+            self.customize_cert_id = m.get('customize_cert_id')
         return self
 
 
