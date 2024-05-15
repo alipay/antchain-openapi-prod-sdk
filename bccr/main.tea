@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.18.33',
+    sdk_version = '1.18.35',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -890,6 +890,8 @@ model RecordScreenResult {
   errorCode?: string(name='error_code', example='NOTARY_SCREENSHOT_ERROR'),
   // 错误信息
   errorMessage: string(name='error_message', example='公证处网页取证存证失败'),
+  // 云桌面url
+  operateUrl: string(name='operate_url', example='https://www.baidu.com'),
 }
 
 // 作品信息
@@ -2681,6 +2683,8 @@ model CreateDciPreregistrationRequest = {
   channelTerminal?: string(name='channel_terminal'),
   // 推荐分类明细信息
   recommendCategoryList?: [ RecommendCategoryDetail ](name='recommend_category_list'),
+  // 证书样式ID
+  customizeCertId?: string(name='customize_cert_id'),
 }
 
 model CreateDciPreregistrationResponse = {
