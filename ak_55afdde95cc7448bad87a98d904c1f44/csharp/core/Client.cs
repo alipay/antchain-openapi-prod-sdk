@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_55afdde95cc7448bad87a98d904c1f44
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_55afdde95cc7448bad87a98d904c1f44"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_55afdde95cc7448bad87a98d904c1f44
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_55afdde95cc7448bad87a98d904c1f44"},
                         {"_prod_channel", "saas"},
                     };
@@ -361,6 +361,48 @@ namespace AntChain.SDK.Ak_55afdde95cc7448bad87a98d904c1f44
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUniversalsaasDigitalhumanRobotResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.robot.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人获取语音服务token接口
+         * Summary: 数字人获取语音服务token接口
+         */
+        public GetUniversalsaasDigitalhumanNlsTokenResponse GetUniversalsaasDigitalhumanNlsToken(GetUniversalsaasDigitalhumanNlsTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetUniversalsaasDigitalhumanNlsTokenEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人获取语音服务token接口
+         * Summary: 数字人获取语音服务token接口
+         */
+        public async Task<GetUniversalsaasDigitalhumanNlsTokenResponse> GetUniversalsaasDigitalhumanNlsTokenAsync(GetUniversalsaasDigitalhumanNlsTokenRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetUniversalsaasDigitalhumanNlsTokenExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人获取语音服务token接口
+         * Summary: 数字人获取语音服务token接口
+         */
+        public GetUniversalsaasDigitalhumanNlsTokenResponse GetUniversalsaasDigitalhumanNlsTokenEx(GetUniversalsaasDigitalhumanNlsTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetUniversalsaasDigitalhumanNlsTokenResponse>(DoRequest("1.0", "universalsaas.digitalhuman.nls.token.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人获取语音服务token接口
+         * Summary: 数字人获取语音服务token接口
+         */
+        public async Task<GetUniversalsaasDigitalhumanNlsTokenResponse> GetUniversalsaasDigitalhumanNlsTokenExAsync(GetUniversalsaasDigitalhumanNlsTokenRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetUniversalsaasDigitalhumanNlsTokenResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.nls.token.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
