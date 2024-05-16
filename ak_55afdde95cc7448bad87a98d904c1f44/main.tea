@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_55afdde95cc7448bad87a98d904c1f44',
     _prod_channel = 'saas'
   };
@@ -202,5 +202,48 @@ async function queryUniversalsaasDigitalhumanRobot(request: QueryUniversalsaasDi
 async function queryUniversalsaasDigitalhumanRobotEx(request: QueryUniversalsaasDigitalhumanRobotRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUniversalsaasDigitalhumanRobotResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.digitalhuman.robot.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetUniversalsaasDigitalhumanNlsTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户code&租户id，对于子部门客户需要上传子部门id
+  tenantCode?: string(name='tenant_code'),
+}
+
+model GetUniversalsaasDigitalhumanNlsTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // appkey
+  // 
+  appKey?: string(name='app_key'),
+  // token
+  appToken?: string(name='app_token'),
+  // token的有效期时间戳
+  expireTime?: long(name='expire_time'),
+}
+
+/**
+ * Description: 数字人获取语音服务token接口
+ * Summary: 数字人获取语音服务token接口
+ */
+async function getUniversalsaasDigitalhumanNlsToken(request: GetUniversalsaasDigitalhumanNlsTokenRequest): GetUniversalsaasDigitalhumanNlsTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getUniversalsaasDigitalhumanNlsTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字人获取语音服务token接口
+ * Summary: 数字人获取语音服务token接口
+ */
+async function getUniversalsaasDigitalhumanNlsTokenEx(request: GetUniversalsaasDigitalhumanNlsTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetUniversalsaasDigitalhumanNlsTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.nls.token.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
