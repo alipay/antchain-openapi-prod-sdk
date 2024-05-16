@@ -233,6 +233,91 @@ func (s *QueryUniversalsaasDigitalhumanRobotResponse) SetResultData(v string) *Q
 	return s
 }
 
+type GetUniversalsaasDigitalhumanNlsTokenRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户code&租户id，对于子部门客户需要上传子部门id
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty"`
+}
+
+func (s GetUniversalsaasDigitalhumanNlsTokenRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetUniversalsaasDigitalhumanNlsTokenRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenRequest) SetAuthToken(v string) *GetUniversalsaasDigitalhumanNlsTokenRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenRequest) SetProductInstanceId(v string) *GetUniversalsaasDigitalhumanNlsTokenRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenRequest) SetTenantCode(v string) *GetUniversalsaasDigitalhumanNlsTokenRequest {
+	s.TenantCode = &v
+	return s
+}
+
+type GetUniversalsaasDigitalhumanNlsTokenResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// appkey
+	//
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty"`
+	// token
+	AppToken *string `json:"app_token,omitempty" xml:"app_token,omitempty"`
+	// token的有效期时间戳
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+}
+
+func (s GetUniversalsaasDigitalhumanNlsTokenResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetUniversalsaasDigitalhumanNlsTokenResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenResponse) SetReqMsgId(v string) *GetUniversalsaasDigitalhumanNlsTokenResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenResponse) SetResultCode(v string) *GetUniversalsaasDigitalhumanNlsTokenResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenResponse) SetResultMsg(v string) *GetUniversalsaasDigitalhumanNlsTokenResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenResponse) SetAppKey(v string) *GetUniversalsaasDigitalhumanNlsTokenResponse {
+	s.AppKey = &v
+	return s
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenResponse) SetAppToken(v string) *GetUniversalsaasDigitalhumanNlsTokenResponse {
+	s.AppToken = &v
+	return s
+}
+
+func (s *GetUniversalsaasDigitalhumanNlsTokenResponse) SetExpireTime(v int64) *GetUniversalsaasDigitalhumanNlsTokenResponse {
+	s.ExpireTime = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -355,7 +440,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_55afdde95cc7448bad87a98d904c1f44"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -440,6 +525,40 @@ func (client *Client) QueryUniversalsaasDigitalhumanRobotEx(request *QueryUniver
 	}
 	_result = &QueryUniversalsaasDigitalhumanRobotResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.robot.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字人获取语音服务token接口
+ * Summary: 数字人获取语音服务token接口
+ */
+func (client *Client) GetUniversalsaasDigitalhumanNlsToken(request *GetUniversalsaasDigitalhumanNlsTokenRequest) (_result *GetUniversalsaasDigitalhumanNlsTokenResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetUniversalsaasDigitalhumanNlsTokenResponse{}
+	_body, _err := client.GetUniversalsaasDigitalhumanNlsTokenEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字人获取语音服务token接口
+ * Summary: 数字人获取语音服务token接口
+ */
+func (client *Client) GetUniversalsaasDigitalhumanNlsTokenEx(request *GetUniversalsaasDigitalhumanNlsTokenRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetUniversalsaasDigitalhumanNlsTokenResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetUniversalsaasDigitalhumanNlsTokenResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.nls.token.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
