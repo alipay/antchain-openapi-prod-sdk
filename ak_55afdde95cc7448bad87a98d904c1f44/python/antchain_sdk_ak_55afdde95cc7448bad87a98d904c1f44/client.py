@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_55afdde95cc7448bad87a98d904c1f44',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_55afdde95cc7448bad87a98d904c1f44',
                     '_prod_channel': 'saas'
                 }
@@ -327,4 +327,60 @@ class Client:
         return TeaCore.from_map(
             ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.QueryUniversalsaasDigitalhumanRobotResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.robot.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_universalsaas_digitalhuman_nls_token(
+        self,
+        request: ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenRequest,
+    ) -> ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenResponse:
+        """
+        Description: 数字人获取语音服务token接口
+        Summary: 数字人获取语音服务token接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_universalsaas_digitalhuman_nls_token_ex(request, headers, runtime)
+
+    async def get_universalsaas_digitalhuman_nls_token_async(
+        self,
+        request: ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenRequest,
+    ) -> ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenResponse:
+        """
+        Description: 数字人获取语音服务token接口
+        Summary: 数字人获取语音服务token接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_universalsaas_digitalhuman_nls_token_ex_async(request, headers, runtime)
+
+    def get_universalsaas_digitalhuman_nls_token_ex(
+        self,
+        request: ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenResponse:
+        """
+        Description: 数字人获取语音服务token接口
+        Summary: 数字人获取语音服务token接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.nls.token.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_universalsaas_digitalhuman_nls_token_ex_async(
+        self,
+        request: ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenResponse:
+        """
+        Description: 数字人获取语音服务token接口
+        Summary: 数字人获取语音服务token接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__55afdde_95cc_7448bad_87a_98d_904c_1f_44_models.GetUniversalsaasDigitalhumanNlsTokenResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.nls.token.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
