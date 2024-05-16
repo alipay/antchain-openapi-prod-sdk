@@ -145,6 +145,74 @@ export class QueryUniversalsaasDigitalhumanRobotResponse extends $tea.Model {
   }
 }
 
+export class GetUniversalsaasDigitalhumanNlsTokenRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户code&租户id，对于子部门客户需要上传子部门id
+  tenantCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetUniversalsaasDigitalhumanNlsTokenResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // appkey
+  // 
+  appKey?: string;
+  // token
+  appToken?: string;
+  // token的有效期时间戳
+  expireTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      appKey: 'app_key',
+      appToken: 'app_token',
+      expireTime: 'expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      appKey: 'string',
+      appToken: 'string',
+      expireTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -172,7 +240,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -258,7 +326,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_55afdde95cc7448bad87a98d904c1f44",
           _prod_channel: "saas",
         };
@@ -323,6 +391,25 @@ export default class Client {
   async queryUniversalsaasDigitalhumanRobotEx(request: QueryUniversalsaasDigitalhumanRobotRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanRobotResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUniversalsaasDigitalhumanRobotResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.robot.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanRobotResponse({}));
+  }
+
+  /**
+   * Description: 数字人获取语音服务token接口
+   * Summary: 数字人获取语音服务token接口
+   */
+  async getUniversalsaasDigitalhumanNlsToken(request: GetUniversalsaasDigitalhumanNlsTokenRequest): Promise<GetUniversalsaasDigitalhumanNlsTokenResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getUniversalsaasDigitalhumanNlsTokenEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字人获取语音服务token接口
+   * Summary: 数字人获取语音服务token接口
+   */
+  async getUniversalsaasDigitalhumanNlsTokenEx(request: GetUniversalsaasDigitalhumanNlsTokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetUniversalsaasDigitalhumanNlsTokenResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetUniversalsaasDigitalhumanNlsTokenResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.nls.token.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetUniversalsaasDigitalhumanNlsTokenResponse({}));
   }
 
 }
