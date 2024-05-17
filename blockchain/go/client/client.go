@@ -4894,6 +4894,88 @@ func (s *MiniAppBrowserAuthType) SetAuthType(v string) *MiniAppBrowserAuthType {
 	return s
 }
 
+// 链上交易信息
+type TxInfo struct {
+	// 上链结果
+	TxReceiptResult *string `json:"tx_receipt_result,omitempty" xml:"tx_receipt_result,omitempty" require:"true"`
+	// 区块链id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty" require:"true"`
+	// 交易类型
+	TxType *string `json:"tx_type,omitempty" xml:"tx_type,omitempty" require:"true"`
+	// 时间戳
+	Timestamp *int64 `json:"timestamp,omitempty" xml:"timestamp,omitempty" require:"true"`
+	// 区块高度
+	BlockNumber *string `json:"block_number,omitempty" xml:"block_number,omitempty" require:"true"`
+	// 交易随机数Nonce
+	Nonce *string `json:"nonce,omitempty" xml:"nonce,omitempty" require:"true"`
+	// 发起地址
+	From *string `json:"from,omitempty" xml:"from,omitempty" require:"true"`
+	// 目标地址
+	To *string `json:"to,omitempty" xml:"to,omitempty" require:"true"`
+	// 签名
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s TxInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TxInfo) GoString() string {
+	return s.String()
+}
+
+func (s *TxInfo) SetTxReceiptResult(v string) *TxInfo {
+	s.TxReceiptResult = &v
+	return s
+}
+
+func (s *TxInfo) SetBizId(v string) *TxInfo {
+	s.BizId = &v
+	return s
+}
+
+func (s *TxInfo) SetTxHash(v string) *TxInfo {
+	s.TxHash = &v
+	return s
+}
+
+func (s *TxInfo) SetTxType(v string) *TxInfo {
+	s.TxType = &v
+	return s
+}
+
+func (s *TxInfo) SetTimestamp(v int64) *TxInfo {
+	s.Timestamp = &v
+	return s
+}
+
+func (s *TxInfo) SetBlockNumber(v string) *TxInfo {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *TxInfo) SetNonce(v string) *TxInfo {
+	s.Nonce = &v
+	return s
+}
+
+func (s *TxInfo) SetFrom(v string) *TxInfo {
+	s.From = &v
+	return s
+}
+
+func (s *TxInfo) SetTo(v string) *TxInfo {
+	s.To = &v
+	return s
+}
+
+func (s *TxInfo) SetSignature(v string) *TxInfo {
+	s.Signature = &v
+	return s
+}
+
 // 服务发现结果
 type ServiceDiscoveryResult struct {
 	// 提供该服务能力的did
@@ -50241,6 +50323,441 @@ func (s *RepayAuthEquityResponse) SetResultMsg(v string) *RepayAuthEquityRespons
 	return s
 }
 
+type VerifyAuthTokenValidityRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 授权凭证
+	AuthorizedToken *string `json:"authorized_token,omitempty" xml:"authorized_token,omitempty" require:"true"`
+	// 数据产品类型
+	DataType *string `json:"data_type,omitempty" xml:"data_type,omitempty" require:"true"`
+	// 授权场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s VerifyAuthTokenValidityRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyAuthTokenValidityRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyAuthTokenValidityRequest) SetAuthToken(v string) *VerifyAuthTokenValidityRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityRequest) SetProductInstanceId(v string) *VerifyAuthTokenValidityRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityRequest) SetUserId(v string) *VerifyAuthTokenValidityRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityRequest) SetAuthorizedToken(v string) *VerifyAuthTokenValidityRequest {
+	s.AuthorizedToken = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityRequest) SetDataType(v string) *VerifyAuthTokenValidityRequest {
+	s.DataType = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityRequest) SetSceneCode(v string) *VerifyAuthTokenValidityRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type VerifyAuthTokenValidityResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 验证结果（ture表示通过，false表示不通过）
+	VerifyResult *bool `json:"verify_result,omitempty" xml:"verify_result,omitempty"`
+	// 错误信息
+	ErrMsg *string `json:"err_msg,omitempty" xml:"err_msg,omitempty"`
+}
+
+func (s VerifyAuthTokenValidityResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyAuthTokenValidityResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyAuthTokenValidityResponse) SetReqMsgId(v string) *VerifyAuthTokenValidityResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityResponse) SetResultCode(v string) *VerifyAuthTokenValidityResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityResponse) SetResultMsg(v string) *VerifyAuthTokenValidityResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityResponse) SetVerifyResult(v bool) *VerifyAuthTokenValidityResponse {
+	s.VerifyResult = &v
+	return s
+}
+
+func (s *VerifyAuthTokenValidityResponse) SetErrMsg(v string) *VerifyAuthTokenValidityResponse {
+	s.ErrMsg = &v
+	return s
+}
+
+type VerifyAuthBusinessUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s VerifyAuthBusinessUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyAuthBusinessUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyAuthBusinessUserRequest) SetAuthToken(v string) *VerifyAuthBusinessUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserRequest) SetProductInstanceId(v string) *VerifyAuthBusinessUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserRequest) SetUserId(v string) *VerifyAuthBusinessUserRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserRequest) SetSceneCode(v string) *VerifyAuthBusinessUserRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type VerifyAuthBusinessUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户当前记录状态
+	RecordType *string `json:"record_type,omitempty" xml:"record_type,omitempty"`
+	// 加密后的用户授权记录id
+	EncryptBizId *string `json:"encrypt_biz_id,omitempty" xml:"encrypt_biz_id,omitempty"`
+}
+
+func (s VerifyAuthBusinessUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VerifyAuthBusinessUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *VerifyAuthBusinessUserResponse) SetReqMsgId(v string) *VerifyAuthBusinessUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserResponse) SetResultCode(v string) *VerifyAuthBusinessUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserResponse) SetResultMsg(v string) *VerifyAuthBusinessUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserResponse) SetRecordType(v string) *VerifyAuthBusinessUserResponse {
+	s.RecordType = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserResponse) SetEncryptBizId(v string) *VerifyAuthBusinessUserResponse {
+	s.EncryptBizId = &v
+	return s
+}
+
+type SubmitAuthBusinessDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 推送的数据内容，json字符串形式
+	PushDataContent *string `json:"push_data_content,omitempty" xml:"push_data_content,omitempty" require:"true"`
+}
+
+func (s SubmitAuthBusinessDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuthBusinessDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuthBusinessDataRequest) SetAuthToken(v string) *SubmitAuthBusinessDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAuthBusinessDataRequest) SetProductInstanceId(v string) *SubmitAuthBusinessDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAuthBusinessDataRequest) SetUserId(v string) *SubmitAuthBusinessDataRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *SubmitAuthBusinessDataRequest) SetSceneCode(v string) *SubmitAuthBusinessDataRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *SubmitAuthBusinessDataRequest) SetPushDataContent(v string) *SubmitAuthBusinessDataRequest {
+	s.PushDataContent = &v
+	return s
+}
+
+type SubmitAuthBusinessDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 推送是否成功
+	PushSuccess *bool `json:"push_success,omitempty" xml:"push_success,omitempty"`
+}
+
+func (s SubmitAuthBusinessDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuthBusinessDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuthBusinessDataResponse) SetReqMsgId(v string) *SubmitAuthBusinessDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAuthBusinessDataResponse) SetResultCode(v string) *SubmitAuthBusinessDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAuthBusinessDataResponse) SetResultMsg(v string) *SubmitAuthBusinessDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAuthBusinessDataResponse) SetPushSuccess(v bool) *SubmitAuthBusinessDataResponse {
+	s.PushSuccess = &v
+	return s
+}
+
+type UploadAuthBusinessCardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户id
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 运营场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 上传证件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+}
+
+func (s UploadAuthBusinessCardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAuthBusinessCardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAuthBusinessCardRequest) SetAuthToken(v string) *UploadAuthBusinessCardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAuthBusinessCardRequest) SetProductInstanceId(v string) *UploadAuthBusinessCardRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAuthBusinessCardRequest) SetUserId(v string) *UploadAuthBusinessCardRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *UploadAuthBusinessCardRequest) SetSceneCode(v string) *UploadAuthBusinessCardRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *UploadAuthBusinessCardRequest) SetFileType(v string) *UploadAuthBusinessCardRequest {
+	s.FileType = &v
+	return s
+}
+
+type UploadAuthBusinessCardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// oss文件上传策略
+	PresignedUrlPolicy *PresignedUrlPolicy `json:"presigned_url_policy,omitempty" xml:"presigned_url_policy,omitempty"`
+}
+
+func (s UploadAuthBusinessCardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAuthBusinessCardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAuthBusinessCardResponse) SetReqMsgId(v string) *UploadAuthBusinessCardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAuthBusinessCardResponse) SetResultCode(v string) *UploadAuthBusinessCardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAuthBusinessCardResponse) SetResultMsg(v string) *UploadAuthBusinessCardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAuthBusinessCardResponse) SetPresignedUrlPolicy(v *PresignedUrlPolicy) *UploadAuthBusinessCardResponse {
+	s.PresignedUrlPolicy = v
+	return s
+}
+
+type QueryAuthVcTransactionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询目标可验证声明的ID
+	VcId *string `json:"vc_id,omitempty" xml:"vc_id,omitempty" require:"true"`
+	// 业务类型，通常需要与授权宝服务沟通确定，业务类型可能影响此接口内部实现逻辑，长度不超过32字符。
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 如果此字段为空，则默认使用当前请求租户在授权宝配置的did来进行查询(此did需授权有权限)，此外情况都需要指定目标vc_id的owner_did
+	//
+	OwnerDid *string `json:"owner_did,omitempty" xml:"owner_did,omitempty"`
+}
+
+func (s QueryAuthVcTransactionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthVcTransactionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthVcTransactionRequest) SetAuthToken(v string) *QueryAuthVcTransactionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthVcTransactionRequest) SetProductInstanceId(v string) *QueryAuthVcTransactionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthVcTransactionRequest) SetVcId(v string) *QueryAuthVcTransactionRequest {
+	s.VcId = &v
+	return s
+}
+
+func (s *QueryAuthVcTransactionRequest) SetBizType(v string) *QueryAuthVcTransactionRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *QueryAuthVcTransactionRequest) SetOwnerDid(v string) *QueryAuthVcTransactionRequest {
+	s.OwnerDid = &v
+	return s
+}
+
+type QueryAuthVcTransactionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 链上交易信息
+	TxInfo *TxInfo `json:"tx_info,omitempty" xml:"tx_info,omitempty"`
+}
+
+func (s QueryAuthVcTransactionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthVcTransactionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthVcTransactionResponse) SetReqMsgId(v string) *QueryAuthVcTransactionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthVcTransactionResponse) SetResultCode(v string) *QueryAuthVcTransactionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthVcTransactionResponse) SetResultMsg(v string) *QueryAuthVcTransactionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthVcTransactionResponse) SetTxInfo(v *TxInfo) *QueryAuthVcTransactionResponse {
+	s.TxInfo = v
+	return s
+}
+
 type StartDidCorporateAgentcreateRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -69539,7 +70056,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.2"),
+				"sdk_version":      tea.String("1.28.20"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -83574,6 +84091,176 @@ func (client *Client) RepayAuthEquityEx(request *RepayAuthEquityRequest, headers
 	}
 	_result = &RepayAuthEquityResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.equity.repay"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 授权token校验
+ * Summary: 授权token校验
+ */
+func (client *Client) VerifyAuthTokenValidity(request *VerifyAuthTokenValidityRequest) (_result *VerifyAuthTokenValidityResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyAuthTokenValidityResponse{}
+	_body, _err := client.VerifyAuthTokenValidityEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 授权token校验
+ * Summary: 授权token校验
+ */
+func (client *Client) VerifyAuthTokenValidityEx(request *VerifyAuthTokenValidityRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyAuthTokenValidityResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyAuthTokenValidityResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.token.validity.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 核验当前用户是否权益新用户
+ * Summary: 权益核验是否新用户
+ */
+func (client *Client) VerifyAuthBusinessUser(request *VerifyAuthBusinessUserRequest) (_result *VerifyAuthBusinessUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &VerifyAuthBusinessUserResponse{}
+	_body, _err := client.VerifyAuthBusinessUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 核验当前用户是否权益新用户
+ * Summary: 权益核验是否新用户
+ */
+func (client *Client) VerifyAuthBusinessUserEx(request *VerifyAuthBusinessUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *VerifyAuthBusinessUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &VerifyAuthBusinessUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.business.user.verify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+ * Summary: 代运营-推送用户授权的相关信息
+ */
+func (client *Client) SubmitAuthBusinessData(request *SubmitAuthBusinessDataRequest) (_result *SubmitAuthBusinessDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAuthBusinessDataResponse{}
+	_body, _err := client.SubmitAuthBusinessDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+ * Summary: 代运营-推送用户授权的相关信息
+ */
+func (client *Client) SubmitAuthBusinessDataEx(request *SubmitAuthBusinessDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAuthBusinessDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAuthBusinessDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.business.data.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支持调用该接口上传行驶证照片，返回上传链接
+ * Summary: 行驶证上传接口
+ */
+func (client *Client) UploadAuthBusinessCard(request *UploadAuthBusinessCardRequest) (_result *UploadAuthBusinessCardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAuthBusinessCardResponse{}
+	_body, _err := client.UploadAuthBusinessCardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支持调用该接口上传行驶证照片，返回上传链接
+ * Summary: 行驶证上传接口
+ */
+func (client *Client) UploadAuthBusinessCardEx(request *UploadAuthBusinessCardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAuthBusinessCardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAuthBusinessCardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.business.card.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+ * Summary: 获取目标可验证声明链上交易信息
+ */
+func (client *Client) QueryAuthVcTransaction(request *QueryAuthVcTransactionRequest) (_result *QueryAuthVcTransactionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthVcTransactionResponse{}
+	_body, _err := client.QueryAuthVcTransactionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+ * Summary: 获取目标可验证声明链上交易信息
+ */
+func (client *Client) QueryAuthVcTransactionEx(request *QueryAuthVcTransactionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthVcTransactionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthVcTransactionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.vc.transaction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
