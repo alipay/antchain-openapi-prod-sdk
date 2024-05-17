@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.2',
+                    'sdk_version': '1.28.20',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.2',
+                    'sdk_version': '1.28.20',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -23285,6 +23285,286 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.RepayAuthEquityResponse(),
             await self.do_request_async('1.0', 'baas.auth.equity.repay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_auth_token_validity(
+        self,
+        request: blockchain_models.VerifyAuthTokenValidityRequest,
+    ) -> blockchain_models.VerifyAuthTokenValidityResponse:
+        """
+        Description: 授权token校验
+        Summary: 授权token校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_auth_token_validity_ex(request, headers, runtime)
+
+    async def verify_auth_token_validity_async(
+        self,
+        request: blockchain_models.VerifyAuthTokenValidityRequest,
+    ) -> blockchain_models.VerifyAuthTokenValidityResponse:
+        """
+        Description: 授权token校验
+        Summary: 授权token校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_auth_token_validity_ex_async(request, headers, runtime)
+
+    def verify_auth_token_validity_ex(
+        self,
+        request: blockchain_models.VerifyAuthTokenValidityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.VerifyAuthTokenValidityResponse:
+        """
+        Description: 授权token校验
+        Summary: 授权token校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.VerifyAuthTokenValidityResponse(),
+            self.do_request('1.0', 'baas.auth.token.validity.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_auth_token_validity_ex_async(
+        self,
+        request: blockchain_models.VerifyAuthTokenValidityRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.VerifyAuthTokenValidityResponse:
+        """
+        Description: 授权token校验
+        Summary: 授权token校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.VerifyAuthTokenValidityResponse(),
+            await self.do_request_async('1.0', 'baas.auth.token.validity.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_auth_business_user(
+        self,
+        request: blockchain_models.VerifyAuthBusinessUserRequest,
+    ) -> blockchain_models.VerifyAuthBusinessUserResponse:
+        """
+        Description: 核验当前用户是否权益新用户
+        Summary: 权益核验是否新用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_auth_business_user_ex(request, headers, runtime)
+
+    async def verify_auth_business_user_async(
+        self,
+        request: blockchain_models.VerifyAuthBusinessUserRequest,
+    ) -> blockchain_models.VerifyAuthBusinessUserResponse:
+        """
+        Description: 核验当前用户是否权益新用户
+        Summary: 权益核验是否新用户
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_auth_business_user_ex_async(request, headers, runtime)
+
+    def verify_auth_business_user_ex(
+        self,
+        request: blockchain_models.VerifyAuthBusinessUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.VerifyAuthBusinessUserResponse:
+        """
+        Description: 核验当前用户是否权益新用户
+        Summary: 权益核验是否新用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.VerifyAuthBusinessUserResponse(),
+            self.do_request('1.0', 'baas.auth.business.user.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_auth_business_user_ex_async(
+        self,
+        request: blockchain_models.VerifyAuthBusinessUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.VerifyAuthBusinessUserResponse:
+        """
+        Description: 核验当前用户是否权益新用户
+        Summary: 权益核验是否新用户
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.VerifyAuthBusinessUserResponse(),
+            await self.do_request_async('1.0', 'baas.auth.business.user.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_auth_business_data(
+        self,
+        request: blockchain_models.SubmitAuthBusinessDataRequest,
+    ) -> blockchain_models.SubmitAuthBusinessDataResponse:
+        """
+        Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+        Summary: 代运营-推送用户授权的相关信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_auth_business_data_ex(request, headers, runtime)
+
+    async def submit_auth_business_data_async(
+        self,
+        request: blockchain_models.SubmitAuthBusinessDataRequest,
+    ) -> blockchain_models.SubmitAuthBusinessDataResponse:
+        """
+        Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+        Summary: 代运营-推送用户授权的相关信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_auth_business_data_ex_async(request, headers, runtime)
+
+    def submit_auth_business_data_ex(
+        self,
+        request: blockchain_models.SubmitAuthBusinessDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SubmitAuthBusinessDataResponse:
+        """
+        Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+        Summary: 代运营-推送用户授权的相关信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SubmitAuthBusinessDataResponse(),
+            self.do_request('1.0', 'baas.auth.business.data.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_auth_business_data_ex_async(
+        self,
+        request: blockchain_models.SubmitAuthBusinessDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SubmitAuthBusinessDataResponse:
+        """
+        Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+        Summary: 代运营-推送用户授权的相关信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SubmitAuthBusinessDataResponse(),
+            await self.do_request_async('1.0', 'baas.auth.business.data.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_auth_business_card(
+        self,
+        request: blockchain_models.UploadAuthBusinessCardRequest,
+    ) -> blockchain_models.UploadAuthBusinessCardResponse:
+        """
+        Description: 支持调用该接口上传行驶证照片，返回上传链接
+        Summary: 行驶证上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_auth_business_card_ex(request, headers, runtime)
+
+    async def upload_auth_business_card_async(
+        self,
+        request: blockchain_models.UploadAuthBusinessCardRequest,
+    ) -> blockchain_models.UploadAuthBusinessCardResponse:
+        """
+        Description: 支持调用该接口上传行驶证照片，返回上传链接
+        Summary: 行驶证上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_auth_business_card_ex_async(request, headers, runtime)
+
+    def upload_auth_business_card_ex(
+        self,
+        request: blockchain_models.UploadAuthBusinessCardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadAuthBusinessCardResponse:
+        """
+        Description: 支持调用该接口上传行驶证照片，返回上传链接
+        Summary: 行驶证上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UploadAuthBusinessCardResponse(),
+            self.do_request('1.0', 'baas.auth.business.card.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_auth_business_card_ex_async(
+        self,
+        request: blockchain_models.UploadAuthBusinessCardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadAuthBusinessCardResponse:
+        """
+        Description: 支持调用该接口上传行驶证照片，返回上传链接
+        Summary: 行驶证上传接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UploadAuthBusinessCardResponse(),
+            await self.do_request_async('1.0', 'baas.auth.business.card.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_vc_transaction(
+        self,
+        request: blockchain_models.QueryAuthVcTransactionRequest,
+    ) -> blockchain_models.QueryAuthVcTransactionResponse:
+        """
+        Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+        Summary: 获取目标可验证声明链上交易信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_vc_transaction_ex(request, headers, runtime)
+
+    async def query_auth_vc_transaction_async(
+        self,
+        request: blockchain_models.QueryAuthVcTransactionRequest,
+    ) -> blockchain_models.QueryAuthVcTransactionResponse:
+        """
+        Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+        Summary: 获取目标可验证声明链上交易信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_vc_transaction_ex_async(request, headers, runtime)
+
+    def query_auth_vc_transaction_ex(
+        self,
+        request: blockchain_models.QueryAuthVcTransactionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthVcTransactionResponse:
+        """
+        Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+        Summary: 获取目标可验证声明链上交易信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVcTransactionResponse(),
+            self.do_request('1.0', 'baas.auth.vc.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_vc_transaction_ex_async(
+        self,
+        request: blockchain_models.QueryAuthVcTransactionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthVcTransactionResponse:
+        """
+        Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+        Summary: 获取目标可验证声明链上交易信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthVcTransactionResponse(),
+            await self.do_request_async('1.0', 'baas.auth.vc.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
