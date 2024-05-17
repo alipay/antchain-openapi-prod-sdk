@@ -29,10 +29,16 @@ use AntChain\TAX\Models\DescribeIcmInvoiceRequest;
 use AntChain\TAX\Models\DescribeIcmInvoiceResponse;
 use AntChain\TAX\Models\ExecApiAuthtemplateRequest;
 use AntChain\TAX\Models\ExecApiAuthtemplateResponse;
+use AntChain\TAX\Models\ExecApiDataprocessRequest;
+use AntChain\TAX\Models\ExecApiDataprocessResponse;
 use AntChain\TAX\Models\ExecApiSimpleauthmarkRequest;
 use AntChain\TAX\Models\ExecApiSimpleauthmarkResponse;
 use AntChain\TAX\Models\ExecIcmSyncgatheringRequest;
 use AntChain\TAX\Models\ExecIcmSyncgatheringResponse;
+use AntChain\TAX\Models\InitApiDataprocessRequest;
+use AntChain\TAX\Models\InitApiDataprocessResponse;
+use AntChain\TAX\Models\JudgeApiDataprocessRequest;
+use AntChain\TAX\Models\JudgeApiDataprocessResponse;
 use AntChain\TAX\Models\MatchIcmSimpleauthRequest;
 use AntChain\TAX\Models\MatchIcmSimpleauthResponse;
 use AntChain\TAX\Models\PullApiHaiguanasyncpollingRequest;
@@ -53,6 +59,8 @@ use AntChain\TAX\Models\QueryApiAuthtemplateresultRequest;
 use AntChain\TAX\Models\QueryApiAuthtemplateresultResponse;
 use AntChain\TAX\Models\QueryApiAuthteplateRequest;
 use AntChain\TAX\Models\QueryApiAuthteplateResponse;
+use AntChain\TAX\Models\QueryApiDataprocessRequest;
+use AntChain\TAX\Models\QueryApiDataprocessResponse;
 use AntChain\TAX\Models\QueryApiHaiguanasyncRequest;
 use AntChain\TAX\Models\QueryApiHaiguanasyncResponse;
 use AntChain\TAX\Models\QueryApiSimpleauthasyncRequest;
@@ -75,10 +83,14 @@ use AntChain\TAX\Models\QueryPdataSocialincomeRequest;
 use AntChain\TAX\Models\QueryPdataSocialincomeResponse;
 use AntChain\TAX\Models\QueryPdataUnderwriteRequest;
 use AntChain\TAX\Models\QueryPdataUnderwriteResponse;
+use AntChain\TAX\Models\QueryPortraiteconomyRequest;
+use AntChain\TAX\Models\QueryPortraiteconomyResponse;
 use AntChain\TAX\Models\QueryRiskEvaluationRequest;
 use AntChain\TAX\Models\QueryRiskEvaluationResponse;
 use AntChain\TAX\Models\QuerySimpleauthIdentitystateRequest;
 use AntChain\TAX\Models\QuerySimpleauthIdentitystateResponse;
+use AntChain\TAX\Models\RunApiDataprocessRequest;
+use AntChain\TAX\Models\RunApiDataprocessResponse;
 use AntChain\TAX\Models\StartRiskEvaluationRequest;
 use AntChain\TAX\Models\StartRiskEvaluationResponse;
 use AntChain\TAX\Models\SubmitApiSimpleauthmarkRequest;
@@ -232,7 +244,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.23',
+                    'sdk_version'      => '1.8.36',
                     '_prod_code'       => 'TAX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1337,6 +1349,171 @@ class Client
     }
 
     /**
+     * Description: 查询指定账户的数据
+     * Summary: 查询指定账户的数据.
+     *
+     * @param QueryApiDataprocessRequest $request
+     *
+     * @return QueryApiDataprocessResponse
+     */
+    public function queryApiDataprocess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiDataprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询指定账户的数据
+     * Summary: 查询指定账户的数据.
+     *
+     * @param QueryApiDataprocessRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryApiDataprocessResponse
+     */
+    public function queryApiDataprocessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiDataprocessResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.dataprocess.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 校验当前目标查询数据初始化接口
+     * Summary: 校验当前目标查询数据初始化接口.
+     *
+     * @param InitApiDataprocessRequest $request
+     *
+     * @return InitApiDataprocessResponse
+     */
+    public function initApiDataprocess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initApiDataprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 校验当前目标查询数据初始化接口
+     * Summary: 校验当前目标查询数据初始化接口.
+     *
+     * @param InitApiDataprocessRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return InitApiDataprocessResponse
+     */
+    public function initApiDataprocessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitApiDataprocessResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.dataprocess.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据流转目标客户是否可用接口
+     * Summary: 数据流转目标客户是否可用接口.
+     *
+     * @param JudgeApiDataprocessRequest $request
+     *
+     * @return JudgeApiDataprocessResponse
+     */
+    public function judgeApiDataprocess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->judgeApiDataprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据流转目标客户是否可用接口
+     * Summary: 数据流转目标客户是否可用接口.
+     *
+     * @param JudgeApiDataprocessRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return JudgeApiDataprocessResponse
+     */
+    public function judgeApiDataprocessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return JudgeApiDataprocessResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.dataprocess.judge', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 初始化与查询合并统一执行接口
+     * Summary: 初始化与查询合并统一执行接口.
+     *
+     * @param ExecApiDataprocessRequest $request
+     *
+     * @return ExecApiDataprocessResponse
+     */
+    public function execApiDataprocess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execApiDataprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 初始化与查询合并统一执行接口
+     * Summary: 初始化与查询合并统一执行接口.
+     *
+     * @param ExecApiDataprocessRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ExecApiDataprocessResponse
+     */
+    public function execApiDataprocessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecApiDataprocessResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.dataprocess.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据流转通用执行接口
+     * Summary: 数据流转通用执行接口.
+     *
+     * @param RunApiDataprocessRequest $request
+     *
+     * @return RunApiDataprocessResponse
+     */
+    public function runApiDataprocess($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->runApiDataprocessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据流转通用执行接口
+     * Summary: 数据流转通用执行接口.
+     *
+     * @param RunApiDataprocessRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return RunApiDataprocessResponse
+     */
+    public function runApiDataprocessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RunApiDataprocessResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.api.dataprocess.run', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 收入评估服务A
      * https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
      * Summary: 收入评估服务A.
@@ -1503,5 +1680,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryPdataUnderwriteResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.pdata.underwrite.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 经济画像
+     * Summary: 财富洞察经济画像.
+     *
+     * @param QueryPortraiteconomyRequest $request
+     *
+     * @return QueryPortraiteconomyResponse
+     */
+    public function queryPortraiteconomy($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryPortraiteconomyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 经济画像
+     * Summary: 财富洞察经济画像.
+     *
+     * @param QueryPortraiteconomyRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryPortraiteconomyResponse
+     */
+    public function queryPortraiteconomyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryPortraiteconomyResponse::fromMap($this->doRequest('1.0', 'blockchain.tax.portraiteconomy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
