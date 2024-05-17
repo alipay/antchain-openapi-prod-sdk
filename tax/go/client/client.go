@@ -824,6 +824,12 @@ type IdentityInfo struct {
 	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty" require:"true"`
 	// 授权编号
 	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+	// 授权开始时间
+	AuthStartTime *string `json:"auth_start_time,omitempty" xml:"auth_start_time,omitempty"`
+	// 授权截止时间
+	AuthEndTime *string `json:"auth_end_time,omitempty" xml:"auth_end_time,omitempty"`
+	// 授权书url
+	AuthUrl *string `json:"auth_url,omitempty" xml:"auth_url,omitempty"`
 }
 
 func (s IdentityInfo) String() string {
@@ -841,6 +847,21 @@ func (s *IdentityInfo) SetIdentityId(v string) *IdentityInfo {
 
 func (s *IdentityInfo) SetAuthCode(v string) *IdentityInfo {
 	s.AuthCode = &v
+	return s
+}
+
+func (s *IdentityInfo) SetAuthStartTime(v string) *IdentityInfo {
+	s.AuthStartTime = &v
+	return s
+}
+
+func (s *IdentityInfo) SetAuthEndTime(v string) *IdentityInfo {
+	s.AuthEndTime = &v
+	return s
+}
+
+func (s *IdentityInfo) SetAuthUrl(v string) *IdentityInfo {
+	s.AuthUrl = &v
 	return s
 }
 
@@ -1096,6 +1117,25 @@ func (s *StandardRealPersonAuthRequest) SetIdentityName(v string) *StandardRealP
 	return s
 }
 
+// 返回结果集合
+type DataProcessGlobalResponse struct {
+	// 处理结果数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s DataProcessGlobalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataProcessGlobalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DataProcessGlobalResponse) SetData(v string) *DataProcessGlobalResponse {
+	s.Data = &v
+	return s
+}
+
 // 收入评估服务B结果对象
 type SocialIncomeEvaluationFacade struct {
 	// 查询结果
@@ -1159,6 +1199,39 @@ func (s *PersonalIncomeEvaluationFacade) SetScoreResult(v string) *PersonalIncom
 
 func (s *PersonalIncomeEvaluationFacade) SetIncomeScore(v string) *PersonalIncomeEvaluationFacade {
 	s.IncomeScore = &v
+	return s
+}
+
+// 数据流转统一入参
+type DataProcessGlobalRequest struct {
+	// 产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 租户类型
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 参数
+	Param *string `json:"param,omitempty" xml:"param,omitempty" require:"true"`
+}
+
+func (s DataProcessGlobalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DataProcessGlobalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DataProcessGlobalRequest) SetProductCode(v string) *DataProcessGlobalRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *DataProcessGlobalRequest) SetInstCode(v string) *DataProcessGlobalRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *DataProcessGlobalRequest) SetParam(v string) *DataProcessGlobalRequest {
+	s.Param = &v
 	return s
 }
 
@@ -5144,6 +5217,433 @@ func (s *QueryEnterpriseElectronicasyncResponse) SetResultMsg(v string) *QueryEn
 	return s
 }
 
+type QueryApiDataprocessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品名称
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 账户自护
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 业务参数
+	Param *string `json:"param,omitempty" xml:"param,omitempty" require:"true"`
+}
+
+func (s QueryApiDataprocessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiDataprocessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiDataprocessRequest) SetAuthToken(v string) *QueryApiDataprocessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiDataprocessRequest) SetProductInstanceId(v string) *QueryApiDataprocessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiDataprocessRequest) SetProductCode(v string) *QueryApiDataprocessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *QueryApiDataprocessRequest) SetInstCode(v string) *QueryApiDataprocessRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *QueryApiDataprocessRequest) SetParam(v string) *QueryApiDataprocessRequest {
+	s.Param = &v
+	return s
+}
+
+type QueryApiDataprocessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryApiDataprocessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiDataprocessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiDataprocessResponse) SetReqMsgId(v string) *QueryApiDataprocessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiDataprocessResponse) SetResultCode(v string) *QueryApiDataprocessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiDataprocessResponse) SetResultMsg(v string) *QueryApiDataprocessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApiDataprocessResponse) SetData(v string) *QueryApiDataprocessResponse {
+	s.Data = &v
+	return s
+}
+
+type InitApiDataprocessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 租户code
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 请求参数
+	Param *string `json:"param,omitempty" xml:"param,omitempty" require:"true"`
+}
+
+func (s InitApiDataprocessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitApiDataprocessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitApiDataprocessRequest) SetAuthToken(v string) *InitApiDataprocessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitApiDataprocessRequest) SetProductInstanceId(v string) *InitApiDataprocessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitApiDataprocessRequest) SetProductCode(v string) *InitApiDataprocessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *InitApiDataprocessRequest) SetInstCode(v string) *InitApiDataprocessRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *InitApiDataprocessRequest) SetParam(v string) *InitApiDataprocessRequest {
+	s.Param = &v
+	return s
+}
+
+type InitApiDataprocessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果集
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s InitApiDataprocessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitApiDataprocessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitApiDataprocessResponse) SetReqMsgId(v string) *InitApiDataprocessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitApiDataprocessResponse) SetResultCode(v string) *InitApiDataprocessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitApiDataprocessResponse) SetResultMsg(v string) *InitApiDataprocessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitApiDataprocessResponse) SetData(v string) *InitApiDataprocessResponse {
+	s.Data = &v
+	return s
+}
+
+type JudgeApiDataprocessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品编码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 租户code
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 业务参数
+	Param *string `json:"param,omitempty" xml:"param,omitempty" require:"true"`
+}
+
+func (s JudgeApiDataprocessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JudgeApiDataprocessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *JudgeApiDataprocessRequest) SetAuthToken(v string) *JudgeApiDataprocessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *JudgeApiDataprocessRequest) SetProductInstanceId(v string) *JudgeApiDataprocessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *JudgeApiDataprocessRequest) SetProductCode(v string) *JudgeApiDataprocessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *JudgeApiDataprocessRequest) SetInstCode(v string) *JudgeApiDataprocessRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *JudgeApiDataprocessRequest) SetParam(v string) *JudgeApiDataprocessRequest {
+	s.Param = &v
+	return s
+}
+
+type JudgeApiDataprocessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s JudgeApiDataprocessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s JudgeApiDataprocessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *JudgeApiDataprocessResponse) SetReqMsgId(v string) *JudgeApiDataprocessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *JudgeApiDataprocessResponse) SetResultCode(v string) *JudgeApiDataprocessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *JudgeApiDataprocessResponse) SetResultMsg(v string) *JudgeApiDataprocessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *JudgeApiDataprocessResponse) SetData(v string) *JudgeApiDataprocessResponse {
+	s.Data = &v
+	return s
+}
+
+type ExecApiDataprocessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 租户code
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 请求参数
+	Param *string `json:"param,omitempty" xml:"param,omitempty" require:"true"`
+}
+
+func (s ExecApiDataprocessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecApiDataprocessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecApiDataprocessRequest) SetAuthToken(v string) *ExecApiDataprocessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecApiDataprocessRequest) SetProductInstanceId(v string) *ExecApiDataprocessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecApiDataprocessRequest) SetProductCode(v string) *ExecApiDataprocessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ExecApiDataprocessRequest) SetInstCode(v string) *ExecApiDataprocessRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *ExecApiDataprocessRequest) SetParam(v string) *ExecApiDataprocessRequest {
+	s.Param = &v
+	return s
+}
+
+type ExecApiDataprocessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回的业务数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s ExecApiDataprocessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecApiDataprocessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecApiDataprocessResponse) SetReqMsgId(v string) *ExecApiDataprocessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecApiDataprocessResponse) SetResultCode(v string) *ExecApiDataprocessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecApiDataprocessResponse) SetResultMsg(v string) *ExecApiDataprocessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecApiDataprocessResponse) SetData(v string) *ExecApiDataprocessResponse {
+	s.Data = &v
+	return s
+}
+
+type RunApiDataprocessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求参数json
+	BizParam *string `json:"biz_param,omitempty" xml:"biz_param,omitempty" require:"true"`
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 调用的方法
+	MethodCode *string `json:"method_code,omitempty" xml:"method_code,omitempty" require:"true"`
+	// 租户编码
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty"`
+}
+
+func (s RunApiDataprocessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RunApiDataprocessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RunApiDataprocessRequest) SetAuthToken(v string) *RunApiDataprocessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RunApiDataprocessRequest) SetProductInstanceId(v string) *RunApiDataprocessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RunApiDataprocessRequest) SetBizParam(v string) *RunApiDataprocessRequest {
+	s.BizParam = &v
+	return s
+}
+
+func (s *RunApiDataprocessRequest) SetProductCode(v string) *RunApiDataprocessRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *RunApiDataprocessRequest) SetMethodCode(v string) *RunApiDataprocessRequest {
+	s.MethodCode = &v
+	return s
+}
+
+func (s *RunApiDataprocessRequest) SetInstCode(v string) *RunApiDataprocessRequest {
+	s.InstCode = &v
+	return s
+}
+
+type RunApiDataprocessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回数据
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s RunApiDataprocessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RunApiDataprocessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RunApiDataprocessResponse) SetReqMsgId(v string) *RunApiDataprocessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RunApiDataprocessResponse) SetResultCode(v string) *RunApiDataprocessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RunApiDataprocessResponse) SetResultMsg(v string) *RunApiDataprocessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RunApiDataprocessResponse) SetData(v string) *RunApiDataprocessResponse {
+	s.Data = &v
+	return s
+}
+
 type QueryPdataPersonalincomeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -5802,6 +6302,83 @@ func (s *QueryPdataUnderwriteResponse) SetEncryptData(v string) *QueryPdataUnder
 	return s
 }
 
+type QueryPortraiteconomyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// biz_id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// cert_no
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+}
+
+func (s QueryPortraiteconomyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPortraiteconomyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPortraiteconomyRequest) SetAuthToken(v string) *QueryPortraiteconomyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryPortraiteconomyRequest) SetProductInstanceId(v string) *QueryPortraiteconomyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryPortraiteconomyRequest) SetBizId(v string) *QueryPortraiteconomyRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *QueryPortraiteconomyRequest) SetCertNo(v string) *QueryPortraiteconomyRequest {
+	s.CertNo = &v
+	return s
+}
+
+type QueryPortraiteconomyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// score
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+}
+
+func (s QueryPortraiteconomyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryPortraiteconomyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryPortraiteconomyResponse) SetReqMsgId(v string) *QueryPortraiteconomyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryPortraiteconomyResponse) SetResultCode(v string) *QueryPortraiteconomyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryPortraiteconomyResponse) SetResultMsg(v string) *QueryPortraiteconomyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryPortraiteconomyResponse) SetScore(v string) *QueryPortraiteconomyResponse {
+	s.Score = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -5924,7 +6501,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.23"),
+				"sdk_version":      tea.String("1.8.36"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -7071,6 +7648,176 @@ func (client *Client) QueryEnterpriseElectronicasyncEx(request *QueryEnterpriseE
 }
 
 /**
+ * Description: 查询指定账户的数据
+ * Summary: 查询指定账户的数据
+ */
+func (client *Client) QueryApiDataprocess(request *QueryApiDataprocessRequest) (_result *QueryApiDataprocessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiDataprocessResponse{}
+	_body, _err := client.QueryApiDataprocessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询指定账户的数据
+ * Summary: 查询指定账户的数据
+ */
+func (client *Client) QueryApiDataprocessEx(request *QueryApiDataprocessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiDataprocessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiDataprocessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.dataprocess.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 校验当前目标查询数据初始化接口
+ * Summary: 校验当前目标查询数据初始化接口
+ */
+func (client *Client) InitApiDataprocess(request *InitApiDataprocessRequest) (_result *InitApiDataprocessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitApiDataprocessResponse{}
+	_body, _err := client.InitApiDataprocessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 校验当前目标查询数据初始化接口
+ * Summary: 校验当前目标查询数据初始化接口
+ */
+func (client *Client) InitApiDataprocessEx(request *InitApiDataprocessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitApiDataprocessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitApiDataprocessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.dataprocess.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转目标客户是否可用接口
+ * Summary: 数据流转目标客户是否可用接口
+ */
+func (client *Client) JudgeApiDataprocess(request *JudgeApiDataprocessRequest) (_result *JudgeApiDataprocessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &JudgeApiDataprocessResponse{}
+	_body, _err := client.JudgeApiDataprocessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转目标客户是否可用接口
+ * Summary: 数据流转目标客户是否可用接口
+ */
+func (client *Client) JudgeApiDataprocessEx(request *JudgeApiDataprocessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *JudgeApiDataprocessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &JudgeApiDataprocessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.dataprocess.judge"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 初始化与查询合并统一执行接口
+ * Summary: 初始化与查询合并统一执行接口
+ */
+func (client *Client) ExecApiDataprocess(request *ExecApiDataprocessRequest) (_result *ExecApiDataprocessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecApiDataprocessResponse{}
+	_body, _err := client.ExecApiDataprocessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 初始化与查询合并统一执行接口
+ * Summary: 初始化与查询合并统一执行接口
+ */
+func (client *Client) ExecApiDataprocessEx(request *ExecApiDataprocessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecApiDataprocessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecApiDataprocessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.dataprocess.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转通用执行接口
+ * Summary: 数据流转通用执行接口
+ */
+func (client *Client) RunApiDataprocess(request *RunApiDataprocessRequest) (_result *RunApiDataprocessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RunApiDataprocessResponse{}
+	_body, _err := client.RunApiDataprocessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据流转通用执行接口
+ * Summary: 数据流转通用执行接口
+ */
+func (client *Client) RunApiDataprocessEx(request *RunApiDataprocessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RunApiDataprocessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RunApiDataprocessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.api.dataprocess.run"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 收入评估服务A
 https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
  * Summary: 收入评估服务A
@@ -7237,6 +7984,40 @@ func (client *Client) QueryPdataUnderwriteEx(request *QueryPdataUnderwriteReques
 	}
 	_result = &QueryPdataUnderwriteResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.pdata.underwrite.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 经济画像
+ * Summary: 财富洞察经济画像
+ */
+func (client *Client) QueryPortraiteconomy(request *QueryPortraiteconomyRequest) (_result *QueryPortraiteconomyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryPortraiteconomyResponse{}
+	_body, _err := client.QueryPortraiteconomyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 经济画像
+ * Summary: 财富洞察经济画像
+ */
+func (client *Client) QueryPortraiteconomyEx(request *QueryPortraiteconomyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryPortraiteconomyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryPortraiteconomyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.tax.portraiteconomy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
