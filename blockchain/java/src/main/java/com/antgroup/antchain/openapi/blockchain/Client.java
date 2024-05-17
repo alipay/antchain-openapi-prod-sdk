@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.28.2"),
+                    new TeaPair("sdk_version", "1.28.20"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -7992,6 +7992,101 @@ public class Client {
     public RepayAuthEquityResponse repayAuthEquityEx(RepayAuthEquityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.equity.repay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RepayAuthEquityResponse());
+    }
+
+    /**
+     * Description: 授权token校验
+     * Summary: 授权token校验
+     */
+    public VerifyAuthTokenValidityResponse verifyAuthTokenValidity(VerifyAuthTokenValidityRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyAuthTokenValidityEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 授权token校验
+     * Summary: 授权token校验
+     */
+    public VerifyAuthTokenValidityResponse verifyAuthTokenValidityEx(VerifyAuthTokenValidityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.token.validity.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyAuthTokenValidityResponse());
+    }
+
+    /**
+     * Description: 核验当前用户是否权益新用户
+     * Summary: 权益核验是否新用户
+     */
+    public VerifyAuthBusinessUserResponse verifyAuthBusinessUser(VerifyAuthBusinessUserRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyAuthBusinessUserEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 核验当前用户是否权益新用户
+     * Summary: 权益核验是否新用户
+     */
+    public VerifyAuthBusinessUserResponse verifyAuthBusinessUserEx(VerifyAuthBusinessUserRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.business.user.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyAuthBusinessUserResponse());
+    }
+
+    /**
+     * Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+     * Summary: 代运营-推送用户授权的相关信息
+     */
+    public SubmitAuthBusinessDataResponse submitAuthBusinessData(SubmitAuthBusinessDataRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAuthBusinessDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+     * Summary: 代运营-推送用户授权的相关信息
+     */
+    public SubmitAuthBusinessDataResponse submitAuthBusinessDataEx(SubmitAuthBusinessDataRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.business.data.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuthBusinessDataResponse());
+    }
+
+    /**
+     * Description: 支持调用该接口上传行驶证照片，返回上传链接
+     * Summary: 行驶证上传接口
+     */
+    public UploadAuthBusinessCardResponse uploadAuthBusinessCard(UploadAuthBusinessCardRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAuthBusinessCardEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 支持调用该接口上传行驶证照片，返回上传链接
+     * Summary: 行驶证上传接口
+     */
+    public UploadAuthBusinessCardResponse uploadAuthBusinessCardEx(UploadAuthBusinessCardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.business.card.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAuthBusinessCardResponse());
+    }
+
+    /**
+     * Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+     * Summary: 获取目标可验证声明链上交易信息
+     */
+    public QueryAuthVcTransactionResponse queryAuthVcTransaction(QueryAuthVcTransactionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthVcTransactionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+     * Summary: 获取目标可验证声明链上交易信息
+     */
+    public QueryAuthVcTransactionResponse queryAuthVcTransactionEx(QueryAuthVcTransactionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.vc.transaction.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthVcTransactionResponse());
     }
 
     /**
