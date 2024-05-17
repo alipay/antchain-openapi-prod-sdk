@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.23',
+    sdk_version = '1.8.36',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -387,6 +387,12 @@ model IdentityInfo {
   identityId: string(name='identity_id', example='税号'),
   // 授权编号
   authCode: string(name='auth_code', example='授权编号'),
+  // 授权开始时间
+  authStartTime?: string(name='auth_start_time', example='YYYY-MM-DD HH:MM:SS'),
+  // 授权截止时间
+  authEndTime?: string(name='auth_end_time', example='YYYY-MM-DD HH:MM:SS'),
+  // 授权书url
+  authUrl?: string(name='auth_url', example='https://mass.alipay.com/credit_zmepconnector/afts/file/A*mNBcT6AvV5YAAAAAAAAAAAAADTp5AA?t=xIcb2AUdCcOajPNowepVTTooDnSqmrPtbbAnl4fgurADAAAAZAAAeTplRGus'),
 }
 
 // 婚姻状况查验服务结果对象
@@ -465,6 +471,12 @@ model StandardRealPersonAuthRequest {
   identityName: string(name='identity_name', example='张三'),
 }
 
+// 返回结果集合
+model DataProcessGlobalResponse {
+  // 处理结果数据
+  data: string(name='data', example='{"aa":"aa"}'),
+}
+
 // 收入评估服务B结果对象
 model SocialIncomeEvaluationFacade {
   // 查询结果
@@ -483,6 +495,16 @@ model PersonalIncomeEvaluationFacade {
   scoreResult: string(name='score_result', example='00,01'),
   // 收入评分
   incomeScore?: string(name='income_score', example='100'),
+}
+
+// 数据流转统一入参
+model DataProcessGlobalRequest {
+  // 产品码
+  productCode: string(name='product_code', example='SCIAZDR'),
+  // 租户类型
+  instCode: string(name='inst_code', example='SCIAZDR'),
+  // 参数
+  param: string(name='param', example='{"aa":"aa"}'),
 }
 
 // 二维码
@@ -2241,6 +2263,218 @@ async function queryEnterpriseElectronicasyncEx(request: QueryEnterpriseElectron
   return doRequest('1.0' ,'blockchain.tax.enterprise.electronicasync.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryApiDataprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品名称
+  productCode: string(name='product_code'),
+  // 账户自护
+  instCode: string(name='inst_code'),
+  // 业务参数
+  param: string(name='param'),
+}
+
+model QueryApiDataprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 查询指定账户的数据
+ * Summary: 查询指定账户的数据
+ */
+async function queryApiDataprocess(request: QueryApiDataprocessRequest): QueryApiDataprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiDataprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询指定账户的数据
+ * Summary: 查询指定账户的数据
+ */
+async function queryApiDataprocessEx(request: QueryApiDataprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiDataprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.dataprocess.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitApiDataprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 租户code
+  instCode: string(name='inst_code'),
+  // 请求参数
+  param: string(name='param'),
+}
+
+model InitApiDataprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果集
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 校验当前目标查询数据初始化接口
+ * Summary: 校验当前目标查询数据初始化接口
+ */
+async function initApiDataprocess(request: InitApiDataprocessRequest): InitApiDataprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initApiDataprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 校验当前目标查询数据初始化接口
+ * Summary: 校验当前目标查询数据初始化接口
+ */
+async function initApiDataprocessEx(request: InitApiDataprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitApiDataprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.dataprocess.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model JudgeApiDataprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品编码
+  productCode: string(name='product_code'),
+  // 租户code
+  instCode: string(name='inst_code'),
+  // 业务参数
+  param: string(name='param'),
+}
+
+model JudgeApiDataprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数据流转目标客户是否可用接口
+ * Summary: 数据流转目标客户是否可用接口
+ */
+async function judgeApiDataprocess(request: JudgeApiDataprocessRequest): JudgeApiDataprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return judgeApiDataprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据流转目标客户是否可用接口
+ * Summary: 数据流转目标客户是否可用接口
+ */
+async function judgeApiDataprocessEx(request: JudgeApiDataprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): JudgeApiDataprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.dataprocess.judge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecApiDataprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 租户code
+  instCode: string(name='inst_code'),
+  // 请求参数
+  param: string(name='param'),
+}
+
+model ExecApiDataprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的业务数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 初始化与查询合并统一执行接口
+ * Summary: 初始化与查询合并统一执行接口
+ */
+async function execApiDataprocess(request: ExecApiDataprocessRequest): ExecApiDataprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execApiDataprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 初始化与查询合并统一执行接口
+ * Summary: 初始化与查询合并统一执行接口
+ */
+async function execApiDataprocessEx(request: ExecApiDataprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecApiDataprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.dataprocess.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RunApiDataprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求参数json
+  bizParam: string(name='biz_param'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 调用的方法
+  methodCode: string(name='method_code'),
+  // 租户编码
+  instCode?: string(name='inst_code'),
+}
+
+model RunApiDataprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数据流转通用执行接口
+ * Summary: 数据流转通用执行接口
+ */
+async function runApiDataprocess(request: RunApiDataprocessRequest): RunApiDataprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return runApiDataprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据流转通用执行接口
+ * Summary: 数据流转通用执行接口
+ */
+async function runApiDataprocessEx(request: RunApiDataprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunApiDataprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.dataprocess.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryPdataPersonalincomeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -2521,5 +2755,45 @@ async function queryPdataUnderwrite(request: QueryPdataUnderwriteRequest): Query
 async function queryPdataUnderwriteEx(request: QueryPdataUnderwriteRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPdataUnderwriteResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.tax.pdata.underwrite.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPortraiteconomyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // biz_id
+  bizId: string(name='biz_id'),
+  // cert_no
+  certNo: string(name='cert_no'),
+}
+
+model QueryPortraiteconomyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // score
+  score?: string(name='score'),
+}
+
+/**
+ * Description: 经济画像
+ * Summary: 财富洞察经济画像
+ */
+async function queryPortraiteconomy(request: QueryPortraiteconomyRequest): QueryPortraiteconomyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPortraiteconomyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 经济画像
+ * Summary: 财富洞察经济画像
+ */
+async function queryPortraiteconomyEx(request: QueryPortraiteconomyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPortraiteconomyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.portraiteconomy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
