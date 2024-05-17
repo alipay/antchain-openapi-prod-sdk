@@ -627,6 +627,8 @@ use AntChain\BLOCKCHAIN\Models\QueryAuthVcRealtimeRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcRealtimeResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcStatisticsRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVcStatisticsResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVcTransactionRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthVcTransactionResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthVehicleinsuranceVcRequest;
@@ -1135,6 +1137,8 @@ use AntChain\BLOCKCHAIN\Models\StopDidResolverServiceRequest;
 use AntChain\BLOCKCHAIN\Models\StopDidResolverServiceResponse;
 use AntChain\BLOCKCHAIN\Models\StopOcpProductRequest;
 use AntChain\BLOCKCHAIN\Models\StopOcpProductResponse;
+use AntChain\BLOCKCHAIN\Models\SubmitAuthBusinessDataRequest;
+use AntChain\BLOCKCHAIN\Models\SubmitAuthBusinessDataResponse;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskRequest;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\SyncMydidcommunWorkergroupGroupRequest;
@@ -1215,10 +1219,16 @@ use AntChain\BLOCKCHAIN\Models\UpdateUnionUnionRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateUnionUnionResponse;
 use AntChain\BLOCKCHAIN\Models\UpdateVcVcrepoUserRequest;
 use AntChain\BLOCKCHAIN\Models\UpdateVcVcrepoUserResponse;
+use AntChain\BLOCKCHAIN\Models\UploadAuthBusinessCardRequest;
+use AntChain\BLOCKCHAIN\Models\UploadAuthBusinessCardResponse;
 use AntChain\BLOCKCHAIN\Models\UploadAuthCertInstanceRequest;
 use AntChain\BLOCKCHAIN\Models\UploadAuthCertInstanceResponse;
 use AntChain\BLOCKCHAIN\Models\UploadDataFileBatchqueryRequest;
 use AntChain\BLOCKCHAIN\Models\UploadDataFileBatchqueryResponse;
+use AntChain\BLOCKCHAIN\Models\VerifyAuthBusinessUserRequest;
+use AntChain\BLOCKCHAIN\Models\VerifyAuthBusinessUserResponse;
+use AntChain\BLOCKCHAIN\Models\VerifyAuthTokenValidityRequest;
+use AntChain\BLOCKCHAIN\Models\VerifyAuthTokenValidityResponse;
 use AntChain\BLOCKCHAIN\Models\VerifyBlockchainOrderRequest;
 use AntChain\BLOCKCHAIN\Models\VerifyBlockchainOrderResponse;
 use AntChain\BLOCKCHAIN\Models\VerifyDidZkpverifiableclaimProofRequest;
@@ -1370,7 +1380,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.2',
+                    'sdk_version'      => '1.28.20',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -14969,6 +14979,171 @@ class Client
         Utils::validateModel($request);
 
         return RepayAuthEquityResponse::fromMap($this->doRequest('1.0', 'baas.auth.equity.repay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 授权token校验
+     * Summary: 授权token校验.
+     *
+     * @param VerifyAuthTokenValidityRequest $request
+     *
+     * @return VerifyAuthTokenValidityResponse
+     */
+    public function verifyAuthTokenValidity($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyAuthTokenValidityEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 授权token校验
+     * Summary: 授权token校验.
+     *
+     * @param VerifyAuthTokenValidityRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return VerifyAuthTokenValidityResponse
+     */
+    public function verifyAuthTokenValidityEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyAuthTokenValidityResponse::fromMap($this->doRequest('1.0', 'baas.auth.token.validity.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 核验当前用户是否权益新用户
+     * Summary: 权益核验是否新用户.
+     *
+     * @param VerifyAuthBusinessUserRequest $request
+     *
+     * @return VerifyAuthBusinessUserResponse
+     */
+    public function verifyAuthBusinessUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyAuthBusinessUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 核验当前用户是否权益新用户
+     * Summary: 权益核验是否新用户.
+     *
+     * @param VerifyAuthBusinessUserRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return VerifyAuthBusinessUserResponse
+     */
+    public function verifyAuthBusinessUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyAuthBusinessUserResponse::fromMap($this->doRequest('1.0', 'baas.auth.business.user.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+     * Summary: 代运营-推送用户授权的相关信息.
+     *
+     * @param SubmitAuthBusinessDataRequest $request
+     *
+     * @return SubmitAuthBusinessDataResponse
+     */
+    public function submitAuthBusinessData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAuthBusinessDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+     * Summary: 代运营-推送用户授权的相关信息.
+     *
+     * @param SubmitAuthBusinessDataRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SubmitAuthBusinessDataResponse
+     */
+    public function submitAuthBusinessDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAuthBusinessDataResponse::fromMap($this->doRequest('1.0', 'baas.auth.business.data.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 支持调用该接口上传行驶证照片，返回上传链接
+     * Summary: 行驶证上传接口.
+     *
+     * @param UploadAuthBusinessCardRequest $request
+     *
+     * @return UploadAuthBusinessCardResponse
+     */
+    public function uploadAuthBusinessCard($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAuthBusinessCardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 支持调用该接口上传行驶证照片，返回上传链接
+     * Summary: 行驶证上传接口.
+     *
+     * @param UploadAuthBusinessCardRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return UploadAuthBusinessCardResponse
+     */
+    public function uploadAuthBusinessCardEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAuthBusinessCardResponse::fromMap($this->doRequest('1.0', 'baas.auth.business.card.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+     * Summary: 获取目标可验证声明链上交易信息.
+     *
+     * @param QueryAuthVcTransactionRequest $request
+     *
+     * @return QueryAuthVcTransactionResponse
+     */
+    public function queryAuthVcTransaction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthVcTransactionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+     * Summary: 获取目标可验证声明链上交易信息.
+     *
+     * @param QueryAuthVcTransactionRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryAuthVcTransactionResponse
+     */
+    public function queryAuthVcTransactionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthVcTransactionResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.transaction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
