@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.2',
+    sdk_version = '1.28.20',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -1572,6 +1572,30 @@ model VcShareStruct {
 model MiniAppBrowserAuthType {
   // 授权类型
   authType: string(name='auth_type', example='DISABLED, ALL_USER, SPECIFIC_USER'),
+}
+
+// 链上交易信息
+model TxInfo {
+  // 上链结果
+  txReceiptResult: string(name='tx_receipt_result', example='SUCCESS'),
+  // 区块链id
+  bizId: string(name='biz_id', example='c4b83bb3080a4a19957af5b0b4430542'),
+  // 交易hash
+  txHash: string(name='tx_hash', example='aeedaaf3abb4a1ce86de538ec42759626689ea59fdfba4a10a0ef1550aa10d3d'),
+  // 交易类型
+  txType: string(name='tx_type', example='TX_DEPOSIT_DATA'),
+  // 时间戳
+  timestamp: long(name='timestamp', example='1638796927336'),
+  // 区块高度
+  blockNumber: string(name='block_number', example='68772416'),
+  // 交易随机数Nonce
+  nonce: string(name='nonce', example='505563366098488426'),
+  // 发起地址
+  from: string(name='from', example='070e88eb167a1dc5156563c5b0dd2c9e89fe5cff50e78c8534c33511d13d3304'),
+  // 目标地址
+  to: string(name='to', example='070e88eb167a1dc5156563c5b0dd2c9e89fe5cff50e78c8534c33511d13d3304'),
+  // 签名
+  signature: string(name='signature', example='9357e09984d9ba31f0f6070a8276b0d39ffeb8c40aaa7a6873cc69a04ea4babf7295d642aeb945b5eca6624751e11e41885d918deae554abd8d732f95e31d44f00'),
 }
 
 // 服务发现结果
@@ -22123,6 +22147,221 @@ async function repayAuthEquity(request: RepayAuthEquityRequest): RepayAuthEquity
 async function repayAuthEquityEx(request: RepayAuthEquityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayAuthEquityResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.equity.repay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyAuthTokenValidityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userId: string(name='user_id'),
+  // 授权凭证
+  authorizedToken: string(name='authorized_token'),
+  // 数据产品类型
+  dataType: string(name='data_type'),
+  // 授权场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model VerifyAuthTokenValidityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 验证结果（ture表示通过，false表示不通过）
+  verifyResult?: boolean(name='verify_result'),
+  // 错误信息
+  errMsg?: string(name='err_msg'),
+}
+
+/**
+ * Description: 授权token校验
+ * Summary: 授权token校验
+ */
+async function verifyAuthTokenValidity(request: VerifyAuthTokenValidityRequest): VerifyAuthTokenValidityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyAuthTokenValidityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 授权token校验
+ * Summary: 授权token校验
+ */
+async function verifyAuthTokenValidityEx(request: VerifyAuthTokenValidityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyAuthTokenValidityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.token.validity.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyAuthBusinessUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model VerifyAuthBusinessUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户当前记录状态
+  recordType?: string(name='record_type'),
+  // 加密后的用户授权记录id
+  encryptBizId?: string(name='encrypt_biz_id'),
+}
+
+/**
+ * Description: 核验当前用户是否权益新用户
+ * Summary: 权益核验是否新用户
+ */
+async function verifyAuthBusinessUser(request: VerifyAuthBusinessUserRequest): VerifyAuthBusinessUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyAuthBusinessUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 核验当前用户是否权益新用户
+ * Summary: 权益核验是否新用户
+ */
+async function verifyAuthBusinessUserEx(request: VerifyAuthBusinessUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyAuthBusinessUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.business.user.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAuthBusinessDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 场景码
+  sceneCode: string(name='scene_code'),
+  // 推送的数据内容，json字符串形式
+  pushDataContent: string(name='push_data_content'),
+}
+
+model SubmitAuthBusinessDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 推送是否成功
+  pushSuccess?: boolean(name='push_success'),
+}
+
+/**
+ * Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+ * Summary: 代运营-推送用户授权的相关信息
+ */
+async function submitAuthBusinessData(request: SubmitAuthBusinessDataRequest): SubmitAuthBusinessDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAuthBusinessDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代运营场景下第三方应用调用该接口推送相关信息，例如车辆信息
+ * Summary: 代运营-推送用户授权的相关信息
+ */
+async function submitAuthBusinessDataEx(request: SubmitAuthBusinessDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuthBusinessDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.business.data.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAuthBusinessCardRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 运营场景码
+  sceneCode: string(name='scene_code'),
+  // 上传证件类型
+  fileType: string(name='file_type'),
+}
+
+model UploadAuthBusinessCardResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // oss文件上传策略
+  presignedUrlPolicy?: PresignedUrlPolicy(name='presigned_url_policy'),
+}
+
+/**
+ * Description: 支持调用该接口上传行驶证照片，返回上传链接
+ * Summary: 行驶证上传接口
+ */
+async function uploadAuthBusinessCard(request: UploadAuthBusinessCardRequest): UploadAuthBusinessCardResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAuthBusinessCardEx(request, headers, runtime);
+}
+
+/**
+ * Description: 支持调用该接口上传行驶证照片，返回上传链接
+ * Summary: 行驶证上传接口
+ */
+async function uploadAuthBusinessCardEx(request: UploadAuthBusinessCardRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAuthBusinessCardResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.business.card.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuthVcTransactionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询目标可验证声明的ID
+  vcId: string(name='vc_id'),
+  // 业务类型，通常需要与授权宝服务沟通确定，业务类型可能影响此接口内部实现逻辑，长度不超过32字符。
+  bizType: string(name='biz_type'),
+  // 如果此字段为空，则默认使用当前请求租户在授权宝配置的did来进行查询(此did需授权有权限)，此外情况都需要指定目标vc_id的owner_did
+  // 
+  ownerDid?: string(name='owner_did'),
+}
+
+model QueryAuthVcTransactionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链上交易信息
+  txInfo?: TxInfo(name='tx_info'),
+}
+
+/**
+ * Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+ * Summary: 获取目标可验证声明链上交易信息
+ */
+async function queryAuthVcTransaction(request: QueryAuthVcTransactionRequest): QueryAuthVcTransactionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuthVcTransactionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过指定可验证声明id，获取目标可验证声明链上交易信息，需要可验证声明的拥有者分享声明才可查询，如果没有权限则获取失败。
+ * Summary: 获取目标可验证声明链上交易信息
+ */
+async function queryAuthVcTransactionEx(request: QueryAuthVcTransactionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthVcTransactionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.vc.transaction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
