@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.23"),
+                    new TeaPair("sdk_version", "1.8.36"),
                     new TeaPair("_prod_code", "TAX"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -770,6 +770,101 @@ public class Client {
     }
 
     /**
+     * Description: 查询指定账户的数据
+     * Summary: 查询指定账户的数据
+     */
+    public QueryApiDataprocessResponse queryApiDataprocess(QueryApiDataprocessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryApiDataprocessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询指定账户的数据
+     * Summary: 查询指定账户的数据
+     */
+    public QueryApiDataprocessResponse queryApiDataprocessEx(QueryApiDataprocessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.dataprocess.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryApiDataprocessResponse());
+    }
+
+    /**
+     * Description: 校验当前目标查询数据初始化接口
+     * Summary: 校验当前目标查询数据初始化接口
+     */
+    public InitApiDataprocessResponse initApiDataprocess(InitApiDataprocessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initApiDataprocessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 校验当前目标查询数据初始化接口
+     * Summary: 校验当前目标查询数据初始化接口
+     */
+    public InitApiDataprocessResponse initApiDataprocessEx(InitApiDataprocessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.dataprocess.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitApiDataprocessResponse());
+    }
+
+    /**
+     * Description: 数据流转目标客户是否可用接口
+     * Summary: 数据流转目标客户是否可用接口
+     */
+    public JudgeApiDataprocessResponse judgeApiDataprocess(JudgeApiDataprocessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.judgeApiDataprocessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数据流转目标客户是否可用接口
+     * Summary: 数据流转目标客户是否可用接口
+     */
+    public JudgeApiDataprocessResponse judgeApiDataprocessEx(JudgeApiDataprocessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.dataprocess.judge", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new JudgeApiDataprocessResponse());
+    }
+
+    /**
+     * Description: 初始化与查询合并统一执行接口
+     * Summary: 初始化与查询合并统一执行接口
+     */
+    public ExecApiDataprocessResponse execApiDataprocess(ExecApiDataprocessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execApiDataprocessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 初始化与查询合并统一执行接口
+     * Summary: 初始化与查询合并统一执行接口
+     */
+    public ExecApiDataprocessResponse execApiDataprocessEx(ExecApiDataprocessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.dataprocess.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecApiDataprocessResponse());
+    }
+
+    /**
+     * Description: 数据流转通用执行接口
+     * Summary: 数据流转通用执行接口
+     */
+    public RunApiDataprocessResponse runApiDataprocess(RunApiDataprocessRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.runApiDataprocessEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数据流转通用执行接口
+     * Summary: 数据流转通用执行接口
+     */
+    public RunApiDataprocessResponse runApiDataprocessEx(RunApiDataprocessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.api.dataprocess.run", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RunApiDataprocessResponse());
+    }
+
+    /**
      * Description: 收入评估服务A
     https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
      * Summary: 收入评估服务A
@@ -866,5 +961,24 @@ public class Client {
     public QueryPdataUnderwriteResponse queryPdataUnderwriteEx(QueryPdataUnderwriteRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.pdata.underwrite.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPdataUnderwriteResponse());
+    }
+
+    /**
+     * Description: 经济画像
+     * Summary: 财富洞察经济画像
+     */
+    public QueryPortraiteconomyResponse queryPortraiteconomy(QueryPortraiteconomyRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryPortraiteconomyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 经济画像
+     * Summary: 财富洞察经济画像
+     */
+    public QueryPortraiteconomyResponse queryPortraiteconomyEx(QueryPortraiteconomyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.tax.portraiteconomy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryPortraiteconomyResponse());
     }
 }

@@ -14,6 +14,18 @@ public class IdentityInfo extends TeaModel {
     @Validation(required = true)
     public String authCode;
 
+    // 授权开始时间
+    @NameInMap("auth_start_time")
+    public String authStartTime;
+
+    // 授权截止时间
+    @NameInMap("auth_end_time")
+    public String authEndTime;
+
+    // 授权书url
+    @NameInMap("auth_url")
+    public String authUrl;
+
     public static IdentityInfo build(java.util.Map<String, ?> map) throws Exception {
         IdentityInfo self = new IdentityInfo();
         return TeaModel.build(map, self);
@@ -33,6 +45,30 @@ public class IdentityInfo extends TeaModel {
     }
     public String getAuthCode() {
         return this.authCode;
+    }
+
+    public IdentityInfo setAuthStartTime(String authStartTime) {
+        this.authStartTime = authStartTime;
+        return this;
+    }
+    public String getAuthStartTime() {
+        return this.authStartTime;
+    }
+
+    public IdentityInfo setAuthEndTime(String authEndTime) {
+        this.authEndTime = authEndTime;
+        return this;
+    }
+    public String getAuthEndTime() {
+        return this.authEndTime;
+    }
+
+    public IdentityInfo setAuthUrl(String authUrl) {
+        this.authUrl = authUrl;
+        return this;
+    }
+    public String getAuthUrl() {
+        return this.authUrl;
     }
 
 }
