@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.23',
+                    'sdk_version': '1.8.36',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.23',
+                    'sdk_version': '1.8.36',
                     '_prod_code': 'TAX',
                     '_prod_channel': 'undefined'
                 }
@@ -2067,6 +2067,286 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.tax.enterprise.electronicasync.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_api_dataprocess(
+        self,
+        request: tax_models.QueryApiDataprocessRequest,
+    ) -> tax_models.QueryApiDataprocessResponse:
+        """
+        Description: 查询指定账户的数据
+        Summary: 查询指定账户的数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_dataprocess_ex(request, headers, runtime)
+
+    async def query_api_dataprocess_async(
+        self,
+        request: tax_models.QueryApiDataprocessRequest,
+    ) -> tax_models.QueryApiDataprocessResponse:
+        """
+        Description: 查询指定账户的数据
+        Summary: 查询指定账户的数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_dataprocess_ex_async(request, headers, runtime)
+
+    def query_api_dataprocess_ex(
+        self,
+        request: tax_models.QueryApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiDataprocessResponse:
+        """
+        Description: 查询指定账户的数据
+        Summary: 查询指定账户的数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryApiDataprocessResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.dataprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_dataprocess_ex_async(
+        self,
+        request: tax_models.QueryApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryApiDataprocessResponse:
+        """
+        Description: 查询指定账户的数据
+        Summary: 查询指定账户的数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryApiDataprocessResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.dataprocess.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_api_dataprocess(
+        self,
+        request: tax_models.InitApiDataprocessRequest,
+    ) -> tax_models.InitApiDataprocessResponse:
+        """
+        Description: 校验当前目标查询数据初始化接口
+        Summary: 校验当前目标查询数据初始化接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_api_dataprocess_ex(request, headers, runtime)
+
+    async def init_api_dataprocess_async(
+        self,
+        request: tax_models.InitApiDataprocessRequest,
+    ) -> tax_models.InitApiDataprocessResponse:
+        """
+        Description: 校验当前目标查询数据初始化接口
+        Summary: 校验当前目标查询数据初始化接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_api_dataprocess_ex_async(request, headers, runtime)
+
+    def init_api_dataprocess_ex(
+        self,
+        request: tax_models.InitApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.InitApiDataprocessResponse:
+        """
+        Description: 校验当前目标查询数据初始化接口
+        Summary: 校验当前目标查询数据初始化接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.InitApiDataprocessResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.dataprocess.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_api_dataprocess_ex_async(
+        self,
+        request: tax_models.InitApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.InitApiDataprocessResponse:
+        """
+        Description: 校验当前目标查询数据初始化接口
+        Summary: 校验当前目标查询数据初始化接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.InitApiDataprocessResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.dataprocess.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def judge_api_dataprocess(
+        self,
+        request: tax_models.JudgeApiDataprocessRequest,
+    ) -> tax_models.JudgeApiDataprocessResponse:
+        """
+        Description: 数据流转目标客户是否可用接口
+        Summary: 数据流转目标客户是否可用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.judge_api_dataprocess_ex(request, headers, runtime)
+
+    async def judge_api_dataprocess_async(
+        self,
+        request: tax_models.JudgeApiDataprocessRequest,
+    ) -> tax_models.JudgeApiDataprocessResponse:
+        """
+        Description: 数据流转目标客户是否可用接口
+        Summary: 数据流转目标客户是否可用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.judge_api_dataprocess_ex_async(request, headers, runtime)
+
+    def judge_api_dataprocess_ex(
+        self,
+        request: tax_models.JudgeApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.JudgeApiDataprocessResponse:
+        """
+        Description: 数据流转目标客户是否可用接口
+        Summary: 数据流转目标客户是否可用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.JudgeApiDataprocessResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.dataprocess.judge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def judge_api_dataprocess_ex_async(
+        self,
+        request: tax_models.JudgeApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.JudgeApiDataprocessResponse:
+        """
+        Description: 数据流转目标客户是否可用接口
+        Summary: 数据流转目标客户是否可用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.JudgeApiDataprocessResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.dataprocess.judge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_api_dataprocess(
+        self,
+        request: tax_models.ExecApiDataprocessRequest,
+    ) -> tax_models.ExecApiDataprocessResponse:
+        """
+        Description: 初始化与查询合并统一执行接口
+        Summary: 初始化与查询合并统一执行接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_api_dataprocess_ex(request, headers, runtime)
+
+    async def exec_api_dataprocess_async(
+        self,
+        request: tax_models.ExecApiDataprocessRequest,
+    ) -> tax_models.ExecApiDataprocessResponse:
+        """
+        Description: 初始化与查询合并统一执行接口
+        Summary: 初始化与查询合并统一执行接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_api_dataprocess_ex_async(request, headers, runtime)
+
+    def exec_api_dataprocess_ex(
+        self,
+        request: tax_models.ExecApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.ExecApiDataprocessResponse:
+        """
+        Description: 初始化与查询合并统一执行接口
+        Summary: 初始化与查询合并统一执行接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.ExecApiDataprocessResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.dataprocess.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_api_dataprocess_ex_async(
+        self,
+        request: tax_models.ExecApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.ExecApiDataprocessResponse:
+        """
+        Description: 初始化与查询合并统一执行接口
+        Summary: 初始化与查询合并统一执行接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.ExecApiDataprocessResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.dataprocess.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def run_api_dataprocess(
+        self,
+        request: tax_models.RunApiDataprocessRequest,
+    ) -> tax_models.RunApiDataprocessResponse:
+        """
+        Description: 数据流转通用执行接口
+        Summary: 数据流转通用执行接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.run_api_dataprocess_ex(request, headers, runtime)
+
+    async def run_api_dataprocess_async(
+        self,
+        request: tax_models.RunApiDataprocessRequest,
+    ) -> tax_models.RunApiDataprocessResponse:
+        """
+        Description: 数据流转通用执行接口
+        Summary: 数据流转通用执行接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.run_api_dataprocess_ex_async(request, headers, runtime)
+
+    def run_api_dataprocess_ex(
+        self,
+        request: tax_models.RunApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.RunApiDataprocessResponse:
+        """
+        Description: 数据流转通用执行接口
+        Summary: 数据流转通用执行接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.RunApiDataprocessResponse(),
+            self.do_request('1.0', 'blockchain.tax.api.dataprocess.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def run_api_dataprocess_ex_async(
+        self,
+        request: tax_models.RunApiDataprocessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.RunApiDataprocessResponse:
+        """
+        Description: 数据流转通用执行接口
+        Summary: 数据流转通用执行接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.RunApiDataprocessResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.api.dataprocess.run', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_pdata_personalincome(
         self,
         request: tax_models.QueryPdataPersonalincomeRequest,
@@ -2353,4 +2633,60 @@ class Client:
         return TeaCore.from_map(
             tax_models.QueryPdataUnderwriteResponse(),
             await self.do_request_async('1.0', 'blockchain.tax.pdata.underwrite.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_portraiteconomy(
+        self,
+        request: tax_models.QueryPortraiteconomyRequest,
+    ) -> tax_models.QueryPortraiteconomyResponse:
+        """
+        Description: 经济画像
+        Summary: 财富洞察经济画像
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_portraiteconomy_ex(request, headers, runtime)
+
+    async def query_portraiteconomy_async(
+        self,
+        request: tax_models.QueryPortraiteconomyRequest,
+    ) -> tax_models.QueryPortraiteconomyResponse:
+        """
+        Description: 经济画像
+        Summary: 财富洞察经济画像
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_portraiteconomy_ex_async(request, headers, runtime)
+
+    def query_portraiteconomy_ex(
+        self,
+        request: tax_models.QueryPortraiteconomyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPortraiteconomyResponse:
+        """
+        Description: 经济画像
+        Summary: 财富洞察经济画像
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPortraiteconomyResponse(),
+            self.do_request('1.0', 'blockchain.tax.portraiteconomy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_portraiteconomy_ex_async(
+        self,
+        request: tax_models.QueryPortraiteconomyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tax_models.QueryPortraiteconomyResponse:
+        """
+        Description: 经济画像
+        Summary: 财富洞察经济画像
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tax_models.QueryPortraiteconomyResponse(),
+            await self.do_request_async('1.0', 'blockchain.tax.portraiteconomy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
