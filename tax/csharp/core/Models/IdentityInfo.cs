@@ -20,6 +20,21 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=true)]
         public string AuthCode { get; set; }
 
+        // 授权开始时间
+        [NameInMap("auth_start_time")]
+        [Validation(Required=false)]
+        public string AuthStartTime { get; set; }
+
+        // 授权截止时间
+        [NameInMap("auth_end_time")]
+        [Validation(Required=false)]
+        public string AuthEndTime { get; set; }
+
+        // 授权书url
+        [NameInMap("auth_url")]
+        [Validation(Required=false)]
+        public string AuthUrl { get; set; }
+
     }
 
 }

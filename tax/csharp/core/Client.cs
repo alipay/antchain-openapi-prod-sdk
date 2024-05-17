@@ -137,7 +137,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.23"},
+                        {"sdk_version", "1.8.36"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TAX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.23"},
+                        {"sdk_version", "1.8.36"},
                         {"_prod_code", "TAX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1666,6 +1666,216 @@ namespace AntChain.SDK.TAX
         }
 
         /**
+         * Description: 查询指定账户的数据
+         * Summary: 查询指定账户的数据
+         */
+        public QueryApiDataprocessResponse QueryApiDataprocess(QueryApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryApiDataprocessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询指定账户的数据
+         * Summary: 查询指定账户的数据
+         */
+        public async Task<QueryApiDataprocessResponse> QueryApiDataprocessAsync(QueryApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryApiDataprocessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询指定账户的数据
+         * Summary: 查询指定账户的数据
+         */
+        public QueryApiDataprocessResponse QueryApiDataprocessEx(QueryApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiDataprocessResponse>(DoRequest("1.0", "blockchain.tax.api.dataprocess.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询指定账户的数据
+         * Summary: 查询指定账户的数据
+         */
+        public async Task<QueryApiDataprocessResponse> QueryApiDataprocessExAsync(QueryApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryApiDataprocessResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.dataprocess.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 校验当前目标查询数据初始化接口
+         * Summary: 校验当前目标查询数据初始化接口
+         */
+        public InitApiDataprocessResponse InitApiDataprocess(InitApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitApiDataprocessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 校验当前目标查询数据初始化接口
+         * Summary: 校验当前目标查询数据初始化接口
+         */
+        public async Task<InitApiDataprocessResponse> InitApiDataprocessAsync(InitApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitApiDataprocessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 校验当前目标查询数据初始化接口
+         * Summary: 校验当前目标查询数据初始化接口
+         */
+        public InitApiDataprocessResponse InitApiDataprocessEx(InitApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitApiDataprocessResponse>(DoRequest("1.0", "blockchain.tax.api.dataprocess.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 校验当前目标查询数据初始化接口
+         * Summary: 校验当前目标查询数据初始化接口
+         */
+        public async Task<InitApiDataprocessResponse> InitApiDataprocessExAsync(InitApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitApiDataprocessResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.dataprocess.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转目标客户是否可用接口
+         * Summary: 数据流转目标客户是否可用接口
+         */
+        public JudgeApiDataprocessResponse JudgeApiDataprocess(JudgeApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return JudgeApiDataprocessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转目标客户是否可用接口
+         * Summary: 数据流转目标客户是否可用接口
+         */
+        public async Task<JudgeApiDataprocessResponse> JudgeApiDataprocessAsync(JudgeApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await JudgeApiDataprocessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转目标客户是否可用接口
+         * Summary: 数据流转目标客户是否可用接口
+         */
+        public JudgeApiDataprocessResponse JudgeApiDataprocessEx(JudgeApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<JudgeApiDataprocessResponse>(DoRequest("1.0", "blockchain.tax.api.dataprocess.judge", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转目标客户是否可用接口
+         * Summary: 数据流转目标客户是否可用接口
+         */
+        public async Task<JudgeApiDataprocessResponse> JudgeApiDataprocessExAsync(JudgeApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<JudgeApiDataprocessResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.dataprocess.judge", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 初始化与查询合并统一执行接口
+         * Summary: 初始化与查询合并统一执行接口
+         */
+        public ExecApiDataprocessResponse ExecApiDataprocess(ExecApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecApiDataprocessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 初始化与查询合并统一执行接口
+         * Summary: 初始化与查询合并统一执行接口
+         */
+        public async Task<ExecApiDataprocessResponse> ExecApiDataprocessAsync(ExecApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecApiDataprocessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 初始化与查询合并统一执行接口
+         * Summary: 初始化与查询合并统一执行接口
+         */
+        public ExecApiDataprocessResponse ExecApiDataprocessEx(ExecApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecApiDataprocessResponse>(DoRequest("1.0", "blockchain.tax.api.dataprocess.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 初始化与查询合并统一执行接口
+         * Summary: 初始化与查询合并统一执行接口
+         */
+        public async Task<ExecApiDataprocessResponse> ExecApiDataprocessExAsync(ExecApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecApiDataprocessResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.dataprocess.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转通用执行接口
+         * Summary: 数据流转通用执行接口
+         */
+        public RunApiDataprocessResponse RunApiDataprocess(RunApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RunApiDataprocessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转通用执行接口
+         * Summary: 数据流转通用执行接口
+         */
+        public async Task<RunApiDataprocessResponse> RunApiDataprocessAsync(RunApiDataprocessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RunApiDataprocessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据流转通用执行接口
+         * Summary: 数据流转通用执行接口
+         */
+        public RunApiDataprocessResponse RunApiDataprocessEx(RunApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RunApiDataprocessResponse>(DoRequest("1.0", "blockchain.tax.api.dataprocess.run", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据流转通用执行接口
+         * Summary: 数据流转通用执行接口
+         */
+        public async Task<RunApiDataprocessResponse> RunApiDataprocessExAsync(RunApiDataprocessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RunApiDataprocessResponse>(await DoRequestAsync("1.0", "blockchain.tax.api.dataprocess.run", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 收入评估服务A
         https://yuque.antfin-inc.com/antchain/xqqgyw/gsqy2kup47rytr4u#Vdzsg
          * Summary: 收入评估服务A
@@ -1881,6 +2091,48 @@ namespace AntChain.SDK.TAX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryPdataUnderwriteResponse>(await DoRequestAsync("1.0", "blockchain.tax.pdata.underwrite.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 经济画像
+         * Summary: 财富洞察经济画像
+         */
+        public QueryPortraiteconomyResponse QueryPortraiteconomy(QueryPortraiteconomyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryPortraiteconomyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 经济画像
+         * Summary: 财富洞察经济画像
+         */
+        public async Task<QueryPortraiteconomyResponse> QueryPortraiteconomyAsync(QueryPortraiteconomyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryPortraiteconomyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 经济画像
+         * Summary: 财富洞察经济画像
+         */
+        public QueryPortraiteconomyResponse QueryPortraiteconomyEx(QueryPortraiteconomyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPortraiteconomyResponse>(DoRequest("1.0", "blockchain.tax.portraiteconomy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 经济画像
+         * Summary: 财富洞察经济画像
+         */
+        public async Task<QueryPortraiteconomyResponse> QueryPortraiteconomyExAsync(QueryPortraiteconomyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryPortraiteconomyResponse>(await DoRequestAsync("1.0", "blockchain.tax.portraiteconomy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
