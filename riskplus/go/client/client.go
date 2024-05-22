@@ -175,6 +175,25 @@ func (s *RtopLevelDistribution) SetLevel(v string) *RtopLevelDistribution {
 	return s
 }
 
+// infocode
+type InfoCodes struct {
+	// infocode
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s InfoCodes) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InfoCodes) GoString() string {
+	return s.String()
+}
+
+func (s *InfoCodes) SetName(v string) *InfoCodes {
+	s.Name = &v
+	return s
+}
+
 // 删除参数
 type OutParams struct {
 	// 输出参数
@@ -205,51 +224,6 @@ func (s *OutParams) SetDesc(v string) *OutParams {
 
 func (s *OutParams) SetValue(v string) *OutParams {
 	s.Value = &v
-	return s
-}
-
-// infocode
-type InfoCodes struct {
-	// infocode
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-}
-
-func (s InfoCodes) String() string {
-	return tea.Prettify(s)
-}
-
-func (s InfoCodes) GoString() string {
-	return s.String()
-}
-
-func (s *InfoCodes) SetName(v string) *InfoCodes {
-	s.Name = &v
-	return s
-}
-
-// 营销盾触达媒介参数信息
-type ActionParamInfo struct {
-	// 触达媒介类型
-	ContentType *string `json:"content_type,omitempty" xml:"content_type,omitempty" require:"true"`
-	// 触达媒介参数列表
-	ActionParam []*string `json:"action_param,omitempty" xml:"action_param,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s ActionParamInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ActionParamInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ActionParamInfo) SetContentType(v string) *ActionParamInfo {
-	s.ContentType = &v
-	return s
-}
-
-func (s *ActionParamInfo) SetActionParam(v []*string) *ActionParamInfo {
-	s.ActionParam = v
 	return s
 }
 
@@ -326,32 +300,6 @@ func (s *BatchQueryOutputModelInfo) SetValueType(v string) *BatchQueryOutputMode
 	return s
 }
 
-// 涉众风险企业特征
-type RtopCrowdRiskFeatureTag struct {
-	// 标签描述
-	TagExplanation *string `json:"tag_explanation,omitempty" xml:"tag_explanation,omitempty" require:"true"`
-	// 标签名称
-	TagName *string `json:"tag_name,omitempty" xml:"tag_name,omitempty" require:"true"`
-}
-
-func (s RtopCrowdRiskFeatureTag) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCrowdRiskFeatureTag) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCrowdRiskFeatureTag) SetTagExplanation(v string) *RtopCrowdRiskFeatureTag {
-	s.TagExplanation = &v
-	return s
-}
-
-func (s *RtopCrowdRiskFeatureTag) SetTagName(v string) *RtopCrowdRiskFeatureTag {
-	s.TagName = &v
-	return s
-}
-
 // 反欺诈风险数据服务风险规则详情
 type RiskDetail struct {
 	// 反欺诈风险数据服务命中规则风险权重
@@ -375,39 +323,6 @@ func (s *RiskDetail) SetRuleWeight(v string) *RiskDetail {
 
 func (s *RiskDetail) SetRuleName(v string) *RiskDetail {
 	s.RuleName = &v
-	return s
-}
-
-// 决策流
-type DecisionFlow struct {
-	// 输出参数
-	DecisionFlow *OutParams `json:"decision_flow,omitempty" xml:"decision_flow,omitempty"`
-	// 决策结果
-	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
-	// infocodes
-	InfoCodes *InfoCodes `json:"info_codes,omitempty" xml:"info_codes,omitempty"`
-}
-
-func (s DecisionFlow) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DecisionFlow) GoString() string {
-	return s.String()
-}
-
-func (s *DecisionFlow) SetDecisionFlow(v *OutParams) *DecisionFlow {
-	s.DecisionFlow = v
-	return s
-}
-
-func (s *DecisionFlow) SetDecision(v string) *DecisionFlow {
-	s.Decision = &v
-	return s
-}
-
-func (s *DecisionFlow) SetInfoCodes(v *InfoCodes) *DecisionFlow {
-	s.InfoCodes = v
 	return s
 }
 
@@ -500,6 +415,91 @@ func (s *RtopTypeDistribution) SetLevelDistribution(v []*RtopLevelDistribution) 
 
 func (s *RtopTypeDistribution) SetType(v string) *RtopTypeDistribution {
 	s.Type = &v
+	return s
+}
+
+// 营销盾触达媒介参数信息
+type ActionParamInfo struct {
+	// 触达媒介类型
+	ContentType *string `json:"content_type,omitempty" xml:"content_type,omitempty" require:"true"`
+	// 触达媒介参数列表
+	ActionParam []*string `json:"action_param,omitempty" xml:"action_param,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ActionParamInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ActionParamInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ActionParamInfo) SetContentType(v string) *ActionParamInfo {
+	s.ContentType = &v
+	return s
+}
+
+func (s *ActionParamInfo) SetActionParam(v []*string) *ActionParamInfo {
+	s.ActionParam = v
+	return s
+}
+
+// 涉众风险企业特征
+type RtopCrowdRiskFeatureTag struct {
+	// 标签描述
+	TagExplanation *string `json:"tag_explanation,omitempty" xml:"tag_explanation,omitempty" require:"true"`
+	// 标签名称
+	TagName *string `json:"tag_name,omitempty" xml:"tag_name,omitempty" require:"true"`
+}
+
+func (s RtopCrowdRiskFeatureTag) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCrowdRiskFeatureTag) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCrowdRiskFeatureTag) SetTagExplanation(v string) *RtopCrowdRiskFeatureTag {
+	s.TagExplanation = &v
+	return s
+}
+
+func (s *RtopCrowdRiskFeatureTag) SetTagName(v string) *RtopCrowdRiskFeatureTag {
+	s.TagName = &v
+	return s
+}
+
+// 决策流
+type DecisionFlow struct {
+	// 输出参数
+	DecisionFlow *OutParams `json:"decision_flow,omitempty" xml:"decision_flow,omitempty"`
+	// 决策结果
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+	// infocodes
+	InfoCodes *InfoCodes `json:"info_codes,omitempty" xml:"info_codes,omitempty"`
+}
+
+func (s DecisionFlow) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DecisionFlow) GoString() string {
+	return s.String()
+}
+
+func (s *DecisionFlow) SetDecisionFlow(v *OutParams) *DecisionFlow {
+	s.DecisionFlow = v
+	return s
+}
+
+func (s *DecisionFlow) SetDecision(v string) *DecisionFlow {
+	s.Decision = &v
+	return s
+}
+
+func (s *DecisionFlow) SetInfoCodes(v *InfoCodes) *DecisionFlow {
+	s.InfoCodes = v
 	return s
 }
 
@@ -644,303 +644,6 @@ func (s *StatisticInfoDetail) SetTotalCount(v int64) *StatisticInfoDetail {
 	return s
 }
 
-// 天枢系统专用ReceiptInfo结构体
-type ReceiptInfo struct {
-	// 客户名
-	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
-	// 证件号码
-	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
-	// 手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 贷款金额
-	ApplyAmount *int64 `json:"apply_amount,omitempty" xml:"apply_amount,omitempty" require:"true"`
-	// 发放金额
-	LoanAmount *int64 `json:"loan_amount,omitempty" xml:"loan_amount,omitempty" require:"true"`
-	// 期数
-	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true"`
-	// 当前期数
-	CurPeriod *int64 `json:"cur_period,omitempty" xml:"cur_period,omitempty" require:"true"`
-	// 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
-	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
-	// 还款日
-	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty" require:"true"`
-	// 放款时间
-	LoanTime *string `json:"loan_time,omitempty" xml:"loan_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 借据状态0：未还清，1：已还清，2：已提前还清
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 已还本金
-	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
-	// 已还利息
-	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
-	// 结清日期
-	AlreadyDate *string `json:"already_date,omitempty" xml:"already_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 审批状态0：通过 1：拒绝 2：审批中 3：失败
-	WorkflowStatus *string `json:"workflow_status,omitempty" xml:"workflow_status,omitempty" require:"true"`
-	// 借据编号
-	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
-}
-
-func (s ReceiptInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ReceiptInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ReceiptInfo) SetCustomName(v string) *ReceiptInfo {
-	s.CustomName = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetCardNo(v string) *ReceiptInfo {
-	s.CardNo = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetMobile(v string) *ReceiptInfo {
-	s.Mobile = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetApplyAmount(v int64) *ReceiptInfo {
-	s.ApplyAmount = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetLoanAmount(v int64) *ReceiptInfo {
-	s.LoanAmount = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetPeriod(v int64) *ReceiptInfo {
-	s.Period = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetCurPeriod(v int64) *ReceiptInfo {
-	s.CurPeriod = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetRepayType(v string) *ReceiptInfo {
-	s.RepayType = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetRepayDate(v string) *ReceiptInfo {
-	s.RepayDate = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetLoanTime(v string) *ReceiptInfo {
-	s.LoanTime = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetStatus(v string) *ReceiptInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetAlreadyCorpus(v int64) *ReceiptInfo {
-	s.AlreadyCorpus = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetAlreadyAccrual(v int64) *ReceiptInfo {
-	s.AlreadyAccrual = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetAlreadyDate(v string) *ReceiptInfo {
-	s.AlreadyDate = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetWorkflowStatus(v string) *ReceiptInfo {
-	s.WorkflowStatus = &v
-	return s
-}
-
-func (s *ReceiptInfo) SetReceiptNo(v string) *ReceiptInfo {
-	s.ReceiptNo = &v
-	return s
-}
-
-// 天枢系统专用RepayRef结构体
-type RepayRef struct {
-	// 客户编码
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
-	// 当前期数
-	Period *string `json:"period,omitempty" xml:"period,omitempty" require:"true"`
-	// 应还总额
-	NeedAmount *int64 `json:"need_amount,omitempty" xml:"need_amount,omitempty" require:"true"`
-	// 应还本金
-	NeedCorpus *int64 `json:"need_corpus,omitempty" xml:"need_corpus,omitempty" require:"true"`
-	// 应还利息
-	NeedAccrual *int64 `json:"need_accrual,omitempty" xml:"need_accrual,omitempty" require:"true"`
-	// 应还手续费
-	NeedFee *int64 `json:"need_fee,omitempty" xml:"need_fee,omitempty" require:"true"`
-	// 已还总额
-	AlreadyAmount *int64 `json:"already_amount,omitempty" xml:"already_amount,omitempty" require:"true"`
-	// 已还本金
-	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
-	// 已还逾期本金
-	AlreadyOvercorpus *int64 `json:"already_overcorpus,omitempty" xml:"already_overcorpus,omitempty" require:"true"`
-	// 已还利息
-	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
-	// 已还逾期息
-	AlreadyPunish *int64 `json:"already_punish,omitempty" xml:"already_punish,omitempty" require:"true"`
-	// 已还手续费
-	AlreadyFee *int64 `json:"already_fee,omitempty" xml:"already_fee,omitempty" require:"true"`
-	// 利率
-	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
-	// 罚息率
-	PenaltyValue *int64 `json:"penalty_value,omitempty" xml:"penalty_value,omitempty" require:"true"`
-	// 当期剩余总额
-	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty" require:"true"`
-	// 当期剩余本金
-	RestCorpus *int64 `json:"rest_corpus,omitempty" xml:"rest_corpus,omitempty" require:"true"`
-	// 当期剩余利息
-	RestAccrual *int64 `json:"rest_accrual,omitempty" xml:"rest_accrual,omitempty" require:"true"`
-	// 当期剩余罚息
-	RestPunish *int64 `json:"rest_punish,omitempty" xml:"rest_punish,omitempty" require:"true"`
-	// 期末本金
-	RemainCorpus *int64 `json:"remain_corpus,omitempty" xml:"remain_corpus,omitempty" require:"true"`
-	// 借据编号
-	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
-	// 还款状态1：已还清 2 未还 3 部分还款
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 应还日期
-	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 还款日期
-	TradeDate *string `json:"trade_date,omitempty" xml:"trade_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s RepayRef) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RepayRef) GoString() string {
-	return s.String()
-}
-
-func (s *RepayRef) SetCustomNo(v string) *RepayRef {
-	s.CustomNo = &v
-	return s
-}
-
-func (s *RepayRef) SetPeriod(v string) *RepayRef {
-	s.Period = &v
-	return s
-}
-
-func (s *RepayRef) SetNeedAmount(v int64) *RepayRef {
-	s.NeedAmount = &v
-	return s
-}
-
-func (s *RepayRef) SetNeedCorpus(v int64) *RepayRef {
-	s.NeedCorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetNeedAccrual(v int64) *RepayRef {
-	s.NeedAccrual = &v
-	return s
-}
-
-func (s *RepayRef) SetNeedFee(v int64) *RepayRef {
-	s.NeedFee = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyAmount(v int64) *RepayRef {
-	s.AlreadyAmount = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyCorpus(v int64) *RepayRef {
-	s.AlreadyCorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyOvercorpus(v int64) *RepayRef {
-	s.AlreadyOvercorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyAccrual(v int64) *RepayRef {
-	s.AlreadyAccrual = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyPunish(v int64) *RepayRef {
-	s.AlreadyPunish = &v
-	return s
-}
-
-func (s *RepayRef) SetAlreadyFee(v int64) *RepayRef {
-	s.AlreadyFee = &v
-	return s
-}
-
-func (s *RepayRef) SetRate(v int64) *RepayRef {
-	s.Rate = &v
-	return s
-}
-
-func (s *RepayRef) SetPenaltyValue(v int64) *RepayRef {
-	s.PenaltyValue = &v
-	return s
-}
-
-func (s *RepayRef) SetRestAmount(v int64) *RepayRef {
-	s.RestAmount = &v
-	return s
-}
-
-func (s *RepayRef) SetRestCorpus(v int64) *RepayRef {
-	s.RestCorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetRestAccrual(v int64) *RepayRef {
-	s.RestAccrual = &v
-	return s
-}
-
-func (s *RepayRef) SetRestPunish(v int64) *RepayRef {
-	s.RestPunish = &v
-	return s
-}
-
-func (s *RepayRef) SetRemainCorpus(v int64) *RepayRef {
-	s.RemainCorpus = &v
-	return s
-}
-
-func (s *RepayRef) SetReceiptNo(v string) *RepayRef {
-	s.ReceiptNo = &v
-	return s
-}
-
-func (s *RepayRef) SetStatus(v string) *RepayRef {
-	s.Status = &v
-	return s
-}
-
-func (s *RepayRef) SetSettleDate(v string) *RepayRef {
-	s.SettleDate = &v
-	return s
-}
-
-func (s *RepayRef) SetTradeDate(v string) *RepayRef {
-	s.TradeDate = &v
-	return s
-}
-
 // 反欺诈风险数据服务规则细节信息
 type RuleDetail struct {
 	// 规则细节名称
@@ -964,32 +667,6 @@ func (s *RuleDetail) SetName(v string) *RuleDetail {
 
 func (s *RuleDetail) SetValue(v string) *RuleDetail {
 	s.Value = &v
-	return s
-}
-
-// 回调通用返回体
-type CommonNotyfyResult struct {
-	// 请求id
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-	// 业务响应Json
-	BizResponse *string `json:"biz_response,omitempty" xml:"biz_response,omitempty" require:"true"`
-}
-
-func (s CommonNotyfyResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CommonNotyfyResult) GoString() string {
-	return s.String()
-}
-
-func (s *CommonNotyfyResult) SetRequestId(v string) *CommonNotyfyResult {
-	s.RequestId = &v
-	return s
-}
-
-func (s *CommonNotyfyResult) SetBizResponse(v string) *CommonNotyfyResult {
-	s.BizResponse = &v
 	return s
 }
 
@@ -1051,226 +728,6 @@ func (s *SecurityScene) SetSystemName(v string) *SecurityScene {
 
 func (s *SecurityScene) SetTotalFee(v string) *SecurityScene {
 	s.TotalFee = &v
-	return s
-}
-
-// 收藏的企业信息
-type RtopStarCompanyInfo struct {
-	// 行业
-	Categories []*string `json:"categories,omitempty" xml:"categories,omitempty" type:"Repeated"`
-	// 经营地址
-	OperatingPlace *string `json:"operating_place,omitempty" xml:"operating_place,omitempty"`
-	// 经营省份
-	OperatingProvince *string `json:"operating_province,omitempty" xml:"operating_province,omitempty"`
-	// 企业名称
-	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty"`
-	// 风险分数
-	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
-	// 风险标签
-	RiskTags []*string `json:"risk_tags,omitempty" xml:"risk_tags,omitempty" type:"Repeated"`
-	// 风险线索
-	RiskTagDetails []*RtopRiskTag `json:"risk_tag_details,omitempty" xml:"risk_tag_details,omitempty" type:"Repeated"`
-	// 风险标签Id集合
-	RiskTagIds []*string `json:"risk_tag_ids,omitempty" xml:"risk_tag_ids,omitempty" type:"Repeated"`
-	// 统一社会信用代码
-	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
-}
-
-func (s RtopStarCompanyInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopStarCompanyInfo) GoString() string {
-	return s.String()
-}
-
-func (s *RtopStarCompanyInfo) SetCategories(v []*string) *RtopStarCompanyInfo {
-	s.Categories = v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetOperatingPlace(v string) *RtopStarCompanyInfo {
-	s.OperatingPlace = &v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetOperatingProvince(v string) *RtopStarCompanyInfo {
-	s.OperatingProvince = &v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetOrgName(v string) *RtopStarCompanyInfo {
-	s.OrgName = &v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetRiskScore(v int64) *RtopStarCompanyInfo {
-	s.RiskScore = &v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetRiskTags(v []*string) *RtopStarCompanyInfo {
-	s.RiskTags = v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetRiskTagDetails(v []*RtopRiskTag) *RtopStarCompanyInfo {
-	s.RiskTagDetails = v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetRiskTagIds(v []*string) *RtopStarCompanyInfo {
-	s.RiskTagIds = v
-	return s
-}
-
-func (s *RtopStarCompanyInfo) SetUcCode(v string) *RtopStarCompanyInfo {
-	s.UcCode = &v
-	return s
-}
-
-// 企业日期趋势统计
-type RtopDateDistribution struct {
-	// 统计值
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// 年龄
-	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s RtopDateDistribution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopDateDistribution) GoString() string {
-	return s.String()
-}
-
-func (s *RtopDateDistribution) SetCount(v int) *RtopDateDistribution {
-	s.Count = &v
-	return s
-}
-
-func (s *RtopDateDistribution) SetDate(v string) *RtopDateDistribution {
-	s.Date = &v
-	return s
-}
-
-// 天枢系统个人信息结构体
-type PersonalInfo struct {
-	// 客户姓名
-	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
-	// 身份证号码(18位)
-	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
-	// 1-身份证
-	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
-	// 证件开始日期(格式：YYYY-MM-DD)
-	//
-	CertSignDate *string `json:"cert_sign_date,omitempty" xml:"cert_sign_date,omitempty" require:"true"`
-	// 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
-	CertValidate *string `json:"cert_validate,omitempty" xml:"cert_validate,omitempty" require:"true"`
-	// 证件地址
-	CertAdr *string `json:"cert_adr,omitempty" xml:"cert_adr,omitempty" require:"true"`
-	// 手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 学历
-	Education *string `json:"education,omitempty" xml:"education,omitempty" require:"true"`
-	// 所在省份 汉字
-	Province *string `json:"province,omitempty" xml:"province,omitempty"`
-	// 所在城市 汉字
-	City *string `json:"city,omitempty" xml:"city,omitempty"`
-	// 地区名称 汉字
-	Area *string `json:"area,omitempty" xml:"area,omitempty"`
-	// 详细地址
-	Address *string `json:"address,omitempty" xml:"address,omitempty"`
-	// 性别M-男
-	// F-女
-	Sex *string `json:"sex,omitempty" xml:"sex,omitempty"`
-	// 民族
-	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
-	// 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
-	MaritalStatus *string `json:"marital_status,omitempty" xml:"marital_status,omitempty"`
-}
-
-func (s PersonalInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PersonalInfo) GoString() string {
-	return s.String()
-}
-
-func (s *PersonalInfo) SetCustomName(v string) *PersonalInfo {
-	s.CustomName = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCardNo(v string) *PersonalInfo {
-	s.CardNo = &v
-	return s
-}
-
-func (s *PersonalInfo) SetIdType(v string) *PersonalInfo {
-	s.IdType = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCertSignDate(v string) *PersonalInfo {
-	s.CertSignDate = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCertValidate(v string) *PersonalInfo {
-	s.CertValidate = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCertAdr(v string) *PersonalInfo {
-	s.CertAdr = &v
-	return s
-}
-
-func (s *PersonalInfo) SetMobile(v string) *PersonalInfo {
-	s.Mobile = &v
-	return s
-}
-
-func (s *PersonalInfo) SetEducation(v string) *PersonalInfo {
-	s.Education = &v
-	return s
-}
-
-func (s *PersonalInfo) SetProvince(v string) *PersonalInfo {
-	s.Province = &v
-	return s
-}
-
-func (s *PersonalInfo) SetCity(v string) *PersonalInfo {
-	s.City = &v
-	return s
-}
-
-func (s *PersonalInfo) SetArea(v string) *PersonalInfo {
-	s.Area = &v
-	return s
-}
-
-func (s *PersonalInfo) SetAddress(v string) *PersonalInfo {
-	s.Address = &v
-	return s
-}
-
-func (s *PersonalInfo) SetSex(v string) *PersonalInfo {
-	s.Sex = &v
-	return s
-}
-
-func (s *PersonalInfo) SetNation(v string) *PersonalInfo {
-	s.Nation = &v
-	return s
-}
-
-func (s *PersonalInfo) SetMaritalStatus(v string) *PersonalInfo {
-	s.MaritalStatus = &v
 	return s
 }
 
@@ -1489,39 +946,6 @@ func (s *RepayResult) SetNeedLiquidatedDamages(v int64) *RepayResult {
 	return s
 }
 
-// 策略流信息
-type DfSceneInfos struct {
-	// scene_code
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 拒绝
-	SceneDecision *string `json:"scene_decision,omitempty" xml:"scene_decision,omitempty" require:"true"`
-	// decision_flow
-	DecisionFlow *DecisionFlow `json:"decision_flow,omitempty" xml:"decision_flow,omitempty" require:"true"`
-}
-
-func (s DfSceneInfos) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DfSceneInfos) GoString() string {
-	return s.String()
-}
-
-func (s *DfSceneInfos) SetSceneCode(v string) *DfSceneInfos {
-	s.SceneCode = &v
-	return s
-}
-
-func (s *DfSceneInfos) SetSceneDecision(v string) *DfSceneInfos {
-	s.SceneDecision = &v
-	return s
-}
-
-func (s *DfSceneInfos) SetDecisionFlow(v *DecisionFlow) *DfSceneInfos {
-	s.DecisionFlow = v
-	return s
-}
-
 // 反欺诈风险数据服务风险信息
 type RiskInfo struct {
 	// 反欺诈风险数据服务风险组描述
@@ -1658,86 +1082,6 @@ func (s *RtopCompanyRiskFactor) SetName(v string) *RtopCompanyRiskFactor {
 
 func (s *RtopCompanyRiskFactor) SetScore(v int64) *RtopCompanyRiskFactor {
 	s.Score = &v
-	return s
-}
-
-// 用户凭证信息
-type CustomerDetail struct {
-	// 用户标识
-	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
-	// 渠道参数
-	ChannelParams *string `json:"channel_params,omitempty" xml:"channel_params,omitempty" require:"true"`
-	// 用户透传字段
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
-}
-
-func (s CustomerDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CustomerDetail) GoString() string {
-	return s.String()
-}
-
-func (s *CustomerDetail) SetCustomerKey(v string) *CustomerDetail {
-	s.CustomerKey = &v
-	return s
-}
-
-func (s *CustomerDetail) SetChannelParams(v string) *CustomerDetail {
-	s.ChannelParams = &v
-	return s
-}
-
-func (s *CustomerDetail) SetExtInfo(v string) *CustomerDetail {
-	s.ExtInfo = &v
-	return s
-}
-
-// 用户绑定银行卡列表
-type CustomerBankCardInfo struct {
-	// 银行名称
-	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" require:"true"`
-	// 银行编码
-	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
-	// 银行卡号
-	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty" require:"true"`
-	// 是否已签约
-	Signed *string `json:"signed,omitempty" xml:"signed,omitempty"`
-	// 是否为账户代扣银行卡
-	AcctBankCard *string `json:"acct_bank_card,omitempty" xml:"acct_bank_card,omitempty"`
-}
-
-func (s CustomerBankCardInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CustomerBankCardInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CustomerBankCardInfo) SetBankName(v string) *CustomerBankCardInfo {
-	s.BankName = &v
-	return s
-}
-
-func (s *CustomerBankCardInfo) SetBankCode(v string) *CustomerBankCardInfo {
-	s.BankCode = &v
-	return s
-}
-
-func (s *CustomerBankCardInfo) SetBankCardNo(v string) *CustomerBankCardInfo {
-	s.BankCardNo = &v
-	return s
-}
-
-func (s *CustomerBankCardInfo) SetSigned(v string) *CustomerBankCardInfo {
-	s.Signed = &v
-	return s
-}
-
-func (s *CustomerBankCardInfo) SetAcctBankCard(v string) *CustomerBankCardInfo {
-	s.AcctBankCard = &v
 	return s
 }
 
@@ -2414,146 +1758,6 @@ func (s *RtopCompanyRiskInfo) SetTagsClueDetail(v string) *RtopCompanyRiskInfo {
 	return s
 }
 
-// 逾期信息查询响应
-type OverdueInfoResponse struct {
-	// 逾期标识
-	// true：逾期
-	// false：未逾期
-	OverDueFlag *bool `json:"over_due_flag,omitempty" xml:"over_due_flag,omitempty" require:"true"`
-	// 逾期天数
-	OverDays *int64 `json:"over_days,omitempty" xml:"over_days,omitempty" require:"true"`
-	// 逾期金额在50元以上的客户的逾期天数
-	ValuableOverDays *int64 `json:"valuable_over_days,omitempty" xml:"valuable_over_days,omitempty" require:"true"`
-	// 逾期期数
-	OverPeriodCount *int64 `json:"over_period_count,omitempty" xml:"over_period_count,omitempty" require:"true"`
-	// 逾期本金
-	OverPrincipal *int64 `json:"over_principal,omitempty" xml:"over_principal,omitempty" require:"true"`
-	// 逾期利息
-	OverInterest *int64 `json:"over_interest,omitempty" xml:"over_interest,omitempty" require:"true"`
-	// 应还罚息
-	OverPunish *int64 `json:"over_punish,omitempty" xml:"over_punish,omitempty" require:"true"`
-	// 应还逾期总额
-	NeedOverdueAmount *int64 `json:"need_overdue_amount,omitempty" xml:"need_overdue_amount,omitempty" require:"true"`
-	// 当前应还总额
-	CurrentNeedAmount *int64 `json:"current_need_amount,omitempty" xml:"current_need_amount,omitempty" require:"true"`
-	// 总剩余应还
-	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-	// 数据日期
-	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 借款唯一编号
-	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
-	// 已还期数
-	AlreadyRepayPeriodCount *int64 `json:"already_repay_period_count,omitempty" xml:"already_repay_period_count,omitempty" require:"true"`
-	// 贷款期数
-	LoanPeriodCount *int64 `json:"loan_period_count,omitempty" xml:"loan_period_count,omitempty" require:"true"`
-	// 未还本金
-	OutstandingPrincipal *int64 `json:"outstanding_principal,omitempty" xml:"outstanding_principal,omitempty" require:"true"`
-	// 放款日期
-	LoanTime *string `json:"loan_time,omitempty" xml:"loan_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 结清标志
-	SettleFlag *bool `json:"settle_flag,omitempty" xml:"settle_flag,omitempty" require:"true"`
-	// 最近一次还款日期
-	NearestRepayTime *string `json:"nearest_repay_time,omitempty" xml:"nearest_repay_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s OverdueInfoResponse) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OverdueInfoResponse) GoString() string {
-	return s.String()
-}
-
-func (s *OverdueInfoResponse) SetOverDueFlag(v bool) *OverdueInfoResponse {
-	s.OverDueFlag = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetOverDays(v int64) *OverdueInfoResponse {
-	s.OverDays = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetValuableOverDays(v int64) *OverdueInfoResponse {
-	s.ValuableOverDays = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetOverPeriodCount(v int64) *OverdueInfoResponse {
-	s.OverPeriodCount = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetOverPrincipal(v int64) *OverdueInfoResponse {
-	s.OverPrincipal = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetOverInterest(v int64) *OverdueInfoResponse {
-	s.OverInterest = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetOverPunish(v int64) *OverdueInfoResponse {
-	s.OverPunish = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetNeedOverdueAmount(v int64) *OverdueInfoResponse {
-	s.NeedOverdueAmount = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetCurrentNeedAmount(v int64) *OverdueInfoResponse {
-	s.CurrentNeedAmount = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetTotalAmount(v int64) *OverdueInfoResponse {
-	s.TotalAmount = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetSettleDate(v string) *OverdueInfoResponse {
-	s.SettleDate = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetReceiptNo(v string) *OverdueInfoResponse {
-	s.ReceiptNo = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetAlreadyRepayPeriodCount(v int64) *OverdueInfoResponse {
-	s.AlreadyRepayPeriodCount = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetLoanPeriodCount(v int64) *OverdueInfoResponse {
-	s.LoanPeriodCount = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetOutstandingPrincipal(v int64) *OverdueInfoResponse {
-	s.OutstandingPrincipal = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetLoanTime(v string) *OverdueInfoResponse {
-	s.LoanTime = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetSettleFlag(v bool) *OverdueInfoResponse {
-	s.SettleFlag = &v
-	return s
-}
-
-func (s *OverdueInfoResponse) SetNearestRepayTime(v string) *OverdueInfoResponse {
-	s.NearestRepayTime = &v
-	return s
-}
-
 // 企业年报信息
 type RtopRiskStormCompanyAnnualReport struct {
 	// 年报个数
@@ -2849,32 +2053,6 @@ func (s *ZhimaQueryResp) SetSubMsg(v string) *ZhimaQueryResp {
 	return s
 }
 
-// 机构平台通知响应结果
-type DefinInnerChannelNotifyResult struct {
-	// 请求编号
-	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-	// 业务响应Json
-	BizResponse *string `json:"biz_response,omitempty" xml:"biz_response,omitempty" require:"true"`
-}
-
-func (s DefinInnerChannelNotifyResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s DefinInnerChannelNotifyResult) GoString() string {
-	return s.String()
-}
-
-func (s *DefinInnerChannelNotifyResult) SetRequestId(v string) *DefinInnerChannelNotifyResult {
-	s.RequestId = &v
-	return s
-}
-
-func (s *DefinInnerChannelNotifyResult) SetBizResponse(v string) *DefinInnerChannelNotifyResult {
-	s.BizResponse = &v
-	return s
-}
-
 // 企业涉众风险详细信息
 type RtopCrowdRiskSummaryResp struct {
 	// 活跃市
@@ -2989,348 +2167,6 @@ func (s *RtopCrowdRiskSummaryResp) SetRegisteredCounty(v string) *RtopCrowdRiskS
 
 func (s *RtopCrowdRiskSummaryResp) SetRegisteredProvince(v string) *RtopCrowdRiskSummaryResp {
 	s.RegisteredProvince = &v
-	return s
-}
-
-// 批量决策单主体查询结果
-type BatchQueryResult struct {
-	// 查询主体
-	QueryKey *string `json:"query_key,omitempty" xml:"query_key,omitempty" require:"true"`
-	// 单用户决策结果
-	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
-	// 输出变量信息
-	OutputInfo *BatchQueryOutputModelInfo `json:"output_info,omitempty" xml:"output_info,omitempty" require:"true"`
-}
-
-func (s BatchQueryResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s BatchQueryResult) GoString() string {
-	return s.String()
-}
-
-func (s *BatchQueryResult) SetQueryKey(v string) *BatchQueryResult {
-	s.QueryKey = &v
-	return s
-}
-
-func (s *BatchQueryResult) SetDecision(v string) *BatchQueryResult {
-	s.Decision = &v
-	return s
-}
-
-func (s *BatchQueryResult) SetOutputInfo(v *BatchQueryOutputModelInfo) *BatchQueryResult {
-	s.OutputInfo = v
-	return s
-}
-
-// 营销盾外呼记录
-type CommonRobotCallDetail struct {
-	// 客户请求时的透传字段
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
-	// 成功触达：OK；未触达：AI_ROBOT_CALL_REQUEST_NOT_EXIST
-	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
-	// 外呼号码
-	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
-	// 呼叫次数
-	CurrentCallTimes *int64 `json:"current_call_times,omitempty" xml:"current_call_times,omitempty" require:"true"`
-	// 号码模版
-	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty" require:"true"`
-	// 导入号码时返回的批次号
-	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
-	// 2001:批量-预测外呼，2002:批量-AI外呼-不转人工，2003:批量-AI外呼-接通转人工，2004: 批量-AI外呼-智能转人工,2005:批量-语音通知
-	CallType *int64 `json:"call_type,omitempty" xml:"call_type,omitempty" require:"true"`
-	// 用户自定义标签
-	Tag *string `json:"tag,omitempty" xml:"tag,omitempty"`
-	// 外呼id
-	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
-	// 外呼任务编号
-	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
-	// AI话术ID
-	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
-	// 外呼状态编码
-	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
-	// 外呼状态描述
-	StatusDescription *string `json:"status_description,omitempty" xml:"status_description,omitempty" require:"true"`
-	// 转人工状态编码
-	TransferStatusCode *int64 `json:"transfer_status_code,omitempty" xml:"transfer_status_code,omitempty" require:"true"`
-	// 转人工状态
-	TransferStatus *string `json:"transfer_status,omitempty" xml:"transfer_status,omitempty" require:"true"`
-	// 分配坐席ID
-	AgentId *int64 `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
-	// 坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
-	AgentTag *string `json:"agent_tag,omitempty" xml:"agent_tag,omitempty"`
-	// 坐席分机号
-	AgentExtension *string `json:"agent_extension,omitempty" xml:"agent_extension,omitempty"`
-	// 导入时间
-	ImportTime *string `json:"import_time,omitempty" xml:"import_time,omitempty" require:"true"`
-	// 开始通话时间
-	CallBeginTime *string `json:"call_begin_time,omitempty" xml:"call_begin_time,omitempty" require:"true"`
-	// 振铃时长，单位ms
-	RingTime *int64 `json:"ring_time,omitempty" xml:"ring_time,omitempty" require:"true"`
-	// 接通时间
-	AnswerTime *string `json:"answer_time,omitempty" xml:"answer_time,omitempty"`
-	// 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
-	SpeakingTime *string `json:"speaking_time,omitempty" xml:"speaking_time,omitempty" require:"true"`
-	// 通话时长，单位：秒
-	SpeakingDuration *int64 `json:"speaking_duration,omitempty" xml:"speaking_duration,omitempty" require:"true"`
-	// 挂断时间
-	HangupTime *string `json:"hangup_time,omitempty" xml:"hangup_time,omitempty" require:"true"`
-	// 对话轮次
-	SpeakingTurns *int64 `json:"speaking_turns,omitempty" xml:"speaking_turns,omitempty" require:"true"`
-	// 人工通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
-	AgentSpeakingTime *string `json:"agent_speaking_time,omitempty" xml:"agent_speaking_time,omitempty" require:"true"`
-	// 人工通话时长，单位：秒
-	AgentSpeakingDuration *int64 `json:"agent_speaking_duration,omitempty" xml:"agent_speaking_duration,omitempty" require:"true"`
-	// 意向标签
-	IntentTag *string `json:"intent_tag,omitempty" xml:"intent_tag,omitempty" require:"true"`
-	// 意向说明
-	IntentDescription *string `json:"intent_description,omitempty" xml:"intent_description,omitempty" require:"true"`
-	// 个性标签
-	IndividualTag *string `json:"individual_tag,omitempty" xml:"individual_tag,omitempty"`
-	// 回复关键词
-	Keywords *string `json:"keywords,omitempty" xml:"keywords,omitempty"`
-	// 挂机方式，AI挂机1，坐席挂机2，客户挂机3
-	HungupType *int64 `json:"hungup_type,omitempty" xml:"hungup_type,omitempty" require:"true"`
-	// 挂机短信，可选值：1、2
-	// 1:发送，2:不发送
-	Sms *string `json:"sms,omitempty" xml:"sms,omitempty" require:"true"`
-	// 对话录音，URL，可以为空
-	ChatRecord *string `json:"chat_record,omitempty" xml:"chat_record,omitempty"`
-	// 聊天记录，可以为空
-	Chats *string `json:"chats,omitempty" xml:"chats,omitempty"`
-	// 可选值：0、1
-	// 0:不添加，1:添加
-	AddWx *int64 `json:"add_wx,omitempty" xml:"add_wx,omitempty"`
-	// 加微进度，可选值：已申请、加微成功
-	AddWxStatus *string `json:"add_wx_status,omitempty" xml:"add_wx_status,omitempty"`
-	// 是否接通重呼，可选值：0、1
-	// 0正常外呼，1接通重呼
-	AnswerRecall *int64 `json:"answer_recall,omitempty" xml:"answer_recall,omitempty" require:"true"`
-	// 导入号码时的参数值
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
-	// 导入号码时的业务参数值，原样返回
-	BizProperties *string `json:"biz_properties,omitempty" xml:"biz_properties,omitempty"`
-	// 拦截原因：当状态为已拦截时，可选值：黑名单拦截，灰名单拦截，异常号码拦截
-	InterceptReason *string `json:"intercept_reason,omitempty" xml:"intercept_reason,omitempty"`
-}
-
-func (s CommonRobotCallDetail) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CommonRobotCallDetail) GoString() string {
-	return s.String()
-}
-
-func (s *CommonRobotCallDetail) SetExtInfo(v string) *CommonRobotCallDetail {
-	s.ExtInfo = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetResultCode(v string) *CommonRobotCallDetail {
-	s.ResultCode = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetCustomerKey(v string) *CommonRobotCallDetail {
-	s.CustomerKey = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetCurrentCallTimes(v int64) *CommonRobotCallDetail {
-	s.CurrentCallTimes = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetKeyTemplate(v string) *CommonRobotCallDetail {
-	s.KeyTemplate = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetBatchId(v string) *CommonRobotCallDetail {
-	s.BatchId = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetCallType(v int64) *CommonRobotCallDetail {
-	s.CallType = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetTag(v string) *CommonRobotCallDetail {
-	s.Tag = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetCallId(v string) *CommonRobotCallDetail {
-	s.CallId = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetTaskId(v int64) *CommonRobotCallDetail {
-	s.TaskId = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetTemplateId(v int64) *CommonRobotCallDetail {
-	s.TemplateId = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetStatusCode(v int64) *CommonRobotCallDetail {
-	s.StatusCode = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetStatusDescription(v string) *CommonRobotCallDetail {
-	s.StatusDescription = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetTransferStatusCode(v int64) *CommonRobotCallDetail {
-	s.TransferStatusCode = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetTransferStatus(v string) *CommonRobotCallDetail {
-	s.TransferStatus = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAgentId(v int64) *CommonRobotCallDetail {
-	s.AgentId = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAgentTag(v string) *CommonRobotCallDetail {
-	s.AgentTag = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAgentExtension(v string) *CommonRobotCallDetail {
-	s.AgentExtension = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetImportTime(v string) *CommonRobotCallDetail {
-	s.ImportTime = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetCallBeginTime(v string) *CommonRobotCallDetail {
-	s.CallBeginTime = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetRingTime(v int64) *CommonRobotCallDetail {
-	s.RingTime = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAnswerTime(v string) *CommonRobotCallDetail {
-	s.AnswerTime = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetSpeakingTime(v string) *CommonRobotCallDetail {
-	s.SpeakingTime = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetSpeakingDuration(v int64) *CommonRobotCallDetail {
-	s.SpeakingDuration = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetHangupTime(v string) *CommonRobotCallDetail {
-	s.HangupTime = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetSpeakingTurns(v int64) *CommonRobotCallDetail {
-	s.SpeakingTurns = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAgentSpeakingTime(v string) *CommonRobotCallDetail {
-	s.AgentSpeakingTime = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAgentSpeakingDuration(v int64) *CommonRobotCallDetail {
-	s.AgentSpeakingDuration = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetIntentTag(v string) *CommonRobotCallDetail {
-	s.IntentTag = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetIntentDescription(v string) *CommonRobotCallDetail {
-	s.IntentDescription = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetIndividualTag(v string) *CommonRobotCallDetail {
-	s.IndividualTag = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetKeywords(v string) *CommonRobotCallDetail {
-	s.Keywords = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetHungupType(v int64) *CommonRobotCallDetail {
-	s.HungupType = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetSms(v string) *CommonRobotCallDetail {
-	s.Sms = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetChatRecord(v string) *CommonRobotCallDetail {
-	s.ChatRecord = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetChats(v string) *CommonRobotCallDetail {
-	s.Chats = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAddWx(v int64) *CommonRobotCallDetail {
-	s.AddWx = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAddWxStatus(v string) *CommonRobotCallDetail {
-	s.AddWxStatus = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetAnswerRecall(v int64) *CommonRobotCallDetail {
-	s.AnswerRecall = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetProperties(v string) *CommonRobotCallDetail {
-	s.Properties = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetBizProperties(v string) *CommonRobotCallDetail {
-	s.BizProperties = &v
-	return s
-}
-
-func (s *CommonRobotCallDetail) SetInterceptReason(v string) *CommonRobotCallDetail {
-	s.InterceptReason = &v
 	return s
 }
 
@@ -3503,53 +2339,6 @@ func (s *StrategyDetails) SetSceneCode(v string) *StrategyDetails {
 	return s
 }
 
-// 支付方式锁定结果
-type PayMethodLockResult struct {
-	// 签约结果
-	SignStatus *string `json:"sign_status,omitempty" xml:"sign_status,omitempty" require:"true"`
-	// 账号
-	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
-	// 登录号
-	LoginId *string `json:"login_id,omitempty" xml:"login_id,omitempty" require:"true"`
-	// 支付公司
-	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty" require:"true"`
-	// 绑定账号名称
-	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
-}
-
-func (s PayMethodLockResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PayMethodLockResult) GoString() string {
-	return s.String()
-}
-
-func (s *PayMethodLockResult) SetSignStatus(v string) *PayMethodLockResult {
-	s.SignStatus = &v
-	return s
-}
-
-func (s *PayMethodLockResult) SetAccountId(v string) *PayMethodLockResult {
-	s.AccountId = &v
-	return s
-}
-
-func (s *PayMethodLockResult) SetLoginId(v string) *PayMethodLockResult {
-	s.LoginId = &v
-	return s
-}
-
-func (s *PayMethodLockResult) SetPayChannel(v string) *PayMethodLockResult {
-	s.PayChannel = &v
-	return s
-}
-
-func (s *PayMethodLockResult) SetAccountName(v string) *PayMethodLockResult {
-	s.AccountName = &v
-	return s
-}
-
 // 反欺诈风险数据服务决策结果
 type SecurityResultInfos struct {
 	// 反欺诈风险数据服务风险建议决策
@@ -3580,81 +2369,6 @@ func (s *SecurityResultInfos) SetRiskScore(v int64) *SecurityResultInfos {
 
 func (s *SecurityResultInfos) SetSceneCode(v string) *SecurityResultInfos {
 	s.SceneCode = &v
-	return s
-}
-
-// 天枢合同
-type Contract struct {
-	// 关联编号
-	RelationNo *string `json:"relation_no,omitempty" xml:"relation_no,omitempty" require:"true"`
-	// 合同编号
-	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
-	// 合同名称
-	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty" require:"true"`
-	// 合同类型
-	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty" require:"true"`
-	// 客户编号
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
-	// 合同存放目录
-	SavePath *string `json:"save_path,omitempty" xml:"save_path,omitempty" require:"true"`
-	// 合同金额
-	ContractAmount *int64 `json:"contract_amount,omitempty" xml:"contract_amount,omitempty" require:"true"`
-	// 用信合同编号
-	DisburseContractNo *string `json:"disburse_contract_no,omitempty" xml:"disburse_contract_no,omitempty" require:"true"`
-	// 授信合同编号
-	CreditContractNo *string `json:"credit_contract_no,omitempty" xml:"credit_contract_no,omitempty" require:"true"`
-}
-
-func (s Contract) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Contract) GoString() string {
-	return s.String()
-}
-
-func (s *Contract) SetRelationNo(v string) *Contract {
-	s.RelationNo = &v
-	return s
-}
-
-func (s *Contract) SetContractNo(v string) *Contract {
-	s.ContractNo = &v
-	return s
-}
-
-func (s *Contract) SetContractName(v string) *Contract {
-	s.ContractName = &v
-	return s
-}
-
-func (s *Contract) SetContractType(v string) *Contract {
-	s.ContractType = &v
-	return s
-}
-
-func (s *Contract) SetCustomNo(v string) *Contract {
-	s.CustomNo = &v
-	return s
-}
-
-func (s *Contract) SetSavePath(v string) *Contract {
-	s.SavePath = &v
-	return s
-}
-
-func (s *Contract) SetContractAmount(v int64) *Contract {
-	s.ContractAmount = &v
-	return s
-}
-
-func (s *Contract) SetDisburseContractNo(v string) *Contract {
-	s.DisburseContractNo = &v
-	return s
-}
-
-func (s *Contract) SetCreditContractNo(v string) *Contract {
-	s.CreditContractNo = &v
 	return s
 }
 
@@ -4117,151 +2831,6 @@ func (s *CompanyInfo) SetPlatform(v string) *CompanyInfo {
 	return s
 }
 
-// ai外呼回调详情
-type AICallbackMessage struct {
-	// 批次号
-	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
-	// 用户标签
-	Tag *string `json:"tag,omitempty" xml:"tag,omitempty" require:"true"`
-	// 外呼id
-	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
-	// 外呼的话术模板Id
-	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
-	// 外呼状态编码
-	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
-	// 外呼状态描述
-	StatusDescription *string `json:"status_description,omitempty" xml:"status_description,omitempty" require:"true"`
-	// 导入时间
-	ImportTime *string `json:"import_time,omitempty" xml:"import_time,omitempty" require:"true"`
-	// 开始通话时间
-	CallBeginTime *string `json:"call_begin_time,omitempty" xml:"call_begin_time,omitempty" require:"true"`
-	// 振铃时长, 单位毫秒
-	RingTime *int64 `json:"ring_time,omitempty" xml:"ring_time,omitempty" require:"true"`
-	// 接通时间
-	AnswerTime *string `json:"answer_time,omitempty" xml:"answer_time,omitempty" require:"true"`
-	// AI通话时长,单位s
-	SpeakingDuration *int64 `json:"speaking_duration,omitempty" xml:"speaking_duration,omitempty" require:"true"`
-	// 挂断时间
-	HangupTime *string `json:"hangup_time,omitempty" xml:"hangup_time,omitempty" require:"true"`
-	// 对话轮次
-	SpeakingTurns *int64 `json:"speaking_turns,omitempty" xml:"speaking_turns,omitempty" require:"true"`
-	// 意向标签
-	IntentTag *string `json:"intent_tag,omitempty" xml:"intent_tag,omitempty" require:"true"`
-	// 意向说明
-	IntentDescription *string `json:"intent_description,omitempty" xml:"intent_description,omitempty" require:"true"`
-	// 个性标签
-	IndividualTag *string `json:"individual_tag,omitempty" xml:"individual_tag,omitempty" require:"true"`
-	// 回复关键词
-	Keywords *string `json:"keywords,omitempty" xml:"keywords,omitempty" require:"true"`
-	// 对话录音
-	ChatRecord *string `json:"chat_record,omitempty" xml:"chat_record,omitempty"`
-	// 参数值
-	Properties *string `json:"properties,omitempty" xml:"properties,omitempty" require:"true"`
-}
-
-func (s AICallbackMessage) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AICallbackMessage) GoString() string {
-	return s.String()
-}
-
-func (s *AICallbackMessage) SetBatchId(v string) *AICallbackMessage {
-	s.BatchId = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetTag(v string) *AICallbackMessage {
-	s.Tag = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetCallId(v string) *AICallbackMessage {
-	s.CallId = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetTemplateId(v int64) *AICallbackMessage {
-	s.TemplateId = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetStatusCode(v int64) *AICallbackMessage {
-	s.StatusCode = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetStatusDescription(v string) *AICallbackMessage {
-	s.StatusDescription = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetImportTime(v string) *AICallbackMessage {
-	s.ImportTime = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetCallBeginTime(v string) *AICallbackMessage {
-	s.CallBeginTime = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetRingTime(v int64) *AICallbackMessage {
-	s.RingTime = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetAnswerTime(v string) *AICallbackMessage {
-	s.AnswerTime = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetSpeakingDuration(v int64) *AICallbackMessage {
-	s.SpeakingDuration = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetHangupTime(v string) *AICallbackMessage {
-	s.HangupTime = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetSpeakingTurns(v int64) *AICallbackMessage {
-	s.SpeakingTurns = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetIntentTag(v string) *AICallbackMessage {
-	s.IntentTag = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetIntentDescription(v string) *AICallbackMessage {
-	s.IntentDescription = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetIndividualTag(v string) *AICallbackMessage {
-	s.IndividualTag = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetKeywords(v string) *AICallbackMessage {
-	s.Keywords = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetChatRecord(v string) *AICallbackMessage {
-	s.ChatRecord = &v
-	return s
-}
-
-func (s *AICallbackMessage) SetProperties(v string) *AICallbackMessage {
-	s.Properties = &v
-	return s
-}
-
 // 营销盾事件信息同步详情
 type EventResultSyncDetail struct {
 	// 事件唯一id（单个租户全局唯一）
@@ -4337,53 +2906,6 @@ func (s *EventResultSyncDetail) SetExtData(v string) *EventResultSyncDetail {
 	return s
 }
 
-// 预警企业
-type RtopCompanyAlarm struct {
-	// 企业ID
-	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
-	// 预警类型
-	AlarmType *string `json:"alarm_type,omitempty" xml:"alarm_type,omitempty" require:"true"`
-	// 预警序号
-	AlarmIdx *string `json:"alarm_idx,omitempty" xml:"alarm_idx,omitempty" require:"true"`
-	// 预警日期
-	AlarmDate *string `json:"alarm_date,omitempty" xml:"alarm_date,omitempty" require:"true"`
-	// 预警标识，是否需要预警
-	AlarmFlag *string `json:"alarm_flag,omitempty" xml:"alarm_flag,omitempty" require:"true"`
-}
-
-func (s RtopCompanyAlarm) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCompanyAlarm) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCompanyAlarm) SetCompanyId(v string) *RtopCompanyAlarm {
-	s.CompanyId = &v
-	return s
-}
-
-func (s *RtopCompanyAlarm) SetAlarmType(v string) *RtopCompanyAlarm {
-	s.AlarmType = &v
-	return s
-}
-
-func (s *RtopCompanyAlarm) SetAlarmIdx(v string) *RtopCompanyAlarm {
-	s.AlarmIdx = &v
-	return s
-}
-
-func (s *RtopCompanyAlarm) SetAlarmDate(v string) *RtopCompanyAlarm {
-	s.AlarmDate = &v
-	return s
-}
-
-func (s *RtopCompanyAlarm) SetAlarmFlag(v string) *RtopCompanyAlarm {
-	s.AlarmFlag = &v
-	return s
-}
-
 // 通用响应结构体
 type RpcommonResp struct {
 	// 调用是否成功
@@ -4447,32 +2969,6 @@ func (s *RtopTagImage) SetId(v int64) *RtopTagImage {
 
 func (s *RtopTagImage) SetImage(v string) *RtopTagImage {
 	s.Image = &v
-	return s
-}
-
-// 企业影响人数性别分布统计
-type RtopGenderDistribution struct {
-	// 统计值
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// 性别
-	Gender *string `json:"gender,omitempty" xml:"gender,omitempty" require:"true"`
-}
-
-func (s RtopGenderDistribution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopGenderDistribution) GoString() string {
-	return s.String()
-}
-
-func (s *RtopGenderDistribution) SetCount(v int) *RtopGenderDistribution {
-	s.Count = &v
-	return s
-}
-
-func (s *RtopGenderDistribution) SetGender(v string) *RtopGenderDistribution {
-	s.Gender = &v
 	return s
 }
 
@@ -4541,51 +3037,6 @@ func (s *ApplyInfo) SetTotalAmount(v int64) *ApplyInfo {
 
 func (s *ApplyInfo) SetBalanceAmount(v int64) *ApplyInfo {
 	s.BalanceAmount = &v
-	return s
-}
-
-// 卡短解析服务返回参数
-type ShortUrlInfo struct {
-	// 支持卡片短信的手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 解析生成的短链
-	ShortUrl *string `json:"short_url,omitempty" xml:"short_url,omitempty" require:"true"`
-}
-
-func (s ShortUrlInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ShortUrlInfo) GoString() string {
-	return s.String()
-}
-
-func (s *ShortUrlInfo) SetMobile(v string) *ShortUrlInfo {
-	s.Mobile = &v
-	return s
-}
-
-func (s *ShortUrlInfo) SetShortUrl(v string) *ShortUrlInfo {
-	s.ShortUrl = &v
-	return s
-}
-
-// 是否联登结构体
-type CustomRelationStatus struct {
-	// 是否联登
-	RegFlag *bool `json:"reg_flag,omitempty" xml:"reg_flag,omitempty"`
-}
-
-func (s CustomRelationStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CustomRelationStatus) GoString() string {
-	return s.String()
-}
-
-func (s *CustomRelationStatus) SetRegFlag(v bool) *CustomRelationStatus {
-	s.RegFlag = &v
 	return s
 }
 
@@ -4709,79 +3160,6 @@ func (s *DubheFileInfo) SetFilePath(v string) *DubheFileInfo {
 	return s
 }
 
-// 服务上下文包括环境信息和用户信息
-type ServiceContext struct {
-	// 客户端IP
-	ClientIp *string `json:"client_ip,omitempty" xml:"client_ip,omitempty"`
-	// 客户端UMID
-	ClientPcidguid *string `json:"client_pcidguid,omitempty" xml:"client_pcidguid,omitempty"`
-	// 服务器名
-	ServerName *string `json:"server_name,omitempty" xml:"server_name,omitempty"`
-	// 会话ID
-	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
-	// 用户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
-}
-
-func (s ServiceContext) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ServiceContext) GoString() string {
-	return s.String()
-}
-
-func (s *ServiceContext) SetClientIp(v string) *ServiceContext {
-	s.ClientIp = &v
-	return s
-}
-
-func (s *ServiceContext) SetClientPcidguid(v string) *ServiceContext {
-	s.ClientPcidguid = &v
-	return s
-}
-
-func (s *ServiceContext) SetServerName(v string) *ServiceContext {
-	s.ServerName = &v
-	return s
-}
-
-func (s *ServiceContext) SetSessionId(v string) *ServiceContext {
-	s.SessionId = &v
-	return s
-}
-
-func (s *ServiceContext) SetUserId(v string) *ServiceContext {
-	s.UserId = &v
-	return s
-}
-
-// 营销盾实时圈客结果返回model
-type CustomerUmktInfoModel struct {
-	// 基本圈客结果信息
-	BaseInfo *BaseCustomerUmktInfoModel `json:"base_info,omitempty" xml:"base_info,omitempty" require:"true"`
-	// 额外的营销分结果
-	UmktOutPutInfo *string `json:"umkt_out_put_info,omitempty" xml:"umkt_out_put_info,omitempty"`
-}
-
-func (s CustomerUmktInfoModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CustomerUmktInfoModel) GoString() string {
-	return s.String()
-}
-
-func (s *CustomerUmktInfoModel) SetBaseInfo(v *BaseCustomerUmktInfoModel) *CustomerUmktInfoModel {
-	s.BaseInfo = v
-	return s
-}
-
-func (s *CustomerUmktInfoModel) SetUmktOutPutInfo(v string) *CustomerUmktInfoModel {
-	s.UmktOutPutInfo = &v
-	return s
-}
-
 // 混合批量营销圈客结果
 type CustomerUmktInfosModel struct {
 	// 归属用户的混合营销决策结果
@@ -4833,100 +3211,6 @@ func (s *ModelDetails) SetSceneCode(v string) *ModelDetails {
 
 func (s *ModelDetails) SetScore(v string) *ModelDetails {
 	s.Score = &v
-	return s
-}
-
-// 企业舆情数量
-type RtopCompanyOpinionCount struct {
-	// 企业名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
-	// 企业对应的舆情数量
-	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-}
-
-func (s RtopCompanyOpinionCount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCompanyOpinionCount) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCompanyOpinionCount) SetCompanyName(v string) *RtopCompanyOpinionCount {
-	s.CompanyName = &v
-	return s
-}
-
-func (s *RtopCompanyOpinionCount) SetCount(v int) *RtopCompanyOpinionCount {
-	s.Count = &v
-	return s
-}
-
-// 商户资金链锁定结果
-type FundChainLockResult struct {
-	// 店铺名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 店铺id
-	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
-	// 0:成功
-	// 1:失败
-	// 2:处理中
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-}
-
-func (s FundChainLockResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FundChainLockResult) GoString() string {
-	return s.String()
-}
-
-func (s *FundChainLockResult) SetName(v string) *FundChainLockResult {
-	s.Name = &v
-	return s
-}
-
-func (s *FundChainLockResult) SetId(v string) *FundChainLockResult {
-	s.Id = &v
-	return s
-}
-
-func (s *FundChainLockResult) SetStatus(v string) *FundChainLockResult {
-	s.Status = &v
-	return s
-}
-
-// 企业地区分布统计
-type RtopRegionalDistribution struct {
-	// 统计值
-	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
-	// 地区
-	Place *string `json:"place,omitempty" xml:"place,omitempty" require:"true"`
-	// 当前地区的涉众风险类型分布，即非法集资有多少企业，传销有多少企业
-	TypeDistribution []*RtopTypeDistribution `json:"type_distribution,omitempty" xml:"type_distribution,omitempty" type:"Repeated"`
-}
-
-func (s RtopRegionalDistribution) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopRegionalDistribution) GoString() string {
-	return s.String()
-}
-
-func (s *RtopRegionalDistribution) SetCount(v int64) *RtopRegionalDistribution {
-	s.Count = &v
-	return s
-}
-
-func (s *RtopRegionalDistribution) SetPlace(v string) *RtopRegionalDistribution {
-	s.Place = &v
-	return s
-}
-
-func (s *RtopRegionalDistribution) SetTypeDistribution(v []*RtopTypeDistribution) *RtopRegionalDistribution {
-	s.TypeDistribution = v
 	return s
 }
 
@@ -5141,39 +3425,6 @@ func (s *JobInfo) SetYearSalary(v int64) *JobInfo {
 	return s
 }
 
-// 涉众风险企业特征
-type RtopCrowdRiskFeatureResp struct {
-	// 特征标签列表
-	ClueTags []*RtopCrowdRiskFeatureTag `json:"clue_tags,omitempty" xml:"clue_tags,omitempty" type:"Repeated"`
-	// 特征名称
-	FeatureName *string `json:"feature_name,omitempty" xml:"feature_name,omitempty" require:"true"`
-	// 特征​分数
-	Score *int `json:"score,omitempty" xml:"score,omitempty" require:"true"`
-}
-
-func (s RtopCrowdRiskFeatureResp) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RtopCrowdRiskFeatureResp) GoString() string {
-	return s.String()
-}
-
-func (s *RtopCrowdRiskFeatureResp) SetClueTags(v []*RtopCrowdRiskFeatureTag) *RtopCrowdRiskFeatureResp {
-	s.ClueTags = v
-	return s
-}
-
-func (s *RtopCrowdRiskFeatureResp) SetFeatureName(v string) *RtopCrowdRiskFeatureResp {
-	s.FeatureName = &v
-	return s
-}
-
-func (s *RtopCrowdRiskFeatureResp) SetScore(v int) *RtopCrowdRiskFeatureResp {
-	s.Score = &v
-	return s
-}
-
 // 天枢系统居住信息结构体
 type LiveInfo struct {
 	// 居住省份
@@ -5261,89 +3512,6 @@ func (s *RiskStormLabelResp) SetLabelName(v string) *RiskStormLabelResp {
 	return s
 }
 
-// 待还款信息
-type RepayInfo struct {
-	// true：逾期
-	// false：未逾期
-	OverdueFlag *bool `json:"overdue_flag,omitempty" xml:"overdue_flag,omitempty" require:"true"`
-	// 逾期天数
-	OverDays *int64 `json:"over_days,omitempty" xml:"over_days,omitempty" require:"true"`
-	// 逾期金额在50元以上的客户的逾期天数
-	ValuableOverDays *int64 `json:"valuable_over_days,omitempty" xml:"valuable_over_days,omitempty" require:"true"`
-	// 逾期期数
-	OverPeriodCount *int64 `json:"over_period_count,omitempty" xml:"over_period_count,omitempty" require:"true"`
-	// 逾期本金
-	OverPrincipal *int64 `json:"over_principal,omitempty" xml:"over_principal,omitempty" require:"true"`
-	// 逾期利息
-	OverInterest *int64 `json:"over_interest,omitempty" xml:"over_interest,omitempty" require:"true"`
-	// 应还罚息
-	OverPunish *int64 `json:"over_punish,omitempty" xml:"over_punish,omitempty" require:"true"`
-	// 应还逾期总额
-	NeedOverdueAmount *int64 `json:"need_overdue_amount,omitempty" xml:"need_overdue_amount,omitempty" require:"true"`
-	// 当前应还总额（包含逾期和当前期）
-	CurrentNeedAmount *int64 `json:"current_need_amount,omitempty" xml:"current_need_amount,omitempty" require:"true"`
-	// 总剩余应还
-	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-}
-
-func (s RepayInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RepayInfo) GoString() string {
-	return s.String()
-}
-
-func (s *RepayInfo) SetOverdueFlag(v bool) *RepayInfo {
-	s.OverdueFlag = &v
-	return s
-}
-
-func (s *RepayInfo) SetOverDays(v int64) *RepayInfo {
-	s.OverDays = &v
-	return s
-}
-
-func (s *RepayInfo) SetValuableOverDays(v int64) *RepayInfo {
-	s.ValuableOverDays = &v
-	return s
-}
-
-func (s *RepayInfo) SetOverPeriodCount(v int64) *RepayInfo {
-	s.OverPeriodCount = &v
-	return s
-}
-
-func (s *RepayInfo) SetOverPrincipal(v int64) *RepayInfo {
-	s.OverPrincipal = &v
-	return s
-}
-
-func (s *RepayInfo) SetOverInterest(v int64) *RepayInfo {
-	s.OverInterest = &v
-	return s
-}
-
-func (s *RepayInfo) SetOverPunish(v int64) *RepayInfo {
-	s.OverPunish = &v
-	return s
-}
-
-func (s *RepayInfo) SetNeedOverdueAmount(v int64) *RepayInfo {
-	s.NeedOverdueAmount = &v
-	return s
-}
-
-func (s *RepayInfo) SetCurrentNeedAmount(v int64) *RepayInfo {
-	s.CurrentNeedAmount = &v
-	return s
-}
-
-func (s *RepayInfo) SetTotalAmount(v int64) *RepayInfo {
-	s.TotalAmount = &v
-	return s
-}
-
 // 芝麻四要素认证接口
 type ZhimaIdentifyResp struct {
 	// 唯一ID，接口正常的话有此字段
@@ -5395,90 +3563,6 @@ func (s *ZhimaIdentifyResp) SetSubCode(v string) *ZhimaIdentifyResp {
 
 func (s *ZhimaIdentifyResp) SetSubMsg(v string) *ZhimaIdentifyResp {
 	s.SubMsg = &v
-	return s
-}
-
-// 天枢系统专用CreditAmount结构体
-type CreditAmount struct {
-	// 授信额度
-	CreditAmount *int64 `json:"credit_amount,omitempty" xml:"credit_amount,omitempty" require:"true"`
-	// 授信余额
-	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty" require:"true"`
-	// 发放日期
-	PayDate *string `json:"pay_date,omitempty" xml:"pay_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 到期日期
-	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 利率单位(1:年，2：月，3：日)
-	RateUnit *string `json:"rate_unit,omitempty" xml:"rate_unit,omitempty" require:"true"`
-	// 执行利率,利率值，单位%
-	// 年化5%，rateValue=5
-	//
-	RateValue *int64 `json:"rate_value,omitempty" xml:"rate_value,omitempty" require:"true"`
-	// 还款方式1等额本息2等额本金3先息后本4一次性利随本清5只还本金6等本等息
-	RepayWay *string `json:"repay_way,omitempty" xml:"repay_way,omitempty" require:"true"`
-	// 状态0-正常 1-冻结 2-终止
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 发放日期（兼容字段）
-	PayDateSup *string `json:"pay_date_sup,omitempty" xml:"pay_date_sup,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 到期日期（兼容字段）
-	ExpireDateSup *string `json:"expire_date_sup,omitempty" xml:"expire_date_sup,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-}
-
-func (s CreditAmount) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreditAmount) GoString() string {
-	return s.String()
-}
-
-func (s *CreditAmount) SetCreditAmount(v int64) *CreditAmount {
-	s.CreditAmount = &v
-	return s
-}
-
-func (s *CreditAmount) SetRestAmount(v int64) *CreditAmount {
-	s.RestAmount = &v
-	return s
-}
-
-func (s *CreditAmount) SetPayDate(v string) *CreditAmount {
-	s.PayDate = &v
-	return s
-}
-
-func (s *CreditAmount) SetExpireDate(v string) *CreditAmount {
-	s.ExpireDate = &v
-	return s
-}
-
-func (s *CreditAmount) SetRateUnit(v string) *CreditAmount {
-	s.RateUnit = &v
-	return s
-}
-
-func (s *CreditAmount) SetRateValue(v int64) *CreditAmount {
-	s.RateValue = &v
-	return s
-}
-
-func (s *CreditAmount) SetRepayWay(v string) *CreditAmount {
-	s.RepayWay = &v
-	return s
-}
-
-func (s *CreditAmount) SetStatus(v string) *CreditAmount {
-	s.Status = &v
-	return s
-}
-
-func (s *CreditAmount) SetPayDateSup(v string) *CreditAmount {
-	s.PayDateSup = &v
-	return s
-}
-
-func (s *CreditAmount) SetExpireDateSup(v string) *CreditAmount {
-	s.ExpireDateSup = &v
 	return s
 }
 
@@ -5709,6 +3793,1962 @@ func (s *SmsReponse) SetMessage(v string) *SmsReponse {
 
 func (s *SmsReponse) SetRequestId(v string) *SmsReponse {
 	s.RequestId = &v
+	return s
+}
+
+// 天枢系统专用ReceiptInfo结构体
+type ReceiptInfo struct {
+	// 客户名
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
+	// 证件号码
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 贷款金额
+	ApplyAmount *int64 `json:"apply_amount,omitempty" xml:"apply_amount,omitempty" require:"true"`
+	// 发放金额
+	LoanAmount *int64 `json:"loan_amount,omitempty" xml:"loan_amount,omitempty" require:"true"`
+	// 期数
+	Period *int64 `json:"period,omitempty" xml:"period,omitempty" require:"true"`
+	// 当前期数
+	CurPeriod *int64 `json:"cur_period,omitempty" xml:"cur_period,omitempty" require:"true"`
+	// 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
+	RepayType *string `json:"repay_type,omitempty" xml:"repay_type,omitempty" require:"true"`
+	// 还款日
+	RepayDate *string `json:"repay_date,omitempty" xml:"repay_date,omitempty" require:"true"`
+	// 放款时间
+	LoanTime *string `json:"loan_time,omitempty" xml:"loan_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 借据状态0：未还清，1：已还清，2：已提前还清
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 已还本金
+	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
+	// 已还利息
+	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
+	// 结清日期
+	AlreadyDate *string `json:"already_date,omitempty" xml:"already_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 审批状态0：通过 1：拒绝 2：审批中 3：失败
+	WorkflowStatus *string `json:"workflow_status,omitempty" xml:"workflow_status,omitempty" require:"true"`
+	// 借据编号
+	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
+}
+
+func (s ReceiptInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiptInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiptInfo) SetCustomName(v string) *ReceiptInfo {
+	s.CustomName = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetCardNo(v string) *ReceiptInfo {
+	s.CardNo = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetMobile(v string) *ReceiptInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetApplyAmount(v int64) *ReceiptInfo {
+	s.ApplyAmount = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetLoanAmount(v int64) *ReceiptInfo {
+	s.LoanAmount = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetPeriod(v int64) *ReceiptInfo {
+	s.Period = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetCurPeriod(v int64) *ReceiptInfo {
+	s.CurPeriod = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetRepayType(v string) *ReceiptInfo {
+	s.RepayType = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetRepayDate(v string) *ReceiptInfo {
+	s.RepayDate = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetLoanTime(v string) *ReceiptInfo {
+	s.LoanTime = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetStatus(v string) *ReceiptInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetAlreadyCorpus(v int64) *ReceiptInfo {
+	s.AlreadyCorpus = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetAlreadyAccrual(v int64) *ReceiptInfo {
+	s.AlreadyAccrual = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetAlreadyDate(v string) *ReceiptInfo {
+	s.AlreadyDate = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetWorkflowStatus(v string) *ReceiptInfo {
+	s.WorkflowStatus = &v
+	return s
+}
+
+func (s *ReceiptInfo) SetReceiptNo(v string) *ReceiptInfo {
+	s.ReceiptNo = &v
+	return s
+}
+
+// 天枢系统专用RepayRef结构体
+type RepayRef struct {
+	// 客户编码
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	// 当前期数
+	Period *string `json:"period,omitempty" xml:"period,omitempty" require:"true"`
+	// 应还总额
+	NeedAmount *int64 `json:"need_amount,omitempty" xml:"need_amount,omitempty" require:"true"`
+	// 应还本金
+	NeedCorpus *int64 `json:"need_corpus,omitempty" xml:"need_corpus,omitempty" require:"true"`
+	// 应还利息
+	NeedAccrual *int64 `json:"need_accrual,omitempty" xml:"need_accrual,omitempty" require:"true"`
+	// 应还手续费
+	NeedFee *int64 `json:"need_fee,omitempty" xml:"need_fee,omitempty" require:"true"`
+	// 已还总额
+	AlreadyAmount *int64 `json:"already_amount,omitempty" xml:"already_amount,omitempty" require:"true"`
+	// 已还本金
+	AlreadyCorpus *int64 `json:"already_corpus,omitempty" xml:"already_corpus,omitempty" require:"true"`
+	// 已还逾期本金
+	AlreadyOvercorpus *int64 `json:"already_overcorpus,omitempty" xml:"already_overcorpus,omitempty" require:"true"`
+	// 已还利息
+	AlreadyAccrual *int64 `json:"already_accrual,omitempty" xml:"already_accrual,omitempty" require:"true"`
+	// 已还逾期息
+	AlreadyPunish *int64 `json:"already_punish,omitempty" xml:"already_punish,omitempty" require:"true"`
+	// 已还手续费
+	AlreadyFee *int64 `json:"already_fee,omitempty" xml:"already_fee,omitempty" require:"true"`
+	// 利率
+	Rate *int64 `json:"rate,omitempty" xml:"rate,omitempty" require:"true"`
+	// 罚息率
+	PenaltyValue *int64 `json:"penalty_value,omitempty" xml:"penalty_value,omitempty" require:"true"`
+	// 当期剩余总额
+	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty" require:"true"`
+	// 当期剩余本金
+	RestCorpus *int64 `json:"rest_corpus,omitempty" xml:"rest_corpus,omitempty" require:"true"`
+	// 当期剩余利息
+	RestAccrual *int64 `json:"rest_accrual,omitempty" xml:"rest_accrual,omitempty" require:"true"`
+	// 当期剩余罚息
+	RestPunish *int64 `json:"rest_punish,omitempty" xml:"rest_punish,omitempty" require:"true"`
+	// 期末本金
+	RemainCorpus *int64 `json:"remain_corpus,omitempty" xml:"remain_corpus,omitempty" require:"true"`
+	// 借据编号
+	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
+	// 还款状态1：已还清 2 未还 3 部分还款
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 应还日期
+	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 还款日期
+	TradeDate *string `json:"trade_date,omitempty" xml:"trade_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s RepayRef) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayRef) GoString() string {
+	return s.String()
+}
+
+func (s *RepayRef) SetCustomNo(v string) *RepayRef {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *RepayRef) SetPeriod(v string) *RepayRef {
+	s.Period = &v
+	return s
+}
+
+func (s *RepayRef) SetNeedAmount(v int64) *RepayRef {
+	s.NeedAmount = &v
+	return s
+}
+
+func (s *RepayRef) SetNeedCorpus(v int64) *RepayRef {
+	s.NeedCorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetNeedAccrual(v int64) *RepayRef {
+	s.NeedAccrual = &v
+	return s
+}
+
+func (s *RepayRef) SetNeedFee(v int64) *RepayRef {
+	s.NeedFee = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyAmount(v int64) *RepayRef {
+	s.AlreadyAmount = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyCorpus(v int64) *RepayRef {
+	s.AlreadyCorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyOvercorpus(v int64) *RepayRef {
+	s.AlreadyOvercorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyAccrual(v int64) *RepayRef {
+	s.AlreadyAccrual = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyPunish(v int64) *RepayRef {
+	s.AlreadyPunish = &v
+	return s
+}
+
+func (s *RepayRef) SetAlreadyFee(v int64) *RepayRef {
+	s.AlreadyFee = &v
+	return s
+}
+
+func (s *RepayRef) SetRate(v int64) *RepayRef {
+	s.Rate = &v
+	return s
+}
+
+func (s *RepayRef) SetPenaltyValue(v int64) *RepayRef {
+	s.PenaltyValue = &v
+	return s
+}
+
+func (s *RepayRef) SetRestAmount(v int64) *RepayRef {
+	s.RestAmount = &v
+	return s
+}
+
+func (s *RepayRef) SetRestCorpus(v int64) *RepayRef {
+	s.RestCorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetRestAccrual(v int64) *RepayRef {
+	s.RestAccrual = &v
+	return s
+}
+
+func (s *RepayRef) SetRestPunish(v int64) *RepayRef {
+	s.RestPunish = &v
+	return s
+}
+
+func (s *RepayRef) SetRemainCorpus(v int64) *RepayRef {
+	s.RemainCorpus = &v
+	return s
+}
+
+func (s *RepayRef) SetReceiptNo(v string) *RepayRef {
+	s.ReceiptNo = &v
+	return s
+}
+
+func (s *RepayRef) SetStatus(v string) *RepayRef {
+	s.Status = &v
+	return s
+}
+
+func (s *RepayRef) SetSettleDate(v string) *RepayRef {
+	s.SettleDate = &v
+	return s
+}
+
+func (s *RepayRef) SetTradeDate(v string) *RepayRef {
+	s.TradeDate = &v
+	return s
+}
+
+// 回调通用返回体
+type CommonNotyfyResult struct {
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 业务响应Json
+	BizResponse *string `json:"biz_response,omitempty" xml:"biz_response,omitempty" require:"true"`
+}
+
+func (s CommonNotyfyResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommonNotyfyResult) GoString() string {
+	return s.String()
+}
+
+func (s *CommonNotyfyResult) SetRequestId(v string) *CommonNotyfyResult {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CommonNotyfyResult) SetBizResponse(v string) *CommonNotyfyResult {
+	s.BizResponse = &v
+	return s
+}
+
+// 收藏的企业信息
+type RtopStarCompanyInfo struct {
+	// 行业
+	Categories []*string `json:"categories,omitempty" xml:"categories,omitempty" type:"Repeated"`
+	// 经营地址
+	OperatingPlace *string `json:"operating_place,omitempty" xml:"operating_place,omitempty"`
+	// 经营省份
+	OperatingProvince *string `json:"operating_province,omitempty" xml:"operating_province,omitempty"`
+	// 企业名称
+	OrgName *string `json:"org_name,omitempty" xml:"org_name,omitempty"`
+	// 风险分数
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
+	// 风险标签
+	RiskTags []*string `json:"risk_tags,omitempty" xml:"risk_tags,omitempty" type:"Repeated"`
+	// 风险线索
+	RiskTagDetails []*RtopRiskTag `json:"risk_tag_details,omitempty" xml:"risk_tag_details,omitempty" type:"Repeated"`
+	// 风险标签Id集合
+	RiskTagIds []*string `json:"risk_tag_ids,omitempty" xml:"risk_tag_ids,omitempty" type:"Repeated"`
+	// 统一社会信用代码
+	UcCode *string `json:"uc_code,omitempty" xml:"uc_code,omitempty"`
+}
+
+func (s RtopStarCompanyInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopStarCompanyInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RtopStarCompanyInfo) SetCategories(v []*string) *RtopStarCompanyInfo {
+	s.Categories = v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetOperatingPlace(v string) *RtopStarCompanyInfo {
+	s.OperatingPlace = &v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetOperatingProvince(v string) *RtopStarCompanyInfo {
+	s.OperatingProvince = &v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetOrgName(v string) *RtopStarCompanyInfo {
+	s.OrgName = &v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetRiskScore(v int64) *RtopStarCompanyInfo {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetRiskTags(v []*string) *RtopStarCompanyInfo {
+	s.RiskTags = v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetRiskTagDetails(v []*RtopRiskTag) *RtopStarCompanyInfo {
+	s.RiskTagDetails = v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetRiskTagIds(v []*string) *RtopStarCompanyInfo {
+	s.RiskTagIds = v
+	return s
+}
+
+func (s *RtopStarCompanyInfo) SetUcCode(v string) *RtopStarCompanyInfo {
+	s.UcCode = &v
+	return s
+}
+
+// 企业日期趋势统计
+type RtopDateDistribution struct {
+	// 统计值
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 年龄
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s RtopDateDistribution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopDateDistribution) GoString() string {
+	return s.String()
+}
+
+func (s *RtopDateDistribution) SetCount(v int) *RtopDateDistribution {
+	s.Count = &v
+	return s
+}
+
+func (s *RtopDateDistribution) SetDate(v string) *RtopDateDistribution {
+	s.Date = &v
+	return s
+}
+
+// 天枢系统个人信息结构体
+type PersonalInfo struct {
+	// 客户姓名
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty" require:"true"`
+	// 身份证号码(18位)
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty" require:"true"`
+	// 1-身份证
+	IdType *string `json:"id_type,omitempty" xml:"id_type,omitempty" require:"true"`
+	// 证件开始日期(格式：YYYY-MM-DD)
+	//
+	CertSignDate *string `json:"cert_sign_date,omitempty" xml:"cert_sign_date,omitempty" require:"true"`
+	// 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
+	CertValidate *string `json:"cert_validate,omitempty" xml:"cert_validate,omitempty" require:"true"`
+	// 证件地址
+	CertAdr *string `json:"cert_adr,omitempty" xml:"cert_adr,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 学历
+	Education *string `json:"education,omitempty" xml:"education,omitempty" require:"true"`
+	// 所在省份 汉字
+	Province *string `json:"province,omitempty" xml:"province,omitempty"`
+	// 所在城市 汉字
+	City *string `json:"city,omitempty" xml:"city,omitempty"`
+	// 地区名称 汉字
+	Area *string `json:"area,omitempty" xml:"area,omitempty"`
+	// 详细地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 性别M-男
+	// F-女
+	Sex *string `json:"sex,omitempty" xml:"sex,omitempty"`
+	// 民族
+	Nation *string `json:"nation,omitempty" xml:"nation,omitempty"`
+	// 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+	MaritalStatus *string `json:"marital_status,omitempty" xml:"marital_status,omitempty"`
+}
+
+func (s PersonalInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonalInfo) GoString() string {
+	return s.String()
+}
+
+func (s *PersonalInfo) SetCustomName(v string) *PersonalInfo {
+	s.CustomName = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCardNo(v string) *PersonalInfo {
+	s.CardNo = &v
+	return s
+}
+
+func (s *PersonalInfo) SetIdType(v string) *PersonalInfo {
+	s.IdType = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCertSignDate(v string) *PersonalInfo {
+	s.CertSignDate = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCertValidate(v string) *PersonalInfo {
+	s.CertValidate = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCertAdr(v string) *PersonalInfo {
+	s.CertAdr = &v
+	return s
+}
+
+func (s *PersonalInfo) SetMobile(v string) *PersonalInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *PersonalInfo) SetEducation(v string) *PersonalInfo {
+	s.Education = &v
+	return s
+}
+
+func (s *PersonalInfo) SetProvince(v string) *PersonalInfo {
+	s.Province = &v
+	return s
+}
+
+func (s *PersonalInfo) SetCity(v string) *PersonalInfo {
+	s.City = &v
+	return s
+}
+
+func (s *PersonalInfo) SetArea(v string) *PersonalInfo {
+	s.Area = &v
+	return s
+}
+
+func (s *PersonalInfo) SetAddress(v string) *PersonalInfo {
+	s.Address = &v
+	return s
+}
+
+func (s *PersonalInfo) SetSex(v string) *PersonalInfo {
+	s.Sex = &v
+	return s
+}
+
+func (s *PersonalInfo) SetNation(v string) *PersonalInfo {
+	s.Nation = &v
+	return s
+}
+
+func (s *PersonalInfo) SetMaritalStatus(v string) *PersonalInfo {
+	s.MaritalStatus = &v
+	return s
+}
+
+// 策略流信息
+type DfSceneInfos struct {
+	// scene_code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 拒绝
+	SceneDecision *string `json:"scene_decision,omitempty" xml:"scene_decision,omitempty" require:"true"`
+	// decision_flow
+	DecisionFlow *DecisionFlow `json:"decision_flow,omitempty" xml:"decision_flow,omitempty" require:"true"`
+}
+
+func (s DfSceneInfos) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DfSceneInfos) GoString() string {
+	return s.String()
+}
+
+func (s *DfSceneInfos) SetSceneCode(v string) *DfSceneInfos {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *DfSceneInfos) SetSceneDecision(v string) *DfSceneInfos {
+	s.SceneDecision = &v
+	return s
+}
+
+func (s *DfSceneInfos) SetDecisionFlow(v *DecisionFlow) *DfSceneInfos {
+	s.DecisionFlow = v
+	return s
+}
+
+// 用户凭证信息
+type CustomerDetail struct {
+	// 用户标识
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 渠道参数
+	ChannelParams *string `json:"channel_params,omitempty" xml:"channel_params,omitempty" require:"true"`
+	// 用户透传字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+}
+
+func (s CustomerDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerDetail) SetCustomerKey(v string) *CustomerDetail {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *CustomerDetail) SetChannelParams(v string) *CustomerDetail {
+	s.ChannelParams = &v
+	return s
+}
+
+func (s *CustomerDetail) SetExtInfo(v string) *CustomerDetail {
+	s.ExtInfo = &v
+	return s
+}
+
+// 用户绑定银行卡列表
+type CustomerBankCardInfo struct {
+	// 银行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty" require:"true"`
+	// 银行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 银行卡号
+	BankCardNo *string `json:"bank_card_no,omitempty" xml:"bank_card_no,omitempty" require:"true"`
+	// 是否已签约
+	Signed *string `json:"signed,omitempty" xml:"signed,omitempty"`
+	// 是否为账户代扣银行卡
+	AcctBankCard *string `json:"acct_bank_card,omitempty" xml:"acct_bank_card,omitempty"`
+}
+
+func (s CustomerBankCardInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerBankCardInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerBankCardInfo) SetBankName(v string) *CustomerBankCardInfo {
+	s.BankName = &v
+	return s
+}
+
+func (s *CustomerBankCardInfo) SetBankCode(v string) *CustomerBankCardInfo {
+	s.BankCode = &v
+	return s
+}
+
+func (s *CustomerBankCardInfo) SetBankCardNo(v string) *CustomerBankCardInfo {
+	s.BankCardNo = &v
+	return s
+}
+
+func (s *CustomerBankCardInfo) SetSigned(v string) *CustomerBankCardInfo {
+	s.Signed = &v
+	return s
+}
+
+func (s *CustomerBankCardInfo) SetAcctBankCard(v string) *CustomerBankCardInfo {
+	s.AcctBankCard = &v
+	return s
+}
+
+// 逾期信息查询响应
+type OverdueInfoResponse struct {
+	// 逾期标识
+	// true：逾期
+	// false：未逾期
+	OverDueFlag *bool `json:"over_due_flag,omitempty" xml:"over_due_flag,omitempty" require:"true"`
+	// 逾期天数
+	OverDays *int64 `json:"over_days,omitempty" xml:"over_days,omitempty" require:"true"`
+	// 逾期金额在50元以上的客户的逾期天数
+	ValuableOverDays *int64 `json:"valuable_over_days,omitempty" xml:"valuable_over_days,omitempty" require:"true"`
+	// 逾期期数
+	OverPeriodCount *int64 `json:"over_period_count,omitempty" xml:"over_period_count,omitempty" require:"true"`
+	// 逾期本金
+	OverPrincipal *int64 `json:"over_principal,omitempty" xml:"over_principal,omitempty" require:"true"`
+	// 逾期利息
+	OverInterest *int64 `json:"over_interest,omitempty" xml:"over_interest,omitempty" require:"true"`
+	// 应还罚息
+	OverPunish *int64 `json:"over_punish,omitempty" xml:"over_punish,omitempty" require:"true"`
+	// 应还逾期总额
+	NeedOverdueAmount *int64 `json:"need_overdue_amount,omitempty" xml:"need_overdue_amount,omitempty" require:"true"`
+	// 当前应还总额
+	CurrentNeedAmount *int64 `json:"current_need_amount,omitempty" xml:"current_need_amount,omitempty" require:"true"`
+	// 总剩余应还
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+	// 数据日期
+	SettleDate *string `json:"settle_date,omitempty" xml:"settle_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 借款唯一编号
+	ReceiptNo *string `json:"receipt_no,omitempty" xml:"receipt_no,omitempty" require:"true"`
+	// 已还期数
+	AlreadyRepayPeriodCount *int64 `json:"already_repay_period_count,omitempty" xml:"already_repay_period_count,omitempty" require:"true"`
+	// 贷款期数
+	LoanPeriodCount *int64 `json:"loan_period_count,omitempty" xml:"loan_period_count,omitempty" require:"true"`
+	// 未还本金
+	OutstandingPrincipal *int64 `json:"outstanding_principal,omitempty" xml:"outstanding_principal,omitempty" require:"true"`
+	// 放款日期
+	LoanTime *string `json:"loan_time,omitempty" xml:"loan_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 结清标志
+	SettleFlag *bool `json:"settle_flag,omitempty" xml:"settle_flag,omitempty" require:"true"`
+	// 最近一次还款日期
+	NearestRepayTime *string `json:"nearest_repay_time,omitempty" xml:"nearest_repay_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s OverdueInfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OverdueInfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *OverdueInfoResponse) SetOverDueFlag(v bool) *OverdueInfoResponse {
+	s.OverDueFlag = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverDays(v int64) *OverdueInfoResponse {
+	s.OverDays = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetValuableOverDays(v int64) *OverdueInfoResponse {
+	s.ValuableOverDays = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverPeriodCount(v int64) *OverdueInfoResponse {
+	s.OverPeriodCount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverPrincipal(v int64) *OverdueInfoResponse {
+	s.OverPrincipal = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverInterest(v int64) *OverdueInfoResponse {
+	s.OverInterest = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOverPunish(v int64) *OverdueInfoResponse {
+	s.OverPunish = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetNeedOverdueAmount(v int64) *OverdueInfoResponse {
+	s.NeedOverdueAmount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetCurrentNeedAmount(v int64) *OverdueInfoResponse {
+	s.CurrentNeedAmount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetTotalAmount(v int64) *OverdueInfoResponse {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetSettleDate(v string) *OverdueInfoResponse {
+	s.SettleDate = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetReceiptNo(v string) *OverdueInfoResponse {
+	s.ReceiptNo = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetAlreadyRepayPeriodCount(v int64) *OverdueInfoResponse {
+	s.AlreadyRepayPeriodCount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetLoanPeriodCount(v int64) *OverdueInfoResponse {
+	s.LoanPeriodCount = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetOutstandingPrincipal(v int64) *OverdueInfoResponse {
+	s.OutstandingPrincipal = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetLoanTime(v string) *OverdueInfoResponse {
+	s.LoanTime = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetSettleFlag(v bool) *OverdueInfoResponse {
+	s.SettleFlag = &v
+	return s
+}
+
+func (s *OverdueInfoResponse) SetNearestRepayTime(v string) *OverdueInfoResponse {
+	s.NearestRepayTime = &v
+	return s
+}
+
+// 机构平台通知响应结果
+type DefinInnerChannelNotifyResult struct {
+	// 请求编号
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 业务响应Json
+	BizResponse *string `json:"biz_response,omitempty" xml:"biz_response,omitempty" require:"true"`
+}
+
+func (s DefinInnerChannelNotifyResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DefinInnerChannelNotifyResult) GoString() string {
+	return s.String()
+}
+
+func (s *DefinInnerChannelNotifyResult) SetRequestId(v string) *DefinInnerChannelNotifyResult {
+	s.RequestId = &v
+	return s
+}
+
+func (s *DefinInnerChannelNotifyResult) SetBizResponse(v string) *DefinInnerChannelNotifyResult {
+	s.BizResponse = &v
+	return s
+}
+
+// 批量决策单主体查询结果
+type BatchQueryResult struct {
+	// 查询主体
+	QueryKey *string `json:"query_key,omitempty" xml:"query_key,omitempty" require:"true"`
+	// 单用户决策结果
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+	// 输出变量信息
+	OutputInfo *BatchQueryOutputModelInfo `json:"output_info,omitempty" xml:"output_info,omitempty" require:"true"`
+}
+
+func (s BatchQueryResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s BatchQueryResult) GoString() string {
+	return s.String()
+}
+
+func (s *BatchQueryResult) SetQueryKey(v string) *BatchQueryResult {
+	s.QueryKey = &v
+	return s
+}
+
+func (s *BatchQueryResult) SetDecision(v string) *BatchQueryResult {
+	s.Decision = &v
+	return s
+}
+
+func (s *BatchQueryResult) SetOutputInfo(v *BatchQueryOutputModelInfo) *BatchQueryResult {
+	s.OutputInfo = v
+	return s
+}
+
+// 营销盾外呼记录
+type CommonRobotCallDetail struct {
+	// 客户请求时的透传字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+	// 成功触达：OK；未触达：AI_ROBOT_CALL_REQUEST_NOT_EXIST
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty" require:"true"`
+	// 外呼号码
+	CustomerKey *string `json:"customer_key,omitempty" xml:"customer_key,omitempty" require:"true"`
+	// 呼叫次数
+	CurrentCallTimes *int64 `json:"current_call_times,omitempty" xml:"current_call_times,omitempty" require:"true"`
+	// 号码模版
+	KeyTemplate *string `json:"key_template,omitempty" xml:"key_template,omitempty" require:"true"`
+	// 导入号码时返回的批次号
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
+	// 2001:批量-预测外呼，2002:批量-AI外呼-不转人工，2003:批量-AI外呼-接通转人工，2004: 批量-AI外呼-智能转人工,2005:批量-语音通知
+	CallType *int64 `json:"call_type,omitempty" xml:"call_type,omitempty" require:"true"`
+	// 用户自定义标签
+	Tag *string `json:"tag,omitempty" xml:"tag,omitempty"`
+	// 外呼id
+	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
+	// 外呼任务编号
+	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// AI话术ID
+	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 外呼状态编码
+	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
+	// 外呼状态描述
+	StatusDescription *string `json:"status_description,omitempty" xml:"status_description,omitempty" require:"true"`
+	// 转人工状态编码
+	TransferStatusCode *int64 `json:"transfer_status_code,omitempty" xml:"transfer_status_code,omitempty" require:"true"`
+	// 转人工状态
+	TransferStatus *string `json:"transfer_status,omitempty" xml:"transfer_status,omitempty" require:"true"`
+	// 分配坐席ID
+	AgentId *int64 `json:"agent_id,omitempty" xml:"agent_id,omitempty"`
+	// 坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+	AgentTag *string `json:"agent_tag,omitempty" xml:"agent_tag,omitempty"`
+	// 坐席分机号
+	AgentExtension *string `json:"agent_extension,omitempty" xml:"agent_extension,omitempty"`
+	// 导入时间
+	ImportTime *string `json:"import_time,omitempty" xml:"import_time,omitempty" require:"true"`
+	// 开始通话时间
+	CallBeginTime *string `json:"call_begin_time,omitempty" xml:"call_begin_time,omitempty" require:"true"`
+	// 振铃时长，单位ms
+	RingTime *int64 `json:"ring_time,omitempty" xml:"ring_time,omitempty" require:"true"`
+	// 接通时间
+	AnswerTime *string `json:"answer_time,omitempty" xml:"answer_time,omitempty"`
+	// 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+	SpeakingTime *string `json:"speaking_time,omitempty" xml:"speaking_time,omitempty" require:"true"`
+	// 通话时长，单位：秒
+	SpeakingDuration *int64 `json:"speaking_duration,omitempty" xml:"speaking_duration,omitempty" require:"true"`
+	// 挂断时间
+	HangupTime *string `json:"hangup_time,omitempty" xml:"hangup_time,omitempty" require:"true"`
+	// 对话轮次
+	SpeakingTurns *int64 `json:"speaking_turns,omitempty" xml:"speaking_turns,omitempty" require:"true"`
+	// 人工通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+	AgentSpeakingTime *string `json:"agent_speaking_time,omitempty" xml:"agent_speaking_time,omitempty" require:"true"`
+	// 人工通话时长，单位：秒
+	AgentSpeakingDuration *int64 `json:"agent_speaking_duration,omitempty" xml:"agent_speaking_duration,omitempty" require:"true"`
+	// 意向标签
+	IntentTag *string `json:"intent_tag,omitempty" xml:"intent_tag,omitempty" require:"true"`
+	// 意向说明
+	IntentDescription *string `json:"intent_description,omitempty" xml:"intent_description,omitempty" require:"true"`
+	// 个性标签
+	IndividualTag *string `json:"individual_tag,omitempty" xml:"individual_tag,omitempty"`
+	// 回复关键词
+	Keywords *string `json:"keywords,omitempty" xml:"keywords,omitempty"`
+	// 挂机方式，AI挂机1，坐席挂机2，客户挂机3
+	HungupType *int64 `json:"hungup_type,omitempty" xml:"hungup_type,omitempty" require:"true"`
+	// 挂机短信，可选值：1、2
+	// 1:发送，2:不发送
+	Sms *string `json:"sms,omitempty" xml:"sms,omitempty" require:"true"`
+	// 对话录音，URL，可以为空
+	ChatRecord *string `json:"chat_record,omitempty" xml:"chat_record,omitempty"`
+	// 聊天记录，可以为空
+	Chats *string `json:"chats,omitempty" xml:"chats,omitempty"`
+	// 可选值：0、1
+	// 0:不添加，1:添加
+	AddWx *int64 `json:"add_wx,omitempty" xml:"add_wx,omitempty"`
+	// 加微进度，可选值：已申请、加微成功
+	AddWxStatus *string `json:"add_wx_status,omitempty" xml:"add_wx_status,omitempty"`
+	// 是否接通重呼，可选值：0、1
+	// 0正常外呼，1接通重呼
+	AnswerRecall *int64 `json:"answer_recall,omitempty" xml:"answer_recall,omitempty" require:"true"`
+	// 导入号码时的参数值
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
+	// 导入号码时的业务参数值，原样返回
+	BizProperties *string `json:"biz_properties,omitempty" xml:"biz_properties,omitempty"`
+	// 拦截原因：当状态为已拦截时，可选值：黑名单拦截，灰名单拦截，异常号码拦截
+	InterceptReason *string `json:"intercept_reason,omitempty" xml:"intercept_reason,omitempty"`
+}
+
+func (s CommonRobotCallDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommonRobotCallDetail) GoString() string {
+	return s.String()
+}
+
+func (s *CommonRobotCallDetail) SetExtInfo(v string) *CommonRobotCallDetail {
+	s.ExtInfo = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetResultCode(v string) *CommonRobotCallDetail {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetCustomerKey(v string) *CommonRobotCallDetail {
+	s.CustomerKey = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetCurrentCallTimes(v int64) *CommonRobotCallDetail {
+	s.CurrentCallTimes = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetKeyTemplate(v string) *CommonRobotCallDetail {
+	s.KeyTemplate = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetBatchId(v string) *CommonRobotCallDetail {
+	s.BatchId = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetCallType(v int64) *CommonRobotCallDetail {
+	s.CallType = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetTag(v string) *CommonRobotCallDetail {
+	s.Tag = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetCallId(v string) *CommonRobotCallDetail {
+	s.CallId = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetTaskId(v int64) *CommonRobotCallDetail {
+	s.TaskId = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetTemplateId(v int64) *CommonRobotCallDetail {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetStatusCode(v int64) *CommonRobotCallDetail {
+	s.StatusCode = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetStatusDescription(v string) *CommonRobotCallDetail {
+	s.StatusDescription = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetTransferStatusCode(v int64) *CommonRobotCallDetail {
+	s.TransferStatusCode = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetTransferStatus(v string) *CommonRobotCallDetail {
+	s.TransferStatus = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAgentId(v int64) *CommonRobotCallDetail {
+	s.AgentId = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAgentTag(v string) *CommonRobotCallDetail {
+	s.AgentTag = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAgentExtension(v string) *CommonRobotCallDetail {
+	s.AgentExtension = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetImportTime(v string) *CommonRobotCallDetail {
+	s.ImportTime = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetCallBeginTime(v string) *CommonRobotCallDetail {
+	s.CallBeginTime = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetRingTime(v int64) *CommonRobotCallDetail {
+	s.RingTime = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAnswerTime(v string) *CommonRobotCallDetail {
+	s.AnswerTime = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetSpeakingTime(v string) *CommonRobotCallDetail {
+	s.SpeakingTime = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetSpeakingDuration(v int64) *CommonRobotCallDetail {
+	s.SpeakingDuration = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetHangupTime(v string) *CommonRobotCallDetail {
+	s.HangupTime = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetSpeakingTurns(v int64) *CommonRobotCallDetail {
+	s.SpeakingTurns = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAgentSpeakingTime(v string) *CommonRobotCallDetail {
+	s.AgentSpeakingTime = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAgentSpeakingDuration(v int64) *CommonRobotCallDetail {
+	s.AgentSpeakingDuration = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetIntentTag(v string) *CommonRobotCallDetail {
+	s.IntentTag = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetIntentDescription(v string) *CommonRobotCallDetail {
+	s.IntentDescription = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetIndividualTag(v string) *CommonRobotCallDetail {
+	s.IndividualTag = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetKeywords(v string) *CommonRobotCallDetail {
+	s.Keywords = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetHungupType(v int64) *CommonRobotCallDetail {
+	s.HungupType = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetSms(v string) *CommonRobotCallDetail {
+	s.Sms = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetChatRecord(v string) *CommonRobotCallDetail {
+	s.ChatRecord = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetChats(v string) *CommonRobotCallDetail {
+	s.Chats = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAddWx(v int64) *CommonRobotCallDetail {
+	s.AddWx = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAddWxStatus(v string) *CommonRobotCallDetail {
+	s.AddWxStatus = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetAnswerRecall(v int64) *CommonRobotCallDetail {
+	s.AnswerRecall = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetProperties(v string) *CommonRobotCallDetail {
+	s.Properties = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetBizProperties(v string) *CommonRobotCallDetail {
+	s.BizProperties = &v
+	return s
+}
+
+func (s *CommonRobotCallDetail) SetInterceptReason(v string) *CommonRobotCallDetail {
+	s.InterceptReason = &v
+	return s
+}
+
+// 支付方式锁定结果
+type PayMethodLockResult struct {
+	// 签约结果
+	SignStatus *string `json:"sign_status,omitempty" xml:"sign_status,omitempty" require:"true"`
+	// 账号
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 登录号
+	LoginId *string `json:"login_id,omitempty" xml:"login_id,omitempty" require:"true"`
+	// 支付公司
+	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty" require:"true"`
+	// 绑定账号名称
+	AccountName *string `json:"account_name,omitempty" xml:"account_name,omitempty" require:"true"`
+}
+
+func (s PayMethodLockResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PayMethodLockResult) GoString() string {
+	return s.String()
+}
+
+func (s *PayMethodLockResult) SetSignStatus(v string) *PayMethodLockResult {
+	s.SignStatus = &v
+	return s
+}
+
+func (s *PayMethodLockResult) SetAccountId(v string) *PayMethodLockResult {
+	s.AccountId = &v
+	return s
+}
+
+func (s *PayMethodLockResult) SetLoginId(v string) *PayMethodLockResult {
+	s.LoginId = &v
+	return s
+}
+
+func (s *PayMethodLockResult) SetPayChannel(v string) *PayMethodLockResult {
+	s.PayChannel = &v
+	return s
+}
+
+func (s *PayMethodLockResult) SetAccountName(v string) *PayMethodLockResult {
+	s.AccountName = &v
+	return s
+}
+
+// 天枢合同
+type Contract struct {
+	// 关联编号
+	RelationNo *string `json:"relation_no,omitempty" xml:"relation_no,omitempty" require:"true"`
+	// 合同编号
+	ContractNo *string `json:"contract_no,omitempty" xml:"contract_no,omitempty" require:"true"`
+	// 合同名称
+	ContractName *string `json:"contract_name,omitempty" xml:"contract_name,omitempty" require:"true"`
+	// 合同类型
+	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty" require:"true"`
+	// 客户编号
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	// 合同存放目录
+	SavePath *string `json:"save_path,omitempty" xml:"save_path,omitempty" require:"true"`
+	// 合同金额
+	ContractAmount *int64 `json:"contract_amount,omitempty" xml:"contract_amount,omitempty" require:"true"`
+	// 用信合同编号
+	DisburseContractNo *string `json:"disburse_contract_no,omitempty" xml:"disburse_contract_no,omitempty" require:"true"`
+	// 授信合同编号
+	CreditContractNo *string `json:"credit_contract_no,omitempty" xml:"credit_contract_no,omitempty" require:"true"`
+}
+
+func (s Contract) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Contract) GoString() string {
+	return s.String()
+}
+
+func (s *Contract) SetRelationNo(v string) *Contract {
+	s.RelationNo = &v
+	return s
+}
+
+func (s *Contract) SetContractNo(v string) *Contract {
+	s.ContractNo = &v
+	return s
+}
+
+func (s *Contract) SetContractName(v string) *Contract {
+	s.ContractName = &v
+	return s
+}
+
+func (s *Contract) SetContractType(v string) *Contract {
+	s.ContractType = &v
+	return s
+}
+
+func (s *Contract) SetCustomNo(v string) *Contract {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *Contract) SetSavePath(v string) *Contract {
+	s.SavePath = &v
+	return s
+}
+
+func (s *Contract) SetContractAmount(v int64) *Contract {
+	s.ContractAmount = &v
+	return s
+}
+
+func (s *Contract) SetDisburseContractNo(v string) *Contract {
+	s.DisburseContractNo = &v
+	return s
+}
+
+func (s *Contract) SetCreditContractNo(v string) *Contract {
+	s.CreditContractNo = &v
+	return s
+}
+
+// ai外呼回调详情
+type AICallbackMessage struct {
+	// 批次号
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty"`
+	// 用户标签
+	Tag *string `json:"tag,omitempty" xml:"tag,omitempty" require:"true"`
+	// 外呼id
+	CallId *string `json:"call_id,omitempty" xml:"call_id,omitempty" require:"true"`
+	// 外呼的话术模板Id
+	TemplateId *int64 `json:"template_id,omitempty" xml:"template_id,omitempty"`
+	// 外呼状态编码
+	StatusCode *int64 `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
+	// 外呼状态描述
+	StatusDescription *string `json:"status_description,omitempty" xml:"status_description,omitempty" require:"true"`
+	// 导入时间
+	ImportTime *string `json:"import_time,omitempty" xml:"import_time,omitempty" require:"true"`
+	// 开始通话时间
+	CallBeginTime *string `json:"call_begin_time,omitempty" xml:"call_begin_time,omitempty" require:"true"`
+	// 振铃时长, 单位毫秒
+	RingTime *int64 `json:"ring_time,omitempty" xml:"ring_time,omitempty" require:"true"`
+	// 接通时间
+	AnswerTime *string `json:"answer_time,omitempty" xml:"answer_time,omitempty" require:"true"`
+	// AI通话时长,单位s
+	SpeakingDuration *int64 `json:"speaking_duration,omitempty" xml:"speaking_duration,omitempty" require:"true"`
+	// 挂断时间
+	HangupTime *string `json:"hangup_time,omitempty" xml:"hangup_time,omitempty" require:"true"`
+	// 对话轮次
+	SpeakingTurns *int64 `json:"speaking_turns,omitempty" xml:"speaking_turns,omitempty" require:"true"`
+	// 意向标签
+	IntentTag *string `json:"intent_tag,omitempty" xml:"intent_tag,omitempty" require:"true"`
+	// 意向说明
+	IntentDescription *string `json:"intent_description,omitempty" xml:"intent_description,omitempty" require:"true"`
+	// 个性标签
+	IndividualTag *string `json:"individual_tag,omitempty" xml:"individual_tag,omitempty" require:"true"`
+	// 回复关键词
+	Keywords *string `json:"keywords,omitempty" xml:"keywords,omitempty" require:"true"`
+	// 对话录音
+	ChatRecord *string `json:"chat_record,omitempty" xml:"chat_record,omitempty"`
+	// 参数值
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty" require:"true"`
+}
+
+func (s AICallbackMessage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AICallbackMessage) GoString() string {
+	return s.String()
+}
+
+func (s *AICallbackMessage) SetBatchId(v string) *AICallbackMessage {
+	s.BatchId = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetTag(v string) *AICallbackMessage {
+	s.Tag = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetCallId(v string) *AICallbackMessage {
+	s.CallId = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetTemplateId(v int64) *AICallbackMessage {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetStatusCode(v int64) *AICallbackMessage {
+	s.StatusCode = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetStatusDescription(v string) *AICallbackMessage {
+	s.StatusDescription = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetImportTime(v string) *AICallbackMessage {
+	s.ImportTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetCallBeginTime(v string) *AICallbackMessage {
+	s.CallBeginTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetRingTime(v int64) *AICallbackMessage {
+	s.RingTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetAnswerTime(v string) *AICallbackMessage {
+	s.AnswerTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetSpeakingDuration(v int64) *AICallbackMessage {
+	s.SpeakingDuration = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetHangupTime(v string) *AICallbackMessage {
+	s.HangupTime = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetSpeakingTurns(v int64) *AICallbackMessage {
+	s.SpeakingTurns = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetIntentTag(v string) *AICallbackMessage {
+	s.IntentTag = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetIntentDescription(v string) *AICallbackMessage {
+	s.IntentDescription = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetIndividualTag(v string) *AICallbackMessage {
+	s.IndividualTag = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetKeywords(v string) *AICallbackMessage {
+	s.Keywords = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetChatRecord(v string) *AICallbackMessage {
+	s.ChatRecord = &v
+	return s
+}
+
+func (s *AICallbackMessage) SetProperties(v string) *AICallbackMessage {
+	s.Properties = &v
+	return s
+}
+
+// 预警企业
+type RtopCompanyAlarm struct {
+	// 企业ID
+	CompanyId *string `json:"company_id,omitempty" xml:"company_id,omitempty" require:"true"`
+	// 预警类型
+	AlarmType *string `json:"alarm_type,omitempty" xml:"alarm_type,omitempty" require:"true"`
+	// 预警序号
+	AlarmIdx *string `json:"alarm_idx,omitempty" xml:"alarm_idx,omitempty" require:"true"`
+	// 预警日期
+	AlarmDate *string `json:"alarm_date,omitempty" xml:"alarm_date,omitempty" require:"true"`
+	// 预警标识，是否需要预警
+	AlarmFlag *string `json:"alarm_flag,omitempty" xml:"alarm_flag,omitempty" require:"true"`
+}
+
+func (s RtopCompanyAlarm) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCompanyAlarm) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCompanyAlarm) SetCompanyId(v string) *RtopCompanyAlarm {
+	s.CompanyId = &v
+	return s
+}
+
+func (s *RtopCompanyAlarm) SetAlarmType(v string) *RtopCompanyAlarm {
+	s.AlarmType = &v
+	return s
+}
+
+func (s *RtopCompanyAlarm) SetAlarmIdx(v string) *RtopCompanyAlarm {
+	s.AlarmIdx = &v
+	return s
+}
+
+func (s *RtopCompanyAlarm) SetAlarmDate(v string) *RtopCompanyAlarm {
+	s.AlarmDate = &v
+	return s
+}
+
+func (s *RtopCompanyAlarm) SetAlarmFlag(v string) *RtopCompanyAlarm {
+	s.AlarmFlag = &v
+	return s
+}
+
+// 企业影响人数性别分布统计
+type RtopGenderDistribution struct {
+	// 统计值
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 性别
+	Gender *string `json:"gender,omitempty" xml:"gender,omitempty" require:"true"`
+}
+
+func (s RtopGenderDistribution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopGenderDistribution) GoString() string {
+	return s.String()
+}
+
+func (s *RtopGenderDistribution) SetCount(v int) *RtopGenderDistribution {
+	s.Count = &v
+	return s
+}
+
+func (s *RtopGenderDistribution) SetGender(v string) *RtopGenderDistribution {
+	s.Gender = &v
+	return s
+}
+
+// 卡短解析服务返回参数
+type ShortUrlInfo struct {
+	// 支持卡片短信的手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 解析生成的短链
+	ShortUrl *string `json:"short_url,omitempty" xml:"short_url,omitempty" require:"true"`
+}
+
+func (s ShortUrlInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ShortUrlInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ShortUrlInfo) SetMobile(v string) *ShortUrlInfo {
+	s.Mobile = &v
+	return s
+}
+
+func (s *ShortUrlInfo) SetShortUrl(v string) *ShortUrlInfo {
+	s.ShortUrl = &v
+	return s
+}
+
+// 是否联登结构体
+type CustomRelationStatus struct {
+	// 是否联登
+	RegFlag *bool `json:"reg_flag,omitempty" xml:"reg_flag,omitempty"`
+}
+
+func (s CustomRelationStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomRelationStatus) GoString() string {
+	return s.String()
+}
+
+func (s *CustomRelationStatus) SetRegFlag(v bool) *CustomRelationStatus {
+	s.RegFlag = &v
+	return s
+}
+
+// 服务上下文包括环境信息和用户信息
+type ServiceContext struct {
+	// 客户端IP
+	ClientIp *string `json:"client_ip,omitempty" xml:"client_ip,omitempty"`
+	// 客户端UMID
+	ClientPcidguid *string `json:"client_pcidguid,omitempty" xml:"client_pcidguid,omitempty"`
+	// 服务器名
+	ServerName *string `json:"server_name,omitempty" xml:"server_name,omitempty"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s ServiceContext) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ServiceContext) GoString() string {
+	return s.String()
+}
+
+func (s *ServiceContext) SetClientIp(v string) *ServiceContext {
+	s.ClientIp = &v
+	return s
+}
+
+func (s *ServiceContext) SetClientPcidguid(v string) *ServiceContext {
+	s.ClientPcidguid = &v
+	return s
+}
+
+func (s *ServiceContext) SetServerName(v string) *ServiceContext {
+	s.ServerName = &v
+	return s
+}
+
+func (s *ServiceContext) SetSessionId(v string) *ServiceContext {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ServiceContext) SetUserId(v string) *ServiceContext {
+	s.UserId = &v
+	return s
+}
+
+// 营销盾实时圈客结果返回model
+type CustomerUmktInfoModel struct {
+	// 基本圈客结果信息
+	BaseInfo *BaseCustomerUmktInfoModel `json:"base_info,omitempty" xml:"base_info,omitempty" require:"true"`
+	// 额外的营销分结果
+	UmktOutPutInfo *string `json:"umkt_out_put_info,omitempty" xml:"umkt_out_put_info,omitempty"`
+}
+
+func (s CustomerUmktInfoModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerUmktInfoModel) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerUmktInfoModel) SetBaseInfo(v *BaseCustomerUmktInfoModel) *CustomerUmktInfoModel {
+	s.BaseInfo = v
+	return s
+}
+
+func (s *CustomerUmktInfoModel) SetUmktOutPutInfo(v string) *CustomerUmktInfoModel {
+	s.UmktOutPutInfo = &v
+	return s
+}
+
+// 企业舆情数量
+type RtopCompanyOpinionCount struct {
+	// 企业名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 企业对应的舆情数量
+	Count *int `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+}
+
+func (s RtopCompanyOpinionCount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCompanyOpinionCount) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCompanyOpinionCount) SetCompanyName(v string) *RtopCompanyOpinionCount {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *RtopCompanyOpinionCount) SetCount(v int) *RtopCompanyOpinionCount {
+	s.Count = &v
+	return s
+}
+
+// 商户资金链锁定结果
+type FundChainLockResult struct {
+	// 店铺名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 店铺id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 0:成功
+	// 1:失败
+	// 2:处理中
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s FundChainLockResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FundChainLockResult) GoString() string {
+	return s.String()
+}
+
+func (s *FundChainLockResult) SetName(v string) *FundChainLockResult {
+	s.Name = &v
+	return s
+}
+
+func (s *FundChainLockResult) SetId(v string) *FundChainLockResult {
+	s.Id = &v
+	return s
+}
+
+func (s *FundChainLockResult) SetStatus(v string) *FundChainLockResult {
+	s.Status = &v
+	return s
+}
+
+// 企业地区分布统计
+type RtopRegionalDistribution struct {
+	// 统计值
+	Count *int64 `json:"count,omitempty" xml:"count,omitempty" require:"true"`
+	// 地区
+	Place *string `json:"place,omitempty" xml:"place,omitempty" require:"true"`
+	// 当前地区的涉众风险类型分布，即非法集资有多少企业，传销有多少企业
+	TypeDistribution []*RtopTypeDistribution `json:"type_distribution,omitempty" xml:"type_distribution,omitempty" type:"Repeated"`
+}
+
+func (s RtopRegionalDistribution) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopRegionalDistribution) GoString() string {
+	return s.String()
+}
+
+func (s *RtopRegionalDistribution) SetCount(v int64) *RtopRegionalDistribution {
+	s.Count = &v
+	return s
+}
+
+func (s *RtopRegionalDistribution) SetPlace(v string) *RtopRegionalDistribution {
+	s.Place = &v
+	return s
+}
+
+func (s *RtopRegionalDistribution) SetTypeDistribution(v []*RtopTypeDistribution) *RtopRegionalDistribution {
+	s.TypeDistribution = v
+	return s
+}
+
+// 涉众风险企业特征
+type RtopCrowdRiskFeatureResp struct {
+	// 特征标签列表
+	ClueTags []*RtopCrowdRiskFeatureTag `json:"clue_tags,omitempty" xml:"clue_tags,omitempty" type:"Repeated"`
+	// 特征名称
+	FeatureName *string `json:"feature_name,omitempty" xml:"feature_name,omitempty" require:"true"`
+	// 特征​分数
+	Score *int `json:"score,omitempty" xml:"score,omitempty" require:"true"`
+}
+
+func (s RtopCrowdRiskFeatureResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RtopCrowdRiskFeatureResp) GoString() string {
+	return s.String()
+}
+
+func (s *RtopCrowdRiskFeatureResp) SetClueTags(v []*RtopCrowdRiskFeatureTag) *RtopCrowdRiskFeatureResp {
+	s.ClueTags = v
+	return s
+}
+
+func (s *RtopCrowdRiskFeatureResp) SetFeatureName(v string) *RtopCrowdRiskFeatureResp {
+	s.FeatureName = &v
+	return s
+}
+
+func (s *RtopCrowdRiskFeatureResp) SetScore(v int) *RtopCrowdRiskFeatureResp {
+	s.Score = &v
+	return s
+}
+
+// 用户分层信息
+type UserClassifyInfo struct {
+	// 版本号
+	Version *string `json:"version,omitempty" xml:"version,omitempty" require:"true"`
+	// 流量分层
+	RateClassify *string `json:"rate_classify,omitempty" xml:"rate_classify,omitempty" require:"true"`
+	// 流量扩展分层1
+	ClassifyExt1 *string `json:"classify_ext1,omitempty" xml:"classify_ext1,omitempty"`
+	// 流量扩展分层2
+	ClassifyExt2 *string `json:"classify_ext2,omitempty" xml:"classify_ext2,omitempty"`
+}
+
+func (s UserClassifyInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserClassifyInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UserClassifyInfo) SetVersion(v string) *UserClassifyInfo {
+	s.Version = &v
+	return s
+}
+
+func (s *UserClassifyInfo) SetRateClassify(v string) *UserClassifyInfo {
+	s.RateClassify = &v
+	return s
+}
+
+func (s *UserClassifyInfo) SetClassifyExt1(v string) *UserClassifyInfo {
+	s.ClassifyExt1 = &v
+	return s
+}
+
+func (s *UserClassifyInfo) SetClassifyExt2(v string) *UserClassifyInfo {
+	s.ClassifyExt2 = &v
+	return s
+}
+
+// 待还款信息
+type RepayInfo struct {
+	// true：逾期
+	// false：未逾期
+	OverdueFlag *bool `json:"overdue_flag,omitempty" xml:"overdue_flag,omitempty" require:"true"`
+	// 逾期天数
+	OverDays *int64 `json:"over_days,omitempty" xml:"over_days,omitempty" require:"true"`
+	// 逾期金额在50元以上的客户的逾期天数
+	ValuableOverDays *int64 `json:"valuable_over_days,omitempty" xml:"valuable_over_days,omitempty" require:"true"`
+	// 逾期期数
+	OverPeriodCount *int64 `json:"over_period_count,omitempty" xml:"over_period_count,omitempty" require:"true"`
+	// 逾期本金
+	OverPrincipal *int64 `json:"over_principal,omitempty" xml:"over_principal,omitempty" require:"true"`
+	// 逾期利息
+	OverInterest *int64 `json:"over_interest,omitempty" xml:"over_interest,omitempty" require:"true"`
+	// 应还罚息
+	OverPunish *int64 `json:"over_punish,omitempty" xml:"over_punish,omitempty" require:"true"`
+	// 应还逾期总额
+	NeedOverdueAmount *int64 `json:"need_overdue_amount,omitempty" xml:"need_overdue_amount,omitempty" require:"true"`
+	// 当前应还总额（包含逾期和当前期）
+	CurrentNeedAmount *int64 `json:"current_need_amount,omitempty" xml:"current_need_amount,omitempty" require:"true"`
+	// 总剩余应还
+	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
+}
+
+func (s RepayInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RepayInfo) GoString() string {
+	return s.String()
+}
+
+func (s *RepayInfo) SetOverdueFlag(v bool) *RepayInfo {
+	s.OverdueFlag = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverDays(v int64) *RepayInfo {
+	s.OverDays = &v
+	return s
+}
+
+func (s *RepayInfo) SetValuableOverDays(v int64) *RepayInfo {
+	s.ValuableOverDays = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverPeriodCount(v int64) *RepayInfo {
+	s.OverPeriodCount = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverPrincipal(v int64) *RepayInfo {
+	s.OverPrincipal = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverInterest(v int64) *RepayInfo {
+	s.OverInterest = &v
+	return s
+}
+
+func (s *RepayInfo) SetOverPunish(v int64) *RepayInfo {
+	s.OverPunish = &v
+	return s
+}
+
+func (s *RepayInfo) SetNeedOverdueAmount(v int64) *RepayInfo {
+	s.NeedOverdueAmount = &v
+	return s
+}
+
+func (s *RepayInfo) SetCurrentNeedAmount(v int64) *RepayInfo {
+	s.CurrentNeedAmount = &v
+	return s
+}
+
+func (s *RepayInfo) SetTotalAmount(v int64) *RepayInfo {
+	s.TotalAmount = &v
+	return s
+}
+
+// 天枢系统专用CreditAmount结构体
+type CreditAmount struct {
+	// 授信额度
+	CreditAmount *int64 `json:"credit_amount,omitempty" xml:"credit_amount,omitempty" require:"true"`
+	// 授信余额
+	RestAmount *int64 `json:"rest_amount,omitempty" xml:"rest_amount,omitempty" require:"true"`
+	// 发放日期
+	PayDate *string `json:"pay_date,omitempty" xml:"pay_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 到期日期
+	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 利率单位(1:年，2：月，3：日)
+	RateUnit *string `json:"rate_unit,omitempty" xml:"rate_unit,omitempty" require:"true"`
+	// 执行利率,利率值，单位%
+	// 年化5%，rateValue=5
+	//
+	RateValue *int64 `json:"rate_value,omitempty" xml:"rate_value,omitempty" require:"true"`
+	// 还款方式1等额本息2等额本金3先息后本4一次性利随本清5只还本金6等本等息
+	RepayWay *string `json:"repay_way,omitempty" xml:"repay_way,omitempty" require:"true"`
+	// 状态0-正常 1-冻结 2-终止
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 发放日期（兼容字段）
+	PayDateSup *string `json:"pay_date_sup,omitempty" xml:"pay_date_sup,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 到期日期（兼容字段）
+	ExpireDateSup *string `json:"expire_date_sup,omitempty" xml:"expire_date_sup,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s CreditAmount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreditAmount) GoString() string {
+	return s.String()
+}
+
+func (s *CreditAmount) SetCreditAmount(v int64) *CreditAmount {
+	s.CreditAmount = &v
+	return s
+}
+
+func (s *CreditAmount) SetRestAmount(v int64) *CreditAmount {
+	s.RestAmount = &v
+	return s
+}
+
+func (s *CreditAmount) SetPayDate(v string) *CreditAmount {
+	s.PayDate = &v
+	return s
+}
+
+func (s *CreditAmount) SetExpireDate(v string) *CreditAmount {
+	s.ExpireDate = &v
+	return s
+}
+
+func (s *CreditAmount) SetRateUnit(v string) *CreditAmount {
+	s.RateUnit = &v
+	return s
+}
+
+func (s *CreditAmount) SetRateValue(v int64) *CreditAmount {
+	s.RateValue = &v
+	return s
+}
+
+func (s *CreditAmount) SetRepayWay(v string) *CreditAmount {
+	s.RepayWay = &v
+	return s
+}
+
+func (s *CreditAmount) SetStatus(v string) *CreditAmount {
+	s.Status = &v
+	return s
+}
+
+func (s *CreditAmount) SetPayDateSup(v string) *CreditAmount {
+	s.PayDateSup = &v
+	return s
+}
+
+func (s *CreditAmount) SetExpireDateSup(v string) *CreditAmount {
+	s.ExpireDateSup = &v
 	return s
 }
 
@@ -13016,6 +13056,111 @@ func (s *QueryDubbridgeCustomerBankcardlistResponse) SetCustomerBankCardInfoList
 	return s
 }
 
+type QueryDubbridgeRouterUserselectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 身份证号
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 姓名
+	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty"`
+	// 扩展信息JSON
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryDubbridgeRouterUserselectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeRouterUserselectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeRouterUserselectRequest) SetAuthToken(v string) *QueryDubbridgeRouterUserselectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectRequest) SetProductInstanceId(v string) *QueryDubbridgeRouterUserselectRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectRequest) SetOrderNo(v string) *QueryDubbridgeRouterUserselectRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectRequest) SetCardNo(v string) *QueryDubbridgeRouterUserselectRequest {
+	s.CardNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectRequest) SetMobile(v string) *QueryDubbridgeRouterUserselectRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectRequest) SetCustomName(v string) *QueryDubbridgeRouterUserselectRequest {
+	s.CustomName = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectRequest) SetExtInfo(v string) *QueryDubbridgeRouterUserselectRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type QueryDubbridgeRouterUserselectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户分层信息
+	UserClassifyInfo *UserClassifyInfo `json:"user_classify_info,omitempty" xml:"user_classify_info,omitempty"`
+	// json字符串，预留扩展字段
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryDubbridgeRouterUserselectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeRouterUserselectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeRouterUserselectResponse) SetReqMsgId(v string) *QueryDubbridgeRouterUserselectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectResponse) SetResultCode(v string) *QueryDubbridgeRouterUserselectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectResponse) SetResultMsg(v string) *QueryDubbridgeRouterUserselectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectResponse) SetUserClassifyInfo(v *UserClassifyInfo) *QueryDubbridgeRouterUserselectResponse {
+	s.UserClassifyInfo = v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectResponse) SetExtInfo(v string) *QueryDubbridgeRouterUserselectResponse {
+	s.ExtInfo = &v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -15502,6 +15647,125 @@ func (s *QueryQmpTenantActionplaninfoResponse) SetTotalCount(v int64) *QueryQmpT
 	return s
 }
 
+type QueryQmpCpaassmsTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 短信类型
+	SmsType *string `json:"sms_type,omitempty" xml:"sms_type,omitempty" require:"true"`
+	// 行业标签
+	TenantIndustry *string `json:"tenant_industry,omitempty" xml:"tenant_industry,omitempty" require:"true"`
+	// 审批状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页记录数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryQmpCpaassmsTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQmpCpaassmsTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQmpCpaassmsTemplateRequest) SetAuthToken(v string) *QueryQmpCpaassmsTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateRequest) SetProductInstanceId(v string) *QueryQmpCpaassmsTemplateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateRequest) SetSmsType(v string) *QueryQmpCpaassmsTemplateRequest {
+	s.SmsType = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateRequest) SetTenantIndustry(v string) *QueryQmpCpaassmsTemplateRequest {
+	s.TenantIndustry = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateRequest) SetStatus(v string) *QueryQmpCpaassmsTemplateRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateRequest) SetPageNum(v int64) *QueryQmpCpaassmsTemplateRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateRequest) SetPageSize(v int64) *QueryQmpCpaassmsTemplateRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryQmpCpaassmsTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 每页记录数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 模板列表
+	CpassSmsTemplates []*CpaasSmsTemplate `json:"cpass_sms_templates,omitempty" xml:"cpass_sms_templates,omitempty" type:"Repeated"`
+}
+
+func (s QueryQmpCpaassmsTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQmpCpaassmsTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQmpCpaassmsTemplateResponse) SetReqMsgId(v string) *QueryQmpCpaassmsTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateResponse) SetResultCode(v string) *QueryQmpCpaassmsTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateResponse) SetResultMsg(v string) *QueryQmpCpaassmsTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateResponse) SetTotal(v int64) *QueryQmpCpaassmsTemplateResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateResponse) SetPageSize(v int64) *QueryQmpCpaassmsTemplateResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateResponse) SetPageNum(v int64) *QueryQmpCpaassmsTemplateResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryQmpCpaassmsTemplateResponse) SetCpassSmsTemplates(v []*CpaasSmsTemplate) *QueryQmpCpaassmsTemplateResponse {
+	s.CpassSmsTemplates = v
+	return s
+}
+
 type QueryRbbGenericInvokeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -16128,6 +16392,8 @@ type ExecRbbCompanyGuardRequest struct {
 	RuleId *int64 `json:"rule_id,omitempty" xml:"rule_id,omitempty" require:"true"`
 	// 额外参数，与规则有关
 	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+	// 虚拟云租户code
+	VirtualCloudTenantCode *string `json:"virtual_cloud_tenant_code,omitempty" xml:"virtual_cloud_tenant_code,omitempty"`
 }
 
 func (s ExecRbbCompanyGuardRequest) String() string {
@@ -16160,6 +16426,11 @@ func (s *ExecRbbCompanyGuardRequest) SetRuleId(v int64) *ExecRbbCompanyGuardRequ
 
 func (s *ExecRbbCompanyGuardRequest) SetParams(v string) *ExecRbbCompanyGuardRequest {
 	s.Params = &v
+	return s
+}
+
+func (s *ExecRbbCompanyGuardRequest) SetVirtualCloudTenantCode(v string) *ExecRbbCompanyGuardRequest {
+	s.VirtualCloudTenantCode = &v
 	return s
 }
 
@@ -16583,6 +16854,8 @@ type ApplyRbbCompanyGuardRequest struct {
 	RuleId *int64 `json:"rule_id,omitempty" xml:"rule_id,omitempty" require:"true"`
 	// 额外参数，与具体规则相关
 	Params *string `json:"params,omitempty" xml:"params,omitempty"`
+	// 虚拟云租户code
+	VirtualCloudTenantCode *string `json:"virtual_cloud_tenant_code,omitempty" xml:"virtual_cloud_tenant_code,omitempty"`
 }
 
 func (s ApplyRbbCompanyGuardRequest) String() string {
@@ -16615,6 +16888,11 @@ func (s *ApplyRbbCompanyGuardRequest) SetRuleId(v int64) *ApplyRbbCompanyGuardRe
 
 func (s *ApplyRbbCompanyGuardRequest) SetParams(v string) *ApplyRbbCompanyGuardRequest {
 	s.Params = &v
+	return s
+}
+
+func (s *ApplyRbbCompanyGuardRequest) SetVirtualCloudTenantCode(v string) *ApplyRbbCompanyGuardRequest {
+	s.VirtualCloudTenantCode = &v
 	return s
 }
 
@@ -16663,6 +16941,8 @@ type QueryRbbCompanyGuardRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 查询token
 	Token *string `json:"token,omitempty" xml:"token,omitempty" require:"true"`
+	// 虚拟云租户code
+	VirtualCloudTenantCode *string `json:"virtual_cloud_tenant_code,omitempty" xml:"virtual_cloud_tenant_code,omitempty"`
 }
 
 func (s QueryRbbCompanyGuardRequest) String() string {
@@ -16685,6 +16965,11 @@ func (s *QueryRbbCompanyGuardRequest) SetProductInstanceId(v string) *QueryRbbCo
 
 func (s *QueryRbbCompanyGuardRequest) SetToken(v string) *QueryRbbCompanyGuardRequest {
 	s.Token = &v
+	return s
+}
+
+func (s *QueryRbbCompanyGuardRequest) SetVirtualCloudTenantCode(v string) *QueryRbbCompanyGuardRequest {
+	s.VirtualCloudTenantCode = &v
 	return s
 }
 
@@ -17003,6 +17288,8 @@ type OperateRbbCreditRequest struct {
 	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true"`
 	// 服务参数
 	ServiceParams *string `json:"service_params,omitempty" xml:"service_params,omitempty" require:"true"`
+	// 步骤
+	ServiceStep *string `json:"service_step,omitempty" xml:"service_step,omitempty" require:"true"`
 }
 
 func (s OperateRbbCreditRequest) String() string {
@@ -17030,6 +17317,11 @@ func (s *OperateRbbCreditRequest) SetServiceCode(v string) *OperateRbbCreditRequ
 
 func (s *OperateRbbCreditRequest) SetServiceParams(v string) *OperateRbbCreditRequest {
 	s.ServiceParams = &v
+	return s
+}
+
+func (s *OperateRbbCreditRequest) SetServiceStep(v string) *OperateRbbCreditRequest {
+	s.ServiceStep = &v
 	return s
 }
 
@@ -17069,6 +17361,76 @@ func (s *OperateRbbCreditResponse) SetResultMsg(v string) *OperateRbbCreditRespo
 
 func (s *OperateRbbCreditResponse) SetResultData(v string) *OperateRbbCreditResponse {
 	s.ResultData = &v
+	return s
+}
+
+type PushRpaasReportAnswerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// chat trace id
+	ChatTraceId *string `json:"chat_trace_id,omitempty" xml:"chat_trace_id,omitempty" require:"true"`
+	// 响应结果
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty" require:"true"`
+}
+
+func (s PushRpaasReportAnswerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRpaasReportAnswerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRpaasReportAnswerRequest) SetAuthToken(v string) *PushRpaasReportAnswerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRpaasReportAnswerRequest) SetProductInstanceId(v string) *PushRpaasReportAnswerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRpaasReportAnswerRequest) SetChatTraceId(v string) *PushRpaasReportAnswerRequest {
+	s.ChatTraceId = &v
+	return s
+}
+
+func (s *PushRpaasReportAnswerRequest) SetAnswer(v string) *PushRpaasReportAnswerRequest {
+	s.Answer = &v
+	return s
+}
+
+type PushRpaasReportAnswerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushRpaasReportAnswerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRpaasReportAnswerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRpaasReportAnswerResponse) SetReqMsgId(v string) *PushRpaasReportAnswerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRpaasReportAnswerResponse) SetResultCode(v string) *PushRpaasReportAnswerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRpaasReportAnswerResponse) SetResultMsg(v string) *PushRpaasReportAnswerResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -24817,6 +25179,262 @@ func (s *QueryUmktCardsmsAnalysisResponse) SetShortUrlInfos(v []*ShortUrlInfo) *
 	return s
 }
 
+type UploadUmktOfflinedecisionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 离线圈客计划id
+	OfflineDecisionPlanId *int64 `json:"offline_decision_plan_id,omitempty" xml:"offline_decision_plan_id,omitempty" require:"true"`
+	// 文件模版信息
+	FileTemplate *string `json:"file_template,omitempty" xml:"file_template,omitempty" require:"true"`
+	// 文件id，网关文件上传自动装填
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadUmktOfflinedecisionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadUmktOfflinedecisionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadUmktOfflinedecisionRequest) SetAuthToken(v string) *UploadUmktOfflinedecisionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionRequest) SetProductInstanceId(v string) *UploadUmktOfflinedecisionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionRequest) SetOfflineDecisionPlanId(v int64) *UploadUmktOfflinedecisionRequest {
+	s.OfflineDecisionPlanId = &v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionRequest) SetFileTemplate(v string) *UploadUmktOfflinedecisionRequest {
+	s.FileTemplate = &v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionRequest) SetFileObject(v io.Reader) *UploadUmktOfflinedecisionRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionRequest) SetFileObjectName(v string) *UploadUmktOfflinedecisionRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionRequest) SetFileId(v string) *UploadUmktOfflinedecisionRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadUmktOfflinedecisionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UploadUmktOfflinedecisionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadUmktOfflinedecisionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadUmktOfflinedecisionResponse) SetReqMsgId(v string) *UploadUmktOfflinedecisionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionResponse) SetResultCode(v string) *UploadUmktOfflinedecisionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadUmktOfflinedecisionResponse) SetResultMsg(v string) *UploadUmktOfflinedecisionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryUmktOfflinedecisionResultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 离线圈客计划id
+	OfflineDecisionPlanId *int64 `json:"offline_decision_plan_id,omitempty" xml:"offline_decision_plan_id,omitempty" require:"true"`
+	// 圈客结果的产出日期
+	// 格式：yyyy-MM-dd
+	// 默认当前时间的前一天
+	ResultDate *string `json:"result_date,omitempty" xml:"result_date,omitempty"`
+}
+
+func (s QueryUmktOfflinedecisionResultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktOfflinedecisionResultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktOfflinedecisionResultRequest) SetAuthToken(v string) *QueryUmktOfflinedecisionResultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionResultRequest) SetProductInstanceId(v string) *QueryUmktOfflinedecisionResultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionResultRequest) SetOfflineDecisionPlanId(v int64) *QueryUmktOfflinedecisionResultRequest {
+	s.OfflineDecisionPlanId = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionResultRequest) SetResultDate(v string) *QueryUmktOfflinedecisionResultRequest {
+	s.ResultDate = &v
+	return s
+}
+
+type QueryUmktOfflinedecisionResultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 已完成的计划策略集合
+	DecisionPlanIdList []*int64 `json:"decision_plan_id_list,omitempty" xml:"decision_plan_id_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryUmktOfflinedecisionResultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktOfflinedecisionResultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktOfflinedecisionResultResponse) SetReqMsgId(v string) *QueryUmktOfflinedecisionResultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionResultResponse) SetResultCode(v string) *QueryUmktOfflinedecisionResultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionResultResponse) SetResultMsg(v string) *QueryUmktOfflinedecisionResultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionResultResponse) SetDecisionPlanIdList(v []*int64) *QueryUmktOfflinedecisionResultResponse {
+	s.DecisionPlanIdList = v
+	return s
+}
+
+type DownloadUmktOfflinedecisionResultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 离线圈客计划id
+	OfflineDecisionPlanId *int64 `json:"offline_decision_plan_id,omitempty" xml:"offline_decision_plan_id,omitempty" require:"true"`
+	// 圈客计划id
+	DecisionPlanId *int64 `json:"decision_plan_id,omitempty" xml:"decision_plan_id,omitempty" require:"true"`
+	// 圈客结果的产出日期
+	// 格式：yyyy-MM-dd
+	// 默认当前时间的前一天
+	ResultDate *string `json:"result_date,omitempty" xml:"result_date,omitempty" require:"true"`
+}
+
+func (s DownloadUmktOfflinedecisionResultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadUmktOfflinedecisionResultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadUmktOfflinedecisionResultRequest) SetAuthToken(v string) *DownloadUmktOfflinedecisionResultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DownloadUmktOfflinedecisionResultRequest) SetProductInstanceId(v string) *DownloadUmktOfflinedecisionResultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflinedecisionResultRequest) SetOfflineDecisionPlanId(v int64) *DownloadUmktOfflinedecisionResultRequest {
+	s.OfflineDecisionPlanId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflinedecisionResultRequest) SetDecisionPlanId(v int64) *DownloadUmktOfflinedecisionResultRequest {
+	s.DecisionPlanId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflinedecisionResultRequest) SetResultDate(v string) *DownloadUmktOfflinedecisionResultRequest {
+	s.ResultDate = &v
+	return s
+}
+
+type DownloadUmktOfflinedecisionResultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件url链接
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+}
+
+func (s DownloadUmktOfflinedecisionResultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DownloadUmktOfflinedecisionResultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DownloadUmktOfflinedecisionResultResponse) SetReqMsgId(v string) *DownloadUmktOfflinedecisionResultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DownloadUmktOfflinedecisionResultResponse) SetResultCode(v string) *DownloadUmktOfflinedecisionResultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DownloadUmktOfflinedecisionResultResponse) SetResultMsg(v string) *DownloadUmktOfflinedecisionResultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DownloadUmktOfflinedecisionResultResponse) SetFileUrl(v string) *DownloadUmktOfflinedecisionResultResponse {
+	s.FileUrl = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -25059,7 +25677,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.2"),
+				"sdk_version":      tea.String("1.19.3"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -27323,6 +27941,40 @@ func (client *Client) QueryDubbridgeCustomerBankcardlistEx(request *QueryDubbrid
 }
 
 /**
+ * Description: 天枢系统用户前筛查询
+ * Summary: 天枢系统用户前筛查询
+ */
+func (client *Client) QueryDubbridgeRouterUserselect(request *QueryDubbridgeRouterUserselectRequest) (_result *QueryDubbridgeRouterUserselectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeRouterUserselectResponse{}
+	_body, _err := client.QueryDubbridgeRouterUserselectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统用户前筛查询
+ * Summary: 天枢系统用户前筛查询
+ */
+func (client *Client) QueryDubbridgeRouterUserselectEx(request *QueryDubbridgeRouterUserselectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeRouterUserselectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeRouterUserselectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.router.userselect.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 四要素认证首先调用此接口
  * Summary: 芝麻四要素接口
  */
@@ -28129,6 +28781,40 @@ func (client *Client) QueryQmpTenantActionplaninfoEx(request *QueryQmpTenantActi
 }
 
 /**
+ * Description: 分页查询cpaas短信模板
+ * Summary: cpaas短信模板分页查询
+ */
+func (client *Client) QueryQmpCpaassmsTemplate(request *QueryQmpCpaassmsTemplateRequest) (_result *QueryQmpCpaassmsTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryQmpCpaassmsTemplateResponse{}
+	_body, _err := client.QueryQmpCpaassmsTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询cpaas短信模板
+ * Summary: cpaas短信模板分页查询
+ */
+func (client *Client) QueryQmpCpaassmsTemplateEx(request *QueryQmpCpaassmsTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryQmpCpaassmsTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryQmpCpaassmsTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.cpaassms.template.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 风险大脑企业版通用查询接口
  * Summary: 【已废弃】
  */
@@ -28796,6 +29482,40 @@ func (client *Client) OperateRbbCreditEx(request *OperateRbbCreditRequest, heade
 	}
 	_result = &OperateRbbCreditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.credit.operate"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 报告结果推送，算法调用
+ * Summary: 报告结果推送
+ */
+func (client *Client) PushRpaasReportAnswer(request *PushRpaasReportAnswerRequest) (_result *PushRpaasReportAnswerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRpaasReportAnswerResponse{}
+	_body, _err := client.PushRpaasReportAnswerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 报告结果推送，算法调用
+ * Summary: 报告结果推送
+ */
+func (client *Client) PushRpaasReportAnswerEx(request *PushRpaasReportAnswerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRpaasReportAnswerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRpaasReportAnswerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rpaas.report.answer.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -31209,6 +31929,137 @@ func (client *Client) QueryUmktCardsmsAnalysisEx(request *QueryUmktCardsmsAnalys
 	}
 	_result = &QueryUmktCardsmsAnalysisResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.cardsms.analysis.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾离线圈客文件导入
+ * Summary: 营销盾离线圈客文件导入
+ */
+func (client *Client) UploadUmktOfflinedecision(request *UploadUmktOfflinedecisionRequest) (_result *UploadUmktOfflinedecisionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadUmktOfflinedecisionResponse{}
+	_body, _err := client.UploadUmktOfflinedecisionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾离线圈客文件导入
+ * Summary: 营销盾离线圈客文件导入
+ */
+func (client *Client) UploadUmktOfflinedecisionEx(request *UploadUmktOfflinedecisionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadUmktOfflinedecisionResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.umkt.offlinedecision.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadUmktOfflinedecisionResponse := &UploadUmktOfflinedecisionResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadUmktOfflinedecisionResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadUmktOfflinedecisionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offlinedecision.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾查询可拉取圈客结果的计划集合
+ * Summary: 营销盾查询可拉取圈客结果的计划集合
+ */
+func (client *Client) QueryUmktOfflinedecisionResult(request *QueryUmktOfflinedecisionResultRequest) (_result *QueryUmktOfflinedecisionResultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktOfflinedecisionResultResponse{}
+	_body, _err := client.QueryUmktOfflinedecisionResultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾查询可拉取圈客结果的计划集合
+ * Summary: 营销盾查询可拉取圈客结果的计划集合
+ */
+func (client *Client) QueryUmktOfflinedecisionResultEx(request *QueryUmktOfflinedecisionResultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktOfflinedecisionResultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktOfflinedecisionResultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offlinedecision.result.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾离线圈客结果文件拉取
+ * Summary: 营销盾离线圈客结果文件拉取
+ */
+func (client *Client) DownloadUmktOfflinedecisionResult(request *DownloadUmktOfflinedecisionResultRequest) (_result *DownloadUmktOfflinedecisionResultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DownloadUmktOfflinedecisionResultResponse{}
+	_body, _err := client.DownloadUmktOfflinedecisionResultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾离线圈客结果文件拉取
+ * Summary: 营销盾离线圈客结果文件拉取
+ */
+func (client *Client) DownloadUmktOfflinedecisionResultEx(request *DownloadUmktOfflinedecisionResultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DownloadUmktOfflinedecisionResultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DownloadUmktOfflinedecisionResultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offlinedecision.result.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
