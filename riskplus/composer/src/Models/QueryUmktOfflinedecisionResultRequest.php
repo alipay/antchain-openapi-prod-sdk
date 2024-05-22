@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRbbCompanyGuardRequest extends Model
+class QueryUmktOfflinedecisionResultRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,29 @@ class QueryRbbCompanyGuardRequest extends Model
      */
     public $productInstanceId;
 
-    // 查询token
+    // 离线圈客计划id
     /**
-     * @var string
+     * @var int
      */
-    public $token;
+    public $offlineDecisionPlanId;
 
-    // 虚拟云租户code
+    // 圈客结果的产出日期
+    // 格式：yyyy-MM-dd
+    // 默认当前时间的前一天
     /**
      * @var string
      */
-    public $virtualCloudTenantCode;
+    public $resultDate;
     protected $_name = [
-        'authToken'              => 'auth_token',
-        'productInstanceId'      => 'product_instance_id',
-        'token'                  => 'token',
-        'virtualCloudTenantCode' => 'virtual_cloud_tenant_code',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'offlineDecisionPlanId' => 'offline_decision_plan_id',
+        'resultDate'            => 'result_date',
     ];
 
     public function validate()
     {
-        Model::validateRequired('token', $this->token, true);
+        Model::validateRequired('offlineDecisionPlanId', $this->offlineDecisionPlanId, true);
     }
 
     public function toMap()
@@ -51,11 +53,11 @@ class QueryRbbCompanyGuardRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->token) {
-            $res['token'] = $this->token;
+        if (null !== $this->offlineDecisionPlanId) {
+            $res['offline_decision_plan_id'] = $this->offlineDecisionPlanId;
         }
-        if (null !== $this->virtualCloudTenantCode) {
-            $res['virtual_cloud_tenant_code'] = $this->virtualCloudTenantCode;
+        if (null !== $this->resultDate) {
+            $res['result_date'] = $this->resultDate;
         }
 
         return $res;
@@ -64,7 +66,7 @@ class QueryRbbCompanyGuardRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryRbbCompanyGuardRequest
+     * @return QueryUmktOfflinedecisionResultRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +77,11 @@ class QueryRbbCompanyGuardRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['token'])) {
-            $model->token = $map['token'];
+        if (isset($map['offline_decision_plan_id'])) {
+            $model->offlineDecisionPlanId = $map['offline_decision_plan_id'];
         }
-        if (isset($map['virtual_cloud_tenant_code'])) {
-            $model->virtualCloudTenantCode = $map['virtual_cloud_tenant_code'];
+        if (isset($map['result_date'])) {
+            $model->resultDate = $map['result_date'];
         }
 
         return $model;

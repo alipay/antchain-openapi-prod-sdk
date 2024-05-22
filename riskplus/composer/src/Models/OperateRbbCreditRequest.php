@@ -30,17 +30,25 @@ class OperateRbbCreditRequest extends Model
      * @var string
      */
     public $serviceParams;
+
+    // 步骤
+    /**
+     * @var string
+     */
+    public $serviceStep;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'serviceCode'       => 'service_code',
         'serviceParams'     => 'service_params',
+        'serviceStep'       => 'service_step',
     ];
 
     public function validate()
     {
         Model::validateRequired('serviceCode', $this->serviceCode, true);
         Model::validateRequired('serviceParams', $this->serviceParams, true);
+        Model::validateRequired('serviceStep', $this->serviceStep, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class OperateRbbCreditRequest extends Model
         }
         if (null !== $this->serviceParams) {
             $res['service_params'] = $this->serviceParams;
+        }
+        if (null !== $this->serviceStep) {
+            $res['service_step'] = $this->serviceStep;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class OperateRbbCreditRequest extends Model
         }
         if (isset($map['service_params'])) {
             $model->serviceParams = $map['service_params'];
+        }
+        if (isset($map['service_step'])) {
+            $model->serviceStep = $map['service_step'];
         }
 
         return $model;

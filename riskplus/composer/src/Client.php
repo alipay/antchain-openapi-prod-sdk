@@ -105,6 +105,8 @@ use AntChain\RISKPLUS\Models\CreateRbbUserRequest;
 use AntChain\RISKPLUS\Models\CreateRbbUserResponse;
 use AntChain\RISKPLUS\Models\CreateRtopTokenRequest;
 use AntChain\RISKPLUS\Models\CreateRtopTokenResponse;
+use AntChain\RISKPLUS\Models\DownloadUmktOfflinedecisionResultRequest;
+use AntChain\RISKPLUS\Models\DownloadUmktOfflinedecisionResultResponse;
 use AntChain\RISKPLUS\Models\ExecRbbCompanyGuardRequest;
 use AntChain\RISKPLUS\Models\ExecRbbCompanyGuardResponse;
 use AntChain\RISKPLUS\Models\ExecRtopGenericInvokeRequest;
@@ -143,6 +145,8 @@ use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoRequest;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoResponse;
 use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowRequest;
 use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowResponse;
+use AntChain\RISKPLUS\Models\PushRpaasReportAnswerRequest;
+use AntChain\RISKPLUS\Models\PushRpaasReportAnswerResponse;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventRequest;
 use AntChain\RISKPLUS\Models\PushUmktBackflowEventResponse;
 use AntChain\RISKPLUS\Models\PushUmktBackflowJsondataRequest;
@@ -187,6 +191,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoEnterprisescoreRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoEnterprisescoreResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterFundrouterResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRouterUserselectRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRouterUserselectResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusRequest;
@@ -217,6 +223,8 @@ use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceResponse;
 use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportRequest;
 use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportResponse;
+use AntChain\RISKPLUS\Models\QueryQmpCpaassmsTemplateRequest;
+use AntChain\RISKPLUS\Models\QueryQmpCpaassmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryQmpDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryQmpDataaccessStatisticResponse;
 use AntChain\RISKPLUS\Models\QueryQmpRobotcallDetailRequest;
@@ -293,6 +301,8 @@ use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
+use AntChain\RISKPLUS\Models\QueryUmktOfflinedecisionResultRequest;
+use AntChain\RISKPLUS\Models\QueryUmktOfflinedecisionResultResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRobotcallDetailRequest;
 use AntChain\RISKPLUS\Models\QueryUmktRobotcallDetailResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRobotcallStatisticinfoRequest;
@@ -355,6 +365,8 @@ use AntChain\RISKPLUS\Models\UploadDubbridgeFileRequest;
 use AntChain\RISKPLUS\Models\UploadDubbridgeFileResponse;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapRequest;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapResponse;
+use AntChain\RISKPLUS\Models\UploadUmktOfflinedecisionRequest;
+use AntChain\RISKPLUS\Models\UploadUmktOfflinedecisionResponse;
 use AntChain\RISKPLUS\Models\UploadUmktParamsFileRequest;
 use AntChain\RISKPLUS\Models\UploadUmktParamsFileResponse;
 use AntChain\RISKPLUS\Models\VerifyDubbridgeCustomerBankcardRequest;
@@ -510,7 +522,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.18.2',
+                    'sdk_version'      => '1.19.3',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2689,6 +2701,39 @@ class Client
     }
 
     /**
+     * Description: 天枢系统用户前筛查询
+     * Summary: 天枢系统用户前筛查询.
+     *
+     * @param QueryDubbridgeRouterUserselectRequest $request
+     *
+     * @return QueryDubbridgeRouterUserselectResponse
+     */
+    public function queryDubbridgeRouterUserselect($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRouterUserselectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统用户前筛查询
+     * Summary: 天枢系统用户前筛查询.
+     *
+     * @param QueryDubbridgeRouterUserselectRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryDubbridgeRouterUserselectResponse
+     */
+    public function queryDubbridgeRouterUserselectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRouterUserselectResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.router.userselect.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -3451,6 +3496,39 @@ class Client
     }
 
     /**
+     * Description: 分页查询cpaas短信模板
+     * Summary: cpaas短信模板分页查询.
+     *
+     * @param QueryQmpCpaassmsTemplateRequest $request
+     *
+     * @return QueryQmpCpaassmsTemplateResponse
+     */
+    public function queryQmpCpaassmsTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpCpaassmsTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询cpaas短信模板
+     * Summary: cpaas短信模板分页查询.
+     *
+     * @param QueryQmpCpaassmsTemplateRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return QueryQmpCpaassmsTemplateResponse
+     */
+    public function queryQmpCpaassmsTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpCpaassmsTemplateResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.cpaassms.template.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 风险大脑企业版通用查询接口
      * Summary: 【已废弃】.
      *
@@ -4093,6 +4171,39 @@ class Client
         Utils::validateModel($request);
 
         return OperateRbbCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 报告结果推送，算法调用
+     * Summary: 报告结果推送
+     *
+     * @param PushRpaasReportAnswerRequest $request
+     *
+     * @return PushRpaasReportAnswerResponse
+     */
+    public function pushRpaasReportAnswer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRpaasReportAnswerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 报告结果推送，算法调用
+     * Summary: 报告结果推送
+     *
+     * @param PushRpaasReportAnswerRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PushRpaasReportAnswerResponse
+     */
+    public function pushRpaasReportAnswerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRpaasReportAnswerResponse::fromMap($this->doRequest('1.0', 'riskplus.rpaas.report.answer.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -6425,6 +6536,123 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktCardsmsAnalysisResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.cardsms.analysis.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾离线圈客文件导入
+     * Summary: 营销盾离线圈客文件导入.
+     *
+     * @param UploadUmktOfflinedecisionRequest $request
+     *
+     * @return UploadUmktOfflinedecisionResponse
+     */
+    public function uploadUmktOfflinedecision($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadUmktOfflinedecisionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾离线圈客文件导入
+     * Summary: 营销盾离线圈客文件导入.
+     *
+     * @param UploadUmktOfflinedecisionRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return UploadUmktOfflinedecisionResponse
+     */
+    public function uploadUmktOfflinedecisionEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.umkt.offlinedecision.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadUmktOfflinedecisionResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadUmktOfflinedecisionResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offlinedecision.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾查询可拉取圈客结果的计划集合
+     * Summary: 营销盾查询可拉取圈客结果的计划集合.
+     *
+     * @param QueryUmktOfflinedecisionResultRequest $request
+     *
+     * @return QueryUmktOfflinedecisionResultResponse
+     */
+    public function queryUmktOfflinedecisionResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktOfflinedecisionResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾查询可拉取圈客结果的计划集合
+     * Summary: 营销盾查询可拉取圈客结果的计划集合.
+     *
+     * @param QueryUmktOfflinedecisionResultRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryUmktOfflinedecisionResultResponse
+     */
+    public function queryUmktOfflinedecisionResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktOfflinedecisionResultResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offlinedecision.result.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾离线圈客结果文件拉取
+     * Summary: 营销盾离线圈客结果文件拉取.
+     *
+     * @param DownloadUmktOfflinedecisionResultRequest $request
+     *
+     * @return DownloadUmktOfflinedecisionResultResponse
+     */
+    public function downloadUmktOfflinedecisionResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->downloadUmktOfflinedecisionResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾离线圈客结果文件拉取
+     * Summary: 营销盾离线圈客结果文件拉取.
+     *
+     * @param DownloadUmktOfflinedecisionResultRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return DownloadUmktOfflinedecisionResultResponse
+     */
+    public function downloadUmktOfflinedecisionResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DownloadUmktOfflinedecisionResultResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offlinedecision.result.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

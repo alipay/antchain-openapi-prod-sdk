@@ -36,12 +36,19 @@ class ExecRbbCompanyGuardRequest extends Model
      * @var string
      */
     public $params;
+
+    // 虚拟云租户code
+    /**
+     * @var string
+     */
+    public $virtualCloudTenantCode;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'keyword'           => 'keyword',
-        'ruleId'            => 'rule_id',
-        'params'            => 'params',
+        'authToken'              => 'auth_token',
+        'productInstanceId'      => 'product_instance_id',
+        'keyword'                => 'keyword',
+        'ruleId'                 => 'rule_id',
+        'params'                 => 'params',
+        'virtualCloudTenantCode' => 'virtual_cloud_tenant_code',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class ExecRbbCompanyGuardRequest extends Model
         }
         if (null !== $this->params) {
             $res['params'] = $this->params;
+        }
+        if (null !== $this->virtualCloudTenantCode) {
+            $res['virtual_cloud_tenant_code'] = $this->virtualCloudTenantCode;
         }
 
         return $res;
@@ -94,6 +104,9 @@ class ExecRbbCompanyGuardRequest extends Model
         }
         if (isset($map['params'])) {
             $model->params = $map['params'];
+        }
+        if (isset($map['virtual_cloud_tenant_code'])) {
+            $model->virtualCloudTenantCode = $map['virtual_cloud_tenant_code'];
         }
 
         return $model;

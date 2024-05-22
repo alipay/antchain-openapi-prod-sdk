@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRbbCompanyGuardRequest extends Model
+class PushRpaasReportAnswerRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,28 @@ class QueryRbbCompanyGuardRequest extends Model
      */
     public $productInstanceId;
 
-    // 查询token
+    // chat trace id
     /**
      * @var string
      */
-    public $token;
+    public $chatTraceId;
 
-    // 虚拟云租户code
+    // 响应结果
     /**
      * @var string
      */
-    public $virtualCloudTenantCode;
+    public $answer;
     protected $_name = [
-        'authToken'              => 'auth_token',
-        'productInstanceId'      => 'product_instance_id',
-        'token'                  => 'token',
-        'virtualCloudTenantCode' => 'virtual_cloud_tenant_code',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'chatTraceId'       => 'chat_trace_id',
+        'answer'            => 'answer',
     ];
 
     public function validate()
     {
-        Model::validateRequired('token', $this->token, true);
+        Model::validateRequired('chatTraceId', $this->chatTraceId, true);
+        Model::validateRequired('answer', $this->answer, true);
     }
 
     public function toMap()
@@ -51,11 +52,11 @@ class QueryRbbCompanyGuardRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->token) {
-            $res['token'] = $this->token;
+        if (null !== $this->chatTraceId) {
+            $res['chat_trace_id'] = $this->chatTraceId;
         }
-        if (null !== $this->virtualCloudTenantCode) {
-            $res['virtual_cloud_tenant_code'] = $this->virtualCloudTenantCode;
+        if (null !== $this->answer) {
+            $res['answer'] = $this->answer;
         }
 
         return $res;
@@ -64,7 +65,7 @@ class QueryRbbCompanyGuardRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryRbbCompanyGuardRequest
+     * @return PushRpaasReportAnswerRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +76,11 @@ class QueryRbbCompanyGuardRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['token'])) {
-            $model->token = $map['token'];
+        if (isset($map['chat_trace_id'])) {
+            $model->chatTraceId = $map['chat_trace_id'];
         }
-        if (isset($map['virtual_cloud_tenant_code'])) {
-            $model->virtualCloudTenantCode = $map['virtual_cloud_tenant_code'];
+        if (isset($map['answer'])) {
+            $model->answer = $map['answer'];
         }
 
         return $model;
