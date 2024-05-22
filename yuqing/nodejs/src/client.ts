@@ -135,6 +135,39 @@ export class Btn extends $tea.Model {
   }
 }
 
+// 與情信息扩展字段
+export class YuqingMessageExtInfo extends $tea.Model {
+  // 媒体地域
+  mediaAreaCountry?: string;
+  // 媒体地域省份
+  mediaAreaProvince?: string;
+  // 媒体地域-市
+  mediaResCity?: string;
+  // 内容风险
+  generalModel?: string;
+  static names(): { [key: string]: string } {
+    return {
+      mediaAreaCountry: 'media_area_country',
+      mediaAreaProvince: 'media_area_province',
+      mediaResCity: 'media_res_city',
+      generalModel: 'general_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mediaAreaCountry: 'string',
+      mediaAreaProvince: 'string',
+      mediaResCity: 'string',
+      generalModel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 消息填充内容
 export class Pair extends $tea.Model {
   // key
@@ -441,6 +474,36 @@ export class YuqingMessage extends $tea.Model {
   emotionScore?: string;
   // 影响力得分
   influenceScore?: string;
+  // 提级地域列表
+  docAreas?: string[];
+  // 媒体名称
+  mediaName?: string;
+  // 扩展信息
+  extInfo?: YuqingMessageExtInfo;
+  // 文章转载自
+  docReprintName?: string;
+  // 视频列表地址
+  contentVideoUrls?: string;
+  // 图片列表地址
+  contentImageUrls?: string;
+  // 图片识别出来的文本
+  contentImageText?: string;
+  // 音频列表地址
+  contentAudioUrls?: string;
+  // 音频识别出来的文本
+  contentAudioText?: string;
+  // 视频识别出来的文本
+  contentVideoText?: string;
+  // 文章转发数
+  docRepostsCount?: number;
+  // 文章评论数
+  docCommentsCount?: number;
+  // 文章点赞数
+  docLikesCount?: number;
+  // 文章阅读数
+  docReadsCount?: number;
+  // 回答数
+  docAnswersCount?: number;
   static names(): { [key: string]: string } {
     return {
       authorAvatarUrl: 'author_avatar_url',
@@ -471,6 +534,21 @@ export class YuqingMessage extends $tea.Model {
       propagationScore: 'propagation_score',
       emotionScore: 'emotion_score',
       influenceScore: 'influence_score',
+      docAreas: 'doc_areas',
+      mediaName: 'media_name',
+      extInfo: 'ext_info',
+      docReprintName: 'doc_reprint_name',
+      contentVideoUrls: 'content_video_urls',
+      contentImageUrls: 'content_image_urls',
+      contentImageText: 'content_image_text',
+      contentAudioUrls: 'content_audio_urls',
+      contentAudioText: 'content_audio_text',
+      contentVideoText: 'content_video_text',
+      docRepostsCount: 'doc_reposts_count',
+      docCommentsCount: 'doc_comments_count',
+      docLikesCount: 'doc_likes_count',
+      docReadsCount: 'doc_reads_count',
+      docAnswersCount: 'doc_answers_count',
     };
   }
 
@@ -504,6 +582,21 @@ export class YuqingMessage extends $tea.Model {
       propagationScore: 'string',
       emotionScore: 'string',
       influenceScore: 'string',
+      docAreas: { 'type': 'array', 'itemType': 'string' },
+      mediaName: 'string',
+      extInfo: YuqingMessageExtInfo,
+      docReprintName: 'string',
+      contentVideoUrls: 'string',
+      contentImageUrls: 'string',
+      contentImageText: 'string',
+      contentAudioUrls: 'string',
+      contentAudioText: 'string',
+      contentVideoText: 'string',
+      docRepostsCount: 'number',
+      docCommentsCount: 'number',
+      docLikesCount: 'number',
+      docReadsCount: 'number',
+      docAnswersCount: 'number',
     };
   }
 
@@ -587,6 +680,43 @@ export class Text extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       content: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 其他过滤条件
+export class FieldCondition extends $tea.Model {
+  // 字段名称
+  fieldName: string;
+  // 复杂查询下，嵌套子条件字段jsonPath
+  nestFieldPath?: string;
+  // 复杂查询下，嵌套子条件字段值
+  nestFieldValue?: number[];
+  // 操作符
+  operateType: string;
+  // 关键字	
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      fieldName: 'field_name',
+      nestFieldPath: 'nest_field_path',
+      nestFieldValue: 'nest_field_value',
+      operateType: 'operate_type',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fieldName: 'string',
+      nestFieldPath: 'string',
+      nestFieldValue: { 'type': 'array', 'itemType': 'number' },
+      operateType: 'string',
+      value: 'string',
     };
   }
 
@@ -889,6 +1019,10 @@ export class SearchCondition extends $tea.Model {
   updateTimeEnd?: number;
   // 舆情文章起始更新时间
   updateTimeStart?: number;
+  // field_conditions
+  fieldConditions?: FieldCondition[];
+  // 项目ID
+  projectId?: string;
   static names(): { [key: string]: string } {
     return {
       assKeywordList: 'ass_keyword_list',
@@ -937,6 +1071,8 @@ export class SearchCondition extends $tea.Model {
       topicList: 'topic_list',
       updateTimeEnd: 'update_time_end',
       updateTimeStart: 'update_time_start',
+      fieldConditions: 'field_conditions',
+      projectId: 'project_id',
     };
   }
 
@@ -988,6 +1124,8 @@ export class SearchCondition extends $tea.Model {
       topicList: { 'type': 'array', 'itemType': 'string' },
       updateTimeEnd: 'number',
       updateTimeStart: 'number',
+      fieldConditions: { 'type': 'array', 'itemType': FieldCondition },
+      projectId: 'string',
     };
   }
 
@@ -2751,7 +2889,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -2837,7 +2975,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.10",
+          sdk_version: "1.2.16",
           _prod_code: "YUQING",
           _prod_channel: "undefined",
         };
