@@ -200,6 +200,31 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public string ContentVideoText { get; set; }
 
+        // 文章转发数
+        [NameInMap("doc_reposts_count")]
+        [Validation(Required=false)]
+        public long? DocRepostsCount { get; set; }
+
+        // 文章评论数
+        [NameInMap("doc_comments_count")]
+        [Validation(Required=false)]
+        public long? DocCommentsCount { get; set; }
+
+        // 文章点赞数
+        [NameInMap("doc_likes_count")]
+        [Validation(Required=false)]
+        public long? DocLikesCount { get; set; }
+
+        // 文章阅读数
+        [NameInMap("doc_reads_count")]
+        [Validation(Required=false)]
+        public long? DocReadsCount { get; set; }
+
+        // 回答数
+        [NameInMap("doc_answers_count")]
+        [Validation(Required=false)]
+        public long? DocAnswersCount { get; set; }
+
     }
 
 }
