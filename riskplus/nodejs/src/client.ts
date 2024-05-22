@@ -103,35 +103,6 @@ export class RtopLevelDistribution extends $tea.Model {
   }
 }
 
-// 删除参数
-export class OutParams extends $tea.Model {
-  // 输出参数
-  name: string;
-  // 参数描述
-  desc: string;
-  // 参数值
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      desc: 'desc',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      desc: 'string',
-      value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // infocode
 export class InfoCodes extends $tea.Model {
   // infocode
@@ -153,23 +124,27 @@ export class InfoCodes extends $tea.Model {
   }
 }
 
-// 营销盾触达媒介参数信息
-export class ActionParamInfo extends $tea.Model {
-  // 触达媒介类型
-  contentType: string;
-  // 触达媒介参数列表
-  actionParam: string[];
+// 删除参数
+export class OutParams extends $tea.Model {
+  // 输出参数
+  name: string;
+  // 参数描述
+  desc: string;
+  // 参数值
+  value: string;
   static names(): { [key: string]: string } {
     return {
-      contentType: 'content_type',
-      actionParam: 'action_param',
+      name: 'name',
+      desc: 'desc',
+      value: 'value',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      contentType: 'string',
-      actionParam: { 'type': 'array', 'itemType': 'string' },
+      name: 'string',
+      desc: 'string',
+      value: 'string',
     };
   }
 
@@ -214,23 +189,27 @@ export class Contact extends $tea.Model {
   }
 }
 
-// 涉众风险企业特征
-export class RtopCrowdRiskFeatureTag extends $tea.Model {
-  // 标签描述
-  tagExplanation: string;
-  // 标签名称
-  tagName: string;
+// 批量查询输出模型分
+export class BatchQueryOutputModelInfo extends $tea.Model {
+  // 变量名称
+  name: string;
+  // 变量值
+  value: string;
+  // 变量值类型
+  valueType: string;
   static names(): { [key: string]: string } {
     return {
-      tagExplanation: 'tag_explanation',
-      tagName: 'tag_name',
+      name: 'name',
+      value: 'value',
+      valueType: 'value_type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      tagExplanation: 'string',
-      tagName: 'string',
+      name: 'string',
+      value: 'string',
+      valueType: 'string',
     };
   }
 
@@ -256,35 +235,6 @@ export class RiskDetail extends $tea.Model {
     return {
       ruleWeight: 'string',
       ruleName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 决策流
-export class DecisionFlow extends $tea.Model {
-  // 输出参数
-  decisionFlow?: OutParams;
-  // 决策结果
-  decision: string;
-  // infocodes
-  infoCodes?: InfoCodes;
-  static names(): { [key: string]: string } {
-    return {
-      decisionFlow: 'decision_flow',
-      decision: 'decision',
-      infoCodes: 'info_codes',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      decisionFlow: OutParams,
-      decision: 'string',
-      infoCodes: InfoCodes,
     };
   }
 
@@ -368,6 +318,85 @@ export class RtopTypeDistribution extends $tea.Model {
       count: 'number',
       levelDistribution: { 'type': 'array', 'itemType': RtopLevelDistribution },
       type: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销盾触达媒介参数信息
+export class ActionParamInfo extends $tea.Model {
+  // 触达媒介类型
+  contentType: string;
+  // 触达媒介参数列表
+  actionParam: string[];
+  static names(): { [key: string]: string } {
+    return {
+      contentType: 'content_type',
+      actionParam: 'action_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contentType: 'string',
+      actionParam: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 涉众风险企业特征
+export class RtopCrowdRiskFeatureTag extends $tea.Model {
+  // 标签描述
+  tagExplanation: string;
+  // 标签名称
+  tagName: string;
+  static names(): { [key: string]: string } {
+    return {
+      tagExplanation: 'tag_explanation',
+      tagName: 'tag_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tagExplanation: 'string',
+      tagName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 决策流
+export class DecisionFlow extends $tea.Model {
+  // 输出参数
+  decisionFlow?: OutParams;
+  // 决策结果
+  decision: string;
+  // infocodes
+  infoCodes?: InfoCodes;
+  static names(): { [key: string]: string } {
+    return {
+      decisionFlow: 'decision_flow',
+      decision: 'decision',
+      infoCodes: 'info_codes',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      decisionFlow: OutParams,
+      decision: 'string',
+      infoCodes: InfoCodes,
     };
   }
 
@@ -487,196 +516,6 @@ export class StatisticInfoDetail extends $tea.Model {
   }
 }
 
-// 天枢系统专用ReceiptInfo结构体
-export class ReceiptInfo extends $tea.Model {
-  // 客户名
-  customName: string;
-  // 证件号码
-  cardNo: string;
-  // 手机号
-  mobile: string;
-  // 贷款金额
-  applyAmount: number;
-  // 发放金额
-  loanAmount: number;
-  // 期数
-  period: number;
-  // 当前期数
-  curPeriod: number;
-  // 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
-  repayType: string;
-  // 还款日
-  repayDate: string;
-  // 放款时间
-  loanTime: string;
-  // 借据状态0：未还清，1：已还清，2：已提前还清
-  status: string;
-  // 已还本金
-  alreadyCorpus: number;
-  // 已还利息
-  alreadyAccrual: number;
-  // 结清日期
-  alreadyDate: string;
-  // 审批状态0：通过 1：拒绝 2：审批中 3：失败
-  workflowStatus: string;
-  // 借据编号
-  receiptNo: string;
-  static names(): { [key: string]: string } {
-    return {
-      customName: 'custom_name',
-      cardNo: 'card_no',
-      mobile: 'mobile',
-      applyAmount: 'apply_amount',
-      loanAmount: 'loan_amount',
-      period: 'period',
-      curPeriod: 'cur_period',
-      repayType: 'repay_type',
-      repayDate: 'repay_date',
-      loanTime: 'loan_time',
-      status: 'status',
-      alreadyCorpus: 'already_corpus',
-      alreadyAccrual: 'already_accrual',
-      alreadyDate: 'already_date',
-      workflowStatus: 'workflow_status',
-      receiptNo: 'receipt_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      customName: 'string',
-      cardNo: 'string',
-      mobile: 'string',
-      applyAmount: 'number',
-      loanAmount: 'number',
-      period: 'number',
-      curPeriod: 'number',
-      repayType: 'string',
-      repayDate: 'string',
-      loanTime: 'string',
-      status: 'string',
-      alreadyCorpus: 'number',
-      alreadyAccrual: 'number',
-      alreadyDate: 'string',
-      workflowStatus: 'string',
-      receiptNo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统专用RepayRef结构体
-export class RepayRef extends $tea.Model {
-  // 客户编码
-  customNo: string;
-  // 当前期数
-  period: string;
-  // 应还总额
-  needAmount: number;
-  // 应还本金
-  needCorpus: number;
-  // 应还利息
-  needAccrual: number;
-  // 应还手续费
-  needFee: number;
-  // 已还总额
-  alreadyAmount: number;
-  // 已还本金
-  alreadyCorpus: number;
-  // 已还逾期本金
-  alreadyOvercorpus: number;
-  // 已还利息
-  alreadyAccrual: number;
-  // 已还逾期息
-  alreadyPunish: number;
-  // 已还手续费
-  alreadyFee: number;
-  // 利率
-  rate: number;
-  // 罚息率
-  penaltyValue: number;
-  // 当期剩余总额
-  restAmount: number;
-  // 当期剩余本金
-  restCorpus: number;
-  // 当期剩余利息
-  restAccrual: number;
-  // 当期剩余罚息
-  restPunish: number;
-  // 期末本金
-  remainCorpus: number;
-  // 借据编号
-  receiptNo: string;
-  // 还款状态1：已还清 2 未还 3 部分还款
-  status: string;
-  // 应还日期
-  settleDate: string;
-  // 还款日期
-  tradeDate: string;
-  static names(): { [key: string]: string } {
-    return {
-      customNo: 'custom_no',
-      period: 'period',
-      needAmount: 'need_amount',
-      needCorpus: 'need_corpus',
-      needAccrual: 'need_accrual',
-      needFee: 'need_fee',
-      alreadyAmount: 'already_amount',
-      alreadyCorpus: 'already_corpus',
-      alreadyOvercorpus: 'already_overcorpus',
-      alreadyAccrual: 'already_accrual',
-      alreadyPunish: 'already_punish',
-      alreadyFee: 'already_fee',
-      rate: 'rate',
-      penaltyValue: 'penalty_value',
-      restAmount: 'rest_amount',
-      restCorpus: 'rest_corpus',
-      restAccrual: 'rest_accrual',
-      restPunish: 'rest_punish',
-      remainCorpus: 'remain_corpus',
-      receiptNo: 'receipt_no',
-      status: 'status',
-      settleDate: 'settle_date',
-      tradeDate: 'trade_date',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      customNo: 'string',
-      period: 'string',
-      needAmount: 'number',
-      needCorpus: 'number',
-      needAccrual: 'number',
-      needFee: 'number',
-      alreadyAmount: 'number',
-      alreadyCorpus: 'number',
-      alreadyOvercorpus: 'number',
-      alreadyAccrual: 'number',
-      alreadyPunish: 'number',
-      alreadyFee: 'number',
-      rate: 'number',
-      penaltyValue: 'number',
-      restAmount: 'number',
-      restCorpus: 'number',
-      restAccrual: 'number',
-      restPunish: 'number',
-      remainCorpus: 'number',
-      receiptNo: 'string',
-      status: 'string',
-      settleDate: 'string',
-      tradeDate: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 反欺诈风险数据服务规则细节信息
 export class RuleDetail extends $tea.Model {
   // 规则细节名称
@@ -694,31 +533,6 @@ export class RuleDetail extends $tea.Model {
     return {
       name: 'string',
       value: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 回调通用返回体
-export class CommonNotyfyResult extends $tea.Model {
-  // 请求id
-  requestId: string;
-  // 业务响应Json
-  bizResponse: string;
-  static names(): { [key: string]: string } {
-    return {
-      requestId: 'request_id',
-      bizResponse: 'biz_response',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      requestId: 'string',
-      bizResponse: 'string',
     };
   }
 
@@ -764,163 +578,6 @@ export class SecurityScene extends $tea.Model {
       securitySceneParams: 'string',
       systemName: 'string',
       totalFee: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 收藏的企业信息
-export class RtopStarCompanyInfo extends $tea.Model {
-  // 行业
-  categories?: string[];
-  // 经营地址
-  operatingPlace?: string;
-  // 经营省份
-  operatingProvince?: string;
-  // 企业名称
-  orgName?: string;
-  // 风险分数
-  riskScore?: number;
-  // 风险标签
-  riskTags?: string[];
-  // 风险线索
-  riskTagDetails?: RtopRiskTag[];
-  // 风险标签Id集合
-  riskTagIds?: string[];
-  // 统一社会信用代码
-  ucCode?: string;
-  static names(): { [key: string]: string } {
-    return {
-      categories: 'categories',
-      operatingPlace: 'operating_place',
-      operatingProvince: 'operating_province',
-      orgName: 'org_name',
-      riskScore: 'risk_score',
-      riskTags: 'risk_tags',
-      riskTagDetails: 'risk_tag_details',
-      riskTagIds: 'risk_tag_ids',
-      ucCode: 'uc_code',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      categories: { 'type': 'array', 'itemType': 'string' },
-      operatingPlace: 'string',
-      operatingProvince: 'string',
-      orgName: 'string',
-      riskScore: 'number',
-      riskTags: { 'type': 'array', 'itemType': 'string' },
-      riskTagDetails: { 'type': 'array', 'itemType': RtopRiskTag },
-      riskTagIds: { 'type': 'array', 'itemType': 'string' },
-      ucCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业日期趋势统计
-export class RtopDateDistribution extends $tea.Model {
-  // 统计值
-  count: number;
-  // 年龄
-  date: string;
-  static names(): { [key: string]: string } {
-    return {
-      count: 'count',
-      date: 'date',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      count: 'number',
-      date: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统个人信息结构体
-export class PersonalInfo extends $tea.Model {
-  // 客户姓名
-  customName: string;
-  // 身份证号码(18位)
-  cardNo: string;
-  // 1-身份证
-  idType: string;
-  // 证件开始日期(格式：YYYY-MM-DD)
-  // 
-  certSignDate: string;
-  // 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
-  certValidate: string;
-  // 证件地址
-  certAdr: string;
-  // 手机号
-  mobile: string;
-  // 学历
-  education: string;
-  // 所在省份 汉字
-  province?: string;
-  // 所在城市 汉字
-  city?: string;
-  // 地区名称 汉字
-  area?: string;
-  // 详细地址
-  address?: string;
-  // 性别M-男
-  // F-女
-  sex?: string;
-  // 民族
-  nation?: string;
-  // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
-  maritalStatus?: string;
-  static names(): { [key: string]: string } {
-    return {
-      customName: 'custom_name',
-      cardNo: 'card_no',
-      idType: 'id_type',
-      certSignDate: 'cert_sign_date',
-      certValidate: 'cert_validate',
-      certAdr: 'cert_adr',
-      mobile: 'mobile',
-      education: 'education',
-      province: 'province',
-      city: 'city',
-      area: 'area',
-      address: 'address',
-      sex: 'sex',
-      nation: 'nation',
-      maritalStatus: 'marital_status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      customName: 'string',
-      cardNo: 'string',
-      idType: 'string',
-      certSignDate: 'string',
-      certValidate: 'string',
-      certAdr: 'string',
-      mobile: 'string',
-      education: 'string',
-      province: 'string',
-      city: 'string',
-      area: 'string',
-      address: 'string',
-      sex: 'string',
-      nation: 'string',
-      maritalStatus: 'string',
     };
   }
 
@@ -1062,35 +719,6 @@ export class RepayResult extends $tea.Model {
   }
 }
 
-// 策略流信息
-export class DfSceneInfos extends $tea.Model {
-  // scene_code
-  sceneCode: string;
-  // 拒绝
-  sceneDecision: string;
-  // decision_flow
-  decisionFlow: DecisionFlow;
-  static names(): { [key: string]: string } {
-    return {
-      sceneCode: 'scene_code',
-      sceneDecision: 'scene_decision',
-      decisionFlow: 'decision_flow',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sceneCode: 'string',
-      sceneDecision: 'string',
-      decisionFlow: DecisionFlow,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 反欺诈风险数据服务风险信息
 export class RiskInfo extends $tea.Model {
   // 反欺诈风险数据服务风险组描述
@@ -1203,72 +831,6 @@ export class RtopCompanyRiskFactor extends $tea.Model {
     return {
       name: 'string',
       score: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户凭证信息
-export class CustomerDetail extends $tea.Model {
-  // 用户标识
-  customerKey: string;
-  // 渠道参数
-  channelParams: string;
-  // 用户透传字段
-  extInfo: string;
-  static names(): { [key: string]: string } {
-    return {
-      customerKey: 'customer_key',
-      channelParams: 'channel_params',
-      extInfo: 'ext_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      customerKey: 'string',
-      channelParams: 'string',
-      extInfo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 用户绑定银行卡列表
-export class CustomerBankCardInfo extends $tea.Model {
-  // 银行名称
-  bankName: string;
-  // 银行编码
-  bankCode: string;
-  // 银行卡号
-  bankCardNo: string;
-  // 是否已签约
-  signed?: string;
-  // 是否为账户代扣银行卡
-  acctBankCard?: string;
-  static names(): { [key: string]: string } {
-    return {
-      bankName: 'bank_name',
-      bankCode: 'bank_code',
-      bankCardNo: 'bank_card_no',
-      signed: 'signed',
-      acctBankCard: 'acct_bank_card',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bankName: 'string',
-      bankCode: 'string',
-      bankCardNo: 'string',
-      signed: 'string',
-      acctBankCard: 'string',
     };
   }
 
@@ -1785,97 +1347,6 @@ export class RtopCompanyRiskInfo extends $tea.Model {
   }
 }
 
-// 逾期信息查询响应
-export class OverdueInfoResponse extends $tea.Model {
-  // 逾期标识
-  // true：逾期
-  // false：未逾期
-  overDueFlag: boolean;
-  // 逾期天数
-  overDays: number;
-  // 逾期金额在50元以上的客户的逾期天数
-  valuableOverDays: number;
-  // 逾期期数
-  overPeriodCount: number;
-  // 逾期本金
-  overPrincipal: number;
-  // 逾期利息
-  overInterest: number;
-  // 应还罚息
-  overPunish: number;
-  // 应还逾期总额
-  needOverdueAmount: number;
-  // 当前应还总额
-  currentNeedAmount: number;
-  // 总剩余应还
-  totalAmount: number;
-  // 数据日期
-  settleDate: string;
-  // 借款唯一编号
-  receiptNo: string;
-  // 已还期数
-  alreadyRepayPeriodCount: number;
-  // 贷款期数
-  loanPeriodCount: number;
-  // 未还本金
-  outstandingPrincipal: number;
-  // 放款日期
-  loanTime: string;
-  // 结清标志
-  settleFlag: boolean;
-  // 最近一次还款日期
-  nearestRepayTime: string;
-  static names(): { [key: string]: string } {
-    return {
-      overDueFlag: 'over_due_flag',
-      overDays: 'over_days',
-      valuableOverDays: 'valuable_over_days',
-      overPeriodCount: 'over_period_count',
-      overPrincipal: 'over_principal',
-      overInterest: 'over_interest',
-      overPunish: 'over_punish',
-      needOverdueAmount: 'need_overdue_amount',
-      currentNeedAmount: 'current_need_amount',
-      totalAmount: 'total_amount',
-      settleDate: 'settle_date',
-      receiptNo: 'receipt_no',
-      alreadyRepayPeriodCount: 'already_repay_period_count',
-      loanPeriodCount: 'loan_period_count',
-      outstandingPrincipal: 'outstanding_principal',
-      loanTime: 'loan_time',
-      settleFlag: 'settle_flag',
-      nearestRepayTime: 'nearest_repay_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      overDueFlag: 'boolean',
-      overDays: 'number',
-      valuableOverDays: 'number',
-      overPeriodCount: 'number',
-      overPrincipal: 'number',
-      overInterest: 'number',
-      overPunish: 'number',
-      needOverdueAmount: 'number',
-      currentNeedAmount: 'number',
-      totalAmount: 'number',
-      settleDate: 'string',
-      receiptNo: 'string',
-      alreadyRepayPeriodCount: 'number',
-      loanPeriodCount: 'number',
-      outstandingPrincipal: 'number',
-      loanTime: 'string',
-      settleFlag: 'boolean',
-      nearestRepayTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 企业年报信息
 export class RtopRiskStormCompanyAnnualReport extends $tea.Model {
   // 年报个数
@@ -2086,31 +1557,6 @@ export class ZhimaQueryResp extends $tea.Model {
   }
 }
 
-// 机构平台通知响应结果
-export class DefinInnerChannelNotifyResult extends $tea.Model {
-  // 请求编号
-  requestId: string;
-  // 业务响应Json
-  bizResponse: string;
-  static names(): { [key: string]: string } {
-    return {
-      requestId: 'request_id',
-      bizResponse: 'biz_response',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      requestId: 'string',
-      bizResponse: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 企业涉众风险详细信息
 export class RtopCrowdRiskSummaryResp extends $tea.Model {
   // 活跃市
@@ -2180,194 +1626,6 @@ export class RtopCrowdRiskSummaryResp extends $tea.Model {
       registeredCity: 'string',
       registeredCounty: 'string',
       registeredProvince: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 营销盾外呼记录
-export class CommonRobotCallDetail extends $tea.Model {
-  // 客户请求时的透传字段
-  extInfo: string;
-  // 成功触达：OK；未触达：AI_ROBOT_CALL_REQUEST_NOT_EXIST
-  resultCode: string;
-  // 外呼号码
-  customerKey: string;
-  // 呼叫次数
-  currentCallTimes: number;
-  // 号码模版
-  keyTemplate: string;
-  // 导入号码时返回的批次号
-  batchId: string;
-  // 2001:批量-预测外呼，2002:批量-AI外呼-不转人工，2003:批量-AI外呼-接通转人工，2004: 批量-AI外呼-智能转人工,2005:批量-语音通知
-  callType: number;
-  // 用户自定义标签
-  tag?: string;
-  // 外呼id
-  callId: string;
-  // 外呼任务编号
-  taskId: number;
-  // AI话术ID
-  templateId?: number;
-  // 外呼状态编码
-  statusCode: number;
-  // 外呼状态描述
-  statusDescription: string;
-  // 转人工状态编码
-  transferStatusCode: number;
-  // 转人工状态
-  transferStatus: string;
-  // 分配坐席ID
-  agentId?: number;
-  // 坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
-  agentTag?: string;
-  // 坐席分机号
-  agentExtension?: string;
-  // 导入时间
-  importTime: string;
-  // 开始通话时间
-  callBeginTime: string;
-  // 振铃时长，单位ms
-  ringTime: number;
-  // 接通时间
-  answerTime?: string;
-  // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
-  speakingTime: string;
-  // 通话时长，单位：秒
-  speakingDuration: number;
-  // 挂断时间
-  hangupTime: string;
-  // 对话轮次
-  speakingTurns: number;
-  // 人工通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
-  agentSpeakingTime: string;
-  // 人工通话时长，单位：秒
-  agentSpeakingDuration: number;
-  // 意向标签
-  intentTag: string;
-  // 意向说明
-  intentDescription: string;
-  // 个性标签
-  individualTag?: string;
-  // 回复关键词
-  keywords?: string;
-  // 挂机方式，AI挂机1，坐席挂机2，客户挂机3
-  hungupType: number;
-  // 挂机短信，可选值：1、2
-  // 1:发送，2:不发送
-  sms: string;
-  // 对话录音，URL，可以为空
-  chatRecord?: string;
-  // 聊天记录，可以为空
-  chats?: string;
-  // 可选值：0、1
-  // 0:不添加，1:添加
-  addWx?: number;
-  // 加微进度，可选值：已申请、加微成功
-  addWxStatus?: string;
-  // 是否接通重呼，可选值：0、1
-  // 0正常外呼，1接通重呼
-  answerRecall: number;
-  // 导入号码时的参数值
-  properties?: string;
-  // 导入号码时的业务参数值，原样返回
-  bizProperties?: string;
-  // 拦截原因：当状态为已拦截时，可选值：黑名单拦截，灰名单拦截，异常号码拦截
-  interceptReason?: string;
-  static names(): { [key: string]: string } {
-    return {
-      extInfo: 'ext_info',
-      resultCode: 'result_code',
-      customerKey: 'customer_key',
-      currentCallTimes: 'current_call_times',
-      keyTemplate: 'key_template',
-      batchId: 'batch_id',
-      callType: 'call_type',
-      tag: 'tag',
-      callId: 'call_id',
-      taskId: 'task_id',
-      templateId: 'template_id',
-      statusCode: 'status_code',
-      statusDescription: 'status_description',
-      transferStatusCode: 'transfer_status_code',
-      transferStatus: 'transfer_status',
-      agentId: 'agent_id',
-      agentTag: 'agent_tag',
-      agentExtension: 'agent_extension',
-      importTime: 'import_time',
-      callBeginTime: 'call_begin_time',
-      ringTime: 'ring_time',
-      answerTime: 'answer_time',
-      speakingTime: 'speaking_time',
-      speakingDuration: 'speaking_duration',
-      hangupTime: 'hangup_time',
-      speakingTurns: 'speaking_turns',
-      agentSpeakingTime: 'agent_speaking_time',
-      agentSpeakingDuration: 'agent_speaking_duration',
-      intentTag: 'intent_tag',
-      intentDescription: 'intent_description',
-      individualTag: 'individual_tag',
-      keywords: 'keywords',
-      hungupType: 'hungup_type',
-      sms: 'sms',
-      chatRecord: 'chat_record',
-      chats: 'chats',
-      addWx: 'add_wx',
-      addWxStatus: 'add_wx_status',
-      answerRecall: 'answer_recall',
-      properties: 'properties',
-      bizProperties: 'biz_properties',
-      interceptReason: 'intercept_reason',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      extInfo: 'string',
-      resultCode: 'string',
-      customerKey: 'string',
-      currentCallTimes: 'number',
-      keyTemplate: 'string',
-      batchId: 'string',
-      callType: 'number',
-      tag: 'string',
-      callId: 'string',
-      taskId: 'number',
-      templateId: 'number',
-      statusCode: 'number',
-      statusDescription: 'string',
-      transferStatusCode: 'number',
-      transferStatus: 'string',
-      agentId: 'number',
-      agentTag: 'string',
-      agentExtension: 'string',
-      importTime: 'string',
-      callBeginTime: 'string',
-      ringTime: 'number',
-      answerTime: 'string',
-      speakingTime: 'string',
-      speakingDuration: 'number',
-      hangupTime: 'string',
-      speakingTurns: 'number',
-      agentSpeakingTime: 'string',
-      agentSpeakingDuration: 'number',
-      intentTag: 'string',
-      intentDescription: 'string',
-      individualTag: 'string',
-      keywords: 'string',
-      hungupType: 'number',
-      sms: 'string',
-      chatRecord: 'string',
-      chats: 'string',
-      addWx: 'number',
-      addWxStatus: 'string',
-      answerRecall: 'number',
-      properties: 'string',
-      bizProperties: 'string',
-      interceptReason: 'string',
     };
   }
 
@@ -2503,43 +1761,6 @@ export class StrategyDetails extends $tea.Model {
   }
 }
 
-// 支付方式锁定结果
-export class PayMethodLockResult extends $tea.Model {
-  // 签约结果
-  signStatus: string;
-  // 账号
-  accountId: string;
-  // 登录号
-  loginId: string;
-  // 支付公司
-  payChannel: string;
-  // 绑定账号名称
-  accountName: string;
-  static names(): { [key: string]: string } {
-    return {
-      signStatus: 'sign_status',
-      accountId: 'account_id',
-      loginId: 'login_id',
-      payChannel: 'pay_channel',
-      accountName: 'account_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      signStatus: 'string',
-      accountId: 'string',
-      loginId: 'string',
-      payChannel: 'string',
-      accountName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 反欺诈风险数据服务决策结果
 export class SecurityResultInfos extends $tea.Model {
   // 反欺诈风险数据服务风险建议决策
@@ -2561,59 +1782,6 @@ export class SecurityResultInfos extends $tea.Model {
       decision: 'string',
       riskScore: 'number',
       sceneCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢合同
-export class Contract extends $tea.Model {
-  // 关联编号
-  relationNo: string;
-  // 合同编号
-  contractNo: string;
-  // 合同名称
-  contractName: string;
-  // 合同类型
-  contractType: string;
-  // 客户编号
-  customNo: string;
-  // 合同存放目录
-  savePath: string;
-  // 合同金额
-  contractAmount: number;
-  // 用信合同编号
-  disburseContractNo: string;
-  // 授信合同编号
-  creditContractNo: string;
-  static names(): { [key: string]: string } {
-    return {
-      relationNo: 'relation_no',
-      contractNo: 'contract_no',
-      contractName: 'contract_name',
-      contractType: 'contract_type',
-      customNo: 'custom_no',
-      savePath: 'save_path',
-      contractAmount: 'contract_amount',
-      disburseContractNo: 'disburse_contract_no',
-      creditContractNo: 'credit_contract_no',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      relationNo: 'string',
-      contractNo: 'string',
-      contractName: 'string',
-      contractType: 'string',
-      customNo: 'string',
-      savePath: 'string',
-      contractAmount: 'number',
-      disburseContractNo: 'string',
-      creditContractNo: 'string',
     };
   }
 
@@ -2905,99 +2073,6 @@ export class CompanyInfo extends $tea.Model {
   }
 }
 
-// ai外呼回调详情
-export class AICallbackMessage extends $tea.Model {
-  // 批次号
-  batchId?: string;
-  // 用户标签
-  tag: string;
-  // 外呼id
-  callId: string;
-  // 外呼的话术模板Id
-  templateId?: number;
-  // 外呼状态编码
-  statusCode: number;
-  // 外呼状态描述
-  statusDescription: string;
-  // 导入时间
-  importTime: string;
-  // 开始通话时间
-  callBeginTime: string;
-  // 振铃时长, 单位毫秒
-  ringTime: number;
-  // 接通时间
-  answerTime: string;
-  // AI通话时长,单位s
-  speakingDuration: number;
-  // 挂断时间
-  hangupTime: string;
-  // 对话轮次
-  speakingTurns: number;
-  // 意向标签
-  intentTag: string;
-  // 意向说明
-  intentDescription: string;
-  // 个性标签
-  individualTag: string;
-  // 回复关键词
-  keywords: string;
-  // 对话录音
-  chatRecord?: string;
-  // 参数值
-  properties: string;
-  static names(): { [key: string]: string } {
-    return {
-      batchId: 'batch_id',
-      tag: 'tag',
-      callId: 'call_id',
-      templateId: 'template_id',
-      statusCode: 'status_code',
-      statusDescription: 'status_description',
-      importTime: 'import_time',
-      callBeginTime: 'call_begin_time',
-      ringTime: 'ring_time',
-      answerTime: 'answer_time',
-      speakingDuration: 'speaking_duration',
-      hangupTime: 'hangup_time',
-      speakingTurns: 'speaking_turns',
-      intentTag: 'intent_tag',
-      intentDescription: 'intent_description',
-      individualTag: 'individual_tag',
-      keywords: 'keywords',
-      chatRecord: 'chat_record',
-      properties: 'properties',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      batchId: 'string',
-      tag: 'string',
-      callId: 'string',
-      templateId: 'number',
-      statusCode: 'number',
-      statusDescription: 'string',
-      importTime: 'string',
-      callBeginTime: 'string',
-      ringTime: 'number',
-      answerTime: 'string',
-      speakingDuration: 'number',
-      hangupTime: 'string',
-      speakingTurns: 'number',
-      intentTag: 'string',
-      intentDescription: 'string',
-      individualTag: 'string',
-      keywords: 'string',
-      chatRecord: 'string',
-      properties: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 营销盾事件信息同步详情
 export class EventResultSyncDetail extends $tea.Model {
   // 事件唯一id（单个租户全局唯一）
@@ -3043,43 +2118,6 @@ export class EventResultSyncDetail extends $tea.Model {
       keyType: 'string',
       customerKey: 'string',
       extData: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 预警企业
-export class RtopCompanyAlarm extends $tea.Model {
-  // 企业ID
-  companyId: string;
-  // 预警类型
-  alarmType: string;
-  // 预警序号
-  alarmIdx: string;
-  // 预警日期
-  alarmDate: string;
-  // 预警标识，是否需要预警
-  alarmFlag: string;
-  static names(): { [key: string]: string } {
-    return {
-      companyId: 'company_id',
-      alarmType: 'alarm_type',
-      alarmIdx: 'alarm_idx',
-      alarmDate: 'alarm_date',
-      alarmFlag: 'alarm_flag',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      companyId: 'string',
-      alarmType: 'string',
-      alarmIdx: 'string',
-      alarmDate: 'string',
-      alarmFlag: 'string',
     };
   }
 
@@ -3146,31 +2184,6 @@ export class RtopTagImage extends $tea.Model {
   }
 }
 
-// 企业影响人数性别分布统计
-export class RtopGenderDistribution extends $tea.Model {
-  // 统计值
-  count: number;
-  // 性别
-  gender: string;
-  static names(): { [key: string]: string } {
-    return {
-      count: 'count',
-      gender: 'gender',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      count: 'number',
-      gender: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 授信信息
 export class ApplyInfo extends $tea.Model {
   // 授信编号
@@ -3212,27 +2225,6 @@ export class ApplyInfo extends $tea.Model {
       daysNumYear: 'number',
       totalAmount: 'number',
       balanceAmount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 是否联登结构体
-export class CustomRelationStatus extends $tea.Model {
-  // 是否联登
-  regFlag?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      regFlag: 'reg_flag',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      regFlag: 'boolean',
     };
   }
 
@@ -3340,68 +2332,6 @@ export class DubheFileInfo extends $tea.Model {
   }
 }
 
-// 服务上下文包括环境信息和用户信息
-export class ServiceContext extends $tea.Model {
-  // 客户端IP
-  clientIp?: string;
-  // 客户端UMID
-  clientPcidguid?: string;
-  // 服务器名
-  serverName?: string;
-  // 会话ID
-  sessionId?: string;
-  // 用户ID
-  userId?: string;
-  static names(): { [key: string]: string } {
-    return {
-      clientIp: 'client_ip',
-      clientPcidguid: 'client_pcidguid',
-      serverName: 'server_name',
-      sessionId: 'session_id',
-      userId: 'user_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      clientIp: 'string',
-      clientPcidguid: 'string',
-      serverName: 'string',
-      sessionId: 'string',
-      userId: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 营销盾实时圈客结果返回model
-export class CustomerUmktInfoModel extends $tea.Model {
-  // 基本圈客结果信息
-  baseInfo: BaseCustomerUmktInfoModel;
-  // 额外的营销分结果
-  umktOutPutInfo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      baseInfo: 'base_info',
-      umktOutPutInfo: 'umkt_out_put_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      baseInfo: BaseCustomerUmktInfoModel,
-      umktOutPutInfo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 混合批量营销圈客结果
 export class CustomerUmktInfosModel extends $tea.Model {
   // 归属用户的混合营销决策结果
@@ -3446,91 +2376,6 @@ export class ModelDetails extends $tea.Model {
     return {
       sceneCode: 'string',
       score: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业舆情数量
-export class RtopCompanyOpinionCount extends $tea.Model {
-  // 企业名称
-  companyName: string;
-  // 企业对应的舆情数量
-  count: number;
-  static names(): { [key: string]: string } {
-    return {
-      companyName: 'company_name',
-      count: 'count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      companyName: 'string',
-      count: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 商户资金链锁定结果
-export class FundChainLockResult extends $tea.Model {
-  // 店铺名称
-  name: string;
-  // 店铺id
-  id: string;
-  // 0:成功
-  // 1:失败
-  // 2:处理中
-  status: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      id: 'id',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      id: 'string',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 企业地区分布统计
-export class RtopRegionalDistribution extends $tea.Model {
-  // 统计值
-  count: number;
-  // 地区
-  place: string;
-  // 当前地区的涉众风险类型分布，即非法集资有多少企业，传销有多少企业
-  typeDistribution?: RtopTypeDistribution[];
-  static names(): { [key: string]: string } {
-    return {
-      count: 'count',
-      place: 'place',
-      typeDistribution: 'type_distribution',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      count: 'number',
-      place: 'string',
-      typeDistribution: { 'type': 'array', 'itemType': RtopTypeDistribution },
     };
   }
 
@@ -3690,35 +2535,6 @@ export class JobInfo extends $tea.Model {
   }
 }
 
-// 涉众风险企业特征
-export class RtopCrowdRiskFeatureResp extends $tea.Model {
-  // 特征标签列表
-  clueTags?: RtopCrowdRiskFeatureTag[];
-  // 特征名称
-  featureName: string;
-  // 特征​分数
-  score: number;
-  static names(): { [key: string]: string } {
-    return {
-      clueTags: 'clue_tags',
-      featureName: 'feature_name',
-      score: 'score',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      clueTags: { 'type': 'array', 'itemType': RtopCrowdRiskFeatureTag },
-      featureName: 'string',
-      score: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 天枢系统居住信息结构体
 export class LiveInfo extends $tea.Model {
   // 居住省份
@@ -3789,64 +2605,6 @@ export class RiskStormLabelResp extends $tea.Model {
   }
 }
 
-// 待还款信息
-export class RepayInfo extends $tea.Model {
-  // true：逾期
-  // false：未逾期
-  overdueFlag: boolean;
-  // 逾期天数
-  overDays: number;
-  // 逾期金额在50元以上的客户的逾期天数
-  valuableOverDays: number;
-  // 逾期期数
-  overPeriodCount: number;
-  // 逾期本金
-  overPrincipal: number;
-  // 逾期利息
-  overInterest: number;
-  // 应还罚息
-  overPunish: number;
-  // 应还逾期总额
-  needOverdueAmount: number;
-  // 当前应还总额（包含逾期和当前期）
-  currentNeedAmount: number;
-  // 总剩余应还
-  totalAmount: number;
-  static names(): { [key: string]: string } {
-    return {
-      overdueFlag: 'overdue_flag',
-      overDays: 'over_days',
-      valuableOverDays: 'valuable_over_days',
-      overPeriodCount: 'over_period_count',
-      overPrincipal: 'over_principal',
-      overInterest: 'over_interest',
-      overPunish: 'over_punish',
-      needOverdueAmount: 'need_overdue_amount',
-      currentNeedAmount: 'current_need_amount',
-      totalAmount: 'total_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      overdueFlag: 'boolean',
-      overDays: 'number',
-      valuableOverDays: 'number',
-      overPeriodCount: 'number',
-      overPrincipal: 'number',
-      overInterest: 'number',
-      overPunish: 'number',
-      needOverdueAmount: 'number',
-      currentNeedAmount: 'number',
-      totalAmount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 芝麻四要素认证接口
 export class ZhimaIdentifyResp extends $tea.Model {
   // 唯一ID，接口正常的话有此字段
@@ -3880,65 +2638,6 @@ export class ZhimaIdentifyResp extends $tea.Model {
       resultMsg: 'string',
       subCode: 'string',
       subMsg: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 天枢系统专用CreditAmount结构体
-export class CreditAmount extends $tea.Model {
-  // 授信额度
-  creditAmount: number;
-  // 授信余额
-  restAmount: number;
-  // 发放日期
-  payDate: string;
-  // 到期日期
-  expireDate: string;
-  // 利率单位(1:年，2：月，3：日)
-  rateUnit: string;
-  // 执行利率,利率值，单位%
-  // 年化5%，rateValue=5
-  // 
-  rateValue: number;
-  // 还款方式1等额本息2等额本金3先息后本4一次性利随本清5只还本金6等本等息
-  repayWay: string;
-  // 状态0-正常 1-冻结 2-终止
-  status: string;
-  // 发放日期（兼容字段）
-  payDateSup?: string;
-  // 到期日期（兼容字段）
-  expireDateSup?: string;
-  static names(): { [key: string]: string } {
-    return {
-      creditAmount: 'credit_amount',
-      restAmount: 'rest_amount',
-      payDate: 'pay_date',
-      expireDate: 'expire_date',
-      rateUnit: 'rate_unit',
-      rateValue: 'rate_value',
-      repayWay: 'repay_way',
-      status: 'status',
-      payDateSup: 'pay_date_sup',
-      expireDateSup: 'expire_date_sup',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      creditAmount: 'number',
-      restAmount: 'number',
-      payDate: 'string',
-      expireDate: 'string',
-      rateUnit: 'string',
-      rateValue: 'number',
-      repayWay: 'string',
-      status: 'string',
-      payDateSup: 'string',
-      expireDateSup: 'string',
     };
   }
 
@@ -4111,6 +2810,1423 @@ export class SmsReponse extends $tea.Model {
       code: 'string',
       message: 'string',
       requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统专用ReceiptInfo结构体
+export class ReceiptInfo extends $tea.Model {
+  // 客户名
+  customName: string;
+  // 证件号码
+  cardNo: string;
+  // 手机号
+  mobile: string;
+  // 贷款金额
+  applyAmount: number;
+  // 发放金额
+  loanAmount: number;
+  // 期数
+  period: number;
+  // 当前期数
+  curPeriod: number;
+  // 还款方式1：等额本息，2：等额本金，3：按月付息到期还本，4：利随本清，5：自由还款
+  repayType: string;
+  // 还款日
+  repayDate: string;
+  // 放款时间
+  loanTime: string;
+  // 借据状态0：未还清，1：已还清，2：已提前还清
+  status: string;
+  // 已还本金
+  alreadyCorpus: number;
+  // 已还利息
+  alreadyAccrual: number;
+  // 结清日期
+  alreadyDate: string;
+  // 审批状态0：通过 1：拒绝 2：审批中 3：失败
+  workflowStatus: string;
+  // 借据编号
+  receiptNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      customName: 'custom_name',
+      cardNo: 'card_no',
+      mobile: 'mobile',
+      applyAmount: 'apply_amount',
+      loanAmount: 'loan_amount',
+      period: 'period',
+      curPeriod: 'cur_period',
+      repayType: 'repay_type',
+      repayDate: 'repay_date',
+      loanTime: 'loan_time',
+      status: 'status',
+      alreadyCorpus: 'already_corpus',
+      alreadyAccrual: 'already_accrual',
+      alreadyDate: 'already_date',
+      workflowStatus: 'workflow_status',
+      receiptNo: 'receipt_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customName: 'string',
+      cardNo: 'string',
+      mobile: 'string',
+      applyAmount: 'number',
+      loanAmount: 'number',
+      period: 'number',
+      curPeriod: 'number',
+      repayType: 'string',
+      repayDate: 'string',
+      loanTime: 'string',
+      status: 'string',
+      alreadyCorpus: 'number',
+      alreadyAccrual: 'number',
+      alreadyDate: 'string',
+      workflowStatus: 'string',
+      receiptNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统专用RepayRef结构体
+export class RepayRef extends $tea.Model {
+  // 客户编码
+  customNo: string;
+  // 当前期数
+  period: string;
+  // 应还总额
+  needAmount: number;
+  // 应还本金
+  needCorpus: number;
+  // 应还利息
+  needAccrual: number;
+  // 应还手续费
+  needFee: number;
+  // 已还总额
+  alreadyAmount: number;
+  // 已还本金
+  alreadyCorpus: number;
+  // 已还逾期本金
+  alreadyOvercorpus: number;
+  // 已还利息
+  alreadyAccrual: number;
+  // 已还逾期息
+  alreadyPunish: number;
+  // 已还手续费
+  alreadyFee: number;
+  // 利率
+  rate: number;
+  // 罚息率
+  penaltyValue: number;
+  // 当期剩余总额
+  restAmount: number;
+  // 当期剩余本金
+  restCorpus: number;
+  // 当期剩余利息
+  restAccrual: number;
+  // 当期剩余罚息
+  restPunish: number;
+  // 期末本金
+  remainCorpus: number;
+  // 借据编号
+  receiptNo: string;
+  // 还款状态1：已还清 2 未还 3 部分还款
+  status: string;
+  // 应还日期
+  settleDate: string;
+  // 还款日期
+  tradeDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      customNo: 'custom_no',
+      period: 'period',
+      needAmount: 'need_amount',
+      needCorpus: 'need_corpus',
+      needAccrual: 'need_accrual',
+      needFee: 'need_fee',
+      alreadyAmount: 'already_amount',
+      alreadyCorpus: 'already_corpus',
+      alreadyOvercorpus: 'already_overcorpus',
+      alreadyAccrual: 'already_accrual',
+      alreadyPunish: 'already_punish',
+      alreadyFee: 'already_fee',
+      rate: 'rate',
+      penaltyValue: 'penalty_value',
+      restAmount: 'rest_amount',
+      restCorpus: 'rest_corpus',
+      restAccrual: 'rest_accrual',
+      restPunish: 'rest_punish',
+      remainCorpus: 'remain_corpus',
+      receiptNo: 'receipt_no',
+      status: 'status',
+      settleDate: 'settle_date',
+      tradeDate: 'trade_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customNo: 'string',
+      period: 'string',
+      needAmount: 'number',
+      needCorpus: 'number',
+      needAccrual: 'number',
+      needFee: 'number',
+      alreadyAmount: 'number',
+      alreadyCorpus: 'number',
+      alreadyOvercorpus: 'number',
+      alreadyAccrual: 'number',
+      alreadyPunish: 'number',
+      alreadyFee: 'number',
+      rate: 'number',
+      penaltyValue: 'number',
+      restAmount: 'number',
+      restCorpus: 'number',
+      restAccrual: 'number',
+      restPunish: 'number',
+      remainCorpus: 'number',
+      receiptNo: 'string',
+      status: 'string',
+      settleDate: 'string',
+      tradeDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 回调通用返回体
+export class CommonNotyfyResult extends $tea.Model {
+  // 请求id
+  requestId: string;
+  // 业务响应Json
+  bizResponse: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      bizResponse: 'biz_response',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      bizResponse: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 收藏的企业信息
+export class RtopStarCompanyInfo extends $tea.Model {
+  // 行业
+  categories?: string[];
+  // 经营地址
+  operatingPlace?: string;
+  // 经营省份
+  operatingProvince?: string;
+  // 企业名称
+  orgName?: string;
+  // 风险分数
+  riskScore?: number;
+  // 风险标签
+  riskTags?: string[];
+  // 风险线索
+  riskTagDetails?: RtopRiskTag[];
+  // 风险标签Id集合
+  riskTagIds?: string[];
+  // 统一社会信用代码
+  ucCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      categories: 'categories',
+      operatingPlace: 'operating_place',
+      operatingProvince: 'operating_province',
+      orgName: 'org_name',
+      riskScore: 'risk_score',
+      riskTags: 'risk_tags',
+      riskTagDetails: 'risk_tag_details',
+      riskTagIds: 'risk_tag_ids',
+      ucCode: 'uc_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      categories: { 'type': 'array', 'itemType': 'string' },
+      operatingPlace: 'string',
+      operatingProvince: 'string',
+      orgName: 'string',
+      riskScore: 'number',
+      riskTags: { 'type': 'array', 'itemType': 'string' },
+      riskTagDetails: { 'type': 'array', 'itemType': RtopRiskTag },
+      riskTagIds: { 'type': 'array', 'itemType': 'string' },
+      ucCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业日期趋势统计
+export class RtopDateDistribution extends $tea.Model {
+  // 统计值
+  count: number;
+  // 年龄
+  date: string;
+  static names(): { [key: string]: string } {
+    return {
+      count: 'count',
+      date: 'date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      count: 'number',
+      date: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统个人信息结构体
+export class PersonalInfo extends $tea.Model {
+  // 客户姓名
+  customName: string;
+  // 身份证号码(18位)
+  cardNo: string;
+  // 1-身份证
+  idType: string;
+  // 证件开始日期(格式：YYYY-MM-DD)
+  // 
+  certSignDate: string;
+  // 格式：YYYY-MM-DD，身份证有效期为长期的送: 9999-12-31
+  certValidate: string;
+  // 证件地址
+  certAdr: string;
+  // 手机号
+  mobile: string;
+  // 学历
+  education: string;
+  // 所在省份 汉字
+  province?: string;
+  // 所在城市 汉字
+  city?: string;
+  // 地区名称 汉字
+  area?: string;
+  // 详细地址
+  address?: string;
+  // 性别M-男
+  // F-女
+  sex?: string;
+  // 民族
+  nation?: string;
+  // 婚姻状态：00-未婚，01-已婚，02-离婚，03-丧偶，99-未知
+  maritalStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      customName: 'custom_name',
+      cardNo: 'card_no',
+      idType: 'id_type',
+      certSignDate: 'cert_sign_date',
+      certValidate: 'cert_validate',
+      certAdr: 'cert_adr',
+      mobile: 'mobile',
+      education: 'education',
+      province: 'province',
+      city: 'city',
+      area: 'area',
+      address: 'address',
+      sex: 'sex',
+      nation: 'nation',
+      maritalStatus: 'marital_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customName: 'string',
+      cardNo: 'string',
+      idType: 'string',
+      certSignDate: 'string',
+      certValidate: 'string',
+      certAdr: 'string',
+      mobile: 'string',
+      education: 'string',
+      province: 'string',
+      city: 'string',
+      area: 'string',
+      address: 'string',
+      sex: 'string',
+      nation: 'string',
+      maritalStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 策略流信息
+export class DfSceneInfos extends $tea.Model {
+  // scene_code
+  sceneCode: string;
+  // 拒绝
+  sceneDecision: string;
+  // decision_flow
+  decisionFlow: DecisionFlow;
+  static names(): { [key: string]: string } {
+    return {
+      sceneCode: 'scene_code',
+      sceneDecision: 'scene_decision',
+      decisionFlow: 'decision_flow',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneCode: 'string',
+      sceneDecision: 'string',
+      decisionFlow: DecisionFlow,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户凭证信息
+export class CustomerDetail extends $tea.Model {
+  // 用户标识
+  customerKey: string;
+  // 渠道参数
+  channelParams: string;
+  // 用户透传字段
+  extInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      customerKey: 'customer_key',
+      channelParams: 'channel_params',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      customerKey: 'string',
+      channelParams: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户绑定银行卡列表
+export class CustomerBankCardInfo extends $tea.Model {
+  // 银行名称
+  bankName: string;
+  // 银行编码
+  bankCode: string;
+  // 银行卡号
+  bankCardNo: string;
+  // 是否已签约
+  signed?: string;
+  // 是否为账户代扣银行卡
+  acctBankCard?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bankName: 'bank_name',
+      bankCode: 'bank_code',
+      bankCardNo: 'bank_card_no',
+      signed: 'signed',
+      acctBankCard: 'acct_bank_card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bankName: 'string',
+      bankCode: 'string',
+      bankCardNo: 'string',
+      signed: 'string',
+      acctBankCard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 逾期信息查询响应
+export class OverdueInfoResponse extends $tea.Model {
+  // 逾期标识
+  // true：逾期
+  // false：未逾期
+  overDueFlag: boolean;
+  // 逾期天数
+  overDays: number;
+  // 逾期金额在50元以上的客户的逾期天数
+  valuableOverDays: number;
+  // 逾期期数
+  overPeriodCount: number;
+  // 逾期本金
+  overPrincipal: number;
+  // 逾期利息
+  overInterest: number;
+  // 应还罚息
+  overPunish: number;
+  // 应还逾期总额
+  needOverdueAmount: number;
+  // 当前应还总额
+  currentNeedAmount: number;
+  // 总剩余应还
+  totalAmount: number;
+  // 数据日期
+  settleDate: string;
+  // 借款唯一编号
+  receiptNo: string;
+  // 已还期数
+  alreadyRepayPeriodCount: number;
+  // 贷款期数
+  loanPeriodCount: number;
+  // 未还本金
+  outstandingPrincipal: number;
+  // 放款日期
+  loanTime: string;
+  // 结清标志
+  settleFlag: boolean;
+  // 最近一次还款日期
+  nearestRepayTime: string;
+  static names(): { [key: string]: string } {
+    return {
+      overDueFlag: 'over_due_flag',
+      overDays: 'over_days',
+      valuableOverDays: 'valuable_over_days',
+      overPeriodCount: 'over_period_count',
+      overPrincipal: 'over_principal',
+      overInterest: 'over_interest',
+      overPunish: 'over_punish',
+      needOverdueAmount: 'need_overdue_amount',
+      currentNeedAmount: 'current_need_amount',
+      totalAmount: 'total_amount',
+      settleDate: 'settle_date',
+      receiptNo: 'receipt_no',
+      alreadyRepayPeriodCount: 'already_repay_period_count',
+      loanPeriodCount: 'loan_period_count',
+      outstandingPrincipal: 'outstanding_principal',
+      loanTime: 'loan_time',
+      settleFlag: 'settle_flag',
+      nearestRepayTime: 'nearest_repay_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      overDueFlag: 'boolean',
+      overDays: 'number',
+      valuableOverDays: 'number',
+      overPeriodCount: 'number',
+      overPrincipal: 'number',
+      overInterest: 'number',
+      overPunish: 'number',
+      needOverdueAmount: 'number',
+      currentNeedAmount: 'number',
+      totalAmount: 'number',
+      settleDate: 'string',
+      receiptNo: 'string',
+      alreadyRepayPeriodCount: 'number',
+      loanPeriodCount: 'number',
+      outstandingPrincipal: 'number',
+      loanTime: 'string',
+      settleFlag: 'boolean',
+      nearestRepayTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 机构平台通知响应结果
+export class DefinInnerChannelNotifyResult extends $tea.Model {
+  // 请求编号
+  requestId: string;
+  // 业务响应Json
+  bizResponse: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      bizResponse: 'biz_response',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      bizResponse: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 批量决策单主体查询结果
+export class BatchQueryResult extends $tea.Model {
+  // 查询主体
+  queryKey: string;
+  // 单用户决策结果
+  decision: string;
+  // 输出变量信息
+  outputInfo: BatchQueryOutputModelInfo;
+  static names(): { [key: string]: string } {
+    return {
+      queryKey: 'query_key',
+      decision: 'decision',
+      outputInfo: 'output_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      queryKey: 'string',
+      decision: 'string',
+      outputInfo: BatchQueryOutputModelInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销盾外呼记录
+export class CommonRobotCallDetail extends $tea.Model {
+  // 客户请求时的透传字段
+  extInfo: string;
+  // 成功触达：OK；未触达：AI_ROBOT_CALL_REQUEST_NOT_EXIST
+  resultCode: string;
+  // 外呼号码
+  customerKey: string;
+  // 呼叫次数
+  currentCallTimes: number;
+  // 号码模版
+  keyTemplate: string;
+  // 导入号码时返回的批次号
+  batchId: string;
+  // 2001:批量-预测外呼，2002:批量-AI外呼-不转人工，2003:批量-AI外呼-接通转人工，2004: 批量-AI外呼-智能转人工,2005:批量-语音通知
+  callType: number;
+  // 用户自定义标签
+  tag?: string;
+  // 外呼id
+  callId: string;
+  // 外呼任务编号
+  taskId: number;
+  // AI话术ID
+  templateId?: number;
+  // 外呼状态编码
+  statusCode: number;
+  // 外呼状态描述
+  statusDescription: string;
+  // 转人工状态编码
+  transferStatusCode: number;
+  // 转人工状态
+  transferStatus: string;
+  // 分配坐席ID
+  agentId?: number;
+  // 坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+  agentTag?: string;
+  // 坐席分机号
+  agentExtension?: string;
+  // 导入时间
+  importTime: string;
+  // 开始通话时间
+  callBeginTime: string;
+  // 振铃时长，单位ms
+  ringTime: number;
+  // 接通时间
+  answerTime?: string;
+  // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  speakingTime: string;
+  // 通话时长，单位：秒
+  speakingDuration: number;
+  // 挂断时间
+  hangupTime: string;
+  // 对话轮次
+  speakingTurns: number;
+  // 人工通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  agentSpeakingTime: string;
+  // 人工通话时长，单位：秒
+  agentSpeakingDuration: number;
+  // 意向标签
+  intentTag: string;
+  // 意向说明
+  intentDescription: string;
+  // 个性标签
+  individualTag?: string;
+  // 回复关键词
+  keywords?: string;
+  // 挂机方式，AI挂机1，坐席挂机2，客户挂机3
+  hungupType: number;
+  // 挂机短信，可选值：1、2
+  // 1:发送，2:不发送
+  sms: string;
+  // 对话录音，URL，可以为空
+  chatRecord?: string;
+  // 聊天记录，可以为空
+  chats?: string;
+  // 可选值：0、1
+  // 0:不添加，1:添加
+  addWx?: number;
+  // 加微进度，可选值：已申请、加微成功
+  addWxStatus?: string;
+  // 是否接通重呼，可选值：0、1
+  // 0正常外呼，1接通重呼
+  answerRecall: number;
+  // 导入号码时的参数值
+  properties?: string;
+  // 导入号码时的业务参数值，原样返回
+  bizProperties?: string;
+  // 拦截原因：当状态为已拦截时，可选值：黑名单拦截，灰名单拦截，异常号码拦截
+  interceptReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      extInfo: 'ext_info',
+      resultCode: 'result_code',
+      customerKey: 'customer_key',
+      currentCallTimes: 'current_call_times',
+      keyTemplate: 'key_template',
+      batchId: 'batch_id',
+      callType: 'call_type',
+      tag: 'tag',
+      callId: 'call_id',
+      taskId: 'task_id',
+      templateId: 'template_id',
+      statusCode: 'status_code',
+      statusDescription: 'status_description',
+      transferStatusCode: 'transfer_status_code',
+      transferStatus: 'transfer_status',
+      agentId: 'agent_id',
+      agentTag: 'agent_tag',
+      agentExtension: 'agent_extension',
+      importTime: 'import_time',
+      callBeginTime: 'call_begin_time',
+      ringTime: 'ring_time',
+      answerTime: 'answer_time',
+      speakingTime: 'speaking_time',
+      speakingDuration: 'speaking_duration',
+      hangupTime: 'hangup_time',
+      speakingTurns: 'speaking_turns',
+      agentSpeakingTime: 'agent_speaking_time',
+      agentSpeakingDuration: 'agent_speaking_duration',
+      intentTag: 'intent_tag',
+      intentDescription: 'intent_description',
+      individualTag: 'individual_tag',
+      keywords: 'keywords',
+      hungupType: 'hungup_type',
+      sms: 'sms',
+      chatRecord: 'chat_record',
+      chats: 'chats',
+      addWx: 'add_wx',
+      addWxStatus: 'add_wx_status',
+      answerRecall: 'answer_recall',
+      properties: 'properties',
+      bizProperties: 'biz_properties',
+      interceptReason: 'intercept_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      extInfo: 'string',
+      resultCode: 'string',
+      customerKey: 'string',
+      currentCallTimes: 'number',
+      keyTemplate: 'string',
+      batchId: 'string',
+      callType: 'number',
+      tag: 'string',
+      callId: 'string',
+      taskId: 'number',
+      templateId: 'number',
+      statusCode: 'number',
+      statusDescription: 'string',
+      transferStatusCode: 'number',
+      transferStatus: 'string',
+      agentId: 'number',
+      agentTag: 'string',
+      agentExtension: 'string',
+      importTime: 'string',
+      callBeginTime: 'string',
+      ringTime: 'number',
+      answerTime: 'string',
+      speakingTime: 'string',
+      speakingDuration: 'number',
+      hangupTime: 'string',
+      speakingTurns: 'number',
+      agentSpeakingTime: 'string',
+      agentSpeakingDuration: 'number',
+      intentTag: 'string',
+      intentDescription: 'string',
+      individualTag: 'string',
+      keywords: 'string',
+      hungupType: 'number',
+      sms: 'string',
+      chatRecord: 'string',
+      chats: 'string',
+      addWx: 'number',
+      addWxStatus: 'string',
+      answerRecall: 'number',
+      properties: 'string',
+      bizProperties: 'string',
+      interceptReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 支付方式锁定结果
+export class PayMethodLockResult extends $tea.Model {
+  // 签约结果
+  signStatus: string;
+  // 账号
+  accountId: string;
+  // 登录号
+  loginId: string;
+  // 支付公司
+  payChannel: string;
+  // 绑定账号名称
+  accountName: string;
+  static names(): { [key: string]: string } {
+    return {
+      signStatus: 'sign_status',
+      accountId: 'account_id',
+      loginId: 'login_id',
+      payChannel: 'pay_channel',
+      accountName: 'account_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      signStatus: 'string',
+      accountId: 'string',
+      loginId: 'string',
+      payChannel: 'string',
+      accountName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢合同
+export class Contract extends $tea.Model {
+  // 关联编号
+  relationNo: string;
+  // 合同编号
+  contractNo: string;
+  // 合同名称
+  contractName: string;
+  // 合同类型
+  contractType: string;
+  // 客户编号
+  customNo: string;
+  // 合同存放目录
+  savePath: string;
+  // 合同金额
+  contractAmount: number;
+  // 用信合同编号
+  disburseContractNo: string;
+  // 授信合同编号
+  creditContractNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      relationNo: 'relation_no',
+      contractNo: 'contract_no',
+      contractName: 'contract_name',
+      contractType: 'contract_type',
+      customNo: 'custom_no',
+      savePath: 'save_path',
+      contractAmount: 'contract_amount',
+      disburseContractNo: 'disburse_contract_no',
+      creditContractNo: 'credit_contract_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      relationNo: 'string',
+      contractNo: 'string',
+      contractName: 'string',
+      contractType: 'string',
+      customNo: 'string',
+      savePath: 'string',
+      contractAmount: 'number',
+      disburseContractNo: 'string',
+      creditContractNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ai外呼回调详情
+export class AICallbackMessage extends $tea.Model {
+  // 批次号
+  batchId?: string;
+  // 用户标签
+  tag: string;
+  // 外呼id
+  callId: string;
+  // 外呼的话术模板Id
+  templateId?: number;
+  // 外呼状态编码
+  statusCode: number;
+  // 外呼状态描述
+  statusDescription: string;
+  // 导入时间
+  importTime: string;
+  // 开始通话时间
+  callBeginTime: string;
+  // 振铃时长, 单位毫秒
+  ringTime: number;
+  // 接通时间
+  answerTime: string;
+  // AI通话时长,单位s
+  speakingDuration: number;
+  // 挂断时间
+  hangupTime: string;
+  // 对话轮次
+  speakingTurns: number;
+  // 意向标签
+  intentTag: string;
+  // 意向说明
+  intentDescription: string;
+  // 个性标签
+  individualTag: string;
+  // 回复关键词
+  keywords: string;
+  // 对话录音
+  chatRecord?: string;
+  // 参数值
+  properties: string;
+  static names(): { [key: string]: string } {
+    return {
+      batchId: 'batch_id',
+      tag: 'tag',
+      callId: 'call_id',
+      templateId: 'template_id',
+      statusCode: 'status_code',
+      statusDescription: 'status_description',
+      importTime: 'import_time',
+      callBeginTime: 'call_begin_time',
+      ringTime: 'ring_time',
+      answerTime: 'answer_time',
+      speakingDuration: 'speaking_duration',
+      hangupTime: 'hangup_time',
+      speakingTurns: 'speaking_turns',
+      intentTag: 'intent_tag',
+      intentDescription: 'intent_description',
+      individualTag: 'individual_tag',
+      keywords: 'keywords',
+      chatRecord: 'chat_record',
+      properties: 'properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      batchId: 'string',
+      tag: 'string',
+      callId: 'string',
+      templateId: 'number',
+      statusCode: 'number',
+      statusDescription: 'string',
+      importTime: 'string',
+      callBeginTime: 'string',
+      ringTime: 'number',
+      answerTime: 'string',
+      speakingDuration: 'number',
+      hangupTime: 'string',
+      speakingTurns: 'number',
+      intentTag: 'string',
+      intentDescription: 'string',
+      individualTag: 'string',
+      keywords: 'string',
+      chatRecord: 'string',
+      properties: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 预警企业
+export class RtopCompanyAlarm extends $tea.Model {
+  // 企业ID
+  companyId: string;
+  // 预警类型
+  alarmType: string;
+  // 预警序号
+  alarmIdx: string;
+  // 预警日期
+  alarmDate: string;
+  // 预警标识，是否需要预警
+  alarmFlag: string;
+  static names(): { [key: string]: string } {
+    return {
+      companyId: 'company_id',
+      alarmType: 'alarm_type',
+      alarmIdx: 'alarm_idx',
+      alarmDate: 'alarm_date',
+      alarmFlag: 'alarm_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      companyId: 'string',
+      alarmType: 'string',
+      alarmIdx: 'string',
+      alarmDate: 'string',
+      alarmFlag: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业影响人数性别分布统计
+export class RtopGenderDistribution extends $tea.Model {
+  // 统计值
+  count: number;
+  // 性别
+  gender: string;
+  static names(): { [key: string]: string } {
+    return {
+      count: 'count',
+      gender: 'gender',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      count: 'number',
+      gender: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 卡短解析服务返回参数
+export class ShortUrlInfo extends $tea.Model {
+  // 支持卡片短信的手机号
+  mobile: string;
+  // 解析生成的短链
+  shortUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      mobile: 'mobile',
+      shortUrl: 'short_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      mobile: 'string',
+      shortUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 是否联登结构体
+export class CustomRelationStatus extends $tea.Model {
+  // 是否联登
+  regFlag?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      regFlag: 'reg_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      regFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 服务上下文包括环境信息和用户信息
+export class ServiceContext extends $tea.Model {
+  // 客户端IP
+  clientIp?: string;
+  // 客户端UMID
+  clientPcidguid?: string;
+  // 服务器名
+  serverName?: string;
+  // 会话ID
+  sessionId?: string;
+  // 用户ID
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      clientIp: 'client_ip',
+      clientPcidguid: 'client_pcidguid',
+      serverName: 'server_name',
+      sessionId: 'session_id',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clientIp: 'string',
+      clientPcidguid: 'string',
+      serverName: 'string',
+      sessionId: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销盾实时圈客结果返回model
+export class CustomerUmktInfoModel extends $tea.Model {
+  // 基本圈客结果信息
+  baseInfo: BaseCustomerUmktInfoModel;
+  // 额外的营销分结果
+  umktOutPutInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      baseInfo: 'base_info',
+      umktOutPutInfo: 'umkt_out_put_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      baseInfo: BaseCustomerUmktInfoModel,
+      umktOutPutInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业舆情数量
+export class RtopCompanyOpinionCount extends $tea.Model {
+  // 企业名称
+  companyName: string;
+  // 企业对应的舆情数量
+  count: number;
+  static names(): { [key: string]: string } {
+    return {
+      companyName: 'company_name',
+      count: 'count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      companyName: 'string',
+      count: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商户资金链锁定结果
+export class FundChainLockResult extends $tea.Model {
+  // 店铺名称
+  name: string;
+  // 店铺id
+  id: string;
+  // 0:成功
+  // 1:失败
+  // 2:处理中
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      id: 'id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      id: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企业地区分布统计
+export class RtopRegionalDistribution extends $tea.Model {
+  // 统计值
+  count: number;
+  // 地区
+  place: string;
+  // 当前地区的涉众风险类型分布，即非法集资有多少企业，传销有多少企业
+  typeDistribution?: RtopTypeDistribution[];
+  static names(): { [key: string]: string } {
+    return {
+      count: 'count',
+      place: 'place',
+      typeDistribution: 'type_distribution',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      count: 'number',
+      place: 'string',
+      typeDistribution: { 'type': 'array', 'itemType': RtopTypeDistribution },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 涉众风险企业特征
+export class RtopCrowdRiskFeatureResp extends $tea.Model {
+  // 特征标签列表
+  clueTags?: RtopCrowdRiskFeatureTag[];
+  // 特征名称
+  featureName: string;
+  // 特征​分数
+  score: number;
+  static names(): { [key: string]: string } {
+    return {
+      clueTags: 'clue_tags',
+      featureName: 'feature_name',
+      score: 'score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      clueTags: { 'type': 'array', 'itemType': RtopCrowdRiskFeatureTag },
+      featureName: 'string',
+      score: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 用户分层信息
+export class UserClassifyInfo extends $tea.Model {
+  // 版本号
+  version: string;
+  // 流量分层
+  rateClassify: string;
+  // 流量扩展分层1
+  classifyExt1?: string;
+  // 流量扩展分层2
+  classifyExt2?: string;
+  static names(): { [key: string]: string } {
+    return {
+      version: 'version',
+      rateClassify: 'rate_classify',
+      classifyExt1: 'classify_ext1',
+      classifyExt2: 'classify_ext2',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      version: 'string',
+      rateClassify: 'string',
+      classifyExt1: 'string',
+      classifyExt2: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 待还款信息
+export class RepayInfo extends $tea.Model {
+  // true：逾期
+  // false：未逾期
+  overdueFlag: boolean;
+  // 逾期天数
+  overDays: number;
+  // 逾期金额在50元以上的客户的逾期天数
+  valuableOverDays: number;
+  // 逾期期数
+  overPeriodCount: number;
+  // 逾期本金
+  overPrincipal: number;
+  // 逾期利息
+  overInterest: number;
+  // 应还罚息
+  overPunish: number;
+  // 应还逾期总额
+  needOverdueAmount: number;
+  // 当前应还总额（包含逾期和当前期）
+  currentNeedAmount: number;
+  // 总剩余应还
+  totalAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      overdueFlag: 'overdue_flag',
+      overDays: 'over_days',
+      valuableOverDays: 'valuable_over_days',
+      overPeriodCount: 'over_period_count',
+      overPrincipal: 'over_principal',
+      overInterest: 'over_interest',
+      overPunish: 'over_punish',
+      needOverdueAmount: 'need_overdue_amount',
+      currentNeedAmount: 'current_need_amount',
+      totalAmount: 'total_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      overdueFlag: 'boolean',
+      overDays: 'number',
+      valuableOverDays: 'number',
+      overPeriodCount: 'number',
+      overPrincipal: 'number',
+      overInterest: 'number',
+      overPunish: 'number',
+      needOverdueAmount: 'number',
+      currentNeedAmount: 'number',
+      totalAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢系统专用CreditAmount结构体
+export class CreditAmount extends $tea.Model {
+  // 授信额度
+  creditAmount: number;
+  // 授信余额
+  restAmount: number;
+  // 发放日期
+  payDate: string;
+  // 到期日期
+  expireDate: string;
+  // 利率单位(1:年，2：月，3：日)
+  rateUnit: string;
+  // 执行利率,利率值，单位%
+  // 年化5%，rateValue=5
+  // 
+  rateValue: number;
+  // 还款方式1等额本息2等额本金3先息后本4一次性利随本清5只还本金6等本等息
+  repayWay: string;
+  // 状态0-正常 1-冻结 2-终止
+  status: string;
+  // 发放日期（兼容字段）
+  payDateSup?: string;
+  // 到期日期（兼容字段）
+  expireDateSup?: string;
+  static names(): { [key: string]: string } {
+    return {
+      creditAmount: 'credit_amount',
+      restAmount: 'rest_amount',
+      payDate: 'pay_date',
+      expireDate: 'expire_date',
+      rateUnit: 'rate_unit',
+      rateValue: 'rate_value',
+      repayWay: 'repay_way',
+      status: 'status',
+      payDateSup: 'pay_date_sup',
+      expireDateSup: 'expire_date_sup',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      creditAmount: 'number',
+      restAmount: 'number',
+      payDate: 'string',
+      expireDate: 'string',
+      rateUnit: 'string',
+      rateValue: 'number',
+      repayWay: 'string',
+      status: 'string',
+      payDateSup: 'string',
+      expireDateSup: 'string',
     };
   }
 
@@ -4863,6 +4979,81 @@ export class QuerySaasSecurityPolicyResponse extends $tea.Model {
       securityResult: 'string',
       strategyDetails: { 'type': 'array', 'itemType': StrategyDetails },
       dfSceneInfos: { 'type': 'array', 'itemType': DfSceneInfos },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBatchSecurityPolicyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求事件编码
+  eventCode: string;
+  // 查询客户主体
+  queryKeys: string[];
+  // 用户凭证类型, 手机号/身份证号/加密类型等
+  queryKeyType: string;
+  // 额外的事件属性
+  eventInfo: EventInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventCode: 'event_code',
+      queryKeys: 'query_keys',
+      queryKeyType: 'query_key_type',
+      eventInfo: 'event_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventCode: 'string',
+      queryKeys: { 'type': 'array', 'itemType': 'string' },
+      queryKeyType: 'string',
+      eventInfo: { 'type': 'array', 'itemType': EventInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBatchSecurityPolicyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果是否成功
+  success?: boolean;
+  // 批量查询结果
+  queryResults?: BatchQueryResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      queryResults: 'query_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      queryResults: { 'type': 'array', 'itemType': BatchQueryResult },
     };
   }
 
@@ -9491,6 +9682,85 @@ export class QueryDubbridgeCustomerBankcardlistResponse extends $tea.Model {
   }
 }
 
+export class QueryDubbridgeRouterUserselectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 身份证号
+  cardNo?: string;
+  // 手机号
+  mobile: string;
+  // 姓名
+  customName?: string;
+  // 扩展信息JSON
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      cardNo: 'card_no',
+      mobile: 'mobile',
+      customName: 'custom_name',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      cardNo: 'string',
+      mobile: 'string',
+      customName: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRouterUserselectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户分层信息
+  userClassifyInfo?: UserClassifyInfo;
+  // json字符串，预留扩展字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userClassifyInfo: 'user_classify_info',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userClassifyInfo: UserClassifyInfo,
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyFinserviceZhimaIdentifyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9806,6 +10076,1605 @@ export class ReceiveMdipParamsRbbfileResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyQmpRtBatchmarketingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 外部流水号
+  outSerialNo: string;
+  // 用户标识类型
+  paramType: string;
+  // 批量透传字段
+  outInfo?: string;
+  // 用户凭证列表
+  customerDetails: CustomerDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      outSerialNo: 'out_serial_no',
+      paramType: 'param_type',
+      outInfo: 'out_info',
+      customerDetails: 'customer_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      outSerialNo: 'string',
+      paramType: 'string',
+      outInfo: 'string',
+      customerDetails: { 'type': 'array', 'itemType': CustomerDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyQmpRtBatchmarketingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 批次流水号
+  bizId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendQmpTextsmsBatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // cpassAccessKey
+  cpassAk?: string;
+  // 行业标签
+  industryTag: string;
+  // 手机号json
+  phoneNumberJson: string;
+  // 签名信息
+  signNameJson: string;
+  // 文本短信模板code
+  templateCode: string;
+  // 文本短信模板参数
+  templateParamJson: string;
+  // 上行短信扩展码
+  smsUpExtendCodeJson?: string;
+  // 透传字段
+  outId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cpassAk: 'cpass_ak',
+      industryTag: 'industry_tag',
+      phoneNumberJson: 'phone_number_json',
+      signNameJson: 'sign_name_json',
+      templateCode: 'template_code',
+      templateParamJson: 'template_param_json',
+      smsUpExtendCodeJson: 'sms_up_extend_code_json',
+      outId: 'out_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cpassAk: 'string',
+      industryTag: 'string',
+      phoneNumberJson: 'string',
+      signNameJson: 'string',
+      templateCode: 'string',
+      templateParamJson: 'string',
+      smsUpExtendCodeJson: 'string',
+      outId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendQmpTextsmsBatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回执id
+  bizId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyQmpRobotcallRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部流水号
+  outSerialNo: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 客户透传字段
+  outInfo?: string;
+  // 用户参数类型
+  paramTemplate: string;
+  // 每个手机号的详细参数
+  customerDetails?: RobotCallCustomerParam[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outSerialNo: 'out_serial_no',
+      sceneStrategyId: 'scene_strategy_id',
+      outInfo: 'out_info',
+      paramTemplate: 'param_template',
+      customerDetails: 'customer_details',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outSerialNo: 'string',
+      sceneStrategyId: 'number',
+      outInfo: 'string',
+      paramTemplate: 'string',
+      customerDetails: { 'type': 'array', 'itemType': RobotCallCustomerParam },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyQmpRobotcallResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 呼叫记录id
+  callId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      callId: 'call_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      callId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendQmpCardsmsBatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // cpassAccessKey
+  cpassAk?: string;
+  // 行业标签
+  industryTag: string;
+  // 卡片短信模板
+  cardTemplateCode: string;
+  // 卡片短信模板参数json
+  cardTemplateParamJson: string;
+  // 手机号json
+  phoneNumberJson: string;
+  // ["蚂蚁营销"]
+  signNameJson: string;
+  // 上行短信扩展码
+  smsUpExtendCodeJson?: string;
+  // 回落类型
+  fallbackType?: string;
+  // 回落短信模版
+  fallbackTemplateCode?: string;
+  // 回落短信模版参数
+  fallbackTemplateParamJson?: string;
+  // 卡片短信对应的原始文本短信模板，不传则用默认文本
+  templateCode: string;
+  // 默认文本对应参数
+  templateParamJson: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cpassAk: 'cpass_ak',
+      industryTag: 'industry_tag',
+      cardTemplateCode: 'card_template_code',
+      cardTemplateParamJson: 'card_template_param_json',
+      phoneNumberJson: 'phone_number_json',
+      signNameJson: 'sign_name_json',
+      smsUpExtendCodeJson: 'sms_up_extend_code_json',
+      fallbackType: 'fallback_type',
+      fallbackTemplateCode: 'fallback_template_code',
+      fallbackTemplateParamJson: 'fallback_template_param_json',
+      templateCode: 'template_code',
+      templateParamJson: 'template_param_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cpassAk: 'string',
+      industryTag: 'string',
+      cardTemplateCode: 'string',
+      cardTemplateParamJson: 'string',
+      phoneNumberJson: 'string',
+      signNameJson: 'string',
+      smsUpExtendCodeJson: 'string',
+      fallbackType: 'string',
+      fallbackTemplateCode: 'string',
+      fallbackTemplateParamJson: 'string',
+      templateCode: 'string',
+      templateParamJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendQmpCardsmsBatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 卡片短信回执id
+  bizCardId?: string;
+  // 支持的手机号
+  mediaMobiles?: string;
+  // 不支持的手机号
+  notMediaMobiles?: string;
+  // 回落文本短信回执id
+  bizId?: string;
+  // 回落数字短信回执id
+  bizDigitalId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizCardId: 'biz_card_id',
+      mediaMobiles: 'media_mobiles',
+      notMediaMobiles: 'not_media_mobiles',
+      bizId: 'biz_id',
+      bizDigitalId: 'biz_digital_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizCardId: 'string',
+      mediaMobiles: 'string',
+      notMediaMobiles: 'string',
+      bizId: 'string',
+      bizDigitalId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackQmpSmsUpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回执类型
+  type: string;
+  // 手机号码
+  phoneNumber: string;
+  // 发送时间
+  sendTime: string;
+  // 发送内容
+  content: string;
+  // 签名信息
+  signName: string;
+  // 签名对应的客户ak
+  appKey: string;
+  // 行短信扩展号码
+  destCode: string;
+  // 序列号
+  sequenceId: number;
+  // 手机号模版类型
+  // 
+  keyTemplate?: string;
+  // 原始手机号模版类型
+  originKeyTemplate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      phoneNumber: 'phone_number',
+      sendTime: 'send_time',
+      content: 'content',
+      signName: 'sign_name',
+      appKey: 'app_key',
+      destCode: 'dest_code',
+      sequenceId: 'sequence_id',
+      keyTemplate: 'key_template',
+      originKeyTemplate: 'origin_key_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      phoneNumber: 'string',
+      sendTime: 'string',
+      content: 'string',
+      signName: 'string',
+      appKey: 'string',
+      destCode: 'string',
+      sequenceId: 'number',
+      keyTemplate: 'string',
+      originKeyTemplate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackQmpSmsUpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackQmpSmsReportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 短信回执类型
+  type: string;
+  // 手机号码
+  phoneNumber: string;
+  // 发送时间
+  sendTime: string;
+  // 状态报告时间
+  reportTime: string;
+  // 是否接收成功。取值：true：接收成功false：接收失败
+  success: boolean;
+  // 状态报告编码
+  errCode: string;
+  // 状态报告说明
+  errMsg: string;
+  // 短信长度
+  smsSize: string;
+  // 发送回执ID，即发送流水号
+  bizId: string;
+  // 业务扩展字段，回执时透传，JSON格式
+  bizProperties: string;
+  // 发送卡片短信时，文本短信状态报告中才会有该字段，且取值为CARD_SMS，发送纯文本短信时，状态报告中没有该字段
+  smsType?: string;
+  // 运营商
+  serviceProvider: string;
+  // 手机号码所属城市
+  city?: string;
+  // 手机号模版类型
+  keyTemplate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      phoneNumber: 'phone_number',
+      sendTime: 'send_time',
+      reportTime: 'report_time',
+      success: 'success',
+      errCode: 'err_code',
+      errMsg: 'err_msg',
+      smsSize: 'sms_size',
+      bizId: 'biz_id',
+      bizProperties: 'biz_properties',
+      smsType: 'sms_type',
+      serviceProvider: 'service_provider',
+      city: 'city',
+      keyTemplate: 'key_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      phoneNumber: 'string',
+      sendTime: 'string',
+      reportTime: 'string',
+      success: 'boolean',
+      errCode: 'string',
+      errMsg: 'string',
+      smsSize: 'string',
+      bizId: 'string',
+      bizProperties: 'string',
+      smsType: 'string',
+      serviceProvider: 'string',
+      city: 'string',
+      keyTemplate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackQmpSmsReportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendQmpDigitalsmsBatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // cpassAccessKey
+  cpassAk?: string;
+  // 行业标签
+  industryTag: string;
+  // 手机号列表以,分隔
+  phoneNumbers: string;
+  // 数字短信模板code
+  templateCode: string;
+  // 短信模板参数
+  templateParam: string;
+  // 透传字段
+  outId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cpassAk: 'cpass_ak',
+      industryTag: 'industry_tag',
+      phoneNumbers: 'phone_numbers',
+      templateCode: 'template_code',
+      templateParam: 'template_param',
+      outId: 'out_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cpassAk: 'string',
+      industryTag: 'string',
+      phoneNumbers: 'string',
+      templateCode: 'string',
+      templateParam: 'string',
+      outId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendQmpDigitalsmsBatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回执id
+  bizId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackQmpRobotcallRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外呼号码，支持密文
+  customerKey: string;
+  // 当前呼叫次数 Integer
+  currentCallTimes: number;
+  // 号码的模版类型
+  keyTemplate: string;
+  // 导入号码时返回的批次号
+  batchId: string;
+  // 外呼类型 建议按照如下约定给到 2001:批量-预测外呼 2002:批量-AI外呼-不转人工 2003:批量-AI外呼-接通转人工 2004: 批量-AI外呼-智能转人工 2005:批量-语音通知
+  callType: number;
+  // 用户自定义标签
+  tag?: string;
+  // 外呼呼叫实例id
+  callId: string;
+  // 外呼任务编号
+  taskId: number;
+  // 外呼任务名称
+  taskName: string;
+  // 外呼的话术模板ID，可以为空
+  templateId?: number;
+  // 外呼状态编码
+  statusCode: number;
+  // 外呼状态编码对应描述
+  statusDescription: string;
+  // 转人工状态编码
+  transferStatusCode: string;
+  // 转人工状态编码对应描述
+  transferStatus: string;
+  // 分配坐席ID,可以为空
+  agentId?: number;
+  // 建议填写坐席在贵司业务系统唯一标识，用于查询对应agentId；可以为空。
+  agentTag?: string;
+  // 坐席分机号，可以为空
+  agentExtension?: string;
+  // 导入时间，格式:2019-01-09 14:14:19
+  importTime: string;
+  // 开始通话时间，格式：2019-01-09 14:14:19
+  callBeginTime: string;
+  // 振铃时长,单位毫秒
+  ringTime: number;
+  // 接通时间
+  answerTime?: string;
+  // 通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  speakingTime: string;
+  // 通话时长，单位：秒
+  speakingDuration: number;
+  // 通话挂断时间
+  hangupTime: string;
+  // 对话轮次
+  speakingTurns: number;
+  // 坐席通话时长，单位：大于1分钟，显示分钟秒，小于1分钟，显示秒
+  agentSpeakingTime: string;
+  // 坐席通话时长，单位：秒
+  agentSpeakingDuration: number;
+  // 意向标签
+  intentTag: string;
+  // 意向说明
+  intentDescription: string;
+  // 个性标签
+  individualTag?: string;
+  // 回复关键词
+  keywords?: string;
+  // 挂机方式
+  hungupType: number;
+  // 挂机短信，1:发送，2:不发送
+  sms: number;
+  // 对话录音,url
+  chatRecord?: string;
+  // 对话记录
+  chats?: string;
+  // 0:不添加，1:添加
+  addWx?: number;
+  // 加微进度可选值：已申请、加微成功
+  addWxStatus?: string;
+  // 是否接通重呼 0正常外呼，1接通重呼
+  answerRecall: number;
+  // 导入号码时的参数值
+  properties?: string;
+  // 导入号码时的业务参数值
+  bizProperties?: string;
+  // 拦截原因 可选值：黑名单拦截，灰名单拦截，异常号码拦截
+  interceptReason?: string;
+  // 回调冗余字段
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerKey: 'customer_key',
+      currentCallTimes: 'current_call_times',
+      keyTemplate: 'key_template',
+      batchId: 'batch_id',
+      callType: 'call_type',
+      tag: 'tag',
+      callId: 'call_id',
+      taskId: 'task_id',
+      taskName: 'task_name',
+      templateId: 'template_id',
+      statusCode: 'status_code',
+      statusDescription: 'status_description',
+      transferStatusCode: 'transfer_status_code',
+      transferStatus: 'transfer_status',
+      agentId: 'agent_id',
+      agentTag: 'agent_tag',
+      agentExtension: 'agent_extension',
+      importTime: 'import_time',
+      callBeginTime: 'call_begin_time',
+      ringTime: 'ring_time',
+      answerTime: 'answer_time',
+      speakingTime: 'speaking_time',
+      speakingDuration: 'speaking_duration',
+      hangupTime: 'hangup_time',
+      speakingTurns: 'speaking_turns',
+      agentSpeakingTime: 'agent_speaking_time',
+      agentSpeakingDuration: 'agent_speaking_duration',
+      intentTag: 'intent_tag',
+      intentDescription: 'intent_description',
+      individualTag: 'individual_tag',
+      keywords: 'keywords',
+      hungupType: 'hungup_type',
+      sms: 'sms',
+      chatRecord: 'chat_record',
+      chats: 'chats',
+      addWx: 'add_wx',
+      addWxStatus: 'add_wx_status',
+      answerRecall: 'answer_recall',
+      properties: 'properties',
+      bizProperties: 'biz_properties',
+      interceptReason: 'intercept_reason',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerKey: 'string',
+      currentCallTimes: 'number',
+      keyTemplate: 'string',
+      batchId: 'string',
+      callType: 'number',
+      tag: 'string',
+      callId: 'string',
+      taskId: 'number',
+      taskName: 'string',
+      templateId: 'number',
+      statusCode: 'number',
+      statusDescription: 'string',
+      transferStatusCode: 'string',
+      transferStatus: 'string',
+      agentId: 'number',
+      agentTag: 'string',
+      agentExtension: 'string',
+      importTime: 'string',
+      callBeginTime: 'string',
+      ringTime: 'number',
+      answerTime: 'string',
+      speakingTime: 'string',
+      speakingDuration: 'number',
+      hangupTime: 'string',
+      speakingTurns: 'number',
+      agentSpeakingTime: 'string',
+      agentSpeakingDuration: 'number',
+      intentTag: 'string',
+      intentDescription: 'string',
+      individualTag: 'string',
+      keywords: 'string',
+      hungupType: 'number',
+      sms: 'number',
+      chatRecord: 'string',
+      chats: 'string',
+      addWx: 'number',
+      addWxStatus: 'string',
+      answerRecall: 'number',
+      properties: 'string',
+      bizProperties: 'string',
+      interceptReason: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackQmpRobotcallResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpRobotcallDetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批次号
+  bizId: string;
+  // 手机号
+  phoneNumber: string;
+  // 手机号类型
+  templateType: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      phoneNumber: 'phone_number',
+      templateType: 'template_type',
+      sceneStrategyId: 'scene_strategy_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      phoneNumber: 'string',
+      templateType: 'string',
+      sceneStrategyId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpRobotcallDetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求时的透传字段
+  outInfo?: string;
+  // 请求时每个手机号的透传字段
+  customerOutInfo?: string;
+  // 外呼记录列表
+  callInfo?: AICallbackMessage[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      outInfo: 'out_info',
+      customerOutInfo: 'customer_out_info',
+      callInfo: 'call_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      outInfo: 'string',
+      customerOutInfo: 'string',
+      callInfo: { 'type': 'array', 'itemType': AICallbackMessage },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpDataaccessStatisticRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询回执统计的任务id
+  taskId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpDataaccessStatisticResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 回执统计结果
+  statisticResult?: StatisticResult;
+  // 任务状态
+  taskStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      statisticResult: 'statistic_result',
+      taskStatus: 'task_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      statisticResult: StatisticResult,
+      taskStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpRobotcallStatisticinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 客户透传字段
+  outInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+      outInfo: 'out_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: 'number',
+      outInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpRobotcallStatisticinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 全量手机号数量
+  totalCount?: number;
+  // 累计拨打次数
+  callCount?: number;
+  // 已经拨打的手机号数量
+  calleeCount?: number;
+  // 已拨打次数中接通的数量
+  connectCount?: number;
+  // 拨打率
+  callRate?: string;
+  // 接通率
+  connectRate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalCount: 'total_count',
+      callCount: 'call_count',
+      calleeCount: 'callee_count',
+      connectCount: 'connect_count',
+      callRate: 'call_rate',
+      connectRate: 'connect_rate',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalCount: 'number',
+      callCount: 'number',
+      calleeCount: 'number',
+      connectCount: 'number',
+      callRate: 'string',
+      connectRate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryQmpTaskDetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 上传外呼任务返回的callId
+  bizId: string;
+  // 手机号列表
+  customerKeys: string[];
+  // 手机号类型
+  keyTemplate: string;
+  // 场景策略id
+  sceneStrategyId: number;
+  // 开始外呼时间，只可查询最近30天的日期
+  callDate?: string;
+  // 结束外呼时间
+  endCallDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      customerKeys: 'customer_keys',
+      keyTemplate: 'key_template',
+      sceneStrategyId: 'scene_strategy_id',
+      callDate: 'call_date',
+      endCallDate: 'end_call_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      customerKeys: { 'type': 'array', 'itemType': 'string' },
+      keyTemplate: 'string',
+      sceneStrategyId: 'number',
+      callDate: 'string',
+      endCallDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryQmpTaskDetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 客户请求时的透传字段
+  outInfo?: string;
+  // 外呼记录列表
+  callInfo?: CommonRobotCallDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      outInfo: 'out_info',
+      callInfo: 'call_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      outInfo: 'string',
+      callInfo: { 'type': 'array', 'itemType': CommonRobotCallDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpCardsmsSupportRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // cpassAccessKey
+  cpassAk?: string;
+  // 行业标签
+  industryTag: string;
+  // 卡片短信模板
+  templateCode: string;
+  // 手机号
+  mobiles: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cpassAk: 'cpass_ak',
+      industryTag: 'industry_tag',
+      templateCode: 'template_code',
+      mobiles: 'mobiles',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cpassAk: 'string',
+      industryTag: 'string',
+      templateCode: 'string',
+      mobiles: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpCardsmsSupportResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 手机号卡片短信支持信息
+  datas?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      datas: 'datas',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      datas: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryQmpActionplanDetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景策略id
+  sceneStrategyId: number[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sceneStrategyId: 'scene_strategy_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sceneStrategyId: { 'type': 'array', 'itemType': 'number' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryQmpActionplanDetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 触达策略详细信息
+  actionPlanDetailInfo?: ActionPlanDetailInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      actionPlanDetailInfo: 'action_plan_detail_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      actionPlanDetailInfo: { 'type': 'array', 'itemType': ActionPlanDetailInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyQmpPhonenumberstatusforsmsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 12345
+  customerKey: string;
+  // 用户模版类型
+  paramTemplate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerKey: 'customer_key',
+      paramTemplate: 'param_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerKey: 'string',
+      paramTemplate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyQmpPhonenumberstatusforsmsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 12345
+  customerKey?: string;
+  // 用户凭证状态
+  status?: string;
+  // 号码当前归属的基础运营商
+  carrier?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      customerKey: 'customer_key',
+      status: 'status',
+      carrier: 'carrier',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      customerKey: 'string',
+      status: 'string',
+      carrier: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryQmpTenantActionplaninfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道类型
+  contentType: string;
+  // 页码
+  pageNum: number;
+  // 页数
+  pageSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      contentType: 'content_type',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      contentType: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryQmpTenantActionplaninfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 触达策略信息
+  queryResult?: ActionPlanDetailInfo[];
+  // 总数
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResult: 'query_result',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResult: { 'type': 'array', 'itemType': ActionPlanDetailInfo },
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpTenantActionplaninfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 页码
+  pageNum?: number;
+  // 页容量
+  pageSize?: number;
+  // 渠道code
+  channelType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      channelType: 'channel_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+      channelType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpTenantActionplaninfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户策略信息列表
+  queryResult?: TenantActionPlanInfo[];
+  // 页码
+  pageNum?: number;
+  // 页容量
+  pageSize?: number;
+  // 总量
+  totalCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResult: 'query_result',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      totalCount: 'total_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResult: { 'type': 'array', 'itemType': TenantActionPlanInfo },
+      pageNum: 'number',
+      pageSize: 'number',
+      totalCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpCpaassmsTemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 短信类型
+  smsType: string;
+  // 行业标签
+  tenantIndustry: string;
+  // 审批状态
+  status?: string;
+  // 页码
+  pageNum?: number;
+  // 每页记录数量
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      smsType: 'sms_type',
+      tenantIndustry: 'tenant_industry',
+      status: 'status',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      smsType: 'string',
+      tenantIndustry: 'string',
+      status: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpCpaassmsTemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总数
+  total?: number;
+  // 每页记录数
+  pageSize?: number;
+  // 页码
+  pageNum?: number;
+  // 模板列表
+  cpassSmsTemplates?: CpaasSmsTemplate[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+      cpassSmsTemplates: 'cpass_sms_templates',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      pageSize: 'number',
+      pageNum: 'number',
+      cpassSmsTemplates: { 'type': 'array', 'itemType': CpaasSmsTemplate },
     };
   }
 
@@ -10309,6 +12178,8 @@ export class ExecRbbCompanyGuardRequest extends $tea.Model {
   ruleId: number;
   // 额外参数，与规则有关
   params?: string;
+  // 虚拟云租户code
+  virtualCloudTenantCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10316,6 +12187,7 @@ export class ExecRbbCompanyGuardRequest extends $tea.Model {
       keyword: 'keyword',
       ruleId: 'rule_id',
       params: 'params',
+      virtualCloudTenantCode: 'virtual_cloud_tenant_code',
     };
   }
 
@@ -10326,6 +12198,7 @@ export class ExecRbbCompanyGuardRequest extends $tea.Model {
       keyword: 'string',
       ruleId: 'number',
       params: 'string',
+      virtualCloudTenantCode: 'string',
     };
   }
 
@@ -10683,6 +12556,8 @@ export class ApplyRbbCompanyGuardRequest extends $tea.Model {
   ruleId: number;
   // 额外参数，与具体规则相关
   params?: string;
+  // 虚拟云租户code
+  virtualCloudTenantCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10690,6 +12565,7 @@ export class ApplyRbbCompanyGuardRequest extends $tea.Model {
       keyword: 'keyword',
       ruleId: 'rule_id',
       params: 'params',
+      virtualCloudTenantCode: 'virtual_cloud_tenant_code',
     };
   }
 
@@ -10700,6 +12576,7 @@ export class ApplyRbbCompanyGuardRequest extends $tea.Model {
       keyword: 'string',
       ruleId: 'number',
       params: 'string',
+      virtualCloudTenantCode: 'string',
     };
   }
 
@@ -10746,11 +12623,14 @@ export class QueryRbbCompanyGuardRequest extends $tea.Model {
   productInstanceId?: string;
   // 查询token
   token: string;
+  // 虚拟云租户code
+  virtualCloudTenantCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       token: 'token',
+      virtualCloudTenantCode: 'virtual_cloud_tenant_code',
     };
   }
 
@@ -10759,6 +12639,7 @@ export class QueryRbbCompanyGuardRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       token: 'string',
+      virtualCloudTenantCode: 'string',
     };
   }
 
@@ -10888,6 +12769,8 @@ export class PushRbbCustomerCompanyinfoRequest extends $tea.Model {
   type: string;
   // 企业信息的内容
   content?: string;
+  // 虚拟云租户code
+  virtualCloudTenantCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10896,6 +12779,7 @@ export class PushRbbCustomerCompanyinfoRequest extends $tea.Model {
       companyName: 'company_name',
       type: 'type',
       content: 'content',
+      virtualCloudTenantCode: 'virtual_cloud_tenant_code',
     };
   }
 
@@ -10907,6 +12791,7 @@ export class PushRbbCustomerCompanyinfoRequest extends $tea.Model {
       companyName: 'string',
       type: 'string',
       content: 'string',
+      virtualCloudTenantCode: 'string',
     };
   }
 
@@ -10977,6 +12862,132 @@ export class UploadRbbFileAmapRequest extends $tea.Model {
 }
 
 export class UploadRbbFileAmapResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateRbbCreditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 服务code
+  serviceCode: string;
+  // 服务参数
+  serviceParams: string;
+  // 步骤
+  serviceStep: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceCode: 'service_code',
+      serviceParams: 'service_params',
+      serviceStep: 'service_step',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceCode: 'string',
+      serviceParams: 'string',
+      serviceStep: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class OperateRbbCreditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果数据
+  resultData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRpaasReportAnswerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // chat trace id
+  chatTraceId: string;
+  // 响应结果
+  answer: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      chatTraceId: 'chat_trace_id',
+      answer: 'answer',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      chatTraceId: 'string',
+      answer: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRpaasReportAnswerResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15396,14 +17407,14 @@ export class QueryUmktTenantActionplaninfoRequest extends $tea.Model {
   // 页容量
   pageSize?: number;
   // 渠道code
-  contentType: string;
+  channelType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       pageNum: 'page_num',
       pageSize: 'page_size',
-      contentType: 'content_type',
+      channelType: 'channel_type',
     };
   }
 
@@ -15413,7 +17424,7 @@ export class QueryUmktTenantActionplaninfoRequest extends $tea.Model {
       productInstanceId: 'string',
       pageNum: 'number',
       pageSize: 'number',
-      contentType: 'string',
+      channelType: 'string',
     };
   }
 
@@ -15950,6 +17961,10 @@ export class CallbackUmktSmsUpRequest extends $tea.Model {
   destCode: string;
   // 学历噩耗
   sequenceId: number;
+  // 手机号模版类型
+  keyTemplate?: string;
+  // 原始手机号模版类型
+  originKeyTemplate?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15962,6 +17977,8 @@ export class CallbackUmktSmsUpRequest extends $tea.Model {
       appKey: 'app_key',
       destCode: 'dest_code',
       sequenceId: 'sequence_id',
+      keyTemplate: 'key_template',
+      originKeyTemplate: 'origin_key_template',
     };
   }
 
@@ -15977,6 +17994,8 @@ export class CallbackUmktSmsUpRequest extends $tea.Model {
       appKey: 'string',
       destCode: 'string',
       sequenceId: 'number',
+      keyTemplate: 'string',
+      originKeyTemplate: 'string',
     };
   }
 
@@ -16043,6 +18062,8 @@ export class CallbackUmktSmsReportRequest extends $tea.Model {
   serviceProvider: string;
   // 手机号码所属城市
   city?: string;
+  // 手机号模版类型
+  keyTemplate?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16060,6 +18081,7 @@ export class CallbackUmktSmsReportRequest extends $tea.Model {
       smsType: 'sms_type',
       serviceProvider: 'service_provider',
       city: 'city',
+      keyTemplate: 'key_template',
     };
   }
 
@@ -16080,6 +18102,7 @@ export class CallbackUmktSmsReportRequest extends $tea.Model {
       smsType: 'string',
       serviceProvider: 'string',
       city: 'string',
+      keyTemplate: 'string',
     };
   }
 
@@ -16609,6 +18632,353 @@ export class BatchqueryUmktTaskDetailResponse extends $tea.Model {
   }
 }
 
+export class PushUmktBackflowJsondataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回流事件id，对应租户回流事件id
+  // 
+  eventId: number;
+  // 回流事件记录列表
+  // 
+  eventRecords: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventId: 'event_id',
+      eventRecords: 'event_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventId: 'number',
+      eventRecords: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushUmktBackflowJsondataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktCardsmsAnalysisRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户的卡片短信模板id
+  cardTemplateCode: string;
+  // 手机号列表,最多10个手机号
+  phoneNumberJson: string;
+  // 卡片短信模板参数
+  cardTemplateParamJson: string;
+  // 短信签名。当前只支持填入一个签名。
+  signNameJson: string;
+  // 外部流水扩展字段
+  outId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cardTemplateCode: 'card_template_code',
+      phoneNumberJson: 'phone_number_json',
+      cardTemplateParamJson: 'card_template_param_json',
+      signNameJson: 'sign_name_json',
+      outId: 'out_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cardTemplateCode: 'string',
+      phoneNumberJson: 'string',
+      cardTemplateParamJson: 'string',
+      signNameJson: 'string',
+      outId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktCardsmsAnalysisResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 卡片短信解析服务业务流水id，与渲染回执中的bizId保持一致
+  bizCardId?: string;
+  // 不支持卡片短信的手机号，以,分隔
+  notMediaMobiles?: string;
+  // 卡短解析短链返回参数
+  shortUrlInfos?: ShortUrlInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizCardId: 'biz_card_id',
+      notMediaMobiles: 'not_media_mobiles',
+      shortUrlInfos: 'short_url_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizCardId: 'string',
+      notMediaMobiles: 'string',
+      shortUrlInfos: { 'type': 'array', 'itemType': ShortUrlInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadUmktOfflinedecisionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 离线圈客计划id
+  offlineDecisionPlanId: number;
+  // 文件模版信息
+  fileTemplate: string;
+  // 文件id，网关文件上传自动装填
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      offlineDecisionPlanId: 'offline_decision_plan_id',
+      fileTemplate: 'file_template',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      offlineDecisionPlanId: 'number',
+      fileTemplate: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadUmktOfflinedecisionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktOfflinedecisionResultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 离线圈客计划id
+  offlineDecisionPlanId: number;
+  // 圈客结果的产出日期
+  // 格式：yyyy-MM-dd
+  // 默认当前时间的前一天
+  resultDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      offlineDecisionPlanId: 'offline_decision_plan_id',
+      resultDate: 'result_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      offlineDecisionPlanId: 'number',
+      resultDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktOfflinedecisionResultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 已完成的计划策略集合
+  decisionPlanIdList?: number[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      decisionPlanIdList: 'decision_plan_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      decisionPlanIdList: { 'type': 'array', 'itemType': 'number' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadUmktOfflinedecisionResultRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 离线圈客计划id
+  offlineDecisionPlanId: number;
+  // 圈客计划id
+  decisionPlanId: number;
+  // 圈客结果的产出日期
+  // 格式：yyyy-MM-dd
+  // 默认当前时间的前一天
+  resultDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      offlineDecisionPlanId: 'offline_decision_plan_id',
+      decisionPlanId: 'decision_plan_id',
+      resultDate: 'result_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      offlineDecisionPlanId: 'number',
+      decisionPlanId: 'number',
+      resultDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DownloadUmktOfflinedecisionResultResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件url链接
+  fileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileUrl: 'file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -16724,7 +19094,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -16810,7 +19180,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.17.1",
+          sdk_version: "1.19.3",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -17008,6 +19378,25 @@ export default class Client {
   async querySaasSecurityPolicyEx(request: QuerySaasSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySaasSecurityPolicyResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySaasSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.saas.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySaasSecurityPolicyResponse({}));
+  }
+
+  /**
+   * Description: 批量决策
+   * Summary: 批量决策查询
+   */
+  async queryBatchSecurityPolicy(request: QueryBatchSecurityPolicyRequest): Promise<QueryBatchSecurityPolicyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBatchSecurityPolicyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量决策
+   * Summary: 批量决策查询
+   */
+  async queryBatchSecurityPolicyEx(request: QueryBatchSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBatchSecurityPolicyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBatchSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.batch.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBatchSecurityPolicyResponse({}));
   }
 
   /**
@@ -18077,6 +20466,25 @@ export default class Client {
   }
 
   /**
+   * Description: 天枢系统用户前筛查询
+   * Summary: 天枢系统用户前筛查询
+   */
+  async queryDubbridgeRouterUserselect(request: QueryDubbridgeRouterUserselectRequest): Promise<QueryDubbridgeRouterUserselectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeRouterUserselectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统用户前筛查询
+   * Summary: 天枢系统用户前筛查询
+   */
+  async queryDubbridgeRouterUserselectEx(request: QueryDubbridgeRouterUserselectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRouterUserselectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeRouterUserselectResponse>(await this.doRequest("1.0", "riskplus.dubbridge.router.userselect.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeRouterUserselectResponse({}));
+  }
+
+  /**
    * Description: 四要素认证首先调用此接口
    * Summary: 芝麻四要素接口
    */
@@ -18211,6 +20619,348 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ReceiveMdipParamsRbbfileResponse>(await this.doRequest("1.0", "riskplus.mdip.params.rbbfile.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveMdipParamsRbbfileResponse({}));
+  }
+
+  /**
+   * Description: 批量实时触达接口
+   * Summary: 发起触达任务
+   */
+  async applyQmpRtBatchmarketing(request: ApplyQmpRtBatchmarketingRequest): Promise<ApplyQmpRtBatchmarketingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyQmpRtBatchmarketingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量实时触达接口
+   * Summary: 发起触达任务
+   */
+  async applyQmpRtBatchmarketingEx(request: ApplyQmpRtBatchmarketingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyQmpRtBatchmarketingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyQmpRtBatchmarketingResponse>(await this.doRequest("1.0", "riskplus.qmp.rt.batchmarketing.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyQmpRtBatchmarketingResponse({}));
+  }
+
+  /**
+   * Description: 文本短信批量发送接口
+   * Summary: 文本短信批量发送接口
+   */
+  async sendQmpTextsmsBatch(request: SendQmpTextsmsBatchRequest): Promise<SendQmpTextsmsBatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendQmpTextsmsBatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 文本短信批量发送接口
+   * Summary: 文本短信批量发送接口
+   */
+  async sendQmpTextsmsBatchEx(request: SendQmpTextsmsBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendQmpTextsmsBatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendQmpTextsmsBatchResponse>(await this.doRequest("1.0", "riskplus.qmp.textsms.batch.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendQmpTextsmsBatchResponse({}));
+  }
+
+  /**
+   * Description: 发起AI外呼
+   * Summary: 发起AI外呼
+   */
+  async applyQmpRobotcall(request: ApplyQmpRobotcallRequest): Promise<ApplyQmpRobotcallResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyQmpRobotcallEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发起AI外呼
+   * Summary: 发起AI外呼
+   */
+  async applyQmpRobotcallEx(request: ApplyQmpRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyQmpRobotcallResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyQmpRobotcallResponse>(await this.doRequest("1.0", "riskplus.qmp.robotcall.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyQmpRobotcallResponse({}));
+  }
+
+  /**
+   * Description: 卡片短信批量发送接口
+   * Summary: 卡片短信批量发送接口
+   */
+  async sendQmpCardsmsBatch(request: SendQmpCardsmsBatchRequest): Promise<SendQmpCardsmsBatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendQmpCardsmsBatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 卡片短信批量发送接口
+   * Summary: 卡片短信批量发送接口
+   */
+  async sendQmpCardsmsBatchEx(request: SendQmpCardsmsBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendQmpCardsmsBatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendQmpCardsmsBatchResponse>(await this.doRequest("1.0", "riskplus.qmp.cardsms.batch.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendQmpCardsmsBatchResponse({}));
+  }
+
+  /**
+   * Description: 上行短信回调
+   * Summary: 上行短信回调
+   */
+  async callbackQmpSmsUp(request: CallbackQmpSmsUpRequest): Promise<CallbackQmpSmsUpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackQmpSmsUpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 上行短信回调
+   * Summary: 上行短信回调
+   */
+  async callbackQmpSmsUpEx(request: CallbackQmpSmsUpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackQmpSmsUpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackQmpSmsUpResponse>(await this.doRequest("1.0", "riskplus.qmp.sms.up.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackQmpSmsUpResponse({}));
+  }
+
+  /**
+   * Description: 短信状态回调接口
+   * Summary: 短信状态回调接口
+   */
+  async callbackQmpSmsReport(request: CallbackQmpSmsReportRequest): Promise<CallbackQmpSmsReportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackQmpSmsReportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 短信状态回调接口
+   * Summary: 短信状态回调接口
+   */
+  async callbackQmpSmsReportEx(request: CallbackQmpSmsReportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackQmpSmsReportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackQmpSmsReportResponse>(await this.doRequest("1.0", "riskplus.qmp.sms.report.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackQmpSmsReportResponse({}));
+  }
+
+  /**
+   * Description: 数字短信批量发送接口（单模板）
+   * Summary: 数字短信批量发送接口（单模板）
+   */
+  async sendQmpDigitalsmsBatch(request: SendQmpDigitalsmsBatchRequest): Promise<SendQmpDigitalsmsBatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendQmpDigitalsmsBatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字短信批量发送接口（单模板）
+   * Summary: 数字短信批量发送接口（单模板）
+   */
+  async sendQmpDigitalsmsBatchEx(request: SendQmpDigitalsmsBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendQmpDigitalsmsBatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendQmpDigitalsmsBatchResponse>(await this.doRequest("1.0", "riskplus.qmp.digitalsms.batch.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendQmpDigitalsmsBatchResponse({}));
+  }
+
+  /**
+   * Description: 新接入ai外呼服务商的回调接口
+   * Summary:  ai外呼回调接口
+   */
+  async callbackQmpRobotcall(request: CallbackQmpRobotcallRequest): Promise<CallbackQmpRobotcallResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackQmpRobotcallEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 新接入ai外呼服务商的回调接口
+   * Summary:  ai外呼回调接口
+   */
+  async callbackQmpRobotcallEx(request: CallbackQmpRobotcallRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackQmpRobotcallResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackQmpRobotcallResponse>(await this.doRequest("1.0", "riskplus.qmp.robotcall.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackQmpRobotcallResponse({}));
+  }
+
+  /**
+   * Description: 查询ai外呼任务详情
+   * Summary:  查询ai外呼任务详情
+   */
+  async queryQmpRobotcallDetail(request: QueryQmpRobotcallDetailRequest): Promise<QueryQmpRobotcallDetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpRobotcallDetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询ai外呼任务详情
+   * Summary:  查询ai外呼任务详情
+   */
+  async queryQmpRobotcallDetailEx(request: QueryQmpRobotcallDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpRobotcallDetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpRobotcallDetailResponse>(await this.doRequest("1.0", "riskplus.qmp.robotcall.detail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpRobotcallDetailResponse({}));
+  }
+
+  /**
+   * Description: 流量风控回执统计查询
+   * Summary: 流量风控回执统计查询
+   */
+  async queryQmpDataaccessStatistic(request: QueryQmpDataaccessStatisticRequest): Promise<QueryQmpDataaccessStatisticResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpDataaccessStatisticEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 流量风控回执统计查询
+   * Summary: 流量风控回执统计查询
+   */
+  async queryQmpDataaccessStatisticEx(request: QueryQmpDataaccessStatisticRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpDataaccessStatisticResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpDataaccessStatisticResponse>(await this.doRequest("1.0", "riskplus.qmp.dataaccess.statistic.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpDataaccessStatisticResponse({}));
+  }
+
+  /**
+   * Description: 外呼任务统计查询接口
+   * Summary:  外呼任务统计查询接口
+   */
+  async queryQmpRobotcallStatisticinfo(request: QueryQmpRobotcallStatisticinfoRequest): Promise<QueryQmpRobotcallStatisticinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpRobotcallStatisticinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 外呼任务统计查询接口
+   * Summary:  外呼任务统计查询接口
+   */
+  async queryQmpRobotcallStatisticinfoEx(request: QueryQmpRobotcallStatisticinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpRobotcallStatisticinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpRobotcallStatisticinfoResponse>(await this.doRequest("1.0", "riskplus.qmp.robotcall.statisticinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpRobotcallStatisticinfoResponse({}));
+  }
+
+  /**
+   * Description: 触达执行任务详情查询
+   * Summary: 触达执行任务详情查询
+   */
+  async batchqueryQmpTaskDetail(request: BatchqueryQmpTaskDetailRequest): Promise<BatchqueryQmpTaskDetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryQmpTaskDetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 触达执行任务详情查询
+   * Summary: 触达执行任务详情查询
+   */
+  async batchqueryQmpTaskDetailEx(request: BatchqueryQmpTaskDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryQmpTaskDetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryQmpTaskDetailResponse>(await this.doRequest("1.0", "riskplus.qmp.task.detail.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryQmpTaskDetailResponse({}));
+  }
+
+  /**
+   * Description: 卡片短信支持能力查询
+   * Summary: 卡片短信支持能力查询
+   */
+  async queryQmpCardsmsSupport(request: QueryQmpCardsmsSupportRequest): Promise<QueryQmpCardsmsSupportResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpCardsmsSupportEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 卡片短信支持能力查询
+   * Summary: 卡片短信支持能力查询
+   */
+  async queryQmpCardsmsSupportEx(request: QueryQmpCardsmsSupportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpCardsmsSupportResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpCardsmsSupportResponse>(await this.doRequest("1.0", "riskplus.qmp.cardsms.support.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpCardsmsSupportResponse({}));
+  }
+
+  /**
+   * Description: 流量风控查询外呼策略详情
+   * Summary: 流量风控查询外呼策略详情
+   */
+  async batchqueryQmpActionplanDetail(request: BatchqueryQmpActionplanDetailRequest): Promise<BatchqueryQmpActionplanDetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryQmpActionplanDetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 流量风控查询外呼策略详情
+   * Summary: 流量风控查询外呼策略详情
+   */
+  async batchqueryQmpActionplanDetailEx(request: BatchqueryQmpActionplanDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryQmpActionplanDetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryQmpActionplanDetailResponse>(await this.doRequest("1.0", "riskplus.qmp.actionplan.detail.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryQmpActionplanDetailResponse({}));
+  }
+
+  /**
+   * Description: 调用流量风控(原营销盾)空号检测
+   * Summary: 调用流量风控(原营销盾)空号检测
+   */
+  async applyQmpPhonenumberstatusforsms(request: ApplyQmpPhonenumberstatusforsmsRequest): Promise<ApplyQmpPhonenumberstatusforsmsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyQmpPhonenumberstatusforsmsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 调用流量风控(原营销盾)空号检测
+   * Summary: 调用流量风控(原营销盾)空号检测
+   */
+  async applyQmpPhonenumberstatusforsmsEx(request: ApplyQmpPhonenumberstatusforsmsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyQmpPhonenumberstatusforsmsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyQmpPhonenumberstatusforsmsResponse>(await this.doRequest("1.0", "riskplus.qmp.phonenumberstatusforsms.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyQmpPhonenumberstatusforsmsResponse({}));
+  }
+
+  /**
+   * Description: 分页查询租户外呼策略
+   * Summary: 流量风控租户场景批量信息查询
+   */
+  async batchqueryQmpTenantActionplaninfo(request: BatchqueryQmpTenantActionplaninfoRequest): Promise<BatchqueryQmpTenantActionplaninfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryQmpTenantActionplaninfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询租户外呼策略
+   * Summary: 流量风控租户场景批量信息查询
+   */
+  async batchqueryQmpTenantActionplaninfoEx(request: BatchqueryQmpTenantActionplaninfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryQmpTenantActionplaninfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryQmpTenantActionplaninfoResponse>(await this.doRequest("1.0", "riskplus.qmp.tenant.actionplaninfo.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryQmpTenantActionplaninfoResponse({}));
+  }
+
+  /**
+   * Description: 流量风控租户场景信息查询
+   * Summary: 流量风控租户场景信息查询
+   */
+  async queryQmpTenantActionplaninfo(request: QueryQmpTenantActionplaninfoRequest): Promise<QueryQmpTenantActionplaninfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpTenantActionplaninfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 流量风控租户场景信息查询
+   * Summary: 流量风控租户场景信息查询
+   */
+  async queryQmpTenantActionplaninfoEx(request: QueryQmpTenantActionplaninfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpTenantActionplaninfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpTenantActionplaninfoResponse>(await this.doRequest("1.0", "riskplus.qmp.tenant.actionplaninfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpTenantActionplaninfoResponse({}));
+  }
+
+  /**
+   * Description: 分页查询cpaas短信模板
+   * Summary: cpaas短信模板分页查询
+   */
+  async queryQmpCpaassmsTemplate(request: QueryQmpCpaassmsTemplateRequest): Promise<QueryQmpCpaassmsTemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpCpaassmsTemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询cpaas短信模板
+   * Summary: cpaas短信模板分页查询
+   */
+  async queryQmpCpaassmsTemplateEx(request: QueryQmpCpaassmsTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpCpaassmsTemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpCpaassmsTemplateResponse>(await this.doRequest("1.0", "riskplus.qmp.cpaassms.template.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpCpaassmsTemplateResponse({}));
   }
 
   /**
@@ -18574,6 +21324,44 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<UploadRbbFileAmapResponse>(await this.doRequest("1.0", "riskplus.rbb.file.amap.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadRbbFileAmapResponse({}));
+  }
+
+  /**
+   * Description: 信贷操作接口
+   * Summary: 信贷操作接口
+   */
+  async operateRbbCredit(request: OperateRbbCreditRequest): Promise<OperateRbbCreditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.operateRbbCreditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 信贷操作接口
+   * Summary: 信贷操作接口
+   */
+  async operateRbbCreditEx(request: OperateRbbCreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateRbbCreditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<OperateRbbCreditResponse>(await this.doRequest("1.0", "riskplus.rbb.credit.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateRbbCreditResponse({}));
+  }
+
+  /**
+   * Description: 报告结果推送，算法调用
+   * Summary: 报告结果推送
+   */
+  async pushRpaasReportAnswer(request: PushRpaasReportAnswerRequest): Promise<PushRpaasReportAnswerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRpaasReportAnswerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 报告结果推送，算法调用
+   * Summary: 报告结果推送
+   */
+  async pushRpaasReportAnswerEx(request: PushRpaasReportAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRpaasReportAnswerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRpaasReportAnswerResponse>(await this.doRequest("1.0", "riskplus.rpaas.report.answer.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRpaasReportAnswerResponse({}));
   }
 
   /**
@@ -19891,6 +22679,122 @@ export default class Client {
   async batchqueryUmktTaskDetailEx(request: BatchqueryUmktTaskDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryUmktTaskDetailResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryUmktTaskDetailResponse>(await this.doRequest("1.0", "riskplus.umkt.task.detail.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryUmktTaskDetailResponse({}));
+  }
+
+  /**
+   * Description: 营销盾数据回流推送，用于客户定制json数据
+   * Summary: 营销盾数据回流json格式推送
+   */
+  async pushUmktBackflowJsondata(request: PushUmktBackflowJsondataRequest): Promise<PushUmktBackflowJsondataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushUmktBackflowJsondataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾数据回流推送，用于客户定制json数据
+   * Summary: 营销盾数据回流json格式推送
+   */
+  async pushUmktBackflowJsondataEx(request: PushUmktBackflowJsondataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushUmktBackflowJsondataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushUmktBackflowJsondataResponse>(await this.doRequest("1.0", "riskplus.umkt.backflow.jsondata.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushUmktBackflowJsondataResponse({}));
+  }
+
+  /**
+   * Description: 营销盾卡短解析服务能力提供接口
+   * Summary: 营销盾卡短解析服务接口
+   */
+  async queryUmktCardsmsAnalysis(request: QueryUmktCardsmsAnalysisRequest): Promise<QueryUmktCardsmsAnalysisResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktCardsmsAnalysisEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾卡短解析服务能力提供接口
+   * Summary: 营销盾卡短解析服务接口
+   */
+  async queryUmktCardsmsAnalysisEx(request: QueryUmktCardsmsAnalysisRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktCardsmsAnalysisResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktCardsmsAnalysisResponse>(await this.doRequest("1.0", "riskplus.umkt.cardsms.analysis.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktCardsmsAnalysisResponse({}));
+  }
+
+  /**
+   * Description: 营销盾离线圈客文件导入
+   * Summary: 营销盾离线圈客文件导入
+   */
+  async uploadUmktOfflinedecision(request: UploadUmktOfflinedecisionRequest): Promise<UploadUmktOfflinedecisionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadUmktOfflinedecisionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾离线圈客文件导入
+   * Summary: 营销盾离线圈客文件导入
+   */
+  async uploadUmktOfflinedecisionEx(request: UploadUmktOfflinedecisionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadUmktOfflinedecisionResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.umkt.offlinedecision.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadUmktOfflinedecisionResponse = new UploadUmktOfflinedecisionResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadUmktOfflinedecisionResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadUmktOfflinedecisionResponse>(await this.doRequest("1.0", "riskplus.umkt.offlinedecision.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadUmktOfflinedecisionResponse({}));
+  }
+
+  /**
+   * Description: 营销盾查询可拉取圈客结果的计划集合
+   * Summary: 营销盾查询可拉取圈客结果的计划集合
+   */
+  async queryUmktOfflinedecisionResult(request: QueryUmktOfflinedecisionResultRequest): Promise<QueryUmktOfflinedecisionResultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktOfflinedecisionResultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾查询可拉取圈客结果的计划集合
+   * Summary: 营销盾查询可拉取圈客结果的计划集合
+   */
+  async queryUmktOfflinedecisionResultEx(request: QueryUmktOfflinedecisionResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktOfflinedecisionResultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktOfflinedecisionResultResponse>(await this.doRequest("1.0", "riskplus.umkt.offlinedecision.result.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktOfflinedecisionResultResponse({}));
+  }
+
+  /**
+   * Description: 营销盾离线圈客结果文件拉取
+   * Summary: 营销盾离线圈客结果文件拉取
+   */
+  async downloadUmktOfflinedecisionResult(request: DownloadUmktOfflinedecisionResultRequest): Promise<DownloadUmktOfflinedecisionResultResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.downloadUmktOfflinedecisionResultEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾离线圈客结果文件拉取
+   * Summary: 营销盾离线圈客结果文件拉取
+   */
+  async downloadUmktOfflinedecisionResultEx(request: DownloadUmktOfflinedecisionResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DownloadUmktOfflinedecisionResultResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DownloadUmktOfflinedecisionResultResponse>(await this.doRequest("1.0", "riskplus.umkt.offlinedecision.result.download", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DownloadUmktOfflinedecisionResultResponse({}));
   }
 
   /**
