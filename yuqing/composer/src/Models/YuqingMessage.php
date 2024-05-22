@@ -311,6 +311,46 @@ class YuqingMessage extends Model
      * @var string
      */
     public $contentVideoText;
+
+    // 文章转发数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $docRepostsCount;
+
+    // 文章评论数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $docCommentsCount;
+
+    // 文章点赞数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $docLikesCount;
+
+    // 文章阅读数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $docReadsCount;
+
+    // 回答数
+    /**
+     * @example 1
+     *
+     * @var int
+     */
+    public $docAnswersCount;
     protected $_name = [
         'authorAvatarUrl'      => 'author_avatar_url',
         'authorFollowersCount' => 'author_followers_count',
@@ -350,6 +390,11 @@ class YuqingMessage extends Model
         'contentAudioUrls'     => 'content_audio_urls',
         'contentAudioText'     => 'content_audio_text',
         'contentVideoText'     => 'content_video_text',
+        'docRepostsCount'      => 'doc_reposts_count',
+        'docCommentsCount'     => 'doc_comments_count',
+        'docLikesCount'        => 'doc_likes_count',
+        'docReadsCount'        => 'doc_reads_count',
+        'docAnswersCount'      => 'doc_answers_count',
     ];
 
     public function validate()
@@ -472,6 +517,21 @@ class YuqingMessage extends Model
         }
         if (null !== $this->contentVideoText) {
             $res['content_video_text'] = $this->contentVideoText;
+        }
+        if (null !== $this->docRepostsCount) {
+            $res['doc_reposts_count'] = $this->docRepostsCount;
+        }
+        if (null !== $this->docCommentsCount) {
+            $res['doc_comments_count'] = $this->docCommentsCount;
+        }
+        if (null !== $this->docLikesCount) {
+            $res['doc_likes_count'] = $this->docLikesCount;
+        }
+        if (null !== $this->docReadsCount) {
+            $res['doc_reads_count'] = $this->docReadsCount;
+        }
+        if (null !== $this->docAnswersCount) {
+            $res['doc_answers_count'] = $this->docAnswersCount;
         }
 
         return $res;
@@ -602,6 +662,21 @@ class YuqingMessage extends Model
         }
         if (isset($map['content_video_text'])) {
             $model->contentVideoText = $map['content_video_text'];
+        }
+        if (isset($map['doc_reposts_count'])) {
+            $model->docRepostsCount = $map['doc_reposts_count'];
+        }
+        if (isset($map['doc_comments_count'])) {
+            $model->docCommentsCount = $map['doc_comments_count'];
+        }
+        if (isset($map['doc_likes_count'])) {
+            $model->docLikesCount = $map['doc_likes_count'];
+        }
+        if (isset($map['doc_reads_count'])) {
+            $model->docReadsCount = $map['doc_reads_count'];
+        }
+        if (isset($map['doc_answers_count'])) {
+            $model->docAnswersCount = $map['doc_answers_count'];
         }
 
         return $model;
