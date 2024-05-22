@@ -16,6 +16,10 @@ public class QueryRbbCompanyGuardRequest extends TeaModel {
     @Validation(required = true)
     public String token;
 
+    // 虚拟云租户code
+    @NameInMap("virtual_cloud_tenant_code")
+    public String virtualCloudTenantCode;
+
     public static QueryRbbCompanyGuardRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRbbCompanyGuardRequest self = new QueryRbbCompanyGuardRequest();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class QueryRbbCompanyGuardRequest extends TeaModel {
     }
     public String getToken() {
         return this.token;
+    }
+
+    public QueryRbbCompanyGuardRequest setVirtualCloudTenantCode(String virtualCloudTenantCode) {
+        this.virtualCloudTenantCode = virtualCloudTenantCode;
+        return this;
+    }
+    public String getVirtualCloudTenantCode() {
+        return this.virtualCloudTenantCode;
     }
 
 }

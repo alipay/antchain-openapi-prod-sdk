@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.18.2"),
+                    new TeaPair("sdk_version", "1.19.3"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1399,6 +1399,25 @@ public class Client {
     }
 
     /**
+     * Description: 天枢系统用户前筛查询
+     * Summary: 天枢系统用户前筛查询
+     */
+    public QueryDubbridgeRouterUserselectResponse queryDubbridgeRouterUserselect(QueryDubbridgeRouterUserselectRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeRouterUserselectEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢系统用户前筛查询
+     * Summary: 天枢系统用户前筛查询
+     */
+    public QueryDubbridgeRouterUserselectResponse queryDubbridgeRouterUserselectEx(QueryDubbridgeRouterUserselectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.router.userselect.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeRouterUserselectResponse());
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口
      */
@@ -1859,6 +1878,25 @@ public class Client {
     }
 
     /**
+     * Description: 分页查询cpaas短信模板
+     * Summary: cpaas短信模板分页查询
+     */
+    public QueryQmpCpaassmsTemplateResponse queryQmpCpaassmsTemplate(QueryQmpCpaassmsTemplateRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryQmpCpaassmsTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询cpaas短信模板
+     * Summary: cpaas短信模板分页查询
+     */
+    public QueryQmpCpaassmsTemplateResponse queryQmpCpaassmsTemplateEx(QueryQmpCpaassmsTemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.cpaassms.template.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQmpCpaassmsTemplateResponse());
+    }
+
+    /**
      * Description: 风险大脑企业版通用查询接口
      * Summary: 【已废弃】
      */
@@ -2238,6 +2276,25 @@ public class Client {
     public OperateRbbCreditResponse operateRbbCreditEx(OperateRbbCreditRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.credit.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateRbbCreditResponse());
+    }
+
+    /**
+     * Description: 报告结果推送，算法调用
+     * Summary: 报告结果推送
+     */
+    public PushRpaasReportAnswerResponse pushRpaasReportAnswer(PushRpaasReportAnswerRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushRpaasReportAnswerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 报告结果推送，算法调用
+     * Summary: 报告结果推送
+     */
+    public PushRpaasReportAnswerResponse pushRpaasReportAnswerEx(PushRpaasReportAnswerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rpaas.report.answer.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRpaasReportAnswerResponse());
     }
 
     /**
@@ -3593,6 +3650,84 @@ public class Client {
     public QueryUmktCardsmsAnalysisResponse queryUmktCardsmsAnalysisEx(QueryUmktCardsmsAnalysisRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.cardsms.analysis.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktCardsmsAnalysisResponse());
+    }
+
+    /**
+     * Description: 营销盾离线圈客文件导入
+     * Summary: 营销盾离线圈客文件导入
+     */
+    public UploadUmktOfflinedecisionResponse uploadUmktOfflinedecision(UploadUmktOfflinedecisionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadUmktOfflinedecisionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾离线圈客文件导入
+     * Summary: 营销盾离线圈客文件导入
+     */
+    public UploadUmktOfflinedecisionResponse uploadUmktOfflinedecisionEx(UploadUmktOfflinedecisionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "riskplus.umkt.offlinedecision.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadUmktOfflinedecisionResponse uploadUmktOfflinedecisionResponse = UploadUmktOfflinedecisionResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadUmktOfflinedecisionResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.offlinedecision.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadUmktOfflinedecisionResponse());
+    }
+
+    /**
+     * Description: 营销盾查询可拉取圈客结果的计划集合
+     * Summary: 营销盾查询可拉取圈客结果的计划集合
+     */
+    public QueryUmktOfflinedecisionResultResponse queryUmktOfflinedecisionResult(QueryUmktOfflinedecisionResultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUmktOfflinedecisionResultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾查询可拉取圈客结果的计划集合
+     * Summary: 营销盾查询可拉取圈客结果的计划集合
+     */
+    public QueryUmktOfflinedecisionResultResponse queryUmktOfflinedecisionResultEx(QueryUmktOfflinedecisionResultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.offlinedecision.result.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktOfflinedecisionResultResponse());
+    }
+
+    /**
+     * Description: 营销盾离线圈客结果文件拉取
+     * Summary: 营销盾离线圈客结果文件拉取
+     */
+    public DownloadUmktOfflinedecisionResultResponse downloadUmktOfflinedecisionResult(DownloadUmktOfflinedecisionResultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.downloadUmktOfflinedecisionResultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾离线圈客结果文件拉取
+     * Summary: 营销盾离线圈客结果文件拉取
+     */
+    public DownloadUmktOfflinedecisionResultResponse downloadUmktOfflinedecisionResultEx(DownloadUmktOfflinedecisionResultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.offlinedecision.result.download", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DownloadUmktOfflinedecisionResultResponse());
     }
 
     /**

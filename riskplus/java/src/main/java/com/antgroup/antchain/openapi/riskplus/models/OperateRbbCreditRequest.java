@@ -21,6 +21,11 @@ public class OperateRbbCreditRequest extends TeaModel {
     @Validation(required = true)
     public String serviceParams;
 
+    // 步骤
+    @NameInMap("service_step")
+    @Validation(required = true)
+    public String serviceStep;
+
     public static OperateRbbCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         OperateRbbCreditRequest self = new OperateRbbCreditRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class OperateRbbCreditRequest extends TeaModel {
     }
     public String getServiceParams() {
         return this.serviceParams;
+    }
+
+    public OperateRbbCreditRequest setServiceStep(String serviceStep) {
+        this.serviceStep = serviceStep;
+        return this;
+    }
+    public String getServiceStep() {
+        return this.serviceStep;
     }
 
 }
