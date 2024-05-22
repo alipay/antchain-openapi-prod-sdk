@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.2',
+                    'sdk_version': '1.19.3',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.2',
+                    'sdk_version': '1.19.3',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3893,6 +3893,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.customer.bankcardlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubbridge_router_userselect(
+        self,
+        request: riskplus_models.QueryDubbridgeRouterUserselectRequest,
+    ) -> riskplus_models.QueryDubbridgeRouterUserselectResponse:
+        """
+        Description: 天枢系统用户前筛查询
+        Summary: 天枢系统用户前筛查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_router_userselect_ex(request, headers, runtime)
+
+    async def query_dubbridge_router_userselect_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRouterUserselectRequest,
+    ) -> riskplus_models.QueryDubbridgeRouterUserselectResponse:
+        """
+        Description: 天枢系统用户前筛查询
+        Summary: 天枢系统用户前筛查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_router_userselect_ex_async(request, headers, runtime)
+
+    def query_dubbridge_router_userselect_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRouterUserselectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRouterUserselectResponse:
+        """
+        Description: 天枢系统用户前筛查询
+        Summary: 天枢系统用户前筛查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRouterUserselectResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.router.userselect.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_router_userselect_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRouterUserselectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRouterUserselectResponse:
+        """
+        Description: 天枢系统用户前筛查询
+        Summary: 天枢系统用户前筛查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRouterUserselectResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.router.userselect.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -5193,6 +5249,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.qmp.tenant.actionplaninfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_qmp_cpaassms_template(
+        self,
+        request: riskplus_models.QueryQmpCpaassmsTemplateRequest,
+    ) -> riskplus_models.QueryQmpCpaassmsTemplateResponse:
+        """
+        Description: 分页查询cpaas短信模板
+        Summary: cpaas短信模板分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_cpaassms_template_ex(request, headers, runtime)
+
+    async def query_qmp_cpaassms_template_async(
+        self,
+        request: riskplus_models.QueryQmpCpaassmsTemplateRequest,
+    ) -> riskplus_models.QueryQmpCpaassmsTemplateResponse:
+        """
+        Description: 分页查询cpaas短信模板
+        Summary: cpaas短信模板分页查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_cpaassms_template_ex_async(request, headers, runtime)
+
+    def query_qmp_cpaassms_template_ex(
+        self,
+        request: riskplus_models.QueryQmpCpaassmsTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpCpaassmsTemplateResponse:
+        """
+        Description: 分页查询cpaas短信模板
+        Summary: cpaas短信模板分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpCpaassmsTemplateResponse(),
+            self.do_request('1.0', 'riskplus.qmp.cpaassms.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_cpaassms_template_ex_async(
+        self,
+        request: riskplus_models.QueryQmpCpaassmsTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpCpaassmsTemplateResponse:
+        """
+        Description: 分页查询cpaas短信模板
+        Summary: cpaas短信模板分页查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpCpaassmsTemplateResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.cpaassms.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_rbb_generic_invoke(
         self,
         request: riskplus_models.QueryRbbGenericInvokeRequest,
@@ -6289,6 +6401,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.OperateRbbCreditResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rpaas_report_answer(
+        self,
+        request: riskplus_models.PushRpaasReportAnswerRequest,
+    ) -> riskplus_models.PushRpaasReportAnswerResponse:
+        """
+        Description: 报告结果推送，算法调用
+        Summary: 报告结果推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rpaas_report_answer_ex(request, headers, runtime)
+
+    async def push_rpaas_report_answer_async(
+        self,
+        request: riskplus_models.PushRpaasReportAnswerRequest,
+    ) -> riskplus_models.PushRpaasReportAnswerResponse:
+        """
+        Description: 报告结果推送，算法调用
+        Summary: 报告结果推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rpaas_report_answer_ex_async(request, headers, runtime)
+
+    def push_rpaas_report_answer_ex(
+        self,
+        request: riskplus_models.PushRpaasReportAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRpaasReportAnswerResponse:
+        """
+        Description: 报告结果推送，算法调用
+        Summary: 报告结果推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushRpaasReportAnswerResponse(),
+            self.do_request('1.0', 'riskplus.rpaas.report.answer.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rpaas_report_answer_ex_async(
+        self,
+        request: riskplus_models.PushRpaasReportAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRpaasReportAnswerResponse:
+        """
+        Description: 报告结果推送，算法调用
+        Summary: 报告结果推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushRpaasReportAnswerResponse(),
+            await self.do_request_async('1.0', 'riskplus.rpaas.report.answer.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rpgw_sign_url(
@@ -10251,6 +10419,208 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryUmktCardsmsAnalysisResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.cardsms.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_umkt_offlinedecision(
+        self,
+        request: riskplus_models.UploadUmktOfflinedecisionRequest,
+    ) -> riskplus_models.UploadUmktOfflinedecisionResponse:
+        """
+        Description: 营销盾离线圈客文件导入
+        Summary: 营销盾离线圈客文件导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_umkt_offlinedecision_ex(request, headers, runtime)
+
+    async def upload_umkt_offlinedecision_async(
+        self,
+        request: riskplus_models.UploadUmktOfflinedecisionRequest,
+    ) -> riskplus_models.UploadUmktOfflinedecisionResponse:
+        """
+        Description: 营销盾离线圈客文件导入
+        Summary: 营销盾离线圈客文件导入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_umkt_offlinedecision_ex_async(request, headers, runtime)
+
+    def upload_umkt_offlinedecision_ex(
+        self,
+        request: riskplus_models.UploadUmktOfflinedecisionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadUmktOfflinedecisionResponse:
+        """
+        Description: 营销盾离线圈客文件导入
+        Summary: 营销盾离线圈客文件导入
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.umkt.offlinedecision.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_umkt_offlinedecision_response = riskplus_models.UploadUmktOfflinedecisionResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_umkt_offlinedecision_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadUmktOfflinedecisionResponse(),
+            self.do_request('1.0', 'riskplus.umkt.offlinedecision.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_umkt_offlinedecision_ex_async(
+        self,
+        request: riskplus_models.UploadUmktOfflinedecisionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadUmktOfflinedecisionResponse:
+        """
+        Description: 营销盾离线圈客文件导入
+        Summary: 营销盾离线圈客文件导入
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.umkt.offlinedecision.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_umkt_offlinedecision_response = riskplus_models.UploadUmktOfflinedecisionResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_umkt_offlinedecision_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadUmktOfflinedecisionResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.offlinedecision.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_offlinedecision_result(
+        self,
+        request: riskplus_models.QueryUmktOfflinedecisionResultRequest,
+    ) -> riskplus_models.QueryUmktOfflinedecisionResultResponse:
+        """
+        Description: 营销盾查询可拉取圈客结果的计划集合
+        Summary: 营销盾查询可拉取圈客结果的计划集合
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_offlinedecision_result_ex(request, headers, runtime)
+
+    async def query_umkt_offlinedecision_result_async(
+        self,
+        request: riskplus_models.QueryUmktOfflinedecisionResultRequest,
+    ) -> riskplus_models.QueryUmktOfflinedecisionResultResponse:
+        """
+        Description: 营销盾查询可拉取圈客结果的计划集合
+        Summary: 营销盾查询可拉取圈客结果的计划集合
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_offlinedecision_result_ex_async(request, headers, runtime)
+
+    def query_umkt_offlinedecision_result_ex(
+        self,
+        request: riskplus_models.QueryUmktOfflinedecisionResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktOfflinedecisionResultResponse:
+        """
+        Description: 营销盾查询可拉取圈客结果的计划集合
+        Summary: 营销盾查询可拉取圈客结果的计划集合
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktOfflinedecisionResultResponse(),
+            self.do_request('1.0', 'riskplus.umkt.offlinedecision.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_offlinedecision_result_ex_async(
+        self,
+        request: riskplus_models.QueryUmktOfflinedecisionResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktOfflinedecisionResultResponse:
+        """
+        Description: 营销盾查询可拉取圈客结果的计划集合
+        Summary: 营销盾查询可拉取圈客结果的计划集合
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktOfflinedecisionResultResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.offlinedecision.result.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def download_umkt_offlinedecision_result(
+        self,
+        request: riskplus_models.DownloadUmktOfflinedecisionResultRequest,
+    ) -> riskplus_models.DownloadUmktOfflinedecisionResultResponse:
+        """
+        Description: 营销盾离线圈客结果文件拉取
+        Summary: 营销盾离线圈客结果文件拉取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.download_umkt_offlinedecision_result_ex(request, headers, runtime)
+
+    async def download_umkt_offlinedecision_result_async(
+        self,
+        request: riskplus_models.DownloadUmktOfflinedecisionResultRequest,
+    ) -> riskplus_models.DownloadUmktOfflinedecisionResultResponse:
+        """
+        Description: 营销盾离线圈客结果文件拉取
+        Summary: 营销盾离线圈客结果文件拉取
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.download_umkt_offlinedecision_result_ex_async(request, headers, runtime)
+
+    def download_umkt_offlinedecision_result_ex(
+        self,
+        request: riskplus_models.DownloadUmktOfflinedecisionResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.DownloadUmktOfflinedecisionResultResponse:
+        """
+        Description: 营销盾离线圈客结果文件拉取
+        Summary: 营销盾离线圈客结果文件拉取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.DownloadUmktOfflinedecisionResultResponse(),
+            self.do_request('1.0', 'riskplus.umkt.offlinedecision.result.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def download_umkt_offlinedecision_result_ex_async(
+        self,
+        request: riskplus_models.DownloadUmktOfflinedecisionResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.DownloadUmktOfflinedecisionResultResponse:
+        """
+        Description: 营销盾离线圈客结果文件拉取
+        Summary: 营销盾离线圈客结果文件拉取
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.DownloadUmktOfflinedecisionResultResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.offlinedecision.result.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
