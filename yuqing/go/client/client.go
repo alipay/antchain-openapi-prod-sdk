@@ -695,6 +695,16 @@ type YuqingMessage struct {
 	ContentAudioText *string `json:"content_audio_text,omitempty" xml:"content_audio_text,omitempty"`
 	// 视频识别出来的文本
 	ContentVideoText *string `json:"content_video_text,omitempty" xml:"content_video_text,omitempty"`
+	// 文章转发数
+	DocRepostsCount *int64 `json:"doc_reposts_count,omitempty" xml:"doc_reposts_count,omitempty"`
+	// 文章评论数
+	DocCommentsCount *int64 `json:"doc_comments_count,omitempty" xml:"doc_comments_count,omitempty"`
+	// 文章点赞数
+	DocLikesCount *int64 `json:"doc_likes_count,omitempty" xml:"doc_likes_count,omitempty"`
+	// 文章阅读数
+	DocReadsCount *int64 `json:"doc_reads_count,omitempty" xml:"doc_reads_count,omitempty"`
+	// 回答数
+	DocAnswersCount *int64 `json:"doc_answers_count,omitempty" xml:"doc_answers_count,omitempty"`
 }
 
 func (s YuqingMessage) String() string {
@@ -892,6 +902,31 @@ func (s *YuqingMessage) SetContentAudioText(v string) *YuqingMessage {
 
 func (s *YuqingMessage) SetContentVideoText(v string) *YuqingMessage {
 	s.ContentVideoText = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocRepostsCount(v int64) *YuqingMessage {
+	s.DocRepostsCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocCommentsCount(v int64) *YuqingMessage {
+	s.DocCommentsCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocLikesCount(v int64) *YuqingMessage {
+	s.DocLikesCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocReadsCount(v int64) *YuqingMessage {
+	s.DocReadsCount = &v
+	return s
+}
+
+func (s *YuqingMessage) SetDocAnswersCount(v int64) *YuqingMessage {
+	s.DocAnswersCount = &v
 	return s
 }
 
@@ -4071,7 +4106,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.15"),
+				"sdk_version":      tea.String("1.2.16"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
