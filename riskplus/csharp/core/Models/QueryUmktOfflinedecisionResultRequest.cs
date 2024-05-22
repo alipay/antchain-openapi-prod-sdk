@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class OperateRbbCreditRequest : TeaModel {
+    public class QueryUmktOfflinedecisionResultRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,17 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 服务code
-        [NameInMap("service_code")]
+        // 离线圈客计划id
+        [NameInMap("offline_decision_plan_id")]
         [Validation(Required=true)]
-        public string ServiceCode { get; set; }
+        public long? OfflineDecisionPlanId { get; set; }
 
-        // 服务参数
-        [NameInMap("service_params")]
-        [Validation(Required=true)]
-        public string ServiceParams { get; set; }
-
-        // 步骤
-        [NameInMap("service_step")]
-        [Validation(Required=true)]
-        public string ServiceStep { get; set; }
+        // 圈客结果的产出日期
+        // 格式：yyyy-MM-dd
+        // 默认当前时间的前一天
+        [NameInMap("result_date")]
+        [Validation(Required=false)]
+        public string ResultDate { get; set; }
 
     }
 

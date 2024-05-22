@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ExecRbbCompanyGuardRequest : TeaModel {
+    public class QueryQmpCpaassmsTemplateRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 企业名称或统一社会信用代码
-        [NameInMap("keyword")]
+        // 短信类型
+        [NameInMap("sms_type")]
         [Validation(Required=true)]
-        public string Keyword { get; set; }
+        public string SmsType { get; set; }
 
-        // 规则ID，在风险大脑系统中配置
-        [NameInMap("rule_id")]
+        // 行业标签
+        [NameInMap("tenant_industry")]
         [Validation(Required=true)]
-        public long? RuleId { get; set; }
+        public string TenantIndustry { get; set; }
 
-        // 额外参数，与规则有关
-        [NameInMap("params")]
+        // 审批状态
+        [NameInMap("status")]
         [Validation(Required=false)]
-        public string Params { get; set; }
+        public string Status { get; set; }
 
-        // 虚拟云租户code
-        [NameInMap("virtual_cloud_tenant_code")]
+        // 页码
+        [NameInMap("page_num")]
         [Validation(Required=false)]
-        public string VirtualCloudTenantCode { get; set; }
+        public long? PageNum { get; set; }
+
+        // 每页记录数量
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
 
     }
 

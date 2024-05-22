@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class ExecRbbCompanyGuardRequest : TeaModel {
+    public class QueryDubbridgeRouterUserselectRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,30 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 企业名称或统一社会信用代码
-        [NameInMap("keyword")]
+        // 订单号
+        [NameInMap("order_no")]
         [Validation(Required=true)]
-        public string Keyword { get; set; }
+        public string OrderNo { get; set; }
 
-        // 规则ID，在风险大脑系统中配置
-        [NameInMap("rule_id")]
+        // 身份证号
+        [NameInMap("card_no")]
+        [Validation(Required=false)]
+        public string CardNo { get; set; }
+
+        // 手机号
+        [NameInMap("mobile")]
         [Validation(Required=true)]
-        public long? RuleId { get; set; }
+        public string Mobile { get; set; }
 
-        // 额外参数，与规则有关
-        [NameInMap("params")]
+        // 姓名
+        [NameInMap("custom_name")]
         [Validation(Required=false)]
-        public string Params { get; set; }
+        public string CustomName { get; set; }
 
-        // 虚拟云租户code
-        [NameInMap("virtual_cloud_tenant_code")]
+        // 扩展信息JSON
+        [NameInMap("ext_info")]
         [Validation(Required=false)]
-        public string VirtualCloudTenantCode { get; set; }
+        public string ExtInfo { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class OperateRbbCreditRequest : TeaModel {
+    public class PushRpaasReportAnswerRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 服务code
-        [NameInMap("service_code")]
+        // chat trace id
+        [NameInMap("chat_trace_id")]
         [Validation(Required=true)]
-        public string ServiceCode { get; set; }
+        public string ChatTraceId { get; set; }
 
-        // 服务参数
-        [NameInMap("service_params")]
+        // 响应结果
+        [NameInMap("answer")]
         [Validation(Required=true)]
-        public string ServiceParams { get; set; }
-
-        // 步骤
-        [NameInMap("service_step")]
-        [Validation(Required=true)]
-        public string ServiceStep { get; set; }
+        public string Answer { get; set; }
 
     }
 

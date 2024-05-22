@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.2"},
+                        {"sdk_version", "1.19.3"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.2"},
+                        {"sdk_version", "1.19.3"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3056,6 +3056,48 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 天枢系统用户前筛查询
+         * Summary: 天枢系统用户前筛查询
+         */
+        public QueryDubbridgeRouterUserselectResponse QueryDubbridgeRouterUserselect(QueryDubbridgeRouterUserselectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeRouterUserselectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统用户前筛查询
+         * Summary: 天枢系统用户前筛查询
+         */
+        public async Task<QueryDubbridgeRouterUserselectResponse> QueryDubbridgeRouterUserselectAsync(QueryDubbridgeRouterUserselectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeRouterUserselectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统用户前筛查询
+         * Summary: 天枢系统用户前筛查询
+         */
+        public QueryDubbridgeRouterUserselectResponse QueryDubbridgeRouterUserselectEx(QueryDubbridgeRouterUserselectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeRouterUserselectResponse>(DoRequest("1.0", "riskplus.dubbridge.router.userselect.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统用户前筛查询
+         * Summary: 天枢系统用户前筛查询
+         */
+        public async Task<QueryDubbridgeRouterUserselectResponse> QueryDubbridgeRouterUserselectExAsync(QueryDubbridgeRouterUserselectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeRouterUserselectResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.router.userselect.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 四要素认证首先调用此接口
          * Summary: 芝麻四要素接口
          */
@@ -4072,6 +4114,48 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 分页查询cpaas短信模板
+         * Summary: cpaas短信模板分页查询
+         */
+        public QueryQmpCpaassmsTemplateResponse QueryQmpCpaassmsTemplate(QueryQmpCpaassmsTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpCpaassmsTemplateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询cpaas短信模板
+         * Summary: cpaas短信模板分页查询
+         */
+        public async Task<QueryQmpCpaassmsTemplateResponse> QueryQmpCpaassmsTemplateAsync(QueryQmpCpaassmsTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpCpaassmsTemplateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询cpaas短信模板
+         * Summary: cpaas短信模板分页查询
+         */
+        public QueryQmpCpaassmsTemplateResponse QueryQmpCpaassmsTemplateEx(QueryQmpCpaassmsTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpCpaassmsTemplateResponse>(DoRequest("1.0", "riskplus.qmp.cpaassms.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询cpaas短信模板
+         * Summary: cpaas短信模板分页查询
+         */
+        public async Task<QueryQmpCpaassmsTemplateResponse> QueryQmpCpaassmsTemplateExAsync(QueryQmpCpaassmsTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpCpaassmsTemplateResponse>(await DoRequestAsync("1.0", "riskplus.qmp.cpaassms.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 风险大脑企业版通用查询接口
          * Summary: 【已废弃】
          */
@@ -4913,6 +4997,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateRbbCreditResponse>(await DoRequestAsync("1.0", "riskplus.rbb.credit.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 报告结果推送，算法调用
+         * Summary: 报告结果推送
+         */
+        public PushRpaasReportAnswerResponse PushRpaasReportAnswer(PushRpaasReportAnswerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRpaasReportAnswerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 报告结果推送，算法调用
+         * Summary: 报告结果推送
+         */
+        public async Task<PushRpaasReportAnswerResponse> PushRpaasReportAnswerAsync(PushRpaasReportAnswerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRpaasReportAnswerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 报告结果推送，算法调用
+         * Summary: 报告结果推送
+         */
+        public PushRpaasReportAnswerResponse PushRpaasReportAnswerEx(PushRpaasReportAnswerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRpaasReportAnswerResponse>(DoRequest("1.0", "riskplus.rpaas.report.answer.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 报告结果推送，算法调用
+         * Summary: 报告结果推送
+         */
+        public async Task<PushRpaasReportAnswerResponse> PushRpaasReportAnswerExAsync(PushRpaasReportAnswerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRpaasReportAnswerResponse>(await DoRequestAsync("1.0", "riskplus.rpaas.report.answer.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -7907,6 +8033,178 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUmktCardsmsAnalysisResponse>(await DoRequestAsync("1.0", "riskplus.umkt.cardsms.analysis.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾离线圈客文件导入
+         * Summary: 营销盾离线圈客文件导入
+         */
+        public UploadUmktOfflinedecisionResponse UploadUmktOfflinedecision(UploadUmktOfflinedecisionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadUmktOfflinedecisionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾离线圈客文件导入
+         * Summary: 营销盾离线圈客文件导入
+         */
+        public async Task<UploadUmktOfflinedecisionResponse> UploadUmktOfflinedecisionAsync(UploadUmktOfflinedecisionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadUmktOfflinedecisionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾离线圈客文件导入
+         * Summary: 营销盾离线圈客文件导入
+         */
+        public UploadUmktOfflinedecisionResponse UploadUmktOfflinedecisionEx(UploadUmktOfflinedecisionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.umkt.offlinedecision.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadUmktOfflinedecisionResponse uploadUmktOfflinedecisionResponse = new UploadUmktOfflinedecisionResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadUmktOfflinedecisionResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadUmktOfflinedecisionResponse>(DoRequest("1.0", "riskplus.umkt.offlinedecision.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾离线圈客文件导入
+         * Summary: 营销盾离线圈客文件导入
+         */
+        public async Task<UploadUmktOfflinedecisionResponse> UploadUmktOfflinedecisionExAsync(UploadUmktOfflinedecisionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.umkt.offlinedecision.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadUmktOfflinedecisionResponse uploadUmktOfflinedecisionResponse = new UploadUmktOfflinedecisionResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadUmktOfflinedecisionResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadUmktOfflinedecisionResponse>(await DoRequestAsync("1.0", "riskplus.umkt.offlinedecision.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾查询可拉取圈客结果的计划集合
+         * Summary: 营销盾查询可拉取圈客结果的计划集合
+         */
+        public QueryUmktOfflinedecisionResultResponse QueryUmktOfflinedecisionResult(QueryUmktOfflinedecisionResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUmktOfflinedecisionResultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾查询可拉取圈客结果的计划集合
+         * Summary: 营销盾查询可拉取圈客结果的计划集合
+         */
+        public async Task<QueryUmktOfflinedecisionResultResponse> QueryUmktOfflinedecisionResultAsync(QueryUmktOfflinedecisionResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUmktOfflinedecisionResultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾查询可拉取圈客结果的计划集合
+         * Summary: 营销盾查询可拉取圈客结果的计划集合
+         */
+        public QueryUmktOfflinedecisionResultResponse QueryUmktOfflinedecisionResultEx(QueryUmktOfflinedecisionResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktOfflinedecisionResultResponse>(DoRequest("1.0", "riskplus.umkt.offlinedecision.result.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾查询可拉取圈客结果的计划集合
+         * Summary: 营销盾查询可拉取圈客结果的计划集合
+         */
+        public async Task<QueryUmktOfflinedecisionResultResponse> QueryUmktOfflinedecisionResultExAsync(QueryUmktOfflinedecisionResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUmktOfflinedecisionResultResponse>(await DoRequestAsync("1.0", "riskplus.umkt.offlinedecision.result.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾离线圈客结果文件拉取
+         * Summary: 营销盾离线圈客结果文件拉取
+         */
+        public DownloadUmktOfflinedecisionResultResponse DownloadUmktOfflinedecisionResult(DownloadUmktOfflinedecisionResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DownloadUmktOfflinedecisionResultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾离线圈客结果文件拉取
+         * Summary: 营销盾离线圈客结果文件拉取
+         */
+        public async Task<DownloadUmktOfflinedecisionResultResponse> DownloadUmktOfflinedecisionResultAsync(DownloadUmktOfflinedecisionResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DownloadUmktOfflinedecisionResultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾离线圈客结果文件拉取
+         * Summary: 营销盾离线圈客结果文件拉取
+         */
+        public DownloadUmktOfflinedecisionResultResponse DownloadUmktOfflinedecisionResultEx(DownloadUmktOfflinedecisionResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadUmktOfflinedecisionResultResponse>(DoRequest("1.0", "riskplus.umkt.offlinedecision.result.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾离线圈客结果文件拉取
+         * Summary: 营销盾离线圈客结果文件拉取
+         */
+        public async Task<DownloadUmktOfflinedecisionResultResponse> DownloadUmktOfflinedecisionResultExAsync(DownloadUmktOfflinedecisionResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DownloadUmktOfflinedecisionResultResponse>(await DoRequestAsync("1.0", "riskplus.umkt.offlinedecision.result.download", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
