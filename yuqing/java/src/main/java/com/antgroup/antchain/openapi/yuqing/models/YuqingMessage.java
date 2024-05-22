@@ -156,6 +156,26 @@ public class YuqingMessage extends TeaModel {
     @NameInMap("content_video_text")
     public String contentVideoText;
 
+    // 文章转发数
+    @NameInMap("doc_reposts_count")
+    public Long docRepostsCount;
+
+    // 文章评论数
+    @NameInMap("doc_comments_count")
+    public Long docCommentsCount;
+
+    // 文章点赞数
+    @NameInMap("doc_likes_count")
+    public Long docLikesCount;
+
+    // 文章阅读数
+    @NameInMap("doc_reads_count")
+    public Long docReadsCount;
+
+    // 回答数
+    @NameInMap("doc_answers_count")
+    public Long docAnswersCount;
+
     public static YuqingMessage build(java.util.Map<String, ?> map) throws Exception {
         YuqingMessage self = new YuqingMessage();
         return TeaModel.build(map, self);
@@ -463,6 +483,46 @@ public class YuqingMessage extends TeaModel {
     }
     public String getContentVideoText() {
         return this.contentVideoText;
+    }
+
+    public YuqingMessage setDocRepostsCount(Long docRepostsCount) {
+        this.docRepostsCount = docRepostsCount;
+        return this;
+    }
+    public Long getDocRepostsCount() {
+        return this.docRepostsCount;
+    }
+
+    public YuqingMessage setDocCommentsCount(Long docCommentsCount) {
+        this.docCommentsCount = docCommentsCount;
+        return this;
+    }
+    public Long getDocCommentsCount() {
+        return this.docCommentsCount;
+    }
+
+    public YuqingMessage setDocLikesCount(Long docLikesCount) {
+        this.docLikesCount = docLikesCount;
+        return this;
+    }
+    public Long getDocLikesCount() {
+        return this.docLikesCount;
+    }
+
+    public YuqingMessage setDocReadsCount(Long docReadsCount) {
+        this.docReadsCount = docReadsCount;
+        return this;
+    }
+    public Long getDocReadsCount() {
+        return this.docReadsCount;
+    }
+
+    public YuqingMessage setDocAnswersCount(Long docAnswersCount) {
+        this.docAnswersCount = docAnswersCount;
+        return this;
+    }
+    public Long getDocAnswersCount() {
+        return this.docAnswersCount;
     }
 
 }
