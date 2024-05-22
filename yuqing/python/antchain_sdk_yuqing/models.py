@@ -764,6 +764,11 @@ class YuqingMessage(TeaModel):
         content_audio_urls: str = None,
         content_audio_text: str = None,
         content_video_text: str = None,
+        doc_reposts_count: int = None,
+        doc_comments_count: int = None,
+        doc_likes_count: int = None,
+        doc_reads_count: int = None,
+        doc_answers_count: int = None,
     ):
         # 作者头像地址
         self.author_avatar_url = author_avatar_url
@@ -841,6 +846,16 @@ class YuqingMessage(TeaModel):
         self.content_audio_text = content_audio_text
         # 视频识别出来的文本
         self.content_video_text = content_video_text
+        # 文章转发数
+        self.doc_reposts_count = doc_reposts_count
+        # 文章评论数
+        self.doc_comments_count = doc_comments_count
+        # 文章点赞数
+        self.doc_likes_count = doc_likes_count
+        # 文章阅读数
+        self.doc_reads_count = doc_reads_count
+        # 回答数
+        self.doc_answers_count = doc_answers_count
 
     def validate(self):
         if self.ext_info:
@@ -928,6 +943,16 @@ class YuqingMessage(TeaModel):
             result['content_audio_text'] = self.content_audio_text
         if self.content_video_text is not None:
             result['content_video_text'] = self.content_video_text
+        if self.doc_reposts_count is not None:
+            result['doc_reposts_count'] = self.doc_reposts_count
+        if self.doc_comments_count is not None:
+            result['doc_comments_count'] = self.doc_comments_count
+        if self.doc_likes_count is not None:
+            result['doc_likes_count'] = self.doc_likes_count
+        if self.doc_reads_count is not None:
+            result['doc_reads_count'] = self.doc_reads_count
+        if self.doc_answers_count is not None:
+            result['doc_answers_count'] = self.doc_answers_count
         return result
 
     def from_map(self, m: dict = None):
@@ -1009,6 +1034,16 @@ class YuqingMessage(TeaModel):
             self.content_audio_text = m.get('content_audio_text')
         if m.get('content_video_text') is not None:
             self.content_video_text = m.get('content_video_text')
+        if m.get('doc_reposts_count') is not None:
+            self.doc_reposts_count = m.get('doc_reposts_count')
+        if m.get('doc_comments_count') is not None:
+            self.doc_comments_count = m.get('doc_comments_count')
+        if m.get('doc_likes_count') is not None:
+            self.doc_likes_count = m.get('doc_likes_count')
+        if m.get('doc_reads_count') is not None:
+            self.doc_reads_count = m.get('doc_reads_count')
+        if m.get('doc_answers_count') is not None:
+            self.doc_answers_count = m.get('doc_answers_count')
         return self
 
 
