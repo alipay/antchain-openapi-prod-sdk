@@ -1,0 +1,99 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+
+namespace AntChain\ATO\Models;
+
+use AlibabaCloud\Tea\Model;
+
+class RelationPage extends Model
+{
+    // 分账关系id
+    /**
+     * @example 1231234343423423
+     *
+     * @var string
+     */
+    public $relationId;
+
+    // 分账公司名称
+    /**
+     * @example xx公司
+     *
+     * @var string
+     */
+    public $companyName;
+
+    // 分账公司名称统一社会信用代码
+    /**
+     * @example 912123asdq2131
+     *
+     * @var string
+     */
+    public $merchantId;
+
+    // 审核状态
+    /**
+     * @example AUDIT_PASSED
+     *
+     * @var string
+     */
+    public $status;
+    protected $_name = [
+        'relationId'  => 'relation_id',
+        'companyName' => 'company_name',
+        'merchantId'  => 'merchant_id',
+        'status'      => 'status',
+    ];
+
+    public function validate()
+    {
+        Model::validateRequired('relationId', $this->relationId, true);
+        Model::validateRequired('companyName', $this->companyName, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('status', $this->status, true);
+    }
+
+    public function toMap()
+    {
+        $res = [];
+        if (null !== $this->relationId) {
+            $res['relation_id'] = $this->relationId;
+        }
+        if (null !== $this->companyName) {
+            $res['company_name'] = $this->companyName;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $map
+     *
+     * @return RelationPage
+     */
+    public static function fromMap($map = [])
+    {
+        $model = new self();
+        if (isset($map['relation_id'])) {
+            $model->relationId = $map['relation_id'];
+        }
+        if (isset($map['company_name'])) {
+            $model->companyName = $map['company_name'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
+        }
+
+        return $model;
+    }
+}

@@ -43,18 +43,6 @@ class SyncInnerMeterforwholeorderRequest extends Model
      */
     public $orderId;
 
-    // 订单关联的商品id
-    /**
-     * @var string
-     */
-    public $orderProductId;
-
-    // 商品的版本
-    /**
-     * @var string
-     */
-    public $orderProductVersion;
-
     // 订单总租期
     /**
      * @var int
@@ -72,18 +60,23 @@ class SyncInnerMeterforwholeorderRequest extends Model
      * @var string
      */
     public $sysName;
+
+    // 订单产品的二级类目
+    /**
+     * @var string
+     */
+    public $orderProductSubclass;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'merchantTenantId'    => 'merchant_tenant_id',
-        'merchantId'          => 'merchant_id',
-        'meterProductCode'    => 'meter_product_code',
-        'orderId'             => 'order_id',
-        'orderProductId'      => 'order_product_id',
-        'orderProductVersion' => 'order_product_version',
-        'orderRentTerm'       => 'order_rent_term',
-        'orderTotalMoney'     => 'order_total_money',
-        'sysName'             => 'sys_name',
+        'authToken'            => 'auth_token',
+        'productInstanceId'    => 'product_instance_id',
+        'merchantTenantId'     => 'merchant_tenant_id',
+        'merchantId'           => 'merchant_id',
+        'meterProductCode'     => 'meter_product_code',
+        'orderId'              => 'order_id',
+        'orderRentTerm'        => 'order_rent_term',
+        'orderTotalMoney'      => 'order_total_money',
+        'sysName'              => 'sys_name',
+        'orderProductSubclass' => 'order_product_subclass',
     ];
 
     public function validate()
@@ -92,25 +85,22 @@ class SyncInnerMeterforwholeorderRequest extends Model
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('meterProductCode', $this->meterProductCode, true);
         Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('orderProductId', $this->orderProductId, true);
-        Model::validateRequired('orderProductVersion', $this->orderProductVersion, true);
         Model::validateRequired('orderRentTerm', $this->orderRentTerm, true);
         Model::validateRequired('orderTotalMoney', $this->orderTotalMoney, true);
         Model::validateRequired('sysName', $this->sysName, true);
+        Model::validateRequired('orderProductSubclass', $this->orderProductSubclass, true);
         Model::validateMaxLength('merchantTenantId', $this->merchantTenantId, 32);
         Model::validateMaxLength('merchantId', $this->merchantId, 199);
         Model::validateMaxLength('meterProductCode', $this->meterProductCode, 64);
         Model::validateMaxLength('orderId', $this->orderId, 49);
-        Model::validateMaxLength('orderProductId', $this->orderProductId, 32);
-        Model::validateMaxLength('orderProductVersion', $this->orderProductVersion, 10);
         Model::validateMaxLength('sysName', $this->sysName, 32);
+        Model::validateMaxLength('orderProductSubclass', $this->orderProductSubclass, 64);
         Model::validateMinLength('merchantTenantId', $this->merchantTenantId, 1);
         Model::validateMinLength('merchantId', $this->merchantId, 1);
         Model::validateMinLength('meterProductCode', $this->meterProductCode, 1);
         Model::validateMinLength('orderId', $this->orderId, 1);
-        Model::validateMinLength('orderProductId', $this->orderProductId, 1);
-        Model::validateMinLength('orderProductVersion', $this->orderProductVersion, 1);
         Model::validateMinLength('sysName', $this->sysName, 1);
+        Model::validateMinLength('orderProductSubclass', $this->orderProductSubclass, 1);
         Model::validateMaximum('orderRentTerm', $this->orderRentTerm, 200);
         Model::validateMinimum('orderRentTerm', $this->orderRentTerm, 1);
     }
@@ -136,12 +126,6 @@ class SyncInnerMeterforwholeorderRequest extends Model
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->orderProductId) {
-            $res['order_product_id'] = $this->orderProductId;
-        }
-        if (null !== $this->orderProductVersion) {
-            $res['order_product_version'] = $this->orderProductVersion;
-        }
         if (null !== $this->orderRentTerm) {
             $res['order_rent_term'] = $this->orderRentTerm;
         }
@@ -150,6 +134,9 @@ class SyncInnerMeterforwholeorderRequest extends Model
         }
         if (null !== $this->sysName) {
             $res['sys_name'] = $this->sysName;
+        }
+        if (null !== $this->orderProductSubclass) {
+            $res['order_product_subclass'] = $this->orderProductSubclass;
         }
 
         return $res;
@@ -181,12 +168,6 @@ class SyncInnerMeterforwholeorderRequest extends Model
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
         }
-        if (isset($map['order_product_id'])) {
-            $model->orderProductId = $map['order_product_id'];
-        }
-        if (isset($map['order_product_version'])) {
-            $model->orderProductVersion = $map['order_product_version'];
-        }
         if (isset($map['order_rent_term'])) {
             $model->orderRentTerm = $map['order_rent_term'];
         }
@@ -195,6 +176,9 @@ class SyncInnerMeterforwholeorderRequest extends Model
         }
         if (isset($map['sys_name'])) {
             $model->sysName = $map['sys_name'];
+        }
+        if (isset($map['order_product_subclass'])) {
+            $model->orderProductSubclass = $map['order_product_subclass'];
         }
 
         return $model;
