@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.0"},
+                        {"sdk_version", "1.3.1"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.0"},
+                        {"sdk_version", "1.3.1"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -616,7 +616,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 代扣签约
+         * Description: 代扣签约创建
          * Summary: 代扣签约
          */
         public CreateAntchainAtoWithholdSignResponse CreateAntchainAtoWithholdSign(CreateAntchainAtoWithholdSignRequest request)
@@ -627,7 +627,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 代扣签约
+         * Description: 代扣签约创建
          * Summary: 代扣签约
          */
         public async Task<CreateAntchainAtoWithholdSignResponse> CreateAntchainAtoWithholdSignAsync(CreateAntchainAtoWithholdSignRequest request)
@@ -638,7 +638,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 代扣签约
+         * Description: 代扣签约创建
          * Summary: 代扣签约
          */
         public CreateAntchainAtoWithholdSignResponse CreateAntchainAtoWithholdSignEx(CreateAntchainAtoWithholdSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -648,7 +648,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 代扣签约
+         * Description: 代扣签约创建
          * Summary: 代扣签约
          */
         public async Task<CreateAntchainAtoWithholdSignResponse> CreateAntchainAtoWithholdSignExAsync(CreateAntchainAtoWithholdSignRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -826,8 +826,10 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-         * Summary: 代扣计划清偿/清欠
+         * Description: ● 重要说明：
+             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Summary: 单期代扣取消
          */
         public RepayAntchainAtoWithholdPlanResponse RepayAntchainAtoWithholdPlan(RepayAntchainAtoWithholdPlanRequest request)
         {
@@ -837,8 +839,10 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-         * Summary: 代扣计划清偿/清欠
+         * Description: ● 重要说明：
+             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Summary: 单期代扣取消
          */
         public async Task<RepayAntchainAtoWithholdPlanResponse> RepayAntchainAtoWithholdPlanAsync(RepayAntchainAtoWithholdPlanRequest request)
         {
@@ -848,8 +852,10 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-         * Summary: 代扣计划清偿/清欠
+         * Description: ● 重要说明：
+             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Summary: 单期代扣取消
          */
         public RepayAntchainAtoWithholdPlanResponse RepayAntchainAtoWithholdPlanEx(RepayAntchainAtoWithholdPlanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -858,8 +864,10 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-         * Summary: 代扣计划清偿/清欠
+         * Description: ● 重要说明：
+             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Summary: 单期代扣取消
          */
         public async Task<RepayAntchainAtoWithholdPlanResponse> RepayAntchainAtoWithholdPlanExAsync(RepayAntchainAtoWithholdPlanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -2052,6 +2060,48 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
+         * Description: 商户调用，修改订单的用户还款承诺
+         * Summary: 用户还款承诺信息修改
+         */
+        public UpdateAntchainAtoTradeUserpromiseResponse UpdateAntchainAtoTradeUserpromise(UpdateAntchainAtoTradeUserpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户调用，修改订单的用户还款承诺
+         * Summary: 用户还款承诺信息修改
+         */
+        public async Task<UpdateAntchainAtoTradeUserpromiseResponse> UpdateAntchainAtoTradeUserpromiseAsync(UpdateAntchainAtoTradeUserpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateAntchainAtoTradeUserpromiseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户调用，修改订单的用户还款承诺
+         * Summary: 用户还款承诺信息修改
+         */
+        public UpdateAntchainAtoTradeUserpromiseResponse UpdateAntchainAtoTradeUserpromiseEx(UpdateAntchainAtoTradeUserpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAntchainAtoTradeUserpromiseResponse>(DoRequest("1.0", "antchain.ato.trade.userpromise.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户调用，修改订单的用户还款承诺
+         * Summary: 用户还款承诺信息修改
+         */
+        public async Task<UpdateAntchainAtoTradeUserpromiseResponse> UpdateAntchainAtoTradeUserpromiseExAsync(UpdateAntchainAtoTradeUserpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAntchainAtoTradeUserpromiseResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.userpromise.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
          * Summary: 资方合同文件已上传确认接口
          */
@@ -2091,6 +2141,90 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<NotifyAntchainAtoFundFlowResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.flow.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 前置签署间联模式订单进件
+         * Summary: 前置签署间联模式订单进件
+         */
+        public SyncAntchainAtoFrontIndirectorderResponse SyncAntchainAtoFrontIndirectorder(SyncAntchainAtoFrontIndirectorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAntchainAtoFrontIndirectorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 前置签署间联模式订单进件
+         * Summary: 前置签署间联模式订单进件
+         */
+        public async Task<SyncAntchainAtoFrontIndirectorderResponse> SyncAntchainAtoFrontIndirectorderAsync(SyncAntchainAtoFrontIndirectorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAntchainAtoFrontIndirectorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 前置签署间联模式订单进件
+         * Summary: 前置签署间联模式订单进件
+         */
+        public SyncAntchainAtoFrontIndirectorderResponse SyncAntchainAtoFrontIndirectorderEx(SyncAntchainAtoFrontIndirectorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoFrontIndirectorderResponse>(DoRequest("1.0", "antchain.ato.front.indirectorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 前置签署间联模式订单进件
+         * Summary: 前置签署间联模式订单进件
+         */
+        public async Task<SyncAntchainAtoFrontIndirectorderResponse> SyncAntchainAtoFrontIndirectorderExAsync(SyncAntchainAtoFrontIndirectorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoFrontIndirectorderResponse>(await DoRequestAsync("1.0", "antchain.ato.front.indirectorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 间联模式-后置模式订单进件
+         * Summary: 间联模式-后置模式订单进件
+         */
+        public SyncAntchainAtoTradeIndirectorderResponse SyncAntchainAtoTradeIndirectorder(SyncAntchainAtoTradeIndirectorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAntchainAtoTradeIndirectorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 间联模式-后置模式订单进件
+         * Summary: 间联模式-后置模式订单进件
+         */
+        public async Task<SyncAntchainAtoTradeIndirectorderResponse> SyncAntchainAtoTradeIndirectorderAsync(SyncAntchainAtoTradeIndirectorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAntchainAtoTradeIndirectorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 间联模式-后置模式订单进件
+         * Summary: 间联模式-后置模式订单进件
+         */
+        public SyncAntchainAtoTradeIndirectorderResponse SyncAntchainAtoTradeIndirectorderEx(SyncAntchainAtoTradeIndirectorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoTradeIndirectorderResponse>(DoRequest("1.0", "antchain.ato.trade.indirectorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 间联模式-后置模式订单进件
+         * Summary: 间联模式-后置模式订单进件
+         */
+        public async Task<SyncAntchainAtoTradeIndirectorderResponse> SyncAntchainAtoTradeIndirectorderExAsync(SyncAntchainAtoTradeIndirectorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoTradeIndirectorderResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.indirectorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

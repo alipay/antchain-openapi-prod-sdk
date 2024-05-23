@@ -43,6 +43,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false, MaxLength=150)]
         public string AlipayMerchantServiceDescription { get; set; }
 
+        // 支付宝uid，非必填
+        [NameInMap("alipay_user_id")]
+        [Validation(Required=false, MaxLength=128)]
+        public string AlipayUserId { get; set; }
+
     }
 
 }
