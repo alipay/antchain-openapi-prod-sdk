@@ -21,30 +21,30 @@ public class RepayAntchainAtoWithholdPlanRequest extends TeaModel {
     @Validation(required = true, minimum = 1)
     public Long periodNum;
 
-    // 扣款时间
+    // 其他方式还款的时间
     @NameInMap("gmt_pay")
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtPay;
 
-    // 清偿清欠金额，单位为分
+    // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
     @NameInMap("pay_off_amount")
     @Validation(required = true)
     public Long payOffAmount;
 
-    // 清偿清欠方式
+    // 变更其他方式还款
     // WECHAT:微信;
     // BANK:银行
     // ALIPAY:支付宝
     @NameInMap("pay_off_type")
-    @Validation(required = true, maxLength = 64)
+    @Validation(maxLength = 64)
     public String payOffType;
 
-    // 清偿清欠单号,通过其他方式清偿的第三方单号;例如银行流水号或微信流水号
+    // 通过其他方式还款单号;例如银行流水号或微信流水号
     @NameInMap("pay_off_no")
-    @Validation(required = true, maxLength = 64)
+    @Validation(maxLength = 64)
     public String payOffNo;
 
-    // 清偿清欠银行名称,方式为银行时必填
+    // 其他方式还款银行名称，还款方式为银行时必填
     @NameInMap("pay_off_bank_name")
     @Validation(maxLength = 64)
     public String payOffBankName;

@@ -72,7 +72,7 @@ public class SubmitAntchainAtoFrontSignRequest extends TeaModel {
 
     // 用户的支付宝uid
     @NameInMap("alipay_user_id")
-    @Validation(required = true, maxLength = 24, minLength = 4)
+    @Validation(maxLength = 24, minLength = 4)
     public String alipayUserId;
 
     // 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。

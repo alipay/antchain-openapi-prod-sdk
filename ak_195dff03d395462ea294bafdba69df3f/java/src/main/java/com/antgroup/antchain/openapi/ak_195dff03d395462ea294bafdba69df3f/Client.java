@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.0"),
+                    new TeaPair("sdk_version", "1.3.1"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -295,7 +295,7 @@ public class Client {
     }
 
     /**
-     * Description: 代扣签约
+     * Description: 代扣签约创建
      * Summary: 代扣签约
      */
     public CreateAntchainAtoWithholdSignResponse createAntchainAtoWithholdSign(CreateAntchainAtoWithholdSignRequest request) throws Exception {
@@ -305,7 +305,7 @@ public class Client {
     }
 
     /**
-     * Description: 代扣签约
+     * Description: 代扣签约创建
      * Summary: 代扣签约
      */
     public CreateAntchainAtoWithholdSignResponse createAntchainAtoWithholdSignEx(CreateAntchainAtoWithholdSignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
@@ -390,8 +390,10 @@ public class Client {
     }
 
     /**
-     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-     * Summary: 代扣计划清偿/清欠
+     * Description: ● 重要说明：
+         ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+         ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+     * Summary: 单期代扣取消
      */
     public RepayAntchainAtoWithholdPlanResponse repayAntchainAtoWithholdPlan(RepayAntchainAtoWithholdPlanRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -400,8 +402,10 @@ public class Client {
     }
 
     /**
-     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-     * Summary: 代扣计划清偿/清欠
+     * Description: ● 重要说明：
+         ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+         ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+     * Summary: 单期代扣取消
      */
     public RepayAntchainAtoWithholdPlanResponse repayAntchainAtoWithholdPlanEx(RepayAntchainAtoWithholdPlanRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -945,6 +949,25 @@ public class Client {
     }
 
     /**
+     * Description: 商户调用，修改订单的用户还款承诺
+     * Summary: 用户还款承诺信息修改
+     */
+    public UpdateAntchainAtoTradeUserpromiseResponse updateAntchainAtoTradeUserpromise(UpdateAntchainAtoTradeUserpromiseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户调用，修改订单的用户还款承诺
+     * Summary: 用户还款承诺信息修改
+     */
+    public UpdateAntchainAtoTradeUserpromiseResponse updateAntchainAtoTradeUserpromiseEx(UpdateAntchainAtoTradeUserpromiseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.userpromise.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAntchainAtoTradeUserpromiseResponse());
+    }
+
+    /**
      * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
      * Summary: 资方合同文件已上传确认接口
      */
@@ -961,6 +984,44 @@ public class Client {
     public NotifyAntchainAtoFundFlowResponse notifyAntchainAtoFundFlowEx(NotifyAntchainAtoFundFlowRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyAntchainAtoFundFlowResponse());
+    }
+
+    /**
+     * Description: 前置签署间联模式订单进件
+     * Summary: 前置签署间联模式订单进件
+     */
+    public SyncAntchainAtoFrontIndirectorderResponse syncAntchainAtoFrontIndirectorder(SyncAntchainAtoFrontIndirectorderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoFrontIndirectorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 前置签署间联模式订单进件
+     * Summary: 前置签署间联模式订单进件
+     */
+    public SyncAntchainAtoFrontIndirectorderResponse syncAntchainAtoFrontIndirectorderEx(SyncAntchainAtoFrontIndirectorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.front.indirectorder.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoFrontIndirectorderResponse());
+    }
+
+    /**
+     * Description: 间联模式-后置模式订单进件
+     * Summary: 间联模式-后置模式订单进件
+     */
+    public SyncAntchainAtoTradeIndirectorderResponse syncAntchainAtoTradeIndirectorder(SyncAntchainAtoTradeIndirectorderRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAntchainAtoTradeIndirectorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 间联模式-后置模式订单进件
+     * Summary: 间联模式-后置模式订单进件
+     */
+    public SyncAntchainAtoTradeIndirectorderResponse syncAntchainAtoTradeIndirectorderEx(SyncAntchainAtoTradeIndirectorderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.indirectorder.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAntchainAtoTradeIndirectorderResponse());
     }
 
     /**
