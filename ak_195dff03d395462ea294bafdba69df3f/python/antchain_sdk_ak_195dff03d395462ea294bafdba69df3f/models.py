@@ -948,7 +948,6 @@ class SubmitAntchainAtoSignFlowRequest(TeaModel):
         self.validate_required(self.user_name, 'user_name')
         self.validate_required(self.business_scene, 'business_scene')
         self.validate_required(self.template_list, 'template_list')
-        self.validate_required(self.alipay_user_id, 'alipay_user_id')
         if self.alipay_user_id is not None:
             self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 20)
         self.validate_required(self.merchant_name, 'merchant_name')
@@ -1301,6 +1300,7 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
         alipay_merchant_name: str = None,
         alipay_merchant_service_name: str = None,
         alipay_merchant_service_description: str = None,
+        alipay_user_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1315,6 +1315,8 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
         self.alipay_merchant_service_name = alipay_merchant_service_name
         # 支付宝商户服务描述，会展示在支付并签约界面
         self.alipay_merchant_service_description = alipay_merchant_service_description
+        # 支付宝uid，非必填
+        self.alipay_user_id = alipay_user_id
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -1328,6 +1330,8 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
             self.validate_max_length(self.alipay_merchant_service_name, 'alipay_merchant_service_name', 50)
         if self.alipay_merchant_service_description is not None:
             self.validate_max_length(self.alipay_merchant_service_description, 'alipay_merchant_service_description', 150)
+        if self.alipay_user_id is not None:
+            self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 128)
 
     def to_map(self):
         _map = super().to_map()
@@ -1349,6 +1353,8 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
             result['alipay_merchant_service_name'] = self.alipay_merchant_service_name
         if self.alipay_merchant_service_description is not None:
             result['alipay_merchant_service_description'] = self.alipay_merchant_service_description
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
         return result
 
     def from_map(self, m: dict = None):
@@ -1367,6 +1373,8 @@ class CreateAntchainAtoWithholdSignRequest(TeaModel):
             self.alipay_merchant_service_name = m.get('alipay_merchant_service_name')
         if m.get('alipay_merchant_service_description') is not None:
             self.alipay_merchant_service_description = m.get('alipay_merchant_service_description')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
         return self
 
 
@@ -1863,18 +1871,18 @@ class RepayAntchainAtoWithholdPlanRequest(TeaModel):
         self.order_id = order_id
         # 第几期
         self.period_num = period_num
-        # 扣款时间
+        # 其他方式还款的时间
         self.gmt_pay = gmt_pay
-        # 清偿清欠金额，单位为分
+        # 取消订单某一期代扣计划中以其他方式还款金额，单位为分
         self.pay_off_amount = pay_off_amount
-        # 清偿清欠方式
+        # 变更其他方式还款
         # WECHAT:微信;
         # BANK:银行
         # ALIPAY:支付宝
         self.pay_off_type = pay_off_type
-        # 清偿清欠单号,通过其他方式清偿的第三方单号;例如银行流水号或微信流水号
+        # 通过其他方式还款单号;例如银行流水号或微信流水号
         self.pay_off_no = pay_off_no
-        # 清偿清欠银行名称,方式为银行时必填
+        # 其他方式还款银行名称，还款方式为银行时必填
         self.pay_off_bank_name = pay_off_bank_name
 
     def validate(self):
@@ -1890,10 +1898,8 @@ class RepayAntchainAtoWithholdPlanRequest(TeaModel):
         self.validate_required(self.pay_off_amount, 'pay_off_amount')
         if self.pay_off_amount is not None:
             self.validate_minimum(self.pay_off_amount, 'pay_off_amount', 0)
-        self.validate_required(self.pay_off_type, 'pay_off_type')
         if self.pay_off_type is not None:
             self.validate_max_length(self.pay_off_type, 'pay_off_type', 64)
-        self.validate_required(self.pay_off_no, 'pay_off_no')
         if self.pay_off_no is not None:
             self.validate_max_length(self.pay_off_no, 'pay_off_no', 64)
         if self.pay_off_bank_name is not None:
@@ -2089,7 +2095,6 @@ class SubmitAntchainAtoFrontSignRequest(TeaModel):
         if self.business_scene is not None:
             self.validate_max_length(self.business_scene, 'business_scene', 200)
         self.validate_required(self.template_list, 'template_list')
-        self.validate_required(self.alipay_user_id, 'alipay_user_id')
         if self.alipay_user_id is not None:
             self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 24)
         self.validate_required(self.merchant_name, 'merchant_name')
@@ -5153,6 +5158,140 @@ class QueryAntchainAtoWithholdRefundResponse(TeaModel):
         return self
 
 
+class UpdateAntchainAtoTradeUserpromiseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        term_idx: int = None,
+        updated_rental_money: int = None,
+        reason: str = None,
+        desc: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+        # 商家社会信用代码
+        self.merchant_id = merchant_id
+        # 修改的用户履约期数
+        self.term_idx = term_idx
+        # 更新后的租金，单位为分
+        # 1234=12.34元
+        self.updated_rental_money = updated_rental_money
+        # 调整原因，枚举
+        # ● A01 : 违章罚金
+        # ● A02 : 水电煤费用
+        self.reason = reason
+        # 调整说明，本说明同步到支付宝账户备注中，需准确填写
+        self.desc = desc
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        if self.order_id is not None:
+            self.validate_max_length(self.order_id, 'order_id', 49)
+        self.validate_required(self.merchant_id, 'merchant_id')
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 199)
+        self.validate_required(self.term_idx, 'term_idx')
+        self.validate_required(self.updated_rental_money, 'updated_rental_money')
+        self.validate_required(self.reason, 'reason')
+        if self.reason is not None:
+            self.validate_max_length(self.reason, 'reason', 10)
+        self.validate_required(self.desc, 'desc')
+        if self.desc is not None:
+            self.validate_max_length(self.desc, 'desc', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.term_idx is not None:
+            result['term_idx'] = self.term_idx
+        if self.updated_rental_money is not None:
+            result['updated_rental_money'] = self.updated_rental_money
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.desc is not None:
+            result['desc'] = self.desc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('term_idx') is not None:
+            self.term_idx = m.get('term_idx')
+        if m.get('updated_rental_money') is not None:
+            self.updated_rental_money = m.get('updated_rental_money')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        return self
+
+
+class UpdateAntchainAtoTradeUserpromiseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class NotifyAntchainAtoFundFlowRequest(TeaModel):
     def __init__(
         self,
@@ -5219,6 +5358,172 @@ class NotifyAntchainAtoFundFlowRequest(TeaModel):
 
 
 class NotifyAntchainAtoFundFlowResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SyncAntchainAtoFrontIndirectorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务参数,json.toString
+        self.biz_content = biz_content
+
+    def validate(self):
+        self.validate_required(self.biz_content, 'biz_content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        return self
+
+
+class SyncAntchainAtoFrontIndirectorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SyncAntchainAtoTradeIndirectorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_content: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务参数,json.toString
+        self.biz_content = biz_content
+
+    def validate(self):
+        self.validate_required(self.biz_content, 'biz_content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        return self
+
+
+class SyncAntchainAtoTradeIndirectorderResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

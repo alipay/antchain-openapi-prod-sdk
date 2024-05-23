@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0',
+                    'sdk_version': '1.3.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0',
+                    'sdk_version': '1.3.1',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -672,7 +672,7 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdSignRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdSignResponse:
         """
-        Description: 代扣签约
+        Description: 代扣签约创建
         Summary: 代扣签约
         """
         runtime = util_models.RuntimeOptions()
@@ -684,7 +684,7 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdSignRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdSignResponse:
         """
-        Description: 代扣签约
+        Description: 代扣签约创建
         Summary: 代扣签约
         """
         runtime = util_models.RuntimeOptions()
@@ -698,7 +698,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdSignResponse:
         """
-        Description: 代扣签约
+        Description: 代扣签约创建
         Summary: 代扣签约
         """
         UtilClient.validate_model(request)
@@ -714,7 +714,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntchainAtoWithholdSignResponse:
         """
-        Description: 代扣签约
+        Description: 代扣签约创建
         Summary: 代扣签约
         """
         UtilClient.validate_model(request)
@@ -952,8 +952,10 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
-        Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-        Summary: 代扣计划清偿/清欠
+        Description: ● 重要说明：
+        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Summary: 单期代扣取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -964,8 +966,10 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
-        Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-        Summary: 代扣计划清偿/清欠
+        Description: ● 重要说明：
+        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Summary: 单期代扣取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -978,8 +982,10 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
-        Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-        Summary: 代扣计划清偿/清欠
+        Description: ● 重要说明：
+        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Summary: 单期代扣取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -994,8 +1000,10 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
-        Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-        Summary: 代扣计划清偿/清欠
+        Description: ● 重要说明：
+        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Summary: 单期代扣取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -2527,6 +2535,62 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def update_antchain_ato_trade_userpromise(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseResponse:
+        """
+        Description: 商户调用，修改订单的用户还款承诺
+        Summary: 用户还款承诺信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_antchain_ato_trade_userpromise_ex(request, headers, runtime)
+
+    async def update_antchain_ato_trade_userpromise_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseResponse:
+        """
+        Description: 商户调用，修改订单的用户还款承诺
+        Summary: 用户还款承诺信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_antchain_ato_trade_userpromise_ex_async(request, headers, runtime)
+
+    def update_antchain_ato_trade_userpromise_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseResponse:
+        """
+        Description: 商户调用，修改订单的用户还款承诺
+        Summary: 用户还款承诺信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.userpromise.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_antchain_ato_trade_userpromise_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseResponse:
+        """
+        Description: 商户调用，修改订单的用户还款承诺
+        Summary: 用户还款承诺信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeUserpromiseResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def notify_antchain_ato_fund_flow(
         self,
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowRequest,
@@ -2581,6 +2645,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.NotifyAntchainAtoFundFlowResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_antchain_ato_front_indirectorder(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderResponse:
+        """
+        Description: 前置签署间联模式订单进件
+        Summary: 前置签署间联模式订单进件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_front_indirectorder_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_front_indirectorder_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderResponse:
+        """
+        Description: 前置签署间联模式订单进件
+        Summary: 前置签署间联模式订单进件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_front_indirectorder_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_front_indirectorder_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderResponse:
+        """
+        Description: 前置签署间联模式订单进件
+        Summary: 前置签署间联模式订单进件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderResponse(),
+            self.do_request('1.0', 'antchain.ato.front.indirectorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_front_indirectorder_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderResponse:
+        """
+        Description: 前置签署间联模式订单进件
+        Summary: 前置签署间联模式订单进件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFrontIndirectorderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.front.indirectorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_antchain_ato_trade_indirectorder(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderResponse:
+        """
+        Description: 间联模式-后置模式订单进件
+        Summary: 间联模式-后置模式订单进件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_trade_indirectorder_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_trade_indirectorder_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderResponse:
+        """
+        Description: 间联模式-后置模式订单进件
+        Summary: 间联模式-后置模式订单进件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_trade_indirectorder_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_trade_indirectorder_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderResponse:
+        """
+        Description: 间联模式-后置模式订单进件
+        Summary: 间联模式-后置模式订单进件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.indirectorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_trade_indirectorder_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderResponse:
+        """
+        Description: 间联模式-后置模式订单进件
+        Summary: 间联模式-后置模式订单进件
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.indirectorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
