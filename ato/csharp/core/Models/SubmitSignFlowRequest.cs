@@ -85,7 +85,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 用户的支付宝uid
         [NameInMap("alipay_user_id")]
-        [Validation(Required=true, MaxLength=20)]
+        [Validation(Required=false, MaxLength=20)]
         public string AlipayUserId { get; set; }
 
         // 公司名称

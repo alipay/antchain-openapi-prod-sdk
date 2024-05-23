@@ -38,16 +38,6 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true, MaxLength=49)]
         public string OrderId { get; set; }
 
-        // 订单关联的商品id
-        [NameInMap("order_product_id")]
-        [Validation(Required=true, MaxLength=32)]
-        public string OrderProductId { get; set; }
-
-        // 商品的版本
-        [NameInMap("order_product_version")]
-        [Validation(Required=true, MaxLength=10)]
-        public string OrderProductVersion { get; set; }
-
         // 订单总租期
         [NameInMap("order_rent_term")]
         [Validation(Required=true)]
@@ -62,6 +52,11 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("sys_name")]
         [Validation(Required=true, MaxLength=32)]
         public string SysName { get; set; }
+
+        // 订单产品的二级类目
+        [NameInMap("order_product_subclass")]
+        [Validation(Required=true, MaxLength=64)]
+        public string OrderProductSubclass { get; set; }
 
     }
 
