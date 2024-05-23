@@ -77,6 +77,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSi
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoSignFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontIndirectorderRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontIndirectorderResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsRequest;
@@ -85,10 +87,14 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerch
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFinanceloanapplyRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFinanceloanapplyResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndirectorderRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndirectorderResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeUserpromiseRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeUserpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignFlowRequest;
@@ -240,7 +246,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.0',
+                    'sdk_version'      => '1.3.1',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -520,7 +526,7 @@ class Client
     }
 
     /**
-     * Description: 代扣签约
+     * Description: 代扣签约创建
      * Summary: 代扣签约.
      *
      * @param CreateAntchainAtoWithholdSignRequest $request
@@ -536,7 +542,7 @@ class Client
     }
 
     /**
-     * Description: 代扣签约
+     * Description: 代扣签约创建
      * Summary: 代扣签约.
      *
      * @param CreateAntchainAtoWithholdSignRequest $request
@@ -685,8 +691,10 @@ class Client
     }
 
     /**
-     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-     * Summary: 代扣计划清偿/清欠.
+     * Description: ● 重要说明：
+     *      ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *      ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+     * Summary: 单期代扣取消.
      *
      * @param RepayAntchainAtoWithholdPlanRequest $request
      *
@@ -701,8 +709,10 @@ class Client
     }
 
     /**
-     * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
-     * Summary: 代扣计划清偿/清欠.
+     * Description: ● 重要说明：
+     *      ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *      ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+     * Summary: 单期代扣取消.
      *
      * @param RepayAntchainAtoWithholdPlanRequest $request
      * @param string[]                            $headers
@@ -1612,6 +1622,39 @@ class Client
     }
 
     /**
+     * Description: 商户调用，修改订单的用户还款承诺
+     * Summary: 用户还款承诺信息修改.
+     *
+     * @param UpdateAntchainAtoTradeUserpromiseRequest $request
+     *
+     * @return UpdateAntchainAtoTradeUserpromiseResponse
+     */
+    public function updateAntchainAtoTradeUserpromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAntchainAtoTradeUserpromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户调用，修改订单的用户还款承诺
+     * Summary: 用户还款承诺信息修改.
+     *
+     * @param UpdateAntchainAtoTradeUserpromiseRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return UpdateAntchainAtoTradeUserpromiseResponse
+     */
+    public function updateAntchainAtoTradeUserpromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAntchainAtoTradeUserpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromise.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
      * Summary: 资方合同文件已上传确认接口.
      *
@@ -1642,6 +1685,72 @@ class Client
         Utils::validateModel($request);
 
         return NotifyAntchainAtoFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 前置签署间联模式订单进件
+     * Summary: 前置签署间联模式订单进件.
+     *
+     * @param SyncAntchainAtoFrontIndirectorderRequest $request
+     *
+     * @return SyncAntchainAtoFrontIndirectorderResponse
+     */
+    public function syncAntchainAtoFrontIndirectorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFrontIndirectorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 前置签署间联模式订单进件
+     * Summary: 前置签署间联模式订单进件.
+     *
+     * @param SyncAntchainAtoFrontIndirectorderRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return SyncAntchainAtoFrontIndirectorderResponse
+     */
+    public function syncAntchainAtoFrontIndirectorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFrontIndirectorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.front.indirectorder.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 间联模式-后置模式订单进件
+     * Summary: 间联模式-后置模式订单进件.
+     *
+     * @param SyncAntchainAtoTradeIndirectorderRequest $request
+     *
+     * @return SyncAntchainAtoTradeIndirectorderResponse
+     */
+    public function syncAntchainAtoTradeIndirectorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoTradeIndirectorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 间联模式-后置模式订单进件
+     * Summary: 间联模式-后置模式订单进件.
+     *
+     * @param SyncAntchainAtoTradeIndirectorderRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return SyncAntchainAtoTradeIndirectorderResponse
+     */
+    public function syncAntchainAtoTradeIndirectorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoTradeIndirectorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.indirectorder.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

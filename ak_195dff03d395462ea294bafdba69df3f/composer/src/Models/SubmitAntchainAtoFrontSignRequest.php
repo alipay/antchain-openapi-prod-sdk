@@ -191,7 +191,6 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         Model::validateRequired('userName', $this->userName, true);
         Model::validateRequired('businessScene', $this->businessScene, true);
         Model::validateRequired('templateList', $this->templateList, true);
-        Model::validateRequired('alipayUserId', $this->alipayUserId, true);
         Model::validateRequired('merchantName', $this->merchantName, true);
         Model::validateRequired('merchantIdType', $this->merchantIdType, true);
         Model::validateRequired('merchantIdNumber', $this->merchantIdNumber, true);

@@ -48,6 +48,12 @@ class CreateAntchainAtoWithholdSignRequest extends Model
      * @var string
      */
     public $alipayMerchantServiceDescription;
+
+    // 支付宝uid，非必填
+    /**
+     * @var string
+     */
+    public $alipayUserId;
     protected $_name = [
         'authToken'                        => 'auth_token',
         'productInstanceId'                => 'product_instance_id',
@@ -56,6 +62,7 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         'alipayMerchantName'               => 'alipay_merchant_name',
         'alipayMerchantServiceName'        => 'alipay_merchant_service_name',
         'alipayMerchantServiceDescription' => 'alipay_merchant_service_description',
+        'alipayUserId'                     => 'alipay_user_id',
     ];
 
     public function validate()
@@ -66,6 +73,7 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         Model::validateMaxLength('alipayMerchantName', $this->alipayMerchantName, 50);
         Model::validateMaxLength('alipayMerchantServiceName', $this->alipayMerchantServiceName, 50);
         Model::validateMaxLength('alipayMerchantServiceDescription', $this->alipayMerchantServiceDescription, 150);
+        Model::validateMaxLength('alipayUserId', $this->alipayUserId, 128);
     }
 
     public function toMap()
@@ -91,6 +99,9 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         }
         if (null !== $this->alipayMerchantServiceDescription) {
             $res['alipay_merchant_service_description'] = $this->alipayMerchantServiceDescription;
+        }
+        if (null !== $this->alipayUserId) {
+            $res['alipay_user_id'] = $this->alipayUserId;
         }
 
         return $res;
@@ -124,6 +135,9 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         }
         if (isset($map['alipay_merchant_service_description'])) {
             $model->alipayMerchantServiceDescription = $map['alipay_merchant_service_description'];
+        }
+        if (isset($map['alipay_user_id'])) {
+            $model->alipayUserId = $map['alipay_user_id'];
         }
 
         return $model;

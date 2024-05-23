@@ -31,19 +31,19 @@ class RepayAntchainAtoWithholdPlanRequest extends Model
      */
     public $periodNum;
 
-    // 扣款时间
+    // 其他方式还款的时间
     /**
      * @var string
      */
     public $gmtPay;
 
-    // 清偿清欠金额，单位为分
+    // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
     /**
      * @var int
      */
     public $payOffAmount;
 
-    // 清偿清欠方式
+    // 变更其他方式还款
     // WECHAT:微信;
     // BANK:银行
     // ALIPAY:支付宝
@@ -52,13 +52,13 @@ class RepayAntchainAtoWithholdPlanRequest extends Model
      */
     public $payOffType;
 
-    // 清偿清欠单号,通过其他方式清偿的第三方单号;例如银行流水号或微信流水号
+    // 通过其他方式还款单号;例如银行流水号或微信流水号
     /**
      * @var string
      */
     public $payOffNo;
 
-    // 清偿清欠银行名称,方式为银行时必填
+    // 其他方式还款银行名称，还款方式为银行时必填
     /**
      * @var string
      */
@@ -81,8 +81,6 @@ class RepayAntchainAtoWithholdPlanRequest extends Model
         Model::validateRequired('periodNum', $this->periodNum, true);
         Model::validateRequired('gmtPay', $this->gmtPay, true);
         Model::validateRequired('payOffAmount', $this->payOffAmount, true);
-        Model::validateRequired('payOffType', $this->payOffType, true);
-        Model::validateRequired('payOffNo', $this->payOffNo, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('payOffType', $this->payOffType, 64);
         Model::validateMaxLength('payOffNo', $this->payOffNo, 64);
