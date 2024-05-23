@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.26',
+    sdk_version = '1.8.51',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -161,12 +161,113 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 文件信息
+model FileInfo {
+  // 文件名称
+  fileName: string(name='file_name', example='asasd.jpg'),
+  // 文件key
+  fileKey: string(name='file_key', example='adadqweqw12sads1'),
+}
+
 // 订单还款计划
 model PromiseInfo {
 }
 
 // 同步订单中的下单人信息
 model UserSyncInfo {
+}
+
+// 公司信息
+model CompanyInfo {
+  // 营业执照文件信息
+  businessLicenseFile: FileInfo(name='business_license_file', example=''),
+  // 业务类型 枚举
+  productMainClass: string(name='product_main_class', example='业务类型'),
+  // 公司名称
+  companyName: string(name='company_name', example='xx公司'),
+  // 公司别名
+  companyAliasName: string(name='company_alias_name', example='公司别名'),
+  // 公司数科租户id
+  tenantId: string(name='tenant_id', example='ASSDDDAS'),
+  // 统一社会信用代码
+  merchantId: string(name='merchant_id', example='9121asd231231231231'),
+  // 公司联系电话
+  companyMobile: string(name='company_mobile', example='1231xx2322'),
+  // 公司联系地址
+  companyAddress: string(name='company_address', example='xx市xx区'),
+  // 联系人姓名
+  contactName: string(name='contact_name', example='李xx'),
+  // 联系人手机号码
+  contactMobile: string(name='contact_mobile', example='132xx2312312'),
+  // 绑定企业支付宝账号
+  bindAlipayNo: string(name='bind_alipay_no', example='绑定企业支付宝账号'),
+  // 结算企业支付宝账号
+  settleAlipayNo: string(name='settle_alipay_no', example='结算企业支付宝账号'),
+  // 绑定支付宝uid
+  bindAlipayUid: string(name='bind_alipay_uid', example='绑定支付宝uid'),
+}
+
+// 租户协议分页对象
+model AgreementPage {
+  // 协议id
+  agreementId: string(name='agreement_id', example='1231234343423423'),
+  // 代理企业名称
+  merchantName: string(name='merchant_name', example='xx公司'),
+  // 租户8位id
+  tenantId: string(name='tenant_id', example='SADWQWAW'),
+  // 业务类型 枚举
+  productMainClass: string(name='product_main_class', example='业务类型'),
+  // 协议类型 枚举
+  agreementType: string(name='agreement_type', example='协议类型'),
+  // 租户签约状态 枚举
+  signStatus: string(name='sign_status', example='SUCCESS'),
+}
+
+// 风险场景的决策结果
+model RiskScene {
+  // 风险场景编码
+  sceneCode: string(name='scene_code', example='风险场景编码'),
+  // 该场景的风险决策结果
+  decision: string(name='decision', example='该场景的风险决策结果'),
+}
+
+// 策略结果详情
+model RiskStrategy {
+  // 策略ID
+  id: string(name='id', example='策略ID'),
+  // 策略名称
+  name: string(name='name', example='策略名称'),
+  // 策略决策结果
+  decision: string(name='decision', example='策略决策结果'),
+  // 风险场景编码
+  sceneCode: string(name='scene_code', example='风险场景编码'),
+}
+
+// 分账关系页对象
+model RelationPage {
+  // 分账关系id
+  relationId: string(name='relation_id', example='1231234343423423'),
+  // 分账公司名称
+  companyName: string(name='company_name', example='xx公司'),
+  // 分账公司名称统一社会信用代码
+  merchantId: string(name='merchant_id', example='912123asdq2131'),
+  // 审核状态
+  status: string(name='status', example='AUDIT_PASSED'),
+}
+
+// 进件分页对象
+model MerchantAgentPage {
+  // 进件id
+  payExpandId: string(name='pay_expand_id', example='1231234343423423'),
+  // 	
+  // 代理企业名称
+  agentName: string(name='agent_name', example='xx商户'),
+  // 租户8位id
+  tenantId: string(name='tenant_id', example='SADWQWAW'),
+  // 业务类型
+  bizType: string(name='biz_type', example='业务类型'),
+  // 进件审核状态 枚举
+  payExpandStatus: string(name='pay_expand_status', example='SUCCESS'),
 }
 
 // 主订单信息
@@ -200,8 +301,71 @@ model ActivePayOrder {
   gmtPay?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay', example='2018-10-10T10:10:00Z'),
 }
 
+// 应用信息
+model ApplicationInfo {
+  // 应用场景
+  // MINI_APP 小程序
+  // APP 自有app
+  // ALL 两种都有
+  applicationScene: string(name='application_scene', example='ALL'),
+  // 小程序id
+  tinyAppId: string(name='tiny_app_id', example='小程序id'),
+  // 小程序名称
+  siteName: string(name='site_name', example='xx小程序'),
+  // 网站地址
+  sitUrl: string(name='sit_url', example='http://asdasas.com'),
+  // 商户名称
+  merchantName: string(name='merchant_name', example='xx商户'),
+  // 商户服务名称
+  merchantServiceName: string(name='merchant_service_name', example='xx商户服务'),
+  // 商户服务描述
+  merchantServiceDesc: string(name='merchant_service_desc', example='xx服务描述'),
+}
+
 // 订单商品信息
 model GoodsInfo {
+}
+
+// 分页查询对象
+model PageQuery {
+  // 页大小
+  pageSize: long(name='page_size', example='10'),
+  // 当前页
+  pageIndex: long(name='page_index', example='2'),
+}
+
+// 法人信息
+model LegalInfo {
+  // 法人名称
+  legalName: string(name='legal_name', example='法人名称'),
+  // 法人证件号
+  legalCertNo: string(name='legal_cert_no', example='法人证件号'),
+  // 法人证件正面
+  legalCertFrontFile: FileInfo(name='legal_cert_front_file', example=''),
+  // 法人证件反面
+  legalCertBackFile: FileInfo(name='legal_cert_back_file', example=''),
+}
+
+// 审核信息
+model AuditInfo {
+  // 审核步骤
+  stage: string(name='stage', example='商户提交'),
+  // 审核主体
+  auditSubject: string(name='audit_subject', example='平台审核'),
+  // 审核状态
+  status: string(name='status', example='AUDIT_PASSED'),
+  // 审核时间
+  applyDateStr: string(name='apply_date_str', example='2023-04-05 12:12:23'),
+  // 审核失败描述
+  failReason: string(name='fail_reason', example='xx值校验失败'),
+}
+
+// 模型结果详情
+model RiskModel {
+  // 风险场景编码
+  sceneCode: string(name='scene_code', example='风险场景编码'),
+  // 该风险场景的风险分值
+  score: string(name='score', example='该风险场景的风险分值'),
 }
 
 // 订单包含的单个商品模型
@@ -1015,6 +1179,48 @@ async function getFundOrderfullinfoEx(request: GetFundOrderfullinfoRequest, head
   return doRequest('1.0' ,'antchain.ato.fund.orderfullinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model NotifyFundFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 商户的订单号
+  orderId: string(name='order_id'),
+  // 签署合同单号
+  signNo: string(name='sign_no'),
+  // 返回的文件fileItemNo编号
+  fileItemNo: string(name='file_item_no'),
+}
+
+model NotifyFundFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+ * Summary: 资方合同文件已上传确认接口
+ */
+async function notifyFundFlow(request: NotifyFundFlowRequest): NotifyFundFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyFundFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于资方将盖章后的合同文件上传给ISV后，ISV通过该接口通知资方已上传合同
+ * Summary: 资方合同文件已上传确认接口
+ */
+async function notifyFundFlowEx(request: NotifyFundFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyFundFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model GetInnerProductRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1109,16 +1315,14 @@ model SyncInnerMeterforwholeorderRequest = {
   meterProductCode: string(maxLength=64, minLength=1, name='meter_product_code'),
   // 订单id
   orderId: string(maxLength=49, minLength=1, name='order_id'),
-  // 订单关联的商品id
-  orderProductId: string(maxLength=32, minLength=1, name='order_product_id'),
-  // 商品的版本
-  orderProductVersion: string(maxLength=10, minLength=1, name='order_product_version'),
   // 订单总租期
   orderRentTerm: long(maximum=200, minimum=1, name='order_rent_term'),
   // 订单总租金，单位为分
   orderTotalMoney: long(name='order_total_money'),
   // 系统名称
   sysName: string(maxLength=32, minLength=1, name='sys_name'),
+  // 订单产品的二级类目
+  orderProductSubclass: string(maxLength=64, minLength=1, name='order_product_subclass'),
 }
 
 model SyncInnerMeterforwholeorderResponse = {
@@ -1193,6 +1397,1603 @@ async function syncInnerMeterforagsign(request: SyncInnerMeterforagsignRequest):
 async function syncInnerMeterforagsignEx(request: SyncInnerMeterforagsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerMeterforagsignResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.inner.meterforagsign.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AllInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分页查询结构体
+  pageInfo: PageQuery(name='page_info'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode?: string(name='template_code'),
+  // 魔法库模板文件名称
+  templateName?: string(name='template_name'),
+}
+
+model AllInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板列表数据
+  templateList?: string(name='template_list'),
+}
+
+/**
+ * Description: 内部接口，根据租户查询合同模板列表
+ * Summary: 查询模板列表
+ */
+async function allInnerTemplate(request: AllInnerTemplateRequest): AllInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return allInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，根据租户查询合同模板列表
+ * Summary: 查询模板列表
+ */
+async function allInnerTemplateEx(request: AllInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AllInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.all', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分页查询
+  pageInfo: PageQuery(name='page_info'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+}
+
+model ListInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板列表数据
+  templateList?: string(name='template_list'),
+}
+
+/**
+ * Description: 内部接口，根据模板code查询合同模板版本列表
+ * Summary: 查询魔法库某一模板版本列表
+ */
+async function listInnerTemplate(request: ListInnerTemplateRequest): ListInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，根据模板code查询合同模板版本列表
+ * Summary: 查询魔法库某一模板版本列表
+ */
+async function listInnerTemplateEx(request: ListInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 	
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+  // 魔法库模板版本
+  templateVersion: string(name='template_version'),
+}
+
+model DetailInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板详情信息
+  templateInfo?: string(name='template_info'),
+}
+
+/**
+ * Description: 内部接口，根据模板code查询指定版本的模板详情
+ * Summary: 查询魔法库模板详情
+ */
+async function detailInnerTemplate(request: DetailInnerTemplateRequest): DetailInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，根据模板code查询指定版本的模板详情
+ * Summary: 查询魔法库模板详情
+ */
+async function detailInnerTemplateEx(request: DetailInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 	
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 创建的模板名称
+  templateName: string(maxLength=32, name='template_name'),
+  // 文件oss存储的key
+  fileKey?: string(name='file_key'),
+  // 模板文件的名称
+  fileName?: string(name='file_name'),
+}
+
+model CreateInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 魔法库模板code
+  templateCode?: string(name='template_code'),
+}
+
+/**
+ * Description: 内部接口，创建魔法库模板
+ * Summary: 创建模板
+ */
+async function createInnerTemplate(request: CreateInnerTemplateRequest): CreateInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，创建魔法库模板
+ * Summary: 创建模板
+ */
+async function createInnerTemplateEx(request: CreateInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+  // 魔法库模板版本
+  templateVersion: string(name='template_version'),
+  // 文件预览地址
+  previewAddress: string(name='preview_address'),
+  // 创建模板的元素列表
+  templateElementList?: string(name='template_element_list'),
+  // 文件oss存储的key
+  fileKey: string(name='file_key'),
+  // 是否确认保存。点击”保存“按钮传false、点击”下一步“按钮传true
+  confirm: boolean(name='confirm'),
+}
+
+model SaveInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 内部接口，保存魔法库模板
+ * Summary: 保存魔法库模板
+ */
+async function saveInnerTemplate(request: SaveInnerTemplateRequest): SaveInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，保存魔法库模板
+ * Summary: 保存魔法库模板
+ */
+async function saveInnerTemplateEx(request: SaveInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveInnerSignfieldsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+  // 魔法库模板版本
+  templateVersion: string(name='template_version'),
+  // 模板签署区列表
+  signFieldList: string(name='sign_field_list'),
+}
+
+model SaveInnerSignfieldsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 内部接口，保存魔法库模板签署区
+ * Summary: 保存魔法库模板签署区
+ */
+async function saveInnerSignfields(request: SaveInnerSignfieldsRequest): SaveInnerSignfieldsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveInnerSignfieldsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，保存魔法库模板签署区
+ * Summary: 保存魔法库模板签署区
+ */
+async function saveInnerSignfieldsEx(request: SaveInnerSignfieldsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveInnerSignfieldsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.signfields.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+  // 魔法库版本id
+  templateVersionId: string(name='template_version_id'),
+}
+
+model PublishInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 内部接口，发布魔法库模板
+ * Summary: 发布魔法库模板
+ */
+async function publishInnerTemplate(request: PublishInnerTemplateRequest): PublishInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，发布魔法库模板
+ * Summary: 发布魔法库模板
+ */
+async function publishInnerTemplateEx(request: PublishInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PreviewInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 文件oss存储的key
+  fileKey: string(name='file_key'),
+}
+
+model PreviewInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 预览接口返回
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 内部接口，根据code预览对应魔法库模板
+ * Summary: 预览魔法库模板
+ */
+async function previewInnerTemplate(request: PreviewInnerTemplateRequest): PreviewInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return previewInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，根据code预览对应魔法库模板
+ * Summary: 预览魔法库模板
+ */
+async function previewInnerTemplateEx(request: PreviewInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreviewInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.preview', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+  // 魔法库模板版本
+  templateVersion: string(name='template_version'),
+  // 魔法库模板版本id
+  templateVersionId: string(name='template_version_id'),
+}
+
+model DeleteInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 内部接口，根据code删除对应魔法库模板
+ * Summary: 删除魔法库模板
+ */
+async function deleteInnerTemplate(request: DeleteInnerTemplateRequest): DeleteInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，根据code删除对应魔法库模板
+ * Summary: 删除魔法库模板
+ */
+async function deleteInnerTemplateEx(request: DeleteInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloneInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库对应模板的模板复制id
+  voucherId: string(name='voucher_id'),
+}
+
+model CloneInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 内部接口，复制一个魔法库模板
+ * Summary: 复制魔法库模板
+ */
+async function cloneInnerTemplate(request: CloneInnerTemplateRequest): CloneInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cloneInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 内部接口，复制一个魔法库模板
+ * Summary: 复制魔法库模板
+ */
+async function cloneInnerTemplateEx(request: CloneInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloneInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.clone', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadInnerFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 文件名称
+  fileName: string(name='file_name'),
+  // ● BUSINESS_LICENSE 营业执照
+  // ● CARD_FRONT 身份证正面
+  // ● CARD_BACK 身份证反面
+  // ● SPLITTING 分账
+  // ● CONTRACT_TEMPLATE 合同模板
+  bizScene: string(name='biz_scene'),
+}
+
+model UploadInnerFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 临时上传地址
+  uploadUrl?: string(name='upload_url'),
+  // 文件key
+  fileKey?: string(name='file_key'),
+}
+
+/**
+ * Description: ato文件上传
+ * Summary: ato文件上传
+ */
+async function uploadInnerFile(request: UploadInnerFileRequest): UploadInnerFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadInnerFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: ato文件上传
+ * Summary: ato文件上传
+ */
+async function uploadInnerFileEx(request: UploadInnerFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadInnerFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadInnerFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 文件key
+  fileKey: string(name='file_key'),
+}
+
+model DownloadInnerFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件临时下载地址
+  downloadUrl?: string(name='download_url'),
+}
+
+/**
+ * Description: ato文件下载
+ * Summary: ato文件下载
+ */
+async function downloadInnerFile(request: DownloadInnerFileRequest): DownloadInnerFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadInnerFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: ato文件下载
+ * Summary: ato文件下载
+ */
+async function downloadInnerFileEx(request: DownloadInnerFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadInnerFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.file.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetInnerTemplateofficeurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 	
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+  // 魔法库模板版本
+  templateVersion: string(name='template_version'),
+}
+
+model GetInnerTemplateofficeurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回值
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 获取 webofficeURL（透传）
+ * Summary: 获取 webofficeURL
+ */
+async function getInnerTemplateofficeurl(request: GetInnerTemplateofficeurlRequest): GetInnerTemplateofficeurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getInnerTemplateofficeurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取 webofficeURL（透传）
+ * Summary: 获取 webofficeURL
+ */
+async function getInnerTemplateofficeurlEx(request: GetInnerTemplateofficeurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetInnerTemplateofficeurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.templateofficeurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefreshInnerTemplatetokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // accessToken
+  accessToken: string(name='access_token'),
+  // refreshToekn
+  refreshToken: string(name='refresh_token'),
+}
+
+model RefreshInnerTemplatetokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回值
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 魔法库控制台刷新token
+ * Summary: 刷新token
+ */
+async function refreshInnerTemplatetoken(request: RefreshInnerTemplatetokenRequest): RefreshInnerTemplatetokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refreshInnerTemplatetokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 魔法库控制台刷新token
+ * Summary: 刷新token
+ */
+async function refreshInnerTemplatetokenEx(request: RefreshInnerTemplatetokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefreshInnerTemplatetokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.templatetoken.refresh', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateInnerTemplatetextareaRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 模板编码
+  templateCode: string(name='template_code'),
+  // 模板版本号
+  templateVersion: string(name='template_version'),
+  // 组件类型，INPUT:单行文本 TEXTAREA:多行文本
+  componentType: string(name='component_type'),
+  // 组件名称（占位符）
+  componentName: string(name='component_name'),
+  // 是否必填
+  required: boolean(name='required'),
+}
+
+model CreateInnerTemplatetextareaResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建成功的文本域组件信息
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 创建文本域（组件）
+ * Summary: 创建文本域
+ */
+async function createInnerTemplatetextarea(request: CreateInnerTemplatetextareaRequest): CreateInnerTemplatetextareaResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createInnerTemplatetextareaEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建文本域（组件）
+ * Summary: 创建文本域
+ */
+async function createInnerTemplatetextareaEx(request: CreateInnerTemplatetextareaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateInnerTemplatetextareaResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.templatetextarea.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInnerTemplateimageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 分页查询结构体
+  pageInfo: PageQuery(name='page_info'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+  // 魔法库模板版本
+  templateVersion: string(name='template_version'),
+}
+
+model QueryInnerTemplateimageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板图片列表
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 获取模板的图片列表
+ * Summary: 获取模板的图片列表
+ */
+async function queryInnerTemplateimage(request: QueryInnerTemplateimageRequest): QueryInnerTemplateimageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInnerTemplateimageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取模板的图片列表
+ * Summary: 获取模板的图片列表
+ */
+async function queryInnerTemplateimageEx(request: QueryInnerTemplateimageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerTemplateimageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.templateimage.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateInnerFunddividerelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 第一次暂存或提交可以不传，由后端生成
+  relationId?: string(name='relation_id'),
+  // 分账公司名称
+  companyName?: string(name='company_name'),
+  // 分账公司社会信用代码
+  merchantId?: string(name='merchant_id'),
+  // 分账合同或协议
+  contractFiles?: [ FileInfo ](name='contract_files'),
+  // 分账关系说明
+  desc?: string(name='desc'),
+  // 分账方企业pid
+  alipayPid?: string(name='alipay_pid'),
+  // 分账方企业支付宝账号
+  alipayAccount?: string(name='alipay_account'),
+  // 是否直接提交
+  // SUBMITTED 直接提交
+  // STAGE 暂存
+  submit: string(name='submit'),
+  // 操作人名称
+  userName: string(name='user_name'),
+}
+
+model CreateInnerFunddividerelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分账关系id
+  relationId?: string(name='relation_id'),
+}
+
+/**
+ * Description: 保存/编辑分账关系信息
+ * Summary: 保存/编辑分账关系信息
+ */
+async function createInnerFunddividerelation(request: CreateInnerFunddividerelationRequest): CreateInnerFunddividerelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createInnerFunddividerelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保存/编辑分账关系信息
+ * Summary: 保存/编辑分账关系信息
+ */
+async function createInnerFunddividerelationEx(request: CreateInnerFunddividerelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateInnerFunddividerelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.funddividerelation.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitInnerFunddividerelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 分账关系id
+  relationId: string(name='relation_id'),
+  // 操作人名称
+  userName: string(name='user_name'),
+}
+
+model SubmitInnerFunddividerelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 提交分账关系信息
+ * Summary: 提交分账关系信息
+ */
+async function submitInnerFunddividerelation(request: SubmitInnerFunddividerelationRequest): SubmitInnerFunddividerelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitInnerFunddividerelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交分账关系信息
+ * Summary: 提交分账关系信息
+ */
+async function submitInnerFunddividerelationEx(request: SubmitInnerFunddividerelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitInnerFunddividerelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.funddividerelation.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInnerFunddividerelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 分账关系id
+  relationId: string(name='relation_id'),
+}
+
+model QueryInnerFunddividerelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分账公司名称
+  companyName?: string(name='company_name'),
+  // 统一社会信用代码
+  merchantId?: string(name='merchant_id'),
+  // 分账合同或协议
+  contractFiles?: [ FileInfo ](name='contract_files'),
+  // 分账关系说明
+  desc?: string(name='desc'),
+  // 分账方企业pid
+  alipayPid?: string(name='alipay_pid'),
+  // 分账方企业支付宝账号
+  alipayAccount?: string(name='alipay_account'),
+  // 审核列表
+  auditInfos?: [ AuditInfo ](name='audit_infos'),
+  // INIT:待提交 AUDIT:审批中 AUDIT_PASSED:审批通过 AUDIT_NOT_PASSED:审批不通过
+  relationStatus?: string(name='relation_status'),
+  // 分账关系绑定失败原因
+  relationFailReason?: string(name='relation_fail_reason'),
+}
+
+/**
+ * Description: 查询分账关系信息
+ * Summary: 查询分账关系信息
+ */
+async function queryInnerFunddividerelation(request: QueryInnerFunddividerelationRequest): QueryInnerFunddividerelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInnerFunddividerelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询分账关系信息
+ * Summary: 查询分账关系信息
+ */
+async function queryInnerFunddividerelationEx(request: QueryInnerFunddividerelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerFunddividerelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.funddividerelation.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryInnerFunddividerelationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 分页查询对象
+  pageInfo: PageQuery(name='page_info'),
+}
+
+model PagequeryInnerFunddividerelationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据总量
+  totalSize?: long(name='total_size'),
+  // 分账关系页对象列表
+  relations?: [ RelationPage ](name='relations'),
+}
+
+/**
+ * Description: 查询分账关系分页列表
+ * Summary: 查询分账关系分页列表
+ */
+async function pagequeryInnerFunddividerelation(request: PagequeryInnerFunddividerelationRequest): PagequeryInnerFunddividerelationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryInnerFunddividerelationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询分账关系分页列表
+ * Summary: 查询分账关系分页列表
+ */
+async function pagequeryInnerFunddividerelationEx(request: PagequeryInnerFunddividerelationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryInnerFunddividerelationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.funddividerelation.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateInnerMerchantagreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 协议编号
+  agreementId: string(name='agreement_id'),
+  // 签署动作
+  signAction: string(name='sign_action'),
+  // 操作人名称
+  userName: string(name='user_name'),
+}
+
+model CreateInnerMerchantagreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 保存租户签约信息
+ * Summary: 保存租户签约信息
+ */
+async function createInnerMerchantagreement(request: CreateInnerMerchantagreementRequest): CreateInnerMerchantagreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createInnerMerchantagreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保存租户签约信息
+ * Summary: 保存租户签约信息
+ */
+async function createInnerMerchantagreementEx(request: CreateInnerMerchantagreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateInnerMerchantagreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.merchantagreement.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInnerMerchantagreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 协议id
+  agreementId: string(name='agreement_id'),
+}
+
+model QueryInnerMerchantagreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签约状态 枚举
+  // TOBE 待签
+  // FAIL 签约失败
+  // SUCCESS 签约成功
+  signStatus?: string(name='sign_status'),
+  // 签约时间
+  signDateStr?: string(name='sign_date_str'),
+  // 协议内容 富文本
+  agreementContent?: string(name='agreement_content'),
+}
+
+/**
+ * Description: 查询租户签约信息
+ * Summary: 查询租户签约信息
+ */
+async function queryInnerMerchantagreement(request: QueryInnerMerchantagreementRequest): QueryInnerMerchantagreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInnerMerchantagreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询租户签约信息
+ * Summary: 查询租户签约信息
+ */
+async function queryInnerMerchantagreementEx(request: QueryInnerMerchantagreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerMerchantagreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.merchantagreement.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryInnerMerchantagreementRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 分页对象
+  pageInfo: PageQuery(name='page_info'),
+}
+
+model PagequeryInnerMerchantagreementResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据总量
+  totalSize?: long(name='total_size'),
+  // 协议分页对象
+  agreementPage?: [ AgreementPage ](name='agreement_page'),
+}
+
+/**
+ * Description: 查询租户签约协议分页列表
+ * Summary: 查询租户签约协议分页列表
+ */
+async function pagequeryInnerMerchantagreement(request: PagequeryInnerMerchantagreementRequest): PagequeryInnerMerchantagreementResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryInnerMerchantagreementEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询租户签约协议分页列表
+ * Summary: 查询租户签约协议分页列表
+ */
+async function pagequeryInnerMerchantagreementEx(request: PagequeryInnerMerchantagreementRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryInnerMerchantagreementResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.merchantagreement.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateInnerMerchantpayexpandRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 公司信息
+  companyInfo?: CompanyInfo(name='company_info'),
+  // 法人信息
+  legalInfo?: LegalInfo(name='legal_info'),
+  // 应用信息
+  applicationInfo?: ApplicationInfo(name='application_info'),
+  // 是否直接提交
+  // SUBMITTED 直接提交
+  // STAGE 暂存
+  submit: string(name='submit'),
+  // 进件模式
+  // DIRECT(直连进件)
+  // AGENT(代理进件)
+  expandMode: string(name='expand_mode'),
+  // expand_mode=_AGENT_ 必填
+  subTenantId?: string(name='sub_tenant_id'),
+  // 操作人名称
+  userName: string(name='user_name'),
+  // 第一次暂存或保存可以不传，后端直接生成
+  payExpandId?: string(name='pay_expand_id'),
+}
+
+model CreateInnerMerchantpayexpandResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 进件流水号
+  payExpandId?: string(name='pay_expand_id'),
+}
+
+/**
+ * Description: 保存/编辑进件信息
+ * Summary: 保存/编辑进件信息
+ */
+async function createInnerMerchantpayexpand(request: CreateInnerMerchantpayexpandRequest): CreateInnerMerchantpayexpandResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createInnerMerchantpayexpandEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保存/编辑进件信息
+ * Summary: 保存/编辑进件信息
+ */
+async function createInnerMerchantpayexpandEx(request: CreateInnerMerchantpayexpandRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateInnerMerchantpayexpandResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.merchantpayexpand.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitInnerMerchantpayexpandRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 进件id
+  payExpandId: string(name='pay_expand_id'),
+  // 操作人名称
+  userName: string(name='user_name'),
+}
+
+model SubmitInnerMerchantpayexpandResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 提交进件信息
+ * Summary: 提交进件信息
+ */
+async function submitInnerMerchantpayexpand(request: SubmitInnerMerchantpayexpandRequest): SubmitInnerMerchantpayexpandResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitInnerMerchantpayexpandEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交进件信息
+ * Summary: 提交进件信息
+ */
+async function submitInnerMerchantpayexpandEx(request: SubmitInnerMerchantpayexpandRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitInnerMerchantpayexpandResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.merchantpayexpand.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInnerMerchantpayexpandRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 进件id expand_mode=AGENT 必填 DIRECT可以根据tenant_id推断
+  payExpandId?: string(name='pay_expand_id'),
+  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
+  expandMode: string(name='expand_mode'),
+}
+
+model QueryInnerMerchantpayexpandResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 公司信息
+  companyInfo?: CompanyInfo(name='company_info'),
+  // 法人信息
+  legalInfo?: LegalInfo(name='legal_info'),
+  // 应用信息
+  applicationInfo?: ApplicationInfo(name='application_info'),
+  // 审核列表
+  auditInfos?: [ AuditInfo ](name='audit_infos'),
+  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
+  expandMode?: string(name='expand_mode'),
+  // INIT:草稿态 SUB_MERCHANT_CREDIT:二级户商户签约中 AUDIT:审核中 AUDIT_PASSED:进件成功 AUDIT_NOT_PASSED:进件失败 MERCHANT_CONFIRM:待商户确认
+  expandStatus?: string(name='expand_status'),
+  // 进件失败描述
+  expandFailReason?: string(name='expand_fail_reason'),
+}
+
+/**
+ * Description: 查询进件信息
+ * Summary: 查询进件信息
+ */
+async function queryInnerMerchantpayexpand(request: QueryInnerMerchantpayexpandRequest): QueryInnerMerchantpayexpandResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInnerMerchantpayexpandEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询进件信息
+ * Summary: 查询进件信息
+ */
+async function queryInnerMerchantpayexpandEx(request: QueryInnerMerchantpayexpandRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerMerchantpayexpandResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.merchantpayexpand.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryInnerMerchantagentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+  // 代理商户名称
+  agentName: string(name='agent_name'),
+  // 分页对象
+  pageInfo: PageQuery(name='page_info'),
+}
+
+model PagequeryInnerMerchantagentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据总量
+  totalSize?: long(name='total_size'),
+  // 代理租户分页对象
+  merchantAgentPage?: [ MerchantAgentPage ](name='merchant_agent_page'),
+}
+
+/**
+ * Description: 查询代理商户分页列表-间连商户使用
+ * Summary: 查询代理商户分页列表-间连商户使用
+ */
+async function pagequeryInnerMerchantagent(request: PagequeryInnerMerchantagentRequest): PagequeryInnerMerchantagentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryInnerMerchantagentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询代理商户分页列表-间连商户使用
+ * Summary: 查询代理商户分页列表-间连商户使用
+ */
+async function pagequeryInnerMerchantagentEx(request: PagequeryInnerMerchantagentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryInnerMerchantagentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.merchantagent.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloneInnerTemplatefileaddressRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 模板编码
+  templateCode: string(name='template_code'),
+  // 文件key
+  fileKey: string(name='file_key'),
+}
+
+model CloneInnerTemplatefileaddressResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 拷贝后的文件key
+  fileKey?: string(name='file_key'),
+}
+
+/**
+ * Description: 拷贝模板文件，可用于保存模板的入参
+ * Summary: 拷贝模板文件
+ */
+async function cloneInnerTemplatefileaddress(request: CloneInnerTemplatefileaddressRequest): CloneInnerTemplatefileaddressResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cloneInnerTemplatefileaddressEx(request, headers, runtime);
+}
+
+/**
+ * Description: 拷贝模板文件，可用于保存模板的入参
+ * Summary: 拷贝模板文件
+ */
+async function cloneInnerTemplatefileaddressEx(request: CloneInnerTemplatefileaddressRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloneInnerTemplatefileaddressResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.templatefileaddress.clone', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInnerSignfieldsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库模板code
+  templateCode: string(name='template_code'),
+  // 魔法库模板版本
+  templateVersion: string(name='template_version'),
+}
+
+model QueryInnerSignfieldsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 签署区列表
+  signFieldList?: string(name='sign_field_list'),
+}
+
+/**
+ * Description: 查询签署区
+ * Summary: 查询签署区
+ */
+async function queryInnerSignfields(request: QueryInnerSignfieldsRequest): QueryInnerSignfieldsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInnerSignfieldsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询签署区
+ * Summary: 查询签署区
+ */
+async function queryInnerSignfieldsEx(request: QueryInnerSignfieldsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerSignfieldsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.signfields.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 来源魔法库模板code
+  sourceTemplateCode: string(name='source_template_code'),
+  // 目标模板名称
+  targetTemplateName?: string(name='target_template_name'),
+}
+
+model SyncInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 同步后的新模板code
+  targetTemplateCode?: string(name='target_template_code'),
+}
+
+/**
+ * Description: 同步已发布的模板
+ * Summary: 同步已发布的模板
+ */
+async function syncInnerTemplate(request: SyncInnerTemplateRequest): SyncInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步已发布的模板
+ * Summary: 同步已发布的模板
+ */
+async function syncInnerTemplateEx(request: SyncInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对应租户ID
+  tenantId: string(name='tenant_id'),
+  // 魔法库版本id
+  templateVersionId: string(name='template_version_id'),
+  // 模板名称
+  templateName: string(name='template_name'),
+}
+
+model UpdateInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新魔法库模板基本信息
+ * Summary: 更新魔法库模板基本信息
+ */
+async function updateInnerTemplate(request: UpdateInnerTemplateRequest): UpdateInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新魔法库模板基本信息
+ * Summary: 更新魔法库模板基本信息
+ */
+async function updateInnerTemplateEx(request: UpdateInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInnerTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 模板code
+  templateCode: string(name='template_code'),
+  // 租户8位id
+  tenantId: string(name='tenant_id'),
+}
+
+model QueryInnerTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板的基本信息，json格式
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 通过模板code更新模板的基本信息，比如模板名称等
+ * Summary: 查询模板的基本信息
+ */
+async function queryInnerTemplate(request: QueryInnerTemplateRequest): QueryInnerTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInnerTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过模板code更新模板的基本信息，比如模板名称等
+ * Summary: 查询模板的基本信息
+ */
+async function queryInnerTemplateEx(request: QueryInnerTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTemplateElementlinkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 模板code
+  templateCode: string(name='template_code'),
+  // 模板版本
+  templateVersion: string(name='template_version'),
+}
+
+model QueryTemplateElementlinkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板元素列表，json格式
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 获取模板关联的元素列表信息，包括组件信息
+ * Summary: 获取模板关联的元素列表信息
+ */
+async function queryTemplateElementlink(request: QueryTemplateElementlinkRequest): QueryTemplateElementlinkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTemplateElementlinkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取模板关联的元素列表信息，包括组件信息
+ * Summary: 获取模板关联的元素列表信息
+ */
+async function queryTemplateElementlinkEx(request: QueryTemplateElementlinkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTemplateElementlinkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.template.elementlink.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterMerchantexpandMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 公司信息
+  companyInfo: CompanyInfo(name='company_info'),
+  // 法人信息
+  legalInfo: LegalInfo(name='legal_info'),
+  // 应用信息
+  applicationInfo: ApplicationInfo(name='application_info'),
+  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
+  expandMode: string(name='expand_mode'),
+  // expand_mode=_AGENT_ 必填
+  subTenantId?: string(name='sub_tenant_id'),
+}
+
+model RegisterMerchantexpandMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 进件流水号
+  payExpandId?: string(name='pay_expand_id'),
+}
+
+/**
+ * Description: 商户入驻
+ * Summary: 商户入驻
+ */
+async function registerMerchantexpandMerchant(request: RegisterMerchantexpandMerchantRequest): RegisterMerchantexpandMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerMerchantexpandMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户入驻
+ * Summary: 商户入驻
+ */
+async function registerMerchantexpandMerchantEx(request: RegisterMerchantexpandMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterMerchantexpandMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.merchant.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadMerchantexpandFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 文件名称 包含后缀
+  fileName: string(name='file_name'),
+  // ● BUSINESS_LICENSE 营业执照 ● CARD_FRONT 身份证正面 ● CARD_BACK 身份证反面 ● SPLITTING 分账 
+  bizScene: string(name='biz_scene'),
+}
+
+model UploadMerchantexpandFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 临时上传文件地址
+  uploadUrl?: string(name='upload_url'),
+  // 文件key
+  fileKey?: string(name='file_key'),
+}
+
+/**
+ * Description: 获取临时上传文件链接
+ * Summary: 获取临时上传文件链接
+ */
+async function uploadMerchantexpandFile(request: UploadMerchantexpandFileRequest): UploadMerchantexpandFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadMerchantexpandFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取临时上传文件链接
+ * Summary: 获取临时上传文件链接
+ */
+async function uploadMerchantexpandFileEx(request: UploadMerchantexpandFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadMerchantexpandFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMerchantexpandMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 商户入驻返回的进件编号 expand_mode=AGENT必填
+  payExpandId: string(name='pay_expand_id'),
+}
+
+model QueryMerchantexpandMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商户入驻状态
+  // INIT 入驻中
+  // SUCCESS 入驻成功
+  // FAIL 入驻失败
+  enrollmentStatus?: string(name='enrollment_status'),
+  // 入驻失败原因
+  failReason?: string(name='fail_reason'),
+}
+
+/**
+ * Description: 商户入驻查询
+ * Summary: 商户入驻查询
+ */
+async function queryMerchantexpandMerchant(request: QueryMerchantexpandMerchantRequest): QueryMerchantexpandMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMerchantexpandMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户入驻查询
+ * Summary: 商户入驻查询
+ */
+async function queryMerchantexpandMerchantEx(request: QueryMerchantexpandMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMerchantexpandMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateRealpersonFacevrfRequest = {
@@ -1291,6 +3092,60 @@ async function queryRealpersonFacevrfEx(request: QueryRealpersonFacevrfRequest, 
   return doRequest('1.0' ,'antchain.ato.realperson.facevrf.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryRiskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 账户ID
+  userId: string(name='user_id'),
+  // 用户姓名
+  userName: string(name='user_name'),
+  // 用户证件号码
+  certNo: string(name='cert_no'),
+  // 用户手机号码
+  mobile: string(name='mobile'),
+  // 用户ip地址
+  ip: string(name='ip'),
+}
+
+model QueryRiskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求唯一ID标识，为空则是异常
+  securityId?: string(name='security_id'),
+  // 总风险决策结果，枚举值为：reject[拒绝],validate[待定],accept[通过]。
+  decision?: string(name='decision'),
+  // 风险场景的决策结果
+  scenes?: [ RiskScene ](name='scenes'),
+  // 策略结果详情
+  strategies?: [ RiskStrategy ](name='strategies'),
+  // 模型结果详情
+  models?: [ RiskModel ](name='models'),
+}
+
+/**
+ * Description: 发起风控分析，获取风险分
+ * Summary: 发起风控分析，获取风险分
+ */
+async function queryRisk(request: QueryRiskRequest): QueryRiskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRiskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发起风控分析，获取风险分
+ * Summary: 发起风控分析，获取风险分
+ */
+async function queryRiskEx(request: QueryRiskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRiskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.risk.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model AllSignTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1385,7 +3240,7 @@ model SubmitSignFlowRequest = {
   // }
   templateList: string(name='template_list'),
   // 用户的支付宝uid
-  alipayUserId: string(maxLength=20, minLength=12, name='alipay_user_id'),
+  alipayUserId?: string(maxLength=20, minLength=12, name='alipay_user_id'),
   // 公司名称
   merchantName: string(maxLength=256, minLength=2, name='merchant_name'),
   // 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
@@ -1578,7 +3433,7 @@ model SubmitFrontSignRequest = {
   // 签署的电子合同模板信息，List<Object>的JSON格式，Object如下： { templateId:__, // String格式 templateArgs: { "模板参数key":"模板参数值", // 必须为String } }
   templateList: string(name='template_list'),
   // 用户的支付宝uid
-  alipayUserId: string(maxLength=24, minLength=4, name='alipay_user_id'),
+  alipayUserId?: string(maxLength=24, minLength=4, name='alipay_user_id'),
   // 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
   merchantName: string(name='merchant_name'),
   // 商户签署区域标识。对应在合同模板的机构签署区域中的tag值(如果合同模板的签署区域的tag值为空，则可以不传这个参数)。必须完全对应，否则在多方签署的情况下根据tag找到不到对应的签署机构，会出错。
@@ -1711,6 +3566,54 @@ async function uploadSignFlowEx(request: UploadSignFlowRequest, headers: map[str
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadSignTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 模板参数
+  templateArgs?: string(name='template_args'),
+  // 签署区坐标配置
+  posConf: string(name='pos_conf'),
+  // 模板类型
+  agreementType: string(name='agreement_type'),
+  // 上传的pdf文件，需要以.pdf后缀结尾
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadSignTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传模板后返回的模板id
+  templateId?: string(name='template_id'),
+}
+
+/**
+ * Description: 商户合同模板上传接口
+ * Summary: 商户合同模板上传
+ */
+async function uploadSignTemplate(request: UploadSignTemplateRequest): UploadSignTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadSignTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户合同模板上传接口
+ * Summary: 商户合同模板上传
+ */
+async function uploadSignTemplateEx(request: UploadSignTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadSignTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.sign.template.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SyncTradeRequest = {
@@ -2003,6 +3906,129 @@ async function getTradeMerchantperformanceEx(request: GetTradeMerchantperformanc
   return doRequest('1.0' ,'antchain.ato.trade.merchantperformance.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model UpdateTradeUserpromiseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(maxLength=49, minLength=6, name='order_id'),
+  // 商家社会信用代码
+  merchantId: string(maxLength=199, minLength=1, name='merchant_id'),
+  // 修改的用户履约期数
+  termIdx: long(name='term_idx'),
+  // 更新后的租金，单位为分
+  // 1234=12.34元
+  updatedRentalMoney: long(name='updated_rental_money'),
+  // 调整原因，枚举
+  // ● A01 : 违章罚金
+  // ● A02 : 水电煤费用
+  reason: string(maxLength=10, minLength=1, name='reason'),
+  // 调整说明，本说明同步到支付宝账户备注中，需准确填写
+  desc: string(maxLength=64, minLength=1, name='desc'),
+}
+
+model UpdateTradeUserpromiseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 商户调用，修改订单的用户还款承诺
+ * Summary: 用户还款承诺信息修改
+ */
+async function updateTradeUserpromise(request: UpdateTradeUserpromiseRequest): UpdateTradeUserpromiseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateTradeUserpromiseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户调用，修改订单的用户还款承诺
+ * Summary: 用户还款承诺信息修改
+ */
+async function updateTradeUserpromiseEx(request: UpdateTradeUserpromiseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateTradeUserpromiseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.trade.userpromise.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncFrontIndirectorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务参数,json.toString
+  bizContent: string(minLength=1, name='biz_content'),
+}
+
+model SyncFrontIndirectorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回值，json字符串
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 前置签署间联模式订单进件
+ * Summary: 前置签署间联模式订单进件
+ */
+async function syncFrontIndirectorder(request: SyncFrontIndirectorderRequest): SyncFrontIndirectorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncFrontIndirectorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 前置签署间联模式订单进件
+ * Summary: 前置签署间联模式订单进件
+ */
+async function syncFrontIndirectorderEx(request: SyncFrontIndirectorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncFrontIndirectorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.front.indirectorder.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncTradeIndirectorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务参数,json.toString
+  bizContent: string(minLength=1, name='biz_content'),
+}
+
+model SyncTradeIndirectorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 间联模式-后置模式订单进件
+ * Summary: 间联模式-后置模式订单进件
+ */
+async function syncTradeIndirectorder(request: SyncTradeIndirectorderRequest): SyncTradeIndirectorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncTradeIndirectorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 间联模式-后置模式订单进件
+ * Summary: 间联模式-后置模式订单进件
+ */
+async function syncTradeIndirectorderEx(request: SyncTradeIndirectorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncTradeIndirectorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.trade.indirectorder.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateWithholdSignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -2017,6 +4043,8 @@ model CreateWithholdSignRequest = {
   alipayMerchantServiceName?: string(maxLength=50, name='alipay_merchant_service_name'),
   // 支付宝商户服务描述，会展示在支付并签约界面
   alipayMerchantServiceDescription?: string(maxLength=150, name='alipay_merchant_service_description'),
+  // 支付宝uid，非必填
+  alipayUserId?: string(maxLength=128, name='alipay_user_id'),
 }
 
 model CreateWithholdSignResponse = {
@@ -2031,7 +4059,7 @@ model CreateWithholdSignResponse = {
 }
 
 /**
- * Description: 代扣签约
+ * Description: 代扣签约创建
  * Summary: 代扣签约
  */
 async function createWithholdSign(request: CreateWithholdSignRequest): CreateWithholdSignResponse {
@@ -2041,7 +4069,7 @@ async function createWithholdSign(request: CreateWithholdSignRequest): CreateWit
 }
 
 /**
- * Description: 代扣签约
+ * Description: 代扣签约创建
  * Summary: 代扣签约
  */
 async function createWithholdSignEx(request: CreateWithholdSignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateWithholdSignResponse {
@@ -2182,18 +4210,18 @@ model RepayWithholdPlanRequest = {
   orderId: string(maxLength=50, name='order_id'),
   // 第几期
   periodNum: long(minimum=1, name='period_num'),
-  // 扣款时间
+  // 其他方式还款的时间
   gmtPay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay'),
-  // 清偿清欠金额，单位为分
+  // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
   payOffAmount: long(minimum=0, name='pay_off_amount'),
-  // 清偿清欠方式
+  // 变更其他方式还款
   // WECHAT:微信;
   // BANK:银行
   // ALIPAY:支付宝
-  payOffType: string(maxLength=64, name='pay_off_type'),
-  // 清偿清欠单号,通过其他方式清偿的第三方单号;例如银行流水号或微信流水号
-  payOffNo: string(maxLength=64, name='pay_off_no'),
-  // 清偿清欠银行名称,方式为银行时必填
+  payOffType?: string(maxLength=64, name='pay_off_type'),
+  // 通过其他方式还款单号;例如银行流水号或微信流水号
+  payOffNo?: string(maxLength=64, name='pay_off_no'),
+  // 其他方式还款银行名称，还款方式为银行时必填
   payOffBankName?: string(maxLength=64, name='pay_off_bank_name'),
 }
 
@@ -2207,8 +4235,10 @@ model RepayWithholdPlanResponse = {
 }
 
 /**
- * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
- * Summary: 代扣计划清偿/清欠
+ * Description: ● 重要说明：
+     ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+ * Summary: 单期代扣取消
  */
 async function repayWithholdPlan(request: RepayWithholdPlanRequest): RepayWithholdPlanResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -2217,8 +4247,10 @@ async function repayWithholdPlan(request: RepayWithholdPlanRequest): RepayWithho
 }
 
 /**
- * Description: 代扣计划清偿/清欠，通过其他收款后通过子接口通知
- * Summary: 代扣计划清偿/清欠
+ * Description: ● 重要说明：
+     ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+ * Summary: 单期代扣取消
  */
 async function repayWithholdPlanEx(request: RepayWithholdPlanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayWithholdPlanResponse {
   Util.validateModel(request);
