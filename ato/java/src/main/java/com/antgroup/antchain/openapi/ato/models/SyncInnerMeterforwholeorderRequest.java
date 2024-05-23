@@ -31,16 +31,6 @@ public class SyncInnerMeterforwholeorderRequest extends TeaModel {
     @Validation(required = true, maxLength = 49, minLength = 1)
     public String orderId;
 
-    // 订单关联的商品id
-    @NameInMap("order_product_id")
-    @Validation(required = true, maxLength = 32, minLength = 1)
-    public String orderProductId;
-
-    // 商品的版本
-    @NameInMap("order_product_version")
-    @Validation(required = true, maxLength = 10, minLength = 1)
-    public String orderProductVersion;
-
     // 订单总租期
     @NameInMap("order_rent_term")
     @Validation(required = true, maximum = 200, minimum = 1)
@@ -55,6 +45,11 @@ public class SyncInnerMeterforwholeorderRequest extends TeaModel {
     @NameInMap("sys_name")
     @Validation(required = true, maxLength = 32, minLength = 1)
     public String sysName;
+
+    // 订单产品的二级类目
+    @NameInMap("order_product_subclass")
+    @Validation(required = true, maxLength = 64, minLength = 1)
+    public String orderProductSubclass;
 
     public static SyncInnerMeterforwholeorderRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncInnerMeterforwholeorderRequest self = new SyncInnerMeterforwholeorderRequest();
@@ -109,22 +104,6 @@ public class SyncInnerMeterforwholeorderRequest extends TeaModel {
         return this.orderId;
     }
 
-    public SyncInnerMeterforwholeorderRequest setOrderProductId(String orderProductId) {
-        this.orderProductId = orderProductId;
-        return this;
-    }
-    public String getOrderProductId() {
-        return this.orderProductId;
-    }
-
-    public SyncInnerMeterforwholeorderRequest setOrderProductVersion(String orderProductVersion) {
-        this.orderProductVersion = orderProductVersion;
-        return this;
-    }
-    public String getOrderProductVersion() {
-        return this.orderProductVersion;
-    }
-
     public SyncInnerMeterforwholeorderRequest setOrderRentTerm(Long orderRentTerm) {
         this.orderRentTerm = orderRentTerm;
         return this;
@@ -147,6 +126,14 @@ public class SyncInnerMeterforwholeorderRequest extends TeaModel {
     }
     public String getSysName() {
         return this.sysName;
+    }
+
+    public SyncInnerMeterforwholeorderRequest setOrderProductSubclass(String orderProductSubclass) {
+        this.orderProductSubclass = orderProductSubclass;
+        return this;
+    }
+    public String getOrderProductSubclass() {
+        return this.orderProductSubclass;
     }
 
 }

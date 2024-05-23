@@ -36,6 +36,11 @@ public class CreateWithholdSignRequest extends TeaModel {
     @Validation(maxLength = 150)
     public String alipayMerchantServiceDescription;
 
+    // 支付宝uid，非必填
+    @NameInMap("alipay_user_id")
+    @Validation(maxLength = 128)
+    public String alipayUserId;
+
     public static CreateWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateWithholdSignRequest self = new CreateWithholdSignRequest();
         return TeaModel.build(map, self);
@@ -95,6 +100,14 @@ public class CreateWithholdSignRequest extends TeaModel {
     }
     public String getAlipayMerchantServiceDescription() {
         return this.alipayMerchantServiceDescription;
+    }
+
+    public CreateWithholdSignRequest setAlipayUserId(String alipayUserId) {
+        this.alipayUserId = alipayUserId;
+        return this;
+    }
+    public String getAlipayUserId() {
+        return this.alipayUserId;
     }
 
 }

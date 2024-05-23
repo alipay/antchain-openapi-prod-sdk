@@ -73,7 +73,7 @@ public class SubmitSignFlowRequest extends TeaModel {
 
     // 用户的支付宝uid
     @NameInMap("alipay_user_id")
-    @Validation(required = true, maxLength = 20, minLength = 12)
+    @Validation(maxLength = 20, minLength = 12)
     public String alipayUserId;
 
     // 公司名称
