@@ -675,6 +675,50 @@ class DeviceRiskReportResultData(TeaModel):
         return self
 
 
+class FaceVerifyResultData(TeaModel):
+    def __init__(
+        self,
+        request_id: str = None,
+        passed: str = None,
+        material_info: str = None,
+    ):
+        # 请求唯一标识Id
+        self.request_id = request_id
+        # 认证是否通过
+        self.passed = passed
+        # faceOcclusion:面部遮挡信息；true为有面部遮挡，false为无面部遮挡
+        self.material_info = material_info
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.passed, 'passed')
+        self.validate_required(self.material_info, 'material_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.passed is not None:
+            result['passed'] = self.passed
+        if self.material_info is not None:
+            result['material_info'] = self.material_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('passed') is not None:
+            self.passed = m.get('passed')
+        if m.get('material_info') is not None:
+            self.material_info = m.get('material_info')
+        return self
+
+
 class HardeningTaskResponse(TeaModel):
     def __init__(
         self,
@@ -807,16 +851,16 @@ class TrustSignInitData(TeaModel):
     def __init__(
         self,
         request_id: str = None,
-        sign_key: str = None,
+        sign_unique_id: str = None,
     ):
         # 请求唯一标识Id
         self.request_id = request_id
         # 签约秘钥
-        self.sign_key = sign_key
+        self.sign_unique_id = sign_unique_id
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
-        self.validate_required(self.sign_key, 'sign_key')
+        self.validate_required(self.sign_unique_id, 'sign_unique_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -826,16 +870,16 @@ class TrustSignInitData(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['request_id'] = self.request_id
-        if self.sign_key is not None:
-            result['sign_key'] = self.sign_key
+        if self.sign_unique_id is not None:
+            result['sign_unique_id'] = self.sign_unique_id
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
-        if m.get('sign_key') is not None:
-            self.sign_key = m.get('sign_key')
+        if m.get('sign_unique_id') is not None:
+            self.sign_unique_id = m.get('sign_unique_id')
         return self
 
 
@@ -1134,6 +1178,50 @@ class RiskQueryData(TeaModel):
             self.risk_score = m.get('risk_score')
         if m.get('risk_labels') is not None:
             self.risk_labels = m.get('risk_labels')
+        return self
+
+
+class FaceVerifyInitData(TeaModel):
+    def __init__(
+        self,
+        request_id: str = None,
+        certify_id: str = None,
+        certify_url: str = None,
+    ):
+        # 请求唯一标识Id
+        self.request_id = request_id
+        # 可信实人认证的唯一标识
+        self.certify_id = certify_id
+        # 认证流程入口 URL
+        self.certify_url = certify_url
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.certify_id, 'certify_id')
+        self.validate_required(self.certify_url, 'certify_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.certify_id is not None:
+            result['certify_id'] = self.certify_id
+        if self.certify_url is not None:
+            result['certify_url'] = self.certify_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('certify_id') is not None:
+            self.certify_id = m.get('certify_id')
+        if m.get('certify_url') is not None:
+            self.certify_url = m.get('certify_url')
         return self
 
 
@@ -5461,6 +5549,7 @@ class InitEkytTrustsignRequest(TeaModel):
         solution_code: str = None,
         out_order_no: str = None,
         app_id: str = None,
+        user_authorization: str = None,
         ext_info: str = None,
     ):
         # OAuth模式下的授权token
@@ -5478,6 +5567,8 @@ class InitEkytTrustsignRequest(TeaModel):
         self.out_order_no = out_order_no
         # 小程序appId
         self.app_id = app_id
+        # 用户授权标识
+        self.user_authorization = user_authorization
         # 扩展信息
         self.ext_info = ext_info
 
@@ -5489,6 +5580,7 @@ class InitEkytTrustsignRequest(TeaModel):
         self.validate_required(self.solution_code, 'solution_code')
         self.validate_required(self.out_order_no, 'out_order_no')
         self.validate_required(self.app_id, 'app_id')
+        self.validate_required(self.user_authorization, 'user_authorization')
 
     def to_map(self):
         _map = super().to_map()
@@ -5512,6 +5604,8 @@ class InitEkytTrustsignRequest(TeaModel):
             result['out_order_no'] = self.out_order_no
         if self.app_id is not None:
             result['app_id'] = self.app_id
+        if self.user_authorization is not None:
+            result['user_authorization'] = self.user_authorization
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
         return result
@@ -5535,6 +5629,8 @@ class InitEkytTrustsignRequest(TeaModel):
             self.out_order_no = m.get('out_order_no')
         if m.get('app_id') is not None:
             self.app_id = m.get('app_id')
+        if m.get('user_authorization') is not None:
+            self.user_authorization = m.get('user_authorization')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
         return self
@@ -5734,6 +5830,271 @@ class QueryEkytTrustsignResponse(TeaModel):
             self.message = m.get('message')
         if m.get('data') is not None:
             temp_model = TrustSignQueryData()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class InitEkytFaceverifyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        head: RequestHead = None,
+        cert_name: str = None,
+        cert_no: str = None,
+        enc_type: str = None,
+        outer_order_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求头
+        self.head = head
+        # 姓名
+        self.cert_name = cert_name
+        # 身份证号
+        self.cert_no = cert_no
+        # 加密方式；0：明文；1：RSA；2：SM2
+        self.enc_type = enc_type
+        # 商户请求的唯一标识
+        self.outer_order_no = outer_order_no
+
+    def validate(self):
+        self.validate_required(self.head, 'head')
+        if self.head:
+            self.head.validate()
+        self.validate_required(self.cert_name, 'cert_name')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.head is not None:
+            result['head'] = self.head.to_map()
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.enc_type is not None:
+            result['enc_type'] = self.enc_type
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('head') is not None:
+            temp_model = RequestHead()
+            self.head = temp_model.from_map(m['head'])
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('enc_type') is not None:
+            self.enc_type = m.get('enc_type')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        return self
+
+
+class InitEkytFaceverifyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        message: str = None,
+        data: FaceVerifyInitData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应结果
+        self.success = success
+        # 结果描述
+        self.message = message
+        # 人脸核身初始化数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.message is not None:
+            result['message'] = self.message
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('data') is not None:
+            temp_model = FaceVerifyInitData()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryEkytFaceverifyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        head: RequestHead = None,
+        certify_id: str = None,
+        outer_order_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求头
+        self.head = head
+        # 可信实人认证的唯一标识
+        self.certify_id = certify_id
+        # 商户请求的唯一标识
+        self.outer_order_no = outer_order_no
+
+    def validate(self):
+        self.validate_required(self.head, 'head')
+        if self.head:
+            self.head.validate()
+        self.validate_required(self.certify_id, 'certify_id')
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.head is not None:
+            result['head'] = self.head.to_map()
+        if self.certify_id is not None:
+            result['certify_id'] = self.certify_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('head') is not None:
+            temp_model = RequestHead()
+            self.head = temp_model.from_map(m['head'])
+        if m.get('certify_id') is not None:
+            self.certify_id = m.get('certify_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        return self
+
+
+class QueryEkytFaceverifyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        message: str = None,
+        data: FaceVerifyResultData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 响应结果
+        self.success = success
+        # 结果描述
+        self.message = message
+        # 人脸核身结果数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.message is not None:
+            result['message'] = self.message
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('data') is not None:
+            temp_model = FaceVerifyResultData()
             self.data = temp_model.from_map(m['data'])
         return self
 

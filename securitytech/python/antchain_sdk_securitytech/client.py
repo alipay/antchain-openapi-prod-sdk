@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.17',
+                    'sdk_version': '1.2.19',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.17',
+                    'sdk_version': '1.2.19',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -2069,4 +2069,116 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryEkytTrustsignResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.trustsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_ekyt_faceverify(
+        self,
+        request: securitytech_models.InitEkytFaceverifyRequest,
+    ) -> securitytech_models.InitEkytFaceverifyResponse:
+        """
+        Description: eKYT人脸核身初始化
+        Summary: eKYT人脸核身-初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_ekyt_faceverify_ex(request, headers, runtime)
+
+    async def init_ekyt_faceverify_async(
+        self,
+        request: securitytech_models.InitEkytFaceverifyRequest,
+    ) -> securitytech_models.InitEkytFaceverifyResponse:
+        """
+        Description: eKYT人脸核身初始化
+        Summary: eKYT人脸核身-初始化
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_ekyt_faceverify_ex_async(request, headers, runtime)
+
+    def init_ekyt_faceverify_ex(
+        self,
+        request: securitytech_models.InitEkytFaceverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.InitEkytFaceverifyResponse:
+        """
+        Description: eKYT人脸核身初始化
+        Summary: eKYT人脸核身-初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.InitEkytFaceverifyResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ekyt.faceverify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_ekyt_faceverify_ex_async(
+        self,
+        request: securitytech_models.InitEkytFaceverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.InitEkytFaceverifyResponse:
+        """
+        Description: eKYT人脸核身初始化
+        Summary: eKYT人脸核身-初始化
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.InitEkytFaceverifyResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.faceverify.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ekyt_faceverify(
+        self,
+        request: securitytech_models.QueryEkytFaceverifyRequest,
+    ) -> securitytech_models.QueryEkytFaceverifyResponse:
+        """
+        Description: eKYT人脸核身结果查询
+        Summary: eKYT人脸核身-结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ekyt_faceverify_ex(request, headers, runtime)
+
+    async def query_ekyt_faceverify_async(
+        self,
+        request: securitytech_models.QueryEkytFaceverifyRequest,
+    ) -> securitytech_models.QueryEkytFaceverifyResponse:
+        """
+        Description: eKYT人脸核身结果查询
+        Summary: eKYT人脸核身-结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ekyt_faceverify_ex_async(request, headers, runtime)
+
+    def query_ekyt_faceverify_ex(
+        self,
+        request: securitytech_models.QueryEkytFaceverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEkytFaceverifyResponse:
+        """
+        Description: eKYT人脸核身结果查询
+        Summary: eKYT人脸核身-结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEkytFaceverifyResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.ekyt.faceverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ekyt_faceverify_ex_async(
+        self,
+        request: securitytech_models.QueryEkytFaceverifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEkytFaceverifyResponse:
+        """
+        Description: eKYT人脸核身结果查询
+        Summary: eKYT人脸核身-结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEkytFaceverifyResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.faceverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
