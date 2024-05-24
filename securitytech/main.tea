@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.17',
+    sdk_version = '1.2.19',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -279,6 +279,16 @@ model DeviceRiskReportResultData {
   resultType: string(name='result_type', example='result_type'),
 }
 
+// eKYT人脸核身结果数据
+model FaceVerifyResultData {
+  // 请求唯一标识Id
+  requestId: string(name='request_id', example='111111111111111'),
+  // 认证是否通过
+  passed: string(name='passed', example='T、F 或 null'),
+  // faceOcclusion:面部遮挡信息；true为有面部遮挡，false为无面部遮挡
+  materialInfo: string(name='material_info', example='"{\"faceOcclusion\":false}"'),
+}
+
 // 安卓加固HardeningTaskResponse
 model HardeningTaskResponse {
   // 加固任务的 ID，后续用来轮询调用
@@ -305,12 +315,12 @@ model BizQueryParam {
   bizParams: [ BizParam ](name='biz_params', example=''),
 }
 
-// 可信签约录入准备数据
+// eKYT可信签约录入准备数据
 model TrustSignInitData {
   // 请求唯一标识Id
   requestId: string(name='request_id', example='111111111111111'),
   // 签约秘钥
-  signKey: string(name='sign_key', example='g9y47yjs'),
+  signUniqueId: string(name='sign_unique_id', example='g9y47yjs'),
 }
 
 // 终端安全-Android应用加固-ClassMethodConfig
@@ -321,7 +331,7 @@ model ClassMethodConfig {
   methods: string(name='methods', example='methods'),
 }
 
-// 可信签约查询数据
+// eKYT可信签约查询数据
 model TrustSignQueryData {
   // 请求唯一标识Id
   requestId: string(name='request_id', example='111111111111111'),
@@ -381,6 +391,16 @@ model RiskQueryData {
   riskScore: string(name='risk_score', example='.'),
   // 风险标签
   riskLabels: [ string ](name='risk_labels', example='.'),
+}
+
+// eKYT人脸核身初始化数据
+model FaceVerifyInitData {
+  // 请求唯一标识Id
+  requestId: string(name='request_id', example='111111111111111'),
+  // 可信实人认证的唯一标识
+  certifyId: string(name='certify_id', example='cwek23dw24geor89230hf2rw'),
+  // 认证流程入口 URL
+  certifyUrl: string(name='certify_url', example='https://picker...'),
 }
 
 // 设备风险查询data
@@ -1955,6 +1975,8 @@ model InitEkytTrustsignRequest = {
   outOrderNo: string(name='out_order_no'),
   // 小程序appId
   appId: string(name='app_id'),
+  // 用户授权标识
+  userAuthorization: string(name='user_authorization'),
   // 扩展信息
   extInfo?: string(name='ext_info'),
 }
@@ -2039,5 +2061,101 @@ async function queryEkytTrustsign(request: QueryEkytTrustsignRequest): QueryEkyt
 async function queryEkytTrustsignEx(request: QueryEkytTrustsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEkytTrustsignResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.trustsign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitEkytFaceverifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求头
+  head: RequestHead(name='head'),
+  // 姓名
+  certName: string(name='cert_name'),
+  // 身份证号
+  certNo: string(name='cert_no'),
+  // 加密方式；0：明文；1：RSA；2：SM2
+  encType?: string(name='enc_type'),
+  // 商户请求的唯一标识
+  outerOrderNo: string(name='outer_order_no'),
+}
+
+model InitEkytFaceverifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应结果
+  success?: boolean(name='success'),
+  // 结果描述
+  message?: string(name='message'),
+  // 人脸核身初始化数据
+  data?: FaceVerifyInitData(name='data'),
+}
+
+/**
+ * Description: eKYT人脸核身初始化
+ * Summary: eKYT人脸核身-初始化
+ */
+async function initEkytFaceverify(request: InitEkytFaceverifyRequest): InitEkytFaceverifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initEkytFaceverifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: eKYT人脸核身初始化
+ * Summary: eKYT人脸核身-初始化
+ */
+async function initEkytFaceverifyEx(request: InitEkytFaceverifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitEkytFaceverifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.faceverify.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEkytFaceverifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求头
+  head: RequestHead(name='head'),
+  // 可信实人认证的唯一标识
+  certifyId: string(name='certify_id'),
+  // 商户请求的唯一标识
+  outerOrderNo: string(name='outer_order_no'),
+}
+
+model QueryEkytFaceverifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应结果
+  success?: boolean(name='success'),
+  // 结果描述
+  message?: string(name='message'),
+  // 人脸核身结果数据
+  data?: FaceVerifyResultData(name='data'),
+}
+
+/**
+ * Description: eKYT人脸核身结果查询
+ * Summary: eKYT人脸核身-结果查询
+ */
+async function queryEkytFaceverify(request: QueryEkytFaceverifyRequest): QueryEkytFaceverifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEkytFaceverifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: eKYT人脸核身结果查询
+ * Summary: eKYT人脸核身-结果查询
+ */
+async function queryEkytFaceverifyEx(request: QueryEkytFaceverifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEkytFaceverifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.faceverify.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
