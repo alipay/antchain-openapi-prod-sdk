@@ -541,6 +541,39 @@ func (s *DeviceRiskReportResultData) SetResultType(v string) *DeviceRiskReportRe
 	return s
 }
 
+// eKYT人脸核身结果数据
+type FaceVerifyResultData struct {
+	// 请求唯一标识Id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 认证是否通过
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty" require:"true"`
+	// faceOcclusion:面部遮挡信息；true为有面部遮挡，false为无面部遮挡
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty" require:"true"`
+}
+
+func (s FaceVerifyResultData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FaceVerifyResultData) GoString() string {
+	return s.String()
+}
+
+func (s *FaceVerifyResultData) SetRequestId(v string) *FaceVerifyResultData {
+	s.RequestId = &v
+	return s
+}
+
+func (s *FaceVerifyResultData) SetPassed(v string) *FaceVerifyResultData {
+	s.Passed = &v
+	return s
+}
+
+func (s *FaceVerifyResultData) SetMaterialInfo(v string) *FaceVerifyResultData {
+	s.MaterialInfo = &v
+	return s
+}
+
 // 安卓加固HardeningTaskResponse
 type HardeningTaskResponse struct {
 	// 加固任务的 ID，后续用来轮询调用
@@ -626,12 +659,12 @@ func (s *BizQueryParam) SetBizParams(v []*BizParam) *BizQueryParam {
 	return s
 }
 
-// 可信签约录入准备数据
+// eKYT可信签约录入准备数据
 type TrustSignInitData struct {
 	// 请求唯一标识Id
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 签约秘钥
-	SignKey *string `json:"sign_key,omitempty" xml:"sign_key,omitempty" require:"true"`
+	SignUniqueId *string `json:"sign_unique_id,omitempty" xml:"sign_unique_id,omitempty" require:"true"`
 }
 
 func (s TrustSignInitData) String() string {
@@ -647,8 +680,8 @@ func (s *TrustSignInitData) SetRequestId(v string) *TrustSignInitData {
 	return s
 }
 
-func (s *TrustSignInitData) SetSignKey(v string) *TrustSignInitData {
-	s.SignKey = &v
+func (s *TrustSignInitData) SetSignUniqueId(v string) *TrustSignInitData {
+	s.SignUniqueId = &v
 	return s
 }
 
@@ -678,7 +711,7 @@ func (s *ClassMethodConfig) SetMethods(v string) *ClassMethodConfig {
 	return s
 }
 
-// 可信签约查询数据
+// eKYT可信签约查询数据
 type TrustSignQueryData struct {
 	// 请求唯一标识Id
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
@@ -884,6 +917,39 @@ func (s *RiskQueryData) SetRiskScore(v string) *RiskQueryData {
 
 func (s *RiskQueryData) SetRiskLabels(v []*string) *RiskQueryData {
 	s.RiskLabels = v
+	return s
+}
+
+// eKYT人脸核身初始化数据
+type FaceVerifyInitData struct {
+	// 请求唯一标识Id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 可信实人认证的唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 认证流程入口 URL
+	CertifyUrl *string `json:"certify_url,omitempty" xml:"certify_url,omitempty" require:"true"`
+}
+
+func (s FaceVerifyInitData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FaceVerifyInitData) GoString() string {
+	return s.String()
+}
+
+func (s *FaceVerifyInitData) SetRequestId(v string) *FaceVerifyInitData {
+	s.RequestId = &v
+	return s
+}
+
+func (s *FaceVerifyInitData) SetCertifyId(v string) *FaceVerifyInitData {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *FaceVerifyInitData) SetCertifyUrl(v string) *FaceVerifyInitData {
+	s.CertifyUrl = &v
 	return s
 }
 
@@ -4395,6 +4461,8 @@ type InitEkytTrustsignRequest struct {
 	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
 	// 小程序appId
 	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 用户授权标识
+	UserAuthorization *string `json:"user_authorization,omitempty" xml:"user_authorization,omitempty" require:"true"`
 	// 扩展信息
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
@@ -4444,6 +4512,11 @@ func (s *InitEkytTrustsignRequest) SetOutOrderNo(v string) *InitEkytTrustsignReq
 
 func (s *InitEkytTrustsignRequest) SetAppId(v string) *InitEkytTrustsignRequest {
 	s.AppId = &v
+	return s
+}
+
+func (s *InitEkytTrustsignRequest) SetUserAuthorization(v string) *InitEkytTrustsignRequest {
+	s.UserAuthorization = &v
 	return s
 }
 
@@ -4610,6 +4683,216 @@ func (s *QueryEkytTrustsignResponse) SetData(v *TrustSignQueryData) *QueryEkytTr
 	return s
 }
 
+type InitEkytFaceverifyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求头
+	Head *RequestHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 加密方式；0：明文；1：RSA；2：SM2
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 商户请求的唯一标识
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+}
+
+func (s InitEkytFaceverifyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitEkytFaceverifyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitEkytFaceverifyRequest) SetAuthToken(v string) *InitEkytFaceverifyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyRequest) SetProductInstanceId(v string) *InitEkytFaceverifyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyRequest) SetHead(v *RequestHead) *InitEkytFaceverifyRequest {
+	s.Head = v
+	return s
+}
+
+func (s *InitEkytFaceverifyRequest) SetCertName(v string) *InitEkytFaceverifyRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyRequest) SetCertNo(v string) *InitEkytFaceverifyRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyRequest) SetEncType(v string) *InitEkytFaceverifyRequest {
+	s.EncType = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyRequest) SetOuterOrderNo(v string) *InitEkytFaceverifyRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+type InitEkytFaceverifyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 人脸核身初始化数据
+	Data *FaceVerifyInitData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s InitEkytFaceverifyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitEkytFaceverifyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitEkytFaceverifyResponse) SetReqMsgId(v string) *InitEkytFaceverifyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyResponse) SetResultCode(v string) *InitEkytFaceverifyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyResponse) SetResultMsg(v string) *InitEkytFaceverifyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyResponse) SetSuccess(v bool) *InitEkytFaceverifyResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyResponse) SetMessage(v string) *InitEkytFaceverifyResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *InitEkytFaceverifyResponse) SetData(v *FaceVerifyInitData) *InitEkytFaceverifyResponse {
+	s.Data = v
+	return s
+}
+
+type QueryEkytFaceverifyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求头
+	Head *RequestHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 可信实人认证的唯一标识
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
+	// 商户请求的唯一标识
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+}
+
+func (s QueryEkytFaceverifyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEkytFaceverifyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEkytFaceverifyRequest) SetAuthToken(v string) *QueryEkytFaceverifyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEkytFaceverifyRequest) SetProductInstanceId(v string) *QueryEkytFaceverifyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEkytFaceverifyRequest) SetHead(v *RequestHead) *QueryEkytFaceverifyRequest {
+	s.Head = v
+	return s
+}
+
+func (s *QueryEkytFaceverifyRequest) SetCertifyId(v string) *QueryEkytFaceverifyRequest {
+	s.CertifyId = &v
+	return s
+}
+
+func (s *QueryEkytFaceverifyRequest) SetOuterOrderNo(v string) *QueryEkytFaceverifyRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+type QueryEkytFaceverifyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 结果描述
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+	// 人脸核身结果数据
+	Data *FaceVerifyResultData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryEkytFaceverifyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEkytFaceverifyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEkytFaceverifyResponse) SetReqMsgId(v string) *QueryEkytFaceverifyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEkytFaceverifyResponse) SetResultCode(v string) *QueryEkytFaceverifyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEkytFaceverifyResponse) SetResultMsg(v string) *QueryEkytFaceverifyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEkytFaceverifyResponse) SetSuccess(v bool) *QueryEkytFaceverifyResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryEkytFaceverifyResponse) SetMessage(v string) *QueryEkytFaceverifyResponse {
+	s.Message = &v
+	return s
+}
+
+func (s *QueryEkytFaceverifyResponse) SetData(v *FaceVerifyResultData) *QueryEkytFaceverifyResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -4732,7 +5015,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.17"),
+				"sdk_version":      tea.String("1.2.19"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5873,6 +6156,74 @@ func (client *Client) QueryEkytTrustsignEx(request *QueryEkytTrustsignRequest, h
 	}
 	_result = &QueryEkytTrustsignResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.trustsign.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: eKYT人脸核身初始化
+ * Summary: eKYT人脸核身-初始化
+ */
+func (client *Client) InitEkytFaceverify(request *InitEkytFaceverifyRequest) (_result *InitEkytFaceverifyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitEkytFaceverifyResponse{}
+	_body, _err := client.InitEkytFaceverifyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: eKYT人脸核身初始化
+ * Summary: eKYT人脸核身-初始化
+ */
+func (client *Client) InitEkytFaceverifyEx(request *InitEkytFaceverifyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitEkytFaceverifyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitEkytFaceverifyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.faceverify.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: eKYT人脸核身结果查询
+ * Summary: eKYT人脸核身-结果查询
+ */
+func (client *Client) QueryEkytFaceverify(request *QueryEkytFaceverifyRequest) (_result *QueryEkytFaceverifyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEkytFaceverifyResponse{}
+	_body, _err := client.QueryEkytFaceverifyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: eKYT人脸核身结果查询
+ * Summary: eKYT人脸核身-结果查询
+ */
+func (client *Client) QueryEkytFaceverifyEx(request *QueryEkytFaceverifyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEkytFaceverifyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEkytFaceverifyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.faceverify.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
