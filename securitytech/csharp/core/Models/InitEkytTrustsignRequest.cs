@@ -48,6 +48,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=true)]
         public string AppId { get; set; }
 
+        // 用户授权标识
+        [NameInMap("user_authorization")]
+        [Validation(Required=true)]
+        public string UserAuthorization { get; set; }
+
         // 扩展信息
         [NameInMap("ext_info")]
         [Validation(Required=false)]

@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.17"},
+                        {"sdk_version", "1.2.19"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.17"},
+                        {"sdk_version", "1.2.19"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1667,6 +1667,90 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEkytTrustsignResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.trustsign.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: eKYT人脸核身初始化
+         * Summary: eKYT人脸核身-初始化
+         */
+        public InitEkytFaceverifyResponse InitEkytFaceverify(InitEkytFaceverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitEkytFaceverifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: eKYT人脸核身初始化
+         * Summary: eKYT人脸核身-初始化
+         */
+        public async Task<InitEkytFaceverifyResponse> InitEkytFaceverifyAsync(InitEkytFaceverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitEkytFaceverifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: eKYT人脸核身初始化
+         * Summary: eKYT人脸核身-初始化
+         */
+        public InitEkytFaceverifyResponse InitEkytFaceverifyEx(InitEkytFaceverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitEkytFaceverifyResponse>(DoRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: eKYT人脸核身初始化
+         * Summary: eKYT人脸核身-初始化
+         */
+        public async Task<InitEkytFaceverifyResponse> InitEkytFaceverifyExAsync(InitEkytFaceverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitEkytFaceverifyResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.faceverify.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: eKYT人脸核身结果查询
+         * Summary: eKYT人脸核身-结果查询
+         */
+        public QueryEkytFaceverifyResponse QueryEkytFaceverify(QueryEkytFaceverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEkytFaceverifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: eKYT人脸核身结果查询
+         * Summary: eKYT人脸核身-结果查询
+         */
+        public async Task<QueryEkytFaceverifyResponse> QueryEkytFaceverifyAsync(QueryEkytFaceverifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEkytFaceverifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: eKYT人脸核身结果查询
+         * Summary: eKYT人脸核身-结果查询
+         */
+        public QueryEkytFaceverifyResponse QueryEkytFaceverifyEx(QueryEkytFaceverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEkytFaceverifyResponse>(DoRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: eKYT人脸核身结果查询
+         * Summary: eKYT人脸核身-结果查询
+         */
+        public async Task<QueryEkytFaceverifyResponse> QueryEkytFaceverifyExAsync(QueryEkytFaceverifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEkytFaceverifyResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.faceverify.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

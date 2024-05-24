@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.SECURITYTECH.Models
 {
-    // 可信签约查询数据
+    // eKYT可信签约查询数据
     public class TrustSignQueryData : TeaModel {
         // 请求唯一标识Id
         [NameInMap("request_id")]
