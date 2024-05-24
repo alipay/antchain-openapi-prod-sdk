@@ -10,9 +10,9 @@ public class TrustSignInitData extends TeaModel {
     public String requestId;
 
     // 签约秘钥
-    @NameInMap("sign_key")
+    @NameInMap("sign_unique_id")
     @Validation(required = true)
-    public String signKey;
+    public String signUniqueId;
 
     public static TrustSignInitData build(java.util.Map<String, ?> map) throws Exception {
         TrustSignInitData self = new TrustSignInitData();
@@ -27,12 +27,12 @@ public class TrustSignInitData extends TeaModel {
         return this.requestId;
     }
 
-    public TrustSignInitData setSignKey(String signKey) {
-        this.signKey = signKey;
+    public TrustSignInitData setSignUniqueId(String signUniqueId) {
+        this.signUniqueId = signUniqueId;
         return this;
     }
-    public String getSignKey() {
-        return this.signKey;
+    public String getSignUniqueId() {
+        return this.signUniqueId;
     }
 
 }

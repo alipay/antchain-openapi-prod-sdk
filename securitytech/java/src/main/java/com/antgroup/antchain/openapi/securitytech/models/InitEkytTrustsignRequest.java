@@ -40,6 +40,11 @@ public class InitEkytTrustsignRequest extends TeaModel {
     @Validation(required = true)
     public String appId;
 
+    // 用户授权标识
+    @NameInMap("user_authorization")
+    @Validation(required = true)
+    public String userAuthorization;
+
     // 扩展信息
     @NameInMap("ext_info")
     public String extInfo;
@@ -111,6 +116,14 @@ public class InitEkytTrustsignRequest extends TeaModel {
     }
     public String getAppId() {
         return this.appId;
+    }
+
+    public InitEkytTrustsignRequest setUserAuthorization(String userAuthorization) {
+        this.userAuthorization = userAuthorization;
+        return this;
+    }
+    public String getUserAuthorization() {
+        return this.userAuthorization;
     }
 
     public InitEkytTrustsignRequest setExtInfo(String extInfo) {
