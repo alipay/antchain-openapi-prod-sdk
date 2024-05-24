@@ -102,6 +102,27 @@ export class RiskData extends $tea.Model {
   }
 }
 
+// ekyt响应头
+export class ResponseHead extends $tea.Model {
+  // 请求唯一标识
+  requestId: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 业务参数
 export class BizParam extends $tea.Model {
   // 参数类型枚举，mobile、cert、biz_license
@@ -119,27 +140,6 @@ export class BizParam extends $tea.Model {
     return {
       paramKey: 'string',
       paramValue: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ekyt响应头
-export class ResponseHead extends $tea.Model {
-  // 请求唯一标识
-  requestId: string;
-  static names(): { [key: string]: string } {
-    return {
-      requestId: 'request_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      requestId: 'string',
     };
   }
 
@@ -219,39 +219,6 @@ export class RiskResult extends $tea.Model {
     return {
       riskData: { 'type': 'array', 'itemType': RiskData },
       solutionCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// eKYT请求头
-export class RequestHead extends $tea.Model {
-  // 请求唯一标识
-  requestId: string;
-  // 客户身份标识ID
-  secretId: string;
-  // 客户签约产品code
-  productCode: string;
-  // response输出类型，默认json
-  formatType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      requestId: 'request_id',
-      secretId: 'secret_id',
-      productCode: 'product_code',
-      formatType: 'format_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      requestId: 'string',
-      secretId: 'string',
-      productCode: 'string',
-      formatType: 'string',
     };
   }
 
@@ -436,6 +403,242 @@ export class DeviceRiskReportResultData extends $tea.Model {
   }
 }
 
+// eKYT人脸核身结果数据
+export class FaceVerifyResultData extends $tea.Model {
+  // 请求唯一标识Id
+  requestId: string;
+  // 认证是否通过
+  passed: string;
+  // faceOcclusion:面部遮挡信息；true为有面部遮挡，false为无面部遮挡
+  materialInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      passed: 'passed',
+      materialInfo: 'material_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      passed: 'string',
+      materialInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 安卓加固HardeningTaskResponse
+export class HardeningTaskResponse extends $tea.Model {
+  // 加固任务的 ID，后续用来轮询调用
+  taskId: string;
+  // 加固任务的状态
+  status: number;
+  // 加固后 APK/ABB 的 MD5
+  afterMdFive: string;
+  // 加固后 APK/ABB 的大小
+  afterSize: number;
+  static names(): { [key: string]: string } {
+    return {
+      taskId: 'task_id',
+      status: 'status',
+      afterMdFive: 'after_md_five',
+      afterSize: 'after_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      taskId: 'string',
+      status: 'number',
+      afterMdFive: 'string',
+      afterSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// eKYT业务响应结果
+export class IifaaEkytResponse extends $tea.Model {
+  // 响应头
+  head: ResponseHead;
+  // 业务响应结果
+  bizRes: string;
+  static names(): { [key: string]: string } {
+    return {
+      head: 'head',
+      bizRes: 'biz_res',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      head: ResponseHead,
+      bizRes: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 业务请求入参，兼容批量调用
+export class BizQueryParam extends $tea.Model {
+  // 参数列表，数组
+  bizParams: BizParam[];
+  static names(): { [key: string]: string } {
+    return {
+      bizParams: 'biz_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizParams: { 'type': 'array', 'itemType': BizParam },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// eKYT可信签约录入准备数据
+export class TrustSignInitData extends $tea.Model {
+  // 请求唯一标识Id
+  requestId: string;
+  // 签约秘钥
+  signUniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      signUniqueId: 'sign_unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      signUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 终端安全-Android应用加固-ClassMethodConfig
+export class ClassMethodConfig extends $tea.Model {
+  // 加固类名
+  className: string;
+  // 方法集合，使用英文逗号分隔
+  methods: string;
+  static names(): { [key: string]: string } {
+    return {
+      className: 'class_name',
+      methods: 'methods',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      className: 'string',
+      methods: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// eKYT可信签约查询数据
+export class TrustSignQueryData extends $tea.Model {
+  // 请求唯一标识Id
+  requestId: string;
+  // 订单状态
+  orderStatus: string;
+  // 签约方案码
+  solutionCode: string;
+  // 创建时间
+  gmtCreate: string;
+  // 修改时间
+  gmtModified: string;
+  // 签约文件列表
+  fileList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      orderStatus: 'order_status',
+      solutionCode: 'solution_code',
+      gmtCreate: 'gmt_create',
+      gmtModified: 'gmt_modified',
+      fileList: 'file_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      orderStatus: 'string',
+      solutionCode: 'string',
+      gmtCreate: 'string',
+      gmtModified: 'string',
+      fileList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// eKYT请求头
+export class RequestHead extends $tea.Model {
+  // 请求唯一标识
+  requestId: string;
+  // 客户身份标识ID
+  secretId: string;
+  // 客户签约产品code
+  productCode: string;
+  // response输出类型，默认json
+  formatType?: string;
+  // false
+  onlineFlag?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      requestId: 'request_id',
+      secretId: 'secret_id',
+      productCode: 'product_code',
+      formatType: 'format_type',
+      onlineFlag: 'online_flag',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      requestId: 'string',
+      secretId: 'string',
+      productCode: 'string',
+      formatType: 'string',
+      onlineFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 保单信息
 export class InsureInfo extends $tea.Model {
   // 保单时间
@@ -518,31 +721,27 @@ export class RiskQueryData extends $tea.Model {
   }
 }
 
-// 安卓加固HardeningTaskResponse
-export class HardeningTaskResponse extends $tea.Model {
-  // 加固任务的 ID，后续用来轮询调用
-  taskId: string;
-  // 加固任务的状态
-  status: number;
-  // 加固后 APK/ABB 的 MD5
-  afterMdFive: string;
-  // 加固后 APK/ABB 的大小
-  afterSize: number;
+// eKYT人脸核身初始化数据
+export class FaceVerifyInitData extends $tea.Model {
+  // 请求唯一标识Id
+  requestId: string;
+  // 可信实人认证的唯一标识
+  certifyId: string;
+  // 认证流程入口 URL
+  certifyUrl: string;
   static names(): { [key: string]: string } {
     return {
-      taskId: 'task_id',
-      status: 'status',
-      afterMdFive: 'after_md_five',
-      afterSize: 'after_size',
+      requestId: 'request_id',
+      certifyId: 'certify_id',
+      certifyUrl: 'certify_url',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      taskId: 'string',
-      status: 'number',
-      afterMdFive: 'string',
-      afterSize: 'number',
+      requestId: 'string',
+      certifyId: 'string',
+      certifyUrl: 'string',
     };
   }
 
@@ -609,77 +808,6 @@ export class CctDataMap extends $tea.Model {
     return {
       text: { 'type': 'array', 'itemType': 'string' },
       picture: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// eKYT业务响应结果
-export class IifaaEkytResponse extends $tea.Model {
-  // 响应头
-  head: ResponseHead;
-  // 业务响应结果
-  bizRes: string;
-  static names(): { [key: string]: string } {
-    return {
-      head: 'head',
-      bizRes: 'biz_res',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      head: ResponseHead,
-      bizRes: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 业务请求入参，兼容批量调用
-export class BizQueryParam extends $tea.Model {
-  // 参数列表，数组
-  bizParams: BizParam[];
-  static names(): { [key: string]: string } {
-    return {
-      bizParams: 'biz_params',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizParams: { 'type': 'array', 'itemType': BizParam },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 终端安全-Android应用加固-ClassMethodConfig
-export class ClassMethodConfig extends $tea.Model {
-  // 加固类名
-  className: string;
-  // 方法集合，使用英文逗号分隔
-  methods: string;
-  static names(): { [key: string]: string } {
-    return {
-      className: 'class_name',
-      methods: 'methods',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      className: 'string',
-      methods: 'string',
     };
   }
 
@@ -1967,6 +2095,8 @@ export class QueryRiskGeneralRequest extends $tea.Model {
   encryptMethod?: string;
   // 整个包体加密，二选一
   encryptedBody?: string;
+  // hash_type
+  hashType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1979,6 +2109,7 @@ export class QueryRiskGeneralRequest extends $tea.Model {
       userAuthorization: 'user_authorization',
       encryptMethod: 'encrypt_method',
       encryptedBody: 'encrypted_body',
+      hashType: 'hash_type',
     };
   }
 
@@ -1994,6 +2125,7 @@ export class QueryRiskGeneralRequest extends $tea.Model {
       userAuthorization: 'string',
       encryptMethod: 'string',
       encryptedBody: 'string',
+      hashType: 'string',
     };
   }
 
@@ -2017,6 +2149,8 @@ export class QueryRiskGeneralResponse extends $tea.Model {
   resultList?: ResultList[];
   // 拓展输出字段
   extData?: string;
+  // 是否查得
+  found?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -2026,6 +2160,7 @@ export class QueryRiskGeneralResponse extends $tea.Model {
       meterCount: 'meter_count',
       resultList: 'result_list',
       extData: 'ext_data',
+      found: 'found',
     };
   }
 
@@ -2038,6 +2173,7 @@ export class QueryRiskGeneralResponse extends $tea.Model {
       meterCount: 'number',
       resultList: { 'type': 'array', 'itemType': ResultList },
       extData: 'string',
+      found: 'boolean',
     };
   }
 
@@ -2566,20 +2702,20 @@ export class QueryDeviceplusRiskqueryRequest extends $tea.Model {
   productInstanceId?: string;
   // 客户id
   clientId: string;
-  // 请求id
-  requestId: string;
   // 场景码
   sceneCode: string;
   // 加密电话号码
   phoneNumber: string;
+  // 电话号码加密类型, 明文: 0; MD5加密: 1; SHA256: 2
+  phoneNumberType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       clientId: 'client_id',
-      requestId: 'request_id',
       sceneCode: 'scene_code',
       phoneNumber: 'phone_number',
+      phoneNumberType: 'phone_number_type',
     };
   }
 
@@ -2588,9 +2724,9 @@ export class QueryDeviceplusRiskqueryRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       clientId: 'string',
-      requestId: 'string',
       sceneCode: 'string',
       phoneNumber: 'string',
+      phoneNumberType: 'string',
     };
   }
 
@@ -2651,6 +2787,8 @@ export class QueryDeviceplusMpaasRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 评分模型id
+  modelId: string;
   // mpaas环境id
   workspaceId: string;
   // mpaas应用id
@@ -2663,6 +2801,7 @@ export class QueryDeviceplusMpaasRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      modelId: 'model_id',
       workspaceId: 'workspace_id',
       appId: 'app_id',
       sceneCode: 'scene_code',
@@ -2674,6 +2813,7 @@ export class QueryDeviceplusMpaasRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      modelId: 'string',
       workspaceId: 'string',
       appId: 'string',
       sceneCode: 'string',
@@ -3244,6 +3384,338 @@ export class GetAshieldHardeninglogResponse extends $tea.Model {
   }
 }
 
+export class InitEkytTrustsignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求头
+  head: RequestHead;
+  // 签约用户信息
+  signUser: string;
+  // 控件key-value
+  rectId?: string;
+  // 签约方案码
+  solutionCode: string;
+  // 发起签约的外部流水号
+  outOrderNo: string;
+  // 小程序appId
+  appId: string;
+  // 用户授权标识
+  userAuthorization: string;
+  // 扩展信息
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      head: 'head',
+      signUser: 'sign_user',
+      rectId: 'rect_id',
+      solutionCode: 'solution_code',
+      outOrderNo: 'out_order_no',
+      appId: 'app_id',
+      userAuthorization: 'user_authorization',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      head: RequestHead,
+      signUser: 'string',
+      rectId: 'string',
+      solutionCode: 'string',
+      outOrderNo: 'string',
+      appId: 'string',
+      userAuthorization: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitEkytTrustsignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  success?: boolean;
+  // 结果描述
+  message?: string;
+  // 可信签约初始化数据
+  data?: TrustSignInitData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      message: 'message',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      message: 'string',
+      data: TrustSignInitData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEkytTrustsignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求头
+  head: RequestHead;
+  // 小程序appId
+  appId: string;
+  // 发起签约的外部流水号
+  outOrderNo: string;
+  // 签约方案码
+  solutionCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      head: 'head',
+      appId: 'app_id',
+      outOrderNo: 'out_order_no',
+      solutionCode: 'solution_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      head: RequestHead,
+      appId: 'string',
+      outOrderNo: 'string',
+      solutionCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEkytTrustsignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  success?: boolean;
+  // 结果描述
+  message?: string;
+  // 可信签约签约单数据
+  data?: TrustSignQueryData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      message: 'message',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      message: 'string',
+      data: TrustSignQueryData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitEkytFaceverifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求头
+  head: RequestHead;
+  // 姓名
+  certName: string;
+  // 身份证号
+  certNo: string;
+  // 加密方式；0：明文；1：RSA；2：SM2
+  encType?: string;
+  // 商户请求的唯一标识
+  outerOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      head: 'head',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      encType: 'enc_type',
+      outerOrderNo: 'outer_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      head: RequestHead,
+      certName: 'string',
+      certNo: 'string',
+      encType: 'string',
+      outerOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitEkytFaceverifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  success?: boolean;
+  // 结果描述
+  message?: string;
+  // 人脸核身初始化数据
+  data?: FaceVerifyInitData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      message: 'message',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      message: 'string',
+      data: FaceVerifyInitData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEkytFaceverifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求头
+  head: RequestHead;
+  // 可信实人认证的唯一标识
+  certifyId: string;
+  // 商户请求的唯一标识
+  outerOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      head: 'head',
+      certifyId: 'certify_id',
+      outerOrderNo: 'outer_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      head: RequestHead,
+      certifyId: 'string',
+      outerOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEkytFaceverifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应结果
+  success?: boolean;
+  // 结果描述
+  message?: string;
+  // 人脸核身结果数据
+  data?: FaceVerifyResultData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      message: 'message',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      message: 'string',
+      data: FaceVerifyResultData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3271,7 +3743,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -3357,7 +3829,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.9",
+          sdk_version: "1.2.19",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -3975,6 +4447,82 @@ export default class Client {
   async getAshieldHardeninglogEx(request: GetAshieldHardeninglogRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAshieldHardeninglogResponse> {
     Util.validateModel(request);
     return $tea.cast<GetAshieldHardeninglogResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAshieldHardeninglogResponse({}));
+  }
+
+  /**
+   * Description: eKYT可信签约初始化
+   * Summary: eKYT可信签约-初始化
+   */
+  async initEkytTrustsign(request: InitEkytTrustsignRequest): Promise<InitEkytTrustsignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initEkytTrustsignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: eKYT可信签约初始化
+   * Summary: eKYT可信签约-初始化
+   */
+  async initEkytTrustsignEx(request: InitEkytTrustsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitEkytTrustsignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitEkytTrustsignResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitEkytTrustsignResponse({}));
+  }
+
+  /**
+   * Description: eKYT可信签约签约单查询
+   * Summary: eKYT可信签约-签约单查询
+   */
+  async queryEkytTrustsign(request: QueryEkytTrustsignRequest): Promise<QueryEkytTrustsignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEkytTrustsignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: eKYT可信签约签约单查询
+   * Summary: eKYT可信签约-签约单查询
+   */
+  async queryEkytTrustsignEx(request: QueryEkytTrustsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEkytTrustsignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEkytTrustsignResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEkytTrustsignResponse({}));
+  }
+
+  /**
+   * Description: eKYT人脸核身初始化
+   * Summary: eKYT人脸核身-初始化
+   */
+  async initEkytFaceverify(request: InitEkytFaceverifyRequest): Promise<InitEkytFaceverifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initEkytFaceverifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: eKYT人脸核身初始化
+   * Summary: eKYT人脸核身-初始化
+   */
+  async initEkytFaceverifyEx(request: InitEkytFaceverifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitEkytFaceverifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitEkytFaceverifyResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitEkytFaceverifyResponse({}));
+  }
+
+  /**
+   * Description: eKYT人脸核身结果查询
+   * Summary: eKYT人脸核身-结果查询
+   */
+  async queryEkytFaceverify(request: QueryEkytFaceverifyRequest): Promise<QueryEkytFaceverifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEkytFaceverifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: eKYT人脸核身结果查询
+   * Summary: eKYT人脸核身-结果查询
+   */
+  async queryEkytFaceverifyEx(request: QueryEkytFaceverifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEkytFaceverifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEkytFaceverifyResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEkytFaceverifyResponse({}));
   }
 
 }
