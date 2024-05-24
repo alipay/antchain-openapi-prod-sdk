@@ -55,6 +55,12 @@ class InitEkytTrustsignRequest extends Model
      */
     public $appId;
 
+    // 用户授权标识
+    /**
+     * @var string
+     */
+    public $userAuthorization;
+
     // 扩展信息
     /**
      * @var string
@@ -69,6 +75,7 @@ class InitEkytTrustsignRequest extends Model
         'solutionCode'      => 'solution_code',
         'outOrderNo'        => 'out_order_no',
         'appId'             => 'app_id',
+        'userAuthorization' => 'user_authorization',
         'extInfo'           => 'ext_info',
     ];
 
@@ -79,6 +86,7 @@ class InitEkytTrustsignRequest extends Model
         Model::validateRequired('solutionCode', $this->solutionCode, true);
         Model::validateRequired('outOrderNo', $this->outOrderNo, true);
         Model::validateRequired('appId', $this->appId, true);
+        Model::validateRequired('userAuthorization', $this->userAuthorization, true);
     }
 
     public function toMap()
@@ -107,6 +115,9 @@ class InitEkytTrustsignRequest extends Model
         }
         if (null !== $this->appId) {
             $res['app_id'] = $this->appId;
+        }
+        if (null !== $this->userAuthorization) {
+            $res['user_authorization'] = $this->userAuthorization;
         }
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
@@ -146,6 +157,9 @@ class InitEkytTrustsignRequest extends Model
         }
         if (isset($map['app_id'])) {
             $model->appId = $map['app_id'];
+        }
+        if (isset($map['user_authorization'])) {
+            $model->userAuthorization = $map['user_authorization'];
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];

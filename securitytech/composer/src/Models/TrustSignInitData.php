@@ -22,16 +22,16 @@ class TrustSignInitData extends Model
      *
      * @var string
      */
-    public $signKey;
+    public $signUniqueId;
     protected $_name = [
-        'requestId' => 'request_id',
-        'signKey'   => 'sign_key',
+        'requestId'    => 'request_id',
+        'signUniqueId' => 'sign_unique_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('requestId', $this->requestId, true);
-        Model::validateRequired('signKey', $this->signKey, true);
+        Model::validateRequired('signUniqueId', $this->signUniqueId, true);
     }
 
     public function toMap()
@@ -40,8 +40,8 @@ class TrustSignInitData extends Model
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
         }
-        if (null !== $this->signKey) {
-            $res['sign_key'] = $this->signKey;
+        if (null !== $this->signUniqueId) {
+            $res['sign_unique_id'] = $this->signUniqueId;
         }
 
         return $res;
@@ -58,8 +58,8 @@ class TrustSignInitData extends Model
         if (isset($map['request_id'])) {
             $model->requestId = $map['request_id'];
         }
-        if (isset($map['sign_key'])) {
-            $model->signKey = $map['sign_key'];
+        if (isset($map['sign_unique_id'])) {
+            $model->signUniqueId = $map['sign_unique_id'];
         }
 
         return $model;

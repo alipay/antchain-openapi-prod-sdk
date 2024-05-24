@@ -31,6 +31,8 @@ use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultRequest;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultResponse;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessRequest;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessResponse;
+use AntChain\SECURITYTECH\Models\InitEkytFaceverifyRequest;
+use AntChain\SECURITYTECH\Models\InitEkytFaceverifyResponse;
 use AntChain\SECURITYTECH\Models\InitEkytTrustsignRequest;
 use AntChain\SECURITYTECH\Models\InitEkytTrustsignResponse;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceRequest;
@@ -49,6 +51,8 @@ use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelRequest;
 use AntChain\SECURITYTECH\Models\QueryDeviceriskRisklabelResponse;
 use AntChain\SECURITYTECH\Models\QueryEkytDriverRequest;
 use AntChain\SECURITYTECH\Models\QueryEkytDriverResponse;
+use AntChain\SECURITYTECH\Models\QueryEkytFaceverifyRequest;
+use AntChain\SECURITYTECH\Models\QueryEkytFaceverifyResponse;
 use AntChain\SECURITYTECH\Models\QueryEkytTrustsignRequest;
 use AntChain\SECURITYTECH\Models\QueryEkytTrustsignResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeRequest;
@@ -222,7 +226,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.17',
+                    'sdk_version'      => '1.2.19',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1326,5 +1330,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryEkytTrustsignResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.trustsign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT人脸核身初始化
+     * Summary: eKYT人脸核身-初始化.
+     *
+     * @param InitEkytFaceverifyRequest $request
+     *
+     * @return InitEkytFaceverifyResponse
+     */
+    public function initEkytFaceverify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initEkytFaceverifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT人脸核身初始化
+     * Summary: eKYT人脸核身-初始化.
+     *
+     * @param InitEkytFaceverifyRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return InitEkytFaceverifyResponse
+     */
+    public function initEkytFaceverifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitEkytFaceverifyResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.faceverify.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: eKYT人脸核身结果查询
+     * Summary: eKYT人脸核身-结果查询.
+     *
+     * @param QueryEkytFaceverifyRequest $request
+     *
+     * @return QueryEkytFaceverifyResponse
+     */
+    public function queryEkytFaceverify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEkytFaceverifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: eKYT人脸核身结果查询
+     * Summary: eKYT人脸核身-结果查询.
+     *
+     * @param QueryEkytFaceverifyRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryEkytFaceverifyResponse
+     */
+    public function queryEkytFaceverifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEkytFaceverifyResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.faceverify.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
