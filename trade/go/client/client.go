@@ -404,7 +404,7 @@ func (s *PayOptions) SetPayChannel(v string) *PayOptions {
 
 // 价格策略
 type PriceStrategy struct {
-	// 继承租户在商品下的价格
+	// 继承租户在商品下的价格，仅后付费商品生效
 	FollowTenantId *string `json:"follow_tenant_id,omitempty" xml:"follow_tenant_id,omitempty"`
 }
 
@@ -451,6 +451,32 @@ func (s *CommodityOrderAttribute) SetValue(v string) *CommodityOrderAttribute {
 
 func (s *CommodityOrderAttribute) SetValueUnit(v string) *CommodityOrderAttribute {
 	s.ValueUnit = &v
+	return s
+}
+
+// 预付金额
+type PrepayAmount struct {
+	// 指定预付费金额
+	Amount *string `json:"amount,omitempty" xml:"amount,omitempty" require:"true"`
+	// 币种单位，CNY\USD等标准币种单位编码
+	Currency *string `json:"currency,omitempty" xml:"currency,omitempty" require:"true"`
+}
+
+func (s PrepayAmount) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PrepayAmount) GoString() string {
+	return s.String()
+}
+
+func (s *PrepayAmount) SetAmount(v string) *PrepayAmount {
+	s.Amount = &v
+	return s
+}
+
+func (s *PrepayAmount) SetCurrency(v string) *PrepayAmount {
+	s.Currency = &v
 	return s
 }
 
@@ -517,6 +543,10 @@ type CommodityEnquiryPrice struct {
 	MinDurationOfValidPayAmount *OrderDuration `json:"min_duration_of_valid_pay_amount,omitempty" xml:"min_duration_of_valid_pay_amount,omitempty"`
 	// 预付费-折扣率
 	DiscountRate *string `json:"discount_rate,omitempty" xml:"discount_rate,omitempty" require:"true"`
+	// 原始BD权限价金额，白名单商品会返回此价格
+	OriginalBdAmount *string `json:"original_bd_amount,omitempty" xml:"original_bd_amount,omitempty"`
+	// 原始成本价金额，白名单商品会返回此价格
+	OriginalCostAmount *string `json:"original_cost_amount,omitempty" xml:"original_cost_amount,omitempty"`
 }
 
 func (s CommodityEnquiryPrice) String() string {
@@ -594,6 +624,16 @@ func (s *CommodityEnquiryPrice) SetMinDurationOfValidPayAmount(v *OrderDuration)
 
 func (s *CommodityEnquiryPrice) SetDiscountRate(v string) *CommodityEnquiryPrice {
 	s.DiscountRate = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetOriginalBdAmount(v string) *CommodityEnquiryPrice {
+	s.OriginalBdAmount = &v
+	return s
+}
+
+func (s *CommodityEnquiryPrice) SetOriginalCostAmount(v string) *CommodityEnquiryPrice {
+	s.OriginalCostAmount = &v
 	return s
 }
 
@@ -848,7 +888,7 @@ type Coupon struct {
 	// 优惠券类型，VOUCHER：抵用券;CERTAIN：满减券；DISCOUNT：折扣券
 	//
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 优惠券金额，单位（分）
+	// 优惠券总金额，单位（分）。可使用金额需要根据 amount - usedAmount 得出
 	//
 	AmountInCent *string `json:"amount_in_cent,omitempty" xml:"amount_in_cent,omitempty"`
 	// 已使用金额，单位(分）
@@ -2180,6 +2220,10 @@ type CreateOrderRequest struct {
 	SaleMarket *string `json:"sale_market,omitempty" xml:"sale_market,omitempty" require:"true"`
 	// 扩展属性，JSON字符串
 	ExtendedProperties *string `json:"extended_properties,omitempty" xml:"extended_properties,omitempty"`
+	// 批次流水号，外部合同下单场景，传入向中台申请的合同ID
+	BatchBizNo *string `json:"batch_biz_no,omitempty" xml:"batch_biz_no,omitempty"`
+	// 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+	PrepayAmount *PrepayAmount `json:"prepay_amount,omitempty" xml:"prepay_amount,omitempty"`
 }
 
 func (s CreateOrderRequest) String() string {
@@ -2277,6 +2321,16 @@ func (s *CreateOrderRequest) SetSaleMarket(v string) *CreateOrderRequest {
 
 func (s *CreateOrderRequest) SetExtendedProperties(v string) *CreateOrderRequest {
 	s.ExtendedProperties = &v
+	return s
+}
+
+func (s *CreateOrderRequest) SetBatchBizNo(v string) *CreateOrderRequest {
+	s.BatchBizNo = &v
+	return s
+}
+
+func (s *CreateOrderRequest) SetPrepayAmount(v *PrepayAmount) *CreateOrderRequest {
+	s.PrepayAmount = v
 	return s
 }
 
@@ -2401,6 +2455,78 @@ func (s *GetComboOrderResponse) SetResultMsg(v string) *GetComboOrderResponse {
 
 func (s *GetComboOrderResponse) SetOrder(v *ComboOrder) *GetComboOrderResponse {
 	s.Order = v
+	return s
+}
+
+type CancelOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 订单ID
+	//
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 下单时的租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s CancelOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelOrderRequest) SetAuthToken(v string) *CancelOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelOrderRequest) SetOrderId(v string) *CancelOrderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *CancelOrderRequest) SetTenantId(v string) *CancelOrderRequest {
+	s.TenantId = &v
+	return s
+}
+
+type CancelOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否取消成功
+	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CancelOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelOrderResponse) SetReqMsgId(v string) *CancelOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelOrderResponse) SetResultCode(v string) *CancelOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelOrderResponse) SetResultMsg(v string) *CancelOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelOrderResponse) SetResult(v bool) *CancelOrderResponse {
+	s.Result = &v
 	return s
 }
 
@@ -2811,7 +2937,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("3.11.1"),
+				"sdk_version":      tea.String("3.13.2"),
 				"_prod_code":       tea.String("TRADE"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3304,6 +3430,40 @@ func (client *Client) GetComboOrderEx(request *GetComboOrderRequest, headers map
 	}
 	_result = &GetComboOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.trade.combo.order.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 取消下单接口
+ * Summary: 取消下单接口
+ */
+func (client *Client) CancelOrder(request *CancelOrderRequest) (_result *CancelOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelOrderResponse{}
+	_body, _err := client.CancelOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 取消下单接口
+ * Summary: 取消下单接口
+ */
+func (client *Client) CancelOrderEx(request *CancelOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.trade.order.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
