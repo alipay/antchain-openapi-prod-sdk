@@ -119,6 +119,22 @@ class CommodityEnquiryPrice extends Model
      * @var string
      */
     public $discountRate;
+
+    // 原始BD权限价金额，白名单商品会返回此价格
+    /**
+     * @example 160.00
+     *
+     * @var string
+     */
+    public $originalBdAmount;
+
+    // 原始成本价金额，白名单商品会返回此价格
+    /**
+     * @example 100.00
+     *
+     * @var string
+     */
+    public $originalCostAmount;
     protected $_name = [
         'commodityCode'               => 'commodity_code',
         'commodityName'               => 'commodity_name',
@@ -134,6 +150,8 @@ class CommodityEnquiryPrice extends Model
         'currency'                    => 'currency',
         'minDurationOfValidPayAmount' => 'min_duration_of_valid_pay_amount',
         'discountRate'                => 'discount_rate',
+        'originalBdAmount'            => 'original_bd_amount',
+        'originalCostAmount'          => 'original_cost_amount',
     ];
 
     public function validate()
@@ -198,6 +216,12 @@ class CommodityEnquiryPrice extends Model
         if (null !== $this->discountRate) {
             $res['discount_rate'] = $this->discountRate;
         }
+        if (null !== $this->originalBdAmount) {
+            $res['original_bd_amount'] = $this->originalBdAmount;
+        }
+        if (null !== $this->originalCostAmount) {
+            $res['original_cost_amount'] = $this->originalCostAmount;
+        }
 
         return $res;
     }
@@ -251,6 +275,12 @@ class CommodityEnquiryPrice extends Model
         }
         if (isset($map['discount_rate'])) {
             $model->discountRate = $map['discount_rate'];
+        }
+        if (isset($map['original_bd_amount'])) {
+            $model->originalBdAmount = $map['original_bd_amount'];
+        }
+        if (isset($map['original_cost_amount'])) {
+            $model->originalCostAmount = $map['original_cost_amount'];
         }
 
         return $model;

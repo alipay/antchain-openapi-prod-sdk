@@ -44,7 +44,7 @@ class Coupon extends Model
      */
     public $type;
 
-    // 优惠券金额，单位（分）
+    // 优惠券总金额，单位（分）。可使用金额需要根据 amount - usedAmount 得出
     //
     /**
      * @example 10000

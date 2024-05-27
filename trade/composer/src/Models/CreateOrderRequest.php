@@ -116,6 +116,18 @@ class CreateOrderRequest extends Model
      * @var string
      */
     public $extendedProperties;
+
+    // 批次流水号，外部合同下单场景，传入向中台申请的合同ID
+    /**
+     * @var string
+     */
+    public $batchBizNo;
+
+    // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+    /**
+     * @var PrepayAmount
+     */
+    public $prepayAmount;
     protected $_name = [
         'authToken'          => 'auth_token',
         'bizNo'              => 'biz_no',
@@ -135,6 +147,8 @@ class CreateOrderRequest extends Model
         'instanceId'         => 'instance_id',
         'saleMarket'         => 'sale_market',
         'extendedProperties' => 'extended_properties',
+        'batchBizNo'         => 'batch_biz_no',
+        'prepayAmount'       => 'prepay_amount',
     ];
 
     public function validate()
@@ -207,6 +221,12 @@ class CreateOrderRequest extends Model
         if (null !== $this->extendedProperties) {
             $res['extended_properties'] = $this->extendedProperties;
         }
+        if (null !== $this->batchBizNo) {
+            $res['batch_biz_no'] = $this->batchBizNo;
+        }
+        if (null !== $this->prepayAmount) {
+            $res['prepay_amount'] = null !== $this->prepayAmount ? $this->prepayAmount->toMap() : null;
+        }
 
         return $res;
     }
@@ -278,6 +298,12 @@ class CreateOrderRequest extends Model
         }
         if (isset($map['extended_properties'])) {
             $model->extendedProperties = $map['extended_properties'];
+        }
+        if (isset($map['batch_biz_no'])) {
+            $model->batchBizNo = $map['batch_biz_no'];
+        }
+        if (isset($map['prepay_amount'])) {
+            $model->prepayAmount = PrepayAmount::fromMap($map['prepay_amount']);
         }
 
         return $model;

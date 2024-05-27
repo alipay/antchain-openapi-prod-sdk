@@ -8,7 +8,7 @@ use AlibabaCloud\Tea\Model;
 
 class PriceStrategy extends Model
 {
-    // 继承租户在商品下的价格
+    // 继承租户在商品下的价格，仅后付费商品生效
     /**
      * @example 2088123412341234
      *
