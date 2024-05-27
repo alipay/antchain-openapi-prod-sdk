@@ -296,7 +296,7 @@ export class PayOptions extends $tea.Model {
 
 // 价格策略
 export class PriceStrategy extends $tea.Model {
-  // 继承租户在商品下的价格
+  // 继承租户在商品下的价格，仅后付费商品生效
   followTenantId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -336,6 +336,31 @@ export class CommodityOrderAttribute extends $tea.Model {
       code: 'string',
       value: 'string',
       valueUnit: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 预付金额
+export class PrepayAmount extends $tea.Model {
+  // 指定预付费金额
+  amount: string;
+  // 币种单位，CNY\USD等标准币种单位编码
+  currency: string;
+  static names(): { [key: string]: string } {
+    return {
+      amount: 'amount',
+      currency: 'currency',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      amount: 'string',
+      currency: 'string',
     };
   }
 
@@ -403,6 +428,10 @@ export class CommodityEnquiryPrice extends $tea.Model {
   minDurationOfValidPayAmount?: OrderDuration;
   // 预付费-折扣率
   discountRate: string;
+  // 原始BD权限价金额，白名单商品会返回此价格
+  originalBdAmount?: string;
+  // 原始成本价金额，白名单商品会返回此价格
+  originalCostAmount?: string;
   static names(): { [key: string]: string } {
     return {
       commodityCode: 'commodity_code',
@@ -419,6 +448,8 @@ export class CommodityEnquiryPrice extends $tea.Model {
       currency: 'currency',
       minDurationOfValidPayAmount: 'min_duration_of_valid_pay_amount',
       discountRate: 'discount_rate',
+      originalBdAmount: 'original_bd_amount',
+      originalCostAmount: 'original_cost_amount',
     };
   }
 
@@ -438,6 +469,8 @@ export class CommodityEnquiryPrice extends $tea.Model {
       currency: 'string',
       minDurationOfValidPayAmount: OrderDuration,
       discountRate: 'string',
+      originalBdAmount: 'string',
+      originalCostAmount: 'string',
     };
   }
 
@@ -636,7 +669,7 @@ export class Coupon extends $tea.Model {
   // 优惠券类型，VOUCHER：抵用券;CERTAIN：满减券；DISCOUNT：折扣券	
   // 
   type: string;
-  // 优惠券金额，单位（分）
+  // 优惠券总金额，单位（分）。可使用金额需要根据 amount - usedAmount 得出
   // 
   amountInCent?: string;
   // 已使用金额，单位(分）
@@ -1653,6 +1686,10 @@ export class CreateOrderRequest extends $tea.Model {
   saleMarket: string;
   // 扩展属性，JSON字符串
   extendedProperties?: string;
+  // 批次流水号，外部合同下单场景，传入向中台申请的合同ID
+  batchBizNo?: string;
+  // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+  prepayAmount?: PrepayAmount;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1673,6 +1710,8 @@ export class CreateOrderRequest extends $tea.Model {
       instanceId: 'instance_id',
       saleMarket: 'sale_market',
       extendedProperties: 'extended_properties',
+      batchBizNo: 'batch_biz_no',
+      prepayAmount: 'prepay_amount',
     };
   }
 
@@ -1696,6 +1735,8 @@ export class CreateOrderRequest extends $tea.Model {
       instanceId: 'string',
       saleMarket: 'string',
       extendedProperties: 'string',
+      batchBizNo: 'string',
+      prepayAmount: PrepayAmount,
     };
   }
 
@@ -1796,6 +1837,67 @@ export class GetComboOrderResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       order: ComboOrder,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 订单ID
+  // 
+  orderId: string;
+  // 下单时的租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      orderId: 'order_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      orderId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否取消成功
+  result?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'boolean',
     };
   }
 
@@ -2053,7 +2155,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -2139,7 +2241,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "3.11.1",
+          sdk_version: "3.13.2",
           _prod_code: "TRADE",
           _prod_channel: "undefined",
         };
@@ -2432,6 +2534,25 @@ export default class Client {
   async getComboOrderEx(request: GetComboOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetComboOrderResponse> {
     Util.validateModel(request);
     return $tea.cast<GetComboOrderResponse>(await this.doRequest("1.0", "antcloud.trade.combo.order.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetComboOrderResponse({}));
+  }
+
+  /**
+   * Description: 取消下单接口
+   * Summary: 取消下单接口
+   */
+  async cancelOrder(request: CancelOrderRequest): Promise<CancelOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 取消下单接口
+   * Summary: 取消下单接口
+   */
+  async cancelOrderEx(request: CancelOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelOrderResponse>(await this.doRequest("1.0", "antcloud.trade.order.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelOrderResponse({}));
   }
 
   /**
