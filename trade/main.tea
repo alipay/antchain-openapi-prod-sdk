@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '3.11.1',
+    sdk_version = '3.13.2',
     _prod_code = 'TRADE',
     _prod_channel = 'undefined'
   };
@@ -241,7 +241,7 @@ model PayOptions {
 
 // 价格策略
 model PriceStrategy {
-  // 继承租户在商品下的价格
+  // 继承租户在商品下的价格，仅后付费商品生效
   followTenantId?: string(name='follow_tenant_id', example='2088123412341234'),
 }
 
@@ -253,6 +253,14 @@ model CommodityOrderAttribute {
   value: string(name='value', example='abc'),
   // 属性值单位，部分数值型属性有多种单位，需要填入；其他情况不需要填
   valueUnit: string(name='value_unit', example='MB'),
+}
+
+// 预付金额
+model PrepayAmount {
+  // 指定预付费金额
+  amount: string(name='amount', example='100.00'),
+  // 币种单位，CNY\USD等标准币种单位编码
+  currency: string(name='currency', example='CNY'),
 }
 
 // 履约选项
@@ -295,6 +303,10 @@ model CommodityEnquiryPrice {
   minDurationOfValidPayAmount?: OrderDuration(name='min_duration_of_valid_pay_amount', example=''),
   // 预付费-折扣率
   discountRate: string(name='discount_rate', example='0.75'),
+  // 原始BD权限价金额，白名单商品会返回此价格
+  originalBdAmount?: string(name='original_bd_amount', example='160.00'),
+  // 原始成本价金额，白名单商品会返回此价格
+  originalCostAmount?: string(name='original_cost_amount', example='100.00'),
 }
 
 // 套餐结构
@@ -381,7 +393,7 @@ model Coupon {
   // 优惠券类型，VOUCHER：抵用券;CERTAIN：满减券；DISCOUNT：折扣券	
   // 
   type: string(name='type', example='VOUCHER'),
-  // 优惠券金额，单位（分）
+  // 优惠券总金额，单位（分）。可使用金额需要根据 amount - usedAmount 得出
   // 
   amountInCent?: string(name='amount_in_cent', example='10000 '),
   // 已使用金额，单位(分）
@@ -1005,6 +1017,10 @@ model CreateOrderRequest = {
   saleMarket: string(name='sale_market'),
   // 扩展属性，JSON字符串
   extendedProperties?: string(name='extended_properties'),
+  // 批次流水号，外部合同下单场景，传入向中台申请的合同ID
+  batchBizNo?: string(name='batch_biz_no'),
+  // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+  prepayAmount?: PrepayAmount(name='prepay_amount'),
 }
 
 model CreateOrderResponse = {
@@ -1078,6 +1094,46 @@ async function getComboOrder(request: GetComboOrderRequest): GetComboOrderRespon
 async function getComboOrderEx(request: GetComboOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetComboOrderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.trade.combo.order.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 订单ID
+  // 
+  orderId: string(name='order_id'),
+  // 下单时的租户ID
+  tenantId: string(name='tenant_id'),
+}
+
+model CancelOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否取消成功
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 取消下单接口
+ * Summary: 取消下单接口
+ */
+async function cancelOrder(request: CancelOrderRequest): CancelOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 取消下单接口
+ * Summary: 取消下单接口
+ */
+async function cancelOrderEx(request: CancelOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.trade.order.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExistPricePersonalizedRequest = {
