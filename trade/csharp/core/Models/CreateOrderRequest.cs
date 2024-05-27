@@ -100,6 +100,16 @@ namespace AntChain.SDK.TRADE.Models
         [Validation(Required=false)]
         public string ExtendedProperties { get; set; }
 
+        // 批次流水号，外部合同下单场景，传入向中台申请的合同ID
+        [NameInMap("batch_biz_no")]
+        [Validation(Required=false)]
+        public string BatchBizNo { get; set; }
+
+        // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+        [NameInMap("prepay_amount")]
+        [Validation(Required=false)]
+        public PrepayAmount PrepayAmount { get; set; }
+
     }
 
 }

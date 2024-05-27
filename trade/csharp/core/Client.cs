@@ -137,7 +137,7 @@ namespace AntChain.SDK.TRADE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.11.1"},
+                        {"sdk_version", "3.13.2"},
                         {"_prod_code", "TRADE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TRADE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "3.11.1"},
+                        {"sdk_version", "3.13.2"},
                         {"_prod_code", "TRADE"},
                         {"_prod_channel", "undefined"},
                     };
@@ -865,6 +865,48 @@ namespace AntChain.SDK.TRADE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetComboOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.combo.order.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 取消下单接口
+         * Summary: 取消下单接口
+         */
+        public CancelOrderResponse CancelOrder(CancelOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 取消下单接口
+         * Summary: 取消下单接口
+         */
+        public async Task<CancelOrderResponse> CancelOrderAsync(CancelOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 取消下单接口
+         * Summary: 取消下单接口
+         */
+        public CancelOrderResponse CancelOrderEx(CancelOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelOrderResponse>(DoRequest("1.0", "antcloud.trade.order.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 取消下单接口
+         * Summary: 取消下单接口
+         */
+        public async Task<CancelOrderResponse> CancelOrderExAsync(CancelOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelOrderResponse>(await DoRequestAsync("1.0", "antcloud.trade.order.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

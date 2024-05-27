@@ -10,7 +10,7 @@ namespace AntChain.SDK.TRADE.Models
 {
     // 价格策略
     public class PriceStrategy : TeaModel {
-        // 继承租户在商品下的价格
+        // 继承租户在商品下的价格，仅后付费商品生效
         [NameInMap("follow_tenant_id")]
         [Validation(Required=false)]
         public string FollowTenantId { get; set; }

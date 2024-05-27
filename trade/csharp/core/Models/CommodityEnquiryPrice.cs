@@ -80,6 +80,16 @@ namespace AntChain.SDK.TRADE.Models
         [Validation(Required=true)]
         public string DiscountRate { get; set; }
 
+        // 原始BD权限价金额，白名单商品会返回此价格
+        [NameInMap("original_bd_amount")]
+        [Validation(Required=false)]
+        public string OriginalBdAmount { get; set; }
+
+        // 原始成本价金额，白名单商品会返回此价格
+        [NameInMap("original_cost_amount")]
+        [Validation(Required=false)]
+        public string OriginalCostAmount { get; set; }
+
     }
 
 }

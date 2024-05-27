@@ -34,7 +34,7 @@ namespace AntChain.SDK.TRADE.Models
         [Validation(Required=true)]
         public string Type { get; set; }
 
-        // 优惠券金额，单位（分）
+        // 优惠券总金额，单位（分）。可使用金额需要根据 amount - usedAmount 得出
         // 
         [NameInMap("amount_in_cent")]
         [Validation(Required=false)]
