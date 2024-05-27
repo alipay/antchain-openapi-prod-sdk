@@ -80,6 +80,14 @@ public class CreateOrderRequest extends TeaModel {
     @NameInMap("extended_properties")
     public String extendedProperties;
 
+    // 批次流水号，外部合同下单场景，传入向中台申请的合同ID
+    @NameInMap("batch_biz_no")
+    public String batchBizNo;
+
+    // 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+    @NameInMap("prepay_amount")
+    public PrepayAmount prepayAmount;
+
     public static CreateOrderRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateOrderRequest self = new CreateOrderRequest();
         return TeaModel.build(map, self);
@@ -227,6 +235,22 @@ public class CreateOrderRequest extends TeaModel {
     }
     public String getExtendedProperties() {
         return this.extendedProperties;
+    }
+
+    public CreateOrderRequest setBatchBizNo(String batchBizNo) {
+        this.batchBizNo = batchBizNo;
+        return this;
+    }
+    public String getBatchBizNo() {
+        return this.batchBizNo;
+    }
+
+    public CreateOrderRequest setPrepayAmount(PrepayAmount prepayAmount) {
+        this.prepayAmount = prepayAmount;
+        return this;
+    }
+    public PrepayAmount getPrepayAmount() {
+        return this.prepayAmount;
     }
 
 }

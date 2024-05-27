@@ -73,6 +73,14 @@ public class CommodityEnquiryPrice extends TeaModel {
     @Validation(required = true)
     public String discountRate;
 
+    // 原始BD权限价金额，白名单商品会返回此价格
+    @NameInMap("original_bd_amount")
+    public String originalBdAmount;
+
+    // 原始成本价金额，白名单商品会返回此价格
+    @NameInMap("original_cost_amount")
+    public String originalCostAmount;
+
     public static CommodityEnquiryPrice build(java.util.Map<String, ?> map) throws Exception {
         CommodityEnquiryPrice self = new CommodityEnquiryPrice();
         return TeaModel.build(map, self);
@@ -188,6 +196,22 @@ public class CommodityEnquiryPrice extends TeaModel {
     }
     public String getDiscountRate() {
         return this.discountRate;
+    }
+
+    public CommodityEnquiryPrice setOriginalBdAmount(String originalBdAmount) {
+        this.originalBdAmount = originalBdAmount;
+        return this;
+    }
+    public String getOriginalBdAmount() {
+        return this.originalBdAmount;
+    }
+
+    public CommodityEnquiryPrice setOriginalCostAmount(String originalCostAmount) {
+        this.originalCostAmount = originalCostAmount;
+        return this;
+    }
+    public String getOriginalCostAmount() {
+        return this.originalCostAmount;
     }
 
 }

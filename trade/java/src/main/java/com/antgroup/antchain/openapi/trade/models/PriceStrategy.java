@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.trade.models;
 import com.aliyun.tea.*;
 
 public class PriceStrategy extends TeaModel {
-    // 继承租户在商品下的价格
+    // 继承租户在商品下的价格，仅后付费商品生效
     @NameInMap("follow_tenant_id")
     public String followTenantId;
 
