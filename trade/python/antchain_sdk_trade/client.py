@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.11.1',
+                    'sdk_version': '3.13.2',
                     '_prod_code': 'TRADE',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '3.11.1',
+                    'sdk_version': '3.13.2',
                     '_prod_code': 'TRADE',
                     '_prod_channel': 'undefined'
                 }
@@ -1001,6 +1001,62 @@ class Client:
         return TeaCore.from_map(
             trade_models.GetComboOrderResponse(),
             await self.do_request_async('1.0', 'antcloud.trade.combo.order.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_order(
+        self,
+        request: trade_models.CancelOrderRequest,
+    ) -> trade_models.CancelOrderResponse:
+        """
+        Description: 取消下单接口
+        Summary: 取消下单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_order_ex(request, headers, runtime)
+
+    async def cancel_order_async(
+        self,
+        request: trade_models.CancelOrderRequest,
+    ) -> trade_models.CancelOrderResponse:
+        """
+        Description: 取消下单接口
+        Summary: 取消下单接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_order_ex_async(request, headers, runtime)
+
+    def cancel_order_ex(
+        self,
+        request: trade_models.CancelOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.CancelOrderResponse:
+        """
+        Description: 取消下单接口
+        Summary: 取消下单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.CancelOrderResponse(),
+            self.do_request('1.0', 'antcloud.trade.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_order_ex_async(
+        self,
+        request: trade_models.CancelOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> trade_models.CancelOrderResponse:
+        """
+        Description: 取消下单接口
+        Summary: 取消下单接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            trade_models.CancelOrderResponse(),
+            await self.do_request_async('1.0', 'antcloud.trade.order.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exist_price_personalized(

@@ -502,7 +502,7 @@ class PriceStrategy(TeaModel):
         self,
         follow_tenant_id: str = None,
     ):
-        # 继承租户在商品下的价格
+        # 继承租户在商品下的价格，仅后付费商品生效
         self.follow_tenant_id = follow_tenant_id
 
     def validate(self):
@@ -569,6 +569,42 @@ class CommodityOrderAttribute(TeaModel):
         return self
 
 
+class PrepayAmount(TeaModel):
+    def __init__(
+        self,
+        amount: str = None,
+        currency: str = None,
+    ):
+        # 指定预付费金额
+        self.amount = amount
+        # 币种单位，CNY\USD等标准币种单位编码
+        self.currency = currency
+
+    def validate(self):
+        self.validate_required(self.amount, 'amount')
+        self.validate_required(self.currency, 'currency')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.currency is not None:
+            result['currency'] = self.currency
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('currency') is not None:
+            self.currency = m.get('currency')
+        return self
+
+
 class FulfillmentOptions(TeaModel):
     def __init__(
         self,
@@ -629,6 +665,8 @@ class CommodityEnquiryPrice(TeaModel):
         currency: str = None,
         min_duration_of_valid_pay_amount: OrderDuration = None,
         discount_rate: str = None,
+        original_bd_amount: str = None,
+        original_cost_amount: str = None,
     ):
         # 商品主数据编码
         self.commodity_code = commodity_code
@@ -658,6 +696,10 @@ class CommodityEnquiryPrice(TeaModel):
         self.min_duration_of_valid_pay_amount = min_duration_of_valid_pay_amount
         # 预付费-折扣率
         self.discount_rate = discount_rate
+        # 原始BD权限价金额，白名单商品会返回此价格
+        self.original_bd_amount = original_bd_amount
+        # 原始成本价金额，白名单商品会返回此价格
+        self.original_cost_amount = original_cost_amount
 
     def validate(self):
         self.validate_required(self.commodity_code, 'commodity_code')
@@ -710,6 +752,10 @@ class CommodityEnquiryPrice(TeaModel):
             result['min_duration_of_valid_pay_amount'] = self.min_duration_of_valid_pay_amount.to_map()
         if self.discount_rate is not None:
             result['discount_rate'] = self.discount_rate
+        if self.original_bd_amount is not None:
+            result['original_bd_amount'] = self.original_bd_amount
+        if self.original_cost_amount is not None:
+            result['original_cost_amount'] = self.original_cost_amount
         return result
 
     def from_map(self, m: dict = None):
@@ -743,6 +789,10 @@ class CommodityEnquiryPrice(TeaModel):
             self.min_duration_of_valid_pay_amount = temp_model.from_map(m['min_duration_of_valid_pay_amount'])
         if m.get('discount_rate') is not None:
             self.discount_rate = m.get('discount_rate')
+        if m.get('original_bd_amount') is not None:
+            self.original_bd_amount = m.get('original_bd_amount')
+        if m.get('original_cost_amount') is not None:
+            self.original_cost_amount = m.get('original_cost_amount')
         return self
 
 
@@ -1087,7 +1137,7 @@ class Coupon(TeaModel):
         # 优惠券类型，VOUCHER：抵用券;CERTAIN：满减券；DISCOUNT：折扣券
         # 
         self.type = type
-        # 优惠券金额，单位（分）
+        # 优惠券总金额，单位（分）。可使用金额需要根据 amount - usedAmount 得出
         # 
         self.amount_in_cent = amount_in_cent
         # 已使用金额，单位(分）
@@ -2770,6 +2820,8 @@ class CreateOrderRequest(TeaModel):
         instance_id: str = None,
         sale_market: str = None,
         extended_properties: str = None,
+        batch_biz_no: str = None,
+        prepay_amount: PrepayAmount = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2808,6 +2860,10 @@ class CreateOrderRequest(TeaModel):
         self.sale_market = sale_market
         # 扩展属性，JSON字符串
         self.extended_properties = extended_properties
+        # 批次流水号，外部合同下单场景，传入向中台申请的合同ID
+        self.batch_biz_no = batch_biz_no
+        # 预付费订单金额。仅白名单商品且batchBizNo是合法的合同ID的情况，才允许指定预付订单金额
+        self.prepay_amount = prepay_amount
 
     def validate(self):
         self.validate_required(self.biz_no, 'biz_no')
@@ -2825,6 +2881,8 @@ class CreateOrderRequest(TeaModel):
         if self.price_strategy:
             self.price_strategy.validate()
         self.validate_required(self.sale_market, 'sale_market')
+        if self.prepay_amount:
+            self.prepay_amount.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2870,6 +2928,10 @@ class CreateOrderRequest(TeaModel):
             result['sale_market'] = self.sale_market
         if self.extended_properties is not None:
             result['extended_properties'] = self.extended_properties
+        if self.batch_biz_no is not None:
+            result['batch_biz_no'] = self.batch_biz_no
+        if self.prepay_amount is not None:
+            result['prepay_amount'] = self.prepay_amount.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -2917,6 +2979,11 @@ class CreateOrderRequest(TeaModel):
             self.sale_market = m.get('sale_market')
         if m.get('extended_properties') is not None:
             self.extended_properties = m.get('extended_properties')
+        if m.get('batch_biz_no') is not None:
+            self.batch_biz_no = m.get('batch_biz_no')
+        if m.get('prepay_amount') is not None:
+            temp_model = PrepayAmount()
+            self.prepay_amount = temp_model.from_map(m['prepay_amount'])
         return self
 
 
@@ -3074,6 +3141,99 @@ class GetComboOrderResponse(TeaModel):
         if m.get('order') is not None:
             temp_model = ComboOrder()
             self.order = temp_model.from_map(m['order'])
+        return self
+
+
+class CancelOrderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        order_id: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 订单ID
+        # 
+        self.order_id = order_id
+        # 下单时的租户ID
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class CancelOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否取消成功
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
         return self
 
 
