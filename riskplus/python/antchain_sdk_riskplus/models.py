@@ -1304,6 +1304,58 @@ class UpdateCustomerRelationResponseData(TeaModel):
         return self
 
 
+class SmsTemplate(TeaModel):
+    def __init__(
+        self,
+        scene_strategy_id: str = None,
+        scene_strategy_name: str = None,
+        template_content: str = None,
+        ext_info: str = None,
+    ):
+        # 场景策略ID
+        self.scene_strategy_id = scene_strategy_id
+        # 计划名称
+        self.scene_strategy_name = scene_strategy_name
+        # 模板内容
+        self.template_content = template_content
+        # 扩展参数
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
+        self.validate_required(self.scene_strategy_name, 'scene_strategy_name')
+        self.validate_required(self.template_content, 'template_content')
+        self.validate_required(self.ext_info, 'ext_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_strategy_id is not None:
+            result['scene_strategy_id'] = self.scene_strategy_id
+        if self.scene_strategy_name is not None:
+            result['scene_strategy_name'] = self.scene_strategy_name
+        if self.template_content is not None:
+            result['template_content'] = self.template_content
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene_strategy_id') is not None:
+            self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('scene_strategy_name') is not None:
+            self.scene_strategy_name = m.get('scene_strategy_name')
+        if m.get('template_content') is not None:
+            self.template_content = m.get('template_content')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
 class BackflowEventRecord(TeaModel):
     def __init__(
         self,
@@ -6797,6 +6849,62 @@ class RtopRegionalDistribution(TeaModel):
             for k in m.get('type_distribution'):
                 temp_model = RtopTypeDistribution()
                 self.type_distribution.append(temp_model.from_map(k))
+        return self
+
+
+class CertificateInfo(TeaModel):
+    def __init__(
+        self,
+        status: str = None,
+        relation_no: str = None,
+        certificate_url: str = None,
+        certificate_base_64: str = None,
+        message: str = None,
+    ):
+        # 结清证明开具结果，0：有结清证明、1：无结清证明、2：开具中、3：暂不支持开具
+        self.status = status
+        # 用信申请订单号
+        self.relation_no = relation_no
+        # 结清证明url
+        self.certificate_url = certificate_url
+        # 结清证明文件Base64
+        self.certificate_base_64 = certificate_base_64
+        # 说明
+        self.message = message
+
+    def validate(self):
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['status'] = self.status
+        if self.relation_no is not None:
+            result['relation_no'] = self.relation_no
+        if self.certificate_url is not None:
+            result['certificate_url'] = self.certificate_url
+        if self.certificate_base_64 is not None:
+            result['certificate_base64'] = self.certificate_base_64
+        if self.message is not None:
+            result['message'] = self.message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('relation_no') is not None:
+            self.relation_no = m.get('relation_no')
+        if m.get('certificate_url') is not None:
+            self.certificate_url = m.get('certificate_url')
+        if m.get('certificate_base64') is not None:
+            self.certificate_base_64 = m.get('certificate_base64')
+        if m.get('message') is not None:
+            self.message = m.get('message')
         return self
 
 
@@ -16279,6 +16387,120 @@ class QueryDubbridgeRouterUserselectResponse(TeaModel):
         return self
 
 
+class QueryDubbridgeSettlementCertificateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_no: str = None,
+        original_order_no: str = None,
+        scene: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单号
+        self.order_no = order_no
+        # 授信/用信申请订单号
+        self.original_order_no = original_order_no
+        # 开具类型，授信：01，提现：02
+        self.scene = scene
+
+    def validate(self):
+        self.validate_required(self.order_no, 'order_no')
+        self.validate_required(self.original_order_no, 'original_order_no')
+        self.validate_required(self.scene, 'scene')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.original_order_no is not None:
+            result['original_order_no'] = self.original_order_no
+        if self.scene is not None:
+            result['scene'] = self.scene
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('original_order_no') is not None:
+            self.original_order_no = m.get('original_order_no')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        return self
+
+
+class QueryDubbridgeSettlementCertificateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        certificate_info_list: List[CertificateInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结清证明列表
+        self.certificate_info_list = certificate_info_list
+
+    def validate(self):
+        if self.certificate_info_list:
+            for k in self.certificate_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['certificate_info_list'] = []
+        if self.certificate_info_list is not None:
+            for k in self.certificate_info_list:
+                result['certificate_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.certificate_info_list = []
+        if m.get('certificate_info_list') is not None:
+            for k in m.get('certificate_info_list'):
+                temp_model = CertificateInfo()
+                self.certificate_info_list.append(temp_model.from_map(k))
+        return self
+
+
 class VerifyFinserviceZhimaIdentifyRequest(TeaModel):
     def __init__(
         self,
@@ -19493,6 +19715,147 @@ class QueryQmpCpaassmsTemplateResponse(TeaModel):
             for k in m.get('cpass_sms_templates'):
                 temp_model = CpaasSmsTemplate()
                 self.cpass_sms_templates.append(temp_model.from_map(k))
+        return self
+
+
+class QueryQmpTextsmsTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        sms_type: str = None,
+        tenant_industry: str = None,
+        page_num: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 短信类型
+        self.sms_type = sms_type
+        # 行业标签
+        self.tenant_industry = tenant_industry
+        # 页码
+        self.page_num = page_num
+        # 每页记录数量
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.sms_type, 'sms_type')
+        self.validate_required(self.tenant_industry, 'tenant_industry')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.sms_type is not None:
+            result['sms_type'] = self.sms_type
+        if self.tenant_industry is not None:
+            result['tenant_industry'] = self.tenant_industry
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('sms_type') is not None:
+            self.sms_type = m.get('sms_type')
+        if m.get('tenant_industry') is not None:
+            self.tenant_industry = m.get('tenant_industry')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryQmpTextsmsTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total: int = None,
+        page_num: int = None,
+        page_size: int = None,
+        sms_templates: List[SmsTemplate] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总数
+        self.total = total
+        # 页码
+        self.page_num = page_num
+        # 每页记录数
+        self.page_size = page_size
+        # 模板列表
+        self.sms_templates = sms_templates
+
+    def validate(self):
+        if self.sms_templates:
+            for k in self.sms_templates:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total is not None:
+            result['total'] = self.total
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        result['sms_templates'] = []
+        if self.sms_templates is not None:
+            for k in self.sms_templates:
+                result['sms_templates'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        self.sms_templates = []
+        if m.get('sms_templates') is not None:
+            for k in m.get('sms_templates'):
+                temp_model = SmsTemplate()
+                self.sms_templates.append(temp_model.from_map(k))
         return self
 
 

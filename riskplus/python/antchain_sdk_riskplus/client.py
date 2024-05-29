@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.3',
+                    'sdk_version': '1.19.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.3',
+                    'sdk_version': '1.19.4',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3949,6 +3949,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.router.userselect.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubbridge_settlement_certificate(
+        self,
+        request: riskplus_models.QueryDubbridgeSettlementCertificateRequest,
+    ) -> riskplus_models.QueryDubbridgeSettlementCertificateResponse:
+        """
+        Description: 天枢系统开具结清证明
+        Summary: 天枢系统开具结清证明
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_settlement_certificate_ex(request, headers, runtime)
+
+    async def query_dubbridge_settlement_certificate_async(
+        self,
+        request: riskplus_models.QueryDubbridgeSettlementCertificateRequest,
+    ) -> riskplus_models.QueryDubbridgeSettlementCertificateResponse:
+        """
+        Description: 天枢系统开具结清证明
+        Summary: 天枢系统开具结清证明
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_settlement_certificate_ex_async(request, headers, runtime)
+
+    def query_dubbridge_settlement_certificate_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeSettlementCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeSettlementCertificateResponse:
+        """
+        Description: 天枢系统开具结清证明
+        Summary: 天枢系统开具结清证明
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeSettlementCertificateResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.settlement.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_settlement_certificate_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeSettlementCertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeSettlementCertificateResponse:
+        """
+        Description: 天枢系统开具结清证明
+        Summary: 天枢系统开具结清证明
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeSettlementCertificateResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.settlement.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -5303,6 +5359,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryQmpCpaassmsTemplateResponse(),
             await self.do_request_async('1.0', 'riskplus.qmp.cpaassms.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_qmp_textsms_template(
+        self,
+        request: riskplus_models.QueryQmpTextsmsTemplateRequest,
+    ) -> riskplus_models.QueryQmpTextsmsTemplateResponse:
+        """
+        Description: 根据sceneStrategyId分页查询文本短信模板
+        Summary: 文本短信模板查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_qmp_textsms_template_ex(request, headers, runtime)
+
+    async def query_qmp_textsms_template_async(
+        self,
+        request: riskplus_models.QueryQmpTextsmsTemplateRequest,
+    ) -> riskplus_models.QueryQmpTextsmsTemplateResponse:
+        """
+        Description: 根据sceneStrategyId分页查询文本短信模板
+        Summary: 文本短信模板查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_qmp_textsms_template_ex_async(request, headers, runtime)
+
+    def query_qmp_textsms_template_ex(
+        self,
+        request: riskplus_models.QueryQmpTextsmsTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpTextsmsTemplateResponse:
+        """
+        Description: 根据sceneStrategyId分页查询文本短信模板
+        Summary: 文本短信模板查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpTextsmsTemplateResponse(),
+            self.do_request('1.0', 'riskplus.qmp.textsms.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_qmp_textsms_template_ex_async(
+        self,
+        request: riskplus_models.QueryQmpTextsmsTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryQmpTextsmsTemplateResponse:
+        """
+        Description: 根据sceneStrategyId分页查询文本短信模板
+        Summary: 文本短信模板查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryQmpTextsmsTemplateResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.textsms.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(
