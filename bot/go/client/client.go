@@ -28336,6 +28336,97 @@ func (s *ExecThingServiceResponse) SetOutputdata(v string) *ExecThingServiceResp
 	return s
 }
 
+type CallbackThingServicebyeventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 业务类型，同一个scene下可以有不同的业务类型，此字段用于区分业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 回复日期
+	SubmitDate *string `json:"submit_date,omitempty" xml:"submit_date,omitempty"`
+	// 物模型服务回复数据的模型ID
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty" require:"true"`
+	// 物模型服务回复数据的内容，格式遵循dataModelId约定的格式
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
+}
+
+func (s CallbackThingServicebyeventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackThingServicebyeventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackThingServicebyeventRequest) SetAuthToken(v string) *CallbackThingServicebyeventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackThingServicebyeventRequest) SetProductInstanceId(v string) *CallbackThingServicebyeventRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackThingServicebyeventRequest) SetScene(v string) *CallbackThingServicebyeventRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *CallbackThingServicebyeventRequest) SetBizType(v string) *CallbackThingServicebyeventRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *CallbackThingServicebyeventRequest) SetSubmitDate(v string) *CallbackThingServicebyeventRequest {
+	s.SubmitDate = &v
+	return s
+}
+
+func (s *CallbackThingServicebyeventRequest) SetDataModelId(v string) *CallbackThingServicebyeventRequest {
+	s.DataModelId = &v
+	return s
+}
+
+func (s *CallbackThingServicebyeventRequest) SetContent(v string) *CallbackThingServicebyeventRequest {
+	s.Content = &v
+	return s
+}
+
+type CallbackThingServicebyeventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackThingServicebyeventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackThingServicebyeventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackThingServicebyeventResponse) SetReqMsgId(v string) *CallbackThingServicebyeventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackThingServicebyeventResponse) SetResultCode(v string) *CallbackThingServicebyeventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackThingServicebyeventResponse) SetResultMsg(v string) *CallbackThingServicebyeventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -30106,7 +30197,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.34"),
+				"sdk_version":      tea.String("1.10.35"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -37292,6 +37383,40 @@ func (client *Client) ExecThingServiceEx(request *ExecThingServiceRequest, heade
 	}
 	_result = &ExecThingServiceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thing.service.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+ * Summary: 物模型服务回复接口
+ */
+func (client *Client) CallbackThingServicebyevent(request *CallbackThingServicebyeventRequest) (_result *CallbackThingServicebyeventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackThingServicebyeventResponse{}
+	_body, _err := client.CallbackThingServicebyeventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+ * Summary: 物模型服务回复接口
+ */
+func (client *Client) CallbackThingServicebyeventEx(request *CallbackThingServicebyeventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackThingServicebyeventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackThingServicebyeventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thing.servicebyevent.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
