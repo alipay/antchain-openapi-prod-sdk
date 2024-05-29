@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.34"),
+                    new TeaPair("sdk_version", "1.10.35"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -4151,6 +4151,25 @@ public class Client {
     public ExecThingServiceResponse execThingServiceEx(ExecThingServiceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thing.service.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecThingServiceResponse());
+    }
+
+    /**
+     * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+     * Summary: 物模型服务回复接口
+     */
+    public CallbackThingServicebyeventResponse callbackThingServicebyevent(CallbackThingServicebyeventRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackThingServicebyeventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+     * Summary: 物模型服务回复接口
+     */
+    public CallbackThingServicebyeventResponse callbackThingServicebyeventEx(CallbackThingServicebyeventRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.thing.servicebyevent.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackThingServicebyeventResponse());
     }
 
     /**
