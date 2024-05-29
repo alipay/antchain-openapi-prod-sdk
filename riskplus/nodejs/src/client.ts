@@ -793,6 +793,39 @@ export class UpdateCustomerRelationResponseData extends $tea.Model {
   }
 }
 
+// 短信模板
+export class SmsTemplate extends $tea.Model {
+  // 场景策略ID
+  sceneStrategyId: string;
+  // 计划名称
+  sceneStrategyName: string;
+  // 模板内容
+  templateContent: string;
+  // 扩展参数
+  extInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      sceneStrategyId: 'scene_strategy_id',
+      sceneStrategyName: 'scene_strategy_name',
+      templateContent: 'template_content',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneStrategyId: 'string',
+      sceneStrategyName: 'string',
+      templateContent: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 回流事件记录
 export class BackflowEventRecord extends $tea.Model {
   // 回流事件部分分组后的记录list
@@ -4048,6 +4081,43 @@ export class RtopRegionalDistribution extends $tea.Model {
       count: 'number',
       place: 'string',
       typeDistribution: { 'type': 'array', 'itemType': RtopTypeDistribution },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 结清证明响应实体
+export class CertificateInfo extends $tea.Model {
+  // 结清证明开具结果，0：有结清证明、1：无结清证明、2：开具中、3：暂不支持开具
+  status: string;
+  // 用信申请订单号
+  relationNo?: string;
+  // 结清证明url
+  certificateUrl?: string;
+  // 结清证明文件Base64
+  certificateBase64?: string;
+  // 说明
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      status: 'status',
+      relationNo: 'relation_no',
+      certificateUrl: 'certificate_url',
+      certificateBase64: 'certificate_base64',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      status: 'string',
+      relationNo: 'string',
+      certificateUrl: 'string',
+      certificateBase64: 'string',
+      message: 'string',
     };
   }
 
@@ -9761,6 +9831,73 @@ export class QueryDubbridgeRouterUserselectResponse extends $tea.Model {
   }
 }
 
+export class QueryDubbridgeSettlementCertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 授信/用信申请订单号
+  originalOrderNo: string;
+  // 开具类型，授信：01，提现：02
+  scene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      originalOrderNo: 'original_order_no',
+      scene: 'scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      originalOrderNo: 'string',
+      scene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeSettlementCertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结清证明列表
+  certificateInfoList?: CertificateInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      certificateInfoList: 'certificate_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      certificateInfoList: { 'type': 'array', 'itemType': CertificateInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyFinserviceZhimaIdentifyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -11675,6 +11812,89 @@ export class QueryQmpCpaassmsTemplateResponse extends $tea.Model {
       pageSize: 'number',
       pageNum: 'number',
       cpassSmsTemplates: { 'type': 'array', 'itemType': CpaasSmsTemplate },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpTextsmsTemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 短信类型
+  smsType: string;
+  // 行业标签
+  tenantIndustry: string;
+  // 页码
+  pageNum?: number;
+  // 每页记录数量
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      smsType: 'sms_type',
+      tenantIndustry: 'tenant_industry',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      smsType: 'string',
+      tenantIndustry: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryQmpTextsmsTemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总数
+  total?: number;
+  // 页码
+  pageNum?: number;
+  // 每页记录数
+  pageSize?: number;
+  // 模板列表
+  smsTemplates?: SmsTemplate[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      smsTemplates: 'sms_templates',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      pageNum: 'number',
+      pageSize: 'number',
+      smsTemplates: { 'type': 'array', 'itemType': SmsTemplate },
     };
   }
 
@@ -19180,7 +19400,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.3",
+          sdk_version: "1.19.4",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -20485,6 +20705,25 @@ export default class Client {
   }
 
   /**
+   * Description: 天枢系统开具结清证明
+   * Summary: 天枢系统开具结清证明
+   */
+  async queryDubbridgeSettlementCertificate(request: QueryDubbridgeSettlementCertificateRequest): Promise<QueryDubbridgeSettlementCertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeSettlementCertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统开具结清证明
+   * Summary: 天枢系统开具结清证明
+   */
+  async queryDubbridgeSettlementCertificateEx(request: QueryDubbridgeSettlementCertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeSettlementCertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeSettlementCertificateResponse>(await this.doRequest("1.0", "riskplus.dubbridge.settlement.certificate.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeSettlementCertificateResponse({}));
+  }
+
+  /**
    * Description: 四要素认证首先调用此接口
    * Summary: 芝麻四要素接口
    */
@@ -20961,6 +21200,25 @@ export default class Client {
   async queryQmpCpaassmsTemplateEx(request: QueryQmpCpaassmsTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpCpaassmsTemplateResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryQmpCpaassmsTemplateResponse>(await this.doRequest("1.0", "riskplus.qmp.cpaassms.template.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpCpaassmsTemplateResponse({}));
+  }
+
+  /**
+   * Description: 根据sceneStrategyId分页查询文本短信模板
+   * Summary: 文本短信模板查询
+   */
+  async queryQmpTextsmsTemplate(request: QueryQmpTextsmsTemplateRequest): Promise<QueryQmpTextsmsTemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryQmpTextsmsTemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据sceneStrategyId分页查询文本短信模板
+   * Summary: 文本短信模板查询
+   */
+  async queryQmpTextsmsTemplateEx(request: QueryQmpTextsmsTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpTextsmsTemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryQmpTextsmsTemplateResponse>(await this.doRequest("1.0", "riskplus.qmp.textsms.template.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpTextsmsTemplateResponse({}));
   }
 
   /**
