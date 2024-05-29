@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.3"},
+                        {"sdk_version", "1.19.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.3"},
+                        {"sdk_version", "1.19.4"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3098,6 +3098,48 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 天枢系统开具结清证明
+         * Summary: 天枢系统开具结清证明
+         */
+        public QueryDubbridgeSettlementCertificateResponse QueryDubbridgeSettlementCertificate(QueryDubbridgeSettlementCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeSettlementCertificateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统开具结清证明
+         * Summary: 天枢系统开具结清证明
+         */
+        public async Task<QueryDubbridgeSettlementCertificateResponse> QueryDubbridgeSettlementCertificateAsync(QueryDubbridgeSettlementCertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeSettlementCertificateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统开具结清证明
+         * Summary: 天枢系统开具结清证明
+         */
+        public QueryDubbridgeSettlementCertificateResponse QueryDubbridgeSettlementCertificateEx(QueryDubbridgeSettlementCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeSettlementCertificateResponse>(DoRequest("1.0", "riskplus.dubbridge.settlement.certificate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统开具结清证明
+         * Summary: 天枢系统开具结清证明
+         */
+        public async Task<QueryDubbridgeSettlementCertificateResponse> QueryDubbridgeSettlementCertificateExAsync(QueryDubbridgeSettlementCertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeSettlementCertificateResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.settlement.certificate.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 四要素认证首先调用此接口
          * Summary: 芝麻四要素接口
          */
@@ -4153,6 +4195,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryQmpCpaassmsTemplateResponse>(await DoRequestAsync("1.0", "riskplus.qmp.cpaassms.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据sceneStrategyId分页查询文本短信模板
+         * Summary: 文本短信模板查询
+         */
+        public QueryQmpTextsmsTemplateResponse QueryQmpTextsmsTemplate(QueryQmpTextsmsTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryQmpTextsmsTemplateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据sceneStrategyId分页查询文本短信模板
+         * Summary: 文本短信模板查询
+         */
+        public async Task<QueryQmpTextsmsTemplateResponse> QueryQmpTextsmsTemplateAsync(QueryQmpTextsmsTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryQmpTextsmsTemplateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据sceneStrategyId分页查询文本短信模板
+         * Summary: 文本短信模板查询
+         */
+        public QueryQmpTextsmsTemplateResponse QueryQmpTextsmsTemplateEx(QueryQmpTextsmsTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpTextsmsTemplateResponse>(DoRequest("1.0", "riskplus.qmp.textsms.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据sceneStrategyId分页查询文本短信模板
+         * Summary: 文本短信模板查询
+         */
+        public async Task<QueryQmpTextsmsTemplateResponse> QueryQmpTextsmsTemplateExAsync(QueryQmpTextsmsTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryQmpTextsmsTemplateResponse>(await DoRequestAsync("1.0", "riskplus.qmp.textsms.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
