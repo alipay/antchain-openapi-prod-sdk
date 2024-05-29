@@ -195,6 +195,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeRouterUserselectRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRouterUserselectResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSearchContractResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeSettlementCertificateRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeSettlementCertificateResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUserUpgradestatusRequest;
@@ -233,6 +235,8 @@ use AntChain\RISKPLUS\Models\QueryQmpRobotcallStatisticinfoRequest;
 use AntChain\RISKPLUS\Models\QueryQmpRobotcallStatisticinfoResponse;
 use AntChain\RISKPLUS\Models\QueryQmpTenantActionplaninfoRequest;
 use AntChain\RISKPLUS\Models\QueryQmpTenantActionplaninfoResponse;
+use AntChain\RISKPLUS\Models\QueryQmpTextsmsTemplateRequest;
+use AntChain\RISKPLUS\Models\QueryQmpTextsmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryRbbCompanyCreditRequest;
 use AntChain\RISKPLUS\Models\QueryRbbCompanyCreditResponse;
 use AntChain\RISKPLUS\Models\QueryRbbCompanyGuardRequest;
@@ -522,7 +526,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.3',
+                    'sdk_version'      => '1.19.4',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2734,6 +2738,39 @@ class Client
     }
 
     /**
+     * Description: 天枢系统开具结清证明
+     * Summary: 天枢系统开具结清证明.
+     *
+     * @param QueryDubbridgeSettlementCertificateRequest $request
+     *
+     * @return QueryDubbridgeSettlementCertificateResponse
+     */
+    public function queryDubbridgeSettlementCertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeSettlementCertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统开具结清证明
+     * Summary: 天枢系统开具结清证明.
+     *
+     * @param QueryDubbridgeSettlementCertificateRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryDubbridgeSettlementCertificateResponse
+     */
+    public function queryDubbridgeSettlementCertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeSettlementCertificateResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.settlement.certificate.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -3526,6 +3563,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryQmpCpaassmsTemplateResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.cpaassms.template.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据sceneStrategyId分页查询文本短信模板
+     * Summary: 文本短信模板查询.
+     *
+     * @param QueryQmpTextsmsTemplateRequest $request
+     *
+     * @return QueryQmpTextsmsTemplateResponse
+     */
+    public function queryQmpTextsmsTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryQmpTextsmsTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据sceneStrategyId分页查询文本短信模板
+     * Summary: 文本短信模板查询.
+     *
+     * @param QueryQmpTextsmsTemplateRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryQmpTextsmsTemplateResponse
+     */
+    public function queryQmpTextsmsTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryQmpTextsmsTemplateResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.textsms.template.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
