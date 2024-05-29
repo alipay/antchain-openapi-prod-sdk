@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.3',
+    sdk_version = '1.19.4',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -430,6 +430,18 @@ model UpdateCustomerRelationResponseData {
   createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
   // 更新时间
   updateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time', example='2018-10-10T10:10:00Z'),
+}
+
+// 短信模板
+model SmsTemplate {
+  // 场景策略ID
+  sceneStrategyId: string(name='scene_strategy_id', example='5617'),
+  // 计划名称
+  sceneStrategyName: string(name='scene_strategy_name', example='测试计划名称'),
+  // 模板内容
+  templateContent: string(name='template_content', example='测试模版内容'),
+  // 扩展参数
+  extInfo: string(name='ext_info', example='{}'),
 }
 
 // 回流事件记录
@@ -1760,6 +1772,20 @@ model RtopRegionalDistribution {
   place: string(name='place', example='​西湖区'),
   // 当前地区的涉众风险类型分布，即非法集资有多少企业，传销有多少企业
   typeDistribution?: [ RtopTypeDistribution ](name='type_distribution', example=''),
+}
+
+// 结清证明响应实体
+model CertificateInfo {
+  // 结清证明开具结果，0：有结清证明、1：无结清证明、2：开具中、3：暂不支持开具
+  status: string(name='status', example='0'),
+  // 用信申请订单号
+  relationNo?: string(name='relation_no', example='123123'),
+  // 结清证明url
+  certificateUrl?: string(name='certificate_url', example='https://www.example.com/ffff.pdf?expire=111111'),
+  // 结清证明文件Base64
+  certificateBase64?: string(name='certificate_base64', example='BEAKENMCT...'),
+  // 说明
+  message?: string(name='message', example='已开具'),
 }
 
 // 涉众风险企业特征
@@ -5156,6 +5182,48 @@ async function queryDubbridgeRouterUserselectEx(request: QueryDubbridgeRouterUse
   return doRequest('1.0' ,'riskplus.dubbridge.router.userselect.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryDubbridgeSettlementCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 授信/用信申请订单号
+  originalOrderNo: string(name='original_order_no'),
+  // 开具类型，授信：01，提现：02
+  scene: string(name='scene'),
+}
+
+model QueryDubbridgeSettlementCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结清证明列表
+  certificateInfoList?: [ CertificateInfo ](name='certificate_info_list'),
+}
+
+/**
+ * Description: 天枢系统开具结清证明
+ * Summary: 天枢系统开具结清证明
+ */
+async function queryDubbridgeSettlementCertificate(request: QueryDubbridgeSettlementCertificateRequest): QueryDubbridgeSettlementCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeSettlementCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统开具结清证明
+ * Summary: 天枢系统开具结清证明
+ */
+async function queryDubbridgeSettlementCertificateEx(request: QueryDubbridgeSettlementCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeSettlementCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.settlement.certificate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model VerifyFinserviceZhimaIdentifyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -6347,6 +6415,56 @@ async function queryQmpCpaassmsTemplate(request: QueryQmpCpaassmsTemplateRequest
 async function queryQmpCpaassmsTemplateEx(request: QueryQmpCpaassmsTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQmpCpaassmsTemplateResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.qmp.cpaassms.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryQmpTextsmsTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 短信类型
+  smsType: string(name='sms_type'),
+  // 行业标签
+  tenantIndustry: string(name='tenant_industry'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页记录数量
+  pageSize?: long(name='page_size'),
+}
+
+model QueryQmpTextsmsTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总数
+  total?: long(name='total'),
+  // 页码
+  pageNum?: long(name='page_num'),
+  // 每页记录数
+  pageSize?: long(name='page_size'),
+  // 模板列表
+  smsTemplates?: [ SmsTemplate ](name='sms_templates'),
+}
+
+/**
+ * Description: 根据sceneStrategyId分页查询文本短信模板
+ * Summary: 文本短信模板查询
+ */
+async function queryQmpTextsmsTemplate(request: QueryQmpTextsmsTemplateRequest): QueryQmpTextsmsTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryQmpTextsmsTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据sceneStrategyId分页查询文本短信模板
+ * Summary: 文本短信模板查询
+ */
+async function queryQmpTextsmsTemplateEx(request: QueryQmpTextsmsTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQmpTextsmsTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.textsms.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRbbGenericInvokeRequest = {
