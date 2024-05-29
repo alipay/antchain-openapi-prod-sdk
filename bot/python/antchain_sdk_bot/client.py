@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.34',
+                    'sdk_version': '1.10.35',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.34',
+                    'sdk_version': '1.10.35',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -12011,6 +12011,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.ExecThingServiceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thing.service.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_thing_servicebyevent(
+        self,
+        request: bot_models.CallbackThingServicebyeventRequest,
+    ) -> bot_models.CallbackThingServicebyeventResponse:
+        """
+        Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+        Summary: 物模型服务回复接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_thing_servicebyevent_ex(request, headers, runtime)
+
+    async def callback_thing_servicebyevent_async(
+        self,
+        request: bot_models.CallbackThingServicebyeventRequest,
+    ) -> bot_models.CallbackThingServicebyeventResponse:
+        """
+        Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+        Summary: 物模型服务回复接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_thing_servicebyevent_ex_async(request, headers, runtime)
+
+    def callback_thing_servicebyevent_ex(
+        self,
+        request: bot_models.CallbackThingServicebyeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CallbackThingServicebyeventResponse:
+        """
+        Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+        Summary: 物模型服务回复接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CallbackThingServicebyeventResponse(),
+            self.do_request('1.0', 'blockchain.bot.thing.servicebyevent.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_thing_servicebyevent_ex_async(
+        self,
+        request: bot_models.CallbackThingServicebyeventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CallbackThingServicebyeventResponse:
+        """
+        Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+        Summary: 物模型服务回复接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CallbackThingServicebyeventResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.thing.servicebyevent.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
