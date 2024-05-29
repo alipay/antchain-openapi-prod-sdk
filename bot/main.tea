@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.34',
+    sdk_version = '1.10.35',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -12484,6 +12484,50 @@ async function execThingService(request: ExecThingServiceRequest): ExecThingServ
 async function execThingServiceEx(request: ExecThingServiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecThingServiceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.thing.service.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackThingServicebyeventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 业务类型，同一个scene下可以有不同的业务类型，此字段用于区分业务类型
+  bizType?: string(name='biz_type'),
+  // 回复日期
+  submitDate?: string(name='submit_date'),
+  // 物模型服务回复数据的模型ID
+  dataModelId: string(name='data_model_id'),
+  // 物模型服务回复数据的内容，格式遵循dataModelId约定的格式
+  content: string(name='content'),
+}
+
+model CallbackThingServicebyeventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+ * Summary: 物模型服务回复接口
+ */
+async function callbackThingServicebyevent(request: CallbackThingServicebyeventRequest): CallbackThingServicebyeventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackThingServicebyeventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+ * Summary: 物模型服务回复接口
+ */
+async function callbackThingServicebyeventEx(request: CallbackThingServicebyeventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackThingServicebyeventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thing.servicebyevent.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
