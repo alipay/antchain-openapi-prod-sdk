@@ -1040,6 +1040,46 @@ func (s *UpdateCustomerRelationResponseData) SetUpdateTime(v string) *UpdateCust
 	return s
 }
 
+// 短信模板
+type SmsTemplate struct {
+	// 场景策略ID
+	SceneStrategyId *string `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 计划名称
+	SceneStrategyName *string `json:"scene_strategy_name,omitempty" xml:"scene_strategy_name,omitempty" require:"true"`
+	// 模板内容
+	TemplateContent *string `json:"template_content,omitempty" xml:"template_content,omitempty" require:"true"`
+	// 扩展参数
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+}
+
+func (s SmsTemplate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SmsTemplate) GoString() string {
+	return s.String()
+}
+
+func (s *SmsTemplate) SetSceneStrategyId(v string) *SmsTemplate {
+	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *SmsTemplate) SetSceneStrategyName(v string) *SmsTemplate {
+	s.SceneStrategyName = &v
+	return s
+}
+
+func (s *SmsTemplate) SetTemplateContent(v string) *SmsTemplate {
+	s.TemplateContent = &v
+	return s
+}
+
+func (s *SmsTemplate) SetExtInfo(v string) *SmsTemplate {
+	s.ExtInfo = &v
+	return s
+}
+
 // 回流事件记录
 type BackflowEventRecord struct {
 	// 回流事件部分分组后的记录list
@@ -5509,6 +5549,53 @@ func (s *RtopRegionalDistribution) SetPlace(v string) *RtopRegionalDistribution 
 
 func (s *RtopRegionalDistribution) SetTypeDistribution(v []*RtopTypeDistribution) *RtopRegionalDistribution {
 	s.TypeDistribution = v
+	return s
+}
+
+// 结清证明响应实体
+type CertificateInfo struct {
+	// 结清证明开具结果，0：有结清证明、1：无结清证明、2：开具中、3：暂不支持开具
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 用信申请订单号
+	RelationNo *string `json:"relation_no,omitempty" xml:"relation_no,omitempty"`
+	// 结清证明url
+	CertificateUrl *string `json:"certificate_url,omitempty" xml:"certificate_url,omitempty"`
+	// 结清证明文件Base64
+	CertificateBase64 *string `json:"certificate_base64,omitempty" xml:"certificate_base64,omitempty"`
+	// 说明
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CertificateInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CertificateInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CertificateInfo) SetStatus(v string) *CertificateInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *CertificateInfo) SetRelationNo(v string) *CertificateInfo {
+	s.RelationNo = &v
+	return s
+}
+
+func (s *CertificateInfo) SetCertificateUrl(v string) *CertificateInfo {
+	s.CertificateUrl = &v
+	return s
+}
+
+func (s *CertificateInfo) SetCertificateBase64(v string) *CertificateInfo {
+	s.CertificateBase64 = &v
+	return s
+}
+
+func (s *CertificateInfo) SetMessage(v string) *CertificateInfo {
+	s.Message = &v
 	return s
 }
 
@@ -13161,6 +13248,90 @@ func (s *QueryDubbridgeRouterUserselectResponse) SetExtInfo(v string) *QueryDubb
 	return s
 }
 
+type QueryDubbridgeSettlementCertificateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 授信/用信申请订单号
+	OriginalOrderNo *string `json:"original_order_no,omitempty" xml:"original_order_no,omitempty" require:"true"`
+	// 开具类型，授信：01，提现：02
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeSettlementCertificateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeSettlementCertificateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeSettlementCertificateRequest) SetAuthToken(v string) *QueryDubbridgeSettlementCertificateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeSettlementCertificateRequest) SetProductInstanceId(v string) *QueryDubbridgeSettlementCertificateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeSettlementCertificateRequest) SetOrderNo(v string) *QueryDubbridgeSettlementCertificateRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeSettlementCertificateRequest) SetOriginalOrderNo(v string) *QueryDubbridgeSettlementCertificateRequest {
+	s.OriginalOrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeSettlementCertificateRequest) SetScene(v string) *QueryDubbridgeSettlementCertificateRequest {
+	s.Scene = &v
+	return s
+}
+
+type QueryDubbridgeSettlementCertificateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结清证明列表
+	CertificateInfoList []*CertificateInfo `json:"certificate_info_list,omitempty" xml:"certificate_info_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryDubbridgeSettlementCertificateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeSettlementCertificateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeSettlementCertificateResponse) SetReqMsgId(v string) *QueryDubbridgeSettlementCertificateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeSettlementCertificateResponse) SetResultCode(v string) *QueryDubbridgeSettlementCertificateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeSettlementCertificateResponse) SetResultMsg(v string) *QueryDubbridgeSettlementCertificateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeSettlementCertificateResponse) SetCertificateInfoList(v []*CertificateInfo) *QueryDubbridgeSettlementCertificateResponse {
+	s.CertificateInfoList = v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -15763,6 +15934,118 @@ func (s *QueryQmpCpaassmsTemplateResponse) SetPageNum(v int64) *QueryQmpCpaassms
 
 func (s *QueryQmpCpaassmsTemplateResponse) SetCpassSmsTemplates(v []*CpaasSmsTemplate) *QueryQmpCpaassmsTemplateResponse {
 	s.CpassSmsTemplates = v
+	return s
+}
+
+type QueryQmpTextsmsTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 短信类型
+	SmsType *string `json:"sms_type,omitempty" xml:"sms_type,omitempty" require:"true"`
+	// 行业标签
+	TenantIndustry *string `json:"tenant_industry,omitempty" xml:"tenant_industry,omitempty" require:"true"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页记录数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+}
+
+func (s QueryQmpTextsmsTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQmpTextsmsTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQmpTextsmsTemplateRequest) SetAuthToken(v string) *QueryQmpTextsmsTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateRequest) SetProductInstanceId(v string) *QueryQmpTextsmsTemplateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateRequest) SetSmsType(v string) *QueryQmpTextsmsTemplateRequest {
+	s.SmsType = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateRequest) SetTenantIndustry(v string) *QueryQmpTextsmsTemplateRequest {
+	s.TenantIndustry = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateRequest) SetPageNum(v int64) *QueryQmpTextsmsTemplateRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateRequest) SetPageSize(v int64) *QueryQmpTextsmsTemplateRequest {
+	s.PageSize = &v
+	return s
+}
+
+type QueryQmpTextsmsTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 页码
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页记录数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 模板列表
+	SmsTemplates []*SmsTemplate `json:"sms_templates,omitempty" xml:"sms_templates,omitempty" type:"Repeated"`
+}
+
+func (s QueryQmpTextsmsTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryQmpTextsmsTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryQmpTextsmsTemplateResponse) SetReqMsgId(v string) *QueryQmpTextsmsTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateResponse) SetResultCode(v string) *QueryQmpTextsmsTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateResponse) SetResultMsg(v string) *QueryQmpTextsmsTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateResponse) SetTotal(v int64) *QueryQmpTextsmsTemplateResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateResponse) SetPageNum(v int64) *QueryQmpTextsmsTemplateResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateResponse) SetPageSize(v int64) *QueryQmpTextsmsTemplateResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateResponse) SetSmsTemplates(v []*SmsTemplate) *QueryQmpTextsmsTemplateResponse {
+	s.SmsTemplates = v
 	return s
 }
 
@@ -25677,7 +25960,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.3"),
+				"sdk_version":      tea.String("1.19.4"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -27975,6 +28258,40 @@ func (client *Client) QueryDubbridgeRouterUserselectEx(request *QueryDubbridgeRo
 }
 
 /**
+ * Description: 天枢系统开具结清证明
+ * Summary: 天枢系统开具结清证明
+ */
+func (client *Client) QueryDubbridgeSettlementCertificate(request *QueryDubbridgeSettlementCertificateRequest) (_result *QueryDubbridgeSettlementCertificateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeSettlementCertificateResponse{}
+	_body, _err := client.QueryDubbridgeSettlementCertificateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢系统开具结清证明
+ * Summary: 天枢系统开具结清证明
+ */
+func (client *Client) QueryDubbridgeSettlementCertificateEx(request *QueryDubbridgeSettlementCertificateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeSettlementCertificateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeSettlementCertificateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.settlement.certificate.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 四要素认证首先调用此接口
  * Summary: 芝麻四要素接口
  */
@@ -28807,6 +29124,40 @@ func (client *Client) QueryQmpCpaassmsTemplateEx(request *QueryQmpCpaassmsTempla
 	}
 	_result = &QueryQmpCpaassmsTemplateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.cpaassms.template.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据sceneStrategyId分页查询文本短信模板
+ * Summary: 文本短信模板查询
+ */
+func (client *Client) QueryQmpTextsmsTemplate(request *QueryQmpTextsmsTemplateRequest) (_result *QueryQmpTextsmsTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryQmpTextsmsTemplateResponse{}
+	_body, _err := client.QueryQmpTextsmsTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据sceneStrategyId分页查询文本短信模板
+ * Summary: 文本短信模板查询
+ */
+func (client *Client) QueryQmpTextsmsTemplateEx(request *QueryQmpTextsmsTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryQmpTextsmsTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryQmpTextsmsTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.textsms.template.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
