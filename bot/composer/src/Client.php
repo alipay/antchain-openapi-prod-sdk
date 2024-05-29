@@ -47,6 +47,8 @@ use AntChain\BOT\Models\BatchcreateXrXrticketpoolRequest;
 use AntChain\BOT\Models\BatchcreateXrXrticketpoolResponse;
 use AntChain\BOT\Models\BindEntityrelationRequest;
 use AntChain\BOT\Models\BindEntityrelationResponse;
+use AntChain\BOT\Models\CallbackThingServicebyeventRequest;
+use AntChain\BOT\Models\CallbackThingServicebyeventResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
 use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
 use AntChain\BOT\Models\CheckAiidentificationGoodsdigitalfingerprintRequest;
@@ -610,7 +612,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.34',
+                    'sdk_version'      => '1.10.35',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -7571,6 +7573,39 @@ class Client
         Utils::validateModel($request);
 
         return ExecThingServiceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thing.service.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+     * Summary: 物模型服务回复接口.
+     *
+     * @param CallbackThingServicebyeventRequest $request
+     *
+     * @return CallbackThingServicebyeventResponse
+     */
+    public function callbackThingServicebyevent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackThingServicebyeventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+     * Summary: 物模型服务回复接口.
+     *
+     * @param CallbackThingServicebyeventRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return CallbackThingServicebyeventResponse
+     */
+    public function callbackThingServicebyeventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackThingServicebyeventResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thing.servicebyevent.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
