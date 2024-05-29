@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.34"},
+                        {"sdk_version", "1.10.35"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.34"},
+                        {"sdk_version", "1.10.35"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -9143,6 +9143,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecThingServiceResponse>(await DoRequestAsync("1.0", "blockchain.bot.thing.service.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+         * Summary: 物模型服务回复接口
+         */
+        public CallbackThingServicebyeventResponse CallbackThingServicebyevent(CallbackThingServicebyeventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackThingServicebyeventEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+         * Summary: 物模型服务回复接口
+         */
+        public async Task<CallbackThingServicebyeventResponse> CallbackThingServicebyeventAsync(CallbackThingServicebyeventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackThingServicebyeventExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+         * Summary: 物模型服务回复接口
+         */
+        public CallbackThingServicebyeventResponse CallbackThingServicebyeventEx(CallbackThingServicebyeventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackThingServicebyeventResponse>(DoRequest("1.0", "blockchain.bot.thing.servicebyevent.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 物模型服务回复接口，通过场景码、数据模型ID等作为回复标识
+         * Summary: 物模型服务回复接口
+         */
+        public async Task<CallbackThingServicebyeventResponse> CallbackThingServicebyeventExAsync(CallbackThingServicebyeventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackThingServicebyeventResponse>(await DoRequestAsync("1.0", "blockchain.bot.thing.servicebyevent.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
