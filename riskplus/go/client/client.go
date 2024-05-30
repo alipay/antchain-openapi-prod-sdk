@@ -1048,8 +1048,6 @@ type SmsTemplate struct {
 	SceneStrategyName *string `json:"scene_strategy_name,omitempty" xml:"scene_strategy_name,omitempty" require:"true"`
 	// 模板内容
 	TemplateContent *string `json:"template_content,omitempty" xml:"template_content,omitempty" require:"true"`
-	// 扩展参数
-	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
 }
 
 func (s SmsTemplate) String() string {
@@ -1072,11 +1070,6 @@ func (s *SmsTemplate) SetSceneStrategyName(v string) *SmsTemplate {
 
 func (s *SmsTemplate) SetTemplateContent(v string) *SmsTemplate {
 	s.TemplateContent = &v
-	return s
-}
-
-func (s *SmsTemplate) SetExtInfo(v string) *SmsTemplate {
-	s.ExtInfo = &v
 	return s
 }
 
@@ -16002,6 +15995,8 @@ type QueryQmpTextsmsTemplateResponse struct {
 	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
 	// 每页记录数
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 扩展参数
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 	// 模板列表
 	SmsTemplates []*SmsTemplate `json:"sms_templates,omitempty" xml:"sms_templates,omitempty" type:"Repeated"`
 }
@@ -16041,6 +16036,11 @@ func (s *QueryQmpTextsmsTemplateResponse) SetPageNum(v int64) *QueryQmpTextsmsTe
 
 func (s *QueryQmpTextsmsTemplateResponse) SetPageSize(v int64) *QueryQmpTextsmsTemplateResponse {
 	s.PageSize = &v
+	return s
+}
+
+func (s *QueryQmpTextsmsTemplateResponse) SetExtInfo(v string) *QueryQmpTextsmsTemplateResponse {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -25960,7 +25960,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.4"),
+				"sdk_version":      tea.String("1.19.5"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
