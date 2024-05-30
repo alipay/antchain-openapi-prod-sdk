@@ -41,8 +41,6 @@ use AntChain\DEMO\Models\OperateShanghaiPreTestRequest;
 use AntChain\DEMO\Models\OperateShanghaiPreTestResponse;
 use AntChain\DEMO\Models\QueryAaaBbbCccRequest;
 use AntChain\DEMO\Models\QueryAaaBbbCccResponse;
-use AntChain\DEMO\Models\QueryAaasBbbsCccsRequest;
-use AntChain\DEMO\Models\QueryAaasBbbsCccsResponse;
 use AntChain\DEMO\Models\QueryAbcAbcAbcRequest;
 use AntChain\DEMO\Models\QueryAbcAbcAbcResponse;
 use AntChain\DEMO\Models\QueryAcopmAtoWithholdRequest;
@@ -57,6 +55,10 @@ use AntChain\DEMO\Models\QueryApdevcenterTestobjectTestsubRequest;
 use AntChain\DEMO\Models\QueryApdevcenterTestobjectTestsubResponse;
 use AntChain\DEMO\Models\QueryCjtestCjResRequest;
 use AntChain\DEMO\Models\QueryCjtestCjResResponse;
+use AntChain\DEMO\Models\QueryCodeTestARequest;
+use AntChain\DEMO\Models\QueryCodeTestAResponse;
+use AntChain\DEMO\Models\QueryCodeTestRequest;
+use AntChain\DEMO\Models\QueryCodeTestResponse;
 use AntChain\DEMO\Models\QueryDemoAbcAbcRequest;
 use AntChain\DEMO\Models\QueryDemoAbcAbcResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenRequest;
@@ -87,6 +89,10 @@ use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubaaaRequest;
 use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubaaaResponse;
 use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubqRequest;
 use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubqResponse;
+use AntChain\DEMO\Models\QueryTestTestaTestaRequest;
+use AntChain\DEMO\Models\QueryTestTestaTestaResponse;
+use AntChain\DEMO\Models\QueryXxxxTestxAaaRequest;
+use AntChain\DEMO\Models\QueryXxxxTestxAaaResponse;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageRequest;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageResponse;
 use AntChain\DEMO\Models\StartAutomaticallyGenerateScriptsRequest;
@@ -250,7 +256,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.281',
+                    'sdk_version'      => '1.0.288',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1046,36 +1052,102 @@ class Client
     }
 
     /**
-     * Description: aaa
-     * Summary: aa.
+     * Description: test
+     * Summary: test.
      *
-     * @param QueryAaasBbbsCccsRequest $request
+     * @param QueryXxxxTestxAaaRequest $request
      *
-     * @return QueryAaasBbbsCccsResponse
+     * @return QueryXxxxTestxAaaResponse
      */
-    public function queryAaasBbbsCccs($request)
+    public function queryXxxxTestxAaa($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryAaasBbbsCccsEx($request, $headers, $runtime);
+        return $this->queryXxxxTestxAaaEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: aaa
-     * Summary: aa.
+     * Description: test
+     * Summary: test.
      *
-     * @param QueryAaasBbbsCccsRequest $request
+     * @param QueryXxxxTestxAaaRequest $request
      * @param string[]                 $headers
      * @param RuntimeOptions           $runtime
      *
-     * @return QueryAaasBbbsCccsResponse
+     * @return QueryXxxxTestxAaaResponse
      */
-    public function queryAaasBbbsCccsEx($request, $headers, $runtime)
+    public function queryXxxxTestxAaaEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryAaasBbbsCccsResponse::fromMap($this->doRequest('1.0', 'demo.aaas.bbbs.cccs.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryXxxxTestxAaaResponse::fromMap($this->doRequest('1.0', 'demo.xxxx.testx.aaa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryCodeTestRequest $request
+     *
+     * @return QueryCodeTestResponse
+     */
+    public function queryCodeTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCodeTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryCodeTestRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryCodeTestResponse
+     */
+    public function queryCodeTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCodeTestResponse::fromMap($this->doRequest('1.0', 'demo.code.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryTestTestaTestaRequest $request
+     *
+     * @return QueryTestTestaTestaResponse
+     */
+    public function queryTestTestaTesta($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTestTestaTestaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: test
+     * Summary: test.
+     *
+     * @param QueryTestTestaTestaRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryTestTestaTestaResponse
+     */
+    public function queryTestTestaTestaEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTestTestaTestaResponse::fromMap($this->doRequest('1.0', 'demo.test.testa.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1769,6 +1841,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateAutoGenerateCodeResponse::fromMap($this->doRequest('1.0', 'demo.auto.generate.code.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aaa
+     * Summary: aaa.
+     *
+     * @param QueryCodeTestARequest $request
+     *
+     * @return QueryCodeTestAResponse
+     */
+    public function queryCodeTestA($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCodeTestAEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aaa
+     * Summary: aaa.
+     *
+     * @param QueryCodeTestARequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryCodeTestAResponse
+     */
+    public function queryCodeTestAEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCodeTestAResponse::fromMap($this->doRequest('1.0', 'demo.code.test.a.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

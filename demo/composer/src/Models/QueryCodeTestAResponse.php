@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAaasBbbsCccsResponse extends Model
+class QueryCodeTestAResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class QueryAaasBbbsCccsResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAaasBbbsCccsResponse
+     * @return QueryCodeTestAResponse
      */
     public static function fromMap($map = [])
     {
