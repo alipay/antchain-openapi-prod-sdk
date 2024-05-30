@@ -19,11 +19,6 @@ public class SmsTemplate extends TeaModel {
     @Validation(required = true)
     public String templateContent;
 
-    // 扩展参数
-    @NameInMap("ext_info")
-    @Validation(required = true)
-    public String extInfo;
-
     public static SmsTemplate build(java.util.Map<String, ?> map) throws Exception {
         SmsTemplate self = new SmsTemplate();
         return TeaModel.build(map, self);
@@ -51,14 +46,6 @@ public class SmsTemplate extends TeaModel {
     }
     public String getTemplateContent() {
         return this.templateContent;
-    }
-
-    public SmsTemplate setExtInfo(String extInfo) {
-        this.extInfo = extInfo;
-        return this;
-    }
-    public String getExtInfo() {
-        return this.extInfo;
     }
 
 }

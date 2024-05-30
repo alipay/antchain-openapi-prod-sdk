@@ -28,6 +28,10 @@ public class QueryQmpTextsmsTemplateResponse extends TeaModel {
     @NameInMap("page_size")
     public Long pageSize;
 
+    // 扩展参数
+    @NameInMap("ext_info")
+    public String extInfo;
+
     // 模板列表
     @NameInMap("sms_templates")
     public java.util.List<SmsTemplate> smsTemplates;
@@ -83,6 +87,14 @@ public class QueryQmpTextsmsTemplateResponse extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public QueryQmpTextsmsTemplateResponse setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
     public QueryQmpTextsmsTemplateResponse setSmsTemplates(java.util.List<SmsTemplate> smsTemplates) {
