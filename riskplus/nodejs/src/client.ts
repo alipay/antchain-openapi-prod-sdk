@@ -801,14 +801,11 @@ export class SmsTemplate extends $tea.Model {
   sceneStrategyName: string;
   // 模板内容
   templateContent: string;
-  // 扩展参数
-  extInfo: string;
   static names(): { [key: string]: string } {
     return {
       sceneStrategyId: 'scene_strategy_id',
       sceneStrategyName: 'scene_strategy_name',
       templateContent: 'template_content',
-      extInfo: 'ext_info',
     };
   }
 
@@ -817,7 +814,6 @@ export class SmsTemplate extends $tea.Model {
       sceneStrategyId: 'string',
       sceneStrategyName: 'string',
       templateContent: 'string',
-      extInfo: 'string',
     };
   }
 
@@ -11872,6 +11868,8 @@ export class QueryQmpTextsmsTemplateResponse extends $tea.Model {
   pageNum?: number;
   // 每页记录数
   pageSize?: number;
+  // 扩展参数
+  extInfo?: string;
   // 模板列表
   smsTemplates?: SmsTemplate[];
   static names(): { [key: string]: string } {
@@ -11882,6 +11880,7 @@ export class QueryQmpTextsmsTemplateResponse extends $tea.Model {
       total: 'total',
       pageNum: 'page_num',
       pageSize: 'page_size',
+      extInfo: 'ext_info',
       smsTemplates: 'sms_templates',
     };
   }
@@ -11894,6 +11893,7 @@ export class QueryQmpTextsmsTemplateResponse extends $tea.Model {
       total: 'number',
       pageNum: 'number',
       pageSize: 'number',
+      extInfo: 'string',
       smsTemplates: { 'type': 'array', 'itemType': SmsTemplate },
     };
   }
@@ -19400,7 +19400,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.4",
+          sdk_version: "1.19.5",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
