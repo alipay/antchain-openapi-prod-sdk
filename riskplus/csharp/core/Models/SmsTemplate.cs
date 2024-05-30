@@ -25,11 +25,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string TemplateContent { get; set; }
 
-        // 扩展参数
-        [NameInMap("ext_info")]
-        [Validation(Required=true)]
-        public string ExtInfo { get; set; }
-
     }
 
 }

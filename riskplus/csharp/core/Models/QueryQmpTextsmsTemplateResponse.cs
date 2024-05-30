@@ -39,6 +39,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public long? PageSize { get; set; }
 
+        // 扩展参数
+        [NameInMap("ext_info")]
+        [Validation(Required=false)]
+        public string ExtInfo { get; set; }
+
         // 模板列表
         [NameInMap("sms_templates")]
         [Validation(Required=false)]
