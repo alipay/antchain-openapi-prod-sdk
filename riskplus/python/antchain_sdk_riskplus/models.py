@@ -1310,7 +1310,6 @@ class SmsTemplate(TeaModel):
         scene_strategy_id: str = None,
         scene_strategy_name: str = None,
         template_content: str = None,
-        ext_info: str = None,
     ):
         # 场景策略ID
         self.scene_strategy_id = scene_strategy_id
@@ -1318,14 +1317,11 @@ class SmsTemplate(TeaModel):
         self.scene_strategy_name = scene_strategy_name
         # 模板内容
         self.template_content = template_content
-        # 扩展参数
-        self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
         self.validate_required(self.scene_strategy_name, 'scene_strategy_name')
         self.validate_required(self.template_content, 'template_content')
-        self.validate_required(self.ext_info, 'ext_info')
 
     def to_map(self):
         _map = super().to_map()
@@ -1339,8 +1335,6 @@ class SmsTemplate(TeaModel):
             result['scene_strategy_name'] = self.scene_strategy_name
         if self.template_content is not None:
             result['template_content'] = self.template_content
-        if self.ext_info is not None:
-            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -1351,8 +1345,6 @@ class SmsTemplate(TeaModel):
             self.scene_strategy_name = m.get('scene_strategy_name')
         if m.get('template_content') is not None:
             self.template_content = m.get('template_content')
-        if m.get('ext_info') is not None:
-            self.ext_info = m.get('ext_info')
         return self
 
 
@@ -19790,6 +19782,7 @@ class QueryQmpTextsmsTemplateResponse(TeaModel):
         total: int = None,
         page_num: int = None,
         page_size: int = None,
+        ext_info: str = None,
         sms_templates: List[SmsTemplate] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -19804,6 +19797,8 @@ class QueryQmpTextsmsTemplateResponse(TeaModel):
         self.page_num = page_num
         # 每页记录数
         self.page_size = page_size
+        # 扩展参数
+        self.ext_info = ext_info
         # 模板列表
         self.sms_templates = sms_templates
 
@@ -19831,6 +19826,8 @@ class QueryQmpTextsmsTemplateResponse(TeaModel):
             result['page_num'] = self.page_num
         if self.page_size is not None:
             result['page_size'] = self.page_size
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         result['sms_templates'] = []
         if self.sms_templates is not None:
             for k in self.sms_templates:
@@ -19851,6 +19848,8 @@ class QueryQmpTextsmsTemplateResponse(TeaModel):
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         self.sms_templates = []
         if m.get('sms_templates') is not None:
             for k in m.get('sms_templates'):
