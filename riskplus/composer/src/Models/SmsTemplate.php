@@ -31,19 +31,10 @@ class SmsTemplate extends Model
      * @var string
      */
     public $templateContent;
-
-    // 扩展参数
-    /**
-     * @example {}
-     *
-     * @var string
-     */
-    public $extInfo;
     protected $_name = [
         'sceneStrategyId'   => 'scene_strategy_id',
         'sceneStrategyName' => 'scene_strategy_name',
         'templateContent'   => 'template_content',
-        'extInfo'           => 'ext_info',
     ];
 
     public function validate()
@@ -51,7 +42,6 @@ class SmsTemplate extends Model
         Model::validateRequired('sceneStrategyId', $this->sceneStrategyId, true);
         Model::validateRequired('sceneStrategyName', $this->sceneStrategyName, true);
         Model::validateRequired('templateContent', $this->templateContent, true);
-        Model::validateRequired('extInfo', $this->extInfo, true);
     }
 
     public function toMap()
@@ -65,9 +55,6 @@ class SmsTemplate extends Model
         }
         if (null !== $this->templateContent) {
             $res['template_content'] = $this->templateContent;
-        }
-        if (null !== $this->extInfo) {
-            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -89,9 +76,6 @@ class SmsTemplate extends Model
         }
         if (isset($map['template_content'])) {
             $model->templateContent = $map['template_content'];
-        }
-        if (isset($map['ext_info'])) {
-            $model->extInfo = $map['ext_info'];
         }
 
         return $model;

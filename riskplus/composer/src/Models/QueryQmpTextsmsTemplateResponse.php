@@ -44,6 +44,12 @@ class QueryQmpTextsmsTemplateResponse extends Model
      */
     public $pageSize;
 
+    // 扩展参数
+    /**
+     * @var string
+     */
+    public $extInfo;
+
     // 模板列表
     /**
      * @var SmsTemplate[]
@@ -56,6 +62,7 @@ class QueryQmpTextsmsTemplateResponse extends Model
         'total'        => 'total',
         'pageNum'      => 'page_num',
         'pageSize'     => 'page_size',
+        'extInfo'      => 'ext_info',
         'smsTemplates' => 'sms_templates',
     ];
 
@@ -83,6 +90,9 @@ class QueryQmpTextsmsTemplateResponse extends Model
         }
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
+        }
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
         if (null !== $this->smsTemplates) {
             $res['sms_templates'] = [];
@@ -122,6 +132,9 @@ class QueryQmpTextsmsTemplateResponse extends Model
         }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
         if (isset($map['sms_templates'])) {
             if (!empty($map['sms_templates'])) {
