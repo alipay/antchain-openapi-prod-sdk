@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.14',
+                    'sdk_version': '1.15.16',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.14',
+                    'sdk_version': '1.15.16',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -2211,6 +2211,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QuerySocialriskTobriskResponse(),
             await self.do_request_async('1.0', 'di.realperson.socialrisk.tobrisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_zolozmeta_threemetamobilereuse(
+        self,
+        request: realperson_models.QueryZolozmetaThreemetamobilereuseRequest,
+    ) -> realperson_models.QueryZolozmetaThreemetamobilereuseResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号-meta版本
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_zolozmeta_threemetamobilereuse_ex(request, headers, runtime)
+
+    async def query_zolozmeta_threemetamobilereuse_async(
+        self,
+        request: realperson_models.QueryZolozmetaThreemetamobilereuseRequest,
+    ) -> realperson_models.QueryZolozmetaThreemetamobilereuseResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号-meta版本
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_zolozmeta_threemetamobilereuse_ex_async(request, headers, runtime)
+
+    def query_zolozmeta_threemetamobilereuse_ex(
+        self,
+        request: realperson_models.QueryZolozmetaThreemetamobilereuseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryZolozmetaThreemetamobilereuseResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号-meta版本
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryZolozmetaThreemetamobilereuseResponse(),
+            self.do_request('1.0', 'di.realperson.zolozmeta.threemetamobilereuse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_zolozmeta_threemetamobilereuse_ex_async(
+        self,
+        request: realperson_models.QueryZolozmetaThreemetamobilereuseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryZolozmetaThreemetamobilereuseResponse:
+        """
+        Description: 个人运营商二次放号
+        Summary: 个人运营商二次放号-meta版本
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryZolozmetaThreemetamobilereuseResponse(),
+            await self.do_request_async('1.0', 'di.realperson.zolozmeta.threemetamobilereuse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

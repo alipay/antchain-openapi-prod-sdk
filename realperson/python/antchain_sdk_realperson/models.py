@@ -4174,6 +4174,7 @@ class CheckCarrierTwometaRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         outer_order_no: str = None,
+        encrypt_type: str = None,
         meta_mode: str = None,
         mobile: str = None,
         cert_name: str = None,
@@ -4186,15 +4187,19 @@ class CheckCarrierTwometaRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
         self.outer_order_no = outer_order_no
+        # 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+        # 0：明文
+        # 1：MD5
+        self.encrypt_type = encrypt_type
         # 要素入参模式：
         # 1：手机号+姓名
         # 2：手机号+身份证号
         self.meta_mode = meta_mode
-        # 手机号码
+        # 手机号码「支持加密」
         self.mobile = mobile
-        # 姓名
+        # 姓名「支持加密」
         self.cert_name = cert_name
-        # 身份证号
+        # 身份证号「支持加密」
         self.cert_no = cert_no
         # 运营商类型：
         # CHINA_TELECOM；
@@ -4222,6 +4227,8 @@ class CheckCarrierTwometaRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.outer_order_no is not None:
             result['outer_order_no'] = self.outer_order_no
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
         if self.meta_mode is not None:
             result['meta_mode'] = self.meta_mode
         if self.mobile is not None:
@@ -4244,6 +4251,8 @@ class CheckCarrierTwometaRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('outer_order_no') is not None:
             self.outer_order_no = m.get('outer_order_no')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
         if m.get('meta_mode') is not None:
             self.meta_mode = m.get('meta_mode')
         if m.get('mobile') is not None:
@@ -5129,6 +5138,135 @@ class QuerySocialriskTobriskResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('risk_info') is not None:
             self.risk_info = m.get('risk_info')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class QueryZolozmetaThreemetamobilereuseRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        mobile: str = None,
+        date: str = None,
+        carrier: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+        self.outer_order_no = outer_order_no
+        # 手机号
+        self.mobile = mobile
+        # 日期
+        self.date = date
+        # 运营商类型
+        self.carrier = carrier
+        # 扩展参数
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.mobile, 'mobile')
+        self.validate_required(self.date, 'date')
+        self.validate_required(self.carrier, 'carrier')
+        self.validate_required(self.extern_param, 'extern_param')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.date is not None:
+            result['date'] = self.date
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('date') is not None:
+            self.date = m.get('date')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        phone_reuse: str = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否二次放号
+        self.phone_reuse = phone_reuse
+        # 扩展参数
+        self.extern_info = extern_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.phone_reuse is not None:
+            result['phone_reuse'] = self.phone_reuse
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('phone_reuse') is not None:
+            self.phone_reuse = m.get('phone_reuse')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
