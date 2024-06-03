@@ -75,6 +75,8 @@ use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseResponse;
 use AntChain\REALPERSON\Models\QueryTscenterDeviceRequest;
 use AntChain\REALPERSON\Models\QueryTscenterDeviceResponse;
+use AntChain\REALPERSON\Models\QueryZolozmetaThreemetamobilereuseRequest;
+use AntChain\REALPERSON\Models\QueryZolozmetaThreemetamobilereuseResponse;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardRequest;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
@@ -228,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.14',
+                    'sdk_version'      => '1.15.16',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1414,6 +1416,39 @@ class Client
         Utils::validateModel($request);
 
         return QuerySocialriskTobriskResponse::fromMap($this->doRequest('1.0', 'di.realperson.socialrisk.tobrisk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号-meta版本.
+     *
+     * @param QueryZolozmetaThreemetamobilereuseRequest $request
+     *
+     * @return QueryZolozmetaThreemetamobilereuseResponse
+     */
+    public function queryZolozmetaThreemetamobilereuse($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryZolozmetaThreemetamobilereuseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号-meta版本.
+     *
+     * @param QueryZolozmetaThreemetamobilereuseRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryZolozmetaThreemetamobilereuseResponse
+     */
+    public function queryZolozmetaThreemetamobilereuseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryZolozmetaThreemetamobilereuseResponse::fromMap($this->doRequest('1.0', 'di.realperson.zolozmeta.threemetamobilereuse.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
