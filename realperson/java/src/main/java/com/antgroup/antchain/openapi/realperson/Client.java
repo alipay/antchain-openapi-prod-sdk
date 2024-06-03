@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.15.14"),
+                    new TeaPair("sdk_version", "1.15.16"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -826,6 +826,25 @@ public class Client {
     public QuerySocialriskTobriskResponse querySocialriskTobriskEx(QuerySocialriskTobriskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.socialrisk.tobrisk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySocialriskTobriskResponse());
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号-meta版本
+     */
+    public QueryZolozmetaThreemetamobilereuseResponse queryZolozmetaThreemetamobilereuse(QueryZolozmetaThreemetamobilereuseRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryZolozmetaThreemetamobilereuseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 个人运营商二次放号
+     * Summary: 个人运营商二次放号-meta版本
+     */
+    public QueryZolozmetaThreemetamobilereuseResponse queryZolozmetaThreemetamobilereuseEx(QueryZolozmetaThreemetamobilereuseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.zolozmeta.threemetamobilereuse.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryZolozmetaThreemetamobilereuseResponse());
     }
 
     /**

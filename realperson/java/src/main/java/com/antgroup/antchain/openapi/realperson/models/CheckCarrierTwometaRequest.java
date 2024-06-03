@@ -16,6 +16,12 @@ public class CheckCarrierTwometaRequest extends TeaModel {
     @Validation(required = true)
     public String outerOrderNo;
 
+    // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+    // 0：明文
+    // 1：MD5
+    @NameInMap("encrypt_type")
+    public String encryptType;
+
     // 要素入参模式：
     // 1：手机号+姓名
     // 2：手机号+身份证号
@@ -23,16 +29,16 @@ public class CheckCarrierTwometaRequest extends TeaModel {
     @Validation(required = true)
     public String metaMode;
 
-    // 手机号码
+    // 手机号码「支持加密」
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;
 
-    // 姓名
+    // 姓名「支持加密」
     @NameInMap("cert_name")
     public String certName;
 
-    // 身份证号
+    // 身份证号「支持加密」
     @NameInMap("cert_no")
     public String certNo;
 
@@ -75,6 +81,14 @@ public class CheckCarrierTwometaRequest extends TeaModel {
     }
     public String getOuterOrderNo() {
         return this.outerOrderNo;
+    }
+
+    public CheckCarrierTwometaRequest setEncryptType(String encryptType) {
+        this.encryptType = encryptType;
+        return this;
+    }
+    public String getEncryptType() {
+        return this.encryptType;
     }
 
     public CheckCarrierTwometaRequest setMetaMode(String metaMode) {
