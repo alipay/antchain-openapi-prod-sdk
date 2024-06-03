@@ -3523,15 +3523,19 @@ type CheckCarrierTwometaRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
 	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+	// 0：明文
+	// 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
 	// 要素入参模式：
 	// 1：手机号+姓名
 	// 2：手机号+身份证号
 	MetaMode *string `json:"meta_mode,omitempty" xml:"meta_mode,omitempty" require:"true"`
-	// 手机号码
+	// 手机号码「支持加密」
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 姓名
+	// 姓名「支持加密」
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
-	// 身份证号
+	// 身份证号「支持加密」
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
 	// 运营商类型：
 	// CHINA_TELECOM；
@@ -3562,6 +3566,11 @@ func (s *CheckCarrierTwometaRequest) SetProductInstanceId(v string) *CheckCarrie
 
 func (s *CheckCarrierTwometaRequest) SetOuterOrderNo(v string) *CheckCarrierTwometaRequest {
 	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaRequest) SetEncryptType(v string) *CheckCarrierTwometaRequest {
+	s.EncryptType = &v
 	return s
 }
 
@@ -4326,6 +4335,111 @@ func (s *QuerySocialriskTobriskResponse) SetExternInfo(v string) *QuerySocialris
 	return s
 }
 
+type QueryZolozmetaThreemetamobilereuseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 手机号
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 运营商类型
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty" require:"true"`
+	// 扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
+}
+
+func (s QueryZolozmetaThreemetamobilereuseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryZolozmetaThreemetamobilereuseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseRequest) SetAuthToken(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseRequest) SetProductInstanceId(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseRequest) SetOuterOrderNo(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseRequest) SetMobile(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseRequest) SetDate(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseRequest) SetCarrier(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+	s.Carrier = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseRequest) SetExternParam(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryZolozmetaThreemetamobilereuseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否二次放号
+	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
+	// 扩展参数
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryZolozmetaThreemetamobilereuseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryZolozmetaThreemetamobilereuseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseResponse) SetReqMsgId(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseResponse) SetResultCode(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseResponse) SetResultMsg(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseResponse) SetPhoneReuse(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+	s.PhoneReuse = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseResponse) SetExternInfo(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4568,7 +4682,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.14"),
+				"sdk_version":      tea.String("1.15.16"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5804,6 +5918,40 @@ func (client *Client) QuerySocialriskTobriskEx(request *QuerySocialriskTobriskRe
 	}
 	_result = &QuerySocialriskTobriskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.socialrisk.tobrisk.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 个人运营商二次放号
+ * Summary: 个人运营商二次放号-meta版本
+ */
+func (client *Client) QueryZolozmetaThreemetamobilereuse(request *QueryZolozmetaThreemetamobilereuseRequest) (_result *QueryZolozmetaThreemetamobilereuseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryZolozmetaThreemetamobilereuseResponse{}
+	_body, _err := client.QueryZolozmetaThreemetamobilereuseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 个人运营商二次放号
+ * Summary: 个人运营商二次放号-meta版本
+ */
+func (client *Client) QueryZolozmetaThreemetamobilereuseEx(request *QueryZolozmetaThreemetamobilereuseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryZolozmetaThreemetamobilereuseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryZolozmetaThreemetamobilereuseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.zolozmeta.threemetamobilereuse.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
