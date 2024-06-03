@@ -894,6 +894,10 @@ export class CheckRouteThreemetaResponse extends $tea.Model {
   resultMsg?: string;
   // true:匹配成功 false：匹配失败
   match?: string;
+  // CHINA_TELECOM：中国电信
+  // CHINA_MOBILE：中国移动
+  // CHINA_UNICOM：中国联通
+  carrier?: string;
   // 扩展信息，预留字段
   externInfo?: string;
   static names(): { [key: string]: string } {
@@ -902,6 +906,7 @@ export class CheckRouteThreemetaResponse extends $tea.Model {
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       match: 'match',
+      carrier: 'carrier',
       externInfo: 'extern_info',
     };
   }
@@ -912,6 +917,7 @@ export class CheckRouteThreemetaResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       match: 'string',
+      carrier: 'string',
       externInfo: 'string',
     };
   }
@@ -2556,15 +2562,19 @@ export class CheckCarrierTwometaRequest extends $tea.Model {
   productInstanceId?: string;
   // 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
   outerOrderNo: string;
+  // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+  // 0：明文
+  // 1：MD5
+  encryptType?: string;
   // 要素入参模式：
   // 1：手机号+姓名
   // 2：手机号+身份证号
   metaMode: string;
-  // 手机号码
+  // 手机号码「支持加密」
   mobile: string;
-  // 姓名
+  // 姓名「支持加密」
   certName?: string;
-  // 身份证号
+  // 身份证号「支持加密」
   certNo?: string;
   // 运营商类型：
   // CHINA_TELECOM；
@@ -2578,6 +2588,7 @@ export class CheckCarrierTwometaRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       outerOrderNo: 'outer_order_no',
+      encryptType: 'encrypt_type',
       metaMode: 'meta_mode',
       mobile: 'mobile',
       certName: 'cert_name',
@@ -2592,6 +2603,7 @@ export class CheckCarrierTwometaRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       outerOrderNo: 'string',
+      encryptType: 'string',
       metaMode: 'string',
       mobile: 'string',
       certName: 'string',
@@ -2835,6 +2847,9 @@ export class QuerySocialriskDetailRequest extends $tea.Model {
   certNo: string;
   // 扩展信息，预留字段
   externParam?: string;
+  // 	
+  // 场景编号
+  scene?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2844,6 +2859,7 @@ export class QuerySocialriskDetailRequest extends $tea.Model {
       certName: 'cert_name',
       certNo: 'cert_no',
       externParam: 'extern_param',
+      scene: 'scene',
     };
   }
 
@@ -2856,6 +2872,7 @@ export class QuerySocialriskDetailRequest extends $tea.Model {
       certName: 'string',
       certNo: 'string',
       externParam: 'string',
+      scene: 'string',
     };
   }
 
@@ -2891,6 +2908,333 @@ export class QuerySocialriskDetailResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       riskInfo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarrierNetstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 手机号码「支持加密」
+  mobile: string;
+  // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+  carrier?: string;
+  // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+  // 0：明文
+  // 1：MD5
+  encryptType?: string;
+  // 扩展信息，预留字段
+  externParam: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      mobile: 'mobile',
+      carrier: 'carrier',
+      encryptType: 'encrypt_type',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      mobile: 'string',
+      carrier: 'string',
+      encryptType: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCarrierNetstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 在网状态结果值
+  telNetworkStatus?: string;
+  // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+  carrier?: string;
+  // 扩展信息，为JSONObject。
+  // 包含携号转网状态，字段名telNumberTransStatus，字段类型为字符串，字段值示例"1"，描述：1-携号转网 0-未携号转网 2-未知
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      telNetworkStatus: 'tel_network_status',
+      carrier: 'carrier',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      telNetworkStatus: 'string',
+      carrier: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySocialriskBriefRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
+  outerOrderNo: string;
+  // 场景编号
+  scene?: string;
+  // 入参加密模式： NONE：不加密； RSA：RSA加密； SM2：SM2加密。
+  encType: string;
+  // 	
+  // 姓名（根据enc_type决定加密方式）
+  certName?: string;
+  // 身份证号（根据enc_type决定加密方式）
+  certNo: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      scene: 'scene',
+      encType: 'enc_type',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      scene: 'string',
+      encType: 'string',
+      certName: 'string',
+      certNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySocialriskBriefResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 风险信息
+  riskInfo?: string;
+  // 扩展信息，预留字段。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      riskInfo: 'risk_info',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      riskInfo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySocialriskTobriskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位和授权抽查。
+  outerOrderNo: string;
+  // 入参加密模式：
+  // NONE：不加密；
+  // RSA：RSA加密，请使用在示例代码中提供的公钥；
+  // SM2：SM2加密，请使用在示例代码中提供的公钥。
+  encType: string;
+  // 身份证号（根据enc_type决定加密方式）
+  certNo: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      encType: 'enc_type',
+      certNo: 'cert_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      encType: 'string',
+      certNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QuerySocialriskTobriskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 风险信息，为JSONObject
+  riskInfo?: string;
+  // STRING	扩展信息，预留字段。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      riskInfo: 'risk_info',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      riskInfo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryZolozmetaThreemetamobilereuseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  outerOrderNo: string;
+  // 手机号
+  mobile: string;
+  // 日期
+  date: string;
+  // 运营商类型
+  carrier: string;
+  // 扩展参数
+  externParam: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      mobile: 'mobile',
+      date: 'date',
+      carrier: 'carrier',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      mobile: 'string',
+      date: 'string',
+      carrier: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryZolozmetaThreemetamobilereuseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否二次放号
+  phoneReuse?: string;
+  // 扩展参数
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      phoneReuse: 'phone_reuse',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      phoneReuse: 'string',
       externInfo: 'string',
     };
   }
@@ -3015,7 +3359,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -3101,7 +3445,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.4",
+          sdk_version: "1.15.16",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -3757,6 +4101,82 @@ export default class Client {
   async querySocialriskDetailEx(request: QuerySocialriskDetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySocialriskDetailResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySocialriskDetailResponse>(await this.doRequest("1.0", "di.realperson.socialrisk.detail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySocialriskDetailResponse({}));
+  }
+
+  /**
+   * Description: 运营商在网状态查询
+   * Summary: 运营商在网状态查询
+   */
+  async queryCarrierNetstatus(request: QueryCarrierNetstatusRequest): Promise<QueryCarrierNetstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCarrierNetstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 运营商在网状态查询
+   * Summary: 运营商在网状态查询
+   */
+  async queryCarrierNetstatusEx(request: QueryCarrierNetstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCarrierNetstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCarrierNetstatusResponse>(await this.doRequest("1.0", "di.realperson.carrier.netstatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCarrierNetstatusResponse({}));
+  }
+
+  /**
+   * Description: 社会安全风险（简版）
+   * Summary: 社会安全风险（简版）
+   */
+  async querySocialriskBrief(request: QuerySocialriskBriefRequest): Promise<QuerySocialriskBriefResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySocialriskBriefEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 社会安全风险（简版）
+   * Summary: 社会安全风险（简版）
+   */
+  async querySocialriskBriefEx(request: QuerySocialriskBriefRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySocialriskBriefResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySocialriskBriefResponse>(await this.doRequest("1.0", "di.realperson.socialrisk.brief.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySocialriskBriefResponse({}));
+  }
+
+  /**
+   * Description: 社会安全风险（tob风控版）
+   * Summary: 社会安全风险（tob风控版）
+   */
+  async querySocialriskTobrisk(request: QuerySocialriskTobriskRequest): Promise<QuerySocialriskTobriskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.querySocialriskTobriskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 社会安全风险（tob风控版）
+   * Summary: 社会安全风险（tob风控版）
+   */
+  async querySocialriskTobriskEx(request: QuerySocialriskTobriskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySocialriskTobriskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QuerySocialriskTobriskResponse>(await this.doRequest("1.0", "di.realperson.socialrisk.tobrisk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySocialriskTobriskResponse({}));
+  }
+
+  /**
+   * Description: 个人运营商二次放号
+   * Summary: 个人运营商二次放号-meta版本
+   */
+  async queryZolozmetaThreemetamobilereuse(request: QueryZolozmetaThreemetamobilereuseRequest): Promise<QueryZolozmetaThreemetamobilereuseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryZolozmetaThreemetamobilereuseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 个人运营商二次放号
+   * Summary: 个人运营商二次放号-meta版本
+   */
+  async queryZolozmetaThreemetamobilereuseEx(request: QueryZolozmetaThreemetamobilereuseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryZolozmetaThreemetamobilereuseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryZolozmetaThreemetamobilereuseResponse>(await this.doRequest("1.0", "di.realperson.zolozmeta.threemetamobilereuse.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryZolozmetaThreemetamobilereuseResponse({}));
   }
 
   /**
