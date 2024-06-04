@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.6',
+    sdk_version = '1.19.7',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1403,7 +1403,7 @@ model PersonalInfo {
   // 手机号
   mobile: string(name='mobile', example='12344'),
   // 学历
-  education: string(name='education', example='本科'),
+  education?: string(name='education', example='本科'),
   // 所在省份 汉字
   province?: string(name='province', example='浙江'),
   // 所在城市 汉字
