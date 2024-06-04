@@ -42,7 +42,6 @@ public class PersonalInfo extends TeaModel {
 
     // 学历
     @NameInMap("education")
-    @Validation(required = true)
     public String education;
 
     // 所在省份 汉字
