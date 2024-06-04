@@ -4271,7 +4271,7 @@ type PersonalInfo struct {
 	// 手机号
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 学历
-	Education *string `json:"education,omitempty" xml:"education,omitempty" require:"true"`
+	Education *string `json:"education,omitempty" xml:"education,omitempty"`
 	// 所在省份 汉字
 	Province *string `json:"province,omitempty" xml:"province,omitempty"`
 	// 所在城市 汉字
@@ -25960,7 +25960,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.6"),
+				"sdk_version":      tea.String("1.19.7"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
