@@ -3158,7 +3158,7 @@ export class PersonalInfo extends $tea.Model {
   // 手机号
   mobile: string;
   // 学历
-  education: string;
+  education?: string;
   // 所在省份 汉字
   province?: string;
   // 所在城市 汉字
@@ -19400,7 +19400,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.6",
+          sdk_version: "1.19.7",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
