@@ -156,7 +156,6 @@ class PersonalInfo extends Model
         Model::validateRequired('certValidate', $this->certValidate, true);
         Model::validateRequired('certAdr', $this->certAdr, true);
         Model::validateRequired('mobile', $this->mobile, true);
-        Model::validateRequired('education', $this->education, true);
     }
 
     public function toMap()
