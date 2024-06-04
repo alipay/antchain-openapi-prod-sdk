@@ -5312,7 +5312,6 @@ class PersonalInfo(TeaModel):
         self.validate_required(self.cert_validate, 'cert_validate')
         self.validate_required(self.cert_adr, 'cert_adr')
         self.validate_required(self.mobile, 'mobile')
-        self.validate_required(self.education, 'education')
 
     def to_map(self):
         _map = super().to_map()
