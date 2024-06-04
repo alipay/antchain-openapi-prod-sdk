@@ -48,7 +48,7 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 学历
         [NameInMap("education")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Education { get; set; }
 
         // 所在省份 汉字
