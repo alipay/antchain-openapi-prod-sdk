@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class QueryMerchantexpandMerchantRequest : TeaModel {
+    public class QueryInnerTemplateversionRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 商户入驻返回的进件编号 expand_mode=AGENT必填
-        [NameInMap("pay_expand_id")]
+        // 租户id
+        [NameInMap("tenant_id")]
         [Validation(Required=true)]
-        public string PayExpandId { get; set; }
+        public string TenantId { get; set; }
+
+        // 模板编码
+        [NameInMap("template_code")]
+        [Validation(Required=true)]
+        public string TemplateCode { get; set; }
+
+        // 模板的版本号，示例：1、2、3等
+        [NameInMap("template_version")]
+        [Validation(Required=true)]
+        public string TemplateVersion { get; set; }
 
     }
 

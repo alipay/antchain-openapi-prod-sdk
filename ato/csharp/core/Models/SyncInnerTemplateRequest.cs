@@ -28,10 +28,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string SourceTemplateCode { get; set; }
 
-        // 目标模板名称
+        // 目标魔法库模板名称
         [NameInMap("target_template_name")]
         [Validation(Required=false)]
         public string TargetTemplateName { get; set; }
+
+        // 模板同步的场景，值参考：CREATE_TEMPLATE、SYNC_PROD
+        [NameInMap("scene")]
+        [Validation(Required=true)]
+        public string Scene { get; set; }
+
+        // 魔法库来源模板版本
+        [NameInMap("source_template_version")]
+        [Validation(Required=true)]
+        public string SourceTemplateVersion { get; set; }
 
     }
 

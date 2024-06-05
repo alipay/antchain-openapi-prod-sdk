@@ -32,7 +32,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 公司数科租户id
         [NameInMap("tenant_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string TenantId { get; set; }
 
         // 统一社会信用代码

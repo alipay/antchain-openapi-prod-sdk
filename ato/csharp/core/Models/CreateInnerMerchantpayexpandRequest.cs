@@ -18,7 +18,7 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 租户8位id
+        // 租户ID
         [NameInMap("tenant_id")]
         [Validation(Required=true)]
         public string TenantId { get; set; }

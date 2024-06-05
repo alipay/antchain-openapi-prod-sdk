@@ -23,20 +23,25 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
-        // 模板参数
-        [NameInMap("template_args")]
-        [Validation(Required=false)]
-        public string TemplateArgs { get; set; }
+        // 合同类型
+        [NameInMap("contract_type")]
+        [Validation(Required=true)]
+        public string ContractType { get; set; }
+
+        // 模板类型
+        [NameInMap("agreement_type")]
+        [Validation(Required=true)]
+        public string AgreementType { get; set; }
 
         // 签署区坐标配置
         [NameInMap("pos_conf")]
         [Validation(Required=true)]
         public string PosConf { get; set; }
 
-        // 模板类型
-        [NameInMap("agreement_type")]
-        [Validation(Required=true)]
-        public string AgreementType { get; set; }
+        // 模板参数
+        [NameInMap("template_args")]
+        [Validation(Required=false)]
+        public string TemplateArgs { get; set; }
 
         // 上传的pdf文件，需要以.pdf后缀结尾
         /// <summary>

@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.51"},
+                        {"sdk_version", "1.8.65"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.51"},
+                        {"sdk_version", "1.8.65"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2639,42 +2639,84 @@ namespace AntChain.SDK.ATO
          * Description: 获取模板关联的元素列表信息，包括组件信息
          * Summary: 获取模板关联的元素列表信息
          */
-        public QueryTemplateElementlinkResponse QueryTemplateElementlink(QueryTemplateElementlinkRequest request)
+        public QueryInnerTemplateelementlinkResponse QueryInnerTemplateelementlink(QueryInnerTemplateelementlinkRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryTemplateElementlinkEx(request, headers, runtime);
+            return QueryInnerTemplateelementlinkEx(request, headers, runtime);
         }
 
         /**
          * Description: 获取模板关联的元素列表信息，包括组件信息
          * Summary: 获取模板关联的元素列表信息
          */
-        public async Task<QueryTemplateElementlinkResponse> QueryTemplateElementlinkAsync(QueryTemplateElementlinkRequest request)
+        public async Task<QueryInnerTemplateelementlinkResponse> QueryInnerTemplateelementlinkAsync(QueryInnerTemplateelementlinkRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryTemplateElementlinkExAsync(request, headers, runtime);
+            return await QueryInnerTemplateelementlinkExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 获取模板关联的元素列表信息，包括组件信息
          * Summary: 获取模板关联的元素列表信息
          */
-        public QueryTemplateElementlinkResponse QueryTemplateElementlinkEx(QueryTemplateElementlinkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryInnerTemplateelementlinkResponse QueryInnerTemplateelementlinkEx(QueryInnerTemplateelementlinkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryTemplateElementlinkResponse>(DoRequest("1.0", "antchain.ato.template.elementlink.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryInnerTemplateelementlinkResponse>(DoRequest("1.0", "antchain.ato.inner.templateelementlink.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 获取模板关联的元素列表信息，包括组件信息
          * Summary: 获取模板关联的元素列表信息
          */
-        public async Task<QueryTemplateElementlinkResponse> QueryTemplateElementlinkExAsync(QueryTemplateElementlinkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryInnerTemplateelementlinkResponse> QueryInnerTemplateelementlinkExAsync(QueryInnerTemplateelementlinkRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryTemplateElementlinkResponse>(await DoRequestAsync("1.0", "antchain.ato.template.elementlink.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryInnerTemplateelementlinkResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.templateelementlink.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+         * Summary: 查询模板的版本详情
+         */
+        public QueryInnerTemplateversionResponse QueryInnerTemplateversion(QueryInnerTemplateversionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerTemplateversionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+         * Summary: 查询模板的版本详情
+         */
+        public async Task<QueryInnerTemplateversionResponse> QueryInnerTemplateversionAsync(QueryInnerTemplateversionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerTemplateversionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+         * Summary: 查询模板的版本详情
+         */
+        public QueryInnerTemplateversionResponse QueryInnerTemplateversionEx(QueryInnerTemplateversionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerTemplateversionResponse>(DoRequest("1.0", "antchain.ato.inner.templateversion.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+         * Summary: 查询模板的版本详情
+         */
+        public async Task<QueryInnerTemplateversionResponse> QueryInnerTemplateversionExAsync(QueryInnerTemplateversionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerTemplateversionResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.templateversion.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -3255,6 +3297,29 @@ namespace AntChain.SDK.ATO
          */
         public UploadSignTemplateResponse UploadSignTemplateEx(UploadSignTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.ato.sign.template.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadSignTemplateResponse uploadSignTemplateResponse = new UploadSignTemplateResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadSignTemplateResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadSignTemplateResponse>(DoRequest("1.0", "antchain.ato.sign.template.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
@@ -3265,6 +3330,29 @@ namespace AntChain.SDK.ATO
          */
         public async Task<UploadSignTemplateResponse> UploadSignTemplateExAsync(UploadSignTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.ato.sign.template.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadSignTemplateResponse uploadSignTemplateResponse = new UploadSignTemplateResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadSignTemplateResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadSignTemplateResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.template.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
