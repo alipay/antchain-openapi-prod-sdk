@@ -49,6 +49,8 @@ use AntChain\BOT\Models\BindEntityrelationRequest;
 use AntChain\BOT\Models\BindEntityrelationResponse;
 use AntChain\BOT\Models\CallbackThingServicebyeventRequest;
 use AntChain\BOT\Models\CallbackThingServicebyeventResponse;
+use AntChain\BOT\Models\CancelDigitalkeyWithholdRequest;
+use AntChain\BOT\Models\CancelDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
 use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
 use AntChain\BOT\Models\CheckAiidentificationGoodsdigitalfingerprintRequest;
@@ -191,6 +193,8 @@ use AntChain\BOT\Models\LoadTsmCertificatetsmRequest;
 use AntChain\BOT\Models\LoadTsmCertificatetsmResponse;
 use AntChain\BOT\Models\LoadTsmResourcefileRequest;
 use AntChain\BOT\Models\LoadTsmResourcefileResponse;
+use AntChain\BOT\Models\NotifyDigitalkeyWithholdRequest;
+use AntChain\BOT\Models\NotifyDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\NotifyPullstrategyChangestatusRequest;
 use AntChain\BOT\Models\NotifyPullstrategyChangestatusResponse;
 use AntChain\BOT\Models\NotifyPullstrategyChargeorderinfoRequest;
@@ -261,6 +265,8 @@ use AntChain\BOT\Models\PagequeryXrXrticketpoolRequest;
 use AntChain\BOT\Models\PagequeryXrXrticketpoolResponse;
 use AntChain\BOT\Models\PagequeryXrXrverificationmodelRequest;
 use AntChain\BOT\Models\PagequeryXrXrverificationmodelResponse;
+use AntChain\BOT\Models\PayDigitalkeyWithholdRequest;
+use AntChain\BOT\Models\PayDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\PublishDevicecorpThingmodelRequest;
 use AntChain\BOT\Models\PublishDevicecorpThingmodelResponse;
 use AntChain\BOT\Models\PullConsumerDatasourceRequest;
@@ -313,6 +319,8 @@ use AntChain\BOT\Models\QueryDeviceStatusRequest;
 use AntChain\BOT\Models\QueryDeviceStatusResponse;
 use AntChain\BOT\Models\QueryDeviceThingmodelRequest;
 use AntChain\BOT\Models\QueryDeviceThingmodelResponse;
+use AntChain\BOT\Models\QueryDigitalkeyWithholdRequest;
+use AntChain\BOT\Models\QueryDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
 use AntChain\BOT\Models\QueryDockedDataResponse;
 use AntChain\BOT\Models\QueryEntityrelationJtdevicebycarRequest;
@@ -363,6 +371,8 @@ use AntChain\BOT\Models\QueryTxtransactionDeviceRequest;
 use AntChain\BOT\Models\QueryTxtransactionDeviceResponse;
 use AntChain\BOT\Models\RecognizeIotbasicCustomerRequest;
 use AntChain\BOT\Models\RecognizeIotbasicCustomerResponse;
+use AntChain\BOT\Models\RefuseDigitalkeyWithholdRequest;
+use AntChain\BOT\Models\RefuseDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintRequest;
 use AntChain\BOT\Models\RegisterAiidentificationGoodsdigitalfingerprintResponse;
 use AntChain\BOT\Models\RegisterDevicecorpCustomerRequest;
@@ -401,6 +411,8 @@ use AntChain\BOT\Models\SetDevicelistPropertyRequest;
 use AntChain\BOT\Models\SetDevicelistPropertyResponse;
 use AntChain\BOT\Models\SetDevicePropertyRequest;
 use AntChain\BOT\Models\SetDevicePropertyResponse;
+use AntChain\BOT\Models\SignDigitalkeyWithholdRequest;
+use AntChain\BOT\Models\SignDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\StartEvidenceQueryRequest;
 use AntChain\BOT\Models\StartEvidenceQueryResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
@@ -427,6 +439,8 @@ use AntChain\BOT\Models\SyncLabelTransferRequest;
 use AntChain\BOT\Models\SyncLabelTransferResponse;
 use AntChain\BOT\Models\SyncRentRentpaymentRequest;
 use AntChain\BOT\Models\SyncRentRentpaymentResponse;
+use AntChain\BOT\Models\UnbindDigitalkeyWithholdRequest;
+use AntChain\BOT\Models\UnbindDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\UnbindEntityrelationRequest;
 use AntChain\BOT\Models\UnbindEntityrelationResponse;
 use AntChain\BOT\Models\UpdateAlertStrategyRequest;
@@ -612,7 +626,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.35',
+                    'sdk_version'      => '1.11.1',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3877,6 +3891,237 @@ class Client
         Utils::validateModel($request);
 
         return PublishDevicecorpThingmodelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣签约链接获取
+     * Summary: 代扣签约链接获取.
+     *
+     * @param SignDigitalkeyWithholdRequest $request
+     *
+     * @return SignDigitalkeyWithholdResponse
+     */
+    public function signDigitalkeyWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signDigitalkeyWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣签约链接获取
+     * Summary: 代扣签约链接获取.
+     *
+     * @param SignDigitalkeyWithholdRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SignDigitalkeyWithholdResponse
+     */
+    public function signDigitalkeyWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignDigitalkeyWithholdResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withhold.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣签约解除
+     * Summary: 代扣签约解除.
+     *
+     * @param UnbindDigitalkeyWithholdRequest $request
+     *
+     * @return UnbindDigitalkeyWithholdResponse
+     */
+    public function unbindDigitalkeyWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unbindDigitalkeyWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣签约解除
+     * Summary: 代扣签约解除.
+     *
+     * @param UnbindDigitalkeyWithholdRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return UnbindDigitalkeyWithholdResponse
+     */
+    public function unbindDigitalkeyWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnbindDigitalkeyWithholdResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withhold.unbind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣支付
+     * Summary: 代扣支付.
+     *
+     * @param PayDigitalkeyWithholdRequest $request
+     *
+     * @return PayDigitalkeyWithholdResponse
+     */
+    public function payDigitalkeyWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->payDigitalkeyWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣支付
+     * Summary: 代扣支付.
+     *
+     * @param PayDigitalkeyWithholdRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PayDigitalkeyWithholdResponse
+     */
+    public function payDigitalkeyWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PayDigitalkeyWithholdResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withhold.pay', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣支付退款
+     * Summary: 代扣支付退款.
+     *
+     * @param RefuseDigitalkeyWithholdRequest $request
+     *
+     * @return RefuseDigitalkeyWithholdResponse
+     */
+    public function refuseDigitalkeyWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->refuseDigitalkeyWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣支付退款
+     * Summary: 代扣支付退款.
+     *
+     * @param RefuseDigitalkeyWithholdRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return RefuseDigitalkeyWithholdResponse
+     */
+    public function refuseDigitalkeyWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RefuseDigitalkeyWithholdResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withhold.refuse', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣协议查询
+     * Summary: 代扣协议查询.
+     *
+     * @param QueryDigitalkeyWithholdRequest $request
+     *
+     * @return QueryDigitalkeyWithholdResponse
+     */
+    public function queryDigitalkeyWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalkeyWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣协议查询
+     * Summary: 代扣协议查询.
+     *
+     * @param QueryDigitalkeyWithholdRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryDigitalkeyWithholdResponse
+     */
+    public function queryDigitalkeyWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalkeyWithholdResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withhold.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣撤销
+     * Summary: 代扣撤销
+     *
+     * @param CancelDigitalkeyWithholdRequest $request
+     *
+     * @return CancelDigitalkeyWithholdResponse
+     */
+    public function cancelDigitalkeyWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelDigitalkeyWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣撤销
+     * Summary: 代扣撤销
+     *
+     * @param CancelDigitalkeyWithholdRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return CancelDigitalkeyWithholdResponse
+     */
+    public function cancelDigitalkeyWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelDigitalkeyWithholdResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withhold.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣扣款前预通知
+     * Summary: 代扣扣款前预通知.
+     *
+     * @param NotifyDigitalkeyWithholdRequest $request
+     *
+     * @return NotifyDigitalkeyWithholdResponse
+     */
+    public function notifyDigitalkeyWithhold($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyDigitalkeyWithholdEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣扣款前预通知
+     * Summary: 代扣扣款前预通知.
+     *
+     * @param NotifyDigitalkeyWithholdRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return NotifyDigitalkeyWithholdResponse
+     */
+    public function notifyDigitalkeyWithholdEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyDigitalkeyWithholdResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withhold.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
