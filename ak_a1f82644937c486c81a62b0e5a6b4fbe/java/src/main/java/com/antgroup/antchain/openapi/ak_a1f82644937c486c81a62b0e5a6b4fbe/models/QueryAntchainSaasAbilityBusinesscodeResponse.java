@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_a1f82644937c486c81a62b0e5a6b4fbe.models
 
 import com.aliyun.tea.*;
 
-public class QueryDemoDemoDefaultSdkcccResponse extends TeaModel {
+public class QueryAntchainSaasAbilityBusinesscodeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class QueryDemoDemoDefaultSdkcccResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryDemoDemoDefaultSdkcccResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryDemoDemoDefaultSdkcccResponse self = new QueryDemoDemoDefaultSdkcccResponse();
+    // 能力信息
+    @NameInMap("ability_info")
+    public AbilityInfo abilityInfo;
+
+    public static QueryAntchainSaasAbilityBusinesscodeResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntchainSaasAbilityBusinesscodeResponse self = new QueryAntchainSaasAbilityBusinesscodeResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryDemoDemoDefaultSdkcccResponse setReqMsgId(String reqMsgId) {
+    public QueryAntchainSaasAbilityBusinesscodeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class QueryDemoDemoDefaultSdkcccResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryDemoDemoDefaultSdkcccResponse setResultCode(String resultCode) {
+    public QueryAntchainSaasAbilityBusinesscodeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class QueryDemoDemoDefaultSdkcccResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryDemoDemoDefaultSdkcccResponse setResultMsg(String resultMsg) {
+    public QueryAntchainSaasAbilityBusinesscodeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryAntchainSaasAbilityBusinesscodeResponse setAbilityInfo(AbilityInfo abilityInfo) {
+        this.abilityInfo = abilityInfo;
+        return this;
+    }
+    public AbilityInfo getAbilityInfo() {
+        return this.abilityInfo;
     }
 
 }
