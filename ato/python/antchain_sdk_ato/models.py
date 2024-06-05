@@ -8690,8 +8690,6 @@ class SubmitSignFlowRequest(TeaModel):
         self.validate_required(self.merchant_id_number, 'merchant_id_number')
         if self.merchant_id_number is not None:
             self.validate_max_length(self.merchant_id_number, 'merchant_id_number', 1000)
-        if self.third_signer is not None:
-            self.validate_max_length(self.third_signer, 'third_signer', 2000)
 
     def to_map(self):
         _map = super().to_map()
