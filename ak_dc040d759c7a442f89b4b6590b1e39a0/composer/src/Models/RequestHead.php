@@ -31,10 +31,28 @@ class RequestHead extends Model
      * @var string
      */
     public $productCode;
+
+    // response输出类型，默认json
+    /**
+     * @example "tlv"
+     *
+     * @var string
+     */
+    public $formatType;
+
+    // false
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $onlineFlag;
     protected $_name = [
         'requestId'   => 'request_id',
         'secretId'    => 'secret_id',
         'productCode' => 'product_code',
+        'formatType'  => 'format_type',
+        'onlineFlag'  => 'online_flag',
     ];
 
     public function validate()
@@ -56,6 +74,12 @@ class RequestHead extends Model
         if (null !== $this->productCode) {
             $res['product_code'] = $this->productCode;
         }
+        if (null !== $this->formatType) {
+            $res['format_type'] = $this->formatType;
+        }
+        if (null !== $this->onlineFlag) {
+            $res['online_flag'] = $this->onlineFlag;
+        }
 
         return $res;
     }
@@ -76,6 +100,12 @@ class RequestHead extends Model
         }
         if (isset($map['product_code'])) {
             $model->productCode = $map['product_code'];
+        }
+        if (isset($map['format_type'])) {
+            $model->formatType = $map['format_type'];
+        }
+        if (isset($map['online_flag'])) {
+            $model->onlineFlag = $map['online_flag'];
         }
 
         return $model;

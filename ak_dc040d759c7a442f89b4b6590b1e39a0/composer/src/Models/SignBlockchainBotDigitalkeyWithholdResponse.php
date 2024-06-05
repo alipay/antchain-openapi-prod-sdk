@@ -6,7 +6,7 @@ namespace AntChain\Ak_dc040d759c7a442f89b4b6590b1e39a0\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
+class SignBlockchainBotDigitalkeyWithholdResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,29 +26,29 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
      */
     public $resultMsg;
 
-    // 接口响应结果
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 接口响应描述
+    // 明细返回码
     /**
      * @var string
      */
-    public $message;
+    public $subCode;
 
-    // 接口响应数据
+    // 明细返回码描述
     /**
-     * @var IifaaEkytResponse
+     * @var string
+     */
+    public $subMsg;
+
+    // 生成的签约链接地址
+    /**
+     * @var string
      */
     public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'success'    => 'success',
-        'message'    => 'message',
+        'subCode'    => 'sub_code',
+        'subMsg'     => 'sub_msg',
         'data'       => 'data',
     ];
 
@@ -68,14 +68,14 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
+        if (null !== $this->subCode) {
+            $res['sub_code'] = $this->subCode;
         }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
+        if (null !== $this->subMsg) {
+            $res['sub_msg'] = $this->subMsg;
         }
         if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+            $res['data'] = $this->data;
         }
 
         return $res;
@@ -84,7 +84,7 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntsecuritytechGatewayEkytDriverResponse
+     * @return SignBlockchainBotDigitalkeyWithholdResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +98,14 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
+        if (isset($map['sub_code'])) {
+            $model->subCode = $map['sub_code'];
         }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
+        if (isset($map['sub_msg'])) {
+            $model->subMsg = $map['sub_msg'];
         }
         if (isset($map['data'])) {
-            $model->data = IifaaEkytResponse::fromMap($map['data']);
+            $model->data = $map['data'];
         }
 
         return $model;

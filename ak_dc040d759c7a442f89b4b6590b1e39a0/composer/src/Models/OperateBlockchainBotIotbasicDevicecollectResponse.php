@@ -6,7 +6,7 @@ namespace AntChain\Ak_dc040d759c7a442f89b4b6590b1e39a0\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
+class OperateBlockchainBotIotbasicDevicecollectResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,23 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
      */
     public $resultMsg;
 
-    // 接口响应结果
+    // 是否成功
     /**
      * @var bool
      */
     public $success;
 
-    // 接口响应描述
+    // 上链id
     /**
      * @var string
      */
-    public $message;
-
-    // 接口响应数据
-    /**
-     * @var IifaaEkytResponse
-     */
-    public $data;
+    public $antchainId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'success'    => 'success',
-        'message'    => 'message',
-        'data'       => 'data',
+        'antchainId' => 'antchain_id',
     ];
 
     public function validate()
@@ -71,11 +64,8 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
-        }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
+        if (null !== $this->antchainId) {
+            $res['antchain_id'] = $this->antchainId;
         }
 
         return $res;
@@ -84,7 +74,7 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntsecuritytechGatewayEkytDriverResponse
+     * @return OperateBlockchainBotIotbasicDevicecollectResponse
      */
     public static function fromMap($map = [])
     {
@@ -101,11 +91,8 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
         if (isset($map['success'])) {
             $model->success = $map['success'];
         }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
-        }
-        if (isset($map['data'])) {
-            $model->data = IifaaEkytResponse::fromMap($map['data']);
+        if (isset($map['antchain_id'])) {
+            $model->antchainId = $map['antchain_id'];
         }
 
         return $model;

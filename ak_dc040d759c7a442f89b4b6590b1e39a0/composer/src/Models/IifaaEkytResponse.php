@@ -6,7 +6,7 @@ namespace AntChain\Ak_dc040d759c7a442f89b4b6590b1e39a0\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RiskAssessData extends Model
+class IifaaEkytResponse extends Model
 {
     // 响应头
     /**
@@ -16,22 +16,22 @@ class RiskAssessData extends Model
      */
     public $head;
 
-    // 风险评估结果
+    // 业务响应结果
     /**
-     * @example
+     * @example 126dncnceicncwuiooo
      *
-     * @var RiskAssessResult
+     * @var string
      */
-    public $riskResult;
+    public $bizRes;
     protected $_name = [
-        'head'       => 'head',
-        'riskResult' => 'risk_result',
+        'head'   => 'head',
+        'bizRes' => 'biz_res',
     ];
 
     public function validate()
     {
         Model::validateRequired('head', $this->head, true);
-        Model::validateRequired('riskResult', $this->riskResult, true);
+        Model::validateRequired('bizRes', $this->bizRes, true);
     }
 
     public function toMap()
@@ -40,8 +40,8 @@ class RiskAssessData extends Model
         if (null !== $this->head) {
             $res['head'] = null !== $this->head ? $this->head->toMap() : null;
         }
-        if (null !== $this->riskResult) {
-            $res['risk_result'] = null !== $this->riskResult ? $this->riskResult->toMap() : null;
+        if (null !== $this->bizRes) {
+            $res['biz_res'] = $this->bizRes;
         }
 
         return $res;
@@ -50,7 +50,7 @@ class RiskAssessData extends Model
     /**
      * @param array $map
      *
-     * @return RiskAssessData
+     * @return IifaaEkytResponse
      */
     public static function fromMap($map = [])
     {
@@ -58,8 +58,8 @@ class RiskAssessData extends Model
         if (isset($map['head'])) {
             $model->head = ResponseHead::fromMap($map['head']);
         }
-        if (isset($map['risk_result'])) {
-            $model->riskResult = RiskAssessResult::fromMap($map['risk_result']);
+        if (isset($map['biz_res'])) {
+            $model->bizRes = $map['biz_res'];
         }
 
         return $model;

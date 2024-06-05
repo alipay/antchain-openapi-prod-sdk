@@ -6,7 +6,7 @@ namespace AntChain\Ak_dc040d759c7a442f89b4b6590b1e39a0\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
+class CreateBlockchainBotDevicecorpThingmodelResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,16 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
      */
     public $resultMsg;
 
-    // 接口响应结果
+    // 操作结果
     /**
      * @var bool
      */
     public $success;
-
-    // 接口响应描述
-    /**
-     * @var string
-     */
-    public $message;
-
-    // 接口响应数据
-    /**
-     * @var IifaaEkytResponse
-     */
-    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'success'    => 'success',
-        'message'    => 'message',
-        'data'       => 'data',
     ];
 
     public function validate()
@@ -71,12 +57,6 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
-        if (null !== $this->message) {
-            $res['message'] = $this->message;
-        }
-        if (null !== $this->data) {
-            $res['data'] = null !== $this->data ? $this->data->toMap() : null;
-        }
 
         return $res;
     }
@@ -84,7 +64,7 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntsecuritytechGatewayEkytDriverResponse
+     * @return CreateBlockchainBotDevicecorpThingmodelResponse
      */
     public static function fromMap($map = [])
     {
@@ -100,12 +80,6 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
         }
         if (isset($map['success'])) {
             $model->success = $map['success'];
-        }
-        if (isset($map['message'])) {
-            $model->message = $map['message'];
-        }
-        if (isset($map['data'])) {
-            $model->data = IifaaEkytResponse::fromMap($map['data']);
         }
 
         return $model;

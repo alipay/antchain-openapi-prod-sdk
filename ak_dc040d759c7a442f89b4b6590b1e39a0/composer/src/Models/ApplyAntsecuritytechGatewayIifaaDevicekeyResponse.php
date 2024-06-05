@@ -6,7 +6,7 @@ namespace AntChain\Ak_dc040d759c7a442f89b4b6590b1e39a0\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
+class ApplyAntsecuritytechGatewayIifaaDevicekeyResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,19 +26,19 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
      */
     public $resultMsg;
 
-    // 接口响应结果
+    // 响应结果
     /**
      * @var bool
      */
     public $success;
 
-    // 接口响应描述
+    // 结果描述
     /**
      * @var string
      */
     public $message;
 
-    // 接口响应数据
+    // 业务响应结果
     /**
      * @var IifaaEkytResponse
      */
@@ -84,7 +84,7 @@ class QueryAntsecuritytechGatewayEkytDriverResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntsecuritytechGatewayEkytDriverResponse
+     * @return ApplyAntsecuritytechGatewayIifaaDevicekeyResponse
      */
     public static function fromMap($map = [])
     {
