@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9.Models
 {
-    public class BindDemoAaaBbbCccRequest : TeaModel {
+    public class QueryDemoApdevcenterTestobjectTestsubRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,10 @@ namespace AntChain.SDK.Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 123
-        [NameInMap("date")]
-        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
-        public string Date { get; set; }
-
-        // 123
-        [NameInMap("data")]
-        [Validation(Required=true)]
-        public string Data { get; set; }
+        // test
+        [NameInMap("test")]
+        [Validation(Required=true, MaxLength=200)]
+        public string Test { get; set; }
 
     }
 

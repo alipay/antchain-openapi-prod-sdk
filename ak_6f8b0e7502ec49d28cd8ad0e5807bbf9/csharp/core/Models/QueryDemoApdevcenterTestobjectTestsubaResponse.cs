@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9.Models
 {
-    public class BindDemoAaaBbbCccResponse : TeaModel {
+    public class QueryDemoApdevcenterTestobjectTestsubaResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -23,6 +23,21 @@ namespace AntChain.SDK.Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9.Models
         [NameInMap("result_msg")]
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
+
+        // 主键
+        [NameInMap("id")]
+        [Validation(Required=false)]
+        public long? Id { get; set; }
+
+        // 名称
+        [NameInMap("name")]
+        [Validation(Required=false)]
+        public string Name { get; set; }
+
+        // 描述
+        [NameInMap("desc")]
+        [Validation(Required=false)]
+        public string Desc { get; set; }
 
     }
 
