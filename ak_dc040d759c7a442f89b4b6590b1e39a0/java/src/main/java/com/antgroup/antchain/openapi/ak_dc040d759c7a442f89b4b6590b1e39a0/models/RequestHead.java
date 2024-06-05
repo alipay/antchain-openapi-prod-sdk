@@ -19,6 +19,14 @@ public class RequestHead extends TeaModel {
     @Validation(required = true)
     public String productCode;
 
+    // response输出类型，默认json
+    @NameInMap("format_type")
+    public String formatType;
+
+    // false
+    @NameInMap("online_flag")
+    public Boolean onlineFlag;
+
     public static RequestHead build(java.util.Map<String, ?> map) throws Exception {
         RequestHead self = new RequestHead();
         return TeaModel.build(map, self);
@@ -46,6 +54,22 @@ public class RequestHead extends TeaModel {
     }
     public String getProductCode() {
         return this.productCode;
+    }
+
+    public RequestHead setFormatType(String formatType) {
+        this.formatType = formatType;
+        return this;
+    }
+    public String getFormatType() {
+        return this.formatType;
+    }
+
+    public RequestHead setOnlineFlag(Boolean onlineFlag) {
+        this.onlineFlag = onlineFlag;
+        return this;
+    }
+    public Boolean getOnlineFlag() {
+        return this.onlineFlag;
     }
 
 }
