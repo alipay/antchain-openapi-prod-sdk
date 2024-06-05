@@ -58,6 +58,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string ExternalAgreementNo { get; set; }
 
+        // 子商户信息
+        [NameInMap("sub_merchant")]
+        [Validation(Required=false)]
+        public string SubMerchant { get; set; }
+
         // 当前用户签约请求的协议有效周期。 整形数字加上时间单位的协议有效期，从发起签约请求的时间开始算起。 目前支持的时间单位： 1. d：天 2. m：月 如果未传入，默认为长期有效。
         [NameInMap("sign_validity_period")]
         [Validation(Required=false)]
