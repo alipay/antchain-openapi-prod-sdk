@@ -67,6 +67,12 @@ class SignDigitalkeyWithholdRequest extends Model
      */
     public $externalAgreementNo;
 
+    // 子商户信息
+    /**
+     * @var string
+     */
+    public $subMerchant;
+
     // 当前用户签约请求的协议有效周期。 整形数字加上时间单位的协议有效期，从发起签约请求的时间开始算起。 目前支持的时间单位： 1. d：天 2. m：月 如果未传入，默认为长期有效。
     /**
      * @var string
@@ -89,6 +95,7 @@ class SignDigitalkeyWithholdRequest extends Model
         'alipayUserId'        => 'alipay_user_id',
         'signScene'           => 'sign_scene',
         'externalAgreementNo' => 'external_agreement_no',
+        'subMerchant'         => 'sub_merchant',
         'signValidityPeriod'  => 'sign_validity_period',
         'effectTime'          => 'effect_time',
     ];
@@ -137,6 +144,9 @@ class SignDigitalkeyWithholdRequest extends Model
         if (null !== $this->externalAgreementNo) {
             $res['external_agreement_no'] = $this->externalAgreementNo;
         }
+        if (null !== $this->subMerchant) {
+            $res['sub_merchant'] = $this->subMerchant;
+        }
         if (null !== $this->signValidityPeriod) {
             $res['sign_validity_period'] = $this->signValidityPeriod;
         }
@@ -184,6 +194,9 @@ class SignDigitalkeyWithholdRequest extends Model
         }
         if (isset($map['external_agreement_no'])) {
             $model->externalAgreementNo = $map['external_agreement_no'];
+        }
+        if (isset($map['sub_merchant'])) {
+            $model->subMerchant = $map['sub_merchant'];
         }
         if (isset($map['sign_validity_period'])) {
             $model->signValidityPeriod = $map['sign_validity_period'];
