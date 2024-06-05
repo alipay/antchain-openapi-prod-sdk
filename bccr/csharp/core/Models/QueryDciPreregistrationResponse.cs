@@ -159,6 +159,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public List<SeriesDiagramErrorReason> SeriesDiagramErrorReasonList { get; set; }
 
+        // 作品是否包含图片信息
+        [NameInMap("contains_image_info")]
+        [Validation(Required=false)]
+        public ContainsImageInfo ContainsImageInfo { get; set; }
+
     }
 
 }
