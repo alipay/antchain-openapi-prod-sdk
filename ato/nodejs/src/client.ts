@@ -148,7 +148,7 @@ export class CompanyInfo extends $tea.Model {
   // 公司别名
   companyAliasName: string;
   // 公司数科租户id
-  tenantId: string;
+  tenantId?: string;
   // 统一社会信用代码
   merchantId: string;
   // 公司联系电话
@@ -3919,7 +3919,7 @@ export class CreateInnerMerchantpayexpandRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 租户8位id
+  // 租户ID
   tenantId: string;
   // 公司信息
   companyInfo?: CompanyInfo;
@@ -4377,8 +4377,12 @@ export class SyncInnerTemplateRequest extends $tea.Model {
   tenantId: string;
   // 来源魔法库模板code
   sourceTemplateCode: string;
-  // 目标模板名称
+  // 目标魔法库模板名称
   targetTemplateName?: string;
+  // 模板同步的场景，值参考：CREATE_TEMPLATE、SYNC_PROD
+  scene: string;
+  // 魔法库来源模板版本
+  sourceTemplateVersion: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4386,6 +4390,8 @@ export class SyncInnerTemplateRequest extends $tea.Model {
       tenantId: 'tenant_id',
       sourceTemplateCode: 'source_template_code',
       targetTemplateName: 'target_template_name',
+      scene: 'scene',
+      sourceTemplateVersion: 'source_template_version',
     };
   }
 
@@ -4396,6 +4402,8 @@ export class SyncInnerTemplateRequest extends $tea.Model {
       tenantId: 'string',
       sourceTemplateCode: 'string',
       targetTemplateName: 'string',
+      scene: 'string',
+      sourceTemplateVersion: 'string',
     };
   }
 
@@ -4562,7 +4570,7 @@ export class QueryInnerTemplateResponse extends $tea.Model {
   }
 }
 
-export class QueryTemplateElementlinkRequest extends $tea.Model {
+export class QueryInnerTemplateelementlinkRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -4597,7 +4605,7 @@ export class QueryTemplateElementlinkRequest extends $tea.Model {
   }
 }
 
-export class QueryTemplateElementlinkResponse extends $tea.Model {
+export class QueryInnerTemplateelementlinkResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -4629,12 +4637,77 @@ export class QueryTemplateElementlinkResponse extends $tea.Model {
   }
 }
 
+export class QueryInnerTemplateversionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 模板编码
+  templateCode: string;
+  // 模板的版本号，示例：1、2、3等
+  templateVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      templateCode: 'template_code',
+      templateVersion: 'template_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      templateCode: 'string',
+      templateVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerTemplateversionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 模板的版本详情信息
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RegisterMerchantexpandMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 租户ID
-  tenantId: string;
   // 公司信息
   companyInfo: CompanyInfo;
   // 法人信息
@@ -4649,7 +4722,6 @@ export class RegisterMerchantexpandMerchantRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      tenantId: 'tenant_id',
       companyInfo: 'company_info',
       legalInfo: 'legal_info',
       applicationInfo: 'application_info',
@@ -4662,7 +4734,6 @@ export class RegisterMerchantexpandMerchantRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      tenantId: 'string',
       companyInfo: CompanyInfo,
       legalInfo: LegalInfo,
       applicationInfo: ApplicationInfo,
@@ -4712,8 +4783,6 @@ export class UploadMerchantexpandFileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 租户ID
-  tenantId: string;
   // 文件名称 包含后缀
   fileName: string;
   // ● BUSINESS_LICENSE 营业执照 ● CARD_FRONT 身份证正面 ● CARD_BACK 身份证反面 ● SPLITTING 分账 
@@ -4722,7 +4791,6 @@ export class UploadMerchantexpandFileRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      tenantId: 'tenant_id',
       fileName: 'file_name',
       bizScene: 'biz_scene',
     };
@@ -4732,7 +4800,6 @@ export class UploadMerchantexpandFileRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      tenantId: 'string',
       fileName: 'string',
       bizScene: 'string',
     };
@@ -4783,15 +4850,12 @@ export class QueryMerchantexpandMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 租户ID
-  tenantId: string;
   // 商户入驻返回的进件编号 expand_mode=AGENT必填
   payExpandId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      tenantId: 'tenant_id',
       payExpandId: 'pay_expand_id',
     };
   }
@@ -4800,7 +4864,6 @@ export class QueryMerchantexpandMerchantRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      tenantId: 'string',
       payExpandId: 'string',
     };
   }
@@ -5763,12 +5826,14 @@ export class UploadSignTemplateRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单所属商户的统一社会信用代码
   merchantId: string;
-  // 模板参数
-  templateArgs?: string;
-  // 签署区坐标配置
-  posConf: string;
+  // 合同类型
+  contractType: string;
   // 模板类型
   agreementType: string;
+  // 签署区坐标配置
+  posConf: string;
+  // 模板参数
+  templateArgs?: string;
   // 上传的pdf文件，需要以.pdf后缀结尾
   fileObject?: Readable;
   fileObjectName?: string;
@@ -5778,9 +5843,10 @@ export class UploadSignTemplateRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       merchantId: 'merchant_id',
-      templateArgs: 'template_args',
-      posConf: 'pos_conf',
+      contractType: 'contract_type',
       agreementType: 'agreement_type',
+      posConf: 'pos_conf',
+      templateArgs: 'template_args',
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
@@ -5792,9 +5858,10 @@ export class UploadSignTemplateRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       merchantId: 'string',
-      templateArgs: 'string',
-      posConf: 'string',
+      contractType: 'string',
       agreementType: 'string',
+      posConf: 'string',
+      templateArgs: 'string',
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
@@ -6466,11 +6533,14 @@ export class SyncTradeIndirectorderResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 返回业务参数，json.toString
+  responseData?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      responseData: 'response_data',
     };
   }
 
@@ -6479,6 +6549,7 @@ export class SyncTradeIndirectorderResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      responseData: 'string',
     };
   }
 
@@ -6503,6 +6574,8 @@ export class CreateWithholdSignRequest extends $tea.Model {
   alipayMerchantServiceDescription?: string;
   // 支付宝uid，非必填
   alipayUserId?: string;
+  // 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+  returnUrl?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6513,6 +6586,7 @@ export class CreateWithholdSignRequest extends $tea.Model {
       alipayMerchantServiceName: 'alipay_merchant_service_name',
       alipayMerchantServiceDescription: 'alipay_merchant_service_description',
       alipayUserId: 'alipay_user_id',
+      returnUrl: 'return_url',
     };
   }
 
@@ -6526,6 +6600,7 @@ export class CreateWithholdSignRequest extends $tea.Model {
       alipayMerchantServiceName: 'string',
       alipayMerchantServiceDescription: 'string',
       alipayUserId: 'string',
+      returnUrl: 'string',
     };
   }
 
@@ -7561,7 +7636,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.51",
+          sdk_version: "1.8.65",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -8660,19 +8735,38 @@ export default class Client {
    * Description: 获取模板关联的元素列表信息，包括组件信息
    * Summary: 获取模板关联的元素列表信息
    */
-  async queryTemplateElementlink(request: QueryTemplateElementlinkRequest): Promise<QueryTemplateElementlinkResponse> {
+  async queryInnerTemplateelementlink(request: QueryInnerTemplateelementlinkRequest): Promise<QueryInnerTemplateelementlinkResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryTemplateElementlinkEx(request, headers, runtime);
+    return await this.queryInnerTemplateelementlinkEx(request, headers, runtime);
   }
 
   /**
    * Description: 获取模板关联的元素列表信息，包括组件信息
    * Summary: 获取模板关联的元素列表信息
    */
-  async queryTemplateElementlinkEx(request: QueryTemplateElementlinkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryTemplateElementlinkResponse> {
+  async queryInnerTemplateelementlinkEx(request: QueryInnerTemplateelementlinkRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerTemplateelementlinkResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryTemplateElementlinkResponse>(await this.doRequest("1.0", "antchain.ato.template.elementlink.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryTemplateElementlinkResponse({}));
+    return $tea.cast<QueryInnerTemplateelementlinkResponse>(await this.doRequest("1.0", "antchain.ato.inner.templateelementlink.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerTemplateelementlinkResponse({}));
+  }
+
+  /**
+   * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+   * Summary: 查询模板的版本详情
+   */
+  async queryInnerTemplateversion(request: QueryInnerTemplateversionRequest): Promise<QueryInnerTemplateversionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerTemplateversionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+   * Summary: 查询模板的版本详情
+   */
+  async queryInnerTemplateversionEx(request: QueryInnerTemplateversionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerTemplateversionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerTemplateversionResponse>(await this.doRequest("1.0", "antchain.ato.inner.templateversion.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerTemplateversionResponse({}));
   }
 
   /**
@@ -8939,6 +9033,27 @@ export default class Client {
    * Summary: 商户合同模板上传
    */
   async uploadSignTemplateEx(request: UploadSignTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadSignTemplateResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.ato.sign.template.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadSignTemplateResponse = new UploadSignTemplateResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadSignTemplateResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
     Util.validateModel(request);
     return $tea.cast<UploadSignTemplateResponse>(await this.doRequest("1.0", "antchain.ato.sign.template.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadSignTemplateResponse({}));
   }
