@@ -114,7 +114,6 @@ public class SubmitSignFlowRequest extends TeaModel {
 
     // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
     @NameInMap("third_signer")
-    @Validation(maxLength = 2000)
     public String thirdSigner;
 
     public static SubmitSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
