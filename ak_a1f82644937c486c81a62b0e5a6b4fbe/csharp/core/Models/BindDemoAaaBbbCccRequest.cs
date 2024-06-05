@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
 {
-    public class QueryAntchainSaasAbilityWithproductRequest : TeaModel {
+    public class BindDemoAaaBbbCccRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,15 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 产品编码，源自于开放平台OPM定义的技术产品编码
-        [NameInMap("product_code")]
+        // 123
+        [NameInMap("date")]
+        [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string Date { get; set; }
+
+        // 123
+        [NameInMap("data")]
         [Validation(Required=true)]
-        public string ProductCode { get; set; }
+        public string Data { get; set; }
 
     }
 

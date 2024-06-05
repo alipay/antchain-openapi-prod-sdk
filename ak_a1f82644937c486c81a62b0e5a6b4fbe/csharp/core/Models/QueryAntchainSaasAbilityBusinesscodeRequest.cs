@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
 {
-    public class QueryDemoDemoDefaultSdkfffRequest : TeaModel {
+    public class QueryAntchainSaasAbilityBusinesscodeRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -17,6 +17,11 @@ namespace AntChain.SDK.Ak_a1f82644937c486c81a62b0e5a6b4fbe.Models
         [NameInMap("product_instance_id")]
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
+
+        // 能力id
+        [NameInMap("ability_id")]
+        [Validation(Required=true)]
+        public string AbilityId { get; set; }
 
     }
 
