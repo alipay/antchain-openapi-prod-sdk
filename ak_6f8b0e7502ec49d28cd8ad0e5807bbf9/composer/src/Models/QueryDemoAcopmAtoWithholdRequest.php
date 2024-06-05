@@ -6,7 +6,7 @@ namespace AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BindDemoAaaBbbCccRequest extends Model
+class QueryDemoAcopmAtoWithholdRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,29 +19,20 @@ class BindDemoAaaBbbCccRequest extends Model
      */
     public $productInstanceId;
 
-    // 123
+    // 订单id 长度不可超过50
     /**
      * @var string
      */
-    public $date;
-
-    // 123
-    /**
-     * @var string
-     */
-    public $data;
+    public $orderId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'date'              => 'date',
-        'data'              => 'data',
+        'orderId'           => 'order_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('date', $this->date, true);
-        Model::validateRequired('data', $this->data, true);
-        Model::validatePattern('date', $this->date, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
@@ -53,11 +44,8 @@ class BindDemoAaaBbbCccRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->date) {
-            $res['date'] = $this->date;
-        }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
 
         return $res;
@@ -66,7 +54,7 @@ class BindDemoAaaBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return BindDemoAaaBbbCccRequest
+     * @return QueryDemoAcopmAtoWithholdRequest
      */
     public static function fromMap($map = [])
     {
@@ -77,11 +65,8 @@ class BindDemoAaaBbbCccRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['date'])) {
-            $model->date = $map['date'];
-        }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
 
         return $model;
