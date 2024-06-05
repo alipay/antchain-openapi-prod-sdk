@@ -1210,6 +1210,32 @@ func (s *DayStatisticsInfo) SetRevenue(v string) *DayStatisticsInfo {
 	return s
 }
 
+// 作品是否包含图片
+type ContainsImageInfo struct {
+	// 是否包含图片
+	ContainsImage *bool `json:"contains_image,omitempty" xml:"contains_image,omitempty"`
+	// 包含图片，处理后的图片副件
+	ResolvedFileUrl *string `json:"resolved_file_url,omitempty" xml:"resolved_file_url,omitempty"`
+}
+
+func (s ContainsImageInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContainsImageInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContainsImageInfo) SetContainsImage(v bool) *ContainsImageInfo {
+	s.ContainsImage = &v
+	return s
+}
+
+func (s *ContainsImageInfo) SetResolvedFileUrl(v string) *ContainsImageInfo {
+	s.ResolvedFileUrl = &v
+	return s
+}
+
 // 系列图错误原因
 type SeriesDiagramErrorReason struct {
 	// 系列图单个图片所属页码
@@ -7320,6 +7346,8 @@ type QueryDciPreregistrationResponse struct {
 	ApplyType *string `json:"apply_type,omitempty" xml:"apply_type,omitempty"`
 	// 系列图错误原因集合
 	SeriesDiagramErrorReasonList []*SeriesDiagramErrorReason `json:"series_diagram_error_reason_list,omitempty" xml:"series_diagram_error_reason_list,omitempty" type:"Repeated"`
+	// 作品是否包含图片信息
+	ContainsImageInfo *ContainsImageInfo `json:"contains_image_info,omitempty" xml:"contains_image_info,omitempty"`
 }
 
 func (s QueryDciPreregistrationResponse) String() string {
@@ -7477,6 +7505,11 @@ func (s *QueryDciPreregistrationResponse) SetApplyType(v string) *QueryDciPrereg
 
 func (s *QueryDciPreregistrationResponse) SetSeriesDiagramErrorReasonList(v []*SeriesDiagramErrorReason) *QueryDciPreregistrationResponse {
 	s.SeriesDiagramErrorReasonList = v
+	return s
+}
+
+func (s *QueryDciPreregistrationResponse) SetContainsImageInfo(v *ContainsImageInfo) *QueryDciPreregistrationResponse {
+	s.ContainsImageInfo = v
 	return s
 }
 
@@ -13336,7 +13369,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.35"),
+				"sdk_version":      tea.String("1.18.37"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
