@@ -210,7 +210,7 @@ type CompanyInfo struct {
 	// 公司别名
 	CompanyAliasName *string `json:"company_alias_name,omitempty" xml:"company_alias_name,omitempty" require:"true"`
 	// 公司数科租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 统一社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
 	// 公司联系电话
@@ -5007,7 +5007,7 @@ type CreateInnerMerchantpayexpandRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户8位id
+	// 租户ID
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 公司信息
 	CompanyInfo *CompanyInfo `json:"company_info,omitempty" xml:"company_info,omitempty"`
@@ -5603,8 +5603,12 @@ type SyncInnerTemplateRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 来源魔法库模板code
 	SourceTemplateCode *string `json:"source_template_code,omitempty" xml:"source_template_code,omitempty" require:"true"`
-	// 目标模板名称
+	// 目标魔法库模板名称
 	TargetTemplateName *string `json:"target_template_name,omitempty" xml:"target_template_name,omitempty"`
+	// 模板同步的场景，值参考：CREATE_TEMPLATE、SYNC_PROD
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 魔法库来源模板版本
+	SourceTemplateVersion *string `json:"source_template_version,omitempty" xml:"source_template_version,omitempty" require:"true"`
 }
 
 func (s SyncInnerTemplateRequest) String() string {
@@ -5637,6 +5641,16 @@ func (s *SyncInnerTemplateRequest) SetSourceTemplateCode(v string) *SyncInnerTem
 
 func (s *SyncInnerTemplateRequest) SetTargetTemplateName(v string) *SyncInnerTemplateRequest {
 	s.TargetTemplateName = &v
+	return s
+}
+
+func (s *SyncInnerTemplateRequest) SetScene(v string) *SyncInnerTemplateRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *SyncInnerTemplateRequest) SetSourceTemplateVersion(v string) *SyncInnerTemplateRequest {
+	s.SourceTemplateVersion = &v
 	return s
 }
 
@@ -5833,7 +5847,7 @@ func (s *QueryInnerTemplateResponse) SetData(v string) *QueryInnerTemplateRespon
 	return s
 }
 
-type QueryTemplateElementlinkRequest struct {
+type QueryInnerTemplateelementlinkRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -5845,40 +5859,40 @@ type QueryTemplateElementlinkRequest struct {
 	TemplateVersion *string `json:"template_version,omitempty" xml:"template_version,omitempty" require:"true"`
 }
 
-func (s QueryTemplateElementlinkRequest) String() string {
+func (s QueryInnerTemplateelementlinkRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryTemplateElementlinkRequest) GoString() string {
+func (s QueryInnerTemplateelementlinkRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryTemplateElementlinkRequest) SetAuthToken(v string) *QueryTemplateElementlinkRequest {
+func (s *QueryInnerTemplateelementlinkRequest) SetAuthToken(v string) *QueryInnerTemplateelementlinkRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryTemplateElementlinkRequest) SetProductInstanceId(v string) *QueryTemplateElementlinkRequest {
+func (s *QueryInnerTemplateelementlinkRequest) SetProductInstanceId(v string) *QueryInnerTemplateelementlinkRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryTemplateElementlinkRequest) SetTenantId(v string) *QueryTemplateElementlinkRequest {
+func (s *QueryInnerTemplateelementlinkRequest) SetTenantId(v string) *QueryInnerTemplateelementlinkRequest {
 	s.TenantId = &v
 	return s
 }
 
-func (s *QueryTemplateElementlinkRequest) SetTemplateCode(v string) *QueryTemplateElementlinkRequest {
+func (s *QueryInnerTemplateelementlinkRequest) SetTemplateCode(v string) *QueryInnerTemplateelementlinkRequest {
 	s.TemplateCode = &v
 	return s
 }
 
-func (s *QueryTemplateElementlinkRequest) SetTemplateVersion(v string) *QueryTemplateElementlinkRequest {
+func (s *QueryInnerTemplateelementlinkRequest) SetTemplateVersion(v string) *QueryInnerTemplateelementlinkRequest {
 	s.TemplateVersion = &v
 	return s
 }
 
-type QueryTemplateElementlinkResponse struct {
+type QueryInnerTemplateelementlinkResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -5889,30 +5903,114 @@ type QueryTemplateElementlinkResponse struct {
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s QueryTemplateElementlinkResponse) String() string {
+func (s QueryInnerTemplateelementlinkResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryTemplateElementlinkResponse) GoString() string {
+func (s QueryInnerTemplateelementlinkResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryTemplateElementlinkResponse) SetReqMsgId(v string) *QueryTemplateElementlinkResponse {
+func (s *QueryInnerTemplateelementlinkResponse) SetReqMsgId(v string) *QueryInnerTemplateelementlinkResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryTemplateElementlinkResponse) SetResultCode(v string) *QueryTemplateElementlinkResponse {
+func (s *QueryInnerTemplateelementlinkResponse) SetResultCode(v string) *QueryInnerTemplateelementlinkResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryTemplateElementlinkResponse) SetResultMsg(v string) *QueryTemplateElementlinkResponse {
+func (s *QueryInnerTemplateelementlinkResponse) SetResultMsg(v string) *QueryInnerTemplateelementlinkResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryTemplateElementlinkResponse) SetData(v string) *QueryTemplateElementlinkResponse {
+func (s *QueryInnerTemplateelementlinkResponse) SetData(v string) *QueryInnerTemplateelementlinkResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryInnerTemplateversionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 模板编码
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
+	// 模板的版本号，示例：1、2、3等
+	TemplateVersion *string `json:"template_version,omitempty" xml:"template_version,omitempty" require:"true"`
+}
+
+func (s QueryInnerTemplateversionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInnerTemplateversionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInnerTemplateversionRequest) SetAuthToken(v string) *QueryInnerTemplateversionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryInnerTemplateversionRequest) SetProductInstanceId(v string) *QueryInnerTemplateversionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryInnerTemplateversionRequest) SetTenantId(v string) *QueryInnerTemplateversionRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryInnerTemplateversionRequest) SetTemplateCode(v string) *QueryInnerTemplateversionRequest {
+	s.TemplateCode = &v
+	return s
+}
+
+func (s *QueryInnerTemplateversionRequest) SetTemplateVersion(v string) *QueryInnerTemplateversionRequest {
+	s.TemplateVersion = &v
+	return s
+}
+
+type QueryInnerTemplateversionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 模板的版本详情信息
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryInnerTemplateversionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInnerTemplateversionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInnerTemplateversionResponse) SetReqMsgId(v string) *QueryInnerTemplateversionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryInnerTemplateversionResponse) SetResultCode(v string) *QueryInnerTemplateversionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryInnerTemplateversionResponse) SetResultMsg(v string) *QueryInnerTemplateversionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryInnerTemplateversionResponse) SetData(v string) *QueryInnerTemplateversionResponse {
 	s.Data = &v
 	return s
 }
@@ -5921,8 +6019,6 @@ type RegisterMerchantexpandMerchantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 公司信息
 	CompanyInfo *CompanyInfo `json:"company_info,omitempty" xml:"company_info,omitempty" require:"true"`
 	// 法人信息
@@ -5950,11 +6046,6 @@ func (s *RegisterMerchantexpandMerchantRequest) SetAuthToken(v string) *Register
 
 func (s *RegisterMerchantexpandMerchantRequest) SetProductInstanceId(v string) *RegisterMerchantexpandMerchantRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *RegisterMerchantexpandMerchantRequest) SetTenantId(v string) *RegisterMerchantexpandMerchantRequest {
-	s.TenantId = &v
 	return s
 }
 
@@ -6026,8 +6117,6 @@ type UploadMerchantexpandFileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 文件名称 包含后缀
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
 	// ● BUSINESS_LICENSE 营业执照 ● CARD_FRONT 身份证正面 ● CARD_BACK 身份证反面 ● SPLITTING 分账
@@ -6049,11 +6138,6 @@ func (s *UploadMerchantexpandFileRequest) SetAuthToken(v string) *UploadMerchant
 
 func (s *UploadMerchantexpandFileRequest) SetProductInstanceId(v string) *UploadMerchantexpandFileRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *UploadMerchantexpandFileRequest) SetTenantId(v string) *UploadMerchantexpandFileRequest {
-	s.TenantId = &v
 	return s
 }
 
@@ -6117,8 +6201,6 @@ type QueryMerchantexpandMerchantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 租户ID
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 商户入驻返回的进件编号 expand_mode=AGENT必填
 	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty" require:"true"`
 }
@@ -6138,11 +6220,6 @@ func (s *QueryMerchantexpandMerchantRequest) SetAuthToken(v string) *QueryMercha
 
 func (s *QueryMerchantexpandMerchantRequest) SetProductInstanceId(v string) *QueryMerchantexpandMerchantRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *QueryMerchantexpandMerchantRequest) SetTenantId(v string) *QueryMerchantexpandMerchantRequest {
-	s.TenantId = &v
 	return s
 }
 
@@ -7464,12 +7541,14 @@ type UploadSignTemplateRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单所属商户的统一社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
-	// 模板参数
-	TemplateArgs *string `json:"template_args,omitempty" xml:"template_args,omitempty"`
-	// 签署区坐标配置
-	PosConf *string `json:"pos_conf,omitempty" xml:"pos_conf,omitempty" require:"true"`
+	// 合同类型
+	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty" require:"true"`
 	// 模板类型
 	AgreementType *string `json:"agreement_type,omitempty" xml:"agreement_type,omitempty" require:"true"`
+	// 签署区坐标配置
+	PosConf *string `json:"pos_conf,omitempty" xml:"pos_conf,omitempty" require:"true"`
+	// 模板参数
+	TemplateArgs *string `json:"template_args,omitempty" xml:"template_args,omitempty"`
 	// 上传的pdf文件，需要以.pdf后缀结尾
 	// 待上传文件
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
@@ -7501,8 +7580,13 @@ func (s *UploadSignTemplateRequest) SetMerchantId(v string) *UploadSignTemplateR
 	return s
 }
 
-func (s *UploadSignTemplateRequest) SetTemplateArgs(v string) *UploadSignTemplateRequest {
-	s.TemplateArgs = &v
+func (s *UploadSignTemplateRequest) SetContractType(v string) *UploadSignTemplateRequest {
+	s.ContractType = &v
+	return s
+}
+
+func (s *UploadSignTemplateRequest) SetAgreementType(v string) *UploadSignTemplateRequest {
+	s.AgreementType = &v
 	return s
 }
 
@@ -7511,8 +7595,8 @@ func (s *UploadSignTemplateRequest) SetPosConf(v string) *UploadSignTemplateRequ
 	return s
 }
 
-func (s *UploadSignTemplateRequest) SetAgreementType(v string) *UploadSignTemplateRequest {
-	s.AgreementType = &v
+func (s *UploadSignTemplateRequest) SetTemplateArgs(v string) *UploadSignTemplateRequest {
+	s.TemplateArgs = &v
 	return s
 }
 
@@ -8343,6 +8427,8 @@ type SyncTradeIndirectorderResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回业务参数，json.toString
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
 }
 
 func (s SyncTradeIndirectorderResponse) String() string {
@@ -8368,6 +8454,11 @@ func (s *SyncTradeIndirectorderResponse) SetResultMsg(v string) *SyncTradeIndire
 	return s
 }
 
+func (s *SyncTradeIndirectorderResponse) SetResponseData(v string) *SyncTradeIndirectorderResponse {
+	s.ResponseData = &v
+	return s
+}
+
 type CreateWithholdSignRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -8384,6 +8475,8 @@ type CreateWithholdSignRequest struct {
 	AlipayMerchantServiceDescription *string `json:"alipay_merchant_service_description,omitempty" xml:"alipay_merchant_service_description,omitempty" maxLength:"150"`
 	// 支付宝uid，非必填
 	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" maxLength:"128"`
+	// 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty" maxLength:"256"`
 }
 
 func (s CreateWithholdSignRequest) String() string {
@@ -8431,6 +8524,11 @@ func (s *CreateWithholdSignRequest) SetAlipayMerchantServiceDescription(v string
 
 func (s *CreateWithholdSignRequest) SetAlipayUserId(v string) *CreateWithholdSignRequest {
 	s.AlipayUserId = &v
+	return s
+}
+
+func (s *CreateWithholdSignRequest) SetReturnUrl(v string) *CreateWithholdSignRequest {
+	s.ReturnUrl = &v
 	return s
 }
 
@@ -9720,7 +9818,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.51"),
+				"sdk_version":      tea.String("1.8.65"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -11647,11 +11745,11 @@ func (client *Client) QueryInnerTemplateEx(request *QueryInnerTemplateRequest, h
  * Description: 获取模板关联的元素列表信息，包括组件信息
  * Summary: 获取模板关联的元素列表信息
  */
-func (client *Client) QueryTemplateElementlink(request *QueryTemplateElementlinkRequest) (_result *QueryTemplateElementlinkResponse, _err error) {
+func (client *Client) QueryInnerTemplateelementlink(request *QueryInnerTemplateelementlinkRequest) (_result *QueryInnerTemplateelementlinkResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryTemplateElementlinkResponse{}
-	_body, _err := client.QueryTemplateElementlinkEx(request, headers, runtime)
+	_result = &QueryInnerTemplateelementlinkResponse{}
+	_body, _err := client.QueryInnerTemplateelementlinkEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -11663,13 +11761,47 @@ func (client *Client) QueryTemplateElementlink(request *QueryTemplateElementlink
  * Description: 获取模板关联的元素列表信息，包括组件信息
  * Summary: 获取模板关联的元素列表信息
  */
-func (client *Client) QueryTemplateElementlinkEx(request *QueryTemplateElementlinkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTemplateElementlinkResponse, _err error) {
+func (client *Client) QueryInnerTemplateelementlinkEx(request *QueryInnerTemplateelementlinkRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInnerTemplateelementlinkResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryTemplateElementlinkResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.template.elementlink.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryInnerTemplateelementlinkResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.templateelementlink.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+ * Summary: 查询模板的版本详情
+ */
+func (client *Client) QueryInnerTemplateversion(request *QueryInnerTemplateversionRequest) (_result *QueryInnerTemplateversionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryInnerTemplateversionResponse{}
+	_body, _err := client.QueryInnerTemplateversionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+ * Summary: 查询模板的版本详情
+ */
+func (client *Client) QueryInnerTemplateversionEx(request *QueryInnerTemplateversionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryInnerTemplateversionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryInnerTemplateversionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.templateversion.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -12135,6 +12267,35 @@ func (client *Client) UploadSignTemplate(request *UploadSignTemplateRequest) (_r
  * Summary: 商户合同模板上传
  */
 func (client *Client) UploadSignTemplateEx(request *UploadSignTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSignTemplateResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.ato.sign.template.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadSignTemplateResponse := &UploadSignTemplateResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadSignTemplateResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
