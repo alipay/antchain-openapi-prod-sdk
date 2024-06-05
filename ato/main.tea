@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.65',
+    sdk_version = '1.8.66',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -3298,7 +3298,7 @@ model SubmitSignFlowRequest = {
   // 法人证件号，需要采用RSA加密传输
   merchantLegalIdNumber?: string(name='merchant_legal_id_number'),
   // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
-  thirdSigner?: string(maxLength=2000, minLength=0, name='third_signer'),
+  thirdSigner?: string(minLength=0, name='third_signer'),
 }
 
 model SubmitSignFlowResponse = {
