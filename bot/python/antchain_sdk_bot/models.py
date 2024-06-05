@@ -21969,7 +21969,7 @@ class SignDigitalkeyWithholdRequest(TeaModel):
         alipay_user_id: str = None,
         sign_scene: str = None,
         external_agreement_no: str = None,
-        sub_merchant: str = None,
+        sub_merchant: SubMerchantParams = None,
         sign_validity_period: str = None,
         effect_time: int = None,
     ):
@@ -22007,6 +22007,8 @@ class SignDigitalkeyWithholdRequest(TeaModel):
         self.validate_required(self.external_logon_id, 'external_logon_id')
         self.validate_required(self.sign_scene, 'sign_scene')
         self.validate_required(self.external_agreement_no, 'external_agreement_no')
+        if self.sub_merchant:
+            self.sub_merchant.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -22035,7 +22037,7 @@ class SignDigitalkeyWithholdRequest(TeaModel):
         if self.external_agreement_no is not None:
             result['external_agreement_no'] = self.external_agreement_no
         if self.sub_merchant is not None:
-            result['sub_merchant'] = self.sub_merchant
+            result['sub_merchant'] = self.sub_merchant.to_map()
         if self.sign_validity_period is not None:
             result['sign_validity_period'] = self.sign_validity_period
         if self.effect_time is not None:
@@ -22065,7 +22067,8 @@ class SignDigitalkeyWithholdRequest(TeaModel):
         if m.get('external_agreement_no') is not None:
             self.external_agreement_no = m.get('external_agreement_no')
         if m.get('sub_merchant') is not None:
-            self.sub_merchant = m.get('sub_merchant')
+            temp_model = SubMerchantParams()
+            self.sub_merchant = temp_model.from_map(m['sub_merchant'])
         if m.get('sign_validity_period') is not None:
             self.sign_validity_period = m.get('sign_validity_period')
         if m.get('effect_time') is not None:
