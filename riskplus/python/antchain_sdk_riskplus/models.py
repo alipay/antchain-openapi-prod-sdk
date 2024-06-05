@@ -16259,6 +16259,7 @@ class QueryDubbridgeRouterUserselectRequest(TeaModel):
         card_no: str = None,
         mobile: str = None,
         custom_name: str = None,
+        platform_no: str = None,
         ext_info: str = None,
     ):
         # OAuth模式下的授权token
@@ -16272,6 +16273,8 @@ class QueryDubbridgeRouterUserselectRequest(TeaModel):
         self.mobile = mobile
         # 姓名
         self.custom_name = custom_name
+        # 机构编码
+        self.platform_no = platform_no
         # 扩展信息JSON
         self.ext_info = ext_info
 
@@ -16297,6 +16300,8 @@ class QueryDubbridgeRouterUserselectRequest(TeaModel):
             result['mobile'] = self.mobile
         if self.custom_name is not None:
             result['custom_name'] = self.custom_name
+        if self.platform_no is not None:
+            result['platform_no'] = self.platform_no
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
         return result
@@ -16315,6 +16320,8 @@ class QueryDubbridgeRouterUserselectRequest(TeaModel):
             self.mobile = m.get('mobile')
         if m.get('custom_name') is not None:
             self.custom_name = m.get('custom_name')
+        if m.get('platform_no') is not None:
+            self.platform_no = m.get('platform_no')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
         return self
