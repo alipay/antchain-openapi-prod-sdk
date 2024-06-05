@@ -9760,6 +9760,8 @@ export class QueryDubbridgeRouterUserselectRequest extends $tea.Model {
   mobile: string;
   // 姓名
   customName?: string;
+  // 机构编码
+  platformNo?: string;
   // 扩展信息JSON
   extInfo?: string;
   static names(): { [key: string]: string } {
@@ -9770,6 +9772,7 @@ export class QueryDubbridgeRouterUserselectRequest extends $tea.Model {
       cardNo: 'card_no',
       mobile: 'mobile',
       customName: 'custom_name',
+      platformNo: 'platform_no',
       extInfo: 'ext_info',
     };
   }
@@ -9782,6 +9785,7 @@ export class QueryDubbridgeRouterUserselectRequest extends $tea.Model {
       cardNo: 'string',
       mobile: 'string',
       customName: 'string',
+      platformNo: 'string',
       extInfo: 'string',
     };
   }
@@ -19400,7 +19404,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.7",
+          sdk_version: "1.19.8",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
