@@ -19,12 +19,6 @@ class RegisterMerchantexpandMerchantRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户ID
-    /**
-     * @var string
-     */
-    public $tenantId;
-
     // 公司信息
     /**
      * @var CompanyInfo
@@ -57,7 +51,6 @@ class RegisterMerchantexpandMerchantRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'tenantId'          => 'tenant_id',
         'companyInfo'       => 'company_info',
         'legalInfo'         => 'legal_info',
         'applicationInfo'   => 'application_info',
@@ -67,7 +60,6 @@ class RegisterMerchantexpandMerchantRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('companyInfo', $this->companyInfo, true);
         Model::validateRequired('legalInfo', $this->legalInfo, true);
         Model::validateRequired('applicationInfo', $this->applicationInfo, true);
@@ -82,9 +74,6 @@ class RegisterMerchantexpandMerchantRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
         }
         if (null !== $this->companyInfo) {
             $res['company_info'] = null !== $this->companyInfo ? $this->companyInfo->toMap() : null;
@@ -118,9 +107,6 @@ class RegisterMerchantexpandMerchantRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
         }
         if (isset($map['company_info'])) {
             $model->companyInfo = CompanyInfo::fromMap($map['company_info']);

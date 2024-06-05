@@ -19,7 +19,7 @@ class CreateInnerMerchantpayexpandRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户8位id
+    // 租户ID
     /**
      * @var string
      */

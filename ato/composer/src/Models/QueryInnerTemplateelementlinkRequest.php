@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadMerchantexpandFileRequest extends Model
+class QueryInnerTemplateelementlinkRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,36 @@ class UploadMerchantexpandFileRequest extends Model
      */
     public $productInstanceId;
 
-    // 文件名称 包含后缀
+    // 租户id
     /**
      * @var string
      */
-    public $fileName;
+    public $tenantId;
 
-    // ● BUSINESS_LICENSE 营业执照 ● CARD_FRONT 身份证正面 ● CARD_BACK 身份证反面 ● SPLITTING 分账
+    // 模板code
     /**
      * @var string
      */
-    public $bizScene;
+    public $templateCode;
+
+    // 模板版本
+    /**
+     * @var string
+     */
+    public $templateVersion;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'fileName'          => 'file_name',
-        'bizScene'          => 'biz_scene',
+        'tenantId'          => 'tenant_id',
+        'templateCode'      => 'template_code',
+        'templateVersion'   => 'template_version',
     ];
 
     public function validate()
     {
-        Model::validateRequired('fileName', $this->fileName, true);
-        Model::validateRequired('bizScene', $this->bizScene, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('templateCode', $this->templateCode, true);
+        Model::validateRequired('templateVersion', $this->templateVersion, true);
     }
 
     public function toMap()
@@ -52,11 +60,14 @@ class UploadMerchantexpandFileRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->fileName) {
-            $res['file_name'] = $this->fileName;
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->bizScene) {
-            $res['biz_scene'] = $this->bizScene;
+        if (null !== $this->templateCode) {
+            $res['template_code'] = $this->templateCode;
+        }
+        if (null !== $this->templateVersion) {
+            $res['template_version'] = $this->templateVersion;
         }
 
         return $res;
@@ -65,7 +76,7 @@ class UploadMerchantexpandFileRequest extends Model
     /**
      * @param array $map
      *
-     * @return UploadMerchantexpandFileRequest
+     * @return QueryInnerTemplateelementlinkRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,11 +87,14 @@ class UploadMerchantexpandFileRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['file_name'])) {
-            $model->fileName = $map['file_name'];
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['biz_scene'])) {
-            $model->bizScene = $map['biz_scene'];
+        if (isset($map['template_code'])) {
+            $model->templateCode = $map['template_code'];
+        }
+        if (isset($map['template_version'])) {
+            $model->templateVersion = $map['template_version'];
         }
 
         return $model;

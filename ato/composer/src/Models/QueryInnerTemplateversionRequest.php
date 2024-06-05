@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTemplateElementlinkRequest extends Model
+class QueryInnerTemplateversionRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,13 +25,13 @@ class QueryTemplateElementlinkRequest extends Model
      */
     public $tenantId;
 
-    // 模板code
+    // 模板编码
     /**
      * @var string
      */
     public $templateCode;
 
-    // 模板版本
+    // 模板的版本号，示例：1、2、3等
     /**
      * @var string
      */
@@ -76,7 +76,7 @@ class QueryTemplateElementlinkRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryTemplateElementlinkRequest
+     * @return QueryInnerTemplateversionRequest
      */
     public static function fromMap($map = [])
     {

@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTemplateElementlinkResponse extends Model
+class QueryInnerTemplateelementlinkResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -64,7 +64,7 @@ class QueryTemplateElementlinkResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryTemplateElementlinkResponse
+     * @return QueryInnerTemplateelementlinkResponse
      */
     public static function fromMap($map = [])
     {

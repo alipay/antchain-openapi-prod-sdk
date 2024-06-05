@@ -109,18 +109,20 @@ use AntChain\ATO\Models\QueryInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\QueryInnerMerchantpayexpandResponse;
 use AntChain\ATO\Models\QueryInnerSignfieldsRequest;
 use AntChain\ATO\Models\QueryInnerSignfieldsResponse;
+use AntChain\ATO\Models\QueryInnerTemplateelementlinkRequest;
+use AntChain\ATO\Models\QueryInnerTemplateelementlinkResponse;
 use AntChain\ATO\Models\QueryInnerTemplateimageRequest;
 use AntChain\ATO\Models\QueryInnerTemplateimageResponse;
 use AntChain\ATO\Models\QueryInnerTemplateRequest;
 use AntChain\ATO\Models\QueryInnerTemplateResponse;
+use AntChain\ATO\Models\QueryInnerTemplateversionRequest;
+use AntChain\ATO\Models\QueryInnerTemplateversionResponse;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\QueryRealpersonFacevrfRequest;
 use AntChain\ATO\Models\QueryRealpersonFacevrfResponse;
 use AntChain\ATO\Models\QueryRiskRequest;
 use AntChain\ATO\Models\QueryRiskResponse;
-use AntChain\ATO\Models\QueryTemplateElementlinkRequest;
-use AntChain\ATO\Models\QueryTemplateElementlinkResponse;
 use AntChain\ATO\Models\QueryWithholdActivepayRequest;
 use AntChain\ATO\Models\QueryWithholdActivepayResponse;
 use AntChain\ATO\Models\QueryWithholdRefundRequest;
@@ -340,7 +342,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.51',
+                    'sdk_version'      => '1.8.65',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2192,33 +2194,66 @@ class Client
      * Description: 获取模板关联的元素列表信息，包括组件信息
      * Summary: 获取模板关联的元素列表信息.
      *
-     * @param QueryTemplateElementlinkRequest $request
+     * @param QueryInnerTemplateelementlinkRequest $request
      *
-     * @return QueryTemplateElementlinkResponse
+     * @return QueryInnerTemplateelementlinkResponse
      */
-    public function queryTemplateElementlink($request)
+    public function queryInnerTemplateelementlink($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryTemplateElementlinkEx($request, $headers, $runtime);
+        return $this->queryInnerTemplateelementlinkEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取模板关联的元素列表信息，包括组件信息
      * Summary: 获取模板关联的元素列表信息.
      *
-     * @param QueryTemplateElementlinkRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
+     * @param QueryInnerTemplateelementlinkRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
      *
-     * @return QueryTemplateElementlinkResponse
+     * @return QueryInnerTemplateelementlinkResponse
      */
-    public function queryTemplateElementlinkEx($request, $headers, $runtime)
+    public function queryInnerTemplateelementlinkEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryTemplateElementlinkResponse::fromMap($this->doRequest('1.0', 'antchain.ato.template.elementlink.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryInnerTemplateelementlinkResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templateelementlink.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+     * Summary: 查询模板的版本详情.
+     *
+     * @param QueryInnerTemplateversionRequest $request
+     *
+     * @return QueryInnerTemplateversionResponse
+     */
+    public function queryInnerTemplateversion($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerTemplateversionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+     * Summary: 查询模板的版本详情.
+     *
+     * @param QueryInnerTemplateversionRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryInnerTemplateversionResponse
+     */
+    public function queryInnerTemplateversionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerTemplateversionResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templateversion.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2663,6 +2698,24 @@ class Client
      */
     public function uploadSignTemplateEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.ato.sign.template.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadSignTemplateResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
         Utils::validateModel($request);
 
         return UploadSignTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.template.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));

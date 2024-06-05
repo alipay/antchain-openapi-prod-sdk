@@ -133,7 +133,6 @@ class CompanyInfo extends Model
         Model::validateRequired('productMainClass', $this->productMainClass, true);
         Model::validateRequired('companyName', $this->companyName, true);
         Model::validateRequired('companyAliasName', $this->companyAliasName, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('companyMobile', $this->companyMobile, true);
         Model::validateRequired('companyAddress', $this->companyAddress, true);

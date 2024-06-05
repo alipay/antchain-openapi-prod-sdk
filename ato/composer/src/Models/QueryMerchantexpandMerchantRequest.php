@@ -19,12 +19,6 @@ class QueryMerchantexpandMerchantRequest extends Model
      */
     public $productInstanceId;
 
-    // 租户ID
-    /**
-     * @var string
-     */
-    public $tenantId;
-
     // 商户入驻返回的进件编号 expand_mode=AGENT必填
     /**
      * @var string
@@ -33,13 +27,11 @@ class QueryMerchantexpandMerchantRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'tenantId'          => 'tenant_id',
         'payExpandId'       => 'pay_expand_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('payExpandId', $this->payExpandId, true);
     }
 
@@ -51,9 +43,6 @@ class QueryMerchantexpandMerchantRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
         }
         if (null !== $this->payExpandId) {
             $res['pay_expand_id'] = $this->payExpandId;
@@ -75,9 +64,6 @@ class QueryMerchantexpandMerchantRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
         }
         if (isset($map['pay_expand_id'])) {
             $model->payExpandId = $map['pay_expand_id'];

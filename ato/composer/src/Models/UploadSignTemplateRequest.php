@@ -26,11 +26,17 @@ class UploadSignTemplateRequest extends Model
      */
     public $merchantId;
 
-    // 模板参数
+    // 合同类型
     /**
      * @var string
      */
-    public $templateArgs;
+    public $contractType;
+
+    // 模板类型
+    /**
+     * @var string
+     */
+    public $agreementType;
 
     // 签署区坐标配置
     /**
@@ -38,11 +44,11 @@ class UploadSignTemplateRequest extends Model
      */
     public $posConf;
 
-    // 模板类型
+    // 模板参数
     /**
      * @var string
      */
-    public $agreementType;
+    public $templateArgs;
 
     // 上传的pdf文件，需要以.pdf后缀结尾
     /**
@@ -67,17 +73,19 @@ class UploadSignTemplateRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'merchantId'        => 'merchant_id',
-        'templateArgs'      => 'template_args',
-        'posConf'           => 'pos_conf',
+        'contractType'      => 'contract_type',
         'agreementType'     => 'agreement_type',
+        'posConf'           => 'pos_conf',
+        'templateArgs'      => 'template_args',
         'fileId'            => 'file_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('posConf', $this->posConf, true);
+        Model::validateRequired('contractType', $this->contractType, true);
         Model::validateRequired('agreementType', $this->agreementType, true);
+        Model::validateRequired('posConf', $this->posConf, true);
         Model::validateRequired('fileId', $this->fileId, true);
     }
 
@@ -93,14 +101,17 @@ class UploadSignTemplateRequest extends Model
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->templateArgs) {
-            $res['template_args'] = $this->templateArgs;
+        if (null !== $this->contractType) {
+            $res['contract_type'] = $this->contractType;
+        }
+        if (null !== $this->agreementType) {
+            $res['agreement_type'] = $this->agreementType;
         }
         if (null !== $this->posConf) {
             $res['pos_conf'] = $this->posConf;
         }
-        if (null !== $this->agreementType) {
-            $res['agreement_type'] = $this->agreementType;
+        if (null !== $this->templateArgs) {
+            $res['template_args'] = $this->templateArgs;
         }
         if (null !== $this->fileObject) {
             $res['fileObject'] = $this->fileObject;
@@ -132,14 +143,17 @@ class UploadSignTemplateRequest extends Model
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
         }
-        if (isset($map['template_args'])) {
-            $model->templateArgs = $map['template_args'];
+        if (isset($map['contract_type'])) {
+            $model->contractType = $map['contract_type'];
+        }
+        if (isset($map['agreement_type'])) {
+            $model->agreementType = $map['agreement_type'];
         }
         if (isset($map['pos_conf'])) {
             $model->posConf = $map['pos_conf'];
         }
-        if (isset($map['agreement_type'])) {
-            $model->agreementType = $map['agreement_type'];
+        if (isset($map['template_args'])) {
+            $model->templateArgs = $map['template_args'];
         }
         if (isset($map['fileObject'])) {
             $model->fileObject = $map['fileObject'];

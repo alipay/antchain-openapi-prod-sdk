@@ -31,23 +31,39 @@ class SyncInnerTemplateRequest extends Model
      */
     public $sourceTemplateCode;
 
-    // 目标模板名称
+    // 目标魔法库模板名称
     /**
      * @var string
      */
     public $targetTemplateName;
+
+    // 模板同步的场景，值参考：CREATE_TEMPLATE、SYNC_PROD
+    /**
+     * @var string
+     */
+    public $scene;
+
+    // 魔法库来源模板版本
+    /**
+     * @var string
+     */
+    public $sourceTemplateVersion;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'tenantId'           => 'tenant_id',
-        'sourceTemplateCode' => 'source_template_code',
-        'targetTemplateName' => 'target_template_name',
+        'authToken'             => 'auth_token',
+        'productInstanceId'     => 'product_instance_id',
+        'tenantId'              => 'tenant_id',
+        'sourceTemplateCode'    => 'source_template_code',
+        'targetTemplateName'    => 'target_template_name',
+        'scene'                 => 'scene',
+        'sourceTemplateVersion' => 'source_template_version',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('sourceTemplateCode', $this->sourceTemplateCode, true);
+        Model::validateRequired('scene', $this->scene, true);
+        Model::validateRequired('sourceTemplateVersion', $this->sourceTemplateVersion, true);
     }
 
     public function toMap()
@@ -67,6 +83,12 @@ class SyncInnerTemplateRequest extends Model
         }
         if (null !== $this->targetTemplateName) {
             $res['target_template_name'] = $this->targetTemplateName;
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
+        }
+        if (null !== $this->sourceTemplateVersion) {
+            $res['source_template_version'] = $this->sourceTemplateVersion;
         }
 
         return $res;
@@ -94,6 +116,12 @@ class SyncInnerTemplateRequest extends Model
         }
         if (isset($map['target_template_name'])) {
             $model->targetTemplateName = $map['target_template_name'];
+        }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
+        }
+        if (isset($map['source_template_version'])) {
+            $model->sourceTemplateVersion = $map['source_template_version'];
         }
 
         return $model;
