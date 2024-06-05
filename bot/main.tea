@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.10.35',
+    sdk_version = '1.11.1',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -7144,6 +7144,350 @@ async function publishDevicecorpThingmodel(request: PublishDevicecorpThingmodelR
 async function publishDevicecorpThingmodelEx(request: PublishDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishDevicecorpThingmodelResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SignDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 个人签约产品码
+  personalProductCode: string(name='personal_product_code'),
+  // 销售产品码
+  productCode: string(name='product_code'),
+  // 请按当前接入的方式进行填充，且输入值必须为文档中的参数取值范围。 扫码或者短信页面签约需要拼装http的请求地址访问中间页面，钱包h5页面签约可直接拼接scheme的请求地址
+  channel: string(name='channel'),
+  // 支付宝App主动回跳商户App里指定的页面 http/https 路径。建议商户使用 https。
+  returnUrl: string(name='return_url'),
+  // 用户在商户网站的登录账号，用于在签约页面展示
+  externalLogonId: string(name='external_logon_id'),
+  // 支付宝用户ID
+  alipayUserId?: string(name='alipay_user_id'),
+  // 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）。 格式规则：支持大写小写字母和数字，最长32位。 商户系统按需自定义传入，如果同一用户在同一产品码、同一签约场景下，签订了多份代扣协议，那么需要指定并传入该值
+  signScene: string(name='sign_scene'),
+  // 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）。 格式规则：支持大写小写字母和数字，最长32位。 商户系统按需自定义传入，如果同一用户在同一产品码、同一签约场景下，签订了多份代扣协议，那么需要指定并传入该值
+  externalAgreementNo: string(name='external_agreement_no'),
+  // 当前用户签约请求的协议有效周期。 整形数字加上时间单位的协议有效期，从发起签约请求的时间开始算起。 目前支持的时间单位： 1. d：天 2. m：月 如果未传入，默认为长期有效。
+  signValidityPeriod?: string(name='sign_validity_period'),
+  // 签约有效时间限制，单位是秒，有效范围是0-86400，商户传入此字段会用商户传入的值否则使用支付宝侧默认值，在有效时间外进行签约，会进行安全拦截；（备注：此字段适用于需要开通安全防控的商户，且依赖商户传入生成签约时的时间戳字段timestamp）
+  effectTime?: long(name='effect_time'),
+}
+
+model SignDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 生成的签约链接地址
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣签约链接获取
+ * Summary: 代扣签约链接获取
+ */
+async function signDigitalkeyWithhold(request: SignDigitalkeyWithholdRequest): SignDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return signDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣签约链接获取
+ * Summary: 代扣签约链接获取
+ */
+async function signDigitalkeyWithholdEx(request: SignDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SignDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.sign', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+  alipayUserId: string(name='alipay_user_id'),
+  // 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
+  personalProductCode: string(name='personal_product_code'),
+  // 签约协议场景，商户和支付宝签约时确定，解约时，传入签约指定的场景信息。
+  signScene: string(name='sign_scene'),
+  // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+  externalAgreementNo: string(name='external_agreement_no'),
+}
+
+model UnbindDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+}
+
+/**
+ * Description: 代扣签约解除
+ * Summary: 代扣签约解除
+ */
+async function unbindDigitalkeyWithhold(request: UnbindDigitalkeyWithholdRequest): UnbindDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣签约解除
+ * Summary: 代扣签约解除
+ */
+async function unbindDigitalkeyWithholdEx(request: UnbindDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户订单号，需要保证不重复
+  outTradeNo: string(name='out_trade_no'),
+  // 订单标题
+  subject: string(name='subject'),
+  // 签约时支付宝返回的用户ID
+  alipayUserId: string(name='alipay_user_id'),
+  // 销售产品码，商户代扣场景固定为GENERAL_WITHHOLDING
+  productCode: string(name='product_code'),
+  // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
+  totalAmount: long(name='total_amount'),
+  // 商户代扣扣款许可
+  deductPermission?: string(name='deduct_permission'),
+  // 代扣协议号, 对应于签约时，支付宝返回的协议
+  agreementNo: string(name='agreement_no'),
+  // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
+  timeoutExpress?: string(name='timeout_express'),
+  // 异步支付类型
+  asyncType: string(name='async_type'),
+}
+
+model PayDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+}
+
+/**
+ * Description: 代扣支付
+ * Summary: 代扣支付
+ */
+async function payDigitalkeyWithhold(request: PayDigitalkeyWithholdRequest): PayDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣支付
+ * Summary: 代扣支付
+ */
+async function payDigitalkeyWithholdEx(request: PayDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefuseDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单支付时传入的商户订单号,不能和 trade_no同时为空。
+  outTradeNo: string(name='out_trade_no'),
+  // 需要退款的金额，该金额不能大于订单金额,单位为元，支持两位小数
+  refundAmount: long(name='refund_amount'),
+  // 标识一次退款请求，同一笔交易多次退款需要保证唯一。
+  outRequestNo: string(name='out_request_no'),
+}
+
+model RefuseDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 退款返回信息 
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣支付退款 
+ * Summary: 代扣支付退款 
+ */
+async function refuseDigitalkeyWithhold(request: RefuseDigitalkeyWithholdRequest): RefuseDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refuseDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣支付退款 
+ * Summary: 代扣支付退款 
+ */
+async function refuseDigitalkeyWithholdEx(request: RefuseDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefuseDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.refuse', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+  alipayUserId: string(name='alipay_user_id'),
+  // 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
+  personalProductCode: string(name='personal_product_code'),
+  // 签约协议场景，商户和支付宝签约时确定，解约时，传入签约指定的场景信息。
+  signScene: string(name='sign_scene'),
+  // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+  externalAgreementNo: string(name='external_agreement_no'),
+}
+
+model QueryDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 协议查询返回信息 
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣协议查询
+ * Summary: 代扣协议查询
+ */
+async function queryDigitalkeyWithhold(request: QueryDigitalkeyWithholdRequest): QueryDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣协议查询
+ * Summary: 代扣协议查询
+ */
+async function queryDigitalkeyWithholdEx(request: QueryDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户传入外部交易订单号
+  outTradeNo: string(name='out_trade_no'),
+}
+
+model CancelDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 撤销返回信息 
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣撤销
+ * Summary: 代扣撤销
+ */
+async function cancelDigitalkeyWithhold(request: CancelDigitalkeyWithholdRequest): CancelDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣撤销
+ * Summary: 代扣撤销
+ */
+async function cancelDigitalkeyWithholdEx(request: CancelDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户请求号。 由商家自定义，64个字符以内，仅支持字母、数字、下划线且需保证在商户端不重复
+  outRequestNo: string(name='out_request_no'),
+  // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
+  totalAmount: long(name='total_amount'),
+  // 代扣协议号, 对应于签约时，支付宝返回的协议
+  agreementNo: string(name='agreement_no'),
+}
+
+model NotifyDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 预通知返回内容
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣扣款前预通知
+ * Summary: 代扣扣款前预通知
+ */
+async function notifyDigitalkeyWithhold(request: NotifyDigitalkeyWithholdRequest): NotifyDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣扣款前预通知
+ * Summary: 代扣扣款前预通知
+ */
+async function notifyDigitalkeyWithholdEx(request: NotifyDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
