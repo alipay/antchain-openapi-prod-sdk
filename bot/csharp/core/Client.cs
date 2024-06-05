@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.35"},
+                        {"sdk_version", "1.11.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.35"},
+                        {"sdk_version", "1.11.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4439,6 +4439,300 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PublishDevicecorpThingmodelResponse>(await DoRequestAsync("1.0", "blockchain.bot.devicecorp.thingmodel.publish", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣签约链接获取
+         * Summary: 代扣签约链接获取
+         */
+        public SignDigitalkeyWithholdResponse SignDigitalkeyWithhold(SignDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SignDigitalkeyWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣签约链接获取
+         * Summary: 代扣签约链接获取
+         */
+        public async Task<SignDigitalkeyWithholdResponse> SignDigitalkeyWithholdAsync(SignDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SignDigitalkeyWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣签约链接获取
+         * Summary: 代扣签约链接获取
+         */
+        public SignDigitalkeyWithholdResponse SignDigitalkeyWithholdEx(SignDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SignDigitalkeyWithholdResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.withhold.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣签约链接获取
+         * Summary: 代扣签约链接获取
+         */
+        public async Task<SignDigitalkeyWithholdResponse> SignDigitalkeyWithholdExAsync(SignDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SignDigitalkeyWithholdResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.withhold.sign", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣签约解除
+         * Summary: 代扣签约解除
+         */
+        public UnbindDigitalkeyWithholdResponse UnbindDigitalkeyWithhold(UnbindDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UnbindDigitalkeyWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣签约解除
+         * Summary: 代扣签约解除
+         */
+        public async Task<UnbindDigitalkeyWithholdResponse> UnbindDigitalkeyWithholdAsync(UnbindDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UnbindDigitalkeyWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣签约解除
+         * Summary: 代扣签约解除
+         */
+        public UnbindDigitalkeyWithholdResponse UnbindDigitalkeyWithholdEx(UnbindDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindDigitalkeyWithholdResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.withhold.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣签约解除
+         * Summary: 代扣签约解除
+         */
+        public async Task<UnbindDigitalkeyWithholdResponse> UnbindDigitalkeyWithholdExAsync(UnbindDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UnbindDigitalkeyWithholdResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.withhold.unbind", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣支付
+         * Summary: 代扣支付
+         */
+        public PayDigitalkeyWithholdResponse PayDigitalkeyWithhold(PayDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PayDigitalkeyWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣支付
+         * Summary: 代扣支付
+         */
+        public async Task<PayDigitalkeyWithholdResponse> PayDigitalkeyWithholdAsync(PayDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PayDigitalkeyWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣支付
+         * Summary: 代扣支付
+         */
+        public PayDigitalkeyWithholdResponse PayDigitalkeyWithholdEx(PayDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PayDigitalkeyWithholdResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.withhold.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣支付
+         * Summary: 代扣支付
+         */
+        public async Task<PayDigitalkeyWithholdResponse> PayDigitalkeyWithholdExAsync(PayDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PayDigitalkeyWithholdResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.withhold.pay", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣支付退款 
+         * Summary: 代扣支付退款 
+         */
+        public RefuseDigitalkeyWithholdResponse RefuseDigitalkeyWithhold(RefuseDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RefuseDigitalkeyWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣支付退款 
+         * Summary: 代扣支付退款 
+         */
+        public async Task<RefuseDigitalkeyWithholdResponse> RefuseDigitalkeyWithholdAsync(RefuseDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RefuseDigitalkeyWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣支付退款 
+         * Summary: 代扣支付退款 
+         */
+        public RefuseDigitalkeyWithholdResponse RefuseDigitalkeyWithholdEx(RefuseDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefuseDigitalkeyWithholdResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.withhold.refuse", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣支付退款 
+         * Summary: 代扣支付退款 
+         */
+        public async Task<RefuseDigitalkeyWithholdResponse> RefuseDigitalkeyWithholdExAsync(RefuseDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RefuseDigitalkeyWithholdResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.withhold.refuse", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣协议查询
+         * Summary: 代扣协议查询
+         */
+        public QueryDigitalkeyWithholdResponse QueryDigitalkeyWithhold(QueryDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDigitalkeyWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣协议查询
+         * Summary: 代扣协议查询
+         */
+        public async Task<QueryDigitalkeyWithholdResponse> QueryDigitalkeyWithholdAsync(QueryDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDigitalkeyWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣协议查询
+         * Summary: 代扣协议查询
+         */
+        public QueryDigitalkeyWithholdResponse QueryDigitalkeyWithholdEx(QueryDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyWithholdResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.withhold.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣协议查询
+         * Summary: 代扣协议查询
+         */
+        public async Task<QueryDigitalkeyWithholdResponse> QueryDigitalkeyWithholdExAsync(QueryDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDigitalkeyWithholdResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.withhold.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣撤销
+         * Summary: 代扣撤销
+         */
+        public CancelDigitalkeyWithholdResponse CancelDigitalkeyWithhold(CancelDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelDigitalkeyWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣撤销
+         * Summary: 代扣撤销
+         */
+        public async Task<CancelDigitalkeyWithholdResponse> CancelDigitalkeyWithholdAsync(CancelDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelDigitalkeyWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣撤销
+         * Summary: 代扣撤销
+         */
+        public CancelDigitalkeyWithholdResponse CancelDigitalkeyWithholdEx(CancelDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDigitalkeyWithholdResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.withhold.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣撤销
+         * Summary: 代扣撤销
+         */
+        public async Task<CancelDigitalkeyWithholdResponse> CancelDigitalkeyWithholdExAsync(CancelDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDigitalkeyWithholdResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.withhold.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣扣款前预通知
+         * Summary: 代扣扣款前预通知
+         */
+        public NotifyDigitalkeyWithholdResponse NotifyDigitalkeyWithhold(NotifyDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyDigitalkeyWithholdEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣扣款前预通知
+         * Summary: 代扣扣款前预通知
+         */
+        public async Task<NotifyDigitalkeyWithholdResponse> NotifyDigitalkeyWithholdAsync(NotifyDigitalkeyWithholdRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyDigitalkeyWithholdExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣扣款前预通知
+         * Summary: 代扣扣款前预通知
+         */
+        public NotifyDigitalkeyWithholdResponse NotifyDigitalkeyWithholdEx(NotifyDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyDigitalkeyWithholdResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.withhold.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣扣款前预通知
+         * Summary: 代扣扣款前预通知
+         */
+        public async Task<NotifyDigitalkeyWithholdResponse> NotifyDigitalkeyWithholdExAsync(NotifyDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyDigitalkeyWithholdResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.withhold.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
