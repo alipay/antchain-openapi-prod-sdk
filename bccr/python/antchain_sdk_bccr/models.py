@@ -1490,6 +1490,41 @@ class DayStatisticsInfo(TeaModel):
         return self
 
 
+class ContainsImageInfo(TeaModel):
+    def __init__(
+        self,
+        contains_image: bool = None,
+        resolved_file_url: str = None,
+    ):
+        # 是否包含图片
+        self.contains_image = contains_image
+        # 包含图片，处理后的图片副件
+        self.resolved_file_url = resolved_file_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contains_image is not None:
+            result['contains_image'] = self.contains_image
+        if self.resolved_file_url is not None:
+            result['resolved_file_url'] = self.resolved_file_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('contains_image') is not None:
+            self.contains_image = m.get('contains_image')
+        if m.get('resolved_file_url') is not None:
+            self.resolved_file_url = m.get('resolved_file_url')
+        return self
+
+
 class SeriesDiagramErrorReason(TeaModel):
     def __init__(
         self,
@@ -9017,6 +9052,7 @@ class QueryDciPreregistrationResponse(TeaModel):
         publication_url: str = None,
         apply_type: str = None,
         series_diagram_error_reason_list: List[SeriesDiagramErrorReason] = None,
+        contains_image_info: ContainsImageInfo = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9078,12 +9114,16 @@ class QueryDciPreregistrationResponse(TeaModel):
         self.apply_type = apply_type
         # 系列图错误原因集合
         self.series_diagram_error_reason_list = series_diagram_error_reason_list
+        # 作品是否包含图片信息
+        self.contains_image_info = contains_image_info
 
     def validate(self):
         if self.series_diagram_error_reason_list:
             for k in self.series_diagram_error_reason_list:
                 if k:
                     k.validate()
+        if self.contains_image_info:
+            self.contains_image_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -9153,6 +9193,8 @@ class QueryDciPreregistrationResponse(TeaModel):
         if self.series_diagram_error_reason_list is not None:
             for k in self.series_diagram_error_reason_list:
                 result['series_diagram_error_reason_list'].append(k.to_map() if k else None)
+        if self.contains_image_info is not None:
+            result['contains_image_info'] = self.contains_image_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -9220,6 +9262,9 @@ class QueryDciPreregistrationResponse(TeaModel):
             for k in m.get('series_diagram_error_reason_list'):
                 temp_model = SeriesDiagramErrorReason()
                 self.series_diagram_error_reason_list.append(temp_model.from_map(k))
+        if m.get('contains_image_info') is not None:
+            temp_model = ContainsImageInfo()
+            self.contains_image_info = temp_model.from_map(m['contains_image_info'])
         return self
 
 
