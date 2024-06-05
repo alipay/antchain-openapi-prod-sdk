@@ -26,7 +26,6 @@ public class CompanyInfo extends TeaModel {
 
     // 公司数科租户id
     @NameInMap("tenant_id")
-    @Validation(required = true)
     public String tenantId;
 
     // 统一社会信用代码

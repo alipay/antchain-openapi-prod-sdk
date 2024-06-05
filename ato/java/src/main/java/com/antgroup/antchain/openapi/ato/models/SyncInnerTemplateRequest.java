@@ -21,9 +21,19 @@ public class SyncInnerTemplateRequest extends TeaModel {
     @Validation(required = true)
     public String sourceTemplateCode;
 
-    // 目标模板名称
+    // 目标魔法库模板名称
     @NameInMap("target_template_name")
     public String targetTemplateName;
+
+    // 模板同步的场景，值参考：CREATE_TEMPLATE、SYNC_PROD
+    @NameInMap("scene")
+    @Validation(required = true)
+    public String scene;
+
+    // 魔法库来源模板版本
+    @NameInMap("source_template_version")
+    @Validation(required = true)
+    public String sourceTemplateVersion;
 
     public static SyncInnerTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncInnerTemplateRequest self = new SyncInnerTemplateRequest();
@@ -68,6 +78,22 @@ public class SyncInnerTemplateRequest extends TeaModel {
     }
     public String getTargetTemplateName() {
         return this.targetTemplateName;
+    }
+
+    public SyncInnerTemplateRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
+    }
+
+    public SyncInnerTemplateRequest setSourceTemplateVersion(String sourceTemplateVersion) {
+        this.sourceTemplateVersion = sourceTemplateVersion;
+        return this;
+    }
+    public String getSourceTemplateVersion() {
+        return this.sourceTemplateVersion;
     }
 
 }

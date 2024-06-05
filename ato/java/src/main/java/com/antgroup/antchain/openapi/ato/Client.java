@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.51"),
+                    new TeaPair("sdk_version", "1.8.65"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1212,19 +1212,38 @@ public class Client {
      * Description: 获取模板关联的元素列表信息，包括组件信息
      * Summary: 获取模板关联的元素列表信息
      */
-    public QueryTemplateElementlinkResponse queryTemplateElementlink(QueryTemplateElementlinkRequest request) throws Exception {
+    public QueryInnerTemplateelementlinkResponse queryInnerTemplateelementlink(QueryInnerTemplateelementlinkRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryTemplateElementlinkEx(request, headers, runtime);
+        return this.queryInnerTemplateelementlinkEx(request, headers, runtime);
     }
 
     /**
      * Description: 获取模板关联的元素列表信息，包括组件信息
      * Summary: 获取模板关联的元素列表信息
      */
-    public QueryTemplateElementlinkResponse queryTemplateElementlinkEx(QueryTemplateElementlinkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryInnerTemplateelementlinkResponse queryInnerTemplateelementlinkEx(QueryInnerTemplateelementlinkRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.template.elementlink.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTemplateElementlinkResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.templateelementlink.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerTemplateelementlinkResponse());
+    }
+
+    /**
+     * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+     * Summary: 查询模板的版本详情
+     */
+    public QueryInnerTemplateversionResponse queryInnerTemplateversion(QueryInnerTemplateversionRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerTemplateversionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+     * Summary: 查询模板的版本详情
+     */
+    public QueryInnerTemplateversionResponse queryInnerTemplateversionEx(QueryInnerTemplateversionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.templateversion.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerTemplateversionResponse());
     }
 
     /**
@@ -1491,6 +1510,27 @@ public class Client {
      * Summary: 商户合同模板上传
      */
     public UploadSignTemplateResponse uploadSignTemplateEx(UploadSignTemplateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antchain.ato.sign.template.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadSignTemplateResponse uploadSignTemplateResponse = UploadSignTemplateResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadSignTemplateResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.template.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadSignTemplateResponse());
     }

@@ -11,11 +11,6 @@ public class UploadMerchantexpandFileRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 租户ID
-    @NameInMap("tenant_id")
-    @Validation(required = true)
-    public String tenantId;
-
     // 文件名称 包含后缀
     @NameInMap("file_name")
     @Validation(required = true)
@@ -45,14 +40,6 @@ public class UploadMerchantexpandFileRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public UploadMerchantexpandFileRequest setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
-    public String getTenantId() {
-        return this.tenantId;
     }
 
     public UploadMerchantexpandFileRequest setFileName(String fileName) {

@@ -11,11 +11,6 @@ public class RegisterMerchantexpandMerchantRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 租户ID
-    @NameInMap("tenant_id")
-    @Validation(required = true)
-    public String tenantId;
-
     // 公司信息
     @NameInMap("company_info")
     @Validation(required = true)
@@ -59,14 +54,6 @@ public class RegisterMerchantexpandMerchantRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public RegisterMerchantexpandMerchantRequest setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
-    public String getTenantId() {
-        return this.tenantId;
     }
 
     public RegisterMerchantexpandMerchantRequest setCompanyInfo(CompanyInfo companyInfo) {

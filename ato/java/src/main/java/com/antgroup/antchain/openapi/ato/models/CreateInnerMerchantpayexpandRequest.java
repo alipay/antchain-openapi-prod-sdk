@@ -11,7 +11,7 @@ public class CreateInnerMerchantpayexpandRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 租户8位id
+    // 租户ID
     @NameInMap("tenant_id")
     @Validation(required = true)
     public String tenantId;

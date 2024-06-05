@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTemplateElementlinkResponse extends TeaModel {
+public class QueryInnerTemplateelementlinkResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class QueryTemplateElementlinkResponse extends TeaModel {
     @NameInMap("data")
     public String data;
 
-    public static QueryTemplateElementlinkResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryTemplateElementlinkResponse self = new QueryTemplateElementlinkResponse();
+    public static QueryInnerTemplateelementlinkResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryInnerTemplateelementlinkResponse self = new QueryInnerTemplateelementlinkResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryTemplateElementlinkResponse setReqMsgId(String reqMsgId) {
+    public QueryInnerTemplateelementlinkResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryTemplateElementlinkResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryTemplateElementlinkResponse setResultCode(String resultCode) {
+    public QueryInnerTemplateelementlinkResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryTemplateElementlinkResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryTemplateElementlinkResponse setResultMsg(String resultMsg) {
+    public QueryInnerTemplateelementlinkResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryTemplateElementlinkResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryTemplateElementlinkResponse setData(String data) {
+    public QueryInnerTemplateelementlinkResponse setData(String data) {
         this.data = data;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTemplateElementlinkRequest extends TeaModel {
+public class QueryInnerTemplateversionRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,22 +16,22 @@ public class QueryTemplateElementlinkRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
-    // 模板code
+    // 模板编码
     @NameInMap("template_code")
     @Validation(required = true)
     public String templateCode;
 
-    // 模板版本
+    // 模板的版本号，示例：1、2、3等
     @NameInMap("template_version")
     @Validation(required = true)
     public String templateVersion;
 
-    public static QueryTemplateElementlinkRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryTemplateElementlinkRequest self = new QueryTemplateElementlinkRequest();
+    public static QueryInnerTemplateversionRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryInnerTemplateversionRequest self = new QueryInnerTemplateversionRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryTemplateElementlinkRequest setAuthToken(String authToken) {
+    public QueryInnerTemplateversionRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +39,7 @@ public class QueryTemplateElementlinkRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryTemplateElementlinkRequest setProductInstanceId(String productInstanceId) {
+    public QueryInnerTemplateversionRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +47,7 @@ public class QueryTemplateElementlinkRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryTemplateElementlinkRequest setTenantId(String tenantId) {
+    public QueryInnerTemplateversionRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -55,7 +55,7 @@ public class QueryTemplateElementlinkRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public QueryTemplateElementlinkRequest setTemplateCode(String templateCode) {
+    public QueryInnerTemplateversionRequest setTemplateCode(String templateCode) {
         this.templateCode = templateCode;
         return this;
     }
@@ -63,7 +63,7 @@ public class QueryTemplateElementlinkRequest extends TeaModel {
         return this.templateCode;
     }
 
-    public QueryTemplateElementlinkRequest setTemplateVersion(String templateVersion) {
+    public QueryInnerTemplateversionRequest setTemplateVersion(String templateVersion) {
         this.templateVersion = templateVersion;
         return this;
     }

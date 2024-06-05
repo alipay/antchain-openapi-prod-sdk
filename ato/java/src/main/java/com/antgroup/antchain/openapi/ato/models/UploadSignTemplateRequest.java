@@ -16,19 +16,24 @@ public class UploadSignTemplateRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
-    // 模板参数
-    @NameInMap("template_args")
-    public String templateArgs;
+    // 合同类型
+    @NameInMap("contract_type")
+    @Validation(required = true)
+    public String contractType;
+
+    // 模板类型
+    @NameInMap("agreement_type")
+    @Validation(required = true)
+    public String agreementType;
 
     // 签署区坐标配置
     @NameInMap("pos_conf")
     @Validation(required = true)
     public String posConf;
 
-    // 模板类型
-    @NameInMap("agreement_type")
-    @Validation(required = true)
-    public String agreementType;
+    // 模板参数
+    @NameInMap("template_args")
+    public String templateArgs;
 
     // 上传的pdf文件，需要以.pdf后缀结尾
     // 待上传文件
@@ -72,12 +77,20 @@ public class UploadSignTemplateRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public UploadSignTemplateRequest setTemplateArgs(String templateArgs) {
-        this.templateArgs = templateArgs;
+    public UploadSignTemplateRequest setContractType(String contractType) {
+        this.contractType = contractType;
         return this;
     }
-    public String getTemplateArgs() {
-        return this.templateArgs;
+    public String getContractType() {
+        return this.contractType;
+    }
+
+    public UploadSignTemplateRequest setAgreementType(String agreementType) {
+        this.agreementType = agreementType;
+        return this;
+    }
+    public String getAgreementType() {
+        return this.agreementType;
     }
 
     public UploadSignTemplateRequest setPosConf(String posConf) {
@@ -88,12 +101,12 @@ public class UploadSignTemplateRequest extends TeaModel {
         return this.posConf;
     }
 
-    public UploadSignTemplateRequest setAgreementType(String agreementType) {
-        this.agreementType = agreementType;
+    public UploadSignTemplateRequest setTemplateArgs(String templateArgs) {
+        this.templateArgs = templateArgs;
         return this;
     }
-    public String getAgreementType() {
-        return this.agreementType;
+    public String getTemplateArgs() {
+        return this.templateArgs;
     }
 
     public UploadSignTemplateRequest setFileObject(java.io.InputStream fileObject) {
