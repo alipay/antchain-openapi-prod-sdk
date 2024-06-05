@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.51',
+                    'sdk_version': '1.8.65',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.51',
+                    'sdk_version': '1.8.65',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -3333,60 +3333,116 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.inner.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_template_elementlink(
+    def query_inner_templateelementlink(
         self,
-        request: ato_models.QueryTemplateElementlinkRequest,
-    ) -> ato_models.QueryTemplateElementlinkResponse:
+        request: ato_models.QueryInnerTemplateelementlinkRequest,
+    ) -> ato_models.QueryInnerTemplateelementlinkResponse:
         """
         Description: 获取模板关联的元素列表信息，包括组件信息
         Summary: 获取模板关联的元素列表信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_template_elementlink_ex(request, headers, runtime)
+        return self.query_inner_templateelementlink_ex(request, headers, runtime)
 
-    async def query_template_elementlink_async(
+    async def query_inner_templateelementlink_async(
         self,
-        request: ato_models.QueryTemplateElementlinkRequest,
-    ) -> ato_models.QueryTemplateElementlinkResponse:
+        request: ato_models.QueryInnerTemplateelementlinkRequest,
+    ) -> ato_models.QueryInnerTemplateelementlinkResponse:
         """
         Description: 获取模板关联的元素列表信息，包括组件信息
         Summary: 获取模板关联的元素列表信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_template_elementlink_ex_async(request, headers, runtime)
+        return await self.query_inner_templateelementlink_ex_async(request, headers, runtime)
 
-    def query_template_elementlink_ex(
+    def query_inner_templateelementlink_ex(
         self,
-        request: ato_models.QueryTemplateElementlinkRequest,
+        request: ato_models.QueryInnerTemplateelementlinkRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ato_models.QueryTemplateElementlinkResponse:
+    ) -> ato_models.QueryInnerTemplateelementlinkResponse:
         """
         Description: 获取模板关联的元素列表信息，包括组件信息
         Summary: 获取模板关联的元素列表信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ato_models.QueryTemplateElementlinkResponse(),
-            self.do_request('1.0', 'antchain.ato.template.elementlink.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ato_models.QueryInnerTemplateelementlinkResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.templateelementlink.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_template_elementlink_ex_async(
+    async def query_inner_templateelementlink_ex_async(
         self,
-        request: ato_models.QueryTemplateElementlinkRequest,
+        request: ato_models.QueryInnerTemplateelementlinkRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ato_models.QueryTemplateElementlinkResponse:
+    ) -> ato_models.QueryInnerTemplateelementlinkResponse:
         """
         Description: 获取模板关联的元素列表信息，包括组件信息
         Summary: 获取模板关联的元素列表信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ato_models.QueryTemplateElementlinkResponse(),
-            await self.do_request_async('1.0', 'antchain.ato.template.elementlink.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ato_models.QueryInnerTemplateelementlinkResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.templateelementlink.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_templateversion(
+        self,
+        request: ato_models.QueryInnerTemplateversionRequest,
+    ) -> ato_models.QueryInnerTemplateversionResponse:
+        """
+        Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+        Summary: 查询模板的版本详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_templateversion_ex(request, headers, runtime)
+
+    async def query_inner_templateversion_async(
+        self,
+        request: ato_models.QueryInnerTemplateversionRequest,
+    ) -> ato_models.QueryInnerTemplateversionResponse:
+        """
+        Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+        Summary: 查询模板的版本详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_templateversion_ex_async(request, headers, runtime)
+
+    def query_inner_templateversion_ex(
+        self,
+        request: ato_models.QueryInnerTemplateversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerTemplateversionResponse:
+        """
+        Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+        Summary: 查询模板的版本详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerTemplateversionResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.templateversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_templateversion_ex_async(
+        self,
+        request: ato_models.QueryInnerTemplateversionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerTemplateversionResponse:
+        """
+        Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+        Summary: 查询模板的版本详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerTemplateversionResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.templateversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def register_merchantexpand_merchant(
@@ -4129,6 +4185,23 @@ class Client:
         Description: 商户合同模板上传接口
         Summary: 商户合同模板上传
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ato_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.ato.sign.template.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_sign_template_response = ato_models.UploadSignTemplateResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_sign_template_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.UploadSignTemplateResponse(),
@@ -4145,6 +4218,23 @@ class Client:
         Description: 商户合同模板上传接口
         Summary: 商户合同模板上传
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ato_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.ato.sign.template.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_sign_template_response = ato_models.UploadSignTemplateResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_sign_template_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.UploadSignTemplateResponse(),

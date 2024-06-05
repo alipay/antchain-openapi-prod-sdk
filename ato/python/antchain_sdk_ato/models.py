@@ -281,7 +281,6 @@ class CompanyInfo(TeaModel):
         self.validate_required(self.product_main_class, 'product_main_class')
         self.validate_required(self.company_name, 'company_name')
         self.validate_required(self.company_alias_name, 'company_alias_name')
-        self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.merchant_id, 'merchant_id')
         self.validate_required(self.company_mobile, 'company_mobile')
         self.validate_required(self.company_address, 'company_address')
@@ -6428,7 +6427,7 @@ class CreateInnerMerchantpayexpandRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 租户8位id
+        # 租户ID
         self.tenant_id = tenant_id
         # 公司信息
         self.company_info = company_info
@@ -7179,6 +7178,8 @@ class SyncInnerTemplateRequest(TeaModel):
         tenant_id: str = None,
         source_template_code: str = None,
         target_template_name: str = None,
+        scene: str = None,
+        source_template_version: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7187,12 +7188,18 @@ class SyncInnerTemplateRequest(TeaModel):
         self.tenant_id = tenant_id
         # 来源魔法库模板code
         self.source_template_code = source_template_code
-        # 目标模板名称
+        # 目标魔法库模板名称
         self.target_template_name = target_template_name
+        # 模板同步的场景，值参考：CREATE_TEMPLATE、SYNC_PROD
+        self.scene = scene
+        # 魔法库来源模板版本
+        self.source_template_version = source_template_version
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.source_template_code, 'source_template_code')
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.source_template_version, 'source_template_version')
 
     def to_map(self):
         _map = super().to_map()
@@ -7210,6 +7217,10 @@ class SyncInnerTemplateRequest(TeaModel):
             result['source_template_code'] = self.source_template_code
         if self.target_template_name is not None:
             result['target_template_name'] = self.target_template_name
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.source_template_version is not None:
+            result['source_template_version'] = self.source_template_version
         return result
 
     def from_map(self, m: dict = None):
@@ -7224,6 +7235,10 @@ class SyncInnerTemplateRequest(TeaModel):
             self.source_template_code = m.get('source_template_code')
         if m.get('target_template_name') is not None:
             self.target_template_name = m.get('target_template_name')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('source_template_version') is not None:
+            self.source_template_version = m.get('source_template_version')
         return self
 
 
@@ -7473,7 +7488,7 @@ class QueryInnerTemplateResponse(TeaModel):
         return self
 
 
-class QueryTemplateElementlinkRequest(TeaModel):
+class QueryInnerTemplateelementlinkRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -7530,7 +7545,7 @@ class QueryTemplateElementlinkRequest(TeaModel):
         return self
 
 
-class QueryTemplateElementlinkResponse(TeaModel):
+class QueryInnerTemplateelementlinkResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -7579,12 +7594,117 @@ class QueryTemplateElementlinkResponse(TeaModel):
         return self
 
 
-class RegisterMerchantexpandMerchantRequest(TeaModel):
+class QueryInnerTemplateversionRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
         tenant_id: str = None,
+        template_code: str = None,
+        template_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 模板编码
+        self.template_code = template_code
+        # 模板的版本号，示例：1、2、3等
+        self.template_version = template_version
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.template_version, 'template_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.template_version is not None:
+            result['template_version'] = self.template_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('template_version') is not None:
+            self.template_version = m.get('template_version')
+        return self
+
+
+class QueryInnerTemplateversionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板的版本详情信息
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class RegisterMerchantexpandMerchantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
         company_info: CompanyInfo = None,
         legal_info: LegalInfo = None,
         application_info: ApplicationInfo = None,
@@ -7594,8 +7714,6 @@ class RegisterMerchantexpandMerchantRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 租户ID
-        self.tenant_id = tenant_id
         # 公司信息
         self.company_info = company_info
         # 法人信息
@@ -7608,7 +7726,6 @@ class RegisterMerchantexpandMerchantRequest(TeaModel):
         self.sub_tenant_id = sub_tenant_id
 
     def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.company_info, 'company_info')
         if self.company_info:
             self.company_info.validate()
@@ -7630,8 +7747,6 @@ class RegisterMerchantexpandMerchantRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
         if self.company_info is not None:
             result['company_info'] = self.company_info.to_map()
         if self.legal_info is not None:
@@ -7650,8 +7765,6 @@ class RegisterMerchantexpandMerchantRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
         if m.get('company_info') is not None:
             temp_model = CompanyInfo()
             self.company_info = temp_model.from_map(m['company_info'])
@@ -7722,22 +7835,18 @@ class UploadMerchantexpandFileRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        tenant_id: str = None,
         file_name: str = None,
         biz_scene: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 租户ID
-        self.tenant_id = tenant_id
         # 文件名称 包含后缀
         self.file_name = file_name
         # ● BUSINESS_LICENSE 营业执照 ● CARD_FRONT 身份证正面 ● CARD_BACK 身份证反面 ● SPLITTING 分账
         self.biz_scene = biz_scene
 
     def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.file_name, 'file_name')
         self.validate_required(self.biz_scene, 'biz_scene')
 
@@ -7751,8 +7860,6 @@ class UploadMerchantexpandFileRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
         if self.file_name is not None:
             result['file_name'] = self.file_name
         if self.biz_scene is not None:
@@ -7765,8 +7872,6 @@ class UploadMerchantexpandFileRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
         if m.get('file_name') is not None:
             self.file_name = m.get('file_name')
         if m.get('biz_scene') is not None:
@@ -7835,19 +7940,15 @@ class QueryMerchantexpandMerchantRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        tenant_id: str = None,
         pay_expand_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 租户ID
-        self.tenant_id = tenant_id
         # 商户入驻返回的进件编号 expand_mode=AGENT必填
         self.pay_expand_id = pay_expand_id
 
     def validate(self):
-        self.validate_required(self.tenant_id, 'tenant_id')
         self.validate_required(self.pay_expand_id, 'pay_expand_id')
 
     def to_map(self):
@@ -7860,8 +7961,6 @@ class QueryMerchantexpandMerchantRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
         if self.pay_expand_id is not None:
             result['pay_expand_id'] = self.pay_expand_id
         return result
@@ -7872,8 +7971,6 @@ class QueryMerchantexpandMerchantRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
         if m.get('pay_expand_id') is not None:
             self.pay_expand_id = m.get('pay_expand_id')
         return self
@@ -9477,9 +9574,10 @@ class UploadSignTemplateRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         merchant_id: str = None,
-        template_args: str = None,
-        pos_conf: str = None,
+        contract_type: str = None,
         agreement_type: str = None,
+        pos_conf: str = None,
+        template_args: str = None,
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
@@ -9489,12 +9587,14 @@ class UploadSignTemplateRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 订单所属商户的统一社会信用代码
         self.merchant_id = merchant_id
-        # 模板参数
-        self.template_args = template_args
-        # 签署区坐标配置
-        self.pos_conf = pos_conf
+        # 合同类型
+        self.contract_type = contract_type
         # 模板类型
         self.agreement_type = agreement_type
+        # 签署区坐标配置
+        self.pos_conf = pos_conf
+        # 模板参数
+        self.template_args = template_args
         # 上传的pdf文件，需要以.pdf后缀结尾
         # 待上传文件
         self.file_object = file_object
@@ -9504,8 +9604,9 @@ class UploadSignTemplateRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.merchant_id, 'merchant_id')
-        self.validate_required(self.pos_conf, 'pos_conf')
+        self.validate_required(self.contract_type, 'contract_type')
         self.validate_required(self.agreement_type, 'agreement_type')
+        self.validate_required(self.pos_conf, 'pos_conf')
         self.validate_required(self.file_id, 'file_id')
 
     def to_map(self):
@@ -9520,12 +9621,14 @@ class UploadSignTemplateRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
-        if self.template_args is not None:
-            result['template_args'] = self.template_args
-        if self.pos_conf is not None:
-            result['pos_conf'] = self.pos_conf
+        if self.contract_type is not None:
+            result['contract_type'] = self.contract_type
         if self.agreement_type is not None:
             result['agreement_type'] = self.agreement_type
+        if self.pos_conf is not None:
+            result['pos_conf'] = self.pos_conf
+        if self.template_args is not None:
+            result['template_args'] = self.template_args
         if self.file_object is not None:
             result['fileObject'] = self.file_object
         if self.file_object_name is not None:
@@ -9542,12 +9645,14 @@ class UploadSignTemplateRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
-        if m.get('template_args') is not None:
-            self.template_args = m.get('template_args')
-        if m.get('pos_conf') is not None:
-            self.pos_conf = m.get('pos_conf')
+        if m.get('contract_type') is not None:
+            self.contract_type = m.get('contract_type')
         if m.get('agreement_type') is not None:
             self.agreement_type = m.get('agreement_type')
+        if m.get('pos_conf') is not None:
+            self.pos_conf = m.get('pos_conf')
+        if m.get('template_args') is not None:
+            self.template_args = m.get('template_args')
         if m.get('fileObject') is not None:
             self.file_object = m.get('fileObject')
         if m.get('fileObjectName') is not None:
@@ -10605,6 +10710,7 @@ class SyncTradeIndirectorderResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        response_data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -10612,6 +10718,8 @@ class SyncTradeIndirectorderResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 返回业务参数，json.toString
+        self.response_data = response_data
 
     def validate(self):
         pass
@@ -10628,6 +10736,8 @@ class SyncTradeIndirectorderResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.response_data is not None:
+            result['response_data'] = self.response_data
         return result
 
     def from_map(self, m: dict = None):
@@ -10638,6 +10748,8 @@ class SyncTradeIndirectorderResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('response_data') is not None:
+            self.response_data = m.get('response_data')
         return self
 
 
@@ -10652,6 +10764,7 @@ class CreateWithholdSignRequest(TeaModel):
         alipay_merchant_service_name: str = None,
         alipay_merchant_service_description: str = None,
         alipay_user_id: str = None,
+        return_url: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10668,6 +10781,8 @@ class CreateWithholdSignRequest(TeaModel):
         self.alipay_merchant_service_description = alipay_merchant_service_description
         # 支付宝uid，非必填
         self.alipay_user_id = alipay_user_id
+        # 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+        self.return_url = return_url
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -10683,6 +10798,8 @@ class CreateWithholdSignRequest(TeaModel):
             self.validate_max_length(self.alipay_merchant_service_description, 'alipay_merchant_service_description', 150)
         if self.alipay_user_id is not None:
             self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 128)
+        if self.return_url is not None:
+            self.validate_max_length(self.return_url, 'return_url', 256)
 
     def to_map(self):
         _map = super().to_map()
@@ -10706,6 +10823,8 @@ class CreateWithholdSignRequest(TeaModel):
             result['alipay_merchant_service_description'] = self.alipay_merchant_service_description
         if self.alipay_user_id is not None:
             result['alipay_user_id'] = self.alipay_user_id
+        if self.return_url is not None:
+            result['return_url'] = self.return_url
         return result
 
     def from_map(self, m: dict = None):
@@ -10726,6 +10845,8 @@ class CreateWithholdSignRequest(TeaModel):
             self.alipay_merchant_service_description = m.get('alipay_merchant_service_description')
         if m.get('alipay_user_id') is not None:
             self.alipay_user_id = m.get('alipay_user_id')
+        if m.get('return_url') is not None:
+            self.return_url = m.get('return_url')
         return self
 
 
