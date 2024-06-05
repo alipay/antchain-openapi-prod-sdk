@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.7',
+                    'sdk_version': '1.0.8',
                     '_prod_code': 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.7',
+                    'sdk_version': '1.0.8',
                     '_prod_code': 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel': 'saas'
                 }
@@ -275,116 +275,116 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def query_antchain_saas_ability_withproduct(
+    def query_antchain_abc_abcda_abcddaa(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaResponse:
         """
-        Description: 查询本产品下所有的能力标签
-        Summary: 查询本产品下所有的能力标签
+        Description: 调试a s dddd
+        Summary: 调试1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_antchain_saas_ability_withproduct_ex(request, headers, runtime)
+        return self.query_antchain_abc_abcda_abcddaa_ex(request, headers, runtime)
 
-    async def query_antchain_saas_ability_withproduct_async(
+    async def query_antchain_abc_abcda_abcddaa_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaResponse:
         """
-        Description: 查询本产品下所有的能力标签
-        Summary: 查询本产品下所有的能力标签
+        Description: 调试a s dddd
+        Summary: 调试1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_antchain_saas_ability_withproduct_ex_async(request, headers, runtime)
+        return await self.query_antchain_abc_abcda_abcddaa_ex_async(request, headers, runtime)
 
-    def query_antchain_saas_ability_withproduct_ex(
+    def query_antchain_abc_abcda_abcddaa_ex(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaResponse:
         """
-        Description: 查询本产品下所有的能力标签
-        Summary: 查询本产品下所有的能力标签
+        Description: 调试a s dddd
+        Summary: 调试1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductResponse(),
-            self.do_request('1.0', 'antchain.saas.ability.withproduct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaResponse(),
+            self.do_request('1.0', 'antchain.abc.abcda.abcddaa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_antchain_saas_ability_withproduct_ex_async(
+    async def query_antchain_abc_abcda_abcddaa_ex_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaResponse:
         """
-        Description: 查询本产品下所有的能力标签
-        Summary: 查询本产品下所有的能力标签
+        Description: 调试a s dddd
+        Summary: 调试1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithproductResponse(),
-            await self.do_request_async('1.0', 'antchain.saas.ability.withproduct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainAbcAbcdaAbcddaaResponse(),
+            await self.do_request_async('1.0', 'antchain.abc.abcda.abcddaa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def pagequery_antchain_saas_ability(
+    def bind_demo_aaa_bbb_ccc(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
         """
-        Description: 分页查询能力数据
-        Summary: 分页查询能力数据
+        Description: 自动化测试创建test，请勿修改、删除
+        Summary: 自动化测试创建test1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.pagequery_antchain_saas_ability_ex(request, headers, runtime)
+        return self.bind_demo_aaa_bbb_ccc_ex(request, headers, runtime)
 
-    async def pagequery_antchain_saas_ability_async(
+    async def bind_demo_aaa_bbb_ccc_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
         """
-        Description: 分页查询能力数据
-        Summary: 分页查询能力数据
+        Description: 自动化测试创建test，请勿修改、删除
+        Summary: 自动化测试创建test1
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.pagequery_antchain_saas_ability_ex_async(request, headers, runtime)
+        return await self.bind_demo_aaa_bbb_ccc_ex_async(request, headers, runtime)
 
-    def pagequery_antchain_saas_ability_ex(
+    def bind_demo_aaa_bbb_ccc_ex(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
         """
-        Description: 分页查询能力数据
-        Summary: 分页查询能力数据
+        Description: 自动化测试创建test，请勿修改、删除
+        Summary: 自动化测试创建test1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityResponse(),
-            self.do_request('1.0', 'antchain.saas.ability.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse(),
+            self.do_request('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def pagequery_antchain_saas_ability_ex_async(
+    async def bind_demo_aaa_bbb_ccc_ex_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse:
         """
-        Description: 分页查询能力数据
-        Summary: 分页查询能力数据
+        Description: 自动化测试创建test，请勿修改、删除
+        Summary: 自动化测试创建test1
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.PagequeryAntchainSaasAbilityResponse(),
-            await self.do_request_async('1.0', 'antchain.saas.ability.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindDemoAaaBbbCccResponse(),
+            await self.do_request_async('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def bind_antchain_saas_ability(
@@ -443,60 +443,60 @@ class Client:
             await self.do_request_async('1.0', 'antchain.saas.ability.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_antchain_saas_ability_withapiname(
+    def query_demo_abc_abc_abc(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcResponse:
         """
-        Description: 根据api名称列表查询能力标签列表
-        Summary: 根据api名称列表查询能力标签列表
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_antchain_saas_ability_withapiname_ex(request, headers, runtime)
+        return self.query_demo_abc_abc_abc_ex(request, headers, runtime)
 
-    async def query_antchain_saas_ability_withapiname_async(
+    async def query_demo_abc_abc_abc_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcResponse:
         """
-        Description: 根据api名称列表查询能力标签列表
-        Summary: 根据api名称列表查询能力标签列表
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_antchain_saas_ability_withapiname_ex_async(request, headers, runtime)
+        return await self.query_demo_abc_abc_abc_ex_async(request, headers, runtime)
 
-    def query_antchain_saas_ability_withapiname_ex(
+    def query_demo_abc_abc_abc_ex(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcResponse:
         """
-        Description: 根据api名称列表查询能力标签列表
-        Summary: 根据api名称列表查询能力标签列表
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameResponse(),
-            self.do_request('1.0', 'antchain.saas.ability.withapiname.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcResponse(),
+            self.do_request('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_antchain_saas_ability_withapiname_ex_async(
+    async def query_demo_abc_abc_abc_ex_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcResponse:
         """
-        Description: 根据api名称列表查询能力标签列表
-        Summary: 根据api名称列表查询能力标签列表
+        Description: 自动化测试创建,用于测试API的修改
+        Summary: 自动化测试创建,用于测试API的修改勿动
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityWithapinameResponse(),
-            await self.do_request_async('1.0', 'antchain.saas.ability.withapiname.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoAbcAbcAbcResponse(),
+            await self.do_request_async('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def callback_antchain_saas_ability(
@@ -555,170 +555,170 @@ class Client:
             await self.do_request_async('1.0', 'antchain.saas.ability.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_antchain_saas_foundation_protobuf(
+    def bind_antchain_saas_ability_api(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiResponse:
         """
-        Description: 根据产品码+api code查询api protobuf信息
-        Summary: 查询api protobuf信息（勿删）
+        Description: 绑定能力的api信息
+        Summary: 绑定能力的api信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_antchain_saas_foundation_protobuf_ex(request, headers, runtime)
+        return self.bind_antchain_saas_ability_api_ex(request, headers, runtime)
 
-    async def query_antchain_saas_foundation_protobuf_async(
+    async def bind_antchain_saas_ability_api_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiResponse:
         """
-        Description: 根据产品码+api code查询api protobuf信息
-        Summary: 查询api protobuf信息（勿删）
+        Description: 绑定能力的api信息
+        Summary: 绑定能力的api信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_antchain_saas_foundation_protobuf_ex_async(request, headers, runtime)
+        return await self.bind_antchain_saas_ability_api_ex_async(request, headers, runtime)
 
-    def query_antchain_saas_foundation_protobuf_ex(
+    def bind_antchain_saas_ability_api_ex(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiResponse:
         """
-        Description: 根据产品码+api code查询api protobuf信息
-        Summary: 查询api protobuf信息（勿删）
+        Description: 绑定能力的api信息
+        Summary: 绑定能力的api信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufResponse(),
-            self.do_request('1.0', 'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiResponse(),
+            self.do_request('1.0', 'antchain.saas.ability.api.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_antchain_saas_foundation_protobuf_ex_async(
+    async def bind_antchain_saas_ability_api_ex_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiResponse:
         """
-        Description: 根据产品码+api code查询api protobuf信息
-        Summary: 查询api protobuf信息（勿删）
+        Description: 绑定能力的api信息
+        Summary: 绑定能力的api信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasFoundationProtobufResponse(),
-            await self.do_request_async('1.0', 'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.BindAntchainSaasAbilityApiResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.ability.api.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_demo_demo_default_sdkccc(
+    def query_antchain_saas_ability_businesscode(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeResponse:
         """
-        Description: 111
-        Summary: 测试接口
+        Description: 根据能力id查询能力信息
+        Summary: 根据能力id查询能力信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_demo_demo_default_sdkccc_ex(request, headers, runtime)
+        return self.query_antchain_saas_ability_businesscode_ex(request, headers, runtime)
 
-    async def query_demo_demo_default_sdkccc_async(
+    async def query_antchain_saas_ability_businesscode_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeResponse:
         """
-        Description: 111
-        Summary: 测试接口
+        Description: 根据能力id查询能力信息
+        Summary: 根据能力id查询能力信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_demo_demo_default_sdkccc_ex_async(request, headers, runtime)
+        return await self.query_antchain_saas_ability_businesscode_ex_async(request, headers, runtime)
 
-    def query_demo_demo_default_sdkccc_ex(
+    def query_antchain_saas_ability_businesscode_ex(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeResponse:
         """
-        Description: 111
-        Summary: 测试接口
+        Description: 根据能力id查询能力信息
+        Summary: 根据能力id查询能力信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse(),
-            self.do_request('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeResponse(),
+            self.do_request('1.0', 'antchain.saas.ability.businesscode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_demo_demo_default_sdkccc_ex_async(
+    async def query_antchain_saas_ability_businesscode_ex_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeResponse:
         """
-        Description: 111
-        Summary: 测试接口
+        Description: 根据能力id查询能力信息
+        Summary: 根据能力id查询能力信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkcccResponse(),
-            await self.do_request_async('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryAntchainSaasAbilityBusinesscodeResponse(),
+            await self.do_request_async('1.0', 'antchain.saas.ability.businesscode.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_demo_demo_default_sdkfff(
+    def operate_demo_shanghai_pre_test(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestResponse:
         """
-        Description: 描述
-        Summary: 测试接口
+        Description: 用于上海非金生产环境的同步测试
+        Summary: 上海非金生产环境测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_demo_demo_default_sdkfff_ex(request, headers, runtime)
+        return self.operate_demo_shanghai_pre_test_ex(request, headers, runtime)
 
-    async def query_demo_demo_default_sdkfff_async(
+    async def operate_demo_shanghai_pre_test_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffRequest,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse:
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestRequest,
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestResponse:
         """
-        Description: 描述
-        Summary: 测试接口
+        Description: 用于上海非金生产环境的同步测试
+        Summary: 上海非金生产环境测试
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_demo_demo_default_sdkfff_ex_async(request, headers, runtime)
+        return await self.operate_demo_shanghai_pre_test_ex_async(request, headers, runtime)
 
-    def query_demo_demo_default_sdkfff_ex(
+    def operate_demo_shanghai_pre_test_ex(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestResponse:
         """
-        Description: 描述
-        Summary: 测试接口
+        Description: 用于上海非金生产环境的同步测试
+        Summary: 上海非金生产环境测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse(),
-            self.do_request('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestResponse(),
+            self.do_request('1.0', 'demo.shanghai.pre.test.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_demo_demo_default_sdkfff_ex_async(
+    async def operate_demo_shanghai_pre_test_ex_async(
         self,
-        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffRequest,
+        request: ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse:
+    ) -> ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestResponse:
         """
-        Description: 描述
-        Summary: 测试接口
+        Description: 用于上海非金生产环境的同步测试
+        Summary: 上海非金生产环境测试
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.QueryDemoDemoDefaultSdkfffResponse(),
-            await self.do_request_async('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak_a_1f_82644937c_486c_81a_62b_0e_5a_6b_4fbe_models.OperateDemoShanghaiPreTestResponse(),
+            await self.do_request_async('1.0', 'demo.shanghai.pre.test.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
