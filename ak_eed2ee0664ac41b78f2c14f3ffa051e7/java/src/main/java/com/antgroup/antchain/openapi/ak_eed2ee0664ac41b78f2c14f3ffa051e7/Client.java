@@ -162,25 +162,6 @@ public class Client {
     }
 
     /**
-     * Description: s
-     * Summary: ss
-     */
-    public BindDemoDemoCheckEeeResponse bindDemoDemoCheckEee(BindDemoDemoCheckEeeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.bindDemoDemoCheckEeeEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: s
-     * Summary: ss
-     */
-    public BindDemoDemoCheckEeeResponse bindDemoDemoCheckEeeEx(BindDemoDemoCheckEeeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "demo.demo.check.eee.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindDemoDemoCheckEeeResponse());
-    }
-
-    /**
      * Description: 保司用户埋点信息
      * Summary: 用户登陆页面埋点
      */
