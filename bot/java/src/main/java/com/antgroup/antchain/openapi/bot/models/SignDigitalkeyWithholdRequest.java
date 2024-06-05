@@ -52,7 +52,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
 
     // 子商户信息
     @NameInMap("sub_merchant")
-    public String subMerchant;
+    public SubMerchantParams subMerchant;
 
     // 当前用户签约请求的协议有效周期。 整形数字加上时间单位的协议有效期，从发起签约请求的时间开始算起。 目前支持的时间单位： 1. d：天 2. m：月 如果未传入，默认为长期有效。
     @NameInMap("sign_validity_period")
@@ -147,11 +147,11 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.externalAgreementNo;
     }
 
-    public SignDigitalkeyWithholdRequest setSubMerchant(String subMerchant) {
+    public SignDigitalkeyWithholdRequest setSubMerchant(SubMerchantParams subMerchant) {
         this.subMerchant = subMerchant;
         return this;
     }
-    public String getSubMerchant() {
+    public SubMerchantParams getSubMerchant() {
         return this.subMerchant;
     }
 
