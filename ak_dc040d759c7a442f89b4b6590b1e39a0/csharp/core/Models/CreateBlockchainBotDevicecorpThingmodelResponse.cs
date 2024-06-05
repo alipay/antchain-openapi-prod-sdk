@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_dc040d759c7a442f89b4b6590b1e39a0.Models
 {
-    public class QueryAntsecuritytechGatewayEkytDriverResponse : TeaModel {
+    public class CreateBlockchainBotDevicecorpThingmodelResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,10 @@ namespace AntChain.SDK.Ak_dc040d759c7a442f89b4b6590b1e39a0.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 接口响应结果
+        // 操作结果
         [NameInMap("success")]
         [Validation(Required=false)]
         public bool? Success { get; set; }
-
-        // 接口响应描述
-        [NameInMap("message")]
-        [Validation(Required=false)]
-        public string Message { get; set; }
-
-        // 接口响应数据
-        [NameInMap("data")]
-        [Validation(Required=false)]
-        public IifaaEkytResponse Data { get; set; }
 
     }
 

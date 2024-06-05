@@ -25,6 +25,16 @@ namespace AntChain.SDK.Ak_dc040d759c7a442f89b4b6590b1e39a0.Models
         [Validation(Required=true)]
         public string ProductCode { get; set; }
 
+        // response输出类型，默认json
+        [NameInMap("format_type")]
+        [Validation(Required=false)]
+        public string FormatType { get; set; }
+
+        // false
+        [NameInMap("online_flag")]
+        [Validation(Required=false)]
+        public bool? OnlineFlag { get; set; }
+
     }
 
 }
