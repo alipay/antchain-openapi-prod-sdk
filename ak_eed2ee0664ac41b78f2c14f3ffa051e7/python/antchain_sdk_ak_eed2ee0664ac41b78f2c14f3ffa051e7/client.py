@@ -275,62 +275,6 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def bind_demo_demo_check_eee(
-        self,
-        request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeRequest,
-    ) -> ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeResponse:
-        """
-        Description: s
-        Summary: ss
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_demo_demo_check_eee_ex(request, headers, runtime)
-
-    async def bind_demo_demo_check_eee_async(
-        self,
-        request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeRequest,
-    ) -> ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeResponse:
-        """
-        Description: s
-        Summary: ss
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_demo_demo_check_eee_ex_async(request, headers, runtime)
-
-    def bind_demo_demo_check_eee_ex(
-        self,
-        request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeResponse:
-        """
-        Description: s
-        Summary: ss
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeResponse(),
-            self.do_request('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_demo_demo_check_eee_ex_async(
-        self,
-        request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeResponse:
-        """
-        Description: s
-        Summary: ss
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.BindDemoDemoCheckEeeResponse(),
-            await self.do_request_async('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def init_demo_bbp_insurance_user(
         self,
         request: ak_eed_2ee_0664ac_41b_78f_2c_14f_3ffa_051e_7_models.InitDemoBbpInsuranceUserRequest,
