@@ -38,6 +38,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CustomName { get; set; }
 
+        // 机构编码
+        [NameInMap("platform_no")]
+        [Validation(Required=false)]
+        public string PlatformNo { get; set; }
+
         // 扩展信息JSON
         [NameInMap("ext_info")]
         [Validation(Required=false)]
