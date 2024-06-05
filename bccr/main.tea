@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.18.35',
+    sdk_version = '1.18.37',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -475,6 +475,14 @@ model DayStatisticsInfo {
   dayAverageViewDuration: string(name='day_average_view_duration', example='100'),
   // 日预计收入
   revenue: string(name='revenue', example='100'),
+}
+
+// 作品是否包含图片
+model ContainsImageInfo {
+  // 是否包含图片
+  containsImage?: boolean(name='contains_image', example='true'),
+  // 包含图片，处理后的图片副件
+  resolvedFileUrl?: string(name='resolved_file_url', example='图片链接'),
 }
 
 // 系列图错误原因
@@ -2788,6 +2796,8 @@ model QueryDciPreregistrationResponse = {
   applyType?: string(name='apply_type'),
   // 系列图错误原因集合
   seriesDiagramErrorReasonList?: [ SeriesDiagramErrorReason ](name='series_diagram_error_reason_list'),
+  // 作品是否包含图片信息
+  containsImageInfo?: ContainsImageInfo(name='contains_image_info'),
 }
 
 /**
