@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.51',
+    sdk_version = '1.8.65',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -188,7 +188,7 @@ model CompanyInfo {
   // 公司别名
   companyAliasName: string(name='company_alias_name', example='公司别名'),
   // 公司数科租户id
-  tenantId: string(name='tenant_id', example='ASSDDDAS'),
+  tenantId?: string(name='tenant_id', example='ASSDDDAS'),
   // 统一社会信用代码
   merchantId: string(name='merchant_id', example='9121asd231231231231'),
   // 公司联系电话
@@ -2419,7 +2419,7 @@ model CreateInnerMerchantpayexpandRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 租户8位id
+  // 租户ID
   tenantId: string(name='tenant_id'),
   // 公司信息
   companyInfo?: CompanyInfo(name='company_info'),
@@ -2703,8 +2703,12 @@ model SyncInnerTemplateRequest = {
   tenantId: string(name='tenant_id'),
   // 来源魔法库模板code
   sourceTemplateCode: string(name='source_template_code'),
-  // 目标模板名称
+  // 目标魔法库模板名称
   targetTemplateName?: string(name='target_template_name'),
+  // 模板同步的场景，值参考：CREATE_TEMPLATE、SYNC_PROD
+  scene: string(name='scene'),
+  // 魔法库来源模板版本
+  sourceTemplateVersion: string(name='source_template_version'),
 }
 
 model SyncInnerTemplateResponse = {
@@ -2817,7 +2821,7 @@ async function queryInnerTemplateEx(request: QueryInnerTemplateRequest, headers:
   return doRequest('1.0' ,'antchain.ato.inner.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryTemplateElementlinkRequest = {
+model QueryInnerTemplateelementlinkRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -2829,7 +2833,7 @@ model QueryTemplateElementlinkRequest = {
   templateVersion: string(name='template_version'),
 }
 
-model QueryTemplateElementlinkResponse = {
+model QueryInnerTemplateelementlinkResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -2844,27 +2848,67 @@ model QueryTemplateElementlinkResponse = {
  * Description: 获取模板关联的元素列表信息，包括组件信息
  * Summary: 获取模板关联的元素列表信息
  */
-async function queryTemplateElementlink(request: QueryTemplateElementlinkRequest): QueryTemplateElementlinkResponse {
+async function queryInnerTemplateelementlink(request: QueryInnerTemplateelementlinkRequest): QueryInnerTemplateelementlinkResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryTemplateElementlinkEx(request, headers, runtime);
+  return queryInnerTemplateelementlinkEx(request, headers, runtime);
 }
 
 /**
  * Description: 获取模板关联的元素列表信息，包括组件信息
  * Summary: 获取模板关联的元素列表信息
  */
-async function queryTemplateElementlinkEx(request: QueryTemplateElementlinkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTemplateElementlinkResponse {
+async function queryInnerTemplateelementlinkEx(request: QueryInnerTemplateelementlinkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerTemplateelementlinkResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antchain.ato.template.elementlink.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antchain.ato.inner.templateelementlink.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInnerTemplateversionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 模板编码
+  templateCode: string(name='template_code'),
+  // 模板的版本号，示例：1、2、3等
+  templateVersion: string(name='template_version'),
+}
+
+model QueryInnerTemplateversionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板的版本详情信息
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+ * Summary: 查询模板的版本详情
+ */
+async function queryInnerTemplateversion(request: QueryInnerTemplateversionRequest): QueryInnerTemplateversionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInnerTemplateversionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通过模板code、模板版本号获取模板某个版本的详情信息，包括id、文件地址等
+ * Summary: 查询模板的版本详情
+ */
+async function queryInnerTemplateversionEx(request: QueryInnerTemplateversionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInnerTemplateversionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.templateversion.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model RegisterMerchantexpandMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 租户ID
-  tenantId: string(name='tenant_id'),
   // 公司信息
   companyInfo: CompanyInfo(name='company_info'),
   // 法人信息
@@ -2911,8 +2955,6 @@ model UploadMerchantexpandFileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 租户ID
-  tenantId: string(name='tenant_id'),
   // 文件名称 包含后缀
   fileName: string(name='file_name'),
   // ● BUSINESS_LICENSE 营业执照 ● CARD_FRONT 身份证正面 ● CARD_BACK 身份证反面 ● SPLITTING 分账 
@@ -2955,8 +2997,6 @@ model QueryMerchantexpandMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 租户ID
-  tenantId: string(name='tenant_id'),
   // 商户入驻返回的进件编号 expand_mode=AGENT必填
   payExpandId: string(name='pay_expand_id'),
 }
@@ -3574,12 +3614,14 @@ model UploadSignTemplateRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 订单所属商户的统一社会信用代码
   merchantId: string(name='merchant_id'),
-  // 模板参数
-  templateArgs?: string(name='template_args'),
-  // 签署区坐标配置
-  posConf: string(name='pos_conf'),
+  // 合同类型
+  contractType: string(name='contract_type'),
   // 模板类型
   agreementType: string(name='agreement_type'),
+  // 签署区坐标配置
+  posConf: string(name='pos_conf'),
+  // 模板参数
+  templateArgs?: string(name='template_args'),
   // 上传的pdf文件，需要以.pdf后缀结尾
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
@@ -3612,6 +3654,25 @@ async function uploadSignTemplate(request: UploadSignTemplateRequest): UploadSig
  * Summary: 商户合同模板上传
  */
 async function uploadSignTemplateEx(request: UploadSignTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadSignTemplateResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.ato.sign.template.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadSignTemplateResponse = new UploadSignTemplateResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadSignTemplateResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.sign.template.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
@@ -4008,6 +4069,8 @@ model SyncTradeIndirectorderResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 返回业务参数，json.toString
+  responseData?: string(name='response_data'),
 }
 
 /**
@@ -4045,6 +4108,8 @@ model CreateWithholdSignRequest = {
   alipayMerchantServiceDescription?: string(maxLength=150, name='alipay_merchant_service_description'),
   // 支付宝uid，非必填
   alipayUserId?: string(maxLength=128, name='alipay_user_id'),
+  // 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+  returnUrl?: string(maxLength=256, name='return_url'),
 }
 
 model CreateWithholdSignResponse = {
