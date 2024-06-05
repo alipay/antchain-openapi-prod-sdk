@@ -6849,6 +6849,58 @@ class ProductKeyPageResponse(TeaModel):
         return self
 
 
+class SubMerchantParams(TeaModel):
+    def __init__(
+        self,
+        sub_merchant_id: str = None,
+        sub_merchant_name: str = None,
+        sub_merchant_service_name: str = None,
+        sub_merchant_service_description: str = None,
+    ):
+        # 子商户的商户id
+        self.sub_merchant_id = sub_merchant_id
+        # 子商户的商户名称
+        self.sub_merchant_name = sub_merchant_name
+        # 子商户的服务名称
+        self.sub_merchant_service_name = sub_merchant_service_name
+        # 子商户的服务描述
+        self.sub_merchant_service_description = sub_merchant_service_description
+
+    def validate(self):
+        self.validate_required(self.sub_merchant_id, 'sub_merchant_id')
+        self.validate_required(self.sub_merchant_name, 'sub_merchant_name')
+        self.validate_required(self.sub_merchant_service_name, 'sub_merchant_service_name')
+        self.validate_required(self.sub_merchant_service_description, 'sub_merchant_service_description')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sub_merchant_id is not None:
+            result['sub_merchant_id'] = self.sub_merchant_id
+        if self.sub_merchant_name is not None:
+            result['sub_merchant_name'] = self.sub_merchant_name
+        if self.sub_merchant_service_name is not None:
+            result['sub_merchant_service_name'] = self.sub_merchant_service_name
+        if self.sub_merchant_service_description is not None:
+            result['sub_merchant_service_description'] = self.sub_merchant_service_description
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('sub_merchant_id') is not None:
+            self.sub_merchant_id = m.get('sub_merchant_id')
+        if m.get('sub_merchant_name') is not None:
+            self.sub_merchant_name = m.get('sub_merchant_name')
+        if m.get('sub_merchant_service_name') is not None:
+            self.sub_merchant_service_name = m.get('sub_merchant_service_name')
+        if m.get('sub_merchant_service_description') is not None:
+            self.sub_merchant_service_description = m.get('sub_merchant_service_description')
+        return self
+
+
 class ChainModelResult(TeaModel):
     def __init__(
         self,
@@ -21917,6 +21969,7 @@ class SignDigitalkeyWithholdRequest(TeaModel):
         alipay_user_id: str = None,
         sign_scene: str = None,
         external_agreement_no: str = None,
+        sub_merchant: str = None,
         sign_validity_period: str = None,
         effect_time: int = None,
     ):
@@ -21939,6 +21992,8 @@ class SignDigitalkeyWithholdRequest(TeaModel):
         self.sign_scene = sign_scene
         # 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）。 格式规则：支持大写小写字母和数字，最长32位。 商户系统按需自定义传入，如果同一用户在同一产品码、同一签约场景下，签订了多份代扣协议，那么需要指定并传入该值
         self.external_agreement_no = external_agreement_no
+        # 子商户信息
+        self.sub_merchant = sub_merchant
         # 当前用户签约请求的协议有效周期。 整形数字加上时间单位的协议有效期，从发起签约请求的时间开始算起。 目前支持的时间单位： 1. d：天 2. m：月 如果未传入，默认为长期有效。
         self.sign_validity_period = sign_validity_period
         # 签约有效时间限制，单位是秒，有效范围是0-86400，商户传入此字段会用商户传入的值否则使用支付宝侧默认值，在有效时间外进行签约，会进行安全拦截；（备注：此字段适用于需要开通安全防控的商户，且依赖商户传入生成签约时的时间戳字段timestamp）
@@ -21979,6 +22034,8 @@ class SignDigitalkeyWithholdRequest(TeaModel):
             result['sign_scene'] = self.sign_scene
         if self.external_agreement_no is not None:
             result['external_agreement_no'] = self.external_agreement_no
+        if self.sub_merchant is not None:
+            result['sub_merchant'] = self.sub_merchant
         if self.sign_validity_period is not None:
             result['sign_validity_period'] = self.sign_validity_period
         if self.effect_time is not None:
@@ -22007,6 +22064,8 @@ class SignDigitalkeyWithholdRequest(TeaModel):
             self.sign_scene = m.get('sign_scene')
         if m.get('external_agreement_no') is not None:
             self.external_agreement_no = m.get('external_agreement_no')
+        if m.get('sub_merchant') is not None:
+            self.sub_merchant = m.get('sub_merchant')
         if m.get('sign_validity_period') is not None:
             self.sign_validity_period = m.get('sign_validity_period')
         if m.get('effect_time') is not None:
