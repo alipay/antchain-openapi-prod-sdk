@@ -13364,7 +13364,7 @@ export class SignDigitalkeyWithholdRequest extends $tea.Model {
   // 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）。 格式规则：支持大写小写字母和数字，最长32位。 商户系统按需自定义传入，如果同一用户在同一产品码、同一签约场景下，签订了多份代扣协议，那么需要指定并传入该值
   externalAgreementNo: string;
   // 子商户信息
-  subMerchant?: string;
+  subMerchant?: SubMerchantParams;
   // 当前用户签约请求的协议有效周期。 整形数字加上时间单位的协议有效期，从发起签约请求的时间开始算起。 目前支持的时间单位： 1. d：天 2. m：月 如果未传入，默认为长期有效。
   signValidityPeriod?: string;
   // 签约有效时间限制，单位是秒，有效范围是0-86400，商户传入此字段会用商户传入的值否则使用支付宝侧默认值，在有效时间外进行签约，会进行安全拦截；（备注：此字段适用于需要开通安全防控的商户，且依赖商户传入生成签约时的时间戳字段timestamp）
@@ -13399,7 +13399,7 @@ export class SignDigitalkeyWithholdRequest extends $tea.Model {
       alipayUserId: 'string',
       signScene: 'string',
       externalAgreementNo: 'string',
-      subMerchant: 'string',
+      subMerchant: SubMerchantParams,
       signValidityPeriod: 'string',
       effectTime: 'number',
     };
@@ -23851,7 +23851,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.2",
+          sdk_version: "1.11.3",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
