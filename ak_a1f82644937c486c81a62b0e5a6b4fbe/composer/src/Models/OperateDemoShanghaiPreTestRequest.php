@@ -6,7 +6,7 @@ namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainSaasAbilityWithapinameRequest extends Model
+class OperateDemoShanghaiPreTestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class QueryAntchainSaasAbilityWithapinameRequest extends Model
      */
     public $productInstanceId;
 
-    // api名称列表
+    // 参数1
     /**
-     * @var string[]
+     * @var string
      */
-    public $apiNameList;
+    public $param1;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'apiNameList'       => 'api_name_list',
+        'param1'            => 'param1',
     ];
 
     public function validate()
     {
-        Model::validateRequired('apiNameList', $this->apiNameList, true);
+        Model::validateRequired('param1', $this->param1, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class QueryAntchainSaasAbilityWithapinameRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->apiNameList) {
-            $res['api_name_list'] = $this->apiNameList;
+        if (null !== $this->param1) {
+            $res['param1'] = $this->param1;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class QueryAntchainSaasAbilityWithapinameRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainSaasAbilityWithapinameRequest
+     * @return OperateDemoShanghaiPreTestRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,10 +65,8 @@ class QueryAntchainSaasAbilityWithapinameRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['api_name_list'])) {
-            if (!empty($map['api_name_list'])) {
-                $model->apiNameList = $map['api_name_list'];
-            }
+        if (isset($map['param1'])) {
+            $model->param1 = $map['param1'];
         }
 
         return $model;

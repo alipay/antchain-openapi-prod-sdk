@@ -6,7 +6,7 @@ namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainSaasAbilityWithproductRequest extends Model
+class QueryAntchainSaasAbilityBusinesscodeRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class QueryAntchainSaasAbilityWithproductRequest extends Model
      */
     public $productInstanceId;
 
-    // 产品编码，源自于开放平台OPM定义的技术产品编码
+    // 能力id
     /**
      * @var string
      */
-    public $productCode;
+    public $abilityId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'productCode'       => 'product_code',
+        'abilityId'         => 'ability_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('abilityId', $this->abilityId, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class QueryAntchainSaasAbilityWithproductRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
+        if (null !== $this->abilityId) {
+            $res['ability_id'] = $this->abilityId;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class QueryAntchainSaasAbilityWithproductRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainSaasAbilityWithproductRequest
+     * @return QueryAntchainSaasAbilityBusinesscodeRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +65,8 @@ class QueryAntchainSaasAbilityWithproductRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
+        if (isset($map['ability_id'])) {
+            $model->abilityId = $map['ability_id'];
         }
 
         return $model;

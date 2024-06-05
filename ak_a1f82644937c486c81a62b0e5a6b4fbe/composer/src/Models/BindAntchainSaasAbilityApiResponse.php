@@ -6,7 +6,7 @@ namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainSaasAbilityWithproductResponse extends Model
+class BindAntchainSaasAbilityApiResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class QueryAntchainSaasAbilityWithproductResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 能力列表
-    /**
-     * @var AbilityInfo[]
-     */
-    public $abilityInfoList;
     protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'abilityInfoList' => 'ability_info_list',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -54,15 +47,6 @@ class QueryAntchainSaasAbilityWithproductResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->abilityInfoList) {
-            $res['ability_info_list'] = [];
-            if (null !== $this->abilityInfoList && \is_array($this->abilityInfoList)) {
-                $n = 0;
-                foreach ($this->abilityInfoList as $item) {
-                    $res['ability_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -70,7 +54,7 @@ class QueryAntchainSaasAbilityWithproductResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainSaasAbilityWithproductResponse
+     * @return BindAntchainSaasAbilityApiResponse
      */
     public static function fromMap($map = [])
     {
@@ -83,15 +67,6 @@ class QueryAntchainSaasAbilityWithproductResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['ability_info_list'])) {
-            if (!empty($map['ability_info_list'])) {
-                $model->abilityInfoList = [];
-                $n                      = 0;
-                foreach ($map['ability_info_list'] as $item) {
-                    $model->abilityInfoList[$n++] = null !== $item ? AbilityInfo::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

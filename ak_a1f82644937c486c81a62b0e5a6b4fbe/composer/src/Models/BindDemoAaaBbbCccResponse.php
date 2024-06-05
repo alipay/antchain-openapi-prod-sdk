@@ -6,7 +6,7 @@ namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainSaasFoundationProtobufResponse extends Model
+class BindDemoAaaBbbCccResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class QueryAntchainSaasFoundationProtobufResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // api probuf信息
-    /**
-     * @var ApiInfo[]
-     */
-    public $apiInfoList;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'apiInfoList' => 'api_info_list',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -54,15 +47,6 @@ class QueryAntchainSaasFoundationProtobufResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->apiInfoList) {
-            $res['api_info_list'] = [];
-            if (null !== $this->apiInfoList && \is_array($this->apiInfoList)) {
-                $n = 0;
-                foreach ($this->apiInfoList as $item) {
-                    $res['api_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
 
         return $res;
     }
@@ -70,7 +54,7 @@ class QueryAntchainSaasFoundationProtobufResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainSaasFoundationProtobufResponse
+     * @return BindDemoAaaBbbCccResponse
      */
     public static function fromMap($map = [])
     {
@@ -83,15 +67,6 @@ class QueryAntchainSaasFoundationProtobufResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['api_info_list'])) {
-            if (!empty($map['api_info_list'])) {
-                $model->apiInfoList = [];
-                $n                  = 0;
-                foreach ($map['api_info_list'] as $item) {
-                    $model->apiInfoList[$n++] = null !== $item ? ApiInfo::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

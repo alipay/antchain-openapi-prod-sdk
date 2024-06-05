@@ -6,7 +6,7 @@ namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainSaasFoundationProtobufRequest extends Model
+class BindDemoAaaBbbCccRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,28 +19,29 @@ class QueryAntchainSaasFoundationProtobufRequest extends Model
      */
     public $productInstanceId;
 
-    // 产品码
+    // 123
     /**
      * @var string
      */
-    public $productCode;
+    public $date;
 
-    // api code列表信息
+    // 123
     /**
-     * @var string[]
+     * @var string
      */
-    public $apiCodeList;
+    public $data;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'productCode'       => 'product_code',
-        'apiCodeList'       => 'api_code_list',
+        'date'              => 'date',
+        'data'              => 'data',
     ];
 
     public function validate()
     {
-        Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('apiCodeList', $this->apiCodeList, true);
+        Model::validateRequired('date', $this->date, true);
+        Model::validateRequired('data', $this->data, true);
+        Model::validatePattern('date', $this->date, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -52,11 +53,11 @@ class QueryAntchainSaasFoundationProtobufRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
+        if (null !== $this->date) {
+            $res['date'] = $this->date;
         }
-        if (null !== $this->apiCodeList) {
-            $res['api_code_list'] = $this->apiCodeList;
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
         }
 
         return $res;
@@ -65,7 +66,7 @@ class QueryAntchainSaasFoundationProtobufRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainSaasFoundationProtobufRequest
+     * @return BindDemoAaaBbbCccRequest
      */
     public static function fromMap($map = [])
     {
@@ -76,13 +77,11 @@ class QueryAntchainSaasFoundationProtobufRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
+        if (isset($map['date'])) {
+            $model->date = $map['date'];
         }
-        if (isset($map['api_code_list'])) {
-            if (!empty($map['api_code_list'])) {
-                $model->apiCodeList = $map['api_code_list'];
-            }
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
 
         return $model;

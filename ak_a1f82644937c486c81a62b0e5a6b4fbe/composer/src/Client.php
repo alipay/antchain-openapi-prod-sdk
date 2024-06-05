@@ -11,22 +11,22 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindAntchainSaasAbilityApiRequest;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindAntchainSaasAbilityApiResponse;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindAntchainSaasAbilityRequest;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindAntchainSaasAbilityResponse;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindDemoAaaBbbCccRequest;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\BindDemoAaaBbbCccResponse;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\CallbackAntchainSaasAbilityRequest;
 use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\CallbackAntchainSaasAbilityResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\PagequeryAntchainSaasAbilityRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\PagequeryAntchainSaasAbilityResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbilityWithapinameRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbilityWithapinameResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbilityWithproductRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbilityWithproductResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasFoundationProtobufRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasFoundationProtobufResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkcccRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkcccResponse;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkfffRequest;
-use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoDemoDefaultSdkfffResponse;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\OperateDemoShanghaiPreTestRequest;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\OperateDemoShanghaiPreTestResponse;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainAbcAbcdaAbcddaaRequest;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainAbcAbcdaAbcddaaResponse;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbilityBusinesscodeRequest;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryAntchainSaasAbilityBusinesscodeResponse;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoAbcAbcAbcRequest;
+use AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models\QueryDemoAbcAbcAbcResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -174,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.7',
+                    'sdk_version'      => '1.0.8',
                     '_prod_code'       => 'ak_a1f82644937c486c81a62b0e5a6b4fbe',
                     '_prod_channel'    => 'saas',
                 ];
@@ -223,69 +223,69 @@ class Client
     }
 
     /**
-     * Description: 查询本产品下所有的能力标签
-     * Summary: 查询本产品下所有的能力标签.
+     * Description: 调试a s dddd
+     * Summary: 调试1.
      *
-     * @param QueryAntchainSaasAbilityWithproductRequest $request
+     * @param QueryAntchainAbcAbcdaAbcddaaRequest $request
      *
-     * @return QueryAntchainSaasAbilityWithproductResponse
+     * @return QueryAntchainAbcAbcdaAbcddaaResponse
      */
-    public function queryAntchainSaasAbilityWithproduct($request)
+    public function queryAntchainAbcAbcdaAbcddaa($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryAntchainSaasAbilityWithproductEx($request, $headers, $runtime);
+        return $this->queryAntchainAbcAbcdaAbcddaaEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 查询本产品下所有的能力标签
-     * Summary: 查询本产品下所有的能力标签.
+     * Description: 调试a s dddd
+     * Summary: 调试1.
      *
-     * @param QueryAntchainSaasAbilityWithproductRequest $request
-     * @param string[]                                   $headers
-     * @param RuntimeOptions                             $runtime
-     *
-     * @return QueryAntchainSaasAbilityWithproductResponse
-     */
-    public function queryAntchainSaasAbilityWithproductEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryAntchainSaasAbilityWithproductResponse::fromMap($this->doRequest('1.0', 'antchain.saas.ability.withproduct.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 分页查询能力数据
-     * Summary: 分页查询能力数据.
-     *
-     * @param PagequeryAntchainSaasAbilityRequest $request
-     *
-     * @return PagequeryAntchainSaasAbilityResponse
-     */
-    public function pagequeryAntchainSaasAbility($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->pagequeryAntchainSaasAbilityEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 分页查询能力数据
-     * Summary: 分页查询能力数据.
-     *
-     * @param PagequeryAntchainSaasAbilityRequest $request
+     * @param QueryAntchainAbcAbcdaAbcddaaRequest $request
      * @param string[]                            $headers
      * @param RuntimeOptions                      $runtime
      *
-     * @return PagequeryAntchainSaasAbilityResponse
+     * @return QueryAntchainAbcAbcdaAbcddaaResponse
      */
-    public function pagequeryAntchainSaasAbilityEx($request, $headers, $runtime)
+    public function queryAntchainAbcAbcdaAbcddaaEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return PagequeryAntchainSaasAbilityResponse::fromMap($this->doRequest('1.0', 'antchain.saas.ability.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryAntchainAbcAbcdaAbcddaaResponse::fromMap($this->doRequest('1.0', 'antchain.abc.abcda.abcddaa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param BindDemoAaaBbbCccRequest $request
+     *
+     * @return BindDemoAaaBbbCccResponse
+     */
+    public function bindDemoAaaBbbCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->bindDemoAaaBbbCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 自动化测试创建test，请勿修改、删除
+     * Summary: 自动化测试创建test1.
+     *
+     * @param BindDemoAaaBbbCccRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return BindDemoAaaBbbCccResponse
+     */
+    public function bindDemoAaaBbbCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BindDemoAaaBbbCccResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccc.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -322,36 +322,36 @@ class Client
     }
 
     /**
-     * Description: 根据api名称列表查询能力标签列表
-     * Summary: 根据api名称列表查询能力标签列表.
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
      *
-     * @param QueryAntchainSaasAbilityWithapinameRequest $request
+     * @param QueryDemoAbcAbcAbcRequest $request
      *
-     * @return QueryAntchainSaasAbilityWithapinameResponse
+     * @return QueryDemoAbcAbcAbcResponse
      */
-    public function queryAntchainSaasAbilityWithapiname($request)
+    public function queryDemoAbcAbcAbc($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryAntchainSaasAbilityWithapinameEx($request, $headers, $runtime);
+        return $this->queryDemoAbcAbcAbcEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 根据api名称列表查询能力标签列表
-     * Summary: 根据api名称列表查询能力标签列表.
+     * Description: 自动化测试创建,用于测试API的修改
+     * Summary: 自动化测试创建,用于测试API的修改勿动.
      *
-     * @param QueryAntchainSaasAbilityWithapinameRequest $request
-     * @param string[]                                   $headers
-     * @param RuntimeOptions                             $runtime
+     * @param QueryDemoAbcAbcAbcRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
      *
-     * @return QueryAntchainSaasAbilityWithapinameResponse
+     * @return QueryDemoAbcAbcAbcResponse
      */
-    public function queryAntchainSaasAbilityWithapinameEx($request, $headers, $runtime)
+    public function queryDemoAbcAbcAbcEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryAntchainSaasAbilityWithapinameResponse::fromMap($this->doRequest('1.0', 'antchain.saas.ability.withapiname.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryDemoAbcAbcAbcResponse::fromMap($this->doRequest('1.0', 'demo.abc.abc.abc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -388,101 +388,101 @@ class Client
     }
 
     /**
-     * Description: 根据产品码+api code查询api protobuf信息
-     * Summary: 查询api protobuf信息（勿删）.
+     * Description: 绑定能力的api信息
+     * Summary: 绑定能力的api信息.
      *
-     * @param QueryAntchainSaasFoundationProtobufRequest $request
+     * @param BindAntchainSaasAbilityApiRequest $request
      *
-     * @return QueryAntchainSaasFoundationProtobufResponse
+     * @return BindAntchainSaasAbilityApiResponse
      */
-    public function queryAntchainSaasFoundationProtobuf($request)
+    public function bindAntchainSaasAbilityApi($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryAntchainSaasFoundationProtobufEx($request, $headers, $runtime);
+        return $this->bindAntchainSaasAbilityApiEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 根据产品码+api code查询api protobuf信息
-     * Summary: 查询api protobuf信息（勿删）.
+     * Description: 绑定能力的api信息
+     * Summary: 绑定能力的api信息.
      *
-     * @param QueryAntchainSaasFoundationProtobufRequest $request
-     * @param string[]                                   $headers
-     * @param RuntimeOptions                             $runtime
-     *
-     * @return QueryAntchainSaasFoundationProtobufResponse
-     */
-    public function queryAntchainSaasFoundationProtobufEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryAntchainSaasFoundationProtobufResponse::fromMap($this->doRequest('1.0', 'antchain.saas.foundation.protobuf.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 111
-     * Summary: 测试接口.
-     *
-     * @param QueryDemoDemoDefaultSdkcccRequest $request
-     *
-     * @return QueryDemoDemoDefaultSdkcccResponse
-     */
-    public function queryDemoDemoDefaultSdkccc($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoDemoDefaultSdkcccEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 111
-     * Summary: 测试接口.
-     *
-     * @param QueryDemoDemoDefaultSdkcccRequest $request
+     * @param BindAntchainSaasAbilityApiRequest $request
      * @param string[]                          $headers
      * @param RuntimeOptions                    $runtime
      *
-     * @return QueryDemoDemoDefaultSdkcccResponse
+     * @return BindAntchainSaasAbilityApiResponse
      */
-    public function queryDemoDemoDefaultSdkcccEx($request, $headers, $runtime)
+    public function bindAntchainSaasAbilityApiEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryDemoDemoDefaultSdkcccResponse::fromMap($this->doRequest('1.0', 'demo.demo.default.sdkccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return BindAntchainSaasAbilityApiResponse::fromMap($this->doRequest('1.0', 'antchain.saas.ability.api.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: 描述
-     * Summary: 测试接口.
+     * Description: 根据能力id查询能力信息
+     * Summary: 根据能力id查询能力信息.
      *
-     * @param QueryDemoDemoDefaultSdkfffRequest $request
+     * @param QueryAntchainSaasAbilityBusinesscodeRequest $request
      *
-     * @return QueryDemoDemoDefaultSdkfffResponse
+     * @return QueryAntchainSaasAbilityBusinesscodeResponse
      */
-    public function queryDemoDemoDefaultSdkfff($request)
+    public function queryAntchainSaasAbilityBusinesscode($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryDemoDemoDefaultSdkfffEx($request, $headers, $runtime);
+        return $this->queryAntchainSaasAbilityBusinesscodeEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 描述
-     * Summary: 测试接口.
+     * Description: 根据能力id查询能力信息
+     * Summary: 根据能力id查询能力信息.
      *
-     * @param QueryDemoDemoDefaultSdkfffRequest $request
-     * @param string[]                          $headers
-     * @param RuntimeOptions                    $runtime
+     * @param QueryAntchainSaasAbilityBusinesscodeRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
      *
-     * @return QueryDemoDemoDefaultSdkfffResponse
+     * @return QueryAntchainSaasAbilityBusinesscodeResponse
      */
-    public function queryDemoDemoDefaultSdkfffEx($request, $headers, $runtime)
+    public function queryAntchainSaasAbilityBusinesscodeEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryDemoDemoDefaultSdkfffResponse::fromMap($this->doRequest('1.0', 'demo.demo.default.sdkfff.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryAntchainSaasAbilityBusinesscodeResponse::fromMap($this->doRequest('1.0', 'antchain.saas.ability.businesscode.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于上海非金生产环境的同步测试
+     * Summary: 上海非金生产环境测试.
+     *
+     * @param OperateDemoShanghaiPreTestRequest $request
+     *
+     * @return OperateDemoShanghaiPreTestResponse
+     */
+    public function operateDemoShanghaiPreTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateDemoShanghaiPreTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于上海非金生产环境的同步测试
+     * Summary: 上海非金生产环境测试.
+     *
+     * @param OperateDemoShanghaiPreTestRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return OperateDemoShanghaiPreTestResponse
+     */
+    public function operateDemoShanghaiPreTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateDemoShanghaiPreTestResponse::fromMap($this->doRequest('1.0', 'demo.shanghai.pre.test.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

@@ -6,7 +6,7 @@ namespace AntChain\Ak_a1f82644937c486c81a62b0e5a6b4fbe\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainSaasAbilityWithapinameResponse extends Model
+class QueryAntchainSaasAbilityBusinesscodeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryAntchainSaasAbilityWithapinameResponse extends Model
      */
     public $resultMsg;
 
-    // api与能力信息关联列表
+    // 能力信息
     /**
-     * @var AbilityApiRelation[]
+     * @var AbilityInfo
      */
-    public $abilityApiRelationList;
+    public $abilityInfo;
     protected $_name = [
-        'reqMsgId'               => 'req_msg_id',
-        'resultCode'             => 'result_code',
-        'resultMsg'              => 'result_msg',
-        'abilityApiRelationList' => 'ability_api_relation_list',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'abilityInfo' => 'ability_info',
     ];
 
     public function validate()
@@ -54,14 +54,8 @@ class QueryAntchainSaasAbilityWithapinameResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->abilityApiRelationList) {
-            $res['ability_api_relation_list'] = [];
-            if (null !== $this->abilityApiRelationList && \is_array($this->abilityApiRelationList)) {
-                $n = 0;
-                foreach ($this->abilityApiRelationList as $item) {
-                    $res['ability_api_relation_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->abilityInfo) {
+            $res['ability_info'] = null !== $this->abilityInfo ? $this->abilityInfo->toMap() : null;
         }
 
         return $res;
@@ -70,7 +64,7 @@ class QueryAntchainSaasAbilityWithapinameResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainSaasAbilityWithapinameResponse
+     * @return QueryAntchainSaasAbilityBusinesscodeResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +78,8 @@ class QueryAntchainSaasAbilityWithapinameResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['ability_api_relation_list'])) {
-            if (!empty($map['ability_api_relation_list'])) {
-                $model->abilityApiRelationList = [];
-                $n                             = 0;
-                foreach ($map['ability_api_relation_list'] as $item) {
-                    $model->abilityApiRelationList[$n++] = null !== $item ? AbilityApiRelation::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['ability_info'])) {
+            $model->abilityInfo = AbilityInfo::fromMap($map['ability_info']);
         }
 
         return $model;
