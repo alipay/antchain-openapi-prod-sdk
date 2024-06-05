@@ -161,30 +161,10 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-// eKYT风险标签
-model RiskModel {
-  // 标签名称
-  modelName: string(name='model_name', example='ekyt_risk_tag_100'),
-  // 风险值
-  modelValue: string(name='model_value', example='1'),
-  // 风险标签描述
-  modelComment: string(name='model_comment', example='中风险'),
-}
-
 // ekyt响应头
 model ResponseHead {
   // 请求唯一标识
   requestId: string(name='request_id', example='91440300892305861T'),
-}
-
-// 风险评估结果
-model RiskAssessResult {
-  // 风险评估结果
-  riskValue: string(name='risk_value', example='中风险'),
-  // 风险评估分数
-  riskScore: string(name='risk_score', example='90'),
-  // 风险评估标签
-  modelInfos: RiskModel(name='model_infos', example=''),
 }
 
 // eKYT请求头
@@ -195,14 +175,226 @@ model RequestHead {
   secretId: string(name='secret_id', example='91440300892305861T'),
   // 客户签约产品code
   productCode: string(name='product_code', example='RDDB04201PR'),
+  // response输出类型，默认json
+  formatType?: string(name='format_type', example='"tlv"'),
+  // false
+  onlineFlag?: boolean(name='online_flag', example='true, false'),
 }
 
-// 风险评估响应结果
-model RiskAssessData {
+// 数据上链成功结果数据
+model DeviceCollectResult {
+  // 上链数据采集ID
+  collectId: string(name='collect_id', example='j8o12u38'),
+  // 上链id
+  antchainId?: string(name='antchain_id', example='auit98'),
+}
+
+// eKYT业务响应结果
+model IifaaEkytResponse {
   // 响应头
   head: ResponseHead(name='head', example=''),
-  // 风险评估结果
-  riskResult: RiskAssessResult(name='risk_result', example=''),
+  // 业务响应结果
+  bizRes: string(name='biz_res', example='126dncnceicncwuiooo'),
+}
+
+// 上链数据结果集
+model ChainModelResult {
+  // 所属业务
+  bizScene: string(name='biz_scene', example='XR_LEASE'),
+  // 资产类型
+  dataScene: string(name='data_scene', example='LOCK_RECORD'),
+  // 资产id
+  assetId: string(name='asset_id', example='资产id'),
+  // 资产数据内容json
+  assetData: string(name='asset_data', example='{}'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='SDFJAG'),
+  // 上链时间
+  txTime: string(name='tx_time', example='2022-10-02 09:10:09'),
+  // 业务ID
+  businessId: string(name='business_id', example='业务ID'),
+  // 上链id
+  antchainId: string(name='antchain_id', example='123'),
+}
+
+// 数据上链失败结果
+model DeviceCollectFail {
+  // 上链数据采集ID
+  collectId: string(name='collect_id', example='81htq898'),
+  // 错误码
+  code: string(name='code', example='bad_param'),
+  // 错误信息
+  message: string(name='message', example='参数错误'),
+}
+
+// 上链数据
+model CollectInfo {
+  // 资产ID
+  assetId: string(name='asset_id', example='56165431'),
+  // 数据资产类型
+  dataScene: string(name='data_scene', example='LOCK'),
+  // 资产数据内容，业务要上链的数据JSON格式
+  assetData: string(name='asset_data', example='{"a":xx,"b":xx}'),
+  // 上链数据采集id
+  collectId: string(name='collect_id', example='289hj98u'),
+}
+
+model OperateBlockchainBotIotbasicDevicecollectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 资产ID
+  assetId?: string(name='asset_id'),
+  // 数据资产类型
+  dataScene: string(name='data_scene'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 资产数据内容，业务要上链的数据JSON格式
+  assetData: string(name='asset_data'),
+}
+
+model OperateBlockchainBotIotbasicDevicecollectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 上链id
+  antchainId?: string(name='antchain_id'),
+}
+
+/**
+ * Description: IoT设备平台-设备上链
+ * Summary: IoT设备平台-设备上链
+ */
+async function operateBlockchainBotIotbasicDevicecollect(request: OperateBlockchainBotIotbasicDevicecollectRequest): OperateBlockchainBotIotbasicDevicecollectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateBlockchainBotIotbasicDevicecollectEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-设备上链
+ * Summary: IoT设备平台-设备上链
+ */
+async function operateBlockchainBotIotbasicDevicecollectEx(request: OperateBlockchainBotIotbasicDevicecollectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateBlockchainBotIotbasicDevicecollectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.devicecollect.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model OperateBlockchainBotIotbasicBatchcollectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 上链数据列表
+  collectInfoList: [ CollectInfo ](name='collect_info_list'),
+}
+
+model OperateBlockchainBotIotbasicBatchcollectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 上链成功列表
+  successList?: [ DeviceCollectResult ](name='success_list'),
+  // 上链失败列表
+  failList?: [ DeviceCollectFail ](name='fail_list'),
+}
+
+/**
+ * Description: IoT设备平台-批量数据上链
+ * Summary: IoT设备平台-批量数据上链
+ */
+async function operateBlockchainBotIotbasicBatchcollect(request: OperateBlockchainBotIotbasicBatchcollectRequest): OperateBlockchainBotIotbasicBatchcollectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return operateBlockchainBotIotbasicBatchcollectEx(request, headers, runtime);
+}
+
+/**
+ * Description: IoT设备平台-批量数据上链
+ * Summary: IoT设备平台-批量数据上链
+ */
+async function operateBlockchainBotIotbasicBatchcollectEx(request: OperateBlockchainBotIotbasicBatchcollectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): OperateBlockchainBotIotbasicBatchcollectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.batchcollect.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlockchainBotIotbasicDevicecollectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询结束时间
+  endTime?: string(name='end_time'),
+  // 资产类型
+  dataScene: string(name='data_scene'),
+  // 所属业务
+  bizScene: string(name='biz_scene'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 上链hash
+  antchainId?: string(name='antchain_id'),
+  // 上链数据内容 json
+  assetData?: string(name='asset_data'),
+  // 每页数量
+  pageSize: long(maximum=100, minimum=1, name='page_size'),
+  // 当前页码
+  currentPage: long(name='current_page'),
+  // 业务id
+  businessId?: string(name='business_id'),
+  // 查询开始时间
+  startTime?: string(name='start_time'),
+}
+
+model QueryBlockchainBotIotbasicDevicecollectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页码
+  current?: long(name='current'),
+  // 每页数据大小
+  pageSize?: long(name='page_size'),
+  // 数据总条数
+  total?: long(name='total'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 查询结果
+  data?: [ ChainModelResult ](name='data'),
+}
+
+/**
+ * Description: 上链数据分页查询
+ * Summary: 上链数据分页查询
+ */
+async function queryBlockchainBotIotbasicDevicecollect(request: QueryBlockchainBotIotbasicDevicecollectRequest): QueryBlockchainBotIotbasicDevicecollectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlockchainBotIotbasicDevicecollectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上链数据分页查询
+ * Summary: 上链数据分页查询
+ */
+async function queryBlockchainBotIotbasicDevicecollectEx(request: QueryBlockchainBotIotbasicDevicecollectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlockchainBotIotbasicDevicecollectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.devicecollect.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryAntsecuritytechGatewayEkytDriverRequest = {
@@ -229,7 +421,7 @@ model QueryAntsecuritytechGatewayEkytDriverResponse = {
   // 接口响应描述
   message?: string(name='message'),
   // 接口响应数据
-  data?: RiskAssessData(name='data'),
+  data?: IifaaEkytResponse(name='data'),
 }
 
 /**
@@ -249,5 +441,517 @@ async function queryAntsecuritytechGatewayEkytDriver(request: QueryAntsecurityte
 async function queryAntsecuritytechGatewayEkytDriverEx(request: QueryAntsecuritytechGatewayEkytDriverRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntsecuritytechGatewayEkytDriverResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.driver.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyAntsecuritytechGatewayIifaaDevicekeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求头
+  head: RequestHead(name='head'),
+  // 业务参数
+  request: string(name='request'),
+  // 签名
+  signature: string(name='signature'),
+}
+
+model ApplyAntsecuritytechGatewayIifaaDevicekeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 响应结果
+  success?: boolean(name='success'),
+  // 结果描述
+  message?: string(name='message'),
+  // 业务响应结果
+  data?: IifaaEkytResponse(name='data'),
+}
+
+/**
+ * Description: 申请设备设备密钥
+ * Summary: 申请设备设备密钥
+ */
+async function applyAntsecuritytechGatewayIifaaDevicekey(request: ApplyAntsecuritytechGatewayIifaaDevicekeyRequest): ApplyAntsecuritytechGatewayIifaaDevicekeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyAntsecuritytechGatewayIifaaDevicekeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 申请设备设备密钥
+ * Summary: 申请设备设备密钥
+ */
+async function applyAntsecuritytechGatewayIifaaDevicekeyEx(request: ApplyAntsecuritytechGatewayIifaaDevicekeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyAntsecuritytechGatewayIifaaDevicekeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.devicekey.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBlockchainBotDevicecorpThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 新增的功能定义详情
+  thingModelJson: string(name='thing_model_json'),
+  // 品类code
+  categoryCode: string(name='category_code'),
+}
+
+model CreateBlockchainBotDevicecorpThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-设备厂商创建物模型
+ * Summary: iotbasic-设备厂商创建物模型
+ */
+async function createBlockchainBotDevicecorpThingmodel(request: CreateBlockchainBotDevicecorpThingmodelRequest): CreateBlockchainBotDevicecorpThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBlockchainBotDevicecorpThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备厂商创建物模型
+ * Summary: iotbasic-设备厂商创建物模型
+ */
+async function createBlockchainBotDevicecorpThingmodelEx(request: CreateBlockchainBotDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBlockchainBotDevicecorpThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteBlockchainBotDevicecorpThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 需要删除的属性标识符列表
+  propertyIdentifier?: [ string ](name='property_identifier'),
+  // 需要删除的服务标识符列表
+  serviceIdentifier?: [ string ](name='service_identifier'),
+  // 需要删除的事件标识符列表
+  eventIdentifier?: [ string ](name='event_identifier'),
+  // 品类code
+  categoryCode: string(name='category_code'),
+}
+
+model DeleteBlockchainBotDevicecorpThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-设备厂商删除物模型
+ * Summary: iotbasic-设备厂商删除物模型
+ */
+async function deleteBlockchainBotDevicecorpThingmodel(request: DeleteBlockchainBotDevicecorpThingmodelRequest): DeleteBlockchainBotDevicecorpThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteBlockchainBotDevicecorpThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备厂商删除物模型
+ * Summary: iotbasic-设备厂商删除物模型
+ */
+async function deleteBlockchainBotDevicecorpThingmodelEx(request: DeleteBlockchainBotDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteBlockchainBotDevicecorpThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishBlockchainBotDevicecorpThingmodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品类code
+  categoryCode: string(name='category_code'),
+}
+
+model PublishBlockchainBotDevicecorpThingmodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-设备厂商发布物模型
+ * Summary: iotbasic-设备厂商发布物模型
+ */
+async function publishBlockchainBotDevicecorpThingmodel(request: PublishBlockchainBotDevicecorpThingmodelRequest): PublishBlockchainBotDevicecorpThingmodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishBlockchainBotDevicecorpThingmodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备厂商发布物模型
+ * Summary: iotbasic-设备厂商发布物模型
+ */
+async function publishBlockchainBotDevicecorpThingmodelEx(request: PublishBlockchainBotDevicecorpThingmodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishBlockchainBotDevicecorpThingmodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SignBlockchainBotDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 个人签约产品码
+  personalProductCode: string(name='personal_product_code'),
+  // 销售产品码
+  productCode: string(name='product_code'),
+  // 请按当前接入的方式进行填充，且输入值必须为文档中的参数取值范围。 扫码或者短信页面签约需要拼装http的请求地址访问中间页面，钱包h5页面签约可直接拼接scheme的请求地址
+  channel: string(name='channel'),
+  // 支付宝App主动回跳商户App里指定的页面 http/https 路径。建议商户使用 https。
+  returnUrl: string(name='return_url'),
+  // 用户在商户网站的登录账号，用于在签约页面展示
+  externalLogonId: string(name='external_logon_id'),
+  // 支付宝用户ID
+  alipayUserId?: string(name='alipay_user_id'),
+  // 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）。 格式规则：支持大写小写字母和数字，最长32位。 商户系统按需自定义传入，如果同一用户在同一产品码、同一签约场景下，签订了多份代扣协议，那么需要指定并传入该值
+  signScene: string(name='sign_scene'),
+  // 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）。 格式规则：支持大写小写字母和数字，最长32位。 商户系统按需自定义传入，如果同一用户在同一产品码、同一签约场景下，签订了多份代扣协议，那么需要指定并传入该值
+  externalAgreementNo: string(name='external_agreement_no'),
+  // 当前用户签约请求的协议有效周期。 整形数字加上时间单位的协议有效期，从发起签约请求的时间开始算起。 目前支持的时间单位： 1. d：天 2. m：月 如果未传入，默认为长期有效。
+  signValidityPeriod?: string(name='sign_validity_period'),
+  // 签约有效时间限制，单位是秒，有效范围是0-86400，商户传入此字段会用商户传入的值否则使用支付宝侧默认值，在有效时间外进行签约，会进行安全拦截；（备注：此字段适用于需要开通安全防控的商户，且依赖商户传入生成签约时的时间戳字段timestamp）
+  effectTime?: long(name='effect_time'),
+}
+
+model SignBlockchainBotDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 生成的签约链接地址
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣签约链接获取
+ * Summary: 代扣签约链接获取
+ */
+async function signBlockchainBotDigitalkeyWithhold(request: SignBlockchainBotDigitalkeyWithholdRequest): SignBlockchainBotDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return signBlockchainBotDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣签约链接获取
+ * Summary: 代扣签约链接获取
+ */
+async function signBlockchainBotDigitalkeyWithholdEx(request: SignBlockchainBotDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SignBlockchainBotDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.sign', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnbindBlockchainBotDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+  alipayUserId: string(name='alipay_user_id'),
+  // 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
+  personalProductCode: string(name='personal_product_code'),
+  // 签约协议场景，商户和支付宝签约时确定，解约时，传入签约指定的场景信息。
+  signScene: string(name='sign_scene'),
+  // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+  externalAgreementNo: string(name='external_agreement_no'),
+}
+
+model UnbindBlockchainBotDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+}
+
+/**
+ * Description: 代扣签约解除
+ * Summary: 代扣签约解除
+ */
+async function unbindBlockchainBotDigitalkeyWithhold(request: UnbindBlockchainBotDigitalkeyWithholdRequest): UnbindBlockchainBotDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unbindBlockchainBotDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣签约解除
+ * Summary: 代扣签约解除
+ */
+async function unbindBlockchainBotDigitalkeyWithholdEx(request: UnbindBlockchainBotDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindBlockchainBotDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayBlockchainBotDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户订单号，需要保证不重复
+  outTradeNo: string(name='out_trade_no'),
+  // 订单标题
+  subject: string(name='subject'),
+  // 签约时支付宝返回的用户ID
+  alipayUserId: string(name='alipay_user_id'),
+  // 销售产品码，商户代扣场景固定为GENERAL_WITHHOLDING
+  productCode: string(name='product_code'),
+  // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
+  totalAmount: long(name='total_amount'),
+  // 商户代扣扣款许可
+  deductPermission?: string(name='deduct_permission'),
+  // 代扣协议号, 对应于签约时，支付宝返回的协议
+  agreementNo: string(name='agreement_no'),
+  // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
+  timeoutExpress?: string(name='timeout_express'),
+  // 异步支付类型
+  asyncType: string(name='async_type'),
+}
+
+model PayBlockchainBotDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+}
+
+/**
+ * Description: 代扣支付
+ * Summary: 代扣支付
+ */
+async function payBlockchainBotDigitalkeyWithhold(request: PayBlockchainBotDigitalkeyWithholdRequest): PayBlockchainBotDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payBlockchainBotDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣支付
+ * Summary: 代扣支付
+ */
+async function payBlockchainBotDigitalkeyWithholdEx(request: PayBlockchainBotDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayBlockchainBotDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RefuseBlockchainBotDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单支付时传入的商户订单号,不能和 trade_no同时为空。
+  outTradeNo: string(name='out_trade_no'),
+  // 需要退款的金额，该金额不能大于订单金额,单位为元，支持两位小数
+  refundAmount: long(name='refund_amount'),
+  // 标识一次退款请求，同一笔交易多次退款需要保证唯一。
+  outRequestNo: string(name='out_request_no'),
+}
+
+model RefuseBlockchainBotDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 退款返回信息 
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣支付退款 
+ * Summary: 代扣支付退款 
+ */
+async function refuseBlockchainBotDigitalkeyWithhold(request: RefuseBlockchainBotDigitalkeyWithholdRequest): RefuseBlockchainBotDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return refuseBlockchainBotDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣支付退款 
+ * Summary: 代扣支付退款 
+ */
+async function refuseBlockchainBotDigitalkeyWithholdEx(request: RefuseBlockchainBotDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefuseBlockchainBotDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.refuse', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBlockchainBotDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+  alipayUserId: string(name='alipay_user_id'),
+  // 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
+  personalProductCode: string(name='personal_product_code'),
+  // 签约协议场景，商户和支付宝签约时确定，解约时，传入签约指定的场景信息。
+  signScene: string(name='sign_scene'),
+  // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+  externalAgreementNo: string(name='external_agreement_no'),
+}
+
+model QueryBlockchainBotDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 协议查询返回信息 
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣协议查询
+ * Summary: 代扣协议查询
+ */
+async function queryBlockchainBotDigitalkeyWithhold(request: QueryBlockchainBotDigitalkeyWithholdRequest): QueryBlockchainBotDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBlockchainBotDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣协议查询
+ * Summary: 代扣协议查询
+ */
+async function queryBlockchainBotDigitalkeyWithholdEx(request: QueryBlockchainBotDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBlockchainBotDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelBlockchainBotDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户传入外部交易订单号
+  outTradeNo: string(name='out_trade_no'),
+}
+
+model CancelBlockchainBotDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 撤销返回信息 
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣撤销
+ * Summary: 代扣撤销
+ */
+async function cancelBlockchainBotDigitalkeyWithhold(request: CancelBlockchainBotDigitalkeyWithholdRequest): CancelBlockchainBotDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelBlockchainBotDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣撤销
+ * Summary: 代扣撤销
+ */
+async function cancelBlockchainBotDigitalkeyWithholdEx(request: CancelBlockchainBotDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelBlockchainBotDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyBlockchainBotDigitalkeyWithholdRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户请求号。 由商家自定义，64个字符以内，仅支持字母、数字、下划线且需保证在商户端不重复
+  outRequestNo: string(name='out_request_no'),
+  // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
+  totalAmount: long(name='total_amount'),
+  // 代扣协议号, 对应于签约时，支付宝返回的协议
+  agreementNo: string(name='agreement_no'),
+}
+
+model NotifyBlockchainBotDigitalkeyWithholdResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 明细返回码
+  subCode?: string(name='sub_code'),
+  // 明细返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 预通知返回内容
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代扣扣款前预通知
+ * Summary: 代扣扣款前预通知
+ */
+async function notifyBlockchainBotDigitalkeyWithhold(request: NotifyBlockchainBotDigitalkeyWithholdRequest): NotifyBlockchainBotDigitalkeyWithholdResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyBlockchainBotDigitalkeyWithholdEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣扣款前预通知
+ * Summary: 代扣扣款前预通知
+ */
+async function notifyBlockchainBotDigitalkeyWithholdEx(request: NotifyBlockchainBotDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyBlockchainBotDigitalkeyWithholdResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
