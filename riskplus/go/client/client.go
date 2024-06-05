@@ -13148,6 +13148,8 @@ type QueryDubbridgeRouterUserselectRequest struct {
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 姓名
 	CustomName *string `json:"custom_name,omitempty" xml:"custom_name,omitempty"`
+	// 机构编码
+	PlatformNo *string `json:"platform_no,omitempty" xml:"platform_no,omitempty"`
 	// 扩展信息JSON
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
@@ -13187,6 +13189,11 @@ func (s *QueryDubbridgeRouterUserselectRequest) SetMobile(v string) *QueryDubbri
 
 func (s *QueryDubbridgeRouterUserselectRequest) SetCustomName(v string) *QueryDubbridgeRouterUserselectRequest {
 	s.CustomName = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterUserselectRequest) SetPlatformNo(v string) *QueryDubbridgeRouterUserselectRequest {
+	s.PlatformNo = &v
 	return s
 }
 
@@ -25960,7 +25967,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.7"),
+				"sdk_version":      tea.String("1.19.8"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
