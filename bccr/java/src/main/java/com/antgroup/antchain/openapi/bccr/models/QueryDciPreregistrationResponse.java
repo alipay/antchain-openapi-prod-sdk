@@ -124,6 +124,10 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     @NameInMap("series_diagram_error_reason_list")
     public java.util.List<SeriesDiagramErrorReason> seriesDiagramErrorReasonList;
 
+    // 作品是否包含图片信息
+    @NameInMap("contains_image_info")
+    public ContainsImageInfo containsImageInfo;
+
     public static QueryDciPreregistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDciPreregistrationResponse self = new QueryDciPreregistrationResponse();
         return TeaModel.build(map, self);
@@ -367,6 +371,14 @@ public class QueryDciPreregistrationResponse extends TeaModel {
     }
     public java.util.List<SeriesDiagramErrorReason> getSeriesDiagramErrorReasonList() {
         return this.seriesDiagramErrorReasonList;
+    }
+
+    public QueryDciPreregistrationResponse setContainsImageInfo(ContainsImageInfo containsImageInfo) {
+        this.containsImageInfo = containsImageInfo;
+        return this;
+    }
+    public ContainsImageInfo getContainsImageInfo() {
+        return this.containsImageInfo;
     }
 
 }
