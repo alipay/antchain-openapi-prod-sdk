@@ -187,6 +187,12 @@ class QueryDciPreregistrationResponse extends Model
      * @var SeriesDiagramErrorReason[]
      */
     public $seriesDiagramErrorReasonList;
+
+    // 作品是否包含图片信息
+    /**
+     * @var ContainsImageInfo
+     */
+    public $containsImageInfo;
     protected $_name = [
         'reqMsgId'                     => 'req_msg_id',
         'resultCode'                   => 'result_code',
@@ -218,6 +224,7 @@ class QueryDciPreregistrationResponse extends Model
         'publicationUrl'               => 'publication_url',
         'applyType'                    => 'apply_type',
         'seriesDiagramErrorReasonList' => 'series_diagram_error_reason_list',
+        'containsImageInfo'            => 'contains_image_info',
     ];
 
     public function validate()
@@ -322,6 +329,9 @@ class QueryDciPreregistrationResponse extends Model
                     $res['series_diagram_error_reason_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->containsImageInfo) {
+            $res['contains_image_info'] = null !== $this->containsImageInfo ? $this->containsImageInfo->toMap() : null;
         }
 
         return $res;
@@ -430,6 +440,9 @@ class QueryDciPreregistrationResponse extends Model
                     $model->seriesDiagramErrorReasonList[$n++] = null !== $item ? SeriesDiagramErrorReason::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['contains_image_info'])) {
+            $model->containsImageInfo = ContainsImageInfo::fromMap($map['contains_image_info']);
         }
 
         return $model;
