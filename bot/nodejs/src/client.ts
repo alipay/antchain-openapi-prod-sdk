@@ -4253,6 +4253,39 @@ export class ProductKeyPageResponse extends $tea.Model {
   }
 }
 
+// 二级商户信息
+export class SubMerchantParams extends $tea.Model {
+  // 子商户的商户id
+  subMerchantId: string;
+  // 子商户的商户名称
+  subMerchantName: string;
+  // 子商户的服务名称
+  subMerchantServiceName: string;
+  // 子商户的服务描述
+  subMerchantServiceDescription: string;
+  static names(): { [key: string]: string } {
+    return {
+      subMerchantId: 'sub_merchant_id',
+      subMerchantName: 'sub_merchant_name',
+      subMerchantServiceName: 'sub_merchant_service_name',
+      subMerchantServiceDescription: 'sub_merchant_service_description',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      subMerchantId: 'string',
+      subMerchantName: 'string',
+      subMerchantServiceName: 'string',
+      subMerchantServiceDescription: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 上链数据结果集
 export class ChainModelResult extends $tea.Model {
   // 所属业务
@@ -13330,6 +13363,8 @@ export class SignDigitalkeyWithholdRequest extends $tea.Model {
   signScene: string;
   // 商户签约号，代扣协议中标示用户的唯一签约号（确保在商户系统中唯一）。 格式规则：支持大写小写字母和数字，最长32位。 商户系统按需自定义传入，如果同一用户在同一产品码、同一签约场景下，签订了多份代扣协议，那么需要指定并传入该值
   externalAgreementNo: string;
+  // 子商户信息
+  subMerchant?: string;
   // 当前用户签约请求的协议有效周期。 整形数字加上时间单位的协议有效期，从发起签约请求的时间开始算起。 目前支持的时间单位： 1. d：天 2. m：月 如果未传入，默认为长期有效。
   signValidityPeriod?: string;
   // 签约有效时间限制，单位是秒，有效范围是0-86400，商户传入此字段会用商户传入的值否则使用支付宝侧默认值，在有效时间外进行签约，会进行安全拦截；（备注：此字段适用于需要开通安全防控的商户，且依赖商户传入生成签约时的时间戳字段timestamp）
@@ -13346,6 +13381,7 @@ export class SignDigitalkeyWithholdRequest extends $tea.Model {
       alipayUserId: 'alipay_user_id',
       signScene: 'sign_scene',
       externalAgreementNo: 'external_agreement_no',
+      subMerchant: 'sub_merchant',
       signValidityPeriod: 'sign_validity_period',
       effectTime: 'effect_time',
     };
@@ -13363,6 +13399,7 @@ export class SignDigitalkeyWithholdRequest extends $tea.Model {
       alipayUserId: 'string',
       signScene: 'string',
       externalAgreementNo: 'string',
+      subMerchant: 'string',
       signValidityPeriod: 'string',
       effectTime: 'number',
     };
@@ -23814,7 +23851,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.1",
+          sdk_version: "1.11.2",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
