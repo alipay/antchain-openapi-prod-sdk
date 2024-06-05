@@ -69,7 +69,7 @@ class SignDigitalkeyWithholdRequest extends Model
 
     // 子商户信息
     /**
-     * @var string
+     * @var SubMerchantParams
      */
     public $subMerchant;
 
@@ -145,7 +145,7 @@ class SignDigitalkeyWithholdRequest extends Model
             $res['external_agreement_no'] = $this->externalAgreementNo;
         }
         if (null !== $this->subMerchant) {
-            $res['sub_merchant'] = $this->subMerchant;
+            $res['sub_merchant'] = null !== $this->subMerchant ? $this->subMerchant->toMap() : null;
         }
         if (null !== $this->signValidityPeriod) {
             $res['sign_validity_period'] = $this->signValidityPeriod;
@@ -196,7 +196,7 @@ class SignDigitalkeyWithholdRequest extends Model
             $model->externalAgreementNo = $map['external_agreement_no'];
         }
         if (isset($map['sub_merchant'])) {
-            $model->subMerchant = $map['sub_merchant'];
+            $model->subMerchant = SubMerchantParams::fromMap($map['sub_merchant']);
         }
         if (isset($map['sign_validity_period'])) {
             $model->signValidityPeriod = $map['sign_validity_period'];
