@@ -11,8 +11,6 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\BindDemoDemoCheckEeeRequest;
-use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\BindDemoDemoCheckEeeResponse;
 use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\InitDemoBbpInsuranceUserRequest;
 use AntChain\Ak_eed2ee0664ac41b78f2c14f3ffa051e7\Models\InitDemoBbpInsuranceUserResponse;
 use AntChain\Util\UtilClient;
@@ -208,39 +206,6 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
-    }
-
-    /**
-     * Description: s
-     * Summary: ss.
-     *
-     * @param BindDemoDemoCheckEeeRequest $request
-     *
-     * @return BindDemoDemoCheckEeeResponse
-     */
-    public function bindDemoDemoCheckEee($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindDemoDemoCheckEeeEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: s
-     * Summary: ss.
-     *
-     * @param BindDemoDemoCheckEeeRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return BindDemoDemoCheckEeeResponse
-     */
-    public function bindDemoDemoCheckEeeEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindDemoDemoCheckEeeResponse::fromMap($this->doRequest('1.0', 'demo.demo.check.eee.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
