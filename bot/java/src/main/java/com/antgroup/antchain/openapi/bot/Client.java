@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.35"),
+                    new TeaPair("sdk_version", "1.11.1"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2023,6 +2023,139 @@ public class Client {
     public PublishDevicecorpThingmodelResponse publishDevicecorpThingmodelEx(PublishDevicecorpThingmodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.devicecorp.thingmodel.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishDevicecorpThingmodelResponse());
+    }
+
+    /**
+     * Description: 代扣签约链接获取
+     * Summary: 代扣签约链接获取
+     */
+    public SignDigitalkeyWithholdResponse signDigitalkeyWithhold(SignDigitalkeyWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.signDigitalkeyWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣签约链接获取
+     * Summary: 代扣签约链接获取
+     */
+    public SignDigitalkeyWithholdResponse signDigitalkeyWithholdEx(SignDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.sign", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SignDigitalkeyWithholdResponse());
+    }
+
+    /**
+     * Description: 代扣签约解除
+     * Summary: 代扣签约解除
+     */
+    public UnbindDigitalkeyWithholdResponse unbindDigitalkeyWithhold(UnbindDigitalkeyWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.unbindDigitalkeyWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣签约解除
+     * Summary: 代扣签约解除
+     */
+    public UnbindDigitalkeyWithholdResponse unbindDigitalkeyWithholdEx(UnbindDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindDigitalkeyWithholdResponse());
+    }
+
+    /**
+     * Description: 代扣支付
+     * Summary: 代扣支付
+     */
+    public PayDigitalkeyWithholdResponse payDigitalkeyWithhold(PayDigitalkeyWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.payDigitalkeyWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣支付
+     * Summary: 代扣支付
+     */
+    public PayDigitalkeyWithholdResponse payDigitalkeyWithholdEx(PayDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.pay", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PayDigitalkeyWithholdResponse());
+    }
+
+    /**
+     * Description: 代扣支付退款 
+     * Summary: 代扣支付退款 
+     */
+    public RefuseDigitalkeyWithholdResponse refuseDigitalkeyWithhold(RefuseDigitalkeyWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.refuseDigitalkeyWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣支付退款 
+     * Summary: 代扣支付退款 
+     */
+    public RefuseDigitalkeyWithholdResponse refuseDigitalkeyWithholdEx(RefuseDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.refuse", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RefuseDigitalkeyWithholdResponse());
+    }
+
+    /**
+     * Description: 代扣协议查询
+     * Summary: 代扣协议查询
+     */
+    public QueryDigitalkeyWithholdResponse queryDigitalkeyWithhold(QueryDigitalkeyWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDigitalkeyWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣协议查询
+     * Summary: 代扣协议查询
+     */
+    public QueryDigitalkeyWithholdResponse queryDigitalkeyWithholdEx(QueryDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalkeyWithholdResponse());
+    }
+
+    /**
+     * Description: 代扣撤销
+     * Summary: 代扣撤销
+     */
+    public CancelDigitalkeyWithholdResponse cancelDigitalkeyWithhold(CancelDigitalkeyWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.cancelDigitalkeyWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣撤销
+     * Summary: 代扣撤销
+     */
+    public CancelDigitalkeyWithholdResponse cancelDigitalkeyWithholdEx(CancelDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelDigitalkeyWithholdResponse());
+    }
+
+    /**
+     * Description: 代扣扣款前预通知
+     * Summary: 代扣扣款前预通知
+     */
+    public NotifyDigitalkeyWithholdResponse notifyDigitalkeyWithhold(NotifyDigitalkeyWithholdRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyDigitalkeyWithholdEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣扣款前预通知
+     * Summary: 代扣扣款前预通知
+     */
+    public NotifyDigitalkeyWithholdResponse notifyDigitalkeyWithholdEx(NotifyDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyDigitalkeyWithholdResponse());
     }
 
     /**
