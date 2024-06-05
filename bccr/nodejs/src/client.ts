@@ -907,6 +907,31 @@ export class DayStatisticsInfo extends $tea.Model {
   }
 }
 
+// 作品是否包含图片
+export class ContainsImageInfo extends $tea.Model {
+  // 是否包含图片
+  containsImage?: boolean;
+  // 包含图片，处理后的图片副件
+  resolvedFileUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      containsImage: 'contains_image',
+      resolvedFileUrl: 'resolved_file_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      containsImage: 'boolean',
+      resolvedFileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 系列图错误原因
 export class SeriesDiagramErrorReason extends $tea.Model {
   // 系列图单个图片所属页码
@@ -5444,6 +5469,8 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
   applyType?: string;
   // 系列图错误原因集合
   seriesDiagramErrorReasonList?: SeriesDiagramErrorReason[];
+  // 作品是否包含图片信息
+  containsImageInfo?: ContainsImageInfo;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -5476,6 +5503,7 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
       publicationUrl: 'publication_url',
       applyType: 'apply_type',
       seriesDiagramErrorReasonList: 'series_diagram_error_reason_list',
+      containsImageInfo: 'contains_image_info',
     };
   }
 
@@ -5511,6 +5539,7 @@ export class QueryDciPreregistrationResponse extends $tea.Model {
       publicationUrl: 'string',
       applyType: 'string',
       seriesDiagramErrorReasonList: { 'type': 'array', 'itemType': SeriesDiagramErrorReason },
+      containsImageInfo: ContainsImageInfo,
     };
   }
 
@@ -9900,7 +9929,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.18.35",
+          sdk_version: "1.18.37",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
