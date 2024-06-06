@@ -34,6 +34,11 @@ namespace AntChain.SDK.DUANKA.Models
         [Validation(Required=true)]
         public string CustomerId { get; set; }
 
+        // 授权码
+        [NameInMap("auth_code")]
+        [Validation(Required=false)]
+        public string AuthCode { get; set; }
+
     }
 
 }

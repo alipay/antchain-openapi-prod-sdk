@@ -137,7 +137,7 @@ namespace AntChain.SDK.DUANKA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.7"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "DUANKA"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DUANKA
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.7"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "DUANKA"},
                         {"_prod_channel", "undefined"},
                     };
@@ -487,6 +487,216 @@ namespace AntChain.SDK.DUANKA
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCommonScoreResponse>(await DoRequestAsync("1.0", "antcloud.duanka.common.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 云凤蝶工单提交接口
+         * Summary: 云凤蝶工单提交接口
+         */
+        public SubmitYunfengdieAuditResponse SubmitYunfengdieAudit(SubmitYunfengdieAuditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitYunfengdieAuditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 云凤蝶工单提交接口
+         * Summary: 云凤蝶工单提交接口
+         */
+        public async Task<SubmitYunfengdieAuditResponse> SubmitYunfengdieAuditAsync(SubmitYunfengdieAuditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitYunfengdieAuditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 云凤蝶工单提交接口
+         * Summary: 云凤蝶工单提交接口
+         */
+        public SubmitYunfengdieAuditResponse SubmitYunfengdieAuditEx(SubmitYunfengdieAuditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitYunfengdieAuditResponse>(DoRequest("1.0", "antcloud.duanka.yunfengdie.audit.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 云凤蝶工单提交接口
+         * Summary: 云凤蝶工单提交接口
+         */
+        public async Task<SubmitYunfengdieAuditResponse> SubmitYunfengdieAuditExAsync(SubmitYunfengdieAuditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitYunfengdieAuditResponse>(await DoRequestAsync("1.0", "antcloud.duanka.yunfengdie.audit.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件转存接口
+         * Summary: 文件转存接口
+         */
+        public ImportAistudioOssResponse ImportAistudioOss(ImportAistudioOssRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportAistudioOssEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件转存接口
+         * Summary: 文件转存接口
+         */
+        public async Task<ImportAistudioOssResponse> ImportAistudioOssAsync(ImportAistudioOssRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportAistudioOssExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 文件转存接口
+         * Summary: 文件转存接口
+         */
+        public ImportAistudioOssResponse ImportAistudioOssEx(ImportAistudioOssRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportAistudioOssResponse>(DoRequest("1.0", "antcloud.duanka.aistudio.oss.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 文件转存接口
+         * Summary: 文件转存接口
+         */
+        public async Task<ImportAistudioOssResponse> ImportAistudioOssExAsync(ImportAistudioOssRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportAistudioOssResponse>(await DoRequestAsync("1.0", "antcloud.duanka.aistudio.oss.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 模型验收服务
+         * Summary: 模型验收服务
+         */
+        public CheckAistudioModelResponse CheckAistudioModel(CheckAistudioModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckAistudioModelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 模型验收服务
+         * Summary: 模型验收服务
+         */
+        public async Task<CheckAistudioModelResponse> CheckAistudioModelAsync(CheckAistudioModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckAistudioModelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 模型验收服务
+         * Summary: 模型验收服务
+         */
+        public CheckAistudioModelResponse CheckAistudioModelEx(CheckAistudioModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAistudioModelResponse>(DoRequest("1.0", "antcloud.duanka.aistudio.model.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 模型验收服务
+         * Summary: 模型验收服务
+         */
+        public async Task<CheckAistudioModelResponse> CheckAistudioModelExAsync(CheckAistudioModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAistudioModelResponse>(await DoRequestAsync("1.0", "antcloud.duanka.aistudio.model.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 模型验收服务结果查询
+         * Summary: 模型验收服务结果查询
+         */
+        public QueryAistudioModelResponse QueryAistudioModel(QueryAistudioModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAistudioModelEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 模型验收服务结果查询
+         * Summary: 模型验收服务结果查询
+         */
+        public async Task<QueryAistudioModelResponse> QueryAistudioModelAsync(QueryAistudioModelRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAistudioModelExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 模型验收服务结果查询
+         * Summary: 模型验收服务结果查询
+         */
+        public QueryAistudioModelResponse QueryAistudioModelEx(QueryAistudioModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAistudioModelResponse>(DoRequest("1.0", "antcloud.duanka.aistudio.model.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 模型验收服务结果查询
+         * Summary: 模型验收服务结果查询
+         */
+        public async Task<QueryAistudioModelResponse> QueryAistudioModelExAsync(QueryAistudioModelRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAistudioModelResponse>(await DoRequestAsync("1.0", "antcloud.duanka.aistudio.model.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通用查询-回溯
+         * Summary: 通用查询-回溯
+         */
+        public QueryBacktrackScoreResponse QueryBacktrackScore(QueryBacktrackScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBacktrackScoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通用查询-回溯
+         * Summary: 通用查询-回溯
+         */
+        public async Task<QueryBacktrackScoreResponse> QueryBacktrackScoreAsync(QueryBacktrackScoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBacktrackScoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通用查询-回溯
+         * Summary: 通用查询-回溯
+         */
+        public QueryBacktrackScoreResponse QueryBacktrackScoreEx(QueryBacktrackScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBacktrackScoreResponse>(DoRequest("1.0", "antcloud.duanka.backtrack.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通用查询-回溯
+         * Summary: 通用查询-回溯
+         */
+        public async Task<QueryBacktrackScoreResponse> QueryBacktrackScoreExAsync(QueryBacktrackScoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBacktrackScoreResponse>(await DoRequestAsync("1.0", "antcloud.duanka.backtrack.score.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
