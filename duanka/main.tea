@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.7',
+    sdk_version = '1.1.0',
     _prod_code = 'DUANKA',
     _prod_channel = 'undefined'
   };
@@ -319,6 +319,8 @@ model QuerySkyholdResRequest = {
   channelCode: string(name='channel_code'),
   // 客户id
   customerId: string(name='customer_id'),
+  // 授权码
+  authCode?: string(name='auth_code'),
 }
 
 model QuerySkyholdResResponse = {
@@ -405,6 +407,250 @@ async function queryCommonScore(request: QueryCommonScoreRequest): QueryCommonSc
 async function queryCommonScoreEx(request: QueryCommonScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCommonScoreResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.duanka.common.score.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitYunfengdieAuditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 接口调用参数
+  params: string(name='params'),
+  // 请求头参数
+  headers: string(name='headers'),
+}
+
+model SubmitYunfengdieAuditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 云凤蝶工单提交相应JSON
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 云凤蝶工单提交接口
+ * Summary: 云凤蝶工单提交接口
+ */
+async function submitYunfengdieAudit(request: SubmitYunfengdieAuditRequest): SubmitYunfengdieAuditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitYunfengdieAuditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 云凤蝶工单提交接口
+ * Summary: 云凤蝶工单提交接口
+ */
+async function submitYunfengdieAuditEx(request: SubmitYunfengdieAuditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitYunfengdieAuditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.yunfengdie.audit.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportAistudioOssRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 阿里云oss路径
+  aliyunOssPath: string(name='aliyun_oss_path'),
+  // 主站oss路径
+  antOssPath: string(name='ant_oss_path'),
+}
+
+model ImportAistudioOssResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 文件转存接口
+ * Summary: 文件转存接口
+ */
+async function importAistudioOss(request: ImportAistudioOssRequest): ImportAistudioOssResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importAistudioOssEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文件转存接口
+ * Summary: 文件转存接口
+ */
+async function importAistudioOssEx(request: ImportAistudioOssRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAistudioOssResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.aistudio.oss.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckAistudioModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 业务唯一码（可填model_id）
+  bizCode: string(name='biz_code'),
+  // 业务类型（TDI平台填TDI）
+  bizType: string(name='biz_type'),
+  // 模型类型（1：离线模型，2：在线模型，3：既是离线也是在线）
+  modelType: long(name='model_type'),
+  // 所需要验收服务的list
+  // 1. PRESSURE
+  // 2. RUNTIMUE
+  // 3. SAFETY
+  serviceSelector: string(name='service_selector'),
+  // 离线模型oss路径
+  offlineModelPath?: string(name='offline_model_path'),
+  // 在线模型oss路径
+  onlineModelPath?: string(name='online_model_path'),
+  // 模型脚本oss路径
+  scriptPath: string(name='script_path'),
+  // 验证样本（csv格式，包括保留列、特征列和分数）的OSS路径
+  samplePath: string(name='sample_path'),
+  // 验证样本保留列的list
+  remainList: string(name='remain_list'),
+  // 验证样本特征列的list
+  featureList: string(name='feature_list'),
+  // 验证样本分数列
+  scoreCol: string(name='score_col'),
+  // aistudio docker镜像指定，若未指定，则默认为
+  // reg.docker.alibaba-inc.com/aii/aistudio:aistudio-108521006-1633157052-1690290565806
+  dockerImage?: string(name='docker_image'),
+  // 在线模型压测核数，默认为1
+  pmCore?: long(name='pm_core'),
+  // 在线模型压测内存大小（GB），默认为2
+  pmMem?: long(name='pm_mem'),
+  // 离线模型批次大小，默认2000
+  batchSize?: string(name='batch_size'),
+}
+
+model CheckAistudioModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步任务id
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 模型验收服务
+ * Summary: 模型验收服务
+ */
+async function checkAistudioModel(request: CheckAistudioModelRequest): CheckAistudioModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkAistudioModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 模型验收服务
+ * Summary: 模型验收服务
+ */
+async function checkAistudioModelEx(request: CheckAistudioModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAistudioModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.aistudio.model.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAistudioModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 任务id
+  taskId: string(name='task_id'),
+}
+
+model QueryAistudioModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务唯一id
+  bizCode?: string(name='biz_code'),
+  // 压测报告
+  pressureReport?: string(name='pressure_report'),
+  // 运行态报告
+  runtimeReport?: string(name='runtime_report'),
+  // 安全报告
+  safetyReport?: string(name='safety_report'),
+}
+
+/**
+ * Description: 模型验收服务结果查询
+ * Summary: 模型验收服务结果查询
+ */
+async function queryAistudioModel(request: QueryAistudioModelRequest): QueryAistudioModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAistudioModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 模型验收服务结果查询
+ * Summary: 模型验收服务结果查询
+ */
+async function queryAistudioModelEx(request: QueryAistudioModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAistudioModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.aistudio.model.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBacktrackScoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 用户授权编码
+  authNo: string(name='auth_no'),
+  // 模型id
+  modelId: string(name='model_id'),
+  // 用户id（客户身份证号/手机号的md5/sha256/sm3散列值）
+  userId: string(name='user_id'),
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string(name='user_id_type'),
+  // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+  encryptType: string(name='encrypt_type'),
+  // 	
+  // 客户编码
+  customerCode: string(name='customer_code'),
+  // 流水号，串联链路用，非必填
+  transNo?: string(name='trans_no'),
+  // encrypt_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+  userIdHashEncrypt?: string(name='user_id_hash_encrypt'),
+  // 回溯采样日期
+  sampleDate: string(name='sample_date'),
+}
+
+model QueryBacktrackScoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模型分数
+  score?: string(name='score'),
+  // 流水号
+  transNo?: string(name='trans_no'),
+}
+
+/**
+ * Description: 通用查询-回溯
+ * Summary: 通用查询-回溯
+ */
+async function queryBacktrackScore(request: QueryBacktrackScoreRequest): QueryBacktrackScoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBacktrackScoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用查询-回溯
+ * Summary: 通用查询-回溯
+ */
+async function queryBacktrackScoreEx(request: QueryBacktrackScoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBacktrackScoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.duanka.backtrack.score.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIrBrandRequest = {
