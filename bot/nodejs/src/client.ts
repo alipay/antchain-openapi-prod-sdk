@@ -13547,6 +13547,12 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
   timeoutExpress?: string;
   // 异步支付类型
   asyncType: string;
+  // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+  discountableAmount?: number;
+  // 二级商户信息
+  subMerchant?: SubMerchantParams;
+  // 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
+  body?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13560,6 +13566,9 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
       agreementNo: 'agreement_no',
       timeoutExpress: 'timeout_express',
       asyncType: 'async_type',
+      discountableAmount: 'discountable_amount',
+      subMerchant: 'sub_merchant',
+      body: 'body',
     };
   }
 
@@ -13576,6 +13585,9 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
       agreementNo: 'string',
       timeoutExpress: 'string',
       asyncType: 'string',
+      discountableAmount: 'number',
+      subMerchant: SubMerchantParams,
+      body: 'string',
     };
   }
 
@@ -23851,7 +23863,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.3",
+          sdk_version: "1.11.4",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
