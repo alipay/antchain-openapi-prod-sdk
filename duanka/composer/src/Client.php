@@ -11,6 +11,14 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\DUANKA\Models\CheckAistudioModelRequest;
+use AntChain\DUANKA\Models\CheckAistudioModelResponse;
+use AntChain\DUANKA\Models\ImportAistudioOssRequest;
+use AntChain\DUANKA\Models\ImportAistudioOssResponse;
+use AntChain\DUANKA\Models\QueryAistudioModelRequest;
+use AntChain\DUANKA\Models\QueryAistudioModelResponse;
+use AntChain\DUANKA\Models\QueryBacktrackScoreRequest;
+use AntChain\DUANKA\Models\QueryBacktrackScoreResponse;
 use AntChain\DUANKA\Models\QueryCommonScoreRequest;
 use AntChain\DUANKA\Models\QueryCommonScoreResponse;
 use AntChain\DUANKA\Models\QueryDuankaEvaluationRequest;
@@ -21,6 +29,8 @@ use AntChain\DUANKA\Models\QueryIrBrandRequest;
 use AntChain\DUANKA\Models\QueryIrBrandResponse;
 use AntChain\DUANKA\Models\QuerySkyholdResRequest;
 use AntChain\DUANKA\Models\QuerySkyholdResResponse;
+use AntChain\DUANKA\Models\SubmitYunfengdieAuditRequest;
+use AntChain\DUANKA\Models\SubmitYunfengdieAuditResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -168,7 +178,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.7',
+                    'sdk_version'      => '1.1.0',
                     '_prod_code'       => 'DUANKA',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -346,6 +356,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryCommonScoreResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.common.score.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 云凤蝶工单提交接口
+     * Summary: 云凤蝶工单提交接口.
+     *
+     * @param SubmitYunfengdieAuditRequest $request
+     *
+     * @return SubmitYunfengdieAuditResponse
+     */
+    public function submitYunfengdieAudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitYunfengdieAuditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 云凤蝶工单提交接口
+     * Summary: 云凤蝶工单提交接口.
+     *
+     * @param SubmitYunfengdieAuditRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitYunfengdieAuditResponse
+     */
+    public function submitYunfengdieAuditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitYunfengdieAuditResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.yunfengdie.audit.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件转存接口
+     * Summary: 文件转存接口.
+     *
+     * @param ImportAistudioOssRequest $request
+     *
+     * @return ImportAistudioOssResponse
+     */
+    public function importAistudioOss($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importAistudioOssEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件转存接口
+     * Summary: 文件转存接口.
+     *
+     * @param ImportAistudioOssRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return ImportAistudioOssResponse
+     */
+    public function importAistudioOssEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportAistudioOssResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.aistudio.oss.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 模型验收服务
+     * Summary: 模型验收服务
+     *
+     * @param CheckAistudioModelRequest $request
+     *
+     * @return CheckAistudioModelResponse
+     */
+    public function checkAistudioModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAistudioModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 模型验收服务
+     * Summary: 模型验收服务
+     *
+     * @param CheckAistudioModelRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CheckAistudioModelResponse
+     */
+    public function checkAistudioModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAistudioModelResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.aistudio.model.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 模型验收服务结果查询
+     * Summary: 模型验收服务结果查询.
+     *
+     * @param QueryAistudioModelRequest $request
+     *
+     * @return QueryAistudioModelResponse
+     */
+    public function queryAistudioModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAistudioModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 模型验收服务结果查询
+     * Summary: 模型验收服务结果查询.
+     *
+     * @param QueryAistudioModelRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryAistudioModelResponse
+     */
+    public function queryAistudioModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAistudioModelResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.aistudio.model.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通用查询-回溯
+     * Summary: 通用查询-回溯.
+     *
+     * @param QueryBacktrackScoreRequest $request
+     *
+     * @return QueryBacktrackScoreResponse
+     */
+    public function queryBacktrackScore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBacktrackScoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通用查询-回溯
+     * Summary: 通用查询-回溯.
+     *
+     * @param QueryBacktrackScoreRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryBacktrackScoreResponse
+     */
+    public function queryBacktrackScoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBacktrackScoreResponse::fromMap($this->doRequest('1.0', 'antcloud.duanka.backtrack.score.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

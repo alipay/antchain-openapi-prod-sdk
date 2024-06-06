@@ -37,12 +37,19 @@ class QuerySkyholdResRequest extends Model
      * @var string
      */
     public $customerId;
+
+    // 授权码
+    /**
+     * @var string
+     */
+    public $authCode;
     protected $_name = [
         'authToken'   => 'auth_token',
         'bizCode'     => 'biz_code',
         'keyId'       => 'key_id',
         'channelCode' => 'channel_code',
         'customerId'  => 'customer_id',
+        'authCode'    => 'auth_code',
     ];
 
     public function validate()
@@ -71,6 +78,9 @@ class QuerySkyholdResRequest extends Model
         if (null !== $this->customerId) {
             $res['customer_id'] = $this->customerId;
         }
+        if (null !== $this->authCode) {
+            $res['auth_code'] = $this->authCode;
+        }
 
         return $res;
     }
@@ -97,6 +107,9 @@ class QuerySkyholdResRequest extends Model
         }
         if (isset($map['customer_id'])) {
             $model->customerId = $map['customer_id'];
+        }
+        if (isset($map['auth_code'])) {
+            $model->authCode = $map['auth_code'];
         }
 
         return $model;
