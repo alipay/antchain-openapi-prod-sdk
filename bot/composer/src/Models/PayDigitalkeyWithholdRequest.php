@@ -72,18 +72,39 @@ class PayDigitalkeyWithholdRequest extends Model
      * @var string
      */
     public $asyncType;
+
+    // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+    /**
+     * @var int
+     */
+    public $discountableAmount;
+
+    // 二级商户信息
+    /**
+     * @var SubMerchantParams
+     */
+    public $subMerchant;
+
+    // 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
+    /**
+     * @var string
+     */
+    public $body;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'outTradeNo'        => 'out_trade_no',
-        'subject'           => 'subject',
-        'alipayUserId'      => 'alipay_user_id',
-        'productCode'       => 'product_code',
-        'totalAmount'       => 'total_amount',
-        'deductPermission'  => 'deduct_permission',
-        'agreementNo'       => 'agreement_no',
-        'timeoutExpress'    => 'timeout_express',
-        'asyncType'         => 'async_type',
+        'authToken'          => 'auth_token',
+        'productInstanceId'  => 'product_instance_id',
+        'outTradeNo'         => 'out_trade_no',
+        'subject'            => 'subject',
+        'alipayUserId'       => 'alipay_user_id',
+        'productCode'        => 'product_code',
+        'totalAmount'        => 'total_amount',
+        'deductPermission'   => 'deduct_permission',
+        'agreementNo'        => 'agreement_no',
+        'timeoutExpress'     => 'timeout_express',
+        'asyncType'          => 'async_type',
+        'discountableAmount' => 'discountable_amount',
+        'subMerchant'        => 'sub_merchant',
+        'body'               => 'body',
     ];
 
     public function validate()
@@ -133,6 +154,15 @@ class PayDigitalkeyWithholdRequest extends Model
         if (null !== $this->asyncType) {
             $res['async_type'] = $this->asyncType;
         }
+        if (null !== $this->discountableAmount) {
+            $res['discountable_amount'] = $this->discountableAmount;
+        }
+        if (null !== $this->subMerchant) {
+            $res['sub_merchant'] = null !== $this->subMerchant ? $this->subMerchant->toMap() : null;
+        }
+        if (null !== $this->body) {
+            $res['body'] = $this->body;
+        }
 
         return $res;
     }
@@ -177,6 +207,15 @@ class PayDigitalkeyWithholdRequest extends Model
         }
         if (isset($map['async_type'])) {
             $model->asyncType = $map['async_type'];
+        }
+        if (isset($map['discountable_amount'])) {
+            $model->discountableAmount = $map['discountable_amount'];
+        }
+        if (isset($map['sub_merchant'])) {
+            $model->subMerchant = SubMerchantParams::fromMap($map['sub_merchant']);
+        }
+        if (isset($map['body'])) {
+            $model->body = $map['body'];
         }
 
         return $model;
