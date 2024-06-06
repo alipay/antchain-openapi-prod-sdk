@@ -54,6 +54,18 @@ public class PayDigitalkeyWithholdRequest extends TeaModel {
     @Validation(required = true)
     public String asyncType;
 
+    // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+    @NameInMap("discountable_amount")
+    public Long discountableAmount;
+
+    // 二级商户信息
+    @NameInMap("sub_merchant")
+    public SubMerchantParams subMerchant;
+
+    // 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
+    @NameInMap("body")
+    public String body;
+
     public static PayDigitalkeyWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
         PayDigitalkeyWithholdRequest self = new PayDigitalkeyWithholdRequest();
         return TeaModel.build(map, self);
@@ -145,6 +157,30 @@ public class PayDigitalkeyWithholdRequest extends TeaModel {
     }
     public String getAsyncType() {
         return this.asyncType;
+    }
+
+    public PayDigitalkeyWithholdRequest setDiscountableAmount(Long discountableAmount) {
+        this.discountableAmount = discountableAmount;
+        return this;
+    }
+    public Long getDiscountableAmount() {
+        return this.discountableAmount;
+    }
+
+    public PayDigitalkeyWithholdRequest setSubMerchant(SubMerchantParams subMerchant) {
+        this.subMerchant = subMerchant;
+        return this;
+    }
+    public SubMerchantParams getSubMerchant() {
+        return this.subMerchant;
+    }
+
+    public PayDigitalkeyWithholdRequest setBody(String body) {
+        this.body = body;
+        return this;
+    }
+    public String getBody() {
+        return this.body;
     }
 
 }
