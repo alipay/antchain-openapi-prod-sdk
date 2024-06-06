@@ -527,6 +527,8 @@ type QuerySkyholdResRequest struct {
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 	// 客户id
 	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+	// 授权码
+	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty"`
 }
 
 func (s QuerySkyholdResRequest) String() string {
@@ -559,6 +561,11 @@ func (s *QuerySkyholdResRequest) SetChannelCode(v string) *QuerySkyholdResReques
 
 func (s *QuerySkyholdResRequest) SetCustomerId(v string) *QuerySkyholdResRequest {
 	s.CustomerId = &v
+	return s
+}
+
+func (s *QuerySkyholdResRequest) SetAuthCode(v string) *QuerySkyholdResRequest {
+	s.AuthCode = &v
 	return s
 }
 
@@ -720,6 +727,520 @@ func (s *QueryCommonScoreResponse) SetScore(v string) *QueryCommonScoreResponse 
 }
 
 func (s *QueryCommonScoreResponse) SetTransNo(v string) *QueryCommonScoreResponse {
+	s.TransNo = &v
+	return s
+}
+
+type SubmitYunfengdieAuditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 接口调用参数
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 请求头参数
+	Headers *string `json:"headers,omitempty" xml:"headers,omitempty" require:"true"`
+}
+
+func (s SubmitYunfengdieAuditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitYunfengdieAuditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitYunfengdieAuditRequest) SetAuthToken(v string) *SubmitYunfengdieAuditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitYunfengdieAuditRequest) SetParams(v string) *SubmitYunfengdieAuditRequest {
+	s.Params = &v
+	return s
+}
+
+func (s *SubmitYunfengdieAuditRequest) SetHeaders(v string) *SubmitYunfengdieAuditRequest {
+	s.Headers = &v
+	return s
+}
+
+type SubmitYunfengdieAuditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 云凤蝶工单提交相应JSON
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s SubmitYunfengdieAuditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitYunfengdieAuditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitYunfengdieAuditResponse) SetReqMsgId(v string) *SubmitYunfengdieAuditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitYunfengdieAuditResponse) SetResultCode(v string) *SubmitYunfengdieAuditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitYunfengdieAuditResponse) SetResultMsg(v string) *SubmitYunfengdieAuditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitYunfengdieAuditResponse) SetResult(v string) *SubmitYunfengdieAuditResponse {
+	s.Result = &v
+	return s
+}
+
+type ImportAistudioOssRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 阿里云oss路径
+	AliyunOssPath *string `json:"aliyun_oss_path,omitempty" xml:"aliyun_oss_path,omitempty" require:"true"`
+	// 主站oss路径
+	AntOssPath *string `json:"ant_oss_path,omitempty" xml:"ant_oss_path,omitempty" require:"true"`
+}
+
+func (s ImportAistudioOssRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportAistudioOssRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportAistudioOssRequest) SetAuthToken(v string) *ImportAistudioOssRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportAistudioOssRequest) SetAliyunOssPath(v string) *ImportAistudioOssRequest {
+	s.AliyunOssPath = &v
+	return s
+}
+
+func (s *ImportAistudioOssRequest) SetAntOssPath(v string) *ImportAistudioOssRequest {
+	s.AntOssPath = &v
+	return s
+}
+
+type ImportAistudioOssResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportAistudioOssResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportAistudioOssResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportAistudioOssResponse) SetReqMsgId(v string) *ImportAistudioOssResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportAistudioOssResponse) SetResultCode(v string) *ImportAistudioOssResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportAistudioOssResponse) SetResultMsg(v string) *ImportAistudioOssResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CheckAistudioModelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 业务唯一码（可填model_id）
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty" require:"true"`
+	// 业务类型（TDI平台填TDI）
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 模型类型（1：离线模型，2：在线模型，3：既是离线也是在线）
+	ModelType *int64 `json:"model_type,omitempty" xml:"model_type,omitempty" require:"true"`
+	// 所需要验收服务的list
+	// 1. PRESSURE
+	// 2. RUNTIMUE
+	// 3. SAFETY
+	ServiceSelector *string `json:"service_selector,omitempty" xml:"service_selector,omitempty" require:"true"`
+	// 离线模型oss路径
+	OfflineModelPath *string `json:"offline_model_path,omitempty" xml:"offline_model_path,omitempty"`
+	// 在线模型oss路径
+	OnlineModelPath *string `json:"online_model_path,omitempty" xml:"online_model_path,omitempty"`
+	// 模型脚本oss路径
+	ScriptPath *string `json:"script_path,omitempty" xml:"script_path,omitempty" require:"true"`
+	// 验证样本（csv格式，包括保留列、特征列和分数）的OSS路径
+	SamplePath *string `json:"sample_path,omitempty" xml:"sample_path,omitempty" require:"true"`
+	// 验证样本保留列的list
+	RemainList *string `json:"remain_list,omitempty" xml:"remain_list,omitempty" require:"true"`
+	// 验证样本特征列的list
+	FeatureList *string `json:"feature_list,omitempty" xml:"feature_list,omitempty" require:"true"`
+	// 验证样本分数列
+	ScoreCol *string `json:"score_col,omitempty" xml:"score_col,omitempty" require:"true"`
+	// aistudio docker镜像指定，若未指定，则默认为
+	// reg.docker.alibaba-inc.com/aii/aistudio:aistudio-108521006-1633157052-1690290565806
+	DockerImage *string `json:"docker_image,omitempty" xml:"docker_image,omitempty"`
+	// 在线模型压测核数，默认为1
+	PmCore *int64 `json:"pm_core,omitempty" xml:"pm_core,omitempty"`
+	// 在线模型压测内存大小（GB），默认为2
+	PmMem *int64 `json:"pm_mem,omitempty" xml:"pm_mem,omitempty"`
+	// 离线模型批次大小，默认2000
+	BatchSize *string `json:"batch_size,omitempty" xml:"batch_size,omitempty"`
+}
+
+func (s CheckAistudioModelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAistudioModelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAistudioModelRequest) SetAuthToken(v string) *CheckAistudioModelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetBizCode(v string) *CheckAistudioModelRequest {
+	s.BizCode = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetBizType(v string) *CheckAistudioModelRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetModelType(v int64) *CheckAistudioModelRequest {
+	s.ModelType = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetServiceSelector(v string) *CheckAistudioModelRequest {
+	s.ServiceSelector = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetOfflineModelPath(v string) *CheckAistudioModelRequest {
+	s.OfflineModelPath = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetOnlineModelPath(v string) *CheckAistudioModelRequest {
+	s.OnlineModelPath = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetScriptPath(v string) *CheckAistudioModelRequest {
+	s.ScriptPath = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetSamplePath(v string) *CheckAistudioModelRequest {
+	s.SamplePath = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetRemainList(v string) *CheckAistudioModelRequest {
+	s.RemainList = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetFeatureList(v string) *CheckAistudioModelRequest {
+	s.FeatureList = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetScoreCol(v string) *CheckAistudioModelRequest {
+	s.ScoreCol = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetDockerImage(v string) *CheckAistudioModelRequest {
+	s.DockerImage = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetPmCore(v int64) *CheckAistudioModelRequest {
+	s.PmCore = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetPmMem(v int64) *CheckAistudioModelRequest {
+	s.PmMem = &v
+	return s
+}
+
+func (s *CheckAistudioModelRequest) SetBatchSize(v string) *CheckAistudioModelRequest {
+	s.BatchSize = &v
+	return s
+}
+
+type CheckAistudioModelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+}
+
+func (s CheckAistudioModelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAistudioModelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAistudioModelResponse) SetReqMsgId(v string) *CheckAistudioModelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckAistudioModelResponse) SetResultCode(v string) *CheckAistudioModelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckAistudioModelResponse) SetResultMsg(v string) *CheckAistudioModelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckAistudioModelResponse) SetTaskId(v string) *CheckAistudioModelResponse {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAistudioModelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryAistudioModelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAistudioModelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAistudioModelRequest) SetAuthToken(v string) *QueryAistudioModelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAistudioModelRequest) SetTaskId(v string) *QueryAistudioModelRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAistudioModelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 业务唯一id
+	BizCode *string `json:"biz_code,omitempty" xml:"biz_code,omitempty"`
+	// 压测报告
+	PressureReport *string `json:"pressure_report,omitempty" xml:"pressure_report,omitempty"`
+	// 运行态报告
+	RuntimeReport *string `json:"runtime_report,omitempty" xml:"runtime_report,omitempty"`
+	// 安全报告
+	SafetyReport *string `json:"safety_report,omitempty" xml:"safety_report,omitempty"`
+}
+
+func (s QueryAistudioModelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAistudioModelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAistudioModelResponse) SetReqMsgId(v string) *QueryAistudioModelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAistudioModelResponse) SetResultCode(v string) *QueryAistudioModelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAistudioModelResponse) SetResultMsg(v string) *QueryAistudioModelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAistudioModelResponse) SetBizCode(v string) *QueryAistudioModelResponse {
+	s.BizCode = &v
+	return s
+}
+
+func (s *QueryAistudioModelResponse) SetPressureReport(v string) *QueryAistudioModelResponse {
+	s.PressureReport = &v
+	return s
+}
+
+func (s *QueryAistudioModelResponse) SetRuntimeReport(v string) *QueryAistudioModelResponse {
+	s.RuntimeReport = &v
+	return s
+}
+
+func (s *QueryAistudioModelResponse) SetSafetyReport(v string) *QueryAistudioModelResponse {
+	s.SafetyReport = &v
+	return s
+}
+
+type QueryBacktrackScoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 用户授权编码
+	AuthNo *string `json:"auth_no,omitempty" xml:"auth_no,omitempty" require:"true"`
+	// 模型id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+	// 用户id（客户身份证号/手机号的md5/sha256/sm3散列值）
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
+	// user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	//
+	// 客户编码
+	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true"`
+	// 流水号，串联链路用，非必填
+	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty"`
+	// encrypt_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+	UserIdHashEncrypt *string `json:"user_id_hash_encrypt,omitempty" xml:"user_id_hash_encrypt,omitempty"`
+	// 回溯采样日期
+	SampleDate *string `json:"sample_date,omitempty" xml:"sample_date,omitempty" require:"true"`
+}
+
+func (s QueryBacktrackScoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBacktrackScoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBacktrackScoreRequest) SetAuthToken(v string) *QueryBacktrackScoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetAuthNo(v string) *QueryBacktrackScoreRequest {
+	s.AuthNo = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetModelId(v string) *QueryBacktrackScoreRequest {
+	s.ModelId = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetUserId(v string) *QueryBacktrackScoreRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetUserIdType(v string) *QueryBacktrackScoreRequest {
+	s.UserIdType = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetEncryptType(v string) *QueryBacktrackScoreRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetCustomerCode(v string) *QueryBacktrackScoreRequest {
+	s.CustomerCode = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetTransNo(v string) *QueryBacktrackScoreRequest {
+	s.TransNo = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetUserIdHashEncrypt(v string) *QueryBacktrackScoreRequest {
+	s.UserIdHashEncrypt = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreRequest) SetSampleDate(v string) *QueryBacktrackScoreRequest {
+	s.SampleDate = &v
+	return s
+}
+
+type QueryBacktrackScoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 模型分数
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// 流水号
+	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty"`
+}
+
+func (s QueryBacktrackScoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBacktrackScoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBacktrackScoreResponse) SetReqMsgId(v string) *QueryBacktrackScoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreResponse) SetResultCode(v string) *QueryBacktrackScoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreResponse) SetResultMsg(v string) *QueryBacktrackScoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreResponse) SetScore(v string) *QueryBacktrackScoreResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryBacktrackScoreResponse) SetTransNo(v string) *QueryBacktrackScoreResponse {
 	s.TransNo = &v
 	return s
 }
@@ -931,7 +1452,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.7"),
+				"sdk_version":      tea.String("1.1.0"),
 				"_prod_code":       tea.String("DUANKA"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -1118,6 +1639,176 @@ func (client *Client) QueryCommonScoreEx(request *QueryCommonScoreRequest, heade
 	}
 	_result = &QueryCommonScoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.duanka.common.score.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 云凤蝶工单提交接口
+ * Summary: 云凤蝶工单提交接口
+ */
+func (client *Client) SubmitYunfengdieAudit(request *SubmitYunfengdieAuditRequest) (_result *SubmitYunfengdieAuditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitYunfengdieAuditResponse{}
+	_body, _err := client.SubmitYunfengdieAuditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 云凤蝶工单提交接口
+ * Summary: 云凤蝶工单提交接口
+ */
+func (client *Client) SubmitYunfengdieAuditEx(request *SubmitYunfengdieAuditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitYunfengdieAuditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitYunfengdieAuditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.duanka.yunfengdie.audit.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 文件转存接口
+ * Summary: 文件转存接口
+ */
+func (client *Client) ImportAistudioOss(request *ImportAistudioOssRequest) (_result *ImportAistudioOssResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportAistudioOssResponse{}
+	_body, _err := client.ImportAistudioOssEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 文件转存接口
+ * Summary: 文件转存接口
+ */
+func (client *Client) ImportAistudioOssEx(request *ImportAistudioOssRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportAistudioOssResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportAistudioOssResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.duanka.aistudio.oss.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 模型验收服务
+ * Summary: 模型验收服务
+ */
+func (client *Client) CheckAistudioModel(request *CheckAistudioModelRequest) (_result *CheckAistudioModelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckAistudioModelResponse{}
+	_body, _err := client.CheckAistudioModelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 模型验收服务
+ * Summary: 模型验收服务
+ */
+func (client *Client) CheckAistudioModelEx(request *CheckAistudioModelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAistudioModelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckAistudioModelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.duanka.aistudio.model.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 模型验收服务结果查询
+ * Summary: 模型验收服务结果查询
+ */
+func (client *Client) QueryAistudioModel(request *QueryAistudioModelRequest) (_result *QueryAistudioModelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAistudioModelResponse{}
+	_body, _err := client.QueryAistudioModelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 模型验收服务结果查询
+ * Summary: 模型验收服务结果查询
+ */
+func (client *Client) QueryAistudioModelEx(request *QueryAistudioModelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAistudioModelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAistudioModelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.duanka.aistudio.model.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 通用查询-回溯
+ * Summary: 通用查询-回溯
+ */
+func (client *Client) QueryBacktrackScore(request *QueryBacktrackScoreRequest) (_result *QueryBacktrackScoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBacktrackScoreResponse{}
+	_body, _err := client.QueryBacktrackScoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 通用查询-回溯
+ * Summary: 通用查询-回溯
+ */
+func (client *Client) QueryBacktrackScoreEx(request *QueryBacktrackScoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBacktrackScoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBacktrackScoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.duanka.backtrack.score.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
