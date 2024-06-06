@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.7"),
+                    new TeaPair("sdk_version", "1.1.0"),
                     new TeaPair("_prod_code", "DUANKA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -235,6 +235,101 @@ public class Client {
     public QueryCommonScoreResponse queryCommonScoreEx(QueryCommonScoreRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.common.score.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCommonScoreResponse());
+    }
+
+    /**
+     * Description: 云凤蝶工单提交接口
+     * Summary: 云凤蝶工单提交接口
+     */
+    public SubmitYunfengdieAuditResponse submitYunfengdieAudit(SubmitYunfengdieAuditRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitYunfengdieAuditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 云凤蝶工单提交接口
+     * Summary: 云凤蝶工单提交接口
+     */
+    public SubmitYunfengdieAuditResponse submitYunfengdieAuditEx(SubmitYunfengdieAuditRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.yunfengdie.audit.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitYunfengdieAuditResponse());
+    }
+
+    /**
+     * Description: 文件转存接口
+     * Summary: 文件转存接口
+     */
+    public ImportAistudioOssResponse importAistudioOss(ImportAistudioOssRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importAistudioOssEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 文件转存接口
+     * Summary: 文件转存接口
+     */
+    public ImportAistudioOssResponse importAistudioOssEx(ImportAistudioOssRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.aistudio.oss.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportAistudioOssResponse());
+    }
+
+    /**
+     * Description: 模型验收服务
+     * Summary: 模型验收服务
+     */
+    public CheckAistudioModelResponse checkAistudioModel(CheckAistudioModelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkAistudioModelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 模型验收服务
+     * Summary: 模型验收服务
+     */
+    public CheckAistudioModelResponse checkAistudioModelEx(CheckAistudioModelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.aistudio.model.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAistudioModelResponse());
+    }
+
+    /**
+     * Description: 模型验收服务结果查询
+     * Summary: 模型验收服务结果查询
+     */
+    public QueryAistudioModelResponse queryAistudioModel(QueryAistudioModelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAistudioModelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 模型验收服务结果查询
+     * Summary: 模型验收服务结果查询
+     */
+    public QueryAistudioModelResponse queryAistudioModelEx(QueryAistudioModelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.aistudio.model.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAistudioModelResponse());
+    }
+
+    /**
+     * Description: 通用查询-回溯
+     * Summary: 通用查询-回溯
+     */
+    public QueryBacktrackScoreResponse queryBacktrackScore(QueryBacktrackScoreRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBacktrackScoreEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通用查询-回溯
+     * Summary: 通用查询-回溯
+     */
+    public QueryBacktrackScoreResponse queryBacktrackScoreEx(QueryBacktrackScoreRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.duanka.backtrack.score.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBacktrackScoreResponse());
     }
 
     /**

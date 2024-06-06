@@ -28,6 +28,10 @@ public class QuerySkyholdResRequest extends TeaModel {
     @Validation(required = true)
     public String customerId;
 
+    // 授权码
+    @NameInMap("auth_code")
+    public String authCode;
+
     public static QuerySkyholdResRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySkyholdResRequest self = new QuerySkyholdResRequest();
         return TeaModel.build(map, self);
@@ -71,6 +75,14 @@ public class QuerySkyholdResRequest extends TeaModel {
     }
     public String getCustomerId() {
         return this.customerId;
+    }
+
+    public QuerySkyholdResRequest setAuthCode(String authCode) {
+        this.authCode = authCode;
+        return this;
+    }
+    public String getAuthCode() {
+        return this.authCode;
     }
 
 }
