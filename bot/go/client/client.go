@@ -17751,6 +17751,12 @@ type PayDigitalkeyWithholdRequest struct {
 	TimeoutExpress *string `json:"timeout_express,omitempty" xml:"timeout_express,omitempty"`
 	// 异步支付类型
 	AsyncType *string `json:"async_type,omitempty" xml:"async_type,omitempty" require:"true"`
+	// 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+	DiscountableAmount *int64 `json:"discountable_amount,omitempty" xml:"discountable_amount,omitempty"`
+	// 二级商户信息
+	SubMerchant *SubMerchantParams `json:"sub_merchant,omitempty" xml:"sub_merchant,omitempty"`
+	// 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
+	Body *string `json:"body,omitempty" xml:"body,omitempty"`
 }
 
 func (s PayDigitalkeyWithholdRequest) String() string {
@@ -17813,6 +17819,21 @@ func (s *PayDigitalkeyWithholdRequest) SetTimeoutExpress(v string) *PayDigitalke
 
 func (s *PayDigitalkeyWithholdRequest) SetAsyncType(v string) *PayDigitalkeyWithholdRequest {
 	s.AsyncType = &v
+	return s
+}
+
+func (s *PayDigitalkeyWithholdRequest) SetDiscountableAmount(v int64) *PayDigitalkeyWithholdRequest {
+	s.DiscountableAmount = &v
+	return s
+}
+
+func (s *PayDigitalkeyWithholdRequest) SetSubMerchant(v *SubMerchantParams) *PayDigitalkeyWithholdRequest {
+	s.SubMerchant = v
+	return s
+}
+
+func (s *PayDigitalkeyWithholdRequest) SetBody(v string) *PayDigitalkeyWithholdRequest {
+	s.Body = &v
 	return s
 }
 
@@ -31007,7 +31028,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.3"),
+				"sdk_version":      tea.String("1.11.4"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
