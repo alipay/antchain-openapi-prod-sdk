@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.7',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'DUANKA',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.7',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'DUANKA',
                     '_prod_channel': 'undefined'
                 }
@@ -497,6 +497,286 @@ class Client:
         return TeaCore.from_map(
             duanka_models.QueryCommonScoreResponse(),
             await self.do_request_async('1.0', 'antcloud.duanka.common.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_yunfengdie_audit(
+        self,
+        request: duanka_models.SubmitYunfengdieAuditRequest,
+    ) -> duanka_models.SubmitYunfengdieAuditResponse:
+        """
+        Description: 云凤蝶工单提交接口
+        Summary: 云凤蝶工单提交接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_yunfengdie_audit_ex(request, headers, runtime)
+
+    async def submit_yunfengdie_audit_async(
+        self,
+        request: duanka_models.SubmitYunfengdieAuditRequest,
+    ) -> duanka_models.SubmitYunfengdieAuditResponse:
+        """
+        Description: 云凤蝶工单提交接口
+        Summary: 云凤蝶工单提交接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_yunfengdie_audit_ex_async(request, headers, runtime)
+
+    def submit_yunfengdie_audit_ex(
+        self,
+        request: duanka_models.SubmitYunfengdieAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.SubmitYunfengdieAuditResponse:
+        """
+        Description: 云凤蝶工单提交接口
+        Summary: 云凤蝶工单提交接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.SubmitYunfengdieAuditResponse(),
+            self.do_request('1.0', 'antcloud.duanka.yunfengdie.audit.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_yunfengdie_audit_ex_async(
+        self,
+        request: duanka_models.SubmitYunfengdieAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.SubmitYunfengdieAuditResponse:
+        """
+        Description: 云凤蝶工单提交接口
+        Summary: 云凤蝶工单提交接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.SubmitYunfengdieAuditResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.yunfengdie.audit.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_aistudio_oss(
+        self,
+        request: duanka_models.ImportAistudioOssRequest,
+    ) -> duanka_models.ImportAistudioOssResponse:
+        """
+        Description: 文件转存接口
+        Summary: 文件转存接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_aistudio_oss_ex(request, headers, runtime)
+
+    async def import_aistudio_oss_async(
+        self,
+        request: duanka_models.ImportAistudioOssRequest,
+    ) -> duanka_models.ImportAistudioOssResponse:
+        """
+        Description: 文件转存接口
+        Summary: 文件转存接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_aistudio_oss_ex_async(request, headers, runtime)
+
+    def import_aistudio_oss_ex(
+        self,
+        request: duanka_models.ImportAistudioOssRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.ImportAistudioOssResponse:
+        """
+        Description: 文件转存接口
+        Summary: 文件转存接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.ImportAistudioOssResponse(),
+            self.do_request('1.0', 'antcloud.duanka.aistudio.oss.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_aistudio_oss_ex_async(
+        self,
+        request: duanka_models.ImportAistudioOssRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.ImportAistudioOssResponse:
+        """
+        Description: 文件转存接口
+        Summary: 文件转存接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.ImportAistudioOssResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.aistudio.oss.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_aistudio_model(
+        self,
+        request: duanka_models.CheckAistudioModelRequest,
+    ) -> duanka_models.CheckAistudioModelResponse:
+        """
+        Description: 模型验收服务
+        Summary: 模型验收服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_aistudio_model_ex(request, headers, runtime)
+
+    async def check_aistudio_model_async(
+        self,
+        request: duanka_models.CheckAistudioModelRequest,
+    ) -> duanka_models.CheckAistudioModelResponse:
+        """
+        Description: 模型验收服务
+        Summary: 模型验收服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_aistudio_model_ex_async(request, headers, runtime)
+
+    def check_aistudio_model_ex(
+        self,
+        request: duanka_models.CheckAistudioModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.CheckAistudioModelResponse:
+        """
+        Description: 模型验收服务
+        Summary: 模型验收服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.CheckAistudioModelResponse(),
+            self.do_request('1.0', 'antcloud.duanka.aistudio.model.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_aistudio_model_ex_async(
+        self,
+        request: duanka_models.CheckAistudioModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.CheckAistudioModelResponse:
+        """
+        Description: 模型验收服务
+        Summary: 模型验收服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.CheckAistudioModelResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.aistudio.model.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aistudio_model(
+        self,
+        request: duanka_models.QueryAistudioModelRequest,
+    ) -> duanka_models.QueryAistudioModelResponse:
+        """
+        Description: 模型验收服务结果查询
+        Summary: 模型验收服务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aistudio_model_ex(request, headers, runtime)
+
+    async def query_aistudio_model_async(
+        self,
+        request: duanka_models.QueryAistudioModelRequest,
+    ) -> duanka_models.QueryAistudioModelResponse:
+        """
+        Description: 模型验收服务结果查询
+        Summary: 模型验收服务结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aistudio_model_ex_async(request, headers, runtime)
+
+    def query_aistudio_model_ex(
+        self,
+        request: duanka_models.QueryAistudioModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryAistudioModelResponse:
+        """
+        Description: 模型验收服务结果查询
+        Summary: 模型验收服务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryAistudioModelResponse(),
+            self.do_request('1.0', 'antcloud.duanka.aistudio.model.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aistudio_model_ex_async(
+        self,
+        request: duanka_models.QueryAistudioModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryAistudioModelResponse:
+        """
+        Description: 模型验收服务结果查询
+        Summary: 模型验收服务结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryAistudioModelResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.aistudio.model.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_backtrack_score(
+        self,
+        request: duanka_models.QueryBacktrackScoreRequest,
+    ) -> duanka_models.QueryBacktrackScoreResponse:
+        """
+        Description: 通用查询-回溯
+        Summary: 通用查询-回溯
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_backtrack_score_ex(request, headers, runtime)
+
+    async def query_backtrack_score_async(
+        self,
+        request: duanka_models.QueryBacktrackScoreRequest,
+    ) -> duanka_models.QueryBacktrackScoreResponse:
+        """
+        Description: 通用查询-回溯
+        Summary: 通用查询-回溯
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_backtrack_score_ex_async(request, headers, runtime)
+
+    def query_backtrack_score_ex(
+        self,
+        request: duanka_models.QueryBacktrackScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryBacktrackScoreResponse:
+        """
+        Description: 通用查询-回溯
+        Summary: 通用查询-回溯
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryBacktrackScoreResponse(),
+            self.do_request('1.0', 'antcloud.duanka.backtrack.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_backtrack_score_ex_async(
+        self,
+        request: duanka_models.QueryBacktrackScoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> duanka_models.QueryBacktrackScoreResponse:
+        """
+        Description: 通用查询-回溯
+        Summary: 通用查询-回溯
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            duanka_models.QueryBacktrackScoreResponse(),
+            await self.do_request_async('1.0', 'antcloud.duanka.backtrack.score.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_ir_brand(

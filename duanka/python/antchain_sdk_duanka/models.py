@@ -639,6 +639,7 @@ class QuerySkyholdResRequest(TeaModel):
         key_id: str = None,
         channel_code: str = None,
         customer_id: str = None,
+        auth_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -650,6 +651,8 @@ class QuerySkyholdResRequest(TeaModel):
         self.channel_code = channel_code
         # 客户id
         self.customer_id = customer_id
+        # 授权码
+        self.auth_code = auth_code
 
     def validate(self):
         self.validate_required(self.biz_code, 'biz_code')
@@ -673,6 +676,8 @@ class QuerySkyholdResRequest(TeaModel):
             result['channel_code'] = self.channel_code
         if self.customer_id is not None:
             result['customer_id'] = self.customer_id
+        if self.auth_code is not None:
+            result['auth_code'] = self.auth_code
         return result
 
     def from_map(self, m: dict = None):
@@ -687,6 +692,8 @@ class QuerySkyholdResRequest(TeaModel):
             self.channel_code = m.get('channel_code')
         if m.get('customer_id') is not None:
             self.customer_id = m.get('customer_id')
+        if m.get('auth_code') is not None:
+            self.auth_code = m.get('auth_code')
         return self
 
 
@@ -832,6 +839,636 @@ class QueryCommonScoreRequest(TeaModel):
 
 
 class QueryCommonScoreResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        score: str = None,
+        trans_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模型分数
+        self.score = score
+        # 流水号
+        self.trans_no = trans_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.score is not None:
+            result['score'] = self.score
+        if self.trans_no is not None:
+            result['trans_no'] = self.trans_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('trans_no') is not None:
+            self.trans_no = m.get('trans_no')
+        return self
+
+
+class SubmitYunfengdieAuditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        params: str = None,
+        headers: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 接口调用参数
+        self.params = params
+        # 请求头参数
+        self.headers = headers
+
+    def validate(self):
+        self.validate_required(self.params, 'params')
+        self.validate_required(self.headers, 'headers')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.params is not None:
+            result['params'] = self.params
+        if self.headers is not None:
+            result['headers'] = self.headers
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        return self
+
+
+class SubmitYunfengdieAuditResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 云凤蝶工单提交相应JSON
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
+class ImportAistudioOssRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        aliyun_oss_path: str = None,
+        ant_oss_path: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 阿里云oss路径
+        self.aliyun_oss_path = aliyun_oss_path
+        # 主站oss路径
+        self.ant_oss_path = ant_oss_path
+
+    def validate(self):
+        self.validate_required(self.aliyun_oss_path, 'aliyun_oss_path')
+        self.validate_required(self.ant_oss_path, 'ant_oss_path')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.aliyun_oss_path is not None:
+            result['aliyun_oss_path'] = self.aliyun_oss_path
+        if self.ant_oss_path is not None:
+            result['ant_oss_path'] = self.ant_oss_path
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('aliyun_oss_path') is not None:
+            self.aliyun_oss_path = m.get('aliyun_oss_path')
+        if m.get('ant_oss_path') is not None:
+            self.ant_oss_path = m.get('ant_oss_path')
+        return self
+
+
+class ImportAistudioOssResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CheckAistudioModelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        biz_code: str = None,
+        biz_type: str = None,
+        model_type: int = None,
+        service_selector: str = None,
+        offline_model_path: str = None,
+        online_model_path: str = None,
+        script_path: str = None,
+        sample_path: str = None,
+        remain_list: str = None,
+        feature_list: str = None,
+        score_col: str = None,
+        docker_image: str = None,
+        pm_core: int = None,
+        pm_mem: int = None,
+        batch_size: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 业务唯一码（可填model_id）
+        self.biz_code = biz_code
+        # 业务类型（TDI平台填TDI）
+        self.biz_type = biz_type
+        # 模型类型（1：离线模型，2：在线模型，3：既是离线也是在线）
+        self.model_type = model_type
+        # 所需要验收服务的list
+        # 1. PRESSURE
+        # 2. RUNTIMUE
+        # 3. SAFETY
+        self.service_selector = service_selector
+        # 离线模型oss路径
+        self.offline_model_path = offline_model_path
+        # 在线模型oss路径
+        self.online_model_path = online_model_path
+        # 模型脚本oss路径
+        self.script_path = script_path
+        # 验证样本（csv格式，包括保留列、特征列和分数）的OSS路径
+        self.sample_path = sample_path
+        # 验证样本保留列的list
+        self.remain_list = remain_list
+        # 验证样本特征列的list
+        self.feature_list = feature_list
+        # 验证样本分数列
+        self.score_col = score_col
+        # aistudio docker镜像指定，若未指定，则默认为
+        # reg.docker.alibaba-inc.com/aii/aistudio:aistudio-108521006-1633157052-1690290565806
+        self.docker_image = docker_image
+        # 在线模型压测核数，默认为1
+        self.pm_core = pm_core
+        # 在线模型压测内存大小（GB），默认为2
+        self.pm_mem = pm_mem
+        # 离线模型批次大小，默认2000
+        self.batch_size = batch_size
+
+    def validate(self):
+        self.validate_required(self.biz_code, 'biz_code')
+        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.model_type, 'model_type')
+        self.validate_required(self.service_selector, 'service_selector')
+        self.validate_required(self.script_path, 'script_path')
+        self.validate_required(self.sample_path, 'sample_path')
+        self.validate_required(self.remain_list, 'remain_list')
+        self.validate_required(self.feature_list, 'feature_list')
+        self.validate_required(self.score_col, 'score_col')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.model_type is not None:
+            result['model_type'] = self.model_type
+        if self.service_selector is not None:
+            result['service_selector'] = self.service_selector
+        if self.offline_model_path is not None:
+            result['offline_model_path'] = self.offline_model_path
+        if self.online_model_path is not None:
+            result['online_model_path'] = self.online_model_path
+        if self.script_path is not None:
+            result['script_path'] = self.script_path
+        if self.sample_path is not None:
+            result['sample_path'] = self.sample_path
+        if self.remain_list is not None:
+            result['remain_list'] = self.remain_list
+        if self.feature_list is not None:
+            result['feature_list'] = self.feature_list
+        if self.score_col is not None:
+            result['score_col'] = self.score_col
+        if self.docker_image is not None:
+            result['docker_image'] = self.docker_image
+        if self.pm_core is not None:
+            result['pm_core'] = self.pm_core
+        if self.pm_mem is not None:
+            result['pm_mem'] = self.pm_mem
+        if self.batch_size is not None:
+            result['batch_size'] = self.batch_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('model_type') is not None:
+            self.model_type = m.get('model_type')
+        if m.get('service_selector') is not None:
+            self.service_selector = m.get('service_selector')
+        if m.get('offline_model_path') is not None:
+            self.offline_model_path = m.get('offline_model_path')
+        if m.get('online_model_path') is not None:
+            self.online_model_path = m.get('online_model_path')
+        if m.get('script_path') is not None:
+            self.script_path = m.get('script_path')
+        if m.get('sample_path') is not None:
+            self.sample_path = m.get('sample_path')
+        if m.get('remain_list') is not None:
+            self.remain_list = m.get('remain_list')
+        if m.get('feature_list') is not None:
+            self.feature_list = m.get('feature_list')
+        if m.get('score_col') is not None:
+            self.score_col = m.get('score_col')
+        if m.get('docker_image') is not None:
+            self.docker_image = m.get('docker_image')
+        if m.get('pm_core') is not None:
+            self.pm_core = m.get('pm_core')
+        if m.get('pm_mem') is not None:
+            self.pm_mem = m.get('pm_mem')
+        if m.get('batch_size') is not None:
+            self.batch_size = m.get('batch_size')
+        return self
+
+
+class CheckAistudioModelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 异步任务id
+        self.task_id = task_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAistudioModelRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 任务id
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAistudioModelResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_code: str = None,
+        pressure_report: str = None,
+        runtime_report: str = None,
+        safety_report: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 业务唯一id
+        self.biz_code = biz_code
+        # 压测报告
+        self.pressure_report = pressure_report
+        # 运行态报告
+        self.runtime_report = runtime_report
+        # 安全报告
+        self.safety_report = safety_report
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.pressure_report is not None:
+            result['pressure_report'] = self.pressure_report
+        if self.runtime_report is not None:
+            result['runtime_report'] = self.runtime_report
+        if self.safety_report is not None:
+            result['safety_report'] = self.safety_report
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('pressure_report') is not None:
+            self.pressure_report = m.get('pressure_report')
+        if m.get('runtime_report') is not None:
+            self.runtime_report = m.get('runtime_report')
+        if m.get('safety_report') is not None:
+            self.safety_report = m.get('safety_report')
+        return self
+
+
+class QueryBacktrackScoreRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        auth_no: str = None,
+        model_id: str = None,
+        user_id: str = None,
+        user_id_type: str = None,
+        encrypt_type: str = None,
+        customer_code: str = None,
+        trans_no: str = None,
+        user_id_hash_encrypt: str = None,
+        sample_date: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 用户授权编码
+        self.auth_no = auth_no
+        # 模型id
+        self.model_id = model_id
+        # 用户id（客户身份证号/手机号的md5/sha256/sm3散列值）
+        self.user_id = user_id
+        # 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+        self.user_id_type = user_id_type
+        # user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+        self.encrypt_type = encrypt_type
+        # 
+        # 客户编码
+        self.customer_code = customer_code
+        # 流水号，串联链路用，非必填
+        self.trans_no = trans_no
+        # encrypt_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+        self.user_id_hash_encrypt = user_id_hash_encrypt
+        # 回溯采样日期
+        self.sample_date = sample_date
+
+    def validate(self):
+        self.validate_required(self.auth_no, 'auth_no')
+        self.validate_required(self.model_id, 'model_id')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_id_type, 'user_id_type')
+        self.validate_required(self.encrypt_type, 'encrypt_type')
+        self.validate_required(self.customer_code, 'customer_code')
+        self.validate_required(self.sample_date, 'sample_date')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.auth_no is not None:
+            result['auth_no'] = self.auth_no
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_id_type is not None:
+            result['user_id_type'] = self.user_id_type
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        if self.customer_code is not None:
+            result['customer_code'] = self.customer_code
+        if self.trans_no is not None:
+            result['trans_no'] = self.trans_no
+        if self.user_id_hash_encrypt is not None:
+            result['user_id_hash_encrypt'] = self.user_id_hash_encrypt
+        if self.sample_date is not None:
+            result['sample_date'] = self.sample_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('auth_no') is not None:
+            self.auth_no = m.get('auth_no')
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_id_type') is not None:
+            self.user_id_type = m.get('user_id_type')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        if m.get('customer_code') is not None:
+            self.customer_code = m.get('customer_code')
+        if m.get('trans_no') is not None:
+            self.trans_no = m.get('trans_no')
+        if m.get('user_id_hash_encrypt') is not None:
+            self.user_id_hash_encrypt = m.get('user_id_hash_encrypt')
+        if m.get('sample_date') is not None:
+            self.sample_date = m.get('sample_date')
+        return self
+
+
+class QueryBacktrackScoreResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
