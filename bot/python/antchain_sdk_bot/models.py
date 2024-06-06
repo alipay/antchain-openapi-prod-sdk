@@ -22274,6 +22274,9 @@ class PayDigitalkeyWithholdRequest(TeaModel):
         agreement_no: str = None,
         timeout_express: str = None,
         async_type: str = None,
+        discountable_amount: int = None,
+        sub_merchant: SubMerchantParams = None,
+        body: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22296,6 +22299,12 @@ class PayDigitalkeyWithholdRequest(TeaModel):
         self.timeout_express = timeout_express
         # 异步支付类型
         self.async_type = async_type
+        # 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+        self.discountable_amount = discountable_amount
+        # 二级商户信息
+        self.sub_merchant = sub_merchant
+        # 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
+        self.body = body
 
     def validate(self):
         self.validate_required(self.out_trade_no, 'out_trade_no')
@@ -22305,6 +22314,8 @@ class PayDigitalkeyWithholdRequest(TeaModel):
         self.validate_required(self.total_amount, 'total_amount')
         self.validate_required(self.agreement_no, 'agreement_no')
         self.validate_required(self.async_type, 'async_type')
+        if self.sub_merchant:
+            self.sub_merchant.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -22334,6 +22345,12 @@ class PayDigitalkeyWithholdRequest(TeaModel):
             result['timeout_express'] = self.timeout_express
         if self.async_type is not None:
             result['async_type'] = self.async_type
+        if self.discountable_amount is not None:
+            result['discountable_amount'] = self.discountable_amount
+        if self.sub_merchant is not None:
+            result['sub_merchant'] = self.sub_merchant.to_map()
+        if self.body is not None:
+            result['body'] = self.body
         return result
 
     def from_map(self, m: dict = None):
@@ -22360,6 +22377,13 @@ class PayDigitalkeyWithholdRequest(TeaModel):
             self.timeout_express = m.get('timeout_express')
         if m.get('async_type') is not None:
             self.async_type = m.get('async_type')
+        if m.get('discountable_amount') is not None:
+            self.discountable_amount = m.get('discountable_amount')
+        if m.get('sub_merchant') is not None:
+            temp_model = SubMerchantParams()
+            self.sub_merchant = temp_model.from_map(m['sub_merchant'])
+        if m.get('body') is not None:
+            self.body = m.get('body')
         return self
 
 
