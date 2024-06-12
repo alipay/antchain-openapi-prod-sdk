@@ -283,6 +283,8 @@ type QueryMaxCopilotFinRequest struct {
 	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
 	// 指定的专家框架
 	UserFrameworkCode *string `json:"user_framework_code,omitempty" xml:"user_framework_code,omitempty"`
+	// 解读模式，可选值PEER、RAG，默认PEER
+	Mode *string `json:"mode,omitempty" xml:"mode,omitempty"`
 }
 
 func (s QueryMaxCopilotFinRequest) String() string {
@@ -315,6 +317,11 @@ func (s *QueryMaxCopilotFinRequest) SetQuestion(v string) *QueryMaxCopilotFinReq
 
 func (s *QueryMaxCopilotFinRequest) SetUserFrameworkCode(v string) *QueryMaxCopilotFinRequest {
 	s.UserFrameworkCode = &v
+	return s
+}
+
+func (s *QueryMaxCopilotFinRequest) SetMode(v string) *QueryMaxCopilotFinRequest {
+	s.Mode = &v
 	return s
 }
 
@@ -879,7 +886,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_f0f16236ed254bd499e3fe0f9600e0d5"),
 				"_prod_channel":    tea.String("saas"),
 			}
