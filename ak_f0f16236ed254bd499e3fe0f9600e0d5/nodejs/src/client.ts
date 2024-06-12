@@ -186,6 +186,8 @@ export class QueryMaxCopilotFinRequest extends $tea.Model {
   question: string;
   // 指定的专家框架
   userFrameworkCode?: string;
+  // 解读模式，可选值PEER、RAG，默认PEER
+  mode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -193,6 +195,7 @@ export class QueryMaxCopilotFinRequest extends $tea.Model {
       userId: 'user_id',
       question: 'question',
       userFrameworkCode: 'user_framework_code',
+      mode: 'mode',
     };
   }
 
@@ -203,6 +206,7 @@ export class QueryMaxCopilotFinRequest extends $tea.Model {
       userId: 'string',
       question: 'string',
       userFrameworkCode: 'string',
+      mode: 'string',
     };
   }
 
@@ -661,7 +665,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_f0f16236ed254bd499e3fe0f9600e0d5",
           _prod_channel: "saas",
         };
