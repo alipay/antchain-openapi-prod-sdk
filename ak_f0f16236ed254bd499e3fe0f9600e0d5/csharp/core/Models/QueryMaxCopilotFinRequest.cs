@@ -33,6 +33,11 @@ namespace AntChain.SDK.Ak_f0f16236ed254bd499e3fe0f9600e0d5.Models
         [Validation(Required=false)]
         public string UserFrameworkCode { get; set; }
 
+        // 解读模式，可选值PEER、RAG，默认PEER
+        [NameInMap("mode")]
+        [Validation(Required=false)]
+        public string Mode { get; set; }
+
     }
 
 }
