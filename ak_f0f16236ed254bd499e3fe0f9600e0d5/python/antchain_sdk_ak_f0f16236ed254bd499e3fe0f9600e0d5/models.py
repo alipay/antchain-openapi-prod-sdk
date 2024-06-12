@@ -317,6 +317,7 @@ class QueryMaxCopilotFinRequest(TeaModel):
         user_id: str = None,
         question: str = None,
         user_framework_code: str = None,
+        mode: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -327,6 +328,8 @@ class QueryMaxCopilotFinRequest(TeaModel):
         self.question = question
         # 指定的专家框架
         self.user_framework_code = user_framework_code
+        # 解读模式，可选值PEER、RAG，默认PEER
+        self.mode = mode
 
     def validate(self):
         self.validate_required(self.user_id, 'user_id')
@@ -348,6 +351,8 @@ class QueryMaxCopilotFinRequest(TeaModel):
             result['question'] = self.question
         if self.user_framework_code is not None:
             result['user_framework_code'] = self.user_framework_code
+        if self.mode is not None:
+            result['mode'] = self.mode
         return result
 
     def from_map(self, m: dict = None):
@@ -362,6 +367,8 @@ class QueryMaxCopilotFinRequest(TeaModel):
             self.question = m.get('question')
         if m.get('user_framework_code') is not None:
             self.user_framework_code = m.get('user_framework_code')
+        if m.get('mode') is not None:
+            self.mode = m.get('mode')
         return self
 
 
