@@ -25,6 +25,10 @@ public class QueryMaxCopilotFinRequest extends TeaModel {
     @NameInMap("user_framework_code")
     public String userFrameworkCode;
 
+    // 解读模式，可选值PEER、RAG，默认PEER
+    @NameInMap("mode")
+    public String mode;
+
     public static QueryMaxCopilotFinRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryMaxCopilotFinRequest self = new QueryMaxCopilotFinRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class QueryMaxCopilotFinRequest extends TeaModel {
     }
     public String getUserFrameworkCode() {
         return this.userFrameworkCode;
+    }
+
+    public QueryMaxCopilotFinRequest setMode(String mode) {
+        this.mode = mode;
+        return this;
+    }
+    public String getMode() {
+        return this.mode;
     }
 
 }
