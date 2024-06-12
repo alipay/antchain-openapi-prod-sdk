@@ -36,12 +36,19 @@ class QueryMaxCopilotFinRequest extends Model
      * @var string
      */
     public $userFrameworkCode;
+
+    // 解读模式，可选值PEER、RAG，默认PEER
+    /**
+     * @var string
+     */
+    public $mode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'userId'            => 'user_id',
         'question'          => 'question',
         'userFrameworkCode' => 'user_framework_code',
+        'mode'              => 'mode',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class QueryMaxCopilotFinRequest extends Model
         }
         if (null !== $this->userFrameworkCode) {
             $res['user_framework_code'] = $this->userFrameworkCode;
+        }
+        if (null !== $this->mode) {
+            $res['mode'] = $this->mode;
         }
 
         return $res;
@@ -94,6 +104,9 @@ class QueryMaxCopilotFinRequest extends Model
         }
         if (isset($map['user_framework_code'])) {
             $model->userFrameworkCode = $map['user_framework_code'];
+        }
+        if (isset($map['mode'])) {
+            $model->mode = $map['mode'];
         }
 
         return $model;
