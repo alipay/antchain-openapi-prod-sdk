@@ -2909,6 +2909,8 @@ export class CloneInnerTemplateRequest extends $tea.Model {
   productInstanceId?: string;
   // 商户对应租户ID
   tenantId: string;
+  // 模板code
+  templateCode: string;
   // 魔法库对应模板的模板复制id
   voucherId: string;
   static names(): { [key: string]: string } {
@@ -2916,6 +2918,7 @@ export class CloneInnerTemplateRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       tenantId: 'tenant_id',
+      templateCode: 'template_code',
       voucherId: 'voucher_id',
     };
   }
@@ -2925,6 +2928,7 @@ export class CloneInnerTemplateRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       tenantId: 'string',
+      templateCode: 'string',
       voucherId: 'string',
     };
   }
@@ -3585,7 +3589,9 @@ export class QueryInnerFunddividerelationResponse extends $tea.Model {
   resultMsg?: string;
   // 分账公司名称
   companyName?: string;
-  // 统一社会信用代码
+  // 分账主体企业统一社会信用代码
+  subjectMerchantId?: string;
+  // 分账对象统一社会信用代码
   merchantId?: string;
   // 分账合同或协议
   contractFiles?: FileInfo[];
@@ -3607,6 +3613,7 @@ export class QueryInnerFunddividerelationResponse extends $tea.Model {
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       companyName: 'company_name',
+      subjectMerchantId: 'subject_merchant_id',
       merchantId: 'merchant_id',
       contractFiles: 'contract_files',
       desc: 'desc',
@@ -3624,6 +3631,7 @@ export class QueryInnerFunddividerelationResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       companyName: 'string',
+      subjectMerchantId: 'string',
       merchantId: 'string',
       contractFiles: { 'type': 'array', 'itemType': FileInfo },
       desc: 'string',
@@ -4123,6 +4131,8 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
   applicationInfo?: ApplicationInfo;
   // 审核列表
   auditInfos?: AuditInfo[];
+  // 进件流水号
+  payExpandId?: string;
   // 进件模式 DIRECT(直连进件) AGENT(代理进件)
   expandMode?: string;
   // INIT:草稿态 SUB_MERCHANT_CREDIT:二级户商户签约中 AUDIT:审核中 AUDIT_PASSED:进件成功 AUDIT_NOT_PASSED:进件失败 MERCHANT_CONFIRM:待商户确认
@@ -4138,6 +4148,7 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
       legalInfo: 'legal_info',
       applicationInfo: 'application_info',
       auditInfos: 'audit_infos',
+      payExpandId: 'pay_expand_id',
       expandMode: 'expand_mode',
       expandStatus: 'expand_status',
       expandFailReason: 'expand_fail_reason',
@@ -4153,6 +4164,7 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
       legalInfo: LegalInfo,
       applicationInfo: ApplicationInfo,
       auditInfos: { 'type': 'array', 'itemType': AuditInfo },
+      payExpandId: 'string',
       expandMode: 'string',
       expandStatus: 'string',
       expandFailReason: 'string',
@@ -7636,7 +7648,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.66",
+          sdk_version: "1.8.69",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
