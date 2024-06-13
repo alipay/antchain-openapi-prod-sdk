@@ -32,7 +32,13 @@ class QueryInnerFunddividerelationResponse extends Model
      */
     public $companyName;
 
-    // 统一社会信用代码
+    // 分账主体企业统一社会信用代码
+    /**
+     * @var string
+     */
+    public $subjectMerchantId;
+
+    // 分账对象统一社会信用代码
     /**
      * @var string
      */
@@ -84,6 +90,7 @@ class QueryInnerFunddividerelationResponse extends Model
         'resultCode'         => 'result_code',
         'resultMsg'          => 'result_msg',
         'companyName'        => 'company_name',
+        'subjectMerchantId'  => 'subject_merchant_id',
         'merchantId'         => 'merchant_id',
         'contractFiles'      => 'contract_files',
         'desc'               => 'desc',
@@ -112,6 +119,9 @@ class QueryInnerFunddividerelationResponse extends Model
         }
         if (null !== $this->companyName) {
             $res['company_name'] = $this->companyName;
+        }
+        if (null !== $this->subjectMerchantId) {
+            $res['subject_merchant_id'] = $this->subjectMerchantId;
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
@@ -172,6 +182,9 @@ class QueryInnerFunddividerelationResponse extends Model
         }
         if (isset($map['company_name'])) {
             $model->companyName = $map['company_name'];
+        }
+        if (isset($map['subject_merchant_id'])) {
+            $model->subjectMerchantId = $map['subject_merchant_id'];
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];

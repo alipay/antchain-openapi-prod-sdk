@@ -25,6 +25,12 @@ class CloneInnerTemplateRequest extends Model
      */
     public $tenantId;
 
+    // 模板code
+    /**
+     * @var string
+     */
+    public $templateCode;
+
     // 魔法库对应模板的模板复制id
     /**
      * @var string
@@ -34,12 +40,14 @@ class CloneInnerTemplateRequest extends Model
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
+        'templateCode'      => 'template_code',
         'voucherId'         => 'voucher_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('templateCode', $this->templateCode, true);
         Model::validateRequired('voucherId', $this->voucherId, true);
     }
 
@@ -54,6 +62,9 @@ class CloneInnerTemplateRequest extends Model
         }
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
+        }
+        if (null !== $this->templateCode) {
+            $res['template_code'] = $this->templateCode;
         }
         if (null !== $this->voucherId) {
             $res['voucher_id'] = $this->voucherId;
@@ -78,6 +89,9 @@ class CloneInnerTemplateRequest extends Model
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
+        }
+        if (isset($map['template_code'])) {
+            $model->templateCode = $map['template_code'];
         }
         if (isset($map['voucher_id'])) {
             $model->voucherId = $map['voucher_id'];

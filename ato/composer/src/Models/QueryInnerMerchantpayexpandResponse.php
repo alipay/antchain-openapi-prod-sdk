@@ -50,6 +50,12 @@ class QueryInnerMerchantpayexpandResponse extends Model
      */
     public $auditInfos;
 
+    // 进件流水号
+    /**
+     * @var string
+     */
+    public $payExpandId;
+
     // 进件模式 DIRECT(直连进件) AGENT(代理进件)
     /**
      * @var string
@@ -75,6 +81,7 @@ class QueryInnerMerchantpayexpandResponse extends Model
         'legalInfo'        => 'legal_info',
         'applicationInfo'  => 'application_info',
         'auditInfos'       => 'audit_infos',
+        'payExpandId'      => 'pay_expand_id',
         'expandMode'       => 'expand_mode',
         'expandStatus'     => 'expand_status',
         'expandFailReason' => 'expand_fail_reason',
@@ -113,6 +120,9 @@ class QueryInnerMerchantpayexpandResponse extends Model
                     $res['audit_infos'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->payExpandId) {
+            $res['pay_expand_id'] = $this->payExpandId;
         }
         if (null !== $this->expandMode) {
             $res['expand_mode'] = $this->expandMode;
@@ -161,6 +171,9 @@ class QueryInnerMerchantpayexpandResponse extends Model
                     $model->auditInfos[$n++] = null !== $item ? AuditInfo::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['pay_expand_id'])) {
+            $model->payExpandId = $map['pay_expand_id'];
         }
         if (isset($map['expand_mode'])) {
             $model->expandMode = $map['expand_mode'];
