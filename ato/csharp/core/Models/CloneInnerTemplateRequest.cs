@@ -23,6 +23,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
+        // 模板code
+        [NameInMap("template_code")]
+        [Validation(Required=true)]
+        public string TemplateCode { get; set; }
+
         // 魔法库对应模板的模板复制id
         [NameInMap("voucher_id")]
         [Validation(Required=true)]

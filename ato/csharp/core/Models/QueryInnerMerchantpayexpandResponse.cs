@@ -44,6 +44,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public List<AuditInfo> AuditInfos { get; set; }
 
+        // 进件流水号
+        [NameInMap("pay_expand_id")]
+        [Validation(Required=false)]
+        public string PayExpandId { get; set; }
+
         // 进件模式 DIRECT(直连进件) AGENT(代理进件)
         [NameInMap("expand_mode")]
         [Validation(Required=false)]

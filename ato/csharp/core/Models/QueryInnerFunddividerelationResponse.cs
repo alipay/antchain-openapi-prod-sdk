@@ -29,7 +29,12 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string CompanyName { get; set; }
 
-        // 统一社会信用代码
+        // 分账主体企业统一社会信用代码
+        [NameInMap("subject_merchant_id")]
+        [Validation(Required=false)]
+        public string SubjectMerchantId { get; set; }
+
+        // 分账对象统一社会信用代码
         [NameInMap("merchant_id")]
         [Validation(Required=false)]
         public string MerchantId { get; set; }
