@@ -365,6 +365,51 @@ export class BclOrderProductInfo extends $tea.Model {
   }
 }
 
+// 租赁宝plus退保详情
+export class InsuranceCancelRecordInfo extends $tea.Model {
+  // 保单单号
+  bclInsuranceRecordId: string;
+  // 退保id
+  cancelInsuranceId: string;
+  // 退还保费 单位分, 退保成功时返回
+  cancelAmount?: number;
+  // 申请退保时间
+  // 格式: yyyy-MM-dd HH:mm:ss
+  cancelApplyTime: string;
+  // 退保状态
+  // RECORD_CANCEL_INIT: 退保初始
+  // RECORD_CANCEL_SUCC: 退保成功
+  // RECORD_CANCEL_FAIL: 退保失败
+  cancelStatus: string;
+  // 退保失败原, 退保失败时返回
+  remark?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bclInsuranceRecordId: 'bcl_insurance_record_id',
+      cancelInsuranceId: 'cancel_insurance_id',
+      cancelAmount: 'cancel_amount',
+      cancelApplyTime: 'cancel_apply_time',
+      cancelStatus: 'cancel_status',
+      remark: 'remark',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bclInsuranceRecordId: 'string',
+      cancelInsuranceId: 'string',
+      cancelAmount: 'number',
+      cancelApplyTime: 'string',
+      cancelStatus: 'string',
+      remark: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 存证关联实体（个人/企业）的身份识别信息
 export class NotaryUser extends $tea.Model {
   // 用户类型，PERSON或者ENTERPRISE
@@ -1093,6 +1138,55 @@ export class PhaseNotary extends $tea.Model {
       phaseNo: 'number',
       notaryContent: 'string',
       originDataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 租赁宝plus用户信息
+export class BclInsuranceUserInfo extends $tea.Model {
+  // 用户名称
+  userName: string;
+  // 保险用户类型：
+  // HOLDER_ORG: 投保人（机构）
+  // INSURED_ORG: 被保人（机构）
+  // INSURANCE_ORG: 保司（机构）
+  userType: string;
+  // 证件号名称:
+  // USCC，社会统一信用代码，目前仅支持
+  idType: string;
+  // 证件号码
+  idNumber: string;
+  // 联系地址
+  address: string;
+  // 联系方式
+  mobile: string;
+  // 邮件地址
+  mail: string;
+  static names(): { [key: string]: string } {
+    return {
+      userName: 'user_name',
+      userType: 'user_type',
+      idType: 'id_type',
+      idNumber: 'id_number',
+      address: 'address',
+      mobile: 'mobile',
+      mail: 'mail',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userName: 'string',
+      userType: 'string',
+      idType: 'string',
+      idNumber: 'string',
+      address: 'string',
+      mobile: 'string',
+      mail: 'string',
     };
   }
 
@@ -5176,6 +5270,90 @@ export class CompanyTwoMetaInfo extends $tea.Model {
   }
 }
 
+// 租赁宝plus保单详情
+export class InsuranceRecordInfo extends $tea.Model {
+  // bcl订单id
+  orderId: string;
+  // 保险单号
+  bclInsuranceRecordId: string;
+  // 投保人信息
+  holder: BclInsuranceUserInfo;
+  // 被保人信息
+  insured: BclInsuranceUserInfo;
+  // 保司信息
+  insurancer: BclInsuranceUserInfo;
+  // 保单状态
+  // RECORD_INSURE_INIT: 投保流程初始化
+  // RECORD_INSURE_TOBE: 待投保
+  // RECORD_INSURE_EXCHANGE_SUCC: 投保申请成功
+  // RECORD_INSURE_EXCHANGE_FAIL: 投保申请失败
+  // RECORD_INSURE_SUCC: 投保成功
+  // RECORD_INSURE_FAIL: 投保失败
+  // RECORD_CANCEL_INIT: 退保初始
+  // RECORD_CANCEL_SUCC: 退保成功
+  // RECORD_CANCEL_FAIL: 退保失败
+  insuranceStatus: string;
+  // 起保时间
+  // 格式: yyyy-MM-dd HH:mm:ss
+  insuranceStartTime?: string;
+  // 终保时间
+  // 格式: yyyy-MM-dd HH:mm:ss
+  insuranceEndTime?: string;
+  // 保额 单位分
+  insuranceAmount?: number;
+  // 保费 单位分
+  premium?: number;
+  // riskGo分数
+  riskgoScore?: number;
+  // 保险详情地址
+  insuranceUrl?: string;
+  // 投保失败的具体原因, 投保失败时返回
+  remark?: string;
+  // 退保详情
+  insuranceCancelRecordInfoList?: InsuranceCancelRecordInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      bclInsuranceRecordId: 'bcl_insurance_record_id',
+      holder: 'holder',
+      insured: 'insured',
+      insurancer: 'insurancer',
+      insuranceStatus: 'insurance_status',
+      insuranceStartTime: 'insurance_start_time',
+      insuranceEndTime: 'insurance_end_time',
+      insuranceAmount: 'insurance_amount',
+      premium: 'premium',
+      riskgoScore: 'riskgo_score',
+      insuranceUrl: 'insurance_url',
+      remark: 'remark',
+      insuranceCancelRecordInfoList: 'insurance_cancel_record_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      bclInsuranceRecordId: 'string',
+      holder: BclInsuranceUserInfo,
+      insured: BclInsuranceUserInfo,
+      insurancer: BclInsuranceUserInfo,
+      insuranceStatus: 'string',
+      insuranceStartTime: 'string',
+      insuranceEndTime: 'string',
+      insuranceAmount: 'number',
+      premium: 'number',
+      riskgoScore: 'number',
+      insuranceUrl: 'string',
+      remark: 'string',
+      insuranceCancelRecordInfoList: { 'type': 'array', 'itemType': InsuranceCancelRecordInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 签字人
 export class ContractFlowSigner extends $tea.Model {
   // 签署顺序
@@ -8455,6 +8633,212 @@ export class QueryBclRefundResponse extends $tea.Model {
   }
 }
 
+export class CreateBclInsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // bcl订单id
+  orderId: string;
+  // 保司code，枚举值
+  // HZRB: 杭州人保
+  insuranceCode: string;
+  // 投保人信息
+  holder: BclInsuranceUserInfo;
+  // 被保人信息
+  insured: BclInsuranceUserInfo;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      insuranceCode: 'insurance_code',
+      holder: 'holder',
+      insured: 'insured',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      insuranceCode: 'string',
+      holder: BclInsuranceUserInfo,
+      insured: BclInsuranceUserInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateBclInsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次投保的保险记录id，建议保存，用于查询与退保使用
+  bclInsuranceRecordId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bclInsuranceRecordId: 'bcl_insurance_record_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bclInsuranceRecordId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelBclInsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租赁宝plus订单id
+  orderId: string;
+  // 保险单号
+  bclInsuranceRecordId: string;
+  // 人保退保时必填
+  renbaoExtInfo?: RenbaoExtInfo;
+  // 保司code，枚举值 HZ_RENBAO: 杭州人保
+  insuranceCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      bclInsuranceRecordId: 'bcl_insurance_record_id',
+      renbaoExtInfo: 'renbao_ext_info',
+      insuranceCode: 'insurance_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      bclInsuranceRecordId: 'string',
+      renbaoExtInfo: RenbaoExtInfo,
+      insuranceCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelBclInsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 退保保单号
+  cancelInsuranceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      cancelInsuranceId: 'cancel_insurance_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      cancelInsuranceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclInsuranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租赁宝plus订单id
+  orderId: string;
+  // 保单单号
+  bclInsuranceRecordId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      bclInsuranceRecordId: 'bcl_insurance_record_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      bclInsuranceRecordId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBclInsuranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租赁宝plus订单保险详情
+  insuranceRecordList?: InsuranceRecordInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      insuranceRecordList: 'insurance_record_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      insuranceRecordList: { 'type': 'array', 'itemType': InsuranceRecordInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateContractAccountRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -10855,16 +11239,28 @@ export class CreateContractSignflowRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  //  付款方ID（个人）
+  payerTuid?: string;
   // 是否自动归档，默认false 如设置为true，则在流程开启后，当所有签署人签署完毕，系统自动将流程归档，状态变为“已完成”状态，在流程状态为“已完成”前，可随时添加签署人；如设置为false，则在调用流程开启后，需主动调用签署流程归档接口，将流程状态变更为“已完成”，归档前可随时添加签署人；已完成的流程才可下载签署后的文件
   autoArchive?: boolean;
+  // 收款方ID(机构)
+  payeeTuid?: string;
   // 是否强制代扣
   autoDeductionForce?: boolean;
+  // 租赁订单Id
+  bclOrderId?: string;
   // 文件主题
   businessScene: string;
+  // 商品id
+  productId?: string;
   // 任务配置信息
   contractSignFlowConfig?: ContractSignFlowConfig;
+  // 统一社会信用代码
+  merchantId?: string;
   // 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
   initiatorAccountId?: string;
+  // 商品版本
+  productVersion?: string;
   // 发起方主体id，如存在个人代机构发起签约，则需传入机构id；如不传，则默认是对接平台
   initiatorAuthorizedAccountId?: string;
   // 代扣规则详情
@@ -10873,28 +11269,25 @@ export class CreateContractSignflowRequest extends $tea.Model {
   signPlatform?: string;
   // 签署有效截止日期，毫秒，默认3天失效
   signValidity?: number;
-  //  付款方ID（个人）
-  payerTuid?: string;
-  // 收款方ID(机构)
-  payeeTuid?: string;
-  // 租赁订单Id
-  bclOrderId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      payerTuid: 'payer_tuid',
       autoArchive: 'auto_archive',
+      payeeTuid: 'payee_tuid',
       autoDeductionForce: 'auto_deduction_force',
+      bclOrderId: 'bcl_order_id',
       businessScene: 'business_scene',
+      productId: 'product_id',
       contractSignFlowConfig: 'contract_sign_flow_config',
+      merchantId: 'merchant_id',
       initiatorAccountId: 'initiator_account_id',
+      productVersion: 'product_version',
       initiatorAuthorizedAccountId: 'initiator_authorized_account_id',
       repaymentOrderInfo: 'repayment_order_info',
       signPlatform: 'sign_platform',
       signValidity: 'sign_validity',
-      payerTuid: 'payer_tuid',
-      payeeTuid: 'payee_tuid',
-      bclOrderId: 'bcl_order_id',
     };
   }
 
@@ -10902,18 +11295,21 @@ export class CreateContractSignflowRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      payerTuid: 'string',
       autoArchive: 'boolean',
+      payeeTuid: 'string',
       autoDeductionForce: 'boolean',
+      bclOrderId: 'string',
       businessScene: 'string',
+      productId: 'string',
       contractSignFlowConfig: ContractSignFlowConfig,
+      merchantId: 'string',
       initiatorAccountId: 'string',
+      productVersion: 'string',
       initiatorAuthorizedAccountId: 'string',
       repaymentOrderInfo: { 'type': 'array', 'itemType': RepaymentOrderRequest },
       signPlatform: 'string',
       signValidity: 'number',
-      payerTuid: 'string',
-      payeeTuid: 'string',
-      bclOrderId: 'string',
     };
   }
 
@@ -35244,7 +35640,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -35330,7 +35726,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.10",
+          sdk_version: "1.12.23",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -35908,6 +36304,63 @@ export default class Client {
   async queryBclRefundEx(request: QueryBclRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBclRefundResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBclRefundResponse>(await this.doRequest("1.0", "twc.notary.bcl.refund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBclRefundResponse({}));
+  }
+
+  /**
+   * Description: 租赁宝plus投保
+   * Summary: 租赁宝plus投保
+   */
+  async createBclInsurance(request: CreateBclInsuranceRequest): Promise<CreateBclInsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createBclInsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁宝plus投保
+   * Summary: 租赁宝plus投保
+   */
+  async createBclInsuranceEx(request: CreateBclInsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateBclInsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateBclInsuranceResponse>(await this.doRequest("1.0", "twc.notary.bcl.insurance.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateBclInsuranceResponse({}));
+  }
+
+  /**
+   * Description: 租赁宝plus退保
+   * Summary: 租赁宝plus退保
+   */
+  async cancelBclInsurance(request: CancelBclInsuranceRequest): Promise<CancelBclInsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelBclInsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁宝plus退保
+   * Summary: 租赁宝plus退保
+   */
+  async cancelBclInsuranceEx(request: CancelBclInsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelBclInsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelBclInsuranceResponse>(await this.doRequest("1.0", "twc.notary.bcl.insurance.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelBclInsuranceResponse({}));
+  }
+
+  /**
+   * Description: 租赁宝plus查询订单保险详情
+   * Summary: 租赁宝plus查询订单保险详情
+   */
+  async queryBclInsurance(request: QueryBclInsuranceRequest): Promise<QueryBclInsuranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBclInsuranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 租赁宝plus查询订单保险详情
+   * Summary: 租赁宝plus查询订单保险详情
+   */
+  async queryBclInsuranceEx(request: QueryBclInsuranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBclInsuranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBclInsuranceResponse>(await this.doRequest("1.0", "twc.notary.bcl.insurance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBclInsuranceResponse({}));
   }
 
   /**
