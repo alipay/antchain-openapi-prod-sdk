@@ -4253,6 +4253,47 @@ export class ProductKeyPageResponse extends $tea.Model {
   }
 }
 
+// 代扣服务返回对象
+export class AntdigitalWithHoldResponse extends $tea.Model {
+  // 网关返回码
+  code: string;
+  // 网关返回码描述
+  msg: string;
+  // 务返回码
+  subCode: string;
+  // 业务返回码描述
+  subMsg: string;
+  // 结果返回内容
+  data?: string;
+  // 响应签名
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      code: 'code',
+      msg: 'msg',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+      data: 'data',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      code: 'string',
+      msg: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+      data: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 二级商户信息
 export class SubMerchantParams extends $tea.Model {
   // 子商户的商户id
@@ -13541,8 +13582,8 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
   totalAmount: number;
   // 商户代扣扣款许可
   deductPermission?: string;
-  // 代扣协议号, 对应于签约时，支付宝返回的协议
-  agreementNo: string;
+  // 代扣协议号, 对应于签约时外部商户传入的协议号
+  externalAgreementNo: string;
   // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
   timeoutExpress?: string;
   // 异步支付类型
@@ -13563,7 +13604,7 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
       productCode: 'product_code',
       totalAmount: 'total_amount',
       deductPermission: 'deduct_permission',
-      agreementNo: 'agreement_no',
+      externalAgreementNo: 'external_agreement_no',
       timeoutExpress: 'timeout_express',
       asyncType: 'async_type',
       discountableAmount: 'discountable_amount',
@@ -13582,7 +13623,7 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
       productCode: 'string',
       totalAmount: 'number',
       deductPermission: 'string',
-      agreementNo: 'string',
+      externalAgreementNo: 'string',
       timeoutExpress: 'string',
       asyncType: 'string',
       discountableAmount: 'number',
@@ -13603,17 +13644,14 @@ export class PayDigitalkeyWithholdResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 明细返回码描述
-  subMsg?: string;
-  // 明细返回码
-  subCode?: string;
+  // 返回对象
+  antdigitalWithholdResponse?: AntdigitalWithHoldResponse;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      subMsg: 'sub_msg',
-      subCode: 'sub_code',
+      antdigitalWithholdResponse: 'antdigital_withhold_response',
     };
   }
 
@@ -13622,8 +13660,7 @@ export class PayDigitalkeyWithholdResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      subMsg: 'string',
-      subCode: 'string',
+      antdigitalWithholdResponse: AntdigitalWithHoldResponse,
     };
   }
 
@@ -13820,20 +13857,14 @@ export class CancelDigitalkeyWithholdResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 明细返回码
-  subCode?: string;
-  // 明细返回码描述
-  subMsg?: string;
-  // 撤销返回信息 
-  data?: string;
+  // 返回对象
+  antdigitalWithholdResponse?: AntdigitalWithHoldResponse;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      subCode: 'sub_code',
-      subMsg: 'sub_msg',
-      data: 'data',
+      antdigitalWithholdResponse: 'antdigital_withhold_response',
     };
   }
 
@@ -13842,9 +13873,7 @@ export class CancelDigitalkeyWithholdResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      subCode: 'string',
-      subMsg: 'string',
-      data: 'string',
+      antdigitalWithholdResponse: AntdigitalWithHoldResponse,
     };
   }
 
@@ -13895,20 +13924,14 @@ export class NotifyDigitalkeyWithholdResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 明细返回码
-  subCode?: string;
-  // 明细返回码描述
-  subMsg?: string;
-  // 预通知返回内容
-  data?: string;
+  // 返回对象
+  antdigitalWithholdResponse?: AntdigitalWithHoldResponse;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      subCode: 'sub_code',
-      subMsg: 'sub_msg',
-      data: 'data',
+      antdigitalWithholdResponse: 'antdigital_withhold_response',
     };
   }
 
@@ -13917,9 +13940,7 @@ export class NotifyDigitalkeyWithholdResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      subCode: 'string',
-      subMsg: 'string',
-      data: 'string',
+      antdigitalWithholdResponse: AntdigitalWithHoldResponse,
     };
   }
 
@@ -22344,20 +22365,23 @@ export class ExecThingServiceRequest extends $tea.Model {
   // 服务标识
   identifier: string;
   // 可信设备唯一ID
-  trustiotEntityId?: number;
-  // 设备编号/资产ID
-  deviceId?: string;
+  entityIdList: string[];
   // 物模型服务入参
-  inputData: string;
+  inputData?: string;
+  // 实体类型
+  entityType: string;
+  // 是否使用trustiotId
+  useTrustiotId: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       scene: 'scene',
       identifier: 'identifier',
-      trustiotEntityId: 'trustiot_entity_id',
-      deviceId: 'device_id',
+      entityIdList: 'entity_id_list',
       inputData: 'input_data',
+      entityType: 'entity_type',
+      useTrustiotId: 'use_trustiot_id',
     };
   }
 
@@ -22367,9 +22391,10 @@ export class ExecThingServiceRequest extends $tea.Model {
       productInstanceId: 'string',
       scene: 'string',
       identifier: 'string',
-      trustiotEntityId: 'number',
-      deviceId: 'string',
+      entityIdList: { 'type': 'array', 'itemType': 'string' },
       inputData: 'string',
+      entityType: 'string',
+      useTrustiotId: 'boolean',
     };
   }
 
@@ -23863,7 +23888,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.4",
+          sdk_version: "1.11.6",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -25814,8 +25839,8 @@ export default class Client {
   }
 
   /**
-   * Description: 代扣支付
-   * Summary: 代扣支付
+   * Description: 网约车代扣支付
+   * Summary: 网约车代扣支付
    */
   async payDigitalkeyWithhold(request: PayDigitalkeyWithholdRequest): Promise<PayDigitalkeyWithholdResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -25824,8 +25849,8 @@ export default class Client {
   }
 
   /**
-   * Description: 代扣支付
-   * Summary: 代扣支付
+   * Description: 网约车代扣支付
+   * Summary: 网约车代扣支付
    */
   async payDigitalkeyWithholdEx(request: PayDigitalkeyWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PayDigitalkeyWithholdResponse> {
     Util.validateModel(request);
