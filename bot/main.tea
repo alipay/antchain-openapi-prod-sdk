@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.6',
+    sdk_version = '1.11.7',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -642,6 +642,24 @@ model TenantBindInfoReq {
   userName: string(name='user_name', example='"xx公司xx部门"'),
 }
 
+// iotbasic设备模型固定属性失败内容
+model IotbasicDeviceModelFixedAttributeFailInfo {
+  // 属性说明
+  attributeName: string(name='attribute_name', example='name'),
+  // 属性名称
+  attributeValue: string(name='attribute_value', example='value'),
+  // 数据值类型 字符串：string 数字：long
+  dataType: string(name='data_type', example='string'),
+  // dataType为string时，表示数据长度最小值 dataType为long时，表示数据范围最小值
+  dataRangeMin: long(name='data_range_min', example=''),
+  // dataType为string时，表示数据长度最大值 dataType为long时，表示数据范围最大值
+  dataRangeMax: long(name='data_range_max', example=''),
+  // 失败code
+  errorCode: string(name='error_code', example='code'),
+  // 失败消息
+  errorMessage: string(name='error_message', example='message'),
+}
+
 // JT设备所关联实体设备信息
 model RelatedEntity {
   // 所关联实体的类型
@@ -908,6 +926,10 @@ model CategoryInfo {
   categoryCode: string(name='category_code', example='ant_power_meter'),
   // 描述内容
   remark?: string(name='remark', example='这是描述'),
+  // 行业
+  industry: string(name='industry', example='工业'),
+  // 场景
+  scene: string(name='scene', example='智能工业'),
 }
 
 // 收集信息
@@ -1303,6 +1325,32 @@ model DistributeDataPackage {
   distributeDeviceId: string(name='distribute_device_id', example='244'),
   // 打包时间
   packageTime: long(name='package_time', example=''),
+}
+
+// iotbasic项目品类行业场景内容
+model IotbasicCategoryIndustrySceneInfo {
+  // 行业
+  industry: string(name='industry', example='工业'),
+  // 场景
+  scene: string(name='scene', example='智能工业'),
+}
+
+// iotbasic设备模型固定属性
+model IotbasicDeviceModelFixedAttributeInfo {
+  // 属性说明
+  attributeName: string(name='attribute_name', example='name'),
+  // 属性名称
+  attributeValue: string(name='attribute_value', example='value'),
+  // 数据值类型
+  // 字符串：string
+  // 数字：long
+  dataType: string(name='data_type', example='string'),
+  // dataType为string时，表示数据长度最小值
+  // dataType为long时，表示数据范围最小值
+  dataRangeMin: long(name='data_range_min', example=''),
+  // dataType为string时，表示数据长度最大值
+  // dataType为long时，表示数据范围最大值
+  dataRangeMax: long(name='data_range_max', example=''),
 }
 
 // 通行证批量创建失败列表
@@ -1720,6 +1768,18 @@ model BaiGoodsComparisonReqData {
   outState?: string(name='out_state', example='state'),
 }
 
+// iotbasic设备模型属性失败结果
+model IotbasicDeviceModelAttributeFailInfo {
+  // 型号
+  modelValue: string(name='model_value', example='A2'),
+  // 规格列表 为空表示使用标准规格
+  specsList?: [ string ](name='specs_list', example=''),
+  // 失败code
+  errorCode: string(name='error_code', example='code'),
+  // 失败消息
+  errorMessage: string(name='error_message', example='message'),
+}
+
 // 收集数据返回的上链结果
 model SendCollectorResult {
   // 数据内容content的上链交易哈希
@@ -2071,6 +2131,15 @@ model IotBasicDeviceRegisterResult {
   deviceName: string(name='device_name', example='test'),
   // 设备sn
   deviceSn: string(name='device_sn', example='12321321'),
+}
+
+// iotbasic设备模型属性
+model IotbasicDeviceModelAttributeInfo {
+  // 型号
+  modelValue: string(name='model_value', example='A2'),
+  // 规格列表
+  // 为空表示使用标准规格
+  specsList?: [ string ](name='specs_list', example=''),
 }
 
 // 信物链实体身份注册请求结构体
@@ -6534,16 +6603,16 @@ model RegisterDevicecorpCustomerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 项目名称
-  projectName: string(name='project_name'),
-  // 品类code
-  categoryCode: string(name='category_code'),
+  // 项目code
+  projectCode: string(name='project_code'),
   // 企业名称
-  customerName: string(name='customer_name'),
-  // 厂商名称
-  corpName: string(name='corp_name'),
-  // 厂商value
-  corpValue: string(name='corp_value'),
+  companyName: string(name='company_name'),
+  // 企业品牌名称
+  companyBrandName: string(name='company_brand_name'),
+  // 主联系人
+  contacts?: string(name='contacts'),
+  // 主联系方式
+  contactNumber?: string(name='contact_number'),
 }
 
 model RegisterDevicecorpCustomerResponse = {
@@ -6558,8 +6627,8 @@ model RegisterDevicecorpCustomerResponse = {
 }
 
 /**
- * Description: iotbasic-设备厂商企业注册
- * Summary: iotbasic-设备厂商企业注册
+ * Description: iotbasic-设备厂商入驻
+ * Summary: iotbasic-设备厂商入驻
  */
 async function registerDevicecorpCustomer(request: RegisterDevicecorpCustomerRequest): RegisterDevicecorpCustomerResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -6568,8 +6637,8 @@ async function registerDevicecorpCustomer(request: RegisterDevicecorpCustomerReq
 }
 
 /**
- * Description: iotbasic-设备厂商企业注册
- * Summary: iotbasic-设备厂商企业注册
+ * Description: iotbasic-设备厂商入驻
+ * Summary: iotbasic-设备厂商入驻
  */
 async function registerDevicecorpCustomerEx(request: RegisterDevicecorpCustomerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterDevicecorpCustomerResponse {
   Util.validateModel(request);
@@ -7514,6 +7583,204 @@ async function notifyDigitalkeyWithhold(request: NotifyDigitalkeyWithholdRequest
 async function notifyDigitalkeyWithholdEx(request: NotifyDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDigitalkeyWithholdResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCategoryIndustryscenelistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品类类型
+  // 标准品类：standard
+  // 自定义品类：custom
+  categoryType: string(name='category_type'),
+}
+
+model QueryCategoryIndustryscenelistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+  // 行业场景列表
+  data?: [ IotbasicCategoryIndustrySceneInfo ](name='data'),
+}
+
+/**
+ * Description: iotbasic-查询品类行业，场景列表
+ * Summary: iotbasic-查询品类行业，场景列表
+ */
+async function queryCategoryIndustryscenelist(request: QueryCategoryIndustryscenelistRequest): QueryCategoryIndustryscenelistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCategoryIndustryscenelistEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-查询品类行业，场景列表
+ * Summary: iotbasic-查询品类行业，场景列表
+ */
+async function queryCategoryIndustryscenelistEx(request: QueryCategoryIndustryscenelistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCategoryIndustryscenelistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.category.industryscenelist.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateCategoryCustomRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 行业
+  industry: string(name='industry'),
+  // 场景
+  scene: string(name='scene'),
+  // 品类名称
+  categoryName: string(name='category_name'),
+  // 品类标识符
+  categoryCode: string(name='category_code'),
+  // 描述内容
+  remark?: string(name='remark'),
+}
+
+model CreateCategoryCustomResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-创建自定义品类
+ * Summary: iotbasic-创建自定义品类
+ */
+async function createCategoryCustom(request: CreateCategoryCustomRequest): CreateCategoryCustomResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createCategoryCustomEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-创建自定义品类
+ * Summary: iotbasic-创建自定义品类
+ */
+async function createCategoryCustomEx(request: CreateCategoryCustomRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateCategoryCustomResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.category.custom.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDeviceModelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品类类型
+  // 标准品类：standard
+  // 自定义品类：custom
+  categoryType: string(name='category_type'),
+  // 品类编码
+  categoryCode: string(name='category_code'),
+  // 属性列表，与固定属性列表不能同时为空
+  attributeInfoList?: [ IotbasicDeviceModelAttributeInfo ](name='attribute_info_list'),
+  // 固定属性列表，与属性列表不能同时为空
+  fixedAttributeInfoList?: [ IotbasicDeviceModelFixedAttributeInfo ](name='fixed_attribute_info_list'),
+}
+
+model CreateDeviceModelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+  // 属性失败列表
+  attributeFailList?: [ IotbasicDeviceModelAttributeFailInfo ](name='attribute_fail_list'),
+  // 固定属性失败列表
+  fixedAttributeFailList?: [ IotbasicDeviceModelFixedAttributeFailInfo ](name='fixed_attribute_fail_list'),
+}
+
+/**
+ * Description: iotbasic-设备模型创建
+ * Summary: iotbasic-设备模型创建
+ */
+async function createDeviceModel(request: CreateDeviceModelRequest): CreateDeviceModelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDeviceModelEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备模型创建
+ * Summary: iotbasic-设备模型创建
+ */
+async function createDeviceModelEx(request: CreateDeviceModelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDeviceModelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.model.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateIotbasicProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品名称
+  productName: string(name='product_name'),
+  // 品类类型
+  // 标准品类：standard
+  // 自定义品类：custom
+  categoryType: string(name='category_type'),
+  // 品类编码
+  categoryCode: string(name='category_code'),
+  // 连网方式
+  // WIFI： Wi-Fi
+  // CELLULAR：蜂窝网ETHERNET：以太网OTHER：其他
+  netType: string(name='net_type'),
+  // 设备种类
+  // 0：直连网络设备
+  // 1：网关设备
+  nodeType: long(name='node_type'),
+  // 安全SDK接入模式
+  // NO_SEC：不进行安全认证
+  // PRODUCTION_PRESET：产线预置
+  // AIR_DISTRIBUTION：空中发行
+  authType: string(name='auth_type'),
+  // 产品描述
+  // 长度不超过100个字符
+  description?: string(name='description'),
+}
+
+model CreateIotbasicProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-创建iot产品
+ * Summary: iotbasic-创建iot产品
+ */
+async function createIotbasicProduct(request: CreateIotbasicProductRequest): CreateIotbasicProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createIotbasicProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-创建iot产品
+ * Summary: iotbasic-创建iot产品
+ */
+async function createIotbasicProductEx(request: CreateIotbasicProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIotbasicProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.product.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
