@@ -3711,6 +3711,8 @@ type CloneInnerTemplateRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 商户对应租户ID
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 模板code
+	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
 	// 魔法库对应模板的模板复制id
 	VoucherId *string `json:"voucher_id,omitempty" xml:"voucher_id,omitempty" require:"true"`
 }
@@ -3735,6 +3737,11 @@ func (s *CloneInnerTemplateRequest) SetProductInstanceId(v string) *CloneInnerTe
 
 func (s *CloneInnerTemplateRequest) SetTenantId(v string) *CloneInnerTemplateRequest {
 	s.TenantId = &v
+	return s
+}
+
+func (s *CloneInnerTemplateRequest) SetTemplateCode(v string) *CloneInnerTemplateRequest {
+	s.TemplateCode = &v
 	return s
 }
 
@@ -4571,7 +4578,9 @@ type QueryInnerFunddividerelationResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 分账公司名称
 	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
-	// 统一社会信用代码
+	// 分账主体企业统一社会信用代码
+	SubjectMerchantId *string `json:"subject_merchant_id,omitempty" xml:"subject_merchant_id,omitempty"`
+	// 分账对象统一社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 	// 分账合同或协议
 	ContractFiles []*FileInfo `json:"contract_files,omitempty" xml:"contract_files,omitempty" type:"Repeated"`
@@ -4614,6 +4623,11 @@ func (s *QueryInnerFunddividerelationResponse) SetResultMsg(v string) *QueryInne
 
 func (s *QueryInnerFunddividerelationResponse) SetCompanyName(v string) *QueryInnerFunddividerelationResponse {
 	s.CompanyName = &v
+	return s
+}
+
+func (s *QueryInnerFunddividerelationResponse) SetSubjectMerchantId(v string) *QueryInnerFunddividerelationResponse {
+	s.SubjectMerchantId = &v
 	return s
 }
 
@@ -5270,6 +5284,8 @@ type QueryInnerMerchantpayexpandResponse struct {
 	ApplicationInfo *ApplicationInfo `json:"application_info,omitempty" xml:"application_info,omitempty"`
 	// 审核列表
 	AuditInfos []*AuditInfo `json:"audit_infos,omitempty" xml:"audit_infos,omitempty" type:"Repeated"`
+	// 进件流水号
+	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty"`
 	// 进件模式 DIRECT(直连进件) AGENT(代理进件)
 	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty"`
 	// INIT:草稿态 SUB_MERCHANT_CREDIT:二级户商户签约中 AUDIT:审核中 AUDIT_PASSED:进件成功 AUDIT_NOT_PASSED:进件失败 MERCHANT_CONFIRM:待商户确认
@@ -5318,6 +5334,11 @@ func (s *QueryInnerMerchantpayexpandResponse) SetApplicationInfo(v *ApplicationI
 
 func (s *QueryInnerMerchantpayexpandResponse) SetAuditInfos(v []*AuditInfo) *QueryInnerMerchantpayexpandResponse {
 	s.AuditInfos = v
+	return s
+}
+
+func (s *QueryInnerMerchantpayexpandResponse) SetPayExpandId(v string) *QueryInnerMerchantpayexpandResponse {
+	s.PayExpandId = &v
 	return s
 }
 
@@ -9818,7 +9839,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.66"),
+				"sdk_version":      tea.String("1.8.69"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
