@@ -16,17 +16,9 @@ public class NotifyDigitalkeyWithholdResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 明细返回码
-    @NameInMap("sub_code")
-    public String subCode;
-
-    // 明细返回码描述
-    @NameInMap("sub_msg")
-    public String subMsg;
-
-    // 预通知返回内容
-    @NameInMap("data")
-    public String data;
+    // 返回对象
+    @NameInMap("antdigital_withhold_response")
+    public AntdigitalWithHoldResponse antdigitalWithholdResponse;
 
     public static NotifyDigitalkeyWithholdResponse build(java.util.Map<String, ?> map) throws Exception {
         NotifyDigitalkeyWithholdResponse self = new NotifyDigitalkeyWithholdResponse();
@@ -57,28 +49,12 @@ public class NotifyDigitalkeyWithholdResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public NotifyDigitalkeyWithholdResponse setSubCode(String subCode) {
-        this.subCode = subCode;
+    public NotifyDigitalkeyWithholdResponse setAntdigitalWithholdResponse(AntdigitalWithHoldResponse antdigitalWithholdResponse) {
+        this.antdigitalWithholdResponse = antdigitalWithholdResponse;
         return this;
     }
-    public String getSubCode() {
-        return this.subCode;
-    }
-
-    public NotifyDigitalkeyWithholdResponse setSubMsg(String subMsg) {
-        this.subMsg = subMsg;
-        return this;
-    }
-    public String getSubMsg() {
-        return this.subMsg;
-    }
-
-    public NotifyDigitalkeyWithholdResponse setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
+    public AntdigitalWithHoldResponse getAntdigitalWithholdResponse() {
+        return this.antdigitalWithholdResponse;
     }
 
 }

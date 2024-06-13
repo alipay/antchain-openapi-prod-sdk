@@ -22,17 +22,23 @@ public class ExecThingServiceRequest extends TeaModel {
     public String identifier;
 
     // 可信设备唯一ID
-    @NameInMap("trustiot_entity_id")
-    public Long trustiotEntityId;
-
-    // 设备编号/资产ID
-    @NameInMap("device_id")
-    public String deviceId;
+    @NameInMap("entity_id_list")
+    @Validation(required = true)
+    public java.util.List<String> entityIdList;
 
     // 物模型服务入参
     @NameInMap("input_data")
-    @Validation(required = true)
     public String inputData;
+
+    // 实体类型
+    @NameInMap("entity_type")
+    @Validation(required = true)
+    public String entityType;
+
+    // 是否使用trustiotId
+    @NameInMap("use_trustiot_id")
+    @Validation(required = true)
+    public Boolean useTrustiotId;
 
     public static ExecThingServiceRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecThingServiceRequest self = new ExecThingServiceRequest();
@@ -71,20 +77,12 @@ public class ExecThingServiceRequest extends TeaModel {
         return this.identifier;
     }
 
-    public ExecThingServiceRequest setTrustiotEntityId(Long trustiotEntityId) {
-        this.trustiotEntityId = trustiotEntityId;
+    public ExecThingServiceRequest setEntityIdList(java.util.List<String> entityIdList) {
+        this.entityIdList = entityIdList;
         return this;
     }
-    public Long getTrustiotEntityId() {
-        return this.trustiotEntityId;
-    }
-
-    public ExecThingServiceRequest setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-        return this;
-    }
-    public String getDeviceId() {
-        return this.deviceId;
+    public java.util.List<String> getEntityIdList() {
+        return this.entityIdList;
     }
 
     public ExecThingServiceRequest setInputData(String inputData) {
@@ -93,6 +91,22 @@ public class ExecThingServiceRequest extends TeaModel {
     }
     public String getInputData() {
         return this.inputData;
+    }
+
+    public ExecThingServiceRequest setEntityType(String entityType) {
+        this.entityType = entityType;
+        return this;
+    }
+    public String getEntityType() {
+        return this.entityType;
+    }
+
+    public ExecThingServiceRequest setUseTrustiotId(Boolean useTrustiotId) {
+        this.useTrustiotId = useTrustiotId;
+        return this;
+    }
+    public Boolean getUseTrustiotId() {
+        return this.useTrustiotId;
     }
 
 }

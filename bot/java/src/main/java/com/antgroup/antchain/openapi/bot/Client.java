@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.11.4"),
+                    new TeaPair("sdk_version", "1.11.6"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2064,8 +2064,8 @@ public class Client {
     }
 
     /**
-     * Description: 代扣支付
-     * Summary: 代扣支付
+     * Description: 网约车代扣支付
+     * Summary: 网约车代扣支付
      */
     public PayDigitalkeyWithholdResponse payDigitalkeyWithhold(PayDigitalkeyWithholdRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -2074,8 +2074,8 @@ public class Client {
     }
 
     /**
-     * Description: 代扣支付
-     * Summary: 代扣支付
+     * Description: 网约车代扣支付
+     * Summary: 网约车代扣支付
      */
     public PayDigitalkeyWithholdResponse payDigitalkeyWithholdEx(PayDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

@@ -16,13 +16,9 @@ public class PayDigitalkeyWithholdResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 明细返回码描述
-    @NameInMap("sub_msg")
-    public String subMsg;
-
-    // 明细返回码
-    @NameInMap("sub_code")
-    public String subCode;
+    // 返回对象
+    @NameInMap("antdigital_withhold_response")
+    public AntdigitalWithHoldResponse antdigitalWithholdResponse;
 
     public static PayDigitalkeyWithholdResponse build(java.util.Map<String, ?> map) throws Exception {
         PayDigitalkeyWithholdResponse self = new PayDigitalkeyWithholdResponse();
@@ -53,20 +49,12 @@ public class PayDigitalkeyWithholdResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PayDigitalkeyWithholdResponse setSubMsg(String subMsg) {
-        this.subMsg = subMsg;
+    public PayDigitalkeyWithholdResponse setAntdigitalWithholdResponse(AntdigitalWithHoldResponse antdigitalWithholdResponse) {
+        this.antdigitalWithholdResponse = antdigitalWithholdResponse;
         return this;
     }
-    public String getSubMsg() {
-        return this.subMsg;
-    }
-
-    public PayDigitalkeyWithholdResponse setSubCode(String subCode) {
-        this.subCode = subCode;
-        return this;
-    }
-    public String getSubCode() {
-        return this.subCode;
+    public AntdigitalWithHoldResponse getAntdigitalWithholdResponse() {
+        return this.antdigitalWithholdResponse;
     }
 
 }
