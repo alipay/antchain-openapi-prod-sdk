@@ -16,6 +16,11 @@ public class CloneInnerTemplateRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
+    // 模板code
+    @NameInMap("template_code")
+    @Validation(required = true)
+    public String templateCode;
+
     // 魔法库对应模板的模板复制id
     @NameInMap("voucher_id")
     @Validation(required = true)
@@ -48,6 +53,14 @@ public class CloneInnerTemplateRequest extends TeaModel {
     }
     public String getTenantId() {
         return this.tenantId;
+    }
+
+    public CloneInnerTemplateRequest setTemplateCode(String templateCode) {
+        this.templateCode = templateCode;
+        return this;
+    }
+    public String getTemplateCode() {
+        return this.templateCode;
     }
 
     public CloneInnerTemplateRequest setVoucherId(String voucherId) {

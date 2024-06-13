@@ -20,7 +20,11 @@ public class QueryInnerFunddividerelationResponse extends TeaModel {
     @NameInMap("company_name")
     public String companyName;
 
-    // 统一社会信用代码
+    // 分账主体企业统一社会信用代码
+    @NameInMap("subject_merchant_id")
+    public String subjectMerchantId;
+
+    // 分账对象统一社会信用代码
     @NameInMap("merchant_id")
     public String merchantId;
 
@@ -87,6 +91,14 @@ public class QueryInnerFunddividerelationResponse extends TeaModel {
     }
     public String getCompanyName() {
         return this.companyName;
+    }
+
+    public QueryInnerFunddividerelationResponse setSubjectMerchantId(String subjectMerchantId) {
+        this.subjectMerchantId = subjectMerchantId;
+        return this;
+    }
+    public String getSubjectMerchantId() {
+        return this.subjectMerchantId;
     }
 
     public QueryInnerFunddividerelationResponse setMerchantId(String merchantId) {

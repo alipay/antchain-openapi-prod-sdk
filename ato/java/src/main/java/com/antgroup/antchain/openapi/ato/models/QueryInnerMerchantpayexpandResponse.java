@@ -32,6 +32,10 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     @NameInMap("audit_infos")
     public java.util.List<AuditInfo> auditInfos;
 
+    // 进件流水号
+    @NameInMap("pay_expand_id")
+    public String payExpandId;
+
     // 进件模式 DIRECT(直连进件) AGENT(代理进件)
     @NameInMap("expand_mode")
     public String expandMode;
@@ -103,6 +107,14 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     }
     public java.util.List<AuditInfo> getAuditInfos() {
         return this.auditInfos;
+    }
+
+    public QueryInnerMerchantpayexpandResponse setPayExpandId(String payExpandId) {
+        this.payExpandId = payExpandId;
+        return this;
+    }
+    public String getPayExpandId() {
+        return this.payExpandId;
     }
 
     public QueryInnerMerchantpayexpandResponse setExpandMode(String expandMode) {
