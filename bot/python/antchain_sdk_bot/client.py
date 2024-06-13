@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.4',
+                    'sdk_version': '1.11.6',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.4',
+                    'sdk_version': '1.11.6',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -5858,8 +5858,8 @@ class Client:
         request: bot_models.PayDigitalkeyWithholdRequest,
     ) -> bot_models.PayDigitalkeyWithholdResponse:
         """
-        Description: 代扣支付
-        Summary: 代扣支付
+        Description: 网约车代扣支付
+        Summary: 网约车代扣支付
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5870,8 +5870,8 @@ class Client:
         request: bot_models.PayDigitalkeyWithholdRequest,
     ) -> bot_models.PayDigitalkeyWithholdResponse:
         """
-        Description: 代扣支付
-        Summary: 代扣支付
+        Description: 网约车代扣支付
+        Summary: 网约车代扣支付
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -5884,8 +5884,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.PayDigitalkeyWithholdResponse:
         """
-        Description: 代扣支付
-        Summary: 代扣支付
+        Description: 网约车代扣支付
+        Summary: 网约车代扣支付
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5900,8 +5900,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.PayDigitalkeyWithholdResponse:
         """
-        Description: 代扣支付
-        Summary: 代扣支付
+        Description: 网约车代扣支付
+        Summary: 网约车代扣支付
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
