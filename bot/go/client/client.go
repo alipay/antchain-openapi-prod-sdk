@@ -5493,6 +5493,60 @@ func (s *ProductKeyPageResponse) SetPageData(v []*ProductKeyModel) *ProductKeyPa
 	return s
 }
 
+// 代扣服务返回对象
+type AntdigitalWithHoldResponse struct {
+	// 网关返回码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 网关返回码描述
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty" require:"true"`
+	// 务返回码
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty" require:"true"`
+	// 业务返回码描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty" require:"true"`
+	// 结果返回内容
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 响应签名
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s AntdigitalWithHoldResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AntdigitalWithHoldResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AntdigitalWithHoldResponse) SetCode(v string) *AntdigitalWithHoldResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetMsg(v string) *AntdigitalWithHoldResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetSubCode(v string) *AntdigitalWithHoldResponse {
+	s.SubCode = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetSubMsg(v string) *AntdigitalWithHoldResponse {
+	s.SubMsg = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetData(v string) *AntdigitalWithHoldResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *AntdigitalWithHoldResponse) SetSignature(v string) *AntdigitalWithHoldResponse {
+	s.Signature = &v
+	return s
+}
+
 // 二级商户信息
 type SubMerchantParams struct {
 	// 子商户的商户id
@@ -17745,8 +17799,8 @@ type PayDigitalkeyWithholdRequest struct {
 	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
 	// 商户代扣扣款许可
 	DeductPermission *string `json:"deduct_permission,omitempty" xml:"deduct_permission,omitempty"`
-	// 代扣协议号, 对应于签约时，支付宝返回的协议
-	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty" require:"true"`
+	// 代扣协议号, 对应于签约时外部商户传入的协议号
+	ExternalAgreementNo *string `json:"external_agreement_no,omitempty" xml:"external_agreement_no,omitempty" require:"true"`
 	// 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
 	TimeoutExpress *string `json:"timeout_express,omitempty" xml:"timeout_express,omitempty"`
 	// 异步支付类型
@@ -17807,8 +17861,8 @@ func (s *PayDigitalkeyWithholdRequest) SetDeductPermission(v string) *PayDigital
 	return s
 }
 
-func (s *PayDigitalkeyWithholdRequest) SetAgreementNo(v string) *PayDigitalkeyWithholdRequest {
-	s.AgreementNo = &v
+func (s *PayDigitalkeyWithholdRequest) SetExternalAgreementNo(v string) *PayDigitalkeyWithholdRequest {
+	s.ExternalAgreementNo = &v
 	return s
 }
 
@@ -17844,10 +17898,8 @@ type PayDigitalkeyWithholdResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 明细返回码描述
-	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
-	// 明细返回码
-	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 返回对象
+	AntdigitalWithholdResponse *AntdigitalWithHoldResponse `json:"antdigital_withhold_response,omitempty" xml:"antdigital_withhold_response,omitempty"`
 }
 
 func (s PayDigitalkeyWithholdResponse) String() string {
@@ -17873,13 +17925,8 @@ func (s *PayDigitalkeyWithholdResponse) SetResultMsg(v string) *PayDigitalkeyWit
 	return s
 }
 
-func (s *PayDigitalkeyWithholdResponse) SetSubMsg(v string) *PayDigitalkeyWithholdResponse {
-	s.SubMsg = &v
-	return s
-}
-
-func (s *PayDigitalkeyWithholdResponse) SetSubCode(v string) *PayDigitalkeyWithholdResponse {
-	s.SubCode = &v
+func (s *PayDigitalkeyWithholdResponse) SetAntdigitalWithholdResponse(v *AntdigitalWithHoldResponse) *PayDigitalkeyWithholdResponse {
+	s.AntdigitalWithholdResponse = v
 	return s
 }
 
@@ -18124,12 +18171,8 @@ type CancelDigitalkeyWithholdResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 明细返回码
-	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
-	// 明细返回码描述
-	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
-	// 撤销返回信息
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 返回对象
+	AntdigitalWithholdResponse *AntdigitalWithHoldResponse `json:"antdigital_withhold_response,omitempty" xml:"antdigital_withhold_response,omitempty"`
 }
 
 func (s CancelDigitalkeyWithholdResponse) String() string {
@@ -18155,18 +18198,8 @@ func (s *CancelDigitalkeyWithholdResponse) SetResultMsg(v string) *CancelDigital
 	return s
 }
 
-func (s *CancelDigitalkeyWithholdResponse) SetSubCode(v string) *CancelDigitalkeyWithholdResponse {
-	s.SubCode = &v
-	return s
-}
-
-func (s *CancelDigitalkeyWithholdResponse) SetSubMsg(v string) *CancelDigitalkeyWithholdResponse {
-	s.SubMsg = &v
-	return s
-}
-
-func (s *CancelDigitalkeyWithholdResponse) SetData(v string) *CancelDigitalkeyWithholdResponse {
-	s.Data = &v
+func (s *CancelDigitalkeyWithholdResponse) SetAntdigitalWithholdResponse(v *AntdigitalWithHoldResponse) *CancelDigitalkeyWithholdResponse {
+	s.AntdigitalWithholdResponse = v
 	return s
 }
 
@@ -18222,12 +18255,8 @@ type NotifyDigitalkeyWithholdResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 明细返回码
-	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
-	// 明细返回码描述
-	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
-	// 预通知返回内容
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 返回对象
+	AntdigitalWithholdResponse *AntdigitalWithHoldResponse `json:"antdigital_withhold_response,omitempty" xml:"antdigital_withhold_response,omitempty"`
 }
 
 func (s NotifyDigitalkeyWithholdResponse) String() string {
@@ -18253,18 +18282,8 @@ func (s *NotifyDigitalkeyWithholdResponse) SetResultMsg(v string) *NotifyDigital
 	return s
 }
 
-func (s *NotifyDigitalkeyWithholdResponse) SetSubCode(v string) *NotifyDigitalkeyWithholdResponse {
-	s.SubCode = &v
-	return s
-}
-
-func (s *NotifyDigitalkeyWithholdResponse) SetSubMsg(v string) *NotifyDigitalkeyWithholdResponse {
-	s.SubMsg = &v
-	return s
-}
-
-func (s *NotifyDigitalkeyWithholdResponse) SetData(v string) *NotifyDigitalkeyWithholdResponse {
-	s.Data = &v
+func (s *NotifyDigitalkeyWithholdResponse) SetAntdigitalWithholdResponse(v *AntdigitalWithHoldResponse) *NotifyDigitalkeyWithholdResponse {
+	s.AntdigitalWithholdResponse = v
 	return s
 }
 
@@ -29078,11 +29097,13 @@ type ExecThingServiceRequest struct {
 	// 服务标识
 	Identifier *string `json:"identifier,omitempty" xml:"identifier,omitempty" require:"true"`
 	// 可信设备唯一ID
-	TrustiotEntityId *int64 `json:"trustiot_entity_id,omitempty" xml:"trustiot_entity_id,omitempty"`
-	// 设备编号/资产ID
-	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty"`
+	EntityIdList []*string `json:"entity_id_list,omitempty" xml:"entity_id_list,omitempty" require:"true" type:"Repeated"`
 	// 物模型服务入参
-	InputData *string `json:"input_data,omitempty" xml:"input_data,omitempty" require:"true"`
+	InputData *string `json:"input_data,omitempty" xml:"input_data,omitempty"`
+	// 实体类型
+	EntityType *string `json:"entity_type,omitempty" xml:"entity_type,omitempty" require:"true"`
+	// 是否使用trustiotId
+	UseTrustiotId *bool `json:"use_trustiot_id,omitempty" xml:"use_trustiot_id,omitempty" require:"true"`
 }
 
 func (s ExecThingServiceRequest) String() string {
@@ -29113,18 +29134,23 @@ func (s *ExecThingServiceRequest) SetIdentifier(v string) *ExecThingServiceReque
 	return s
 }
 
-func (s *ExecThingServiceRequest) SetTrustiotEntityId(v int64) *ExecThingServiceRequest {
-	s.TrustiotEntityId = &v
-	return s
-}
-
-func (s *ExecThingServiceRequest) SetDeviceId(v string) *ExecThingServiceRequest {
-	s.DeviceId = &v
+func (s *ExecThingServiceRequest) SetEntityIdList(v []*string) *ExecThingServiceRequest {
+	s.EntityIdList = v
 	return s
 }
 
 func (s *ExecThingServiceRequest) SetInputData(v string) *ExecThingServiceRequest {
 	s.InputData = &v
+	return s
+}
+
+func (s *ExecThingServiceRequest) SetEntityType(v string) *ExecThingServiceRequest {
+	s.EntityType = &v
+	return s
+}
+
+func (s *ExecThingServiceRequest) SetUseTrustiotId(v bool) *ExecThingServiceRequest {
+	s.UseTrustiotId = &v
 	return s
 }
 
@@ -31028,7 +31054,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.4"),
+				"sdk_version":      tea.String("1.11.6"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -34482,8 +34508,8 @@ func (client *Client) UnbindDigitalkeyWithholdEx(request *UnbindDigitalkeyWithho
 }
 
 /**
- * Description: 代扣支付
- * Summary: 代扣支付
+ * Description: 网约车代扣支付
+ * Summary: 网约车代扣支付
  */
 func (client *Client) PayDigitalkeyWithhold(request *PayDigitalkeyWithholdRequest) (_result *PayDigitalkeyWithholdResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34498,8 +34524,8 @@ func (client *Client) PayDigitalkeyWithhold(request *PayDigitalkeyWithholdReques
 }
 
 /**
- * Description: 代扣支付
- * Summary: 代扣支付
+ * Description: 网约车代扣支付
+ * Summary: 网约车代扣支付
  */
 func (client *Client) PayDigitalkeyWithholdEx(request *PayDigitalkeyWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PayDigitalkeyWithholdResponse, _err error) {
 	_err = util.ValidateModel(request)
