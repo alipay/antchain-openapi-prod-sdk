@@ -18,30 +18,30 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 项目名称
-        [NameInMap("project_name")]
+        // 项目code
+        [NameInMap("project_code")]
         [Validation(Required=true)]
-        public string ProjectName { get; set; }
-
-        // 品类code
-        [NameInMap("category_code")]
-        [Validation(Required=true)]
-        public string CategoryCode { get; set; }
+        public string ProjectCode { get; set; }
 
         // 企业名称
-        [NameInMap("customer_name")]
+        [NameInMap("company_name")]
         [Validation(Required=true)]
-        public string CustomerName { get; set; }
+        public string CompanyName { get; set; }
 
-        // 厂商名称
-        [NameInMap("corp_name")]
+        // 企业品牌名称
+        [NameInMap("company_brand_name")]
         [Validation(Required=true)]
-        public string CorpName { get; set; }
+        public string CompanyBrandName { get; set; }
 
-        // 厂商value
-        [NameInMap("corp_value")]
-        [Validation(Required=true)]
-        public string CorpValue { get; set; }
+        // 主联系人
+        [NameInMap("contacts")]
+        [Validation(Required=false)]
+        public string Contacts { get; set; }
+
+        // 主联系方式
+        [NameInMap("contact_number")]
+        [Validation(Required=false)]
+        public string ContactNumber { get; set; }
 
     }
 

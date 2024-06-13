@@ -25,6 +25,16 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Remark { get; set; }
 
+        // 行业
+        [NameInMap("industry")]
+        [Validation(Required=true)]
+        public string Industry { get; set; }
+
+        // 场景
+        [NameInMap("scene")]
+        [Validation(Required=true)]
+        public string Scene { get; set; }
+
     }
 
 }
