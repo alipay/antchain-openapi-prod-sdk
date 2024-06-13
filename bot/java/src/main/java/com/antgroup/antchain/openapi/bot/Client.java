@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.11.6"),
+                    new TeaPair("sdk_version", "1.11.7"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1760,8 +1760,8 @@ public class Client {
     }
 
     /**
-     * Description: iotbasic-设备厂商企业注册
-     * Summary: iotbasic-设备厂商企业注册
+     * Description: iotbasic-设备厂商入驻
+     * Summary: iotbasic-设备厂商入驻
      */
     public RegisterDevicecorpCustomerResponse registerDevicecorpCustomer(RegisterDevicecorpCustomerRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
@@ -1770,8 +1770,8 @@ public class Client {
     }
 
     /**
-     * Description: iotbasic-设备厂商企业注册
-     * Summary: iotbasic-设备厂商企业注册
+     * Description: iotbasic-设备厂商入驻
+     * Summary: iotbasic-设备厂商入驻
      */
     public RegisterDevicecorpCustomerResponse registerDevicecorpCustomerEx(RegisterDevicecorpCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2156,6 +2156,82 @@ public class Client {
     public NotifyDigitalkeyWithholdResponse notifyDigitalkeyWithholdEx(NotifyDigitalkeyWithholdRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyDigitalkeyWithholdResponse());
+    }
+
+    /**
+     * Description: iotbasic-查询品类行业，场景列表
+     * Summary: iotbasic-查询品类行业，场景列表
+     */
+    public QueryCategoryIndustryscenelistResponse queryCategoryIndustryscenelist(QueryCategoryIndustryscenelistRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryCategoryIndustryscenelistEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询品类行业，场景列表
+     * Summary: iotbasic-查询品类行业，场景列表
+     */
+    public QueryCategoryIndustryscenelistResponse queryCategoryIndustryscenelistEx(QueryCategoryIndustryscenelistRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.category.industryscenelist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCategoryIndustryscenelistResponse());
+    }
+
+    /**
+     * Description: iotbasic-创建自定义品类
+     * Summary: iotbasic-创建自定义品类
+     */
+    public CreateCategoryCustomResponse createCategoryCustom(CreateCategoryCustomRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createCategoryCustomEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-创建自定义品类
+     * Summary: iotbasic-创建自定义品类
+     */
+    public CreateCategoryCustomResponse createCategoryCustomEx(CreateCategoryCustomRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.category.custom.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateCategoryCustomResponse());
+    }
+
+    /**
+     * Description: iotbasic-设备模型创建
+     * Summary: iotbasic-设备模型创建
+     */
+    public CreateDeviceModelResponse createDeviceModel(CreateDeviceModelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createDeviceModelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备模型创建
+     * Summary: iotbasic-设备模型创建
+     */
+    public CreateDeviceModelResponse createDeviceModelEx(CreateDeviceModelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.model.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateDeviceModelResponse());
+    }
+
+    /**
+     * Description: iotbasic-创建iot产品
+     * Summary: iotbasic-创建iot产品
+     */
+    public CreateIotbasicProductResponse createIotbasicProduct(CreateIotbasicProductRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createIotbasicProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-创建iot产品
+     * Summary: iotbasic-创建iot产品
+     */
+    public CreateIotbasicProductResponse createIotbasicProductEx(CreateIotbasicProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.product.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateIotbasicProductResponse());
     }
 
     /**

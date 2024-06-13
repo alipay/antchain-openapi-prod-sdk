@@ -11,30 +11,28 @@ public class RegisterDevicecorpCustomerRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 项目名称
-    @NameInMap("project_name")
+    // 项目code
+    @NameInMap("project_code")
     @Validation(required = true)
-    public String projectName;
-
-    // 品类code
-    @NameInMap("category_code")
-    @Validation(required = true)
-    public String categoryCode;
+    public String projectCode;
 
     // 企业名称
-    @NameInMap("customer_name")
+    @NameInMap("company_name")
     @Validation(required = true)
-    public String customerName;
+    public String companyName;
 
-    // 厂商名称
-    @NameInMap("corp_name")
+    // 企业品牌名称
+    @NameInMap("company_brand_name")
     @Validation(required = true)
-    public String corpName;
+    public String companyBrandName;
 
-    // 厂商value
-    @NameInMap("corp_value")
-    @Validation(required = true)
-    public String corpValue;
+    // 主联系人
+    @NameInMap("contacts")
+    public String contacts;
+
+    // 主联系方式
+    @NameInMap("contact_number")
+    public String contactNumber;
 
     public static RegisterDevicecorpCustomerRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterDevicecorpCustomerRequest self = new RegisterDevicecorpCustomerRequest();
@@ -57,44 +55,44 @@ public class RegisterDevicecorpCustomerRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public RegisterDevicecorpCustomerRequest setProjectName(String projectName) {
-        this.projectName = projectName;
+    public RegisterDevicecorpCustomerRequest setProjectCode(String projectCode) {
+        this.projectCode = projectCode;
         return this;
     }
-    public String getProjectName() {
-        return this.projectName;
+    public String getProjectCode() {
+        return this.projectCode;
     }
 
-    public RegisterDevicecorpCustomerRequest setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
+    public RegisterDevicecorpCustomerRequest setCompanyName(String companyName) {
+        this.companyName = companyName;
         return this;
     }
-    public String getCategoryCode() {
-        return this.categoryCode;
+    public String getCompanyName() {
+        return this.companyName;
     }
 
-    public RegisterDevicecorpCustomerRequest setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public RegisterDevicecorpCustomerRequest setCompanyBrandName(String companyBrandName) {
+        this.companyBrandName = companyBrandName;
         return this;
     }
-    public String getCustomerName() {
-        return this.customerName;
+    public String getCompanyBrandName() {
+        return this.companyBrandName;
     }
 
-    public RegisterDevicecorpCustomerRequest setCorpName(String corpName) {
-        this.corpName = corpName;
+    public RegisterDevicecorpCustomerRequest setContacts(String contacts) {
+        this.contacts = contacts;
         return this;
     }
-    public String getCorpName() {
-        return this.corpName;
+    public String getContacts() {
+        return this.contacts;
     }
 
-    public RegisterDevicecorpCustomerRequest setCorpValue(String corpValue) {
-        this.corpValue = corpValue;
+    public RegisterDevicecorpCustomerRequest setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
         return this;
     }
-    public String getCorpValue() {
-        return this.corpValue;
+    public String getContactNumber() {
+        return this.contactNumber;
     }
 
 }

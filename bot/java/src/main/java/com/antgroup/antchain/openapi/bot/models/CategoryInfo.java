@@ -18,6 +18,16 @@ public class CategoryInfo extends TeaModel {
     @NameInMap("remark")
     public String remark;
 
+    // 行业
+    @NameInMap("industry")
+    @Validation(required = true)
+    public String industry;
+
+    // 场景
+    @NameInMap("scene")
+    @Validation(required = true)
+    public String scene;
+
     public static CategoryInfo build(java.util.Map<String, ?> map) throws Exception {
         CategoryInfo self = new CategoryInfo();
         return TeaModel.build(map, self);
@@ -45,6 +55,22 @@ public class CategoryInfo extends TeaModel {
     }
     public String getRemark() {
         return this.remark;
+    }
+
+    public CategoryInfo setIndustry(String industry) {
+        this.industry = industry;
+        return this;
+    }
+    public String getIndustry() {
+        return this.industry;
+    }
+
+    public CategoryInfo setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
     }
 
 }
