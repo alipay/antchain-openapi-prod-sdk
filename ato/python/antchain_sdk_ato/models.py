@@ -4759,6 +4759,7 @@ class CloneInnerTemplateRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         tenant_id: str = None,
+        template_code: str = None,
         voucher_id: str = None,
     ):
         # OAuth模式下的授权token
@@ -4766,11 +4767,14 @@ class CloneInnerTemplateRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 商户对应租户ID
         self.tenant_id = tenant_id
+        # 模板code
+        self.template_code = template_code
         # 魔法库对应模板的模板复制id
         self.voucher_id = voucher_id
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
         self.validate_required(self.voucher_id, 'voucher_id')
 
     def to_map(self):
@@ -4785,6 +4789,8 @@ class CloneInnerTemplateRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.tenant_id is not None:
             result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
         if self.voucher_id is not None:
             result['voucher_id'] = self.voucher_id
         return result
@@ -4797,6 +4803,8 @@ class CloneInnerTemplateRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
         if m.get('voucher_id') is not None:
             self.voucher_id = m.get('voucher_id')
         return self
@@ -5840,6 +5848,7 @@ class QueryInnerFunddividerelationResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         company_name: str = None,
+        subject_merchant_id: str = None,
         merchant_id: str = None,
         contract_files: List[FileInfo] = None,
         desc: str = None,
@@ -5857,7 +5866,9 @@ class QueryInnerFunddividerelationResponse(TeaModel):
         self.result_msg = result_msg
         # 分账公司名称
         self.company_name = company_name
-        # 统一社会信用代码
+        # 分账主体企业统一社会信用代码
+        self.subject_merchant_id = subject_merchant_id
+        # 分账对象统一社会信用代码
         self.merchant_id = merchant_id
         # 分账合同或协议
         self.contract_files = contract_files
@@ -5898,6 +5909,8 @@ class QueryInnerFunddividerelationResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.company_name is not None:
             result['company_name'] = self.company_name
+        if self.subject_merchant_id is not None:
+            result['subject_merchant_id'] = self.subject_merchant_id
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
         result['contract_files'] = []
@@ -5930,6 +5943,8 @@ class QueryInnerFunddividerelationResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('company_name') is not None:
             self.company_name = m.get('company_name')
+        if m.get('subject_merchant_id') is not None:
+            self.subject_merchant_id = m.get('subject_merchant_id')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
         self.contract_files = []
@@ -6736,6 +6751,7 @@ class QueryInnerMerchantpayexpandResponse(TeaModel):
         legal_info: LegalInfo = None,
         application_info: ApplicationInfo = None,
         audit_infos: List[AuditInfo] = None,
+        pay_expand_id: str = None,
         expand_mode: str = None,
         expand_status: str = None,
         expand_fail_reason: str = None,
@@ -6754,6 +6770,8 @@ class QueryInnerMerchantpayexpandResponse(TeaModel):
         self.application_info = application_info
         # 审核列表
         self.audit_infos = audit_infos
+        # 进件流水号
+        self.pay_expand_id = pay_expand_id
         # 进件模式 DIRECT(直连进件) AGENT(代理进件)
         self.expand_mode = expand_mode
         # INIT:草稿态 SUB_MERCHANT_CREDIT:二级户商户签约中 AUDIT:审核中 AUDIT_PASSED:进件成功 AUDIT_NOT_PASSED:进件失败 MERCHANT_CONFIRM:待商户确认
@@ -6795,6 +6813,8 @@ class QueryInnerMerchantpayexpandResponse(TeaModel):
         if self.audit_infos is not None:
             for k in self.audit_infos:
                 result['audit_infos'].append(k.to_map() if k else None)
+        if self.pay_expand_id is not None:
+            result['pay_expand_id'] = self.pay_expand_id
         if self.expand_mode is not None:
             result['expand_mode'] = self.expand_mode
         if self.expand_status is not None:
@@ -6825,6 +6845,8 @@ class QueryInnerMerchantpayexpandResponse(TeaModel):
             for k in m.get('audit_infos'):
                 temp_model = AuditInfo()
                 self.audit_infos.append(temp_model.from_map(k))
+        if m.get('pay_expand_id') is not None:
+            self.pay_expand_id = m.get('pay_expand_id')
         if m.get('expand_mode') is not None:
             self.expand_mode = m.get('expand_mode')
         if m.get('expand_status') is not None:
