@@ -55,11 +55,11 @@ class PayDigitalkeyWithholdRequest extends Model
      */
     public $deductPermission;
 
-    // 代扣协议号, 对应于签约时，支付宝返回的协议
+    // 代扣协议号, 对应于签约时外部商户传入的协议号
     /**
      * @var string
      */
-    public $agreementNo;
+    public $externalAgreementNo;
 
     // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
     /**
@@ -91,20 +91,20 @@ class PayDigitalkeyWithholdRequest extends Model
      */
     public $body;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'outTradeNo'         => 'out_trade_no',
-        'subject'            => 'subject',
-        'alipayUserId'       => 'alipay_user_id',
-        'productCode'        => 'product_code',
-        'totalAmount'        => 'total_amount',
-        'deductPermission'   => 'deduct_permission',
-        'agreementNo'        => 'agreement_no',
-        'timeoutExpress'     => 'timeout_express',
-        'asyncType'          => 'async_type',
-        'discountableAmount' => 'discountable_amount',
-        'subMerchant'        => 'sub_merchant',
-        'body'               => 'body',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'outTradeNo'          => 'out_trade_no',
+        'subject'             => 'subject',
+        'alipayUserId'        => 'alipay_user_id',
+        'productCode'         => 'product_code',
+        'totalAmount'         => 'total_amount',
+        'deductPermission'    => 'deduct_permission',
+        'externalAgreementNo' => 'external_agreement_no',
+        'timeoutExpress'      => 'timeout_express',
+        'asyncType'           => 'async_type',
+        'discountableAmount'  => 'discountable_amount',
+        'subMerchant'         => 'sub_merchant',
+        'body'                => 'body',
     ];
 
     public function validate()
@@ -114,7 +114,7 @@ class PayDigitalkeyWithholdRequest extends Model
         Model::validateRequired('alipayUserId', $this->alipayUserId, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('totalAmount', $this->totalAmount, true);
-        Model::validateRequired('agreementNo', $this->agreementNo, true);
+        Model::validateRequired('externalAgreementNo', $this->externalAgreementNo, true);
         Model::validateRequired('asyncType', $this->asyncType, true);
     }
 
@@ -145,8 +145,8 @@ class PayDigitalkeyWithholdRequest extends Model
         if (null !== $this->deductPermission) {
             $res['deduct_permission'] = $this->deductPermission;
         }
-        if (null !== $this->agreementNo) {
-            $res['agreement_no'] = $this->agreementNo;
+        if (null !== $this->externalAgreementNo) {
+            $res['external_agreement_no'] = $this->externalAgreementNo;
         }
         if (null !== $this->timeoutExpress) {
             $res['timeout_express'] = $this->timeoutExpress;
@@ -199,8 +199,8 @@ class PayDigitalkeyWithholdRequest extends Model
         if (isset($map['deduct_permission'])) {
             $model->deductPermission = $map['deduct_permission'];
         }
-        if (isset($map['agreement_no'])) {
-            $model->agreementNo = $map['agreement_no'];
+        if (isset($map['external_agreement_no'])) {
+            $model->externalAgreementNo = $map['external_agreement_no'];
         }
         if (isset($map['timeout_express'])) {
             $model->timeoutExpress = $map['timeout_express'];

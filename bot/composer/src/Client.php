@@ -626,7 +626,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.4',
+                    'sdk_version'      => '1.11.6',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3960,8 +3960,8 @@ class Client
     }
 
     /**
-     * Description: 代扣支付
-     * Summary: 代扣支付.
+     * Description: 网约车代扣支付
+     * Summary: 网约车代扣支付.
      *
      * @param PayDigitalkeyWithholdRequest $request
      *
@@ -3976,8 +3976,8 @@ class Client
     }
 
     /**
-     * Description: 代扣支付
-     * Summary: 代扣支付.
+     * Description: 网约车代扣支付
+     * Summary: 网约车代扣支付.
      *
      * @param PayDigitalkeyWithholdRequest $request
      * @param string[]                     $headers
