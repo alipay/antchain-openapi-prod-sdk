@@ -31,16 +31,36 @@ class CategoryInfo extends Model
      * @var string
      */
     public $remark;
+
+    // 行业
+    /**
+     * @example 工业
+     *
+     * @var string
+     */
+    public $industry;
+
+    // 场景
+    /**
+     * @example 智能工业
+     *
+     * @var string
+     */
+    public $scene;
     protected $_name = [
         'categoryName' => 'category_name',
         'categoryCode' => 'category_code',
         'remark'       => 'remark',
+        'industry'     => 'industry',
+        'scene'        => 'scene',
     ];
 
     public function validate()
     {
         Model::validateRequired('categoryName', $this->categoryName, true);
         Model::validateRequired('categoryCode', $this->categoryCode, true);
+        Model::validateRequired('industry', $this->industry, true);
+        Model::validateRequired('scene', $this->scene, true);
     }
 
     public function toMap()
@@ -54,6 +74,12 @@ class CategoryInfo extends Model
         }
         if (null !== $this->remark) {
             $res['remark'] = $this->remark;
+        }
+        if (null !== $this->industry) {
+            $res['industry'] = $this->industry;
+        }
+        if (null !== $this->scene) {
+            $res['scene'] = $this->scene;
         }
 
         return $res;
@@ -75,6 +101,12 @@ class CategoryInfo extends Model
         }
         if (isset($map['remark'])) {
             $model->remark = $map['remark'];
+        }
+        if (isset($map['industry'])) {
+            $model->industry = $map['industry'];
+        }
+        if (isset($map['scene'])) {
+            $model->scene = $map['scene'];
         }
 
         return $model;

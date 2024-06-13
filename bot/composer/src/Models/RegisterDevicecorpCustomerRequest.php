@@ -19,52 +19,50 @@ class RegisterDevicecorpCustomerRequest extends Model
      */
     public $productInstanceId;
 
-    // 项目名称
+    // 项目code
     /**
      * @var string
      */
-    public $projectName;
-
-    // 品类code
-    /**
-     * @var string
-     */
-    public $categoryCode;
+    public $projectCode;
 
     // 企业名称
     /**
      * @var string
      */
-    public $customerName;
+    public $companyName;
 
-    // 厂商名称
+    // 企业品牌名称
     /**
      * @var string
      */
-    public $corpName;
+    public $companyBrandName;
 
-    // 厂商value
+    // 主联系人
     /**
      * @var string
      */
-    public $corpValue;
+    public $contacts;
+
+    // 主联系方式
+    /**
+     * @var string
+     */
+    public $contactNumber;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'projectName'       => 'project_name',
-        'categoryCode'      => 'category_code',
-        'customerName'      => 'customer_name',
-        'corpName'          => 'corp_name',
-        'corpValue'         => 'corp_value',
+        'projectCode'       => 'project_code',
+        'companyName'       => 'company_name',
+        'companyBrandName'  => 'company_brand_name',
+        'contacts'          => 'contacts',
+        'contactNumber'     => 'contact_number',
     ];
 
     public function validate()
     {
-        Model::validateRequired('projectName', $this->projectName, true);
-        Model::validateRequired('categoryCode', $this->categoryCode, true);
-        Model::validateRequired('customerName', $this->customerName, true);
-        Model::validateRequired('corpName', $this->corpName, true);
-        Model::validateRequired('corpValue', $this->corpValue, true);
+        Model::validateRequired('projectCode', $this->projectCode, true);
+        Model::validateRequired('companyName', $this->companyName, true);
+        Model::validateRequired('companyBrandName', $this->companyBrandName, true);
     }
 
     public function toMap()
@@ -76,20 +74,20 @@ class RegisterDevicecorpCustomerRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->projectName) {
-            $res['project_name'] = $this->projectName;
+        if (null !== $this->projectCode) {
+            $res['project_code'] = $this->projectCode;
         }
-        if (null !== $this->categoryCode) {
-            $res['category_code'] = $this->categoryCode;
+        if (null !== $this->companyName) {
+            $res['company_name'] = $this->companyName;
         }
-        if (null !== $this->customerName) {
-            $res['customer_name'] = $this->customerName;
+        if (null !== $this->companyBrandName) {
+            $res['company_brand_name'] = $this->companyBrandName;
         }
-        if (null !== $this->corpName) {
-            $res['corp_name'] = $this->corpName;
+        if (null !== $this->contacts) {
+            $res['contacts'] = $this->contacts;
         }
-        if (null !== $this->corpValue) {
-            $res['corp_value'] = $this->corpValue;
+        if (null !== $this->contactNumber) {
+            $res['contact_number'] = $this->contactNumber;
         }
 
         return $res;
@@ -109,20 +107,20 @@ class RegisterDevicecorpCustomerRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['project_name'])) {
-            $model->projectName = $map['project_name'];
+        if (isset($map['project_code'])) {
+            $model->projectCode = $map['project_code'];
         }
-        if (isset($map['category_code'])) {
-            $model->categoryCode = $map['category_code'];
+        if (isset($map['company_name'])) {
+            $model->companyName = $map['company_name'];
         }
-        if (isset($map['customer_name'])) {
-            $model->customerName = $map['customer_name'];
+        if (isset($map['company_brand_name'])) {
+            $model->companyBrandName = $map['company_brand_name'];
         }
-        if (isset($map['corp_name'])) {
-            $model->corpName = $map['corp_name'];
+        if (isset($map['contacts'])) {
+            $model->contacts = $map['contacts'];
         }
-        if (isset($map['corp_value'])) {
-            $model->corpValue = $map['corp_value'];
+        if (isset($map['contact_number'])) {
+            $model->contactNumber = $map['contact_number'];
         }
 
         return $model;

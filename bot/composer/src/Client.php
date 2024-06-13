@@ -67,6 +67,8 @@ use AntChain\BOT\Models\CreateAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\CreateAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\BOT\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\BOT\Models\CreateCategoryCustomRequest;
+use AntChain\BOT\Models\CreateCategoryCustomResponse;
 use AntChain\BOT\Models\CreateCollectorUploadfileurlRequest;
 use AntChain\BOT\Models\CreateCollectorUploadfileurlResponse;
 use AntChain\BOT\Models\CreateConsumerRequest;
@@ -79,6 +81,8 @@ use AntChain\BOT\Models\CreateDevicecorpThingmodelRequest;
 use AntChain\BOT\Models\CreateDevicecorpThingmodelResponse;
 use AntChain\BOT\Models\CreateDeviceDatamodelRequest;
 use AntChain\BOT\Models\CreateDeviceDatamodelResponse;
+use AntChain\BOT\Models\CreateDeviceModelRequest;
+use AntChain\BOT\Models\CreateDeviceModelResponse;
 use AntChain\BOT\Models\CreateDeviceRelationRequest;
 use AntChain\BOT\Models\CreateDeviceRelationResponse;
 use AntChain\BOT\Models\CreateDistributedeviceBychainidRequest;
@@ -97,6 +101,8 @@ use AntChain\BOT\Models\CreateDistributedeviceByperipheralidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidResponse;
 use AntChain\BOT\Models\CreateIotbasicDeviceRequest;
 use AntChain\BOT\Models\CreateIotbasicDeviceResponse;
+use AntChain\BOT\Models\CreateIotbasicProductRequest;
+use AntChain\BOT\Models\CreateIotbasicProductResponse;
 use AntChain\BOT\Models\CreateLeaseRealpersonRequest;
 use AntChain\BOT\Models\CreateLeaseRealpersonResponse;
 use AntChain\BOT\Models\CreateOnlinepressuretestRequest;
@@ -297,6 +303,8 @@ use AntChain\BOT\Models\QueryAsyncRequestRequest;
 use AntChain\BOT\Models\QueryAsyncRequestResponse;
 use AntChain\BOT\Models\QueryBaiOcrRequest;
 use AntChain\BOT\Models\QueryBaiOcrResponse;
+use AntChain\BOT\Models\QueryCategoryIndustryscenelistRequest;
+use AntChain\BOT\Models\QueryCategoryIndustryscenelistResponse;
 use AntChain\BOT\Models\QueryCollectorJtfluxRequest;
 use AntChain\BOT\Models\QueryCollectorJtfluxResponse;
 use AntChain\BOT\Models\QueryCollectorJtmediaRequest;
@@ -626,7 +634,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.6',
+                    'sdk_version'      => '1.11.7',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3432,8 +3440,8 @@ class Client
     }
 
     /**
-     * Description: iotbasic-设备厂商企业注册
-     * Summary: iotbasic-设备厂商企业注册.
+     * Description: iotbasic-设备厂商入驻
+     * Summary: iotbasic-设备厂商入驻.
      *
      * @param RegisterDevicecorpCustomerRequest $request
      *
@@ -3448,8 +3456,8 @@ class Client
     }
 
     /**
-     * Description: iotbasic-设备厂商企业注册
-     * Summary: iotbasic-设备厂商企业注册.
+     * Description: iotbasic-设备厂商入驻
+     * Summary: iotbasic-设备厂商入驻.
      *
      * @param RegisterDevicecorpCustomerRequest $request
      * @param string[]                          $headers
@@ -4122,6 +4130,138 @@ class Client
         Utils::validateModel($request);
 
         return NotifyDigitalkeyWithholdResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withhold.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-查询品类行业，场景列表
+     * Summary: iotbasic-查询品类行业，场景列表.
+     *
+     * @param QueryCategoryIndustryscenelistRequest $request
+     *
+     * @return QueryCategoryIndustryscenelistResponse
+     */
+    public function queryCategoryIndustryscenelist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCategoryIndustryscenelistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询品类行业，场景列表
+     * Summary: iotbasic-查询品类行业，场景列表.
+     *
+     * @param QueryCategoryIndustryscenelistRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryCategoryIndustryscenelistResponse
+     */
+    public function queryCategoryIndustryscenelistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCategoryIndustryscenelistResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.category.industryscenelist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-创建自定义品类
+     * Summary: iotbasic-创建自定义品类.
+     *
+     * @param CreateCategoryCustomRequest $request
+     *
+     * @return CreateCategoryCustomResponse
+     */
+    public function createCategoryCustom($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createCategoryCustomEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-创建自定义品类
+     * Summary: iotbasic-创建自定义品类.
+     *
+     * @param CreateCategoryCustomRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CreateCategoryCustomResponse
+     */
+    public function createCategoryCustomEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateCategoryCustomResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.category.custom.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-设备模型创建
+     * Summary: iotbasic-设备模型创建.
+     *
+     * @param CreateDeviceModelRequest $request
+     *
+     * @return CreateDeviceModelResponse
+     */
+    public function createDeviceModel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDeviceModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备模型创建
+     * Summary: iotbasic-设备模型创建.
+     *
+     * @param CreateDeviceModelRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CreateDeviceModelResponse
+     */
+    public function createDeviceModelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDeviceModelResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.model.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-创建iot产品
+     * Summary: iotbasic-创建iot产品
+     *
+     * @param CreateIotbasicProductRequest $request
+     *
+     * @return CreateIotbasicProductResponse
+     */
+    public function createIotbasicProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createIotbasicProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-创建iot产品
+     * Summary: iotbasic-创建iot产品
+     *
+     * @param CreateIotbasicProductRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateIotbasicProductResponse
+     */
+    public function createIotbasicProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateIotbasicProductResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.product.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
