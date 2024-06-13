@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.4',
+    sdk_version = '1.11.6',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1856,6 +1856,22 @@ model ProductKeyPageResponse {
   totalPages: long(name='total_pages', example='10'),
   // 数据
   pageData: [ ProductKeyModel ](name='page_data', example='{...}'),
+}
+
+// 代扣服务返回对象
+model AntdigitalWithHoldResponse {
+  // 网关返回码
+  code: string(name='code', example='10000'),
+  // 网关返回码描述
+  msg: string(name='msg', example='Business Failed'),
+  // 务返回码
+  subCode: string(name='sub_code', example='ACQ.TRADE_HAS_SUCCESS'),
+  // 业务返回码描述
+  subMsg: string(name='sub_msg', example='交易已被支付'),
+  // 结果返回内容
+  data?: string(name='data', example='{__}'),
+  // 响应签名
+  signature: string(name='signature', example='DZXh8eeTuAHoYE3w1J+POiPhfDxOYBfUNn1lkeT/V7P4zJdyojWEa6IZs6Hz0yDW5Cp/viufUb5I0/V5WENS3OYR8zRedqo6D+fUTdLHdc+EFyCkiQhBxIzgngPdPdfp1PIS7BdhhzrsZHbRqb7o4k3Dxc+AAnFauu4V6Zdwczo='),
 }
 
 // 二级商户信息
@@ -7282,8 +7298,8 @@ model PayDigitalkeyWithholdRequest = {
   totalAmount: long(name='total_amount'),
   // 商户代扣扣款许可
   deductPermission?: string(name='deduct_permission'),
-  // 代扣协议号, 对应于签约时，支付宝返回的协议
-  agreementNo: string(name='agreement_no'),
+  // 代扣协议号, 对应于签约时外部商户传入的协议号
+  externalAgreementNo: string(name='external_agreement_no'),
   // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
   timeoutExpress?: string(name='timeout_express'),
   // 异步支付类型
@@ -7303,15 +7319,13 @@ model PayDigitalkeyWithholdResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 明细返回码描述
-  subMsg?: string(name='sub_msg'),
-  // 明细返回码
-  subCode?: string(name='sub_code'),
+  // 返回对象
+  antdigitalWithholdResponse?: AntdigitalWithHoldResponse(name='antdigital_withhold_response'),
 }
 
 /**
- * Description: 代扣支付
- * Summary: 代扣支付
+ * Description: 网约车代扣支付
+ * Summary: 网约车代扣支付
  */
 async function payDigitalkeyWithhold(request: PayDigitalkeyWithholdRequest): PayDigitalkeyWithholdResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -7320,8 +7334,8 @@ async function payDigitalkeyWithhold(request: PayDigitalkeyWithholdRequest): Pay
 }
 
 /**
- * Description: 代扣支付
- * Summary: 代扣支付
+ * Description: 网约车代扣支付
+ * Summary: 网约车代扣支付
  */
 async function payDigitalkeyWithholdEx(request: PayDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayDigitalkeyWithholdResponse {
   Util.validateModel(request);
@@ -7437,12 +7451,8 @@ model CancelDigitalkeyWithholdResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 明细返回码
-  subCode?: string(name='sub_code'),
-  // 明细返回码描述
-  subMsg?: string(name='sub_msg'),
-  // 撤销返回信息 
-  data?: string(name='data'),
+  // 返回对象
+  antdigitalWithholdResponse?: AntdigitalWithHoldResponse(name='antdigital_withhold_response'),
 }
 
 /**
@@ -7483,12 +7493,8 @@ model NotifyDigitalkeyWithholdResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 明细返回码
-  subCode?: string(name='sub_code'),
-  // 明细返回码描述
-  subMsg?: string(name='sub_msg'),
-  // 预通知返回内容
-  data?: string(name='data'),
+  // 返回对象
+  antdigitalWithholdResponse?: AntdigitalWithHoldResponse(name='antdigital_withhold_response'),
 }
 
 /**
@@ -12813,11 +12819,13 @@ model ExecThingServiceRequest = {
   // 服务标识
   identifier: string(name='identifier'),
   // 可信设备唯一ID
-  trustiotEntityId?: long(name='trustiot_entity_id'),
-  // 设备编号/资产ID
-  deviceId?: string(name='device_id'),
+  entityIdList: [ string ](name='entity_id_list'),
   // 物模型服务入参
-  inputData: string(name='input_data'),
+  inputData?: string(name='input_data'),
+  // 实体类型
+  entityType: string(name='entity_type'),
+  // 是否使用trustiotId
+  useTrustiotId: boolean(name='use_trustiot_id'),
 }
 
 model ExecThingServiceResponse = {

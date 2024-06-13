@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BOT",
-  "version": "1.0.92",
+  "version": "1.0.93",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-bot:1.11.4",
-    "go": "github.com/antchain-openapi-sdk-go/bot/client:v1.11.4",
-    "csharp": "AntChain.SDK.BOT:1.11.4",
-    "ts": "@antchain/bot:1.11.4",
-    "php": "antchain/bot:1.11.4",
-    "python": "antchain_sdk_bot:1.11.4"
+    "java": "com.antgroup.antchain.openapi:openapi-bot:1.11.6",
+    "go": "github.com/antchain-openapi-sdk-go/bot/client:v1.11.6",
+    "csharp": "AntChain.SDK.BOT:1.11.6",
+    "ts": "@antchain/bot:1.11.6",
+    "php": "antchain/bot:1.11.6",
+    "python": "antchain_sdk_bot:1.11.6"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
