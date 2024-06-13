@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.66',
+    sdk_version = '1.8.69',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -1791,6 +1791,8 @@ model CloneInnerTemplateRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 商户对应租户ID
   tenantId: string(name='tenant_id'),
+  // 模板code
+  templateCode: string(name='template_code'),
   // 魔法库对应模板的模板复制id
   voucherId: string(name='voucher_id'),
 }
@@ -2205,7 +2207,9 @@ model QueryInnerFunddividerelationResponse = {
   resultMsg?: string(name='result_msg'),
   // 分账公司名称
   companyName?: string(name='company_name'),
-  // 统一社会信用代码
+  // 分账主体企业统一社会信用代码
+  subjectMerchantId?: string(name='subject_merchant_id'),
+  // 分账对象统一社会信用代码
   merchantId?: string(name='merchant_id'),
   // 分账合同或协议
   contractFiles?: [ FileInfo ](name='contract_files'),
@@ -2540,6 +2544,8 @@ model QueryInnerMerchantpayexpandResponse = {
   applicationInfo?: ApplicationInfo(name='application_info'),
   // 审核列表
   auditInfos?: [ AuditInfo ](name='audit_infos'),
+  // 进件流水号
+  payExpandId?: string(name='pay_expand_id'),
   // 进件模式 DIRECT(直连进件) AGENT(代理进件)
   expandMode?: string(name='expand_mode'),
   // INIT:草稿态 SUB_MERCHANT_CREDIT:二级户商户签约中 AUDIT:审核中 AUDIT_PASSED:进件成功 AUDIT_NOT_PASSED:进件失败 MERCHANT_CONFIRM:待商户确认
