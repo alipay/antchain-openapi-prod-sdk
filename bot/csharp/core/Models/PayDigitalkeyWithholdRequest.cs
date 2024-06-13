@@ -48,10 +48,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string DeductPermission { get; set; }
 
-        // 代扣协议号, 对应于签约时，支付宝返回的协议
-        [NameInMap("agreement_no")]
+        // 代扣协议号, 对应于签约时外部商户传入的协议号
+        [NameInMap("external_agreement_no")]
         [Validation(Required=true)]
-        public string AgreementNo { get; set; }
+        public string ExternalAgreementNo { get; set; }
 
         // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
         [NameInMap("timeout_express")]

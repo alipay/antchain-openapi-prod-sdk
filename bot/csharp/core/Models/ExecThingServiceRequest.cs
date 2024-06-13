@@ -29,19 +29,24 @@ namespace AntChain.SDK.BOT.Models
         public string Identifier { get; set; }
 
         // 可信设备唯一ID
-        [NameInMap("trustiot_entity_id")]
-        [Validation(Required=false)]
-        public long? TrustiotEntityId { get; set; }
-
-        // 设备编号/资产ID
-        [NameInMap("device_id")]
-        [Validation(Required=false)]
-        public string DeviceId { get; set; }
+        [NameInMap("entity_id_list")]
+        [Validation(Required=true)]
+        public List<string> EntityIdList { get; set; }
 
         // 物模型服务入参
         [NameInMap("input_data")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string InputData { get; set; }
+
+        // 实体类型
+        [NameInMap("entity_type")]
+        [Validation(Required=true)]
+        public string EntityType { get; set; }
+
+        // 是否使用trustiotId
+        [NameInMap("use_trustiot_id")]
+        [Validation(Required=true)]
+        public bool? UseTrustiotId { get; set; }
 
     }
 

@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.4"},
+                        {"sdk_version", "1.11.6"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.4"},
+                        {"sdk_version", "1.11.6"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4526,8 +4526,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 代扣支付
-         * Summary: 代扣支付
+         * Description: 网约车代扣支付
+         * Summary: 网约车代扣支付
          */
         public PayDigitalkeyWithholdResponse PayDigitalkeyWithhold(PayDigitalkeyWithholdRequest request)
         {
@@ -4537,8 +4537,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 代扣支付
-         * Summary: 代扣支付
+         * Description: 网约车代扣支付
+         * Summary: 网约车代扣支付
          */
         public async Task<PayDigitalkeyWithholdResponse> PayDigitalkeyWithholdAsync(PayDigitalkeyWithholdRequest request)
         {
@@ -4548,8 +4548,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 代扣支付
-         * Summary: 代扣支付
+         * Description: 网约车代扣支付
+         * Summary: 网约车代扣支付
          */
         public PayDigitalkeyWithholdResponse PayDigitalkeyWithholdEx(PayDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4558,8 +4558,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: 代扣支付
-         * Summary: 代扣支付
+         * Description: 网约车代扣支付
+         * Summary: 网约车代扣支付
          */
         public async Task<PayDigitalkeyWithholdResponse> PayDigitalkeyWithholdExAsync(PayDigitalkeyWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
