@@ -8,21 +8,21 @@ using Tea;
 
 namespace AntChain.SDK.ADOM.Models
 {
-    public class QueryAppmarketPrivacytestRequest : TeaModel {
+    public class QueryAppmarketPrivacyresultRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
         public string AuthToken { get; set; }
 
-        // 记录id
+        // 商品实例id
+        [NameInMap("instance_id")]
+        [Validation(Required=true)]
+        public string InstanceId { get; set; }
+
+        // 执行记录id
         [NameInMap("record_id")]
         [Validation(Required=true)]
         public string RecordId { get; set; }
-
-        // 实例id
-        [NameInMap("inst_id")]
-        [Validation(Required=true)]
-        public string InstId { get; set; }
 
     }
 

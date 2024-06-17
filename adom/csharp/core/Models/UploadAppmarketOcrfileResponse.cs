@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ADOM.Models
 {
-    public class QueryAppmarketPrivacytestResponse : TeaModel {
+    public class UploadAppmarketOcrfileResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.ADOM.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 文件路径
-        [NameInMap("path")]
+        // 文件上传url
+        [NameInMap("upload_url")]
         [Validation(Required=false)]
-        public string Path { get; set; }
+        public string UploadUrl { get; set; }
+
+        // 文件key
+        [NameInMap("file_key")]
+        [Validation(Required=false)]
+        public string FileKey { get; set; }
 
     }
 
