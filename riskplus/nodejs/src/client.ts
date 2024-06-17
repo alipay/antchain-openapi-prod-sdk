@@ -646,6 +646,8 @@ export class RepayResult extends $tea.Model {
   needGuaranteeFee: number;
   // 应还违约金
   needLiquidatedDamages: number;
+  // 逾期天数
+  overdueDays: number;
   static names(): { [key: string]: string } {
     return {
       customNo: 'custom_no',
@@ -677,6 +679,7 @@ export class RepayResult extends $tea.Model {
       restLiquidatedDamages: 'rest_liquidated_damages',
       needGuaranteeFee: 'need_guarantee_fee',
       needLiquidatedDamages: 'need_liquidated_damages',
+      overdueDays: 'overdue_days',
     };
   }
 
@@ -711,6 +714,7 @@ export class RepayResult extends $tea.Model {
       restLiquidatedDamages: 'number',
       needGuaranteeFee: 'number',
       needLiquidatedDamages: 'number',
+      overdueDays: 'number',
     };
   }
 
@@ -3397,6 +3401,51 @@ export class OverdueInfoResponse extends $tea.Model {
       loanTime: 'string',
       settleFlag: 'boolean',
       nearestRepayTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 天枢预览协议信息
+export class GetAgreementUrlResponseData extends $tea.Model {
+  // 协议标题
+  title: string;
+  // 协议地址
+  agreementUrl?: string;
+  // 协议文件Base64
+  fileBase64?: string;
+  // 协议图片文件base64集合
+  picFileBase64List?: string[];
+  // 机构名称
+  organizationName: string;
+  // 协议类型-code
+  fileType: string;
+  // 协议类型-名称
+  fileTypeName: string;
+  static names(): { [key: string]: string } {
+    return {
+      title: 'title',
+      agreementUrl: 'agreement_url',
+      fileBase64: 'file_base64',
+      picFileBase64List: 'pic_file_base64_list',
+      organizationName: 'organization_name',
+      fileType: 'file_type',
+      fileTypeName: 'file_type_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      title: 'string',
+      agreementUrl: 'string',
+      fileBase64: 'string',
+      picFileBase64List: { 'type': 'array', 'itemType': 'string' },
+      organizationName: 'string',
+      fileType: 'string',
+      fileTypeName: 'string',
     };
   }
 
@@ -8872,6 +8921,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   loanInstCode?: string;
   // 银行卡号
   bankCardNo?: string;
+  // 影像件信息
+  materials?: Material[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8889,6 +8940,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       riskData: 'risk_data',
       loanInstCode: 'loan_inst_code',
       bankCardNo: 'bank_card_no',
+      materials: 'materials',
     };
   }
 
@@ -8909,6 +8961,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       riskData: 'string',
       loanInstCode: 'string',
       bankCardNo: 'string',
+      materials: { 'type': 'array', 'itemType': Material },
     };
   }
 
@@ -9890,6 +9943,119 @@ export class QueryDubbridgeSettlementCertificateResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       certificateInfoList: { 'type': 'array', 'itemType': CertificateInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAgreementPreviewRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授信：apply
+  // 借款：loan
+  // 绑卡：bind
+  bizType: string;
+  // 资金方编号
+  fundCode: string;
+  // 客户号
+  customerNo: string;
+  // 借款金额
+  loanAmount?: number;
+  // 分期期数
+  period?: number;
+  // 银行编码
+  bankCode?: string;
+  // 还款方式
+  repayType?: string;
+  // 银行名称
+  bankName?: string;
+  // 银行卡号
+  bankCardNo?: string;
+  // 借据截至日期yyyy-MM-dd
+  receiptEndDate?: string;
+  // 借款用途
+  loanWay?: string;
+  // lpr
+  lpr?: number;
+  // LPR加点值
+  lprPoint?: number;
+  // LPR发布日期
+  lprEffectDate?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizType: 'biz_type',
+      fundCode: 'fund_code',
+      customerNo: 'customer_no',
+      loanAmount: 'loan_amount',
+      period: 'period',
+      bankCode: 'bank_code',
+      repayType: 'repay_type',
+      bankName: 'bank_name',
+      bankCardNo: 'bank_card_no',
+      receiptEndDate: 'receipt_end_date',
+      loanWay: 'loan_way',
+      lpr: 'lpr',
+      lprPoint: 'lpr_point',
+      lprEffectDate: 'lpr_effect_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizType: 'string',
+      fundCode: 'string',
+      customerNo: 'string',
+      loanAmount: 'number',
+      period: 'number',
+      bankCode: 'string',
+      repayType: 'string',
+      bankName: 'string',
+      bankCardNo: 'string',
+      receiptEndDate: 'string',
+      loanWay: 'string',
+      lpr: 'number',
+      lprPoint: 'number',
+      lprEffectDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAgreementPreviewResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 协议列表
+  agreementInfoList?: GetAgreementUrlResponseData[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      agreementInfoList: 'agreement_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      agreementInfoList: { 'type': 'array', 'itemType': GetAgreementUrlResponseData },
     };
   }
 
@@ -13180,6 +13346,65 @@ export class OperateRbbCreditResponse extends $tea.Model {
   }
 }
 
+export class GetRbbCustomerInformationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流水号
+  serialNumber: string;
+  // 手机号
+  phoneNumber: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serialNumber: 'serial_number',
+      phoneNumber: 'phone_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serialNumber: 'string',
+      phoneNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetRbbCustomerInformationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushRpaasReportAnswerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -16203,6 +16428,8 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
   bizSerialNo: string;
   // 访问类型，PROD/TEST，正式流量/测试流量
   visitType?: string;
+  // 圈客阈值干预参数，json-map格式
+  bizProperties?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16212,6 +16439,7 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
       customerKeys: 'customer_keys',
       bizSerialNo: 'biz_serial_no',
       visitType: 'visit_type',
+      bizProperties: 'biz_properties',
     };
   }
 
@@ -16224,6 +16452,7 @@ export class BatchqueryUmktRtMarketingRequest extends $tea.Model {
       customerKeys: { 'type': 'array', 'itemType': 'string' },
       bizSerialNo: 'string',
       visitType: 'string',
+      bizProperties: 'string',
     };
   }
 
@@ -19404,7 +19633,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.8",
+          sdk_version: "1.19.11",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -20728,6 +20957,25 @@ export default class Client {
   }
 
   /**
+   * Description: 天枢系统预览协议查询接口
+   * Summary: 天枢系统预览协议查询接口
+   */
+  async queryDubbridgeAgreementPreview(request: QueryDubbridgeAgreementPreviewRequest): Promise<QueryDubbridgeAgreementPreviewResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeAgreementPreviewEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统预览协议查询接口
+   * Summary: 天枢系统预览协议查询接口
+   */
+  async queryDubbridgeAgreementPreviewEx(request: QueryDubbridgeAgreementPreviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAgreementPreviewResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeAgreementPreviewResponse>(await this.doRequest("1.0", "riskplus.dubbridge.agreement.preview.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAgreementPreviewResponse({}));
+  }
+
+  /**
    * Description: 四要素认证首先调用此接口
    * Summary: 芝麻四要素接口
    */
@@ -21605,6 +21853,25 @@ export default class Client {
   async operateRbbCreditEx(request: OperateRbbCreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<OperateRbbCreditResponse> {
     Util.validateModel(request);
     return $tea.cast<OperateRbbCreditResponse>(await this.doRequest("1.0", "riskplus.rbb.credit.operate", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new OperateRbbCreditResponse({}));
+  }
+
+  /**
+   * Description: 获取客户信息
+   * Summary: 获取客户信息
+   */
+  async getRbbCustomerInformation(request: GetRbbCustomerInformationRequest): Promise<GetRbbCustomerInformationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getRbbCustomerInformationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取客户信息
+   * Summary: 获取客户信息
+   */
+  async getRbbCustomerInformationEx(request: GetRbbCustomerInformationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetRbbCustomerInformationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetRbbCustomerInformationResponse>(await this.doRequest("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetRbbCustomerInformationResponse({}));
   }
 
   /**
