@@ -110,7 +110,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.1.4"),
                     new TeaPair("_prod_code", "ADOM"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -162,21 +162,116 @@ public class Client {
     }
 
     /**
-     * Description: 应用开放市场隐私模型运行时链路测试
-     * Summary: 应用开放市场隐私模型运行时链路测试
+     * Description: 应用开放市场OCR服务-文件上传
+     * Summary: 应用开放市场OCR服务-文件上传
      */
-    public QueryAppmarketPrivacytestResponse queryAppmarketPrivacytest(QueryAppmarketPrivacytestRequest request) throws Exception {
+    public UploadAppmarketOcrfileResponse uploadAppmarketOcrfile(UploadAppmarketOcrfileRequest request) throws Exception {
         RuntimeOptions runtime = new RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAppmarketPrivacytestEx(request, headers, runtime);
+        return this.uploadAppmarketOcrfileEx(request, headers, runtime);
     }
 
     /**
-     * Description: 应用开放市场隐私模型运行时链路测试
-     * Summary: 应用开放市场隐私模型运行时链路测试
+     * Description: 应用开放市场OCR服务-文件上传
+     * Summary: 应用开放市场OCR服务-文件上传
      */
-    public QueryAppmarketPrivacytestResponse queryAppmarketPrivacytestEx(QueryAppmarketPrivacytestRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public UploadAppmarketOcrfileResponse uploadAppmarketOcrfileEx(UploadAppmarketOcrfileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antcloud.adom.appmarket.privacytest.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAppmarketPrivacytestResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.adom.appmarket.ocrfile.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAppmarketOcrfileResponse());
+    }
+
+    /**
+     * Description: 应用开放市场OCR服务-营业执照识别
+     * Summary: 应用开放市场OCR服务-营业执照识别
+     */
+    public ExecAppmarketBusinesslicenseocrResponse execAppmarketBusinesslicenseocr(ExecAppmarketBusinesslicenseocrRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAppmarketBusinesslicenseocrEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用开放市场OCR服务-营业执照识别
+     * Summary: 应用开放市场OCR服务-营业执照识别
+     */
+    public ExecAppmarketBusinesslicenseocrResponse execAppmarketBusinesslicenseocrEx(ExecAppmarketBusinesslicenseocrRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.adom.appmarket.businesslicenseocr.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAppmarketBusinesslicenseocrResponse());
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-结果查询
+     * Summary: 应用开放市场隐私模型运行时链路-结果查询
+     */
+    public QueryAppmarketPrivacyresultResponse queryAppmarketPrivacyresult(QueryAppmarketPrivacyresultRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAppmarketPrivacyresultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-结果查询
+     * Summary: 应用开放市场隐私模型运行时链路-结果查询
+     */
+    public QueryAppmarketPrivacyresultResponse queryAppmarketPrivacyresultEx(QueryAppmarketPrivacyresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.adom.appmarket.privacyresult.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAppmarketPrivacyresultResponse());
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-文件上传
+     * Summary: 应用开放市场隐私模型运行时链路-文件上传
+     */
+    public UploadAppmarketFileResponse uploadAppmarketFile(UploadAppmarketFileRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAppmarketFileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-文件上传
+     * Summary: 应用开放市场隐私模型运行时链路-文件上传
+     */
+    public UploadAppmarketFileResponse uploadAppmarketFileEx(UploadAppmarketFileRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.adom.appmarket.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAppmarketFileResponse());
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-同步执行
+     * Summary: 应用开放市场隐私模型运行时链路-同步执行
+     */
+    public ExecAppmarketPrivacymodelResponse execAppmarketPrivacymodel(ExecAppmarketPrivacymodelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAppmarketPrivacymodelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-同步执行
+     * Summary: 应用开放市场隐私模型运行时链路-同步执行
+     */
+    public ExecAppmarketPrivacymodelResponse execAppmarketPrivacymodelEx(ExecAppmarketPrivacymodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.adom.appmarket.privacymodel.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAppmarketPrivacymodelResponse());
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-提交执行
+     * Summary: 应用开放市场隐私模型运行时链路-提交执行
+     */
+    public SubmitAppmarketPrivacymodelResponse submitAppmarketPrivacymodel(SubmitAppmarketPrivacymodelRequest request) throws Exception {
+        RuntimeOptions runtime = new RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAppmarketPrivacymodelEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-提交执行
+     * Summary: 应用开放市场隐私模型运行时链路-提交执行
+     */
+    public SubmitAppmarketPrivacymodelResponse submitAppmarketPrivacymodelEx(SubmitAppmarketPrivacymodelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.adom.appmarket.privacymodel.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAppmarketPrivacymodelResponse());
     }
 }

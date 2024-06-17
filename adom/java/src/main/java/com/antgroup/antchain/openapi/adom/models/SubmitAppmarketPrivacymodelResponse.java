@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.adom.models;
 
 import com.aliyun.tea.*;
 
-public class QueryAppmarketPrivacytestResponse extends TeaModel {
+public class SubmitAppmarketPrivacymodelResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryAppmarketPrivacytestResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 文件路径
-    @NameInMap("path")
-    public String path;
+    // 异步提交执行记录id
+    @NameInMap("record_id")
+    public String recordId;
 
-    public static QueryAppmarketPrivacytestResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAppmarketPrivacytestResponse self = new QueryAppmarketPrivacytestResponse();
+    public static SubmitAppmarketPrivacymodelResponse build(java.util.Map<String, ?> map) throws Exception {
+        SubmitAppmarketPrivacymodelResponse self = new SubmitAppmarketPrivacymodelResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAppmarketPrivacytestResponse setReqMsgId(String reqMsgId) {
+    public SubmitAppmarketPrivacymodelResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryAppmarketPrivacytestResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryAppmarketPrivacytestResponse setResultCode(String resultCode) {
+    public SubmitAppmarketPrivacymodelResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryAppmarketPrivacytestResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryAppmarketPrivacytestResponse setResultMsg(String resultMsg) {
+    public SubmitAppmarketPrivacymodelResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryAppmarketPrivacytestResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAppmarketPrivacytestResponse setPath(String path) {
-        this.path = path;
+    public SubmitAppmarketPrivacymodelResponse setRecordId(String recordId) {
+        this.recordId = recordId;
         return this;
     }
-    public String getPath() {
-        return this.path;
+    public String getRecordId() {
+        return this.recordId;
     }
 
 }
