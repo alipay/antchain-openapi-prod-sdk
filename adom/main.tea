@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.1.4',
     _prod_code = 'ADOM',
     _prod_channel = 'undefined'
   };
@@ -161,42 +161,291 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-model QueryAppmarketPrivacytestRequest = {
+model UploadAppmarketOcrfileRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
-  // 记录id
-  recordId: string(name='record_id'),
-  // 实例id
-  instId: string(name='inst_id'),
+  // 所购商品实例id
+  instanceId: string(name='instance_id'),
+  // 文件名
+  fileName: string(name='file_name'),
 }
 
-model QueryAppmarketPrivacytestResponse = {
+model UploadAppmarketOcrfileResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 文件路径
-  path?: string(name='path'),
+  // 文件上传url
+  uploadUrl?: string(name='upload_url'),
+  // 文件key
+  fileKey?: string(name='file_key'),
 }
 
 /**
- * Description: 应用开放市场隐私模型运行时链路测试
- * Summary: 应用开放市场隐私模型运行时链路测试
+ * Description: 应用开放市场OCR服务-文件上传
+ * Summary: 应用开放市场OCR服务-文件上传
  */
-async function queryAppmarketPrivacytest(request: QueryAppmarketPrivacytestRequest): QueryAppmarketPrivacytestResponse {
+async function uploadAppmarketOcrfile(request: UploadAppmarketOcrfileRequest): UploadAppmarketOcrfileResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryAppmarketPrivacytestEx(request, headers, runtime);
+  return uploadAppmarketOcrfileEx(request, headers, runtime);
 }
 
 /**
- * Description: 应用开放市场隐私模型运行时链路测试
- * Summary: 应用开放市场隐私模型运行时链路测试
+ * Description: 应用开放市场OCR服务-文件上传
+ * Summary: 应用开放市场OCR服务-文件上传
  */
-async function queryAppmarketPrivacytestEx(request: QueryAppmarketPrivacytestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppmarketPrivacytestResponse {
+async function uploadAppmarketOcrfileEx(request: UploadAppmarketOcrfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAppmarketOcrfileResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antcloud.adom.appmarket.privacytest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.ocrfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecAppmarketBusinesslicenseocrRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品实例id
+  instanceId: string(name='instance_id'),
+  // 文件key
+  fileKey?: string(name='file_key'),
+  // 文件url
+  fileUrl?: string(name='file_url'),
+  // 扩展信息
+  ext?: string(name='ext'),
+}
+
+model ExecAppmarketBusinesslicenseocrResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 地址
+  address?: string(name='address'),
+  // 经营范围
+  business?: string(name='business'),
+  // 注册资本
+  captial?: string(name='captial'),
+  // 企业成立日期
+  establishDate?: string(name='establish_date'),
+  // 名称，控股股东名称
+  name?: string(name='name'),
+  // 法定代表人
+  person?: string(name='person'),
+  // 统一社会信用代码，控股股东证件号码
+  regNum?: string(name='reg_num'),
+  // 印章
+  stamp?: string(name='stamp'),
+  // 类型，如：有限责任公司(自然人独资)
+  type?: string(name='type'),
+  // 营业期限，营业执照有效期，控股股东证件有效期
+  validPeriod?: string(name='valid_period'),
+  // 标题，如"营业执照"
+  title?: string(name='title'),
+  // 颁发日期
+  date?: string(name='date'),
+  // 编号
+  num?: string(name='num'),
+  // 投资人
+  investors?: string(name='investors'),
+  // 组成形式
+  formation?: string(name='formation'),
+  // 注册日期
+  dateOfRegistration?: string(name='date_of_registration'),
+  // 经营者
+  operators?: string(name='operators'),
+}
+
+/**
+ * Description: 应用开放市场OCR服务-营业执照识别
+ * Summary: 应用开放市场OCR服务-营业执照识别
+ */
+async function execAppmarketBusinesslicenseocr(request: ExecAppmarketBusinesslicenseocrRequest): ExecAppmarketBusinesslicenseocrResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execAppmarketBusinesslicenseocrEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用开放市场OCR服务-营业执照识别
+ * Summary: 应用开放市场OCR服务-营业执照识别
+ */
+async function execAppmarketBusinesslicenseocrEx(request: ExecAppmarketBusinesslicenseocrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecAppmarketBusinesslicenseocrResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.businesslicenseocr.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAppmarketPrivacyresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品实例id
+  instanceId: string(name='instance_id'),
+  // 执行记录id
+  recordId: string(name='record_id'),
+}
+
+model QueryAppmarketPrivacyresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 隐私计算模型执行状态
+  status?: string(name='status'),
+  // 结果文件路径
+  resultUrl?: string(name='result_url'),
+  // 失败的原因
+  failedReason?: string(name='failed_reason'),
+  // 结构化出参
+  structOutput?: string(name='struct_output'),
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-结果查询
+ * Summary: 应用开放市场隐私模型运行时链路-结果查询
+ */
+async function queryAppmarketPrivacyresult(request: QueryAppmarketPrivacyresultRequest): QueryAppmarketPrivacyresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAppmarketPrivacyresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-结果查询
+ * Summary: 应用开放市场隐私模型运行时链路-结果查询
+ */
+async function queryAppmarketPrivacyresultEx(request: QueryAppmarketPrivacyresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAppmarketPrivacyresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.privacyresult.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAppmarketFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 所购商品实例id
+  instanceId: string(name='instance_id'),
+  // 文件标识，用作文件名
+  fileId: string(name='file_id'),
+}
+
+model UploadAppmarketFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 文件上传url
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-文件上传
+ * Summary: 应用开放市场隐私模型运行时链路-文件上传
+ */
+async function uploadAppmarketFile(request: UploadAppmarketFileRequest): UploadAppmarketFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAppmarketFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-文件上传
+ * Summary: 应用开放市场隐私模型运行时链路-文件上传
+ */
+async function uploadAppmarketFileEx(request: UploadAppmarketFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAppmarketFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecAppmarketPrivacymodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品实例id
+  instanceId: string(name='instance_id'),
+  // 文件标识，文件上传时的入参
+  fileId?: string(name='file_id'),
+  // 结构化入参
+  structInput?: string(name='struct_input'),
+}
+
+model ExecAppmarketPrivacymodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 执行状态
+  status?: string(name='status'),
+  // 结果文件url
+  resultUrl?: string(name='result_url'),
+  // 执行失败原因
+  failedReason?: string(name='failed_reason'),
+  // 结构化出参
+  structOutput?: string(name='struct_output'),
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-同步执行
+ * Summary: 应用开放市场隐私模型运行时链路-同步执行
+ */
+async function execAppmarketPrivacymodel(request: ExecAppmarketPrivacymodelRequest): ExecAppmarketPrivacymodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execAppmarketPrivacymodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-同步执行
+ * Summary: 应用开放市场隐私模型运行时链路-同步执行
+ */
+async function execAppmarketPrivacymodelEx(request: ExecAppmarketPrivacymodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecAppmarketPrivacymodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.privacymodel.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAppmarketPrivacymodelRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商品实例id
+  instanceId: string(name='instance_id'),
+  // 文件名称
+  fileId?: string(name='file_id'),
+  // 结构化入参
+  structInput?: string(name='struct_input'),
+}
+
+model SubmitAppmarketPrivacymodelResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 异步提交执行记录id
+  recordId?: string(name='record_id'),
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-提交执行
+ * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ */
+async function submitAppmarketPrivacymodel(request: SubmitAppmarketPrivacymodelRequest): SubmitAppmarketPrivacymodelResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAppmarketPrivacymodelEx(request, headers, runtime);
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-提交执行
+ * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ */
+async function submitAppmarketPrivacymodelEx(request: SubmitAppmarketPrivacymodelRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAppmarketPrivacymodelResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.adom.appmarket.privacymodel.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
