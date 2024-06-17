@@ -137,7 +137,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.16"},
+                        {"sdk_version", "1.2.17"},
                         {"_prod_code", "YUQING"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.16"},
+                        {"sdk_version", "1.2.17"},
                         {"_prod_code", "YUQING"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1159,6 +1159,48 @@ namespace AntChain.SDK.YUQING
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetStsTokenResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.sts.token.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通用操作接口
+         * Summary: 通用操作接口
+         */
+        public OperateCommonInterfaceResponse OperateCommonInterface(OperateCommonInterfaceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return OperateCommonInterfaceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通用操作接口
+         * Summary: 通用操作接口
+         */
+        public async Task<OperateCommonInterfaceResponse> OperateCommonInterfaceAsync(OperateCommonInterfaceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await OperateCommonInterfaceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 通用操作接口
+         * Summary: 通用操作接口
+         */
+        public OperateCommonInterfaceResponse OperateCommonInterfaceEx(OperateCommonInterfaceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateCommonInterfaceResponse>(DoRequest("1.0", "universalsaas.yuqing.common.interface.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 通用操作接口
+         * Summary: 通用操作接口
+         */
+        public async Task<OperateCommonInterfaceResponse> OperateCommonInterfaceExAsync(OperateCommonInterfaceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<OperateCommonInterfaceResponse>(await DoRequestAsync("1.0", "universalsaas.yuqing.common.interface.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
