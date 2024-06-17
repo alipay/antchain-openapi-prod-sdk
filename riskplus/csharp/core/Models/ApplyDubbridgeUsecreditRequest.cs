@@ -83,6 +83,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string BankCardNo { get; set; }
 
+        // 影像件信息
+        [NameInMap("materials")]
+        [Validation(Required=false)]
+        public List<Material> Materials { get; set; }
+
     }
 
 }

@@ -155,6 +155,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public long? NeedLiquidatedDamages { get; set; }
 
+        // 逾期天数
+        [NameInMap("overdue_days")]
+        [Validation(Required=true)]
+        public long? OverdueDays { get; set; }
+
     }
 
 }

@@ -43,6 +43,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string VisitType { get; set; }
 
+        // 圈客阈值干预参数，json-map格式
+        [NameInMap("biz_properties")]
+        [Validation(Required=false)]
+        public string BizProperties { get; set; }
+
     }
 
 }

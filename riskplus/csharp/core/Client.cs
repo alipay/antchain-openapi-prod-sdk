@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.8"},
+                        {"sdk_version", "1.19.11"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.8"},
+                        {"sdk_version", "1.19.11"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3140,6 +3140,48 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 天枢系统预览协议查询接口
+         * Summary: 天枢系统预览协议查询接口
+         */
+        public QueryDubbridgeAgreementPreviewResponse QueryDubbridgeAgreementPreview(QueryDubbridgeAgreementPreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDubbridgeAgreementPreviewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统预览协议查询接口
+         * Summary: 天枢系统预览协议查询接口
+         */
+        public async Task<QueryDubbridgeAgreementPreviewResponse> QueryDubbridgeAgreementPreviewAsync(QueryDubbridgeAgreementPreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDubbridgeAgreementPreviewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天枢系统预览协议查询接口
+         * Summary: 天枢系统预览协议查询接口
+         */
+        public QueryDubbridgeAgreementPreviewResponse QueryDubbridgeAgreementPreviewEx(QueryDubbridgeAgreementPreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeAgreementPreviewResponse>(DoRequest("1.0", "riskplus.dubbridge.agreement.preview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天枢系统预览协议查询接口
+         * Summary: 天枢系统预览协议查询接口
+         */
+        public async Task<QueryDubbridgeAgreementPreviewResponse> QueryDubbridgeAgreementPreviewExAsync(QueryDubbridgeAgreementPreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDubbridgeAgreementPreviewResponse>(await DoRequestAsync("1.0", "riskplus.dubbridge.agreement.preview.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 四要素认证首先调用此接口
          * Summary: 芝麻四要素接口
          */
@@ -5081,6 +5123,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<OperateRbbCreditResponse>(await DoRequestAsync("1.0", "riskplus.rbb.credit.operate", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取客户信息
+         * Summary: 获取客户信息
+         */
+        public GetRbbCustomerInformationResponse GetRbbCustomerInformation(GetRbbCustomerInformationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetRbbCustomerInformationEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取客户信息
+         * Summary: 获取客户信息
+         */
+        public async Task<GetRbbCustomerInformationResponse> GetRbbCustomerInformationAsync(GetRbbCustomerInformationRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetRbbCustomerInformationExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取客户信息
+         * Summary: 获取客户信息
+         */
+        public GetRbbCustomerInformationResponse GetRbbCustomerInformationEx(GetRbbCustomerInformationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetRbbCustomerInformationResponse>(DoRequest("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取客户信息
+         * Summary: 获取客户信息
+         */
+        public async Task<GetRbbCustomerInformationResponse> GetRbbCustomerInformationExAsync(GetRbbCustomerInformationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetRbbCustomerInformationResponse>(await DoRequestAsync("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
