@@ -6,7 +6,7 @@ namespace AntChain\ADOM\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAppmarketPrivacytestRequest extends Model
+class UploadAppmarketFileRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,27 +14,27 @@ class QueryAppmarketPrivacytestRequest extends Model
      */
     public $authToken;
 
-    // 记录id
+    // 所购商品实例id
     /**
      * @var string
      */
-    public $recordId;
+    public $instanceId;
 
-    // 实例id
+    // 文件标识，用作文件名
     /**
      * @var string
      */
-    public $instId;
+    public $fileId;
     protected $_name = [
-        'authToken' => 'auth_token',
-        'recordId'  => 'record_id',
-        'instId'    => 'inst_id',
+        'authToken'  => 'auth_token',
+        'instanceId' => 'instance_id',
+        'fileId'     => 'file_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('recordId', $this->recordId, true);
-        Model::validateRequired('instId', $this->instId, true);
+        Model::validateRequired('instanceId', $this->instanceId, true);
+        Model::validateRequired('fileId', $this->fileId, true);
     }
 
     public function toMap()
@@ -43,11 +43,11 @@ class QueryAppmarketPrivacytestRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
-        if (null !== $this->recordId) {
-            $res['record_id'] = $this->recordId;
+        if (null !== $this->instanceId) {
+            $res['instance_id'] = $this->instanceId;
         }
-        if (null !== $this->instId) {
-            $res['inst_id'] = $this->instId;
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
         }
 
         return $res;
@@ -56,7 +56,7 @@ class QueryAppmarketPrivacytestRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAppmarketPrivacytestRequest
+     * @return UploadAppmarketFileRequest
      */
     public static function fromMap($map = [])
     {
@@ -64,11 +64,11 @@ class QueryAppmarketPrivacytestRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
-        if (isset($map['record_id'])) {
-            $model->recordId = $map['record_id'];
+        if (isset($map['instance_id'])) {
+            $model->instanceId = $map['instance_id'];
         }
-        if (isset($map['inst_id'])) {
-            $model->instId = $map['inst_id'];
+        if (isset($map['file_id'])) {
+            $model->fileId = $map['file_id'];
         }
 
         return $model;

@@ -11,8 +11,18 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\ADOM\Models\QueryAppmarketPrivacytestRequest;
-use AntChain\ADOM\Models\QueryAppmarketPrivacytestResponse;
+use AntChain\ADOM\Models\ExecAppmarketBusinesslicenseocrRequest;
+use AntChain\ADOM\Models\ExecAppmarketBusinesslicenseocrResponse;
+use AntChain\ADOM\Models\ExecAppmarketPrivacymodelRequest;
+use AntChain\ADOM\Models\ExecAppmarketPrivacymodelResponse;
+use AntChain\ADOM\Models\QueryAppmarketPrivacyresultRequest;
+use AntChain\ADOM\Models\QueryAppmarketPrivacyresultResponse;
+use AntChain\ADOM\Models\SubmitAppmarketPrivacymodelRequest;
+use AntChain\ADOM\Models\SubmitAppmarketPrivacymodelResponse;
+use AntChain\ADOM\Models\UploadAppmarketFileRequest;
+use AntChain\ADOM\Models\UploadAppmarketFileResponse;
+use AntChain\ADOM\Models\UploadAppmarketOcrfileRequest;
+use AntChain\ADOM\Models\UploadAppmarketOcrfileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -159,7 +169,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.1.4',
                     '_prod_code'       => 'ADOM',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -208,35 +218,200 @@ class Client
     }
 
     /**
-     * Description: 应用开放市场隐私模型运行时链路测试
-     * Summary: 应用开放市场隐私模型运行时链路测试.
+     * Description: 应用开放市场OCR服务-文件上传
+     * Summary: 应用开放市场OCR服务-文件上传.
      *
-     * @param QueryAppmarketPrivacytestRequest $request
+     * @param UploadAppmarketOcrfileRequest $request
      *
-     * @return QueryAppmarketPrivacytestResponse
+     * @return UploadAppmarketOcrfileResponse
      */
-    public function queryAppmarketPrivacytest($request)
+    public function uploadAppmarketOcrfile($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryAppmarketPrivacytestEx($request, $headers, $runtime);
+        return $this->uploadAppmarketOcrfileEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 应用开放市场隐私模型运行时链路测试
-     * Summary: 应用开放市场隐私模型运行时链路测试.
+     * Description: 应用开放市场OCR服务-文件上传
+     * Summary: 应用开放市场OCR服务-文件上传.
      *
-     * @param QueryAppmarketPrivacytestRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
+     * @param UploadAppmarketOcrfileRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
      *
-     * @return QueryAppmarketPrivacytestResponse
+     * @return UploadAppmarketOcrfileResponse
      */
-    public function queryAppmarketPrivacytestEx($request, $headers, $runtime)
+    public function uploadAppmarketOcrfileEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryAppmarketPrivacytestResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.privacytest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return UploadAppmarketOcrfileResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.ocrfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用开放市场OCR服务-营业执照识别
+     * Summary: 应用开放市场OCR服务-营业执照识别.
+     *
+     * @param ExecAppmarketBusinesslicenseocrRequest $request
+     *
+     * @return ExecAppmarketBusinesslicenseocrResponse
+     */
+    public function execAppmarketBusinesslicenseocr($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execAppmarketBusinesslicenseocrEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用开放市场OCR服务-营业执照识别
+     * Summary: 应用开放市场OCR服务-营业执照识别.
+     *
+     * @param ExecAppmarketBusinesslicenseocrRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return ExecAppmarketBusinesslicenseocrResponse
+     */
+    public function execAppmarketBusinesslicenseocrEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecAppmarketBusinesslicenseocrResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.businesslicenseocr.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-结果查询
+     * Summary: 应用开放市场隐私模型运行时链路-结果查询.
+     *
+     * @param QueryAppmarketPrivacyresultRequest $request
+     *
+     * @return QueryAppmarketPrivacyresultResponse
+     */
+    public function queryAppmarketPrivacyresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAppmarketPrivacyresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-结果查询
+     * Summary: 应用开放市场隐私模型运行时链路-结果查询.
+     *
+     * @param QueryAppmarketPrivacyresultRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryAppmarketPrivacyresultResponse
+     */
+    public function queryAppmarketPrivacyresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAppmarketPrivacyresultResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.privacyresult.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-文件上传
+     * Summary: 应用开放市场隐私模型运行时链路-文件上传.
+     *
+     * @param UploadAppmarketFileRequest $request
+     *
+     * @return UploadAppmarketFileResponse
+     */
+    public function uploadAppmarketFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAppmarketFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-文件上传
+     * Summary: 应用开放市场隐私模型运行时链路-文件上传.
+     *
+     * @param UploadAppmarketFileRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadAppmarketFileResponse
+     */
+    public function uploadAppmarketFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAppmarketFileResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-同步执行
+     * Summary: 应用开放市场隐私模型运行时链路-同步执行.
+     *
+     * @param ExecAppmarketPrivacymodelRequest $request
+     *
+     * @return ExecAppmarketPrivacymodelResponse
+     */
+    public function execAppmarketPrivacymodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execAppmarketPrivacymodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-同步执行
+     * Summary: 应用开放市场隐私模型运行时链路-同步执行.
+     *
+     * @param ExecAppmarketPrivacymodelRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ExecAppmarketPrivacymodelResponse
+     */
+    public function execAppmarketPrivacymodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecAppmarketPrivacymodelResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.privacymodel.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-提交执行
+     * Summary: 应用开放市场隐私模型运行时链路-提交执行.
+     *
+     * @param SubmitAppmarketPrivacymodelRequest $request
+     *
+     * @return SubmitAppmarketPrivacymodelResponse
+     */
+    public function submitAppmarketPrivacymodel($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAppmarketPrivacymodelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 应用开放市场隐私模型运行时链路-提交执行
+     * Summary: 应用开放市场隐私模型运行时链路-提交执行.
+     *
+     * @param SubmitAppmarketPrivacymodelRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return SubmitAppmarketPrivacymodelResponse
+     */
+    public function submitAppmarketPrivacymodelEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAppmarketPrivacymodelResponse::fromMap($this->doRequest('1.0', 'antcloud.adom.appmarket.privacymodel.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

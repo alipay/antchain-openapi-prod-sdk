@@ -6,7 +6,7 @@ namespace AntChain\ADOM\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAppmarketPrivacytestResponse extends Model
+class UploadAppmarketOcrfileResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class QueryAppmarketPrivacytestResponse extends Model
      */
     public $resultMsg;
 
-    // 文件路径
+    // 文件上传url
     /**
      * @var string
      */
-    public $path;
+    public $uploadUrl;
+
+    // 文件key
+    /**
+     * @var string
+     */
+    public $fileKey;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'path'       => 'path',
+        'uploadUrl'  => 'upload_url',
+        'fileKey'    => 'file_key',
     ];
 
     public function validate()
@@ -54,8 +61,11 @@ class QueryAppmarketPrivacytestResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->path) {
-            $res['path'] = $this->path;
+        if (null !== $this->uploadUrl) {
+            $res['upload_url'] = $this->uploadUrl;
+        }
+        if (null !== $this->fileKey) {
+            $res['file_key'] = $this->fileKey;
         }
 
         return $res;
@@ -64,7 +74,7 @@ class QueryAppmarketPrivacytestResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAppmarketPrivacytestResponse
+     * @return UploadAppmarketOcrfileResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +88,11 @@ class QueryAppmarketPrivacytestResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['path'])) {
-            $model->path = $map['path'];
+        if (isset($map['upload_url'])) {
+            $model->uploadUrl = $map['upload_url'];
+        }
+        if (isset($map['file_key'])) {
+            $model->fileKey = $map['file_key'];
         }
 
         return $model;
