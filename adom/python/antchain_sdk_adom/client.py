@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.4',
                     '_prod_code': 'ADOM',
                     '_prod_channel': 'undefined'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.1.4',
                     '_prod_code': 'ADOM',
                     '_prod_channel': 'undefined'
                 }
@@ -273,58 +273,338 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def query_appmarket_privacytest(
+    def upload_appmarket_ocrfile(
         self,
-        request: adom_models.QueryAppmarketPrivacytestRequest,
-    ) -> adom_models.QueryAppmarketPrivacytestResponse:
+        request: adom_models.UploadAppmarketOcrfileRequest,
+    ) -> adom_models.UploadAppmarketOcrfileResponse:
         """
-        Description: 应用开放市场隐私模型运行时链路测试
-        Summary: 应用开放市场隐私模型运行时链路测试
+        Description: 应用开放市场OCR服务-文件上传
+        Summary: 应用开放市场OCR服务-文件上传
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_appmarket_privacytest_ex(request, headers, runtime)
+        return self.upload_appmarket_ocrfile_ex(request, headers, runtime)
 
-    async def query_appmarket_privacytest_async(
+    async def upload_appmarket_ocrfile_async(
         self,
-        request: adom_models.QueryAppmarketPrivacytestRequest,
-    ) -> adom_models.QueryAppmarketPrivacytestResponse:
+        request: adom_models.UploadAppmarketOcrfileRequest,
+    ) -> adom_models.UploadAppmarketOcrfileResponse:
         """
-        Description: 应用开放市场隐私模型运行时链路测试
-        Summary: 应用开放市场隐私模型运行时链路测试
+        Description: 应用开放市场OCR服务-文件上传
+        Summary: 应用开放市场OCR服务-文件上传
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_appmarket_privacytest_ex_async(request, headers, runtime)
+        return await self.upload_appmarket_ocrfile_ex_async(request, headers, runtime)
 
-    def query_appmarket_privacytest_ex(
+    def upload_appmarket_ocrfile_ex(
         self,
-        request: adom_models.QueryAppmarketPrivacytestRequest,
+        request: adom_models.UploadAppmarketOcrfileRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> adom_models.QueryAppmarketPrivacytestResponse:
+    ) -> adom_models.UploadAppmarketOcrfileResponse:
         """
-        Description: 应用开放市场隐私模型运行时链路测试
-        Summary: 应用开放市场隐私模型运行时链路测试
+        Description: 应用开放市场OCR服务-文件上传
+        Summary: 应用开放市场OCR服务-文件上传
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            adom_models.QueryAppmarketPrivacytestResponse(),
-            self.do_request('1.0', 'antcloud.adom.appmarket.privacytest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            adom_models.UploadAppmarketOcrfileResponse(),
+            self.do_request('1.0', 'antcloud.adom.appmarket.ocrfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_appmarket_privacytest_ex_async(
+    async def upload_appmarket_ocrfile_ex_async(
         self,
-        request: adom_models.QueryAppmarketPrivacytestRequest,
+        request: adom_models.UploadAppmarketOcrfileRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> adom_models.QueryAppmarketPrivacytestResponse:
+    ) -> adom_models.UploadAppmarketOcrfileResponse:
         """
-        Description: 应用开放市场隐私模型运行时链路测试
-        Summary: 应用开放市场隐私模型运行时链路测试
+        Description: 应用开放市场OCR服务-文件上传
+        Summary: 应用开放市场OCR服务-文件上传
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            adom_models.QueryAppmarketPrivacytestResponse(),
-            await self.do_request_async('1.0', 'antcloud.adom.appmarket.privacytest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            adom_models.UploadAppmarketOcrfileResponse(),
+            await self.do_request_async('1.0', 'antcloud.adom.appmarket.ocrfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_appmarket_businesslicenseocr(
+        self,
+        request: adom_models.ExecAppmarketBusinesslicenseocrRequest,
+    ) -> adom_models.ExecAppmarketBusinesslicenseocrResponse:
+        """
+        Description: 应用开放市场OCR服务-营业执照识别
+        Summary: 应用开放市场OCR服务-营业执照识别
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_appmarket_businesslicenseocr_ex(request, headers, runtime)
+
+    async def exec_appmarket_businesslicenseocr_async(
+        self,
+        request: adom_models.ExecAppmarketBusinesslicenseocrRequest,
+    ) -> adom_models.ExecAppmarketBusinesslicenseocrResponse:
+        """
+        Description: 应用开放市场OCR服务-营业执照识别
+        Summary: 应用开放市场OCR服务-营业执照识别
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_appmarket_businesslicenseocr_ex_async(request, headers, runtime)
+
+    def exec_appmarket_businesslicenseocr_ex(
+        self,
+        request: adom_models.ExecAppmarketBusinesslicenseocrRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.ExecAppmarketBusinesslicenseocrResponse:
+        """
+        Description: 应用开放市场OCR服务-营业执照识别
+        Summary: 应用开放市场OCR服务-营业执照识别
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.ExecAppmarketBusinesslicenseocrResponse(),
+            self.do_request('1.0', 'antcloud.adom.appmarket.businesslicenseocr.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_appmarket_businesslicenseocr_ex_async(
+        self,
+        request: adom_models.ExecAppmarketBusinesslicenseocrRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.ExecAppmarketBusinesslicenseocrResponse:
+        """
+        Description: 应用开放市场OCR服务-营业执照识别
+        Summary: 应用开放市场OCR服务-营业执照识别
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.ExecAppmarketBusinesslicenseocrResponse(),
+            await self.do_request_async('1.0', 'antcloud.adom.appmarket.businesslicenseocr.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_appmarket_privacyresult(
+        self,
+        request: adom_models.QueryAppmarketPrivacyresultRequest,
+    ) -> adom_models.QueryAppmarketPrivacyresultResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-结果查询
+        Summary: 应用开放市场隐私模型运行时链路-结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_appmarket_privacyresult_ex(request, headers, runtime)
+
+    async def query_appmarket_privacyresult_async(
+        self,
+        request: adom_models.QueryAppmarketPrivacyresultRequest,
+    ) -> adom_models.QueryAppmarketPrivacyresultResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-结果查询
+        Summary: 应用开放市场隐私模型运行时链路-结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_appmarket_privacyresult_ex_async(request, headers, runtime)
+
+    def query_appmarket_privacyresult_ex(
+        self,
+        request: adom_models.QueryAppmarketPrivacyresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.QueryAppmarketPrivacyresultResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-结果查询
+        Summary: 应用开放市场隐私模型运行时链路-结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.QueryAppmarketPrivacyresultResponse(),
+            self.do_request('1.0', 'antcloud.adom.appmarket.privacyresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_appmarket_privacyresult_ex_async(
+        self,
+        request: adom_models.QueryAppmarketPrivacyresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.QueryAppmarketPrivacyresultResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-结果查询
+        Summary: 应用开放市场隐私模型运行时链路-结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.QueryAppmarketPrivacyresultResponse(),
+            await self.do_request_async('1.0', 'antcloud.adom.appmarket.privacyresult.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_appmarket_file(
+        self,
+        request: adom_models.UploadAppmarketFileRequest,
+    ) -> adom_models.UploadAppmarketFileResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-文件上传
+        Summary: 应用开放市场隐私模型运行时链路-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_appmarket_file_ex(request, headers, runtime)
+
+    async def upload_appmarket_file_async(
+        self,
+        request: adom_models.UploadAppmarketFileRequest,
+    ) -> adom_models.UploadAppmarketFileResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-文件上传
+        Summary: 应用开放市场隐私模型运行时链路-文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_appmarket_file_ex_async(request, headers, runtime)
+
+    def upload_appmarket_file_ex(
+        self,
+        request: adom_models.UploadAppmarketFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.UploadAppmarketFileResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-文件上传
+        Summary: 应用开放市场隐私模型运行时链路-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.UploadAppmarketFileResponse(),
+            self.do_request('1.0', 'antcloud.adom.appmarket.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_appmarket_file_ex_async(
+        self,
+        request: adom_models.UploadAppmarketFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.UploadAppmarketFileResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-文件上传
+        Summary: 应用开放市场隐私模型运行时链路-文件上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.UploadAppmarketFileResponse(),
+            await self.do_request_async('1.0', 'antcloud.adom.appmarket.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_appmarket_privacymodel(
+        self,
+        request: adom_models.ExecAppmarketPrivacymodelRequest,
+    ) -> adom_models.ExecAppmarketPrivacymodelResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-同步执行
+        Summary: 应用开放市场隐私模型运行时链路-同步执行
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_appmarket_privacymodel_ex(request, headers, runtime)
+
+    async def exec_appmarket_privacymodel_async(
+        self,
+        request: adom_models.ExecAppmarketPrivacymodelRequest,
+    ) -> adom_models.ExecAppmarketPrivacymodelResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-同步执行
+        Summary: 应用开放市场隐私模型运行时链路-同步执行
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_appmarket_privacymodel_ex_async(request, headers, runtime)
+
+    def exec_appmarket_privacymodel_ex(
+        self,
+        request: adom_models.ExecAppmarketPrivacymodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.ExecAppmarketPrivacymodelResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-同步执行
+        Summary: 应用开放市场隐私模型运行时链路-同步执行
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.ExecAppmarketPrivacymodelResponse(),
+            self.do_request('1.0', 'antcloud.adom.appmarket.privacymodel.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_appmarket_privacymodel_ex_async(
+        self,
+        request: adom_models.ExecAppmarketPrivacymodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.ExecAppmarketPrivacymodelResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-同步执行
+        Summary: 应用开放市场隐私模型运行时链路-同步执行
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.ExecAppmarketPrivacymodelResponse(),
+            await self.do_request_async('1.0', 'antcloud.adom.appmarket.privacymodel.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_appmarket_privacymodel(
+        self,
+        request: adom_models.SubmitAppmarketPrivacymodelRequest,
+    ) -> adom_models.SubmitAppmarketPrivacymodelResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-提交执行
+        Summary: 应用开放市场隐私模型运行时链路-提交执行
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_appmarket_privacymodel_ex(request, headers, runtime)
+
+    async def submit_appmarket_privacymodel_async(
+        self,
+        request: adom_models.SubmitAppmarketPrivacymodelRequest,
+    ) -> adom_models.SubmitAppmarketPrivacymodelResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-提交执行
+        Summary: 应用开放市场隐私模型运行时链路-提交执行
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_appmarket_privacymodel_ex_async(request, headers, runtime)
+
+    def submit_appmarket_privacymodel_ex(
+        self,
+        request: adom_models.SubmitAppmarketPrivacymodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.SubmitAppmarketPrivacymodelResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-提交执行
+        Summary: 应用开放市场隐私模型运行时链路-提交执行
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.SubmitAppmarketPrivacymodelResponse(),
+            self.do_request('1.0', 'antcloud.adom.appmarket.privacymodel.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_appmarket_privacymodel_ex_async(
+        self,
+        request: adom_models.SubmitAppmarketPrivacymodelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> adom_models.SubmitAppmarketPrivacymodelResponse:
+        """
+        Description: 应用开放市场隐私模型运行时链路-提交执行
+        Summary: 应用开放市场隐私模型运行时链路-提交执行
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            adom_models.SubmitAppmarketPrivacymodelResponse(),
+            await self.do_request_async('1.0', 'antcloud.adom.appmarket.privacymodel.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
