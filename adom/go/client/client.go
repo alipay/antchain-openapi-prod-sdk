@@ -148,74 +148,618 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type QueryAppmarketPrivacytestRequest struct {
+type UploadAppmarketOcrfileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 记录id
-	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
-	// 实例id
-	InstId *string `json:"inst_id,omitempty" xml:"inst_id,omitempty" require:"true"`
+	// 所购商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
 }
 
-func (s QueryAppmarketPrivacytestRequest) String() string {
+func (s UploadAppmarketOcrfileRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAppmarketPrivacytestRequest) GoString() string {
+func (s UploadAppmarketOcrfileRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAppmarketPrivacytestRequest) SetAuthToken(v string) *QueryAppmarketPrivacytestRequest {
+func (s *UploadAppmarketOcrfileRequest) SetAuthToken(v string) *UploadAppmarketOcrfileRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAppmarketPrivacytestRequest) SetRecordId(v string) *QueryAppmarketPrivacytestRequest {
-	s.RecordId = &v
+func (s *UploadAppmarketOcrfileRequest) SetInstanceId(v string) *UploadAppmarketOcrfileRequest {
+	s.InstanceId = &v
 	return s
 }
 
-func (s *QueryAppmarketPrivacytestRequest) SetInstId(v string) *QueryAppmarketPrivacytestRequest {
-	s.InstId = &v
+func (s *UploadAppmarketOcrfileRequest) SetFileName(v string) *UploadAppmarketOcrfileRequest {
+	s.FileName = &v
 	return s
 }
 
-type QueryAppmarketPrivacytestResponse struct {
+type UploadAppmarketOcrfileResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 文件路径
-	Path *string `json:"path,omitempty" xml:"path,omitempty"`
+	// 文件上传url
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+	// 文件key
+	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
 }
 
-func (s QueryAppmarketPrivacytestResponse) String() string {
+func (s UploadAppmarketOcrfileResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAppmarketPrivacytestResponse) GoString() string {
+func (s UploadAppmarketOcrfileResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAppmarketPrivacytestResponse) SetReqMsgId(v string) *QueryAppmarketPrivacytestResponse {
+func (s *UploadAppmarketOcrfileResponse) SetReqMsgId(v string) *UploadAppmarketOcrfileResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAppmarketPrivacytestResponse) SetResultCode(v string) *QueryAppmarketPrivacytestResponse {
+func (s *UploadAppmarketOcrfileResponse) SetResultCode(v string) *UploadAppmarketOcrfileResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAppmarketPrivacytestResponse) SetResultMsg(v string) *QueryAppmarketPrivacytestResponse {
+func (s *UploadAppmarketOcrfileResponse) SetResultMsg(v string) *UploadAppmarketOcrfileResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAppmarketPrivacytestResponse) SetPath(v string) *QueryAppmarketPrivacytestResponse {
-	s.Path = &v
+func (s *UploadAppmarketOcrfileResponse) SetUploadUrl(v string) *UploadAppmarketOcrfileResponse {
+	s.UploadUrl = &v
+	return s
+}
+
+func (s *UploadAppmarketOcrfileResponse) SetFileKey(v string) *UploadAppmarketOcrfileResponse {
+	s.FileKey = &v
+	return s
+}
+
+type ExecAppmarketBusinesslicenseocrRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 文件key
+	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty"`
+	// 文件url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+	// 扩展信息
+	Ext *string `json:"ext,omitempty" xml:"ext,omitempty"`
+}
+
+func (s ExecAppmarketBusinesslicenseocrRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAppmarketBusinesslicenseocrRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAppmarketBusinesslicenseocrRequest) SetAuthToken(v string) *ExecAppmarketBusinesslicenseocrRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrRequest) SetInstanceId(v string) *ExecAppmarketBusinesslicenseocrRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrRequest) SetFileKey(v string) *ExecAppmarketBusinesslicenseocrRequest {
+	s.FileKey = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrRequest) SetFileUrl(v string) *ExecAppmarketBusinesslicenseocrRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrRequest) SetExt(v string) *ExecAppmarketBusinesslicenseocrRequest {
+	s.Ext = &v
+	return s
+}
+
+type ExecAppmarketBusinesslicenseocrResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty"`
+	// 经营范围
+	Business *string `json:"business,omitempty" xml:"business,omitempty"`
+	// 注册资本
+	Captial *string `json:"captial,omitempty" xml:"captial,omitempty"`
+	// 企业成立日期
+	EstablishDate *string `json:"establish_date,omitempty" xml:"establish_date,omitempty"`
+	// 名称，控股股东名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 法定代表人
+	Person *string `json:"person,omitempty" xml:"person,omitempty"`
+	// 统一社会信用代码，控股股东证件号码
+	RegNum *string `json:"reg_num,omitempty" xml:"reg_num,omitempty"`
+	// 印章
+	Stamp *string `json:"stamp,omitempty" xml:"stamp,omitempty"`
+	// 类型，如：有限责任公司(自然人独资)
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 营业期限，营业执照有效期，控股股东证件有效期
+	ValidPeriod *string `json:"valid_period,omitempty" xml:"valid_period,omitempty"`
+	// 标题，如"营业执照"
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 颁发日期
+	Date *string `json:"date,omitempty" xml:"date,omitempty"`
+	// 编号
+	Num *string `json:"num,omitempty" xml:"num,omitempty"`
+	// 投资人
+	Investors *string `json:"investors,omitempty" xml:"investors,omitempty"`
+	// 组成形式
+	Formation *string `json:"formation,omitempty" xml:"formation,omitempty"`
+	// 注册日期
+	DateOfRegistration *string `json:"date_of_registration,omitempty" xml:"date_of_registration,omitempty"`
+	// 经营者
+	Operators *string `json:"operators,omitempty" xml:"operators,omitempty"`
+}
+
+func (s ExecAppmarketBusinesslicenseocrResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAppmarketBusinesslicenseocrResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetReqMsgId(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetResultCode(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetResultMsg(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetAddress(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Address = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetBusiness(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Business = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetCaptial(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Captial = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetEstablishDate(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.EstablishDate = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetName(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Name = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetPerson(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Person = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetRegNum(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.RegNum = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetStamp(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Stamp = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetType(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Type = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetValidPeriod(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.ValidPeriod = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetTitle(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Title = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetDate(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Date = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetNum(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Num = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetInvestors(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Investors = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetFormation(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Formation = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetDateOfRegistration(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.DateOfRegistration = &v
+	return s
+}
+
+func (s *ExecAppmarketBusinesslicenseocrResponse) SetOperators(v string) *ExecAppmarketBusinesslicenseocrResponse {
+	s.Operators = &v
+	return s
+}
+
+type QueryAppmarketPrivacyresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 执行记录id
+	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
+}
+
+func (s QueryAppmarketPrivacyresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppmarketPrivacyresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppmarketPrivacyresultRequest) SetAuthToken(v string) *QueryAppmarketPrivacyresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAppmarketPrivacyresultRequest) SetInstanceId(v string) *QueryAppmarketPrivacyresultRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *QueryAppmarketPrivacyresultRequest) SetRecordId(v string) *QueryAppmarketPrivacyresultRequest {
+	s.RecordId = &v
+	return s
+}
+
+type QueryAppmarketPrivacyresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 隐私计算模型执行状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 结果文件路径
+	ResultUrl *string `json:"result_url,omitempty" xml:"result_url,omitempty"`
+	// 失败的原因
+	FailedReason *string `json:"failed_reason,omitempty" xml:"failed_reason,omitempty"`
+	// 结构化出参
+	StructOutput *string `json:"struct_output,omitempty" xml:"struct_output,omitempty"`
+}
+
+func (s QueryAppmarketPrivacyresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAppmarketPrivacyresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAppmarketPrivacyresultResponse) SetReqMsgId(v string) *QueryAppmarketPrivacyresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAppmarketPrivacyresultResponse) SetResultCode(v string) *QueryAppmarketPrivacyresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAppmarketPrivacyresultResponse) SetResultMsg(v string) *QueryAppmarketPrivacyresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAppmarketPrivacyresultResponse) SetStatus(v string) *QueryAppmarketPrivacyresultResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAppmarketPrivacyresultResponse) SetResultUrl(v string) *QueryAppmarketPrivacyresultResponse {
+	s.ResultUrl = &v
+	return s
+}
+
+func (s *QueryAppmarketPrivacyresultResponse) SetFailedReason(v string) *QueryAppmarketPrivacyresultResponse {
+	s.FailedReason = &v
+	return s
+}
+
+func (s *QueryAppmarketPrivacyresultResponse) SetStructOutput(v string) *QueryAppmarketPrivacyresultResponse {
+	s.StructOutput = &v
+	return s
+}
+
+type UploadAppmarketFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 所购商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 文件标识，用作文件名
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s UploadAppmarketFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAppmarketFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAppmarketFileRequest) SetAuthToken(v string) *UploadAppmarketFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAppmarketFileRequest) SetInstanceId(v string) *UploadAppmarketFileRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *UploadAppmarketFileRequest) SetFileId(v string) *UploadAppmarketFileRequest {
+	s.FileId = &v
+	return s
+}
+
+type UploadAppmarketFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件上传url
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s UploadAppmarketFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAppmarketFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAppmarketFileResponse) SetReqMsgId(v string) *UploadAppmarketFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAppmarketFileResponse) SetResultCode(v string) *UploadAppmarketFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAppmarketFileResponse) SetResultMsg(v string) *UploadAppmarketFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAppmarketFileResponse) SetUploadUrl(v string) *UploadAppmarketFileResponse {
+	s.UploadUrl = &v
+	return s
+}
+
+type ExecAppmarketPrivacymodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 文件标识，文件上传时的入参
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 结构化入参
+	StructInput *string `json:"struct_input,omitempty" xml:"struct_input,omitempty"`
+}
+
+func (s ExecAppmarketPrivacymodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAppmarketPrivacymodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAppmarketPrivacymodelRequest) SetAuthToken(v string) *ExecAppmarketPrivacymodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelRequest) SetInstanceId(v string) *ExecAppmarketPrivacymodelRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelRequest) SetFileId(v string) *ExecAppmarketPrivacymodelRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelRequest) SetStructInput(v string) *ExecAppmarketPrivacymodelRequest {
+	s.StructInput = &v
+	return s
+}
+
+type ExecAppmarketPrivacymodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 执行状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 结果文件url
+	ResultUrl *string `json:"result_url,omitempty" xml:"result_url,omitempty"`
+	// 执行失败原因
+	FailedReason *string `json:"failed_reason,omitempty" xml:"failed_reason,omitempty"`
+	// 结构化出参
+	StructOutput *string `json:"struct_output,omitempty" xml:"struct_output,omitempty"`
+}
+
+func (s ExecAppmarketPrivacymodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAppmarketPrivacymodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAppmarketPrivacymodelResponse) SetReqMsgId(v string) *ExecAppmarketPrivacymodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelResponse) SetResultCode(v string) *ExecAppmarketPrivacymodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelResponse) SetResultMsg(v string) *ExecAppmarketPrivacymodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelResponse) SetStatus(v string) *ExecAppmarketPrivacymodelResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelResponse) SetResultUrl(v string) *ExecAppmarketPrivacymodelResponse {
+	s.ResultUrl = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelResponse) SetFailedReason(v string) *ExecAppmarketPrivacymodelResponse {
+	s.FailedReason = &v
+	return s
+}
+
+func (s *ExecAppmarketPrivacymodelResponse) SetStructOutput(v string) *ExecAppmarketPrivacymodelResponse {
+	s.StructOutput = &v
+	return s
+}
+
+type SubmitAppmarketPrivacymodelRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 商品实例id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 文件名称
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 结构化入参
+	StructInput *string `json:"struct_input,omitempty" xml:"struct_input,omitempty"`
+}
+
+func (s SubmitAppmarketPrivacymodelRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAppmarketPrivacymodelRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAppmarketPrivacymodelRequest) SetAuthToken(v string) *SubmitAppmarketPrivacymodelRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAppmarketPrivacymodelRequest) SetInstanceId(v string) *SubmitAppmarketPrivacymodelRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *SubmitAppmarketPrivacymodelRequest) SetFileId(v string) *SubmitAppmarketPrivacymodelRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *SubmitAppmarketPrivacymodelRequest) SetStructInput(v string) *SubmitAppmarketPrivacymodelRequest {
+	s.StructInput = &v
+	return s
+}
+
+type SubmitAppmarketPrivacymodelResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 异步提交执行记录id
+	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty"`
+}
+
+func (s SubmitAppmarketPrivacymodelResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAppmarketPrivacymodelResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAppmarketPrivacymodelResponse) SetReqMsgId(v string) *SubmitAppmarketPrivacymodelResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAppmarketPrivacymodelResponse) SetResultCode(v string) *SubmitAppmarketPrivacymodelResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAppmarketPrivacymodelResponse) SetResultMsg(v string) *SubmitAppmarketPrivacymodelResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAppmarketPrivacymodelResponse) SetRecordId(v string) *SubmitAppmarketPrivacymodelResponse {
+	s.RecordId = &v
 	return s
 }
 
@@ -341,7 +885,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.1.4"),
 				"_prod_code":       tea.String("ADOM"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -400,14 +944,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 应用开放市场隐私模型运行时链路测试
- * Summary: 应用开放市场隐私模型运行时链路测试
+ * Description: 应用开放市场OCR服务-文件上传
+ * Summary: 应用开放市场OCR服务-文件上传
  */
-func (client *Client) QueryAppmarketPrivacytest(request *QueryAppmarketPrivacytestRequest) (_result *QueryAppmarketPrivacytestResponse, _err error) {
+func (client *Client) UploadAppmarketOcrfile(request *UploadAppmarketOcrfileRequest) (_result *UploadAppmarketOcrfileResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryAppmarketPrivacytestResponse{}
-	_body, _err := client.QueryAppmarketPrivacytestEx(request, headers, runtime)
+	_result = &UploadAppmarketOcrfileResponse{}
+	_body, _err := client.UploadAppmarketOcrfileEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -416,16 +960,186 @@ func (client *Client) QueryAppmarketPrivacytest(request *QueryAppmarketPrivacyte
 }
 
 /**
- * Description: 应用开放市场隐私模型运行时链路测试
- * Summary: 应用开放市场隐私模型运行时链路测试
+ * Description: 应用开放市场OCR服务-文件上传
+ * Summary: 应用开放市场OCR服务-文件上传
  */
-func (client *Client) QueryAppmarketPrivacytestEx(request *QueryAppmarketPrivacytestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAppmarketPrivacytestResponse, _err error) {
+func (client *Client) UploadAppmarketOcrfileEx(request *UploadAppmarketOcrfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAppmarketOcrfileResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAppmarketPrivacytestResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.privacytest.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &UploadAppmarketOcrfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.ocrfile.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场OCR服务-营业执照识别
+ * Summary: 应用开放市场OCR服务-营业执照识别
+ */
+func (client *Client) ExecAppmarketBusinesslicenseocr(request *ExecAppmarketBusinesslicenseocrRequest) (_result *ExecAppmarketBusinesslicenseocrResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAppmarketBusinesslicenseocrResponse{}
+	_body, _err := client.ExecAppmarketBusinesslicenseocrEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场OCR服务-营业执照识别
+ * Summary: 应用开放市场OCR服务-营业执照识别
+ */
+func (client *Client) ExecAppmarketBusinesslicenseocrEx(request *ExecAppmarketBusinesslicenseocrRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAppmarketBusinesslicenseocrResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAppmarketBusinesslicenseocrResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.businesslicenseocr.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-结果查询
+ * Summary: 应用开放市场隐私模型运行时链路-结果查询
+ */
+func (client *Client) QueryAppmarketPrivacyresult(request *QueryAppmarketPrivacyresultRequest) (_result *QueryAppmarketPrivacyresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAppmarketPrivacyresultResponse{}
+	_body, _err := client.QueryAppmarketPrivacyresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-结果查询
+ * Summary: 应用开放市场隐私模型运行时链路-结果查询
+ */
+func (client *Client) QueryAppmarketPrivacyresultEx(request *QueryAppmarketPrivacyresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAppmarketPrivacyresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAppmarketPrivacyresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.privacyresult.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-文件上传
+ * Summary: 应用开放市场隐私模型运行时链路-文件上传
+ */
+func (client *Client) UploadAppmarketFile(request *UploadAppmarketFileRequest) (_result *UploadAppmarketFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAppmarketFileResponse{}
+	_body, _err := client.UploadAppmarketFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-文件上传
+ * Summary: 应用开放市场隐私模型运行时链路-文件上传
+ */
+func (client *Client) UploadAppmarketFileEx(request *UploadAppmarketFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAppmarketFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAppmarketFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.file.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-同步执行
+ * Summary: 应用开放市场隐私模型运行时链路-同步执行
+ */
+func (client *Client) ExecAppmarketPrivacymodel(request *ExecAppmarketPrivacymodelRequest) (_result *ExecAppmarketPrivacymodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAppmarketPrivacymodelResponse{}
+	_body, _err := client.ExecAppmarketPrivacymodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-同步执行
+ * Summary: 应用开放市场隐私模型运行时链路-同步执行
+ */
+func (client *Client) ExecAppmarketPrivacymodelEx(request *ExecAppmarketPrivacymodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAppmarketPrivacymodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAppmarketPrivacymodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.privacymodel.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-提交执行
+ * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ */
+func (client *Client) SubmitAppmarketPrivacymodel(request *SubmitAppmarketPrivacymodelRequest) (_result *SubmitAppmarketPrivacymodelResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAppmarketPrivacymodelResponse{}
+	_body, _err := client.SubmitAppmarketPrivacymodelEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 应用开放市场隐私模型运行时链路-提交执行
+ * Summary: 应用开放市场隐私模型运行时链路-提交执行
+ */
+func (client *Client) SubmitAppmarketPrivacymodelEx(request *SubmitAppmarketPrivacymodelRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAppmarketPrivacymodelResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAppmarketPrivacymodelResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.adom.appmarket.privacymodel.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
