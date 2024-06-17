@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.8',
+                    'sdk_version': '1.19.11',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.8',
+                    'sdk_version': '1.19.11',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4005,6 +4005,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.settlement.certificate.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubbridge_agreement_preview(
+        self,
+        request: riskplus_models.QueryDubbridgeAgreementPreviewRequest,
+    ) -> riskplus_models.QueryDubbridgeAgreementPreviewResponse:
+        """
+        Description: 天枢系统预览协议查询接口
+        Summary: 天枢系统预览协议查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_agreement_preview_ex(request, headers, runtime)
+
+    async def query_dubbridge_agreement_preview_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAgreementPreviewRequest,
+    ) -> riskplus_models.QueryDubbridgeAgreementPreviewResponse:
+        """
+        Description: 天枢系统预览协议查询接口
+        Summary: 天枢系统预览协议查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_agreement_preview_ex_async(request, headers, runtime)
+
+    def query_dubbridge_agreement_preview_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeAgreementPreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAgreementPreviewResponse:
+        """
+        Description: 天枢系统预览协议查询接口
+        Summary: 天枢系统预览协议查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAgreementPreviewResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_agreement_preview_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAgreementPreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAgreementPreviewResponse:
+        """
+        Description: 天枢系统预览协议查询接口
+        Summary: 天枢系统预览协议查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAgreementPreviewResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -6513,6 +6569,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.OperateRbbCreditResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_rbb_customer_information(
+        self,
+        request: riskplus_models.GetRbbCustomerInformationRequest,
+    ) -> riskplus_models.GetRbbCustomerInformationResponse:
+        """
+        Description: 获取客户信息
+        Summary: 获取客户信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_rbb_customer_information_ex(request, headers, runtime)
+
+    async def get_rbb_customer_information_async(
+        self,
+        request: riskplus_models.GetRbbCustomerInformationRequest,
+    ) -> riskplus_models.GetRbbCustomerInformationResponse:
+        """
+        Description: 获取客户信息
+        Summary: 获取客户信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_rbb_customer_information_ex_async(request, headers, runtime)
+
+    def get_rbb_customer_information_ex(
+        self,
+        request: riskplus_models.GetRbbCustomerInformationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.GetRbbCustomerInformationResponse:
+        """
+        Description: 获取客户信息
+        Summary: 获取客户信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.GetRbbCustomerInformationResponse(),
+            self.do_request('1.0', 'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_rbb_customer_information_ex_async(
+        self,
+        request: riskplus_models.GetRbbCustomerInformationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.GetRbbCustomerInformationResponse:
+        """
+        Description: 获取客户信息
+        Summary: 获取客户信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.GetRbbCustomerInformationResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_rpaas_report_answer(
