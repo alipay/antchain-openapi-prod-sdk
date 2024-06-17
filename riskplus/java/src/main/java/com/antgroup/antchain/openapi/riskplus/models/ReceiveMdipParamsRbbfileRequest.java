@@ -12,11 +12,15 @@ public class ReceiveMdipParamsRbbfileRequest extends TeaModel {
     public String productInstanceId;
 
     // file_id
-    // 待上传文件
+    /**
+     * <p>待上传文件</p>
+     */
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
 
-    // 待上传文件名
+    /**
+     * <p>待上传文件名</p>
+     */
     @NameInMap("fileObjectName")
     public String fileObjectName;
 
