@@ -24,6 +24,8 @@ use AntChain\YUQING\Models\GetMessagesHistoryRequest;
 use AntChain\YUQING\Models\GetMessagesHistoryResponse;
 use AntChain\YUQING\Models\GetStsTokenRequest;
 use AntChain\YUQING\Models\GetStsTokenResponse;
+use AntChain\YUQING\Models\OperateCommonInterfaceRequest;
+use AntChain\YUQING\Models\OperateCommonInterfaceResponse;
 use AntChain\YUQING\Models\QueryAlarmRequest;
 use AntChain\YUQING\Models\QueryAlarmResponse;
 use AntChain\YUQING\Models\QueryAnalysisQueryRequest;
@@ -198,7 +200,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.16',
+                    'sdk_version'      => '1.2.17',
                     '_prod_code'       => 'YUQING',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -904,5 +906,38 @@ class Client
         Utils::validateModel($request);
 
         return GetStsTokenResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.sts.token.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 通用操作接口
+     * Summary: 通用操作接口.
+     *
+     * @param OperateCommonInterfaceRequest $request
+     *
+     * @return OperateCommonInterfaceResponse
+     */
+    public function operateCommonInterface($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->operateCommonInterfaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 通用操作接口
+     * Summary: 通用操作接口.
+     *
+     * @param OperateCommonInterfaceRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return OperateCommonInterfaceResponse
+     */
+    public function operateCommonInterfaceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return OperateCommonInterfaceResponse::fromMap($this->doRequest('1.0', 'universalsaas.yuqing.common.interface.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
