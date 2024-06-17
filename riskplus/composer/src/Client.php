@@ -115,6 +115,8 @@ use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceRequest;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceResponse;
 use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleRequest;
 use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleResponse;
+use AntChain\RISKPLUS\Models\GetRbbCustomerInformationRequest;
+use AntChain\RISKPLUS\Models\GetRbbCustomerInformationResponse;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenRequest;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenResponse;
 use AntChain\RISKPLUS\Models\GetRtopCompanyDetailRequest;
@@ -161,6 +163,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAgreementPreviewRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAgreementPreviewResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditStatusRequest;
@@ -526,7 +530,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.8',
+                    'sdk_version'      => '1.19.11',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2771,6 +2775,39 @@ class Client
     }
 
     /**
+     * Description: 天枢系统预览协议查询接口
+     * Summary: 天枢系统预览协议查询接口.
+     *
+     * @param QueryDubbridgeAgreementPreviewRequest $request
+     *
+     * @return QueryDubbridgeAgreementPreviewResponse
+     */
+    public function queryDubbridgeAgreementPreview($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeAgreementPreviewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统预览协议查询接口
+     * Summary: 天枢系统预览协议查询接口.
+     *
+     * @param QueryDubbridgeAgreementPreviewRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryDubbridgeAgreementPreviewResponse
+     */
+    public function queryDubbridgeAgreementPreviewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeAgreementPreviewResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -4241,6 +4278,39 @@ class Client
         Utils::validateModel($request);
 
         return OperateRbbCreditResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取客户信息
+     * Summary: 获取客户信息.
+     *
+     * @param GetRbbCustomerInformationRequest $request
+     *
+     * @return GetRbbCustomerInformationResponse
+     */
+    public function getRbbCustomerInformation($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getRbbCustomerInformationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取客户信息
+     * Summary: 获取客户信息.
+     *
+     * @param GetRbbCustomerInformationRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return GetRbbCustomerInformationResponse
+     */
+    public function getRbbCustomerInformationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetRbbCustomerInformationResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

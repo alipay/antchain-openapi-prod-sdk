@@ -239,6 +239,14 @@ class RepayResult extends Model
      * @var int
      */
     public $needLiquidatedDamages;
+
+    // 逾期天数
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $overdueDays;
     protected $_name = [
         'customNo'                 => 'custom_no',
         'period'                   => 'period',
@@ -269,6 +277,7 @@ class RepayResult extends Model
         'restLiquidatedDamages'    => 'rest_liquidated_damages',
         'needGuaranteeFee'         => 'need_guarantee_fee',
         'needLiquidatedDamages'    => 'need_liquidated_damages',
+        'overdueDays'              => 'overdue_days',
     ];
 
     public function validate()
@@ -302,6 +311,7 @@ class RepayResult extends Model
         Model::validateRequired('restLiquidatedDamages', $this->restLiquidatedDamages, true);
         Model::validateRequired('needGuaranteeFee', $this->needGuaranteeFee, true);
         Model::validateRequired('needLiquidatedDamages', $this->needLiquidatedDamages, true);
+        Model::validateRequired('overdueDays', $this->overdueDays, true);
         Model::validatePattern('settleDate', $this->settleDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('tradeDate', $this->tradeDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
@@ -395,6 +405,9 @@ class RepayResult extends Model
         }
         if (null !== $this->needLiquidatedDamages) {
             $res['need_liquidated_damages'] = $this->needLiquidatedDamages;
+        }
+        if (null !== $this->overdueDays) {
+            $res['overdue_days'] = $this->overdueDays;
         }
 
         return $res;
@@ -494,6 +507,9 @@ class RepayResult extends Model
         }
         if (isset($map['need_liquidated_damages'])) {
             $model->needLiquidatedDamages = $map['need_liquidated_damages'];
+        }
+        if (isset($map['overdue_days'])) {
+            $model->overdueDays = $map['overdue_days'];
         }
 
         return $model;

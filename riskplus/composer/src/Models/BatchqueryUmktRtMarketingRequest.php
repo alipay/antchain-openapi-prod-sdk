@@ -48,6 +48,12 @@ class BatchqueryUmktRtMarketingRequest extends Model
      * @var string
      */
     public $visitType;
+
+    // 圈客阈值干预参数，json-map格式
+    /**
+     * @var string
+     */
+    public $bizProperties;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class BatchqueryUmktRtMarketingRequest extends Model
         'customerKeys'      => 'customer_keys',
         'bizSerialNo'       => 'biz_serial_no',
         'visitType'         => 'visit_type',
+        'bizProperties'     => 'biz_properties',
     ];
 
     public function validate()
@@ -88,6 +95,9 @@ class BatchqueryUmktRtMarketingRequest extends Model
         }
         if (null !== $this->visitType) {
             $res['visit_type'] = $this->visitType;
+        }
+        if (null !== $this->bizProperties) {
+            $res['biz_properties'] = $this->bizProperties;
         }
 
         return $res;
@@ -123,6 +133,9 @@ class BatchqueryUmktRtMarketingRequest extends Model
         }
         if (isset($map['visit_type'])) {
             $model->visitType = $map['visit_type'];
+        }
+        if (isset($map['biz_properties'])) {
+            $model->bizProperties = $map['biz_properties'];
         }
 
         return $model;

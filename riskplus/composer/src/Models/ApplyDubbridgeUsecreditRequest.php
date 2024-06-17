@@ -96,6 +96,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
      * @var string
      */
     public $bankCardNo;
+
+    // 影像件信息
+    /**
+     * @var Material[]
+     */
+    public $materials;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -112,6 +118,7 @@ class ApplyDubbridgeUsecreditRequest extends Model
         'riskData'          => 'risk_data',
         'loanInstCode'      => 'loan_inst_code',
         'bankCardNo'        => 'bank_card_no',
+        'materials'         => 'materials',
     ];
 
     public function validate()
@@ -173,6 +180,15 @@ class ApplyDubbridgeUsecreditRequest extends Model
         if (null !== $this->bankCardNo) {
             $res['bank_card_no'] = $this->bankCardNo;
         }
+        if (null !== $this->materials) {
+            $res['materials'] = [];
+            if (null !== $this->materials && \is_array($this->materials)) {
+                $n = 0;
+                foreach ($this->materials as $item) {
+                    $res['materials'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -229,6 +245,15 @@ class ApplyDubbridgeUsecreditRequest extends Model
         }
         if (isset($map['bank_card_no'])) {
             $model->bankCardNo = $map['bank_card_no'];
+        }
+        if (isset($map['materials'])) {
+            if (!empty($map['materials'])) {
+                $model->materials = [];
+                $n                = 0;
+                foreach ($map['materials'] as $item) {
+                    $model->materials[$n++] = null !== $item ? Material::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
