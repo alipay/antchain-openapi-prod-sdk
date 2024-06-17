@@ -34,6 +34,10 @@ public class BatchqueryUmktRtMarketingRequest extends TeaModel {
     @NameInMap("visit_type")
     public String visitType;
 
+    // 圈客阈值干预参数，json-map格式
+    @NameInMap("biz_properties")
+    public String bizProperties;
+
     public static BatchqueryUmktRtMarketingRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchqueryUmktRtMarketingRequest self = new BatchqueryUmktRtMarketingRequest();
         return TeaModel.build(map, self);
@@ -93,6 +97,14 @@ public class BatchqueryUmktRtMarketingRequest extends TeaModel {
     }
     public String getVisitType() {
         return this.visitType;
+    }
+
+    public BatchqueryUmktRtMarketingRequest setBizProperties(String bizProperties) {
+        this.bizProperties = bizProperties;
+        return this;
+    }
+    public String getBizProperties() {
+        return this.bizProperties;
     }
 
 }

@@ -70,6 +70,10 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     @NameInMap("bank_card_no")
     public String bankCardNo;
 
+    // 影像件信息
+    @NameInMap("materials")
+    public java.util.List<Material> materials;
+
     public static ApplyDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeUsecreditRequest self = new ApplyDubbridgeUsecreditRequest();
         return TeaModel.build(map, self);
@@ -193,6 +197,14 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     }
     public String getBankCardNo() {
         return this.bankCardNo;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setMaterials(java.util.List<Material> materials) {
+        this.materials = materials;
+        return this;
+    }
+    public java.util.List<Material> getMaterials() {
+        return this.materials;
     }
 
 }

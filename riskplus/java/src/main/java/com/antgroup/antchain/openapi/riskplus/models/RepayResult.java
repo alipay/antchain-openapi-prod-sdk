@@ -149,6 +149,11 @@ public class RepayResult extends TeaModel {
     @Validation(required = true)
     public Long needLiquidatedDamages;
 
+    // 逾期天数
+    @NameInMap("overdue_days")
+    @Validation(required = true)
+    public Long overdueDays;
+
     public static RepayResult build(java.util.Map<String, ?> map) throws Exception {
         RepayResult self = new RepayResult();
         return TeaModel.build(map, self);
@@ -384,6 +389,14 @@ public class RepayResult extends TeaModel {
     }
     public Long getNeedLiquidatedDamages() {
         return this.needLiquidatedDamages;
+    }
+
+    public RepayResult setOverdueDays(Long overdueDays) {
+        this.overdueDays = overdueDays;
+        return this;
+    }
+    public Long getOverdueDays() {
+        return this.overdueDays;
     }
 
 }
