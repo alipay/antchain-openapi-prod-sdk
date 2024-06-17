@@ -4788,3 +4788,108 @@ class GetStsTokenResponse(TeaModel):
         return self
 
 
+class OperateCommonInterfaceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        param_json: str = None,
+        interface_name: str = None,
+        request_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 入参JSON
+        self.param_json = param_json
+        # 接口名称
+        self.interface_name = interface_name
+        # 请求ID
+        self.request_id = request_id
+
+    def validate(self):
+        self.validate_required(self.param_json, 'param_json')
+        self.validate_required(self.interface_name, 'interface_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.param_json is not None:
+            result['param_json'] = self.param_json
+        if self.interface_name is not None:
+            result['interface_name'] = self.interface_name
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('param_json') is not None:
+            self.param_json = m.get('param_json')
+        if m.get('interface_name') is not None:
+            self.interface_name = m.get('interface_name')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        return self
+
+
+class OperateCommonInterfaceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_json: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回JSON
+        self.result_json = result_json
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result_json is not None:
+            result['result_json'] = self.result_json
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result_json') is not None:
+            self.result_json = m.get('result_json')
+        return self
+
+

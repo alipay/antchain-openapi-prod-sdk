@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.16',
+                    'sdk_version': '1.2.17',
                     '_prod_code': 'YUQING',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.16',
+                    'sdk_version': '1.2.17',
                     '_prod_code': 'YUQING',
                     '_prod_channel': 'undefined'
                 }
@@ -1393,4 +1393,60 @@ class Client:
         return TeaCore.from_map(
             yuqing_models.GetStsTokenResponse(),
             await self.do_request_async('1.0', 'universalsaas.yuqing.sts.token.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def operate_common_interface(
+        self,
+        request: yuqing_models.OperateCommonInterfaceRequest,
+    ) -> yuqing_models.OperateCommonInterfaceResponse:
+        """
+        Description: 通用操作接口
+        Summary: 通用操作接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.operate_common_interface_ex(request, headers, runtime)
+
+    async def operate_common_interface_async(
+        self,
+        request: yuqing_models.OperateCommonInterfaceRequest,
+    ) -> yuqing_models.OperateCommonInterfaceResponse:
+        """
+        Description: 通用操作接口
+        Summary: 通用操作接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.operate_common_interface_ex_async(request, headers, runtime)
+
+    def operate_common_interface_ex(
+        self,
+        request: yuqing_models.OperateCommonInterfaceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.OperateCommonInterfaceResponse:
+        """
+        Description: 通用操作接口
+        Summary: 通用操作接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.OperateCommonInterfaceResponse(),
+            self.do_request('1.0', 'universalsaas.yuqing.common.interface.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def operate_common_interface_ex_async(
+        self,
+        request: yuqing_models.OperateCommonInterfaceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> yuqing_models.OperateCommonInterfaceResponse:
+        """
+        Description: 通用操作接口
+        Summary: 通用操作接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            yuqing_models.OperateCommonInterfaceResponse(),
+            await self.do_request_async('1.0', 'universalsaas.yuqing.common.interface.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
