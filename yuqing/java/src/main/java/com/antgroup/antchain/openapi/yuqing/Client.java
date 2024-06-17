@@ -2,13 +2,15 @@
 package com.antgroup.antchain.openapi.yuqing;
 
 import com.aliyun.tea.*;
+import com.aliyun.tea.interceptor.InterceptorChain;
+import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
+import com.aliyun.tea.interceptor.RequestInterceptor;
+import com.aliyun.tea.interceptor.ResponseInterceptor;
 import com.antgroup.antchain.openapi.yuqing.models.*;
-import com.antgroup.antchain.openapi.antchain.util.*;
-import com.aliyun.teautil.*;
-import com.aliyun.teautil.models.*;
-import com.aliyun.common.*;
 
 public class Client {
+
+    private final static InterceptorChain interceptorChain = InterceptorChain.create();
 
     public String _endpoint;
     public String _regionId;
@@ -34,7 +36,7 @@ public class Client {
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
-        if (com.aliyun.teautil.Common.isUnset(TeaModel.buildMap(config))) {
+        if (com.aliyun.teautil.Common.isUnset(config)) {
             throw new TeaException(TeaConverter.buildMap(
                 new TeaPair("code", "ParameterMissing"),
                 new TeaPair("message", "'config' can not be unset")
@@ -61,7 +63,17 @@ public class Client {
         this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
-    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    /**
+     * Encapsulate the request and invoke the network
+     * @param action api name
+     * @param protocol http or https
+     * @param method e.g. GET
+     * @param pathname pathname of every api
+     * @param request which contains request params
+     * @param runtime which controls some details of call api, such as retry times
+     * @return the response
+     */
+    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         java.util.Map<String, Object> runtime_ = TeaConverter.buildMap(
             new TeaPair("timeouted", "retry"),
             new TeaPair("readTimeout", com.aliyun.teautil.Common.defaultNumber(runtime.readTimeout, _readTimeout)),
@@ -110,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.16"),
+                    new TeaPair("sdk_version", "1.2.17"),
                     new TeaPair("_prod_code", "YUQING"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -134,7 +146,7 @@ public class Client {
                 );
                 request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
-                TeaResponse response_ = Tea.doAction(request_, runtime_);
+                TeaResponse response_ = Tea.doAction(request_, runtime_, interceptorChain);
 
                 String raw = com.aliyun.teautil.Common.readAsString(response_.body);
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
@@ -157,8 +169,19 @@ public class Client {
                 throw e;
             }
         }
-
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    public void addRuntimeOptionsInterceptor(RuntimeOptionsInterceptor interceptor) {
+        interceptorChain.addRuntimeOptionsInterceptor(interceptor);
+    }
+
+    public void addRequestInterceptor(RequestInterceptor interceptor) {
+        interceptorChain.addRequestInterceptor(interceptor);
+    }
+
+    public void addResponseInterceptor(ResponseInterceptor interceptor) {
+        interceptorChain.addResponseInterceptor(interceptor);
     }
 
     /**
@@ -166,7 +189,7 @@ public class Client {
      * Summary: 查询舆情列表
      */
     public QueryMessagesResponse queryMessages(QueryMessagesRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryMessagesEx(request, headers, runtime);
     }
@@ -175,7 +198,7 @@ public class Client {
      * Description: 查询舆情列表
      * Summary: 查询舆情列表
      */
-    public QueryMessagesResponse queryMessagesEx(QueryMessagesRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryMessagesResponse queryMessagesEx(QueryMessagesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.messages.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMessagesResponse());
     }
@@ -185,7 +208,7 @@ public class Client {
      * Summary: 舆情分析任务提交
      */
     public SaveAnalysisSubmitResponse saveAnalysisSubmit(SaveAnalysisSubmitRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.saveAnalysisSubmitEx(request, headers, runtime);
     }
@@ -194,7 +217,7 @@ public class Client {
      * Description: 舆情分析任务提交
      * Summary: 舆情分析任务提交
      */
-    public SaveAnalysisSubmitResponse saveAnalysisSubmitEx(SaveAnalysisSubmitRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SaveAnalysisSubmitResponse saveAnalysisSubmitEx(SaveAnalysisSubmitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.analysis.submit.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveAnalysisSubmitResponse());
     }
@@ -204,7 +227,7 @@ public class Client {
      * Summary: 舆情分析任务查询
      */
     public QueryAnalysisQueryResponse queryAnalysisQuery(QueryAnalysisQueryRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryAnalysisQueryEx(request, headers, runtime);
     }
@@ -213,7 +236,7 @@ public class Client {
      * Description: 舆情分析任务查询
      * Summary: 舆情分析任务查询
      */
-    public QueryAnalysisQueryResponse queryAnalysisQueryEx(QueryAnalysisQueryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryAnalysisQueryResponse queryAnalysisQueryEx(QueryAnalysisQueryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.analysis.query.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAnalysisQueryResponse());
     }
@@ -223,7 +246,7 @@ public class Client {
      * Summary: 废弃
      */
     public SaveProductOpenResponse saveProductOpen(SaveProductOpenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.saveProductOpenEx(request, headers, runtime);
     }
@@ -232,7 +255,7 @@ public class Client {
      * Description: 废弃
      * Summary: 废弃
      */
-    public SaveProductOpenResponse saveProductOpenEx(SaveProductOpenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SaveProductOpenResponse saveProductOpenEx(SaveProductOpenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.product.open.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveProductOpenResponse());
     }
@@ -242,7 +265,7 @@ public class Client {
      * Summary: 废弃
      */
     public SaveProductTopResponse saveProductTop(SaveProductTopRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.saveProductTopEx(request, headers, runtime);
     }
@@ -251,7 +274,7 @@ public class Client {
      * Description: 废弃
      * Summary: 废弃
      */
-    public SaveProductTopResponse saveProductTopEx(SaveProductTopRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SaveProductTopResponse saveProductTopEx(SaveProductTopRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.product.top.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveProductTopResponse());
     }
@@ -261,7 +284,7 @@ public class Client {
      * Summary: 产品操作接口
      */
     public SetProductOperateResponse setProductOperate(SetProductOperateRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.setProductOperateEx(request, headers, runtime);
     }
@@ -270,7 +293,7 @@ public class Client {
      * Description: 产品操作接口
      * Summary: 产品操作接口
      */
-    public SetProductOperateResponse setProductOperateEx(SetProductOperateRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SetProductOperateResponse setProductOperateEx(SetProductOperateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.product.operate.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetProductOperateResponse());
     }
@@ -280,7 +303,7 @@ public class Client {
      * Summary: 发送提醒
      */
     public SendProductNoticeResponse sendProductNotice(SendProductNoticeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.sendProductNoticeEx(request, headers, runtime);
     }
@@ -289,7 +312,7 @@ public class Client {
      * Description: 发送提醒
      * Summary: 发送提醒
      */
-    public SendProductNoticeResponse sendProductNoticeEx(SendProductNoticeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SendProductNoticeResponse sendProductNoticeEx(SendProductNoticeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.product.notice.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendProductNoticeResponse());
     }
@@ -299,7 +322,7 @@ public class Client {
      * Summary: 创建深度分析
      */
     public SaveDeepanalysisSubmitResponse saveDeepanalysisSubmit(SaveDeepanalysisSubmitRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.saveDeepanalysisSubmitEx(request, headers, runtime);
     }
@@ -308,7 +331,7 @@ public class Client {
      * Description: 创建深度分析
      * Summary: 创建深度分析
      */
-    public SaveDeepanalysisSubmitResponse saveDeepanalysisSubmitEx(SaveDeepanalysisSubmitRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SaveDeepanalysisSubmitResponse saveDeepanalysisSubmitEx(SaveDeepanalysisSubmitRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.deepanalysis.submit.save", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SaveDeepanalysisSubmitResponse());
     }
@@ -318,7 +341,7 @@ public class Client {
      * Summary: 查询深度分析
      */
     public QueryDeepanalysisQueryResponse queryDeepanalysisQuery(QueryDeepanalysisQueryRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDeepanalysisQueryEx(request, headers, runtime);
     }
@@ -327,7 +350,7 @@ public class Client {
      * Description: 查询深度分析
      * Summary: 查询深度分析
      */
-    public QueryDeepanalysisQueryResponse queryDeepanalysisQueryEx(QueryDeepanalysisQueryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDeepanalysisQueryResponse queryDeepanalysisQueryEx(QueryDeepanalysisQueryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.deepanalysis.query.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeepanalysisQueryResponse());
     }
@@ -337,7 +360,7 @@ public class Client {
      * Summary: 获取单个
      */
     public GetMessageResponse getMessage(GetMessageRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getMessageEx(request, headers, runtime);
     }
@@ -346,7 +369,7 @@ public class Client {
      * Description: 获取单个與情
      * Summary: 获取单个
      */
-    public GetMessageResponse getMessageEx(GetMessageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetMessageResponse getMessageEx(GetMessageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.message.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMessageResponse());
     }
@@ -356,7 +379,7 @@ public class Client {
      * Summary: 查询與情项目
      */
     public QueryProjectResponse queryProject(QueryProjectRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryProjectEx(request, headers, runtime);
     }
@@ -365,7 +388,7 @@ public class Client {
      * Description: 查询與情项目
      * Summary: 查询與情项目
      */
-    public QueryProjectResponse queryProjectEx(QueryProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryProjectResponse queryProjectEx(QueryProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.project.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProjectResponse());
     }
@@ -375,7 +398,7 @@ public class Client {
      * Summary: 创建项目
      */
     public CreateProjectResponse createProject(CreateProjectRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createProjectEx(request, headers, runtime);
     }
@@ -384,7 +407,7 @@ public class Client {
      * Description: 创建项目
      * Summary: 创建项目
      */
-    public CreateProjectResponse createProjectEx(CreateProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateProjectResponse createProjectEx(CreateProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.project.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateProjectResponse());
     }
@@ -394,7 +417,7 @@ public class Client {
      * Summary: 删除项目
      */
     public DeleteProjectResponse deleteProject(DeleteProjectRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.deleteProjectEx(request, headers, runtime);
     }
@@ -403,7 +426,7 @@ public class Client {
      * Description: 删除项目
      * Summary: 删除项目
      */
-    public DeleteProjectResponse deleteProjectEx(DeleteProjectRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public DeleteProjectResponse deleteProjectEx(DeleteProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.project.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteProjectResponse());
     }
@@ -413,7 +436,7 @@ public class Client {
      * Summary: 查询预警消息列表
      */
     public QueryAlarmResponse queryAlarm(QueryAlarmRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryAlarmEx(request, headers, runtime);
     }
@@ -422,7 +445,7 @@ public class Client {
      * Description: 查询预警消息列表
      * Summary: 查询预警消息列表
      */
-    public QueryAlarmResponse queryAlarmEx(QueryAlarmRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryAlarmResponse queryAlarmEx(QueryAlarmRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.alarm.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAlarmResponse());
     }
@@ -432,7 +455,7 @@ public class Client {
      * Summary: 與情热搜接口
      */
     public QueryHotspotMessageResponse queryHotspotMessage(QueryHotspotMessageRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryHotspotMessageEx(request, headers, runtime);
     }
@@ -441,7 +464,7 @@ public class Client {
      * Description: 根据接口获取热搜数据
      * Summary: 與情热搜接口
      */
-    public QueryHotspotMessageResponse queryHotspotMessageEx(QueryHotspotMessageRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryHotspotMessageResponse queryHotspotMessageEx(QueryHotspotMessageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.hotspot.message.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryHotspotMessageResponse());
     }
@@ -451,7 +474,7 @@ public class Client {
      * Summary: 與情历史数据异步查询接口
      */
     public SubmitMessagesHistoryResponse submitMessagesHistory(SubmitMessagesHistoryRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.submitMessagesHistoryEx(request, headers, runtime);
     }
@@ -460,7 +483,7 @@ public class Client {
      * Description: 與情历史数据异步查询接口
      * Summary: 與情历史数据异步查询接口
      */
-    public SubmitMessagesHistoryResponse submitMessagesHistoryEx(SubmitMessagesHistoryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SubmitMessagesHistoryResponse submitMessagesHistoryEx(SubmitMessagesHistoryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.messages.history.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitMessagesHistoryResponse());
     }
@@ -470,7 +493,7 @@ public class Client {
      * Summary: 获取历史與情消息
      */
     public GetMessagesHistoryResponse getMessagesHistory(GetMessagesHistoryRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getMessagesHistoryEx(request, headers, runtime);
     }
@@ -479,7 +502,7 @@ public class Client {
      * Description: 获取历史與情消息
      * Summary: 获取历史與情消息
      */
-    public GetMessagesHistoryResponse getMessagesHistoryEx(GetMessagesHistoryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetMessagesHistoryResponse getMessagesHistoryEx(GetMessagesHistoryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.messages.history.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMessagesHistoryResponse());
     }
@@ -489,7 +512,7 @@ public class Client {
      * Summary: 提交实时热搜任务
      */
     public SubmitHotspotTaskResponse submitHotspotTask(SubmitHotspotTaskRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.submitHotspotTaskEx(request, headers, runtime);
     }
@@ -498,7 +521,7 @@ public class Client {
      * Description: 提交实时热搜任务
      * Summary: 提交实时热搜任务
      */
-    public SubmitHotspotTaskResponse submitHotspotTaskEx(SubmitHotspotTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SubmitHotspotTaskResponse submitHotspotTaskEx(SubmitHotspotTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.hotspot.task.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitHotspotTaskResponse());
     }
@@ -508,7 +531,7 @@ public class Client {
      * Summary: 获取实时热搜任务结果
      */
     public GetHotspotTaskResponse getHotspotTask(GetHotspotTaskRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getHotspotTaskEx(request, headers, runtime);
     }
@@ -517,7 +540,7 @@ public class Client {
      * Description: 获取实时热搜任务结果
      * Summary: 获取实时热搜任务结果
      */
-    public GetHotspotTaskResponse getHotspotTaskEx(GetHotspotTaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetHotspotTaskResponse getHotspotTaskEx(GetHotspotTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.hotspot.task.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetHotspotTaskResponse());
     }
@@ -527,7 +550,7 @@ public class Client {
      * Summary: 获取stsToken
      */
     public GetStsTokenResponse getStsToken(GetStsTokenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getStsTokenEx(request, headers, runtime);
     }
@@ -536,8 +559,27 @@ public class Client {
      * Description: 获取stsToken，作用于通用SAAS业务
      * Summary: 获取stsToken
      */
-    public GetStsTokenResponse getStsTokenEx(GetStsTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetStsTokenResponse getStsTokenEx(GetStsTokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.sts.token.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetStsTokenResponse());
+    }
+
+    /**
+     * Description: 通用操作接口
+     * Summary: 通用操作接口
+     */
+    public OperateCommonInterfaceResponse operateCommonInterface(OperateCommonInterfaceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.operateCommonInterfaceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 通用操作接口
+     * Summary: 通用操作接口
+     */
+    public OperateCommonInterfaceResponse operateCommonInterfaceEx(OperateCommonInterfaceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.yuqing.common.interface.operate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OperateCommonInterfaceResponse());
     }
 }
