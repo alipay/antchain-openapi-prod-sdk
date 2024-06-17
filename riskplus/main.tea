@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.8',
+    sdk_version = '1.19.11',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -402,6 +402,8 @@ model RepayResult {
   needGuaranteeFee: long(name='need_guarantee_fee', example=''),
   // 应还违约金
   needLiquidatedDamages: long(name='need_liquidated_damages', example=''),
+  // 逾期天数
+  overdueDays: long(name='overdue_days', example=''),
 }
 
 // 反欺诈风险数据服务风险信息
@@ -1495,6 +1497,24 @@ model OverdueInfoResponse {
   settleFlag: boolean(name='settle_flag', example='true, false'),
   // 最近一次还款日期
   nearestRepayTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='nearest_repay_time', example=''),
+}
+
+// 天枢预览协议信息
+model GetAgreementUrlResponseData {
+  // 协议标题
+  title: string(name='title', example='授信协议'),
+  // 协议地址
+  agreementUrl?: string(name='agreement_url', example='http:xxxxxxxx'),
+  // 协议文件Base64
+  fileBase64?: string(name='file_base64', example='111'),
+  // 协议图片文件base64集合
+  picFileBase64List?: [ string ](name='pic_file_base64_list', example='111111'),
+  // 机构名称
+  organizationName: string(name='organization_name', example='杭银'),
+  // 协议类型-code
+  fileType: string(name='file_type', example='APPLY'),
+  // 协议类型-名称
+  fileTypeName: string(name='file_type_name', example='授信协议'),
 }
 
 // 机构平台通知响应结果
@@ -4609,6 +4629,8 @@ model ApplyDubbridgeUsecreditRequest = {
   loanInstCode?: string(name='loan_inst_code'),
   // 银行卡号
   bankCardNo?: string(name='bank_card_no'),
+  // 影像件信息
+  materials?: [ Material ](name='materials'),
 }
 
 model ApplyDubbridgeUsecreditResponse = {
@@ -5222,6 +5244,72 @@ async function queryDubbridgeSettlementCertificate(request: QueryDubbridgeSettle
 async function queryDubbridgeSettlementCertificateEx(request: QueryDubbridgeSettlementCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeSettlementCertificateResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.settlement.certificate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeAgreementPreviewRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授信：apply
+  // 借款：loan
+  // 绑卡：bind
+  bizType: string(name='biz_type'),
+  // 资金方编号
+  fundCode: string(name='fund_code'),
+  // 客户号
+  customerNo: string(name='customer_no'),
+  // 借款金额
+  loanAmount?: long(name='loan_amount'),
+  // 分期期数
+  period?: long(name='period'),
+  // 银行编码
+  bankCode?: string(name='bank_code'),
+  // 还款方式
+  repayType?: string(name='repay_type'),
+  // 银行名称
+  bankName?: string(name='bank_name'),
+  // 银行卡号
+  bankCardNo?: string(name='bank_card_no'),
+  // 借据截至日期yyyy-MM-dd
+  receiptEndDate?: string(name='receipt_end_date'),
+  // 借款用途
+  loanWay?: string(name='loan_way'),
+  // lpr
+  lpr?: long(name='lpr'),
+  // LPR加点值
+  lprPoint?: long(name='lpr_point'),
+  // LPR发布日期
+  lprEffectDate?: string(name='lpr_effect_date'),
+}
+
+model QueryDubbridgeAgreementPreviewResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 协议列表
+  agreementInfoList?: [ GetAgreementUrlResponseData ](name='agreement_info_list'),
+}
+
+/**
+ * Description: 天枢系统预览协议查询接口
+ * Summary: 天枢系统预览协议查询接口
+ */
+async function queryDubbridgeAgreementPreview(request: QueryDubbridgeAgreementPreviewRequest): QueryDubbridgeAgreementPreviewResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeAgreementPreviewEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统预览协议查询接口
+ * Summary: 天枢系统预览协议查询接口
+ */
+async function queryDubbridgeAgreementPreviewEx(request: QueryDubbridgeAgreementPreviewRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeAgreementPreviewResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
@@ -7286,6 +7374,44 @@ async function operateRbbCreditEx(request: OperateRbbCreditRequest, headers: map
   return doRequest('1.0' ,'riskplus.rbb.credit.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model GetRbbCustomerInformationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流水号
+  serialNumber: string(name='serial_number'),
+  // 手机号
+  phoneNumber: string(name='phone_number'),
+}
+
+model GetRbbCustomerInformationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 获取客户信息
+ * Summary: 获取客户信息
+ */
+async function getRbbCustomerInformation(request: GetRbbCustomerInformationRequest): GetRbbCustomerInformationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRbbCustomerInformationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取客户信息
+ * Summary: 获取客户信息
+ */
+async function getRbbCustomerInformationEx(request: GetRbbCustomerInformationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRbbCustomerInformationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model PushRpaasReportAnswerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -9132,6 +9258,8 @@ model BatchqueryUmktRtMarketingRequest = {
   bizSerialNo: string(name='biz_serial_no'),
   // 访问类型，PROD/TEST，正式流量/测试流量
   visitType?: string(name='visit_type'),
+  // 圈客阈值干预参数，json-map格式
+  bizProperties?: string(name='biz_properties'),
 }
 
 model BatchqueryUmktRtMarketingResponse = {
