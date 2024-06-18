@@ -2986,6 +2986,67 @@ func (s *RpcommonResp) SetData(v string) *RpcommonResp {
 	return s
 }
 
+// 客户信息结果
+type CustomInfoResult struct {
+	// 社会信用代码
+	CreditCode *string `json:"credit_code,omitempty" xml:"credit_code,omitempty" require:"true"`
+	// 公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 法人姓名
+	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty" require:"true"`
+	// 身份证号
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty" require:"true"`
+	// 手机号
+	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 账号
+	Account *string `json:"account,omitempty" xml:"account,omitempty" require:"true"`
+	// 密码
+	Password *string `json:"password,omitempty" xml:"password,omitempty" require:"true"`
+}
+
+func (s CustomInfoResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomInfoResult) GoString() string {
+	return s.String()
+}
+
+func (s *CustomInfoResult) SetCreditCode(v string) *CustomInfoResult {
+	s.CreditCode = &v
+	return s
+}
+
+func (s *CustomInfoResult) SetCompanyName(v string) *CustomInfoResult {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *CustomInfoResult) SetLegalName(v string) *CustomInfoResult {
+	s.LegalName = &v
+	return s
+}
+
+func (s *CustomInfoResult) SetIdCard(v string) *CustomInfoResult {
+	s.IdCard = &v
+	return s
+}
+
+func (s *CustomInfoResult) SetPhoneNumber(v string) *CustomInfoResult {
+	s.PhoneNumber = &v
+	return s
+}
+
+func (s *CustomInfoResult) SetAccount(v string) *CustomInfoResult {
+	s.Account = &v
+	return s
+}
+
+func (s *CustomInfoResult) SetPassword(v string) *CustomInfoResult {
+	s.Password = &v
+	return s
+}
+
 // 标签图片
 type RtopTagImage struct {
 	// 标签图片表主键
@@ -17937,6 +17998,8 @@ type GetRbbCustomerInformationResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 客户信息结果数据
+	ResultData *string `json:"result_data,omitempty" xml:"result_data,omitempty"`
 }
 
 func (s GetRbbCustomerInformationResponse) String() string {
@@ -17959,6 +18022,11 @@ func (s *GetRbbCustomerInformationResponse) SetResultCode(v string) *GetRbbCusto
 
 func (s *GetRbbCustomerInformationResponse) SetResultMsg(v string) *GetRbbCustomerInformationResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetRbbCustomerInformationResponse) SetResultData(v string) *GetRbbCustomerInformationResponse {
+	s.ResultData = &v
 	return s
 }
 
@@ -26282,7 +26350,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.13"),
+				"sdk_version":      tea.String("1.19.14"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
