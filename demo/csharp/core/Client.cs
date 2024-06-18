@@ -137,7 +137,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.288"},
+                        {"sdk_version", "1.0.296"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DEMO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.288"},
+                        {"sdk_version", "1.0.296"},
                         {"_prod_code", "DEMO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1387,48 +1387,6 @@ namespace AntChain.SDK.DEMO
          * Description: test
          * Summary: test
          */
-        public QueryCodeTestResponse QueryCodeTest(QueryCodeTestRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryCodeTestEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: test
-         * Summary: test
-         */
-        public async Task<QueryCodeTestResponse> QueryCodeTestAsync(QueryCodeTestRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryCodeTestExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: test
-         * Summary: test
-         */
-        public QueryCodeTestResponse QueryCodeTestEx(QueryCodeTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryCodeTestResponse>(DoRequest("1.0", "demo.code.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: test
-         * Summary: test
-         */
-        public async Task<QueryCodeTestResponse> QueryCodeTestExAsync(QueryCodeTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryCodeTestResponse>(await DoRequestAsync("1.0", "demo.code.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: test
-         * Summary: test
-         */
         public QueryTestTestaTestaResponse QueryTestTestaTesta(QueryTestTestaTestaRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
@@ -1465,6 +1423,258 @@ namespace AntChain.SDK.DEMO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTestTestaTestaResponse>(await DoRequestAsync("1.0", "demo.test.testa.testa.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public QueryTimetestTimetestTimetestResponse QueryTimetestTimetestTimetest(QueryTimetestTimetestTimetestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTimetestTimetestTimetestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public async Task<QueryTimetestTimetestTimetestResponse> QueryTimetestTimetestTimetestAsync(QueryTimetestTimetestTimetestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTimetestTimetestTimetestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public QueryTimetestTimetestTimetestResponse QueryTimetestTimetestTimetestEx(QueryTimetestTimetestTimetestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTimetestTimetestTimetestResponse>(DoRequest("1.0", "demo.timetest.timetest.timetest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public async Task<QueryTimetestTimetestTimetestResponse> QueryTimetestTimetestTimetestExAsync(QueryTimetestTimetestTimetestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTimetestTimetestTimetestResponse>(await DoRequestAsync("1.0", "demo.timetest.timetest.timetest.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public QueryInstanceidRuleResponse QueryInstanceidRule(QueryInstanceidRuleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInstanceidRuleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public async Task<QueryInstanceidRuleResponse> QueryInstanceidRuleAsync(QueryInstanceidRuleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInstanceidRuleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public QueryInstanceidRuleResponse QueryInstanceidRuleEx(QueryInstanceidRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInstanceidRuleResponse>(DoRequest("1.0", "demo.instanceid.rule.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public async Task<QueryInstanceidRuleResponse> QueryInstanceidRuleExAsync(QueryInstanceidRuleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInstanceidRuleResponse>(await DoRequestAsync("1.0", "demo.instanceid.rule.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public QueryBusinessTestResponse QueryBusinessTest(QueryBusinessTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBusinessTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public async Task<QueryBusinessTestResponse> QueryBusinessTestAsync(QueryBusinessTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBusinessTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public QueryBusinessTestResponse QueryBusinessTestEx(QueryBusinessTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBusinessTestResponse>(DoRequest("1.0", "demo.business.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: test
+         * Summary: test
+         */
+        public async Task<QueryBusinessTestResponse> QueryBusinessTestExAsync(QueryBusinessTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBusinessTestResponse>(await DoRequestAsync("1.0", "demo.business.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设置下游耗时
+         * Summary: 超时（加密）
+         */
+        public QueryGatewayCheckEchotimeoutokResponse QueryGatewayCheckEchotimeoutok(QueryGatewayCheckEchotimeoutokRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGatewayCheckEchotimeoutokEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设置下游耗时
+         * Summary: 超时（加密）
+         */
+        public async Task<QueryGatewayCheckEchotimeoutokResponse> QueryGatewayCheckEchotimeoutokAsync(QueryGatewayCheckEchotimeoutokRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGatewayCheckEchotimeoutokExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 设置下游耗时
+         * Summary: 超时（加密）
+         */
+        public QueryGatewayCheckEchotimeoutokResponse QueryGatewayCheckEchotimeoutokEx(QueryGatewayCheckEchotimeoutokRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGatewayCheckEchotimeoutokResponse>(DoRequest("1.0", "demo.gateway.check.echotimeoutok.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 设置下游耗时
+         * Summary: 超时（加密）
+         */
+        public async Task<QueryGatewayCheckEchotimeoutokResponse> QueryGatewayCheckEchotimeoutokExAsync(QueryGatewayCheckEchotimeoutokRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGatewayCheckEchotimeoutokResponse>(await DoRequestAsync("1.0", "demo.gateway.check.echotimeoutok.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试使用
+         * Summary: testuse1
+         */
+        public QueryBusinessCodeTestResponse QueryBusinessCodeTest(QueryBusinessCodeTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBusinessCodeTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试使用
+         * Summary: testuse1
+         */
+        public async Task<QueryBusinessCodeTestResponse> QueryBusinessCodeTestAsync(QueryBusinessCodeTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBusinessCodeTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 测试使用
+         * Summary: testuse1
+         */
+        public QueryBusinessCodeTestResponse QueryBusinessCodeTestEx(QueryBusinessCodeTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBusinessCodeTestResponse>(DoRequest("1.0", "demo.business.code.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 测试使用
+         * Summary: testuse1
+         */
+        public async Task<QueryBusinessCodeTestResponse> QueryBusinessCodeTestExAsync(QueryBusinessCodeTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBusinessCodeTestResponse>(await DoRequestAsync("1.0", "demo.business.code.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 双百&门户&网关，停服决策测试使用
+         * Summary: 商业化规则测试
+         */
+        public MatchBusinessAndInstanceResponse MatchBusinessAndInstance(MatchBusinessAndInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return MatchBusinessAndInstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 双百&门户&网关，停服决策测试使用
+         * Summary: 商业化规则测试
+         */
+        public async Task<MatchBusinessAndInstanceResponse> MatchBusinessAndInstanceAsync(MatchBusinessAndInstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await MatchBusinessAndInstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 双百&门户&网关，停服决策测试使用
+         * Summary: 商业化规则测试
+         */
+        public MatchBusinessAndInstanceResponse MatchBusinessAndInstanceEx(MatchBusinessAndInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchBusinessAndInstanceResponse>(DoRequest("1.0", "demo.business.and.instance.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 双百&门户&网关，停服决策测试使用
+         * Summary: 商业化规则测试
+         */
+        public async Task<MatchBusinessAndInstanceResponse> MatchBusinessAndInstanceExAsync(MatchBusinessAndInstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<MatchBusinessAndInstanceResponse>(await DoRequestAsync("1.0", "demo.business.and.instance.match", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -2014,48 +2224,6 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: test
-         * Summary: 新增API测试查询接口
-         */
-        public QueryAcopmTestobWithholdResponse QueryAcopmTestobWithhold(QueryAcopmTestobWithholdRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryAcopmTestobWithholdEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: test
-         * Summary: 新增API测试查询接口
-         */
-        public async Task<QueryAcopmTestobWithholdResponse> QueryAcopmTestobWithholdAsync(QueryAcopmTestobWithholdRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryAcopmTestobWithholdExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: test
-         * Summary: 新增API测试查询接口
-         */
-        public QueryAcopmTestobWithholdResponse QueryAcopmTestobWithholdEx(QueryAcopmTestobWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAcopmTestobWithholdResponse>(DoRequest("1.0", "demo.acopm.testob.withhold.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: test
-         * Summary: 新增API测试查询接口
-         */
-        public async Task<QueryAcopmTestobWithholdResponse> QueryAcopmTestobWithholdExAsync(QueryAcopmTestobWithholdRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAcopmTestobWithholdResponse>(await DoRequestAsync("1.0", "demo.acopm.testob.withhold.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 随机测试
          * Summary: 消息发送及消费
          */
@@ -2095,48 +2263,6 @@ namespace AntChain.SDK.DEMO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<RegisterTestBizeventMessageResponse>(await DoRequestAsync("1.0", "demo.test.bizevent.message.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 用于测试自动生成测试脚本时，参数存在复杂结构体时yaml文件的正确性
-         * Summary: 自动生成测试脚本test
-         */
-        public StartAutomaticallyGenerateScriptsResponse StartAutomaticallyGenerateScripts(StartAutomaticallyGenerateScriptsRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return StartAutomaticallyGenerateScriptsEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 用于测试自动生成测试脚本时，参数存在复杂结构体时yaml文件的正确性
-         * Summary: 自动生成测试脚本test
-         */
-        public async Task<StartAutomaticallyGenerateScriptsResponse> StartAutomaticallyGenerateScriptsAsync(StartAutomaticallyGenerateScriptsRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await StartAutomaticallyGenerateScriptsExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 用于测试自动生成测试脚本时，参数存在复杂结构体时yaml文件的正确性
-         * Summary: 自动生成测试脚本test
-         */
-        public StartAutomaticallyGenerateScriptsResponse StartAutomaticallyGenerateScriptsEx(StartAutomaticallyGenerateScriptsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartAutomaticallyGenerateScriptsResponse>(DoRequest("1.0", "demo.automatically.generate.scripts.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 用于测试自动生成测试脚本时，参数存在复杂结构体时yaml文件的正确性
-         * Summary: 自动生成测试脚本test
-         */
-        public async Task<StartAutomaticallyGenerateScriptsResponse> StartAutomaticallyGenerateScriptsExAsync(StartAutomaticallyGenerateScriptsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<StartAutomaticallyGenerateScriptsResponse>(await DoRequestAsync("1.0", "demo.automatically.generate.scripts.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -2350,45 +2476,45 @@ namespace AntChain.SDK.DEMO
         }
 
         /**
-         * Description: aaa
-         * Summary: aaa
+         * Description: 1
+         * Summary: test
          */
-        public QueryCodeTestAResponse QueryCodeTestA(QueryCodeTestARequest request)
+        public QueryWwwwEeeeRrrResponse QueryWwwwEeeeRrr(QueryWwwwEeeeRrrRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryCodeTestAEx(request, headers, runtime);
+            return QueryWwwwEeeeRrrEx(request, headers, runtime);
         }
 
         /**
-         * Description: aaa
-         * Summary: aaa
+         * Description: 1
+         * Summary: test
          */
-        public async Task<QueryCodeTestAResponse> QueryCodeTestAAsync(QueryCodeTestARequest request)
+        public async Task<QueryWwwwEeeeRrrResponse> QueryWwwwEeeeRrrAsync(QueryWwwwEeeeRrrRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryCodeTestAExAsync(request, headers, runtime);
+            return await QueryWwwwEeeeRrrExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: aaa
-         * Summary: aaa
+         * Description: 1
+         * Summary: test
          */
-        public QueryCodeTestAResponse QueryCodeTestAEx(QueryCodeTestARequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryWwwwEeeeRrrResponse QueryWwwwEeeeRrrEx(QueryWwwwEeeeRrrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryCodeTestAResponse>(DoRequest("1.0", "demo.code.test.a.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryWwwwEeeeRrrResponse>(DoRequest("1.0", "demo.wwww.eeee.rrr.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: aaa
-         * Summary: aaa
+         * Description: 1
+         * Summary: test
          */
-        public async Task<QueryCodeTestAResponse> QueryCodeTestAExAsync(QueryCodeTestARequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryWwwwEeeeRrrResponse> QueryWwwwEeeeRrrExAsync(QueryWwwwEeeeRrrRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryCodeTestAResponse>(await DoRequestAsync("1.0", "demo.code.test.a.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryWwwwEeeeRrrResponse>(await DoRequestAsync("1.0", "demo.wwww.eeee.rrr.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
