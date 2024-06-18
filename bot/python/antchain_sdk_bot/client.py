@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.7',
+                    'sdk_version': '1.11.10',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.7',
+                    'sdk_version': '1.11.10',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -6355,6 +6355,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.CreateIotbasicProductResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.product.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalkey_withholdpay(
+        self,
+        request: bot_models.QueryDigitalkeyWithholdpayRequest,
+    ) -> bot_models.QueryDigitalkeyWithholdpayResponse:
+        """
+        Description: 代扣支付订单查询
+        Summary: 代扣支付订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalkey_withholdpay_ex(request, headers, runtime)
+
+    async def query_digitalkey_withholdpay_async(
+        self,
+        request: bot_models.QueryDigitalkeyWithholdpayRequest,
+    ) -> bot_models.QueryDigitalkeyWithholdpayResponse:
+        """
+        Description: 代扣支付订单查询
+        Summary: 代扣支付订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalkey_withholdpay_ex_async(request, headers, runtime)
+
+    def query_digitalkey_withholdpay_ex(
+        self,
+        request: bot_models.QueryDigitalkeyWithholdpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDigitalkeyWithholdpayResponse:
+        """
+        Description: 代扣支付订单查询
+        Summary: 代扣支付订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDigitalkeyWithholdpayResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.withholdpay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalkey_withholdpay_ex_async(
+        self,
+        request: bot_models.QueryDigitalkeyWithholdpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDigitalkeyWithholdpayResponse:
+        """
+        Description: 代扣支付订单查询
+        Summary: 代扣支付订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDigitalkeyWithholdpayResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withholdpay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -12683,6 +12739,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.CallbackThingServicebyeventResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thing.servicebyevent.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_techintegration_skugrantwhitelist(
+        self,
+        request: bot_models.ImportTechintegrationSkugrantwhitelistRequest,
+    ) -> bot_models.ImportTechintegrationSkugrantwhitelistResponse:
+        """
+        Description: 客户添加SKU授权白名单
+        Summary: 客户添加SKU授权白名单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_techintegration_skugrantwhitelist_ex(request, headers, runtime)
+
+    async def import_techintegration_skugrantwhitelist_async(
+        self,
+        request: bot_models.ImportTechintegrationSkugrantwhitelistRequest,
+    ) -> bot_models.ImportTechintegrationSkugrantwhitelistResponse:
+        """
+        Description: 客户添加SKU授权白名单
+        Summary: 客户添加SKU授权白名单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_techintegration_skugrantwhitelist_ex_async(request, headers, runtime)
+
+    def import_techintegration_skugrantwhitelist_ex(
+        self,
+        request: bot_models.ImportTechintegrationSkugrantwhitelistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportTechintegrationSkugrantwhitelistResponse:
+        """
+        Description: 客户添加SKU授权白名单
+        Summary: 客户添加SKU授权白名单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ImportTechintegrationSkugrantwhitelistResponse(),
+            self.do_request('1.0', 'blockchain.bot.techintegration.skugrantwhitelist.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_techintegration_skugrantwhitelist_ex_async(
+        self,
+        request: bot_models.ImportTechintegrationSkugrantwhitelistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportTechintegrationSkugrantwhitelistResponse:
+        """
+        Description: 客户添加SKU授权白名单
+        Summary: 客户添加SKU授权白名单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ImportTechintegrationSkugrantwhitelistResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.techintegration.skugrantwhitelist.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

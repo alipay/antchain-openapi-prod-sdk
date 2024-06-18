@@ -23768,6 +23768,98 @@ class CreateIotbasicProductResponse(TeaModel):
         return self
 
 
+class QueryDigitalkeyWithholdpayRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_trade_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 20150320010101001
+        self.out_trade_no = out_trade_no
+
+    def validate(self):
+        self.validate_required(self.out_trade_no, 'out_trade_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_trade_no is not None:
+            result['out_trade_no'] = self.out_trade_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_trade_no') is not None:
+            self.out_trade_no = m.get('out_trade_no')
+        return self
+
+
+class QueryDigitalkeyWithholdpayResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        antdigital_withhold_response: AntdigitalWithHoldResponse = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回对象
+        self.antdigital_withhold_response = antdigital_withhold_response
+
+    def validate(self):
+        if self.antdigital_withhold_response:
+            self.antdigital_withhold_response.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.antdigital_withhold_response is not None:
+            result['antdigital_withhold_response'] = self.antdigital_withhold_response.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('antdigital_withhold_response') is not None:
+            temp_model = AntdigitalWithHoldResponse()
+            self.antdigital_withhold_response = temp_model.from_map(m['antdigital_withhold_response'])
+        return self
+
+
 class QueryIotplatformPurchaseorderRequest(TeaModel):
     def __init__(
         self,
@@ -37620,6 +37712,134 @@ class CallbackThingServicebyeventResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class ImportTechintegrationSkugrantwhitelistRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        sku_model: str = None,
+        scheme_type: str = None,
+        scene: str = None,
+        sn_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 产品型号
+        self.sku_model = sku_model
+        # 产品形态，取值范围：RTOS、TEE、Android
+        self.scheme_type = scheme_type
+        # 场景码
+        self.scene = scene
+        # SN列表，单次最多100条
+        self.sn_list = sn_list
+
+    def validate(self):
+        self.validate_required(self.sku_model, 'sku_model')
+        self.validate_required(self.scheme_type, 'scheme_type')
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.sn_list, 'sn_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.sku_model is not None:
+            result['sku_model'] = self.sku_model
+        if self.scheme_type is not None:
+            result['scheme_type'] = self.scheme_type
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.sn_list is not None:
+            result['sn_list'] = self.sn_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('sku_model') is not None:
+            self.sku_model = m.get('sku_model')
+        if m.get('scheme_type') is not None:
+            self.scheme_type = m.get('scheme_type')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('sn_list') is not None:
+            self.sn_list = m.get('sn_list')
+        return self
+
+
+class ImportTechintegrationSkugrantwhitelistResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success_sn_list: List[str] = None,
+        existed_sn_list: List[str] = None,
+        invalid_sn_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 成功导入的sn列表
+        self.success_sn_list = success_sn_list
+        # 已经存在的sn列表（不会导入）
+        self.existed_sn_list = existed_sn_list
+        # 不合法的sn列表（不会导入）
+        self.invalid_sn_list = invalid_sn_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success_sn_list is not None:
+            result['success_sn_list'] = self.success_sn_list
+        if self.existed_sn_list is not None:
+            result['existed_sn_list'] = self.existed_sn_list
+        if self.invalid_sn_list is not None:
+            result['invalid_sn_list'] = self.invalid_sn_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success_sn_list') is not None:
+            self.success_sn_list = m.get('success_sn_list')
+        if m.get('existed_sn_list') is not None:
+            self.existed_sn_list = m.get('existed_sn_list')
+        if m.get('invalid_sn_list') is not None:
+            self.invalid_sn_list = m.get('invalid_sn_list')
         return self
 
 
