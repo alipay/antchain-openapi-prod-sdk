@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.69',
+    sdk_version = '1.8.70',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -3143,7 +3143,7 @@ model QueryRiskRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 账户ID
-  userId: string(name='user_id'),
+  userId?: string(name='user_id'),
   // 用户姓名
   userName: string(name='user_name'),
   // 用户证件号码
@@ -3151,7 +3151,7 @@ model QueryRiskRequest = {
   // 用户手机号码
   mobile: string(name='mobile'),
   // 用户ip地址
-  ip: string(name='ip'),
+  ip?: string(name='ip'),
 }
 
 model QueryRiskResponse = {
