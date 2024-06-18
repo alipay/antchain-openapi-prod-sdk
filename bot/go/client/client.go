@@ -18912,6 +18912,76 @@ func (s *CreateIotbasicProductResponse) SetSuccess(v bool) *CreateIotbasicProduc
 	return s
 }
 
+type QueryDigitalkeyWithholdpayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 20150320010101001
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
+}
+
+func (s QueryDigitalkeyWithholdpayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyWithholdpayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyWithholdpayRequest) SetAuthToken(v string) *QueryDigitalkeyWithholdpayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDigitalkeyWithholdpayRequest) SetProductInstanceId(v string) *QueryDigitalkeyWithholdpayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyWithholdpayRequest) SetOutTradeNo(v string) *QueryDigitalkeyWithholdpayRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+type QueryDigitalkeyWithholdpayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回对象
+	AntdigitalWithholdResponse *AntdigitalWithHoldResponse `json:"antdigital_withhold_response,omitempty" xml:"antdigital_withhold_response,omitempty"`
+}
+
+func (s QueryDigitalkeyWithholdpayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyWithholdpayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyWithholdpayResponse) SetReqMsgId(v string) *QueryDigitalkeyWithholdpayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyWithholdpayResponse) SetResultCode(v string) *QueryDigitalkeyWithholdpayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyWithholdpayResponse) SetResultMsg(v string) *QueryDigitalkeyWithholdpayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDigitalkeyWithholdpayResponse) SetAntdigitalWithholdResponse(v *AntdigitalWithHoldResponse) *QueryDigitalkeyWithholdpayResponse {
+	s.AntdigitalWithholdResponse = v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -29909,6 +29979,111 @@ func (s *CallbackThingServicebyeventResponse) SetResultMsg(v string) *CallbackTh
 	return s
 }
 
+type ImportTechintegrationSkugrantwhitelistRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品型号
+	SkuModel *string `json:"sku_model,omitempty" xml:"sku_model,omitempty" require:"true"`
+	// 产品形态，取值范围：RTOS、TEE、Android
+	SchemeType *string `json:"scheme_type,omitempty" xml:"scheme_type,omitempty" require:"true"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// SN列表，单次最多100条
+	SnList []*string `json:"sn_list,omitempty" xml:"sn_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ImportTechintegrationSkugrantwhitelistRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportTechintegrationSkugrantwhitelistRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistRequest) SetAuthToken(v string) *ImportTechintegrationSkugrantwhitelistRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistRequest) SetProductInstanceId(v string) *ImportTechintegrationSkugrantwhitelistRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistRequest) SetSkuModel(v string) *ImportTechintegrationSkugrantwhitelistRequest {
+	s.SkuModel = &v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistRequest) SetSchemeType(v string) *ImportTechintegrationSkugrantwhitelistRequest {
+	s.SchemeType = &v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistRequest) SetScene(v string) *ImportTechintegrationSkugrantwhitelistRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistRequest) SetSnList(v []*string) *ImportTechintegrationSkugrantwhitelistRequest {
+	s.SnList = v
+	return s
+}
+
+type ImportTechintegrationSkugrantwhitelistResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 成功导入的sn列表
+	SuccessSnList []*string `json:"success_sn_list,omitempty" xml:"success_sn_list,omitempty" type:"Repeated"`
+	// 已经存在的sn列表（不会导入）
+	ExistedSnList []*string `json:"existed_sn_list,omitempty" xml:"existed_sn_list,omitempty" type:"Repeated"`
+	// 不合法的sn列表（不会导入）
+	InvalidSnList []*string `json:"invalid_sn_list,omitempty" xml:"invalid_sn_list,omitempty" type:"Repeated"`
+}
+
+func (s ImportTechintegrationSkugrantwhitelistResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportTechintegrationSkugrantwhitelistResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistResponse) SetReqMsgId(v string) *ImportTechintegrationSkugrantwhitelistResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistResponse) SetResultCode(v string) *ImportTechintegrationSkugrantwhitelistResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistResponse) SetResultMsg(v string) *ImportTechintegrationSkugrantwhitelistResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistResponse) SetSuccessSnList(v []*string) *ImportTechintegrationSkugrantwhitelistResponse {
+	s.SuccessSnList = v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistResponse) SetExistedSnList(v []*string) *ImportTechintegrationSkugrantwhitelistResponse {
+	s.ExistedSnList = v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistResponse) SetInvalidSnList(v []*string) *ImportTechintegrationSkugrantwhitelistResponse {
+	s.InvalidSnList = v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -31679,7 +31854,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.7"),
+				"sdk_version":      tea.String("1.11.10"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -35431,6 +35606,40 @@ func (client *Client) CreateIotbasicProductEx(request *CreateIotbasicProductRequ
 	}
 	_result = &CreateIotbasicProductResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.product.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代扣支付订单查询
+ * Summary: 代扣支付订单查询
+ */
+func (client *Client) QueryDigitalkeyWithholdpay(request *QueryDigitalkeyWithholdpayRequest) (_result *QueryDigitalkeyWithholdpayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDigitalkeyWithholdpayResponse{}
+	_body, _err := client.QueryDigitalkeyWithholdpayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代扣支付订单查询
+ * Summary: 代扣支付订单查询
+ */
+func (client *Client) QueryDigitalkeyWithholdpayEx(request *QueryDigitalkeyWithholdpayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyWithholdpayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDigitalkeyWithholdpayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withholdpay.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -39273,6 +39482,40 @@ func (client *Client) CallbackThingServicebyeventEx(request *CallbackThingServic
 	}
 	_result = &CallbackThingServicebyeventResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thing.servicebyevent.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 客户添加SKU授权白名单
+ * Summary: 客户添加SKU授权白名单
+ */
+func (client *Client) ImportTechintegrationSkugrantwhitelist(request *ImportTechintegrationSkugrantwhitelistRequest) (_result *ImportTechintegrationSkugrantwhitelistResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportTechintegrationSkugrantwhitelistResponse{}
+	_body, _err := client.ImportTechintegrationSkugrantwhitelistEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 客户添加SKU授权白名单
+ * Summary: 客户添加SKU授权白名单
+ */
+func (client *Client) ImportTechintegrationSkugrantwhitelistEx(request *ImportTechintegrationSkugrantwhitelistRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportTechintegrationSkugrantwhitelistResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportTechintegrationSkugrantwhitelistResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.techintegration.skugrantwhitelist.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
