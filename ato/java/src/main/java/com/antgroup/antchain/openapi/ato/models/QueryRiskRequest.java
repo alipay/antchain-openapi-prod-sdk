@@ -13,7 +13,6 @@ public class QueryRiskRequest extends TeaModel {
 
     // 账户ID
     @NameInMap("user_id")
-    @Validation(required = true)
     public String userId;
 
     // 用户姓名
@@ -33,7 +32,6 @@ public class QueryRiskRequest extends TeaModel {
 
     // 用户ip地址
     @NameInMap("ip")
-    @Validation(required = true)
     public String ip;
 
     public static QueryRiskRequest build(java.util.Map<String, ?> map) throws Exception {

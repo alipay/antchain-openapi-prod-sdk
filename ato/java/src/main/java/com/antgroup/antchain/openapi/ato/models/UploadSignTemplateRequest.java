@@ -36,11 +36,15 @@ public class UploadSignTemplateRequest extends TeaModel {
     public String templateArgs;
 
     // 上传的pdf文件，需要以.pdf后缀结尾
-    // 待上传文件
+    /**
+     * <p>待上传文件</p>
+     */
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
 
-    // 待上传文件名
+    /**
+     * <p>待上传文件名</p>
+     */
     @NameInMap("fileObjectName")
     public String fileObjectName;
 

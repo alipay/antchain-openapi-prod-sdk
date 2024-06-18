@@ -92,6 +92,7 @@ public class SubmitSignFlowRequest extends TeaModel {
 
     // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
     @NameInMap("merchant_sign_order")
+    @Validation(maximum = 10000, minimum = 1)
     public Long merchantSignOrder;
 
     // CRED_ORG_USCC：统一社会信用代码，CRED_ORG_REGCODE：工商注册号，只支持这两个值
