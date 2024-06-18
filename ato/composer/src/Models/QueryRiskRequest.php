@@ -60,11 +60,9 @@ class QueryRiskRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('userId', $this->userId, true);
         Model::validateRequired('userName', $this->userName, true);
         Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('mobile', $this->mobile, true);
-        Model::validateRequired('ip', $this->ip, true);
     }
 
     public function toMap()
