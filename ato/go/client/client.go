@@ -6503,7 +6503,7 @@ type QueryRiskRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 账户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 	// 用户姓名
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 	// 用户证件号码
@@ -6511,7 +6511,7 @@ type QueryRiskRequest struct {
 	// 用户手机号码
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 用户ip地址
-	Ip *string `json:"ip,omitempty" xml:"ip,omitempty" require:"true"`
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty"`
 }
 
 func (s QueryRiskRequest) String() string {
@@ -9839,7 +9839,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.69"),
+				"sdk_version":      tea.String("1.8.70"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
