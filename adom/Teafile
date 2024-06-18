@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ADOM",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-adom:1.1.5",
-    "go": "github.com/antchain-openapi-sdk-go/adom/client:v1.1.5",
-    "csharp": "AntChain.SDK.ADOM:1.1.5",
-    "ts": "@antchain/adom:1.1.5",
-    "php": "antchain/adom:1.1.5",
-    "python": "antchain_sdk_adom:1.1.5"
+    "java": "com.antgroup.antchain.openapi:openapi-adom:1.1.6",
+    "go": "github.com/antchain-openapi-sdk-go/adom/client:v1.1.6",
+    "csharp": "AntChain.SDK.ADOM:1.1.6",
+    "ts": "@antchain/adom:1.1.6",
+    "php": "antchain/adom:1.1.6",
+    "python": "antchain_sdk_adom:1.1.6"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
