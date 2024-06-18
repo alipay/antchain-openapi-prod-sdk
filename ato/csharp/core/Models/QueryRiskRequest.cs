@@ -20,7 +20,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 账户ID
         [NameInMap("user_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UserId { get; set; }
 
         // 用户姓名
@@ -40,7 +40,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 用户ip地址
         [NameInMap("ip")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Ip { get; set; }
 
     }
