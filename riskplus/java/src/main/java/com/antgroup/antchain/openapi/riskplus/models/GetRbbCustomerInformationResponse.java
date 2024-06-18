@@ -16,6 +16,10 @@ public class GetRbbCustomerInformationResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 客户信息结果数据
+    @NameInMap("result_data")
+    public String resultData;
+
     public static GetRbbCustomerInformationResponse build(java.util.Map<String, ?> map) throws Exception {
         GetRbbCustomerInformationResponse self = new GetRbbCustomerInformationResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class GetRbbCustomerInformationResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public GetRbbCustomerInformationResponse setResultData(String resultData) {
+        this.resultData = resultData;
+        return this;
+    }
+    public String getResultData() {
+        return this.resultData;
     }
 
 }
