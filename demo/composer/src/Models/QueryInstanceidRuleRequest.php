@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAcopmTestobWithholdRequest extends Model
+class QueryInstanceidRuleRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,29 @@ class QueryAcopmTestobWithholdRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 数字
+    /**
+     * @var string
+     */
+    public $count;
+
+    // 姓名
+    /**
+     * @var string
+     */
+    public $oprator;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'count'             => 'count',
+        'oprator'           => 'oprator',
     ];
 
     public function validate()
     {
+        Model::validateRequired('count', $this->count, true);
+        Model::validateRequired('oprator', $this->oprator, true);
     }
 
     public function toMap()
@@ -36,6 +52,12 @@ class QueryAcopmTestobWithholdRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->count) {
+            $res['count'] = $this->count;
+        }
+        if (null !== $this->oprator) {
+            $res['oprator'] = $this->oprator;
+        }
 
         return $res;
     }
@@ -43,7 +65,7 @@ class QueryAcopmTestobWithholdRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAcopmTestobWithholdRequest
+     * @return QueryInstanceidRuleRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +75,12 @@ class QueryAcopmTestobWithholdRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['count'])) {
+            $model->count = $map['count'];
+        }
+        if (isset($map['oprator'])) {
+            $model->oprator = $map['oprator'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryXxxxTestxAaaRequest extends Model
+class QueryBusinessTestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,28 @@ class QueryXxxxTestxAaaRequest extends Model
      */
     public $productInstanceId;
 
-    // 1
+    // jzq
     /**
      * @var string
      */
-    public $xvalue;
+    public $name;
+
+    // 1
+    /**
+     * @var int
+     */
+    public $count;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'xvalue'            => 'xvalue',
+        'name'              => 'name',
+        'count'             => 'count',
     ];
 
     public function validate()
     {
-        Model::validateRequired('xvalue', $this->xvalue, true);
+        Model::validateRequired('name', $this->name, true);
+        Model::validateRequired('count', $this->count, true);
     }
 
     public function toMap()
@@ -44,8 +52,11 @@ class QueryXxxxTestxAaaRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->xvalue) {
-            $res['xvalue'] = $this->xvalue;
+        if (null !== $this->name) {
+            $res['name'] = $this->name;
+        }
+        if (null !== $this->count) {
+            $res['count'] = $this->count;
         }
 
         return $res;
@@ -54,7 +65,7 @@ class QueryXxxxTestxAaaRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryXxxxTestxAaaRequest
+     * @return QueryBusinessTestRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +76,11 @@ class QueryXxxxTestxAaaRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['xvalue'])) {
-            $model->xvalue = $map['xvalue'];
+        if (isset($map['name'])) {
+            $model->name = $map['name'];
+        }
+        if (isset($map['count'])) {
+            $model->count = $map['count'];
         }
 
         return $model;

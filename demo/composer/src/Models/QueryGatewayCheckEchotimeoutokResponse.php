@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class StartAutomaticallyGenerateScriptsResponse extends Model
+class QueryGatewayCheckEchotimeoutokResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,10 +25,24 @@ class StartAutomaticallyGenerateScriptsResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 返回OK
+    /**
+     * @var string
+     */
+    public $stauts;
+
+    // 结果描述
+    /**
+     * @var string
+     */
+    public $msg;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'stauts'     => 'stauts',
+        'msg'        => 'msg',
     ];
 
     public function validate()
@@ -47,6 +61,12 @@ class StartAutomaticallyGenerateScriptsResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->stauts) {
+            $res['stauts'] = $this->stauts;
+        }
+        if (null !== $this->msg) {
+            $res['msg'] = $this->msg;
+        }
 
         return $res;
     }
@@ -54,7 +74,7 @@ class StartAutomaticallyGenerateScriptsResponse extends Model
     /**
      * @param array $map
      *
-     * @return StartAutomaticallyGenerateScriptsResponse
+     * @return QueryGatewayCheckEchotimeoutokResponse
      */
     public static function fromMap($map = [])
     {
@@ -67,6 +87,12 @@ class StartAutomaticallyGenerateScriptsResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['stauts'])) {
+            $model->stauts = $map['stauts'];
+        }
+        if (isset($map['msg'])) {
+            $model->msg = $map['msg'];
         }
 
         return $model;

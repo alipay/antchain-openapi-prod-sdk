@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryXxxxTestxAaaRequest extends Model
+class MatchBusinessAndInstanceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,28 @@ class QueryXxxxTestxAaaRequest extends Model
      */
     public $productInstanceId;
 
-    // 1
+    // L5
     /**
      * @var string
      */
-    public $xvalue;
+    public $businessCode;
+
+    // 实例
+    /**
+     * @var string
+     */
+    public $instanceCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'xvalue'            => 'xvalue',
+        'businessCode'      => 'business_code',
+        'instanceCode'      => 'instance_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('xvalue', $this->xvalue, true);
+        Model::validateRequired('businessCode', $this->businessCode, true);
+        Model::validateRequired('instanceCode', $this->instanceCode, true);
     }
 
     public function toMap()
@@ -44,8 +52,11 @@ class QueryXxxxTestxAaaRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->xvalue) {
-            $res['xvalue'] = $this->xvalue;
+        if (null !== $this->businessCode) {
+            $res['business_code'] = $this->businessCode;
+        }
+        if (null !== $this->instanceCode) {
+            $res['instance_code'] = $this->instanceCode;
         }
 
         return $res;
@@ -54,7 +65,7 @@ class QueryXxxxTestxAaaRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryXxxxTestxAaaRequest
+     * @return MatchBusinessAndInstanceRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +76,11 @@ class QueryXxxxTestxAaaRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['xvalue'])) {
-            $model->xvalue = $map['xvalue'];
+        if (isset($map['business_code'])) {
+            $model->businessCode = $map['business_code'];
+        }
+        if (isset($map['instance_code'])) {
+            $model->instanceCode = $map['instance_code'];
         }
 
         return $model;
