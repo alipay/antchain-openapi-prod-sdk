@@ -5083,7 +5083,7 @@ export class QueryRiskRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 账户ID
-  userId: string;
+  userId?: string;
   // 用户姓名
   userName: string;
   // 用户证件号码
@@ -5091,7 +5091,7 @@ export class QueryRiskRequest extends $tea.Model {
   // 用户手机号码
   mobile: string;
   // 用户ip地址
-  ip: string;
+  ip?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7648,7 +7648,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.69",
+          sdk_version: "1.8.70",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
