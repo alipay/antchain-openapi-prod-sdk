@@ -1,6 +1,6 @@
 {
   "name": "@antchain/bot",
-  "version": "1.11.7",
+  "version": "1.11.10",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

@@ -14441,6 +14441,65 @@ export class CreateIotbasicProductResponse extends $tea.Model {
   }
 }
 
+export class QueryDigitalkeyWithholdpayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 20150320010101001
+  outTradeNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outTradeNo: 'out_trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outTradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyWithholdpayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回对象
+  antdigitalWithholdResponse?: AntdigitalWithHoldResponse;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      antdigitalWithholdResponse: 'antdigital_withhold_response',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      antdigitalWithholdResponse: AntdigitalWithHoldResponse,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -22998,6 +23057,85 @@ export class CallbackThingServicebyeventResponse extends $tea.Model {
   }
 }
 
+export class ImportTechintegrationSkugrantwhitelistRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 产品型号
+  skuModel: string;
+  // 产品形态，取值范围：RTOS、TEE、Android
+  schemeType: string;
+  // 场景码
+  scene: string;
+  // SN列表，单次最多100条
+  snList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      skuModel: 'sku_model',
+      schemeType: 'scheme_type',
+      scene: 'scene',
+      snList: 'sn_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      skuModel: 'string',
+      schemeType: 'string',
+      scene: 'string',
+      snList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportTechintegrationSkugrantwhitelistResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 成功导入的sn列表
+  successSnList?: string[];
+  // 已经存在的sn列表（不会导入）
+  existedSnList?: string[];
+  // 不合法的sn列表（不会导入）
+  invalidSnList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      successSnList: 'success_sn_list',
+      existedSnList: 'existed_sn_list',
+      invalidSnList: 'invalid_sn_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      successSnList: { 'type': 'array', 'itemType': 'string' },
+      existedSnList: { 'type': 'array', 'itemType': 'string' },
+      invalidSnList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -24380,7 +24518,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.7",
+          sdk_version: "1.11.10",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -26499,6 +26637,25 @@ export default class Client {
   async createIotbasicProductEx(request: CreateIotbasicProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIotbasicProductResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateIotbasicProductResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.product.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIotbasicProductResponse({}));
+  }
+
+  /**
+   * Description: 代扣支付订单查询
+   * Summary: 代扣支付订单查询
+   */
+  async queryDigitalkeyWithholdpay(request: QueryDigitalkeyWithholdpayRequest): Promise<QueryDigitalkeyWithholdpayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalkeyWithholdpayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代扣支付订单查询
+   * Summary: 代扣支付订单查询
+   */
+  async queryDigitalkeyWithholdpayEx(request: QueryDigitalkeyWithholdpayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyWithholdpayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalkeyWithholdpayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withholdpay.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyWithholdpayResponse({}));
   }
 
   /**
@@ -28646,6 +28803,25 @@ export default class Client {
   async callbackThingServicebyeventEx(request: CallbackThingServicebyeventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackThingServicebyeventResponse> {
     Util.validateModel(request);
     return $tea.cast<CallbackThingServicebyeventResponse>(await this.doRequest("1.0", "blockchain.bot.thing.servicebyevent.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackThingServicebyeventResponse({}));
+  }
+
+  /**
+   * Description: 客户添加SKU授权白名单
+   * Summary: 客户添加SKU授权白名单
+   */
+  async importTechintegrationSkugrantwhitelist(request: ImportTechintegrationSkugrantwhitelistRequest): Promise<ImportTechintegrationSkugrantwhitelistResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importTechintegrationSkugrantwhitelistEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 客户添加SKU授权白名单
+   * Summary: 客户添加SKU授权白名单
+   */
+  async importTechintegrationSkugrantwhitelistEx(request: ImportTechintegrationSkugrantwhitelistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportTechintegrationSkugrantwhitelistResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportTechintegrationSkugrantwhitelistResponse>(await this.doRequest("1.0", "blockchain.bot.techintegration.skugrantwhitelist.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportTechintegrationSkugrantwhitelistResponse({}));
   }
 
   /**
