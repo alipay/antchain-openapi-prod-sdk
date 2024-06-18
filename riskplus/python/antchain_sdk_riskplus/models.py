@@ -3693,6 +3693,82 @@ class RpcommonResp(TeaModel):
         return self
 
 
+class CustomInfoResult(TeaModel):
+    def __init__(
+        self,
+        credit_code: str = None,
+        company_name: str = None,
+        legal_name: str = None,
+        id_card: str = None,
+        phone_number: str = None,
+        account: str = None,
+        password: str = None,
+    ):
+        # 社会信用代码
+        self.credit_code = credit_code
+        # 公司名称
+        self.company_name = company_name
+        # 法人姓名
+        self.legal_name = legal_name
+        # 身份证号
+        self.id_card = id_card
+        # 手机号
+        self.phone_number = phone_number
+        # 账号
+        self.account = account
+        # 密码
+        self.password = password
+
+    def validate(self):
+        self.validate_required(self.credit_code, 'credit_code')
+        self.validate_required(self.company_name, 'company_name')
+        self.validate_required(self.legal_name, 'legal_name')
+        self.validate_required(self.id_card, 'id_card')
+        self.validate_required(self.phone_number, 'phone_number')
+        self.validate_required(self.account, 'account')
+        self.validate_required(self.password, 'password')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.credit_code is not None:
+            result['credit_code'] = self.credit_code
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.legal_name is not None:
+            result['legal_name'] = self.legal_name
+        if self.id_card is not None:
+            result['id_card'] = self.id_card
+        if self.phone_number is not None:
+            result['phone_number'] = self.phone_number
+        if self.account is not None:
+            result['account'] = self.account
+        if self.password is not None:
+            result['password'] = self.password
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('credit_code') is not None:
+            self.credit_code = m.get('credit_code')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('legal_name') is not None:
+            self.legal_name = m.get('legal_name')
+        if m.get('id_card') is not None:
+            self.id_card = m.get('id_card')
+        if m.get('phone_number') is not None:
+            self.phone_number = m.get('phone_number')
+        if m.get('account') is not None:
+            self.account = m.get('account')
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        return self
+
+
 class RtopTagImage(TeaModel):
     def __init__(
         self,
@@ -22224,6 +22300,7 @@ class GetRbbCustomerInformationResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        result_data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22231,6 +22308,8 @@ class GetRbbCustomerInformationResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 客户信息结果数据
+        self.result_data = result_data
 
     def validate(self):
         pass
@@ -22247,6 +22326,8 @@ class GetRbbCustomerInformationResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.result_data is not None:
+            result['result_data'] = self.result_data
         return result
 
     def from_map(self, m: dict = None):
@@ -22257,6 +22338,8 @@ class GetRbbCustomerInformationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('result_data') is not None:
+            self.result_data = m.get('result_data')
         return self
 
 
