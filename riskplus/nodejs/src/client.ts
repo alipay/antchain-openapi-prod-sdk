@@ -2192,6 +2192,51 @@ export class RpcommonResp extends $tea.Model {
   }
 }
 
+// 客户信息结果
+export class CustomInfoResult extends $tea.Model {
+  // 社会信用代码
+  creditCode: string;
+  // 公司名称
+  companyName: string;
+  // 法人姓名
+  legalName: string;
+  // 身份证号
+  idCard: string;
+  // 手机号
+  phoneNumber: string;
+  // 账号
+  account: string;
+  // 密码
+  password: string;
+  static names(): { [key: string]: string } {
+    return {
+      creditCode: 'credit_code',
+      companyName: 'company_name',
+      legalName: 'legal_name',
+      idCard: 'id_card',
+      phoneNumber: 'phone_number',
+      account: 'account',
+      password: 'password',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      creditCode: 'string',
+      companyName: 'string',
+      legalName: 'string',
+      idCard: 'string',
+      phoneNumber: 'string',
+      account: 'string',
+      password: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 标签图片
 export class RtopTagImage extends $tea.Model {
   // 标签图片表主键
@@ -13384,11 +13429,14 @@ export class GetRbbCustomerInformationResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 客户信息结果数据
+  resultData?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      resultData: 'result_data',
     };
   }
 
@@ -13397,6 +13445,7 @@ export class GetRbbCustomerInformationResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      resultData: 'string',
     };
   }
 
@@ -19633,7 +19682,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.13",
+          sdk_version: "1.19.14",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
