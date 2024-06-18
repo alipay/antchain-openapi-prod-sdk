@@ -46,6 +46,7 @@ public class CreateAutoGenerateCodeRequest extends TeaModel {
 
     // 最小1，最大5
     @NameInMap("number_4")
+    @Validation(maximum = 5, minimum = 1)
     public Long number4;
 
     // boolean必填

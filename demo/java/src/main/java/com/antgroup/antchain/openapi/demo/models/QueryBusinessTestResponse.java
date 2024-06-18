@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryAcopmTestobWithholdResponse extends TeaModel {
+public class QueryBusinessTestResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class QueryAcopmTestobWithholdResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryAcopmTestobWithholdResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAcopmTestobWithholdResponse self = new QueryAcopmTestobWithholdResponse();
+    public static QueryBusinessTestResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryBusinessTestResponse self = new QueryBusinessTestResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAcopmTestobWithholdResponse setReqMsgId(String reqMsgId) {
+    public QueryBusinessTestResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryAcopmTestobWithholdResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryAcopmTestobWithholdResponse setResultCode(String resultCode) {
+    public QueryBusinessTestResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryAcopmTestobWithholdResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryAcopmTestobWithholdResponse setResultMsg(String resultMsg) {
+    public QueryBusinessTestResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

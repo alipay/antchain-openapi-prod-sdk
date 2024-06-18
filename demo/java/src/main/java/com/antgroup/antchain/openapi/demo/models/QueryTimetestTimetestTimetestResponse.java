@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class StartAutomaticallyGenerateScriptsResponse extends TeaModel {
+public class QueryTimetestTimetestTimetestResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class StartAutomaticallyGenerateScriptsResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static StartAutomaticallyGenerateScriptsResponse build(java.util.Map<String, ?> map) throws Exception {
-        StartAutomaticallyGenerateScriptsResponse self = new StartAutomaticallyGenerateScriptsResponse();
+    public static QueryTimetestTimetestTimetestResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryTimetestTimetestTimetestResponse self = new QueryTimetestTimetestTimetestResponse();
         return TeaModel.build(map, self);
     }
 
-    public StartAutomaticallyGenerateScriptsResponse setReqMsgId(String reqMsgId) {
+    public QueryTimetestTimetestTimetestResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class StartAutomaticallyGenerateScriptsResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public StartAutomaticallyGenerateScriptsResponse setResultCode(String resultCode) {
+    public QueryTimetestTimetestTimetestResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class StartAutomaticallyGenerateScriptsResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public StartAutomaticallyGenerateScriptsResponse setResultMsg(String resultMsg) {
+    public QueryTimetestTimetestTimetestResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

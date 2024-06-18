@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryXxxxTestxAaaRequest extends TeaModel {
+public class QueryGatewayCheckEchotimeoutokRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryXxxxTestxAaaRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 1
-    @NameInMap("xvalue")
+    // 耗时时间
+    @NameInMap("timeout")
     @Validation(required = true)
-    public String xvalue;
+    public String timeout;
 
-    public static QueryXxxxTestxAaaRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryXxxxTestxAaaRequest self = new QueryXxxxTestxAaaRequest();
+    public static QueryGatewayCheckEchotimeoutokRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryGatewayCheckEchotimeoutokRequest self = new QueryGatewayCheckEchotimeoutokRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryXxxxTestxAaaRequest setAuthToken(String authToken) {
+    public QueryGatewayCheckEchotimeoutokRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryXxxxTestxAaaRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryXxxxTestxAaaRequest setProductInstanceId(String productInstanceId) {
+    public QueryGatewayCheckEchotimeoutokRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryXxxxTestxAaaRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryXxxxTestxAaaRequest setXvalue(String xvalue) {
-        this.xvalue = xvalue;
+    public QueryGatewayCheckEchotimeoutokRequest setTimeout(String timeout) {
+        this.timeout = timeout;
         return this;
     }
-    public String getXvalue() {
-        return this.xvalue;
+    public String getTimeout() {
+        return this.timeout;
     }
 
 }
