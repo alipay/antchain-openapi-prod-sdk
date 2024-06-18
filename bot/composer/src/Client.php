@@ -179,6 +179,8 @@ use AntChain\BOT\Models\ImportPeripheralRequest;
 use AntChain\BOT\Models\ImportPeripheralResponse;
 use AntChain\BOT\Models\ImportPurchaseorderThirdpartyRequest;
 use AntChain\BOT\Models\ImportPurchaseorderThirdpartyResponse;
+use AntChain\BOT\Models\ImportTechintegrationSkugrantwhitelistRequest;
+use AntChain\BOT\Models\ImportTechintegrationSkugrantwhitelistResponse;
 use AntChain\BOT\Models\InitIotbasicDevicekeyRequest;
 use AntChain\BOT\Models\InitIotbasicDevicekeyResponse;
 use AntChain\BOT\Models\ListDeviceBysceneRequest;
@@ -327,6 +329,8 @@ use AntChain\BOT\Models\QueryDeviceStatusRequest;
 use AntChain\BOT\Models\QueryDeviceStatusResponse;
 use AntChain\BOT\Models\QueryDeviceThingmodelRequest;
 use AntChain\BOT\Models\QueryDeviceThingmodelResponse;
+use AntChain\BOT\Models\QueryDigitalkeyWithholdpayRequest;
+use AntChain\BOT\Models\QueryDigitalkeyWithholdpayResponse;
 use AntChain\BOT\Models\QueryDigitalkeyWithholdRequest;
 use AntChain\BOT\Models\QueryDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\QueryDockedDataRequest;
@@ -634,7 +638,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.7',
+                    'sdk_version'      => '1.11.10',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4262,6 +4266,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateIotbasicProductResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.product.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣支付订单查询
+     * Summary: 代扣支付订单查询.
+     *
+     * @param QueryDigitalkeyWithholdpayRequest $request
+     *
+     * @return QueryDigitalkeyWithholdpayResponse
+     */
+    public function queryDigitalkeyWithholdpay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalkeyWithholdpayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣支付订单查询
+     * Summary: 代扣支付订单查询.
+     *
+     * @param QueryDigitalkeyWithholdpayRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryDigitalkeyWithholdpayResponse
+     */
+    public function queryDigitalkeyWithholdpayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalkeyWithholdpayResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.withholdpay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -7991,6 +8028,39 @@ class Client
         Utils::validateModel($request);
 
         return CallbackThingServicebyeventResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.thing.servicebyevent.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户添加SKU授权白名单
+     * Summary: 客户添加SKU授权白名单.
+     *
+     * @param ImportTechintegrationSkugrantwhitelistRequest $request
+     *
+     * @return ImportTechintegrationSkugrantwhitelistResponse
+     */
+    public function importTechintegrationSkugrantwhitelist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importTechintegrationSkugrantwhitelistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户添加SKU授权白名单
+     * Summary: 客户添加SKU授权白名单.
+     *
+     * @param ImportTechintegrationSkugrantwhitelistRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return ImportTechintegrationSkugrantwhitelistResponse
+     */
+    public function importTechintegrationSkugrantwhitelistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportTechintegrationSkugrantwhitelistResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.techintegration.skugrantwhitelist.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
