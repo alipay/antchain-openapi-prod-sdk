@@ -8331,11 +8331,9 @@ class QueryRiskRequest(TeaModel):
         self.ip = ip
 
     def validate(self):
-        self.validate_required(self.user_id, 'user_id')
         self.validate_required(self.user_name, 'user_name')
         self.validate_required(self.cert_no, 'cert_no')
         self.validate_required(self.mobile, 'mobile')
-        self.validate_required(self.ip, 'ip')
 
     def to_map(self):
         _map = super().to_map()
