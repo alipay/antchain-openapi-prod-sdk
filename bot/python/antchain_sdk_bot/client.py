@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.10',
+                    'sdk_version': '1.11.12',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.10',
+                    'sdk_version': '1.11.12',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -5741,116 +5741,116 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def sign_digitalkey_withhold(
+    def create_digitalkey_withholdsign(
         self,
-        request: bot_models.SignDigitalkeyWithholdRequest,
-    ) -> bot_models.SignDigitalkeyWithholdResponse:
+        request: bot_models.CreateDigitalkeyWithholdsignRequest,
+    ) -> bot_models.CreateDigitalkeyWithholdsignResponse:
         """
         Description: 代扣签约链接获取
         Summary: 代扣签约链接获取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.sign_digitalkey_withhold_ex(request, headers, runtime)
+        return self.create_digitalkey_withholdsign_ex(request, headers, runtime)
 
-    async def sign_digitalkey_withhold_async(
+    async def create_digitalkey_withholdsign_async(
         self,
-        request: bot_models.SignDigitalkeyWithholdRequest,
-    ) -> bot_models.SignDigitalkeyWithholdResponse:
+        request: bot_models.CreateDigitalkeyWithholdsignRequest,
+    ) -> bot_models.CreateDigitalkeyWithholdsignResponse:
         """
         Description: 代扣签约链接获取
         Summary: 代扣签约链接获取
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.sign_digitalkey_withhold_ex_async(request, headers, runtime)
+        return await self.create_digitalkey_withholdsign_ex_async(request, headers, runtime)
 
-    def sign_digitalkey_withhold_ex(
+    def create_digitalkey_withholdsign_ex(
         self,
-        request: bot_models.SignDigitalkeyWithholdRequest,
+        request: bot_models.CreateDigitalkeyWithholdsignRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.SignDigitalkeyWithholdResponse:
+    ) -> bot_models.CreateDigitalkeyWithholdsignResponse:
         """
         Description: 代扣签约链接获取
         Summary: 代扣签约链接获取
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.SignDigitalkeyWithholdResponse(),
-            self.do_request('1.0', 'blockchain.bot.digitalkey.withhold.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.CreateDigitalkeyWithholdsignResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.withholdsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def sign_digitalkey_withhold_ex_async(
+    async def create_digitalkey_withholdsign_ex_async(
         self,
-        request: bot_models.SignDigitalkeyWithholdRequest,
+        request: bot_models.CreateDigitalkeyWithholdsignRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.SignDigitalkeyWithholdResponse:
+    ) -> bot_models.CreateDigitalkeyWithholdsignResponse:
         """
         Description: 代扣签约链接获取
         Summary: 代扣签约链接获取
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.SignDigitalkeyWithholdResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withhold.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.CreateDigitalkeyWithholdsignResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withholdsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def unbind_digitalkey_withhold(
+    def unbind_digitalkey_withholdsign(
         self,
-        request: bot_models.UnbindDigitalkeyWithholdRequest,
-    ) -> bot_models.UnbindDigitalkeyWithholdResponse:
+        request: bot_models.UnbindDigitalkeyWithholdsignRequest,
+    ) -> bot_models.UnbindDigitalkeyWithholdsignResponse:
         """
         Description: 代扣签约解除
         Summary: 代扣签约解除
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.unbind_digitalkey_withhold_ex(request, headers, runtime)
+        return self.unbind_digitalkey_withholdsign_ex(request, headers, runtime)
 
-    async def unbind_digitalkey_withhold_async(
+    async def unbind_digitalkey_withholdsign_async(
         self,
-        request: bot_models.UnbindDigitalkeyWithholdRequest,
-    ) -> bot_models.UnbindDigitalkeyWithholdResponse:
+        request: bot_models.UnbindDigitalkeyWithholdsignRequest,
+    ) -> bot_models.UnbindDigitalkeyWithholdsignResponse:
         """
         Description: 代扣签约解除
         Summary: 代扣签约解除
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.unbind_digitalkey_withhold_ex_async(request, headers, runtime)
+        return await self.unbind_digitalkey_withholdsign_ex_async(request, headers, runtime)
 
-    def unbind_digitalkey_withhold_ex(
+    def unbind_digitalkey_withholdsign_ex(
         self,
-        request: bot_models.UnbindDigitalkeyWithholdRequest,
+        request: bot_models.UnbindDigitalkeyWithholdsignRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.UnbindDigitalkeyWithholdResponse:
+    ) -> bot_models.UnbindDigitalkeyWithholdsignResponse:
         """
         Description: 代扣签约解除
         Summary: 代扣签约解除
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.UnbindDigitalkeyWithholdResponse(),
-            self.do_request('1.0', 'blockchain.bot.digitalkey.withhold.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.UnbindDigitalkeyWithholdsignResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.withholdsign.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def unbind_digitalkey_withhold_ex_async(
+    async def unbind_digitalkey_withholdsign_ex_async(
         self,
-        request: bot_models.UnbindDigitalkeyWithholdRequest,
+        request: bot_models.UnbindDigitalkeyWithholdsignRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.UnbindDigitalkeyWithholdResponse:
+    ) -> bot_models.UnbindDigitalkeyWithholdsignResponse:
         """
         Description: 代扣签约解除
         Summary: 代扣签约解除
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.UnbindDigitalkeyWithholdResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withhold.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.UnbindDigitalkeyWithholdsignResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withholdsign.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def pay_digitalkey_withhold(
@@ -5909,228 +5909,228 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withhold.pay', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def refuse_digitalkey_withhold(
+    def refuse_digitalkey_withholdpay(
         self,
-        request: bot_models.RefuseDigitalkeyWithholdRequest,
-    ) -> bot_models.RefuseDigitalkeyWithholdResponse:
+        request: bot_models.RefuseDigitalkeyWithholdpayRequest,
+    ) -> bot_models.RefuseDigitalkeyWithholdpayResponse:
         """
-        Description: 代扣支付退款
-        Summary: 代扣支付退款
+        Description: 代扣支付交易退款
+        Summary: 代扣支付交易退款
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.refuse_digitalkey_withhold_ex(request, headers, runtime)
+        return self.refuse_digitalkey_withholdpay_ex(request, headers, runtime)
 
-    async def refuse_digitalkey_withhold_async(
+    async def refuse_digitalkey_withholdpay_async(
         self,
-        request: bot_models.RefuseDigitalkeyWithholdRequest,
-    ) -> bot_models.RefuseDigitalkeyWithholdResponse:
+        request: bot_models.RefuseDigitalkeyWithholdpayRequest,
+    ) -> bot_models.RefuseDigitalkeyWithholdpayResponse:
         """
-        Description: 代扣支付退款
-        Summary: 代扣支付退款
+        Description: 代扣支付交易退款
+        Summary: 代扣支付交易退款
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.refuse_digitalkey_withhold_ex_async(request, headers, runtime)
+        return await self.refuse_digitalkey_withholdpay_ex_async(request, headers, runtime)
 
-    def refuse_digitalkey_withhold_ex(
+    def refuse_digitalkey_withholdpay_ex(
         self,
-        request: bot_models.RefuseDigitalkeyWithholdRequest,
+        request: bot_models.RefuseDigitalkeyWithholdpayRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.RefuseDigitalkeyWithholdResponse:
+    ) -> bot_models.RefuseDigitalkeyWithholdpayResponse:
         """
-        Description: 代扣支付退款
-        Summary: 代扣支付退款
+        Description: 代扣支付交易退款
+        Summary: 代扣支付交易退款
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.RefuseDigitalkeyWithholdResponse(),
-            self.do_request('1.0', 'blockchain.bot.digitalkey.withhold.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.RefuseDigitalkeyWithholdpayResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.withholdpay.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def refuse_digitalkey_withhold_ex_async(
+    async def refuse_digitalkey_withholdpay_ex_async(
         self,
-        request: bot_models.RefuseDigitalkeyWithholdRequest,
+        request: bot_models.RefuseDigitalkeyWithholdpayRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.RefuseDigitalkeyWithholdResponse:
+    ) -> bot_models.RefuseDigitalkeyWithholdpayResponse:
         """
-        Description: 代扣支付退款
-        Summary: 代扣支付退款
+        Description: 代扣支付交易退款
+        Summary: 代扣支付交易退款
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.RefuseDigitalkeyWithholdResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withhold.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.RefuseDigitalkeyWithholdpayResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withholdpay.refuse', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_digitalkey_withhold(
+    def query_digitalkey_withholdsign(
         self,
-        request: bot_models.QueryDigitalkeyWithholdRequest,
-    ) -> bot_models.QueryDigitalkeyWithholdResponse:
+        request: bot_models.QueryDigitalkeyWithholdsignRequest,
+    ) -> bot_models.QueryDigitalkeyWithholdsignResponse:
         """
         Description: 代扣协议查询
         Summary: 代扣协议查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_digitalkey_withhold_ex(request, headers, runtime)
+        return self.query_digitalkey_withholdsign_ex(request, headers, runtime)
 
-    async def query_digitalkey_withhold_async(
+    async def query_digitalkey_withholdsign_async(
         self,
-        request: bot_models.QueryDigitalkeyWithholdRequest,
-    ) -> bot_models.QueryDigitalkeyWithholdResponse:
+        request: bot_models.QueryDigitalkeyWithholdsignRequest,
+    ) -> bot_models.QueryDigitalkeyWithholdsignResponse:
         """
         Description: 代扣协议查询
         Summary: 代扣协议查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_digitalkey_withhold_ex_async(request, headers, runtime)
+        return await self.query_digitalkey_withholdsign_ex_async(request, headers, runtime)
 
-    def query_digitalkey_withhold_ex(
+    def query_digitalkey_withholdsign_ex(
         self,
-        request: bot_models.QueryDigitalkeyWithholdRequest,
+        request: bot_models.QueryDigitalkeyWithholdsignRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.QueryDigitalkeyWithholdResponse:
+    ) -> bot_models.QueryDigitalkeyWithholdsignResponse:
         """
         Description: 代扣协议查询
         Summary: 代扣协议查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.QueryDigitalkeyWithholdResponse(),
-            self.do_request('1.0', 'blockchain.bot.digitalkey.withhold.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.QueryDigitalkeyWithholdsignResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.withholdsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_digitalkey_withhold_ex_async(
+    async def query_digitalkey_withholdsign_ex_async(
         self,
-        request: bot_models.QueryDigitalkeyWithholdRequest,
+        request: bot_models.QueryDigitalkeyWithholdsignRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.QueryDigitalkeyWithholdResponse:
+    ) -> bot_models.QueryDigitalkeyWithholdsignResponse:
         """
         Description: 代扣协议查询
         Summary: 代扣协议查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.QueryDigitalkeyWithholdResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withhold.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.QueryDigitalkeyWithholdsignResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withholdsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def cancel_digitalkey_withhold(
+    def cancel_digitalkey_withholdpay(
         self,
-        request: bot_models.CancelDigitalkeyWithholdRequest,
-    ) -> bot_models.CancelDigitalkeyWithholdResponse:
+        request: bot_models.CancelDigitalkeyWithholdpayRequest,
+    ) -> bot_models.CancelDigitalkeyWithholdpayResponse:
         """
-        Description: 代扣撤销
-        Summary: 代扣撤销
+        Description: 代扣支付撤销
+        Summary: 代扣支付撤销
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_digitalkey_withhold_ex(request, headers, runtime)
+        return self.cancel_digitalkey_withholdpay_ex(request, headers, runtime)
 
-    async def cancel_digitalkey_withhold_async(
+    async def cancel_digitalkey_withholdpay_async(
         self,
-        request: bot_models.CancelDigitalkeyWithholdRequest,
-    ) -> bot_models.CancelDigitalkeyWithholdResponse:
+        request: bot_models.CancelDigitalkeyWithholdpayRequest,
+    ) -> bot_models.CancelDigitalkeyWithholdpayResponse:
         """
-        Description: 代扣撤销
-        Summary: 代扣撤销
+        Description: 代扣支付撤销
+        Summary: 代扣支付撤销
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.cancel_digitalkey_withhold_ex_async(request, headers, runtime)
+        return await self.cancel_digitalkey_withholdpay_ex_async(request, headers, runtime)
 
-    def cancel_digitalkey_withhold_ex(
+    def cancel_digitalkey_withholdpay_ex(
         self,
-        request: bot_models.CancelDigitalkeyWithholdRequest,
+        request: bot_models.CancelDigitalkeyWithholdpayRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.CancelDigitalkeyWithholdResponse:
+    ) -> bot_models.CancelDigitalkeyWithholdpayResponse:
         """
-        Description: 代扣撤销
-        Summary: 代扣撤销
+        Description: 代扣支付撤销
+        Summary: 代扣支付撤销
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.CancelDigitalkeyWithholdResponse(),
-            self.do_request('1.0', 'blockchain.bot.digitalkey.withhold.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.CancelDigitalkeyWithholdpayResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.withholdpay.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def cancel_digitalkey_withhold_ex_async(
+    async def cancel_digitalkey_withholdpay_ex_async(
         self,
-        request: bot_models.CancelDigitalkeyWithholdRequest,
+        request: bot_models.CancelDigitalkeyWithholdpayRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.CancelDigitalkeyWithholdResponse:
+    ) -> bot_models.CancelDigitalkeyWithholdpayResponse:
         """
-        Description: 代扣撤销
-        Summary: 代扣撤销
+        Description: 代扣支付撤销
+        Summary: 代扣支付撤销
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.CancelDigitalkeyWithholdResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withhold.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.CancelDigitalkeyWithholdpayResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withholdpay.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def notify_digitalkey_withhold(
+    def notify_digitalkey_withholdpre(
         self,
-        request: bot_models.NotifyDigitalkeyWithholdRequest,
-    ) -> bot_models.NotifyDigitalkeyWithholdResponse:
+        request: bot_models.NotifyDigitalkeyWithholdpreRequest,
+    ) -> bot_models.NotifyDigitalkeyWithholdpreResponse:
         """
         Description: 代扣扣款前预通知
         Summary: 代扣扣款前预通知
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.notify_digitalkey_withhold_ex(request, headers, runtime)
+        return self.notify_digitalkey_withholdpre_ex(request, headers, runtime)
 
-    async def notify_digitalkey_withhold_async(
+    async def notify_digitalkey_withholdpre_async(
         self,
-        request: bot_models.NotifyDigitalkeyWithholdRequest,
-    ) -> bot_models.NotifyDigitalkeyWithholdResponse:
+        request: bot_models.NotifyDigitalkeyWithholdpreRequest,
+    ) -> bot_models.NotifyDigitalkeyWithholdpreResponse:
         """
         Description: 代扣扣款前预通知
         Summary: 代扣扣款前预通知
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.notify_digitalkey_withhold_ex_async(request, headers, runtime)
+        return await self.notify_digitalkey_withholdpre_ex_async(request, headers, runtime)
 
-    def notify_digitalkey_withhold_ex(
+    def notify_digitalkey_withholdpre_ex(
         self,
-        request: bot_models.NotifyDigitalkeyWithholdRequest,
+        request: bot_models.NotifyDigitalkeyWithholdpreRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.NotifyDigitalkeyWithholdResponse:
+    ) -> bot_models.NotifyDigitalkeyWithholdpreResponse:
         """
         Description: 代扣扣款前预通知
         Summary: 代扣扣款前预通知
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.NotifyDigitalkeyWithholdResponse(),
-            self.do_request('1.0', 'blockchain.bot.digitalkey.withhold.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.NotifyDigitalkeyWithholdpreResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.withholdpre.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def notify_digitalkey_withhold_ex_async(
+    async def notify_digitalkey_withholdpre_ex_async(
         self,
-        request: bot_models.NotifyDigitalkeyWithholdRequest,
+        request: bot_models.NotifyDigitalkeyWithholdpreRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.NotifyDigitalkeyWithholdResponse:
+    ) -> bot_models.NotifyDigitalkeyWithholdpreResponse:
         """
         Description: 代扣扣款前预通知
         Summary: 代扣扣款前预通知
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.NotifyDigitalkeyWithholdResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withhold.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.NotifyDigitalkeyWithholdpreResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withholdpre.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_category_industryscenelist(
@@ -6411,6 +6411,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryDigitalkeyWithholdpayResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.digitalkey.withholdpay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalkey_tradepay(
+        self,
+        request: bot_models.QueryDigitalkeyTradepayRequest,
+    ) -> bot_models.QueryDigitalkeyTradepayResponse:
+        """
+        Description: 代扣支付查询
+        Summary: 代扣支付查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalkey_tradepay_ex(request, headers, runtime)
+
+    async def query_digitalkey_tradepay_async(
+        self,
+        request: bot_models.QueryDigitalkeyTradepayRequest,
+    ) -> bot_models.QueryDigitalkeyTradepayResponse:
+        """
+        Description: 代扣支付查询
+        Summary: 代扣支付查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalkey_tradepay_ex_async(request, headers, runtime)
+
+    def query_digitalkey_tradepay_ex(
+        self,
+        request: bot_models.QueryDigitalkeyTradepayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDigitalkeyTradepayResponse:
+        """
+        Description: 代扣支付查询
+        Summary: 代扣支付查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDigitalkeyTradepayResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.tradepay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalkey_tradepay_ex_async(
+        self,
+        request: bot_models.QueryDigitalkeyTradepayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDigitalkeyTradepayResponse:
+        """
+        Description: 代扣支付查询
+        Summary: 代扣支付查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDigitalkeyTradepayResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.tradepay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -12746,8 +12802,8 @@ class Client:
         request: bot_models.ImportTechintegrationSkugrantwhitelistRequest,
     ) -> bot_models.ImportTechintegrationSkugrantwhitelistResponse:
         """
-        Description: 客户添加SKU授权白名单
-        Summary: 客户添加SKU授权白名单
+        Description: 添加SKU授权白名单
+        Summary: 添加SKU授权白名单
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12758,8 +12814,8 @@ class Client:
         request: bot_models.ImportTechintegrationSkugrantwhitelistRequest,
     ) -> bot_models.ImportTechintegrationSkugrantwhitelistResponse:
         """
-        Description: 客户添加SKU授权白名单
-        Summary: 客户添加SKU授权白名单
+        Description: 添加SKU授权白名单
+        Summary: 添加SKU授权白名单
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -12772,8 +12828,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.ImportTechintegrationSkugrantwhitelistResponse:
         """
-        Description: 客户添加SKU授权白名单
-        Summary: 客户添加SKU授权白名单
+        Description: 添加SKU授权白名单
+        Summary: 添加SKU授权白名单
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -12788,13 +12844,69 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.ImportTechintegrationSkugrantwhitelistResponse:
         """
-        Description: 客户添加SKU授权白名单
-        Summary: 客户添加SKU授权白名单
+        Description: 添加SKU授权白名单
+        Summary: 添加SKU授权白名单
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             bot_models.ImportTechintegrationSkugrantwhitelistResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.techintegration.skugrantwhitelist.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_thing_data(
+        self,
+        request: bot_models.SendThingDataRequest,
+    ) -> bot_models.SendThingDataResponse:
+        """
+        Description: 物模型数据上报
+        Summary: 物模型数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_thing_data_ex(request, headers, runtime)
+
+    async def send_thing_data_async(
+        self,
+        request: bot_models.SendThingDataRequest,
+    ) -> bot_models.SendThingDataResponse:
+        """
+        Description: 物模型数据上报
+        Summary: 物模型数据上报
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_thing_data_ex_async(request, headers, runtime)
+
+    def send_thing_data_ex(
+        self,
+        request: bot_models.SendThingDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendThingDataResponse:
+        """
+        Description: 物模型数据上报
+        Summary: 物模型数据上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SendThingDataResponse(),
+            self.do_request('1.0', 'blockchain.bot.thing.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_thing_data_ex_async(
+        self,
+        request: bot_models.SendThingDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendThingDataResponse:
+        """
+        Description: 物模型数据上报
+        Summary: 物模型数据上报
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SendThingDataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.thing.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

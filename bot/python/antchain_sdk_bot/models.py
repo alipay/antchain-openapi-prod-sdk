@@ -22300,7 +22300,7 @@ class PublishDevicecorpThingmodelResponse(TeaModel):
         return self
 
 
-class SignDigitalkeyWithholdRequest(TeaModel):
+class CreateDigitalkeyWithholdsignRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -22420,7 +22420,7 @@ class SignDigitalkeyWithholdRequest(TeaModel):
         return self
 
 
-class SignDigitalkeyWithholdResponse(TeaModel):
+class CreateDigitalkeyWithholdsignResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -22483,7 +22483,7 @@ class SignDigitalkeyWithholdResponse(TeaModel):
         return self
 
 
-class UnbindDigitalkeyWithholdRequest(TeaModel):
+class UnbindDigitalkeyWithholdsignRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -22548,7 +22548,7 @@ class UnbindDigitalkeyWithholdRequest(TeaModel):
         return self
 
 
-class UnbindDigitalkeyWithholdResponse(TeaModel):
+class UnbindDigitalkeyWithholdsignResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -22556,6 +22556,7 @@ class UnbindDigitalkeyWithholdResponse(TeaModel):
         result_msg: str = None,
         sub_code: str = None,
         sub_msg: str = None,
+        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22567,6 +22568,8 @@ class UnbindDigitalkeyWithholdResponse(TeaModel):
         self.sub_code = sub_code
         # 明细返回码描述
         self.sub_msg = sub_msg
+        # 返回内容
+        self.data = data
 
     def validate(self):
         pass
@@ -22587,6 +22590,8 @@ class UnbindDigitalkeyWithholdResponse(TeaModel):
             result['sub_code'] = self.sub_code
         if self.sub_msg is not None:
             result['sub_msg'] = self.sub_msg
+        if self.data is not None:
+            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -22601,6 +22606,8 @@ class UnbindDigitalkeyWithholdResponse(TeaModel):
             self.sub_code = m.get('sub_code')
         if m.get('sub_msg') is not None:
             self.sub_msg = m.get('sub_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
@@ -22737,7 +22744,9 @@ class PayDigitalkeyWithholdResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        antdigital_withhold_response: AntdigitalWithHoldResponse = None,
+        sub_code: str = None,
+        sub_msg: str = None,
+        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22745,12 +22754,15 @@ class PayDigitalkeyWithholdResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 返回对象
-        self.antdigital_withhold_response = antdigital_withhold_response
+        # 子返回码
+        self.sub_code = sub_code
+        # 子返回描述
+        self.sub_msg = sub_msg
+        # 返回内容，json格式
+        self.data = data
 
     def validate(self):
-        if self.antdigital_withhold_response:
-            self.antdigital_withhold_response.validate()
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -22764,8 +22776,12 @@ class PayDigitalkeyWithholdResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.antdigital_withhold_response is not None:
-            result['antdigital_withhold_response'] = self.antdigital_withhold_response.to_map()
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
+        if self.data is not None:
+            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -22776,13 +22792,16 @@ class PayDigitalkeyWithholdResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('antdigital_withhold_response') is not None:
-            temp_model = AntdigitalWithHoldResponse()
-            self.antdigital_withhold_response = temp_model.from_map(m['antdigital_withhold_response'])
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
-class RefuseDigitalkeyWithholdRequest(TeaModel):
+class RefuseDigitalkeyWithholdpayRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -22839,7 +22858,7 @@ class RefuseDigitalkeyWithholdRequest(TeaModel):
         return self
 
 
-class RefuseDigitalkeyWithholdResponse(TeaModel):
+class RefuseDigitalkeyWithholdpayResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -22902,7 +22921,7 @@ class RefuseDigitalkeyWithholdResponse(TeaModel):
         return self
 
 
-class QueryDigitalkeyWithholdRequest(TeaModel):
+class QueryDigitalkeyWithholdsignRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -22916,6 +22935,7 @@ class QueryDigitalkeyWithholdRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+        # 
         self.alipay_user_id = alipay_user_id
         # 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
         self.personal_product_code = personal_product_code
@@ -22967,7 +22987,7 @@ class QueryDigitalkeyWithholdRequest(TeaModel):
         return self
 
 
-class QueryDigitalkeyWithholdResponse(TeaModel):
+class QueryDigitalkeyWithholdsignResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -23030,7 +23050,7 @@ class QueryDigitalkeyWithholdResponse(TeaModel):
         return self
 
 
-class CancelDigitalkeyWithholdRequest(TeaModel):
+class CancelDigitalkeyWithholdpayRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -23071,13 +23091,15 @@ class CancelDigitalkeyWithholdRequest(TeaModel):
         return self
 
 
-class CancelDigitalkeyWithholdResponse(TeaModel):
+class CancelDigitalkeyWithholdpayResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        antdigital_withhold_response: AntdigitalWithHoldResponse = None,
+        sub_code: str = None,
+        sub_msg: str = None,
+        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -23085,12 +23107,15 @@ class CancelDigitalkeyWithholdResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 返回对象
-        self.antdigital_withhold_response = antdigital_withhold_response
+        # 子返回码
+        self.sub_code = sub_code
+        # 子返回码描述
+        self.sub_msg = sub_msg
+        # 返回内容，json格式
+        self.data = data
 
     def validate(self):
-        if self.antdigital_withhold_response:
-            self.antdigital_withhold_response.validate()
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -23104,8 +23129,12 @@ class CancelDigitalkeyWithholdResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.antdigital_withhold_response is not None:
-            result['antdigital_withhold_response'] = self.antdigital_withhold_response.to_map()
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
+        if self.data is not None:
+            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -23116,20 +23145,23 @@ class CancelDigitalkeyWithholdResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('antdigital_withhold_response') is not None:
-            temp_model = AntdigitalWithHoldResponse()
-            self.antdigital_withhold_response = temp_model.from_map(m['antdigital_withhold_response'])
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
-class NotifyDigitalkeyWithholdRequest(TeaModel):
+class NotifyDigitalkeyWithholdpreRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
         out_request_no: str = None,
         total_amount: int = None,
-        agreement_no: str = None,
+        external_agreement_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -23138,13 +23170,13 @@ class NotifyDigitalkeyWithholdRequest(TeaModel):
         self.out_request_no = out_request_no
         # 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
         self.total_amount = total_amount
-        # 代扣协议号, 对应于签约时，支付宝返回的协议
-        self.agreement_no = agreement_no
+        # 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+        self.external_agreement_no = external_agreement_no
 
     def validate(self):
         self.validate_required(self.out_request_no, 'out_request_no')
         self.validate_required(self.total_amount, 'total_amount')
-        self.validate_required(self.agreement_no, 'agreement_no')
+        self.validate_required(self.external_agreement_no, 'external_agreement_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -23160,8 +23192,8 @@ class NotifyDigitalkeyWithholdRequest(TeaModel):
             result['out_request_no'] = self.out_request_no
         if self.total_amount is not None:
             result['total_amount'] = self.total_amount
-        if self.agreement_no is not None:
-            result['agreement_no'] = self.agreement_no
+        if self.external_agreement_no is not None:
+            result['external_agreement_no'] = self.external_agreement_no
         return result
 
     def from_map(self, m: dict = None):
@@ -23174,18 +23206,20 @@ class NotifyDigitalkeyWithholdRequest(TeaModel):
             self.out_request_no = m.get('out_request_no')
         if m.get('total_amount') is not None:
             self.total_amount = m.get('total_amount')
-        if m.get('agreement_no') is not None:
-            self.agreement_no = m.get('agreement_no')
+        if m.get('external_agreement_no') is not None:
+            self.external_agreement_no = m.get('external_agreement_no')
         return self
 
 
-class NotifyDigitalkeyWithholdResponse(TeaModel):
+class NotifyDigitalkeyWithholdpreResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        antdigital_withhold_response: AntdigitalWithHoldResponse = None,
+        sub_code: str = None,
+        sub_msg: str = None,
+        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -23193,12 +23227,15 @@ class NotifyDigitalkeyWithholdResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 返回对象
-        self.antdigital_withhold_response = antdigital_withhold_response
+        # 子返回码
+        self.sub_code = sub_code
+        # 子返回码描述
+        self.sub_msg = sub_msg
+        # 返回内容
+        self.data = data
 
     def validate(self):
-        if self.antdigital_withhold_response:
-            self.antdigital_withhold_response.validate()
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -23212,8 +23249,12 @@ class NotifyDigitalkeyWithholdResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.antdigital_withhold_response is not None:
-            result['antdigital_withhold_response'] = self.antdigital_withhold_response.to_map()
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
+        if self.data is not None:
+            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -23224,9 +23265,12 @@ class NotifyDigitalkeyWithholdResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('antdigital_withhold_response') is not None:
-            temp_model = AntdigitalWithHoldResponse()
-            self.antdigital_withhold_response = temp_model.from_map(m['antdigital_withhold_response'])
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
@@ -23815,7 +23859,9 @@ class QueryDigitalkeyWithholdpayResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        antdigital_withhold_response: AntdigitalWithHoldResponse = None,
+        data: str = None,
+        sub_code: str = None,
+        sub_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -23823,12 +23869,15 @@ class QueryDigitalkeyWithholdpayResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 返回对象
-        self.antdigital_withhold_response = antdigital_withhold_response
+        # 返回内容
+        self.data = data
+        # 子返回码
+        self.sub_code = sub_code
+        # 子返回描述
+        self.sub_msg = sub_msg
 
     def validate(self):
-        if self.antdigital_withhold_response:
-            self.antdigital_withhold_response.validate()
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -23842,8 +23891,12 @@ class QueryDigitalkeyWithholdpayResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.antdigital_withhold_response is not None:
-            result['antdigital_withhold_response'] = self.antdigital_withhold_response.to_map()
+        if self.data is not None:
+            result['data'] = self.data
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -23854,9 +23907,110 @@ class QueryDigitalkeyWithholdpayResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('antdigital_withhold_response') is not None:
-            temp_model = AntdigitalWithHoldResponse()
-            self.antdigital_withhold_response = temp_model.from_map(m['antdigital_withhold_response'])
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
+        return self
+
+
+class QueryDigitalkeyTradepayRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_trade_no: str = None,
+        alipay_user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单支付时传入的商户订单号
+        self.out_trade_no = out_trade_no
+        # 签约绑定的用户支付宝ID
+        self.alipay_user_id = alipay_user_id
+
+    def validate(self):
+        self.validate_required(self.out_trade_no, 'out_trade_no')
+        self.validate_required(self.alipay_user_id, 'alipay_user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_trade_no is not None:
+            result['out_trade_no'] = self.out_trade_no
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_trade_no') is not None:
+            self.out_trade_no = m.get('out_trade_no')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        return self
+
+
+class QueryDigitalkeyTradepayResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        x: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # test
+        self.x = x
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.x is not None:
+            result['x'] = self.x
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('x') is not None:
+            self.x = m.get('x')
         return self
 
 
@@ -37840,6 +37994,105 @@ class ImportTechintegrationSkugrantwhitelistResponse(TeaModel):
             self.existed_sn_list = m.get('existed_sn_list')
         if m.get('invalid_sn_list') is not None:
             self.invalid_sn_list = m.get('invalid_sn_list')
+        return self
+
+
+class SendThingDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene: str = None,
+        data_model_id: str = None,
+        thing_data_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene = scene
+        # 上报数据模型ID
+        self.data_model_id = data_model_id
+        # 物模型数据集合
+        self.thing_data_list = thing_data_list
+
+    def validate(self):
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.data_model_id, 'data_model_id')
+        self.validate_required(self.thing_data_list, 'thing_data_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.data_model_id is not None:
+            result['data_model_id'] = self.data_model_id
+        if self.thing_data_list is not None:
+            result['thing_data_list'] = self.thing_data_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('data_model_id') is not None:
+            self.data_model_id = m.get('data_model_id')
+        if m.get('thing_data_list') is not None:
+            self.thing_data_list = m.get('thing_data_list')
+        return self
+
+
+class SendThingDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
