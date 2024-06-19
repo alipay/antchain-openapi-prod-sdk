@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.14',
+                    'sdk_version': '1.19.15',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.14',
+                    'sdk_version': '1.19.15',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -6625,6 +6625,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.GetRbbCustomerInformationResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_rbb_taxinvoice_data(
+        self,
+        request: riskplus_models.GetRbbTaxinvoiceDataRequest,
+    ) -> riskplus_models.GetRbbTaxinvoiceDataResponse:
+        """
+        Description: 获取税票授权数据
+        Summary: 获取税票授权数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_rbb_taxinvoice_data_ex(request, headers, runtime)
+
+    async def get_rbb_taxinvoice_data_async(
+        self,
+        request: riskplus_models.GetRbbTaxinvoiceDataRequest,
+    ) -> riskplus_models.GetRbbTaxinvoiceDataResponse:
+        """
+        Description: 获取税票授权数据
+        Summary: 获取税票授权数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_rbb_taxinvoice_data_ex_async(request, headers, runtime)
+
+    def get_rbb_taxinvoice_data_ex(
+        self,
+        request: riskplus_models.GetRbbTaxinvoiceDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.GetRbbTaxinvoiceDataResponse:
+        """
+        Description: 获取税票授权数据
+        Summary: 获取税票授权数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.GetRbbTaxinvoiceDataResponse(),
+            self.do_request('1.0', 'riskplus.rbb.taxinvoice.data.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_rbb_taxinvoice_data_ex_async(
+        self,
+        request: riskplus_models.GetRbbTaxinvoiceDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.GetRbbTaxinvoiceDataResponse:
+        """
+        Description: 获取税票授权数据
+        Summary: 获取税票授权数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.GetRbbTaxinvoiceDataResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.taxinvoice.data.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_rpaas_report_answer(
