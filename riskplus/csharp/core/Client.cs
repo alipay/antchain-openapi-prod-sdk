@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.14"},
+                        {"sdk_version", "1.19.15"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.14"},
+                        {"sdk_version", "1.19.15"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5165,6 +5165,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetRbbCustomerInformationResponse>(await DoRequestAsync("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取税票授权数据
+         * Summary: 获取税票授权数据
+         */
+        public GetRbbTaxinvoiceDataResponse GetRbbTaxinvoiceData(GetRbbTaxinvoiceDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetRbbTaxinvoiceDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取税票授权数据
+         * Summary: 获取税票授权数据
+         */
+        public async Task<GetRbbTaxinvoiceDataResponse> GetRbbTaxinvoiceDataAsync(GetRbbTaxinvoiceDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetRbbTaxinvoiceDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取税票授权数据
+         * Summary: 获取税票授权数据
+         */
+        public GetRbbTaxinvoiceDataResponse GetRbbTaxinvoiceDataEx(GetRbbTaxinvoiceDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetRbbTaxinvoiceDataResponse>(DoRequest("1.0", "riskplus.rbb.taxinvoice.data.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取税票授权数据
+         * Summary: 获取税票授权数据
+         */
+        public async Task<GetRbbTaxinvoiceDataResponse> GetRbbTaxinvoiceDataExAsync(GetRbbTaxinvoiceDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetRbbTaxinvoiceDataResponse>(await DoRequestAsync("1.0", "riskplus.rbb.taxinvoice.data.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
