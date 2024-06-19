@@ -24,10 +24,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回对象
-        [NameInMap("antdigital_withhold_response")]
+        // 子返回码
+        [NameInMap("sub_code")]
         [Validation(Required=false)]
-        public AntdigitalWithHoldResponse AntdigitalWithholdResponse { get; set; }
+        public string SubCode { get; set; }
+
+        // 子返回描述
+        [NameInMap("sub_msg")]
+        [Validation(Required=false)]
+        public string SubMsg { get; set; }
+
+        // 返回内容，json格式
+        [NameInMap("data")]
+        [Validation(Required=false)]
+        public string Data { get; set; }
 
     }
 

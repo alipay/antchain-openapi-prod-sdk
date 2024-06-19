@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class CancelDigitalkeyWithholdRequest : TeaModel {
+    public class QueryDigitalkeyTradepayRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 商户传入外部交易订单号
+        // 订单支付时传入的商户订单号
         [NameInMap("out_trade_no")]
         [Validation(Required=true)]
         public string OutTradeNo { get; set; }
+
+        // 签约绑定的用户支付宝ID
+        [NameInMap("alipay_user_id")]
+        [Validation(Required=true)]
+        public string AlipayUserId { get; set; }
 
     }
 

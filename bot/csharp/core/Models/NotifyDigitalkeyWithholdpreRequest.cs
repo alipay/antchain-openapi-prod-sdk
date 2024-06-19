@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class NotifyDigitalkeyWithholdRequest : TeaModel {
+    public class NotifyDigitalkeyWithholdpreRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -28,10 +28,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public long? TotalAmount { get; set; }
 
-        // 代扣协议号, 对应于签约时，支付宝返回的协议
-        [NameInMap("agreement_no")]
+        // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+        [NameInMap("external_agreement_no")]
         [Validation(Required=true)]
-        public string AgreementNo { get; set; }
+        public string ExternalAgreementNo { get; set; }
 
     }
 

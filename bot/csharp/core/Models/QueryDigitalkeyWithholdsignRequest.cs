@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class UnbindDigitalkeyWithholdRequest : TeaModel {
+    public class QueryDigitalkeyWithholdsignRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,7 +18,8 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+        // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。	
+        // 
         [NameInMap("alipay_user_id")]
         [Validation(Required=true)]
         public string AlipayUserId { get; set; }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class QueryDigitalkeyWithholdpayResponse : TeaModel {
+    public class CancelDigitalkeyWithholdpayResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,20 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回内容
-        [NameInMap("data")]
-        [Validation(Required=false)]
-        public string Data { get; set; }
-
         // 子返回码
         [NameInMap("sub_code")]
         [Validation(Required=false)]
         public string SubCode { get; set; }
 
-        // 子返回描述
+        // 子返回码描述
         [NameInMap("sub_msg")]
         [Validation(Required=false)]
         public string SubMsg { get; set; }
+
+        // 返回内容，json格式
+        [NameInMap("data")]
+        [Validation(Required=false)]
+        public string Data { get; set; }
 
     }
 
