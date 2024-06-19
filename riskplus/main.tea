@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.14',
+    sdk_version = '1.19.15',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -7430,6 +7430,46 @@ async function getRbbCustomerInformation(request: GetRbbCustomerInformationReque
 async function getRbbCustomerInformationEx(request: GetRbbCustomerInformationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRbbCustomerInformationResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetRbbTaxinvoiceDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流水号
+  serialNumber: string(name='serial_number'),
+  // 社会新信用代码
+  taxpayerId: string(name='taxpayer_id'),
+}
+
+model GetRbbTaxinvoiceDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 税票授权数据结果
+  resultData?: string(name='result_data'),
+}
+
+/**
+ * Description: 获取税票授权数据
+ * Summary: 获取税票授权数据
+ */
+async function getRbbTaxinvoiceData(request: GetRbbTaxinvoiceDataRequest): GetRbbTaxinvoiceDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getRbbTaxinvoiceDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取税票授权数据
+ * Summary: 获取税票授权数据
+ */
+async function getRbbTaxinvoiceDataEx(request: GetRbbTaxinvoiceDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRbbTaxinvoiceDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.taxinvoice.data.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushRpaasReportAnswerRequest = {
