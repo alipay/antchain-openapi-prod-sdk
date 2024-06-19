@@ -119,6 +119,8 @@ use AntChain\RISKPLUS\Models\GetRbbCustomerInformationRequest;
 use AntChain\RISKPLUS\Models\GetRbbCustomerInformationResponse;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenRequest;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenResponse;
+use AntChain\RISKPLUS\Models\GetRbbTaxinvoiceDataRequest;
+use AntChain\RISKPLUS\Models\GetRbbTaxinvoiceDataResponse;
 use AntChain\RISKPLUS\Models\GetRtopCompanyDetailRequest;
 use AntChain\RISKPLUS\Models\GetRtopCompanyDetailResponse;
 use AntChain\RISKPLUS\Models\GetRtopCompanyMonitorRequest;
@@ -530,7 +532,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.14',
+                    'sdk_version'      => '1.19.15',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4311,6 +4313,39 @@ class Client
         Utils::validateModel($request);
 
         return GetRbbCustomerInformationResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取税票授权数据
+     * Summary: 获取税票授权数据.
+     *
+     * @param GetRbbTaxinvoiceDataRequest $request
+     *
+     * @return GetRbbTaxinvoiceDataResponse
+     */
+    public function getRbbTaxinvoiceData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getRbbTaxinvoiceDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取税票授权数据
+     * Summary: 获取税票授权数据.
+     *
+     * @param GetRbbTaxinvoiceDataRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return GetRbbTaxinvoiceDataResponse
+     */
+    public function getRbbTaxinvoiceDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetRbbTaxinvoiceDataResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.taxinvoice.data.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
