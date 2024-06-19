@@ -13562,7 +13562,7 @@ export class PublishDevicecorpThingmodelResponse extends $tea.Model {
   }
 }
 
-export class SignDigitalkeyWithholdRequest extends $tea.Model {
+export class CreateDigitalkeyWithholdsignRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -13629,7 +13629,7 @@ export class SignDigitalkeyWithholdRequest extends $tea.Model {
   }
 }
 
-export class SignDigitalkeyWithholdResponse extends $tea.Model {
+export class CreateDigitalkeyWithholdsignResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -13669,7 +13669,7 @@ export class SignDigitalkeyWithholdResponse extends $tea.Model {
   }
 }
 
-export class UnbindDigitalkeyWithholdRequest extends $tea.Model {
+export class UnbindDigitalkeyWithholdsignRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -13708,7 +13708,7 @@ export class UnbindDigitalkeyWithholdRequest extends $tea.Model {
   }
 }
 
-export class UnbindDigitalkeyWithholdResponse extends $tea.Model {
+export class UnbindDigitalkeyWithholdsignResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -13719,6 +13719,8 @@ export class UnbindDigitalkeyWithholdResponse extends $tea.Model {
   subCode?: string;
   // 明细返回码描述
   subMsg?: string;
+  // 返回内容
+  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -13726,6 +13728,7 @@ export class UnbindDigitalkeyWithholdResponse extends $tea.Model {
       resultMsg: 'result_msg',
       subCode: 'sub_code',
       subMsg: 'sub_msg',
+      data: 'data',
     };
   }
 
@@ -13736,6 +13739,7 @@ export class UnbindDigitalkeyWithholdResponse extends $tea.Model {
       resultMsg: 'string',
       subCode: 'string',
       subMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -13822,14 +13826,20 @@ export class PayDigitalkeyWithholdResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回对象
-  antdigitalWithholdResponse?: AntdigitalWithHoldResponse;
+  // 子返回码
+  subCode?: string;
+  // 子返回描述
+  subMsg?: string;
+  // 返回内容，json格式
+  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      antdigitalWithholdResponse: 'antdigital_withhold_response',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+      data: 'data',
     };
   }
 
@@ -13838,7 +13848,9 @@ export class PayDigitalkeyWithholdResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      antdigitalWithholdResponse: AntdigitalWithHoldResponse,
+      subCode: 'string',
+      subMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -13847,7 +13859,7 @@ export class PayDigitalkeyWithholdResponse extends $tea.Model {
   }
 }
 
-export class RefuseDigitalkeyWithholdRequest extends $tea.Model {
+export class RefuseDigitalkeyWithholdpayRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -13882,7 +13894,7 @@ export class RefuseDigitalkeyWithholdRequest extends $tea.Model {
   }
 }
 
-export class RefuseDigitalkeyWithholdResponse extends $tea.Model {
+export class RefuseDigitalkeyWithholdpayResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -13922,11 +13934,12 @@ export class RefuseDigitalkeyWithholdResponse extends $tea.Model {
   }
 }
 
-export class QueryDigitalkeyWithholdRequest extends $tea.Model {
+export class QueryDigitalkeyWithholdsignRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+  // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。	
+  // 
   alipayUserId: string;
   // 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
   personalProductCode: string;
@@ -13961,7 +13974,7 @@ export class QueryDigitalkeyWithholdRequest extends $tea.Model {
   }
 }
 
-export class QueryDigitalkeyWithholdResponse extends $tea.Model {
+export class QueryDigitalkeyWithholdsignResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -14001,7 +14014,7 @@ export class QueryDigitalkeyWithholdResponse extends $tea.Model {
   }
 }
 
-export class CancelDigitalkeyWithholdRequest extends $tea.Model {
+export class CancelDigitalkeyWithholdpayRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -14028,21 +14041,27 @@ export class CancelDigitalkeyWithholdRequest extends $tea.Model {
   }
 }
 
-export class CancelDigitalkeyWithholdResponse extends $tea.Model {
+export class CancelDigitalkeyWithholdpayResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回对象
-  antdigitalWithholdResponse?: AntdigitalWithHoldResponse;
+  // 子返回码
+  subCode?: string;
+  // 子返回码描述
+  subMsg?: string;
+  // 返回内容，json格式
+  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      antdigitalWithholdResponse: 'antdigital_withhold_response',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+      data: 'data',
     };
   }
 
@@ -14051,7 +14070,9 @@ export class CancelDigitalkeyWithholdResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      antdigitalWithholdResponse: AntdigitalWithHoldResponse,
+      subCode: 'string',
+      subMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -14060,7 +14081,7 @@ export class CancelDigitalkeyWithholdResponse extends $tea.Model {
   }
 }
 
-export class NotifyDigitalkeyWithholdRequest extends $tea.Model {
+export class NotifyDigitalkeyWithholdpreRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -14068,15 +14089,15 @@ export class NotifyDigitalkeyWithholdRequest extends $tea.Model {
   outRequestNo: string;
   // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
   totalAmount: number;
-  // 代扣协议号, 对应于签约时，支付宝返回的协议
-  agreementNo: string;
+  // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+  externalAgreementNo: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       outRequestNo: 'out_request_no',
       totalAmount: 'total_amount',
-      agreementNo: 'agreement_no',
+      externalAgreementNo: 'external_agreement_no',
     };
   }
 
@@ -14086,7 +14107,7 @@ export class NotifyDigitalkeyWithholdRequest extends $tea.Model {
       productInstanceId: 'string',
       outRequestNo: 'string',
       totalAmount: 'number',
-      agreementNo: 'string',
+      externalAgreementNo: 'string',
     };
   }
 
@@ -14095,21 +14116,27 @@ export class NotifyDigitalkeyWithholdRequest extends $tea.Model {
   }
 }
 
-export class NotifyDigitalkeyWithholdResponse extends $tea.Model {
+export class NotifyDigitalkeyWithholdpreResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回对象
-  antdigitalWithholdResponse?: AntdigitalWithHoldResponse;
+  // 子返回码
+  subCode?: string;
+  // 子返回码描述
+  subMsg?: string;
+  // 返回内容
+  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      antdigitalWithholdResponse: 'antdigital_withhold_response',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+      data: 'data',
     };
   }
 
@@ -14118,7 +14145,9 @@ export class NotifyDigitalkeyWithholdResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      antdigitalWithholdResponse: AntdigitalWithHoldResponse,
+      subCode: 'string',
+      subMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -14475,14 +14504,20 @@ export class QueryDigitalkeyWithholdpayResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回对象
-  antdigitalWithholdResponse?: AntdigitalWithHoldResponse;
+  // 返回内容
+  data?: string;
+  // 子返回码
+  subCode?: string;
+  // 子返回描述
+  subMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      antdigitalWithholdResponse: 'antdigital_withhold_response',
+      data: 'data',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
     };
   }
 
@@ -14491,7 +14526,72 @@ export class QueryDigitalkeyWithholdpayResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      antdigitalWithholdResponse: AntdigitalWithHoldResponse,
+      data: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyTradepayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单支付时传入的商户订单号
+  outTradeNo: string;
+  // 签约绑定的用户支付宝ID
+  alipayUserId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outTradeNo: 'out_trade_no',
+      alipayUserId: 'alipay_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outTradeNo: 'string',
+      alipayUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyTradepayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // test
+  x?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      x: 'x',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      x: 'string',
     };
   }
 
@@ -23136,6 +23236,69 @@ export class ImportTechintegrationSkugrantwhitelistResponse extends $tea.Model {
   }
 }
 
+export class SendThingDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 场景码
+  scene: string;
+  // 上报数据模型ID
+  dataModelId: string;
+  // 物模型数据集合
+  thingDataList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      scene: 'scene',
+      dataModelId: 'data_model_id',
+      thingDataList: 'thing_data_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      scene: 'string',
+      dataModelId: 'string',
+      thingDataList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendThingDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -24518,7 +24681,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.10",
+          sdk_version: "1.11.12",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -26434,38 +26597,38 @@ export default class Client {
    * Description: 代扣签约链接获取
    * Summary: 代扣签约链接获取
    */
-  async signDigitalkeyWithhold(request: SignDigitalkeyWithholdRequest): Promise<SignDigitalkeyWithholdResponse> {
+  async createDigitalkeyWithholdsign(request: CreateDigitalkeyWithholdsignRequest): Promise<CreateDigitalkeyWithholdsignResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.signDigitalkeyWithholdEx(request, headers, runtime);
+    return await this.createDigitalkeyWithholdsignEx(request, headers, runtime);
   }
 
   /**
    * Description: 代扣签约链接获取
    * Summary: 代扣签约链接获取
    */
-  async signDigitalkeyWithholdEx(request: SignDigitalkeyWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignDigitalkeyWithholdResponse> {
+  async createDigitalkeyWithholdsignEx(request: CreateDigitalkeyWithholdsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDigitalkeyWithholdsignResponse> {
     Util.validateModel(request);
-    return $tea.cast<SignDigitalkeyWithholdResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignDigitalkeyWithholdResponse({}));
+    return $tea.cast<CreateDigitalkeyWithholdsignResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withholdsign.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDigitalkeyWithholdsignResponse({}));
   }
 
   /**
    * Description: 代扣签约解除
    * Summary: 代扣签约解除
    */
-  async unbindDigitalkeyWithhold(request: UnbindDigitalkeyWithholdRequest): Promise<UnbindDigitalkeyWithholdResponse> {
+  async unbindDigitalkeyWithholdsign(request: UnbindDigitalkeyWithholdsignRequest): Promise<UnbindDigitalkeyWithholdsignResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.unbindDigitalkeyWithholdEx(request, headers, runtime);
+    return await this.unbindDigitalkeyWithholdsignEx(request, headers, runtime);
   }
 
   /**
    * Description: 代扣签约解除
    * Summary: 代扣签约解除
    */
-  async unbindDigitalkeyWithholdEx(request: UnbindDigitalkeyWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindDigitalkeyWithholdResponse> {
+  async unbindDigitalkeyWithholdsignEx(request: UnbindDigitalkeyWithholdsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnbindDigitalkeyWithholdsignResponse> {
     Util.validateModel(request);
-    return $tea.cast<UnbindDigitalkeyWithholdResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindDigitalkeyWithholdResponse({}));
+    return $tea.cast<UnbindDigitalkeyWithholdsignResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withholdsign.unbind", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnbindDigitalkeyWithholdsignResponse({}));
   }
 
   /**
@@ -26488,79 +26651,79 @@ export default class Client {
   }
 
   /**
-   * Description: 代扣支付退款 
-   * Summary: 代扣支付退款 
+   * Description: 代扣支付交易退款 
+   * Summary: 代扣支付交易退款 
    */
-  async refuseDigitalkeyWithhold(request: RefuseDigitalkeyWithholdRequest): Promise<RefuseDigitalkeyWithholdResponse> {
+  async refuseDigitalkeyWithholdpay(request: RefuseDigitalkeyWithholdpayRequest): Promise<RefuseDigitalkeyWithholdpayResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.refuseDigitalkeyWithholdEx(request, headers, runtime);
+    return await this.refuseDigitalkeyWithholdpayEx(request, headers, runtime);
   }
 
   /**
-   * Description: 代扣支付退款 
-   * Summary: 代扣支付退款 
+   * Description: 代扣支付交易退款 
+   * Summary: 代扣支付交易退款 
    */
-  async refuseDigitalkeyWithholdEx(request: RefuseDigitalkeyWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefuseDigitalkeyWithholdResponse> {
+  async refuseDigitalkeyWithholdpayEx(request: RefuseDigitalkeyWithholdpayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RefuseDigitalkeyWithholdpayResponse> {
     Util.validateModel(request);
-    return $tea.cast<RefuseDigitalkeyWithholdResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.refuse", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefuseDigitalkeyWithholdResponse({}));
+    return $tea.cast<RefuseDigitalkeyWithholdpayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withholdpay.refuse", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RefuseDigitalkeyWithholdpayResponse({}));
   }
 
   /**
    * Description: 代扣协议查询
    * Summary: 代扣协议查询
    */
-  async queryDigitalkeyWithhold(request: QueryDigitalkeyWithholdRequest): Promise<QueryDigitalkeyWithholdResponse> {
+  async queryDigitalkeyWithholdsign(request: QueryDigitalkeyWithholdsignRequest): Promise<QueryDigitalkeyWithholdsignResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryDigitalkeyWithholdEx(request, headers, runtime);
+    return await this.queryDigitalkeyWithholdsignEx(request, headers, runtime);
   }
 
   /**
    * Description: 代扣协议查询
    * Summary: 代扣协议查询
    */
-  async queryDigitalkeyWithholdEx(request: QueryDigitalkeyWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyWithholdResponse> {
+  async queryDigitalkeyWithholdsignEx(request: QueryDigitalkeyWithholdsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyWithholdsignResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryDigitalkeyWithholdResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyWithholdResponse({}));
+    return $tea.cast<QueryDigitalkeyWithholdsignResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withholdsign.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyWithholdsignResponse({}));
   }
 
   /**
-   * Description: 代扣撤销
-   * Summary: 代扣撤销
+   * Description: 代扣支付撤销
+   * Summary: 代扣支付撤销
    */
-  async cancelDigitalkeyWithhold(request: CancelDigitalkeyWithholdRequest): Promise<CancelDigitalkeyWithholdResponse> {
+  async cancelDigitalkeyWithholdpay(request: CancelDigitalkeyWithholdpayRequest): Promise<CancelDigitalkeyWithholdpayResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.cancelDigitalkeyWithholdEx(request, headers, runtime);
+    return await this.cancelDigitalkeyWithholdpayEx(request, headers, runtime);
   }
 
   /**
-   * Description: 代扣撤销
-   * Summary: 代扣撤销
+   * Description: 代扣支付撤销
+   * Summary: 代扣支付撤销
    */
-  async cancelDigitalkeyWithholdEx(request: CancelDigitalkeyWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelDigitalkeyWithholdResponse> {
+  async cancelDigitalkeyWithholdpayEx(request: CancelDigitalkeyWithholdpayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelDigitalkeyWithholdpayResponse> {
     Util.validateModel(request);
-    return $tea.cast<CancelDigitalkeyWithholdResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelDigitalkeyWithholdResponse({}));
+    return $tea.cast<CancelDigitalkeyWithholdpayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withholdpay.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelDigitalkeyWithholdpayResponse({}));
   }
 
   /**
    * Description: 代扣扣款前预通知
    * Summary: 代扣扣款前预通知
    */
-  async notifyDigitalkeyWithhold(request: NotifyDigitalkeyWithholdRequest): Promise<NotifyDigitalkeyWithholdResponse> {
+  async notifyDigitalkeyWithholdpre(request: NotifyDigitalkeyWithholdpreRequest): Promise<NotifyDigitalkeyWithholdpreResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.notifyDigitalkeyWithholdEx(request, headers, runtime);
+    return await this.notifyDigitalkeyWithholdpreEx(request, headers, runtime);
   }
 
   /**
    * Description: 代扣扣款前预通知
    * Summary: 代扣扣款前预通知
    */
-  async notifyDigitalkeyWithholdEx(request: NotifyDigitalkeyWithholdRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyDigitalkeyWithholdResponse> {
+  async notifyDigitalkeyWithholdpreEx(request: NotifyDigitalkeyWithholdpreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyDigitalkeyWithholdpreResponse> {
     Util.validateModel(request);
-    return $tea.cast<NotifyDigitalkeyWithholdResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withhold.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyDigitalkeyWithholdResponse({}));
+    return $tea.cast<NotifyDigitalkeyWithholdpreResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withholdpre.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyDigitalkeyWithholdpreResponse({}));
   }
 
   /**
@@ -26656,6 +26819,25 @@ export default class Client {
   async queryDigitalkeyWithholdpayEx(request: QueryDigitalkeyWithholdpayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyWithholdpayResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDigitalkeyWithholdpayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.withholdpay.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyWithholdpayResponse({}));
+  }
+
+  /**
+   * Description: 代扣支付查询
+   * Summary: 代扣支付查询
+   */
+  async queryDigitalkeyTradepay(request: QueryDigitalkeyTradepayRequest): Promise<QueryDigitalkeyTradepayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalkeyTradepayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代扣支付查询
+   * Summary: 代扣支付查询
+   */
+  async queryDigitalkeyTradepayEx(request: QueryDigitalkeyTradepayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyTradepayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalkeyTradepayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.tradepay.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyTradepayResponse({}));
   }
 
   /**
@@ -28806,8 +28988,8 @@ export default class Client {
   }
 
   /**
-   * Description: 客户添加SKU授权白名单
-   * Summary: 客户添加SKU授权白名单
+   * Description: 添加SKU授权白名单
+   * Summary: 添加SKU授权白名单
    */
   async importTechintegrationSkugrantwhitelist(request: ImportTechintegrationSkugrantwhitelistRequest): Promise<ImportTechintegrationSkugrantwhitelistResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -28816,12 +28998,31 @@ export default class Client {
   }
 
   /**
-   * Description: 客户添加SKU授权白名单
-   * Summary: 客户添加SKU授权白名单
+   * Description: 添加SKU授权白名单
+   * Summary: 添加SKU授权白名单
    */
   async importTechintegrationSkugrantwhitelistEx(request: ImportTechintegrationSkugrantwhitelistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportTechintegrationSkugrantwhitelistResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportTechintegrationSkugrantwhitelistResponse>(await this.doRequest("1.0", "blockchain.bot.techintegration.skugrantwhitelist.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportTechintegrationSkugrantwhitelistResponse({}));
+  }
+
+  /**
+   * Description: 物模型数据上报
+   * Summary: 物模型数据上报
+   */
+  async sendThingData(request: SendThingDataRequest): Promise<SendThingDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendThingDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 物模型数据上报
+   * Summary: 物模型数据上报
+   */
+  async sendThingDataEx(request: SendThingDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendThingDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendThingDataResponse>(await this.doRequest("1.0", "blockchain.bot.thing.data.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendThingDataResponse({}));
   }
 
   /**
