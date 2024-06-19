@@ -13454,6 +13454,69 @@ export class GetRbbCustomerInformationResponse extends $tea.Model {
   }
 }
 
+export class GetRbbTaxinvoiceDataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流水号
+  serialNumber: string;
+  // 社会新信用代码
+  taxpayerId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serialNumber: 'serial_number',
+      taxpayerId: 'taxpayer_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serialNumber: 'string',
+      taxpayerId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetRbbTaxinvoiceDataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 税票授权数据结果
+  resultData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultData: 'result_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushRpaasReportAnswerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -19682,7 +19745,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.14",
+          sdk_version: "1.19.15",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -21921,6 +21984,25 @@ export default class Client {
   async getRbbCustomerInformationEx(request: GetRbbCustomerInformationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetRbbCustomerInformationResponse> {
     Util.validateModel(request);
     return $tea.cast<GetRbbCustomerInformationResponse>(await this.doRequest("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetRbbCustomerInformationResponse({}));
+  }
+
+  /**
+   * Description: 获取税票授权数据
+   * Summary: 获取税票授权数据
+   */
+  async getRbbTaxinvoiceData(request: GetRbbTaxinvoiceDataRequest): Promise<GetRbbTaxinvoiceDataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getRbbTaxinvoiceDataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取税票授权数据
+   * Summary: 获取税票授权数据
+   */
+  async getRbbTaxinvoiceDataEx(request: GetRbbTaxinvoiceDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetRbbTaxinvoiceDataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetRbbTaxinvoiceDataResponse>(await this.doRequest("1.0", "riskplus.rbb.taxinvoice.data.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetRbbTaxinvoiceDataResponse({}));
   }
 
   /**
