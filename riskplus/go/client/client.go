@@ -18030,6 +18030,83 @@ func (s *GetRbbCustomerInformationResponse) SetResultData(v string) *GetRbbCusto
 	return s
 }
 
+type GetRbbTaxinvoiceDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流水号
+	SerialNumber *string `json:"serial_number,omitempty" xml:"serial_number,omitempty" require:"true"`
+	// 社会新信用代码
+	TaxpayerId *string `json:"taxpayer_id,omitempty" xml:"taxpayer_id,omitempty" require:"true"`
+}
+
+func (s GetRbbTaxinvoiceDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetRbbTaxinvoiceDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetRbbTaxinvoiceDataRequest) SetAuthToken(v string) *GetRbbTaxinvoiceDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetRbbTaxinvoiceDataRequest) SetProductInstanceId(v string) *GetRbbTaxinvoiceDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetRbbTaxinvoiceDataRequest) SetSerialNumber(v string) *GetRbbTaxinvoiceDataRequest {
+	s.SerialNumber = &v
+	return s
+}
+
+func (s *GetRbbTaxinvoiceDataRequest) SetTaxpayerId(v string) *GetRbbTaxinvoiceDataRequest {
+	s.TaxpayerId = &v
+	return s
+}
+
+type GetRbbTaxinvoiceDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 税票授权数据结果
+	ResultData *string `json:"result_data,omitempty" xml:"result_data,omitempty"`
+}
+
+func (s GetRbbTaxinvoiceDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetRbbTaxinvoiceDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetRbbTaxinvoiceDataResponse) SetReqMsgId(v string) *GetRbbTaxinvoiceDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetRbbTaxinvoiceDataResponse) SetResultCode(v string) *GetRbbTaxinvoiceDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetRbbTaxinvoiceDataResponse) SetResultMsg(v string) *GetRbbTaxinvoiceDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetRbbTaxinvoiceDataResponse) SetResultData(v string) *GetRbbTaxinvoiceDataResponse {
+	s.ResultData = &v
+	return s
+}
+
 type PushRpaasReportAnswerRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -26350,7 +26427,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.14"),
+				"sdk_version":      tea.String("1.19.15"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -30291,6 +30368,40 @@ func (client *Client) GetRbbCustomerInformationEx(request *GetRbbCustomerInforma
 	}
 	_result = &GetRbbCustomerInformationResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.customer.information.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取税票授权数据
+ * Summary: 获取税票授权数据
+ */
+func (client *Client) GetRbbTaxinvoiceData(request *GetRbbTaxinvoiceDataRequest) (_result *GetRbbTaxinvoiceDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetRbbTaxinvoiceDataResponse{}
+	_body, _err := client.GetRbbTaxinvoiceDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取税票授权数据
+ * Summary: 获取税票授权数据
+ */
+func (client *Client) GetRbbTaxinvoiceDataEx(request *GetRbbTaxinvoiceDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetRbbTaxinvoiceDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetRbbTaxinvoiceDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.taxinvoice.data.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
