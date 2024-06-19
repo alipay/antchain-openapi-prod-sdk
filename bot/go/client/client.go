@@ -17750,7 +17750,7 @@ func (s *PublishDevicecorpThingmodelResponse) SetSuccess(v bool) *PublishDevicec
 	return s
 }
 
-type SignDigitalkeyWithholdRequest struct {
+type CreateDigitalkeyWithholdsignRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -17778,80 +17778,80 @@ type SignDigitalkeyWithholdRequest struct {
 	EffectTime *int64 `json:"effect_time,omitempty" xml:"effect_time,omitempty"`
 }
 
-func (s SignDigitalkeyWithholdRequest) String() string {
+func (s CreateDigitalkeyWithholdsignRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SignDigitalkeyWithholdRequest) GoString() string {
+func (s CreateDigitalkeyWithholdsignRequest) GoString() string {
 	return s.String()
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetAuthToken(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetAuthToken(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetProductInstanceId(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetProductInstanceId(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetPersonalProductCode(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetPersonalProductCode(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.PersonalProductCode = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetProductCode(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetProductCode(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.ProductCode = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetChannel(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetChannel(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.Channel = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetReturnUrl(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetReturnUrl(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.ReturnUrl = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetExternalLogonId(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetExternalLogonId(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.ExternalLogonId = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetAlipayUserId(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetAlipayUserId(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.AlipayUserId = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetSignScene(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetSignScene(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.SignScene = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetExternalAgreementNo(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetExternalAgreementNo(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.ExternalAgreementNo = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetSubMerchant(v *SubMerchantParams) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetSubMerchant(v *SubMerchantParams) *CreateDigitalkeyWithholdsignRequest {
 	s.SubMerchant = v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetSignValidityPeriod(v string) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetSignValidityPeriod(v string) *CreateDigitalkeyWithholdsignRequest {
 	s.SignValidityPeriod = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdRequest) SetEffectTime(v int64) *SignDigitalkeyWithholdRequest {
+func (s *CreateDigitalkeyWithholdsignRequest) SetEffectTime(v int64) *CreateDigitalkeyWithholdsignRequest {
 	s.EffectTime = &v
 	return s
 }
 
-type SignDigitalkeyWithholdResponse struct {
+type CreateDigitalkeyWithholdsignResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -17866,45 +17866,45 @@ type SignDigitalkeyWithholdResponse struct {
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s SignDigitalkeyWithholdResponse) String() string {
+func (s CreateDigitalkeyWithholdsignResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s SignDigitalkeyWithholdResponse) GoString() string {
+func (s CreateDigitalkeyWithholdsignResponse) GoString() string {
 	return s.String()
 }
 
-func (s *SignDigitalkeyWithholdResponse) SetReqMsgId(v string) *SignDigitalkeyWithholdResponse {
+func (s *CreateDigitalkeyWithholdsignResponse) SetReqMsgId(v string) *CreateDigitalkeyWithholdsignResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdResponse) SetResultCode(v string) *SignDigitalkeyWithholdResponse {
+func (s *CreateDigitalkeyWithholdsignResponse) SetResultCode(v string) *CreateDigitalkeyWithholdsignResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdResponse) SetResultMsg(v string) *SignDigitalkeyWithholdResponse {
+func (s *CreateDigitalkeyWithholdsignResponse) SetResultMsg(v string) *CreateDigitalkeyWithholdsignResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdResponse) SetSubCode(v string) *SignDigitalkeyWithholdResponse {
+func (s *CreateDigitalkeyWithholdsignResponse) SetSubCode(v string) *CreateDigitalkeyWithholdsignResponse {
 	s.SubCode = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdResponse) SetSubMsg(v string) *SignDigitalkeyWithholdResponse {
+func (s *CreateDigitalkeyWithholdsignResponse) SetSubMsg(v string) *CreateDigitalkeyWithholdsignResponse {
 	s.SubMsg = &v
 	return s
 }
 
-func (s *SignDigitalkeyWithholdResponse) SetData(v string) *SignDigitalkeyWithholdResponse {
+func (s *CreateDigitalkeyWithholdsignResponse) SetData(v string) *CreateDigitalkeyWithholdsignResponse {
 	s.Data = &v
 	return s
 }
 
-type UnbindDigitalkeyWithholdRequest struct {
+type UnbindDigitalkeyWithholdsignRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -17918,45 +17918,45 @@ type UnbindDigitalkeyWithholdRequest struct {
 	ExternalAgreementNo *string `json:"external_agreement_no,omitempty" xml:"external_agreement_no,omitempty" require:"true"`
 }
 
-func (s UnbindDigitalkeyWithholdRequest) String() string {
+func (s UnbindDigitalkeyWithholdsignRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UnbindDigitalkeyWithholdRequest) GoString() string {
+func (s UnbindDigitalkeyWithholdsignRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UnbindDigitalkeyWithholdRequest) SetAuthToken(v string) *UnbindDigitalkeyWithholdRequest {
+func (s *UnbindDigitalkeyWithholdsignRequest) SetAuthToken(v string) *UnbindDigitalkeyWithholdsignRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdRequest) SetProductInstanceId(v string) *UnbindDigitalkeyWithholdRequest {
+func (s *UnbindDigitalkeyWithholdsignRequest) SetProductInstanceId(v string) *UnbindDigitalkeyWithholdsignRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdRequest) SetAlipayUserId(v string) *UnbindDigitalkeyWithholdRequest {
+func (s *UnbindDigitalkeyWithholdsignRequest) SetAlipayUserId(v string) *UnbindDigitalkeyWithholdsignRequest {
 	s.AlipayUserId = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdRequest) SetPersonalProductCode(v string) *UnbindDigitalkeyWithholdRequest {
+func (s *UnbindDigitalkeyWithholdsignRequest) SetPersonalProductCode(v string) *UnbindDigitalkeyWithholdsignRequest {
 	s.PersonalProductCode = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdRequest) SetSignScene(v string) *UnbindDigitalkeyWithholdRequest {
+func (s *UnbindDigitalkeyWithholdsignRequest) SetSignScene(v string) *UnbindDigitalkeyWithholdsignRequest {
 	s.SignScene = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdRequest) SetExternalAgreementNo(v string) *UnbindDigitalkeyWithholdRequest {
+func (s *UnbindDigitalkeyWithholdsignRequest) SetExternalAgreementNo(v string) *UnbindDigitalkeyWithholdsignRequest {
 	s.ExternalAgreementNo = &v
 	return s
 }
 
-type UnbindDigitalkeyWithholdResponse struct {
+type UnbindDigitalkeyWithholdsignResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -17967,38 +17967,45 @@ type UnbindDigitalkeyWithholdResponse struct {
 	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
 	// 明细返回码描述
 	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+	// 返回内容
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s UnbindDigitalkeyWithholdResponse) String() string {
+func (s UnbindDigitalkeyWithholdsignResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UnbindDigitalkeyWithholdResponse) GoString() string {
+func (s UnbindDigitalkeyWithholdsignResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UnbindDigitalkeyWithholdResponse) SetReqMsgId(v string) *UnbindDigitalkeyWithholdResponse {
+func (s *UnbindDigitalkeyWithholdsignResponse) SetReqMsgId(v string) *UnbindDigitalkeyWithholdsignResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdResponse) SetResultCode(v string) *UnbindDigitalkeyWithholdResponse {
+func (s *UnbindDigitalkeyWithholdsignResponse) SetResultCode(v string) *UnbindDigitalkeyWithholdsignResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdResponse) SetResultMsg(v string) *UnbindDigitalkeyWithholdResponse {
+func (s *UnbindDigitalkeyWithholdsignResponse) SetResultMsg(v string) *UnbindDigitalkeyWithholdsignResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdResponse) SetSubCode(v string) *UnbindDigitalkeyWithholdResponse {
+func (s *UnbindDigitalkeyWithholdsignResponse) SetSubCode(v string) *UnbindDigitalkeyWithholdsignResponse {
 	s.SubCode = &v
 	return s
 }
 
-func (s *UnbindDigitalkeyWithholdResponse) SetSubMsg(v string) *UnbindDigitalkeyWithholdResponse {
+func (s *UnbindDigitalkeyWithholdsignResponse) SetSubMsg(v string) *UnbindDigitalkeyWithholdsignResponse {
 	s.SubMsg = &v
+	return s
+}
+
+func (s *UnbindDigitalkeyWithholdsignResponse) SetData(v string) *UnbindDigitalkeyWithholdsignResponse {
+	s.Data = &v
 	return s
 }
 
@@ -18117,8 +18124,12 @@ type PayDigitalkeyWithholdResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回对象
-	AntdigitalWithholdResponse *AntdigitalWithHoldResponse `json:"antdigital_withhold_response,omitempty" xml:"antdigital_withhold_response,omitempty"`
+	// 子返回码
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 子返回描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+	// 返回内容，json格式
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s PayDigitalkeyWithholdResponse) String() string {
@@ -18144,12 +18155,22 @@ func (s *PayDigitalkeyWithholdResponse) SetResultMsg(v string) *PayDigitalkeyWit
 	return s
 }
 
-func (s *PayDigitalkeyWithholdResponse) SetAntdigitalWithholdResponse(v *AntdigitalWithHoldResponse) *PayDigitalkeyWithholdResponse {
-	s.AntdigitalWithholdResponse = v
+func (s *PayDigitalkeyWithholdResponse) SetSubCode(v string) *PayDigitalkeyWithholdResponse {
+	s.SubCode = &v
 	return s
 }
 
-type RefuseDigitalkeyWithholdRequest struct {
+func (s *PayDigitalkeyWithholdResponse) SetSubMsg(v string) *PayDigitalkeyWithholdResponse {
+	s.SubMsg = &v
+	return s
+}
+
+func (s *PayDigitalkeyWithholdResponse) SetData(v string) *PayDigitalkeyWithholdResponse {
+	s.Data = &v
+	return s
+}
+
+type RefuseDigitalkeyWithholdpayRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -18161,40 +18182,40 @@ type RefuseDigitalkeyWithholdRequest struct {
 	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty" require:"true"`
 }
 
-func (s RefuseDigitalkeyWithholdRequest) String() string {
+func (s RefuseDigitalkeyWithholdpayRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RefuseDigitalkeyWithholdRequest) GoString() string {
+func (s RefuseDigitalkeyWithholdpayRequest) GoString() string {
 	return s.String()
 }
 
-func (s *RefuseDigitalkeyWithholdRequest) SetAuthToken(v string) *RefuseDigitalkeyWithholdRequest {
+func (s *RefuseDigitalkeyWithholdpayRequest) SetAuthToken(v string) *RefuseDigitalkeyWithholdpayRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdRequest) SetProductInstanceId(v string) *RefuseDigitalkeyWithholdRequest {
+func (s *RefuseDigitalkeyWithholdpayRequest) SetProductInstanceId(v string) *RefuseDigitalkeyWithholdpayRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdRequest) SetOutTradeNo(v string) *RefuseDigitalkeyWithholdRequest {
+func (s *RefuseDigitalkeyWithholdpayRequest) SetOutTradeNo(v string) *RefuseDigitalkeyWithholdpayRequest {
 	s.OutTradeNo = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdRequest) SetRefundAmount(v int64) *RefuseDigitalkeyWithholdRequest {
+func (s *RefuseDigitalkeyWithholdpayRequest) SetRefundAmount(v int64) *RefuseDigitalkeyWithholdpayRequest {
 	s.RefundAmount = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdRequest) SetOutRequestNo(v string) *RefuseDigitalkeyWithholdRequest {
+func (s *RefuseDigitalkeyWithholdpayRequest) SetOutRequestNo(v string) *RefuseDigitalkeyWithholdpayRequest {
 	s.OutRequestNo = &v
 	return s
 }
 
-type RefuseDigitalkeyWithholdResponse struct {
+type RefuseDigitalkeyWithholdpayResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -18209,49 +18230,50 @@ type RefuseDigitalkeyWithholdResponse struct {
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s RefuseDigitalkeyWithholdResponse) String() string {
+func (s RefuseDigitalkeyWithholdpayResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RefuseDigitalkeyWithholdResponse) GoString() string {
+func (s RefuseDigitalkeyWithholdpayResponse) GoString() string {
 	return s.String()
 }
 
-func (s *RefuseDigitalkeyWithholdResponse) SetReqMsgId(v string) *RefuseDigitalkeyWithholdResponse {
+func (s *RefuseDigitalkeyWithholdpayResponse) SetReqMsgId(v string) *RefuseDigitalkeyWithholdpayResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdResponse) SetResultCode(v string) *RefuseDigitalkeyWithholdResponse {
+func (s *RefuseDigitalkeyWithholdpayResponse) SetResultCode(v string) *RefuseDigitalkeyWithholdpayResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdResponse) SetResultMsg(v string) *RefuseDigitalkeyWithholdResponse {
+func (s *RefuseDigitalkeyWithholdpayResponse) SetResultMsg(v string) *RefuseDigitalkeyWithholdpayResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdResponse) SetSubCode(v string) *RefuseDigitalkeyWithholdResponse {
+func (s *RefuseDigitalkeyWithholdpayResponse) SetSubCode(v string) *RefuseDigitalkeyWithholdpayResponse {
 	s.SubCode = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdResponse) SetSubMsg(v string) *RefuseDigitalkeyWithholdResponse {
+func (s *RefuseDigitalkeyWithholdpayResponse) SetSubMsg(v string) *RefuseDigitalkeyWithholdpayResponse {
 	s.SubMsg = &v
 	return s
 }
 
-func (s *RefuseDigitalkeyWithholdResponse) SetData(v string) *RefuseDigitalkeyWithholdResponse {
+func (s *RefuseDigitalkeyWithholdpayResponse) SetData(v string) *RefuseDigitalkeyWithholdpayResponse {
 	s.Data = &v
 	return s
 }
 
-type QueryDigitalkeyWithholdRequest struct {
+type QueryDigitalkeyWithholdsignRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+	//
 	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true"`
 	// 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
 	PersonalProductCode *string `json:"personal_product_code,omitempty" xml:"personal_product_code,omitempty" require:"true"`
@@ -18261,45 +18283,45 @@ type QueryDigitalkeyWithholdRequest struct {
 	ExternalAgreementNo *string `json:"external_agreement_no,omitempty" xml:"external_agreement_no,omitempty" require:"true"`
 }
 
-func (s QueryDigitalkeyWithholdRequest) String() string {
+func (s QueryDigitalkeyWithholdsignRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryDigitalkeyWithholdRequest) GoString() string {
+func (s QueryDigitalkeyWithholdsignRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryDigitalkeyWithholdRequest) SetAuthToken(v string) *QueryDigitalkeyWithholdRequest {
+func (s *QueryDigitalkeyWithholdsignRequest) SetAuthToken(v string) *QueryDigitalkeyWithholdsignRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdRequest) SetProductInstanceId(v string) *QueryDigitalkeyWithholdRequest {
+func (s *QueryDigitalkeyWithholdsignRequest) SetProductInstanceId(v string) *QueryDigitalkeyWithholdsignRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdRequest) SetAlipayUserId(v string) *QueryDigitalkeyWithholdRequest {
+func (s *QueryDigitalkeyWithholdsignRequest) SetAlipayUserId(v string) *QueryDigitalkeyWithholdsignRequest {
 	s.AlipayUserId = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdRequest) SetPersonalProductCode(v string) *QueryDigitalkeyWithholdRequest {
+func (s *QueryDigitalkeyWithholdsignRequest) SetPersonalProductCode(v string) *QueryDigitalkeyWithholdsignRequest {
 	s.PersonalProductCode = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdRequest) SetSignScene(v string) *QueryDigitalkeyWithholdRequest {
+func (s *QueryDigitalkeyWithholdsignRequest) SetSignScene(v string) *QueryDigitalkeyWithholdsignRequest {
 	s.SignScene = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdRequest) SetExternalAgreementNo(v string) *QueryDigitalkeyWithholdRequest {
+func (s *QueryDigitalkeyWithholdsignRequest) SetExternalAgreementNo(v string) *QueryDigitalkeyWithholdsignRequest {
 	s.ExternalAgreementNo = &v
 	return s
 }
 
-type QueryDigitalkeyWithholdResponse struct {
+type QueryDigitalkeyWithholdsignResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -18314,45 +18336,45 @@ type QueryDigitalkeyWithholdResponse struct {
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s QueryDigitalkeyWithholdResponse) String() string {
+func (s QueryDigitalkeyWithholdsignResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryDigitalkeyWithholdResponse) GoString() string {
+func (s QueryDigitalkeyWithholdsignResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryDigitalkeyWithholdResponse) SetReqMsgId(v string) *QueryDigitalkeyWithholdResponse {
+func (s *QueryDigitalkeyWithholdsignResponse) SetReqMsgId(v string) *QueryDigitalkeyWithholdsignResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdResponse) SetResultCode(v string) *QueryDigitalkeyWithholdResponse {
+func (s *QueryDigitalkeyWithholdsignResponse) SetResultCode(v string) *QueryDigitalkeyWithholdsignResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdResponse) SetResultMsg(v string) *QueryDigitalkeyWithholdResponse {
+func (s *QueryDigitalkeyWithholdsignResponse) SetResultMsg(v string) *QueryDigitalkeyWithholdsignResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdResponse) SetSubCode(v string) *QueryDigitalkeyWithholdResponse {
+func (s *QueryDigitalkeyWithholdsignResponse) SetSubCode(v string) *QueryDigitalkeyWithholdsignResponse {
 	s.SubCode = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdResponse) SetSubMsg(v string) *QueryDigitalkeyWithholdResponse {
+func (s *QueryDigitalkeyWithholdsignResponse) SetSubMsg(v string) *QueryDigitalkeyWithholdsignResponse {
 	s.SubMsg = &v
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdResponse) SetData(v string) *QueryDigitalkeyWithholdResponse {
+func (s *QueryDigitalkeyWithholdsignResponse) SetData(v string) *QueryDigitalkeyWithholdsignResponse {
 	s.Data = &v
 	return s
 }
 
-type CancelDigitalkeyWithholdRequest struct {
+type CancelDigitalkeyWithholdpayRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -18360,69 +18382,83 @@ type CancelDigitalkeyWithholdRequest struct {
 	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
 }
 
-func (s CancelDigitalkeyWithholdRequest) String() string {
+func (s CancelDigitalkeyWithholdpayRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CancelDigitalkeyWithholdRequest) GoString() string {
+func (s CancelDigitalkeyWithholdpayRequest) GoString() string {
 	return s.String()
 }
 
-func (s *CancelDigitalkeyWithholdRequest) SetAuthToken(v string) *CancelDigitalkeyWithholdRequest {
+func (s *CancelDigitalkeyWithholdpayRequest) SetAuthToken(v string) *CancelDigitalkeyWithholdpayRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *CancelDigitalkeyWithholdRequest) SetProductInstanceId(v string) *CancelDigitalkeyWithholdRequest {
+func (s *CancelDigitalkeyWithholdpayRequest) SetProductInstanceId(v string) *CancelDigitalkeyWithholdpayRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *CancelDigitalkeyWithholdRequest) SetOutTradeNo(v string) *CancelDigitalkeyWithholdRequest {
+func (s *CancelDigitalkeyWithholdpayRequest) SetOutTradeNo(v string) *CancelDigitalkeyWithholdpayRequest {
 	s.OutTradeNo = &v
 	return s
 }
 
-type CancelDigitalkeyWithholdResponse struct {
+type CancelDigitalkeyWithholdpayResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回对象
-	AntdigitalWithholdResponse *AntdigitalWithHoldResponse `json:"antdigital_withhold_response,omitempty" xml:"antdigital_withhold_response,omitempty"`
+	// 子返回码
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 子返回码描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+	// 返回内容，json格式
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s CancelDigitalkeyWithholdResponse) String() string {
+func (s CancelDigitalkeyWithholdpayResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s CancelDigitalkeyWithholdResponse) GoString() string {
+func (s CancelDigitalkeyWithholdpayResponse) GoString() string {
 	return s.String()
 }
 
-func (s *CancelDigitalkeyWithholdResponse) SetReqMsgId(v string) *CancelDigitalkeyWithholdResponse {
+func (s *CancelDigitalkeyWithholdpayResponse) SetReqMsgId(v string) *CancelDigitalkeyWithholdpayResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *CancelDigitalkeyWithholdResponse) SetResultCode(v string) *CancelDigitalkeyWithholdResponse {
+func (s *CancelDigitalkeyWithholdpayResponse) SetResultCode(v string) *CancelDigitalkeyWithholdpayResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *CancelDigitalkeyWithholdResponse) SetResultMsg(v string) *CancelDigitalkeyWithholdResponse {
+func (s *CancelDigitalkeyWithholdpayResponse) SetResultMsg(v string) *CancelDigitalkeyWithholdpayResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *CancelDigitalkeyWithholdResponse) SetAntdigitalWithholdResponse(v *AntdigitalWithHoldResponse) *CancelDigitalkeyWithholdResponse {
-	s.AntdigitalWithholdResponse = v
+func (s *CancelDigitalkeyWithholdpayResponse) SetSubCode(v string) *CancelDigitalkeyWithholdpayResponse {
+	s.SubCode = &v
 	return s
 }
 
-type NotifyDigitalkeyWithholdRequest struct {
+func (s *CancelDigitalkeyWithholdpayResponse) SetSubMsg(v string) *CancelDigitalkeyWithholdpayResponse {
+	s.SubMsg = &v
+	return s
+}
+
+func (s *CancelDigitalkeyWithholdpayResponse) SetData(v string) *CancelDigitalkeyWithholdpayResponse {
+	s.Data = &v
+	return s
+}
+
+type NotifyDigitalkeyWithholdpreRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -18430,79 +18466,93 @@ type NotifyDigitalkeyWithholdRequest struct {
 	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty" require:"true"`
 	// 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
 	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
-	// 代扣协议号, 对应于签约时，支付宝返回的协议
-	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty" require:"true"`
+	// 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+	ExternalAgreementNo *string `json:"external_agreement_no,omitempty" xml:"external_agreement_no,omitempty" require:"true"`
 }
 
-func (s NotifyDigitalkeyWithholdRequest) String() string {
+func (s NotifyDigitalkeyWithholdpreRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NotifyDigitalkeyWithholdRequest) GoString() string {
+func (s NotifyDigitalkeyWithholdpreRequest) GoString() string {
 	return s.String()
 }
 
-func (s *NotifyDigitalkeyWithholdRequest) SetAuthToken(v string) *NotifyDigitalkeyWithholdRequest {
+func (s *NotifyDigitalkeyWithholdpreRequest) SetAuthToken(v string) *NotifyDigitalkeyWithholdpreRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *NotifyDigitalkeyWithholdRequest) SetProductInstanceId(v string) *NotifyDigitalkeyWithholdRequest {
+func (s *NotifyDigitalkeyWithholdpreRequest) SetProductInstanceId(v string) *NotifyDigitalkeyWithholdpreRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *NotifyDigitalkeyWithholdRequest) SetOutRequestNo(v string) *NotifyDigitalkeyWithholdRequest {
+func (s *NotifyDigitalkeyWithholdpreRequest) SetOutRequestNo(v string) *NotifyDigitalkeyWithholdpreRequest {
 	s.OutRequestNo = &v
 	return s
 }
 
-func (s *NotifyDigitalkeyWithholdRequest) SetTotalAmount(v int64) *NotifyDigitalkeyWithholdRequest {
+func (s *NotifyDigitalkeyWithholdpreRequest) SetTotalAmount(v int64) *NotifyDigitalkeyWithholdpreRequest {
 	s.TotalAmount = &v
 	return s
 }
 
-func (s *NotifyDigitalkeyWithholdRequest) SetAgreementNo(v string) *NotifyDigitalkeyWithholdRequest {
-	s.AgreementNo = &v
+func (s *NotifyDigitalkeyWithholdpreRequest) SetExternalAgreementNo(v string) *NotifyDigitalkeyWithholdpreRequest {
+	s.ExternalAgreementNo = &v
 	return s
 }
 
-type NotifyDigitalkeyWithholdResponse struct {
+type NotifyDigitalkeyWithholdpreResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回对象
-	AntdigitalWithholdResponse *AntdigitalWithHoldResponse `json:"antdigital_withhold_response,omitempty" xml:"antdigital_withhold_response,omitempty"`
+	// 子返回码
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 子返回码描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+	// 返回内容
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s NotifyDigitalkeyWithholdResponse) String() string {
+func (s NotifyDigitalkeyWithholdpreResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NotifyDigitalkeyWithholdResponse) GoString() string {
+func (s NotifyDigitalkeyWithholdpreResponse) GoString() string {
 	return s.String()
 }
 
-func (s *NotifyDigitalkeyWithholdResponse) SetReqMsgId(v string) *NotifyDigitalkeyWithholdResponse {
+func (s *NotifyDigitalkeyWithholdpreResponse) SetReqMsgId(v string) *NotifyDigitalkeyWithholdpreResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *NotifyDigitalkeyWithholdResponse) SetResultCode(v string) *NotifyDigitalkeyWithholdResponse {
+func (s *NotifyDigitalkeyWithholdpreResponse) SetResultCode(v string) *NotifyDigitalkeyWithholdpreResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *NotifyDigitalkeyWithholdResponse) SetResultMsg(v string) *NotifyDigitalkeyWithholdResponse {
+func (s *NotifyDigitalkeyWithholdpreResponse) SetResultMsg(v string) *NotifyDigitalkeyWithholdpreResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *NotifyDigitalkeyWithholdResponse) SetAntdigitalWithholdResponse(v *AntdigitalWithHoldResponse) *NotifyDigitalkeyWithholdResponse {
-	s.AntdigitalWithholdResponse = v
+func (s *NotifyDigitalkeyWithholdpreResponse) SetSubCode(v string) *NotifyDigitalkeyWithholdpreResponse {
+	s.SubCode = &v
+	return s
+}
+
+func (s *NotifyDigitalkeyWithholdpreResponse) SetSubMsg(v string) *NotifyDigitalkeyWithholdpreResponse {
+	s.SubMsg = &v
+	return s
+}
+
+func (s *NotifyDigitalkeyWithholdpreResponse) SetData(v string) *NotifyDigitalkeyWithholdpreResponse {
+	s.Data = &v
 	return s
 }
 
@@ -18950,8 +19000,12 @@ type QueryDigitalkeyWithholdpayResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回对象
-	AntdigitalWithholdResponse *AntdigitalWithHoldResponse `json:"antdigital_withhold_response,omitempty" xml:"antdigital_withhold_response,omitempty"`
+	// 返回内容
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 子返回码
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 子返回描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
 }
 
 func (s QueryDigitalkeyWithholdpayResponse) String() string {
@@ -18977,8 +19031,95 @@ func (s *QueryDigitalkeyWithholdpayResponse) SetResultMsg(v string) *QueryDigita
 	return s
 }
 
-func (s *QueryDigitalkeyWithholdpayResponse) SetAntdigitalWithholdResponse(v *AntdigitalWithHoldResponse) *QueryDigitalkeyWithholdpayResponse {
-	s.AntdigitalWithholdResponse = v
+func (s *QueryDigitalkeyWithholdpayResponse) SetData(v string) *QueryDigitalkeyWithholdpayResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *QueryDigitalkeyWithholdpayResponse) SetSubCode(v string) *QueryDigitalkeyWithholdpayResponse {
+	s.SubCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyWithholdpayResponse) SetSubMsg(v string) *QueryDigitalkeyWithholdpayResponse {
+	s.SubMsg = &v
+	return s
+}
+
+type QueryDigitalkeyTradepayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单支付时传入的商户订单号
+	OutTradeNo *string `json:"out_trade_no,omitempty" xml:"out_trade_no,omitempty" require:"true"`
+	// 签约绑定的用户支付宝ID
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true"`
+}
+
+func (s QueryDigitalkeyTradepayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyTradepayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyTradepayRequest) SetAuthToken(v string) *QueryDigitalkeyTradepayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDigitalkeyTradepayRequest) SetProductInstanceId(v string) *QueryDigitalkeyTradepayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyTradepayRequest) SetOutTradeNo(v string) *QueryDigitalkeyTradepayRequest {
+	s.OutTradeNo = &v
+	return s
+}
+
+func (s *QueryDigitalkeyTradepayRequest) SetAlipayUserId(v string) *QueryDigitalkeyTradepayRequest {
+	s.AlipayUserId = &v
+	return s
+}
+
+type QueryDigitalkeyTradepayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// test
+	X *string `json:"x,omitempty" xml:"x,omitempty"`
+}
+
+func (s QueryDigitalkeyTradepayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyTradepayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyTradepayResponse) SetReqMsgId(v string) *QueryDigitalkeyTradepayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyTradepayResponse) SetResultCode(v string) *QueryDigitalkeyTradepayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyTradepayResponse) SetResultMsg(v string) *QueryDigitalkeyTradepayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDigitalkeyTradepayResponse) SetX(v string) *QueryDigitalkeyTradepayResponse {
+	s.X = &v
 	return s
 }
 
@@ -30084,6 +30225,83 @@ func (s *ImportTechintegrationSkugrantwhitelistResponse) SetInvalidSnList(v []*s
 	return s
 }
 
+type SendThingDataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 场景码
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 上报数据模型ID
+	DataModelId *string `json:"data_model_id,omitempty" xml:"data_model_id,omitempty" require:"true"`
+	// 物模型数据集合
+	ThingDataList []*string `json:"thing_data_list,omitempty" xml:"thing_data_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SendThingDataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendThingDataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendThingDataRequest) SetAuthToken(v string) *SendThingDataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendThingDataRequest) SetProductInstanceId(v string) *SendThingDataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendThingDataRequest) SetScene(v string) *SendThingDataRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *SendThingDataRequest) SetDataModelId(v string) *SendThingDataRequest {
+	s.DataModelId = &v
+	return s
+}
+
+func (s *SendThingDataRequest) SetThingDataList(v []*string) *SendThingDataRequest {
+	s.ThingDataList = v
+	return s
+}
+
+type SendThingDataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SendThingDataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendThingDataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendThingDataResponse) SetReqMsgId(v string) *SendThingDataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendThingDataResponse) SetResultCode(v string) *SendThingDataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendThingDataResponse) SetResultMsg(v string) *SendThingDataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -31854,7 +32072,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.10"),
+				"sdk_version":      tea.String("1.11.12"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -35243,11 +35461,11 @@ func (client *Client) PublishDevicecorpThingmodelEx(request *PublishDevicecorpTh
  * Description: 代扣签约链接获取
  * Summary: 代扣签约链接获取
  */
-func (client *Client) SignDigitalkeyWithhold(request *SignDigitalkeyWithholdRequest) (_result *SignDigitalkeyWithholdResponse, _err error) {
+func (client *Client) CreateDigitalkeyWithholdsign(request *CreateDigitalkeyWithholdsignRequest) (_result *CreateDigitalkeyWithholdsignResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &SignDigitalkeyWithholdResponse{}
-	_body, _err := client.SignDigitalkeyWithholdEx(request, headers, runtime)
+	_result = &CreateDigitalkeyWithholdsignResponse{}
+	_body, _err := client.CreateDigitalkeyWithholdsignEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35259,13 +35477,13 @@ func (client *Client) SignDigitalkeyWithhold(request *SignDigitalkeyWithholdRequ
  * Description: 代扣签约链接获取
  * Summary: 代扣签约链接获取
  */
-func (client *Client) SignDigitalkeyWithholdEx(request *SignDigitalkeyWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SignDigitalkeyWithholdResponse, _err error) {
+func (client *Client) CreateDigitalkeyWithholdsignEx(request *CreateDigitalkeyWithholdsignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDigitalkeyWithholdsignResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &SignDigitalkeyWithholdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withhold.sign"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &CreateDigitalkeyWithholdsignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withholdsign.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35277,11 +35495,11 @@ func (client *Client) SignDigitalkeyWithholdEx(request *SignDigitalkeyWithholdRe
  * Description: 代扣签约解除
  * Summary: 代扣签约解除
  */
-func (client *Client) UnbindDigitalkeyWithhold(request *UnbindDigitalkeyWithholdRequest) (_result *UnbindDigitalkeyWithholdResponse, _err error) {
+func (client *Client) UnbindDigitalkeyWithholdsign(request *UnbindDigitalkeyWithholdsignRequest) (_result *UnbindDigitalkeyWithholdsignResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &UnbindDigitalkeyWithholdResponse{}
-	_body, _err := client.UnbindDigitalkeyWithholdEx(request, headers, runtime)
+	_result = &UnbindDigitalkeyWithholdsignResponse{}
+	_body, _err := client.UnbindDigitalkeyWithholdsignEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35293,13 +35511,13 @@ func (client *Client) UnbindDigitalkeyWithhold(request *UnbindDigitalkeyWithhold
  * Description: 代扣签约解除
  * Summary: 代扣签约解除
  */
-func (client *Client) UnbindDigitalkeyWithholdEx(request *UnbindDigitalkeyWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnbindDigitalkeyWithholdResponse, _err error) {
+func (client *Client) UnbindDigitalkeyWithholdsignEx(request *UnbindDigitalkeyWithholdsignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnbindDigitalkeyWithholdsignResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UnbindDigitalkeyWithholdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withhold.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &UnbindDigitalkeyWithholdsignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withholdsign.unbind"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35342,14 +35560,14 @@ func (client *Client) PayDigitalkeyWithholdEx(request *PayDigitalkeyWithholdRequ
 }
 
 /**
- * Description: 代扣支付退款
- * Summary: 代扣支付退款
+ * Description: 代扣支付交易退款
+ * Summary: 代扣支付交易退款
  */
-func (client *Client) RefuseDigitalkeyWithhold(request *RefuseDigitalkeyWithholdRequest) (_result *RefuseDigitalkeyWithholdResponse, _err error) {
+func (client *Client) RefuseDigitalkeyWithholdpay(request *RefuseDigitalkeyWithholdpayRequest) (_result *RefuseDigitalkeyWithholdpayResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &RefuseDigitalkeyWithholdResponse{}
-	_body, _err := client.RefuseDigitalkeyWithholdEx(request, headers, runtime)
+	_result = &RefuseDigitalkeyWithholdpayResponse{}
+	_body, _err := client.RefuseDigitalkeyWithholdpayEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35358,16 +35576,16 @@ func (client *Client) RefuseDigitalkeyWithhold(request *RefuseDigitalkeyWithhold
 }
 
 /**
- * Description: 代扣支付退款
- * Summary: 代扣支付退款
+ * Description: 代扣支付交易退款
+ * Summary: 代扣支付交易退款
  */
-func (client *Client) RefuseDigitalkeyWithholdEx(request *RefuseDigitalkeyWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefuseDigitalkeyWithholdResponse, _err error) {
+func (client *Client) RefuseDigitalkeyWithholdpayEx(request *RefuseDigitalkeyWithholdpayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RefuseDigitalkeyWithholdpayResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &RefuseDigitalkeyWithholdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withhold.refuse"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &RefuseDigitalkeyWithholdpayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withholdpay.refuse"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35379,11 +35597,11 @@ func (client *Client) RefuseDigitalkeyWithholdEx(request *RefuseDigitalkeyWithho
  * Description: 代扣协议查询
  * Summary: 代扣协议查询
  */
-func (client *Client) QueryDigitalkeyWithhold(request *QueryDigitalkeyWithholdRequest) (_result *QueryDigitalkeyWithholdResponse, _err error) {
+func (client *Client) QueryDigitalkeyWithholdsign(request *QueryDigitalkeyWithholdsignRequest) (_result *QueryDigitalkeyWithholdsignResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryDigitalkeyWithholdResponse{}
-	_body, _err := client.QueryDigitalkeyWithholdEx(request, headers, runtime)
+	_result = &QueryDigitalkeyWithholdsignResponse{}
+	_body, _err := client.QueryDigitalkeyWithholdsignEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35395,13 +35613,13 @@ func (client *Client) QueryDigitalkeyWithhold(request *QueryDigitalkeyWithholdRe
  * Description: 代扣协议查询
  * Summary: 代扣协议查询
  */
-func (client *Client) QueryDigitalkeyWithholdEx(request *QueryDigitalkeyWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyWithholdResponse, _err error) {
+func (client *Client) QueryDigitalkeyWithholdsignEx(request *QueryDigitalkeyWithholdsignRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyWithholdsignResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryDigitalkeyWithholdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withhold.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryDigitalkeyWithholdsignResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withholdsign.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35410,14 +35628,14 @@ func (client *Client) QueryDigitalkeyWithholdEx(request *QueryDigitalkeyWithhold
 }
 
 /**
- * Description: 代扣撤销
- * Summary: 代扣撤销
+ * Description: 代扣支付撤销
+ * Summary: 代扣支付撤销
  */
-func (client *Client) CancelDigitalkeyWithhold(request *CancelDigitalkeyWithholdRequest) (_result *CancelDigitalkeyWithholdResponse, _err error) {
+func (client *Client) CancelDigitalkeyWithholdpay(request *CancelDigitalkeyWithholdpayRequest) (_result *CancelDigitalkeyWithholdpayResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &CancelDigitalkeyWithholdResponse{}
-	_body, _err := client.CancelDigitalkeyWithholdEx(request, headers, runtime)
+	_result = &CancelDigitalkeyWithholdpayResponse{}
+	_body, _err := client.CancelDigitalkeyWithholdpayEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35426,16 +35644,16 @@ func (client *Client) CancelDigitalkeyWithhold(request *CancelDigitalkeyWithhold
 }
 
 /**
- * Description: 代扣撤销
- * Summary: 代扣撤销
+ * Description: 代扣支付撤销
+ * Summary: 代扣支付撤销
  */
-func (client *Client) CancelDigitalkeyWithholdEx(request *CancelDigitalkeyWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelDigitalkeyWithholdResponse, _err error) {
+func (client *Client) CancelDigitalkeyWithholdpayEx(request *CancelDigitalkeyWithholdpayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelDigitalkeyWithholdpayResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &CancelDigitalkeyWithholdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withhold.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &CancelDigitalkeyWithholdpayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withholdpay.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35447,11 +35665,11 @@ func (client *Client) CancelDigitalkeyWithholdEx(request *CancelDigitalkeyWithho
  * Description: 代扣扣款前预通知
  * Summary: 代扣扣款前预通知
  */
-func (client *Client) NotifyDigitalkeyWithhold(request *NotifyDigitalkeyWithholdRequest) (_result *NotifyDigitalkeyWithholdResponse, _err error) {
+func (client *Client) NotifyDigitalkeyWithholdpre(request *NotifyDigitalkeyWithholdpreRequest) (_result *NotifyDigitalkeyWithholdpreResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &NotifyDigitalkeyWithholdResponse{}
-	_body, _err := client.NotifyDigitalkeyWithholdEx(request, headers, runtime)
+	_result = &NotifyDigitalkeyWithholdpreResponse{}
+	_body, _err := client.NotifyDigitalkeyWithholdpreEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35463,13 +35681,13 @@ func (client *Client) NotifyDigitalkeyWithhold(request *NotifyDigitalkeyWithhold
  * Description: 代扣扣款前预通知
  * Summary: 代扣扣款前预通知
  */
-func (client *Client) NotifyDigitalkeyWithholdEx(request *NotifyDigitalkeyWithholdRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyDigitalkeyWithholdResponse, _err error) {
+func (client *Client) NotifyDigitalkeyWithholdpreEx(request *NotifyDigitalkeyWithholdpreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyDigitalkeyWithholdpreResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &NotifyDigitalkeyWithholdResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withhold.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &NotifyDigitalkeyWithholdpreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withholdpre.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -35640,6 +35858,40 @@ func (client *Client) QueryDigitalkeyWithholdpayEx(request *QueryDigitalkeyWithh
 	}
 	_result = &QueryDigitalkeyWithholdpayResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.withholdpay.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代扣支付查询
+ * Summary: 代扣支付查询
+ */
+func (client *Client) QueryDigitalkeyTradepay(request *QueryDigitalkeyTradepayRequest) (_result *QueryDigitalkeyTradepayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDigitalkeyTradepayResponse{}
+	_body, _err := client.QueryDigitalkeyTradepayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代扣支付查询
+ * Summary: 代扣支付查询
+ */
+func (client *Client) QueryDigitalkeyTradepayEx(request *QueryDigitalkeyTradepayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyTradepayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDigitalkeyTradepayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.tradepay.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -39490,8 +39742,8 @@ func (client *Client) CallbackThingServicebyeventEx(request *CallbackThingServic
 }
 
 /**
- * Description: 客户添加SKU授权白名单
- * Summary: 客户添加SKU授权白名单
+ * Description: 添加SKU授权白名单
+ * Summary: 添加SKU授权白名单
  */
 func (client *Client) ImportTechintegrationSkugrantwhitelist(request *ImportTechintegrationSkugrantwhitelistRequest) (_result *ImportTechintegrationSkugrantwhitelistResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -39506,8 +39758,8 @@ func (client *Client) ImportTechintegrationSkugrantwhitelist(request *ImportTech
 }
 
 /**
- * Description: 客户添加SKU授权白名单
- * Summary: 客户添加SKU授权白名单
+ * Description: 添加SKU授权白名单
+ * Summary: 添加SKU授权白名单
  */
 func (client *Client) ImportTechintegrationSkugrantwhitelistEx(request *ImportTechintegrationSkugrantwhitelistRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportTechintegrationSkugrantwhitelistResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -39516,6 +39768,40 @@ func (client *Client) ImportTechintegrationSkugrantwhitelistEx(request *ImportTe
 	}
 	_result = &ImportTechintegrationSkugrantwhitelistResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.techintegration.skugrantwhitelist.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 物模型数据上报
+ * Summary: 物模型数据上报
+ */
+func (client *Client) SendThingData(request *SendThingDataRequest) (_result *SendThingDataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendThingDataResponse{}
+	_body, _err := client.SendThingDataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 物模型数据上报
+ * Summary: 物模型数据上报
+ */
+func (client *Client) SendThingDataEx(request *SendThingDataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendThingDataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendThingDataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thing.data.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
