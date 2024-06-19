@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class NotifyDigitalkeyWithholdRequest extends Model
+class RefuseDigitalkeyWithholdpayRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,36 +19,36 @@ class NotifyDigitalkeyWithholdRequest extends Model
      */
     public $productInstanceId;
 
-    // 商户请求号。 由商家自定义，64个字符以内，仅支持字母、数字、下划线且需保证在商户端不重复
+    // 订单支付时传入的商户订单号,不能和 trade_no同时为空。
+    /**
+     * @var string
+     */
+    public $outTradeNo;
+
+    // 需要退款的金额，该金额不能大于订单金额,单位为元，支持两位小数
+    /**
+     * @var int
+     */
+    public $refundAmount;
+
+    // 标识一次退款请求，同一笔交易多次退款需要保证唯一。
     /**
      * @var string
      */
     public $outRequestNo;
-
-    // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
-    /**
-     * @var int
-     */
-    public $totalAmount;
-
-    // 代扣协议号, 对应于签约时，支付宝返回的协议
-    /**
-     * @var string
-     */
-    public $agreementNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'outTradeNo'        => 'out_trade_no',
+        'refundAmount'      => 'refund_amount',
         'outRequestNo'      => 'out_request_no',
-        'totalAmount'       => 'total_amount',
-        'agreementNo'       => 'agreement_no',
     ];
 
     public function validate()
     {
+        Model::validateRequired('outTradeNo', $this->outTradeNo, true);
+        Model::validateRequired('refundAmount', $this->refundAmount, true);
         Model::validateRequired('outRequestNo', $this->outRequestNo, true);
-        Model::validateRequired('totalAmount', $this->totalAmount, true);
-        Model::validateRequired('agreementNo', $this->agreementNo, true);
     }
 
     public function toMap()
@@ -60,14 +60,14 @@ class NotifyDigitalkeyWithholdRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->outTradeNo) {
+            $res['out_trade_no'] = $this->outTradeNo;
+        }
+        if (null !== $this->refundAmount) {
+            $res['refund_amount'] = $this->refundAmount;
+        }
         if (null !== $this->outRequestNo) {
             $res['out_request_no'] = $this->outRequestNo;
-        }
-        if (null !== $this->totalAmount) {
-            $res['total_amount'] = $this->totalAmount;
-        }
-        if (null !== $this->agreementNo) {
-            $res['agreement_no'] = $this->agreementNo;
         }
 
         return $res;
@@ -76,7 +76,7 @@ class NotifyDigitalkeyWithholdRequest extends Model
     /**
      * @param array $map
      *
-     * @return NotifyDigitalkeyWithholdRequest
+     * @return RefuseDigitalkeyWithholdpayRequest
      */
     public static function fromMap($map = [])
     {
@@ -87,14 +87,14 @@ class NotifyDigitalkeyWithholdRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['out_trade_no'])) {
+            $model->outTradeNo = $map['out_trade_no'];
+        }
+        if (isset($map['refund_amount'])) {
+            $model->refundAmount = $map['refund_amount'];
+        }
         if (isset($map['out_request_no'])) {
             $model->outRequestNo = $map['out_request_no'];
-        }
-        if (isset($map['total_amount'])) {
-            $model->totalAmount = $map['total_amount'];
-        }
-        if (isset($map['agreement_no'])) {
-            $model->agreementNo = $map['agreement_no'];
         }
 
         return $model;

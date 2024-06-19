@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RefuseDigitalkeyWithholdRequest extends Model
+class QueryDigitalkeyTradepayRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,36 +19,28 @@ class RefuseDigitalkeyWithholdRequest extends Model
      */
     public $productInstanceId;
 
-    // 订单支付时传入的商户订单号,不能和 trade_no同时为空。
+    // 订单支付时传入的商户订单号
     /**
      * @var string
      */
     public $outTradeNo;
 
-    // 需要退款的金额，该金额不能大于订单金额,单位为元，支持两位小数
-    /**
-     * @var int
-     */
-    public $refundAmount;
-
-    // 标识一次退款请求，同一笔交易多次退款需要保证唯一。
+    // 签约绑定的用户支付宝ID
     /**
      * @var string
      */
-    public $outRequestNo;
+    public $alipayUserId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outTradeNo'        => 'out_trade_no',
-        'refundAmount'      => 'refund_amount',
-        'outRequestNo'      => 'out_request_no',
+        'alipayUserId'      => 'alipay_user_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('outTradeNo', $this->outTradeNo, true);
-        Model::validateRequired('refundAmount', $this->refundAmount, true);
-        Model::validateRequired('outRequestNo', $this->outRequestNo, true);
+        Model::validateRequired('alipayUserId', $this->alipayUserId, true);
     }
 
     public function toMap()
@@ -63,11 +55,8 @@ class RefuseDigitalkeyWithholdRequest extends Model
         if (null !== $this->outTradeNo) {
             $res['out_trade_no'] = $this->outTradeNo;
         }
-        if (null !== $this->refundAmount) {
-            $res['refund_amount'] = $this->refundAmount;
-        }
-        if (null !== $this->outRequestNo) {
-            $res['out_request_no'] = $this->outRequestNo;
+        if (null !== $this->alipayUserId) {
+            $res['alipay_user_id'] = $this->alipayUserId;
         }
 
         return $res;
@@ -76,7 +65,7 @@ class RefuseDigitalkeyWithholdRequest extends Model
     /**
      * @param array $map
      *
-     * @return RefuseDigitalkeyWithholdRequest
+     * @return QueryDigitalkeyTradepayRequest
      */
     public static function fromMap($map = [])
     {
@@ -90,11 +79,8 @@ class RefuseDigitalkeyWithholdRequest extends Model
         if (isset($map['out_trade_no'])) {
             $model->outTradeNo = $map['out_trade_no'];
         }
-        if (isset($map['refund_amount'])) {
-            $model->refundAmount = $map['refund_amount'];
-        }
-        if (isset($map['out_request_no'])) {
-            $model->outRequestNo = $map['out_request_no'];
+        if (isset($map['alipay_user_id'])) {
+            $model->alipayUserId = $map['alipay_user_id'];
         }
 
         return $model;

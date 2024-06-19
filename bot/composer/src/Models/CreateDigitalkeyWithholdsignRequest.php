@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SignDigitalkeyWithholdRequest extends Model
+class CreateDigitalkeyWithholdsignRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -160,7 +160,7 @@ class SignDigitalkeyWithholdRequest extends Model
     /**
      * @param array $map
      *
-     * @return SignDigitalkeyWithholdRequest
+     * @return CreateDigitalkeyWithholdsignRequest
      */
     public static function fromMap($map = [])
     {

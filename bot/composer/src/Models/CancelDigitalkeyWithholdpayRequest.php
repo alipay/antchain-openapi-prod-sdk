@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelDigitalkeyWithholdRequest extends Model
+class CancelDigitalkeyWithholdpayRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -54,7 +54,7 @@ class CancelDigitalkeyWithholdRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelDigitalkeyWithholdRequest
+     * @return CancelDigitalkeyWithholdpayRequest
      */
     public static function fromMap($map = [])
     {

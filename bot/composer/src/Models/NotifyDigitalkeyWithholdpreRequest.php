@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UnbindDigitalkeyWithholdRequest extends Model
+class NotifyDigitalkeyWithholdpreRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,23 +19,17 @@ class UnbindDigitalkeyWithholdRequest extends Model
      */
     public $productInstanceId;
 
-    // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+    // 商户请求号。 由商家自定义，64个字符以内，仅支持字母、数字、下划线且需保证在商户端不重复
     /**
      * @var string
      */
-    public $alipayUserId;
+    public $outRequestNo;
 
-    // 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
+    // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
     /**
-     * @var string
+     * @var int
      */
-    public $personalProductCode;
-
-    // 签约协议场景，商户和支付宝签约时确定，解约时，传入签约指定的场景信息。
-    /**
-     * @var string
-     */
-    public $signScene;
+    public $totalAmount;
 
     // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
     /**
@@ -45,17 +39,15 @@ class UnbindDigitalkeyWithholdRequest extends Model
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
-        'alipayUserId'        => 'alipay_user_id',
-        'personalProductCode' => 'personal_product_code',
-        'signScene'           => 'sign_scene',
+        'outRequestNo'        => 'out_request_no',
+        'totalAmount'         => 'total_amount',
         'externalAgreementNo' => 'external_agreement_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('alipayUserId', $this->alipayUserId, true);
-        Model::validateRequired('personalProductCode', $this->personalProductCode, true);
-        Model::validateRequired('signScene', $this->signScene, true);
+        Model::validateRequired('outRequestNo', $this->outRequestNo, true);
+        Model::validateRequired('totalAmount', $this->totalAmount, true);
         Model::validateRequired('externalAgreementNo', $this->externalAgreementNo, true);
     }
 
@@ -68,14 +60,11 @@ class UnbindDigitalkeyWithholdRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->alipayUserId) {
-            $res['alipay_user_id'] = $this->alipayUserId;
+        if (null !== $this->outRequestNo) {
+            $res['out_request_no'] = $this->outRequestNo;
         }
-        if (null !== $this->personalProductCode) {
-            $res['personal_product_code'] = $this->personalProductCode;
-        }
-        if (null !== $this->signScene) {
-            $res['sign_scene'] = $this->signScene;
+        if (null !== $this->totalAmount) {
+            $res['total_amount'] = $this->totalAmount;
         }
         if (null !== $this->externalAgreementNo) {
             $res['external_agreement_no'] = $this->externalAgreementNo;
@@ -87,7 +76,7 @@ class UnbindDigitalkeyWithholdRequest extends Model
     /**
      * @param array $map
      *
-     * @return UnbindDigitalkeyWithholdRequest
+     * @return NotifyDigitalkeyWithholdpreRequest
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +87,11 @@ class UnbindDigitalkeyWithholdRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['alipay_user_id'])) {
-            $model->alipayUserId = $map['alipay_user_id'];
+        if (isset($map['out_request_no'])) {
+            $model->outRequestNo = $map['out_request_no'];
         }
-        if (isset($map['personal_product_code'])) {
-            $model->personalProductCode = $map['personal_product_code'];
-        }
-        if (isset($map['sign_scene'])) {
-            $model->signScene = $map['sign_scene'];
+        if (isset($map['total_amount'])) {
+            $model->totalAmount = $map['total_amount'];
         }
         if (isset($map['external_agreement_no'])) {
             $model->externalAgreementNo = $map['external_agreement_no'];

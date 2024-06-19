@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UnbindDigitalkeyWithholdResponse extends Model
+class UnbindDigitalkeyWithholdsignResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -37,12 +37,19 @@ class UnbindDigitalkeyWithholdResponse extends Model
      * @var string
      */
     public $subMsg;
+
+    // 返回内容
+    /**
+     * @var string
+     */
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'subCode'    => 'sub_code',
         'subMsg'     => 'sub_msg',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class UnbindDigitalkeyWithholdResponse extends Model
         if (null !== $this->subMsg) {
             $res['sub_msg'] = $this->subMsg;
         }
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
+        }
 
         return $res;
     }
@@ -74,7 +84,7 @@ class UnbindDigitalkeyWithholdResponse extends Model
     /**
      * @param array $map
      *
-     * @return UnbindDigitalkeyWithholdResponse
+     * @return UnbindDigitalkeyWithholdsignResponse
      */
     public static function fromMap($map = [])
     {
@@ -93,6 +103,9 @@ class UnbindDigitalkeyWithholdResponse extends Model
         }
         if (isset($map['sub_msg'])) {
             $model->subMsg = $map['sub_msg'];
+        }
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
 
         return $model;

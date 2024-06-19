@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SignDigitalkeyWithholdResponse extends Model
+class CancelDigitalkeyWithholdpayResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,19 +26,19 @@ class SignDigitalkeyWithholdResponse extends Model
      */
     public $resultMsg;
 
-    // 明细返回码
+    // 子返回码
     /**
      * @var string
      */
     public $subCode;
 
-    // 明细返回码描述
+    // 子返回码描述
     /**
      * @var string
      */
     public $subMsg;
 
-    // 生成的签约链接地址
+    // 返回内容，json格式
     /**
      * @var string
      */
@@ -84,7 +84,7 @@ class SignDigitalkeyWithholdResponse extends Model
     /**
      * @param array $map
      *
-     * @return SignDigitalkeyWithholdResponse
+     * @return CancelDigitalkeyWithholdpayResponse
      */
     public static function fromMap($map = [])
     {

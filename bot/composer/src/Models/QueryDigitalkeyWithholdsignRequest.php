@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryDigitalkeyWithholdRequest extends Model
+class QueryDigitalkeyWithholdsignRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -20,6 +20,7 @@ class QueryDigitalkeyWithholdRequest extends Model
     public $productInstanceId;
 
     // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+    //
     /**
      * @var string
      */
@@ -87,7 +88,7 @@ class QueryDigitalkeyWithholdRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryDigitalkeyWithholdRequest
+     * @return QueryDigitalkeyWithholdsignRequest
      */
     public static function fromMap($map = [])
     {

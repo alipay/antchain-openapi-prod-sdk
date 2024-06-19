@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelDigitalkeyWithholdResponse extends Model
+class QueryDigitalkeyTradepayResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class CancelDigitalkeyWithholdResponse extends Model
      */
     public $resultMsg;
 
-    // 返回对象
+    // test
     /**
-     * @var AntdigitalWithHoldResponse
+     * @var string
      */
-    public $antdigitalWithholdResponse;
+    public $x;
     protected $_name = [
-        'reqMsgId'                   => 'req_msg_id',
-        'resultCode'                 => 'result_code',
-        'resultMsg'                  => 'result_msg',
-        'antdigitalWithholdResponse' => 'antdigital_withhold_response',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'x'          => 'x',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class CancelDigitalkeyWithholdResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->antdigitalWithholdResponse) {
-            $res['antdigital_withhold_response'] = null !== $this->antdigitalWithholdResponse ? $this->antdigitalWithholdResponse->toMap() : null;
+        if (null !== $this->x) {
+            $res['x'] = $this->x;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class CancelDigitalkeyWithholdResponse extends Model
     /**
      * @param array $map
      *
-     * @return CancelDigitalkeyWithholdResponse
+     * @return QueryDigitalkeyTradepayResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class CancelDigitalkeyWithholdResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['antdigital_withhold_response'])) {
-            $model->antdigitalWithholdResponse = AntdigitalWithHoldResponse::fromMap($map['antdigital_withhold_response']);
+        if (isset($map['x'])) {
+            $model->x = $map['x'];
         }
 
         return $model;
