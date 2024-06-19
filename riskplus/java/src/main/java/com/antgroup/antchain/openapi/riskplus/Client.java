@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.14"),
+                    new TeaPair("sdk_version", "1.19.15"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2375,6 +2375,25 @@ public class Client {
     public GetRbbCustomerInformationResponse getRbbCustomerInformationEx(GetRbbCustomerInformationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetRbbCustomerInformationResponse());
+    }
+
+    /**
+     * Description: 获取税票授权数据
+     * Summary: 获取税票授权数据
+     */
+    public GetRbbTaxinvoiceDataResponse getRbbTaxinvoiceData(GetRbbTaxinvoiceDataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getRbbTaxinvoiceDataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取税票授权数据
+     * Summary: 获取税票授权数据
+     */
+    public GetRbbTaxinvoiceDataResponse getRbbTaxinvoiceDataEx(GetRbbTaxinvoiceDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.taxinvoice.data.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetRbbTaxinvoiceDataResponse());
     }
 
     /**
