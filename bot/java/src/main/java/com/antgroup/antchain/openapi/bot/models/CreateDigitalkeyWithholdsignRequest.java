@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class SignDigitalkeyWithholdRequest extends TeaModel {
+public class CreateDigitalkeyWithholdsignRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -62,12 +62,12 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
     @NameInMap("effect_time")
     public Long effectTime;
 
-    public static SignDigitalkeyWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
-        SignDigitalkeyWithholdRequest self = new SignDigitalkeyWithholdRequest();
+    public static CreateDigitalkeyWithholdsignRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateDigitalkeyWithholdsignRequest self = new CreateDigitalkeyWithholdsignRequest();
         return TeaModel.build(map, self);
     }
 
-    public SignDigitalkeyWithholdRequest setAuthToken(String authToken) {
+    public CreateDigitalkeyWithholdsignRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -75,7 +75,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.authToken;
     }
 
-    public SignDigitalkeyWithholdRequest setProductInstanceId(String productInstanceId) {
+    public CreateDigitalkeyWithholdsignRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -83,7 +83,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public SignDigitalkeyWithholdRequest setPersonalProductCode(String personalProductCode) {
+    public CreateDigitalkeyWithholdsignRequest setPersonalProductCode(String personalProductCode) {
         this.personalProductCode = personalProductCode;
         return this;
     }
@@ -91,7 +91,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.personalProductCode;
     }
 
-    public SignDigitalkeyWithholdRequest setProductCode(String productCode) {
+    public CreateDigitalkeyWithholdsignRequest setProductCode(String productCode) {
         this.productCode = productCode;
         return this;
     }
@@ -99,7 +99,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.productCode;
     }
 
-    public SignDigitalkeyWithholdRequest setChannel(String channel) {
+    public CreateDigitalkeyWithholdsignRequest setChannel(String channel) {
         this.channel = channel;
         return this;
     }
@@ -107,7 +107,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.channel;
     }
 
-    public SignDigitalkeyWithholdRequest setReturnUrl(String returnUrl) {
+    public CreateDigitalkeyWithholdsignRequest setReturnUrl(String returnUrl) {
         this.returnUrl = returnUrl;
         return this;
     }
@@ -115,7 +115,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.returnUrl;
     }
 
-    public SignDigitalkeyWithholdRequest setExternalLogonId(String externalLogonId) {
+    public CreateDigitalkeyWithholdsignRequest setExternalLogonId(String externalLogonId) {
         this.externalLogonId = externalLogonId;
         return this;
     }
@@ -123,7 +123,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.externalLogonId;
     }
 
-    public SignDigitalkeyWithholdRequest setAlipayUserId(String alipayUserId) {
+    public CreateDigitalkeyWithholdsignRequest setAlipayUserId(String alipayUserId) {
         this.alipayUserId = alipayUserId;
         return this;
     }
@@ -131,7 +131,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.alipayUserId;
     }
 
-    public SignDigitalkeyWithholdRequest setSignScene(String signScene) {
+    public CreateDigitalkeyWithholdsignRequest setSignScene(String signScene) {
         this.signScene = signScene;
         return this;
     }
@@ -139,7 +139,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.signScene;
     }
 
-    public SignDigitalkeyWithholdRequest setExternalAgreementNo(String externalAgreementNo) {
+    public CreateDigitalkeyWithholdsignRequest setExternalAgreementNo(String externalAgreementNo) {
         this.externalAgreementNo = externalAgreementNo;
         return this;
     }
@@ -147,7 +147,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.externalAgreementNo;
     }
 
-    public SignDigitalkeyWithholdRequest setSubMerchant(SubMerchantParams subMerchant) {
+    public CreateDigitalkeyWithholdsignRequest setSubMerchant(SubMerchantParams subMerchant) {
         this.subMerchant = subMerchant;
         return this;
     }
@@ -155,7 +155,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.subMerchant;
     }
 
-    public SignDigitalkeyWithholdRequest setSignValidityPeriod(String signValidityPeriod) {
+    public CreateDigitalkeyWithholdsignRequest setSignValidityPeriod(String signValidityPeriod) {
         this.signValidityPeriod = signValidityPeriod;
         return this;
     }
@@ -163,7 +163,7 @@ public class SignDigitalkeyWithholdRequest extends TeaModel {
         return this.signValidityPeriod;
     }
 
-    public SignDigitalkeyWithholdRequest setEffectTime(Long effectTime) {
+    public CreateDigitalkeyWithholdsignRequest setEffectTime(Long effectTime) {
         this.effectTime = effectTime;
         return this;
     }

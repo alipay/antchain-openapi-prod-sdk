@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class UnbindDigitalkeyWithholdResponse extends TeaModel {
+public class QueryDigitalkeyWithholdsignResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -24,12 +24,16 @@ public class UnbindDigitalkeyWithholdResponse extends TeaModel {
     @NameInMap("sub_msg")
     public String subMsg;
 
-    public static UnbindDigitalkeyWithholdResponse build(java.util.Map<String, ?> map) throws Exception {
-        UnbindDigitalkeyWithholdResponse self = new UnbindDigitalkeyWithholdResponse();
+    // 协议查询返回信息 
+    @NameInMap("data")
+    public String data;
+
+    public static QueryDigitalkeyWithholdsignResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryDigitalkeyWithholdsignResponse self = new QueryDigitalkeyWithholdsignResponse();
         return TeaModel.build(map, self);
     }
 
-    public UnbindDigitalkeyWithholdResponse setReqMsgId(String reqMsgId) {
+    public QueryDigitalkeyWithholdsignResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +41,7 @@ public class UnbindDigitalkeyWithholdResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UnbindDigitalkeyWithholdResponse setResultCode(String resultCode) {
+    public QueryDigitalkeyWithholdsignResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +49,7 @@ public class UnbindDigitalkeyWithholdResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UnbindDigitalkeyWithholdResponse setResultMsg(String resultMsg) {
+    public QueryDigitalkeyWithholdsignResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,7 +57,7 @@ public class UnbindDigitalkeyWithholdResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public UnbindDigitalkeyWithholdResponse setSubCode(String subCode) {
+    public QueryDigitalkeyWithholdsignResponse setSubCode(String subCode) {
         this.subCode = subCode;
         return this;
     }
@@ -61,12 +65,20 @@ public class UnbindDigitalkeyWithholdResponse extends TeaModel {
         return this.subCode;
     }
 
-    public UnbindDigitalkeyWithholdResponse setSubMsg(String subMsg) {
+    public QueryDigitalkeyWithholdsignResponse setSubMsg(String subMsg) {
         this.subMsg = subMsg;
         return this;
     }
     public String getSubMsg() {
         return this.subMsg;
+    }
+
+    public QueryDigitalkeyWithholdsignResponse setData(String data) {
+        this.data = data;
+        return this;
+    }
+    public String getData() {
+        return this.data;
     }
 
 }

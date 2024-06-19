@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class UnbindDigitalkeyWithholdRequest extends TeaModel {
+public class QueryDigitalkeyWithholdsignRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,8 @@ public class UnbindDigitalkeyWithholdRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+    // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。	
+    // 
     @NameInMap("alipay_user_id")
     @Validation(required = true)
     public String alipayUserId;
@@ -31,12 +32,12 @@ public class UnbindDigitalkeyWithholdRequest extends TeaModel {
     @Validation(required = true)
     public String externalAgreementNo;
 
-    public static UnbindDigitalkeyWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
-        UnbindDigitalkeyWithholdRequest self = new UnbindDigitalkeyWithholdRequest();
+    public static QueryDigitalkeyWithholdsignRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryDigitalkeyWithholdsignRequest self = new QueryDigitalkeyWithholdsignRequest();
         return TeaModel.build(map, self);
     }
 
-    public UnbindDigitalkeyWithholdRequest setAuthToken(String authToken) {
+    public QueryDigitalkeyWithholdsignRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -44,7 +45,7 @@ public class UnbindDigitalkeyWithholdRequest extends TeaModel {
         return this.authToken;
     }
 
-    public UnbindDigitalkeyWithholdRequest setProductInstanceId(String productInstanceId) {
+    public QueryDigitalkeyWithholdsignRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -52,7 +53,7 @@ public class UnbindDigitalkeyWithholdRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UnbindDigitalkeyWithholdRequest setAlipayUserId(String alipayUserId) {
+    public QueryDigitalkeyWithholdsignRequest setAlipayUserId(String alipayUserId) {
         this.alipayUserId = alipayUserId;
         return this;
     }
@@ -60,7 +61,7 @@ public class UnbindDigitalkeyWithholdRequest extends TeaModel {
         return this.alipayUserId;
     }
 
-    public UnbindDigitalkeyWithholdRequest setPersonalProductCode(String personalProductCode) {
+    public QueryDigitalkeyWithholdsignRequest setPersonalProductCode(String personalProductCode) {
         this.personalProductCode = personalProductCode;
         return this;
     }
@@ -68,7 +69,7 @@ public class UnbindDigitalkeyWithholdRequest extends TeaModel {
         return this.personalProductCode;
     }
 
-    public UnbindDigitalkeyWithholdRequest setSignScene(String signScene) {
+    public QueryDigitalkeyWithholdsignRequest setSignScene(String signScene) {
         this.signScene = signScene;
         return this;
     }
@@ -76,7 +77,7 @@ public class UnbindDigitalkeyWithholdRequest extends TeaModel {
         return this.signScene;
     }
 
-    public UnbindDigitalkeyWithholdRequest setExternalAgreementNo(String externalAgreementNo) {
+    public QueryDigitalkeyWithholdsignRequest setExternalAgreementNo(String externalAgreementNo) {
         this.externalAgreementNo = externalAgreementNo;
         return this;
     }

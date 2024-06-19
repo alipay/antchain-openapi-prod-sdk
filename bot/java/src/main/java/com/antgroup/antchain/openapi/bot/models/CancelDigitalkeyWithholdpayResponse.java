@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class QueryDigitalkeyWithholdResponse extends TeaModel {
+public class CancelDigitalkeyWithholdpayResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,24 +16,24 @@ public class QueryDigitalkeyWithholdResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 明细返回码
+    // 子返回码
     @NameInMap("sub_code")
     public String subCode;
 
-    // 明细返回码描述
+    // 子返回码描述
     @NameInMap("sub_msg")
     public String subMsg;
 
-    // 协议查询返回信息 
+    // 返回内容，json格式
     @NameInMap("data")
     public String data;
 
-    public static QueryDigitalkeyWithholdResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryDigitalkeyWithholdResponse self = new QueryDigitalkeyWithholdResponse();
+    public static CancelDigitalkeyWithholdpayResponse build(java.util.Map<String, ?> map) throws Exception {
+        CancelDigitalkeyWithholdpayResponse self = new CancelDigitalkeyWithholdpayResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryDigitalkeyWithholdResponse setReqMsgId(String reqMsgId) {
+    public CancelDigitalkeyWithholdpayResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryDigitalkeyWithholdResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryDigitalkeyWithholdResponse setResultCode(String resultCode) {
+    public CancelDigitalkeyWithholdpayResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -49,7 +49,7 @@ public class QueryDigitalkeyWithholdResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryDigitalkeyWithholdResponse setResultMsg(String resultMsg) {
+    public CancelDigitalkeyWithholdpayResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -57,7 +57,7 @@ public class QueryDigitalkeyWithholdResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDigitalkeyWithholdResponse setSubCode(String subCode) {
+    public CancelDigitalkeyWithholdpayResponse setSubCode(String subCode) {
         this.subCode = subCode;
         return this;
     }
@@ -65,7 +65,7 @@ public class QueryDigitalkeyWithholdResponse extends TeaModel {
         return this.subCode;
     }
 
-    public QueryDigitalkeyWithholdResponse setSubMsg(String subMsg) {
+    public CancelDigitalkeyWithholdpayResponse setSubMsg(String subMsg) {
         this.subMsg = subMsg;
         return this;
     }
@@ -73,7 +73,7 @@ public class QueryDigitalkeyWithholdResponse extends TeaModel {
         return this.subMsg;
     }
 
-    public QueryDigitalkeyWithholdResponse setData(String data) {
+    public CancelDigitalkeyWithholdpayResponse setData(String data) {
         this.data = data;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class RefuseDigitalkeyWithholdRequest extends TeaModel {
+public class RefuseDigitalkeyWithholdpayRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -26,12 +26,12 @@ public class RefuseDigitalkeyWithholdRequest extends TeaModel {
     @Validation(required = true)
     public String outRequestNo;
 
-    public static RefuseDigitalkeyWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
-        RefuseDigitalkeyWithholdRequest self = new RefuseDigitalkeyWithholdRequest();
+    public static RefuseDigitalkeyWithholdpayRequest build(java.util.Map<String, ?> map) throws Exception {
+        RefuseDigitalkeyWithholdpayRequest self = new RefuseDigitalkeyWithholdpayRequest();
         return TeaModel.build(map, self);
     }
 
-    public RefuseDigitalkeyWithholdRequest setAuthToken(String authToken) {
+    public RefuseDigitalkeyWithholdpayRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +39,7 @@ public class RefuseDigitalkeyWithholdRequest extends TeaModel {
         return this.authToken;
     }
 
-    public RefuseDigitalkeyWithholdRequest setProductInstanceId(String productInstanceId) {
+    public RefuseDigitalkeyWithholdpayRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +47,7 @@ public class RefuseDigitalkeyWithholdRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public RefuseDigitalkeyWithholdRequest setOutTradeNo(String outTradeNo) {
+    public RefuseDigitalkeyWithholdpayRequest setOutTradeNo(String outTradeNo) {
         this.outTradeNo = outTradeNo;
         return this;
     }
@@ -55,7 +55,7 @@ public class RefuseDigitalkeyWithholdRequest extends TeaModel {
         return this.outTradeNo;
     }
 
-    public RefuseDigitalkeyWithholdRequest setRefundAmount(Long refundAmount) {
+    public RefuseDigitalkeyWithholdpayRequest setRefundAmount(Long refundAmount) {
         this.refundAmount = refundAmount;
         return this;
     }
@@ -63,7 +63,7 @@ public class RefuseDigitalkeyWithholdRequest extends TeaModel {
         return this.refundAmount;
     }
 
-    public RefuseDigitalkeyWithholdRequest setOutRequestNo(String outRequestNo) {
+    public RefuseDigitalkeyWithholdpayRequest setOutRequestNo(String outRequestNo) {
         this.outRequestNo = outRequestNo;
         return this;
     }

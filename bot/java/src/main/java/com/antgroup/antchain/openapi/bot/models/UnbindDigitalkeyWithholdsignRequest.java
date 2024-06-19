@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class QueryDigitalkeyWithholdRequest extends TeaModel {
+public class UnbindDigitalkeyWithholdsignRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -31,12 +31,12 @@ public class QueryDigitalkeyWithholdRequest extends TeaModel {
     @Validation(required = true)
     public String externalAgreementNo;
 
-    public static QueryDigitalkeyWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryDigitalkeyWithholdRequest self = new QueryDigitalkeyWithholdRequest();
+    public static UnbindDigitalkeyWithholdsignRequest build(java.util.Map<String, ?> map) throws Exception {
+        UnbindDigitalkeyWithholdsignRequest self = new UnbindDigitalkeyWithholdsignRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryDigitalkeyWithholdRequest setAuthToken(String authToken) {
+    public UnbindDigitalkeyWithholdsignRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -44,7 +44,7 @@ public class QueryDigitalkeyWithholdRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryDigitalkeyWithholdRequest setProductInstanceId(String productInstanceId) {
+    public UnbindDigitalkeyWithholdsignRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -52,7 +52,7 @@ public class QueryDigitalkeyWithholdRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryDigitalkeyWithholdRequest setAlipayUserId(String alipayUserId) {
+    public UnbindDigitalkeyWithholdsignRequest setAlipayUserId(String alipayUserId) {
         this.alipayUserId = alipayUserId;
         return this;
     }
@@ -60,7 +60,7 @@ public class QueryDigitalkeyWithholdRequest extends TeaModel {
         return this.alipayUserId;
     }
 
-    public QueryDigitalkeyWithholdRequest setPersonalProductCode(String personalProductCode) {
+    public UnbindDigitalkeyWithholdsignRequest setPersonalProductCode(String personalProductCode) {
         this.personalProductCode = personalProductCode;
         return this;
     }
@@ -68,7 +68,7 @@ public class QueryDigitalkeyWithholdRequest extends TeaModel {
         return this.personalProductCode;
     }
 
-    public QueryDigitalkeyWithholdRequest setSignScene(String signScene) {
+    public UnbindDigitalkeyWithholdsignRequest setSignScene(String signScene) {
         this.signScene = signScene;
         return this;
     }
@@ -76,7 +76,7 @@ public class QueryDigitalkeyWithholdRequest extends TeaModel {
         return this.signScene;
     }
 
-    public QueryDigitalkeyWithholdRequest setExternalAgreementNo(String externalAgreementNo) {
+    public UnbindDigitalkeyWithholdsignRequest setExternalAgreementNo(String externalAgreementNo) {
         this.externalAgreementNo = externalAgreementNo;
         return this;
     }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class NotifyDigitalkeyWithholdRequest extends TeaModel {
+public class NotifyDigitalkeyWithholdpreRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,17 +21,17 @@ public class NotifyDigitalkeyWithholdRequest extends TeaModel {
     @Validation(required = true)
     public Long totalAmount;
 
-    // 代扣协议号, 对应于签约时，支付宝返回的协议
-    @NameInMap("agreement_no")
+    // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+    @NameInMap("external_agreement_no")
     @Validation(required = true)
-    public String agreementNo;
+    public String externalAgreementNo;
 
-    public static NotifyDigitalkeyWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
-        NotifyDigitalkeyWithholdRequest self = new NotifyDigitalkeyWithholdRequest();
+    public static NotifyDigitalkeyWithholdpreRequest build(java.util.Map<String, ?> map) throws Exception {
+        NotifyDigitalkeyWithholdpreRequest self = new NotifyDigitalkeyWithholdpreRequest();
         return TeaModel.build(map, self);
     }
 
-    public NotifyDigitalkeyWithholdRequest setAuthToken(String authToken) {
+    public NotifyDigitalkeyWithholdpreRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +39,7 @@ public class NotifyDigitalkeyWithholdRequest extends TeaModel {
         return this.authToken;
     }
 
-    public NotifyDigitalkeyWithholdRequest setProductInstanceId(String productInstanceId) {
+    public NotifyDigitalkeyWithholdpreRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +47,7 @@ public class NotifyDigitalkeyWithholdRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public NotifyDigitalkeyWithholdRequest setOutRequestNo(String outRequestNo) {
+    public NotifyDigitalkeyWithholdpreRequest setOutRequestNo(String outRequestNo) {
         this.outRequestNo = outRequestNo;
         return this;
     }
@@ -55,7 +55,7 @@ public class NotifyDigitalkeyWithholdRequest extends TeaModel {
         return this.outRequestNo;
     }
 
-    public NotifyDigitalkeyWithholdRequest setTotalAmount(Long totalAmount) {
+    public NotifyDigitalkeyWithholdpreRequest setTotalAmount(Long totalAmount) {
         this.totalAmount = totalAmount;
         return this;
     }
@@ -63,12 +63,12 @@ public class NotifyDigitalkeyWithholdRequest extends TeaModel {
         return this.totalAmount;
     }
 
-    public NotifyDigitalkeyWithholdRequest setAgreementNo(String agreementNo) {
-        this.agreementNo = agreementNo;
+    public NotifyDigitalkeyWithholdpreRequest setExternalAgreementNo(String externalAgreementNo) {
+        this.externalAgreementNo = externalAgreementNo;
         return this;
     }
-    public String getAgreementNo() {
-        return this.agreementNo;
+    public String getExternalAgreementNo() {
+        return this.externalAgreementNo;
     }
 
 }

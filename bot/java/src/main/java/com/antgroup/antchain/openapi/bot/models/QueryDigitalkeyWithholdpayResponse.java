@@ -16,9 +16,17 @@ public class QueryDigitalkeyWithholdpayResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 返回对象
-    @NameInMap("antdigital_withhold_response")
-    public AntdigitalWithHoldResponse antdigitalWithholdResponse;
+    // 返回内容
+    @NameInMap("data")
+    public String data;
+
+    // 子返回码
+    @NameInMap("sub_code")
+    public String subCode;
+
+    // 子返回描述
+    @NameInMap("sub_msg")
+    public String subMsg;
 
     public static QueryDigitalkeyWithholdpayResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDigitalkeyWithholdpayResponse self = new QueryDigitalkeyWithholdpayResponse();
@@ -49,12 +57,28 @@ public class QueryDigitalkeyWithholdpayResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryDigitalkeyWithholdpayResponse setAntdigitalWithholdResponse(AntdigitalWithHoldResponse antdigitalWithholdResponse) {
-        this.antdigitalWithholdResponse = antdigitalWithholdResponse;
+    public QueryDigitalkeyWithholdpayResponse setData(String data) {
+        this.data = data;
         return this;
     }
-    public AntdigitalWithHoldResponse getAntdigitalWithholdResponse() {
-        return this.antdigitalWithholdResponse;
+    public String getData() {
+        return this.data;
+    }
+
+    public QueryDigitalkeyWithholdpayResponse setSubCode(String subCode) {
+        this.subCode = subCode;
+        return this;
+    }
+    public String getSubCode() {
+        return this.subCode;
+    }
+
+    public QueryDigitalkeyWithholdpayResponse setSubMsg(String subMsg) {
+        this.subMsg = subMsg;
+        return this;
+    }
+    public String getSubMsg() {
+        return this.subMsg;
     }
 
 }
