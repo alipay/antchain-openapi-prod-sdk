@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.10',
+    sdk_version = '1.11.12',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -7243,7 +7243,7 @@ async function publishDevicecorpThingmodelEx(request: PublishDevicecorpThingmode
   return doRequest('1.0' ,'blockchain.bot.devicecorp.thingmodel.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model SignDigitalkeyWithholdRequest = {
+model CreateDigitalkeyWithholdsignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -7271,7 +7271,7 @@ model SignDigitalkeyWithholdRequest = {
   effectTime?: long(name='effect_time'),
 }
 
-model SignDigitalkeyWithholdResponse = {
+model CreateDigitalkeyWithholdsignResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -7290,22 +7290,22 @@ model SignDigitalkeyWithholdResponse = {
  * Description: 代扣签约链接获取
  * Summary: 代扣签约链接获取
  */
-async function signDigitalkeyWithhold(request: SignDigitalkeyWithholdRequest): SignDigitalkeyWithholdResponse {
+async function createDigitalkeyWithholdsign(request: CreateDigitalkeyWithholdsignRequest): CreateDigitalkeyWithholdsignResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return signDigitalkeyWithholdEx(request, headers, runtime);
+  return createDigitalkeyWithholdsignEx(request, headers, runtime);
 }
 
 /**
  * Description: 代扣签约链接获取
  * Summary: 代扣签约链接获取
  */
-async function signDigitalkeyWithholdEx(request: SignDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SignDigitalkeyWithholdResponse {
+async function createDigitalkeyWithholdsignEx(request: CreateDigitalkeyWithholdsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDigitalkeyWithholdsignResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.sign', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withholdsign.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model UnbindDigitalkeyWithholdRequest = {
+model UnbindDigitalkeyWithholdsignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -7319,7 +7319,7 @@ model UnbindDigitalkeyWithholdRequest = {
   externalAgreementNo: string(name='external_agreement_no'),
 }
 
-model UnbindDigitalkeyWithholdResponse = {
+model UnbindDigitalkeyWithholdsignResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -7330,25 +7330,27 @@ model UnbindDigitalkeyWithholdResponse = {
   subCode?: string(name='sub_code'),
   // 明细返回码描述
   subMsg?: string(name='sub_msg'),
+  // 返回内容
+  data?: string(name='data'),
 }
 
 /**
  * Description: 代扣签约解除
  * Summary: 代扣签约解除
  */
-async function unbindDigitalkeyWithhold(request: UnbindDigitalkeyWithholdRequest): UnbindDigitalkeyWithholdResponse {
+async function unbindDigitalkeyWithholdsign(request: UnbindDigitalkeyWithholdsignRequest): UnbindDigitalkeyWithholdsignResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return unbindDigitalkeyWithholdEx(request, headers, runtime);
+  return unbindDigitalkeyWithholdsignEx(request, headers, runtime);
 }
 
 /**
  * Description: 代扣签约解除
  * Summary: 代扣签约解除
  */
-async function unbindDigitalkeyWithholdEx(request: UnbindDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindDigitalkeyWithholdResponse {
+async function unbindDigitalkeyWithholdsignEx(request: UnbindDigitalkeyWithholdsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnbindDigitalkeyWithholdsignResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withholdsign.unbind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PayDigitalkeyWithholdRequest = {
@@ -7388,8 +7390,12 @@ model PayDigitalkeyWithholdResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回对象
-  antdigitalWithholdResponse?: AntdigitalWithHoldResponse(name='antdigital_withhold_response'),
+  // 子返回码
+  subCode?: string(name='sub_code'),
+  // 子返回描述
+  subMsg?: string(name='sub_msg'),
+  // 返回内容，json格式
+  data?: string(name='data'),
 }
 
 /**
@@ -7411,7 +7417,7 @@ async function payDigitalkeyWithholdEx(request: PayDigitalkeyWithholdRequest, he
   return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model RefuseDigitalkeyWithholdRequest = {
+model RefuseDigitalkeyWithholdpayRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -7423,7 +7429,7 @@ model RefuseDigitalkeyWithholdRequest = {
   outRequestNo: string(name='out_request_no'),
 }
 
-model RefuseDigitalkeyWithholdResponse = {
+model RefuseDigitalkeyWithholdpayResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -7439,29 +7445,30 @@ model RefuseDigitalkeyWithholdResponse = {
 }
 
 /**
- * Description: 代扣支付退款 
- * Summary: 代扣支付退款 
+ * Description: 代扣支付交易退款 
+ * Summary: 代扣支付交易退款 
  */
-async function refuseDigitalkeyWithhold(request: RefuseDigitalkeyWithholdRequest): RefuseDigitalkeyWithholdResponse {
+async function refuseDigitalkeyWithholdpay(request: RefuseDigitalkeyWithholdpayRequest): RefuseDigitalkeyWithholdpayResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return refuseDigitalkeyWithholdEx(request, headers, runtime);
+  return refuseDigitalkeyWithholdpayEx(request, headers, runtime);
 }
 
 /**
- * Description: 代扣支付退款 
- * Summary: 代扣支付退款 
+ * Description: 代扣支付交易退款 
+ * Summary: 代扣支付交易退款 
  */
-async function refuseDigitalkeyWithholdEx(request: RefuseDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefuseDigitalkeyWithholdResponse {
+async function refuseDigitalkeyWithholdpayEx(request: RefuseDigitalkeyWithholdpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RefuseDigitalkeyWithholdpayResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.refuse', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withholdpay.refuse', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryDigitalkeyWithholdRequest = {
+model QueryDigitalkeyWithholdsignRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。
+  // 用户的支付宝账号对应的支付宝唯一用户号，以 2088 开头的 16 位纯数字组成。	
+  // 
   alipayUserId: string(name='alipay_user_id'),
   // 协议产品码，商户和支付宝签约时确定，不同业务场景对应不同的签约产品码，解约时传入签约时的产品码，销售产品码，商户代扣场景固定为 GENERAL_WITHHOLDING_P。
   personalProductCode: string(name='personal_product_code'),
@@ -7471,7 +7478,7 @@ model QueryDigitalkeyWithholdRequest = {
   externalAgreementNo: string(name='external_agreement_no'),
 }
 
-model QueryDigitalkeyWithholdResponse = {
+model QueryDigitalkeyWithholdsignResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -7490,22 +7497,22 @@ model QueryDigitalkeyWithholdResponse = {
  * Description: 代扣协议查询
  * Summary: 代扣协议查询
  */
-async function queryDigitalkeyWithhold(request: QueryDigitalkeyWithholdRequest): QueryDigitalkeyWithholdResponse {
+async function queryDigitalkeyWithholdsign(request: QueryDigitalkeyWithholdsignRequest): QueryDigitalkeyWithholdsignResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return queryDigitalkeyWithholdEx(request, headers, runtime);
+  return queryDigitalkeyWithholdsignEx(request, headers, runtime);
 }
 
 /**
  * Description: 代扣协议查询
  * Summary: 代扣协议查询
  */
-async function queryDigitalkeyWithholdEx(request: QueryDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyWithholdResponse {
+async function queryDigitalkeyWithholdsignEx(request: QueryDigitalkeyWithholdsignRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyWithholdsignResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withholdsign.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CancelDigitalkeyWithholdRequest = {
+model CancelDigitalkeyWithholdpayRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -7513,37 +7520,41 @@ model CancelDigitalkeyWithholdRequest = {
   outTradeNo: string(name='out_trade_no'),
 }
 
-model CancelDigitalkeyWithholdResponse = {
+model CancelDigitalkeyWithholdpayResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回对象
-  antdigitalWithholdResponse?: AntdigitalWithHoldResponse(name='antdigital_withhold_response'),
+  // 子返回码
+  subCode?: string(name='sub_code'),
+  // 子返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 返回内容，json格式
+  data?: string(name='data'),
 }
 
 /**
- * Description: 代扣撤销
- * Summary: 代扣撤销
+ * Description: 代扣支付撤销
+ * Summary: 代扣支付撤销
  */
-async function cancelDigitalkeyWithhold(request: CancelDigitalkeyWithholdRequest): CancelDigitalkeyWithholdResponse {
+async function cancelDigitalkeyWithholdpay(request: CancelDigitalkeyWithholdpayRequest): CancelDigitalkeyWithholdpayResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return cancelDigitalkeyWithholdEx(request, headers, runtime);
+  return cancelDigitalkeyWithholdpayEx(request, headers, runtime);
 }
 
 /**
- * Description: 代扣撤销
- * Summary: 代扣撤销
+ * Description: 代扣支付撤销
+ * Summary: 代扣支付撤销
  */
-async function cancelDigitalkeyWithholdEx(request: CancelDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelDigitalkeyWithholdResponse {
+async function cancelDigitalkeyWithholdpayEx(request: CancelDigitalkeyWithholdpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelDigitalkeyWithholdpayResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withholdpay.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model NotifyDigitalkeyWithholdRequest = {
+model NotifyDigitalkeyWithholdpreRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -7551,38 +7562,42 @@ model NotifyDigitalkeyWithholdRequest = {
   outRequestNo: string(name='out_request_no'),
   // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
   totalAmount: long(name='total_amount'),
-  // 代扣协议号, 对应于签约时，支付宝返回的协议
-  agreementNo: string(name='agreement_no'),
+  // 代扣协议中标示用户的唯一签约号(确保在商户系统中唯一)，传入签约时传入的签约号。
+  externalAgreementNo: string(name='external_agreement_no'),
 }
 
-model NotifyDigitalkeyWithholdResponse = {
+model NotifyDigitalkeyWithholdpreResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回对象
-  antdigitalWithholdResponse?: AntdigitalWithHoldResponse(name='antdigital_withhold_response'),
+  // 子返回码
+  subCode?: string(name='sub_code'),
+  // 子返回码描述
+  subMsg?: string(name='sub_msg'),
+  // 返回内容
+  data?: string(name='data'),
 }
 
 /**
  * Description: 代扣扣款前预通知
  * Summary: 代扣扣款前预通知
  */
-async function notifyDigitalkeyWithhold(request: NotifyDigitalkeyWithholdRequest): NotifyDigitalkeyWithholdResponse {
+async function notifyDigitalkeyWithholdpre(request: NotifyDigitalkeyWithholdpreRequest): NotifyDigitalkeyWithholdpreResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return notifyDigitalkeyWithholdEx(request, headers, runtime);
+  return notifyDigitalkeyWithholdpreEx(request, headers, runtime);
 }
 
 /**
  * Description: 代扣扣款前预通知
  * Summary: 代扣扣款前预通知
  */
-async function notifyDigitalkeyWithholdEx(request: NotifyDigitalkeyWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDigitalkeyWithholdResponse {
+async function notifyDigitalkeyWithholdpreEx(request: NotifyDigitalkeyWithholdpreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyDigitalkeyWithholdpreResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.digitalkey.withhold.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.withholdpre.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryCategoryIndustryscenelistRequest = {
@@ -7798,8 +7813,12 @@ model QueryDigitalkeyWithholdpayResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回对象
-  antdigitalWithholdResponse?: AntdigitalWithHoldResponse(name='antdigital_withhold_response'),
+  // 返回内容
+  data?: string(name='data'),
+  // 子返回码
+  subCode?: string(name='sub_code'),
+  // 子返回描述
+  subMsg?: string(name='sub_msg'),
 }
 
 /**
@@ -7819,6 +7838,46 @@ async function queryDigitalkeyWithholdpay(request: QueryDigitalkeyWithholdpayReq
 async function queryDigitalkeyWithholdpayEx(request: QueryDigitalkeyWithholdpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyWithholdpayResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.digitalkey.withholdpay.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDigitalkeyTradepayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单支付时传入的商户订单号
+  outTradeNo: string(name='out_trade_no'),
+  // 签约绑定的用户支付宝ID
+  alipayUserId: string(name='alipay_user_id'),
+}
+
+model QueryDigitalkeyTradepayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // test
+  x?: string(name='x'),
+}
+
+/**
+ * Description: 代扣支付查询
+ * Summary: 代扣支付查询
+ */
+async function queryDigitalkeyTradepay(request: QueryDigitalkeyTradepayRequest): QueryDigitalkeyTradepayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDigitalkeyTradepayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣支付查询
+ * Summary: 代扣支付查询
+ */
+async function queryDigitalkeyTradepayEx(request: QueryDigitalkeyTradepayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyTradepayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.tradepay.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
@@ -13237,8 +13296,8 @@ model ImportTechintegrationSkugrantwhitelistResponse = {
 }
 
 /**
- * Description: 客户添加SKU授权白名单
- * Summary: 客户添加SKU授权白名单
+ * Description: 添加SKU授权白名单
+ * Summary: 添加SKU授权白名单
  */
 async function importTechintegrationSkugrantwhitelist(request: ImportTechintegrationSkugrantwhitelistRequest): ImportTechintegrationSkugrantwhitelistResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -13247,12 +13306,52 @@ async function importTechintegrationSkugrantwhitelist(request: ImportTechintegra
 }
 
 /**
- * Description: 客户添加SKU授权白名单
- * Summary: 客户添加SKU授权白名单
+ * Description: 添加SKU授权白名单
+ * Summary: 添加SKU授权白名单
  */
 async function importTechintegrationSkugrantwhitelistEx(request: ImportTechintegrationSkugrantwhitelistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportTechintegrationSkugrantwhitelistResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.techintegration.skugrantwhitelist.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendThingDataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 场景码
+  scene: string(name='scene'),
+  // 上报数据模型ID
+  dataModelId: string(name='data_model_id'),
+  // 物模型数据集合
+  thingDataList: [ string ](name='thing_data_list'),
+}
+
+model SendThingDataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 物模型数据上报
+ * Summary: 物模型数据上报
+ */
+async function sendThingData(request: SendThingDataRequest): SendThingDataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendThingDataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 物模型数据上报
+ * Summary: 物模型数据上报
+ */
+async function sendThingDataEx(request: SendThingDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendThingDataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.thing.data.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ExecThingsdidOneapiRequest = {
