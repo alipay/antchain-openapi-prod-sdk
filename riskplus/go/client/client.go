@@ -4703,6 +4703,8 @@ type GetAgreementUrlResponseData struct {
 	FileBase64 *string `json:"file_base64,omitempty" xml:"file_base64,omitempty"`
 	// 协议图片文件base64集合
 	PicFileBase64List []*string `json:"pic_file_base64_list,omitempty" xml:"pic_file_base64_list,omitempty" type:"Repeated"`
+	// 图片文件oss集合
+	PicOssPathList []*string `json:"pic_oss_path_list,omitempty" xml:"pic_oss_path_list,omitempty" type:"Repeated"`
 	// 机构名称
 	OrganizationName *string `json:"organization_name,omitempty" xml:"organization_name,omitempty" require:"true"`
 	// 协议类型-code
@@ -4736,6 +4738,11 @@ func (s *GetAgreementUrlResponseData) SetFileBase64(v string) *GetAgreementUrlRe
 
 func (s *GetAgreementUrlResponseData) SetPicFileBase64List(v []*string) *GetAgreementUrlResponseData {
 	s.PicFileBase64List = v
+	return s
+}
+
+func (s *GetAgreementUrlResponseData) SetPicOssPathList(v []*string) *GetAgreementUrlResponseData {
+	s.PicOssPathList = v
 	return s
 }
 
@@ -26560,7 +26567,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.17"),
+				"sdk_version":      tea.String("1.19.18"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
