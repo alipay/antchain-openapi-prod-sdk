@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.17',
+    sdk_version = '1.19.18',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1527,6 +1527,8 @@ model GetAgreementUrlResponseData {
   fileBase64?: string(name='file_base64', example='111'),
   // 协议图片文件base64集合
   picFileBase64List?: [ string ](name='pic_file_base64_list', example='111111'),
+  // 图片文件oss集合
+  picOssPathList?: [ string ](name='pic_oss_path_list', example=''),
   // 机构名称
   organizationName: string(name='organization_name', example='杭银'),
   // 协议类型-code
