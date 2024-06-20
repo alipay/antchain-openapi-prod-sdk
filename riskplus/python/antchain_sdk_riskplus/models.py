@@ -5798,6 +5798,7 @@ class GetAgreementUrlResponseData(TeaModel):
         agreement_url: str = None,
         file_base_64: str = None,
         pic_file_base_64list: List[str] = None,
+        pic_oss_path_list: List[str] = None,
         organization_name: str = None,
         file_type: str = None,
         file_type_name: str = None,
@@ -5810,6 +5811,8 @@ class GetAgreementUrlResponseData(TeaModel):
         self.file_base_64 = file_base_64
         # 协议图片文件base64集合
         self.pic_file_base_64list = pic_file_base_64list
+        # 图片文件oss集合
+        self.pic_oss_path_list = pic_oss_path_list
         # 机构名称
         self.organization_name = organization_name
         # 协议类型-code
@@ -5837,6 +5840,8 @@ class GetAgreementUrlResponseData(TeaModel):
             result['file_base64'] = self.file_base_64
         if self.pic_file_base_64list is not None:
             result['pic_file_base64_list'] = self.pic_file_base_64list
+        if self.pic_oss_path_list is not None:
+            result['pic_oss_path_list'] = self.pic_oss_path_list
         if self.organization_name is not None:
             result['organization_name'] = self.organization_name
         if self.file_type is not None:
@@ -5855,6 +5860,8 @@ class GetAgreementUrlResponseData(TeaModel):
             self.file_base_64 = m.get('file_base64')
         if m.get('pic_file_base64_list') is not None:
             self.pic_file_base_64list = m.get('pic_file_base64_list')
+        if m.get('pic_oss_path_list') is not None:
+            self.pic_oss_path_list = m.get('pic_oss_path_list')
         if m.get('organization_name') is not None:
             self.organization_name = m.get('organization_name')
         if m.get('file_type') is not None:
