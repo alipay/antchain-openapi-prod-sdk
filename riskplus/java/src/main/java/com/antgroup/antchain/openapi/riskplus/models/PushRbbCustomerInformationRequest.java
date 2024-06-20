@@ -36,6 +36,16 @@ public class PushRbbCustomerInformationRequest extends TeaModel {
     @Validation(required = true)
     public String phoneNumber;
 
+    // 合作伙伴
+    @NameInMap("business_partner")
+    @Validation(required = true)
+    public String businessPartner;
+
+    // 指定产品方
+    @NameInMap("product_side")
+    @Validation(required = true)
+    public String productSide;
+
     // 账号
     @NameInMap("account")
     @Validation(required = true)
@@ -105,6 +115,22 @@ public class PushRbbCustomerInformationRequest extends TeaModel {
     }
     public String getPhoneNumber() {
         return this.phoneNumber;
+    }
+
+    public PushRbbCustomerInformationRequest setBusinessPartner(String businessPartner) {
+        this.businessPartner = businessPartner;
+        return this;
+    }
+    public String getBusinessPartner() {
+        return this.businessPartner;
+    }
+
+    public PushRbbCustomerInformationRequest setProductSide(String productSide) {
+        this.productSide = productSide;
+        return this;
+    }
+    public String getProductSide() {
+        return this.productSide;
     }
 
     public PushRbbCustomerInformationRequest setAccount(String account) {
