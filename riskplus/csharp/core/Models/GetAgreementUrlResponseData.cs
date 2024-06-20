@@ -30,6 +30,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public List<string> PicFileBase64List { get; set; }
 
+        // 图片文件oss集合
+        [NameInMap("pic_oss_path_list")]
+        [Validation(Required=false)]
+        public List<string> PicOssPathList { get; set; }
+
         // 机构名称
         [NameInMap("organization_name")]
         [Validation(Required=true)]
