@@ -142,14 +142,14 @@ export class YuqingMessageExtInfo extends $tea.Model {
   // 媒体地域省份
   mediaAreaProvince?: string;
   // 媒体地域-市
-  mediaResCity?: string;
+  mediaAreaCity?: string;
   // 内容风险
   generalModel?: string;
   static names(): { [key: string]: string } {
     return {
       mediaAreaCountry: 'media_area_country',
       mediaAreaProvince: 'media_area_province',
-      mediaResCity: 'media_res_city',
+      mediaAreaCity: 'media_area_city',
       generalModel: 'general_model',
     };
   }
@@ -158,7 +158,7 @@ export class YuqingMessageExtInfo extends $tea.Model {
     return {
       mediaAreaCountry: 'string',
       mediaAreaProvince: 'string',
-      mediaResCity: 'string',
+      mediaAreaCity: 'string',
       generalModel: 'string',
     };
   }
@@ -800,6 +800,16 @@ export class Alarm extends $tea.Model {
   gmtModifiedTimestamp?: number;
   // 完整消息
   message?: YuqingMessage;
+  // project
+  projectName?: string;
+  // alarm_rule_name
+  alarmRuleName?: string;
+  // alarm_level
+  alarmLevel?: string;
+  // doc_media_type
+  docMediaType?: string;
+  // status
+  status?: string;
   static names(): { [key: string]: string } {
     return {
       tags: 'tags',
@@ -814,6 +824,11 @@ export class Alarm extends $tea.Model {
       type: 'type',
       gmtModifiedTimestamp: 'gmt_modified_timestamp',
       message: 'message',
+      projectName: 'project_name',
+      alarmRuleName: 'alarm_rule_name',
+      alarmLevel: 'alarm_level',
+      docMediaType: 'doc_media_type',
+      status: 'status',
     };
   }
 
@@ -831,6 +846,11 @@ export class Alarm extends $tea.Model {
       type: 'string',
       gmtModifiedTimestamp: 'number',
       message: YuqingMessage,
+      projectName: 'string',
+      alarmRuleName: 'string',
+      alarmLevel: 'string',
+      docMediaType: 'string',
+      status: 'string',
     };
   }
 
@@ -3042,7 +3062,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.17",
+          sdk_version: "1.2.19",
           _prod_code: "YUQING",
           _prod_channel: "undefined",
         };
