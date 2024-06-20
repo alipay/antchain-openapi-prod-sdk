@@ -52,6 +52,26 @@ public class Alarm extends TeaModel {
     @NameInMap("message")
     public YuqingMessage message;
 
+    // project
+    @NameInMap("project_name")
+    public String projectName;
+
+    // alarm_rule_name
+    @NameInMap("alarm_rule_name")
+    public String alarmRuleName;
+
+    // alarm_level
+    @NameInMap("alarm_level")
+    public String alarmLevel;
+
+    // doc_media_type
+    @NameInMap("doc_media_type")
+    public String docMediaType;
+
+    // status
+    @NameInMap("status")
+    public String status;
+
     public static Alarm build(java.util.Map<String, ?> map) throws Exception {
         Alarm self = new Alarm();
         return TeaModel.build(map, self);
@@ -151,6 +171,46 @@ public class Alarm extends TeaModel {
     }
     public YuqingMessage getMessage() {
         return this.message;
+    }
+
+    public Alarm setProjectName(String projectName) {
+        this.projectName = projectName;
+        return this;
+    }
+    public String getProjectName() {
+        return this.projectName;
+    }
+
+    public Alarm setAlarmRuleName(String alarmRuleName) {
+        this.alarmRuleName = alarmRuleName;
+        return this;
+    }
+    public String getAlarmRuleName() {
+        return this.alarmRuleName;
+    }
+
+    public Alarm setAlarmLevel(String alarmLevel) {
+        this.alarmLevel = alarmLevel;
+        return this;
+    }
+    public String getAlarmLevel() {
+        return this.alarmLevel;
+    }
+
+    public Alarm setDocMediaType(String docMediaType) {
+        this.docMediaType = docMediaType;
+        return this;
+    }
+    public String getDocMediaType() {
+        return this.docMediaType;
+    }
+
+    public Alarm setStatus(String status) {
+        this.status = status;
+        return this;
+    }
+    public String getStatus() {
+        return this.status;
     }
 
 }

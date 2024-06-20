@@ -13,8 +13,8 @@ public class YuqingMessageExtInfo extends TeaModel {
     public String mediaAreaProvince;
 
     // 媒体地域-市
-    @NameInMap("media_res_city")
-    public String mediaResCity;
+    @NameInMap("media_area_city")
+    public String mediaAreaCity;
 
     // 内容风险
     @NameInMap("general_model")
@@ -41,12 +41,12 @@ public class YuqingMessageExtInfo extends TeaModel {
         return this.mediaAreaProvince;
     }
 
-    public YuqingMessageExtInfo setMediaResCity(String mediaResCity) {
-        this.mediaResCity = mediaResCity;
+    public YuqingMessageExtInfo setMediaAreaCity(String mediaAreaCity) {
+        this.mediaAreaCity = mediaAreaCity;
         return this;
     }
-    public String getMediaResCity() {
-        return this.mediaResCity;
+    public String getMediaAreaCity() {
+        return this.mediaAreaCity;
     }
 
     public YuqingMessageExtInfo setGeneralModel(String generalModel) {
