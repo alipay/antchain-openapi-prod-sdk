@@ -3464,6 +3464,8 @@ export class GetAgreementUrlResponseData extends $tea.Model {
   fileBase64?: string;
   // 协议图片文件base64集合
   picFileBase64List?: string[];
+  // 图片文件oss集合
+  picOssPathList?: string[];
   // 机构名称
   organizationName: string;
   // 协议类型-code
@@ -3476,6 +3478,7 @@ export class GetAgreementUrlResponseData extends $tea.Model {
       agreementUrl: 'agreement_url',
       fileBase64: 'file_base64',
       picFileBase64List: 'pic_file_base64_list',
+      picOssPathList: 'pic_oss_path_list',
       organizationName: 'organization_name',
       fileType: 'file_type',
       fileTypeName: 'file_type_name',
@@ -3488,6 +3491,7 @@ export class GetAgreementUrlResponseData extends $tea.Model {
       agreementUrl: 'string',
       fileBase64: 'string',
       picFileBase64List: { 'type': 'array', 'itemType': 'string' },
+      picOssPathList: { 'type': 'array', 'itemType': 'string' },
       organizationName: 'string',
       fileType: 'string',
       fileTypeName: 'string',
@@ -19840,7 +19844,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.17",
+          sdk_version: "1.19.18",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
