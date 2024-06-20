@@ -49,6 +49,18 @@ class PushRbbCustomerInformationRequest extends Model
      */
     public $phoneNumber;
 
+    // 合作伙伴
+    /**
+     * @var string
+     */
+    public $businessPartner;
+
+    // 指定产品方
+    /**
+     * @var string
+     */
+    public $productSide;
+
     // 账号
     /**
      * @var string
@@ -68,6 +80,8 @@ class PushRbbCustomerInformationRequest extends Model
         'name'              => 'name',
         'idCard'            => 'id_card',
         'phoneNumber'       => 'phone_number',
+        'businessPartner'   => 'business_partner',
+        'productSide'       => 'product_side',
         'account'           => 'account',
         'password'          => 'password',
     ];
@@ -79,6 +93,8 @@ class PushRbbCustomerInformationRequest extends Model
         Model::validateRequired('name', $this->name, true);
         Model::validateRequired('idCard', $this->idCard, true);
         Model::validateRequired('phoneNumber', $this->phoneNumber, true);
+        Model::validateRequired('businessPartner', $this->businessPartner, true);
+        Model::validateRequired('productSide', $this->productSide, true);
         Model::validateRequired('account', $this->account, true);
         Model::validateRequired('password', $this->password, true);
     }
@@ -106,6 +122,12 @@ class PushRbbCustomerInformationRequest extends Model
         }
         if (null !== $this->phoneNumber) {
             $res['phone_number'] = $this->phoneNumber;
+        }
+        if (null !== $this->businessPartner) {
+            $res['business_partner'] = $this->businessPartner;
+        }
+        if (null !== $this->productSide) {
+            $res['product_side'] = $this->productSide;
         }
         if (null !== $this->account) {
             $res['account'] = $this->account;
@@ -145,6 +167,12 @@ class PushRbbCustomerInformationRequest extends Model
         }
         if (isset($map['phone_number'])) {
             $model->phoneNumber = $map['phone_number'];
+        }
+        if (isset($map['business_partner'])) {
+            $model->businessPartner = $map['business_partner'];
+        }
+        if (isset($map['product_side'])) {
+            $model->productSide = $map['product_side'];
         }
         if (isset($map['account'])) {
             $model->account = $map['account'];

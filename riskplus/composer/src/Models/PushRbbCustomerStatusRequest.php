@@ -19,52 +19,20 @@ class PushRbbCustomerStatusRequest extends Model
      */
     public $productInstanceId;
 
-    // 统一社会信用代码
+    // 结果数据
     /**
      * @var string
      */
-    public $creditCode;
-
-    // 相关产品id
-    /**
-     * @var string
-     */
-    public $productCode;
-
-    // 企业名称
-    /**
-     * @var string
-     */
-    public $companyName;
-
-    // 状态编号
-    /**
-     * @var string
-     */
-    public $statusCode;
-
-    // 状态文本
-    /**
-     * @var string
-     */
-    public $status;
+    public $resultData;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'creditCode'        => 'credit_code',
-        'productCode'       => 'product_code',
-        'companyName'       => 'company_name',
-        'statusCode'        => 'status_code',
-        'status'            => 'status',
+        'resultData'        => 'result_data',
     ];
 
     public function validate()
     {
-        Model::validateRequired('creditCode', $this->creditCode, true);
-        Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('companyName', $this->companyName, true);
-        Model::validateRequired('statusCode', $this->statusCode, true);
-        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('resultData', $this->resultData, true);
     }
 
     public function toMap()
@@ -76,20 +44,8 @@ class PushRbbCustomerStatusRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->creditCode) {
-            $res['credit_code'] = $this->creditCode;
-        }
-        if (null !== $this->productCode) {
-            $res['product_code'] = $this->productCode;
-        }
-        if (null !== $this->companyName) {
-            $res['company_name'] = $this->companyName;
-        }
-        if (null !== $this->statusCode) {
-            $res['status_code'] = $this->statusCode;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
+        if (null !== $this->resultData) {
+            $res['result_data'] = $this->resultData;
         }
 
         return $res;
@@ -109,20 +65,8 @@ class PushRbbCustomerStatusRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['credit_code'])) {
-            $model->creditCode = $map['credit_code'];
-        }
-        if (isset($map['product_code'])) {
-            $model->productCode = $map['product_code'];
-        }
-        if (isset($map['company_name'])) {
-            $model->companyName = $map['company_name'];
-        }
-        if (isset($map['status_code'])) {
-            $model->statusCode = $map['status_code'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
+        if (isset($map['result_data'])) {
+            $model->resultData = $map['result_data'];
         }
 
         return $model;
