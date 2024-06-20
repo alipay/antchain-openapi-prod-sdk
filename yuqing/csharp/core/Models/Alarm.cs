@@ -70,6 +70,31 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=false)]
         public YuqingMessage Message { get; set; }
 
+        // project
+        [NameInMap("project_name")]
+        [Validation(Required=false)]
+        public string ProjectName { get; set; }
+
+        // alarm_rule_name
+        [NameInMap("alarm_rule_name")]
+        [Validation(Required=false)]
+        public string AlarmRuleName { get; set; }
+
+        // alarm_level
+        [NameInMap("alarm_level")]
+        [Validation(Required=false)]
+        public string AlarmLevel { get; set; }
+
+        // doc_media_type
+        [NameInMap("doc_media_type")]
+        [Validation(Required=false)]
+        public string DocMediaType { get; set; }
+
+        // status
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public string Status { get; set; }
+
     }
 
 }

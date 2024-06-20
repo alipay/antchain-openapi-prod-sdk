@@ -21,9 +21,9 @@ namespace AntChain.SDK.YUQING.Models
         public string MediaAreaProvince { get; set; }
 
         // 媒体地域-市
-        [NameInMap("media_res_city")]
+        [NameInMap("media_area_city")]
         [Validation(Required=false)]
-        public string MediaResCity { get; set; }
+        public string MediaAreaCity { get; set; }
 
         // 内容风险
         [NameInMap("general_model")]
