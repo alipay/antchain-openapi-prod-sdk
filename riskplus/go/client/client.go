@@ -17967,6 +17967,10 @@ type PushRbbCustomerInformationRequest struct {
 	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty" require:"true"`
 	// 手机号
 	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 合作伙伴
+	BusinessPartner *string `json:"business_partner,omitempty" xml:"business_partner,omitempty" require:"true"`
+	// 指定产品方
+	ProductSide *string `json:"product_side,omitempty" xml:"product_side,omitempty" require:"true"`
 	// 账号
 	Account *string `json:"account,omitempty" xml:"account,omitempty" require:"true"`
 	// 密码
@@ -18013,6 +18017,16 @@ func (s *PushRbbCustomerInformationRequest) SetIdCard(v string) *PushRbbCustomer
 
 func (s *PushRbbCustomerInformationRequest) SetPhoneNumber(v string) *PushRbbCustomerInformationRequest {
 	s.PhoneNumber = &v
+	return s
+}
+
+func (s *PushRbbCustomerInformationRequest) SetBusinessPartner(v string) *PushRbbCustomerInformationRequest {
+	s.BusinessPartner = &v
+	return s
+}
+
+func (s *PushRbbCustomerInformationRequest) SetProductSide(v string) *PushRbbCustomerInformationRequest {
+	s.ProductSide = &v
 	return s
 }
 
@@ -18153,16 +18167,8 @@ type PushRbbCustomerStatusRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 统一社会信用代码
-	CreditCode *string `json:"credit_code,omitempty" xml:"credit_code,omitempty" require:"true"`
-	// 相关产品id
-	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-	// 企业名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
-	// 状态编号
-	StatusCode *string `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
-	// 状态文本
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 结果数据
+	ResultData *string `json:"result_data,omitempty" xml:"result_data,omitempty" require:"true"`
 }
 
 func (s PushRbbCustomerStatusRequest) String() string {
@@ -18183,28 +18189,8 @@ func (s *PushRbbCustomerStatusRequest) SetProductInstanceId(v string) *PushRbbCu
 	return s
 }
 
-func (s *PushRbbCustomerStatusRequest) SetCreditCode(v string) *PushRbbCustomerStatusRequest {
-	s.CreditCode = &v
-	return s
-}
-
-func (s *PushRbbCustomerStatusRequest) SetProductCode(v string) *PushRbbCustomerStatusRequest {
-	s.ProductCode = &v
-	return s
-}
-
-func (s *PushRbbCustomerStatusRequest) SetCompanyName(v string) *PushRbbCustomerStatusRequest {
-	s.CompanyName = &v
-	return s
-}
-
-func (s *PushRbbCustomerStatusRequest) SetStatusCode(v string) *PushRbbCustomerStatusRequest {
-	s.StatusCode = &v
-	return s
-}
-
-func (s *PushRbbCustomerStatusRequest) SetStatus(v string) *PushRbbCustomerStatusRequest {
-	s.Status = &v
+func (s *PushRbbCustomerStatusRequest) SetResultData(v string) *PushRbbCustomerStatusRequest {
+	s.ResultData = &v
 	return s
 }
 
@@ -26574,7 +26560,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.16"),
+				"sdk_version":      tea.String("1.19.17"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
