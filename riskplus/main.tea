@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.15',
+    sdk_version = '1.19.16',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -7392,44 +7392,56 @@ async function operateRbbCreditEx(request: OperateRbbCreditRequest, headers: map
   return doRequest('1.0' ,'riskplus.rbb.credit.operate', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model GetRbbCustomerInformationRequest = {
+model PushRbbCustomerInformationRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 流水号
-  serialNumber: string(name='serial_number'),
+  // 社会信用代码
+  creditCode: string(name='credit_code'),
+  // 公司名称
+  companyName: string(name='company_name'),
+  // 法人姓名
+  name: string(name='name'),
+  // 身份证号
+  idCard: string(name='id_card'),
   // 手机号
   phoneNumber: string(name='phone_number'),
+  // 账号
+  account: string(name='account'),
+  // 密码
+  password: string(name='password'),
 }
 
-model GetRbbCustomerInformationResponse = {
+model PushRbbCustomerInformationResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 客户信息结果数据
-  resultData?: string(name='result_data'),
+  // 返回代码
+  resCode?: string(name='res_code'),
+  // 结果说明
+  resMsg?: string(name='res_msg'),
 }
 
 /**
  * Description: 获取客户信息
  * Summary: 获取客户信息
  */
-async function getRbbCustomerInformation(request: GetRbbCustomerInformationRequest): GetRbbCustomerInformationResponse {
+async function pushRbbCustomerInformation(request: PushRbbCustomerInformationRequest): PushRbbCustomerInformationResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return getRbbCustomerInformationEx(request, headers, runtime);
+  return pushRbbCustomerInformationEx(request, headers, runtime);
 }
 
 /**
  * Description: 获取客户信息
  * Summary: 获取客户信息
  */
-async function getRbbCustomerInformationEx(request: GetRbbCustomerInformationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRbbCustomerInformationResponse {
+async function pushRbbCustomerInformationEx(request: PushRbbCustomerInformationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRbbCustomerInformationResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'riskplus.rbb.customer.information.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetRbbTaxinvoiceDataRequest = {
@@ -7470,6 +7482,54 @@ async function getRbbTaxinvoiceData(request: GetRbbTaxinvoiceDataRequest): GetRb
 async function getRbbTaxinvoiceDataEx(request: GetRbbTaxinvoiceDataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetRbbTaxinvoiceDataResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.taxinvoice.data.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRbbCustomerStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 统一社会信用代码
+  creditCode: string(name='credit_code'),
+  // 相关产品id
+  productCode: string(name='product_code'),
+  // 企业名称
+  companyName: string(name='company_name'),
+  // 状态编号
+  statusCode: string(name='status_code'),
+  // 状态文本
+  status: string(name='status'),
+}
+
+model PushRbbCustomerStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果说明
+  resMsg?: string(name='res_msg'),
+  // 返回代码
+  resCode?: string(name='res_code'),
+}
+
+/**
+ * Description: 客户实时状态通知
+ * Summary: 客户实时状态通知
+ */
+async function pushRbbCustomerStatus(request: PushRbbCustomerStatusRequest): PushRbbCustomerStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRbbCustomerStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户实时状态通知
+ * Summary: 客户实时状态通知
+ */
+async function pushRbbCustomerStatusEx(request: PushRbbCustomerStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRbbCustomerStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.customer.status.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushRpaasReportAnswerRequest = {
