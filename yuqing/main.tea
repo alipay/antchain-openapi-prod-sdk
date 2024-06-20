@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.17',
+    sdk_version = '1.2.19',
     _prod_code = 'YUQING',
     _prod_channel = 'undefined'
   };
@@ -188,7 +188,7 @@ model YuqingMessageExtInfo {
   // 媒体地域省份
   mediaAreaProvince?: string(name='media_area_province', example='北京'),
   // 媒体地域-市
-  mediaResCity?: string(name='media_res_city', example='北京'),
+  mediaAreaCity?: string(name='media_area_city', example='北京'),
   // 内容风险
   generalModel?: string(name='general_model', example='内容风险'),
 }
@@ -477,6 +477,16 @@ model Alarm {
   gmtModifiedTimestamp?: long(name='gmt_modified_timestamp', example='1670463939'),
   // 完整消息
   message?: YuqingMessage(name='message', example=''),
+  // project
+  projectName?: string(name='project_name', example='project'),
+  // alarm_rule_name
+  alarmRuleName?: string(name='alarm_rule_name', example='name'),
+  // alarm_level
+  alarmLevel?: string(name='alarm_level', example='1'),
+  // doc_media_type
+  docMediaType?: string(name='doc_media_type', example='1'),
+  // status
+  status?: string(name='status', example='1'),
 }
 
 // 深度分析配置
