@@ -115,8 +115,6 @@ use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceRequest;
 use AntChain\RISKPLUS\Models\ExecSecurityRiskdataserviceResponse;
 use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleRequest;
 use AntChain\RISKPLUS\Models\FinishRbbRegdatasyncScheduleResponse;
-use AntChain\RISKPLUS\Models\GetRbbCustomerInformationRequest;
-use AntChain\RISKPLUS\Models\GetRbbCustomerInformationResponse;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenRequest;
 use AntChain\RISKPLUS\Models\GetRbbLoginTokenResponse;
 use AntChain\RISKPLUS\Models\GetRbbTaxinvoiceDataRequest;
@@ -147,6 +145,10 @@ use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoRequest;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoResponse;
+use AntChain\RISKPLUS\Models\PushRbbCustomerInformationRequest;
+use AntChain\RISKPLUS\Models\PushRbbCustomerInformationResponse;
+use AntChain\RISKPLUS\Models\PushRbbCustomerStatusRequest;
+use AntChain\RISKPLUS\Models\PushRbbCustomerStatusResponse;
 use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowRequest;
 use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowResponse;
 use AntChain\RISKPLUS\Models\PushRpaasReportAnswerRequest;
@@ -532,7 +534,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.15',
+                    'sdk_version'      => '1.19.16',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4286,33 +4288,33 @@ class Client
      * Description: 获取客户信息
      * Summary: 获取客户信息.
      *
-     * @param GetRbbCustomerInformationRequest $request
+     * @param PushRbbCustomerInformationRequest $request
      *
-     * @return GetRbbCustomerInformationResponse
+     * @return PushRbbCustomerInformationResponse
      */
-    public function getRbbCustomerInformation($request)
+    public function pushRbbCustomerInformation($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->getRbbCustomerInformationEx($request, $headers, $runtime);
+        return $this->pushRbbCustomerInformationEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 获取客户信息
      * Summary: 获取客户信息.
      *
-     * @param GetRbbCustomerInformationRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
+     * @param PushRbbCustomerInformationRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
      *
-     * @return GetRbbCustomerInformationResponse
+     * @return PushRbbCustomerInformationResponse
      */
-    public function getRbbCustomerInformationEx($request, $headers, $runtime)
+    public function pushRbbCustomerInformationEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return GetRbbCustomerInformationResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return PushRbbCustomerInformationResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.customer.information.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4346,6 +4348,39 @@ class Client
         Utils::validateModel($request);
 
         return GetRbbTaxinvoiceDataResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.taxinvoice.data.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户实时状态通知
+     * Summary: 客户实时状态通知.
+     *
+     * @param PushRbbCustomerStatusRequest $request
+     *
+     * @return PushRbbCustomerStatusResponse
+     */
+    public function pushRbbCustomerStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRbbCustomerStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户实时状态通知
+     * Summary: 客户实时状态通知.
+     *
+     * @param PushRbbCustomerStatusRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PushRbbCustomerStatusResponse
+     */
+    public function pushRbbCustomerStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRbbCustomerStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.customer.status.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

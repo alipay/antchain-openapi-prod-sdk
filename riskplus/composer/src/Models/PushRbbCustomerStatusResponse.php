@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetRbbCustomerInformationResponse extends Model
+class PushRbbCustomerStatusResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class GetRbbCustomerInformationResponse extends Model
      */
     public $resultMsg;
 
-    // 客户信息结果数据
+    // 结果说明
     /**
      * @var string
      */
-    public $resultData;
+    public $resMsg;
+
+    // 返回代码
+    /**
+     * @var string
+     */
+    public $resCode;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'resultData' => 'result_data',
+        'resMsg'     => 'res_msg',
+        'resCode'    => 'res_code',
     ];
 
     public function validate()
@@ -54,8 +61,11 @@ class GetRbbCustomerInformationResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->resultData) {
-            $res['result_data'] = $this->resultData;
+        if (null !== $this->resMsg) {
+            $res['res_msg'] = $this->resMsg;
+        }
+        if (null !== $this->resCode) {
+            $res['res_code'] = $this->resCode;
         }
 
         return $res;
@@ -64,7 +74,7 @@ class GetRbbCustomerInformationResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetRbbCustomerInformationResponse
+     * @return PushRbbCustomerStatusResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +88,11 @@ class GetRbbCustomerInformationResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['result_data'])) {
-            $model->resultData = $map['result_data'];
+        if (isset($map['res_msg'])) {
+            $model->resMsg = $map['res_msg'];
+        }
+        if (isset($map['res_code'])) {
+            $model->resCode = $map['res_code'];
         }
 
         return $model;
