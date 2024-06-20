@@ -103,6 +103,46 @@ class Alarm extends Model
      * @var YuqingMessage
      */
     public $message;
+
+    // project
+    /**
+     * @example project
+     *
+     * @var string
+     */
+    public $projectName;
+
+    // alarm_rule_name
+    /**
+     * @example name
+     *
+     * @var string
+     */
+    public $alarmRuleName;
+
+    // alarm_level
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $alarmLevel;
+
+    // doc_media_type
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $docMediaType;
+
+    // status
+    /**
+     * @example 1
+     *
+     * @var string
+     */
+    public $status;
     protected $_name = [
         'tags'                 => 'tags',
         'content'              => 'content',
@@ -116,6 +156,11 @@ class Alarm extends Model
         'type'                 => 'type',
         'gmtModifiedTimestamp' => 'gmt_modified_timestamp',
         'message'              => 'message',
+        'projectName'          => 'project_name',
+        'alarmRuleName'        => 'alarm_rule_name',
+        'alarmLevel'           => 'alarm_level',
+        'docMediaType'         => 'doc_media_type',
+        'status'               => 'status',
     ];
 
     public function validate()
@@ -160,6 +205,21 @@ class Alarm extends Model
         }
         if (null !== $this->message) {
             $res['message'] = null !== $this->message ? $this->message->toMap() : null;
+        }
+        if (null !== $this->projectName) {
+            $res['project_name'] = $this->projectName;
+        }
+        if (null !== $this->alarmRuleName) {
+            $res['alarm_rule_name'] = $this->alarmRuleName;
+        }
+        if (null !== $this->alarmLevel) {
+            $res['alarm_level'] = $this->alarmLevel;
+        }
+        if (null !== $this->docMediaType) {
+            $res['doc_media_type'] = $this->docMediaType;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -210,6 +270,21 @@ class Alarm extends Model
         }
         if (isset($map['message'])) {
             $model->message = YuqingMessage::fromMap($map['message']);
+        }
+        if (isset($map['project_name'])) {
+            $model->projectName = $map['project_name'];
+        }
+        if (isset($map['alarm_rule_name'])) {
+            $model->alarmRuleName = $map['alarm_rule_name'];
+        }
+        if (isset($map['alarm_level'])) {
+            $model->alarmLevel = $map['alarm_level'];
+        }
+        if (isset($map['doc_media_type'])) {
+            $model->docMediaType = $map['doc_media_type'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

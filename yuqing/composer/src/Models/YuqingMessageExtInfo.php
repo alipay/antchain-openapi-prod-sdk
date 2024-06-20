@@ -30,7 +30,7 @@ class YuqingMessageExtInfo extends Model
      *
      * @var string
      */
-    public $mediaResCity;
+    public $mediaAreaCity;
 
     // 内容风险
     /**
@@ -42,7 +42,7 @@ class YuqingMessageExtInfo extends Model
     protected $_name = [
         'mediaAreaCountry'  => 'media_area_country',
         'mediaAreaProvince' => 'media_area_province',
-        'mediaResCity'      => 'media_res_city',
+        'mediaAreaCity'     => 'media_area_city',
         'generalModel'      => 'general_model',
     ];
 
@@ -59,8 +59,8 @@ class YuqingMessageExtInfo extends Model
         if (null !== $this->mediaAreaProvince) {
             $res['media_area_province'] = $this->mediaAreaProvince;
         }
-        if (null !== $this->mediaResCity) {
-            $res['media_res_city'] = $this->mediaResCity;
+        if (null !== $this->mediaAreaCity) {
+            $res['media_area_city'] = $this->mediaAreaCity;
         }
         if (null !== $this->generalModel) {
             $res['general_model'] = $this->generalModel;
@@ -83,8 +83,8 @@ class YuqingMessageExtInfo extends Model
         if (isset($map['media_area_province'])) {
             $model->mediaAreaProvince = $map['media_area_province'];
         }
-        if (isset($map['media_res_city'])) {
-            $model->mediaResCity = $map['media_res_city'];
+        if (isset($map['media_area_city'])) {
+            $model->mediaAreaCity = $map['media_area_city'];
         }
         if (isset($map['general_model'])) {
             $model->generalModel = $map['general_model'];
