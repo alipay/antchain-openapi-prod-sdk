@@ -22245,25 +22245,45 @@ class OperateRbbCreditResponse(TeaModel):
         return self
 
 
-class GetRbbCustomerInformationRequest(TeaModel):
+class PushRbbCustomerInformationRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        serial_number: str = None,
+        credit_code: str = None,
+        company_name: str = None,
+        name: str = None,
+        id_card: str = None,
         phone_number: str = None,
+        account: str = None,
+        password: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 流水号
-        self.serial_number = serial_number
+        # 社会信用代码
+        self.credit_code = credit_code
+        # 公司名称
+        self.company_name = company_name
+        # 法人姓名
+        self.name = name
+        # 身份证号
+        self.id_card = id_card
         # 手机号
         self.phone_number = phone_number
+        # 账号
+        self.account = account
+        # 密码
+        self.password = password
 
     def validate(self):
-        self.validate_required(self.serial_number, 'serial_number')
+        self.validate_required(self.credit_code, 'credit_code')
+        self.validate_required(self.company_name, 'company_name')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.id_card, 'id_card')
         self.validate_required(self.phone_number, 'phone_number')
+        self.validate_required(self.account, 'account')
+        self.validate_required(self.password, 'password')
 
     def to_map(self):
         _map = super().to_map()
@@ -22275,10 +22295,20 @@ class GetRbbCustomerInformationRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.serial_number is not None:
-            result['serial_number'] = self.serial_number
+        if self.credit_code is not None:
+            result['credit_code'] = self.credit_code
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.name is not None:
+            result['name'] = self.name
+        if self.id_card is not None:
+            result['id_card'] = self.id_card
         if self.phone_number is not None:
             result['phone_number'] = self.phone_number
+        if self.account is not None:
+            result['account'] = self.account
+        if self.password is not None:
+            result['password'] = self.password
         return result
 
     def from_map(self, m: dict = None):
@@ -22287,20 +22317,31 @@ class GetRbbCustomerInformationRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('serial_number') is not None:
-            self.serial_number = m.get('serial_number')
+        if m.get('credit_code') is not None:
+            self.credit_code = m.get('credit_code')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('id_card') is not None:
+            self.id_card = m.get('id_card')
         if m.get('phone_number') is not None:
             self.phone_number = m.get('phone_number')
+        if m.get('account') is not None:
+            self.account = m.get('account')
+        if m.get('password') is not None:
+            self.password = m.get('password')
         return self
 
 
-class GetRbbCustomerInformationResponse(TeaModel):
+class PushRbbCustomerInformationResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        result_data: str = None,
+        res_code: str = None,
+        res_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22308,8 +22349,10 @@ class GetRbbCustomerInformationResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 客户信息结果数据
-        self.result_data = result_data
+        # 返回代码
+        self.res_code = res_code
+        # 结果说明
+        self.res_msg = res_msg
 
     def validate(self):
         pass
@@ -22326,8 +22369,10 @@ class GetRbbCustomerInformationResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.result_data is not None:
-            result['result_data'] = self.result_data
+        if self.res_code is not None:
+            result['res_code'] = self.res_code
+        if self.res_msg is not None:
+            result['res_msg'] = self.res_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -22338,8 +22383,10 @@ class GetRbbCustomerInformationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('result_data') is not None:
-            self.result_data = m.get('result_data')
+        if m.get('res_code') is not None:
+            self.res_code = m.get('res_code')
+        if m.get('res_msg') is not None:
+            self.res_msg = m.get('res_msg')
         return self
 
 
@@ -22438,6 +22485,135 @@ class GetRbbTaxinvoiceDataResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('result_data') is not None:
             self.result_data = m.get('result_data')
+        return self
+
+
+class PushRbbCustomerStatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        credit_code: str = None,
+        product_code: str = None,
+        company_name: str = None,
+        status_code: str = None,
+        status: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 统一社会信用代码
+        self.credit_code = credit_code
+        # 相关产品id
+        self.product_code = product_code
+        # 企业名称
+        self.company_name = company_name
+        # 状态编号
+        self.status_code = status_code
+        # 状态文本
+        self.status = status
+
+    def validate(self):
+        self.validate_required(self.credit_code, 'credit_code')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.company_name, 'company_name')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.credit_code is not None:
+            result['credit_code'] = self.credit_code
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.status_code is not None:
+            result['status_code'] = self.status_code
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('credit_code') is not None:
+            self.credit_code = m.get('credit_code')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('status_code') is not None:
+            self.status_code = m.get('status_code')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class PushRbbCustomerStatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        res_msg: str = None,
+        res_code: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果说明
+        self.res_msg = res_msg
+        # 返回代码
+        self.res_code = res_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.res_msg is not None:
+            result['res_msg'] = self.res_msg
+        if self.res_code is not None:
+            result['res_code'] = self.res_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('res_msg') is not None:
+            self.res_msg = m.get('res_msg')
+        if m.get('res_code') is not None:
+            self.res_code = m.get('res_code')
         return self
 
 

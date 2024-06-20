@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.15',
+                    'sdk_version': '1.19.16',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.15',
+                    'sdk_version': '1.19.16',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -6571,60 +6571,60 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.rbb.credit.operate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def get_rbb_customer_information(
+    def push_rbb_customer_information(
         self,
-        request: riskplus_models.GetRbbCustomerInformationRequest,
-    ) -> riskplus_models.GetRbbCustomerInformationResponse:
+        request: riskplus_models.PushRbbCustomerInformationRequest,
+    ) -> riskplus_models.PushRbbCustomerInformationResponse:
         """
         Description: 获取客户信息
         Summary: 获取客户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_rbb_customer_information_ex(request, headers, runtime)
+        return self.push_rbb_customer_information_ex(request, headers, runtime)
 
-    async def get_rbb_customer_information_async(
+    async def push_rbb_customer_information_async(
         self,
-        request: riskplus_models.GetRbbCustomerInformationRequest,
-    ) -> riskplus_models.GetRbbCustomerInformationResponse:
+        request: riskplus_models.PushRbbCustomerInformationRequest,
+    ) -> riskplus_models.PushRbbCustomerInformationResponse:
         """
         Description: 获取客户信息
         Summary: 获取客户信息
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.get_rbb_customer_information_ex_async(request, headers, runtime)
+        return await self.push_rbb_customer_information_ex_async(request, headers, runtime)
 
-    def get_rbb_customer_information_ex(
+    def push_rbb_customer_information_ex(
         self,
-        request: riskplus_models.GetRbbCustomerInformationRequest,
+        request: riskplus_models.PushRbbCustomerInformationRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.GetRbbCustomerInformationResponse:
+    ) -> riskplus_models.PushRbbCustomerInformationResponse:
         """
         Description: 获取客户信息
         Summary: 获取客户信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.GetRbbCustomerInformationResponse(),
-            self.do_request('1.0', 'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.PushRbbCustomerInformationResponse(),
+            self.do_request('1.0', 'riskplus.rbb.customer.information.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def get_rbb_customer_information_ex_async(
+    async def push_rbb_customer_information_ex_async(
         self,
-        request: riskplus_models.GetRbbCustomerInformationRequest,
+        request: riskplus_models.PushRbbCustomerInformationRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.GetRbbCustomerInformationResponse:
+    ) -> riskplus_models.PushRbbCustomerInformationResponse:
         """
         Description: 获取客户信息
         Summary: 获取客户信息
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            riskplus_models.GetRbbCustomerInformationResponse(),
-            await self.do_request_async('1.0', 'riskplus.rbb.customer.information.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            riskplus_models.PushRbbCustomerInformationResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.customer.information.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_rbb_taxinvoice_data(
@@ -6681,6 +6681,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.GetRbbTaxinvoiceDataResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.taxinvoice.data.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rbb_customer_status(
+        self,
+        request: riskplus_models.PushRbbCustomerStatusRequest,
+    ) -> riskplus_models.PushRbbCustomerStatusResponse:
+        """
+        Description: 客户实时状态通知
+        Summary: 客户实时状态通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rbb_customer_status_ex(request, headers, runtime)
+
+    async def push_rbb_customer_status_async(
+        self,
+        request: riskplus_models.PushRbbCustomerStatusRequest,
+    ) -> riskplus_models.PushRbbCustomerStatusResponse:
+        """
+        Description: 客户实时状态通知
+        Summary: 客户实时状态通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rbb_customer_status_ex_async(request, headers, runtime)
+
+    def push_rbb_customer_status_ex(
+        self,
+        request: riskplus_models.PushRbbCustomerStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRbbCustomerStatusResponse:
+        """
+        Description: 客户实时状态通知
+        Summary: 客户实时状态通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushRbbCustomerStatusResponse(),
+            self.do_request('1.0', 'riskplus.rbb.customer.status.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rbb_customer_status_ex_async(
+        self,
+        request: riskplus_models.PushRbbCustomerStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRbbCustomerStatusResponse:
+        """
+        Description: 客户实时状态通知
+        Summary: 客户实时状态通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushRbbCustomerStatusResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.customer.status.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_rpaas_report_answer(
