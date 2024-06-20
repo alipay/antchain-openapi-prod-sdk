@@ -221,7 +221,7 @@ type YuqingMessageExtInfo struct {
 	// 媒体地域省份
 	MediaAreaProvince *string `json:"media_area_province,omitempty" xml:"media_area_province,omitempty"`
 	// 媒体地域-市
-	MediaResCity *string `json:"media_res_city,omitempty" xml:"media_res_city,omitempty"`
+	MediaAreaCity *string `json:"media_area_city,omitempty" xml:"media_area_city,omitempty"`
 	// 内容风险
 	GeneralModel *string `json:"general_model,omitempty" xml:"general_model,omitempty"`
 }
@@ -244,8 +244,8 @@ func (s *YuqingMessageExtInfo) SetMediaAreaProvince(v string) *YuqingMessageExtI
 	return s
 }
 
-func (s *YuqingMessageExtInfo) SetMediaResCity(v string) *YuqingMessageExtInfo {
-	s.MediaResCity = &v
+func (s *YuqingMessageExtInfo) SetMediaAreaCity(v string) *YuqingMessageExtInfo {
+	s.MediaAreaCity = &v
 	return s
 }
 
@@ -1163,6 +1163,16 @@ type Alarm struct {
 	GmtModifiedTimestamp *int64 `json:"gmt_modified_timestamp,omitempty" xml:"gmt_modified_timestamp,omitempty"`
 	// 完整消息
 	Message *YuqingMessage `json:"message,omitempty" xml:"message,omitempty"`
+	// project
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty"`
+	// alarm_rule_name
+	AlarmRuleName *string `json:"alarm_rule_name,omitempty" xml:"alarm_rule_name,omitempty"`
+	// alarm_level
+	AlarmLevel *string `json:"alarm_level,omitempty" xml:"alarm_level,omitempty"`
+	// doc_media_type
+	DocMediaType *string `json:"doc_media_type,omitempty" xml:"doc_media_type,omitempty"`
+	// status
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 }
 
 func (s Alarm) String() string {
@@ -1230,6 +1240,31 @@ func (s *Alarm) SetGmtModifiedTimestamp(v int64) *Alarm {
 
 func (s *Alarm) SetMessage(v *YuqingMessage) *Alarm {
 	s.Message = v
+	return s
+}
+
+func (s *Alarm) SetProjectName(v string) *Alarm {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *Alarm) SetAlarmRuleName(v string) *Alarm {
+	s.AlarmRuleName = &v
+	return s
+}
+
+func (s *Alarm) SetAlarmLevel(v string) *Alarm {
+	s.AlarmLevel = &v
+	return s
+}
+
+func (s *Alarm) SetDocMediaType(v string) *Alarm {
+	s.DocMediaType = &v
+	return s
+}
+
+func (s *Alarm) SetStatus(v string) *Alarm {
+	s.Status = &v
 	return s
 }
 
@@ -4190,7 +4225,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.17"),
+				"sdk_version":      tea.String("1.2.19"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
