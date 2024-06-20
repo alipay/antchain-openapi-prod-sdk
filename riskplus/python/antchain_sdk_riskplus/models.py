@@ -22255,6 +22255,8 @@ class PushRbbCustomerInformationRequest(TeaModel):
         name: str = None,
         id_card: str = None,
         phone_number: str = None,
+        business_partner: str = None,
+        product_side: str = None,
         account: str = None,
         password: str = None,
     ):
@@ -22271,6 +22273,10 @@ class PushRbbCustomerInformationRequest(TeaModel):
         self.id_card = id_card
         # 手机号
         self.phone_number = phone_number
+        # 合作伙伴
+        self.business_partner = business_partner
+        # 指定产品方
+        self.product_side = product_side
         # 账号
         self.account = account
         # 密码
@@ -22282,6 +22288,8 @@ class PushRbbCustomerInformationRequest(TeaModel):
         self.validate_required(self.name, 'name')
         self.validate_required(self.id_card, 'id_card')
         self.validate_required(self.phone_number, 'phone_number')
+        self.validate_required(self.business_partner, 'business_partner')
+        self.validate_required(self.product_side, 'product_side')
         self.validate_required(self.account, 'account')
         self.validate_required(self.password, 'password')
 
@@ -22305,6 +22313,10 @@ class PushRbbCustomerInformationRequest(TeaModel):
             result['id_card'] = self.id_card
         if self.phone_number is not None:
             result['phone_number'] = self.phone_number
+        if self.business_partner is not None:
+            result['business_partner'] = self.business_partner
+        if self.product_side is not None:
+            result['product_side'] = self.product_side
         if self.account is not None:
             result['account'] = self.account
         if self.password is not None:
@@ -22327,6 +22339,10 @@ class PushRbbCustomerInformationRequest(TeaModel):
             self.id_card = m.get('id_card')
         if m.get('phone_number') is not None:
             self.phone_number = m.get('phone_number')
+        if m.get('business_partner') is not None:
+            self.business_partner = m.get('business_partner')
+        if m.get('product_side') is not None:
+            self.product_side = m.get('product_side')
         if m.get('account') is not None:
             self.account = m.get('account')
         if m.get('password') is not None:
@@ -22493,32 +22509,16 @@ class PushRbbCustomerStatusRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        credit_code: str = None,
-        product_code: str = None,
-        company_name: str = None,
-        status_code: str = None,
-        status: str = None,
+        result_data: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 统一社会信用代码
-        self.credit_code = credit_code
-        # 相关产品id
-        self.product_code = product_code
-        # 企业名称
-        self.company_name = company_name
-        # 状态编号
-        self.status_code = status_code
-        # 状态文本
-        self.status = status
+        # 结果数据
+        self.result_data = result_data
 
     def validate(self):
-        self.validate_required(self.credit_code, 'credit_code')
-        self.validate_required(self.product_code, 'product_code')
-        self.validate_required(self.company_name, 'company_name')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.status, 'status')
+        self.validate_required(self.result_data, 'result_data')
 
     def to_map(self):
         _map = super().to_map()
@@ -22530,16 +22530,8 @@ class PushRbbCustomerStatusRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.credit_code is not None:
-            result['credit_code'] = self.credit_code
-        if self.product_code is not None:
-            result['product_code'] = self.product_code
-        if self.company_name is not None:
-            result['company_name'] = self.company_name
-        if self.status_code is not None:
-            result['status_code'] = self.status_code
-        if self.status is not None:
-            result['status'] = self.status
+        if self.result_data is not None:
+            result['result_data'] = self.result_data
         return result
 
     def from_map(self, m: dict = None):
@@ -22548,16 +22540,8 @@ class PushRbbCustomerStatusRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('credit_code') is not None:
-            self.credit_code = m.get('credit_code')
-        if m.get('product_code') is not None:
-            self.product_code = m.get('product_code')
-        if m.get('company_name') is not None:
-            self.company_name = m.get('company_name')
-        if m.get('status_code') is not None:
-            self.status_code = m.get('status_code')
-        if m.get('status') is not None:
-            self.status = m.get('status')
+        if m.get('result_data') is not None:
+            self.result_data = m.get('result_data')
         return self
 
 
