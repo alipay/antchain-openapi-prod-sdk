@@ -243,7 +243,7 @@ class YuqingMessageExtInfo(TeaModel):
         self,
         media_area_country: str = None,
         media_area_province: str = None,
-        media_res_city: str = None,
+        media_area_city: str = None,
         general_model: str = None,
     ):
         # 媒体地域
@@ -251,7 +251,7 @@ class YuqingMessageExtInfo(TeaModel):
         # 媒体地域省份
         self.media_area_province = media_area_province
         # 媒体地域-市
-        self.media_res_city = media_res_city
+        self.media_area_city = media_area_city
         # 内容风险
         self.general_model = general_model
 
@@ -268,8 +268,8 @@ class YuqingMessageExtInfo(TeaModel):
             result['media_area_country'] = self.media_area_country
         if self.media_area_province is not None:
             result['media_area_province'] = self.media_area_province
-        if self.media_res_city is not None:
-            result['media_res_city'] = self.media_res_city
+        if self.media_area_city is not None:
+            result['media_area_city'] = self.media_area_city
         if self.general_model is not None:
             result['general_model'] = self.general_model
         return result
@@ -280,8 +280,8 @@ class YuqingMessageExtInfo(TeaModel):
             self.media_area_country = m.get('media_area_country')
         if m.get('media_area_province') is not None:
             self.media_area_province = m.get('media_area_province')
-        if m.get('media_res_city') is not None:
-            self.media_res_city = m.get('media_res_city')
+        if m.get('media_area_city') is not None:
+            self.media_area_city = m.get('media_area_city')
         if m.get('general_model') is not None:
             self.general_model = m.get('general_model')
         return self
@@ -1349,6 +1349,11 @@ class Alarm(TeaModel):
         type: str = None,
         gmt_modified_timestamp: int = None,
         message: YuqingMessage = None,
+        project_name: str = None,
+        alarm_rule_name: str = None,
+        alarm_level: str = None,
+        doc_media_type: str = None,
+        status: str = None,
     ):
         # 人工打的标签
         self.tags = tags
@@ -1374,6 +1379,16 @@ class Alarm(TeaModel):
         self.gmt_modified_timestamp = gmt_modified_timestamp
         # 完整消息
         self.message = message
+        # project
+        self.project_name = project_name
+        # alarm_rule_name
+        self.alarm_rule_name = alarm_rule_name
+        # alarm_level
+        self.alarm_level = alarm_level
+        # doc_media_type
+        self.doc_media_type = doc_media_type
+        # status
+        self.status = status
 
     def validate(self):
         if self.message:
@@ -1409,6 +1424,16 @@ class Alarm(TeaModel):
             result['gmt_modified_timestamp'] = self.gmt_modified_timestamp
         if self.message is not None:
             result['message'] = self.message.to_map()
+        if self.project_name is not None:
+            result['project_name'] = self.project_name
+        if self.alarm_rule_name is not None:
+            result['alarm_rule_name'] = self.alarm_rule_name
+        if self.alarm_level is not None:
+            result['alarm_level'] = self.alarm_level
+        if self.doc_media_type is not None:
+            result['doc_media_type'] = self.doc_media_type
+        if self.status is not None:
+            result['status'] = self.status
         return result
 
     def from_map(self, m: dict = None):
@@ -1438,6 +1463,16 @@ class Alarm(TeaModel):
         if m.get('message') is not None:
             temp_model = YuqingMessage()
             self.message = temp_model.from_map(m['message'])
+        if m.get('project_name') is not None:
+            self.project_name = m.get('project_name')
+        if m.get('alarm_rule_name') is not None:
+            self.alarm_rule_name = m.get('alarm_rule_name')
+        if m.get('alarm_level') is not None:
+            self.alarm_level = m.get('alarm_level')
+        if m.get('doc_media_type') is not None:
+            self.doc_media_type = m.get('doc_media_type')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
