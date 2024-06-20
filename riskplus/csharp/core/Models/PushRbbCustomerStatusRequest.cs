@@ -18,30 +18,10 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 统一社会信用代码
-        [NameInMap("credit_code")]
+        // 结果数据
+        [NameInMap("result_data")]
         [Validation(Required=true)]
-        public string CreditCode { get; set; }
-
-        // 相关产品id
-        [NameInMap("product_code")]
-        [Validation(Required=true)]
-        public string ProductCode { get; set; }
-
-        // 企业名称
-        [NameInMap("company_name")]
-        [Validation(Required=true)]
-        public string CompanyName { get; set; }
-
-        // 状态编号
-        [NameInMap("status_code")]
-        [Validation(Required=true)]
-        public string StatusCode { get; set; }
-
-        // 状态文本
-        [NameInMap("status")]
-        [Validation(Required=true)]
-        public string Status { get; set; }
+        public string ResultData { get; set; }
 
     }
 

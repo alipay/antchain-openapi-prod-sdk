@@ -43,6 +43,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string PhoneNumber { get; set; }
 
+        // 合作伙伴
+        [NameInMap("business_partner")]
+        [Validation(Required=true)]
+        public string BusinessPartner { get; set; }
+
+        // 指定产品方
+        [NameInMap("product_side")]
+        [Validation(Required=true)]
+        public string ProductSide { get; set; }
+
         // 账号
         [NameInMap("account")]
         [Validation(Required=true)]
