@@ -17953,80 +17953,122 @@ func (s *OperateRbbCreditResponse) SetResultData(v string) *OperateRbbCreditResp
 	return s
 }
 
-type GetRbbCustomerInformationRequest struct {
+type PushRbbCustomerInformationRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 流水号
-	SerialNumber *string `json:"serial_number,omitempty" xml:"serial_number,omitempty" require:"true"`
+	// 社会信用代码
+	CreditCode *string `json:"credit_code,omitempty" xml:"credit_code,omitempty" require:"true"`
+	// 公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 法人姓名
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 身份证号
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty" require:"true"`
 	// 手机号
 	PhoneNumber *string `json:"phone_number,omitempty" xml:"phone_number,omitempty" require:"true"`
+	// 账号
+	Account *string `json:"account,omitempty" xml:"account,omitempty" require:"true"`
+	// 密码
+	Password *string `json:"password,omitempty" xml:"password,omitempty" require:"true"`
 }
 
-func (s GetRbbCustomerInformationRequest) String() string {
+func (s PushRbbCustomerInformationRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetRbbCustomerInformationRequest) GoString() string {
+func (s PushRbbCustomerInformationRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetRbbCustomerInformationRequest) SetAuthToken(v string) *GetRbbCustomerInformationRequest {
+func (s *PushRbbCustomerInformationRequest) SetAuthToken(v string) *PushRbbCustomerInformationRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetRbbCustomerInformationRequest) SetProductInstanceId(v string) *GetRbbCustomerInformationRequest {
+func (s *PushRbbCustomerInformationRequest) SetProductInstanceId(v string) *PushRbbCustomerInformationRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *GetRbbCustomerInformationRequest) SetSerialNumber(v string) *GetRbbCustomerInformationRequest {
-	s.SerialNumber = &v
+func (s *PushRbbCustomerInformationRequest) SetCreditCode(v string) *PushRbbCustomerInformationRequest {
+	s.CreditCode = &v
 	return s
 }
 
-func (s *GetRbbCustomerInformationRequest) SetPhoneNumber(v string) *GetRbbCustomerInformationRequest {
+func (s *PushRbbCustomerInformationRequest) SetCompanyName(v string) *PushRbbCustomerInformationRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *PushRbbCustomerInformationRequest) SetName(v string) *PushRbbCustomerInformationRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *PushRbbCustomerInformationRequest) SetIdCard(v string) *PushRbbCustomerInformationRequest {
+	s.IdCard = &v
+	return s
+}
+
+func (s *PushRbbCustomerInformationRequest) SetPhoneNumber(v string) *PushRbbCustomerInformationRequest {
 	s.PhoneNumber = &v
 	return s
 }
 
-type GetRbbCustomerInformationResponse struct {
+func (s *PushRbbCustomerInformationRequest) SetAccount(v string) *PushRbbCustomerInformationRequest {
+	s.Account = &v
+	return s
+}
+
+func (s *PushRbbCustomerInformationRequest) SetPassword(v string) *PushRbbCustomerInformationRequest {
+	s.Password = &v
+	return s
+}
+
+type PushRbbCustomerInformationResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 客户信息结果数据
-	ResultData *string `json:"result_data,omitempty" xml:"result_data,omitempty"`
+	// 返回代码
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
+	// 结果说明
+	ResMsg *string `json:"res_msg,omitempty" xml:"res_msg,omitempty"`
 }
 
-func (s GetRbbCustomerInformationResponse) String() string {
+func (s PushRbbCustomerInformationResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetRbbCustomerInformationResponse) GoString() string {
+func (s PushRbbCustomerInformationResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetRbbCustomerInformationResponse) SetReqMsgId(v string) *GetRbbCustomerInformationResponse {
+func (s *PushRbbCustomerInformationResponse) SetReqMsgId(v string) *PushRbbCustomerInformationResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetRbbCustomerInformationResponse) SetResultCode(v string) *GetRbbCustomerInformationResponse {
+func (s *PushRbbCustomerInformationResponse) SetResultCode(v string) *PushRbbCustomerInformationResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetRbbCustomerInformationResponse) SetResultMsg(v string) *GetRbbCustomerInformationResponse {
+func (s *PushRbbCustomerInformationResponse) SetResultMsg(v string) *PushRbbCustomerInformationResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetRbbCustomerInformationResponse) SetResultData(v string) *GetRbbCustomerInformationResponse {
-	s.ResultData = &v
+func (s *PushRbbCustomerInformationResponse) SetResCode(v string) *PushRbbCustomerInformationResponse {
+	s.ResCode = &v
+	return s
+}
+
+func (s *PushRbbCustomerInformationResponse) SetResMsg(v string) *PushRbbCustomerInformationResponse {
+	s.ResMsg = &v
 	return s
 }
 
@@ -18104,6 +18146,111 @@ func (s *GetRbbTaxinvoiceDataResponse) SetResultMsg(v string) *GetRbbTaxinvoiceD
 
 func (s *GetRbbTaxinvoiceDataResponse) SetResultData(v string) *GetRbbTaxinvoiceDataResponse {
 	s.ResultData = &v
+	return s
+}
+
+type PushRbbCustomerStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 统一社会信用代码
+	CreditCode *string `json:"credit_code,omitempty" xml:"credit_code,omitempty" require:"true"`
+	// 相关产品id
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 企业名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 状态编号
+	StatusCode *string `json:"status_code,omitempty" xml:"status_code,omitempty" require:"true"`
+	// 状态文本
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s PushRbbCustomerStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRbbCustomerStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRbbCustomerStatusRequest) SetAuthToken(v string) *PushRbbCustomerStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusRequest) SetProductInstanceId(v string) *PushRbbCustomerStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusRequest) SetCreditCode(v string) *PushRbbCustomerStatusRequest {
+	s.CreditCode = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusRequest) SetProductCode(v string) *PushRbbCustomerStatusRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusRequest) SetCompanyName(v string) *PushRbbCustomerStatusRequest {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusRequest) SetStatusCode(v string) *PushRbbCustomerStatusRequest {
+	s.StatusCode = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusRequest) SetStatus(v string) *PushRbbCustomerStatusRequest {
+	s.Status = &v
+	return s
+}
+
+type PushRbbCustomerStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果说明
+	ResMsg *string `json:"res_msg,omitempty" xml:"res_msg,omitempty"`
+	// 返回代码
+	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
+}
+
+func (s PushRbbCustomerStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRbbCustomerStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRbbCustomerStatusResponse) SetReqMsgId(v string) *PushRbbCustomerStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusResponse) SetResultCode(v string) *PushRbbCustomerStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusResponse) SetResultMsg(v string) *PushRbbCustomerStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusResponse) SetResMsg(v string) *PushRbbCustomerStatusResponse {
+	s.ResMsg = &v
+	return s
+}
+
+func (s *PushRbbCustomerStatusResponse) SetResCode(v string) *PushRbbCustomerStatusResponse {
+	s.ResCode = &v
 	return s
 }
 
@@ -26427,7 +26574,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.15"),
+				"sdk_version":      tea.String("1.19.16"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -30345,11 +30492,11 @@ func (client *Client) OperateRbbCreditEx(request *OperateRbbCreditRequest, heade
  * Description: 获取客户信息
  * Summary: 获取客户信息
  */
-func (client *Client) GetRbbCustomerInformation(request *GetRbbCustomerInformationRequest) (_result *GetRbbCustomerInformationResponse, _err error) {
+func (client *Client) PushRbbCustomerInformation(request *PushRbbCustomerInformationRequest) (_result *PushRbbCustomerInformationResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetRbbCustomerInformationResponse{}
-	_body, _err := client.GetRbbCustomerInformationEx(request, headers, runtime)
+	_result = &PushRbbCustomerInformationResponse{}
+	_body, _err := client.PushRbbCustomerInformationEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -30361,13 +30508,13 @@ func (client *Client) GetRbbCustomerInformation(request *GetRbbCustomerInformati
  * Description: 获取客户信息
  * Summary: 获取客户信息
  */
-func (client *Client) GetRbbCustomerInformationEx(request *GetRbbCustomerInformationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetRbbCustomerInformationResponse, _err error) {
+func (client *Client) PushRbbCustomerInformationEx(request *PushRbbCustomerInformationRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRbbCustomerInformationResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetRbbCustomerInformationResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.customer.information.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &PushRbbCustomerInformationResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.customer.information.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -30402,6 +30549,40 @@ func (client *Client) GetRbbTaxinvoiceDataEx(request *GetRbbTaxinvoiceDataReques
 	}
 	_result = &GetRbbTaxinvoiceDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.taxinvoice.data.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 客户实时状态通知
+ * Summary: 客户实时状态通知
+ */
+func (client *Client) PushRbbCustomerStatus(request *PushRbbCustomerStatusRequest) (_result *PushRbbCustomerStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRbbCustomerStatusResponse{}
+	_body, _err := client.PushRbbCustomerStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 客户实时状态通知
+ * Summary: 客户实时状态通知
+ */
+func (client *Client) PushRbbCustomerStatusEx(request *PushRbbCustomerStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRbbCustomerStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRbbCustomerStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.customer.status.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
