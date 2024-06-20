@@ -13391,20 +13391,35 @@ export class OperateRbbCreditResponse extends $tea.Model {
   }
 }
 
-export class GetRbbCustomerInformationRequest extends $tea.Model {
+export class PushRbbCustomerInformationRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 流水号
-  serialNumber: string;
+  // 社会信用代码
+  creditCode: string;
+  // 公司名称
+  companyName: string;
+  // 法人姓名
+  name: string;
+  // 身份证号
+  idCard: string;
   // 手机号
   phoneNumber: string;
+  // 账号
+  account: string;
+  // 密码
+  password: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      serialNumber: 'serial_number',
+      creditCode: 'credit_code',
+      companyName: 'company_name',
+      name: 'name',
+      idCard: 'id_card',
       phoneNumber: 'phone_number',
+      account: 'account',
+      password: 'password',
     };
   }
 
@@ -13412,8 +13427,13 @@ export class GetRbbCustomerInformationRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      serialNumber: 'string',
+      creditCode: 'string',
+      companyName: 'string',
+      name: 'string',
+      idCard: 'string',
       phoneNumber: 'string',
+      account: 'string',
+      password: 'string',
     };
   }
 
@@ -13422,21 +13442,24 @@ export class GetRbbCustomerInformationRequest extends $tea.Model {
   }
 }
 
-export class GetRbbCustomerInformationResponse extends $tea.Model {
+export class PushRbbCustomerInformationResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 客户信息结果数据
-  resultData?: string;
+  // 返回代码
+  resCode?: string;
+  // 结果说明
+  resMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      resultData: 'result_data',
+      resCode: 'res_code',
+      resMsg: 'res_msg',
     };
   }
 
@@ -13445,7 +13468,8 @@ export class GetRbbCustomerInformationResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      resultData: 'string',
+      resCode: 'string',
+      resMsg: 'string',
     };
   }
 
@@ -13509,6 +13533,85 @@ export class GetRbbTaxinvoiceDataResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       resultData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRbbCustomerStatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 统一社会信用代码
+  creditCode: string;
+  // 相关产品id
+  productCode: string;
+  // 企业名称
+  companyName: string;
+  // 状态编号
+  statusCode: string;
+  // 状态文本
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      creditCode: 'credit_code',
+      productCode: 'product_code',
+      companyName: 'company_name',
+      statusCode: 'status_code',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      creditCode: 'string',
+      productCode: 'string',
+      companyName: 'string',
+      statusCode: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRbbCustomerStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果说明
+  resMsg?: string;
+  // 返回代码
+  resCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resMsg: 'res_msg',
+      resCode: 'res_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resMsg: 'string',
+      resCode: 'string',
     };
   }
 
@@ -19745,7 +19848,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.15",
+          sdk_version: "1.19.16",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -21971,19 +22074,19 @@ export default class Client {
    * Description: 获取客户信息
    * Summary: 获取客户信息
    */
-  async getRbbCustomerInformation(request: GetRbbCustomerInformationRequest): Promise<GetRbbCustomerInformationResponse> {
+  async pushRbbCustomerInformation(request: PushRbbCustomerInformationRequest): Promise<PushRbbCustomerInformationResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getRbbCustomerInformationEx(request, headers, runtime);
+    return await this.pushRbbCustomerInformationEx(request, headers, runtime);
   }
 
   /**
    * Description: 获取客户信息
    * Summary: 获取客户信息
    */
-  async getRbbCustomerInformationEx(request: GetRbbCustomerInformationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetRbbCustomerInformationResponse> {
+  async pushRbbCustomerInformationEx(request: PushRbbCustomerInformationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRbbCustomerInformationResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetRbbCustomerInformationResponse>(await this.doRequest("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetRbbCustomerInformationResponse({}));
+    return $tea.cast<PushRbbCustomerInformationResponse>(await this.doRequest("1.0", "riskplus.rbb.customer.information.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRbbCustomerInformationResponse({}));
   }
 
   /**
@@ -22003,6 +22106,25 @@ export default class Client {
   async getRbbTaxinvoiceDataEx(request: GetRbbTaxinvoiceDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetRbbTaxinvoiceDataResponse> {
     Util.validateModel(request);
     return $tea.cast<GetRbbTaxinvoiceDataResponse>(await this.doRequest("1.0", "riskplus.rbb.taxinvoice.data.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetRbbTaxinvoiceDataResponse({}));
+  }
+
+  /**
+   * Description: 客户实时状态通知
+   * Summary: 客户实时状态通知
+   */
+  async pushRbbCustomerStatus(request: PushRbbCustomerStatusRequest): Promise<PushRbbCustomerStatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRbbCustomerStatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 客户实时状态通知
+   * Summary: 客户实时状态通知
+   */
+  async pushRbbCustomerStatusEx(request: PushRbbCustomerStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRbbCustomerStatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRbbCustomerStatusResponse>(await this.doRequest("1.0", "riskplus.rbb.customer.status.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRbbCustomerStatusResponse({}));
   }
 
   /**
