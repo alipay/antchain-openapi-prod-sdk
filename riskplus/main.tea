@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.16',
+    sdk_version = '1.19.17',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -7406,6 +7406,10 @@ model PushRbbCustomerInformationRequest = {
   idCard: string(name='id_card'),
   // 手机号
   phoneNumber: string(name='phone_number'),
+  // 合作伙伴
+  businessPartner: string(name='business_partner'),
+  // 指定产品方
+  productSide: string(name='product_side'),
   // 账号
   account: string(name='account'),
   // 密码
@@ -7488,16 +7492,8 @@ model PushRbbCustomerStatusRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 统一社会信用代码
-  creditCode: string(name='credit_code'),
-  // 相关产品id
-  productCode: string(name='product_code'),
-  // 企业名称
-  companyName: string(name='company_name'),
-  // 状态编号
-  statusCode: string(name='status_code'),
-  // 状态文本
-  status: string(name='status'),
+  // 结果数据
+  resultData: string(name='result_data'),
 }
 
 model PushRbbCustomerStatusResponse = {
