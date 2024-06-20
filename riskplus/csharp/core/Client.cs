@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.15"},
+                        {"sdk_version", "1.19.16"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.15"},
+                        {"sdk_version", "1.19.16"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5129,42 +5129,42 @@ namespace AntChain.SDK.RISKPLUS
          * Description: 获取客户信息
          * Summary: 获取客户信息
          */
-        public GetRbbCustomerInformationResponse GetRbbCustomerInformation(GetRbbCustomerInformationRequest request)
+        public PushRbbCustomerInformationResponse PushRbbCustomerInformation(PushRbbCustomerInformationRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return GetRbbCustomerInformationEx(request, headers, runtime);
+            return PushRbbCustomerInformationEx(request, headers, runtime);
         }
 
         /**
          * Description: 获取客户信息
          * Summary: 获取客户信息
          */
-        public async Task<GetRbbCustomerInformationResponse> GetRbbCustomerInformationAsync(GetRbbCustomerInformationRequest request)
+        public async Task<PushRbbCustomerInformationResponse> PushRbbCustomerInformationAsync(PushRbbCustomerInformationRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await GetRbbCustomerInformationExAsync(request, headers, runtime);
+            return await PushRbbCustomerInformationExAsync(request, headers, runtime);
         }
 
         /**
          * Description: 获取客户信息
          * Summary: 获取客户信息
          */
-        public GetRbbCustomerInformationResponse GetRbbCustomerInformationEx(GetRbbCustomerInformationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public PushRbbCustomerInformationResponse PushRbbCustomerInformationEx(PushRbbCustomerInformationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetRbbCustomerInformationResponse>(DoRequest("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<PushRbbCustomerInformationResponse>(DoRequest("1.0", "riskplus.rbb.customer.information.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
          * Description: 获取客户信息
          * Summary: 获取客户信息
          */
-        public async Task<GetRbbCustomerInformationResponse> GetRbbCustomerInformationExAsync(GetRbbCustomerInformationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<PushRbbCustomerInformationResponse> PushRbbCustomerInformationExAsync(PushRbbCustomerInformationRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<GetRbbCustomerInformationResponse>(await DoRequestAsync("1.0", "riskplus.rbb.customer.information.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<PushRbbCustomerInformationResponse>(await DoRequestAsync("1.0", "riskplus.rbb.customer.information.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -5207,6 +5207,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetRbbTaxinvoiceDataResponse>(await DoRequestAsync("1.0", "riskplus.rbb.taxinvoice.data.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户实时状态通知
+         * Summary: 客户实时状态通知
+         */
+        public PushRbbCustomerStatusResponse PushRbbCustomerStatus(PushRbbCustomerStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRbbCustomerStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户实时状态通知
+         * Summary: 客户实时状态通知
+         */
+        public async Task<PushRbbCustomerStatusResponse> PushRbbCustomerStatusAsync(PushRbbCustomerStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRbbCustomerStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 客户实时状态通知
+         * Summary: 客户实时状态通知
+         */
+        public PushRbbCustomerStatusResponse PushRbbCustomerStatusEx(PushRbbCustomerStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRbbCustomerStatusResponse>(DoRequest("1.0", "riskplus.rbb.customer.status.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 客户实时状态通知
+         * Summary: 客户实时状态通知
+         */
+        public async Task<PushRbbCustomerStatusResponse> PushRbbCustomerStatusExAsync(PushRbbCustomerStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRbbCustomerStatusResponse>(await DoRequestAsync("1.0", "riskplus.rbb.customer.status.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

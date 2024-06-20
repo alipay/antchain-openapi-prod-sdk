@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class GetRbbCustomerInformationResponse : TeaModel {
+    public class PushRbbCustomerInformationResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 客户信息结果数据
-        [NameInMap("result_data")]
+        // 返回代码
+        [NameInMap("res_code")]
         [Validation(Required=false)]
-        public string ResultData { get; set; }
+        public string ResCode { get; set; }
+
+        // 结果说明
+        [NameInMap("res_msg")]
+        [Validation(Required=false)]
+        public string ResMsg { get; set; }
 
     }
 
