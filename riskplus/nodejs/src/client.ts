@@ -13405,6 +13405,10 @@ export class PushRbbCustomerInformationRequest extends $tea.Model {
   idCard: string;
   // 手机号
   phoneNumber: string;
+  // 合作伙伴
+  businessPartner: string;
+  // 指定产品方
+  productSide: string;
   // 账号
   account: string;
   // 密码
@@ -13418,6 +13422,8 @@ export class PushRbbCustomerInformationRequest extends $tea.Model {
       name: 'name',
       idCard: 'id_card',
       phoneNumber: 'phone_number',
+      businessPartner: 'business_partner',
+      productSide: 'product_side',
       account: 'account',
       password: 'password',
     };
@@ -13432,6 +13438,8 @@ export class PushRbbCustomerInformationRequest extends $tea.Model {
       name: 'string',
       idCard: 'string',
       phoneNumber: 'string',
+      businessPartner: 'string',
+      productSide: 'string',
       account: 'string',
       password: 'string',
     };
@@ -13545,25 +13553,13 @@ export class PushRbbCustomerStatusRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 统一社会信用代码
-  creditCode: string;
-  // 相关产品id
-  productCode: string;
-  // 企业名称
-  companyName: string;
-  // 状态编号
-  statusCode: string;
-  // 状态文本
-  status: string;
+  // 结果数据
+  resultData: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      creditCode: 'credit_code',
-      productCode: 'product_code',
-      companyName: 'company_name',
-      statusCode: 'status_code',
-      status: 'status',
+      resultData: 'result_data',
     };
   }
 
@@ -13571,11 +13567,7 @@ export class PushRbbCustomerStatusRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      creditCode: 'string',
-      productCode: 'string',
-      companyName: 'string',
-      statusCode: 'string',
-      status: 'string',
+      resultData: 'string',
     };
   }
 
@@ -19848,7 +19840,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.16",
+          sdk_version: "1.19.17",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
