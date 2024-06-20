@@ -1,0 +1,1893 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.3.1',
+    _prod_code = 'CAASPLATFORM',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 分账明细
+model RuleItem {
+  // 分账方Id
+  id: string(name='id', example='ea596f28-4ece-406d-a9e1-86fa83cc505f'),
+  // 分账份额，总份额100，保留2位小数
+  proportion: string(name='proportion', example='23.36'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
+model CreateDepositRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务幂等id
+  orderId: string(name='order_id'),
+  // 服务实例id
+  serviceId: string(name='service_id'),
+  // 基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+  // 额外信息json
+  extensionInfoJson?: string(name='extension_info_json'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId?: string(name='file_id'),
+}
+
+model CreateDepositResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建存证
+ * Summary: 创建存证
+ */
+async function createDeposit(request: CreateDepositRequest): CreateDepositResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDepositEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建存证
+ * Summary: 创建存证
+ */
+async function createDepositEx(request: CreateDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDepositResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.caasplatform.deposit.create',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var createDepositResponse = new CreateDepositResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return createDepositResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.deposit.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDepositRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务幂等id
+  orderId: string(name='order_id'),
+  // 服务实例id
+  serviceId: string(name='service_id'),
+}
+
+model QueryDepositResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务幂等id
+  orderId?: string(name='order_id'),
+  // 服务实例id
+  serviceId?: string(name='service_id'),
+  // 基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+  // 额外信息json
+  extensionInfoJson?: string(name='extension_info_json'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+  // 块高
+  blockNumber?: long(name='block_number'),
+  // 交易时间戳
+  timestamp?: long(name='timestamp'),
+  // 文件地址
+  fileUrl?: string(name='file_url'),
+  // 文件id
+  fileId?: string(name='file_id'),
+  // 文件哈希
+  fileHash?: string(name='file_hash'),
+}
+
+/**
+ * Description: 存证查询
+ * Summary: 存证查询
+ */
+async function queryDeposit(request: QueryDepositRequest): QueryDepositResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDepositEx(request, headers, runtime);
+}
+
+/**
+ * Description: 存证查询
+ * Summary: 存证查询
+ */
+async function queryDepositEx(request: QueryDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDepositResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.deposit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDepositCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务幂等id
+  orderId: string(name='order_id'),
+  // 合约服务实例id
+  serviceId: string(name='service_id'),
+}
+
+model QueryDepositCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务幂等id
+  orderId?: string(name='order_id'),
+  // 服务实例id
+  serviceId?: string(name='service_id'),
+  // 基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+  // 额外信息json
+  extensionInfoJson?: string(name='extension_info_json'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+  // 块高
+  blockNumber?: long(name='block_number'),
+  // 交易时间戳
+  timestamp?: long(name='timestamp'),
+  // 文件地址
+  fileUrl?: string(name='file_url'),
+  // 文件id
+  fileId?: string(name='file_id'),
+  // 文件哈希
+  fileHash?: string(name='file_hash'),
+}
+
+/**
+ * Description: 证书存证合约-证书存证查询
+ * Summary: 证书存证合约-证书存证查询
+ */
+async function queryDepositCertificate(request: QueryDepositCertificateRequest): QueryDepositCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDepositCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 证书存证合约-证书存证查询
+ * Summary: 证书存证合约-证书存证查询
+ */
+async function queryDepositCertificateEx(request: QueryDepositCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDepositCertificateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.deposit.certificate.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDepositCertificateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务幂等id
+  orderId: string(name='order_id'),
+  // 合约服务实例id
+  serviceId: string(name='service_id'),
+  // 基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+  // 额外信息json
+  extensionInfoJson?: string(name='extension_info_json'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId?: string(name='file_id'),
+}
+
+model CreateDepositCertificateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 证书存证合约-创建证书存证
+ * Summary: 证书存证合约-创建证书存证
+ */
+async function createDepositCertificate(request: CreateDepositCertificateRequest): CreateDepositCertificateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDepositCertificateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 证书存证合约-创建证书存证
+ * Summary: 证书存证合约-创建证书存证
+ */
+async function createDepositCertificateEx(request: CreateDepositCertificateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDepositCertificateResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.caasplatform.deposit.certificate.create',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var createDepositCertificateResponse = new CreateDepositCertificateResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return createDepositCertificateResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.deposit.certificate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDepositCharityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务幂等id
+  orderId: string(name='order_id'),
+  // 合约服务实例id
+  serviceId: string(name='service_id'),
+}
+
+model QueryDepositCharityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务幂等id
+  orderId?: string(name='order_id'),
+  // 服务实例id
+  serviceId?: string(name='service_id'),
+  // 基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+  // 额外信息json
+  extensionInfoJson?: string(name='extension_info_json'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+  // 块高
+  blockNumber?: long(name='block_number'),
+  // 交易时间戳
+  timestamp?: long(name='timestamp'),
+  // 文件地址
+  fileUrl?: string(name='file_url'),
+  // 文件id
+  fileId?: string(name='file_id'),
+  // 文件哈希
+  fileHash?: string(name='file_hash'),
+}
+
+/**
+ * Description: 捐赠合约-捐赠证明查询
+ * Summary: 捐赠合约-捐赠证明查询
+ */
+async function queryDepositCharity(request: QueryDepositCharityRequest): QueryDepositCharityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDepositCharityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 捐赠合约-捐赠证明查询
+ * Summary: 捐赠合约-捐赠证明查询
+ */
+async function queryDepositCharityEx(request: QueryDepositCharityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDepositCharityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.deposit.charity.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDepositCharityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务幂等id
+  orderId: string(name='order_id'),
+  // 合约服务实例id
+  serviceId: string(name='service_id'),
+  // 基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+  // 额外信息json
+  extensionInfoJson?: string(name='extension_info_json'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId?: string(name='file_id'),
+}
+
+model CreateDepositCharityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 捐赠合约-创建捐赠证明
+ * Summary: 捐赠合约-创建捐赠证明
+ */
+async function createDepositCharity(request: CreateDepositCharityRequest): CreateDepositCharityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDepositCharityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 捐赠合约-创建捐赠证明
+ * Summary: 捐赠合约-创建捐赠证明
+ */
+async function createDepositCharityEx(request: CreateDepositCharityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDepositCharityResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.caasplatform.deposit.charity.create',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var createDepositCharityResponse = new CreateDepositCharityResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return createDepositCharityResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.deposit.charity.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDepositSweepstakesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务幂等id
+  orderId: string(name='order_id'),
+  // 合约服务实例id
+  serviceId: string(name='service_id'),
+}
+
+model QueryDepositSweepstakesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务幂等id
+  orderId?: string(name='order_id'),
+  // 服务实例id
+  serviceId?: string(name='service_id'),
+  // 基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+  // 额外信息json
+  extensionInfoJson?: string(name='extension_info_json'),
+  // 交易hash
+  txHash?: string(name='tx_hash'),
+  // 块高
+  blockNumber?: long(name='block_number'),
+  // 交易时间戳
+  timestamp?: long(name='timestamp'),
+  // 文件地址
+  fileUrl?: string(name='file_url'),
+  // 文件id
+  fileId?: string(name='file_id'),
+  // 文件哈希
+  fileHash?: string(name='file_hash'),
+}
+
+/**
+ * Description: 抽奖活动审计合约-中奖记录查询
+ * Summary: 抽奖活动审计合约-中奖记录查询
+ */
+async function queryDepositSweepstakes(request: QueryDepositSweepstakesRequest): QueryDepositSweepstakesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDepositSweepstakesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 抽奖活动审计合约-中奖记录查询
+ * Summary: 抽奖活动审计合约-中奖记录查询
+ */
+async function queryDepositSweepstakesEx(request: QueryDepositSweepstakesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDepositSweepstakesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.deposit.sweepstakes.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDepositSweepstakesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务幂等id
+  orderId: string(name='order_id'),
+  // 合约服务实例id
+  serviceId: string(name='service_id'),
+  // 基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+  // 额外信息json
+  extensionInfoJson?: string(name='extension_info_json'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId?: string(name='file_id'),
+}
+
+model CreateDepositSweepstakesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 抽奖活动审计合约-创建活动记录
+ * Summary: 抽奖活动审计合约-创建活动记录
+ */
+async function createDepositSweepstakes(request: CreateDepositSweepstakesRequest): CreateDepositSweepstakesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDepositSweepstakesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 抽奖活动审计合约-创建活动记录
+ * Summary: 抽奖活动审计合约-创建活动记录
+ */
+async function createDepositSweepstakesEx(request: CreateDepositSweepstakesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDepositSweepstakesResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.caasplatform.deposit.sweepstakes.create',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var createDepositSweepstakesResponse = new CreateDepositSweepstakesResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return createDepositSweepstakesResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.deposit.sweepstakes.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetGeneralDepositRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务ID
+  id: string(name='id'),
+  // 要存储的数据，推荐json格式
+  data: string(name='data'),
+  // 合约服务实例id
+  serviceId: string(name='service_id'),
+}
+
+model SetGeneralDepositResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约调用交易哈希
+  txHash?: string(name='tx_hash'),
+  // 合约调用交易块高
+  blockNumber?: long(name='block_number'),
+  // 合约返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 通用合约调用-结构化存储场景
+ * Summary: 通用合约调用-结构化存储场景
+ */
+async function setGeneralDeposit(request: SetGeneralDepositRequest): SetGeneralDepositResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setGeneralDepositEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用合约调用-结构化存储场景
+ * Summary: 通用合约调用-结构化存储场景
+ */
+async function setGeneralDepositEx(request: SetGeneralDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetGeneralDepositResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.deposit.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetGeneralDepositRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务ID
+  id: string(name='id'),
+  // 合约服务实例id
+  serviceId: string(name='service_id'),
+}
+
+model GetGeneralDepositResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用合约交易哈希
+  txHash?: string(name='tx_hash'),
+  // 合约调用交易块高
+  blockNumber?: long(name='block_number'),
+  // 合约返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 通用合约调用-结构化查询场景
+ * Summary: 通用合约调用-结构化查询场景
+ */
+async function getGeneralDeposit(request: GetGeneralDepositRequest): GetGeneralDepositResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getGeneralDepositEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用合约调用-结构化查询场景
+ * Summary: 通用合约调用-结构化查询场景
+ */
+async function getGeneralDepositEx(request: GetGeneralDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGeneralDepositResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.deposit.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayGeneralRightsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约服务实例Id
+  serviceId: string(name='service_id'),
+  // 持有账号的地址
+  from: string(name='from'),
+  // 接收账号的地址
+  to: string(name='to'),
+  // 数据资产ID
+  id: long(name='id'),
+  // 要转增的数据资产数量
+  amount: long(name='amount'),
+  // 扩展数据
+  data?: string(name='data'),
+}
+
+model PayGeneralRightsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约调用交易哈希
+  txHash?: string(name='tx_hash'),
+  // 合约调用交易块高
+  blockNumber?: long(name='block_number'),
+  // 合约返回结果
+  result?: string(name='result'),
+  // 错误码
+  code?: long(name='code'),
+}
+
+/**
+ * Description: 通用合约调用-权益-转赠
+ * Summary: 通用合约调用-权益-转赠
+ */
+async function payGeneralRights(request: PayGeneralRightsRequest): PayGeneralRightsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payGeneralRightsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用合约调用-权益-转赠
+ * Summary: 通用合约调用-权益-转赠
+ */
+async function payGeneralRightsEx(request: PayGeneralRightsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayGeneralRightsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.rights.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadExtendRightsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 名称
+  name: string(name='name'),
+  // 描述
+  description?: string(name='description'),
+  // 文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 扩展字段
+  data?: string(name='data'),
+  // 作者或发型方
+  author: string(name='author'),
+}
+
+model UploadExtendRightsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据资产id
+  rightsId?: long(name='rights_id'),
+}
+
+/**
+ * Description: 资源文件托管
+ * Summary: 资源文件托管
+ */
+async function uploadExtendRights(request: UploadExtendRightsRequest): UploadExtendRightsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadExtendRightsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资源文件托管
+ * Summary: 资源文件托管
+ */
+async function uploadExtendRightsEx(request: UploadExtendRightsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadExtendRightsResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.caasplatform.extend.rights.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadExtendRightsResponse = new UploadExtendRightsResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadExtendRightsResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.extend.rights.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateExtendRightsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 账号名称
+  accountName: string(name='account_name'),
+}
+
+model CreateExtendRightsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 链上账户地址
+  address?: string(name='address'),
+}
+
+/**
+ * Description: 创建链上账户
+ * Summary: 创建链上账户
+ */
+async function createExtendRights(request: CreateExtendRightsRequest): CreateExtendRightsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createExtendRightsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建链上账户
+ * Summary: 创建链上账户
+ */
+async function createExtendRightsEx(request: CreateExtendRightsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateExtendRightsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.extend.rights.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterGeneralRightsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 创建链上账户时指定的accountName
+  account: string(name='account'),
+  // 通过调用托管资源接口返回的资源id
+  id: long(name='id'),
+  // 要铸造的数据资产数量
+  amount: long(name='amount'),
+  // 扩展参数
+  data?: string(name='data'),
+}
+
+model RegisterGeneralRightsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约调用交易哈希
+  txHash?: string(name='tx_hash'),
+  // 合约调用交易块高
+  blockNumber?: long(name='block_number'),
+  // 合约返回结果
+  result?: string(name='result'),
+  // 错误码
+  code?: long(name='code'),
+}
+
+/**
+ * Description: 通用合约调用-权益-铸造
+ * Summary: 通用合约调用-权益-铸造
+ */
+async function registerGeneralRights(request: RegisterGeneralRightsRequest): RegisterGeneralRightsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerGeneralRightsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用合约调用-权益-铸造
+ * Summary: 通用合约调用-权益-铸造
+ */
+async function registerGeneralRightsEx(request: RegisterGeneralRightsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterGeneralRightsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.rights.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetGeneralRightsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约示例id
+  serviceId: string(name='service_id'),
+  // 数据资产id
+  tokenId: long(name='token_id'),
+}
+
+model GetGeneralRightsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 合约调用交易哈希
+  txHash?: string(name='tx_hash'),
+  // 合约调用交易块高
+  blockNumber?: long(name='block_number'),
+  // 合约返回结果
+  result?: string(name='result'),
+  // 错误码
+  code?: long(name='code'),
+}
+
+/**
+ * Description: 通用合约调用-权益-URL查询
+ * Summary: 通用合约调用-权益- URL查询
+ */
+async function getGeneralRights(request: GetGeneralRightsRequest): GetGeneralRightsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getGeneralRightsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用合约调用-权益-URL查询
+ * Summary: 通用合约调用-权益- URL查询
+ */
+async function getGeneralRightsEx(request: GetGeneralRightsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGeneralRightsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.rights.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 自定义Id,重复则更新
+  id: string(maxLength=64, minLength=0, name='id'),
+  // 企业营业证编号，或唯一ID
+  code: string(maxLength=100, minLength=0, name='code'),
+  // 企业名称
+  name: string(maxLength=100, minLength=0, name='name'),
+}
+
+model RegisterGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 1.分账方最大数量限制50
+2.id存在则更新分账方
+3.存在分账记录的分账方不能被更新
+ * Summary: 分账合约-配置分账方
+ */
+async function registerGeneralDivide(request: RegisterGeneralDivideRequest): RegisterGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1.分账方最大数量限制50
+2.id存在则更新分账方
+3.存在分账记录的分账方不能被更新
+ * Summary: 分账合约-配置分账方
+ */
+async function registerGeneralDivideEx(request: RegisterGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 分账方Id
+  id: string(name='id'),
+}
+
+model QueryGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 分账合约-查询分账方
+ * Summary: 分账合约-查询分账方
+ */
+async function queryGeneralDivide(request: QueryGeneralDivideRequest): QueryGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分账合约-查询分账方
+ * Summary: 分账合约-查询分账方
+ */
+async function queryGeneralDivideEx(request: QueryGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SetGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 自定义分账规则唯一ID
+  ruleId: string(maxLength=64, minLength=0, name='rule_id'),
+  // 分账方，分账方不能重复配置
+  ruleItemList: [ RuleItem ](name='rule_item_list'),
+}
+
+model SetGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 1.分账规则id不能重复配置
+2.至少配置一个分账方
+3.分账方id需要已存在
+4.分账份额保留2位小数,多余部分舍弃
+5.分账份额需小于100 且大于0
+6.总份额不能大于100
+ * Summary: 分账合约-配置分账规则
+ */
+async function setGeneralDivide(request: SetGeneralDivideRequest): SetGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return setGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1.分账规则id不能重复配置
+2.至少配置一个分账方
+3.分账方id需要已存在
+4.分账份额保留2位小数,多余部分舍弃
+5.分账份额需小于100 且大于0
+6.总份额不能大于100
+ * Summary: 分账合约-配置分账规则
+ */
+async function setGeneralDivideEx(request: SetGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SetGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.set', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 分账规则ID
+  ruleId: string(name='rule_id'),
+}
+
+model GetGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 分账合约-查询分账规则
+ * Summary: 分账合约-查询分账规则
+ */
+async function getGeneralDivide(request: GetGeneralDivideRequest): GetGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分账合约-查询分账规则
+ * Summary: 分账合约-查询分账规则
+ */
+async function getGeneralDivideEx(request: GetGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 分账方Id
+  id: string(name='id'),
+}
+
+model DeleteGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 1.分账方id需存在
+2.已分账的分账方不能删除
+3.已配置分账规则的分账方不能删除
+ * Summary: 分账合约-删除分账方
+ */
+async function deleteGeneralDivide(request: DeleteGeneralDivideRequest): DeleteGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1.分账方id需存在
+2.已分账的分账方不能删除
+3.已配置分账规则的分账方不能删除
+ * Summary: 分账合约-删除分账方
+ */
+async function deleteGeneralDivideEx(request: DeleteGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 订单编号 ( 编号不能重复)
+  orderId: string(maxLength=256, minLength=0, name='order_id'),
+  // 发起人
+  from: string(maxLength=100, minLength=0, name='from'),
+  // 付款人
+  payer: string(maxLength=100, minLength=0, name='payer'),
+  // 支付方式
+  payType: string(maxLength=100, minLength=0, name='pay_type'),
+  // 支付时间
+  payTime: string(maxLength=100, minLength=0, name='pay_time'),
+  // 支付状态
+  status: string(maxLength=100, minLength=0, name='status'),
+  // 收款人
+  to: string(maxLength=100, minLength=0, name='to'),
+  // 订单金额（保留3位小数）
+  amount: string(name='amount'),
+  // 分账规则id （根据规则进行分账）
+  ruleId: string(name='rule_id'),
+  // 扩展json
+  data?: string(maxLength=2000, minLength=0, name='data'),
+}
+
+model PayGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 1.订单id不能重复
+2.金额不能小于0，金额保留3位小数多余部分舍弃
+3.分账方id需要已存在
+4.分账规则id需已存在
+ * Summary: 分账合约-发起分账
+ */
+async function payGeneralDivide(request: PayGeneralDivideRequest): PayGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 1.订单id不能重复
+2.金额不能小于0，金额保留3位小数多余部分舍弃
+3.分账方id需要已存在
+4.分账规则id需已存在
+ * Summary: 分账合约-发起分账
+ */
+async function payGeneralDivideEx(request: PayGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PullGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 分账方Id
+  id: string(name='id'),
+}
+
+model PullGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 分账合约-获取分账方余额
+ * Summary: 分账合约-获取分账方余额
+ */
+async function pullGeneralDivide(request: PullGeneralDivideRequest): PullGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pullGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分账合约-获取分账方余额
+ * Summary: 分账合约-获取分账方余额
+ */
+async function pullGeneralDivideEx(request: PullGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PullGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.pull', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 订单编号
+  orderId: string(name='order_id'),
+}
+
+model BatchqueryGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 分账合约-获取订单分账信息
+ * Summary: 分账合约-获取订单分账信息
+ */
+async function batchqueryGeneralDivide(request: BatchqueryGeneralDivideRequest): BatchqueryGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分账合约-获取订单分账信息
+ * Summary: 分账合约-获取订单分账信息
+ */
+async function batchqueryGeneralDivideEx(request: BatchqueryGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetGeneralTourismRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 数据资产id
+  tokenId: long(name='token_id'),
+}
+
+model GetGeneralTourismResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 旅游文创合约-文创URL查询
+ * Summary: 旅游文创合约-文创URL查询
+ */
+async function getGeneralTourism(request: GetGeneralTourismRequest): GetGeneralTourismResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getGeneralTourismEx(request, headers, runtime);
+}
+
+/**
+ * Description: 旅游文创合约-文创URL查询
+ * Summary: 旅游文创合约-文创URL查询
+ */
+async function getGeneralTourismEx(request: GetGeneralTourismRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGeneralTourismResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.tourism.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterGeneralTourismRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 创建链上账户时指定的accountName
+  account: string(name='account'),
+  // 通过调用托管资源接口返回的资源id
+  id: long(name='id'),
+  // 要铸造的数据资产数量
+  amount: long(name='amount'),
+  // 扩展参数
+  data?: string(name='data'),
+}
+
+model RegisterGeneralTourismResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 旅游文创合约-铸造文创
+ * Summary: 旅游文创合约-铸造文创
+ */
+async function registerGeneralTourism(request: RegisterGeneralTourismRequest): RegisterGeneralTourismResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerGeneralTourismEx(request, headers, runtime);
+}
+
+/**
+ * Description: 旅游文创合约-铸造文创
+ * Summary: 旅游文创合约-铸造文创
+ */
+async function registerGeneralTourismEx(request: RegisterGeneralTourismRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterGeneralTourismResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.tourism.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayGeneralTourismRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 持有账号的地址
+  from: string(name='from'),
+  // 接收账号的地址
+  to: string(name='to'),
+  // 数据资产ID
+  id: long(name='id'),
+  // 要转增的数据资产数量
+  amount: long(name='amount'),
+  // 扩展数据
+  data?: string(name='data'),
+}
+
+model PayGeneralTourismResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 旅游文创合约-文创转增
+ * Summary: 旅游文创合约-文创转增
+ */
+async function payGeneralTourism(request: PayGeneralTourismRequest): PayGeneralTourismResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payGeneralTourismEx(request, headers, runtime);
+}
+
+/**
+ * Description: 旅游文创合约-文创转增
+ * Summary: 旅游文创合约-文创转增
+ */
+async function payGeneralTourismEx(request: PayGeneralTourismRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayGeneralTourismResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.tourism.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetGeneralTicketsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 数据资产id
+  tokenId: long(name='token_id'),
+}
+
+model GetGeneralTicketsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 线下门票合约-门票URL查询
+ * Summary: 线下门票合约-门票URL查询
+ */
+async function getGeneralTickets(request: GetGeneralTicketsRequest): GetGeneralTicketsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getGeneralTicketsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 线下门票合约-门票URL查询
+ * Summary: 线下门票合约-门票URL查询
+ */
+async function getGeneralTicketsEx(request: GetGeneralTicketsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGeneralTicketsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.tickets.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterGeneralTicketsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 创建链上账户时指定的accountName
+  account: string(name='account'),
+  // 通过调用托管资源接口返回的资源id
+  id: long(name='id'),
+  // 要铸造的数据资产数量
+  amount: long(name='amount'),
+  // 扩展参数
+  data?: string(name='data'),
+}
+
+model RegisterGeneralTicketsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 线下门票合约-铸造线下买票
+ * Summary: 线下门票合约-铸造线下买票
+ */
+async function registerGeneralTickets(request: RegisterGeneralTicketsRequest): RegisterGeneralTicketsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerGeneralTicketsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 线下门票合约-铸造线下买票
+ * Summary: 线下门票合约-铸造线下买票
+ */
+async function registerGeneralTicketsEx(request: RegisterGeneralTicketsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterGeneralTicketsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.tickets.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PayGeneralTicketsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 持有账号的地址
+  from: string(name='from'),
+  // 接收账号的地址
+  to: string(name='to'),
+  // 数据资产ID
+  id: long(name='id'),
+  // 要转增的数据资产数量
+  amount: long(name='amount'),
+  // 扩展数据
+  data?: string(name='data'),
+}
+
+model PayGeneralTicketsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 存证交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 线下门票合约-门票转增
+ * Summary: 线下门票合约-门票转增
+ */
+async function payGeneralTickets(request: PayGeneralTicketsRequest): PayGeneralTicketsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return payGeneralTicketsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 线下门票合约-门票转增
+ * Summary: 线下门票合约-门票转增
+ */
+async function payGeneralTicketsEx(request: PayGeneralTicketsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PayGeneralTicketsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.tickets.pay', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 分账规则ID
+  ruleId: string(name='rule_id'),
+  // 分账方用户ID
+  userId: string(name='user_id'),
+  // 确认状态，0: 待确认；1:确认；2：拒绝
+  strStatus: string(name='str_status'),
+}
+
+model UpdateGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易HASH
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 合约接口返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 进行分账规则的确认
+ * Summary: 分账规则确认接口
+ */
+async function updateGeneralDivide(request: UpdateGeneralDivideRequest): UpdateGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 进行分账规则的确认
+ * Summary: 分账规则确认接口
+ */
+async function updateGeneralDivideEx(request: UpdateGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListGeneralDivideRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约实例id
+  serviceId: string(name='service_id'),
+  // 分账方ID
+  userId: string(name='user_id'),
+  // 分账列表起始序号
+  strStartIndex: string(name='str_start_index'),
+  // 分账明细查询截止序号
+  strEndIndex: string(name='str_end_index'),
+}
+
+model ListGeneralDivideResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易Hash
+  txHash?: string(name='tx_hash'),
+  // 区块高度
+  blockNumber?: long(name='block_number'),
+  // 错误码
+  code?: long(name='code'),
+  // 返回结果，json格式，data为分账明细数据
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 查询指定分账方的分账明细数据
+ * Summary: 分账明细查询
+ */
+async function listGeneralDivide(request: ListGeneralDivideRequest): ListGeneralDivideResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listGeneralDivideEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询指定分账方的分账明细数据
+ * Summary: 分账明细查询
+ */
+async function listGeneralDivideEx(request: ListGeneralDivideRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListGeneralDivideResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.general.divide.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
