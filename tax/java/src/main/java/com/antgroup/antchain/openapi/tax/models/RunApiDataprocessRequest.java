@@ -30,6 +30,20 @@ public class RunApiDataprocessRequest extends TeaModel {
     @NameInMap("inst_code")
     public String instCode;
 
+    // RSA-DESede
+    // 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+    @NameInMap("algorithm")
+    public String algorithm;
+
+    // 是否采用加密算法
+    @NameInMap("encryption")
+    public Boolean encryption;
+
+    // 对称秘钥加密后的数据
+    @NameInMap("encryption_key")
+    @Validation(required = true)
+    public String encryptionKey;
+
     public static RunApiDataprocessRequest build(java.util.Map<String, ?> map) throws Exception {
         RunApiDataprocessRequest self = new RunApiDataprocessRequest();
         return TeaModel.build(map, self);
@@ -81,6 +95,30 @@ public class RunApiDataprocessRequest extends TeaModel {
     }
     public String getInstCode() {
         return this.instCode;
+    }
+
+    public RunApiDataprocessRequest setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+        return this;
+    }
+    public String getAlgorithm() {
+        return this.algorithm;
+    }
+
+    public RunApiDataprocessRequest setEncryption(Boolean encryption) {
+        this.encryption = encryption;
+        return this;
+    }
+    public Boolean getEncryption() {
+        return this.encryption;
+    }
+
+    public RunApiDataprocessRequest setEncryptionKey(String encryptionKey) {
+        this.encryptionKey = encryptionKey;
+        return this;
+    }
+    public String getEncryptionKey() {
+        return this.encryptionKey;
     }
 
 }
