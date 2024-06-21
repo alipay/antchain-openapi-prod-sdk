@@ -282,95 +282,6 @@ func (s *ResultMap) SetValue(v string) *ResultMap {
 	return s
 }
 
-// ACES系统接收的项目信息
-type AcesProject struct {
-	// 项目id
-	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
-	// 项目名称
-	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
-	// 客户id
-	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
-	// 客户名称
-	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty" require:"true"`
-	// 产品线
-	ProjectLine *string `json:"project_line,omitempty" xml:"project_line,omitempty"`
-	// 业务线
-	WorkLine *string `json:"work_line,omitempty" xml:"work_line,omitempty"`
-	// 业务分类
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
-	// 项目大阶段
-	ProjectBigStage *string `json:"project_big_stage,omitempty" xml:"project_big_stage,omitempty"`
-	// 转维状态
-	OpStatus *string `json:"op_status,omitempty" xml:"op_status,omitempty"`
-	// 交付阶段
-	Deliver *string `json:"deliver,omitempty" xml:"deliver,omitempty"`
-	// 是否售后
-	AfterSale *bool `json:"after_sale,omitempty" xml:"after_sale,omitempty"`
-}
-
-func (s AcesProject) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AcesProject) GoString() string {
-	return s.String()
-}
-
-func (s *AcesProject) SetProjectId(v string) *AcesProject {
-	s.ProjectId = &v
-	return s
-}
-
-func (s *AcesProject) SetProjectName(v string) *AcesProject {
-	s.ProjectName = &v
-	return s
-}
-
-func (s *AcesProject) SetCustomerId(v string) *AcesProject {
-	s.CustomerId = &v
-	return s
-}
-
-func (s *AcesProject) SetCustomerName(v string) *AcesProject {
-	s.CustomerName = &v
-	return s
-}
-
-func (s *AcesProject) SetProjectLine(v string) *AcesProject {
-	s.ProjectLine = &v
-	return s
-}
-
-func (s *AcesProject) SetWorkLine(v string) *AcesProject {
-	s.WorkLine = &v
-	return s
-}
-
-func (s *AcesProject) SetBizType(v string) *AcesProject {
-	s.BizType = &v
-	return s
-}
-
-func (s *AcesProject) SetProjectBigStage(v string) *AcesProject {
-	s.ProjectBigStage = &v
-	return s
-}
-
-func (s *AcesProject) SetOpStatus(v string) *AcesProject {
-	s.OpStatus = &v
-	return s
-}
-
-func (s *AcesProject) SetDeliver(v string) *AcesProject {
-	s.Deliver = &v
-	return s
-}
-
-func (s *AcesProject) SetAfterSale(v bool) *AcesProject {
-	s.AfterSale = &v
-	return s
-}
-
 // 文件集合
 type UploadRequestArray struct {
 	// 文件数据
@@ -451,6 +362,458 @@ func (s *Emergency) SetStatus(v string) *Emergency {
 	return s
 }
 
+// aces产品
+type AcesProduct struct {
+	//
+	CnName *string `json:"cn_name,omitempty" xml:"cn_name,omitempty" require:"true"`
+	//
+	EnName *string `json:"en_name,omitempty" xml:"en_name,omitempty"`
+	//
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+	// 产品owner
+	Owner *string `json:"owner,omitempty" xml:"owner,omitempty"`
+	// 产品创建时间
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty" require:"true"`
+	// 产品修改时间
+	UpdateTime *string `json:"update_time,omitempty" xml:"update_time,omitempty" require:"true"`
+	//
+	Description *string `json:"description,omitempty" xml:"description,omitempty"`
+	//
+	L1 *string `json:"l1,omitempty" xml:"l1,omitempty"`
+	//
+	L2 *string `json:"l2,omitempty" xml:"l2,omitempty"`
+}
+
+func (s AcesProduct) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AcesProduct) GoString() string {
+	return s.String()
+}
+
+func (s *AcesProduct) SetCnName(v string) *AcesProduct {
+	s.CnName = &v
+	return s
+}
+
+func (s *AcesProduct) SetEnName(v string) *AcesProduct {
+	s.EnName = &v
+	return s
+}
+
+func (s *AcesProduct) SetCode(v string) *AcesProduct {
+	s.Code = &v
+	return s
+}
+
+func (s *AcesProduct) SetOwner(v string) *AcesProduct {
+	s.Owner = &v
+	return s
+}
+
+func (s *AcesProduct) SetCreateTime(v string) *AcesProduct {
+	s.CreateTime = &v
+	return s
+}
+
+func (s *AcesProduct) SetUpdateTime(v string) *AcesProduct {
+	s.UpdateTime = &v
+	return s
+}
+
+func (s *AcesProduct) SetDescription(v string) *AcesProduct {
+	s.Description = &v
+	return s
+}
+
+func (s *AcesProduct) SetL1(v string) *AcesProduct {
+	s.L1 = &v
+	return s
+}
+
+func (s *AcesProduct) SetL2(v string) *AcesProduct {
+	s.L2 = &v
+	return s
+}
+
+// 返回结果
+type ResultOncall struct {
+	// 是否成功
+	Success *string `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 提示信息
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
+	// 保存的工单主键id（成功才有）
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+}
+
+func (s ResultOncall) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultOncall) GoString() string {
+	return s.String()
+}
+
+func (s *ResultOncall) SetSuccess(v string) *ResultOncall {
+	s.Success = &v
+	return s
+}
+
+func (s *ResultOncall) SetResultMsg(v string) *ResultOncall {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResultOncall) SetId(v string) *ResultOncall {
+	s.Id = &v
+	return s
+}
+
+// 商务中心项目基础结构
+type ProjectBase struct {
+	// 项目记录ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 项目可读编码
+	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty"`
+	// 项目名称
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 项目来源：蚂蚁、阿里云、合作伙伴 ProjectSource.getKey() ANTCLOUD("ANTCLOUD", "蚂蚁区块链"), ALIYUN("ALIYUN", "阿里云"), PARTNER("PARTNER", "合作伙伴");
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// 签约方（总包方）。蚂蚁、阿里云 ANTCLOUD("ANTCLOUD", "蚂蚁区块链"), ALIYUN("ALIYUN", "阿里云"),
+	Contractor *string `json:"contractor,omitempty" xml:"contractor,omitempty"`
+	// 项目所在阶段
+	Stage *string `json:"stage,omitempty" xml:"stage,omitempty"`
+	// 项目状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 预计签约日期
+	ExpectConDate *string `json:"expect_con_date,omitempty" xml:"expect_con_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 预估签约金额
+	ExpectConAmt *string `json:"expect_con_amt,omitempty" xml:"expect_con_amt,omitempty"`
+	// 是否需要交付。1需要，0不需要
+	NeedPm *string `json:"need_pm,omitempty" xml:"need_pm,omitempty"`
+	// 是否需要提前”进场“。1需要，0不需要。
+	NeedAdEntry *string `json:"need_ad_entry,omitempty" xml:"need_ad_entry,omitempty"`
+	// 合作伙伴Id
+	PartnerId *string `json:"partner_id,omitempty" xml:"partner_id,omitempty"`
+	// partnerName
+	PartnerName *string `json:"partner_name,omitempty" xml:"partner_name,omitempty"`
+	// 阿里云Bpid
+	AliyunBpid *string `json:"aliyun_bpid,omitempty" xml:"aliyun_bpid,omitempty"`
+	// 客户ID
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 客户名称
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty"`
+	// BD
+	BdWorkNo *string `json:"bd_work_no,omitempty" xml:"bd_work_no,omitempty"`
+	// PM
+	PmWorkNos []*string `json:"pm_work_nos,omitempty" xml:"pm_work_nos,omitempty" type:"Repeated"`
+	//
+	TamList []*string `json:"tam_list,omitempty" xml:"tam_list,omitempty" type:"Repeated"`
+	//
+	BdList []*string `json:"bd_list,omitempty" xml:"bd_list,omitempty" type:"Repeated"`
+	//
+	TmList []*string `json:"tm_list,omitempty" xml:"tm_list,omitempty" type:"Repeated"`
+	//
+	PmList []*string `json:"pm_list,omitempty" xml:"pm_list,omitempty" type:"Repeated"`
+}
+
+func (s ProjectBase) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ProjectBase) GoString() string {
+	return s.String()
+}
+
+func (s *ProjectBase) SetId(v string) *ProjectBase {
+	s.Id = &v
+	return s
+}
+
+func (s *ProjectBase) SetProjectCode(v string) *ProjectBase {
+	s.ProjectCode = &v
+	return s
+}
+
+func (s *ProjectBase) SetTitle(v string) *ProjectBase {
+	s.Title = &v
+	return s
+}
+
+func (s *ProjectBase) SetSource(v string) *ProjectBase {
+	s.Source = &v
+	return s
+}
+
+func (s *ProjectBase) SetContractor(v string) *ProjectBase {
+	s.Contractor = &v
+	return s
+}
+
+func (s *ProjectBase) SetStage(v string) *ProjectBase {
+	s.Stage = &v
+	return s
+}
+
+func (s *ProjectBase) SetStatus(v string) *ProjectBase {
+	s.Status = &v
+	return s
+}
+
+func (s *ProjectBase) SetExpectConDate(v string) *ProjectBase {
+	s.ExpectConDate = &v
+	return s
+}
+
+func (s *ProjectBase) SetExpectConAmt(v string) *ProjectBase {
+	s.ExpectConAmt = &v
+	return s
+}
+
+func (s *ProjectBase) SetNeedPm(v string) *ProjectBase {
+	s.NeedPm = &v
+	return s
+}
+
+func (s *ProjectBase) SetNeedAdEntry(v string) *ProjectBase {
+	s.NeedAdEntry = &v
+	return s
+}
+
+func (s *ProjectBase) SetPartnerId(v string) *ProjectBase {
+	s.PartnerId = &v
+	return s
+}
+
+func (s *ProjectBase) SetPartnerName(v string) *ProjectBase {
+	s.PartnerName = &v
+	return s
+}
+
+func (s *ProjectBase) SetAliyunBpid(v string) *ProjectBase {
+	s.AliyunBpid = &v
+	return s
+}
+
+func (s *ProjectBase) SetCustomerId(v string) *ProjectBase {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *ProjectBase) SetCustomerName(v string) *ProjectBase {
+	s.CustomerName = &v
+	return s
+}
+
+func (s *ProjectBase) SetBdWorkNo(v string) *ProjectBase {
+	s.BdWorkNo = &v
+	return s
+}
+
+func (s *ProjectBase) SetPmWorkNos(v []*string) *ProjectBase {
+	s.PmWorkNos = v
+	return s
+}
+
+func (s *ProjectBase) SetTamList(v []*string) *ProjectBase {
+	s.TamList = v
+	return s
+}
+
+func (s *ProjectBase) SetBdList(v []*string) *ProjectBase {
+	s.BdList = v
+	return s
+}
+
+func (s *ProjectBase) SetTmList(v []*string) *ProjectBase {
+	s.TmList = v
+	return s
+}
+
+func (s *ProjectBase) SetPmList(v []*string) *ProjectBase {
+	s.PmList = v
+	return s
+}
+
+// 返回结构
+type ResultData struct {
+	// data
+	Data *ResultMap `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s ResultData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResultData) GoString() string {
+	return s.String()
+}
+
+func (s *ResultData) SetData(v *ResultMap) *ResultData {
+	s.Data = v
+	return s
+}
+
+// ACES系统接收的项目信息
+type AcesProject struct {
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 项目名称
+	ProjectName *string `json:"project_name,omitempty" xml:"project_name,omitempty" require:"true"`
+	// 客户id
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+	// 客户名称
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty" require:"true"`
+	// 产品线
+	ProjectLine *string `json:"project_line,omitempty" xml:"project_line,omitempty"`
+	// 业务线
+	WorkLine *string `json:"work_line,omitempty" xml:"work_line,omitempty"`
+	// 业务分类
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty"`
+	// 项目大阶段
+	ProjectBigStage *string `json:"project_big_stage,omitempty" xml:"project_big_stage,omitempty"`
+	// 转维状态
+	OpStatus *string `json:"op_status,omitempty" xml:"op_status,omitempty"`
+	// 交付阶段
+	Deliver *string `json:"deliver,omitempty" xml:"deliver,omitempty"`
+	// 是否售后
+	AfterSale *bool `json:"after_sale,omitempty" xml:"after_sale,omitempty"`
+	//
+	AliyunBpid *string `json:"aliyun_bpid,omitempty" xml:"aliyun_bpid,omitempty"`
+	// 解决方案架构师
+	Sa *string `json:"sa,omitempty" xml:"sa,omitempty" require:"true"`
+	// 项目经理
+	Pm *string `json:"pm,omitempty" xml:"pm,omitempty" require:"true"`
+	// 商务经理
+	Bd *string `json:"bd,omitempty" xml:"bd,omitempty" require:"true"`
+	// 交付经理
+	Tm *string `json:"tm,omitempty" xml:"tm,omitempty" require:"true"`
+	// 项目状态
+	ProjectStage *string `json:"project_stage,omitempty" xml:"project_stage,omitempty"`
+	// 项目交付状态（未启动、已启动等）
+	ProjectStatus *string `json:"project_status,omitempty" xml:"project_status,omitempty"`
+	// 是否需要交付 1需要 0不需要
+	NeedDeliver *string `json:"need_deliver,omitempty" xml:"need_deliver,omitempty" require:"true"`
+	// 是否需要提前进场 1需要 0不需要
+	NeedAdEntry *string `json:"need_ad_entry,omitempty" xml:"need_ad_entry,omitempty" require:"true"`
+	// 是否需要竞标 1需要 0不需要
+	NeedTender *string `json:"need_tender,omitempty" xml:"need_tender,omitempty" require:"true"`
+}
+
+func (s AcesProject) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AcesProject) GoString() string {
+	return s.String()
+}
+
+func (s *AcesProject) SetProjectId(v string) *AcesProject {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *AcesProject) SetProjectName(v string) *AcesProject {
+	s.ProjectName = &v
+	return s
+}
+
+func (s *AcesProject) SetCustomerId(v string) *AcesProject {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *AcesProject) SetCustomerName(v string) *AcesProject {
+	s.CustomerName = &v
+	return s
+}
+
+func (s *AcesProject) SetProjectLine(v string) *AcesProject {
+	s.ProjectLine = &v
+	return s
+}
+
+func (s *AcesProject) SetWorkLine(v string) *AcesProject {
+	s.WorkLine = &v
+	return s
+}
+
+func (s *AcesProject) SetBizType(v string) *AcesProject {
+	s.BizType = &v
+	return s
+}
+
+func (s *AcesProject) SetProjectBigStage(v string) *AcesProject {
+	s.ProjectBigStage = &v
+	return s
+}
+
+func (s *AcesProject) SetOpStatus(v string) *AcesProject {
+	s.OpStatus = &v
+	return s
+}
+
+func (s *AcesProject) SetDeliver(v string) *AcesProject {
+	s.Deliver = &v
+	return s
+}
+
+func (s *AcesProject) SetAfterSale(v bool) *AcesProject {
+	s.AfterSale = &v
+	return s
+}
+
+func (s *AcesProject) SetAliyunBpid(v string) *AcesProject {
+	s.AliyunBpid = &v
+	return s
+}
+
+func (s *AcesProject) SetSa(v string) *AcesProject {
+	s.Sa = &v
+	return s
+}
+
+func (s *AcesProject) SetPm(v string) *AcesProject {
+	s.Pm = &v
+	return s
+}
+
+func (s *AcesProject) SetBd(v string) *AcesProject {
+	s.Bd = &v
+	return s
+}
+
+func (s *AcesProject) SetTm(v string) *AcesProject {
+	s.Tm = &v
+	return s
+}
+
+func (s *AcesProject) SetProjectStage(v string) *AcesProject {
+	s.ProjectStage = &v
+	return s
+}
+
+func (s *AcesProject) SetProjectStatus(v string) *AcesProject {
+	s.ProjectStatus = &v
+	return s
+}
+
+func (s *AcesProject) SetNeedDeliver(v string) *AcesProject {
+	s.NeedDeliver = &v
+	return s
+}
+
+func (s *AcesProject) SetNeedAdEntry(v string) *AcesProject {
+	s.NeedAdEntry = &v
+	return s
+}
+
+func (s *AcesProject) SetNeedTender(v string) *AcesProject {
+	s.NeedTender = &v
+	return s
+}
+
 //
 type Upload struct {
 	//
@@ -488,39 +851,6 @@ func (s *Upload) SetFileUrl(v string) *Upload {
 
 func (s *Upload) SetFormParam(v *FormParam) *Upload {
 	s.FormParam = v
-	return s
-}
-
-// 返回结果
-type ResultOncall struct {
-	// 是否成功
-	Success *string `json:"success,omitempty" xml:"success,omitempty" require:"true"`
-	// 提示信息
-	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty" require:"true"`
-	// 保存的工单主键id（成功才有）
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-}
-
-func (s ResultOncall) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ResultOncall) GoString() string {
-	return s.String()
-}
-
-func (s *ResultOncall) SetSuccess(v string) *ResultOncall {
-	s.Success = &v
-	return s
-}
-
-func (s *ResultOncall) SetResultMsg(v string) *ResultOncall {
-	s.ResultMsg = &v
-	return s
-}
-
-func (s *ResultOncall) SetId(v string) *ResultOncall {
-	s.Id = &v
 	return s
 }
 
@@ -634,25 +964,6 @@ func (s *SubmitRequest) SetFileUrl(v []*string) *SubmitRequest {
 	return s
 }
 
-// 返回结构
-type ResultData struct {
-	// data
-	Data *ResultMap `json:"data,omitempty" xml:"data,omitempty" require:"true"`
-}
-
-func (s ResultData) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ResultData) GoString() string {
-	return s.String()
-}
-
-func (s *ResultData) SetData(v *ResultMap) *ResultData {
-	s.Data = v
-	return s
-}
-
 // 返回值
 type ResultArray struct {
 	// 数组
@@ -761,6 +1072,360 @@ func (s *QueryCustomResponse) SetData(v []*AcesProject) *QueryCustomResponse {
 
 func (s *QueryCustomResponse) SetTotal(v int64) *QueryCustomResponse {
 	s.Total = &v
+	return s
+}
+
+type QueryCodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	//
+	L5codeList []*string `json:"l5code_list,omitempty" xml:"l5code_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryCodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCodeRequest) SetAuthToken(v string) *QueryCodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCodeRequest) SetL5codeList(v []*string) *QueryCodeRequest {
+	s.L5codeList = v
+	return s
+}
+
+type QueryCodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	L3codeList []*string `json:"l3code_list,omitempty" xml:"l3code_list,omitempty" type:"Repeated"`
+	//
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s QueryCodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCodeResponse) SetReqMsgId(v string) *QueryCodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCodeResponse) SetResultCode(v string) *QueryCodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCodeResponse) SetResultMsg(v string) *QueryCodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCodeResponse) SetL3codeList(v []*string) *QueryCodeResponse {
+	s.L3codeList = v
+	return s
+}
+
+func (s *QueryCodeResponse) SetSuccess(v bool) *QueryCodeResponse {
+	s.Success = &v
+	return s
+}
+
+type QueryProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// l3code的数组
+	L3codeList []*string `json:"l3code_list,omitempty" xml:"l3code_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProductRequest) SetAuthToken(v string) *QueryProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryProductRequest) SetL3codeList(v []*string) *QueryProductRequest {
+	s.L3codeList = v
+	return s
+}
+
+type QueryProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	ProductList []*AcesProduct `json:"product_list,omitempty" xml:"product_list,omitempty" type:"Repeated"`
+	//
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s QueryProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProductResponse) SetReqMsgId(v string) *QueryProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryProductResponse) SetResultCode(v string) *QueryProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryProductResponse) SetResultMsg(v string) *QueryProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryProductResponse) SetProductList(v []*AcesProduct) *QueryProductResponse {
+	s.ProductList = v
+	return s
+}
+
+func (s *QueryProductResponse) SetSuccess(v bool) *QueryProductResponse {
+	s.Success = &v
+	return s
+}
+
+type QueryProjectPagequeryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 兼容BD待客下单对外暴露项目Id查询
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 项目唯一编码
+	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty"`
+	// 项目名称，支持模糊
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
+	// 客户id
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty"`
+	// 客户名称
+	CustomerName *string `json:"customer_name,omitempty" xml:"customer_name,omitempty"`
+	// 项目阶段，支持多个过滤
+	Status []*string `json:"status,omitempty" xml:"status,omitempty" type:"Repeated"`
+	// 项目阶段，支持多个过滤
+	Stages []*string `json:"stages,omitempty" xml:"stages,omitempty" type:"Repeated"`
+	// 项目BD工号列表
+	BdWorkNos []*string `json:"bd_work_nos,omitempty" xml:"bd_work_nos,omitempty" type:"Repeated"`
+	// 交付项目经理工号列表
+	PmWorkNos []*string `json:"pm_work_nos,omitempty" xml:"pm_work_nos,omitempty" type:"Repeated"`
+	// 页面大小
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 当前页面
+	CurrentPage *int64 `json:"current_page,omitempty" xml:"current_page,omitempty"`
+}
+
+func (s QueryProjectPagequeryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProjectPagequeryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProjectPagequeryRequest) SetAuthToken(v string) *QueryProjectPagequeryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetId(v string) *QueryProjectPagequeryRequest {
+	s.Id = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetProjectCode(v string) *QueryProjectPagequeryRequest {
+	s.ProjectCode = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetTitle(v string) *QueryProjectPagequeryRequest {
+	s.Title = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetCustomerId(v string) *QueryProjectPagequeryRequest {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetCustomerName(v string) *QueryProjectPagequeryRequest {
+	s.CustomerName = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetStatus(v []*string) *QueryProjectPagequeryRequest {
+	s.Status = v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetStages(v []*string) *QueryProjectPagequeryRequest {
+	s.Stages = v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetBdWorkNos(v []*string) *QueryProjectPagequeryRequest {
+	s.BdWorkNos = v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetPmWorkNos(v []*string) *QueryProjectPagequeryRequest {
+	s.PmWorkNos = v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetPageSize(v int64) *QueryProjectPagequeryRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryRequest) SetCurrentPage(v int64) *QueryProjectPagequeryRequest {
+	s.CurrentPage = &v
+	return s
+}
+
+type QueryProjectPagequeryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据
+	ProjectList []*ProjectBase `json:"project_list,omitempty" xml:"project_list,omitempty" type:"Repeated"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s QueryProjectPagequeryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProjectPagequeryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProjectPagequeryResponse) SetReqMsgId(v string) *QueryProjectPagequeryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryResponse) SetResultCode(v string) *QueryProjectPagequeryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryResponse) SetResultMsg(v string) *QueryProjectPagequeryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryProjectPagequeryResponse) SetProjectList(v []*ProjectBase) *QueryProjectPagequeryResponse {
+	s.ProjectList = v
+	return s
+}
+
+func (s *QueryProjectPagequeryResponse) SetSuccess(v bool) *QueryProjectPagequeryResponse {
+	s.Success = &v
+	return s
+}
+
+type QueryProjectGetprojectRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty"`
+}
+
+func (s QueryProjectGetprojectRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProjectGetprojectRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProjectGetprojectRequest) SetAuthToken(v string) *QueryProjectGetprojectRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryProjectGetprojectRequest) SetProjectId(v string) *QueryProjectGetprojectRequest {
+	s.ProjectId = &v
+	return s
+}
+
+type QueryProjectGetprojectResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	ProjectList *ProjectBase `json:"project_list,omitempty" xml:"project_list,omitempty"`
+	//
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s QueryProjectGetprojectResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryProjectGetprojectResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryProjectGetprojectResponse) SetReqMsgId(v string) *QueryProjectGetprojectResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryProjectGetprojectResponse) SetResultCode(v string) *QueryProjectGetprojectResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryProjectGetprojectResponse) SetResultMsg(v string) *QueryProjectGetprojectResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryProjectGetprojectResponse) SetProjectList(v *ProjectBase) *QueryProjectGetprojectResponse {
+	s.ProjectList = v
+	return s
+}
+
+func (s *QueryProjectGetprojectResponse) SetSuccess(v bool) *QueryProjectGetprojectResponse {
+	s.Success = &v
 	return s
 }
 
@@ -1253,6 +1918,56 @@ func (s *ImportScFileResponse) SetData(v *Upload) *ImportScFileResponse {
 	return s
 }
 
+type QueryScTestRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s QueryScTestRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScTestRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScTestRequest) SetAuthToken(v string) *QueryScTestRequest {
+	s.AuthToken = &v
+	return s
+}
+
+type QueryScTestResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryScTestResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScTestResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScTestResponse) SetReqMsgId(v string) *QueryScTestResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryScTestResponse) SetResultCode(v string) *QueryScTestResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryScTestResponse) SetResultMsg(v string) *QueryScTestResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1331,17 +2046,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -1375,7 +2090,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.3.3"),
+				"_prod_code":       tea.String("TAM"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1458,6 +2175,142 @@ func (client *Client) QueryCustomEx(request *QueryCustomRequest, headers map[str
 	}
 	_result = &QueryCustomResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.custom.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description:
+ * Summary: 查询双百L3code
+ */
+func (client *Client) QueryCode(request *QueryCodeRequest) (_result *QueryCodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCodeResponse{}
+	_body, _err := client.QueryCodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description:
+ * Summary: 查询双百L3code
+ */
+func (client *Client) QueryCodeEx(request *QueryCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.code.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description:
+ * Summary: 根据l3code列表查询产品信息
+ */
+func (client *Client) QueryProduct(request *QueryProductRequest) (_result *QueryProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryProductResponse{}
+	_body, _err := client.QueryProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description:
+ * Summary: 根据l3code列表查询产品信息
+ */
+func (client *Client) QueryProductEx(request *QueryProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.product.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询商务中心项目，便于获取增值服务项目
+ * Summary: 查询商务中心项目，便于获取增值服务项目
+ */
+func (client *Client) QueryProjectPagequery(request *QueryProjectPagequeryRequest) (_result *QueryProjectPagequeryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryProjectPagequeryResponse{}
+	_body, _err := client.QueryProjectPagequeryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询商务中心项目，便于获取增值服务项目
+ * Summary: 查询商务中心项目，便于获取增值服务项目
+ */
+func (client *Client) QueryProjectPagequeryEx(request *QueryProjectPagequeryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProjectPagequeryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryProjectPagequeryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.project.pagequery.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询商务中心项目信息
+ * Summary: 查询商务中心项目信息
+ */
+func (client *Client) QueryProjectGetproject(request *QueryProjectGetprojectRequest) (_result *QueryProjectGetprojectResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryProjectGetprojectResponse{}
+	_body, _err := client.QueryProjectGetprojectEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询商务中心项目信息
+ * Summary: 查询商务中心项目信息
+ */
+func (client *Client) QueryProjectGetprojectEx(request *QueryProjectGetprojectRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryProjectGetprojectResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryProjectGetprojectResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.project.getproject.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -1662,6 +2515,40 @@ func (client *Client) ImportScFileEx(request *ImportScFileRequest, headers map[s
 	}
 	_result = &ImportScFileResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.sc.file.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description:
+ * Summary: 测试
+ */
+func (client *Client) QueryScTest(request *QueryScTestRequest) (_result *QueryScTestResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryScTestResponse{}
+	_body, _err := client.QueryScTestEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description:
+ * Summary: 测试
+ */
+func (client *Client) QueryScTestEx(request *QueryScTestRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryScTestResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryScTestResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.tam.sc.test.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
