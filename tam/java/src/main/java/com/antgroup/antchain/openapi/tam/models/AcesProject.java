@@ -52,6 +52,53 @@ public class AcesProject extends TeaModel {
     @NameInMap("after_sale")
     public Boolean afterSale;
 
+    //  
+    @NameInMap("aliyun_bpid")
+    public String aliyunBpid;
+
+    // 解决方案架构师
+    @NameInMap("sa")
+    @Validation(required = true)
+    public String sa;
+
+    // 项目经理
+    @NameInMap("pm")
+    @Validation(required = true)
+    public String pm;
+
+    // 商务经理
+    @NameInMap("bd")
+    @Validation(required = true)
+    public String bd;
+
+    // 交付经理
+    @NameInMap("tm")
+    @Validation(required = true)
+    public String tm;
+
+    // 项目状态
+    @NameInMap("project_stage")
+    public String projectStage;
+
+    // 项目交付状态（未启动、已启动等）
+    @NameInMap("project_status")
+    public String projectStatus;
+
+    // 是否需要交付 1需要 0不需要
+    @NameInMap("need_deliver")
+    @Validation(required = true)
+    public String needDeliver;
+
+    // 是否需要提前进场 1需要 0不需要
+    @NameInMap("need_ad_entry")
+    @Validation(required = true)
+    public String needAdEntry;
+
+    // 是否需要竞标 1需要 0不需要
+    @NameInMap("need_tender")
+    @Validation(required = true)
+    public String needTender;
+
     public static AcesProject build(java.util.Map<String, ?> map) throws Exception {
         AcesProject self = new AcesProject();
         return TeaModel.build(map, self);
@@ -143,6 +190,86 @@ public class AcesProject extends TeaModel {
     }
     public Boolean getAfterSale() {
         return this.afterSale;
+    }
+
+    public AcesProject setAliyunBpid(String aliyunBpid) {
+        this.aliyunBpid = aliyunBpid;
+        return this;
+    }
+    public String getAliyunBpid() {
+        return this.aliyunBpid;
+    }
+
+    public AcesProject setSa(String sa) {
+        this.sa = sa;
+        return this;
+    }
+    public String getSa() {
+        return this.sa;
+    }
+
+    public AcesProject setPm(String pm) {
+        this.pm = pm;
+        return this;
+    }
+    public String getPm() {
+        return this.pm;
+    }
+
+    public AcesProject setBd(String bd) {
+        this.bd = bd;
+        return this;
+    }
+    public String getBd() {
+        return this.bd;
+    }
+
+    public AcesProject setTm(String tm) {
+        this.tm = tm;
+        return this;
+    }
+    public String getTm() {
+        return this.tm;
+    }
+
+    public AcesProject setProjectStage(String projectStage) {
+        this.projectStage = projectStage;
+        return this;
+    }
+    public String getProjectStage() {
+        return this.projectStage;
+    }
+
+    public AcesProject setProjectStatus(String projectStatus) {
+        this.projectStatus = projectStatus;
+        return this;
+    }
+    public String getProjectStatus() {
+        return this.projectStatus;
+    }
+
+    public AcesProject setNeedDeliver(String needDeliver) {
+        this.needDeliver = needDeliver;
+        return this;
+    }
+    public String getNeedDeliver() {
+        return this.needDeliver;
+    }
+
+    public AcesProject setNeedAdEntry(String needAdEntry) {
+        this.needAdEntry = needAdEntry;
+        return this;
+    }
+    public String getNeedAdEntry() {
+        return this.needAdEntry;
+    }
+
+    public AcesProject setNeedTender(String needTender) {
+        this.needTender = needTender;
+        return this;
+    }
+    public String getNeedTender() {
+        return this.needTender;
     }
 
 }
