@@ -19,10 +19,20 @@ use AntChain\TAM\Models\OperateScOperationcenterRequest;
 use AntChain\TAM\Models\OperateScOperationcenterResponse;
 use AntChain\TAM\Models\QueryAoneRequest;
 use AntChain\TAM\Models\QueryAoneResponse;
+use AntChain\TAM\Models\QueryCodeRequest;
+use AntChain\TAM\Models\QueryCodeResponse;
 use AntChain\TAM\Models\QueryCustomRequest;
 use AntChain\TAM\Models\QueryCustomResponse;
+use AntChain\TAM\Models\QueryProductRequest;
+use AntChain\TAM\Models\QueryProductResponse;
+use AntChain\TAM\Models\QueryProjectGetprojectRequest;
+use AntChain\TAM\Models\QueryProjectGetprojectResponse;
+use AntChain\TAM\Models\QueryProjectPagequeryRequest;
+use AntChain\TAM\Models\QueryProjectPagequeryResponse;
 use AntChain\TAM\Models\QueryScOperationcenterRequest;
 use AntChain\TAM\Models\QueryScOperationcenterResponse;
+use AntChain\TAM\Models\QueryScTestRequest;
+use AntChain\TAM\Models\QueryScTestResponse;
 use AntChain\TAM\Models\SaveAoneRequest;
 use AntChain\TAM\Models\SaveAoneResponse;
 use AntChain\Util\UtilClient;
@@ -124,18 +134,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -172,7 +182,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.2',
+                    'sdk_version'      => '1.3.3',
+                    '_prod_code'       => 'TAM',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -249,6 +261,138 @@ class Client
         Utils::validateModel($request);
 
         return QueryCustomResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.custom.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description:
+     * Summary: 查询双百L3code.
+     *
+     * @param QueryCodeRequest $request
+     *
+     * @return QueryCodeResponse
+     */
+    public function queryCode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:
+     * Summary: 查询双百L3code.
+     *
+     * @param QueryCodeRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return QueryCodeResponse
+     */
+    public function queryCodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCodeResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.code.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description:
+     * Summary: 根据l3code列表查询产品信息.
+     *
+     * @param QueryProductRequest $request
+     *
+     * @return QueryProductResponse
+     */
+    public function queryProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:
+     * Summary: 根据l3code列表查询产品信息.
+     *
+     * @param QueryProductRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryProductResponse
+     */
+    public function queryProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProductResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.product.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询商务中心项目，便于获取增值服务项目
+     * Summary: 查询商务中心项目，便于获取增值服务项目.
+     *
+     * @param QueryProjectPagequeryRequest $request
+     *
+     * @return QueryProjectPagequeryResponse
+     */
+    public function queryProjectPagequery($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProjectPagequeryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询商务中心项目，便于获取增值服务项目
+     * Summary: 查询商务中心项目，便于获取增值服务项目.
+     *
+     * @param QueryProjectPagequeryRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryProjectPagequeryResponse
+     */
+    public function queryProjectPagequeryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProjectPagequeryResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.project.pagequery.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询商务中心项目信息
+     * Summary: 查询商务中心项目信息.
+     *
+     * @param QueryProjectGetprojectRequest $request
+     *
+     * @return QueryProjectGetprojectResponse
+     */
+    public function queryProjectGetproject($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryProjectGetprojectEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询商务中心项目信息
+     * Summary: 查询商务中心项目信息.
+     *
+     * @param QueryProjectGetprojectRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryProjectGetprojectResponse
+     */
+    public function queryProjectGetprojectEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryProjectGetprojectResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.project.getproject.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -447,5 +591,38 @@ class Client
         Utils::validateModel($request);
 
         return ImportScFileResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.sc.file.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description:
+     * Summary: 测试.
+     *
+     * @param QueryScTestRequest $request
+     *
+     * @return QueryScTestResponse
+     */
+    public function queryScTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryScTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description:
+     * Summary: 测试.
+     *
+     * @param QueryScTestRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryScTestResponse
+     */
+    public function queryScTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryScTestResponse::fromMap($this->doRequest('1.0', 'antcloud.tam.sc.test.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
