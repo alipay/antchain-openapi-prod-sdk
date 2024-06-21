@@ -38,6 +38,22 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=false)]
         public string InstCode { get; set; }
 
+        // RSA-DESede
+        // 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+        [NameInMap("algorithm")]
+        [Validation(Required=false)]
+        public string Algorithm { get; set; }
+
+        // 是否采用加密算法
+        [NameInMap("encryption")]
+        [Validation(Required=false)]
+        public bool? Encryption { get; set; }
+
+        // 对称秘钥加密后的数据
+        [NameInMap("encryption_key")]
+        [Validation(Required=true)]
+        public string EncryptionKey { get; set; }
+
     }
 
 }
