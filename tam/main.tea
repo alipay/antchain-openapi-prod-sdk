@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.2',
+    sdk_version = '1.3.3',
+    _prod_code = 'TAM',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -199,32 +201,6 @@ model ResultMap {
   value: string(name='value', example='value'),
 }
 
-// ACES系统接收的项目信息
-model AcesProject {
-  // 项目id
-  projectId: string(name='project_id', example='1000231'),
-  // 项目名称
-  projectName: string(name='project_name', example='测试'),
-  // 客户id
-  customerId: string(name='customer_id', example='200003020121'),
-  // 客户名称
-  customerName: string(name='customer_name', example='测试'),
-  // 产品线
-  projectLine?: string(name='project_line', example='测试'),
-  // 业务线
-  workLine?: string(name='work_line', example='测试'),
-  // 业务分类
-  bizType?: string(name='biz_type', example='Baas'),
-  // 项目大阶段
-  projectBigStage?: string(name='project_big_stage', example='售后'),
-  // 转维状态
-  opStatus?: string(name='op_status', example='A1'),
-  // 交付阶段
-  deliver?: string(name='deliver', example='交付完成'),
-  // 是否售后
-  afterSale?: boolean(name='after_sale', example='true, false'),
-}
-
 // 文件集合
 model UploadRequestArray {
   // 文件数据
@@ -249,16 +225,26 @@ model Emergency {
   status: string(name='status', example='当前记录状态( SUCCESS_START发起成功， FAIL_STAT发起失败， FAIL_CONN未接通， SUCCESS_CONN已接通)'),
 }
 
-//  
-model Upload {
+// aces产品
+model AcesProduct {
   //  
-  endpoint: string(name='endpoint', example=' '),
+  cnName: string(name='cn_name', example='测试产品'),
   //  
-  fileUniqueId: string(name='file_unique_id', example=' '),
+  enName?: string(name='en_name', example='testName'),
   //  
-  fileUrl: string(name='file_url', example=' '),
+  code: string(name='code', example='BJXY'),
+  // 产品owner
+  owner?: string(name='owner', example=' '),
+  // 产品创建时间
+  createTime: string(name='create_time', example=' '),
+  // 产品修改时间
+  updateTime: string(name='update_time', example=' '),
   //  
-  formParam: FormParam(name='form_param', example=''),
+  description?: string(name='description', example=' '),
+  //  
+  l1?: string(name='l1', example=' '),
+  //  
+  l2?: string(name='l2', example=' '),
 }
 
 // 返回结果
@@ -269,6 +255,118 @@ model ResultOncall {
   resultMsg: string(name='result_msg', example=' '),
   // 保存的工单主键id（成功才有）
   id?: string(name='id', example=' '),
+}
+
+// 商务中心项目基础结构
+model ProjectBase {
+  // 项目记录ID
+  id?: string(name='id', example='1000111'),
+  // 项目可读编码
+  projectCode?: string(name='project_code', example='xxx'),
+  // 项目名称
+  title?: string(name='title', example='杭州大数据局项目'),
+  // 项目来源：蚂蚁、阿里云、合作伙伴 ProjectSource.getKey() ANTCLOUD("ANTCLOUD", "蚂蚁区块链"), ALIYUN("ALIYUN", "阿里云"), PARTNER("PARTNER", "合作伙伴");
+  source?: string(name='source', example='蚂蚁'),
+  // 签约方（总包方）。蚂蚁、阿里云 ANTCLOUD("ANTCLOUD", "蚂蚁区块链"), ALIYUN("ALIYUN", "阿里云"),
+  contractor?: string(name='contractor', example='ANTCLOUD'),
+  // 项目所在阶段
+  stage?: string(name='stage', example='xxx'),
+  // 项目状态
+  status?: string(name='status', example='xxx'),
+  // 预计签约日期
+  expectConDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expect_con_date', example='2018-10-10T10:10:00Z'),
+  // 预估签约金额
+  expectConAmt?: string(name='expect_con_amt', example='100'),
+  // 是否需要交付。1需要，0不需要
+  needPm?: string(name='need_pm', example='1'),
+  // 是否需要提前”进场“。1需要，0不需要。
+  needAdEntry?: string(name='need_ad_entry', example='1'),
+  // 合作伙伴Id
+  partnerId?: string(name='partner_id', example='111'),
+  // partnerName
+  partnerName?: string(name='partner_name', example='阿里云'),
+  // 阿里云Bpid
+  aliyunBpid?: string(name='aliyun_bpid', example='1'),
+  // 客户ID
+  customerId?: string(name='customer_id', example='111'),
+  // 客户名称
+  customerName?: string(name='customer_name', example='阿里云'),
+  // BD
+  bdWorkNo?: string(name='bd_work_no', example='111'),
+  // PM
+  pmWorkNos?: [ string ](name='pm_work_nos', example=''),
+  //  
+  tamList?: [ string ](name='tam_list', example=''),
+  //  
+  bdList?: [ string ](name='bd_list', example=''),
+  //  
+  tmList?: [ string ](name='tm_list', example=''),
+  //  
+  pmList?: [ string ](name='pm_list', example=''),
+}
+
+// 返回结构
+model ResultData {
+  // data
+  data: ResultMap(name='data', example='data'),
+}
+
+// ACES系统接收的项目信息
+model AcesProject {
+  // 项目id
+  projectId: string(name='project_id', example='1000231'),
+  // 项目名称
+  projectName: string(name='project_name', example='测试'),
+  // 客户id
+  customerId: string(name='customer_id', example='200003020121'),
+  // 客户名称
+  customerName: string(name='customer_name', example='测试'),
+  // 产品线
+  projectLine?: string(name='project_line', example='测试'),
+  // 业务线
+  workLine?: string(name='work_line', example='测试'),
+  // 业务分类
+  bizType?: string(name='biz_type', example='Baas'),
+  // 项目大阶段
+  projectBigStage?: string(name='project_big_stage', example='售后'),
+  // 转维状态
+  opStatus?: string(name='op_status', example='A1'),
+  // 交付阶段
+  deliver?: string(name='deliver', example='交付完成'),
+  // 是否售后
+  afterSale?: boolean(name='after_sale', example='true, false'),
+  //  
+  aliyunBpid?: string(name='aliyun_bpid', example=' '),
+  // 解决方案架构师
+  sa: string(name='sa', example='康乐'),
+  // 项目经理
+  pm: string(name='pm', example='康乐'),
+  // 商务经理
+  bd: string(name='bd', example='康乐'),
+  // 交付经理
+  tm: string(name='tm', example='康乐'),
+  // 项目状态
+  projectStage?: string(name='project_stage', example='1b 未签-POC-已完成'),
+  // 项目交付状态（未启动、已启动等）
+  projectStatus?: string(name='project_status', example='NOT_START'),
+  // 是否需要交付 1需要 0不需要
+  needDeliver: string(name='need_deliver', example='1'),
+  // 是否需要提前进场 1需要 0不需要
+  needAdEntry: string(name='need_ad_entry', example='1'),
+  // 是否需要竞标 1需要 0不需要
+  needTender: string(name='need_tender', example='1'),
+}
+
+//  
+model Upload {
+  //  
+  endpoint: string(name='endpoint', example=' '),
+  //  
+  fileUniqueId: string(name='file_unique_id', example=' '),
+  //  
+  fileUrl: string(name='file_url', example=' '),
+  //  
+  formParam: FormParam(name='form_param', example=''),
 }
 
 // 提交表单入参
@@ -301,12 +399,6 @@ model SubmitRequest {
   type: string(name='type', example=' '),
   // 上传附件的URL
   fileUrl?: [ string ](name='file_url', example=' '),
-}
-
-// 返回结构
-model ResultData {
-  // data
-  data: ResultMap(name='data', example='data'),
 }
 
 // 返回值
@@ -358,6 +450,182 @@ async function queryCustom(request: QueryCustomRequest): QueryCustomResponse {
 async function queryCustomEx(request: QueryCustomRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCustomResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.tam.custom.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  //  
+  l5codeList: [ string ](name='l5code_list'),
+}
+
+model QueryCodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  l3codeList?: [ string ](name='l3code_list'),
+  //  
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description:  
+ * Summary: 查询双百L3code
+ */
+async function queryCode(request: QueryCodeRequest): QueryCodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCodeEx(request, headers, runtime);
+}
+
+/**
+ * Description:  
+ * Summary: 查询双百L3code
+ */
+async function queryCodeEx(request: QueryCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.tam.code.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // l3code的数组
+  l3codeList: [ string ](name='l3code_list'),
+}
+
+model QueryProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  productList?: [ AcesProduct ](name='product_list'),
+  //  
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description:  
+ * Summary: 根据l3code列表查询产品信息
+ */
+async function queryProduct(request: QueryProductRequest): QueryProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProductEx(request, headers, runtime);
+}
+
+/**
+ * Description:  
+ * Summary: 根据l3code列表查询产品信息
+ */
+async function queryProductEx(request: QueryProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.tam.product.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProjectPagequeryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 兼容BD待客下单对外暴露项目Id查询
+  id?: string(name='id'),
+  // 项目唯一编码
+  projectCode?: string(name='project_code'),
+  // 项目名称，支持模糊
+  title?: string(name='title'),
+  // 客户id
+  customerId?: string(name='customer_id'),
+  // 客户名称
+  customerName?: string(name='customer_name'),
+  // 项目阶段，支持多个过滤
+  status?: [ string ](name='status'),
+  // 项目阶段，支持多个过滤
+  stages?: [ string ](name='stages'),
+  // 项目BD工号列表
+  bdWorkNos?: [ string ](name='bd_work_nos'),
+  // 交付项目经理工号列表
+  pmWorkNos?: [ string ](name='pm_work_nos'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 当前页面
+  currentPage?: long(name='current_page'),
+}
+
+model QueryProjectPagequeryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据
+  projectList?: [ ProjectBase ](name='project_list'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 查询商务中心项目，便于获取增值服务项目
+ * Summary: 查询商务中心项目，便于获取增值服务项目
+ */
+async function queryProjectPagequery(request: QueryProjectPagequeryRequest): QueryProjectPagequeryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProjectPagequeryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询商务中心项目，便于获取增值服务项目
+ * Summary: 查询商务中心项目，便于获取增值服务项目
+ */
+async function queryProjectPagequeryEx(request: QueryProjectPagequeryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProjectPagequeryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.tam.project.pagequery.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryProjectGetprojectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 项目id
+  projectId?: string(name='project_id'),
+}
+
+model QueryProjectGetprojectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  projectList?: ProjectBase(name='project_list'),
+  //  
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 查询商务中心项目信息
+ * Summary: 查询商务中心项目信息
+ */
+async function queryProjectGetproject(request: QueryProjectGetprojectRequest): QueryProjectGetprojectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryProjectGetprojectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询商务中心项目信息
+ * Summary: 查询商务中心项目信息
+ */
+async function queryProjectGetprojectEx(request: QueryProjectGetprojectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryProjectGetprojectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.tam.project.getproject.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model SaveAoneRequest = {
@@ -610,5 +878,38 @@ async function importScFile(request: ImportScFileRequest): ImportScFileResponse 
 async function importScFileEx(request: ImportScFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportScFileResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.tam.sc.file.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryScTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+}
+
+model QueryScTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description:  
+ * Summary: 测试
+ */
+async function queryScTest(request: QueryScTestRequest): QueryScTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryScTestEx(request, headers, runtime);
+}
+
+/**
+ * Description:  
+ * Summary: 测试
+ */
+async function queryScTestEx(request: QueryScTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.tam.sc.test.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
