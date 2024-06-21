@@ -91,7 +91,7 @@ namespace AntChain.SDK.TAM
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.TAM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.2"},
+                        {"sdk_version", "1.3.3"},
+                        {"_prod_code", "TAM"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.TAM
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.TAM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.2"},
+                        {"sdk_version", "1.3.3"},
+                        {"_prod_code", "TAM"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -357,6 +361,174 @@ namespace AntChain.SDK.TAM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryCustomResponse>(await DoRequestAsync("1.0", "antcloud.tam.custom.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description:  
+         * Summary: 查询双百L3code
+         */
+        public QueryCodeResponse QueryCode(QueryCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description:  
+         * Summary: 查询双百L3code
+         */
+        public async Task<QueryCodeResponse> QueryCodeAsync(QueryCodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description:  
+         * Summary: 查询双百L3code
+         */
+        public QueryCodeResponse QueryCodeEx(QueryCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeResponse>(DoRequest("1.0", "antcloud.tam.code.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description:  
+         * Summary: 查询双百L3code
+         */
+        public async Task<QueryCodeResponse> QueryCodeExAsync(QueryCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCodeResponse>(await DoRequestAsync("1.0", "antcloud.tam.code.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description:  
+         * Summary: 根据l3code列表查询产品信息
+         */
+        public QueryProductResponse QueryProduct(QueryProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description:  
+         * Summary: 根据l3code列表查询产品信息
+         */
+        public async Task<QueryProductResponse> QueryProductAsync(QueryProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description:  
+         * Summary: 根据l3code列表查询产品信息
+         */
+        public QueryProductResponse QueryProductEx(QueryProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProductResponse>(DoRequest("1.0", "antcloud.tam.product.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description:  
+         * Summary: 根据l3code列表查询产品信息
+         */
+        public async Task<QueryProductResponse> QueryProductExAsync(QueryProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProductResponse>(await DoRequestAsync("1.0", "antcloud.tam.product.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询商务中心项目，便于获取增值服务项目
+         * Summary: 查询商务中心项目，便于获取增值服务项目
+         */
+        public QueryProjectPagequeryResponse QueryProjectPagequery(QueryProjectPagequeryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryProjectPagequeryEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询商务中心项目，便于获取增值服务项目
+         * Summary: 查询商务中心项目，便于获取增值服务项目
+         */
+        public async Task<QueryProjectPagequeryResponse> QueryProjectPagequeryAsync(QueryProjectPagequeryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryProjectPagequeryExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询商务中心项目，便于获取增值服务项目
+         * Summary: 查询商务中心项目，便于获取增值服务项目
+         */
+        public QueryProjectPagequeryResponse QueryProjectPagequeryEx(QueryProjectPagequeryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProjectPagequeryResponse>(DoRequest("1.0", "antcloud.tam.project.pagequery.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询商务中心项目，便于获取增值服务项目
+         * Summary: 查询商务中心项目，便于获取增值服务项目
+         */
+        public async Task<QueryProjectPagequeryResponse> QueryProjectPagequeryExAsync(QueryProjectPagequeryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProjectPagequeryResponse>(await DoRequestAsync("1.0", "antcloud.tam.project.pagequery.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询商务中心项目信息
+         * Summary: 查询商务中心项目信息
+         */
+        public QueryProjectGetprojectResponse QueryProjectGetproject(QueryProjectGetprojectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryProjectGetprojectEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询商务中心项目信息
+         * Summary: 查询商务中心项目信息
+         */
+        public async Task<QueryProjectGetprojectResponse> QueryProjectGetprojectAsync(QueryProjectGetprojectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryProjectGetprojectExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询商务中心项目信息
+         * Summary: 查询商务中心项目信息
+         */
+        public QueryProjectGetprojectResponse QueryProjectGetprojectEx(QueryProjectGetprojectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProjectGetprojectResponse>(DoRequest("1.0", "antcloud.tam.project.getproject.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询商务中心项目信息
+         * Summary: 查询商务中心项目信息
+         */
+        public async Task<QueryProjectGetprojectResponse> QueryProjectGetprojectExAsync(QueryProjectGetprojectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryProjectGetprojectResponse>(await DoRequestAsync("1.0", "antcloud.tam.project.getproject.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -609,6 +781,48 @@ namespace AntChain.SDK.TAM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportScFileResponse>(await DoRequestAsync("1.0", "antcloud.tam.sc.file.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description:  
+         * Summary: 测试
+         */
+        public QueryScTestResponse QueryScTest(QueryScTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryScTestEx(request, headers, runtime);
+        }
+
+        /**
+         * Description:  
+         * Summary: 测试
+         */
+        public async Task<QueryScTestResponse> QueryScTestAsync(QueryScTestRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryScTestExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description:  
+         * Summary: 测试
+         */
+        public QueryScTestResponse QueryScTestEx(QueryScTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScTestResponse>(DoRequest("1.0", "antcloud.tam.sc.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description:  
+         * Summary: 测试
+         */
+        public async Task<QueryScTestResponse> QueryScTestExAsync(QueryScTestRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScTestResponse>(await DoRequestAsync("1.0", "antcloud.tam.sc.test.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }

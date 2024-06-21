@@ -65,6 +65,56 @@ namespace AntChain.SDK.TAM.Models
         [Validation(Required=false)]
         public bool? AfterSale { get; set; }
 
+        //  
+        [NameInMap("aliyun_bpid")]
+        [Validation(Required=false)]
+        public string AliyunBpid { get; set; }
+
+        // 解决方案架构师
+        [NameInMap("sa")]
+        [Validation(Required=true)]
+        public string Sa { get; set; }
+
+        // 项目经理
+        [NameInMap("pm")]
+        [Validation(Required=true)]
+        public string Pm { get; set; }
+
+        // 商务经理
+        [NameInMap("bd")]
+        [Validation(Required=true)]
+        public string Bd { get; set; }
+
+        // 交付经理
+        [NameInMap("tm")]
+        [Validation(Required=true)]
+        public string Tm { get; set; }
+
+        // 项目状态
+        [NameInMap("project_stage")]
+        [Validation(Required=false)]
+        public string ProjectStage { get; set; }
+
+        // 项目交付状态（未启动、已启动等）
+        [NameInMap("project_status")]
+        [Validation(Required=false)]
+        public string ProjectStatus { get; set; }
+
+        // 是否需要交付 1需要 0不需要
+        [NameInMap("need_deliver")]
+        [Validation(Required=true)]
+        public string NeedDeliver { get; set; }
+
+        // 是否需要提前进场 1需要 0不需要
+        [NameInMap("need_ad_entry")]
+        [Validation(Required=true)]
+        public string NeedAdEntry { get; set; }
+
+        // 是否需要竞标 1需要 0不需要
+        [NameInMap("need_tender")]
+        [Validation(Required=true)]
+        public string NeedTender { get; set; }
+
     }
 
 }
