@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_tam.
 
-Created on 30/12/2022
+Created on 21/06/2024
 
 @author: Ant Chain SDK
 """
@@ -38,7 +38,7 @@ URL = "https://github.com/alipay/antchain-openapi-prod-sdk"
 VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
     "antchain_alipay_util>=1.0.1, <2.0.0",
-    "alibabacloud_tea_util>=0.3.8, <1.0.0",
+    "alibabacloud_tea_util>=0.3.12, <1.0.0",
     "alibabacloud_rpc_util>=0.0.4, <1.0.0"
 ]
 

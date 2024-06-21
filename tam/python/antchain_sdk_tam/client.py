@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2'
+                    'sdk_version': '1.3.3',
+                    '_prod_code': 'TAM',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2'
+                    'sdk_version': '1.3.3',
+                    '_prod_code': 'TAM',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -325,6 +329,230 @@ class Client:
         return TeaCore.from_map(
             tam_models.QueryCustomResponse(),
             await self.do_request_async('1.0', 'antcloud.tam.custom.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_code(
+        self,
+        request: tam_models.QueryCodeRequest,
+    ) -> tam_models.QueryCodeResponse:
+        """
+        Description:
+        Summary: 查询双百L3code
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_code_ex(request, headers, runtime)
+
+    async def query_code_async(
+        self,
+        request: tam_models.QueryCodeRequest,
+    ) -> tam_models.QueryCodeResponse:
+        """
+        Description:
+        Summary: 查询双百L3code
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_code_ex_async(request, headers, runtime)
+
+    def query_code_ex(
+        self,
+        request: tam_models.QueryCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryCodeResponse:
+        """
+        Description:
+        Summary: 查询双百L3code
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryCodeResponse(),
+            self.do_request('1.0', 'antcloud.tam.code.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_code_ex_async(
+        self,
+        request: tam_models.QueryCodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryCodeResponse:
+        """
+        Description:
+        Summary: 查询双百L3code
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryCodeResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.code.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_product(
+        self,
+        request: tam_models.QueryProductRequest,
+    ) -> tam_models.QueryProductResponse:
+        """
+        Description:
+        Summary: 根据l3code列表查询产品信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_product_ex(request, headers, runtime)
+
+    async def query_product_async(
+        self,
+        request: tam_models.QueryProductRequest,
+    ) -> tam_models.QueryProductResponse:
+        """
+        Description:
+        Summary: 根据l3code列表查询产品信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_product_ex_async(request, headers, runtime)
+
+    def query_product_ex(
+        self,
+        request: tam_models.QueryProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryProductResponse:
+        """
+        Description:
+        Summary: 根据l3code列表查询产品信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryProductResponse(),
+            self.do_request('1.0', 'antcloud.tam.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_product_ex_async(
+        self,
+        request: tam_models.QueryProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryProductResponse:
+        """
+        Description:
+        Summary: 根据l3code列表查询产品信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryProductResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.product.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_project_pagequery(
+        self,
+        request: tam_models.QueryProjectPagequeryRequest,
+    ) -> tam_models.QueryProjectPagequeryResponse:
+        """
+        Description: 查询商务中心项目，便于获取增值服务项目
+        Summary: 查询商务中心项目，便于获取增值服务项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_project_pagequery_ex(request, headers, runtime)
+
+    async def query_project_pagequery_async(
+        self,
+        request: tam_models.QueryProjectPagequeryRequest,
+    ) -> tam_models.QueryProjectPagequeryResponse:
+        """
+        Description: 查询商务中心项目，便于获取增值服务项目
+        Summary: 查询商务中心项目，便于获取增值服务项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_project_pagequery_ex_async(request, headers, runtime)
+
+    def query_project_pagequery_ex(
+        self,
+        request: tam_models.QueryProjectPagequeryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryProjectPagequeryResponse:
+        """
+        Description: 查询商务中心项目，便于获取增值服务项目
+        Summary: 查询商务中心项目，便于获取增值服务项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryProjectPagequeryResponse(),
+            self.do_request('1.0', 'antcloud.tam.project.pagequery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_project_pagequery_ex_async(
+        self,
+        request: tam_models.QueryProjectPagequeryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryProjectPagequeryResponse:
+        """
+        Description: 查询商务中心项目，便于获取增值服务项目
+        Summary: 查询商务中心项目，便于获取增值服务项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryProjectPagequeryResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.project.pagequery.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_project_getproject(
+        self,
+        request: tam_models.QueryProjectGetprojectRequest,
+    ) -> tam_models.QueryProjectGetprojectResponse:
+        """
+        Description: 查询商务中心项目信息
+        Summary: 查询商务中心项目信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_project_getproject_ex(request, headers, runtime)
+
+    async def query_project_getproject_async(
+        self,
+        request: tam_models.QueryProjectGetprojectRequest,
+    ) -> tam_models.QueryProjectGetprojectResponse:
+        """
+        Description: 查询商务中心项目信息
+        Summary: 查询商务中心项目信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_project_getproject_ex_async(request, headers, runtime)
+
+    def query_project_getproject_ex(
+        self,
+        request: tam_models.QueryProjectGetprojectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryProjectGetprojectResponse:
+        """
+        Description: 查询商务中心项目信息
+        Summary: 查询商务中心项目信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryProjectGetprojectResponse(),
+            self.do_request('1.0', 'antcloud.tam.project.getproject.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_project_getproject_ex_async(
+        self,
+        request: tam_models.QueryProjectGetprojectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryProjectGetprojectResponse:
+        """
+        Description: 查询商务中心项目信息
+        Summary: 查询商务中心项目信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryProjectGetprojectResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.project.getproject.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def save_aone(
@@ -661,4 +889,60 @@ class Client:
         return TeaCore.from_map(
             tam_models.ImportScFileResponse(),
             await self.do_request_async('1.0', 'antcloud.tam.sc.file.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_sc_test(
+        self,
+        request: tam_models.QueryScTestRequest,
+    ) -> tam_models.QueryScTestResponse:
+        """
+        Description:
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_sc_test_ex(request, headers, runtime)
+
+    async def query_sc_test_async(
+        self,
+        request: tam_models.QueryScTestRequest,
+    ) -> tam_models.QueryScTestResponse:
+        """
+        Description:
+        Summary: 测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_sc_test_ex_async(request, headers, runtime)
+
+    def query_sc_test_ex(
+        self,
+        request: tam_models.QueryScTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryScTestResponse:
+        """
+        Description:
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryScTestResponse(),
+            self.do_request('1.0', 'antcloud.tam.sc.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_sc_test_ex_async(
+        self,
+        request: tam_models.QueryScTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> tam_models.QueryScTestResponse:
+        """
+        Description:
+        Summary: 测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            tam_models.QueryScTestResponse(),
+            await self.do_request_async('1.0', 'antcloud.tam.sc.test.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

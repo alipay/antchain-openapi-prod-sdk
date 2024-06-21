@@ -326,107 +326,6 @@ class ResultMap(TeaModel):
         return self
 
 
-class AcesProject(TeaModel):
-    def __init__(
-        self,
-        project_id: str = None,
-        project_name: str = None,
-        customer_id: str = None,
-        customer_name: str = None,
-        project_line: str = None,
-        work_line: str = None,
-        biz_type: str = None,
-        project_big_stage: str = None,
-        op_status: str = None,
-        deliver: str = None,
-        after_sale: bool = None,
-    ):
-        # 项目id
-        self.project_id = project_id
-        # 项目名称
-        self.project_name = project_name
-        # 客户id
-        self.customer_id = customer_id
-        # 客户名称
-        self.customer_name = customer_name
-        # 产品线
-        self.project_line = project_line
-        # 业务线
-        self.work_line = work_line
-        # 业务分类
-        self.biz_type = biz_type
-        # 项目大阶段
-        self.project_big_stage = project_big_stage
-        # 转维状态
-        self.op_status = op_status
-        # 交付阶段
-        self.deliver = deliver
-        # 是否售后
-        self.after_sale = after_sale
-
-    def validate(self):
-        self.validate_required(self.project_id, 'project_id')
-        self.validate_required(self.project_name, 'project_name')
-        self.validate_required(self.customer_id, 'customer_id')
-        self.validate_required(self.customer_name, 'customer_name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.project_id is not None:
-            result['project_id'] = self.project_id
-        if self.project_name is not None:
-            result['project_name'] = self.project_name
-        if self.customer_id is not None:
-            result['customer_id'] = self.customer_id
-        if self.customer_name is not None:
-            result['customer_name'] = self.customer_name
-        if self.project_line is not None:
-            result['project_line'] = self.project_line
-        if self.work_line is not None:
-            result['work_line'] = self.work_line
-        if self.biz_type is not None:
-            result['biz_type'] = self.biz_type
-        if self.project_big_stage is not None:
-            result['project_big_stage'] = self.project_big_stage
-        if self.op_status is not None:
-            result['op_status'] = self.op_status
-        if self.deliver is not None:
-            result['deliver'] = self.deliver
-        if self.after_sale is not None:
-            result['after_sale'] = self.after_sale
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('project_id') is not None:
-            self.project_id = m.get('project_id')
-        if m.get('project_name') is not None:
-            self.project_name = m.get('project_name')
-        if m.get('customer_id') is not None:
-            self.customer_id = m.get('customer_id')
-        if m.get('customer_name') is not None:
-            self.customer_name = m.get('customer_name')
-        if m.get('project_line') is not None:
-            self.project_line = m.get('project_line')
-        if m.get('work_line') is not None:
-            self.work_line = m.get('work_line')
-        if m.get('biz_type') is not None:
-            self.biz_type = m.get('biz_type')
-        if m.get('project_big_stage') is not None:
-            self.project_big_stage = m.get('project_big_stage')
-        if m.get('op_status') is not None:
-            self.op_status = m.get('op_status')
-        if m.get('deliver') is not None:
-            self.deliver = m.get('deliver')
-        if m.get('after_sale') is not None:
-            self.after_sale = m.get('after_sale')
-        return self
-
-
 class UploadRequestArray(TeaModel):
     def __init__(
         self,
@@ -534,6 +433,521 @@ class Emergency(TeaModel):
         return self
 
 
+class AcesProduct(TeaModel):
+    def __init__(
+        self,
+        cn_name: str = None,
+        en_name: str = None,
+        code: str = None,
+        owner: str = None,
+        create_time: str = None,
+        update_time: str = None,
+        description: str = None,
+        l_1: str = None,
+        l_2: str = None,
+    ):
+        # 
+        self.cn_name = cn_name
+        # 
+        self.en_name = en_name
+        # 
+        self.code = code
+        # 产品owner
+        self.owner = owner
+        # 产品创建时间
+        self.create_time = create_time
+        # 产品修改时间
+        self.update_time = update_time
+        # 
+        self.description = description
+        # 
+        self.l_1 = l_1
+        # 
+        self.l_2 = l_2
+
+    def validate(self):
+        self.validate_required(self.cn_name, 'cn_name')
+        self.validate_required(self.code, 'code')
+        self.validate_required(self.create_time, 'create_time')
+        self.validate_required(self.update_time, 'update_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cn_name is not None:
+            result['cn_name'] = self.cn_name
+        if self.en_name is not None:
+            result['en_name'] = self.en_name
+        if self.code is not None:
+            result['code'] = self.code
+        if self.owner is not None:
+            result['owner'] = self.owner
+        if self.create_time is not None:
+            result['create_time'] = self.create_time
+        if self.update_time is not None:
+            result['update_time'] = self.update_time
+        if self.description is not None:
+            result['description'] = self.description
+        if self.l_1 is not None:
+            result['l1'] = self.l_1
+        if self.l_2 is not None:
+            result['l2'] = self.l_2
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cn_name') is not None:
+            self.cn_name = m.get('cn_name')
+        if m.get('en_name') is not None:
+            self.en_name = m.get('en_name')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('owner') is not None:
+            self.owner = m.get('owner')
+        if m.get('create_time') is not None:
+            self.create_time = m.get('create_time')
+        if m.get('update_time') is not None:
+            self.update_time = m.get('update_time')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('l1') is not None:
+            self.l_1 = m.get('l1')
+        if m.get('l2') is not None:
+            self.l_2 = m.get('l2')
+        return self
+
+
+class ResultOncall(TeaModel):
+    def __init__(
+        self,
+        success: str = None,
+        result_msg: str = None,
+        id: str = None,
+    ):
+        # 是否成功
+        self.success = success
+        # 提示信息
+        self.result_msg = result_msg
+        # 保存的工单主键id（成功才有）
+        self.id = id
+
+    def validate(self):
+        self.validate_required(self.success, 'success')
+        self.validate_required(self.result_msg, 'result_msg')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.success is not None:
+            result['success'] = self.success
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.id is not None:
+            result['id'] = self.id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        return self
+
+
+class ProjectBase(TeaModel):
+    def __init__(
+        self,
+        id: str = None,
+        project_code: str = None,
+        title: str = None,
+        source: str = None,
+        contractor: str = None,
+        stage: str = None,
+        status: str = None,
+        expect_con_date: str = None,
+        expect_con_amt: str = None,
+        need_pm: str = None,
+        need_ad_entry: str = None,
+        partner_id: str = None,
+        partner_name: str = None,
+        aliyun_bpid: str = None,
+        customer_id: str = None,
+        customer_name: str = None,
+        bd_work_no: str = None,
+        pm_work_nos: List[str] = None,
+        tam_list: List[str] = None,
+        bd_list: List[str] = None,
+        tm_list: List[str] = None,
+        pm_list: List[str] = None,
+    ):
+        # 项目记录ID
+        self.id = id
+        # 项目可读编码
+        self.project_code = project_code
+        # 项目名称
+        self.title = title
+        # 项目来源：蚂蚁、阿里云、合作伙伴 ProjectSource.getKey() ANTCLOUD("ANTCLOUD", "蚂蚁区块链"), ALIYUN("ALIYUN", "阿里云"), PARTNER("PARTNER", "合作伙伴");
+        self.source = source
+        # 签约方（总包方）。蚂蚁、阿里云 ANTCLOUD("ANTCLOUD", "蚂蚁区块链"), ALIYUN("ALIYUN", "阿里云"),
+        self.contractor = contractor
+        # 项目所在阶段
+        self.stage = stage
+        # 项目状态
+        self.status = status
+        # 预计签约日期
+        self.expect_con_date = expect_con_date
+        # 预估签约金额
+        self.expect_con_amt = expect_con_amt
+        # 是否需要交付。1需要，0不需要
+        self.need_pm = need_pm
+        # 是否需要提前”进场“。1需要，0不需要。
+        self.need_ad_entry = need_ad_entry
+        # 合作伙伴Id
+        self.partner_id = partner_id
+        # partnerName
+        self.partner_name = partner_name
+        # 阿里云Bpid
+        self.aliyun_bpid = aliyun_bpid
+        # 客户ID
+        self.customer_id = customer_id
+        # 客户名称
+        self.customer_name = customer_name
+        # BD
+        self.bd_work_no = bd_work_no
+        # PM
+        self.pm_work_nos = pm_work_nos
+        # 
+        self.tam_list = tam_list
+        # 
+        self.bd_list = bd_list
+        # 
+        self.tm_list = tm_list
+        # 
+        self.pm_list = pm_list
+
+    def validate(self):
+        if self.expect_con_date is not None:
+            self.validate_pattern(self.expect_con_date, 'expect_con_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.project_code is not None:
+            result['project_code'] = self.project_code
+        if self.title is not None:
+            result['title'] = self.title
+        if self.source is not None:
+            result['source'] = self.source
+        if self.contractor is not None:
+            result['contractor'] = self.contractor
+        if self.stage is not None:
+            result['stage'] = self.stage
+        if self.status is not None:
+            result['status'] = self.status
+        if self.expect_con_date is not None:
+            result['expect_con_date'] = self.expect_con_date
+        if self.expect_con_amt is not None:
+            result['expect_con_amt'] = self.expect_con_amt
+        if self.need_pm is not None:
+            result['need_pm'] = self.need_pm
+        if self.need_ad_entry is not None:
+            result['need_ad_entry'] = self.need_ad_entry
+        if self.partner_id is not None:
+            result['partner_id'] = self.partner_id
+        if self.partner_name is not None:
+            result['partner_name'] = self.partner_name
+        if self.aliyun_bpid is not None:
+            result['aliyun_bpid'] = self.aliyun_bpid
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.customer_name is not None:
+            result['customer_name'] = self.customer_name
+        if self.bd_work_no is not None:
+            result['bd_work_no'] = self.bd_work_no
+        if self.pm_work_nos is not None:
+            result['pm_work_nos'] = self.pm_work_nos
+        if self.tam_list is not None:
+            result['tam_list'] = self.tam_list
+        if self.bd_list is not None:
+            result['bd_list'] = self.bd_list
+        if self.tm_list is not None:
+            result['tm_list'] = self.tm_list
+        if self.pm_list is not None:
+            result['pm_list'] = self.pm_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('project_code') is not None:
+            self.project_code = m.get('project_code')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('contractor') is not None:
+            self.contractor = m.get('contractor')
+        if m.get('stage') is not None:
+            self.stage = m.get('stage')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('expect_con_date') is not None:
+            self.expect_con_date = m.get('expect_con_date')
+        if m.get('expect_con_amt') is not None:
+            self.expect_con_amt = m.get('expect_con_amt')
+        if m.get('need_pm') is not None:
+            self.need_pm = m.get('need_pm')
+        if m.get('need_ad_entry') is not None:
+            self.need_ad_entry = m.get('need_ad_entry')
+        if m.get('partner_id') is not None:
+            self.partner_id = m.get('partner_id')
+        if m.get('partner_name') is not None:
+            self.partner_name = m.get('partner_name')
+        if m.get('aliyun_bpid') is not None:
+            self.aliyun_bpid = m.get('aliyun_bpid')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('customer_name') is not None:
+            self.customer_name = m.get('customer_name')
+        if m.get('bd_work_no') is not None:
+            self.bd_work_no = m.get('bd_work_no')
+        if m.get('pm_work_nos') is not None:
+            self.pm_work_nos = m.get('pm_work_nos')
+        if m.get('tam_list') is not None:
+            self.tam_list = m.get('tam_list')
+        if m.get('bd_list') is not None:
+            self.bd_list = m.get('bd_list')
+        if m.get('tm_list') is not None:
+            self.tm_list = m.get('tm_list')
+        if m.get('pm_list') is not None:
+            self.pm_list = m.get('pm_list')
+        return self
+
+
+class ResultData(TeaModel):
+    def __init__(
+        self,
+        data: ResultMap = None,
+    ):
+        # data
+        self.data = data
+
+    def validate(self):
+        self.validate_required(self.data, 'data')
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('data') is not None:
+            temp_model = ResultMap()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class AcesProject(TeaModel):
+    def __init__(
+        self,
+        project_id: str = None,
+        project_name: str = None,
+        customer_id: str = None,
+        customer_name: str = None,
+        project_line: str = None,
+        work_line: str = None,
+        biz_type: str = None,
+        project_big_stage: str = None,
+        op_status: str = None,
+        deliver: str = None,
+        after_sale: bool = None,
+        aliyun_bpid: str = None,
+        sa: str = None,
+        pm: str = None,
+        bd: str = None,
+        tm: str = None,
+        project_stage: str = None,
+        project_status: str = None,
+        need_deliver: str = None,
+        need_ad_entry: str = None,
+        need_tender: str = None,
+    ):
+        # 项目id
+        self.project_id = project_id
+        # 项目名称
+        self.project_name = project_name
+        # 客户id
+        self.customer_id = customer_id
+        # 客户名称
+        self.customer_name = customer_name
+        # 产品线
+        self.project_line = project_line
+        # 业务线
+        self.work_line = work_line
+        # 业务分类
+        self.biz_type = biz_type
+        # 项目大阶段
+        self.project_big_stage = project_big_stage
+        # 转维状态
+        self.op_status = op_status
+        # 交付阶段
+        self.deliver = deliver
+        # 是否售后
+        self.after_sale = after_sale
+        # 
+        self.aliyun_bpid = aliyun_bpid
+        # 解决方案架构师
+        self.sa = sa
+        # 项目经理
+        self.pm = pm
+        # 商务经理
+        self.bd = bd
+        # 交付经理
+        self.tm = tm
+        # 项目状态
+        self.project_stage = project_stage
+        # 项目交付状态（未启动、已启动等）
+        self.project_status = project_status
+        # 是否需要交付 1需要 0不需要
+        self.need_deliver = need_deliver
+        # 是否需要提前进场 1需要 0不需要
+        self.need_ad_entry = need_ad_entry
+        # 是否需要竞标 1需要 0不需要
+        self.need_tender = need_tender
+
+    def validate(self):
+        self.validate_required(self.project_id, 'project_id')
+        self.validate_required(self.project_name, 'project_name')
+        self.validate_required(self.customer_id, 'customer_id')
+        self.validate_required(self.customer_name, 'customer_name')
+        self.validate_required(self.sa, 'sa')
+        self.validate_required(self.pm, 'pm')
+        self.validate_required(self.bd, 'bd')
+        self.validate_required(self.tm, 'tm')
+        self.validate_required(self.need_deliver, 'need_deliver')
+        self.validate_required(self.need_ad_entry, 'need_ad_entry')
+        self.validate_required(self.need_tender, 'need_tender')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.project_name is not None:
+            result['project_name'] = self.project_name
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.customer_name is not None:
+            result['customer_name'] = self.customer_name
+        if self.project_line is not None:
+            result['project_line'] = self.project_line
+        if self.work_line is not None:
+            result['work_line'] = self.work_line
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.project_big_stage is not None:
+            result['project_big_stage'] = self.project_big_stage
+        if self.op_status is not None:
+            result['op_status'] = self.op_status
+        if self.deliver is not None:
+            result['deliver'] = self.deliver
+        if self.after_sale is not None:
+            result['after_sale'] = self.after_sale
+        if self.aliyun_bpid is not None:
+            result['aliyun_bpid'] = self.aliyun_bpid
+        if self.sa is not None:
+            result['sa'] = self.sa
+        if self.pm is not None:
+            result['pm'] = self.pm
+        if self.bd is not None:
+            result['bd'] = self.bd
+        if self.tm is not None:
+            result['tm'] = self.tm
+        if self.project_stage is not None:
+            result['project_stage'] = self.project_stage
+        if self.project_status is not None:
+            result['project_status'] = self.project_status
+        if self.need_deliver is not None:
+            result['need_deliver'] = self.need_deliver
+        if self.need_ad_entry is not None:
+            result['need_ad_entry'] = self.need_ad_entry
+        if self.need_tender is not None:
+            result['need_tender'] = self.need_tender
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('project_name') is not None:
+            self.project_name = m.get('project_name')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('customer_name') is not None:
+            self.customer_name = m.get('customer_name')
+        if m.get('project_line') is not None:
+            self.project_line = m.get('project_line')
+        if m.get('work_line') is not None:
+            self.work_line = m.get('work_line')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('project_big_stage') is not None:
+            self.project_big_stage = m.get('project_big_stage')
+        if m.get('op_status') is not None:
+            self.op_status = m.get('op_status')
+        if m.get('deliver') is not None:
+            self.deliver = m.get('deliver')
+        if m.get('after_sale') is not None:
+            self.after_sale = m.get('after_sale')
+        if m.get('aliyun_bpid') is not None:
+            self.aliyun_bpid = m.get('aliyun_bpid')
+        if m.get('sa') is not None:
+            self.sa = m.get('sa')
+        if m.get('pm') is not None:
+            self.pm = m.get('pm')
+        if m.get('bd') is not None:
+            self.bd = m.get('bd')
+        if m.get('tm') is not None:
+            self.tm = m.get('tm')
+        if m.get('project_stage') is not None:
+            self.project_stage = m.get('project_stage')
+        if m.get('project_status') is not None:
+            self.project_status = m.get('project_status')
+        if m.get('need_deliver') is not None:
+            self.need_deliver = m.get('need_deliver')
+        if m.get('need_ad_entry') is not None:
+            self.need_ad_entry = m.get('need_ad_entry')
+        if m.get('need_tender') is not None:
+            self.need_tender = m.get('need_tender')
+        return self
+
+
 class Upload(TeaModel):
     def __init__(
         self,
@@ -586,49 +1000,6 @@ class Upload(TeaModel):
         if m.get('form_param') is not None:
             temp_model = FormParam()
             self.form_param = temp_model.from_map(m['form_param'])
-        return self
-
-
-class ResultOncall(TeaModel):
-    def __init__(
-        self,
-        success: str = None,
-        result_msg: str = None,
-        id: str = None,
-    ):
-        # 是否成功
-        self.success = success
-        # 提示信息
-        self.result_msg = result_msg
-        # 保存的工单主键id（成功才有）
-        self.id = id
-
-    def validate(self):
-        self.validate_required(self.success, 'success')
-        self.validate_required(self.result_msg, 'result_msg')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.success is not None:
-            result['success'] = self.success
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.id is not None:
-            result['id'] = self.id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('success') is not None:
-            self.success = m.get('success')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('id') is not None:
-            self.id = m.get('id')
         return self
 
 
@@ -758,37 +1129,6 @@ class SubmitRequest(TeaModel):
             self.type = m.get('type')
         if m.get('file_url') is not None:
             self.file_url = m.get('file_url')
-        return self
-
-
-class ResultData(TeaModel):
-    def __init__(
-        self,
-        data: ResultMap = None,
-    ):
-        # data
-        self.data = data
-
-    def validate(self):
-        self.validate_required(self.data, 'data')
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['data'] = self.data.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('data') is not None:
-            temp_model = ResultMap()
-            self.data = temp_model.from_map(m['data'])
         return self
 
 
@@ -941,6 +1281,458 @@ class QueryCustomResponse(TeaModel):
                 self.data.append(temp_model.from_map(k))
         if m.get('total') is not None:
             self.total = m.get('total')
+        return self
+
+
+class QueryCodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        l_5code_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 
+        self.l_5code_list = l_5code_list
+
+    def validate(self):
+        self.validate_required(self.l_5code_list, 'l_5code_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.l_5code_list is not None:
+            result['l5code_list'] = self.l_5code_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('l5code_list') is not None:
+            self.l_5code_list = m.get('l5code_list')
+        return self
+
+
+class QueryCodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        l_3code_list: List[str] = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 
+        self.l_3code_list = l_3code_list
+        # 
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.l_3code_list is not None:
+            result['l3code_list'] = self.l_3code_list
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('l3code_list') is not None:
+            self.l_3code_list = m.get('l3code_list')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryProductRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        l_3code_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # l3code的数组
+        self.l_3code_list = l_3code_list
+
+    def validate(self):
+        self.validate_required(self.l_3code_list, 'l_3code_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.l_3code_list is not None:
+            result['l3code_list'] = self.l_3code_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('l3code_list') is not None:
+            self.l_3code_list = m.get('l3code_list')
+        return self
+
+
+class QueryProductResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        product_list: List[AcesProduct] = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 
+        self.product_list = product_list
+        # 
+        self.success = success
+
+    def validate(self):
+        if self.product_list:
+            for k in self.product_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['product_list'] = []
+        if self.product_list is not None:
+            for k in self.product_list:
+                result['product_list'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.product_list = []
+        if m.get('product_list') is not None:
+            for k in m.get('product_list'):
+                temp_model = AcesProduct()
+                self.product_list.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryProjectPagequeryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        id: str = None,
+        project_code: str = None,
+        title: str = None,
+        customer_id: str = None,
+        customer_name: str = None,
+        status: List[str] = None,
+        stages: List[str] = None,
+        bd_work_nos: List[str] = None,
+        pm_work_nos: List[str] = None,
+        page_size: int = None,
+        current_page: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 兼容BD待客下单对外暴露项目Id查询
+        self.id = id
+        # 项目唯一编码
+        self.project_code = project_code
+        # 项目名称，支持模糊
+        self.title = title
+        # 客户id
+        self.customer_id = customer_id
+        # 客户名称
+        self.customer_name = customer_name
+        # 项目阶段，支持多个过滤
+        self.status = status
+        # 项目阶段，支持多个过滤
+        self.stages = stages
+        # 项目BD工号列表
+        self.bd_work_nos = bd_work_nos
+        # 交付项目经理工号列表
+        self.pm_work_nos = pm_work_nos
+        # 页面大小
+        self.page_size = page_size
+        # 当前页面
+        self.current_page = current_page
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.id is not None:
+            result['id'] = self.id
+        if self.project_code is not None:
+            result['project_code'] = self.project_code
+        if self.title is not None:
+            result['title'] = self.title
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.customer_name is not None:
+            result['customer_name'] = self.customer_name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.stages is not None:
+            result['stages'] = self.stages
+        if self.bd_work_nos is not None:
+            result['bd_work_nos'] = self.bd_work_nos
+        if self.pm_work_nos is not None:
+            result['pm_work_nos'] = self.pm_work_nos
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.current_page is not None:
+            result['current_page'] = self.current_page
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('project_code') is not None:
+            self.project_code = m.get('project_code')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('customer_name') is not None:
+            self.customer_name = m.get('customer_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('stages') is not None:
+            self.stages = m.get('stages')
+        if m.get('bd_work_nos') is not None:
+            self.bd_work_nos = m.get('bd_work_nos')
+        if m.get('pm_work_nos') is not None:
+            self.pm_work_nos = m.get('pm_work_nos')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('current_page') is not None:
+            self.current_page = m.get('current_page')
+        return self
+
+
+class QueryProjectPagequeryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        project_list: List[ProjectBase] = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数据
+        self.project_list = project_list
+        # 是否成功
+        self.success = success
+
+    def validate(self):
+        if self.project_list:
+            for k in self.project_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['project_list'] = []
+        if self.project_list is not None:
+            for k in self.project_list:
+                result['project_list'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.project_list = []
+        if m.get('project_list') is not None:
+            for k in m.get('project_list'):
+                temp_model = ProjectBase()
+                self.project_list.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class QueryProjectGetprojectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        project_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 项目id
+        self.project_id = project_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        return self
+
+
+class QueryProjectGetprojectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        project_list: ProjectBase = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 
+        self.project_list = project_list
+        # 
+        self.success = success
+
+    def validate(self):
+        if self.project_list:
+            self.project_list.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.project_list is not None:
+            result['project_list'] = self.project_list.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('project_list') is not None:
+            temp_model = ProjectBase()
+            self.project_list = temp_model.from_map(m['project_list'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
         return self
 
 
@@ -1569,6 +2361,76 @@ class ImportScFileResponse(TeaModel):
         if m.get('data') is not None:
             temp_model = Upload()
             self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryScTestRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        return self
+
+
+class QueryScTestResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
