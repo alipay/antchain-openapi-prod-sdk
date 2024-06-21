@@ -184,67 +184,6 @@ export class ResultMap extends $tea.Model {
   }
 }
 
-// ACES系统接收的项目信息
-export class AcesProject extends $tea.Model {
-  // 项目id
-  projectId: string;
-  // 项目名称
-  projectName: string;
-  // 客户id
-  customerId: string;
-  // 客户名称
-  customerName: string;
-  // 产品线
-  projectLine?: string;
-  // 业务线
-  workLine?: string;
-  // 业务分类
-  bizType?: string;
-  // 项目大阶段
-  projectBigStage?: string;
-  // 转维状态
-  opStatus?: string;
-  // 交付阶段
-  deliver?: string;
-  // 是否售后
-  afterSale?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      projectId: 'project_id',
-      projectName: 'project_name',
-      customerId: 'customer_id',
-      customerName: 'customer_name',
-      projectLine: 'project_line',
-      workLine: 'work_line',
-      bizType: 'biz_type',
-      projectBigStage: 'project_big_stage',
-      opStatus: 'op_status',
-      deliver: 'deliver',
-      afterSale: 'after_sale',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      projectId: 'string',
-      projectName: 'string',
-      customerId: 'string',
-      customerName: 'string',
-      projectLine: 'string',
-      workLine: 'string',
-      bizType: 'string',
-      projectBigStage: 'string',
-      opStatus: 'string',
-      deliver: 'string',
-      afterSale: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 文件集合
 export class UploadRequestArray extends $tea.Model {
   // 文件数据
@@ -311,31 +250,51 @@ export class Emergency extends $tea.Model {
   }
 }
 
-//  
-export class Upload extends $tea.Model {
+// aces产品
+export class AcesProduct extends $tea.Model {
   //  
-  endpoint: string;
+  cnName: string;
   //  
-  fileUniqueId: string;
+  enName?: string;
   //  
-  fileUrl: string;
+  code: string;
+  // 产品owner
+  owner?: string;
+  // 产品创建时间
+  createTime: string;
+  // 产品修改时间
+  updateTime: string;
   //  
-  formParam: FormParam;
+  description?: string;
+  //  
+  l1?: string;
+  //  
+  l2?: string;
   static names(): { [key: string]: string } {
     return {
-      endpoint: 'endpoint',
-      fileUniqueId: 'file_unique_id',
-      fileUrl: 'file_url',
-      formParam: 'form_param',
+      cnName: 'cn_name',
+      enName: 'en_name',
+      code: 'code',
+      owner: 'owner',
+      createTime: 'create_time',
+      updateTime: 'update_time',
+      description: 'description',
+      l1: 'l1',
+      l2: 'l2',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      endpoint: 'string',
-      fileUniqueId: 'string',
-      fileUrl: 'string',
-      formParam: FormParam,
+      cnName: 'string',
+      enName: 'string',
+      code: 'string',
+      owner: 'string',
+      createTime: 'string',
+      updateTime: 'string',
+      description: 'string',
+      l1: 'string',
+      l2: 'string',
     };
   }
 
@@ -365,6 +324,266 @@ export class ResultOncall extends $tea.Model {
       success: 'string',
       resultMsg: 'string',
       id: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商务中心项目基础结构
+export class ProjectBase extends $tea.Model {
+  // 项目记录ID
+  id?: string;
+  // 项目可读编码
+  projectCode?: string;
+  // 项目名称
+  title?: string;
+  // 项目来源：蚂蚁、阿里云、合作伙伴 ProjectSource.getKey() ANTCLOUD("ANTCLOUD", "蚂蚁区块链"), ALIYUN("ALIYUN", "阿里云"), PARTNER("PARTNER", "合作伙伴");
+  source?: string;
+  // 签约方（总包方）。蚂蚁、阿里云 ANTCLOUD("ANTCLOUD", "蚂蚁区块链"), ALIYUN("ALIYUN", "阿里云"),
+  contractor?: string;
+  // 项目所在阶段
+  stage?: string;
+  // 项目状态
+  status?: string;
+  // 预计签约日期
+  expectConDate?: string;
+  // 预估签约金额
+  expectConAmt?: string;
+  // 是否需要交付。1需要，0不需要
+  needPm?: string;
+  // 是否需要提前”进场“。1需要，0不需要。
+  needAdEntry?: string;
+  // 合作伙伴Id
+  partnerId?: string;
+  // partnerName
+  partnerName?: string;
+  // 阿里云Bpid
+  aliyunBpid?: string;
+  // 客户ID
+  customerId?: string;
+  // 客户名称
+  customerName?: string;
+  // BD
+  bdWorkNo?: string;
+  // PM
+  pmWorkNos?: string[];
+  //  
+  tamList?: string[];
+  //  
+  bdList?: string[];
+  //  
+  tmList?: string[];
+  //  
+  pmList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      projectCode: 'project_code',
+      title: 'title',
+      source: 'source',
+      contractor: 'contractor',
+      stage: 'stage',
+      status: 'status',
+      expectConDate: 'expect_con_date',
+      expectConAmt: 'expect_con_amt',
+      needPm: 'need_pm',
+      needAdEntry: 'need_ad_entry',
+      partnerId: 'partner_id',
+      partnerName: 'partner_name',
+      aliyunBpid: 'aliyun_bpid',
+      customerId: 'customer_id',
+      customerName: 'customer_name',
+      bdWorkNo: 'bd_work_no',
+      pmWorkNos: 'pm_work_nos',
+      tamList: 'tam_list',
+      bdList: 'bd_list',
+      tmList: 'tm_list',
+      pmList: 'pm_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      projectCode: 'string',
+      title: 'string',
+      source: 'string',
+      contractor: 'string',
+      stage: 'string',
+      status: 'string',
+      expectConDate: 'string',
+      expectConAmt: 'string',
+      needPm: 'string',
+      needAdEntry: 'string',
+      partnerId: 'string',
+      partnerName: 'string',
+      aliyunBpid: 'string',
+      customerId: 'string',
+      customerName: 'string',
+      bdWorkNo: 'string',
+      pmWorkNos: { 'type': 'array', 'itemType': 'string' },
+      tamList: { 'type': 'array', 'itemType': 'string' },
+      bdList: { 'type': 'array', 'itemType': 'string' },
+      tmList: { 'type': 'array', 'itemType': 'string' },
+      pmList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 返回结构
+export class ResultData extends $tea.Model {
+  // data
+  data: ResultMap;
+  static names(): { [key: string]: string } {
+    return {
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      data: ResultMap,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ACES系统接收的项目信息
+export class AcesProject extends $tea.Model {
+  // 项目id
+  projectId: string;
+  // 项目名称
+  projectName: string;
+  // 客户id
+  customerId: string;
+  // 客户名称
+  customerName: string;
+  // 产品线
+  projectLine?: string;
+  // 业务线
+  workLine?: string;
+  // 业务分类
+  bizType?: string;
+  // 项目大阶段
+  projectBigStage?: string;
+  // 转维状态
+  opStatus?: string;
+  // 交付阶段
+  deliver?: string;
+  // 是否售后
+  afterSale?: boolean;
+  //  
+  aliyunBpid?: string;
+  // 解决方案架构师
+  sa: string;
+  // 项目经理
+  pm: string;
+  // 商务经理
+  bd: string;
+  // 交付经理
+  tm: string;
+  // 项目状态
+  projectStage?: string;
+  // 项目交付状态（未启动、已启动等）
+  projectStatus?: string;
+  // 是否需要交付 1需要 0不需要
+  needDeliver: string;
+  // 是否需要提前进场 1需要 0不需要
+  needAdEntry: string;
+  // 是否需要竞标 1需要 0不需要
+  needTender: string;
+  static names(): { [key: string]: string } {
+    return {
+      projectId: 'project_id',
+      projectName: 'project_name',
+      customerId: 'customer_id',
+      customerName: 'customer_name',
+      projectLine: 'project_line',
+      workLine: 'work_line',
+      bizType: 'biz_type',
+      projectBigStage: 'project_big_stage',
+      opStatus: 'op_status',
+      deliver: 'deliver',
+      afterSale: 'after_sale',
+      aliyunBpid: 'aliyun_bpid',
+      sa: 'sa',
+      pm: 'pm',
+      bd: 'bd',
+      tm: 'tm',
+      projectStage: 'project_stage',
+      projectStatus: 'project_status',
+      needDeliver: 'need_deliver',
+      needAdEntry: 'need_ad_entry',
+      needTender: 'need_tender',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      projectId: 'string',
+      projectName: 'string',
+      customerId: 'string',
+      customerName: 'string',
+      projectLine: 'string',
+      workLine: 'string',
+      bizType: 'string',
+      projectBigStage: 'string',
+      opStatus: 'string',
+      deliver: 'string',
+      afterSale: 'boolean',
+      aliyunBpid: 'string',
+      sa: 'string',
+      pm: 'string',
+      bd: 'string',
+      tm: 'string',
+      projectStage: 'string',
+      projectStatus: 'string',
+      needDeliver: 'string',
+      needAdEntry: 'string',
+      needTender: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+//  
+export class Upload extends $tea.Model {
+  //  
+  endpoint: string;
+  //  
+  fileUniqueId: string;
+  //  
+  fileUrl: string;
+  //  
+  formParam: FormParam;
+  static names(): { [key: string]: string } {
+    return {
+      endpoint: 'endpoint',
+      fileUniqueId: 'file_unique_id',
+      fileUrl: 'file_url',
+      formParam: 'form_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      endpoint: 'string',
+      fileUniqueId: 'string',
+      fileUrl: 'string',
+      formParam: FormParam,
     };
   }
 
@@ -438,27 +657,6 @@ export class SubmitRequest extends $tea.Model {
       bizNo: 'string',
       type: 'string',
       fileUrl: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 返回结构
-export class ResultData extends $tea.Model {
-  // data
-  data: ResultMap;
-  static names(): { [key: string]: string } {
-    return {
-      data: 'data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      data: ResultMap,
     };
   }
 
@@ -552,6 +750,286 @@ export class QueryCustomResponse extends $tea.Model {
       success: 'boolean',
       data: { 'type': 'array', 'itemType': AcesProject },
       total: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  //  
+  l5codeList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      l5codeList: 'l5code_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      l5codeList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  //  
+  l3codeList?: string[];
+  //  
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      l3codeList: 'l3code_list',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      l3codeList: { 'type': 'array', 'itemType': 'string' },
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProductRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // l3code的数组
+  l3codeList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      l3codeList: 'l3code_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      l3codeList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProductResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  //  
+  productList?: AcesProduct[];
+  //  
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      productList: 'product_list',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      productList: { 'type': 'array', 'itemType': AcesProduct },
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProjectPagequeryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 兼容BD待客下单对外暴露项目Id查询
+  id?: string;
+  // 项目唯一编码
+  projectCode?: string;
+  // 项目名称，支持模糊
+  title?: string;
+  // 客户id
+  customerId?: string;
+  // 客户名称
+  customerName?: string;
+  // 项目阶段，支持多个过滤
+  status?: string[];
+  // 项目阶段，支持多个过滤
+  stages?: string[];
+  // 项目BD工号列表
+  bdWorkNos?: string[];
+  // 交付项目经理工号列表
+  pmWorkNos?: string[];
+  // 页面大小
+  pageSize?: number;
+  // 当前页面
+  currentPage?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      id: 'id',
+      projectCode: 'project_code',
+      title: 'title',
+      customerId: 'customer_id',
+      customerName: 'customer_name',
+      status: 'status',
+      stages: 'stages',
+      bdWorkNos: 'bd_work_nos',
+      pmWorkNos: 'pm_work_nos',
+      pageSize: 'page_size',
+      currentPage: 'current_page',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      id: 'string',
+      projectCode: 'string',
+      title: 'string',
+      customerId: 'string',
+      customerName: 'string',
+      status: { 'type': 'array', 'itemType': 'string' },
+      stages: { 'type': 'array', 'itemType': 'string' },
+      bdWorkNos: { 'type': 'array', 'itemType': 'string' },
+      pmWorkNos: { 'type': 'array', 'itemType': 'string' },
+      pageSize: 'number',
+      currentPage: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProjectPagequeryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数据
+  projectList?: ProjectBase[];
+  // 是否成功
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      projectList: 'project_list',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      projectList: { 'type': 'array', 'itemType': ProjectBase },
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProjectGetprojectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 项目id
+  projectId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      projectId: 'project_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      projectId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryProjectGetprojectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  //  
+  projectList?: ProjectBase;
+  //  
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      projectList: 'project_list',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      projectList: ProjectBase,
+      success: 'boolean',
     };
   }
 
@@ -956,6 +1434,54 @@ export class ImportScFileResponse extends $tea.Model {
   }
 }
 
+export class QueryScTestRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScTestResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -983,7 +1509,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -1030,7 +1556,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -1069,7 +1595,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.2",
+          sdk_version: "1.3.3",
+          _prod_code: "TAM",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -1132,6 +1660,82 @@ export default class Client {
   async queryCustomEx(request: QueryCustomRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCustomResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryCustomResponse>(await this.doRequest("1.0", "antcloud.tam.custom.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCustomResponse({}));
+  }
+
+  /**
+   * Description:  
+   * Summary: 查询双百L3code
+   */
+  async queryCode(request: QueryCodeRequest): Promise<QueryCodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description:  
+   * Summary: 查询双百L3code
+   */
+  async queryCodeEx(request: QueryCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCodeResponse>(await this.doRequest("1.0", "antcloud.tam.code.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCodeResponse({}));
+  }
+
+  /**
+   * Description:  
+   * Summary: 根据l3code列表查询产品信息
+   */
+  async queryProduct(request: QueryProductRequest): Promise<QueryProductResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryProductEx(request, headers, runtime);
+  }
+
+  /**
+   * Description:  
+   * Summary: 根据l3code列表查询产品信息
+   */
+  async queryProductEx(request: QueryProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProductResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryProductResponse>(await this.doRequest("1.0", "antcloud.tam.product.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryProductResponse({}));
+  }
+
+  /**
+   * Description: 查询商务中心项目，便于获取增值服务项目
+   * Summary: 查询商务中心项目，便于获取增值服务项目
+   */
+  async queryProjectPagequery(request: QueryProjectPagequeryRequest): Promise<QueryProjectPagequeryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryProjectPagequeryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询商务中心项目，便于获取增值服务项目
+   * Summary: 查询商务中心项目，便于获取增值服务项目
+   */
+  async queryProjectPagequeryEx(request: QueryProjectPagequeryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProjectPagequeryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryProjectPagequeryResponse>(await this.doRequest("1.0", "antcloud.tam.project.pagequery.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryProjectPagequeryResponse({}));
+  }
+
+  /**
+   * Description: 查询商务中心项目信息
+   * Summary: 查询商务中心项目信息
+   */
+  async queryProjectGetproject(request: QueryProjectGetprojectRequest): Promise<QueryProjectGetprojectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryProjectGetprojectEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询商务中心项目信息
+   * Summary: 查询商务中心项目信息
+   */
+  async queryProjectGetprojectEx(request: QueryProjectGetprojectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProjectGetprojectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryProjectGetprojectResponse>(await this.doRequest("1.0", "antcloud.tam.project.getproject.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryProjectGetprojectResponse({}));
   }
 
   /**
@@ -1246,6 +1850,25 @@ export default class Client {
   async importScFileEx(request: ImportScFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportScFileResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportScFileResponse>(await this.doRequest("1.0", "antcloud.tam.sc.file.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportScFileResponse({}));
+  }
+
+  /**
+   * Description:  
+   * Summary: 测试
+   */
+  async queryScTest(request: QueryScTestRequest): Promise<QueryScTestResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryScTestEx(request, headers, runtime);
+  }
+
+  /**
+   * Description:  
+   * Summary: 测试
+   */
+  async queryScTestEx(request: QueryScTestRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScTestResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryScTestResponse>(await this.doRequest("1.0", "antcloud.tam.sc.test.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScTestResponse({}));
   }
 
 }
