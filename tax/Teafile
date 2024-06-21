@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "TAX",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-tax:1.8.36",
-    "go": "github.com/antchain-openapi-sdk-go/tax/client:v1.8.36",
-    "csharp": "AntChain.SDK.TAX:1.8.36",
-    "ts": "@antchain/tax:1.8.36",
-    "php": "antchain/tax:1.8.36",
-    "python": "antchain_sdk_tax:1.8.36"
+    "java": "com.antgroup.antchain.openapi:openapi-tax:1.8.38",
+    "go": "github.com/antchain-openapi-sdk-go/tax/client:v1.8.38",
+    "csharp": "AntChain.SDK.TAX:1.8.38",
+    "ts": "@antchain/tax:1.8.38",
+    "php": "antchain/tax:1.8.38",
+    "python": "antchain_sdk_tax:1.8.38"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
