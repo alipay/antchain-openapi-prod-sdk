@@ -42,6 +42,25 @@ class RunApiDataprocessRequest extends Model
      * @var string
      */
     public $instCode;
+
+    // RSA-DESede
+    // 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+    /**
+     * @var string
+     */
+    public $algorithm;
+
+    // 是否采用加密算法
+    /**
+     * @var bool
+     */
+    public $encryption;
+
+    // 对称秘钥加密后的数据
+    /**
+     * @var string
+     */
+    public $encryptionKey;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +68,9 @@ class RunApiDataprocessRequest extends Model
         'productCode'       => 'product_code',
         'methodCode'        => 'method_code',
         'instCode'          => 'inst_code',
+        'algorithm'         => 'algorithm',
+        'encryption'        => 'encryption',
+        'encryptionKey'     => 'encryption_key',
     ];
 
     public function validate()
@@ -56,6 +78,7 @@ class RunApiDataprocessRequest extends Model
         Model::validateRequired('bizParam', $this->bizParam, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('methodCode', $this->methodCode, true);
+        Model::validateRequired('encryptionKey', $this->encryptionKey, true);
     }
 
     public function toMap()
@@ -78,6 +101,15 @@ class RunApiDataprocessRequest extends Model
         }
         if (null !== $this->instCode) {
             $res['inst_code'] = $this->instCode;
+        }
+        if (null !== $this->algorithm) {
+            $res['algorithm'] = $this->algorithm;
+        }
+        if (null !== $this->encryption) {
+            $res['encryption'] = $this->encryption;
+        }
+        if (null !== $this->encryptionKey) {
+            $res['encryption_key'] = $this->encryptionKey;
         }
 
         return $res;
@@ -108,6 +140,15 @@ class RunApiDataprocessRequest extends Model
         }
         if (isset($map['inst_code'])) {
             $model->instCode = $map['inst_code'];
+        }
+        if (isset($map['algorithm'])) {
+            $model->algorithm = $map['algorithm'];
+        }
+        if (isset($map['encryption'])) {
+            $model->encryption = $map['encryption'];
+        }
+        if (isset($map['encryption_key'])) {
+            $model->encryptionKey = $map['encryption_key'];
         }
 
         return $model;
