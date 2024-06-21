@@ -5565,6 +5565,13 @@ type RunApiDataprocessRequest struct {
 	MethodCode *string `json:"method_code,omitempty" xml:"method_code,omitempty" require:"true"`
 	// 租户编码
 	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty"`
+	// RSA-DESede
+	// 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+	Algorithm *string `json:"algorithm,omitempty" xml:"algorithm,omitempty"`
+	// 是否采用加密算法
+	Encryption *bool `json:"encryption,omitempty" xml:"encryption,omitempty"`
+	// 对称秘钥加密后的数据
+	EncryptionKey *string `json:"encryption_key,omitempty" xml:"encryption_key,omitempty" require:"true"`
 }
 
 func (s RunApiDataprocessRequest) String() string {
@@ -5602,6 +5609,21 @@ func (s *RunApiDataprocessRequest) SetMethodCode(v string) *RunApiDataprocessReq
 
 func (s *RunApiDataprocessRequest) SetInstCode(v string) *RunApiDataprocessRequest {
 	s.InstCode = &v
+	return s
+}
+
+func (s *RunApiDataprocessRequest) SetAlgorithm(v string) *RunApiDataprocessRequest {
+	s.Algorithm = &v
+	return s
+}
+
+func (s *RunApiDataprocessRequest) SetEncryption(v bool) *RunApiDataprocessRequest {
+	s.Encryption = &v
+	return s
+}
+
+func (s *RunApiDataprocessRequest) SetEncryptionKey(v string) *RunApiDataprocessRequest {
+	s.EncryptionKey = &v
 	return s
 }
 
@@ -6501,7 +6523,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.36"),
+				"sdk_version":      tea.String("1.8.38"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
