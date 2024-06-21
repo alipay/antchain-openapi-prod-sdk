@@ -4212,6 +4212,13 @@ export class RunApiDataprocessRequest extends $tea.Model {
   methodCode: string;
   // 租户编码
   instCode?: string;
+  // RSA-DESede
+  // 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+  algorithm?: string;
+  // 是否采用加密算法
+  encryption?: boolean;
+  // 对称秘钥加密后的数据
+  encryptionKey: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4220,6 +4227,9 @@ export class RunApiDataprocessRequest extends $tea.Model {
       productCode: 'product_code',
       methodCode: 'method_code',
       instCode: 'inst_code',
+      algorithm: 'algorithm',
+      encryption: 'encryption',
+      encryptionKey: 'encryption_key',
     };
   }
 
@@ -4231,6 +4241,9 @@ export class RunApiDataprocessRequest extends $tea.Model {
       productCode: 'string',
       methodCode: 'string',
       instCode: 'string',
+      algorithm: 'string',
+      encryption: 'boolean',
+      encryptionKey: 'string',
     };
   }
 
@@ -4918,7 +4931,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.36",
+          sdk_version: "1.8.38",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
