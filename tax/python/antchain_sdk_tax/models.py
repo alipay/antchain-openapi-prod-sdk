@@ -6944,6 +6944,9 @@ class RunApiDataprocessRequest(TeaModel):
         product_code: str = None,
         method_code: str = None,
         inst_code: str = None,
+        algorithm: str = None,
+        encryption: bool = None,
+        encryption_key: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6956,11 +6959,19 @@ class RunApiDataprocessRequest(TeaModel):
         self.method_code = method_code
         # 租户编码
         self.inst_code = inst_code
+        # RSA-DESede
+        # 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+        self.algorithm = algorithm
+        # 是否采用加密算法
+        self.encryption = encryption
+        # 对称秘钥加密后的数据
+        self.encryption_key = encryption_key
 
     def validate(self):
         self.validate_required(self.biz_param, 'biz_param')
         self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.method_code, 'method_code')
+        self.validate_required(self.encryption_key, 'encryption_key')
 
     def to_map(self):
         _map = super().to_map()
@@ -6980,6 +6991,12 @@ class RunApiDataprocessRequest(TeaModel):
             result['method_code'] = self.method_code
         if self.inst_code is not None:
             result['inst_code'] = self.inst_code
+        if self.algorithm is not None:
+            result['algorithm'] = self.algorithm
+        if self.encryption is not None:
+            result['encryption'] = self.encryption
+        if self.encryption_key is not None:
+            result['encryption_key'] = self.encryption_key
         return result
 
     def from_map(self, m: dict = None):
@@ -6996,6 +7013,12 @@ class RunApiDataprocessRequest(TeaModel):
             self.method_code = m.get('method_code')
         if m.get('inst_code') is not None:
             self.inst_code = m.get('inst_code')
+        if m.get('algorithm') is not None:
+            self.algorithm = m.get('algorithm')
+        if m.get('encryption') is not None:
+            self.encryption = m.get('encryption')
+        if m.get('encryption_key') is not None:
+            self.encryption_key = m.get('encryption_key')
         return self
 
 
