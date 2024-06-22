@@ -21,6 +21,11 @@ public class GetFundUserpromiseRequest extends TeaModel {
     @Validation(required = true, maxLength = 200, minLength = 1)
     public String merchantId;
 
+    // 资方的社会信用代码
+    @NameInMap("fund_id")
+    @Validation(maxLength = 64)
+    public String fundId;
+
     public static GetFundUserpromiseRequest build(java.util.Map<String, ?> map) throws Exception {
         GetFundUserpromiseRequest self = new GetFundUserpromiseRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class GetFundUserpromiseRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public GetFundUserpromiseRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

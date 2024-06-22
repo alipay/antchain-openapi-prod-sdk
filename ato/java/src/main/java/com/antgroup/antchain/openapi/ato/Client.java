@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.70"),
+                    new TeaPair("sdk_version", "1.8.73"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -545,6 +545,44 @@ public class Client {
     public NotifyFundFlowResponse notifyFundFlowEx(NotifyFundFlowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.flow.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyFundFlowResponse());
+    }
+
+    /**
+     * Description: 资方资产凭证上传，可以是文本或文件
+     * Summary: 资方资产凭证上传
+     */
+    public UploadFundCreditResponse uploadFundCredit(UploadFundCreditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadFundCreditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资方资产凭证上传，可以是文本或文件
+     * Summary: 资方资产凭证上传
+     */
+    public UploadFundCreditResponse uploadFundCreditEx(UploadFundCreditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.credit.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadFundCreditResponse());
+    }
+
+    /**
+     * Description: 资方资产凭证查询，需要提供订单号或资产包号
+     * Summary: 资方资产凭证查询
+     */
+    public QueryFundCreditResponse queryFundCredit(QueryFundCreditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryFundCreditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 资方资产凭证查询，需要提供订单号或资产包号
+     * Summary: 资方资产凭证查询
+     */
+    public QueryFundCreditResponse queryFundCreditEx(QueryFundCreditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.credit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFundCreditResponse());
     }
 
     /**
@@ -1556,6 +1594,44 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.template.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadSignTemplateResponse());
+    }
+
+    /**
+     * Description: 商户资产凭证上传，可以是文本或文件
+     * Summary: 商户资产凭证上传
+     */
+    public UploadSignCreditResponse uploadSignCredit(UploadSignCreditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadSignCreditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户资产凭证上传，可以是文本或文件
+     * Summary: 商户资产凭证上传
+     */
+    public UploadSignCreditResponse uploadSignCreditEx(UploadSignCreditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.credit.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadSignCreditResponse());
+    }
+
+    /**
+     * Description: 商户资产凭证查询，需要提供订单号或资产包号
+     * Summary: 商户资产凭证查询
+     */
+    public QuerySignCreditResponse querySignCredit(QuerySignCreditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySignCreditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商户资产凭证查询，需要提供订单号或资产包号
+     * Summary: 商户资产凭证查询
+     */
+    public QuerySignCreditResponse querySignCreditEx(QuerySignCreditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.sign.credit.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySignCreditResponse());
     }
 
     /**

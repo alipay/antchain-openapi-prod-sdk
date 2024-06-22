@@ -26,6 +26,11 @@ public class SyncFundMerchantpromiseRequest extends TeaModel {
     @Validation(required = true, minLength = 1)
     public String bizContent;
 
+    // 资方公司社会信用代码
+    @NameInMap("fund_id")
+    @Validation(maxLength = 64)
+    public String fundId;
+
     public static SyncFundMerchantpromiseRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncFundMerchantpromiseRequest self = new SyncFundMerchantpromiseRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class SyncFundMerchantpromiseRequest extends TeaModel {
     }
     public String getBizContent() {
         return this.bizContent;
+    }
+
+    public SyncFundMerchantpromiseRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

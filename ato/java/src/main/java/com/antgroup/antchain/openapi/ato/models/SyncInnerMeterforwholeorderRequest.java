@@ -33,7 +33,7 @@ public class SyncInnerMeterforwholeorderRequest extends TeaModel {
 
     // 订单总租期
     @NameInMap("order_rent_term")
-    @Validation(required = true, maximum = 200, minimum = 1)
+    @Validation(required = true)
     public Long orderRentTerm;
 
     // 订单总租金，单位为分
