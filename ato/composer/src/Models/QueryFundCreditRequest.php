@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetFundUserpromiseRequest extends Model
+class QueryFundCreditRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,19 +19,19 @@ class GetFundUserpromiseRequest extends Model
      */
     public $productInstanceId;
 
-    // 订单id
+    // 订单号类型
     /**
      * @var string
      */
-    public $orderId;
+    public $orderNoType;
 
-    // 订单所属商户的社会信用代码
+    // 订单号，或资产包号
     /**
      * @var string
      */
-    public $merchantId;
+    public $orderNo;
 
-    // 资方的社会信用代码
+    // 资方统一社会信用代码
     /**
      * @var string
      */
@@ -39,20 +39,16 @@ class GetFundUserpromiseRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
-        'merchantId'        => 'merchant_id',
+        'orderNoType'       => 'order_no_type',
+        'orderNo'           => 'order_no',
         'fundId'            => 'fund_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateMaxLength('orderId', $this->orderId, 50);
-        Model::validateMaxLength('merchantId', $this->merchantId, 200);
-        Model::validateMaxLength('fundId', $this->fundId, 64);
-        Model::validateMinLength('orderId', $this->orderId, 1);
-        Model::validateMinLength('merchantId', $this->merchantId, 1);
+        Model::validateRequired('orderNoType', $this->orderNoType, true);
+        Model::validateRequired('orderNo', $this->orderNo, true);
+        Model::validateRequired('fundId', $this->fundId, true);
     }
 
     public function toMap()
@@ -64,11 +60,11 @@ class GetFundUserpromiseRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
+        if (null !== $this->orderNoType) {
+            $res['order_no_type'] = $this->orderNoType;
         }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
+        if (null !== $this->orderNo) {
+            $res['order_no'] = $this->orderNo;
         }
         if (null !== $this->fundId) {
             $res['fund_id'] = $this->fundId;
@@ -80,7 +76,7 @@ class GetFundUserpromiseRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetFundUserpromiseRequest
+     * @return QueryFundCreditRequest
      */
     public static function fromMap($map = [])
     {
@@ -91,11 +87,11 @@ class GetFundUserpromiseRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
+        if (isset($map['order_no_type'])) {
+            $model->orderNoType = $map['order_no_type'];
         }
-        if (isset($map['merchant_id'])) {
-            $model->merchantId = $map['merchant_id'];
+        if (isset($map['order_no'])) {
+            $model->orderNo = $map['order_no'];
         }
         if (isset($map['fund_id'])) {
             $model->fundId = $map['fund_id'];

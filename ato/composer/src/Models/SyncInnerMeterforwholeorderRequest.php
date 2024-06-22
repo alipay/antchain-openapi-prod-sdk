@@ -101,8 +101,6 @@ class SyncInnerMeterforwholeorderRequest extends Model
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('sysName', $this->sysName, 1);
         Model::validateMinLength('orderProductSubclass', $this->orderProductSubclass, 1);
-        Model::validateMaximum('orderRentTerm', $this->orderRentTerm, 200);
-        Model::validateMinimum('orderRentTerm', $this->orderRentTerm, 1);
     }
 
     public function toMap()

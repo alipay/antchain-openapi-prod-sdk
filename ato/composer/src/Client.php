@@ -101,6 +101,8 @@ use AntChain\ATO\Models\PreviewInnerTemplateRequest;
 use AntChain\ATO\Models\PreviewInnerTemplateResponse;
 use AntChain\ATO\Models\PublishInnerTemplateRequest;
 use AntChain\ATO\Models\PublishInnerTemplateResponse;
+use AntChain\ATO\Models\QueryFundCreditRequest;
+use AntChain\ATO\Models\QueryFundCreditResponse;
 use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\QueryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\QueryInnerMerchantagreementRequest;
@@ -123,6 +125,8 @@ use AntChain\ATO\Models\QueryRealpersonFacevrfRequest;
 use AntChain\ATO\Models\QueryRealpersonFacevrfResponse;
 use AntChain\ATO\Models\QueryRiskRequest;
 use AntChain\ATO\Models\QueryRiskResponse;
+use AntChain\ATO\Models\QuerySignCreditRequest;
+use AntChain\ATO\Models\QuerySignCreditResponse;
 use AntChain\ATO\Models\QueryWithholdActivepayRequest;
 use AntChain\ATO\Models\QueryWithholdActivepayResponse;
 use AntChain\ATO\Models\QueryWithholdRefundRequest;
@@ -185,12 +189,16 @@ use AntChain\ATO\Models\UpdateInnerTemplateRequest;
 use AntChain\ATO\Models\UpdateInnerTemplateResponse;
 use AntChain\ATO\Models\UpdateTradeUserpromiseRequest;
 use AntChain\ATO\Models\UpdateTradeUserpromiseResponse;
+use AntChain\ATO\Models\UploadFundCreditRequest;
+use AntChain\ATO\Models\UploadFundCreditResponse;
 use AntChain\ATO\Models\UploadFundFlowRequest;
 use AntChain\ATO\Models\UploadFundFlowResponse;
 use AntChain\ATO\Models\UploadInnerFileRequest;
 use AntChain\ATO\Models\UploadInnerFileResponse;
 use AntChain\ATO\Models\UploadMerchantexpandFileRequest;
 use AntChain\ATO\Models\UploadMerchantexpandFileResponse;
+use AntChain\ATO\Models\UploadSignCreditRequest;
+use AntChain\ATO\Models\UploadSignCreditResponse;
 use AntChain\ATO\Models\UploadSignFlowRequest;
 use AntChain\ATO\Models\UploadSignFlowResponse;
 use AntChain\ATO\Models\UploadSignTemplateRequest;
@@ -342,7 +350,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.70',
+                    'sdk_version'      => '1.8.73',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1000,6 +1008,72 @@ class Client
         Utils::validateModel($request);
 
         return NotifyFundFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方资产凭证上传，可以是文本或文件
+     * Summary: 资方资产凭证上传.
+     *
+     * @param UploadFundCreditRequest $request
+     *
+     * @return UploadFundCreditResponse
+     */
+    public function uploadFundCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadFundCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方资产凭证上传，可以是文本或文件
+     * Summary: 资方资产凭证上传.
+     *
+     * @param UploadFundCreditRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UploadFundCreditResponse
+     */
+    public function uploadFundCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadFundCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.credit.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方资产凭证查询，需要提供订单号或资产包号
+     * Summary: 资方资产凭证查询.
+     *
+     * @param QueryFundCreditRequest $request
+     *
+     * @return QueryFundCreditResponse
+     */
+    public function queryFundCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方资产凭证查询，需要提供订单号或资产包号
+     * Summary: 资方资产凭证查询.
+     *
+     * @param QueryFundCreditRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryFundCreditResponse
+     */
+    public function queryFundCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2719,6 +2793,72 @@ class Client
         Utils::validateModel($request);
 
         return UploadSignTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.template.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户资产凭证上传，可以是文本或文件
+     * Summary: 商户资产凭证上传.
+     *
+     * @param UploadSignCreditRequest $request
+     *
+     * @return UploadSignCreditResponse
+     */
+    public function uploadSignCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadSignCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户资产凭证上传，可以是文本或文件
+     * Summary: 商户资产凭证上传.
+     *
+     * @param UploadSignCreditRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UploadSignCreditResponse
+     */
+    public function uploadSignCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadSignCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.credit.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户资产凭证查询，需要提供订单号或资产包号
+     * Summary: 商户资产凭证查询.
+     *
+     * @param QuerySignCreditRequest $request
+     *
+     * @return QuerySignCreditResponse
+     */
+    public function querySignCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->querySignCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户资产凭证查询，需要提供订单号或资产包号
+     * Summary: 商户资产凭证查询.
+     *
+     * @param QuerySignCreditRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QuerySignCreditResponse
+     */
+    public function querySignCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QuerySignCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -36,12 +36,19 @@ class SyncFundMerchantpromiseRequest extends Model
      * @var string
      */
     public $bizContent;
+
+    // 资方公司社会信用代码
+    /**
+     * @var string
+     */
+    public $fundId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'merchantId'        => 'merchant_id',
         'bizContent'        => 'biz_content',
+        'fundId'            => 'fund_id',
     ];
 
     public function validate()
@@ -51,6 +58,7 @@ class SyncFundMerchantpromiseRequest extends Model
         Model::validateRequired('bizContent', $this->bizContent, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('merchantId', $this->merchantId, 64);
+        Model::validateMaxLength('fundId', $this->fundId, 64);
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('merchantId', $this->merchantId, 1);
         Model::validateMinLength('bizContent', $this->bizContent, 1);
@@ -73,6 +81,9 @@ class SyncFundMerchantpromiseRequest extends Model
         }
         if (null !== $this->bizContent) {
             $res['biz_content'] = $this->bizContent;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
         }
 
         return $res;
@@ -100,6 +111,9 @@ class SyncFundMerchantpromiseRequest extends Model
         }
         if (isset($map['biz_content'])) {
             $model->bizContent = $map['biz_content'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
 
         return $model;
