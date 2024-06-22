@@ -1815,6 +1815,8 @@ type CancelFundPlanRequest struct {
 	// RENTING_OUT_REDEEM:退租赎回
 	// RENTING_AND_RESALE_REDEEM:租转售赎回
 	CancelReason *string `json:"cancel_reason,omitempty" xml:"cancel_reason,omitempty" require:"true"`
+	// 融资单的资方社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" maxLength:"64"`
 }
 
 func (s CancelFundPlanRequest) String() string {
@@ -1847,6 +1849,11 @@ func (s *CancelFundPlanRequest) SetMerchantId(v string) *CancelFundPlanRequest {
 
 func (s *CancelFundPlanRequest) SetCancelReason(v string) *CancelFundPlanRequest {
 	s.CancelReason = &v
+	return s
+}
+
+func (s *CancelFundPlanRequest) SetFundId(v string) *CancelFundPlanRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -1962,6 +1969,8 @@ type SyncFundMerchantpromiseRequest struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
 	// json字符串,填入「MerchantPromiseReq」的json字符串
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true" minLength:"1"`
+	// 资方公司社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" maxLength:"64"`
 }
 
 func (s SyncFundMerchantpromiseRequest) String() string {
@@ -1994,6 +2003,11 @@ func (s *SyncFundMerchantpromiseRequest) SetMerchantId(v string) *SyncFundMercha
 
 func (s *SyncFundMerchantpromiseRequest) SetBizContent(v string) *SyncFundMerchantpromiseRequest {
 	s.BizContent = &v
+	return s
+}
+
+func (s *SyncFundMerchantpromiseRequest) SetFundId(v string) *SyncFundMerchantpromiseRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -2053,6 +2067,8 @@ type SyncFundFinanceloanresultsRequest struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"200" minLength:"1"`
 	// json字符串,填入「FinanceLoanResultsReq」的json字符串
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true" minLength:"1"`
+	// 资方的社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" maxLength:"64"`
 }
 
 func (s SyncFundFinanceloanresultsRequest) String() string {
@@ -2085,6 +2101,11 @@ func (s *SyncFundFinanceloanresultsRequest) SetMerchantId(v string) *SyncFundFin
 
 func (s *SyncFundFinanceloanresultsRequest) SetBizContent(v string) *SyncFundFinanceloanresultsRequest {
 	s.BizContent = &v
+	return s
+}
+
+func (s *SyncFundFinanceloanresultsRequest) SetFundId(v string) *SyncFundFinanceloanresultsRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -2150,6 +2171,8 @@ type GetFundUserpromiseRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
 	// 订单所属商户的社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"200" minLength:"1"`
+	// 资方的社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" maxLength:"64"`
 }
 
 func (s GetFundUserpromiseRequest) String() string {
@@ -2177,6 +2200,11 @@ func (s *GetFundUserpromiseRequest) SetOrderId(v string) *GetFundUserpromiseRequ
 
 func (s *GetFundUserpromiseRequest) SetMerchantId(v string) *GetFundUserpromiseRequest {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *GetFundUserpromiseRequest) SetFundId(v string) *GetFundUserpromiseRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -2555,6 +2583,209 @@ func (s *NotifyFundFlowResponse) SetResultMsg(v string) *NotifyFundFlowResponse 
 	return s
 }
 
+type UploadFundCreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号类型
+	OrderNoType *string `json:"order_no_type,omitempty" xml:"order_no_type,omitempty" require:"true"`
+	// 订单号，或资产包号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
+	// 凭证类型
+	CreditType *string `json:"credit_type,omitempty" xml:"credit_type,omitempty" require:"true"`
+	// 凭证名称
+	CreditName *string `json:"credit_name,omitempty" xml:"credit_name,omitempty"`
+	// 文本类型
+	ContentType *string `json:"content_type,omitempty" xml:"content_type,omitempty" require:"true"`
+	// 文本下载链接，如果类型是FILE则必填
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+	// 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s UploadFundCreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFundCreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFundCreditRequest) SetAuthToken(v string) *UploadFundCreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetProductInstanceId(v string) *UploadFundCreditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetOrderNoType(v string) *UploadFundCreditRequest {
+	s.OrderNoType = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetOrderNo(v string) *UploadFundCreditRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetFundId(v string) *UploadFundCreditRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetCreditType(v string) *UploadFundCreditRequest {
+	s.CreditType = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetCreditName(v string) *UploadFundCreditRequest {
+	s.CreditName = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetContentType(v string) *UploadFundCreditRequest {
+	s.ContentType = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetFileUrl(v string) *UploadFundCreditRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *UploadFundCreditRequest) SetContent(v string) *UploadFundCreditRequest {
+	s.Content = &v
+	return s
+}
+
+type UploadFundCreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 凭证内容id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty"`
+}
+
+func (s UploadFundCreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadFundCreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadFundCreditResponse) SetReqMsgId(v string) *UploadFundCreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadFundCreditResponse) SetResultCode(v string) *UploadFundCreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadFundCreditResponse) SetResultMsg(v string) *UploadFundCreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadFundCreditResponse) SetContentId(v string) *UploadFundCreditResponse {
+	s.ContentId = &v
+	return s
+}
+
+type QueryFundCreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号类型
+	OrderNoType *string `json:"order_no_type,omitempty" xml:"order_no_type,omitempty" require:"true"`
+	// 订单号，或资产包号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
+}
+
+func (s QueryFundCreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFundCreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFundCreditRequest) SetAuthToken(v string) *QueryFundCreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFundCreditRequest) SetProductInstanceId(v string) *QueryFundCreditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFundCreditRequest) SetOrderNoType(v string) *QueryFundCreditRequest {
+	s.OrderNoType = &v
+	return s
+}
+
+func (s *QueryFundCreditRequest) SetOrderNo(v string) *QueryFundCreditRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryFundCreditRequest) SetFundId(v string) *QueryFundCreditRequest {
+	s.FundId = &v
+	return s
+}
+
+type QueryFundCreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 内容信息
+	ContentInfo *string `json:"content_info,omitempty" xml:"content_info,omitempty"`
+}
+
+func (s QueryFundCreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFundCreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFundCreditResponse) SetReqMsgId(v string) *QueryFundCreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFundCreditResponse) SetResultCode(v string) *QueryFundCreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFundCreditResponse) SetResultMsg(v string) *QueryFundCreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFundCreditResponse) SetContentInfo(v string) *QueryFundCreditResponse {
+	s.ContentInfo = &v
+	return s
+}
+
 type GetInnerProductRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2729,7 +2960,7 @@ type SyncInnerMeterforwholeorderRequest struct {
 	// 订单id
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"49" minLength:"1"`
 	// 订单总租期
-	OrderRentTerm *int64 `json:"order_rent_term,omitempty" xml:"order_rent_term,omitempty" require:"true" maximum:"200" minimum:"1"`
+	OrderRentTerm *int64 `json:"order_rent_term,omitempty" xml:"order_rent_term,omitempty" require:"true"`
 	// 订单总租金，单位为分
 	OrderTotalMoney *int64 `json:"order_total_money,omitempty" xml:"order_total_money,omitempty" require:"true"`
 	// 系统名称
@@ -7675,6 +7906,195 @@ func (s *UploadSignTemplateResponse) SetTemplateId(v string) *UploadSignTemplate
 	return s
 }
 
+type UploadSignCreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号类型
+	OrderNoType *string `json:"order_no_type,omitempty" xml:"order_no_type,omitempty" require:"true"`
+	// 订单号，或资产包号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 凭证合同类型
+	CreditType *string `json:"credit_type,omitempty" xml:"credit_type,omitempty" require:"true"`
+	// 凭证名称
+	CreditName *string `json:"credit_name,omitempty" xml:"credit_name,omitempty"`
+	// 文本类型
+	ContentType *string `json:"content_type,omitempty" xml:"content_type,omitempty" require:"true"`
+	// 文本下载链接，如果类型是FILE则必填
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
+	// 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+}
+
+func (s UploadSignCreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSignCreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSignCreditRequest) SetAuthToken(v string) *UploadSignCreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadSignCreditRequest) SetProductInstanceId(v string) *UploadSignCreditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadSignCreditRequest) SetOrderNoType(v string) *UploadSignCreditRequest {
+	s.OrderNoType = &v
+	return s
+}
+
+func (s *UploadSignCreditRequest) SetOrderNo(v string) *UploadSignCreditRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *UploadSignCreditRequest) SetCreditType(v string) *UploadSignCreditRequest {
+	s.CreditType = &v
+	return s
+}
+
+func (s *UploadSignCreditRequest) SetCreditName(v string) *UploadSignCreditRequest {
+	s.CreditName = &v
+	return s
+}
+
+func (s *UploadSignCreditRequest) SetContentType(v string) *UploadSignCreditRequest {
+	s.ContentType = &v
+	return s
+}
+
+func (s *UploadSignCreditRequest) SetFileUrl(v string) *UploadSignCreditRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *UploadSignCreditRequest) SetContent(v string) *UploadSignCreditRequest {
+	s.Content = &v
+	return s
+}
+
+type UploadSignCreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 凭证内容id
+	ContentId *string `json:"content_id,omitempty" xml:"content_id,omitempty"`
+}
+
+func (s UploadSignCreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadSignCreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadSignCreditResponse) SetReqMsgId(v string) *UploadSignCreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadSignCreditResponse) SetResultCode(v string) *UploadSignCreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadSignCreditResponse) SetResultMsg(v string) *UploadSignCreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadSignCreditResponse) SetContentId(v string) *UploadSignCreditResponse {
+	s.ContentId = &v
+	return s
+}
+
+type QuerySignCreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号类型
+	OrderNoType *string `json:"order_no_type,omitempty" xml:"order_no_type,omitempty" require:"true"`
+	// 订单号，或资产包号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+}
+
+func (s QuerySignCreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySignCreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySignCreditRequest) SetAuthToken(v string) *QuerySignCreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QuerySignCreditRequest) SetProductInstanceId(v string) *QuerySignCreditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QuerySignCreditRequest) SetOrderNoType(v string) *QuerySignCreditRequest {
+	s.OrderNoType = &v
+	return s
+}
+
+func (s *QuerySignCreditRequest) SetOrderNo(v string) *QuerySignCreditRequest {
+	s.OrderNo = &v
+	return s
+}
+
+type QuerySignCreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 内容信息
+	ContentInfo *string `json:"content_info,omitempty" xml:"content_info,omitempty"`
+}
+
+func (s QuerySignCreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QuerySignCreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QuerySignCreditResponse) SetReqMsgId(v string) *QuerySignCreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QuerySignCreditResponse) SetResultCode(v string) *QuerySignCreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QuerySignCreditResponse) SetResultMsg(v string) *QuerySignCreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QuerySignCreditResponse) SetContentInfo(v string) *QuerySignCreditResponse {
+	s.ContentInfo = &v
+	return s
+}
+
 type SyncTradeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7919,6 +8339,22 @@ type SyncTradeFinanceloanapplyRequest struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
 	// 融资放款申请接口
 	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
+	// 资方的社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" maxLength:"64"`
+	// 类型
+	// ● 默认为：ORDER, 单订单申请
+	// ● PACKAGE_ORDER , 资产包订单模式
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 资产包id
+	// type = PACKAGE_ORDER ， 必填
+	AssetPackageId *string `json:"asset_package_id,omitempty" xml:"asset_package_id,omitempty" maxLength:"50" minLength:"6"`
+	// type = PACKAGE_ORDER ， 必填
+	//
+	// ● APPEND: 追加订单列表
+	// ● FINIISH : 结束
+	Stage *string `json:"stage,omitempty" xml:"stage,omitempty"`
+	// 订单id列表的jsonArray
+	OrderIdList *string `json:"order_id_list,omitempty" xml:"order_id_list,omitempty"`
 }
 
 func (s SyncTradeFinanceloanapplyRequest) String() string {
@@ -7951,6 +8387,31 @@ func (s *SyncTradeFinanceloanapplyRequest) SetMerchantId(v string) *SyncTradeFin
 
 func (s *SyncTradeFinanceloanapplyRequest) SetMerchantName(v string) *SyncTradeFinanceloanapplyRequest {
 	s.MerchantName = &v
+	return s
+}
+
+func (s *SyncTradeFinanceloanapplyRequest) SetFundId(v string) *SyncTradeFinanceloanapplyRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *SyncTradeFinanceloanapplyRequest) SetType(v string) *SyncTradeFinanceloanapplyRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *SyncTradeFinanceloanapplyRequest) SetAssetPackageId(v string) *SyncTradeFinanceloanapplyRequest {
+	s.AssetPackageId = &v
+	return s
+}
+
+func (s *SyncTradeFinanceloanapplyRequest) SetStage(v string) *SyncTradeFinanceloanapplyRequest {
+	s.Stage = &v
+	return s
+}
+
+func (s *SyncTradeFinanceloanapplyRequest) SetOrderIdList(v string) *SyncTradeFinanceloanapplyRequest {
+	s.OrderIdList = &v
 	return s
 }
 
@@ -9839,7 +10300,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.70"),
+				"sdk_version":      tea.String("1.8.73"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -10531,6 +10992,74 @@ func (client *Client) NotifyFundFlowEx(request *NotifyFundFlowRequest, headers m
 	}
 	_result = &NotifyFundFlowResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.flow.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 资方资产凭证上传，可以是文本或文件
+ * Summary: 资方资产凭证上传
+ */
+func (client *Client) UploadFundCredit(request *UploadFundCreditRequest) (_result *UploadFundCreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadFundCreditResponse{}
+	_body, _err := client.UploadFundCreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资方资产凭证上传，可以是文本或文件
+ * Summary: 资方资产凭证上传
+ */
+func (client *Client) UploadFundCreditEx(request *UploadFundCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadFundCreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadFundCreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.credit.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 资方资产凭证查询，需要提供订单号或资产包号
+ * Summary: 资方资产凭证查询
+ */
+func (client *Client) QueryFundCredit(request *QueryFundCreditRequest) (_result *QueryFundCreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFundCreditResponse{}
+	_body, _err := client.QueryFundCreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资方资产凭证查询，需要提供订单号或资产包号
+ * Summary: 资方资产凭证查询
+ */
+func (client *Client) QueryFundCreditEx(request *QueryFundCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFundCreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFundCreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.credit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -12323,6 +12852,74 @@ func (client *Client) UploadSignTemplateEx(request *UploadSignTemplateRequest, h
 	}
 	_result = &UploadSignTemplateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.template.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商户资产凭证上传，可以是文本或文件
+ * Summary: 商户资产凭证上传
+ */
+func (client *Client) UploadSignCredit(request *UploadSignCreditRequest) (_result *UploadSignCreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadSignCreditResponse{}
+	_body, _err := client.UploadSignCreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商户资产凭证上传，可以是文本或文件
+ * Summary: 商户资产凭证上传
+ */
+func (client *Client) UploadSignCreditEx(request *UploadSignCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadSignCreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadSignCreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.credit.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商户资产凭证查询，需要提供订单号或资产包号
+ * Summary: 商户资产凭证查询
+ */
+func (client *Client) QuerySignCredit(request *QuerySignCreditRequest) (_result *QuerySignCreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QuerySignCreditResponse{}
+	_body, _err := client.QuerySignCreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商户资产凭证查询，需要提供订单号或资产包号
+ * Summary: 商户资产凭证查询
+ */
+func (client *Client) QuerySignCreditEx(request *QuerySignCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QuerySignCreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QuerySignCreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.credit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
