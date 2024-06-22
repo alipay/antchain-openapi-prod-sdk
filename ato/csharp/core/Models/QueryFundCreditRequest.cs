@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class GetFundUserpromiseRequest : TeaModel {
+    public class QueryFundCreditRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,19 +18,19 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 订单id
-        [NameInMap("order_id")]
-        [Validation(Required=true, MaxLength=50)]
-        public string OrderId { get; set; }
+        // 订单号类型
+        [NameInMap("order_no_type")]
+        [Validation(Required=true)]
+        public string OrderNoType { get; set; }
 
-        // 订单所属商户的社会信用代码
-        [NameInMap("merchant_id")]
-        [Validation(Required=true, MaxLength=200)]
-        public string MerchantId { get; set; }
+        // 订单号，或资产包号
+        [NameInMap("order_no")]
+        [Validation(Required=true)]
+        public string OrderNo { get; set; }
 
-        // 资方的社会信用代码
+        // 资方统一社会信用代码
         [NameInMap("fund_id")]
-        [Validation(Required=false, MaxLength=64)]
+        [Validation(Required=true)]
         public string FundId { get; set; }
 
     }
