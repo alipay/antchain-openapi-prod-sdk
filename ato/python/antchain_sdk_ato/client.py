@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.70',
+                    'sdk_version': '1.8.73',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.70',
+                    'sdk_version': '1.8.73',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -1315,6 +1315,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.NotifyFundFlowResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.flow.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_fund_credit(
+        self,
+        request: ato_models.UploadFundCreditRequest,
+    ) -> ato_models.UploadFundCreditResponse:
+        """
+        Description: 资方资产凭证上传，可以是文本或文件
+        Summary: 资方资产凭证上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_fund_credit_ex(request, headers, runtime)
+
+    async def upload_fund_credit_async(
+        self,
+        request: ato_models.UploadFundCreditRequest,
+    ) -> ato_models.UploadFundCreditResponse:
+        """
+        Description: 资方资产凭证上传，可以是文本或文件
+        Summary: 资方资产凭证上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_fund_credit_ex_async(request, headers, runtime)
+
+    def upload_fund_credit_ex(
+        self,
+        request: ato_models.UploadFundCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UploadFundCreditResponse:
+        """
+        Description: 资方资产凭证上传，可以是文本或文件
+        Summary: 资方资产凭证上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UploadFundCreditResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.credit.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_fund_credit_ex_async(
+        self,
+        request: ato_models.UploadFundCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UploadFundCreditResponse:
+        """
+        Description: 资方资产凭证上传，可以是文本或文件
+        Summary: 资方资产凭证上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UploadFundCreditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.credit.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_fund_credit(
+        self,
+        request: ato_models.QueryFundCreditRequest,
+    ) -> ato_models.QueryFundCreditResponse:
+        """
+        Description: 资方资产凭证查询，需要提供订单号或资产包号
+        Summary: 资方资产凭证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_fund_credit_ex(request, headers, runtime)
+
+    async def query_fund_credit_async(
+        self,
+        request: ato_models.QueryFundCreditRequest,
+    ) -> ato_models.QueryFundCreditResponse:
+        """
+        Description: 资方资产凭证查询，需要提供订单号或资产包号
+        Summary: 资方资产凭证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_fund_credit_ex_async(request, headers, runtime)
+
+    def query_fund_credit_ex(
+        self,
+        request: ato_models.QueryFundCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundCreditResponse:
+        """
+        Description: 资方资产凭证查询，需要提供订单号或资产包号
+        Summary: 资方资产凭证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundCreditResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_fund_credit_ex_async(
+        self,
+        request: ato_models.QueryFundCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryFundCreditResponse:
+        """
+        Description: 资方资产凭证查询，需要提供订单号或资产包号
+        Summary: 资方资产凭证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryFundCreditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
@@ -4239,6 +4351,118 @@ class Client:
         return TeaCore.from_map(
             ato_models.UploadSignTemplateResponse(),
             await self.do_request_async('1.0', 'antchain.ato.sign.template.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_sign_credit(
+        self,
+        request: ato_models.UploadSignCreditRequest,
+    ) -> ato_models.UploadSignCreditResponse:
+        """
+        Description: 商户资产凭证上传，可以是文本或文件
+        Summary: 商户资产凭证上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_sign_credit_ex(request, headers, runtime)
+
+    async def upload_sign_credit_async(
+        self,
+        request: ato_models.UploadSignCreditRequest,
+    ) -> ato_models.UploadSignCreditResponse:
+        """
+        Description: 商户资产凭证上传，可以是文本或文件
+        Summary: 商户资产凭证上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_sign_credit_ex_async(request, headers, runtime)
+
+    def upload_sign_credit_ex(
+        self,
+        request: ato_models.UploadSignCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UploadSignCreditResponse:
+        """
+        Description: 商户资产凭证上传，可以是文本或文件
+        Summary: 商户资产凭证上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UploadSignCreditResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.credit.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_sign_credit_ex_async(
+        self,
+        request: ato_models.UploadSignCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UploadSignCreditResponse:
+        """
+        Description: 商户资产凭证上传，可以是文本或文件
+        Summary: 商户资产凭证上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UploadSignCreditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.credit.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_sign_credit(
+        self,
+        request: ato_models.QuerySignCreditRequest,
+    ) -> ato_models.QuerySignCreditResponse:
+        """
+        Description: 商户资产凭证查询，需要提供订单号或资产包号
+        Summary: 商户资产凭证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_sign_credit_ex(request, headers, runtime)
+
+    async def query_sign_credit_async(
+        self,
+        request: ato_models.QuerySignCreditRequest,
+    ) -> ato_models.QuerySignCreditResponse:
+        """
+        Description: 商户资产凭证查询，需要提供订单号或资产包号
+        Summary: 商户资产凭证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_sign_credit_ex_async(request, headers, runtime)
+
+    def query_sign_credit_ex(
+        self,
+        request: ato_models.QuerySignCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QuerySignCreditResponse:
+        """
+        Description: 商户资产凭证查询，需要提供订单号或资产包号
+        Summary: 商户资产凭证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QuerySignCreditResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_sign_credit_ex_async(
+        self,
+        request: ato_models.QuerySignCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QuerySignCreditResponse:
+        """
+        Description: 商户资产凭证查询，需要提供订单号或资产包号
+        Summary: 商户资产凭证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QuerySignCreditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_trade(
