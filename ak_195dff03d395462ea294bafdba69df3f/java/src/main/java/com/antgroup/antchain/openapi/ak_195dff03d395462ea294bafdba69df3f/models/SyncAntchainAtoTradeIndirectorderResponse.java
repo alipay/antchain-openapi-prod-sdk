@@ -16,6 +16,10 @@ public class SyncAntchainAtoTradeIndirectorderResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 返回业务参数，json.toString
+    @NameInMap("response_data")
+    public String responseData;
+
     public static SyncAntchainAtoTradeIndirectorderResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoTradeIndirectorderResponse self = new SyncAntchainAtoTradeIndirectorderResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class SyncAntchainAtoTradeIndirectorderResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public SyncAntchainAtoTradeIndirectorderResponse setResponseData(String responseData) {
+        this.responseData = responseData;
+        return this;
+    }
+    public String getResponseData() {
+        return this.responseData;
     }
 
 }

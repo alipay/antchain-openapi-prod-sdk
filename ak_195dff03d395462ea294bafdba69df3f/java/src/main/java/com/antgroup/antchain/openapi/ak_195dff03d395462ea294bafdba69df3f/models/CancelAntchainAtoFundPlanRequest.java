@@ -29,6 +29,11 @@ public class CancelAntchainAtoFundPlanRequest extends TeaModel {
     @Validation(required = true)
     public String cancelReason;
 
+    // 融资单的资方社会信用代码
+    @NameInMap("fund_id")
+    @Validation(maxLength = 64)
+    public String fundId;
+
     public static CancelAntchainAtoFundPlanRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelAntchainAtoFundPlanRequest self = new CancelAntchainAtoFundPlanRequest();
         return TeaModel.build(map, self);
@@ -72,6 +77,14 @@ public class CancelAntchainAtoFundPlanRequest extends TeaModel {
     }
     public String getCancelReason() {
         return this.cancelReason;
+    }
+
+    public CancelAntchainAtoFundPlanRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

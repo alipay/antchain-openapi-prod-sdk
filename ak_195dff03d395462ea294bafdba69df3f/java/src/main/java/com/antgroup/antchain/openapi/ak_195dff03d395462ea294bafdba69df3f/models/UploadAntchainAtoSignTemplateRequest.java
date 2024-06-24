@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class UploadAntchainAtoSignFlowRequest extends TeaModel {
+public class UploadAntchainAtoSignTemplateRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,32 +11,29 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 	
     // 订单所属商户的统一社会信用代码
     @NameInMap("merchant_id")
     @Validation(required = true)
     public String merchantId;
 
-    // 	
-    // 商户的订单号
-    @NameInMap("order_id")
+    // 合同类型
+    @NameInMap("contract_type")
     @Validation(required = true)
-    public String orderId;
+    public String contractType;
 
-    // 签署合同单号
-    @NameInMap("sign_no")
+    // 模板类型
+    @NameInMap("agreement_type")
     @Validation(required = true)
-    public String signNo;
+    public String agreementType;
 
-    // 模板id
-    @NameInMap("template_id")
+    // 签署区坐标配置
+    @NameInMap("pos_conf")
     @Validation(required = true)
-    public String templateId;
+    public String posConf;
 
-    // 合同签署时间，格式为yyyy-MM-dd HH:mm:ss
-    @NameInMap("sign_time")
-    @Validation(required = true)
-    public String signTime;
+    // 模板参数
+    @NameInMap("template_args")
+    public String templateArgs;
 
     // 上传的pdf文件，需要以.pdf后缀结尾
     /**
@@ -55,12 +52,12 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
-    public static UploadAntchainAtoSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
-        UploadAntchainAtoSignFlowRequest self = new UploadAntchainAtoSignFlowRequest();
+    public static UploadAntchainAtoSignTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
+        UploadAntchainAtoSignTemplateRequest self = new UploadAntchainAtoSignTemplateRequest();
         return TeaModel.build(map, self);
     }
 
-    public UploadAntchainAtoSignFlowRequest setAuthToken(String authToken) {
+    public UploadAntchainAtoSignTemplateRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -68,7 +65,7 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
         return this.authToken;
     }
 
-    public UploadAntchainAtoSignFlowRequest setProductInstanceId(String productInstanceId) {
+    public UploadAntchainAtoSignTemplateRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -76,7 +73,7 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UploadAntchainAtoSignFlowRequest setMerchantId(String merchantId) {
+    public UploadAntchainAtoSignTemplateRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }
@@ -84,39 +81,39 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public UploadAntchainAtoSignFlowRequest setOrderId(String orderId) {
-        this.orderId = orderId;
+    public UploadAntchainAtoSignTemplateRequest setContractType(String contractType) {
+        this.contractType = contractType;
         return this;
     }
-    public String getOrderId() {
-        return this.orderId;
+    public String getContractType() {
+        return this.contractType;
     }
 
-    public UploadAntchainAtoSignFlowRequest setSignNo(String signNo) {
-        this.signNo = signNo;
+    public UploadAntchainAtoSignTemplateRequest setAgreementType(String agreementType) {
+        this.agreementType = agreementType;
         return this;
     }
-    public String getSignNo() {
-        return this.signNo;
+    public String getAgreementType() {
+        return this.agreementType;
     }
 
-    public UploadAntchainAtoSignFlowRequest setTemplateId(String templateId) {
-        this.templateId = templateId;
+    public UploadAntchainAtoSignTemplateRequest setPosConf(String posConf) {
+        this.posConf = posConf;
         return this;
     }
-    public String getTemplateId() {
-        return this.templateId;
+    public String getPosConf() {
+        return this.posConf;
     }
 
-    public UploadAntchainAtoSignFlowRequest setSignTime(String signTime) {
-        this.signTime = signTime;
+    public UploadAntchainAtoSignTemplateRequest setTemplateArgs(String templateArgs) {
+        this.templateArgs = templateArgs;
         return this;
     }
-    public String getSignTime() {
-        return this.signTime;
+    public String getTemplateArgs() {
+        return this.templateArgs;
     }
 
-    public UploadAntchainAtoSignFlowRequest setFileObject(java.io.InputStream fileObject) {
+    public UploadAntchainAtoSignTemplateRequest setFileObject(java.io.InputStream fileObject) {
         this.fileObject = fileObject;
         return this;
     }
@@ -124,7 +121,7 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
         return this.fileObject;
     }
 
-    public UploadAntchainAtoSignFlowRequest setFileObjectName(String fileObjectName) {
+    public UploadAntchainAtoSignTemplateRequest setFileObjectName(String fileObjectName) {
         this.fileObjectName = fileObjectName;
         return this;
     }
@@ -132,7 +129,7 @@ public class UploadAntchainAtoSignFlowRequest extends TeaModel {
         return this.fileObjectName;
     }
 
-    public UploadAntchainAtoSignFlowRequest setFileId(String fileId) {
+    public UploadAntchainAtoSignTemplateRequest setFileId(String fileId) {
         this.fileId = fileId;
         return this;
     }

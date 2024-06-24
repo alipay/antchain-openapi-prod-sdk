@@ -26,6 +26,11 @@ public class SyncAntchainAtoFundMerchantpromiseRequest extends TeaModel {
     @Validation(required = true, minLength = 1)
     public String bizContent;
 
+    // 资方公司社会信用代码
+    @NameInMap("fund_id")
+    @Validation(maxLength = 64)
+    public String fundId;
+
     public static SyncAntchainAtoFundMerchantpromiseRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoFundMerchantpromiseRequest self = new SyncAntchainAtoFundMerchantpromiseRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class SyncAntchainAtoFundMerchantpromiseRequest extends TeaModel {
     }
     public String getBizContent() {
         return this.bizContent;
+    }
+
+    public SyncAntchainAtoFundMerchantpromiseRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

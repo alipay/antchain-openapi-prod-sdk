@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class SyncAntchainAtoFrontIndirectorderResponse extends TeaModel {
+public class QueryAntchainAtoFundCreditResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class SyncAntchainAtoFrontIndirectorderResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 返回值，json字符串
-    @NameInMap("response_data")
-    public String responseData;
+    // 内容信息
+    @NameInMap("content_info")
+    public String contentInfo;
 
-    public static SyncAntchainAtoFrontIndirectorderResponse build(java.util.Map<String, ?> map) throws Exception {
-        SyncAntchainAtoFrontIndirectorderResponse self = new SyncAntchainAtoFrontIndirectorderResponse();
+    public static QueryAntchainAtoFundCreditResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntchainAtoFundCreditResponse self = new QueryAntchainAtoFundCreditResponse();
         return TeaModel.build(map, self);
     }
 
-    public SyncAntchainAtoFrontIndirectorderResponse setReqMsgId(String reqMsgId) {
+    public QueryAntchainAtoFundCreditResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class SyncAntchainAtoFrontIndirectorderResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public SyncAntchainAtoFrontIndirectorderResponse setResultCode(String resultCode) {
+    public QueryAntchainAtoFundCreditResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class SyncAntchainAtoFrontIndirectorderResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public SyncAntchainAtoFrontIndirectorderResponse setResultMsg(String resultMsg) {
+    public QueryAntchainAtoFundCreditResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class SyncAntchainAtoFrontIndirectorderResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SyncAntchainAtoFrontIndirectorderResponse setResponseData(String responseData) {
-        this.responseData = responseData;
+    public QueryAntchainAtoFundCreditResponse setContentInfo(String contentInfo) {
+        this.contentInfo = contentInfo;
         return this;
     }
-    public String getResponseData() {
-        return this.responseData;
+    public String getContentInfo() {
+        return this.contentInfo;
     }
 
 }

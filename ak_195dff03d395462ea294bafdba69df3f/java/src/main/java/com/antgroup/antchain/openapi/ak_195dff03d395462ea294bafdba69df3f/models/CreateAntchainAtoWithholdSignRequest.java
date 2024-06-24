@@ -41,6 +41,11 @@ public class CreateAntchainAtoWithholdSignRequest extends TeaModel {
     @Validation(maxLength = 128)
     public String alipayUserId;
 
+    // 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+    @NameInMap("return_url")
+    @Validation(maxLength = 256)
+    public String returnUrl;
+
     public static CreateAntchainAtoWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdSignRequest self = new CreateAntchainAtoWithholdSignRequest();
         return TeaModel.build(map, self);
@@ -108,6 +113,14 @@ public class CreateAntchainAtoWithholdSignRequest extends TeaModel {
     }
     public String getAlipayUserId() {
         return this.alipayUserId;
+    }
+
+    public CreateAntchainAtoWithholdSignRequest setReturnUrl(String returnUrl) {
+        this.returnUrl = returnUrl;
+        return this;
+    }
+    public String getReturnUrl() {
+        return this.returnUrl;
     }
 
 }

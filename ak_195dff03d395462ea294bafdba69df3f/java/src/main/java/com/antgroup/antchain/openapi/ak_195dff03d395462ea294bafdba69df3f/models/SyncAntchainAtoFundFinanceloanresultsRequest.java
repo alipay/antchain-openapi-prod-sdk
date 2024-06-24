@@ -26,6 +26,11 @@ public class SyncAntchainAtoFundFinanceloanresultsRequest extends TeaModel {
     @Validation(required = true, minLength = 1)
     public String bizContent;
 
+    // 资方的社会信用代码
+    @NameInMap("fund_id")
+    @Validation(maxLength = 64)
+    public String fundId;
+
     public static SyncAntchainAtoFundFinanceloanresultsRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoFundFinanceloanresultsRequest self = new SyncAntchainAtoFundFinanceloanresultsRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class SyncAntchainAtoFundFinanceloanresultsRequest extends TeaModel {
     }
     public String getBizContent() {
         return this.bizContent;
+    }
+
+    public SyncAntchainAtoFundFinanceloanresultsRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

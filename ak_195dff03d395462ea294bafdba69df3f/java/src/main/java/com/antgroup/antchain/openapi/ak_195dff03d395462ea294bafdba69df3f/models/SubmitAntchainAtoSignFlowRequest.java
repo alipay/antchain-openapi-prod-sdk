@@ -92,6 +92,7 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
 
     // 电子合同签署顺序，如果只有1方企业签署，传入1即可。如果是多方，并且需要设置签署顺序，则需要将这个值以及thirdSigner中的signOrder做一个签署顺序。
     @NameInMap("merchant_sign_order")
+    @Validation(maximum = 10000, minimum = 1)
     public Long merchantSignOrder;
 
     // CRED_ORG_USCC：统一社会信用代码，CRED_ORG_REGCODE：工商注册号，只支持这两个值
@@ -114,7 +115,6 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
 
     // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
     @NameInMap("third_signer")
-    @Validation(maxLength = 2000)
     public String thirdSigner;
 
     public static SubmitAntchainAtoSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {

@@ -26,6 +26,34 @@ public class SyncAntchainAtoTradeFinanceloanapplyRequest extends TeaModel {
     @Validation(required = true)
     public String merchantName;
 
+    // 资方的社会信用代码
+    @NameInMap("fund_id")
+    @Validation(maxLength = 64)
+    public String fundId;
+
+    // 类型
+    // ● 默认为：ORDER, 单订单申请
+    // ● PACKAGE_ORDER , 资产包订单模式
+    @NameInMap("type")
+    public String type;
+
+    // 资产包id
+    // type = PACKAGE_ORDER ， 必填
+    @NameInMap("asset_package_id")
+    @Validation(maxLength = 50, minLength = 6)
+    public String assetPackageId;
+
+    // type = PACKAGE_ORDER ， 必填
+    // 
+    // ● APPEND: 追加订单列表
+    // ● FINIISH : 结束
+    @NameInMap("stage")
+    public String stage;
+
+    // 订单id列表的jsonArray
+    @NameInMap("order_id_list")
+    public String orderIdList;
+
     public static SyncAntchainAtoTradeFinanceloanapplyRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncAntchainAtoTradeFinanceloanapplyRequest self = new SyncAntchainAtoTradeFinanceloanapplyRequest();
         return TeaModel.build(map, self);
@@ -69,6 +97,46 @@ public class SyncAntchainAtoTradeFinanceloanapplyRequest extends TeaModel {
     }
     public String getMerchantName() {
         return this.merchantName;
+    }
+
+    public SyncAntchainAtoTradeFinanceloanapplyRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
+    }
+
+    public SyncAntchainAtoTradeFinanceloanapplyRequest setType(String type) {
+        this.type = type;
+        return this;
+    }
+    public String getType() {
+        return this.type;
+    }
+
+    public SyncAntchainAtoTradeFinanceloanapplyRequest setAssetPackageId(String assetPackageId) {
+        this.assetPackageId = assetPackageId;
+        return this;
+    }
+    public String getAssetPackageId() {
+        return this.assetPackageId;
+    }
+
+    public SyncAntchainAtoTradeFinanceloanapplyRequest setStage(String stage) {
+        this.stage = stage;
+        return this;
+    }
+    public String getStage() {
+        return this.stage;
+    }
+
+    public SyncAntchainAtoTradeFinanceloanapplyRequest setOrderIdList(String orderIdList) {
+        this.orderIdList = orderIdList;
+        return this;
+    }
+    public String getOrderIdList() {
+        return this.orderIdList;
     }
 
 }
