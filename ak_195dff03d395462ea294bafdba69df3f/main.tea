@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.1',
+    sdk_version = '1.3.2',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -161,6 +161,44 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 文件信息
+model FileInfo {
+  // 文件名称
+  fileName: string(name='file_name', example='asasd.jpg'),
+  // 文件key
+  fileKey: string(name='file_key', example='adadqweqw12sads1'),
+}
+
+// 公司信息
+model CompanyInfo {
+  // 营业执照文件信息
+  businessLicenseFile: FileInfo(name='business_license_file', example=''),
+  // 业务类型 枚举
+  productMainClass: string(name='product_main_class', example='业务类型'),
+  // 公司名称
+  companyName: string(name='company_name', example='xx公司'),
+  // 公司别名
+  companyAliasName: string(name='company_alias_name', example='公司别名'),
+  // 公司数科租户id
+  tenantId?: string(name='tenant_id', example='ASSDDDAS'),
+  // 统一社会信用代码
+  merchantId: string(name='merchant_id', example='9121asd231231231231'),
+  // 公司联系电话
+  companyMobile: string(name='company_mobile', example='1231xx2322'),
+  // 公司联系地址
+  companyAddress: string(name='company_address', example='xx市xx区'),
+  // 联系人姓名
+  contactName: string(name='contact_name', example='李xx'),
+  // 联系人手机号码
+  contactMobile: string(name='contact_mobile', example='132xx2312312'),
+  // 绑定企业支付宝账号
+  bindAlipayNo: string(name='bind_alipay_no', example='绑定企业支付宝账号'),
+  // 结算企业支付宝账号
+  settleAlipayNo: string(name='settle_alipay_no', example='结算企业支付宝账号'),
+  // 绑定支付宝uid
+  bindAlipayUid: string(name='bind_alipay_uid', example='绑定支付宝uid'),
+}
+
 // 主动支付单据
 model ActivePayOrder {
   // 支付宝支付订单号，用于拉起主动支付页面
@@ -186,6 +224,39 @@ model ActivePayOrder {
   // 交易支付时间
   // 付款成功的状态必填
   gmtPay?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay', example='2018-10-10T10:10:00Z'),
+}
+
+// 应用信息
+model ApplicationInfo {
+  // 应用场景
+  // MINI_APP 小程序
+  // APP 自有app
+  // ALL 两种都有
+  applicationScene: string(name='application_scene', example='ALL'),
+  // 小程序id
+  tinyAppId: string(name='tiny_app_id', example='小程序id'),
+  // 小程序名称
+  siteName: string(name='site_name', example='xx小程序'),
+  // 网站地址
+  sitUrl: string(name='sit_url', example='http://asdasas.com'),
+  // 商户名称
+  merchantName: string(name='merchant_name', example='xx商户'),
+  // 商户服务名称
+  merchantServiceName: string(name='merchant_service_name', example='xx商户服务'),
+  // 商户服务描述
+  merchantServiceDesc: string(name='merchant_service_desc', example='xx服务描述'),
+}
+
+// 法人信息
+model LegalInfo {
+  // 法人名称
+  legalName: string(name='legal_name', example='法人名称'),
+  // 法人证件号
+  legalCertNo: string(name='legal_cert_no', example='法人证件号'),
+  // 法人证件正面
+  legalCertFrontFile: FileInfo(name='legal_cert_front_file', example=''),
+  // 法人证件反面
+  legalCertBackFile: FileInfo(name='legal_cert_back_file', example=''),
 }
 
 // 键值对
@@ -486,7 +557,7 @@ model SubmitAntchainAtoSignFlowRequest = {
   // 法人证件号，需要采用RSA加密传输
   merchantLegalIdNumber?: string(name='merchant_legal_id_number'),
   // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
-  thirdSigner?: string(maxLength=2000, minLength=0, name='third_signer'),
+  thirdSigner?: string(minLength=0, name='third_signer'),
 }
 
 model SubmitAntchainAtoSignFlowResponse = {
@@ -597,6 +668,8 @@ model CreateAntchainAtoWithholdSignRequest = {
   alipayMerchantServiceDescription?: string(maxLength=150, name='alipay_merchant_service_description'),
   // 支付宝uid，非必填
   alipayUserId?: string(maxLength=128, name='alipay_user_id'),
+  // 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+  returnUrl?: string(maxLength=256, name='return_url'),
 }
 
 model CreateAntchainAtoWithholdSignResponse = {
@@ -1416,6 +1489,8 @@ model CancelAntchainAtoFundPlanRequest = {
   // RENTING_OUT_REDEEM:退租赎回
   // RENTING_AND_RESALE_REDEEM:租转售赎回
   cancelReason: string(name='cancel_reason'),
+  // 融资单的资方社会信用代码
+  fundId?: string(maxLength=64, name='fund_id'),
 }
 
 model CancelAntchainAtoFundPlanResponse = {
@@ -1494,6 +1569,22 @@ model SyncAntchainAtoTradeFinanceloanapplyRequest = {
   merchantId: string(maxLength=64, minLength=1, name='merchant_id'),
   // 融资放款申请接口
   merchantName: string(name='merchant_name'),
+  // 资方的社会信用代码
+  fundId?: string(maxLength=64, name='fund_id'),
+  // 类型
+  // ● 默认为：ORDER, 单订单申请
+  // ● PACKAGE_ORDER , 资产包订单模式
+  type?: string(name='type'),
+  // 资产包id
+  // type = PACKAGE_ORDER ， 必填
+  assetPackageId?: string(maxLength=50, minLength=6, name='asset_package_id'),
+  // type = PACKAGE_ORDER ， 必填
+  // 
+  // ● APPEND: 追加订单列表
+  // ● FINIISH : 结束
+  stage?: string(name='stage'),
+  // 订单id列表的jsonArray
+  orderIdList?: string(name='order_id_list'),
 }
 
 model SyncAntchainAtoTradeFinanceloanapplyResponse = {
@@ -1581,6 +1672,8 @@ model SyncAntchainAtoFundMerchantpromiseRequest = {
   merchantId: string(maxLength=64, minLength=1, name='merchant_id'),
   // json字符串,填入「MerchantPromiseReq」的json字符串
   bizContent: string(minLength=1, name='biz_content'),
+  // 资方公司社会信用代码
+  fundId?: string(maxLength=64, name='fund_id'),
 }
 
 model SyncAntchainAtoFundMerchantpromiseResponse = {
@@ -1625,6 +1718,8 @@ model SyncAntchainAtoFundFinanceloanresultsRequest = {
   merchantId: string(maxLength=200, minLength=1, name='merchant_id'),
   // json字符串,填入「FinanceLoanResultsReq」的json字符串
   bizContent: string(minLength=1, name='biz_content'),
+  // 资方的社会信用代码
+  fundId?: string(maxLength=64, name='fund_id'),
 }
 
 model SyncAntchainAtoFundFinanceloanresultsResponse = {
@@ -1670,6 +1765,8 @@ model GetAntchainAtoFundUserpromiseRequest = {
   orderId: string(maxLength=50, minLength=1, name='order_id'),
   // 订单所属商户的社会信用代码
   merchantId: string(maxLength=200, minLength=1, name='merchant_id'),
+  // 资方的社会信用代码
+  fundId?: string(maxLength=64, name='fund_id'),
 }
 
 model GetAntchainAtoFundUserpromiseResponse = {
@@ -2198,6 +2295,8 @@ model SyncAntchainAtoFrontIndirectorderResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 返回值，json字符串
+  responseData?: string(name='response_data'),
 }
 
 /**
@@ -2234,6 +2333,8 @@ model SyncAntchainAtoTradeIndirectorderResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 返回业务参数，json.toString
+  responseData?: string(name='response_data'),
 }
 
 /**
@@ -2253,6 +2354,390 @@ async function syncAntchainAtoTradeIndirectorder(request: SyncAntchainAtoTradeIn
 async function syncAntchainAtoTradeIndirectorderEx(request: SyncAntchainAtoTradeIndirectorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoTradeIndirectorderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.trade.indirectorder.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RegisterAntchainAtoMerchantexpandMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 公司信息
+  companyInfo: CompanyInfo(name='company_info'),
+  // 法人信息
+  legalInfo: LegalInfo(name='legal_info'),
+  // 应用信息
+  applicationInfo: ApplicationInfo(name='application_info'),
+  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
+  expandMode: string(name='expand_mode'),
+  // expand_mode=_AGENT_ 必填
+  subTenantId?: string(name='sub_tenant_id'),
+}
+
+model RegisterAntchainAtoMerchantexpandMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 进件流水号
+  payExpandId?: string(name='pay_expand_id'),
+}
+
+/**
+ * Description: 商户入驻
+ * Summary: 商户入驻
+ */
+async function registerAntchainAtoMerchantexpandMerchant(request: RegisterAntchainAtoMerchantexpandMerchantRequest): RegisterAntchainAtoMerchantexpandMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return registerAntchainAtoMerchantexpandMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户入驻
+ * Summary: 商户入驻
+ */
+async function registerAntchainAtoMerchantexpandMerchantEx(request: RegisterAntchainAtoMerchantexpandMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RegisterAntchainAtoMerchantexpandMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.merchant.register', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntchainAtoMerchantexpandFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件名称 包含后缀
+  fileName: string(name='file_name'),
+  // ● BUSINESS_LICENSE 营业执照 ● CARD_FRONT 身份证正面 ● CARD_BACK 身份证反面 ● SPLITTING 分账 
+  bizScene: string(name='biz_scene'),
+}
+
+model UploadAntchainAtoMerchantexpandFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 临时上传文件地址
+  uploadUrl?: string(name='upload_url'),
+  // 文件key
+  fileKey?: string(name='file_key'),
+}
+
+/**
+ * Description: 获取临时上传文件链接
+ * Summary: 获取临时上传文件链接
+ */
+async function uploadAntchainAtoMerchantexpandFile(request: UploadAntchainAtoMerchantexpandFileRequest): UploadAntchainAtoMerchantexpandFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntchainAtoMerchantexpandFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取临时上传文件链接
+ * Summary: 获取临时上传文件链接
+ */
+async function uploadAntchainAtoMerchantexpandFileEx(request: UploadAntchainAtoMerchantexpandFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntchainAtoMerchantexpandFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAtoMerchantexpandMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户入驻返回的进件编号 expand_mode=AGENT必填
+  payExpandId: string(name='pay_expand_id'),
+}
+
+model QueryAntchainAtoMerchantexpandMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 商户入驻状态
+  // INIT 入驻中
+  // SUCCESS 入驻成功
+  // FAIL 入驻失败
+  enrollmentStatus?: string(name='enrollment_status'),
+  // 入驻失败原因
+  failReason?: string(name='fail_reason'),
+}
+
+/**
+ * Description: 商户入驻查询
+ * Summary: 商户入驻查询
+ */
+async function queryAntchainAtoMerchantexpandMerchant(request: QueryAntchainAtoMerchantexpandMerchantRequest): QueryAntchainAtoMerchantexpandMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAtoMerchantexpandMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户入驻查询
+ * Summary: 商户入驻查询
+ */
+async function queryAntchainAtoMerchantexpandMerchantEx(request: QueryAntchainAtoMerchantexpandMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoMerchantexpandMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntchainAtoSignTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单所属商户的统一社会信用代码
+  merchantId: string(name='merchant_id'),
+  // 合同类型
+  contractType: string(name='contract_type'),
+  // 模板类型
+  agreementType: string(name='agreement_type'),
+  // 签署区坐标配置
+  posConf: string(name='pos_conf'),
+  // 模板参数
+  templateArgs?: string(name='template_args'),
+  // 上传的pdf文件，需要以.pdf后缀结尾
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadAntchainAtoSignTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传模板后返回的模板id
+  templateId?: string(name='template_id'),
+}
+
+/**
+ * Description: 商户合同模板上传接口
+ * Summary: 商户合同模板上传
+ */
+async function uploadAntchainAtoSignTemplate(request: UploadAntchainAtoSignTemplateRequest): UploadAntchainAtoSignTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntchainAtoSignTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户合同模板上传接口
+ * Summary: 商户合同模板上传
+ */
+async function uploadAntchainAtoSignTemplateEx(request: UploadAntchainAtoSignTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntchainAtoSignTemplateResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.ato.sign.template.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadAntchainAtoSignTemplateResponse = new UploadAntchainAtoSignTemplateResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadAntchainAtoSignTemplateResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.sign.template.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntchainAtoFundCreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号类型
+  orderNoType: string(name='order_no_type'),
+  // 订单号，或资产包号
+  orderNo: string(name='order_no'),
+  // 资方统一社会信用代码
+  fundId: string(name='fund_id'),
+  // 凭证类型
+  creditType: string(name='credit_type'),
+  // 凭证名称
+  creditName?: string(name='credit_name'),
+  // 文本类型
+  contentType: string(name='content_type'),
+  // 文本下载链接，如果类型是FILE则必填
+  fileUrl?: string(name='file_url'),
+  // 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
+  content?: string(name='content'),
+}
+
+model UploadAntchainAtoFundCreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 凭证内容id
+  contentId?: string(name='content_id'),
+}
+
+/**
+ * Description: 资方资产凭证上传，可以是文本或文件
+ * Summary: 资方资产凭证上传
+ */
+async function uploadAntchainAtoFundCredit(request: UploadAntchainAtoFundCreditRequest): UploadAntchainAtoFundCreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntchainAtoFundCreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资方资产凭证上传，可以是文本或文件
+ * Summary: 资方资产凭证上传
+ */
+async function uploadAntchainAtoFundCreditEx(request: UploadAntchainAtoFundCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntchainAtoFundCreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.credit.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAntchainAtoSignCreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号类型
+  orderNoType: string(name='order_no_type'),
+  // 订单号，或资产包号
+  orderNo: string(name='order_no'),
+  // 凭证合同类型
+  creditType: string(name='credit_type'),
+  // 凭证名称
+  creditName?: string(name='credit_name'),
+  // 文本类型
+  contentType: string(name='content_type'),
+  // 文本下载链接，如果类型是FILE则必填
+  fileUrl?: string(name='file_url'),
+  // 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
+  content?: string(name='content'),
+}
+
+model UploadAntchainAtoSignCreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 凭证内容id
+  contentId?: string(name='content_id'),
+}
+
+/**
+ * Description: 商户资产凭证上传，可以是文本或文件
+ * Summary: 商户资产凭证上传
+ */
+async function uploadAntchainAtoSignCredit(request: UploadAntchainAtoSignCreditRequest): UploadAntchainAtoSignCreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAntchainAtoSignCreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户资产凭证上传，可以是文本或文件
+ * Summary: 商户资产凭证上传
+ */
+async function uploadAntchainAtoSignCreditEx(request: UploadAntchainAtoSignCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAntchainAtoSignCreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.sign.credit.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAtoFundCreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号类型
+  orderNoType: string(name='order_no_type'),
+  // 订单号，或资产包号
+  orderNo: string(name='order_no'),
+  // 资方统一社会信用代码
+  fundId: string(name='fund_id'),
+}
+
+model QueryAntchainAtoFundCreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 内容信息
+  contentInfo?: string(name='content_info'),
+}
+
+/**
+ * Description: 资方资产凭证查询，需要提供订单号或资产包号
+ * Summary: 资方资产凭证查询
+ */
+async function queryAntchainAtoFundCredit(request: QueryAntchainAtoFundCreditRequest): QueryAntchainAtoFundCreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAtoFundCreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资方资产凭证查询，需要提供订单号或资产包号
+ * Summary: 资方资产凭证查询
+ */
+async function queryAntchainAtoFundCreditEx(request: QueryAntchainAtoFundCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoFundCreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.credit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAtoSignCreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号类型
+  orderNoType: string(name='order_no_type'),
+  // 订单号，或资产包号
+  orderNo: string(name='order_no'),
+}
+
+model QueryAntchainAtoSignCreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 内容信息
+  contentInfo?: string(name='content_info'),
+}
+
+/**
+ * Description: 商户资产凭证查询，需要提供订单号或资产包号
+ * Summary: 商户资产凭证查询
+ */
+async function queryAntchainAtoSignCredit(request: QueryAntchainAtoSignCreditRequest): QueryAntchainAtoSignCreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAtoSignCreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商户资产凭证查询，需要提供订单号或资产包号
+ * Summary: 商户资产凭证查询
+ */
+async function queryAntchainAtoSignCreditEx(request: QueryAntchainAtoSignCreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoSignCreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.sign.credit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
