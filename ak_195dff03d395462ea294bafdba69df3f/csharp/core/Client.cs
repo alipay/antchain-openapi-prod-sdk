@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.1"},
+                        {"sdk_version", "1.3.2"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.1"},
+                        {"sdk_version", "1.3.2"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -2225,6 +2225,388 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncAntchainAtoTradeIndirectorderResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.indirectorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户入驻
+         * Summary: 商户入驻
+         */
+        public RegisterAntchainAtoMerchantexpandMerchantResponse RegisterAntchainAtoMerchantexpandMerchant(RegisterAntchainAtoMerchantexpandMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RegisterAntchainAtoMerchantexpandMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户入驻
+         * Summary: 商户入驻
+         */
+        public async Task<RegisterAntchainAtoMerchantexpandMerchantResponse> RegisterAntchainAtoMerchantexpandMerchantAsync(RegisterAntchainAtoMerchantexpandMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RegisterAntchainAtoMerchantexpandMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户入驻
+         * Summary: 商户入驻
+         */
+        public RegisterAntchainAtoMerchantexpandMerchantResponse RegisterAntchainAtoMerchantexpandMerchantEx(RegisterAntchainAtoMerchantexpandMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterAntchainAtoMerchantexpandMerchantResponse>(DoRequest("1.0", "antchain.ato.merchantexpand.merchant.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户入驻
+         * Summary: 商户入驻
+         */
+        public async Task<RegisterAntchainAtoMerchantexpandMerchantResponse> RegisterAntchainAtoMerchantexpandMerchantExAsync(RegisterAntchainAtoMerchantexpandMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RegisterAntchainAtoMerchantexpandMerchantResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.merchant.register", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取临时上传文件链接
+         * Summary: 获取临时上传文件链接
+         */
+        public UploadAntchainAtoMerchantexpandFileResponse UploadAntchainAtoMerchantexpandFile(UploadAntchainAtoMerchantexpandFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAntchainAtoMerchantexpandFileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取临时上传文件链接
+         * Summary: 获取临时上传文件链接
+         */
+        public async Task<UploadAntchainAtoMerchantexpandFileResponse> UploadAntchainAtoMerchantexpandFileAsync(UploadAntchainAtoMerchantexpandFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAntchainAtoMerchantexpandFileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取临时上传文件链接
+         * Summary: 获取临时上传文件链接
+         */
+        public UploadAntchainAtoMerchantexpandFileResponse UploadAntchainAtoMerchantexpandFileEx(UploadAntchainAtoMerchantexpandFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainAtoMerchantexpandFileResponse>(DoRequest("1.0", "antchain.ato.merchantexpand.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取临时上传文件链接
+         * Summary: 获取临时上传文件链接
+         */
+        public async Task<UploadAntchainAtoMerchantexpandFileResponse> UploadAntchainAtoMerchantexpandFileExAsync(UploadAntchainAtoMerchantexpandFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainAtoMerchantexpandFileResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.file.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户入驻查询
+         * Summary: 商户入驻查询
+         */
+        public QueryAntchainAtoMerchantexpandMerchantResponse QueryAntchainAtoMerchantexpandMerchant(QueryAntchainAtoMerchantexpandMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAtoMerchantexpandMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户入驻查询
+         * Summary: 商户入驻查询
+         */
+        public async Task<QueryAntchainAtoMerchantexpandMerchantResponse> QueryAntchainAtoMerchantexpandMerchantAsync(QueryAntchainAtoMerchantexpandMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAtoMerchantexpandMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户入驻查询
+         * Summary: 商户入驻查询
+         */
+        public QueryAntchainAtoMerchantexpandMerchantResponse QueryAntchainAtoMerchantexpandMerchantEx(QueryAntchainAtoMerchantexpandMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoMerchantexpandMerchantResponse>(DoRequest("1.0", "antchain.ato.merchantexpand.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户入驻查询
+         * Summary: 商户入驻查询
+         */
+        public async Task<QueryAntchainAtoMerchantexpandMerchantResponse> QueryAntchainAtoMerchantexpandMerchantExAsync(QueryAntchainAtoMerchantexpandMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoMerchantexpandMerchantResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户合同模板上传接口
+         * Summary: 商户合同模板上传
+         */
+        public UploadAntchainAtoSignTemplateResponse UploadAntchainAtoSignTemplate(UploadAntchainAtoSignTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAntchainAtoSignTemplateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户合同模板上传接口
+         * Summary: 商户合同模板上传
+         */
+        public async Task<UploadAntchainAtoSignTemplateResponse> UploadAntchainAtoSignTemplateAsync(UploadAntchainAtoSignTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAntchainAtoSignTemplateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户合同模板上传接口
+         * Summary: 商户合同模板上传
+         */
+        public UploadAntchainAtoSignTemplateResponse UploadAntchainAtoSignTemplateEx(UploadAntchainAtoSignTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.ato.sign.template.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAntchainAtoSignTemplateResponse uploadAntchainAtoSignTemplateResponse = new UploadAntchainAtoSignTemplateResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAntchainAtoSignTemplateResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainAtoSignTemplateResponse>(DoRequest("1.0", "antchain.ato.sign.template.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户合同模板上传接口
+         * Summary: 商户合同模板上传
+         */
+        public async Task<UploadAntchainAtoSignTemplateResponse> UploadAntchainAtoSignTemplateExAsync(UploadAntchainAtoSignTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.ato.sign.template.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadAntchainAtoSignTemplateResponse uploadAntchainAtoSignTemplateResponse = new UploadAntchainAtoSignTemplateResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadAntchainAtoSignTemplateResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainAtoSignTemplateResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.template.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方资产凭证上传，可以是文本或文件
+         * Summary: 资方资产凭证上传
+         */
+        public UploadAntchainAtoFundCreditResponse UploadAntchainAtoFundCredit(UploadAntchainAtoFundCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAntchainAtoFundCreditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方资产凭证上传，可以是文本或文件
+         * Summary: 资方资产凭证上传
+         */
+        public async Task<UploadAntchainAtoFundCreditResponse> UploadAntchainAtoFundCreditAsync(UploadAntchainAtoFundCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAntchainAtoFundCreditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方资产凭证上传，可以是文本或文件
+         * Summary: 资方资产凭证上传
+         */
+        public UploadAntchainAtoFundCreditResponse UploadAntchainAtoFundCreditEx(UploadAntchainAtoFundCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainAtoFundCreditResponse>(DoRequest("1.0", "antchain.ato.fund.credit.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方资产凭证上传，可以是文本或文件
+         * Summary: 资方资产凭证上传
+         */
+        public async Task<UploadAntchainAtoFundCreditResponse> UploadAntchainAtoFundCreditExAsync(UploadAntchainAtoFundCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainAtoFundCreditResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.credit.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户资产凭证上传，可以是文本或文件
+         * Summary: 商户资产凭证上传
+         */
+        public UploadAntchainAtoSignCreditResponse UploadAntchainAtoSignCredit(UploadAntchainAtoSignCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAntchainAtoSignCreditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户资产凭证上传，可以是文本或文件
+         * Summary: 商户资产凭证上传
+         */
+        public async Task<UploadAntchainAtoSignCreditResponse> UploadAntchainAtoSignCreditAsync(UploadAntchainAtoSignCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAntchainAtoSignCreditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户资产凭证上传，可以是文本或文件
+         * Summary: 商户资产凭证上传
+         */
+        public UploadAntchainAtoSignCreditResponse UploadAntchainAtoSignCreditEx(UploadAntchainAtoSignCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainAtoSignCreditResponse>(DoRequest("1.0", "antchain.ato.sign.credit.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户资产凭证上传，可以是文本或文件
+         * Summary: 商户资产凭证上传
+         */
+        public async Task<UploadAntchainAtoSignCreditResponse> UploadAntchainAtoSignCreditExAsync(UploadAntchainAtoSignCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAntchainAtoSignCreditResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.credit.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方资产凭证查询，需要提供订单号或资产包号
+         * Summary: 资方资产凭证查询
+         */
+        public QueryAntchainAtoFundCreditResponse QueryAntchainAtoFundCredit(QueryAntchainAtoFundCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAtoFundCreditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方资产凭证查询，需要提供订单号或资产包号
+         * Summary: 资方资产凭证查询
+         */
+        public async Task<QueryAntchainAtoFundCreditResponse> QueryAntchainAtoFundCreditAsync(QueryAntchainAtoFundCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAtoFundCreditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方资产凭证查询，需要提供订单号或资产包号
+         * Summary: 资方资产凭证查询
+         */
+        public QueryAntchainAtoFundCreditResponse QueryAntchainAtoFundCreditEx(QueryAntchainAtoFundCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoFundCreditResponse>(DoRequest("1.0", "antchain.ato.fund.credit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方资产凭证查询，需要提供订单号或资产包号
+         * Summary: 资方资产凭证查询
+         */
+        public async Task<QueryAntchainAtoFundCreditResponse> QueryAntchainAtoFundCreditExAsync(QueryAntchainAtoFundCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoFundCreditResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.credit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户资产凭证查询，需要提供订单号或资产包号
+         * Summary: 商户资产凭证查询
+         */
+        public QueryAntchainAtoSignCreditResponse QueryAntchainAtoSignCredit(QueryAntchainAtoSignCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAtoSignCreditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户资产凭证查询，需要提供订单号或资产包号
+         * Summary: 商户资产凭证查询
+         */
+        public async Task<QueryAntchainAtoSignCreditResponse> QueryAntchainAtoSignCreditAsync(QueryAntchainAtoSignCreditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAtoSignCreditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商户资产凭证查询，需要提供订单号或资产包号
+         * Summary: 商户资产凭证查询
+         */
+        public QueryAntchainAtoSignCreditResponse QueryAntchainAtoSignCreditEx(QueryAntchainAtoSignCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoSignCreditResponse>(DoRequest("1.0", "antchain.ato.sign.credit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商户资产凭证查询，需要提供订单号或资产包号
+         * Summary: 商户资产凭证查询
+         */
+        public async Task<QueryAntchainAtoSignCreditResponse> QueryAntchainAtoSignCreditExAsync(QueryAntchainAtoSignCreditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAtoSignCreditResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.credit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

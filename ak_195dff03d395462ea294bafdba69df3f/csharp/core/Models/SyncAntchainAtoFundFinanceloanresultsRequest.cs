@@ -33,6 +33,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true)]
         public string BizContent { get; set; }
 
+        // 资方的社会信用代码
+        [NameInMap("fund_id")]
+        [Validation(Required=false, MaxLength=64)]
+        public string FundId { get; set; }
+
     }
 
 }

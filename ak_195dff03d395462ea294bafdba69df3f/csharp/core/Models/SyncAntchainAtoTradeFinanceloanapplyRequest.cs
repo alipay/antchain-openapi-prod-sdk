@@ -33,6 +33,37 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true)]
         public string MerchantName { get; set; }
 
+        // 资方的社会信用代码
+        [NameInMap("fund_id")]
+        [Validation(Required=false, MaxLength=64)]
+        public string FundId { get; set; }
+
+        // 类型
+        // ● 默认为：ORDER, 单订单申请
+        // ● PACKAGE_ORDER , 资产包订单模式
+        [NameInMap("type")]
+        [Validation(Required=false)]
+        public string Type { get; set; }
+
+        // 资产包id
+        // type = PACKAGE_ORDER ， 必填
+        [NameInMap("asset_package_id")]
+        [Validation(Required=false, MaxLength=50)]
+        public string AssetPackageId { get; set; }
+
+        // type = PACKAGE_ORDER ， 必填
+        // 
+        // ● APPEND: 追加订单列表
+        // ● FINIISH : 结束
+        [NameInMap("stage")]
+        [Validation(Required=false)]
+        public string Stage { get; set; }
+
+        // 订单id列表的jsonArray
+        [NameInMap("order_id_list")]
+        [Validation(Required=false)]
+        public string OrderIdList { get; set; }
+
     }
 
 }

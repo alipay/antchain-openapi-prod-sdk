@@ -24,6 +24,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 返回值，json字符串
+        [NameInMap("response_data")]
+        [Validation(Required=false)]
+        public string ResponseData { get; set; }
+
     }
 
 }

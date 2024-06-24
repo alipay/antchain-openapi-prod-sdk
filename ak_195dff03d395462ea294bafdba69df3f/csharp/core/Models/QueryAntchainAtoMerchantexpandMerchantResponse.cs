@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class SyncAntchainAtoTradeIndirectorderResponse : TeaModel {
+    public class QueryAntchainAtoMerchantexpandMerchantResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,18 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回业务参数，json.toString
-        [NameInMap("response_data")]
+        // 商户入驻状态
+        // INIT 入驻中
+        // SUCCESS 入驻成功
+        // FAIL 入驻失败
+        [NameInMap("enrollment_status")]
         [Validation(Required=false)]
-        public string ResponseData { get; set; }
+        public string EnrollmentStatus { get; set; }
+
+        // 入驻失败原因
+        [NameInMap("fail_reason")]
+        [Validation(Required=false)]
+        public string FailReason { get; set; }
 
     }
 

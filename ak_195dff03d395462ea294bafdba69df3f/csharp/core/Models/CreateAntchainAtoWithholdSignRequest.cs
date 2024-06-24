@@ -48,6 +48,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false, MaxLength=128)]
         public string AlipayUserId { get; set; }
 
+        // 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+        [NameInMap("return_url")]
+        [Validation(Required=false, MaxLength=256)]
+        public string ReturnUrl { get; set; }
+
     }
 
 }
