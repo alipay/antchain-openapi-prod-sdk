@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 主动支付单据
+            # 文件信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.1',
+                    'sdk_version': '1.3.2',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 主动支付单据
+            # 文件信息
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.1',
+                    'sdk_version': '1.3.2',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -2757,6 +2757,488 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoTradeIndirectorderResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.indirectorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def register_antchain_ato_merchantexpand_merchant(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商户入驻
+        Summary: 商户入驻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_antchain_ato_merchantexpand_merchant_ex(request, headers, runtime)
+
+    async def register_antchain_ato_merchantexpand_merchant_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商户入驻
+        Summary: 商户入驻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.register_antchain_ato_merchantexpand_merchant_ex_async(request, headers, runtime)
+
+    def register_antchain_ato_merchantexpand_merchant_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商户入驻
+        Summary: 商户入驻
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantResponse(),
+            self.do_request('1.0', 'antchain.ato.merchantexpand.merchant.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def register_antchain_ato_merchantexpand_merchant_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商户入驻
+        Summary: 商户入驻
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RegisterAntchainAtoMerchantexpandMerchantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.merchantexpand.merchant.register', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_antchain_ato_merchantexpand_file(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileResponse:
+        """
+        Description: 获取临时上传文件链接
+        Summary: 获取临时上传文件链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_antchain_ato_merchantexpand_file_ex(request, headers, runtime)
+
+    async def upload_antchain_ato_merchantexpand_file_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileResponse:
+        """
+        Description: 获取临时上传文件链接
+        Summary: 获取临时上传文件链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_antchain_ato_merchantexpand_file_ex_async(request, headers, runtime)
+
+    def upload_antchain_ato_merchantexpand_file_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileResponse:
+        """
+        Description: 获取临时上传文件链接
+        Summary: 获取临时上传文件链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileResponse(),
+            self.do_request('1.0', 'antchain.ato.merchantexpand.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_antchain_ato_merchantexpand_file_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileResponse:
+        """
+        Description: 获取临时上传文件链接
+        Summary: 获取临时上传文件链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoMerchantexpandFileResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.merchantexpand.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_merchantexpand_merchant(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商户入驻查询
+        Summary: 商户入驻查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_merchantexpand_merchant_ex(request, headers, runtime)
+
+    async def query_antchain_ato_merchantexpand_merchant_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商户入驻查询
+        Summary: 商户入驻查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_merchantexpand_merchant_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_merchantexpand_merchant_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商户入驻查询
+        Summary: 商户入驻查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantResponse(),
+            self.do_request('1.0', 'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_merchantexpand_merchant_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商户入驻查询
+        Summary: 商户入驻查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoMerchantexpandMerchantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_antchain_ato_sign_template(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse:
+        """
+        Description: 商户合同模板上传接口
+        Summary: 商户合同模板上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_antchain_ato_sign_template_ex(request, headers, runtime)
+
+    async def upload_antchain_ato_sign_template_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse:
+        """
+        Description: 商户合同模板上传接口
+        Summary: 商户合同模板上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_antchain_ato_sign_template_ex_async(request, headers, runtime)
+
+    def upload_antchain_ato_sign_template_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse:
+        """
+        Description: 商户合同模板上传接口
+        Summary: 商户合同模板上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.ato.sign.template.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_antchain_ato_sign_template_response = ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_antchain_ato_sign_template_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.template.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_antchain_ato_sign_template_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse:
+        """
+        Description: 商户合同模板上传接口
+        Summary: 商户合同模板上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.ato.sign.template.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_antchain_ato_sign_template_response = ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_antchain_ato_sign_template_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.template.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_antchain_ato_fund_credit(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditResponse:
+        """
+        Description: 资方资产凭证上传，可以是文本或文件
+        Summary: 资方资产凭证上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_antchain_ato_fund_credit_ex(request, headers, runtime)
+
+    async def upload_antchain_ato_fund_credit_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditResponse:
+        """
+        Description: 资方资产凭证上传，可以是文本或文件
+        Summary: 资方资产凭证上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_antchain_ato_fund_credit_ex_async(request, headers, runtime)
+
+    def upload_antchain_ato_fund_credit_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditResponse:
+        """
+        Description: 资方资产凭证上传，可以是文本或文件
+        Summary: 资方资产凭证上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.credit.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_antchain_ato_fund_credit_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditResponse:
+        """
+        Description: 资方资产凭证上传，可以是文本或文件
+        Summary: 资方资产凭证上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundCreditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.credit.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_antchain_ato_sign_credit(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse:
+        """
+        Description: 商户资产凭证上传，可以是文本或文件
+        Summary: 商户资产凭证上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_antchain_ato_sign_credit_ex(request, headers, runtime)
+
+    async def upload_antchain_ato_sign_credit_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse:
+        """
+        Description: 商户资产凭证上传，可以是文本或文件
+        Summary: 商户资产凭证上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_antchain_ato_sign_credit_ex_async(request, headers, runtime)
+
+    def upload_antchain_ato_sign_credit_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse:
+        """
+        Description: 商户资产凭证上传，可以是文本或文件
+        Summary: 商户资产凭证上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.credit.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_antchain_ato_sign_credit_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse:
+        """
+        Description: 商户资产凭证上传，可以是文本或文件
+        Summary: 商户资产凭证上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.credit.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_fund_credit(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditResponse:
+        """
+        Description: 资方资产凭证查询，需要提供订单号或资产包号
+        Summary: 资方资产凭证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_fund_credit_ex(request, headers, runtime)
+
+    async def query_antchain_ato_fund_credit_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditResponse:
+        """
+        Description: 资方资产凭证查询，需要提供订单号或资产包号
+        Summary: 资方资产凭证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_fund_credit_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_fund_credit_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditResponse:
+        """
+        Description: 资方资产凭证查询，需要提供订单号或资产包号
+        Summary: 资方资产凭证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_fund_credit_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditResponse:
+        """
+        Description: 资方资产凭证查询，需要提供订单号或资产包号
+        Summary: 资方资产凭证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCreditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_sign_credit(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse:
+        """
+        Description: 商户资产凭证查询，需要提供订单号或资产包号
+        Summary: 商户资产凭证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_sign_credit_ex(request, headers, runtime)
+
+    async def query_antchain_ato_sign_credit_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse:
+        """
+        Description: 商户资产凭证查询，需要提供订单号或资产包号
+        Summary: 商户资产凭证查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_sign_credit_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_sign_credit_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse:
+        """
+        Description: 商户资产凭证查询，需要提供订单号或资产包号
+        Summary: 商户资产凭证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_sign_credit_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse:
+        """
+        Description: 商户资产凭证查询，需要提供订单号或资产包号
+        Summary: 商户资产凭证查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
