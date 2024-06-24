@@ -59,8 +59,14 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserp
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoMerchantexpandMerchantRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoMerchantexpandMerchantResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpersonFacevrfRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoRealpersonFacevrfResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoSignCreditRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoSignCreditResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdRefundRequest;
@@ -69,6 +75,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithhold
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RefuseAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RefuseAntchainAtoFundFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RegisterAntchainAtoMerchantexpandMerchantRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RegisterAntchainAtoMerchantexpandMerchantResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanRequest;
@@ -95,10 +103,18 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithhol
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeUserpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeUserpromiseResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundCreditRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundCreditResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoMerchantexpandFileRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoMerchantexpandFileResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignCreditRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignCreditResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignTemplateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoSignTemplateResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -218,7 +234,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 主动支付单据
+            // 文件信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -246,7 +262,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.1',
+                    'sdk_version'      => '1.3.2',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -1751,6 +1767,288 @@ class Client
         Utils::validateModel($request);
 
         return SyncAntchainAtoTradeIndirectorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.indirectorder.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户入驻
+     * Summary: 商户入驻.
+     *
+     * @param RegisterAntchainAtoMerchantexpandMerchantRequest $request
+     *
+     * @return RegisterAntchainAtoMerchantexpandMerchantResponse
+     */
+    public function registerAntchainAtoMerchantexpandMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->registerAntchainAtoMerchantexpandMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户入驻
+     * Summary: 商户入驻.
+     *
+     * @param RegisterAntchainAtoMerchantexpandMerchantRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return RegisterAntchainAtoMerchantexpandMerchantResponse
+     */
+    public function registerAntchainAtoMerchantexpandMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RegisterAntchainAtoMerchantexpandMerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.merchant.register', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取临时上传文件链接
+     * Summary: 获取临时上传文件链接.
+     *
+     * @param UploadAntchainAtoMerchantexpandFileRequest $request
+     *
+     * @return UploadAntchainAtoMerchantexpandFileResponse
+     */
+    public function uploadAntchainAtoMerchantexpandFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntchainAtoMerchantexpandFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取临时上传文件链接
+     * Summary: 获取临时上传文件链接.
+     *
+     * @param UploadAntchainAtoMerchantexpandFileRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return UploadAntchainAtoMerchantexpandFileResponse
+     */
+    public function uploadAntchainAtoMerchantexpandFileEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAntchainAtoMerchantexpandFileResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户入驻查询
+     * Summary: 商户入驻查询.
+     *
+     * @param QueryAntchainAtoMerchantexpandMerchantRequest $request
+     *
+     * @return QueryAntchainAtoMerchantexpandMerchantResponse
+     */
+    public function queryAntchainAtoMerchantexpandMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoMerchantexpandMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户入驻查询
+     * Summary: 商户入驻查询.
+     *
+     * @param QueryAntchainAtoMerchantexpandMerchantRequest $request
+     * @param string[]                                      $headers
+     * @param RuntimeOptions                                $runtime
+     *
+     * @return QueryAntchainAtoMerchantexpandMerchantResponse
+     */
+    public function queryAntchainAtoMerchantexpandMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoMerchantexpandMerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户合同模板上传接口
+     * Summary: 商户合同模板上传.
+     *
+     * @param UploadAntchainAtoSignTemplateRequest $request
+     *
+     * @return UploadAntchainAtoSignTemplateResponse
+     */
+    public function uploadAntchainAtoSignTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntchainAtoSignTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户合同模板上传接口
+     * Summary: 商户合同模板上传.
+     *
+     * @param UploadAntchainAtoSignTemplateRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return UploadAntchainAtoSignTemplateResponse
+     */
+    public function uploadAntchainAtoSignTemplateEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.ato.sign.template.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadAntchainAtoSignTemplateResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadAntchainAtoSignTemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.template.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方资产凭证上传，可以是文本或文件
+     * Summary: 资方资产凭证上传.
+     *
+     * @param UploadAntchainAtoFundCreditRequest $request
+     *
+     * @return UploadAntchainAtoFundCreditResponse
+     */
+    public function uploadAntchainAtoFundCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntchainAtoFundCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方资产凭证上传，可以是文本或文件
+     * Summary: 资方资产凭证上传.
+     *
+     * @param UploadAntchainAtoFundCreditRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return UploadAntchainAtoFundCreditResponse
+     */
+    public function uploadAntchainAtoFundCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAntchainAtoFundCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.credit.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户资产凭证上传，可以是文本或文件
+     * Summary: 商户资产凭证上传.
+     *
+     * @param UploadAntchainAtoSignCreditRequest $request
+     *
+     * @return UploadAntchainAtoSignCreditResponse
+     */
+    public function uploadAntchainAtoSignCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAntchainAtoSignCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户资产凭证上传，可以是文本或文件
+     * Summary: 商户资产凭证上传.
+     *
+     * @param UploadAntchainAtoSignCreditRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return UploadAntchainAtoSignCreditResponse
+     */
+    public function uploadAntchainAtoSignCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAntchainAtoSignCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.credit.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方资产凭证查询，需要提供订单号或资产包号
+     * Summary: 资方资产凭证查询.
+     *
+     * @param QueryAntchainAtoFundCreditRequest $request
+     *
+     * @return QueryAntchainAtoFundCreditResponse
+     */
+    public function queryAntchainAtoFundCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoFundCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方资产凭证查询，需要提供订单号或资产包号
+     * Summary: 资方资产凭证查询.
+     *
+     * @param QueryAntchainAtoFundCreditRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryAntchainAtoFundCreditResponse
+     */
+    public function queryAntchainAtoFundCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoFundCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户资产凭证查询，需要提供订单号或资产包号
+     * Summary: 商户资产凭证查询.
+     *
+     * @param QueryAntchainAtoSignCreditRequest $request
+     *
+     * @return QueryAntchainAtoSignCreditResponse
+     */
+    public function queryAntchainAtoSignCredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoSignCreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户资产凭证查询，需要提供订单号或资产包号
+     * Summary: 商户资产凭证查询.
+     *
+     * @param QueryAntchainAtoSignCreditRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryAntchainAtoSignCreditResponse
+     */
+    public function queryAntchainAtoSignCreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoSignCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

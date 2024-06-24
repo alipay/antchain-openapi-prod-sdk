@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncAntchainAtoTradeIndirectorderResponse extends Model
+class UploadAntchainAtoMerchantexpandFileResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class SyncAntchainAtoTradeIndirectorderResponse extends Model
      */
     public $resultMsg;
 
-    // 返回业务参数，json.toString
+    // 临时上传文件地址
     /**
      * @var string
      */
-    public $responseData;
+    public $uploadUrl;
+
+    // 文件key
+    /**
+     * @var string
+     */
+    public $fileKey;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'responseData' => 'response_data',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'uploadUrl'  => 'upload_url',
+        'fileKey'    => 'file_key',
     ];
 
     public function validate()
@@ -54,8 +61,11 @@ class SyncAntchainAtoTradeIndirectorderResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->responseData) {
-            $res['response_data'] = $this->responseData;
+        if (null !== $this->uploadUrl) {
+            $res['upload_url'] = $this->uploadUrl;
+        }
+        if (null !== $this->fileKey) {
+            $res['file_key'] = $this->fileKey;
         }
 
         return $res;
@@ -64,7 +74,7 @@ class SyncAntchainAtoTradeIndirectorderResponse extends Model
     /**
      * @param array $map
      *
-     * @return SyncAntchainAtoTradeIndirectorderResponse
+     * @return UploadAntchainAtoMerchantexpandFileResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +88,11 @@ class SyncAntchainAtoTradeIndirectorderResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['response_data'])) {
-            $model->responseData = $map['response_data'];
+        if (isset($map['upload_url'])) {
+            $model->uploadUrl = $map['upload_url'];
+        }
+        if (isset($map['file_key'])) {
+            $model->fileKey = $map['file_key'];
         }
 
         return $model;

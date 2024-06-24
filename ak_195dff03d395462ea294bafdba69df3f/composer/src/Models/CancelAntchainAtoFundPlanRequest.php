@@ -39,12 +39,19 @@ class CancelAntchainAtoFundPlanRequest extends Model
      * @var string
      */
     public $cancelReason;
+
+    // 融资单的资方社会信用代码
+    /**
+     * @var string
+     */
+    public $fundId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'merchantId'        => 'merchant_id',
         'cancelReason'      => 'cancel_reason',
+        'fundId'            => 'fund_id',
     ];
 
     public function validate()
@@ -52,6 +59,7 @@ class CancelAntchainAtoFundPlanRequest extends Model
         Model::validateRequired('orderId', $this->orderId, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('cancelReason', $this->cancelReason, true);
+        Model::validateMaxLength('fundId', $this->fundId, 64);
     }
 
     public function toMap()
@@ -71,6 +79,9 @@ class CancelAntchainAtoFundPlanRequest extends Model
         }
         if (null !== $this->cancelReason) {
             $res['cancel_reason'] = $this->cancelReason;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
         }
 
         return $res;
@@ -98,6 +109,9 @@ class CancelAntchainAtoFundPlanRequest extends Model
         }
         if (isset($map['cancel_reason'])) {
             $model->cancelReason = $map['cancel_reason'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
 
         return $model;

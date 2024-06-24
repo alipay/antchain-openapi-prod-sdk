@@ -196,7 +196,6 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         Model::validateMaxLength('merchantTag', $this->merchantTag, 32);
         Model::validateMaxLength('merchantIdType', $this->merchantIdType, 20);
         Model::validateMaxLength('merchantIdNumber', $this->merchantIdNumber, 1000);
-        Model::validateMaxLength('thirdSigner', $this->thirdSigner, 2000);
         Model::validateMinLength('alipayUserId', $this->alipayUserId, 12);
         Model::validateMinLength('merchantName', $this->merchantName, 2);
         Model::validateMinLength('merchantTag', $this->merchantTag, 0);

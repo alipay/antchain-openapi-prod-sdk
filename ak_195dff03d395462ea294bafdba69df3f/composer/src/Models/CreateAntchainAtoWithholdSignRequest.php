@@ -54,6 +54,12 @@ class CreateAntchainAtoWithholdSignRequest extends Model
      * @var string
      */
     public $alipayUserId;
+
+    // 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
+    /**
+     * @var string
+     */
+    public $returnUrl;
     protected $_name = [
         'authToken'                        => 'auth_token',
         'productInstanceId'                => 'product_instance_id',
@@ -63,6 +69,7 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         'alipayMerchantServiceName'        => 'alipay_merchant_service_name',
         'alipayMerchantServiceDescription' => 'alipay_merchant_service_description',
         'alipayUserId'                     => 'alipay_user_id',
+        'returnUrl'                        => 'return_url',
     ];
 
     public function validate()
@@ -74,6 +81,7 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         Model::validateMaxLength('alipayMerchantServiceName', $this->alipayMerchantServiceName, 50);
         Model::validateMaxLength('alipayMerchantServiceDescription', $this->alipayMerchantServiceDescription, 150);
         Model::validateMaxLength('alipayUserId', $this->alipayUserId, 128);
+        Model::validateMaxLength('returnUrl', $this->returnUrl, 256);
     }
 
     public function toMap()
@@ -102,6 +110,9 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         }
         if (null !== $this->alipayUserId) {
             $res['alipay_user_id'] = $this->alipayUserId;
+        }
+        if (null !== $this->returnUrl) {
+            $res['return_url'] = $this->returnUrl;
         }
 
         return $res;
@@ -138,6 +149,9 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         }
         if (isset($map['alipay_user_id'])) {
             $model->alipayUserId = $map['alipay_user_id'];
+        }
+        if (isset($map['return_url'])) {
+            $model->returnUrl = $map['return_url'];
         }
 
         return $model;

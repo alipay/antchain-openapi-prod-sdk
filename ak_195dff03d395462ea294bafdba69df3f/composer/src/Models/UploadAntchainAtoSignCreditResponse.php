@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncAntchainAtoTradeIndirectorderResponse extends Model
+class UploadAntchainAtoSignCreditResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class SyncAntchainAtoTradeIndirectorderResponse extends Model
      */
     public $resultMsg;
 
-    // 返回业务参数，json.toString
+    // 凭证内容id
     /**
      * @var string
      */
-    public $responseData;
+    public $contentId;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'responseData' => 'response_data',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'contentId'  => 'content_id',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class SyncAntchainAtoTradeIndirectorderResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->responseData) {
-            $res['response_data'] = $this->responseData;
+        if (null !== $this->contentId) {
+            $res['content_id'] = $this->contentId;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class SyncAntchainAtoTradeIndirectorderResponse extends Model
     /**
      * @param array $map
      *
-     * @return SyncAntchainAtoTradeIndirectorderResponse
+     * @return UploadAntchainAtoSignCreditResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class SyncAntchainAtoTradeIndirectorderResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['response_data'])) {
-            $model->responseData = $map['response_data'];
+        if (isset($map['content_id'])) {
+            $model->contentId = $map['content_id'];
         }
 
         return $model;
