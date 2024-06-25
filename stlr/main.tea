@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.8.1',
+    sdk_version = '2.9.2',
     _prod_code = 'STLR',
     _prod_channel = 'undefined'
   };
@@ -2221,6 +2221,90 @@ async function pagequeryDataassetTypeEx(request: PagequeryDataassetTypeRequest, 
   return doRequest('1.0' ,'antchain.carbon.dataasset.type.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model StartDatasetCollectingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部数据ID
+  datasetId: string(name='dataset_id'),
+  // 采集数据所属用户ID
+  userId: string(name='user_id'),
+}
+
+model StartDatasetCollectingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据采集任务ID，扩展用
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+ * Summary: 开始采集外部数据
+ */
+async function startDatasetCollecting(request: StartDatasetCollectingRequest): StartDatasetCollectingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return startDatasetCollectingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+ * Summary: 开始采集外部数据
+ */
+async function startDatasetCollectingEx(request: StartDatasetCollectingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): StartDatasetCollectingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.dataset.collecting.start', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDatasetCollectingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 外部数据ID
+  datasetId: string(name='dataset_id'),
+  // 操作用户ID
+  userId: string(name='user_id'),
+  // 数据采集任务ID，若无查询最新的采集任务
+  taskId?: string(name='task_id'),
+}
+
+model QueryDatasetCollectingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 采集状态
+  status?: string(name='status'),
+  // 采集数据记录数
+  dataCount?: long(name='data_count'),
+}
+
+/**
+ * Description: 查询外部数据采集状态
+ * Summary: 查询外部数据采集状态
+ */
+async function queryDatasetCollecting(request: QueryDatasetCollectingRequest): QueryDatasetCollectingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDatasetCollectingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询外部数据采集状态
+ * Summary: 查询外部数据采集状态
+ */
+async function queryDatasetCollectingEx(request: QueryDatasetCollectingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDatasetCollectingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.dataset.collecting.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model AddEcarAvitivedataRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -3447,8 +3531,8 @@ model BatchcreateEcarGreencertificategenerationRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 数据发生时间
   date: string(name='date'),
-  // 设备发电量列表
-  generation: [ DeviceGeneration ](name='generation'),
+  // 逆变器发电量列表
+  inverterGenerations: [ InverterGeneration ](name='inverter_generations'),
 }
 
 model BatchcreateEcarGreencertificategenerationResponse = {
@@ -3583,6 +3667,63 @@ async function queryEcarLcacalc(request: QueryEcarLcacalcRequest): QueryEcarLcac
 async function queryEcarLcacalcEx(request: QueryEcarLcacalcRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEcarLcacalcResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.carbon.ecar.lcacalc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitEcarGreencertificategenerationfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 发电量文件id
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model SubmitEcarGreencertificategenerationfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发电数据文件导入开放接口
+ * Summary: 发电数据文件导入开放接口
+ */
+async function submitEcarGreencertificategenerationfile(request: SubmitEcarGreencertificategenerationfileRequest): SubmitEcarGreencertificategenerationfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitEcarGreencertificategenerationfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发电数据文件导入开放接口
+ * Summary: 发电数据文件导入开放接口
+ */
+async function submitEcarGreencertificategenerationfileEx(request: SubmitEcarGreencertificategenerationfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitEcarGreencertificategenerationfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.carbon.ecar.greencertificategenerationfile.submit',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var submitEcarGreencertificategenerationfileResponse = new SubmitEcarGreencertificategenerationfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return submitEcarGreencertificategenerationfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.carbon.ecar.greencertificategenerationfile.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryThirdCertRequest = {
