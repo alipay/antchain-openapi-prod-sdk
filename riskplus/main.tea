@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.18',
+    sdk_version = '1.19.20',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -3355,6 +3355,8 @@ model QueryDubbridgeRouterFundrouterResponse = {
   fundCode?: string(name='fund_code'),
   // 资金方简称
   abbreFundName?: string(name='abbre_fund_name'),
+  // 客户编号
+  customerNo?: string(name='customer_no'),
 }
 
 /**
@@ -7425,10 +7427,8 @@ model PushRbbCustomerInformationResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 返回代码
-  resCode?: string(name='res_code'),
-  // 结果说明
-  resMsg?: string(name='res_msg'),
+  // 地址
+  resultUrl?: string(name='result_url'),
 }
 
 /**
@@ -7505,10 +7505,6 @@ model PushRbbCustomerStatusResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 结果说明
-  resMsg?: string(name='res_msg'),
-  // 返回代码
-  resCode?: string(name='res_code'),
 }
 
 /**
