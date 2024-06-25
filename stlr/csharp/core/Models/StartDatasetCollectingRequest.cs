@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.STLR.Models
 {
-    public class BatchcreateEcarGreencertificategenerationRequest : TeaModel {
+    public class StartDatasetCollectingRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.STLR.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 数据发生时间
-        [NameInMap("date")]
+        // 外部数据ID
+        [NameInMap("dataset_id")]
         [Validation(Required=true)]
-        public string Date { get; set; }
+        public string DatasetId { get; set; }
 
-        // 逆变器发电量列表
-        [NameInMap("inverter_generations")]
+        // 采集数据所属用户ID
+        [NameInMap("user_id")]
         [Validation(Required=true)]
-        public List<InverterGeneration> InverterGenerations { get; set; }
+        public string UserId { get; set; }
 
     }
 

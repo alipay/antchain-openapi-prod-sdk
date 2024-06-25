@@ -137,7 +137,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.8.1"},
+                        {"sdk_version", "2.9.2"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.STLR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.8.1"},
+                        {"sdk_version", "2.9.2"},
                         {"_prod_code", "STLR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1708,6 +1708,90 @@ namespace AntChain.SDK.STLR
         }
 
         /**
+         * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+         * Summary: 开始采集外部数据
+         */
+        public StartDatasetCollectingResponse StartDatasetCollecting(StartDatasetCollectingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StartDatasetCollectingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+         * Summary: 开始采集外部数据
+         */
+        public async Task<StartDatasetCollectingResponse> StartDatasetCollectingAsync(StartDatasetCollectingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StartDatasetCollectingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+         * Summary: 开始采集外部数据
+         */
+        public StartDatasetCollectingResponse StartDatasetCollectingEx(StartDatasetCollectingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartDatasetCollectingResponse>(DoRequest("1.0", "antchain.carbon.dataset.collecting.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+         * Summary: 开始采集外部数据
+         */
+        public async Task<StartDatasetCollectingResponse> StartDatasetCollectingExAsync(StartDatasetCollectingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StartDatasetCollectingResponse>(await DoRequestAsync("1.0", "antchain.carbon.dataset.collecting.start", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询外部数据采集状态
+         * Summary: 查询外部数据采集状态
+         */
+        public QueryDatasetCollectingResponse QueryDatasetCollecting(QueryDatasetCollectingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDatasetCollectingEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询外部数据采集状态
+         * Summary: 查询外部数据采集状态
+         */
+        public async Task<QueryDatasetCollectingResponse> QueryDatasetCollectingAsync(QueryDatasetCollectingRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDatasetCollectingExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询外部数据采集状态
+         * Summary: 查询外部数据采集状态
+         */
+        public QueryDatasetCollectingResponse QueryDatasetCollectingEx(QueryDatasetCollectingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDatasetCollectingResponse>(DoRequest("1.0", "antchain.carbon.dataset.collecting.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询外部数据采集状态
+         * Summary: 查询外部数据采集状态
+         */
+        public async Task<QueryDatasetCollectingResponse> QueryDatasetCollectingExAsync(QueryDatasetCollectingRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDatasetCollectingResponse>(await DoRequestAsync("1.0", "antchain.carbon.dataset.collecting.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 新增排放活动数据
          * Summary: 新增排放活动数据
          */
@@ -2931,6 +3015,94 @@ namespace AntChain.SDK.STLR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEcarLcacalcResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.lcacalc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发电数据文件导入开放接口
+         * Summary: 发电数据文件导入开放接口
+         */
+        public SubmitEcarGreencertificategenerationfileResponse SubmitEcarGreencertificategenerationfile(SubmitEcarGreencertificategenerationfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitEcarGreencertificategenerationfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发电数据文件导入开放接口
+         * Summary: 发电数据文件导入开放接口
+         */
+        public async Task<SubmitEcarGreencertificategenerationfileResponse> SubmitEcarGreencertificategenerationfileAsync(SubmitEcarGreencertificategenerationfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitEcarGreencertificategenerationfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 发电数据文件导入开放接口
+         * Summary: 发电数据文件导入开放接口
+         */
+        public SubmitEcarGreencertificategenerationfileResponse SubmitEcarGreencertificategenerationfileEx(SubmitEcarGreencertificategenerationfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.carbon.ecar.greencertificategenerationfile.submit",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    SubmitEcarGreencertificategenerationfileResponse submitEcarGreencertificategenerationfileResponse = new SubmitEcarGreencertificategenerationfileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return submitEcarGreencertificategenerationfileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitEcarGreencertificategenerationfileResponse>(DoRequest("1.0", "antchain.carbon.ecar.greencertificategenerationfile.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 发电数据文件导入开放接口
+         * Summary: 发电数据文件导入开放接口
+         */
+        public async Task<SubmitEcarGreencertificategenerationfileResponse> SubmitEcarGreencertificategenerationfileExAsync(SubmitEcarGreencertificategenerationfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antchain.carbon.ecar.greencertificategenerationfile.submit",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    SubmitEcarGreencertificategenerationfileResponse submitEcarGreencertificategenerationfileResponse = new SubmitEcarGreencertificategenerationfileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return submitEcarGreencertificategenerationfileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitEcarGreencertificategenerationfileResponse>(await DoRequestAsync("1.0", "antchain.carbon.ecar.greencertificategenerationfile.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
