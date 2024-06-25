@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.8.1',
+                    'sdk_version': '2.9.2',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.8.1',
+                    'sdk_version': '2.9.2',
                     '_prod_code': 'STLR',
                     '_prod_channel': 'undefined'
                 }
@@ -2123,6 +2123,118 @@ class Client:
             await self.do_request_async('1.0', 'antchain.carbon.dataasset.type.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def start_dataset_collecting(
+        self,
+        request: stlr_models.StartDatasetCollectingRequest,
+    ) -> stlr_models.StartDatasetCollectingResponse:
+        """
+        Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+        Summary: 开始采集外部数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_dataset_collecting_ex(request, headers, runtime)
+
+    async def start_dataset_collecting_async(
+        self,
+        request: stlr_models.StartDatasetCollectingRequest,
+    ) -> stlr_models.StartDatasetCollectingResponse:
+        """
+        Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+        Summary: 开始采集外部数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.start_dataset_collecting_ex_async(request, headers, runtime)
+
+    def start_dataset_collecting_ex(
+        self,
+        request: stlr_models.StartDatasetCollectingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.StartDatasetCollectingResponse:
+        """
+        Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+        Summary: 开始采集外部数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.StartDatasetCollectingResponse(),
+            self.do_request('1.0', 'antchain.carbon.dataset.collecting.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def start_dataset_collecting_ex_async(
+        self,
+        request: stlr_models.StartDatasetCollectingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.StartDatasetCollectingResponse:
+        """
+        Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+        Summary: 开始采集外部数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.StartDatasetCollectingResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.dataset.collecting.start', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dataset_collecting(
+        self,
+        request: stlr_models.QueryDatasetCollectingRequest,
+    ) -> stlr_models.QueryDatasetCollectingResponse:
+        """
+        Description: 查询外部数据采集状态
+        Summary: 查询外部数据采集状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dataset_collecting_ex(request, headers, runtime)
+
+    async def query_dataset_collecting_async(
+        self,
+        request: stlr_models.QueryDatasetCollectingRequest,
+    ) -> stlr_models.QueryDatasetCollectingResponse:
+        """
+        Description: 查询外部数据采集状态
+        Summary: 查询外部数据采集状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dataset_collecting_ex_async(request, headers, runtime)
+
+    def query_dataset_collecting_ex(
+        self,
+        request: stlr_models.QueryDatasetCollectingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryDatasetCollectingResponse:
+        """
+        Description: 查询外部数据采集状态
+        Summary: 查询外部数据采集状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryDatasetCollectingResponse(),
+            self.do_request('1.0', 'antchain.carbon.dataset.collecting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dataset_collecting_ex_async(
+        self,
+        request: stlr_models.QueryDatasetCollectingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.QueryDatasetCollectingResponse:
+        """
+        Description: 查询外部数据采集状态
+        Summary: 查询外部数据采集状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.QueryDatasetCollectingResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.dataset.collecting.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def add_ecar_avitivedata(
         self,
         request: stlr_models.AddEcarAvitivedataRequest,
@@ -3701,6 +3813,96 @@ class Client:
         return TeaCore.from_map(
             stlr_models.QueryEcarLcacalcResponse(),
             await self.do_request_async('1.0', 'antchain.carbon.ecar.lcacalc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_ecar_greencertificategenerationfile(
+        self,
+        request: stlr_models.SubmitEcarGreencertificategenerationfileRequest,
+    ) -> stlr_models.SubmitEcarGreencertificategenerationfileResponse:
+        """
+        Description: 发电数据文件导入开放接口
+        Summary: 发电数据文件导入开放接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_ecar_greencertificategenerationfile_ex(request, headers, runtime)
+
+    async def submit_ecar_greencertificategenerationfile_async(
+        self,
+        request: stlr_models.SubmitEcarGreencertificategenerationfileRequest,
+    ) -> stlr_models.SubmitEcarGreencertificategenerationfileResponse:
+        """
+        Description: 发电数据文件导入开放接口
+        Summary: 发电数据文件导入开放接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_ecar_greencertificategenerationfile_ex_async(request, headers, runtime)
+
+    def submit_ecar_greencertificategenerationfile_ex(
+        self,
+        request: stlr_models.SubmitEcarGreencertificategenerationfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.SubmitEcarGreencertificategenerationfileResponse:
+        """
+        Description: 发电数据文件导入开放接口
+        Summary: 发电数据文件导入开放接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = stlr_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.carbon.ecar.greencertificategenerationfile.submit',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                submit_ecar_greencertificategenerationfile_response = stlr_models.SubmitEcarGreencertificategenerationfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return submit_ecar_greencertificategenerationfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.SubmitEcarGreencertificategenerationfileResponse(),
+            self.do_request('1.0', 'antchain.carbon.ecar.greencertificategenerationfile.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_ecar_greencertificategenerationfile_ex_async(
+        self,
+        request: stlr_models.SubmitEcarGreencertificategenerationfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> stlr_models.SubmitEcarGreencertificategenerationfileResponse:
+        """
+        Description: 发电数据文件导入开放接口
+        Summary: 发电数据文件导入开放接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = stlr_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.carbon.ecar.greencertificategenerationfile.submit',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                submit_ecar_greencertificategenerationfile_response = stlr_models.SubmitEcarGreencertificategenerationfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return submit_ecar_greencertificategenerationfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            stlr_models.SubmitEcarGreencertificategenerationfileResponse(),
+            await self.do_request_async('1.0', 'antchain.carbon.ecar.greencertificategenerationfile.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_third_cert(
