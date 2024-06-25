@@ -16,14 +16,6 @@ public class PushRbbCustomerStatusResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 结果说明
-    @NameInMap("res_msg")
-    public String resMsg;
-
-    // 返回代码
-    @NameInMap("res_code")
-    public String resCode;
-
     public static PushRbbCustomerStatusResponse build(java.util.Map<String, ?> map) throws Exception {
         PushRbbCustomerStatusResponse self = new PushRbbCustomerStatusResponse();
         return TeaModel.build(map, self);
@@ -51,22 +43,6 @@ public class PushRbbCustomerStatusResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public PushRbbCustomerStatusResponse setResMsg(String resMsg) {
-        this.resMsg = resMsg;
-        return this;
-    }
-    public String getResMsg() {
-        return this.resMsg;
-    }
-
-    public PushRbbCustomerStatusResponse setResCode(String resCode) {
-        this.resCode = resCode;
-        return this;
-    }
-    public String getResCode() {
-        return this.resCode;
     }
 
 }
