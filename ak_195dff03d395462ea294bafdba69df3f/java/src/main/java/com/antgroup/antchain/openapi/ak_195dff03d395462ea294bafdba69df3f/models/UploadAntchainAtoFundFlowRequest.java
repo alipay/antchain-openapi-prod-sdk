@@ -48,6 +48,10 @@ public class UploadAntchainAtoFundFlowRequest extends TeaModel {
     @Validation(required = true)
     public String fileId;
 
+    // 资方统一社会信用代码
+    @NameInMap("fund_id")
+    public String fundId;
+
     public static UploadAntchainAtoFundFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadAntchainAtoFundFlowRequest self = new UploadAntchainAtoFundFlowRequest();
         return TeaModel.build(map, self);
@@ -123,6 +127,14 @@ public class UploadAntchainAtoFundFlowRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public UploadAntchainAtoFundFlowRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

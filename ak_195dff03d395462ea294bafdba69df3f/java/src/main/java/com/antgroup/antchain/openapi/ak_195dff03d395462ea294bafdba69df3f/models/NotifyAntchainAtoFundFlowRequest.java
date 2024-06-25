@@ -31,6 +31,10 @@ public class NotifyAntchainAtoFundFlowRequest extends TeaModel {
     @Validation(required = true)
     public String fileItemNo;
 
+    // 资方统一社会信用代码
+    @NameInMap("fund_id")
+    public String fundId;
+
     public static NotifyAntchainAtoFundFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         NotifyAntchainAtoFundFlowRequest self = new NotifyAntchainAtoFundFlowRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class NotifyAntchainAtoFundFlowRequest extends TeaModel {
     }
     public String getFileItemNo() {
         return this.fileItemNo;
+    }
+
+    public NotifyAntchainAtoFundFlowRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

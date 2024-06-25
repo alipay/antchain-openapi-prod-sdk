@@ -26,6 +26,11 @@ public class QueryAntchainAtoFundCreditRequest extends TeaModel {
     @Validation(required = true)
     public String fundId;
 
+    // 商户统一社会信用代码
+    @NameInMap("merchant_id")
+    @Validation(required = true)
+    public String merchantId;
+
     public static QueryAntchainAtoFundCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoFundCreditRequest self = new QueryAntchainAtoFundCreditRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class QueryAntchainAtoFundCreditRequest extends TeaModel {
     }
     public String getFundId() {
         return this.fundId;
+    }
+
+    public QueryAntchainAtoFundCreditRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }

@@ -48,6 +48,11 @@ public class UploadAntchainAtoFundCreditRequest extends TeaModel {
     @NameInMap("content")
     public String content;
 
+    // 商户统一社会信用代码
+    @NameInMap("merchant_id")
+    @Validation(required = true)
+    public String merchantId;
+
     public static UploadAntchainAtoFundCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadAntchainAtoFundCreditRequest self = new UploadAntchainAtoFundCreditRequest();
         return TeaModel.build(map, self);
@@ -131,6 +136,14 @@ public class UploadAntchainAtoFundCreditRequest extends TeaModel {
     }
     public String getContent() {
         return this.content;
+    }
+
+    public UploadAntchainAtoFundCreditRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }
