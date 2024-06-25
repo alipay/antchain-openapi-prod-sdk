@@ -81,6 +81,8 @@ use AntChain\STLR\Models\PushPdcpBlockchainRequest;
 use AntChain\STLR\Models\PushPdcpBlockchainResponse;
 use AntChain\STLR\Models\QueryAuthAdminRequest;
 use AntChain\STLR\Models\QueryAuthAdminResponse;
+use AntChain\STLR\Models\QueryDatasetCollectingRequest;
+use AntChain\STLR\Models\QueryDatasetCollectingResponse;
 use AntChain\STLR\Models\QueryEcarLcacalcRequest;
 use AntChain\STLR\Models\QueryEcarLcacalcResponse;
 use AntChain\STLR\Models\QueryEcarLcaorderRequest;
@@ -121,6 +123,10 @@ use AntChain\STLR\Models\RegisterPdcpAccountRequest;
 use AntChain\STLR\Models\RegisterPdcpAccountResponse;
 use AntChain\STLR\Models\RegisterPdcpDataassetRequest;
 use AntChain\STLR\Models\RegisterPdcpDataassetResponse;
+use AntChain\STLR\Models\StartDatasetCollectingRequest;
+use AntChain\STLR\Models\StartDatasetCollectingResponse;
+use AntChain\STLR\Models\SubmitEcarGreencertificategenerationfileRequest;
+use AntChain\STLR\Models\SubmitEcarGreencertificategenerationfileResponse;
 use AntChain\STLR\Models\SubmitEcarLcaassementRequest;
 use AntChain\STLR\Models\SubmitEcarLcaassementResponse;
 use AntChain\STLR\Models\SubmitEcarLcacalcRequest;
@@ -282,7 +288,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '2.8.1',
+                    'sdk_version'      => '2.9.2',
                     '_prod_code'       => 'STLR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1420,6 +1426,72 @@ class Client
     }
 
     /**
+     * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+     * Summary: 开始采集外部数据.
+     *
+     * @param StartDatasetCollectingRequest $request
+     *
+     * @return StartDatasetCollectingResponse
+     */
+    public function startDatasetCollecting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->startDatasetCollectingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+     * Summary: 开始采集外部数据.
+     *
+     * @param StartDatasetCollectingRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return StartDatasetCollectingResponse
+     */
+    public function startDatasetCollectingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return StartDatasetCollectingResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.dataset.collecting.start', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询外部数据采集状态
+     * Summary: 查询外部数据采集状态
+     *
+     * @param QueryDatasetCollectingRequest $request
+     *
+     * @return QueryDatasetCollectingResponse
+     */
+    public function queryDatasetCollecting($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDatasetCollectingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询外部数据采集状态
+     * Summary: 查询外部数据采集状态
+     *
+     * @param QueryDatasetCollectingRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryDatasetCollectingResponse
+     */
+    public function queryDatasetCollectingEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDatasetCollectingResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.dataset.collecting.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 新增排放活动数据
      * Summary: 新增排放活动数据.
      *
@@ -2344,6 +2416,57 @@ class Client
         Utils::validateModel($request);
 
         return QueryEcarLcacalcResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.lcacalc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发电数据文件导入开放接口
+     * Summary: 发电数据文件导入开放接口.
+     *
+     * @param SubmitEcarGreencertificategenerationfileRequest $request
+     *
+     * @return SubmitEcarGreencertificategenerationfileResponse
+     */
+    public function submitEcarGreencertificategenerationfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitEcarGreencertificategenerationfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发电数据文件导入开放接口
+     * Summary: 发电数据文件导入开放接口.
+     *
+     * @param SubmitEcarGreencertificategenerationfileRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return SubmitEcarGreencertificategenerationfileResponse
+     */
+    public function submitEcarGreencertificategenerationfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.carbon.ecar.greencertificategenerationfile.submit',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new SubmitEcarGreencertificategenerationfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return SubmitEcarGreencertificategenerationfileResponse::fromMap($this->doRequest('1.0', 'antchain.carbon.ecar.greencertificategenerationfile.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -25,22 +25,22 @@ class BatchcreateEcarGreencertificategenerationRequest extends Model
      */
     public $date;
 
-    // 设备发电量列表
+    // 逆变器发电量列表
     /**
-     * @var DeviceGeneration[]
+     * @var InverterGeneration[]
      */
-    public $generation;
+    public $inverterGenerations;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'date'              => 'date',
-        'generation'        => 'generation',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'date'                => 'date',
+        'inverterGenerations' => 'inverter_generations',
     ];
 
     public function validate()
     {
         Model::validateRequired('date', $this->date, true);
-        Model::validateRequired('generation', $this->generation, true);
+        Model::validateRequired('inverterGenerations', $this->inverterGenerations, true);
     }
 
     public function toMap()
@@ -55,12 +55,12 @@ class BatchcreateEcarGreencertificategenerationRequest extends Model
         if (null !== $this->date) {
             $res['date'] = $this->date;
         }
-        if (null !== $this->generation) {
-            $res['generation'] = [];
-            if (null !== $this->generation && \is_array($this->generation)) {
+        if (null !== $this->inverterGenerations) {
+            $res['inverter_generations'] = [];
+            if (null !== $this->inverterGenerations && \is_array($this->inverterGenerations)) {
                 $n = 0;
-                foreach ($this->generation as $item) {
-                    $res['generation'][$n++] = null !== $item ? $item->toMap() : $item;
+                foreach ($this->inverterGenerations as $item) {
+                    $res['inverter_generations'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -85,12 +85,12 @@ class BatchcreateEcarGreencertificategenerationRequest extends Model
         if (isset($map['date'])) {
             $model->date = $map['date'];
         }
-        if (isset($map['generation'])) {
-            if (!empty($map['generation'])) {
-                $model->generation = [];
-                $n                 = 0;
-                foreach ($map['generation'] as $item) {
-                    $model->generation[$n++] = null !== $item ? DeviceGeneration::fromMap($item) : $item;
+        if (isset($map['inverter_generations'])) {
+            if (!empty($map['inverter_generations'])) {
+                $model->inverterGenerations = [];
+                $n                          = 0;
+                foreach ($map['inverter_generations'] as $item) {
+                    $model->inverterGenerations[$n++] = null !== $item ? InverterGeneration::fromMap($item) : $item;
                 }
             }
         }
