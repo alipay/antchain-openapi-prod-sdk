@@ -37,12 +37,19 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
      * @var string
      */
     public $abbreFundName;
+
+    // 客户编号
+    /**
+     * @var string
+     */
+    public $customerNo;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
         'resultMsg'     => 'result_msg',
         'fundCode'      => 'fund_code',
         'abbreFundName' => 'abbre_fund_name',
+        'customerNo'    => 'customer_no',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
         }
         if (null !== $this->abbreFundName) {
             $res['abbre_fund_name'] = $this->abbreFundName;
+        }
+        if (null !== $this->customerNo) {
+            $res['customer_no'] = $this->customerNo;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
         }
         if (isset($map['abbre_fund_name'])) {
             $model->abbreFundName = $map['abbre_fund_name'];
+        }
+        if (isset($map['customer_no'])) {
+            $model->customerNo = $map['customer_no'];
         }
 
         return $model;

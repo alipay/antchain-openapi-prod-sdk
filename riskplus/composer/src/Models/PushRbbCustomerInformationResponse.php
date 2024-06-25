@@ -26,23 +26,16 @@ class PushRbbCustomerInformationResponse extends Model
      */
     public $resultMsg;
 
-    // 返回代码
+    // 地址
     /**
      * @var string
      */
-    public $resCode;
-
-    // 结果说明
-    /**
-     * @var string
-     */
-    public $resMsg;
+    public $resultUrl;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'resCode'    => 'res_code',
-        'resMsg'     => 'res_msg',
+        'resultUrl'  => 'result_url',
     ];
 
     public function validate()
@@ -61,11 +54,8 @@ class PushRbbCustomerInformationResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->resCode) {
-            $res['res_code'] = $this->resCode;
-        }
-        if (null !== $this->resMsg) {
-            $res['res_msg'] = $this->resMsg;
+        if (null !== $this->resultUrl) {
+            $res['result_url'] = $this->resultUrl;
         }
 
         return $res;
@@ -88,11 +78,8 @@ class PushRbbCustomerInformationResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['res_code'])) {
-            $model->resCode = $map['res_code'];
-        }
-        if (isset($map['res_msg'])) {
-            $model->resMsg = $map['res_msg'];
+        if (isset($map['result_url'])) {
+            $model->resultUrl = $map['result_url'];
         }
 
         return $model;
