@@ -6873,6 +6873,8 @@ export class QueryDubbridgeRouterFundrouterResponse extends $tea.Model {
   fundCode?: string;
   // 资金方简称
   abbreFundName?: string;
+  // 客户编号
+  customerNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6880,6 +6882,7 @@ export class QueryDubbridgeRouterFundrouterResponse extends $tea.Model {
       resultMsg: 'result_msg',
       fundCode: 'fund_code',
       abbreFundName: 'abbre_fund_name',
+      customerNo: 'customer_no',
     };
   }
 
@@ -6890,6 +6893,7 @@ export class QueryDubbridgeRouterFundrouterResponse extends $tea.Model {
       resultMsg: 'string',
       fundCode: 'string',
       abbreFundName: 'string',
+      customerNo: 'string',
     };
   }
 
@@ -13461,17 +13465,14 @@ export class PushRbbCustomerInformationResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 返回代码
-  resCode?: string;
-  // 结果说明
-  resMsg?: string;
+  // 地址
+  resultUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      resCode: 'res_code',
-      resMsg: 'res_msg',
+      resultUrl: 'result_url',
     };
   }
 
@@ -13480,8 +13481,7 @@ export class PushRbbCustomerInformationResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      resCode: 'string',
-      resMsg: 'string',
+      resultUrl: 'string',
     };
   }
 
@@ -13587,17 +13587,11 @@ export class PushRbbCustomerStatusResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 结果说明
-  resMsg?: string;
-  // 返回代码
-  resCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      resMsg: 'res_msg',
-      resCode: 'res_code',
     };
   }
 
@@ -13606,8 +13600,6 @@ export class PushRbbCustomerStatusResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      resMsg: 'string',
-      resCode: 'string',
     };
   }
 
@@ -19844,7 +19836,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.18",
+          sdk_version: "1.19.20",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
