@@ -2364,6 +2364,8 @@ type UploadAntchainAtoFundFlowRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s UploadAntchainAtoFundFlowRequest) String() string {
@@ -2419,6 +2421,11 @@ func (s *UploadAntchainAtoFundFlowRequest) SetFileId(v string) *UploadAntchainAt
 	return s
 }
 
+func (s *UploadAntchainAtoFundFlowRequest) SetFundId(v string) *UploadAntchainAtoFundFlowRequest {
+	s.FundId = &v
+	return s
+}
+
 type UploadAntchainAtoFundFlowResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -2461,6 +2468,8 @@ type GetAntchainAtoFundFlowRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 	// 合同类型
 	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s GetAntchainAtoFundFlowRequest) String() string {
@@ -2493,6 +2502,11 @@ func (s *GetAntchainAtoFundFlowRequest) SetOrderId(v string) *GetAntchainAtoFund
 
 func (s *GetAntchainAtoFundFlowRequest) SetContractType(v string) *GetAntchainAtoFundFlowRequest {
 	s.ContractType = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundFlowRequest) SetFundId(v string) *GetAntchainAtoFundFlowRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -2554,6 +2568,8 @@ type RefuseAntchainAtoFundFlowRequest struct {
 	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
 	// 填写拒绝落章原因，如果同意则不用填写
 	SignReason *string `json:"sign_reason,omitempty" xml:"sign_reason,omitempty"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s RefuseAntchainAtoFundFlowRequest) String() string {
@@ -2591,6 +2607,11 @@ func (s *RefuseAntchainAtoFundFlowRequest) SetSignNo(v string) *RefuseAntchainAt
 
 func (s *RefuseAntchainAtoFundFlowRequest) SetSignReason(v string) *RefuseAntchainAtoFundFlowRequest {
 	s.SignReason = &v
+	return s
+}
+
+func (s *RefuseAntchainAtoFundFlowRequest) SetFundId(v string) *RefuseAntchainAtoFundFlowRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -4518,6 +4539,8 @@ type NotifyAntchainAtoFundFlowRequest struct {
 	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
 	// 返回的文件fileItemNo编号
 	FileItemNo *string `json:"file_item_no,omitempty" xml:"file_item_no,omitempty" require:"true"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s NotifyAntchainAtoFundFlowRequest) String() string {
@@ -4555,6 +4578,11 @@ func (s *NotifyAntchainAtoFundFlowRequest) SetSignNo(v string) *NotifyAntchainAt
 
 func (s *NotifyAntchainAtoFundFlowRequest) SetFileItemNo(v string) *NotifyAntchainAtoFundFlowRequest {
 	s.FileItemNo = &v
+	return s
+}
+
+func (s *NotifyAntchainAtoFundFlowRequest) SetFundId(v string) *NotifyAntchainAtoFundFlowRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -5131,6 +5159,8 @@ type UploadAntchainAtoFundCreditRequest struct {
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
 	// 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
 }
 
 func (s UploadAntchainAtoFundCreditRequest) String() string {
@@ -5188,6 +5218,11 @@ func (s *UploadAntchainAtoFundCreditRequest) SetFileUrl(v string) *UploadAntchai
 
 func (s *UploadAntchainAtoFundCreditRequest) SetContent(v string) *UploadAntchainAtoFundCreditRequest {
 	s.Content = &v
+	return s
+}
+
+func (s *UploadAntchainAtoFundCreditRequest) SetMerchantId(v string) *UploadAntchainAtoFundCreditRequest {
+	s.MerchantId = &v
 	return s
 }
 
@@ -5352,6 +5387,8 @@ type QueryAntchainAtoFundCreditRequest struct {
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 资方统一社会信用代码
 	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
 }
 
 func (s QueryAntchainAtoFundCreditRequest) String() string {
@@ -5384,6 +5421,11 @@ func (s *QueryAntchainAtoFundCreditRequest) SetOrderNo(v string) *QueryAntchainA
 
 func (s *QueryAntchainAtoFundCreditRequest) SetFundId(v string) *QueryAntchainAtoFundCreditRequest {
 	s.FundId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoFundCreditRequest) SetMerchantId(v string) *QueryAntchainAtoFundCreditRequest {
+	s.MerchantId = &v
 	return s
 }
 
@@ -5745,7 +5787,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.2"),
+				"sdk_version":      tea.String("1.3.3"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
