@@ -9248,6 +9248,8 @@ type QueryDubbridgeRouterFundrouterResponse struct {
 	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
 	// 资金方简称
 	AbbreFundName *string `json:"abbre_fund_name,omitempty" xml:"abbre_fund_name,omitempty"`
+	// 客户编号
+	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
 }
 
 func (s QueryDubbridgeRouterFundrouterResponse) String() string {
@@ -9280,6 +9282,11 @@ func (s *QueryDubbridgeRouterFundrouterResponse) SetFundCode(v string) *QueryDub
 
 func (s *QueryDubbridgeRouterFundrouterResponse) SetAbbreFundName(v string) *QueryDubbridgeRouterFundrouterResponse {
 	s.AbbreFundName = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterResponse) SetCustomerNo(v string) *QueryDubbridgeRouterFundrouterResponse {
+	s.CustomerNo = &v
 	return s
 }
 
@@ -18054,10 +18061,8 @@ type PushRbbCustomerInformationResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 返回代码
-	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
-	// 结果说明
-	ResMsg *string `json:"res_msg,omitempty" xml:"res_msg,omitempty"`
+	// 地址
+	ResultUrl *string `json:"result_url,omitempty" xml:"result_url,omitempty"`
 }
 
 func (s PushRbbCustomerInformationResponse) String() string {
@@ -18083,13 +18088,8 @@ func (s *PushRbbCustomerInformationResponse) SetResultMsg(v string) *PushRbbCust
 	return s
 }
 
-func (s *PushRbbCustomerInformationResponse) SetResCode(v string) *PushRbbCustomerInformationResponse {
-	s.ResCode = &v
-	return s
-}
-
-func (s *PushRbbCustomerInformationResponse) SetResMsg(v string) *PushRbbCustomerInformationResponse {
-	s.ResMsg = &v
+func (s *PushRbbCustomerInformationResponse) SetResultUrl(v string) *PushRbbCustomerInformationResponse {
+	s.ResultUrl = &v
 	return s
 }
 
@@ -18208,10 +18208,6 @@ type PushRbbCustomerStatusResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 结果说明
-	ResMsg *string `json:"res_msg,omitempty" xml:"res_msg,omitempty"`
-	// 返回代码
-	ResCode *string `json:"res_code,omitempty" xml:"res_code,omitempty"`
 }
 
 func (s PushRbbCustomerStatusResponse) String() string {
@@ -18234,16 +18230,6 @@ func (s *PushRbbCustomerStatusResponse) SetResultCode(v string) *PushRbbCustomer
 
 func (s *PushRbbCustomerStatusResponse) SetResultMsg(v string) *PushRbbCustomerStatusResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *PushRbbCustomerStatusResponse) SetResMsg(v string) *PushRbbCustomerStatusResponse {
-	s.ResMsg = &v
-	return s
-}
-
-func (s *PushRbbCustomerStatusResponse) SetResCode(v string) *PushRbbCustomerStatusResponse {
-	s.ResCode = &v
 	return s
 }
 
@@ -26567,7 +26553,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.18"),
+				"sdk_version":      tea.String("1.19.20"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
