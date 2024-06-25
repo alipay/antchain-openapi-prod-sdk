@@ -16,10 +16,10 @@ public class BatchcreateEcarGreencertificategenerationRequest extends TeaModel {
     @Validation(required = true)
     public String date;
 
-    // 设备发电量列表
-    @NameInMap("generation")
+    // 逆变器发电量列表
+    @NameInMap("inverter_generations")
     @Validation(required = true)
-    public java.util.List<DeviceGeneration> generation;
+    public java.util.List<InverterGeneration> inverterGenerations;
 
     public static BatchcreateEcarGreencertificategenerationRequest build(java.util.Map<String, ?> map) throws Exception {
         BatchcreateEcarGreencertificategenerationRequest self = new BatchcreateEcarGreencertificategenerationRequest();
@@ -50,12 +50,12 @@ public class BatchcreateEcarGreencertificategenerationRequest extends TeaModel {
         return this.date;
     }
 
-    public BatchcreateEcarGreencertificategenerationRequest setGeneration(java.util.List<DeviceGeneration> generation) {
-        this.generation = generation;
+    public BatchcreateEcarGreencertificategenerationRequest setInverterGenerations(java.util.List<InverterGeneration> inverterGenerations) {
+        this.inverterGenerations = inverterGenerations;
         return this;
     }
-    public java.util.List<DeviceGeneration> getGeneration() {
-        return this.generation;
+    public java.util.List<InverterGeneration> getInverterGenerations() {
+        return this.inverterGenerations;
     }
 
 }
