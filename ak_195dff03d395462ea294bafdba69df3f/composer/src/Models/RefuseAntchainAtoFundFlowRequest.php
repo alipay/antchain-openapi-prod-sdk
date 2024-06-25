@@ -42,6 +42,12 @@ class RefuseAntchainAtoFundFlowRequest extends Model
      * @var string
      */
     public $signReason;
+
+    // 资方统一社会信用代码
+    /**
+     * @var string
+     */
+    public $fundId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class RefuseAntchainAtoFundFlowRequest extends Model
         'orderId'           => 'order_id',
         'signNo'            => 'sign_no',
         'signReason'        => 'sign_reason',
+        'fundId'            => 'fund_id',
     ];
 
     public function validate()
@@ -79,6 +86,9 @@ class RefuseAntchainAtoFundFlowRequest extends Model
         if (null !== $this->signReason) {
             $res['sign_reason'] = $this->signReason;
         }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
 
         return $res;
     }
@@ -108,6 +118,9 @@ class RefuseAntchainAtoFundFlowRequest extends Model
         }
         if (isset($map['sign_reason'])) {
             $model->signReason = $map['sign_reason'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
 
         return $model;

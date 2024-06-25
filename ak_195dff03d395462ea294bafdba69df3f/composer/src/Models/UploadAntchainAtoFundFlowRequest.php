@@ -63,6 +63,12 @@ class UploadAntchainAtoFundFlowRequest extends Model
      * @var string
      */
     public $fileId;
+
+    // 资方统一社会信用代码
+    /**
+     * @var string
+     */
+    public $fundId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -71,6 +77,7 @@ class UploadAntchainAtoFundFlowRequest extends Model
         'signNo'            => 'sign_no',
         'fileItemNo'        => 'file_item_no',
         'fileId'            => 'file_id',
+        'fundId'            => 'fund_id',
     ];
 
     public function validate()
@@ -112,6 +119,9 @@ class UploadAntchainAtoFundFlowRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
 
         return $res;
     }
@@ -150,6 +160,9 @@ class UploadAntchainAtoFundFlowRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
 
         return $model;

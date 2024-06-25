@@ -36,12 +36,19 @@ class QueryAntchainAtoFundCreditRequest extends Model
      * @var string
      */
     public $fundId;
+
+    // 商户统一社会信用代码
+    /**
+     * @var string
+     */
+    public $merchantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNoType'       => 'order_no_type',
         'orderNo'           => 'order_no',
         'fundId'            => 'fund_id',
+        'merchantId'        => 'merchant_id',
     ];
 
     public function validate()
@@ -49,6 +56,7 @@ class QueryAntchainAtoFundCreditRequest extends Model
         Model::validateRequired('orderNoType', $this->orderNoType, true);
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('fundId', $this->fundId, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
     }
 
     public function toMap()
@@ -68,6 +76,9 @@ class QueryAntchainAtoFundCreditRequest extends Model
         }
         if (null !== $this->fundId) {
             $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
 
         return $res;
@@ -95,6 +106,9 @@ class QueryAntchainAtoFundCreditRequest extends Model
         }
         if (isset($map['fund_id'])) {
             $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;
