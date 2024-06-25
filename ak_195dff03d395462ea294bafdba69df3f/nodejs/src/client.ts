@@ -1765,6 +1765,8 @@ export class UploadAntchainAtoFundFlowRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
+  // 资方统一社会信用代码
+  fundId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1776,6 +1778,7 @@ export class UploadAntchainAtoFundFlowRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      fundId: 'fund_id',
     };
   }
 
@@ -1790,6 +1793,7 @@ export class UploadAntchainAtoFundFlowRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      fundId: 'string',
     };
   }
 
@@ -1836,6 +1840,8 @@ export class GetAntchainAtoFundFlowRequest extends $tea.Model {
   orderId: string;
   // 合同类型
   contractType?: string;
+  // 资方统一社会信用代码
+  fundId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1843,6 +1849,7 @@ export class GetAntchainAtoFundFlowRequest extends $tea.Model {
       merchantId: 'merchant_id',
       orderId: 'order_id',
       contractType: 'contract_type',
+      fundId: 'fund_id',
     };
   }
 
@@ -1853,6 +1860,7 @@ export class GetAntchainAtoFundFlowRequest extends $tea.Model {
       merchantId: 'string',
       orderId: 'string',
       contractType: 'string',
+      fundId: 'string',
     };
   }
 
@@ -1909,6 +1917,8 @@ export class RefuseAntchainAtoFundFlowRequest extends $tea.Model {
   signNo: string;
   // 填写拒绝落章原因，如果同意则不用填写
   signReason?: string;
+  // 资方统一社会信用代码
+  fundId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1917,6 +1927,7 @@ export class RefuseAntchainAtoFundFlowRequest extends $tea.Model {
       orderId: 'order_id',
       signNo: 'sign_no',
       signReason: 'sign_reason',
+      fundId: 'fund_id',
     };
   }
 
@@ -1928,6 +1939,7 @@ export class RefuseAntchainAtoFundFlowRequest extends $tea.Model {
       orderId: 'string',
       signNo: 'string',
       signReason: 'string',
+      fundId: 'string',
     };
   }
 
@@ -3439,6 +3451,8 @@ export class NotifyAntchainAtoFundFlowRequest extends $tea.Model {
   signNo: string;
   // 返回的文件fileItemNo编号
   fileItemNo: string;
+  // 资方统一社会信用代码
+  fundId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3447,6 +3461,7 @@ export class NotifyAntchainAtoFundFlowRequest extends $tea.Model {
       orderId: 'order_id',
       signNo: 'sign_no',
       fileItemNo: 'file_item_no',
+      fundId: 'fund_id',
     };
   }
 
@@ -3458,6 +3473,7 @@ export class NotifyAntchainAtoFundFlowRequest extends $tea.Model {
       orderId: 'string',
       signNo: 'string',
       fileItemNo: 'string',
+      fundId: 'string',
     };
   }
 
@@ -3925,6 +3941,8 @@ export class UploadAntchainAtoFundCreditRequest extends $tea.Model {
   fileUrl?: string;
   // 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
   content?: string;
+  // 商户统一社会信用代码
+  merchantId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3937,6 +3955,7 @@ export class UploadAntchainAtoFundCreditRequest extends $tea.Model {
       contentType: 'content_type',
       fileUrl: 'file_url',
       content: 'content',
+      merchantId: 'merchant_id',
     };
   }
 
@@ -3952,6 +3971,7 @@ export class UploadAntchainAtoFundCreditRequest extends $tea.Model {
       contentType: 'string',
       fileUrl: 'string',
       content: 'string',
+      merchantId: 'string',
     };
   }
 
@@ -4085,6 +4105,8 @@ export class QueryAntchainAtoFundCreditRequest extends $tea.Model {
   orderNo: string;
   // 资方统一社会信用代码
   fundId: string;
+  // 商户统一社会信用代码
+  merchantId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4092,6 +4114,7 @@ export class QueryAntchainAtoFundCreditRequest extends $tea.Model {
       orderNoType: 'order_no_type',
       orderNo: 'order_no',
       fundId: 'fund_id',
+      merchantId: 'merchant_id',
     };
   }
 
@@ -4102,6 +4125,7 @@ export class QueryAntchainAtoFundCreditRequest extends $tea.Model {
       orderNoType: 'string',
       orderNo: 'string',
       fundId: 'string',
+      merchantId: 'string',
     };
   }
 
@@ -4406,7 +4430,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.2",
+          sdk_version: "1.3.3",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
