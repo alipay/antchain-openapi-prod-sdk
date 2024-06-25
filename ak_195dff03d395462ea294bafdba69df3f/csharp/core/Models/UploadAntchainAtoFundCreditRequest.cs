@@ -58,6 +58,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string Content { get; set; }
 
+        // 商户统一社会信用代码
+        [NameInMap("merchant_id")]
+        [Validation(Required=true)]
+        public string MerchantId { get; set; }
+
     }
 
 }
