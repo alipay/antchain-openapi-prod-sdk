@@ -4017,6 +4017,140 @@ export class PagequeryDataassetTypeResponse extends $tea.Model {
   }
 }
 
+export class StartDatasetCollectingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部数据ID
+  datasetId: string;
+  // 采集数据所属用户ID
+  userId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      datasetId: 'dataset_id',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      datasetId: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class StartDatasetCollectingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数据采集任务ID，扩展用
+  taskId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDatasetCollectingRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 外部数据ID
+  datasetId: string;
+  // 操作用户ID
+  userId: string;
+  // 数据采集任务ID，若无查询最新的采集任务
+  taskId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      datasetId: 'dataset_id',
+      userId: 'user_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      datasetId: 'string',
+      userId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDatasetCollectingResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 采集状态
+  status?: string;
+  // 采集数据记录数
+  dataCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      dataCount: 'data_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      dataCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class AddEcarAvitivedataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5969,14 +6103,14 @@ export class BatchcreateEcarGreencertificategenerationRequest extends $tea.Model
   productInstanceId?: string;
   // 数据发生时间
   date: string;
-  // 设备发电量列表
-  generation: DeviceGeneration[];
+  // 逆变器发电量列表
+  inverterGenerations: InverterGeneration[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       date: 'date',
-      generation: 'generation',
+      inverterGenerations: 'inverter_generations',
     };
   }
 
@@ -5985,7 +6119,7 @@ export class BatchcreateEcarGreencertificategenerationRequest extends $tea.Model
       authToken: 'string',
       productInstanceId: 'string',
       date: 'string',
-      generation: { 'type': 'array', 'itemType': DeviceGeneration },
+      inverterGenerations: { 'type': 'array', 'itemType': InverterGeneration },
     };
   }
 
@@ -6192,6 +6326,67 @@ export class QueryEcarLcacalcResponse extends $tea.Model {
       startDate: 'string',
       endDate: 'string',
       list: { 'type': 'array', 'itemType': LcaCalcResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitEcarGreencertificategenerationfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 发电量文件id
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitEcarGreencertificategenerationfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -6482,7 +6677,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.8.1",
+          sdk_version: "2.9.2",
           _prod_code: "STLR",
           _prod_channel: "undefined",
         };
@@ -7158,6 +7353,44 @@ export default class Client {
   }
 
   /**
+   * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+   * Summary: 开始采集外部数据
+   */
+  async startDatasetCollecting(request: StartDatasetCollectingRequest): Promise<StartDatasetCollectingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.startDatasetCollectingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+   * Summary: 开始采集外部数据
+   */
+  async startDatasetCollectingEx(request: StartDatasetCollectingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<StartDatasetCollectingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<StartDatasetCollectingResponse>(await this.doRequest("1.0", "antchain.carbon.dataset.collecting.start", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new StartDatasetCollectingResponse({}));
+  }
+
+  /**
+   * Description: 查询外部数据采集状态
+   * Summary: 查询外部数据采集状态
+   */
+  async queryDatasetCollecting(request: QueryDatasetCollectingRequest): Promise<QueryDatasetCollectingResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDatasetCollectingEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询外部数据采集状态
+   * Summary: 查询外部数据采集状态
+   */
+  async queryDatasetCollectingEx(request: QueryDatasetCollectingRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDatasetCollectingResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDatasetCollectingResponse>(await this.doRequest("1.0", "antchain.carbon.dataset.collecting.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDatasetCollectingResponse({}));
+  }
+
+  /**
    * Description: 新增排放活动数据
    * Summary: 新增排放活动数据
    */
@@ -7710,6 +7943,46 @@ export default class Client {
   async queryEcarLcacalcEx(request: QueryEcarLcacalcRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEcarLcacalcResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEcarLcacalcResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.lcacalc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEcarLcacalcResponse({}));
+  }
+
+  /**
+   * Description: 发电数据文件导入开放接口
+   * Summary: 发电数据文件导入开放接口
+   */
+  async submitEcarGreencertificategenerationfile(request: SubmitEcarGreencertificategenerationfileRequest): Promise<SubmitEcarGreencertificategenerationfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitEcarGreencertificategenerationfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 发电数据文件导入开放接口
+   * Summary: 发电数据文件导入开放接口
+   */
+  async submitEcarGreencertificategenerationfileEx(request: SubmitEcarGreencertificategenerationfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitEcarGreencertificategenerationfileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antchain.carbon.ecar.greencertificategenerationfile.submit",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let submitEcarGreencertificategenerationfileResponse = new SubmitEcarGreencertificategenerationfileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return submitEcarGreencertificategenerationfileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<SubmitEcarGreencertificategenerationfileResponse>(await this.doRequest("1.0", "antchain.carbon.ecar.greencertificategenerationfile.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitEcarGreencertificategenerationfileResponse({}));
   }
 
   /**
