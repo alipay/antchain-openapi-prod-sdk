@@ -2923,6 +2923,7 @@ class UploadAntchainAtoFundFlowRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        fund_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2941,6 +2942,8 @@ class UploadAntchainAtoFundFlowRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 资方统一社会信用代码
+        self.fund_id = fund_id
 
     def validate(self):
         self.validate_required(self.merchant_id, 'merchant_id')
@@ -2973,6 +2976,8 @@ class UploadAntchainAtoFundFlowRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
         return result
 
     def from_map(self, m: dict = None):
@@ -2995,6 +3000,8 @@ class UploadAntchainAtoFundFlowRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
         return self
 
 
@@ -3048,6 +3055,7 @@ class GetAntchainAtoFundFlowRequest(TeaModel):
         merchant_id: str = None,
         order_id: str = None,
         contract_type: str = None,
+        fund_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3058,6 +3066,8 @@ class GetAntchainAtoFundFlowRequest(TeaModel):
         self.order_id = order_id
         # 合同类型
         self.contract_type = contract_type
+        # 资方统一社会信用代码
+        self.fund_id = fund_id
 
     def validate(self):
         self.validate_required(self.merchant_id, 'merchant_id')
@@ -3079,6 +3089,8 @@ class GetAntchainAtoFundFlowRequest(TeaModel):
             result['order_id'] = self.order_id
         if self.contract_type is not None:
             result['contract_type'] = self.contract_type
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3093,6 +3105,8 @@ class GetAntchainAtoFundFlowRequest(TeaModel):
             self.order_id = m.get('order_id')
         if m.get('contract_type') is not None:
             self.contract_type = m.get('contract_type')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
         return self
 
 
@@ -3161,6 +3175,7 @@ class RefuseAntchainAtoFundFlowRequest(TeaModel):
         order_id: str = None,
         sign_no: str = None,
         sign_reason: str = None,
+        fund_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3173,6 +3188,8 @@ class RefuseAntchainAtoFundFlowRequest(TeaModel):
         self.sign_no = sign_no
         # 填写拒绝落章原因，如果同意则不用填写
         self.sign_reason = sign_reason
+        # 资方统一社会信用代码
+        self.fund_id = fund_id
 
     def validate(self):
         self.validate_required(self.merchant_id, 'merchant_id')
@@ -3197,6 +3214,8 @@ class RefuseAntchainAtoFundFlowRequest(TeaModel):
             result['sign_no'] = self.sign_no
         if self.sign_reason is not None:
             result['sign_reason'] = self.sign_reason
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
         return result
 
     def from_map(self, m: dict = None):
@@ -3213,6 +3232,8 @@ class RefuseAntchainAtoFundFlowRequest(TeaModel):
             self.sign_no = m.get('sign_no')
         if m.get('sign_reason') is not None:
             self.sign_reason = m.get('sign_reason')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
         return self
 
 
@@ -5688,6 +5709,7 @@ class NotifyAntchainAtoFundFlowRequest(TeaModel):
         order_id: str = None,
         sign_no: str = None,
         file_item_no: str = None,
+        fund_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -5700,6 +5722,8 @@ class NotifyAntchainAtoFundFlowRequest(TeaModel):
         self.sign_no = sign_no
         # 返回的文件fileItemNo编号
         self.file_item_no = file_item_no
+        # 资方统一社会信用代码
+        self.fund_id = fund_id
 
     def validate(self):
         self.validate_required(self.merchant_id, 'merchant_id')
@@ -5725,6 +5749,8 @@ class NotifyAntchainAtoFundFlowRequest(TeaModel):
             result['sign_no'] = self.sign_no
         if self.file_item_no is not None:
             result['file_item_no'] = self.file_item_no
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5741,6 +5767,8 @@ class NotifyAntchainAtoFundFlowRequest(TeaModel):
             self.sign_no = m.get('sign_no')
         if m.get('file_item_no') is not None:
             self.file_item_no = m.get('file_item_no')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
         return self
 
 
@@ -6457,6 +6485,7 @@ class UploadAntchainAtoFundCreditRequest(TeaModel):
         content_type: str = None,
         file_url: str = None,
         content: str = None,
+        merchant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6477,6 +6506,8 @@ class UploadAntchainAtoFundCreditRequest(TeaModel):
         self.file_url = file_url
         # 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
         self.content = content
+        # 商户统一社会信用代码
+        self.merchant_id = merchant_id
 
     def validate(self):
         self.validate_required(self.order_no_type, 'order_no_type')
@@ -6484,6 +6515,7 @@ class UploadAntchainAtoFundCreditRequest(TeaModel):
         self.validate_required(self.fund_id, 'fund_id')
         self.validate_required(self.credit_type, 'credit_type')
         self.validate_required(self.content_type, 'content_type')
+        self.validate_required(self.merchant_id, 'merchant_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -6511,6 +6543,8 @@ class UploadAntchainAtoFundCreditRequest(TeaModel):
             result['file_url'] = self.file_url
         if self.content is not None:
             result['content'] = self.content
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -6535,6 +6569,8 @@ class UploadAntchainAtoFundCreditRequest(TeaModel):
             self.file_url = m.get('file_url')
         if m.get('content') is not None:
             self.content = m.get('content')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
         return self
 
 
@@ -6730,6 +6766,7 @@ class QueryAntchainAtoFundCreditRequest(TeaModel):
         order_no_type: str = None,
         order_no: str = None,
         fund_id: str = None,
+        merchant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6740,11 +6777,14 @@ class QueryAntchainAtoFundCreditRequest(TeaModel):
         self.order_no = order_no
         # 资方统一社会信用代码
         self.fund_id = fund_id
+        # 商户统一社会信用代码
+        self.merchant_id = merchant_id
 
     def validate(self):
         self.validate_required(self.order_no_type, 'order_no_type')
         self.validate_required(self.order_no, 'order_no')
         self.validate_required(self.fund_id, 'fund_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -6762,6 +6802,8 @@ class QueryAntchainAtoFundCreditRequest(TeaModel):
             result['order_no'] = self.order_no
         if self.fund_id is not None:
             result['fund_id'] = self.fund_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -6776,6 +6818,8 @@ class QueryAntchainAtoFundCreditRequest(TeaModel):
             self.order_no = m.get('order_no')
         if m.get('fund_id') is not None:
             self.fund_id = m.get('fund_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
         return self
 
 
