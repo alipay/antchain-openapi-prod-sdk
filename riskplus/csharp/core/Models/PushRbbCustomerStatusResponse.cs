@@ -24,16 +24,6 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 结果说明
-        [NameInMap("res_msg")]
-        [Validation(Required=false)]
-        public string ResMsg { get; set; }
-
-        // 返回代码
-        [NameInMap("res_code")]
-        [Validation(Required=false)]
-        public string ResCode { get; set; }
-
     }
 
 }
