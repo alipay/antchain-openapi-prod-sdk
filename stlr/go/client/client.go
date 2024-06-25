@@ -5152,6 +5152,174 @@ func (s *PagequeryDataassetTypeResponse) SetPageSize(v int64) *PagequeryDataasse
 	return s
 }
 
+type StartDatasetCollectingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部数据ID
+	DatasetId *string `json:"dataset_id,omitempty" xml:"dataset_id,omitempty" require:"true"`
+	// 采集数据所属用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+}
+
+func (s StartDatasetCollectingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartDatasetCollectingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StartDatasetCollectingRequest) SetAuthToken(v string) *StartDatasetCollectingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StartDatasetCollectingRequest) SetProductInstanceId(v string) *StartDatasetCollectingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StartDatasetCollectingRequest) SetDatasetId(v string) *StartDatasetCollectingRequest {
+	s.DatasetId = &v
+	return s
+}
+
+func (s *StartDatasetCollectingRequest) SetUserId(v string) *StartDatasetCollectingRequest {
+	s.UserId = &v
+	return s
+}
+
+type StartDatasetCollectingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 数据采集任务ID，扩展用
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+}
+
+func (s StartDatasetCollectingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StartDatasetCollectingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StartDatasetCollectingResponse) SetReqMsgId(v string) *StartDatasetCollectingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StartDatasetCollectingResponse) SetResultCode(v string) *StartDatasetCollectingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StartDatasetCollectingResponse) SetResultMsg(v string) *StartDatasetCollectingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StartDatasetCollectingResponse) SetTaskId(v string) *StartDatasetCollectingResponse {
+	s.TaskId = &v
+	return s
+}
+
+type QueryDatasetCollectingRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 外部数据ID
+	DatasetId *string `json:"dataset_id,omitempty" xml:"dataset_id,omitempty" require:"true"`
+	// 操作用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 数据采集任务ID，若无查询最新的采集任务
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+}
+
+func (s QueryDatasetCollectingRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDatasetCollectingRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDatasetCollectingRequest) SetAuthToken(v string) *QueryDatasetCollectingRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDatasetCollectingRequest) SetProductInstanceId(v string) *QueryDatasetCollectingRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDatasetCollectingRequest) SetDatasetId(v string) *QueryDatasetCollectingRequest {
+	s.DatasetId = &v
+	return s
+}
+
+func (s *QueryDatasetCollectingRequest) SetUserId(v string) *QueryDatasetCollectingRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryDatasetCollectingRequest) SetTaskId(v string) *QueryDatasetCollectingRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryDatasetCollectingResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 采集状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 采集数据记录数
+	DataCount *int64 `json:"data_count,omitempty" xml:"data_count,omitempty"`
+}
+
+func (s QueryDatasetCollectingResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDatasetCollectingResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDatasetCollectingResponse) SetReqMsgId(v string) *QueryDatasetCollectingResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDatasetCollectingResponse) SetResultCode(v string) *QueryDatasetCollectingResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDatasetCollectingResponse) SetResultMsg(v string) *QueryDatasetCollectingResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDatasetCollectingResponse) SetStatus(v string) *QueryDatasetCollectingResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryDatasetCollectingResponse) SetDataCount(v int64) *QueryDatasetCollectingResponse {
+	s.DataCount = &v
+	return s
+}
+
 type AddEcarAvitivedataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -7762,8 +7930,8 @@ type BatchcreateEcarGreencertificategenerationRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 数据发生时间
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
-	// 设备发电量列表
-	Generation []*DeviceGeneration `json:"generation,omitempty" xml:"generation,omitempty" require:"true" type:"Repeated"`
+	// 逆变器发电量列表
+	InverterGenerations []*InverterGeneration `json:"inverter_generations,omitempty" xml:"inverter_generations,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s BatchcreateEcarGreencertificategenerationRequest) String() string {
@@ -7789,8 +7957,8 @@ func (s *BatchcreateEcarGreencertificategenerationRequest) SetDate(v string) *Ba
 	return s
 }
 
-func (s *BatchcreateEcarGreencertificategenerationRequest) SetGeneration(v []*DeviceGeneration) *BatchcreateEcarGreencertificategenerationRequest {
-	s.Generation = v
+func (s *BatchcreateEcarGreencertificategenerationRequest) SetInverterGenerations(v []*InverterGeneration) *BatchcreateEcarGreencertificategenerationRequest {
+	s.InverterGenerations = v
 	return s
 }
 
@@ -8068,6 +8236,83 @@ func (s *QueryEcarLcacalcResponse) SetEndDate(v string) *QueryEcarLcacalcRespons
 
 func (s *QueryEcarLcacalcResponse) SetList(v []*LcaCalcResult) *QueryEcarLcacalcResponse {
 	s.List = v
+	return s
+}
+
+type SubmitEcarGreencertificategenerationfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 发电量文件id
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s SubmitEcarGreencertificategenerationfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitEcarGreencertificategenerationfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitEcarGreencertificategenerationfileRequest) SetAuthToken(v string) *SubmitEcarGreencertificategenerationfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitEcarGreencertificategenerationfileRequest) SetProductInstanceId(v string) *SubmitEcarGreencertificategenerationfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitEcarGreencertificategenerationfileRequest) SetFileObject(v io.Reader) *SubmitEcarGreencertificategenerationfileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *SubmitEcarGreencertificategenerationfileRequest) SetFileObjectName(v string) *SubmitEcarGreencertificategenerationfileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *SubmitEcarGreencertificategenerationfileRequest) SetFileId(v string) *SubmitEcarGreencertificategenerationfileRequest {
+	s.FileId = &v
+	return s
+}
+
+type SubmitEcarGreencertificategenerationfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitEcarGreencertificategenerationfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitEcarGreencertificategenerationfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitEcarGreencertificategenerationfileResponse) SetReqMsgId(v string) *SubmitEcarGreencertificategenerationfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitEcarGreencertificategenerationfileResponse) SetResultCode(v string) *SubmitEcarGreencertificategenerationfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitEcarGreencertificategenerationfileResponse) SetResultMsg(v string) *SubmitEcarGreencertificategenerationfileResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -8420,7 +8665,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.8.1"),
+				"sdk_version":      tea.String("2.9.2"),
 				"_prod_code":       tea.String("STLR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -9601,6 +9846,74 @@ func (client *Client) PagequeryDataassetTypeEx(request *PagequeryDataassetTypeRe
 }
 
 /**
+ * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+ * Summary: 开始采集外部数据
+ */
+func (client *Client) StartDatasetCollecting(request *StartDatasetCollectingRequest) (_result *StartDatasetCollectingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StartDatasetCollectingResponse{}
+	_body, _err := client.StartDatasetCollectingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 启动数据采集任务，从外部数据读取数据并记录到可信存证
+ * Summary: 开始采集外部数据
+ */
+func (client *Client) StartDatasetCollectingEx(request *StartDatasetCollectingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StartDatasetCollectingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StartDatasetCollectingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.dataset.collecting.start"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询外部数据采集状态
+ * Summary: 查询外部数据采集状态
+ */
+func (client *Client) QueryDatasetCollecting(request *QueryDatasetCollectingRequest) (_result *QueryDatasetCollectingResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDatasetCollectingResponse{}
+	_body, _err := client.QueryDatasetCollectingEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询外部数据采集状态
+ * Summary: 查询外部数据采集状态
+ */
+func (client *Client) QueryDatasetCollectingEx(request *QueryDatasetCollectingRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDatasetCollectingResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDatasetCollectingResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.dataset.collecting.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 新增排放活动数据
  * Summary: 新增排放活动数据
  */
@@ -10569,6 +10882,69 @@ func (client *Client) QueryEcarLcacalcEx(request *QueryEcarLcacalcRequest, heade
 	}
 	_result = &QueryEcarLcacalcResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.lcacalc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 发电数据文件导入开放接口
+ * Summary: 发电数据文件导入开放接口
+ */
+func (client *Client) SubmitEcarGreencertificategenerationfile(request *SubmitEcarGreencertificategenerationfileRequest) (_result *SubmitEcarGreencertificategenerationfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitEcarGreencertificategenerationfileResponse{}
+	_body, _err := client.SubmitEcarGreencertificategenerationfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 发电数据文件导入开放接口
+ * Summary: 发电数据文件导入开放接口
+ */
+func (client *Client) SubmitEcarGreencertificategenerationfileEx(request *SubmitEcarGreencertificategenerationfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitEcarGreencertificategenerationfileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antchain.carbon.ecar.greencertificategenerationfile.submit"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			submitEcarGreencertificategenerationfileResponse := &SubmitEcarGreencertificategenerationfileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = submitEcarGreencertificategenerationfileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitEcarGreencertificategenerationfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.carbon.ecar.greencertificategenerationfile.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
