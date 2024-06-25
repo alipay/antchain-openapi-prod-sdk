@@ -11484,6 +11484,7 @@ class QueryDubbridgeRouterFundrouterResponse(TeaModel):
         result_msg: str = None,
         fund_code: str = None,
         abbre_fund_name: str = None,
+        customer_no: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11495,6 +11496,8 @@ class QueryDubbridgeRouterFundrouterResponse(TeaModel):
         self.fund_code = fund_code
         # 资金方简称
         self.abbre_fund_name = abbre_fund_name
+        # 客户编号
+        self.customer_no = customer_no
 
     def validate(self):
         pass
@@ -11515,6 +11518,8 @@ class QueryDubbridgeRouterFundrouterResponse(TeaModel):
             result['fund_code'] = self.fund_code
         if self.abbre_fund_name is not None:
             result['abbre_fund_name'] = self.abbre_fund_name
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
         return result
 
     def from_map(self, m: dict = None):
@@ -11529,6 +11534,8 @@ class QueryDubbridgeRouterFundrouterResponse(TeaModel):
             self.fund_code = m.get('fund_code')
         if m.get('abbre_fund_name') is not None:
             self.abbre_fund_name = m.get('abbre_fund_name')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
         return self
 
 
@@ -22363,8 +22370,7 @@ class PushRbbCustomerInformationResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        res_code: str = None,
-        res_msg: str = None,
+        result_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22372,10 +22378,8 @@ class PushRbbCustomerInformationResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 返回代码
-        self.res_code = res_code
-        # 结果说明
-        self.res_msg = res_msg
+        # 地址
+        self.result_url = result_url
 
     def validate(self):
         pass
@@ -22392,10 +22396,8 @@ class PushRbbCustomerInformationResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.res_code is not None:
-            result['res_code'] = self.res_code
-        if self.res_msg is not None:
-            result['res_msg'] = self.res_msg
+        if self.result_url is not None:
+            result['result_url'] = self.result_url
         return result
 
     def from_map(self, m: dict = None):
@@ -22406,10 +22408,8 @@ class PushRbbCustomerInformationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('res_code') is not None:
-            self.res_code = m.get('res_code')
-        if m.get('res_msg') is not None:
-            self.res_msg = m.get('res_msg')
+        if m.get('result_url') is not None:
+            self.result_url = m.get('result_url')
         return self
 
 
@@ -22558,8 +22558,6 @@ class PushRbbCustomerStatusResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        res_msg: str = None,
-        res_code: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22567,10 +22565,6 @@ class PushRbbCustomerStatusResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 结果说明
-        self.res_msg = res_msg
-        # 返回代码
-        self.res_code = res_code
 
     def validate(self):
         pass
@@ -22587,10 +22581,6 @@ class PushRbbCustomerStatusResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.res_msg is not None:
-            result['res_msg'] = self.res_msg
-        if self.res_code is not None:
-            result['res_code'] = self.res_code
         return result
 
     def from_map(self, m: dict = None):
@@ -22601,10 +22591,6 @@ class PushRbbCustomerStatusResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('res_msg') is not None:
-            self.res_msg = m.get('res_msg')
-        if m.get('res_code') is not None:
-            self.res_code = m.get('res_code')
         return self
 
 
