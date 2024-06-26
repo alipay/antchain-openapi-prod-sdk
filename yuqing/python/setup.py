@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_yuqing.
 
-Created on 20/06/2024
+Created on 26/06/2024
 
 @author: Ant Chain SDK
 """
