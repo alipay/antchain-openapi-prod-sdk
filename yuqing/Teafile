@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "YUQING",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-yuqing:1.2.20",
-    "go": "github.com/antchain-openapi-sdk-go/yuqing/client:v1.2.20",
-    "csharp": "AntChain.SDK.YUQING:1.2.20",
-    "ts": "@antchain/yuqing:1.2.20",
-    "php": "antchain/yuqing:1.2.20",
-    "python": "antchain_sdk_yuqing:1.2.20"
+    "java": "com.antgroup.antchain.openapi:openapi-yuqing:1.2.21",
+    "go": "github.com/antchain-openapi-sdk-go/yuqing/client:v1.2.21",
+    "csharp": "AntChain.SDK.YUQING:1.2.21",
+    "ts": "@antchain/yuqing:1.2.21",
+    "php": "antchain/yuqing:1.2.21",
+    "python": "antchain_sdk_yuqing:1.2.21"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
