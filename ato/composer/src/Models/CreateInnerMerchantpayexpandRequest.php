@@ -93,6 +93,9 @@ class CreateInnerMerchantpayexpandRequest extends Model
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
+        Model::validateRequired('companyInfo', $this->companyInfo, true);
+        Model::validateRequired('legalInfo', $this->legalInfo, true);
+        Model::validateRequired('applicationInfo', $this->applicationInfo, true);
         Model::validateRequired('submit', $this->submit, true);
         Model::validateRequired('expandMode', $this->expandMode, true);
         Model::validateRequired('userName', $this->userName, true);

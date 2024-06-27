@@ -66,6 +66,12 @@ class UploadFundCreditRequest extends Model
      * @var string
      */
     public $content;
+
+    // 商户统一社会信用代码
+    /**
+     * @var string
+     */
+    public $merchantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class UploadFundCreditRequest extends Model
         'contentType'       => 'content_type',
         'fileUrl'           => 'file_url',
         'content'           => 'content',
+        'merchantId'        => 'merchant_id',
     ];
 
     public function validate()
@@ -86,6 +93,7 @@ class UploadFundCreditRequest extends Model
         Model::validateRequired('fundId', $this->fundId, true);
         Model::validateRequired('creditType', $this->creditType, true);
         Model::validateRequired('contentType', $this->contentType, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
     }
 
     public function toMap()
@@ -120,6 +128,9 @@ class UploadFundCreditRequest extends Model
         }
         if (null !== $this->content) {
             $res['content'] = $this->content;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
 
         return $res;
@@ -162,6 +173,9 @@ class UploadFundCreditRequest extends Model
         }
         if (isset($map['content'])) {
             $model->content = $map['content'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;

@@ -36,12 +36,19 @@ class GetFundFlowRequest extends Model
      * @var string
      */
     public $contractType;
+
+    // 资方统一社会信用代码
+    /**
+     * @var string
+     */
+    public $fundId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'merchantId'        => 'merchant_id',
         'orderId'           => 'order_id',
         'contractType'      => 'contract_type',
+        'fundId'            => 'fund_id',
     ];
 
     public function validate()
@@ -67,6 +74,9 @@ class GetFundFlowRequest extends Model
         }
         if (null !== $this->contractType) {
             $res['contract_type'] = $this->contractType;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
         }
 
         return $res;
@@ -94,6 +104,9 @@ class GetFundFlowRequest extends Model
         }
         if (isset($map['contract_type'])) {
             $model->contractType = $map['contract_type'];
+        }
+        if (isset($map['fund_id'])) {
+            $model->fundId = $map['fund_id'];
         }
 
         return $model;
