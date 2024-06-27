@@ -1449,6 +1449,8 @@ type UploadFundFlowRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s UploadFundFlowRequest) String() string {
@@ -1504,6 +1506,11 @@ func (s *UploadFundFlowRequest) SetFileId(v string) *UploadFundFlowRequest {
 	return s
 }
 
+func (s *UploadFundFlowRequest) SetFundId(v string) *UploadFundFlowRequest {
+	s.FundId = &v
+	return s
+}
+
 type UploadFundFlowResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1546,6 +1553,8 @@ type GetFundFlowRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 	// 合同类型
 	ContractType *string `json:"contract_type,omitempty" xml:"contract_type,omitempty"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s GetFundFlowRequest) String() string {
@@ -1578,6 +1587,11 @@ func (s *GetFundFlowRequest) SetOrderId(v string) *GetFundFlowRequest {
 
 func (s *GetFundFlowRequest) SetContractType(v string) *GetFundFlowRequest {
 	s.ContractType = &v
+	return s
+}
+
+func (s *GetFundFlowRequest) SetFundId(v string) *GetFundFlowRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -1639,6 +1653,8 @@ type RefuseFundFlowRequest struct {
 	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
 	// 填写拒绝落章原因，如果同意则不用填写
 	SignReason *string `json:"sign_reason,omitempty" xml:"sign_reason,omitempty"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s RefuseFundFlowRequest) String() string {
@@ -1676,6 +1692,11 @@ func (s *RefuseFundFlowRequest) SetSignNo(v string) *RefuseFundFlowRequest {
 
 func (s *RefuseFundFlowRequest) SetSignReason(v string) *RefuseFundFlowRequest {
 	s.SignReason = &v
+	return s
+}
+
+func (s *RefuseFundFlowRequest) SetFundId(v string) *RefuseFundFlowRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -2511,6 +2532,8 @@ type NotifyFundFlowRequest struct {
 	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
 	// 返回的文件fileItemNo编号
 	FileItemNo *string `json:"file_item_no,omitempty" xml:"file_item_no,omitempty" require:"true"`
+	// 资方统一社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty"`
 }
 
 func (s NotifyFundFlowRequest) String() string {
@@ -2548,6 +2571,11 @@ func (s *NotifyFundFlowRequest) SetSignNo(v string) *NotifyFundFlowRequest {
 
 func (s *NotifyFundFlowRequest) SetFileItemNo(v string) *NotifyFundFlowRequest {
 	s.FileItemNo = &v
+	return s
+}
+
+func (s *NotifyFundFlowRequest) SetFundId(v string) *NotifyFundFlowRequest {
+	s.FundId = &v
 	return s
 }
 
@@ -2603,6 +2631,8 @@ type UploadFundCreditRequest struct {
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
 	// 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
 }
 
 func (s UploadFundCreditRequest) String() string {
@@ -2663,6 +2693,11 @@ func (s *UploadFundCreditRequest) SetContent(v string) *UploadFundCreditRequest 
 	return s
 }
 
+func (s *UploadFundCreditRequest) SetMerchantId(v string) *UploadFundCreditRequest {
+	s.MerchantId = &v
+	return s
+}
+
 type UploadFundCreditResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -2712,6 +2747,8 @@ type QueryFundCreditRequest struct {
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 资方统一社会信用代码
 	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
 }
 
 func (s QueryFundCreditRequest) String() string {
@@ -2744,6 +2781,11 @@ func (s *QueryFundCreditRequest) SetOrderNo(v string) *QueryFundCreditRequest {
 
 func (s *QueryFundCreditRequest) SetFundId(v string) *QueryFundCreditRequest {
 	s.FundId = &v
+	return s
+}
+
+func (s *QueryFundCreditRequest) SetMerchantId(v string) *QueryFundCreditRequest {
+	s.MerchantId = &v
 	return s
 }
 
@@ -5255,11 +5297,11 @@ type CreateInnerMerchantpayexpandRequest struct {
 	// 租户ID
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 公司信息
-	CompanyInfo *CompanyInfo `json:"company_info,omitempty" xml:"company_info,omitempty"`
+	CompanyInfo *CompanyInfo `json:"company_info,omitempty" xml:"company_info,omitempty" require:"true"`
 	// 法人信息
-	LegalInfo *LegalInfo `json:"legal_info,omitempty" xml:"legal_info,omitempty"`
+	LegalInfo *LegalInfo `json:"legal_info,omitempty" xml:"legal_info,omitempty" require:"true"`
 	// 应用信息
-	ApplicationInfo *ApplicationInfo `json:"application_info,omitempty" xml:"application_info,omitempty"`
+	ApplicationInfo *ApplicationInfo `json:"application_info,omitempty" xml:"application_info,omitempty" require:"true"`
 	// 是否直接提交
 	// SUBMITTED 直接提交
 	// STAGE 暂存
@@ -10300,7 +10342,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.73"),
+				"sdk_version":      tea.String("1.8.76"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
