@@ -18,14 +18,17 @@ public class CreateInnerMerchantpayexpandRequest extends TeaModel {
 
     // 公司信息
     @NameInMap("company_info")
+    @Validation(required = true)
     public CompanyInfo companyInfo;
 
     // 法人信息
     @NameInMap("legal_info")
+    @Validation(required = true)
     public LegalInfo legalInfo;
 
     // 应用信息
     @NameInMap("application_info")
+    @Validation(required = true)
     public ApplicationInfo applicationInfo;
 
     // 是否直接提交

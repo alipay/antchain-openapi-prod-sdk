@@ -26,6 +26,11 @@ public class QueryFundCreditRequest extends TeaModel {
     @Validation(required = true)
     public String fundId;
 
+    // 商户统一社会信用代码
+    @NameInMap("merchant_id")
+    @Validation(required = true)
+    public String merchantId;
+
     public static QueryFundCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryFundCreditRequest self = new QueryFundCreditRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class QueryFundCreditRequest extends TeaModel {
     }
     public String getFundId() {
         return this.fundId;
+    }
+
+    public QueryFundCreditRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }

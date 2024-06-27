@@ -30,6 +30,10 @@ public class RefuseFundFlowRequest extends TeaModel {
     @NameInMap("sign_reason")
     public String signReason;
 
+    // 资方统一社会信用代码
+    @NameInMap("fund_id")
+    public String fundId;
+
     public static RefuseFundFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         RefuseFundFlowRequest self = new RefuseFundFlowRequest();
         return TeaModel.build(map, self);
@@ -81,6 +85,14 @@ public class RefuseFundFlowRequest extends TeaModel {
     }
     public String getSignReason() {
         return this.signReason;
+    }
+
+    public RefuseFundFlowRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }

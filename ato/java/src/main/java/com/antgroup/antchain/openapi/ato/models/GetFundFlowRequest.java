@@ -25,6 +25,10 @@ public class GetFundFlowRequest extends TeaModel {
     @NameInMap("contract_type")
     public String contractType;
 
+    // 资方统一社会信用代码
+    @NameInMap("fund_id")
+    public String fundId;
+
     public static GetFundFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         GetFundFlowRequest self = new GetFundFlowRequest();
         return TeaModel.build(map, self);
@@ -68,6 +72,14 @@ public class GetFundFlowRequest extends TeaModel {
     }
     public String getContractType() {
         return this.contractType;
+    }
+
+    public GetFundFlowRequest setFundId(String fundId) {
+        this.fundId = fundId;
+        return this;
+    }
+    public String getFundId() {
+        return this.fundId;
     }
 
 }
