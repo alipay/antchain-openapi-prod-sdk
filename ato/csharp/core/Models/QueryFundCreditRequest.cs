@@ -33,6 +33,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string FundId { get; set; }
 
+        // 商户统一社会信用代码
+        [NameInMap("merchant_id")]
+        [Validation(Required=true)]
+        public string MerchantId { get; set; }
+
     }
 
 }

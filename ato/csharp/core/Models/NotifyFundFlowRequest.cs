@@ -38,6 +38,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string FileItemNo { get; set; }
 
+        // 资方统一社会信用代码
+        [NameInMap("fund_id")]
+        [Validation(Required=false)]
+        public string FundId { get; set; }
+
     }
 
 }

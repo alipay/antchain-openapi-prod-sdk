@@ -25,17 +25,17 @@ namespace AntChain.SDK.ATO.Models
 
         // 公司信息
         [NameInMap("company_info")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public CompanyInfo CompanyInfo { get; set; }
 
         // 法人信息
         [NameInMap("legal_info")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public LegalInfo LegalInfo { get; set; }
 
         // 应用信息
         [NameInMap("application_info")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public ApplicationInfo ApplicationInfo { get; set; }
 
         // 是否直接提交
