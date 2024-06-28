@@ -44,6 +44,14 @@ public class GetEvidenceInfoResponse extends TeaModel {
     @NameInMap("certificate_info")
     public EvidenceCertificateInfo certificateInfo;
 
+    // 取证错误码
+    @NameInMap("evidence_error_code")
+    public String evidenceErrorCode;
+
+    // 取证错误描述
+    @NameInMap("evidence_error_msg")
+    public String evidenceErrorMsg;
+
     public static GetEvidenceInfoResponse build(java.util.Map<String, ?> map) throws Exception {
         GetEvidenceInfoResponse self = new GetEvidenceInfoResponse();
         return TeaModel.build(map, self);
@@ -127,6 +135,22 @@ public class GetEvidenceInfoResponse extends TeaModel {
     }
     public EvidenceCertificateInfo getCertificateInfo() {
         return this.certificateInfo;
+    }
+
+    public GetEvidenceInfoResponse setEvidenceErrorCode(String evidenceErrorCode) {
+        this.evidenceErrorCode = evidenceErrorCode;
+        return this;
+    }
+    public String getEvidenceErrorCode() {
+        return this.evidenceErrorCode;
+    }
+
+    public GetEvidenceInfoResponse setEvidenceErrorMsg(String evidenceErrorMsg) {
+        this.evidenceErrorMsg = evidenceErrorMsg;
+        return this;
+    }
+    public String getEvidenceErrorMsg() {
+        return this.evidenceErrorMsg;
     }
 
 }

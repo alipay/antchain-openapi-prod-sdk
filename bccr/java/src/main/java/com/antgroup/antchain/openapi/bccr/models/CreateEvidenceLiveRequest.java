@@ -36,6 +36,10 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
+    // 主播 ID
+    @NameInMap("profile_id")
+    public String profileId;
+
     public static CreateEvidenceLiveRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateEvidenceLiveRequest self = new CreateEvidenceLiveRequest();
         return TeaModel.build(map, self);
@@ -95,6 +99,14 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public CreateEvidenceLiveRequest setProfileId(String profileId) {
+        this.profileId = profileId;
+        return this;
+    }
+    public String getProfileId() {
+        return this.profileId;
     }
 
 }
