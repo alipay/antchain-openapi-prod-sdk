@@ -14499,6 +14499,7 @@ class CreateEvidenceLiveRequest(TeaModel):
         type: str = None,
         web_url: EvidenceWebUrlInfo = None,
         client_token: str = None,
+        profile_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14513,6 +14514,8 @@ class CreateEvidenceLiveRequest(TeaModel):
         self.web_url = web_url
         # 幂等字段
         self.client_token = client_token
+        # 主播 ID
+        self.profile_id = profile_id
 
     def validate(self):
         self.validate_required(self.evidence_user_id, 'evidence_user_id')
@@ -14543,6 +14546,8 @@ class CreateEvidenceLiveRequest(TeaModel):
             result['web_url'] = self.web_url.to_map()
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.profile_id is not None:
+            result['profile_id'] = self.profile_id
         return result
 
     def from_map(self, m: dict = None):
@@ -14562,6 +14567,8 @@ class CreateEvidenceLiveRequest(TeaModel):
             self.web_url = temp_model.from_map(m['web_url'])
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('profile_id') is not None:
+            self.profile_id = m.get('profile_id')
         return self
 
 
@@ -14912,6 +14919,8 @@ class GetEvidenceInfoResponse(TeaModel):
         evidence_url: EvidenceWebUrlInfo = None,
         evidence_result_url: str = None,
         certificate_info: EvidenceCertificateInfo = None,
+        evidence_error_code: str = None,
+        evidence_error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -14933,6 +14942,10 @@ class GetEvidenceInfoResponse(TeaModel):
         self.evidence_result_url = evidence_result_url
         # 存证证明信息
         self.certificate_info = certificate_info
+        # 取证错误码
+        self.evidence_error_code = evidence_error_code
+        # 取证错误描述
+        self.evidence_error_msg = evidence_error_msg
 
     def validate(self):
         if self.evidence_url:
@@ -14966,6 +14979,10 @@ class GetEvidenceInfoResponse(TeaModel):
             result['evidence_result_url'] = self.evidence_result_url
         if self.certificate_info is not None:
             result['certificate_info'] = self.certificate_info.to_map()
+        if self.evidence_error_code is not None:
+            result['evidence_error_code'] = self.evidence_error_code
+        if self.evidence_error_msg is not None:
+            result['evidence_error_msg'] = self.evidence_error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -14992,6 +15009,10 @@ class GetEvidenceInfoResponse(TeaModel):
         if m.get('certificate_info') is not None:
             temp_model = EvidenceCertificateInfo()
             self.certificate_info = temp_model.from_map(m['certificate_info'])
+        if m.get('evidence_error_code') is not None:
+            self.evidence_error_code = m.get('evidence_error_code')
+        if m.get('evidence_error_msg') is not None:
+            self.evidence_error_msg = m.get('evidence_error_msg')
         return self
 
 
