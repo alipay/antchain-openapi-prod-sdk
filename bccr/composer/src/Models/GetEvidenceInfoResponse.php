@@ -67,6 +67,18 @@ class GetEvidenceInfoResponse extends Model
      * @var EvidenceCertificateInfo
      */
     public $certificateInfo;
+
+    // 取证错误码
+    /**
+     * @var string
+     */
+    public $evidenceErrorCode;
+
+    // 取证错误描述
+    /**
+     * @var string
+     */
+    public $evidenceErrorMsg;
     protected $_name = [
         'reqMsgId'          => 'req_msg_id',
         'resultCode'        => 'result_code',
@@ -78,6 +90,8 @@ class GetEvidenceInfoResponse extends Model
         'evidenceUrl'       => 'evidence_url',
         'evidenceResultUrl' => 'evidence_result_url',
         'certificateInfo'   => 'certificate_info',
+        'evidenceErrorCode' => 'evidence_error_code',
+        'evidenceErrorMsg'  => 'evidence_error_msg',
     ];
 
     public function validate()
@@ -116,6 +130,12 @@ class GetEvidenceInfoResponse extends Model
         }
         if (null !== $this->certificateInfo) {
             $res['certificate_info'] = null !== $this->certificateInfo ? $this->certificateInfo->toMap() : null;
+        }
+        if (null !== $this->evidenceErrorCode) {
+            $res['evidence_error_code'] = $this->evidenceErrorCode;
+        }
+        if (null !== $this->evidenceErrorMsg) {
+            $res['evidence_error_msg'] = $this->evidenceErrorMsg;
         }
 
         return $res;
@@ -158,6 +178,12 @@ class GetEvidenceInfoResponse extends Model
         }
         if (isset($map['certificate_info'])) {
             $model->certificateInfo = EvidenceCertificateInfo::fromMap($map['certificate_info']);
+        }
+        if (isset($map['evidence_error_code'])) {
+            $model->evidenceErrorCode = $map['evidence_error_code'];
+        }
+        if (isset($map['evidence_error_msg'])) {
+            $model->evidenceErrorMsg = $map['evidence_error_msg'];
         }
 
         return $model;

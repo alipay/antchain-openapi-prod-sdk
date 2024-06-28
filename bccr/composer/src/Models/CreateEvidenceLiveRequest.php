@@ -48,6 +48,12 @@ class CreateEvidenceLiveRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 主播 ID
+    /**
+     * @var string
+     */
+    public $profileId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class CreateEvidenceLiveRequest extends Model
         'type'              => 'type',
         'webUrl'            => 'web_url',
         'clientToken'       => 'client_token',
+        'profileId'         => 'profile_id',
     ];
 
     public function validate()
@@ -91,6 +98,9 @@ class CreateEvidenceLiveRequest extends Model
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
         }
+        if (null !== $this->profileId) {
+            $res['profile_id'] = $this->profileId;
+        }
 
         return $res;
     }
@@ -123,6 +133,9 @@ class CreateEvidenceLiveRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['profile_id'])) {
+            $model->profileId = $map['profile_id'];
         }
 
         return $model;
