@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.20',
+    sdk_version = '1.19.21',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -5332,6 +5332,48 @@ async function queryDubbridgeAgreementPreview(request: QueryDubbridgeAgreementPr
 async function queryDubbridgeAgreementPreviewEx(request: QueryDubbridgeAgreementPreviewRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeAgreementPreviewResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeAccountUsecreditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 渠道号
+  channelCode: string(name='channel_code'),
+  // 客户编码
+  customNo: string(name='custom_no'),
+  // 资产方用户唯一标识
+  openId: string(name='open_id'),
+}
+
+model QueryDubbridgeAccountUsecreditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户借款是否结清
+  data?: CustomReceiptStatus(name='data'),
+}
+
+/**
+ * Description: 用户借款是否结清
+ * Summary: 用户借款是否结清
+ */
+async function queryDubbridgeAccountUsecredit(request: QueryDubbridgeAccountUsecreditRequest): QueryDubbridgeAccountUsecreditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeAccountUsecreditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户借款是否结清
+ * Summary: 用户借款是否结清
+ */
+async function queryDubbridgeAccountUsecreditEx(request: QueryDubbridgeAccountUsecreditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeAccountUsecreditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.account.usecredit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyFinserviceZhimaIdentifyRequest = {
