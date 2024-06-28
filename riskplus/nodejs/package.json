@@ -1,6 +1,6 @@
 {
   "name": "@antchain/riskplus",
-  "version": "1.19.20",
+  "version": "1.19.21",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

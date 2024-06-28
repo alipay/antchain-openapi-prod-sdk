@@ -10117,6 +10117,73 @@ export class QueryDubbridgeAgreementPreviewResponse extends $tea.Model {
   }
 }
 
+export class QueryDubbridgeAccountUsecreditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道号
+  channelCode: string;
+  // 客户编码
+  customNo: string;
+  // 资产方用户唯一标识
+  openId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      channelCode: 'channel_code',
+      customNo: 'custom_no',
+      openId: 'open_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      channelCode: 'string',
+      customNo: 'string',
+      openId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeAccountUsecreditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户借款是否结清
+  data?: CustomReceiptStatus;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: CustomReceiptStatus,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyFinserviceZhimaIdentifyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -19836,7 +19903,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.20",
+          sdk_version: "1.19.21",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -21176,6 +21243,25 @@ export default class Client {
   async queryDubbridgeAgreementPreviewEx(request: QueryDubbridgeAgreementPreviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAgreementPreviewResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDubbridgeAgreementPreviewResponse>(await this.doRequest("1.0", "riskplus.dubbridge.agreement.preview.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAgreementPreviewResponse({}));
+  }
+
+  /**
+   * Description: 用户借款是否结清
+   * Summary: 用户借款是否结清
+   */
+  async queryDubbridgeAccountUsecredit(request: QueryDubbridgeAccountUsecreditRequest): Promise<QueryDubbridgeAccountUsecreditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeAccountUsecreditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户借款是否结清
+   * Summary: 用户借款是否结清
+   */
+  async queryDubbridgeAccountUsecreditEx(request: QueryDubbridgeAccountUsecreditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeAccountUsecreditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeAccountUsecreditResponse>(await this.doRequest("1.0", "riskplus.dubbridge.account.usecredit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeAccountUsecreditResponse({}));
   }
 
   /**
