@@ -43,6 +43,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ClientToken { get; set; }
 
+        // 主播 ID
+        [NameInMap("profile_id")]
+        [Validation(Required=false)]
+        public string ProfileId { get; set; }
+
     }
 
 }

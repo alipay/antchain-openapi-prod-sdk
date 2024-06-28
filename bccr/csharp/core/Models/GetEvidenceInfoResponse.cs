@@ -59,6 +59,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public EvidenceCertificateInfo CertificateInfo { get; set; }
 
+        // 取证错误码
+        [NameInMap("evidence_error_code")]
+        [Validation(Required=false)]
+        public string EvidenceErrorCode { get; set; }
+
+        // 取证错误描述
+        [NameInMap("evidence_error_msg")]
+        [Validation(Required=false)]
+        public string EvidenceErrorMsg { get; set; }
+
     }
 
 }
