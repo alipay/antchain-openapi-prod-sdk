@@ -8704,6 +8704,8 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
   webUrl: EvidenceWebUrlInfo;
   // 幂等字段
   clientToken: string;
+  // 主播 ID
+  profileId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8713,6 +8715,7 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
       type: 'type',
       webUrl: 'web_url',
       clientToken: 'client_token',
+      profileId: 'profile_id',
     };
   }
 
@@ -8725,6 +8728,7 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
       type: 'string',
       webUrl: EvidenceWebUrlInfo,
       clientToken: 'string',
+      profileId: 'string',
     };
   }
 
@@ -8963,6 +8967,10 @@ export class GetEvidenceInfoResponse extends $tea.Model {
   evidenceResultUrl?: string;
   // 存证证明信息
   certificateInfo?: EvidenceCertificateInfo;
+  // 取证错误码
+  evidenceErrorCode?: string;
+  // 取证错误描述
+  evidenceErrorMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8975,6 +8983,8 @@ export class GetEvidenceInfoResponse extends $tea.Model {
       evidenceUrl: 'evidence_url',
       evidenceResultUrl: 'evidence_result_url',
       certificateInfo: 'certificate_info',
+      evidenceErrorCode: 'evidence_error_code',
+      evidenceErrorMsg: 'evidence_error_msg',
     };
   }
 
@@ -8990,6 +9000,8 @@ export class GetEvidenceInfoResponse extends $tea.Model {
       evidenceUrl: EvidenceWebUrlInfo,
       evidenceResultUrl: 'string',
       certificateInfo: EvidenceCertificateInfo,
+      evidenceErrorCode: 'string',
+      evidenceErrorMsg: 'string',
     };
   }
 
@@ -9929,7 +9941,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.18.37",
+          sdk_version: "1.18.39",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
