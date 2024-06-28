@@ -13645,6 +13645,90 @@ func (s *QueryDubbridgeAgreementPreviewResponse) SetAgreementInfoList(v []*GetAg
 	return s
 }
 
+type QueryDubbridgeAccountUsecreditRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 渠道号
+	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
+	// 客户编码
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	// 资产方用户唯一标识
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+}
+
+func (s QueryDubbridgeAccountUsecreditRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeAccountUsecreditRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeAccountUsecreditRequest) SetAuthToken(v string) *QueryDubbridgeAccountUsecreditRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountUsecreditRequest) SetProductInstanceId(v string) *QueryDubbridgeAccountUsecreditRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountUsecreditRequest) SetChannelCode(v string) *QueryDubbridgeAccountUsecreditRequest {
+	s.ChannelCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountUsecreditRequest) SetCustomNo(v string) *QueryDubbridgeAccountUsecreditRequest {
+	s.CustomNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountUsecreditRequest) SetOpenId(v string) *QueryDubbridgeAccountUsecreditRequest {
+	s.OpenId = &v
+	return s
+}
+
+type QueryDubbridgeAccountUsecreditResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户借款是否结清
+	Data *CustomReceiptStatus `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryDubbridgeAccountUsecreditResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeAccountUsecreditResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeAccountUsecreditResponse) SetReqMsgId(v string) *QueryDubbridgeAccountUsecreditResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountUsecreditResponse) SetResultCode(v string) *QueryDubbridgeAccountUsecreditResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountUsecreditResponse) SetResultMsg(v string) *QueryDubbridgeAccountUsecreditResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeAccountUsecreditResponse) SetData(v *CustomReceiptStatus) *QueryDubbridgeAccountUsecreditResponse {
+	s.Data = v
+	return s
+}
+
 type VerifyFinserviceZhimaIdentifyRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -26553,7 +26637,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.20"),
+				"sdk_version":      tea.String("1.19.21"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -28911,6 +28995,40 @@ func (client *Client) QueryDubbridgeAgreementPreviewEx(request *QueryDubbridgeAg
 	}
 	_result = &QueryDubbridgeAgreementPreviewResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.agreement.preview.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户借款是否结清
+ * Summary: 用户借款是否结清
+ */
+func (client *Client) QueryDubbridgeAccountUsecredit(request *QueryDubbridgeAccountUsecreditRequest) (_result *QueryDubbridgeAccountUsecreditResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeAccountUsecreditResponse{}
+	_body, _err := client.QueryDubbridgeAccountUsecreditEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户借款是否结清
+ * Summary: 用户借款是否结清
+ */
+func (client *Client) QueryDubbridgeAccountUsecreditEx(request *QueryDubbridgeAccountUsecreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeAccountUsecreditResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeAccountUsecreditResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.account.usecredit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
