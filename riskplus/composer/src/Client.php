@@ -167,6 +167,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAccountUsecreditRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeAccountUsecreditResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAgreementPreviewRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAgreementPreviewResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCreditPermitRequest;
@@ -534,7 +536,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.20',
+                    'sdk_version'      => '1.19.21',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2809,6 +2811,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDubbridgeAgreementPreviewResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户借款是否结清
+     * Summary: 用户借款是否结清.
+     *
+     * @param QueryDubbridgeAccountUsecreditRequest $request
+     *
+     * @return QueryDubbridgeAccountUsecreditResponse
+     */
+    public function queryDubbridgeAccountUsecredit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeAccountUsecreditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户借款是否结清
+     * Summary: 用户借款是否结清.
+     *
+     * @param QueryDubbridgeAccountUsecreditRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryDubbridgeAccountUsecreditResponse
+     */
+    public function queryDubbridgeAccountUsecreditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeAccountUsecreditResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.account.usecredit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
