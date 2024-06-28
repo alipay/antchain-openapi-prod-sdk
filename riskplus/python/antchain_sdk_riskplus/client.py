@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.20',
+                    'sdk_version': '1.19.21',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.20',
+                    'sdk_version': '1.19.21',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4059,6 +4059,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryDubbridgeAgreementPreviewResponse(),
             await self.do_request_async('1.0', 'riskplus.dubbridge.agreement.preview.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_account_usecredit(
+        self,
+        request: riskplus_models.QueryDubbridgeAccountUsecreditRequest,
+    ) -> riskplus_models.QueryDubbridgeAccountUsecreditResponse:
+        """
+        Description: 用户借款是否结清
+        Summary: 用户借款是否结清
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_account_usecredit_ex(request, headers, runtime)
+
+    async def query_dubbridge_account_usecredit_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAccountUsecreditRequest,
+    ) -> riskplus_models.QueryDubbridgeAccountUsecreditResponse:
+        """
+        Description: 用户借款是否结清
+        Summary: 用户借款是否结清
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_account_usecredit_ex_async(request, headers, runtime)
+
+    def query_dubbridge_account_usecredit_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeAccountUsecreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAccountUsecreditResponse:
+        """
+        Description: 用户借款是否结清
+        Summary: 用户借款是否结清
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAccountUsecreditResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.account.usecredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_account_usecredit_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeAccountUsecreditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeAccountUsecreditResponse:
+        """
+        Description: 用户借款是否结清
+        Summary: 用户借款是否结清
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeAccountUsecreditResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.account.usecredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_finservice_zhima_identify(

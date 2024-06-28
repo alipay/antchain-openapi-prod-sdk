@@ -16879,6 +16879,114 @@ class QueryDubbridgeAgreementPreviewResponse(TeaModel):
         return self
 
 
+class QueryDubbridgeAccountUsecreditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        channel_code: str = None,
+        custom_no: str = None,
+        open_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 渠道号
+        self.channel_code = channel_code
+        # 客户编码
+        self.custom_no = custom_no
+        # 资产方用户唯一标识
+        self.open_id = open_id
+
+    def validate(self):
+        self.validate_required(self.channel_code, 'channel_code')
+        self.validate_required(self.custom_no, 'custom_no')
+        self.validate_required(self.open_id, 'open_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.channel_code is not None:
+            result['channel_code'] = self.channel_code
+        if self.custom_no is not None:
+            result['custom_no'] = self.custom_no
+        if self.open_id is not None:
+            result['open_id'] = self.open_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('channel_code') is not None:
+            self.channel_code = m.get('channel_code')
+        if m.get('custom_no') is not None:
+            self.custom_no = m.get('custom_no')
+        if m.get('open_id') is not None:
+            self.open_id = m.get('open_id')
+        return self
+
+
+class QueryDubbridgeAccountUsecreditResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: CustomReceiptStatus = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用户借款是否结清
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = CustomReceiptStatus()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
 class VerifyFinserviceZhimaIdentifyRequest(TeaModel):
     def __init__(
         self,
