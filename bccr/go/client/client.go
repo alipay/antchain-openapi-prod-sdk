@@ -11756,6 +11756,8 @@ type CreateEvidenceLiveRequest struct {
 	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 主播 ID
+	ProfileId *string `json:"profile_id,omitempty" xml:"profile_id,omitempty"`
 }
 
 func (s CreateEvidenceLiveRequest) String() string {
@@ -11798,6 +11800,11 @@ func (s *CreateEvidenceLiveRequest) SetWebUrl(v *EvidenceWebUrlInfo) *CreateEvid
 
 func (s *CreateEvidenceLiveRequest) SetClientToken(v string) *CreateEvidenceLiveRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetProfileId(v string) *CreateEvidenceLiveRequest {
+	s.ProfileId = &v
 	return s
 }
 
@@ -12088,6 +12095,10 @@ type GetEvidenceInfoResponse struct {
 	EvidenceResultUrl *string `json:"evidence_result_url,omitempty" xml:"evidence_result_url,omitempty"`
 	// 存证证明信息
 	CertificateInfo *EvidenceCertificateInfo `json:"certificate_info,omitempty" xml:"certificate_info,omitempty"`
+	// 取证错误码
+	EvidenceErrorCode *string `json:"evidence_error_code,omitempty" xml:"evidence_error_code,omitempty"`
+	// 取证错误描述
+	EvidenceErrorMsg *string `json:"evidence_error_msg,omitempty" xml:"evidence_error_msg,omitempty"`
 }
 
 func (s GetEvidenceInfoResponse) String() string {
@@ -12145,6 +12156,16 @@ func (s *GetEvidenceInfoResponse) SetEvidenceResultUrl(v string) *GetEvidenceInf
 
 func (s *GetEvidenceInfoResponse) SetCertificateInfo(v *EvidenceCertificateInfo) *GetEvidenceInfoResponse {
 	s.CertificateInfo = v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetEvidenceErrorCode(v string) *GetEvidenceInfoResponse {
+	s.EvidenceErrorCode = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetEvidenceErrorMsg(v string) *GetEvidenceInfoResponse {
+	s.EvidenceErrorMsg = &v
 	return s
 }
 
@@ -13369,7 +13390,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.37"),
+				"sdk_version":      tea.String("1.18.39"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
