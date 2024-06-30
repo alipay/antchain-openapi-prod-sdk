@@ -135,6 +135,14 @@ class ChainInsightAddress extends Model
      * @var ChainInsightAssetContractInfo
      */
     public $assetContractInfo;
+
+    // 创建时间
+    /**
+     * @example 1656568400000
+     *
+     * @var int
+     */
+    public $createTime;
     protected $_name = [
         'bizId'               => 'biz_id',
         'bizIdName'           => 'biz_id_name',
@@ -152,6 +160,7 @@ class ChainInsightAddress extends Model
         'recoverKey'          => 'recover_key',
         'contractType'        => 'contract_type',
         'assetContractInfo'   => 'asset_contract_info',
+        'createTime'          => 'create_time',
     ];
 
     public function validate()
@@ -168,6 +177,7 @@ class ChainInsightAddress extends Model
         Model::validateRequired('balance', $this->balance, true);
         Model::validateRequired('authMap', $this->authMap, true);
         Model::validateRequired('recoverKey', $this->recoverKey, true);
+        Model::validateRequired('createTime', $this->createTime, true);
     }
 
     public function toMap()
@@ -226,6 +236,9 @@ class ChainInsightAddress extends Model
         }
         if (null !== $this->assetContractInfo) {
             $res['asset_contract_info'] = null !== $this->assetContractInfo ? $this->assetContractInfo->toMap() : null;
+        }
+        if (null !== $this->createTime) {
+            $res['create_time'] = $this->createTime;
         }
 
         return $res;
@@ -292,6 +305,9 @@ class ChainInsightAddress extends Model
         }
         if (isset($map['asset_contract_info'])) {
             $model->assetContractInfo = ChainInsightAssetContractInfo::fromMap($map['asset_contract_info']);
+        }
+        if (isset($map['create_time'])) {
+            $model->createTime = $map['create_time'];
         }
 
         return $model;

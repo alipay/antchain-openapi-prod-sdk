@@ -97,6 +97,8 @@ use AntChain\BAASDATAGW\Models\QueryChaininsightBlockRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightBlockResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightChaintxhistogramRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightChaintxhistogramResponse;
+use AntChain\BAASDATAGW\Models\QueryChaininsightContracttimelineconfigRequest;
+use AntChain\BAASDATAGW\Models\QueryChaininsightContracttimelineconfigResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightLabelsRequest;
 use AntChain\BAASDATAGW\Models\QueryChaininsightLabelsResponse;
 use AntChain\BAASDATAGW\Models\QueryChaininsightPrivatechainsstatusRequest;
@@ -131,12 +133,16 @@ use AntChain\BAASDATAGW\Models\RegisterChainsRequest;
 use AntChain\BAASDATAGW\Models\RegisterChainsResponse;
 use AntChain\BAASDATAGW\Models\RemoveDatasearchIndexRequest;
 use AntChain\BAASDATAGW\Models\RemoveDatasearchIndexResponse;
+use AntChain\BAASDATAGW\Models\SaveChaininsightContractinterfaceRequest;
+use AntChain\BAASDATAGW\Models\SaveChaininsightContractinterfaceResponse;
 use AntChain\BAASDATAGW\Models\StartDatasearchIndexRequest;
 use AntChain\BAASDATAGW\Models\StartDatasearchIndexResponse;
 use AntChain\BAASDATAGW\Models\StopDatasearchIndexRequest;
 use AntChain\BAASDATAGW\Models\StopDatasearchIndexResponse;
 use AntChain\BAASDATAGW\Models\UpdateChaininsightContractinterfaceRequest;
 use AntChain\BAASDATAGW\Models\UpdateChaininsightContractinterfaceResponse;
+use AntChain\BAASDATAGW\Models\UpdateChaininsightContracttimelineconfigRequest;
+use AntChain\BAASDATAGW\Models\UpdateChaininsightContracttimelineconfigResponse;
 use AntChain\BAASDATAGW\Models\UpdateChaininsightLabelsRequest;
 use AntChain\BAASDATAGW\Models\UpdateChaininsightLabelsResponse;
 use AntChain\BAASDATAGW\Models\UpdateChaininsightWidgetsRequest;
@@ -262,7 +268,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 链上交易中的事件
+            // 数据实时检索搜索Request
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -290,7 +296,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.2',
+                    'sdk_version'      => '1.4.10',
                     '_prod_code'       => 'BAASDATAGW',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2415,6 +2421,105 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryChaininsightStatisticassethistorycontractResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+     * Summary: 列出链上地址的时间轴配置.
+     *
+     * @param QueryChaininsightContracttimelineconfigRequest $request
+     *
+     * @return QueryChaininsightContracttimelineconfigResponse
+     */
+    public function queryChaininsightContracttimelineconfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryChaininsightContracttimelineconfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+     * Summary: 列出链上地址的时间轴配置.
+     *
+     * @param QueryChaininsightContracttimelineconfigRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return QueryChaininsightContracttimelineconfigResponse
+     */
+    public function queryChaininsightContracttimelineconfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryChaininsightContracttimelineconfigResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.contracttimelineconfig.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+     * Summary: 更新链上地址的时间轴配置.
+     *
+     * @param UpdateChaininsightContracttimelineconfigRequest $request
+     *
+     * @return UpdateChaininsightContracttimelineconfigResponse
+     */
+    public function updateChaininsightContracttimelineconfig($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateChaininsightContracttimelineconfigEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+     * Summary: 更新链上地址的时间轴配置.
+     *
+     * @param UpdateChaininsightContracttimelineconfigRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return UpdateChaininsightContracttimelineconfigResponse
+     */
+    public function updateChaininsightContracttimelineconfigEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateChaininsightContracttimelineconfigResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.contracttimelineconfig.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 重写接口参数配置
+     * Summary: 重写接口参数配置.
+     *
+     * @param SaveChaininsightContractinterfaceRequest $request
+     *
+     * @return SaveChaininsightContractinterfaceResponse
+     */
+    public function saveChaininsightContractinterface($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->saveChaininsightContractinterfaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 重写接口参数配置
+     * Summary: 重写接口参数配置.
+     *
+     * @param SaveChaininsightContractinterfaceRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return SaveChaininsightContractinterfaceResponse
+     */
+    public function saveChaininsightContractinterfaceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SaveChaininsightContractinterfaceResponse::fromMap($this->doRequest('1.0', 'antchain.baasdatagw.chaininsight.contractinterface.save', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
