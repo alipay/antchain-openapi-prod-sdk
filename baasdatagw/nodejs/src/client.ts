@@ -77,1016 +77,39 @@ export class Config extends $tea.Model {
   }
 }
 
-// 链上交易中的事件
-export class ChainInsightEvent extends $tea.Model {
-  // 事件的 topics 列表
-  topics: string[];
-  // 解析后的交易 topics 列表
-  topicsDecoded?: string[];
-  // 事件的内容
-  content: string;
-  // 解析后的事件内容
-  contentDecoded?: string;
-  static names(): { [key: string]: string } {
-    return {
-      topics: 'topics',
-      topicsDecoded: 'topics_decoded',
-      content: 'content',
-      contentDecoded: 'content_decoded',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      topics: { 'type': 'array', 'itemType': 'string' },
-      topicsDecoded: { 'type': 'array', 'itemType': 'string' },
-      content: 'string',
-      contentDecoded: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// MapKV
-export class MapEntry extends $tea.Model {
-  // Key
-  key: string;
-  // value
-  value: string;
-  // 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
-  type?: string;
-  static names(): { [key: string]: string } {
-    return {
-      key: 'key',
-      value: 'value',
-      type: 'type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      key: 'string',
-      value: 'string',
-      type: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据洞察合约接口参数信息
-export class ChainInsightContractInterfaceArgument extends $tea.Model {
-  // 参数名
-  name: string;
-  // 参数类型
-  type: string;
-  // 参数位置，枚举：input，output，deposit
-  location: string;
-  // 参数的业务名称
-  comment?: string;
-  // 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
-  standardErcName?: string;
-  static names(): { [key: string]: string } {
-    return {
-      name: 'name',
-      type: 'type',
-      location: 'location',
-      comment: 'comment',
-      standardErcName: 'standard_erc_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      name: 'string',
-      type: 'string',
-      location: 'string',
-      comment: 'string',
-      standardErcName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据洞察统计指标Meta元数据
-export class ChainInsightStatisticMetricMeta extends $tea.Model {
-  // 统计指标的类型；枚举：Table，Histogram
-  type: string;
-  // 指标的展示名称
-  name: string;
-  // 指标的实际名称（自定义指标ID）
-  metricName: string;
-  static names(): { [key: string]: string } {
-    return {
-      type: 'type',
-      name: 'name',
-      metricName: 'metric_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      type: 'string',
-      name: 'string',
-      metricName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据洞察表格行
-export class ChainInsightStatisticCustomTableRow extends $tea.Model {
-  // 表格的一行
-  row: MapEntry[];
-  static names(): { [key: string]: string } {
-    return {
-      row: 'row',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      row: { 'type': 'array', 'itemType': MapEntry },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上资产持有者信息
-export class ChainInsightAssetOwner extends $tea.Model {
-  // 持有者地址
-  owner: string;
-  // 合约地址
-  contractAddr: string;
-  // 资产ID
-  assetId: string;
-  // 数字权证链1155合约特有的分片ID
-  shardId?: string;
-  // 资产类型：ERC721 / ERC1155
-  ercType: string;
-  // 数字资产余额
-  balance: number;
-  // 该账户对该资产最近一次转让交易的哈希
-  updateTxHash: string;
-  // 该账户对该资产最近一次转让交易所在区块高度
-  updateBlockHeight: number;
-  // 该账户对该资产最近一次转让交易所在区块的创建时间，单位：毫秒
-  updateBlockTime: number;
-  static names(): { [key: string]: string } {
-    return {
-      owner: 'owner',
-      contractAddr: 'contract_addr',
-      assetId: 'asset_id',
-      shardId: 'shard_id',
-      ercType: 'erc_type',
-      balance: 'balance',
-      updateTxHash: 'update_tx_hash',
-      updateBlockHeight: 'update_block_height',
-      updateBlockTime: 'update_block_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      owner: 'string',
-      contractAddr: 'string',
-      assetId: 'string',
-      shardId: 'string',
-      ercType: 'string',
-      balance: 'number',
-      updateTxHash: 'string',
-      updateBlockHeight: 'number',
-      updateBlockTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 导出任务检查点信息
-export class TriggerCheckpoint extends $tea.Model {
-  // 当前处理的高度
-  height?: number;
-  // 检查点偏移量
-  index?: number;
-  // 检查点的类型
-  type?: string;
-  // 最近的错误信息
-  lastError?: string;
-  // 错误计数
-  errorCount?: number;
-  // 推送的事件数量
-  totalCount?: number;
-  static names(): { [key: string]: string } {
-    return {
-      height: 'height',
-      index: 'index',
-      type: 'type',
-      lastError: 'last_error',
-      errorCount: 'error_count',
-      totalCount: 'total_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      height: 'number',
-      index: 'number',
-      type: 'string',
-      lastError: 'string',
-      errorCount: 'number',
-      totalCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据洞察搜索结果的Item
-export class ChainInsightSearchResultItem extends $tea.Model {
-  // 结果类型，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
-  type: string;
-  // 结果所在的链ID
-  bizId: string;
-  // 结果链ID对应的区块链名称
-  bizName?: string;
-  // 结果与搜索请求的相关性程度，(0, 10000000]
-  score: number;
-  // 搜索结果值
-  values: MapEntry[];
-  static names(): { [key: string]: string } {
-    return {
-      type: 'type',
-      bizId: 'biz_id',
-      bizName: 'biz_name',
-      score: 'score',
-      values: 'values',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      type: 'string',
-      bizId: 'string',
-      bizName: 'string',
-      score: 'number',
-      values: { 'type': 'array', 'itemType': MapEntry },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链状态
-export class ChainStatus extends $tea.Model {
-  // 链ID
-  bizId?: string;
-  // 链名称
-  bizIdName?: string;
-  // 主链ID
-  parentBizId?: string;
-  // 当前区块高度
-  ledgerHeight?: number;
-  // 交易总量
-  txCount?: number;
-  // 链状态，ok, fail
-  status?: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizId: 'biz_id',
-      bizIdName: 'biz_id_name',
-      parentBizId: 'parent_biz_id',
-      ledgerHeight: 'ledger_height',
-      txCount: 'tx_count',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizId: 'string',
-      bizIdName: 'string',
-      parentBizId: 'string',
-      ledgerHeight: 'number',
-      txCount: 'number',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上交易基础信息
-export class ChainInsightTransactionInfo extends $tea.Model {
-  // 交易ID
-  id?: string;
-  // 交易类型
-  type?: string;
-  // 交易发起者
-  from?: string;
-  // 交易接收者
-  to?: string;
-  // 交易成块高度
-  height?: number;
-  // 交易成块时间，毫秒时间戳
-  timestamp?: number;
-  // 合约中 ABI 的状态  (无需上传) none / （可以上传）pending / （可以更新）uploaded
-  abiStatus?: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      type: 'type',
-      from: 'from',
-      to: 'to',
-      height: 'height',
-      timestamp: 'timestamp',
-      abiStatus: 'abi_status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      type: 'string',
-      from: 'string',
-      to: 'string',
-      height: 'number',
-      timestamp: 'number',
-      abiStatus: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上资产流转信息
-export class ChainInsightAssetOperation extends $tea.Model {
-  // 合约地址
-  contractAddr: string;
-  // 流转交易哈希
-  txId: string;
-  // 转让执行者地址，ERC1155资产会有
-  operator?: string;
-  // 资产转出地址
-  from: string;
-  // 资产转入地址
-  to: string;
-  // 资产ID
-  assetId: string;
-  // 数字权证链的1155资产的分片ID
-  shardId?: string;
-  // 资产转让数量
-  assetValue: number;
-  // 资产流转交易所在区块的创建时间，单位：毫秒
-  timestamp: number;
-  // 流转交易所在块高
-  blockHeight: number;
-  static names(): { [key: string]: string } {
-    return {
-      contractAddr: 'contract_addr',
-      txId: 'tx_id',
-      operator: 'operator',
-      from: 'from',
-      to: 'to',
-      assetId: 'asset_id',
-      shardId: 'shard_id',
-      assetValue: 'asset_value',
-      timestamp: 'timestamp',
-      blockHeight: 'block_height',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      contractAddr: 'string',
-      txId: 'string',
-      operator: 'string',
-      from: 'string',
-      to: 'string',
-      assetId: 'string',
-      shardId: 'string',
-      assetValue: 'number',
-      timestamp: 'number',
-      blockHeight: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 二维点
-export class ChainInsightPoint extends $tea.Model {
-  // x坐标，4位定点小数， 10000 表示 1
-  x: number;
-  // y坐标，4位定点小数， 10000 表示 1
-  y: number;
-  static names(): { [key: string]: string } {
-    return {
-      x: 'x',
-      y: 'y',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      x: 'number',
-      y: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上交易
-export class ChainInsightTransaction extends $tea.Model {
-  // 链ID
-  bizId: string;
-  // 链名称
-  bizIdName?: string;
-  // 交易ID
-  id: string;
-  // 交易类型
-  type: string;
-  // 交易状态，VALID 表示合法，其它为错误码
-  state: string;
-  // 交易发起者地址
-  from: string;
-  // 交易目标地址
-  to: string;
-  // 交易原始输入，hex编码
-  input: string;
-  // 交易调用的函数名
-  function?: string;
-  // 交易输入解析后的 json string
-  inputDecoded?: string;
-  // 交易的返回值
-  output?: string;
-  // 交易返回值解析后的 json string
-  outputDecoded?: string;
-  // 交易所在区块高度
-  blockNum: number;
-  // 交易所在区块中的 index
-  txIndex: number;
-  // 原始交易的 json string
-  data?: string;
-  // 交易中的事件
-  events?: ChainInsightEvent[];
-  // 交易时间戳（单位：毫秒）
-  timestamp: number;
-  static names(): { [key: string]: string } {
-    return {
-      bizId: 'biz_id',
-      bizIdName: 'biz_id_name',
-      id: 'id',
-      type: 'type',
-      state: 'state',
-      from: 'from',
-      to: 'to',
-      input: 'input',
-      function: 'function',
-      inputDecoded: 'input_decoded',
-      output: 'output',
-      outputDecoded: 'output_decoded',
-      blockNum: 'block_num',
-      txIndex: 'tx_index',
-      data: 'data',
-      events: 'events',
-      timestamp: 'timestamp',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizId: 'string',
-      bizIdName: 'string',
-      id: 'string',
-      type: 'string',
-      state: 'string',
-      from: 'string',
-      to: 'string',
-      input: 'string',
-      function: 'string',
-      inputDecoded: 'string',
-      output: 'string',
-      outputDecoded: 'string',
-      blockNum: 'number',
-      txIndex: 'number',
-      data: 'string',
-      events: { 'type': 'array', 'itemType': ChainInsightEvent },
-      timestamp: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 区块链节点信息
-export class ChainInsightNodeInfo extends $tea.Model {
-  // 链ID
-  bizId?: string;
-  // 节点名称
-  name?: string;
-  // 节点IP
-  ip?: string;
-  // 节点当前区块高度
-  height?: number;
-  // 节点状态，ok, fail
-  status?: string;
-  static names(): { [key: string]: string } {
-    return {
-      bizId: 'biz_id',
-      name: 'name',
-      ip: 'ip',
-      height: 'height',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizId: 'string',
-      name: 'string',
-      ip: 'string',
-      height: 'number',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// MapEntry列表，对应一个Map
-export class MapEntryList extends $tea.Model {
-  // MapEntry列表
-  element?: MapEntry[];
-  static names(): { [key: string]: string } {
-    return {
-      element: 'element',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      element: { 'type': 'array', 'itemType': MapEntry },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 资产合约信息
-export class ChainInsightAssetContractInfo extends $tea.Model {
-  // 资产类型：ERC721 / ERC1155
-  ercType?: string;
-  // 资产总量
-  assetCount?: number;
-  // 持有者总量
-  ownerCount?: number;
-  static names(): { [key: string]: string } {
-    return {
-      ercType: 'erc_type',
-      assetCount: 'asset_count',
-      ownerCount: 'owner_count',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      ercType: 'string',
-      assetCount: 'number',
-      ownerCount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上资产信息
-export class ChainInsightAsset extends $tea.Model {
-  // 链ID
-  bizId?: string;
-  // 链名称
-  bizIdName?: string;
-  // 资产合约地址
-  contractAddr: string;
-  // 资产ID
-  assetId: string;
-  // 数字权证链上的1155资产分片ID
-  shardId?: string;
-  // 资产类型：ERC721 / ERC1155
-  ercType: string;
-  // 创建时间，取值为创建时交易所在区块创建的时间，单位：毫秒
-  createTime?: number;
-  // 持有者数量
-  ownerCount?: number;
-  // 资产元信息
-  metaData?: string;
-  // 资产元信息链接
-  uri?: string;
-  // 账户名下该资产的余额 / 合约下该资产的总供应量
-  balance?: number;
-  // 该资产最近一笔交易的哈希
-  latestTxHash: string;
-  // 该资产最近一笔交易所在区块的创建时间
-  latestTxTime: number;
-  static names(): { [key: string]: string } {
-    return {
-      bizId: 'biz_id',
-      bizIdName: 'biz_id_name',
-      contractAddr: 'contract_addr',
-      assetId: 'asset_id',
-      shardId: 'shard_id',
-      ercType: 'erc_type',
-      createTime: 'create_time',
-      ownerCount: 'owner_count',
-      metaData: 'meta_data',
-      uri: 'uri',
-      balance: 'balance',
-      latestTxHash: 'latest_tx_hash',
-      latestTxTime: 'latest_tx_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      bizId: 'string',
-      bizIdName: 'string',
-      contractAddr: 'string',
-      assetId: 'string',
-      shardId: 'string',
-      ercType: 'string',
-      createTime: 'number',
-      ownerCount: 'number',
-      metaData: 'string',
-      uri: 'string',
-      balance: 'number',
-      latestTxHash: 'string',
-      latestTxTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据洞察搜索请求
-export class ChainInsightSearchRequest extends $tea.Model {
-  // 插叙偏移量，用于分页；= (pageNo - 1 * pageSize); 最大值 500
-  offset: number;
-  // 搜索的上下文，在查询下一页时，需要在请求中带入 Response 返回的 context
-  context?: string;
-  // 页大小
-  pagSize: number;
-  // 需要搜索的请求内容，可以使用 and、or、not、括号 组合查询逻辑
+// 数据实时检索搜索Request
+export class DataSearchRequest extends $tea.Model {
+  // 所有请求字符串，支持使用 and, or 逻辑连接词和括号
   query: string;
-  // 查询某个合约或者存证账户的时间轴返回结果
-  timelineQuery?: string;
-  // 查询范围的开始时间戳，毫秒
-  startTime: number;
-  // 查询范围的终止时间戳，单位毫秒
-  endTime: number;
-  // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
-  enabledTypes?: string[];
+  // 分页，返回数据结果起始位置
+  offset?: number;
+  // 请求的结果数量，默认值 10
+  size?: number;
+  // 是否按时间降序排列
+  reverse?: boolean;
+  // 检索数据的截止时间范围，Unix时间戳（秒）
+  to?: number;
+  // 检索结果的总条数
+  total?: number;
   static names(): { [key: string]: string } {
     return {
-      offset: 'offset',
-      context: 'context',
-      pagSize: 'pag_size',
       query: 'query',
-      timelineQuery: 'timeline_query',
-      startTime: 'start_time',
-      endTime: 'end_time',
-      enabledTypes: 'enabled_types',
+      offset: 'offset',
+      size: 'size',
+      reverse: 'reverse',
+      to: 'to',
+      total: 'total',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      offset: 'number',
-      context: 'string',
-      pagSize: 'number',
       query: 'string',
-      timelineQuery: 'string',
-      startTime: 'number',
-      endTime: 'number',
-      enabledTypes: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// ChainInsightTransactionInfo分页结构体
-export class ChainInsightTransactionInfoPageableResponse extends $tea.Model {
-  // 页面大小
-  pageSize?: number;
-  // 当前页码
-  current?: number;
-  // 合计
-  total?: number;
-  // ChainInsightTransactionInfo列表
-  list?: ChainInsightTransactionInfo[];
-  static names(): { [key: string]: string } {
-    return {
-      pageSize: 'page_size',
-      current: 'current',
-      total: 'total',
-      list: 'list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageSize: 'number',
-      current: 'number',
+      offset: 'number',
+      size: 'number',
+      reverse: 'boolean',
+      to: 'number',
       total: 'number',
-      list: { 'type': 'array', 'itemType': ChainInsightTransactionInfo },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上近期活跃地址响应
-export class ChainInsightActiveAddressesResponse extends $tea.Model {
-  // 页面大小
-  pageSize?: number;
-  // 当前页码
-  current?: number;
-  // 合计
-  total?: number;
-  // 结果列表
-  list?: MapEntryList[];
-  static names(): { [key: string]: string } {
-    return {
-      pageSize: 'page_size',
-      current: 'current',
-      total: 'total',
-      list: 'list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageSize: 'number',
-      current: 'number',
-      total: 'number',
-      list: { 'type': 'array', 'itemType': MapEntryList },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据洞察统计任务
-export class ChainInsightStatisticTask extends $tea.Model {
-  // 统计任务ID
-  id: string;
-  // 统计任务类型
-  type: string;
-  // 所属链ID
-  bizId: string;
-  // 统计的链上合约地址
-  address?: string;
-  // 任务产出的指标信息
-  metrics: ChainInsightStatisticMetricMeta[];
-  // 任务创建时间，毫秒时间戳
-  createTime?: number;
-  // 任务修改时间，毫秒时间戳
-  modifyTime?: number;
-  // 任务状态：Running： 运行中； Paused: 已暂停
-  status: string;
-  static names(): { [key: string]: string } {
-    return {
-      id: 'id',
-      type: 'type',
-      bizId: 'biz_id',
-      address: 'address',
-      metrics: 'metrics',
-      createTime: 'create_time',
-      modifyTime: 'modify_time',
-      status: 'status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      id: 'string',
-      type: 'string',
-      bizId: 'string',
-      address: 'string',
-      metrics: { 'type': 'array', 'itemType': ChainInsightStatisticMetricMeta },
-      createTime: 'number',
-      modifyTime: 'number',
-      status: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上资产元信息
-export class ChainInsightAssetMeta extends $tea.Model {
-  // 资产元信息链接
-  uri?: string;
-  // 资产元信息
-  metaData?: string;
-  // 资源类型：Image / Audio / Video / Unknown
-  resourceType: string;
-  // 资源详细数据，如图片、视频的链接
-  resourceData?: string;
-  static names(): { [key: string]: string } {
-    return {
-      uri: 'uri',
-      metaData: 'meta_data',
-      resourceType: 'resource_type',
-      resourceData: 'resource_data',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      uri: 'string',
-      metaData: 'string',
-      resourceType: 'string',
-      resourceData: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数据洞察折线图
-export class ChainInsightHistogram extends $tea.Model {
-  // 横坐标名称
-  xLabel?: string;
-  // 纵坐标名称
-  yLabel?: string;
-  // 坐标集，按x增序
-  points: ChainInsightPoint[];
-  // 表格的名称或维度名称
-  name?: string;
-  static names(): { [key: string]: string } {
-    return {
-      xLabel: 'x_label',
-      yLabel: 'y_label',
-      points: 'points',
-      name: 'name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      xLabel: 'string',
-      yLabel: 'string',
-      points: { 'type': 'array', 'itemType': ChainInsightPoint },
-      name: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链上资产持有者信息响应
-export class ChainInsightAssetOwnersResponse extends $tea.Model {
-  // 页面大小
-  pageSize: number;
-  // 当前页码
-  current: number;
-  // 合计
-  total: number;
-  // 结果列表
-  list: ChainInsightAssetOwner[];
-  static names(): { [key: string]: string } {
-    return {
-      pageSize: 'page_size',
-      current: 'current',
-      total: 'total',
-      list: 'list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageSize: 'number',
-      current: 'number',
-      total: 'number',
-      list: { 'type': 'array', 'itemType': ChainInsightAssetOwner },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 查询自定义统计Table指标的返回结果
-export class ChainInsightStatisticCustomTablesResponse extends $tea.Model {
-  // 页大小
-  pageSize: number;
-  // 当前页码
-  current: number;
-  // 总条数
-  total: number;
-  // 表格每一行内容，    Key 为列名，    Value，列的取值
-  list: ChainInsightStatisticCustomTableRow[];
-  static names(): { [key: string]: string } {
-    return {
-      pageSize: 'page_size',
-      current: 'current',
-      total: 'total',
-      list: 'list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageSize: 'number',
-      current: 'number',
-      total: 'number',
-      list: { 'type': 'array', 'itemType': ChainInsightStatisticCustomTableRow },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 地址最近交易返回值
-export class ChainInsightAddressLatestTxsResponse extends $tea.Model {
-  // 页大小
-  pageSize?: number;
-  // 当前页码
-  current?: number;
-  // 合计
-  total?: number;
-  // 近期交易详情
-  list?: ChainInsightTransaction[];
-  static names(): { [key: string]: string } {
-    return {
-      pageSize: 'page_size',
-      current: 'current',
-      total: 'total',
-      list: 'list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      pageSize: 'number',
-      current: 'number',
-      total: 'number',
-      list: { 'type': 'array', 'itemType': ChainInsightTransaction },
     };
   }
 
@@ -1209,35 +232,51 @@ export class ContractMeta extends $tea.Model {
   }
 }
 
-// 数据洞察合约接口
-export class ChainInsightContractInterface extends $tea.Model {
-  // 展示的函数名称
+// 导出任务
+export class Trigger extends $tea.Model {
+  // 导出任务唯一ID
   name?: string;
-  // 接口中使用的函数名称标识符
-  nameSig: string;
-  // 接口的类型，枚举：function, event, deposit
+  // 导出目标
   type: string;
-  // 对应的标准 ERC 事件/方法 的名称
-  standardErcName?: string;
-  // 参数列表
-  args?: ChainInsightContractInterfaceArgument[];
+  // 导出的事件类型
+  source?: string;
+  // 创建时间戳
+  createTime?: number;
+  // 最近的错误描述信息
+  errorMessage?: string;
+  // 任务的状态
+  status: string;
+  // 导出任务的待处理错误日志数量
+  pendingErrorLogs?: number;
+  // 检查点信息
+  checkpoint?: TriggerCheckpoint;
+  // 导出任务配置
+  options: MapEntry[];
   static names(): { [key: string]: string } {
     return {
       name: 'name',
-      nameSig: 'name_sig',
       type: 'type',
-      standardErcName: 'standard_erc_name',
-      args: 'args',
+      source: 'source',
+      createTime: 'create_time',
+      errorMessage: 'error_message',
+      status: 'status',
+      pendingErrorLogs: 'pending_error_logs',
+      checkpoint: 'checkpoint',
+      options: 'options',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       name: 'string',
-      nameSig: 'string',
       type: 'string',
-      standardErcName: 'string',
-      args: { 'type': 'array', 'itemType': ChainInsightContractInterfaceArgument },
+      source: 'string',
+      createTime: 'number',
+      errorMessage: 'string',
+      status: 'string',
+      pendingErrorLogs: 'number',
+      checkpoint: TriggerCheckpoint,
+      options: { 'type': 'array', 'itemType': MapEntry },
     };
   }
 
@@ -1246,64 +285,39 @@ export class ChainInsightContractInterface extends $tea.Model {
   }
 }
 
-// 数据实时检索搜索Request
-export class DataSearchRequest extends $tea.Model {
-  // 所有请求字符串，支持使用 and, or 逻辑连接词和括号
-  query: string;
-  // 分页，返回数据结果起始位置
-  offset?: number;
-  // 请求的结果数量，默认值 10
-  size?: number;
-  // 是否按时间降序排列
-  reverse?: boolean;
-  // 检索数据的截止时间范围，Unix时间戳（秒）
-  to?: number;
-  // 检索结果的总条数
-  total?: number;
+// 导出任务检查点信息
+export class TriggerCheckpoint extends $tea.Model {
+  // 当前处理的高度
+  height?: number;
+  // 检查点偏移量
+  index?: number;
+  // 检查点的类型
+  type?: string;
+  // 最近的错误信息
+  lastError?: string;
+  // 错误计数
+  errorCount?: number;
+  // 推送的事件数量
+  totalCount?: number;
   static names(): { [key: string]: string } {
     return {
-      query: 'query',
-      offset: 'offset',
-      size: 'size',
-      reverse: 'reverse',
-      to: 'to',
-      total: 'total',
+      height: 'height',
+      index: 'index',
+      type: 'type',
+      lastError: 'last_error',
+      errorCount: 'error_count',
+      totalCount: 'total_count',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      query: 'string',
-      offset: 'number',
-      size: 'number',
-      reverse: 'boolean',
-      to: 'number',
-      total: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 链状态信息
-export class ChainInsightChainStatus extends $tea.Model {
-  // 节点信息
-  nodeInfos?: ChainInsightNodeInfo[];
-  // 链状态
-  chainStatuses?: ChainStatus[];
-  static names(): { [key: string]: string } {
-    return {
-      nodeInfos: 'node_infos',
-      chainStatuses: 'chain_statuses',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      nodeInfos: { 'type': 'array', 'itemType': ChainInsightNodeInfo },
-      chainStatuses: { 'type': 'array', 'itemType': ChainStatus },
+      height: 'number',
+      index: 'number',
+      type: 'string',
+      lastError: 'string',
+      errorCount: 'number',
+      totalCount: 'number',
     };
   }
 
@@ -1349,31 +363,27 @@ export class TriggerLog extends $tea.Model {
   }
 }
 
-// 数据洞察搜索返回结果
-export class ChainInsightSearchResponse extends $tea.Model {
-  // 搜索命中的结果总数
-  total: number;
-  // 搜索总共消耗了多长时间，时间单位毫秒
-  took: number;
-  // 当前搜索的 context；翻页时请求中的 context 需要配置为该值
-  context: string;
-  // 搜索结果
-  items: ChainInsightSearchResultItem[];
+// MapKV
+export class MapEntry extends $tea.Model {
+  // Key
+  key: string;
+  // value
+  value: string;
+  // 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
+  type?: string;
   static names(): { [key: string]: string } {
     return {
-      total: 'total',
-      took: 'took',
-      context: 'context',
-      items: 'items',
+      key: 'key',
+      value: 'value',
+      type: 'type',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      total: 'number',
-      took: 'number',
-      context: 'string',
-      items: { 'type': 'array', 'itemType': ChainInsightSearchResultItem },
+      key: 'string',
+      value: 'string',
+      type: 'string',
     };
   }
 
@@ -1382,31 +392,60 @@ export class ChainInsightSearchResponse extends $tea.Model {
   }
 }
 
-// 链上资产流转交易响应
-export class ChainInsightAssetOperationsResponse extends $tea.Model {
-  // 页面大小
-  pageSize: number;
-  // 当前页码
-  current: number;
-  // 合计
-  total: number;
-  // 结果列表
-  list: ChainInsightAssetOperation[];
+// 数据导出映射关系
+export class DataExportTableField extends $tea.Model {
+  // 列名称
+  columnName?: string;
+  // 事件中字段提取的 jq 表达式
+  field?: string;
+  // 列类型
+  columnType?: string;
+  // 列大小
+  columnSize?: number;
+  // 列描述
+  columnDescription?: string;
   static names(): { [key: string]: string } {
     return {
-      pageSize: 'page_size',
-      current: 'current',
-      total: 'total',
-      list: 'list',
+      columnName: 'column_name',
+      field: 'field',
+      columnType: 'column_type',
+      columnSize: 'column_size',
+      columnDescription: 'column_description',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      pageSize: 'number',
-      current: 'number',
-      total: 'number',
-      list: { 'type': 'array', 'itemType': ChainInsightAssetOperation },
+      columnName: 'string',
+      field: 'string',
+      columnType: 'string',
+      columnSize: 'number',
+      columnDescription: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 服务状态
+export class ServiceStatus extends $tea.Model {
+  // 服务名称
+  service: string;
+  // 服务的开通与关闭状态
+  state: string;
+  static names(): { [key: string]: string } {
+    return {
+      service: 'service',
+      state: 'state',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      service: 'string',
+      state: 'string',
     };
   }
 
@@ -1448,23 +487,464 @@ export class ChainInsightAddressLabel extends $tea.Model {
   }
 }
 
-// 服务状态
-export class ServiceStatus extends $tea.Model {
-  // 服务名称
-  service: string;
-  // 服务的开通与关闭状态
-  state: string;
+// 数据洞察搜索请求
+export class ChainInsightSearchRequest extends $tea.Model {
+  // 插叙偏移量，用于分页；= (pageNo - 1 * pageSize); 最大值 500
+  offset: number;
+  // 搜索的上下文，在查询下一页时，需要在请求中带入 Response 返回的 context
+  context?: string;
+  // 页大小
+  pagSize: number;
+  // 需要搜索的请求内容，可以使用 and、or、not、括号 组合查询逻辑
+  query: string;
+  // 查询某个合约或者存证账户的时间轴返回结果
+  timelineQuery?: string;
+  // 查询范围的开始时间戳，毫秒
+  startTime: number;
+  // 查询范围的终止时间戳，单位毫秒
+  endTime: number;
+  // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
+  enabledTypes?: string[];
   static names(): { [key: string]: string } {
     return {
-      service: 'service',
-      state: 'state',
+      offset: 'offset',
+      context: 'context',
+      pagSize: 'pag_size',
+      query: 'query',
+      timelineQuery: 'timeline_query',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      enabledTypes: 'enabled_types',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      service: 'string',
+      offset: 'number',
+      context: 'string',
+      pagSize: 'number',
+      query: 'string',
+      timelineQuery: 'string',
+      startTime: 'number',
+      endTime: 'number',
+      enabledTypes: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察搜索返回结果
+export class ChainInsightSearchResponse extends $tea.Model {
+  // 搜索命中的结果总数
+  total: number;
+  // 搜索总共消耗了多长时间，时间单位毫秒
+  took: number;
+  // 当前搜索的 context；翻页时请求中的 context 需要配置为该值
+  context: string;
+  // 搜索结果
+  items: ChainInsightSearchResultItem[];
+  static names(): { [key: string]: string } {
+    return {
+      total: 'total',
+      took: 'took',
+      context: 'context',
+      items: 'items',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      total: 'number',
+      took: 'number',
+      context: 'string',
+      items: { 'type': 'array', 'itemType': ChainInsightSearchResultItem },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察搜索结果的Item
+export class ChainInsightSearchResultItem extends $tea.Model {
+  // 结果类型，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+  type: string;
+  // 结果所在的链ID
+  bizId: string;
+  // 结果链ID对应的区块链名称
+  bizName?: string;
+  // 结果与搜索请求的相关性程度，(0, 10000000]
+  score: number;
+  // 搜索结果值
+  values: MapEntry[];
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      bizId: 'biz_id',
+      bizName: 'biz_name',
+      score: 'score',
+      values: 'values',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      bizId: 'string',
+      bizName: 'string',
+      score: 'number',
+      values: { 'type': 'array', 'itemType': MapEntry },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察链上地址信息
+export class ChainInsightAddress extends $tea.Model {
+  // 链ID
+  bizId: string;
+  // 链名称
+  bizIdName?: string;
+  // 账户或合约地址
+  address: string;
+  // 创建者租户ID
+  creatorOrganization?: string;
+  // 创建者地址
+  creator: string;
+  // 创建时间
+  craeteTime: number;
+  // 创建交易ID
+  createTxId: string;
+  // 修改时间戳
+  modifyTime: number;
+  // 最近修改账户的交易ID
+  modifyTxId: string;
+  // 地址类型，枚举：Account，Contract
+  type: string;
+  // 地址状态，枚举：NORMAL，FREEZE，RECOVERING，UNKNOWN
+  status: string;
+  // 地址余额
+  balance: number;
+  // 认证Map
+  authMap: MapEntry[];
+  // 地址恢复公钥
+  recoverKey: string;
+  // 合约类型，仅当地址为合约时返回：WASM、SOLIDITY
+  contractType?: string;
+  // 资产合约相关信息
+  assetContractInfo?: ChainInsightAssetContractInfo;
+  // 创建时间
+  createTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      bizId: 'biz_id',
+      bizIdName: 'biz_id_name',
+      address: 'address',
+      creatorOrganization: 'creator_organization',
+      creator: 'creator',
+      craeteTime: 'craete_time',
+      createTxId: 'create_tx_id',
+      modifyTime: 'modify_time',
+      modifyTxId: 'modify_tx_id',
+      type: 'type',
+      status: 'status',
+      balance: 'balance',
+      authMap: 'auth_map',
+      recoverKey: 'recover_key',
+      contractType: 'contract_type',
+      assetContractInfo: 'asset_contract_info',
+      createTime: 'create_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizId: 'string',
+      bizIdName: 'string',
+      address: 'string',
+      creatorOrganization: 'string',
+      creator: 'string',
+      craeteTime: 'number',
+      createTxId: 'string',
+      modifyTime: 'number',
+      modifyTxId: 'string',
+      type: 'string',
+      status: 'string',
+      balance: 'number',
+      authMap: { 'type': 'array', 'itemType': MapEntry },
+      recoverKey: 'string',
+      contractType: 'string',
+      assetContractInfo: ChainInsightAssetContractInfo,
+      createTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上交易中的事件
+export class ChainInsightEvent extends $tea.Model {
+  // 事件的 topics 列表
+  topics: string[];
+  // 解析后的交易 topics 列表
+  topicsDecoded?: string[];
+  // 事件的内容
+  content: string;
+  // 解析后的事件内容
+  contentDecoded?: string;
+  static names(): { [key: string]: string } {
+    return {
+      topics: 'topics',
+      topicsDecoded: 'topics_decoded',
+      content: 'content',
+      contentDecoded: 'content_decoded',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      topics: { 'type': 'array', 'itemType': 'string' },
+      topicsDecoded: { 'type': 'array', 'itemType': 'string' },
+      content: 'string',
+      contentDecoded: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上交易
+export class ChainInsightTransaction extends $tea.Model {
+  // 链ID
+  bizId: string;
+  // 链名称
+  bizIdName?: string;
+  // 交易ID
+  id: string;
+  // 交易类型
+  type: string;
+  // 交易状态，VALID 表示合法，其它为错误码
+  state: string;
+  // 交易发起者地址
+  from: string;
+  // 交易目标地址
+  to: string;
+  // 交易原始输入，hex编码
+  input: string;
+  // 交易调用的函数名
+  function?: string;
+  // 交易输入解析后的 json string
+  inputDecoded?: string;
+  // 交易的返回值
+  output?: string;
+  // 交易返回值解析后的 json string
+  outputDecoded?: string;
+  // 交易所在区块高度
+  blockNum: number;
+  // 交易所在区块中的 index
+  txIndex: number;
+  // 原始交易的 json string
+  data?: string;
+  // 交易中的事件
+  events?: ChainInsightEvent[];
+  // 交易时间戳（单位：毫秒）
+  timestamp: number;
+  static names(): { [key: string]: string } {
+    return {
+      bizId: 'biz_id',
+      bizIdName: 'biz_id_name',
+      id: 'id',
+      type: 'type',
+      state: 'state',
+      from: 'from',
+      to: 'to',
+      input: 'input',
+      function: 'function',
+      inputDecoded: 'input_decoded',
+      output: 'output',
+      outputDecoded: 'output_decoded',
+      blockNum: 'block_num',
+      txIndex: 'tx_index',
+      data: 'data',
+      events: 'events',
+      timestamp: 'timestamp',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizId: 'string',
+      bizIdName: 'string',
+      id: 'string',
+      type: 'string',
       state: 'string',
+      from: 'string',
+      to: 'string',
+      input: 'string',
+      function: 'string',
+      inputDecoded: 'string',
+      output: 'string',
+      outputDecoded: 'string',
+      blockNum: 'number',
+      txIndex: 'number',
+      data: 'string',
+      events: { 'type': 'array', 'itemType': ChainInsightEvent },
+      timestamp: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察合约接口
+export class ChainInsightContractInterface extends $tea.Model {
+  // 展示的函数名称
+  name?: string;
+  // 接口中使用的函数名称标识符
+  nameSig: string;
+  // 接口的类型，枚举：function, event, deposit
+  type: string;
+  // 对应的标准 ERC 事件/方法 的名称
+  standardErcName?: string;
+  // 参数列表
+  args?: ChainInsightContractInterfaceArgument[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      nameSig: 'name_sig',
+      type: 'type',
+      standardErcName: 'standard_erc_name',
+      args: 'args',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      nameSig: 'string',
+      type: 'string',
+      standardErcName: 'string',
+      args: { 'type': 'array', 'itemType': ChainInsightContractInterfaceArgument },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察合约接口参数信息
+export class ChainInsightContractInterfaceArgument extends $tea.Model {
+  // 参数名
+  name: string;
+  // 参数类型
+  type: string;
+  // 参数位置，枚举：input，output，deposit
+  location: string;
+  // 参数的业务名称
+  comment?: string;
+  // 用于在更新参数配置时，声明是否需要删除该参数的 comment 内容
+  deleteComment?: boolean;
+  // 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
+  standardErcName?: string;
+  // 是否进行数据脱敏
+  needDesensitization?: boolean;
+  // 子参数列表
+  subArgs?: ChainInsightContractInterfaceArgumentList;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      type: 'type',
+      location: 'location',
+      comment: 'comment',
+      deleteComment: 'delete_comment',
+      standardErcName: 'standard_erc_name',
+      needDesensitization: 'need_desensitization',
+      subArgs: 'sub_args',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      type: 'string',
+      location: 'string',
+      comment: 'string',
+      deleteComment: 'boolean',
+      standardErcName: 'string',
+      needDesensitization: 'boolean',
+      subArgs: ChainInsightContractInterfaceArgumentList,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 二维点
+export class ChainInsightPoint extends $tea.Model {
+  // x坐标，4位定点小数， 10000 表示 1
+  x: number;
+  // y坐标，4位定点小数， 10000 表示 1
+  y: number;
+  static names(): { [key: string]: string } {
+    return {
+      x: 'x',
+      y: 'y',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      x: 'number',
+      y: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察折线图
+export class ChainInsightHistogram extends $tea.Model {
+  // 横坐标名称
+  xLabel?: string;
+  // 纵坐标名称
+  yLabel?: string;
+  // 坐标集，按x增序
+  points: ChainInsightPoint[];
+  // 表格的名称或维度名称
+  name?: string;
+  static names(): { [key: string]: string } {
+    return {
+      xLabel: 'x_label',
+      yLabel: 'y_label',
+      points: 'points',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      xLabel: 'string',
+      yLabel: 'string',
+      points: { 'type': 'array', 'itemType': ChainInsightPoint },
+      name: 'string',
     };
   }
 
@@ -1530,51 +1010,31 @@ export class ChainInsightBlock extends $tea.Model {
   }
 }
 
-// 导出任务
-export class Trigger extends $tea.Model {
-  // 导出任务唯一ID
-  name?: string;
-  // 导出目标
-  type: string;
-  // 导出的事件类型
-  source?: string;
-  // 创建时间戳
-  createTime?: number;
-  // 最近的错误描述信息
-  errorMessage?: string;
-  // 任务的状态
-  status: string;
-  // 导出任务的待处理错误日志数量
-  pendingErrorLogs?: number;
-  // 检查点信息
-  checkpoint?: TriggerCheckpoint;
-  // 导出任务配置
-  options: MapEntry[];
+// 地址最近交易返回值
+export class ChainInsightAddressLatestTxsResponse extends $tea.Model {
+  // 页大小
+  pageSize?: number;
+  // 当前页码
+  current?: number;
+  // 合计
+  total?: number;
+  // 近期交易详情
+  list?: ChainInsightTransaction[];
   static names(): { [key: string]: string } {
     return {
-      name: 'name',
-      type: 'type',
-      source: 'source',
-      createTime: 'create_time',
-      errorMessage: 'error_message',
-      status: 'status',
-      pendingErrorLogs: 'pending_error_logs',
-      checkpoint: 'checkpoint',
-      options: 'options',
+      pageSize: 'page_size',
+      current: 'current',
+      total: 'total',
+      list: 'list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      name: 'string',
-      type: 'string',
-      source: 'string',
-      createTime: 'number',
-      errorMessage: 'string',
-      status: 'string',
-      pendingErrorLogs: 'number',
-      checkpoint: TriggerCheckpoint,
-      options: { 'type': 'array', 'itemType': MapEntry },
+      pageSize: 'number',
+      current: 'number',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': ChainInsightTransaction },
     };
   }
 
@@ -1583,58 +1043,160 @@ export class Trigger extends $tea.Model {
   }
 }
 
-// 数据洞察链上地址信息
-export class ChainInsightAddress extends $tea.Model {
+// 查询自定义统计Table指标的返回结果
+export class ChainInsightStatisticCustomTablesResponse extends $tea.Model {
+  // 页大小
+  pageSize: number;
+  // 当前页码
+  current: number;
+  // 总条数
+  total: number;
+  // 表格每一行内容，    Key 为列名，    Value，列的取值
+  list: ChainInsightStatisticCustomTableRow[];
+  static names(): { [key: string]: string } {
+    return {
+      pageSize: 'page_size',
+      current: 'current',
+      total: 'total',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageSize: 'number',
+      current: 'number',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': ChainInsightStatisticCustomTableRow },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察统计指标Meta元数据
+export class ChainInsightStatisticMetricMeta extends $tea.Model {
+  // 统计指标的类型；枚举：Table，Histogram
+  type: string;
+  // 指标的展示名称
+  name: string;
+  // 指标的实际名称（自定义指标ID）
+  metricName: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      name: 'name',
+      metricName: 'metric_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      name: 'string',
+      metricName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察统计任务
+export class ChainInsightStatisticTask extends $tea.Model {
+  // 统计任务ID
+  id: string;
+  // 统计任务类型
+  type: string;
+  // 所属链ID
+  bizId: string;
+  // 统计的链上合约地址
+  address?: string;
+  // 任务产出的指标信息
+  metrics: ChainInsightStatisticMetricMeta[];
+  // 任务创建时间，毫秒时间戳
+  createTime?: number;
+  // 任务修改时间，毫秒时间戳
+  modifyTime?: number;
+  // 任务状态：Running： 运行中； Paused: 已暂停
+  status: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      type: 'type',
+      bizId: 'biz_id',
+      address: 'address',
+      metrics: 'metrics',
+      createTime: 'create_time',
+      modifyTime: 'modify_time',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      type: 'string',
+      bizId: 'string',
+      address: 'string',
+      metrics: { 'type': 'array', 'itemType': ChainInsightStatisticMetricMeta },
+      createTime: 'number',
+      modifyTime: 'number',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据洞察表格行
+export class ChainInsightStatisticCustomTableRow extends $tea.Model {
+  // 表格的一行
+  row: MapEntry[];
+  static names(): { [key: string]: string } {
+    return {
+      row: 'row',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      row: { 'type': 'array', 'itemType': MapEntry },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数据搜索状态
+export class ChainInsightSearchStatus extends $tea.Model {
   // 链ID
   bizId: string;
   // 链名称
   bizIdName?: string;
-  // 账户或合约地址
-  address: string;
-  // 创建者租户ID
-  creatorOrganization?: string;
-  // 创建者地址
-  creator: string;
-  // 创建时间
-  craeteTime: number;
-  // 创建交易ID
-  createTxId: string;
-  // 修改时间戳
-  modifyTime: number;
-  // 最近修改账户的交易ID
-  modifyTxId: string;
-  // 地址类型，枚举：Account，Contract
-  type: string;
-  // 地址状态，枚举：NORMAL，FREEZE，RECOVERING，UNKNOWN
+  // Indexing,Enabled,Disabled
   status: string;
-  // 地址余额
-  balance: number;
-  // 认证Map
-  authMap: MapEntry[];
-  // 地址恢复公钥
-  recoverKey: string;
-  // 合约类型，仅当地址为合约时返回：WASM、SOLIDITY
-  contractType?: string;
-  // 资产合约相关信息
-  assetContractInfo?: ChainInsightAssetContractInfo;
+  // 当前索引的区块高度
+  currentHeight?: number;
+  // 当前区块链高度
+  ledgerHeight?: number;
+  // 预计索引完成的时间，单位秒
+  estimateTime?: number;
   static names(): { [key: string]: string } {
     return {
       bizId: 'biz_id',
       bizIdName: 'biz_id_name',
-      address: 'address',
-      creatorOrganization: 'creator_organization',
-      creator: 'creator',
-      craeteTime: 'craete_time',
-      createTxId: 'create_tx_id',
-      modifyTime: 'modify_time',
-      modifyTxId: 'modify_tx_id',
-      type: 'type',
       status: 'status',
-      balance: 'balance',
-      authMap: 'auth_map',
-      recoverKey: 'recover_key',
-      contractType: 'contract_type',
-      assetContractInfo: 'asset_contract_info',
+      currentHeight: 'current_height',
+      ledgerHeight: 'ledger_height',
+      estimateTime: 'estimate_time',
     };
   }
 
@@ -1642,20 +1204,10 @@ export class ChainInsightAddress extends $tea.Model {
     return {
       bizId: 'string',
       bizIdName: 'string',
-      address: 'string',
-      creatorOrganization: 'string',
-      creator: 'string',
-      craeteTime: 'number',
-      createTxId: 'string',
-      modifyTime: 'number',
-      modifyTxId: 'string',
-      type: 'string',
       status: 'string',
-      balance: 'number',
-      authMap: { 'type': 'array', 'itemType': MapEntry },
-      recoverKey: 'string',
-      contractType: 'string',
-      assetContractInfo: ChainInsightAssetContractInfo,
+      currentHeight: 'number',
+      ledgerHeight: 'number',
+      estimateTime: 'number',
     };
   }
 
@@ -1729,35 +1281,31 @@ export class ChainInsightWidget extends $tea.Model {
   }
 }
 
-// 数据导出映射关系
-export class DataExportTableField extends $tea.Model {
-  // 列名称
-  columnName?: string;
-  // 事件中字段提取的 jq 表达式
-  field?: string;
-  // 列类型
-  columnType?: string;
-  // 列大小
-  columnSize?: number;
-  // 列描述
-  columnDescription?: string;
+// 链上近期活跃地址响应
+export class ChainInsightActiveAddressesResponse extends $tea.Model {
+  // 页面大小
+  pageSize?: number;
+  // 当前页码
+  current?: number;
+  // 合计
+  total?: number;
+  // 结果列表
+  list?: MapEntryList[];
   static names(): { [key: string]: string } {
     return {
-      columnName: 'column_name',
-      field: 'field',
-      columnType: 'column_type',
-      columnSize: 'column_size',
-      columnDescription: 'column_description',
+      pageSize: 'page_size',
+      current: 'current',
+      total: 'total',
+      list: 'list',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      columnName: 'string',
-      field: 'string',
-      columnType: 'string',
-      columnSize: 'number',
-      columnDescription: 'string',
+      pageSize: 'number',
+      current: 'number',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': MapEntryList },
     };
   }
 
@@ -1766,28 +1314,143 @@ export class DataExportTableField extends $tea.Model {
   }
 }
 
-// 数据搜索状态
-export class ChainInsightSearchStatus extends $tea.Model {
+// 链上交易基础信息
+export class ChainInsightTransactionInfo extends $tea.Model {
+  // 交易ID
+  id?: string;
+  // 交易类型
+  type?: string;
+  // 交易发起者
+  from?: string;
+  // 交易接收者
+  to?: string;
+  // 交易成块高度
+  height?: number;
+  // 交易成块时间，毫秒时间戳
+  timestamp?: number;
+  // 合约中 ABI 的状态  (无需上传) none / （可以上传）pending / （可以更新）uploaded
+  abiStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      type: 'type',
+      from: 'from',
+      to: 'to',
+      height: 'height',
+      timestamp: 'timestamp',
+      abiStatus: 'abi_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      type: 'string',
+      from: 'string',
+      to: 'string',
+      height: 'number',
+      timestamp: 'number',
+      abiStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ChainInsightTransactionInfo分页结构体
+export class ChainInsightTransactionInfoPageableResponse extends $tea.Model {
+  // 页面大小
+  pageSize?: number;
+  // 当前页码
+  current?: number;
+  // 合计
+  total?: number;
+  // ChainInsightTransactionInfo列表
+  list?: ChainInsightTransactionInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      pageSize: 'page_size',
+      current: 'current',
+      total: 'total',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageSize: 'number',
+      current: 'number',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': ChainInsightTransactionInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 区块链节点信息
+export class ChainInsightNodeInfo extends $tea.Model {
   // 链ID
-  bizId: string;
+  bizId?: string;
+  // 节点名称
+  name?: string;
+  // 节点IP
+  ip?: string;
+  // 节点当前区块高度
+  height?: number;
+  // 节点状态，ok, fail
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      bizId: 'biz_id',
+      name: 'name',
+      ip: 'ip',
+      height: 'height',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizId: 'string',
+      name: 'string',
+      ip: 'string',
+      height: 'number',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链状态
+export class ChainStatus extends $tea.Model {
+  // 链ID
+  bizId?: string;
   // 链名称
   bizIdName?: string;
-  // Indexing,Enabled,Disabled
-  status: string;
-  // 当前索引的区块高度
-  currentHeight?: number;
-  // 当前区块链高度
+  // 主链ID
+  parentBizId?: string;
+  // 当前区块高度
   ledgerHeight?: number;
-  // 预计索引完成的时间，单位秒
-  estimateTime?: number;
+  // 交易总量
+  txCount?: number;
+  // 链状态，ok, fail
+  status?: string;
   static names(): { [key: string]: string } {
     return {
       bizId: 'biz_id',
       bizIdName: 'biz_id_name',
-      status: 'status',
-      currentHeight: 'current_height',
+      parentBizId: 'parent_biz_id',
       ledgerHeight: 'ledger_height',
-      estimateTime: 'estimate_time',
+      txCount: 'tx_count',
+      status: 'status',
     };
   }
 
@@ -1795,10 +1458,244 @@ export class ChainInsightSearchStatus extends $tea.Model {
     return {
       bizId: 'string',
       bizIdName: 'string',
-      status: 'string',
-      currentHeight: 'number',
+      parentBizId: 'string',
       ledgerHeight: 'number',
-      estimateTime: 'number',
+      txCount: 'number',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链状态信息
+export class ChainInsightChainStatus extends $tea.Model {
+  // 节点信息
+  nodeInfos?: ChainInsightNodeInfo[];
+  // 链状态
+  chainStatuses?: ChainStatus[];
+  static names(): { [key: string]: string } {
+    return {
+      nodeInfos: 'node_infos',
+      chainStatuses: 'chain_statuses',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      nodeInfos: { 'type': 'array', 'itemType': ChainInsightNodeInfo },
+      chainStatuses: { 'type': 'array', 'itemType': ChainStatus },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// MapEntry列表，对应一个Map
+export class MapEntryList extends $tea.Model {
+  // MapEntry列表
+  element?: MapEntry[];
+  static names(): { [key: string]: string } {
+    return {
+      element: 'element',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      element: { 'type': 'array', 'itemType': MapEntry },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上资产信息
+export class ChainInsightAsset extends $tea.Model {
+  // 链ID
+  bizId?: string;
+  // 链名称
+  bizIdName?: string;
+  // 资产合约地址
+  contractAddr: string;
+  // 资产ID
+  assetId: string;
+  // 数字权证链上的1155资产分片ID
+  shardId?: string;
+  // 资产类型：ERC721 / ERC1155
+  ercType: string;
+  // 创建时间，取值为创建时交易所在区块创建的时间，单位：毫秒
+  createTime?: number;
+  // 持有者数量
+  ownerCount?: number;
+  // 资产元信息
+  metaData?: string;
+  // 资产元信息链接
+  uri?: string;
+  // 账户名下该资产的余额 / 合约下该资产的总供应量
+  balance?: number;
+  // 该资产最近一笔交易的哈希
+  latestTxHash: string;
+  // 该资产最近一笔交易所在区块的创建时间
+  latestTxTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      bizId: 'biz_id',
+      bizIdName: 'biz_id_name',
+      contractAddr: 'contract_addr',
+      assetId: 'asset_id',
+      shardId: 'shard_id',
+      ercType: 'erc_type',
+      createTime: 'create_time',
+      ownerCount: 'owner_count',
+      metaData: 'meta_data',
+      uri: 'uri',
+      balance: 'balance',
+      latestTxHash: 'latest_tx_hash',
+      latestTxTime: 'latest_tx_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      bizId: 'string',
+      bizIdName: 'string',
+      contractAddr: 'string',
+      assetId: 'string',
+      shardId: 'string',
+      ercType: 'string',
+      createTime: 'number',
+      ownerCount: 'number',
+      metaData: 'string',
+      uri: 'string',
+      balance: 'number',
+      latestTxHash: 'string',
+      latestTxTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上资产元信息
+export class ChainInsightAssetMeta extends $tea.Model {
+  // 资产元信息链接
+  uri?: string;
+  // 资产元信息
+  metaData?: string;
+  // 资源类型：Image / Audio / Video / Unknown
+  resourceType: string;
+  // 资源详细数据，如图片、视频的链接
+  resourceData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      uri: 'uri',
+      metaData: 'meta_data',
+      resourceType: 'resource_type',
+      resourceData: 'resource_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      uri: 'string',
+      metaData: 'string',
+      resourceType: 'string',
+      resourceData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上资产持有者信息
+export class ChainInsightAssetOwner extends $tea.Model {
+  // 持有者地址
+  owner: string;
+  // 合约地址
+  contractAddr: string;
+  // 资产ID
+  assetId: string;
+  // 数字权证链1155合约特有的分片ID
+  shardId?: string;
+  // 资产类型：ERC721 / ERC1155
+  ercType: string;
+  // 数字资产余额
+  balance: number;
+  // 该账户对该资产最近一次转让交易的哈希
+  updateTxHash: string;
+  // 该账户对该资产最近一次转让交易所在区块高度
+  updateBlockHeight: number;
+  // 该账户对该资产最近一次转让交易所在区块的创建时间，单位：毫秒
+  updateBlockTime: number;
+  static names(): { [key: string]: string } {
+    return {
+      owner: 'owner',
+      contractAddr: 'contract_addr',
+      assetId: 'asset_id',
+      shardId: 'shard_id',
+      ercType: 'erc_type',
+      balance: 'balance',
+      updateTxHash: 'update_tx_hash',
+      updateBlockHeight: 'update_block_height',
+      updateBlockTime: 'update_block_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      owner: 'string',
+      contractAddr: 'string',
+      assetId: 'string',
+      shardId: 'string',
+      ercType: 'string',
+      balance: 'number',
+      updateTxHash: 'string',
+      updateBlockHeight: 'number',
+      updateBlockTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上资产持有者信息响应
+export class ChainInsightAssetOwnersResponse extends $tea.Model {
+  // 页面大小
+  pageSize: number;
+  // 当前页码
+  current: number;
+  // 合计
+  total: number;
+  // 结果列表
+  list: ChainInsightAssetOwner[];
+  static names(): { [key: string]: string } {
+    return {
+      pageSize: 'page_size',
+      current: 'current',
+      total: 'total',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageSize: 'number',
+      current: 'number',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': ChainInsightAssetOwner },
     };
   }
 
@@ -1832,6 +1729,238 @@ export class ChainInsightAssetsResponse extends $tea.Model {
       current: 'number',
       total: 'number',
       list: { 'type': 'array', 'itemType': ChainInsightAsset },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上资产流转信息
+export class ChainInsightAssetOperation extends $tea.Model {
+  // 合约地址
+  contractAddr: string;
+  // 流转交易哈希
+  txId: string;
+  // 转让执行者地址，ERC1155资产会有
+  operator?: string;
+  // 资产转出地址
+  from: string;
+  // 资产转入地址
+  to: string;
+  // 资产ID
+  assetId: string;
+  // 数字权证链的1155资产的分片ID
+  shardId?: string;
+  // 资产转让数量
+  assetValue: number;
+  // 资产流转交易所在区块的创建时间，单位：毫秒
+  timestamp: number;
+  // 流转交易所在块高
+  blockHeight: number;
+  static names(): { [key: string]: string } {
+    return {
+      contractAddr: 'contract_addr',
+      txId: 'tx_id',
+      operator: 'operator',
+      from: 'from',
+      to: 'to',
+      assetId: 'asset_id',
+      shardId: 'shard_id',
+      assetValue: 'asset_value',
+      timestamp: 'timestamp',
+      blockHeight: 'block_height',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      contractAddr: 'string',
+      txId: 'string',
+      operator: 'string',
+      from: 'string',
+      to: 'string',
+      assetId: 'string',
+      shardId: 'string',
+      assetValue: 'number',
+      timestamp: 'number',
+      blockHeight: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上资产流转交易响应
+export class ChainInsightAssetOperationsResponse extends $tea.Model {
+  // 页面大小
+  pageSize: number;
+  // 当前页码
+  current: number;
+  // 合计
+  total: number;
+  // 结果列表
+  list: ChainInsightAssetOperation[];
+  static names(): { [key: string]: string } {
+    return {
+      pageSize: 'page_size',
+      current: 'current',
+      total: 'total',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      pageSize: 'number',
+      current: 'number',
+      total: 'number',
+      list: { 'type': 'array', 'itemType': ChainInsightAssetOperation },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 资产合约信息
+export class ChainInsightAssetContractInfo extends $tea.Model {
+  // 资产类型：ERC721 / ERC1155
+  ercType?: string;
+  // 资产总量
+  assetCount?: number;
+  // 持有者总量
+  ownerCount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      ercType: 'erc_type',
+      assetCount: 'asset_count',
+      ownerCount: 'owner_count',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      ercType: 'string',
+      assetCount: 'number',
+      ownerCount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 业务模型配置
+export class DataModelConfig extends $tea.Model {
+  // 对应的方法参数
+  argName: string;
+  // 方法参数位置，input / output
+  argLocation: string;
+  // 业务名称
+  comment?: string;
+  // 业务名称在交易时间轴是否可见
+  visible?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      argName: 'arg_name',
+      argLocation: 'arg_location',
+      comment: 'comment',
+      visible: 'visible',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      argName: 'string',
+      argLocation: 'string',
+      comment: 'string',
+      visible: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 链上地址（合约、存证账户）交易时间轴配置
+export class AddressTimelineConfig extends $tea.Model {
+  // 交易时间轴看板高度
+  widgetHeight?: number;
+  // 接口业务字段配置列表，更新时只需传入需要更新的方法
+  interfaceDataModelConfigs?: InterfaceDataModelConfig[];
+  static names(): { [key: string]: string } {
+    return {
+      widgetHeight: 'widget_height',
+      interfaceDataModelConfigs: 'interface_data_model_configs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      widgetHeight: 'number',
+      interfaceDataModelConfigs: { 'type': 'array', 'itemType': InterfaceDataModelConfig },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 接口业务字段配置
+export class InterfaceDataModelConfig extends $tea.Model {
+  // 接口名称
+  name: string;
+  // 接口签名，SOLIDITY 合约必填
+  nameSig?: string;
+  // 接口类型，当前 event 暂不支持。
+  // function / deposit / event
+  type: string;
+  // 接口参数配置列表，保序传递。
+  argConfigs?: DataModelConfig[];
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      nameSig: 'name_sig',
+      type: 'type',
+      argConfigs: 'arg_configs',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      nameSig: 'string',
+      type: 'string',
+      argConfigs: { 'type': 'array', 'itemType': DataModelConfig },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 合约接口参数列表
+export class ChainInsightContractInterfaceArgumentList extends $tea.Model {
+  // 合约接口参数列表
+  list?: ChainInsightContractInterfaceArgument[];
+  static names(): { [key: string]: string } {
+    return {
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      list: { 'type': 'array', 'itemType': ChainInsightContractInterfaceArgument },
     };
   }
 
@@ -6293,6 +6422,219 @@ export class PagequeryChaininsightStatisticassethistorycontractResponse extends 
   }
 }
 
+export class QueryChaininsightContracttimelineconfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  bizId: string;
+  // 链上地址：合约 / 存证账户
+  hexAddress: string;
+  // 需要更新的区块高度（会更新生效区间包含该高度的时间轴配置）
+  ver: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      hexAddress: 'hex_address',
+      ver: 'ver',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      hexAddress: 'string',
+      ver: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryChaininsightContracttimelineconfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果
+  result?: AddressTimelineConfig;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: AddressTimelineConfig,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateChaininsightContracttimelineconfigRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  bizId: string;
+  // 链上地址：合约 / 存证账户
+  hexAddress: string;
+  // 需要更新的区块高度（会更新生效区间包含该高度的时间轴配置）
+  ver: string;
+  // 时间轴配置
+  timelineConfig: AddressTimelineConfig;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      hexAddress: 'hex_address',
+      ver: 'ver',
+      timelineConfig: 'timeline_config',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      hexAddress: 'string',
+      ver: 'string',
+      timelineConfig: AddressTimelineConfig,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateChaininsightContracttimelineconfigResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveChaininsightContractinterfaceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 链ID
+  bizId: string;
+  // 合约 / 存证账户地址
+  contract: string;
+  // 生效块高
+  ver?: string;
+  // 接口类型，Function / Event
+  interfaceType: string;
+  // 接口列表
+  contractInterfaces: ChainInsightContractInterface[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizId: 'biz_id',
+      contract: 'contract',
+      ver: 'ver',
+      interfaceType: 'interface_type',
+      contractInterfaces: 'contract_interfaces',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizId: 'string',
+      contract: 'string',
+      ver: 'string',
+      interfaceType: 'string',
+      contractInterfaces: { 'type': 'array', 'itemType': ChainInsightContractInterface },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SaveChaininsightContractinterfaceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RegisterChainsRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6589,7 +6931,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -6675,7 +7017,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.2",
+          sdk_version: "1.4.10",
           _prod_code: "BAASDATAGW",
           _prod_channel: "undefined",
         };
@@ -7918,6 +8260,63 @@ export default class Client {
   async pagequeryChaininsightStatisticassethistorycontractEx(request: PagequeryChaininsightStatisticassethistorycontractRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryChaininsightStatisticassethistorycontractResponse> {
     Util.validateModel(request);
     return $tea.cast<PagequeryChaininsightStatisticassethistorycontractResponse>(await this.doRequest("1.0", "antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryChaininsightStatisticassethistorycontractResponse({}));
+  }
+
+  /**
+   * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+   * Summary: 列出链上地址的时间轴配置
+   */
+  async queryChaininsightContracttimelineconfig(request: QueryChaininsightContracttimelineconfigRequest): Promise<QueryChaininsightContracttimelineconfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryChaininsightContracttimelineconfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+   * Summary: 列出链上地址的时间轴配置
+   */
+  async queryChaininsightContracttimelineconfigEx(request: QueryChaininsightContracttimelineconfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryChaininsightContracttimelineconfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryChaininsightContracttimelineconfigResponse>(await this.doRequest("1.0", "antchain.baasdatagw.chaininsight.contracttimelineconfig.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryChaininsightContracttimelineconfigResponse({}));
+  }
+
+  /**
+   * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+   * Summary: 更新链上地址的时间轴配置
+   */
+  async updateChaininsightContracttimelineconfig(request: UpdateChaininsightContracttimelineconfigRequest): Promise<UpdateChaininsightContracttimelineconfigResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateChaininsightContracttimelineconfigEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+   * Summary: 更新链上地址的时间轴配置
+   */
+  async updateChaininsightContracttimelineconfigEx(request: UpdateChaininsightContracttimelineconfigRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateChaininsightContracttimelineconfigResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateChaininsightContracttimelineconfigResponse>(await this.doRequest("1.0", "antchain.baasdatagw.chaininsight.contracttimelineconfig.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateChaininsightContracttimelineconfigResponse({}));
+  }
+
+  /**
+   * Description: 重写接口参数配置
+   * Summary: 重写接口参数配置
+   */
+  async saveChaininsightContractinterface(request: SaveChaininsightContractinterfaceRequest): Promise<SaveChaininsightContractinterfaceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.saveChaininsightContractinterfaceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 重写接口参数配置
+   * Summary: 重写接口参数配置
+   */
+  async saveChaininsightContractinterfaceEx(request: SaveChaininsightContractinterfaceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SaveChaininsightContractinterfaceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SaveChaininsightContractinterfaceResponse>(await this.doRequest("1.0", "antchain.baasdatagw.chaininsight.contractinterface.save", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SaveChaininsightContractinterfaceResponse({}));
   }
 
   /**
