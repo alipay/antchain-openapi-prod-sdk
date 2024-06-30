@@ -90,6 +90,11 @@ namespace AntChain.SDK.BAASDATAGW.Models
         [Validation(Required=false)]
         public ChainInsightAssetContractInfo AssetContractInfo { get; set; }
 
+        // 创建时间
+        [NameInMap("create_time")]
+        [Validation(Required=true)]
+        public long? CreateTime { get; set; }
+
     }
 
 }

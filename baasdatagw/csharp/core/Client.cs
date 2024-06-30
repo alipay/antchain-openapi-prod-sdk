@@ -137,7 +137,7 @@ namespace AntChain.SDK.BAASDATAGW
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.2"},
+                        {"sdk_version", "1.4.10"},
                         {"_prod_code", "BAASDATAGW"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BAASDATAGW
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.2"},
+                        {"sdk_version", "1.4.10"},
                         {"_prod_code", "BAASDATAGW"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2965,6 +2965,132 @@ namespace AntChain.SDK.BAASDATAGW
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PagequeryChaininsightStatisticassethistorycontractResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+         * Summary: 列出链上地址的时间轴配置
+         */
+        public QueryChaininsightContracttimelineconfigResponse QueryChaininsightContracttimelineconfig(QueryChaininsightContracttimelineconfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryChaininsightContracttimelineconfigEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+         * Summary: 列出链上地址的时间轴配置
+         */
+        public async Task<QueryChaininsightContracttimelineconfigResponse> QueryChaininsightContracttimelineconfigAsync(QueryChaininsightContracttimelineconfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryChaininsightContracttimelineconfigExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+         * Summary: 列出链上地址的时间轴配置
+         */
+        public QueryChaininsightContracttimelineconfigResponse QueryChaininsightContracttimelineconfigEx(QueryChaininsightContracttimelineconfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightContracttimelineconfigResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.contracttimelineconfig.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+         * Summary: 列出链上地址的时间轴配置
+         */
+        public async Task<QueryChaininsightContracttimelineconfigResponse> QueryChaininsightContracttimelineconfigExAsync(QueryChaininsightContracttimelineconfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryChaininsightContracttimelineconfigResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.contracttimelineconfig.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+         * Summary: 更新链上地址的时间轴配置
+         */
+        public UpdateChaininsightContracttimelineconfigResponse UpdateChaininsightContracttimelineconfig(UpdateChaininsightContracttimelineconfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateChaininsightContracttimelineconfigEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+         * Summary: 更新链上地址的时间轴配置
+         */
+        public async Task<UpdateChaininsightContracttimelineconfigResponse> UpdateChaininsightContracttimelineconfigAsync(UpdateChaininsightContracttimelineconfigRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateChaininsightContracttimelineconfigExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+         * Summary: 更新链上地址的时间轴配置
+         */
+        public UpdateChaininsightContracttimelineconfigResponse UpdateChaininsightContracttimelineconfigEx(UpdateChaininsightContracttimelineconfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChaininsightContracttimelineconfigResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.contracttimelineconfig.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+         * Summary: 更新链上地址的时间轴配置
+         */
+        public async Task<UpdateChaininsightContracttimelineconfigResponse> UpdateChaininsightContracttimelineconfigExAsync(UpdateChaininsightContracttimelineconfigRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateChaininsightContracttimelineconfigResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.contracttimelineconfig.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 重写接口参数配置
+         * Summary: 重写接口参数配置
+         */
+        public SaveChaininsightContractinterfaceResponse SaveChaininsightContractinterface(SaveChaininsightContractinterfaceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SaveChaininsightContractinterfaceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 重写接口参数配置
+         * Summary: 重写接口参数配置
+         */
+        public async Task<SaveChaininsightContractinterfaceResponse> SaveChaininsightContractinterfaceAsync(SaveChaininsightContractinterfaceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SaveChaininsightContractinterfaceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 重写接口参数配置
+         * Summary: 重写接口参数配置
+         */
+        public SaveChaininsightContractinterfaceResponse SaveChaininsightContractinterfaceEx(SaveChaininsightContractinterfaceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveChaininsightContractinterfaceResponse>(DoRequest("1.0", "antchain.baasdatagw.chaininsight.contractinterface.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 重写接口参数配置
+         * Summary: 重写接口参数配置
+         */
+        public async Task<SaveChaininsightContractinterfaceResponse> SaveChaininsightContractinterfaceExAsync(SaveChaininsightContractinterfaceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SaveChaininsightContractinterfaceResponse>(await DoRequestAsync("1.0", "antchain.baasdatagw.chaininsight.contractinterface.save", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
