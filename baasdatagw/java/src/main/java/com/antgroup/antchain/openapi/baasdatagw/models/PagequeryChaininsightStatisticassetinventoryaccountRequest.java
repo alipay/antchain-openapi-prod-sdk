@@ -31,6 +31,7 @@ public class PagequeryChaininsightStatisticassetinventoryaccountRequest extends 
 
     // 页面大小，缺省值为10
     @NameInMap("page_size")
+    @Validation(maximum = 100, minimum = 1)
     public Long pageSize;
 
     public static PagequeryChaininsightStatisticassetinventoryaccountRequest build(java.util.Map<String, ?> map) throws Exception {

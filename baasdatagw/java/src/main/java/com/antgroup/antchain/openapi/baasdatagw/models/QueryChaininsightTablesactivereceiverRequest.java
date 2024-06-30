@@ -22,6 +22,7 @@ public class QueryChaininsightTablesactivereceiverRequest extends TeaModel {
 
     // 时间范围，单位小时，默认24小时
     @NameInMap("time_range")
+    @Validation(maximum = 168)
     public Long timeRange;
 
     // 页码，默认1
@@ -30,6 +31,7 @@ public class QueryChaininsightTablesactivereceiverRequest extends TeaModel {
 
     // 页面大小，默认10
     @NameInMap("page_size")
+    @Validation(maximum = 100)
     public Long pageSize;
 
     // 租户ID，留空

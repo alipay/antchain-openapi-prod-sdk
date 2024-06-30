@@ -27,6 +27,7 @@ public class PagequeryChaininsightAccountmodifytxRequest extends TeaModel {
 
     // 页面大小，默认为10
     @NameInMap("page_size")
+    @Validation(maximum = 100)
     public Long pageSize;
 
     public static PagequeryChaininsightAccountmodifytxRequest build(java.util.Map<String, ?> map) throws Exception {

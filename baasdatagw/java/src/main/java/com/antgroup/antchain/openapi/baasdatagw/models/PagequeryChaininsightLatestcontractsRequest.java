@@ -22,6 +22,7 @@ public class PagequeryChaininsightLatestcontractsRequest extends TeaModel {
 
     // 页面大小，默认为5
     @NameInMap("page_size")
+    @Validation(maximum = 100)
     public Long pageSize;
 
     public static PagequeryChaininsightLatestcontractsRequest build(java.util.Map<String, ?> map) throws Exception {

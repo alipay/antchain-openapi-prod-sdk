@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-baasdatagw</artifactId>
-  <version>1.4.2</version>
+  <version>1.4.10</version>
   <packaging>jar</packaging>
   <name>openapi-baasdatagw</name>
   <description>Ant Chain BAASDATAGW SDK for Java
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.aliyun</groupId>
       <artifactId>tea-util</artifactId>
-      <version>0.2.20</version>
+      <version>0.2.22</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>

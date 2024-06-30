@@ -23,9 +23,21 @@ public class ChainInsightContractInterfaceArgument extends TeaModel {
     @NameInMap("comment")
     public String comment;
 
+    // 用于在更新参数配置时，声明是否需要删除该参数的 comment 内容
+    @NameInMap("delete_comment")
+    public Boolean deleteComment;
+
     // 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
     @NameInMap("standard_erc_name")
     public String standardErcName;
+
+    // 是否进行数据脱敏
+    @NameInMap("need_desensitization")
+    public Boolean needDesensitization;
+
+    // 子参数列表
+    @NameInMap("sub_args")
+    public ChainInsightContractInterfaceArgumentList subArgs;
 
     public static ChainInsightContractInterfaceArgument build(java.util.Map<String, ?> map) throws Exception {
         ChainInsightContractInterfaceArgument self = new ChainInsightContractInterfaceArgument();
@@ -64,12 +76,36 @@ public class ChainInsightContractInterfaceArgument extends TeaModel {
         return this.comment;
     }
 
+    public ChainInsightContractInterfaceArgument setDeleteComment(Boolean deleteComment) {
+        this.deleteComment = deleteComment;
+        return this;
+    }
+    public Boolean getDeleteComment() {
+        return this.deleteComment;
+    }
+
     public ChainInsightContractInterfaceArgument setStandardErcName(String standardErcName) {
         this.standardErcName = standardErcName;
         return this;
     }
     public String getStandardErcName() {
         return this.standardErcName;
+    }
+
+    public ChainInsightContractInterfaceArgument setNeedDesensitization(Boolean needDesensitization) {
+        this.needDesensitization = needDesensitization;
+        return this;
+    }
+    public Boolean getNeedDesensitization() {
+        return this.needDesensitization;
+    }
+
+    public ChainInsightContractInterfaceArgument setSubArgs(ChainInsightContractInterfaceArgumentList subArgs) {
+        this.subArgs = subArgs;
+        return this;
+    }
+    public ChainInsightContractInterfaceArgumentList getSubArgs() {
+        return this.subArgs;
     }
 
 }

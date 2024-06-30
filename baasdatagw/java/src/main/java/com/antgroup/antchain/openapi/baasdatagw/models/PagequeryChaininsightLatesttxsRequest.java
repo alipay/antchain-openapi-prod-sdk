@@ -18,6 +18,7 @@ public class PagequeryChaininsightLatesttxsRequest extends TeaModel {
 
     // 页面大小，默认为5
     @NameInMap("page_size")
+    @Validation(maximum = 100)
     public Long pageSize;
 
     // 页码，默认为1

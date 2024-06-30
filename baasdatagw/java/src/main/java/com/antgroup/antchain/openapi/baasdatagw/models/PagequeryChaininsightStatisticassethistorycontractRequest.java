@@ -35,6 +35,7 @@ public class PagequeryChaininsightStatisticassethistorycontractRequest extends T
 
     // 页面大小，缺省值：10
     @NameInMap("page_size")
+    @Validation(maximum = 100, minimum = 1)
     public Long pageSize;
 
     public static PagequeryChaininsightStatisticassethistorycontractRequest build(java.util.Map<String, ?> map) throws Exception {

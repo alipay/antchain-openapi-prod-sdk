@@ -80,6 +80,11 @@ public class ChainInsightAddress extends TeaModel {
     @NameInMap("asset_contract_info")
     public ChainInsightAssetContractInfo assetContractInfo;
 
+    // 创建时间
+    @NameInMap("create_time")
+    @Validation(required = true)
+    public Long createTime;
+
     public static ChainInsightAddress build(java.util.Map<String, ?> map) throws Exception {
         ChainInsightAddress self = new ChainInsightAddress();
         return TeaModel.build(map, self);
@@ -211,6 +216,14 @@ public class ChainInsightAddress extends TeaModel {
     }
     public ChainInsightAssetContractInfo getAssetContractInfo() {
         return this.assetContractInfo;
+    }
+
+    public ChainInsightAddress setCreateTime(Long createTime) {
+        this.createTime = createTime;
+        return this;
+    }
+    public Long getCreateTime() {
+        return this.createTime;
     }
 
 }
