@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.2',
+    sdk_version = '1.4.10',
     _prod_code = 'BAASDATAGW',
     _prod_channel = 'undefined'
   };
@@ -161,396 +161,20 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-// 链上交易中的事件
-model ChainInsightEvent {
-  // 事件的 topics 列表
-  topics: [ string ](name='topics', example='call_contract'),
-  // 解析后的交易 topics 列表
-  topicsDecoded?: [ string ](name='topics_decoded', example='call_contract'),
-  // 事件的内容
-  content: string(name='content', example='03123981'),
-  // 解析后的事件内容
-  contentDecoded?: string(name='content_decoded', example='{"name":"a"}'),
-}
-
-// MapKV
-model MapEntry {
-  // Key
-  key: string(name='key', example='key'),
-  // value
-  value: string(name='value', example='value'),
-  // 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
-  type?: string(name='type', example='String'),
-}
-
-// 数据洞察合约接口参数信息
-model ChainInsightContractInterfaceArgument {
-  // 参数名
-  name: string(name='name', example='arg0'),
-  // 参数类型
-  type: string(name='type', example='String'),
-  // 参数位置，枚举：input，output，deposit
-  location: string(name='location', example='input'),
-  // 参数的业务名称
-  comment?: string(name='comment', example='商品名称'),
-  // 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
-  standardErcName?: string(name='standard_erc_name', example='operator'),
-}
-
-// 数据洞察统计指标Meta元数据
-model ChainInsightStatisticMetricMeta {
-  // 统计指标的类型；枚举：Table，Histogram
-  type: string(name='type', example='Table'),
-  // 指标的展示名称
-  name: string(name='name', example='GasUsedByContractFunction'),
-  // 指标的实际名称（自定义指标ID）
-  metricName: string(name='metric_name', example='jasrq2-uadsfkhj23'),
-}
-
-// 数据洞察表格行
-model ChainInsightStatisticCustomTableRow {
-  // 表格的一行
-  row: [ MapEntry ](name='row', example=''),
-}
-
-// 链上资产持有者信息
-model ChainInsightAssetOwner {
-  // 持有者地址
-  owner: string(name='owner', example='99c4ad0dda55b8d555992dd03d64f31092eaf9ec436a0e8d1a77217989391e10'),
-  // 合约地址
-  contractAddr: string(name='contract_addr', example='91257bebd7bd337fb418e665c27a7dcf5a3bf06c492028d8ff046ee8f4da873d'),
-  // 资产ID
-  assetId: string(name='asset_id', example='2688168816881688'),
-  // 数字权证链1155合约特有的分片ID
-  shardId?: string(name='shard_id', example='35e1da54-44f2-4685-a6b2-2bc2e38e08b2'),
-  // 资产类型：ERC721 / ERC1155
-  ercType: string(name='erc_type', example='ERC721'),
-  // 数字资产余额
-  balance: long(name='balance', example='10'),
-  // 该账户对该资产最近一次转让交易的哈希
-  updateTxHash: string(name='update_tx_hash', example='ef93df323a95b4859893d4077dd7b0200079ba0e120a79bd4bc32a9a672fd102'),
-  // 该账户对该资产最近一次转让交易所在区块高度
-  updateBlockHeight: long(name='update_block_height', example='100'),
-  // 该账户对该资产最近一次转让交易所在区块的创建时间，单位：毫秒
-  updateBlockTime: long(name='update_block_time', example='1694758618111'),
-}
-
-// 导出任务检查点信息
-model TriggerCheckpoint {
-  // 当前处理的高度
-  height?: long(name='height', example='1023'),
-  // 检查点偏移量
-  index?: long(name='index', example='0'),
-  // 检查点的类型
-  type?: string(name='type', example='Block'),
-  // 最近的错误信息
-  lastError?: string(name='last_error', example='send timeout'),
-  // 错误计数
-  errorCount?: long(name='error_count', example='10'),
-  // 推送的事件数量
-  totalCount?: long(name='total_count', example='1000'),
-}
-
-// 数据洞察搜索结果的Item
-model ChainInsightSearchResultItem {
-  // 结果类型，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
-  type: string(name='type', example='ChainData'),
-  // 结果所在的链ID
-  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
-  // 结果链ID对应的区块链名称
-  bizName?: string(name='biz_name', example='测试链'),
-  // 结果与搜索请求的相关性程度，(0, 10000000]
-  score: long(name='score', example='9500000'),
-  // 搜索结果值
-  values: [ MapEntry ](name='values', example=''),
-}
-
-// 链状态
-model ChainStatus {
-  // 链ID
-  bizId?: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
-  // 链名称
-  bizIdName?: string(name='biz_id_name', example='测试链'),
-  // 主链ID
-  parentBizId?: string(name='parent_biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
-  // 当前区块高度
-  ledgerHeight?: long(name='ledger_height', example='1000'),
-  // 交易总量
-  txCount?: long(name='tx_count', example='200'),
-  // 链状态，ok, fail
-  status?: string(name='status', example='ok'),
-}
-
-// 链上交易基础信息
-model ChainInsightTransactionInfo {
-  // 交易ID
-  id?: string(name='id', example='0705b5f12cb6c9aa55aded6a16b638c339cf8678f2d9c56b9b68993cfa2e5f7e'),
-  // 交易类型
-  type?: string(name='type', example='TX_CALL_CONTRACT'),
-  // 交易发起者
-  from?: string(name='from', example='3697b4fdda4cf0e624e3cc0aef1e82fe4b855a5bd2bf26591ffd33fe9f3391af'),
-  // 交易接收者
-  to?: string(name='to', example='4ed664c46bfaf60423f4a9b23b66df23b600bd61e66ec9812a6aceaf4d9c0616'),
-  // 交易成块高度
-  height?: long(name='height', example='100'),
-  // 交易成块时间，毫秒时间戳
-  timestamp?: long(name='timestamp', example='1000'),
-  // 合约中 ABI 的状态  (无需上传) none / （可以上传）pending / （可以更新）uploaded
-  abiStatus?: string(name='abi_status', example='none'),
-}
-
-// 链上资产流转信息
-model ChainInsightAssetOperation {
-  // 合约地址
-  contractAddr: string(name='contract_addr', example='91257bebd7bd337fb418e665c27a7dcf5a3bf06c492028d8ff046ee8f4da873d'),
-  // 流转交易哈希
-  txId: string(name='tx_id', example='ef93df323a95b4859893d4077dd7b0200079ba0e120a79bd4bc32a9a672fd102'),
-  // 转让执行者地址，ERC1155资产会有
-  operator?: string(name='operator', example='99c4ad0dda55b8d555992dd03d64f31092eaf9ec436a0e8d1a77217989391e10'),
-  // 资产转出地址
-  from: string(name='from', example='99c4ad0dda55b8d555992dd03d64f31092eaf9ec436a0e8d1a77217989391e10'),
-  // 资产转入地址
-  to: string(name='to', example='99c4ad0dda55b8d555992dd03d64f31092eaf9ec436a0e8d1a77217989391e10'),
-  // 资产ID
-  assetId: string(name='asset_id', example='2688168816881688'),
-  // 数字权证链的1155资产的分片ID
-  shardId?: string(name='shard_id', example='35e1da54-44f2-4685-a6b2-2bc2e38e08b2'),
-  // 资产转让数量
-  assetValue: long(name='asset_value', example='10'),
-  // 资产流转交易所在区块的创建时间，单位：毫秒
-  timestamp: long(name='timestamp', example='1694758618111'),
-  // 流转交易所在块高
-  blockHeight: long(name='block_height', example='100'),
-}
-
-// 二维点
-model ChainInsightPoint {
-  // x坐标，4位定点小数， 10000 表示 1
-  x: long(name='x', example='10000'),
-  // y坐标，4位定点小数， 10000 表示 1
-  y: long(name='y', example='10000'),
-}
-
-// 链上交易
-model ChainInsightTransaction {
-  // 链ID
-  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
-  // 链名称
-  bizIdName?: string(name='biz_id_name', example='数字资产'),
-  // 交易ID
-  id: string(name='id', example='450734c80f679db95a6d1d64ca0a5e1f4b71460ab520567861614f87fb9b4d75'),
-  // 交易类型
-  type: string(name='type', example='TX_CALL_CONTRACT'),
-  // 交易状态，VALID 表示合法，其它为错误码
-  state: string(name='state', example='VALID'),
-  // 交易发起者地址
-  from: string(name='from', example='8d881273a516ace01646381132b921dbbdeec771f01ca210ca213efdf4117b80'),
-  // 交易目标地址
-  to: string(name='to', example='13fe9940d10389c1df1bb4f253c5ec9bf7e0b8719020385e3aa96681bd13a0b4'),
-  // 交易原始输入，hex编码
-  input: string(name='input', example='28504d2e0000000000000000000000000'),
-  // 交易调用的函数名
-  function?: string(name='function', example='Add'),
-  // 交易输入解析后的 json string
-  inputDecoded?: string(name='input_decoded', example='{"arg1":"add", "arg2": "1"}'),
-  // 交易的返回值
-  output?: string(name='output', example='00'),
-  // 交易返回值解析后的 json string
-  outputDecoded?: string(name='output_decoded', example='{"idx_0": true}'),
-  // 交易所在区块高度
-  blockNum: long(name='block_num', example='1234'),
-  // 交易所在区块中的 index
-  txIndex: long(name='tx_index', example='0'),
-  // 原始交易的 json string
-  data?: string(name='data', example='string'),
-  // 交易中的事件
-  events?: [ ChainInsightEvent ](name='events', example=''),
-  // 交易时间戳（单位：毫秒）
-  timestamp: long(name='timestamp', example=''),
-}
-
-// 区块链节点信息
-model ChainInsightNodeInfo {
-  // 链ID
-  bizId?: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
-  // 节点名称
-  name?: string(name='name', example='node_name'),
-  // 节点IP
-  ip?: string(name='ip', example='41.117.164.61 18130'),
-  // 节点当前区块高度
-  height?: long(name='height', example='100'),
-  // 节点状态，ok, fail
-  status?: string(name='status', example='ok'),
-}
-
-// MapEntry列表，对应一个Map
-model MapEntryList {
-  // MapEntry列表
-  element?: [ MapEntry ](name='element', example=''),
-}
-
-// 资产合约信息
-model ChainInsightAssetContractInfo {
-  // 资产类型：ERC721 / ERC1155
-  ercType?: string(name='erc_type', example='ERC721'),
-  // 资产总量
-  assetCount?: long(name='asset_count', example='100'),
-  // 持有者总量
-  ownerCount?: long(name='owner_count', example='10'),
-}
-
-// 链上资产信息
-model ChainInsightAsset {
-  // 链ID
-  bizId?: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
-  // 链名称
-  bizIdName?: string(name='biz_id_name', example='测试链'),
-  // 资产合约地址
-  contractAddr: string(name='contract_addr', example='4563613a8a52189eb5180e2999ef2d7fcc274b08fd0ec1a6554f775166b14b22'),
-  // 资产ID
-  assetId: string(name='asset_id', example='2688168816881688'),
-  // 数字权证链上的1155资产分片ID
-  shardId?: string(name='shard_id', example='35e1da54-44f2-4685-a6b2-2bc2e38e08b2'),
-  // 资产类型：ERC721 / ERC1155
-  ercType: string(name='erc_type', example='ERC721'),
-  // 创建时间，取值为创建时交易所在区块创建的时间，单位：毫秒
-  createTime?: long(name='create_time', example='1694758618111'),
-  // 持有者数量
-  ownerCount?: long(name='owner_count', example='100'),
-  // 资产元信息
-  metaData?: string(name='meta_data', example='{"description":"Friendly OpenSea Creature that enjoys long swims in the ocean.","external_url":"https://openseacreatures.io/3","image":"https://storage.googleapis.com/puffs/3.png","name":"Dave","attributes":[{"trait_type":"Base","value":"Starfish"}]}'),
-  // 资产元信息链接
-  uri?: string(name='uri', example='https://openseacreatures.io/metadata.json'),
-  // 账户名下该资产的余额 / 合约下该资产的总供应量
-  balance?: long(name='balance', example='100'),
-  // 该资产最近一笔交易的哈希
-  latestTxHash: string(name='latest_tx_hash', example='ef93df323a95b4859893d4077dd7b0200079ba0e120a79bd4bc32a9a672fd102'),
-  // 该资产最近一笔交易所在区块的创建时间
-  latestTxTime: long(name='latest_tx_time', example='1694758618111'),
-}
-
-// 数据洞察搜索请求
-model ChainInsightSearchRequest {
-  // 插叙偏移量，用于分页；= (pageNo - 1 * pageSize); 最大值 500
-  offset: long(name='offset', example='0'),
-  // 搜索的上下文，在查询下一页时，需要在请求中带入 Response 返回的 context
-  context?: string(name='context', example='DAgy567NTwPe0v8N6bmWi9FGfF/G2mZK1iCUpd+sbEVLJnjZgsdG'),
-  // 页大小
-  pagSize: long(name='pag_size', example='10'),
-  // 需要搜索的请求内容，可以使用 and、or、not、括号 组合查询逻辑
-  query: string(name='query', example='*'),
-  // 查询某个合约或者存证账户的时间轴返回结果
-  timelineQuery?: string(name='timeline_query', example='13fe9940d10389c1df1bb4f253c5ec9bf7e0b8719020385e3aa96681bd13a0b4'),
-  // 查询范围的开始时间戳，毫秒
-  startTime: long(name='start_time', example='0'),
-  // 查询范围的终止时间戳，单位毫秒
-  endTime: long(name='end_time', example='1666081939568'),
-  // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
-  enabledTypes?: [ string ](name='enabled_types', example='ChainAddress'),
-}
-
-// ChainInsightTransactionInfo分页结构体
-model ChainInsightTransactionInfoPageableResponse {
-  // 页面大小
-  pageSize?: long(name='page_size', example='1'),
-  // 当前页码
-  current?: long(name='current', example='1'),
-  // 合计
-  total?: long(name='total', example='12'),
-  // ChainInsightTransactionInfo列表
-  list?: [ ChainInsightTransactionInfo ](name='list', example=''),
-}
-
-// 链上近期活跃地址响应
-model ChainInsightActiveAddressesResponse {
-  // 页面大小
-  pageSize?: long(name='page_size', example='1'),
-  // 当前页码
-  current?: long(name='current', example='1'),
-  // 合计
-  total?: long(name='total', example='12'),
-  // 结果列表
-  list?: [ MapEntryList ](name='list', example=''),
-}
-
-// 数据洞察统计任务
-model ChainInsightStatisticTask {
-  // 统计任务ID
-  id: string(name='id', example='yurjzxc'),
-  // 统计任务类型
-  type: string(name='type', example='ContractStatistic'),
-  // 所属链ID
-  bizId: string(name='biz_id', example='3bb5caa2df9946abb8d16f3a14ec11d4'),
-  // 统计的链上合约地址
-  address?: string(name='address', example='605f39005ab0c064243b743960e304b5edb78f37d155b0da5fb83ef73311a3c4'),
-  // 任务产出的指标信息
-  metrics: [ ChainInsightStatisticMetricMeta ](name='metrics', example=''),
-  // 任务创建时间，毫秒时间戳
-  createTime?: long(name='create_time', example='1666263972000'),
-  // 任务修改时间，毫秒时间戳
-  modifyTime?: long(name='modify_time', example='1666263972000'),
-  // 任务状态：Running： 运行中； Paused: 已暂停
-  status: string(name='status', example='Running'),
-}
-
-// 链上资产元信息
-model ChainInsightAssetMeta {
-  // 资产元信息链接
-  uri?: string(name='uri', example='https://openseacreatures.io/metadata.json'),
-  // 资产元信息
-  metaData?: string(name='meta_data', example='{"description":"Friendly OpenSea Creature that enjoys long swims in the ocean.","external_url":"https://openseacreatures.io/3","image":"https://storage.googleapis.com/puffs/3.png","name":"Dave","attributes":[{"trait_type":"Base","value":"Starfish"}]}'),
-  // 资源类型：Image / Audio / Video / Unknown
-  resourceType: string(name='resource_type', example='Image'),
-  // 资源详细数据，如图片、视频的链接
-  resourceData?: string(name='resource_data', example='https://storage.googleapis.com/puffs/3.png'),
-}
-
-// 数据洞察折线图
-model ChainInsightHistogram {
-  // 横坐标名称
-  xLabel?: string(name='x_label', example='XName'),
-  // 纵坐标名称
-  yLabel?: string(name='y_label', example='YName'),
-  // 坐标集，按x增序
-  points: [ ChainInsightPoint ](name='points', example=''),
-  // 表格的名称或维度名称
-  name?: string(name='name', example='FuncA'),
-}
-
-// 链上资产持有者信息响应
-model ChainInsightAssetOwnersResponse {
-  // 页面大小
-  pageSize: long(name='page_size', example='10'),
-  // 当前页码
-  current: long(name='current', example='1'),
-  // 合计
-  total: long(name='total', example='100'),
-  // 结果列表
-  list: [ ChainInsightAssetOwner ](name='list', example=''),
-}
-
-// 查询自定义统计Table指标的返回结果
-model ChainInsightStatisticCustomTablesResponse {
-  // 页大小
-  pageSize: long(name='page_size', example='10'),
-  // 当前页码
-  current: long(name='current', example='1'),
-  // 总条数
-  total: long(name='total', example='123'),
-  // 表格每一行内容，    Key 为列名，    Value，列的取值
-  list: [ ChainInsightStatisticCustomTableRow ](name='list', example=''),
-}
-
-// 地址最近交易返回值
-model ChainInsightAddressLatestTxsResponse {
-  // 页大小
-  pageSize?: long(name='page_size', example='1'),
-  // 当前页码
-  current?: long(name='current', example='1'),
-  // 合计
-  total?: long(name='total', example='12'),
-  // 近期交易详情
-  list?: [ ChainInsightTransaction ](name='list', example=''),
+// 数据实时检索搜索Request
+model DataSearchRequest {
+  // 所有请求字符串，支持使用 and, or 逻辑连接词和括号
+  query: string(name='query', example='data'),
+  // 分页，返回数据结果起始位置
+  offset?: long(name='offset', example='0'),
+  // 请求的结果数量，默认值 10
+  size?: long(name='size', example='10'),
+  // 是否按时间降序排列
+  reverse?: boolean(name='reverse', example='true, false'),
+  // 检索数据的截止时间范围，Unix时间戳（秒）
+  to?: long(name='to', example='1635229141'),
+  // 检索结果的总条数
+  total?: long(name='total', example='341'),
 }
 
 // 业务数据检索的结果数据
@@ -601,126 +225,6 @@ model ContractMeta {
   metaContent: string(name='meta_content', example='ABI文件内容'),
 }
 
-// 数据洞察合约接口
-model ChainInsightContractInterface {
-  // 展示的函数名称
-  name?: string(name='name', example='functon'),
-  // 接口中使用的函数名称标识符
-  nameSig: string(name='name_sig', example='functon'),
-  // 接口的类型，枚举：function, event, deposit
-  type: string(name='type', example='function'),
-  // 对应的标准 ERC 事件/方法 的名称
-  standardErcName?: string(name='standard_erc_name', example='TransferBatch'),
-  // 参数列表
-  args?: [ ChainInsightContractInterfaceArgument ](name='args', example=''),
-}
-
-// 数据实时检索搜索Request
-model DataSearchRequest {
-  // 所有请求字符串，支持使用 and, or 逻辑连接词和括号
-  query: string(name='query', example='data'),
-  // 分页，返回数据结果起始位置
-  offset?: long(name='offset', example='0'),
-  // 请求的结果数量，默认值 10
-  size?: long(name='size', example='10'),
-  // 是否按时间降序排列
-  reverse?: boolean(name='reverse', example='true, false'),
-  // 检索数据的截止时间范围，Unix时间戳（秒）
-  to?: long(name='to', example='1635229141'),
-  // 检索结果的总条数
-  total?: long(name='total', example='341'),
-}
-
-// 链状态信息
-model ChainInsightChainStatus {
-  // 节点信息
-  nodeInfos?: [ ChainInsightNodeInfo ](name='node_infos', example=''),
-  // 链状态
-  chainStatuses?: [ ChainStatus ](name='chain_statuses', example=''),
-}
-
-// 导出任务的日志
-model TriggerLog {
-  // 日志的唯一ID
-  uuid: string(name='uuid', example='123123'),
-  // 日志的发生时间
-  createTime?: long(name='create_time', example='1650965665000'),
-  // 日志的最近修改时间
-  modifyTime?: long(name='modify_time', example='1650965665000'),
-  // 日志发生的位置
-  position: TriggerCheckpoint(name='position', example=''),
-  // 日志状态
-  status: string(name='status', example='Pending'),
-}
-
-// 数据洞察搜索返回结果
-model ChainInsightSearchResponse {
-  // 搜索命中的结果总数
-  total: long(name='total', example='23'),
-  // 搜索总共消耗了多长时间，时间单位毫秒
-  took: long(name='took', example='234'),
-  // 当前搜索的 context；翻页时请求中的 context 需要配置为该值
-  context: string(name='context', example='DAgy567NTwPe0v8N6bmWi9FGfF/G2mZK1iCUp'),
-  // 搜索结果
-  items: [ ChainInsightSearchResultItem ](name='items', example=''),
-}
-
-// 链上资产流转交易响应
-model ChainInsightAssetOperationsResponse {
-  // 页面大小
-  pageSize: long(name='page_size', example='10'),
-  // 当前页码
-  current: long(name='current', example='1'),
-  // 合计
-  total: long(name='total', example='100'),
-  // 结果列表
-  list: [ ChainInsightAssetOperation ](name='list', example=''),
-}
-
-// 地址标签信息
-model ChainInsightAddressLabel {
-  // 链上账户或者合约地址
-  address?: string(name='address', example='7de3c3db25fe18be036565cec621d7f1a90146467c3f44f118cddfd529e29f8d'),
-  // 账户或者合约的真实名称
-  name?: string(name='name', example='testaccount1'),
-  // 用户定义的地址描述信息
-  comments?: string(name='comments', example='地址描述信息'),
-  // 合约/账户地址的标签信息
-  labels?: [ MapEntry ](name='labels', example=''),
-}
-
-// 服务状态
-model ServiceStatus {
-  // 服务名称
-  service: string(name='service', example='data.gateway'),
-  // 服务的开通与关闭状态
-  state: string(name='state', example='SERVING,CLOSED,PAUSED'),
-}
-
-// 链上区块
-model ChainInsightBlock {
-  // 链ID
-  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
-  // 链名称
-  bizIdName?: string(name='biz_id_name', example='数字资产'),
-  // 链ID
-  chain: string(name='chain', example='c3179e0d54a340a38d338664fe71d54c'),
-  // 所在子网
-  network: string(name='network', example='_default'),
-  // 区块高度
-  number: long(name='number', example='123'),
-  // 区块Hash
-  hash: string(name='hash', example='11f9f576952714aafb14c6f06ec1796b9ce2553c4c319657bd814fe3ad2d9c19'),
-  // 区块创建时间戳
-  createTime: long(name='create_time', example='1665561926620'),
-  // 上一个区块Hash
-  previousHash: string(name='previous_hash', example='5238b4903d2622b38f04015f7e062c0450d07bfadd8f153327629542e82640e3'),
-  // 区块内交易列表
-  transactions: [ ChainInsightTransaction ](name='transactions', example=''),
-  // 区块的json序列化string
-  data?: string(name='data', example='{}'),
-}
-
 // 导出任务
 model Trigger {
   // 导出任务唯一ID
@@ -741,6 +245,126 @@ model Trigger {
   checkpoint?: TriggerCheckpoint(name='checkpoint', example=''),
   // 导出任务配置
   options: [ MapEntry ](name='options', example=''),
+}
+
+// 导出任务检查点信息
+model TriggerCheckpoint {
+  // 当前处理的高度
+  height?: long(name='height', example='1023'),
+  // 检查点偏移量
+  index?: long(name='index', example='0'),
+  // 检查点的类型
+  type?: string(name='type', example='Block'),
+  // 最近的错误信息
+  lastError?: string(name='last_error', example='send timeout'),
+  // 错误计数
+  errorCount?: long(name='error_count', example='10'),
+  // 推送的事件数量
+  totalCount?: long(name='total_count', example='1000'),
+}
+
+// 导出任务的日志
+model TriggerLog {
+  // 日志的唯一ID
+  uuid: string(name='uuid', example='123123'),
+  // 日志的发生时间
+  createTime?: long(name='create_time', example='1650965665000'),
+  // 日志的最近修改时间
+  modifyTime?: long(name='modify_time', example='1650965665000'),
+  // 日志发生的位置
+  position: TriggerCheckpoint(name='position', example=''),
+  // 日志状态
+  status: string(name='status', example='Pending'),
+}
+
+// MapKV
+model MapEntry {
+  // Key
+  key: string(name='key', example='key'),
+  // value
+  value: string(name='value', example='value'),
+  // 声明 value 的类型，包括 String / Double / Long / Bool / JSONObject / JSONArray
+  type?: string(name='type', example='String'),
+}
+
+// 数据导出映射关系
+model DataExportTableField {
+  // 列名称
+  columnName?: string(name='column_name', example='instance_id'),
+  // 事件中字段提取的 jq 表达式
+  field?: string(name='field', example='.instance_id'),
+  // 列类型
+  columnType?: string(name='column_type', example='varchar'),
+  // 列大小
+  columnSize?: long(name='column_size', example='255'),
+  // 列描述
+  columnDescription?: string(name='column_description', example='12eba21a66ed4d2795b833ce7ebd750c'),
+}
+
+// 服务状态
+model ServiceStatus {
+  // 服务名称
+  service: string(name='service', example='data.gateway'),
+  // 服务的开通与关闭状态
+  state: string(name='state', example='SERVING,CLOSED,PAUSED'),
+}
+
+// 地址标签信息
+model ChainInsightAddressLabel {
+  // 链上账户或者合约地址
+  address?: string(name='address', example='7de3c3db25fe18be036565cec621d7f1a90146467c3f44f118cddfd529e29f8d'),
+  // 账户或者合约的真实名称
+  name?: string(name='name', example='testaccount1'),
+  // 用户定义的地址描述信息
+  comments?: string(name='comments', example='地址描述信息'),
+  // 合约/账户地址的标签信息
+  labels?: [ MapEntry ](name='labels', example=''),
+}
+
+// 数据洞察搜索请求
+model ChainInsightSearchRequest {
+  // 插叙偏移量，用于分页；= (pageNo - 1 * pageSize); 最大值 500
+  offset: long(name='offset', example='0'),
+  // 搜索的上下文，在查询下一页时，需要在请求中带入 Response 返回的 context
+  context?: string(name='context', example='DAgy567NTwPe0v8N6bmWi9FGfF/G2mZK1iCUpd+sbEVLJnjZgsdG'),
+  // 页大小
+  pagSize: long(name='pag_size', example='10'),
+  // 需要搜索的请求内容，可以使用 and、or、not、括号 组合查询逻辑
+  query: string(name='query', example='*'),
+  // 查询某个合约或者存证账户的时间轴返回结果
+  timelineQuery?: string(name='timeline_query', example='13fe9940d10389c1df1bb4f253c5ec9bf7e0b8719020385e3aa96681bd13a0b4'),
+  // 查询范围的开始时间戳，毫秒
+  startTime: long(name='start_time', example='0'),
+  // 查询范围的终止时间戳，单位毫秒
+  endTime: long(name='end_time', example='1666081939568'),
+  // 搜索的类型范围，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline、DigitalAsset
+  enabledTypes?: [ string ](name='enabled_types', example='ChainAddress'),
+}
+
+// 数据洞察搜索返回结果
+model ChainInsightSearchResponse {
+  // 搜索命中的结果总数
+  total: long(name='total', example='23'),
+  // 搜索总共消耗了多长时间，时间单位毫秒
+  took: long(name='took', example='234'),
+  // 当前搜索的 context；翻页时请求中的 context 需要配置为该值
+  context: string(name='context', example='DAgy567NTwPe0v8N6bmWi9FGfF/G2mZK1iCUp'),
+  // 搜索结果
+  items: [ ChainInsightSearchResultItem ](name='items', example=''),
+}
+
+// 数据洞察搜索结果的Item
+model ChainInsightSearchResultItem {
+  // 结果类型，枚举：Chain、ChainData、ChainAddress、ChainBlock、ChainTx、ChainTxTimeline
+  type: string(name='type', example='ChainData'),
+  // 结果所在的链ID
+  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 结果链ID对应的区块链名称
+  bizName?: string(name='biz_name', example='测试链'),
+  // 结果与搜索请求的相关性程度，(0, 10000000]
+  score: long(name='score', example='9500000'),
+  // 搜索结果值
+  values: [ MapEntry ](name='values', example=''),
 }
 
 // 数据洞察链上地址信息
@@ -777,6 +401,212 @@ model ChainInsightAddress {
   contractType?: string(name='contract_type', example='WASM'),
   // 资产合约相关信息
   assetContractInfo?: ChainInsightAssetContractInfo(name='asset_contract_info', example=''),
+  // 创建时间
+  createTime: long(name='create_time', example='1656568400000'),
+}
+
+// 链上交易中的事件
+model ChainInsightEvent {
+  // 事件的 topics 列表
+  topics: [ string ](name='topics', example='call_contract'),
+  // 解析后的交易 topics 列表
+  topicsDecoded?: [ string ](name='topics_decoded', example='call_contract'),
+  // 事件的内容
+  content: string(name='content', example='03123981'),
+  // 解析后的事件内容
+  contentDecoded?: string(name='content_decoded', example='{"name":"a"}'),
+}
+
+// 链上交易
+model ChainInsightTransaction {
+  // 链ID
+  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 链名称
+  bizIdName?: string(name='biz_id_name', example='数字资产'),
+  // 交易ID
+  id: string(name='id', example='450734c80f679db95a6d1d64ca0a5e1f4b71460ab520567861614f87fb9b4d75'),
+  // 交易类型
+  type: string(name='type', example='TX_CALL_CONTRACT'),
+  // 交易状态，VALID 表示合法，其它为错误码
+  state: string(name='state', example='VALID'),
+  // 交易发起者地址
+  from: string(name='from', example='8d881273a516ace01646381132b921dbbdeec771f01ca210ca213efdf4117b80'),
+  // 交易目标地址
+  to: string(name='to', example='13fe9940d10389c1df1bb4f253c5ec9bf7e0b8719020385e3aa96681bd13a0b4'),
+  // 交易原始输入，hex编码
+  input: string(name='input', example='28504d2e0000000000000000000000000'),
+  // 交易调用的函数名
+  function?: string(name='function', example='Add'),
+  // 交易输入解析后的 json string
+  inputDecoded?: string(name='input_decoded', example='{"arg1":"add", "arg2": "1"}'),
+  // 交易的返回值
+  output?: string(name='output', example='00'),
+  // 交易返回值解析后的 json string
+  outputDecoded?: string(name='output_decoded', example='{"idx_0": true}'),
+  // 交易所在区块高度
+  blockNum: long(name='block_num', example='1234'),
+  // 交易所在区块中的 index
+  txIndex: long(name='tx_index', example='0'),
+  // 原始交易的 json string
+  data?: string(name='data', example='string'),
+  // 交易中的事件
+  events?: [ ChainInsightEvent ](name='events', example=''),
+  // 交易时间戳（单位：毫秒）
+  timestamp: long(name='timestamp', example=''),
+}
+
+// 数据洞察合约接口
+model ChainInsightContractInterface {
+  // 展示的函数名称
+  name?: string(name='name', example='functon'),
+  // 接口中使用的函数名称标识符
+  nameSig: string(name='name_sig', example='functon'),
+  // 接口的类型，枚举：function, event, deposit
+  type: string(name='type', example='function'),
+  // 对应的标准 ERC 事件/方法 的名称
+  standardErcName?: string(name='standard_erc_name', example='TransferBatch'),
+  // 参数列表
+  args?: [ ChainInsightContractInterfaceArgument ](name='args', example=''),
+}
+
+// 数据洞察合约接口参数信息
+model ChainInsightContractInterfaceArgument {
+  // 参数名
+  name: string(name='name', example='arg0'),
+  // 参数类型
+  type: string(name='type', example='String'),
+  // 参数位置，枚举：input，output，deposit
+  location: string(name='location', example='input'),
+  // 参数的业务名称
+  comment?: string(name='comment', example='商品名称'),
+  // 用于在更新参数配置时，声明是否需要删除该参数的 comment 内容
+  deleteComment?: boolean(name='delete_comment', example='true, false'),
+  // 对应的标准 ERC 参数的名称，例如：标准ERC1155 TransferBatch事件中的operator
+  standardErcName?: string(name='standard_erc_name', example='operator'),
+  // 是否进行数据脱敏
+  needDesensitization?: boolean(name='need_desensitization', example='true, false'),
+  // 子参数列表
+  subArgs?: ChainInsightContractInterfaceArgumentList(name='sub_args', example=''),
+}
+
+// 二维点
+model ChainInsightPoint {
+  // x坐标，4位定点小数， 10000 表示 1
+  x: long(name='x', example='10000'),
+  // y坐标，4位定点小数， 10000 表示 1
+  y: long(name='y', example='10000'),
+}
+
+// 数据洞察折线图
+model ChainInsightHistogram {
+  // 横坐标名称
+  xLabel?: string(name='x_label', example='XName'),
+  // 纵坐标名称
+  yLabel?: string(name='y_label', example='YName'),
+  // 坐标集，按x增序
+  points: [ ChainInsightPoint ](name='points', example=''),
+  // 表格的名称或维度名称
+  name?: string(name='name', example='FuncA'),
+}
+
+// 链上区块
+model ChainInsightBlock {
+  // 链ID
+  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 链名称
+  bizIdName?: string(name='biz_id_name', example='数字资产'),
+  // 链ID
+  chain: string(name='chain', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 所在子网
+  network: string(name='network', example='_default'),
+  // 区块高度
+  number: long(name='number', example='123'),
+  // 区块Hash
+  hash: string(name='hash', example='11f9f576952714aafb14c6f06ec1796b9ce2553c4c319657bd814fe3ad2d9c19'),
+  // 区块创建时间戳
+  createTime: long(name='create_time', example='1665561926620'),
+  // 上一个区块Hash
+  previousHash: string(name='previous_hash', example='5238b4903d2622b38f04015f7e062c0450d07bfadd8f153327629542e82640e3'),
+  // 区块内交易列表
+  transactions: [ ChainInsightTransaction ](name='transactions', example=''),
+  // 区块的json序列化string
+  data?: string(name='data', example='{}'),
+}
+
+// 地址最近交易返回值
+model ChainInsightAddressLatestTxsResponse {
+  // 页大小
+  pageSize?: long(name='page_size', example='1'),
+  // 当前页码
+  current?: long(name='current', example='1'),
+  // 合计
+  total?: long(name='total', example='12'),
+  // 近期交易详情
+  list?: [ ChainInsightTransaction ](name='list', example=''),
+}
+
+// 查询自定义统计Table指标的返回结果
+model ChainInsightStatisticCustomTablesResponse {
+  // 页大小
+  pageSize: long(name='page_size', example='10'),
+  // 当前页码
+  current: long(name='current', example='1'),
+  // 总条数
+  total: long(name='total', example='123'),
+  // 表格每一行内容，    Key 为列名，    Value，列的取值
+  list: [ ChainInsightStatisticCustomTableRow ](name='list', example=''),
+}
+
+// 数据洞察统计指标Meta元数据
+model ChainInsightStatisticMetricMeta {
+  // 统计指标的类型；枚举：Table，Histogram
+  type: string(name='type', example='Table'),
+  // 指标的展示名称
+  name: string(name='name', example='GasUsedByContractFunction'),
+  // 指标的实际名称（自定义指标ID）
+  metricName: string(name='metric_name', example='jasrq2-uadsfkhj23'),
+}
+
+// 数据洞察统计任务
+model ChainInsightStatisticTask {
+  // 统计任务ID
+  id: string(name='id', example='yurjzxc'),
+  // 统计任务类型
+  type: string(name='type', example='ContractStatistic'),
+  // 所属链ID
+  bizId: string(name='biz_id', example='3bb5caa2df9946abb8d16f3a14ec11d4'),
+  // 统计的链上合约地址
+  address?: string(name='address', example='605f39005ab0c064243b743960e304b5edb78f37d155b0da5fb83ef73311a3c4'),
+  // 任务产出的指标信息
+  metrics: [ ChainInsightStatisticMetricMeta ](name='metrics', example=''),
+  // 任务创建时间，毫秒时间戳
+  createTime?: long(name='create_time', example='1666263972000'),
+  // 任务修改时间，毫秒时间戳
+  modifyTime?: long(name='modify_time', example='1666263972000'),
+  // 任务状态：Running： 运行中； Paused: 已暂停
+  status: string(name='status', example='Running'),
+}
+
+// 数据洞察表格行
+model ChainInsightStatisticCustomTableRow {
+  // 表格的一行
+  row: [ MapEntry ](name='row', example=''),
+}
+
+// 数据搜索状态
+model ChainInsightSearchStatus {
+  // 链ID
+  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 链名称
+  bizIdName?: string(name='biz_id_name', example='测试链'),
+  // Indexing,Enabled,Disabled
+  status: string(name='status', example='开通状态'),
+  // 当前索引的区块高度
+  currentHeight?: long(name='current_height', example='100'),
+  // 当前区块链高度
+  ledgerHeight?: long(name='ledger_height', example='1000'),
+  // 预计索引完成的时间，单位秒
+  estimateTime?: long(name='estimate_time', example='2000'),
 }
 
 // 数据洞察看板
@@ -807,34 +637,166 @@ model ChainInsightWidget {
   query?: string(name='query', example='a80f3bf6b8c43ab34f4e05bbc4e00ca4617b91d420f96d09d9bb7fd01a5ad488'),
 }
 
-// 数据导出映射关系
-model DataExportTableField {
-  // 列名称
-  columnName?: string(name='column_name', example='instance_id'),
-  // 事件中字段提取的 jq 表达式
-  field?: string(name='field', example='.instance_id'),
-  // 列类型
-  columnType?: string(name='column_type', example='varchar'),
-  // 列大小
-  columnSize?: long(name='column_size', example='255'),
-  // 列描述
-  columnDescription?: string(name='column_description', example='12eba21a66ed4d2795b833ce7ebd750c'),
+// 链上近期活跃地址响应
+model ChainInsightActiveAddressesResponse {
+  // 页面大小
+  pageSize?: long(name='page_size', example='1'),
+  // 当前页码
+  current?: long(name='current', example='1'),
+  // 合计
+  total?: long(name='total', example='12'),
+  // 结果列表
+  list?: [ MapEntryList ](name='list', example=''),
 }
 
-// 数据搜索状态
-model ChainInsightSearchStatus {
+// 链上交易基础信息
+model ChainInsightTransactionInfo {
+  // 交易ID
+  id?: string(name='id', example='0705b5f12cb6c9aa55aded6a16b638c339cf8678f2d9c56b9b68993cfa2e5f7e'),
+  // 交易类型
+  type?: string(name='type', example='TX_CALL_CONTRACT'),
+  // 交易发起者
+  from?: string(name='from', example='3697b4fdda4cf0e624e3cc0aef1e82fe4b855a5bd2bf26591ffd33fe9f3391af'),
+  // 交易接收者
+  to?: string(name='to', example='4ed664c46bfaf60423f4a9b23b66df23b600bd61e66ec9812a6aceaf4d9c0616'),
+  // 交易成块高度
+  height?: long(name='height', example='100'),
+  // 交易成块时间，毫秒时间戳
+  timestamp?: long(name='timestamp', example='1000'),
+  // 合约中 ABI 的状态  (无需上传) none / （可以上传）pending / （可以更新）uploaded
+  abiStatus?: string(name='abi_status', example='none'),
+}
+
+// ChainInsightTransactionInfo分页结构体
+model ChainInsightTransactionInfoPageableResponse {
+  // 页面大小
+  pageSize?: long(name='page_size', example='1'),
+  // 当前页码
+  current?: long(name='current', example='1'),
+  // 合计
+  total?: long(name='total', example='12'),
+  // ChainInsightTransactionInfo列表
+  list?: [ ChainInsightTransactionInfo ](name='list', example=''),
+}
+
+// 区块链节点信息
+model ChainInsightNodeInfo {
   // 链ID
-  bizId: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  bizId?: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 节点名称
+  name?: string(name='name', example='node_name'),
+  // 节点IP
+  ip?: string(name='ip', example='41.117.164.61 18130'),
+  // 节点当前区块高度
+  height?: long(name='height', example='100'),
+  // 节点状态，ok, fail
+  status?: string(name='status', example='ok'),
+}
+
+// 链状态
+model ChainStatus {
+  // 链ID
+  bizId?: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
   // 链名称
   bizIdName?: string(name='biz_id_name', example='测试链'),
-  // Indexing,Enabled,Disabled
-  status: string(name='status', example='开通状态'),
-  // 当前索引的区块高度
-  currentHeight?: long(name='current_height', example='100'),
-  // 当前区块链高度
+  // 主链ID
+  parentBizId?: string(name='parent_biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 当前区块高度
   ledgerHeight?: long(name='ledger_height', example='1000'),
-  // 预计索引完成的时间，单位秒
-  estimateTime?: long(name='estimate_time', example='2000'),
+  // 交易总量
+  txCount?: long(name='tx_count', example='200'),
+  // 链状态，ok, fail
+  status?: string(name='status', example='ok'),
+}
+
+// 链状态信息
+model ChainInsightChainStatus {
+  // 节点信息
+  nodeInfos?: [ ChainInsightNodeInfo ](name='node_infos', example=''),
+  // 链状态
+  chainStatuses?: [ ChainStatus ](name='chain_statuses', example=''),
+}
+
+// MapEntry列表，对应一个Map
+model MapEntryList {
+  // MapEntry列表
+  element?: [ MapEntry ](name='element', example=''),
+}
+
+// 链上资产信息
+model ChainInsightAsset {
+  // 链ID
+  bizId?: string(name='biz_id', example='c3179e0d54a340a38d338664fe71d54c'),
+  // 链名称
+  bizIdName?: string(name='biz_id_name', example='测试链'),
+  // 资产合约地址
+  contractAddr: string(name='contract_addr', example='4563613a8a52189eb5180e2999ef2d7fcc274b08fd0ec1a6554f775166b14b22'),
+  // 资产ID
+  assetId: string(name='asset_id', example='2688168816881688'),
+  // 数字权证链上的1155资产分片ID
+  shardId?: string(name='shard_id', example='35e1da54-44f2-4685-a6b2-2bc2e38e08b2'),
+  // 资产类型：ERC721 / ERC1155
+  ercType: string(name='erc_type', example='ERC721'),
+  // 创建时间，取值为创建时交易所在区块创建的时间，单位：毫秒
+  createTime?: long(name='create_time', example='1694758618111'),
+  // 持有者数量
+  ownerCount?: long(name='owner_count', example='100'),
+  // 资产元信息
+  metaData?: string(name='meta_data', example='{"description":"Friendly OpenSea Creature that enjoys long swims in the ocean.","external_url":"https://openseacreatures.io/3","image":"https://storage.googleapis.com/puffs/3.png","name":"Dave","attributes":[{"trait_type":"Base","value":"Starfish"}]}'),
+  // 资产元信息链接
+  uri?: string(name='uri', example='https://openseacreatures.io/metadata.json'),
+  // 账户名下该资产的余额 / 合约下该资产的总供应量
+  balance?: long(name='balance', example='100'),
+  // 该资产最近一笔交易的哈希
+  latestTxHash: string(name='latest_tx_hash', example='ef93df323a95b4859893d4077dd7b0200079ba0e120a79bd4bc32a9a672fd102'),
+  // 该资产最近一笔交易所在区块的创建时间
+  latestTxTime: long(name='latest_tx_time', example='1694758618111'),
+}
+
+// 链上资产元信息
+model ChainInsightAssetMeta {
+  // 资产元信息链接
+  uri?: string(name='uri', example='https://openseacreatures.io/metadata.json'),
+  // 资产元信息
+  metaData?: string(name='meta_data', example='{"description":"Friendly OpenSea Creature that enjoys long swims in the ocean.","external_url":"https://openseacreatures.io/3","image":"https://storage.googleapis.com/puffs/3.png","name":"Dave","attributes":[{"trait_type":"Base","value":"Starfish"}]}'),
+  // 资源类型：Image / Audio / Video / Unknown
+  resourceType: string(name='resource_type', example='Image'),
+  // 资源详细数据，如图片、视频的链接
+  resourceData?: string(name='resource_data', example='https://storage.googleapis.com/puffs/3.png'),
+}
+
+// 链上资产持有者信息
+model ChainInsightAssetOwner {
+  // 持有者地址
+  owner: string(name='owner', example='99c4ad0dda55b8d555992dd03d64f31092eaf9ec436a0e8d1a77217989391e10'),
+  // 合约地址
+  contractAddr: string(name='contract_addr', example='91257bebd7bd337fb418e665c27a7dcf5a3bf06c492028d8ff046ee8f4da873d'),
+  // 资产ID
+  assetId: string(name='asset_id', example='2688168816881688'),
+  // 数字权证链1155合约特有的分片ID
+  shardId?: string(name='shard_id', example='35e1da54-44f2-4685-a6b2-2bc2e38e08b2'),
+  // 资产类型：ERC721 / ERC1155
+  ercType: string(name='erc_type', example='ERC721'),
+  // 数字资产余额
+  balance: long(name='balance', example='10'),
+  // 该账户对该资产最近一次转让交易的哈希
+  updateTxHash: string(name='update_tx_hash', example='ef93df323a95b4859893d4077dd7b0200079ba0e120a79bd4bc32a9a672fd102'),
+  // 该账户对该资产最近一次转让交易所在区块高度
+  updateBlockHeight: long(name='update_block_height', example='100'),
+  // 该账户对该资产最近一次转让交易所在区块的创建时间，单位：毫秒
+  updateBlockTime: long(name='update_block_time', example='1694758618111'),
+}
+
+// 链上资产持有者信息响应
+model ChainInsightAssetOwnersResponse {
+  // 页面大小
+  pageSize: long(name='page_size', example='10'),
+  // 当前页码
+  current: long(name='current', example='1'),
+  // 合计
+  total: long(name='total', example='100'),
+  // 结果列表
+  list: [ ChainInsightAssetOwner ](name='list', example=''),
 }
 
 // 链上资产信息响应
@@ -847,6 +809,91 @@ model ChainInsightAssetsResponse {
   total: long(name='total', example='100'),
   // 结果列表
   list: [ ChainInsightAsset ](name='list', example=''),
+}
+
+// 链上资产流转信息
+model ChainInsightAssetOperation {
+  // 合约地址
+  contractAddr: string(name='contract_addr', example='91257bebd7bd337fb418e665c27a7dcf5a3bf06c492028d8ff046ee8f4da873d'),
+  // 流转交易哈希
+  txId: string(name='tx_id', example='ef93df323a95b4859893d4077dd7b0200079ba0e120a79bd4bc32a9a672fd102'),
+  // 转让执行者地址，ERC1155资产会有
+  operator?: string(name='operator', example='99c4ad0dda55b8d555992dd03d64f31092eaf9ec436a0e8d1a77217989391e10'),
+  // 资产转出地址
+  from: string(name='from', example='99c4ad0dda55b8d555992dd03d64f31092eaf9ec436a0e8d1a77217989391e10'),
+  // 资产转入地址
+  to: string(name='to', example='99c4ad0dda55b8d555992dd03d64f31092eaf9ec436a0e8d1a77217989391e10'),
+  // 资产ID
+  assetId: string(name='asset_id', example='2688168816881688'),
+  // 数字权证链的1155资产的分片ID
+  shardId?: string(name='shard_id', example='35e1da54-44f2-4685-a6b2-2bc2e38e08b2'),
+  // 资产转让数量
+  assetValue: long(name='asset_value', example='10'),
+  // 资产流转交易所在区块的创建时间，单位：毫秒
+  timestamp: long(name='timestamp', example='1694758618111'),
+  // 流转交易所在块高
+  blockHeight: long(name='block_height', example='100'),
+}
+
+// 链上资产流转交易响应
+model ChainInsightAssetOperationsResponse {
+  // 页面大小
+  pageSize: long(name='page_size', example='10'),
+  // 当前页码
+  current: long(name='current', example='1'),
+  // 合计
+  total: long(name='total', example='100'),
+  // 结果列表
+  list: [ ChainInsightAssetOperation ](name='list', example=''),
+}
+
+// 资产合约信息
+model ChainInsightAssetContractInfo {
+  // 资产类型：ERC721 / ERC1155
+  ercType?: string(name='erc_type', example='ERC721'),
+  // 资产总量
+  assetCount?: long(name='asset_count', example='100'),
+  // 持有者总量
+  ownerCount?: long(name='owner_count', example='10'),
+}
+
+// 业务模型配置
+model DataModelConfig {
+  // 对应的方法参数
+  argName: string(name='arg_name', example='arg1'),
+  // 方法参数位置，input / output
+  argLocation: string(name='arg_location', example='input'),
+  // 业务名称
+  comment?: string(name='comment', example='申请者'),
+  // 业务名称在交易时间轴是否可见
+  visible?: boolean(name='visible', example=''),
+}
+
+// 链上地址（合约、存证账户）交易时间轴配置
+model AddressTimelineConfig {
+  // 交易时间轴看板高度
+  widgetHeight?: long(maximum=1000, minimum=300, name='widget_height', example='500'),
+  // 接口业务字段配置列表，更新时只需传入需要更新的方法
+  interfaceDataModelConfigs?: [ InterfaceDataModelConfig ](name='interface_data_model_configs', example=''),
+}
+
+// 接口业务字段配置
+model InterfaceDataModelConfig {
+  // 接口名称
+  name: string(name='name', example='func1'),
+  // 接口签名，SOLIDITY 合约必填
+  nameSig?: string(name='name_sig', example='02fe5305'),
+  // 接口类型，当前 event 暂不支持。
+  // function / deposit / event
+  type: string(name='type', example='function'),
+  // 接口参数配置列表，保序传递。
+  argConfigs?: [ DataModelConfig ](name='arg_configs', example=''),
+}
+
+// 合约接口参数列表
+model ChainInsightContractInterfaceArgumentList {
+  // 合约接口参数列表
+  list?: [ ChainInsightContractInterfaceArgument ](name='list', example=''),
 }
 
 model QueryDatasearchSearchRequest = {
@@ -3609,6 +3656,138 @@ async function pagequeryChaininsightStatisticassethistorycontract(request: Pageq
 async function pagequeryChaininsightStatisticassethistorycontractEx(request: PagequeryChaininsightStatisticassethistorycontractRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryChaininsightStatisticassethistorycontractResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.statisticassethistorycontract.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryChaininsightContracttimelineconfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址：合约 / 存证账户
+  hexAddress: string(name='hex_address'),
+  // 需要更新的区块高度（会更新生效区间包含该高度的时间轴配置）
+  ver: string(name='ver'),
+}
+
+model QueryChaininsightContracttimelineconfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: AddressTimelineConfig(name='result'),
+}
+
+/**
+ * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+ * Summary: 列出链上地址的时间轴配置
+ */
+async function queryChaininsightContracttimelineconfig(request: QueryChaininsightContracttimelineconfigRequest): QueryChaininsightContracttimelineconfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryChaininsightContracttimelineconfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 列出链上地址（合约 / 存证账户）的时间轴配置
+ * Summary: 列出链上地址的时间轴配置
+ */
+async function queryChaininsightContracttimelineconfigEx(request: QueryChaininsightContracttimelineconfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryChaininsightContracttimelineconfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.contracttimelineconfig.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateChaininsightContracttimelineconfigRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 链上地址：合约 / 存证账户
+  hexAddress: string(name='hex_address'),
+  // 需要更新的区块高度（会更新生效区间包含该高度的时间轴配置）
+  ver: string(name='ver'),
+  // 时间轴配置
+  timelineConfig: AddressTimelineConfig(name='timeline_config'),
+}
+
+model UpdateChaininsightContracttimelineconfigResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+ * Summary: 更新链上地址的时间轴配置
+ */
+async function updateChaininsightContracttimelineconfig(request: UpdateChaininsightContracttimelineconfigRequest): UpdateChaininsightContracttimelineconfigResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateChaininsightContracttimelineconfigEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新链上地址（合约 / 存证账户）的时间轴配置
+ * Summary: 更新链上地址的时间轴配置
+ */
+async function updateChaininsightContracttimelineconfigEx(request: UpdateChaininsightContracttimelineconfigRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateChaininsightContracttimelineconfigResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.contracttimelineconfig.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SaveChaininsightContractinterfaceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 链ID
+  bizId: string(name='biz_id'),
+  // 合约 / 存证账户地址
+  contract: string(name='contract'),
+  // 生效块高
+  ver?: string(name='ver'),
+  // 接口类型，Function / Event
+  interfaceType: string(name='interface_type'),
+  // 接口列表
+  contractInterfaces: [ ChainInsightContractInterface ](name='contract_interfaces'),
+}
+
+model SaveChaininsightContractinterfaceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 重写接口参数配置
+ * Summary: 重写接口参数配置
+ */
+async function saveChaininsightContractinterface(request: SaveChaininsightContractinterfaceRequest): SaveChaininsightContractinterfaceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return saveChaininsightContractinterfaceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 重写接口参数配置
+ * Summary: 重写接口参数配置
+ */
+async function saveChaininsightContractinterfaceEx(request: SaveChaininsightContractinterfaceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SaveChaininsightContractinterfaceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.baasdatagw.chaininsight.contractinterface.save', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model RegisterChainsRequest = {
