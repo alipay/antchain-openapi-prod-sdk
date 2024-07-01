@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_1470b9714f184f1885db246eb9933e95.Models
 {
-    public class QueryAntchainZkcollabinvLocationInternalResponse : TeaModel {
+    public class QueryAntchainZkcollabinvLocationTradeResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]

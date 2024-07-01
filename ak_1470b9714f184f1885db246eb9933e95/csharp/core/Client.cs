@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_1470b9714f184f1885db246eb9933e95
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_1470b9714f184f1885db246eb9933e95"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_1470b9714f184f1885db246eb9933e95
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_1470b9714f184f1885db246eb9933e95"},
                         {"_prod_channel", "saas"},
                     };
@@ -322,45 +322,45 @@ namespace AntChain.SDK.Ak_1470b9714f184f1885db246eb9933e95
         }
 
         /**
-         * Description: 基于交易数据的定位信息协查
-         * Summary: 定位协查
+         * Description: 基于交易数据的定位信息协查对外接口
+         * Summary: 定位协查对外接口
          */
-        public QueryAntchainZkcollabinvLocationInternalResponse QueryAntchainZkcollabinvLocationInternal(QueryAntchainZkcollabinvLocationInternalRequest request)
+        public QueryAntchainZkcollabinvLocationTradeResponse QueryAntchainZkcollabinvLocationTrade(QueryAntchainZkcollabinvLocationTradeRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryAntchainZkcollabinvLocationInternalEx(request, headers, runtime);
+            return QueryAntchainZkcollabinvLocationTradeEx(request, headers, runtime);
         }
 
         /**
-         * Description: 基于交易数据的定位信息协查
-         * Summary: 定位协查
+         * Description: 基于交易数据的定位信息协查对外接口
+         * Summary: 定位协查对外接口
          */
-        public async Task<QueryAntchainZkcollabinvLocationInternalResponse> QueryAntchainZkcollabinvLocationInternalAsync(QueryAntchainZkcollabinvLocationInternalRequest request)
+        public async Task<QueryAntchainZkcollabinvLocationTradeResponse> QueryAntchainZkcollabinvLocationTradeAsync(QueryAntchainZkcollabinvLocationTradeRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryAntchainZkcollabinvLocationInternalExAsync(request, headers, runtime);
+            return await QueryAntchainZkcollabinvLocationTradeExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 基于交易数据的定位信息协查
-         * Summary: 定位协查
+         * Description: 基于交易数据的定位信息协查对外接口
+         * Summary: 定位协查对外接口
          */
-        public QueryAntchainZkcollabinvLocationInternalResponse QueryAntchainZkcollabinvLocationInternalEx(QueryAntchainZkcollabinvLocationInternalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryAntchainZkcollabinvLocationTradeResponse QueryAntchainZkcollabinvLocationTradeEx(QueryAntchainZkcollabinvLocationTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntchainZkcollabinvLocationInternalResponse>(DoRequest("1.0", "antchain.zkcollabinv.location.internal.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryAntchainZkcollabinvLocationTradeResponse>(DoRequest("1.0", "antchain.zkcollabinv.location.trade.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 基于交易数据的定位信息协查
-         * Summary: 定位协查
+         * Description: 基于交易数据的定位信息协查对外接口
+         * Summary: 定位协查对外接口
          */
-        public async Task<QueryAntchainZkcollabinvLocationInternalResponse> QueryAntchainZkcollabinvLocationInternalExAsync(QueryAntchainZkcollabinvLocationInternalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryAntchainZkcollabinvLocationTradeResponse> QueryAntchainZkcollabinvLocationTradeExAsync(QueryAntchainZkcollabinvLocationTradeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryAntchainZkcollabinvLocationInternalResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.location.internal.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryAntchainZkcollabinvLocationTradeResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.location.trade.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
