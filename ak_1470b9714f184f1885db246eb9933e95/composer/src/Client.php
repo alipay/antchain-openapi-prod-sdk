@@ -11,8 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\Ak_1470b9714f184f1885db246eb9933e95\Models\QueryAntchainZkcollabinvLocationInternalRequest;
-use AntChain\Ak_1470b9714f184f1885db246eb9933e95\Models\QueryAntchainZkcollabinvLocationInternalResponse;
+use AntChain\Ak_1470b9714f184f1885db246eb9933e95\Models\QueryAntchainZkcollabinvLocationTradeRequest;
+use AntChain\Ak_1470b9714f184f1885db246eb9933e95\Models\QueryAntchainZkcollabinvLocationTradeResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -159,7 +159,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_1470b9714f184f1885db246eb9933e95',
                     '_prod_channel'    => 'saas',
                 ];
@@ -208,35 +208,35 @@ class Client
     }
 
     /**
-     * Description: 基于交易数据的定位信息协查
-     * Summary: 定位协查.
+     * Description: 基于交易数据的定位信息协查对外接口
+     * Summary: 定位协查对外接口.
      *
-     * @param QueryAntchainZkcollabinvLocationInternalRequest $request
+     * @param QueryAntchainZkcollabinvLocationTradeRequest $request
      *
-     * @return QueryAntchainZkcollabinvLocationInternalResponse
+     * @return QueryAntchainZkcollabinvLocationTradeResponse
      */
-    public function queryAntchainZkcollabinvLocationInternal($request)
+    public function queryAntchainZkcollabinvLocationTrade($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryAntchainZkcollabinvLocationInternalEx($request, $headers, $runtime);
+        return $this->queryAntchainZkcollabinvLocationTradeEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 基于交易数据的定位信息协查
-     * Summary: 定位协查.
+     * Description: 基于交易数据的定位信息协查对外接口
+     * Summary: 定位协查对外接口.
      *
-     * @param QueryAntchainZkcollabinvLocationInternalRequest $request
-     * @param string[]                                        $headers
-     * @param RuntimeOptions                                  $runtime
+     * @param QueryAntchainZkcollabinvLocationTradeRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
      *
-     * @return QueryAntchainZkcollabinvLocationInternalResponse
+     * @return QueryAntchainZkcollabinvLocationTradeResponse
      */
-    public function queryAntchainZkcollabinvLocationInternalEx($request, $headers, $runtime)
+    public function queryAntchainZkcollabinvLocationTradeEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return QueryAntchainZkcollabinvLocationInternalResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.location.internal.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryAntchainZkcollabinvLocationTradeResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.location.trade.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

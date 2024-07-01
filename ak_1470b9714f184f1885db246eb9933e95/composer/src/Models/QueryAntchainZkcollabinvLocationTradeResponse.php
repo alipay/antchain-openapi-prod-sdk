@@ -6,7 +6,7 @@ namespace AntChain\Ak_1470b9714f184f1885db246eb9933e95\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainZkcollabinvLocationInternalResponse extends Model
+class QueryAntchainZkcollabinvLocationTradeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -74,7 +74,7 @@ class QueryAntchainZkcollabinvLocationInternalResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainZkcollabinvLocationInternalResponse
+     * @return QueryAntchainZkcollabinvLocationTradeResponse
      */
     public static function fromMap($map = [])
     {
