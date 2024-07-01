@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_1470b9714f184f1885db246eb9933e95',
                     '_prod_channel': 'saas'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_1470b9714f184f1885db246eb9933e95',
                     '_prod_channel': 'saas'
                 }
@@ -273,58 +273,58 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def query_antchain_zkcollabinv_location_internal(
+    def query_antchain_zkcollabinv_location_trade(
         self,
-        request: ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalRequest,
-    ) -> ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalResponse:
+        request: ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeRequest,
+    ) -> ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeResponse:
         """
-        Description: 基于交易数据的定位信息协查
-        Summary: 定位协查
+        Description: 基于交易数据的定位信息协查对外接口
+        Summary: 定位协查对外接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_antchain_zkcollabinv_location_internal_ex(request, headers, runtime)
+        return self.query_antchain_zkcollabinv_location_trade_ex(request, headers, runtime)
 
-    async def query_antchain_zkcollabinv_location_internal_async(
+    async def query_antchain_zkcollabinv_location_trade_async(
         self,
-        request: ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalRequest,
-    ) -> ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalResponse:
+        request: ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeRequest,
+    ) -> ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeResponse:
         """
-        Description: 基于交易数据的定位信息协查
-        Summary: 定位协查
+        Description: 基于交易数据的定位信息协查对外接口
+        Summary: 定位协查对外接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_antchain_zkcollabinv_location_internal_ex_async(request, headers, runtime)
+        return await self.query_antchain_zkcollabinv_location_trade_ex_async(request, headers, runtime)
 
-    def query_antchain_zkcollabinv_location_internal_ex(
+    def query_antchain_zkcollabinv_location_trade_ex(
         self,
-        request: ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalRequest,
+        request: ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalResponse:
+    ) -> ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeResponse:
         """
-        Description: 基于交易数据的定位信息协查
-        Summary: 定位协查
+        Description: 基于交易数据的定位信息协查对外接口
+        Summary: 定位协查对外接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalResponse(),
-            self.do_request('1.0', 'antchain.zkcollabinv.location.internal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.location.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_antchain_zkcollabinv_location_internal_ex_async(
+    async def query_antchain_zkcollabinv_location_trade_ex_async(
         self,
-        request: ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalRequest,
+        request: ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalResponse:
+    ) -> ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeResponse:
         """
-        Description: 基于交易数据的定位信息协查
-        Summary: 定位协查
+        Description: 基于交易数据的定位信息协查对外接口
+        Summary: 定位协查对外接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationInternalResponse(),
-            await self.do_request_async('1.0', 'antchain.zkcollabinv.location.internal.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ak__1470b_9714f_184f_1885db_246eb_9933e_95_models.QueryAntchainZkcollabinvLocationTradeResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.location.trade.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

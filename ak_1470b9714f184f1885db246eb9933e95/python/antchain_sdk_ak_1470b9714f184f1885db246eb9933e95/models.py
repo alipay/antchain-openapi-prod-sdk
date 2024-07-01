@@ -153,26 +153,29 @@ class Config(TeaModel):
         return self
 
 
-class QueryAntchainZkcollabinvLocationInternalRequest(TeaModel):
+class QueryAntchainZkcollabinvLocationTradeRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        id_number: str = None,
+        id_numer: str = None,
         phone_no: str = None,
+        caller_id: str = None,
         start_time: str = None,
         end_time: str = None,
         center_position: str = None,
         distinct_county: str = None,
-        inv_type: int = None,
+        inv_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # md5加密的身份证号
-        self.id_number = id_number
+        self.id_numer = id_numer
         # md5加密的手机号
         self.phone_no = phone_no
+        # 调用者用户ID（或外部系统业务ID）
+        self.caller_id = caller_id
         # 定位时间范围开始时间
         self.start_time = start_time
         # 定位时间范围结束时间
@@ -187,8 +190,25 @@ class QueryAntchainZkcollabinvLocationInternalRequest(TeaModel):
         self.inv_type = inv_type
 
     def validate(self):
+        if self.id_numer is not None:
+            self.validate_max_length(self.id_numer, 'id_numer', 32)
+        if self.phone_no is not None:
+            self.validate_max_length(self.phone_no, 'phone_no', 32)
+        self.validate_required(self.caller_id, 'caller_id')
+        if self.caller_id is not None:
+            self.validate_max_length(self.caller_id, 'caller_id', 128)
         self.validate_required(self.start_time, 'start_time')
+        if self.start_time is not None:
+            self.validate_max_length(self.start_time, 'start_time', 19)
         self.validate_required(self.end_time, 'end_time')
+        if self.end_time is not None:
+            self.validate_max_length(self.end_time, 'end_time', 19)
+        if self.center_position is not None:
+            self.validate_max_length(self.center_position, 'center_position', 64)
+        if self.distinct_county is not None:
+            self.validate_max_length(self.distinct_county, 'distinct_county', 128)
+        if self.inv_type is not None:
+            self.validate_max_length(self.inv_type, 'inv_type', 2)
 
     def to_map(self):
         _map = super().to_map()
@@ -200,10 +220,12 @@ class QueryAntchainZkcollabinvLocationInternalRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.id_number is not None:
-            result['id_number'] = self.id_number
+        if self.id_numer is not None:
+            result['id_numer'] = self.id_numer
         if self.phone_no is not None:
             result['phone_no'] = self.phone_no
+        if self.caller_id is not None:
+            result['caller_id'] = self.caller_id
         if self.start_time is not None:
             result['start_time'] = self.start_time
         if self.end_time is not None:
@@ -222,10 +244,12 @@ class QueryAntchainZkcollabinvLocationInternalRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('id_number') is not None:
-            self.id_number = m.get('id_number')
+        if m.get('id_numer') is not None:
+            self.id_numer = m.get('id_numer')
         if m.get('phone_no') is not None:
             self.phone_no = m.get('phone_no')
+        if m.get('caller_id') is not None:
+            self.caller_id = m.get('caller_id')
         if m.get('start_time') is not None:
             self.start_time = m.get('start_time')
         if m.get('end_time') is not None:
@@ -239,7 +263,7 @@ class QueryAntchainZkcollabinvLocationInternalRequest(TeaModel):
         return self
 
 
-class QueryAntchainZkcollabinvLocationInternalResponse(TeaModel):
+class QueryAntchainZkcollabinvLocationTradeResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
