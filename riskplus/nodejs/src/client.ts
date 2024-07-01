@@ -10124,9 +10124,9 @@ export class QueryDubbridgeAccountUsecreditRequest extends $tea.Model {
   // 渠道号
   channelCode: string;
   // 客户编码
-  customNo: string;
+  customNo?: string;
   // 资产方用户唯一标识
-  openId: string;
+  openId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -19903,7 +19903,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.21",
+          sdk_version: "1.19.22",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
