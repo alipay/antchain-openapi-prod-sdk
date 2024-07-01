@@ -77,14 +77,16 @@ export class Config extends $tea.Model {
   }
 }
 
-export class QueryAntchainZkcollabinvLocationInternalRequest extends $tea.Model {
+export class QueryAntchainZkcollabinvLocationTradeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
   // md5加密的身份证号
-  idNumber?: string;
+  idNumer?: string;
   // md5加密的手机号
   phoneNo?: string;
+  // 调用者用户ID（或外部系统业务ID）
+  callerId: string;
   // 定位时间范围开始时间
   startTime: string;
   // 定位时间范围结束时间
@@ -96,13 +98,14 @@ export class QueryAntchainZkcollabinvLocationInternalRequest extends $tea.Model 
   // 协查类型：
   // 0: 为经纬度精准定位协查 (默认)
   // 1:  为区县定位 (省-市-区/县) 协查
-  invType?: number;
+  invType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      idNumber: 'id_number',
+      idNumer: 'id_numer',
       phoneNo: 'phone_no',
+      callerId: 'caller_id',
       startTime: 'start_time',
       endTime: 'end_time',
       centerPosition: 'center_position',
@@ -115,13 +118,14 @@ export class QueryAntchainZkcollabinvLocationInternalRequest extends $tea.Model 
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      idNumber: 'string',
+      idNumer: 'string',
       phoneNo: 'string',
+      callerId: 'string',
       startTime: 'string',
       endTime: 'string',
       centerPosition: 'string',
       distinctCounty: 'string',
-      invType: 'number',
+      invType: 'string',
     };
   }
 
@@ -130,7 +134,7 @@ export class QueryAntchainZkcollabinvLocationInternalRequest extends $tea.Model 
   }
 }
 
-export class QueryAntchainZkcollabinvLocationInternalResponse extends $tea.Model {
+export class QueryAntchainZkcollabinvLocationTradeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -279,7 +283,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_1470b9714f184f1885db246eb9933e95",
           _prod_channel: "saas",
         };
@@ -328,22 +332,22 @@ export default class Client {
   }
 
   /**
-   * Description: 基于交易数据的定位信息协查
-   * Summary: 定位协查
+   * Description: 基于交易数据的定位信息协查对外接口
+   * Summary: 定位协查对外接口
    */
-  async queryAntchainZkcollabinvLocationInternal(request: QueryAntchainZkcollabinvLocationInternalRequest): Promise<QueryAntchainZkcollabinvLocationInternalResponse> {
+  async queryAntchainZkcollabinvLocationTrade(request: QueryAntchainZkcollabinvLocationTradeRequest): Promise<QueryAntchainZkcollabinvLocationTradeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryAntchainZkcollabinvLocationInternalEx(request, headers, runtime);
+    return await this.queryAntchainZkcollabinvLocationTradeEx(request, headers, runtime);
   }
 
   /**
-   * Description: 基于交易数据的定位信息协查
-   * Summary: 定位协查
+   * Description: 基于交易数据的定位信息协查对外接口
+   * Summary: 定位协查对外接口
    */
-  async queryAntchainZkcollabinvLocationInternalEx(request: QueryAntchainZkcollabinvLocationInternalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainZkcollabinvLocationInternalResponse> {
+  async queryAntchainZkcollabinvLocationTradeEx(request: QueryAntchainZkcollabinvLocationTradeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainZkcollabinvLocationTradeResponse> {
     Util.validateModel(request);
-    return $tea.cast<QueryAntchainZkcollabinvLocationInternalResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.location.internal.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainZkcollabinvLocationInternalResponse({}));
+    return $tea.cast<QueryAntchainZkcollabinvLocationTradeResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.location.trade.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainZkcollabinvLocationTradeResponse({}));
   }
 
 }
