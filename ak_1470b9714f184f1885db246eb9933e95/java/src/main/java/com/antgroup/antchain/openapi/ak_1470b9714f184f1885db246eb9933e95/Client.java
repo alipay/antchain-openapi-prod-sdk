@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.0"),
+                    new TeaPair("sdk_version", "1.0.1"),
                     new TeaPair("_prod_code", "ak_1470b9714f184f1885db246eb9933e95"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -185,21 +185,21 @@ public class Client {
     }
 
     /**
-     * Description: 基于交易数据的定位信息协查
-     * Summary: 定位协查
+     * Description: 基于交易数据的定位信息协查对外接口
+     * Summary: 定位协查对外接口
      */
-    public QueryAntchainZkcollabinvLocationInternalResponse queryAntchainZkcollabinvLocationInternal(QueryAntchainZkcollabinvLocationInternalRequest request) throws Exception {
+    public QueryAntchainZkcollabinvLocationTradeResponse queryAntchainZkcollabinvLocationTrade(QueryAntchainZkcollabinvLocationTradeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryAntchainZkcollabinvLocationInternalEx(request, headers, runtime);
+        return this.queryAntchainZkcollabinvLocationTradeEx(request, headers, runtime);
     }
 
     /**
-     * Description: 基于交易数据的定位信息协查
-     * Summary: 定位协查
+     * Description: 基于交易数据的定位信息协查对外接口
+     * Summary: 定位协查对外接口
      */
-    public QueryAntchainZkcollabinvLocationInternalResponse queryAntchainZkcollabinvLocationInternalEx(QueryAntchainZkcollabinvLocationInternalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryAntchainZkcollabinvLocationTradeResponse queryAntchainZkcollabinvLocationTradeEx(QueryAntchainZkcollabinvLocationTradeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.location.internal.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainZkcollabinvLocationInternalResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.location.trade.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainZkcollabinvLocationTradeResponse());
     }
 }

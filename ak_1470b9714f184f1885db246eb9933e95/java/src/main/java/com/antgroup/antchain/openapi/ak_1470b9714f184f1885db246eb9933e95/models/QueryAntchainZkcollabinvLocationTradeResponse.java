@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_1470b9714f184f1885db246eb9933e95.models
 
 import com.aliyun.tea.*;
 
-public class QueryAntchainZkcollabinvLocationInternalResponse extends TeaModel {
+public class QueryAntchainZkcollabinvLocationTradeResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -24,12 +24,12 @@ public class QueryAntchainZkcollabinvLocationInternalResponse extends TeaModel {
     @NameInMap("ext_info")
     public String extInfo;
 
-    public static QueryAntchainZkcollabinvLocationInternalResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryAntchainZkcollabinvLocationInternalResponse self = new QueryAntchainZkcollabinvLocationInternalResponse();
+    public static QueryAntchainZkcollabinvLocationTradeResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryAntchainZkcollabinvLocationTradeResponse self = new QueryAntchainZkcollabinvLocationTradeResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryAntchainZkcollabinvLocationInternalResponse setReqMsgId(String reqMsgId) {
+    public QueryAntchainZkcollabinvLocationTradeResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryAntchainZkcollabinvLocationInternalResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryAntchainZkcollabinvLocationInternalResponse setResultCode(String resultCode) {
+    public QueryAntchainZkcollabinvLocationTradeResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryAntchainZkcollabinvLocationInternalResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryAntchainZkcollabinvLocationInternalResponse setResultMsg(String resultMsg) {
+    public QueryAntchainZkcollabinvLocationTradeResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,7 +53,7 @@ public class QueryAntchainZkcollabinvLocationInternalResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAntchainZkcollabinvLocationInternalResponse setConfidenceValue(String confidenceValue) {
+    public QueryAntchainZkcollabinvLocationTradeResponse setConfidenceValue(String confidenceValue) {
         this.confidenceValue = confidenceValue;
         return this;
     }
@@ -61,7 +61,7 @@ public class QueryAntchainZkcollabinvLocationInternalResponse extends TeaModel {
         return this.confidenceValue;
     }
 
-    public QueryAntchainZkcollabinvLocationInternalResponse setExtInfo(String extInfo) {
+    public QueryAntchainZkcollabinvLocationTradeResponse setExtInfo(String extInfo) {
         this.extInfo = extInfo;
         return this;
     }
