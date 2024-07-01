@@ -25,12 +25,12 @@ namespace AntChain.SDK.RISKPLUS.Models
 
         // 客户编码
         [NameInMap("custom_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CustomNo { get; set; }
 
         // 资产方用户唯一标识
         [NameInMap("open_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OpenId { get; set; }
 
     }
