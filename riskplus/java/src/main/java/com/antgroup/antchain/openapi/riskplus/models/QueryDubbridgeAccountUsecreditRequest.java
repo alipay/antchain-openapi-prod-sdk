@@ -18,12 +18,10 @@ public class QueryDubbridgeAccountUsecreditRequest extends TeaModel {
 
     // 客户编码
     @NameInMap("custom_no")
-    @Validation(required = true)
     public String customNo;
 
     // 资产方用户唯一标识
     @NameInMap("open_id")
-    @Validation(required = true)
     public String openId;
 
     public static QueryDubbridgeAccountUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
