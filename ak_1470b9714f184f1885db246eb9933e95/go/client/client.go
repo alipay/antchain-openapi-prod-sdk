@@ -148,82 +148,89 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-type QueryAntchainZkcollabinvLocationInternalRequest struct {
+type QueryAntchainZkcollabinvLocationTradeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// md5加密的身份证号
-	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	IdNumer *string `json:"id_numer,omitempty" xml:"id_numer,omitempty" maxLength:"32"`
 	// md5加密的手机号
-	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty"`
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty" maxLength:"32"`
+	// 调用者用户ID（或外部系统业务ID）
+	CallerId *string `json:"caller_id,omitempty" xml:"caller_id,omitempty" require:"true" maxLength:"128"`
 	// 定位时间范围开始时间
-	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true" maxLength:"19"`
 	// 定位时间范围结束时间
-	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true" maxLength:"19"`
 	// 核查中心位置（经度,纬度）
-	CenterPosition *string `json:"center_position,omitempty" xml:"center_position,omitempty"`
+	CenterPosition *string `json:"center_position,omitempty" xml:"center_position,omitempty" maxLength:"64"`
 	// 核查省市区县范围
-	DistinctCounty *string `json:"distinct_county,omitempty" xml:"distinct_county,omitempty"`
+	DistinctCounty *string `json:"distinct_county,omitempty" xml:"distinct_county,omitempty" maxLength:"128"`
 	// 协查类型：
 	// 0: 为经纬度精准定位协查 (默认)
 	// 1:  为区县定位 (省-市-区/县) 协查
-	InvType *int64 `json:"inv_type,omitempty" xml:"inv_type,omitempty"`
+	InvType *string `json:"inv_type,omitempty" xml:"inv_type,omitempty" maxLength:"2"`
 }
 
-func (s QueryAntchainZkcollabinvLocationInternalRequest) String() string {
+func (s QueryAntchainZkcollabinvLocationTradeRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAntchainZkcollabinvLocationInternalRequest) GoString() string {
+func (s QueryAntchainZkcollabinvLocationTradeRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetAuthToken(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetAuthToken(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetProductInstanceId(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetProductInstanceId(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetIdNumber(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
-	s.IdNumber = &v
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetIdNumer(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
+	s.IdNumer = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetPhoneNo(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetPhoneNo(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
 	s.PhoneNo = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetStartTime(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetCallerId(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
+	s.CallerId = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetStartTime(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
 	s.StartTime = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetEndTime(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetEndTime(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
 	s.EndTime = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetCenterPosition(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetCenterPosition(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
 	s.CenterPosition = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetDistinctCounty(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetDistinctCounty(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
 	s.DistinctCounty = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetInvType(v int64) *QueryAntchainZkcollabinvLocationInternalRequest {
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetInvType(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
 	s.InvType = &v
 	return s
 }
 
-type QueryAntchainZkcollabinvLocationInternalResponse struct {
+type QueryAntchainZkcollabinvLocationTradeResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -236,35 +243,35 @@ type QueryAntchainZkcollabinvLocationInternalResponse struct {
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
-func (s QueryAntchainZkcollabinvLocationInternalResponse) String() string {
+func (s QueryAntchainZkcollabinvLocationTradeResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryAntchainZkcollabinvLocationInternalResponse) GoString() string {
+func (s QueryAntchainZkcollabinvLocationTradeResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetReqMsgId(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+func (s *QueryAntchainZkcollabinvLocationTradeResponse) SetReqMsgId(v string) *QueryAntchainZkcollabinvLocationTradeResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetResultCode(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+func (s *QueryAntchainZkcollabinvLocationTradeResponse) SetResultCode(v string) *QueryAntchainZkcollabinvLocationTradeResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetResultMsg(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+func (s *QueryAntchainZkcollabinvLocationTradeResponse) SetResultMsg(v string) *QueryAntchainZkcollabinvLocationTradeResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetConfidenceValue(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+func (s *QueryAntchainZkcollabinvLocationTradeResponse) SetConfidenceValue(v string) *QueryAntchainZkcollabinvLocationTradeResponse {
 	s.ConfidenceValue = &v
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetExtInfo(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+func (s *QueryAntchainZkcollabinvLocationTradeResponse) SetExtInfo(v string) *QueryAntchainZkcollabinvLocationTradeResponse {
 	s.ExtInfo = &v
 	return s
 }
@@ -391,7 +398,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_1470b9714f184f1885db246eb9933e95"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -450,14 +457,14 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 }
 
 /**
- * Description: 基于交易数据的定位信息协查
- * Summary: 定位协查
+ * Description: 基于交易数据的定位信息协查对外接口
+ * Summary: 定位协查对外接口
  */
-func (client *Client) QueryAntchainZkcollabinvLocationInternal(request *QueryAntchainZkcollabinvLocationInternalRequest) (_result *QueryAntchainZkcollabinvLocationInternalResponse, _err error) {
+func (client *Client) QueryAntchainZkcollabinvLocationTrade(request *QueryAntchainZkcollabinvLocationTradeRequest) (_result *QueryAntchainZkcollabinvLocationTradeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryAntchainZkcollabinvLocationInternalResponse{}
-	_body, _err := client.QueryAntchainZkcollabinvLocationInternalEx(request, headers, runtime)
+	_result = &QueryAntchainZkcollabinvLocationTradeResponse{}
+	_body, _err := client.QueryAntchainZkcollabinvLocationTradeEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -466,16 +473,16 @@ func (client *Client) QueryAntchainZkcollabinvLocationInternal(request *QueryAnt
 }
 
 /**
- * Description: 基于交易数据的定位信息协查
- * Summary: 定位协查
+ * Description: 基于交易数据的定位信息协查对外接口
+ * Summary: 定位协查对外接口
  */
-func (client *Client) QueryAntchainZkcollabinvLocationInternalEx(request *QueryAntchainZkcollabinvLocationInternalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainZkcollabinvLocationInternalResponse, _err error) {
+func (client *Client) QueryAntchainZkcollabinvLocationTradeEx(request *QueryAntchainZkcollabinvLocationTradeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainZkcollabinvLocationTradeResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryAntchainZkcollabinvLocationInternalResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.location.internal.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryAntchainZkcollabinvLocationTradeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.location.trade.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
