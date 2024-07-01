@@ -47,8 +47,6 @@ class QueryDubbridgeAccountUsecreditRequest extends Model
     public function validate()
     {
         Model::validateRequired('channelCode', $this->channelCode, true);
-        Model::validateRequired('customNo', $this->customNo, true);
-        Model::validateRequired('openId', $this->openId, true);
     }
 
     public function toMap()
