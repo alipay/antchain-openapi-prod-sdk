@@ -16900,8 +16900,6 @@ class QueryDubbridgeAccountUsecreditRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.channel_code, 'channel_code')
-        self.validate_required(self.custom_no, 'custom_no')
-        self.validate_required(self.open_id, 'open_id')
 
     def to_map(self):
         _map = super().to_map()
