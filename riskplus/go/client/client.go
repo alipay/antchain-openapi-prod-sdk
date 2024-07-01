@@ -13652,9 +13652,9 @@ type QueryDubbridgeAccountUsecreditRequest struct {
 	// 渠道号
 	ChannelCode *string `json:"channel_code,omitempty" xml:"channel_code,omitempty" require:"true"`
 	// 客户编码
-	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty" require:"true"`
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
 	// 资产方用户唯一标识
-	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty" require:"true"`
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
 }
 
 func (s QueryDubbridgeAccountUsecreditRequest) String() string {
@@ -26637,7 +26637,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.21"),
+				"sdk_version":      tea.String("1.19.22"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
