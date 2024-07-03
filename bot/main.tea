@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.12',
+    sdk_version = '1.11.14',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -1692,6 +1692,22 @@ model LabelChainResult {
   errorMsg: string(name='error_msg', example='xxxxx'),
 }
 
+// iotbasic数控设备信息
+model IotbasicDigitalKeyDeviceInfo {
+  // 设备id
+  devid: string(name='devid', example='125839'),
+  // 设备名称
+  devName: string(name='dev_name', example='867186033894659'),
+  // 设备sn
+  sn: string(name='sn', example='9726001010008SC30N96'),
+  // Ccid
+  ccid: string(name='ccid', example='898602B1191870002179'),
+  // Msisdn
+  msisdn: string(name='msisdn', example='1064818313682'),
+  // tbox固件版本号(16进制)
+  ver: string(name='ver', example='80000109'),
+}
+
 // 二维码识别请求
 model BaiQrcodeParseReqData {
   // 待识别图片的url
@@ -2426,6 +2442,24 @@ model CollectLabelRawContent {
   content: string(name='content', example='XXXXX'),
   // 数据模型ID 
   dataModelId: string(name='data_model_id', example='001202103171566166669'),
+}
+
+// iotbasic数控设备信息（不包含出库信息）
+model IotbasicDigitalKeyDeviceNoShipInfo {
+  // 设备id
+  devid: string(name='devid', example='125839'),
+  // 设备sn
+  sn: string(name='sn', example='9726001010008SC30N96'),
+  // ccid
+  ccid: string(name='ccid', example='898602B1191870002179'),
+  // imei
+  imei: string(name='imei', example='866311069827503'),
+  // tbox固件版本号(16进制)
+  ver: string(name='ver', example='80000109'),
+  // PEPS系统固件版本号(16进制)
+  pepsVer: string(name='peps_ver', example='81070205'),
+  // 蓝牙固件版本号(16进制)
+  bleVer: string(name='ble_ver', example='80090204'),
 }
 
 // 发行设备
@@ -6527,6 +6561,10 @@ model QueryIotbasicCategorylistRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 行业
+  industry?: string(name='industry'),
+  // 场景
+  scene?: string(name='scene'),
 }
 
 model QueryIotbasicCategorylistResponse = {
@@ -6543,8 +6581,8 @@ model QueryIotbasicCategorylistResponse = {
 }
 
 /**
- * Description: iotbasic-查询品类列表
- * Summary: iotbasic-查询品类列表
+ * Description: iotbasic-分页查询品类列表
+ * Summary: iotbasic-分页查询品类列表
  */
 async function queryIotbasicCategorylist(request: QueryIotbasicCategorylistRequest): QueryIotbasicCategorylistResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -6553,8 +6591,8 @@ async function queryIotbasicCategorylist(request: QueryIotbasicCategorylistReque
 }
 
 /**
- * Description: iotbasic-查询品类列表
- * Summary: iotbasic-查询品类列表
+ * Description: iotbasic-分页查询品类列表
+ * Summary: iotbasic-分页查询品类列表
  */
 async function queryIotbasicCategorylistEx(request: QueryIotbasicCategorylistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIotbasicCategorylistResponse {
   Util.validateModel(request);
@@ -7878,6 +7916,111 @@ async function queryDigitalkeyTradepay(request: QueryDigitalkeyTradepayRequest):
 async function queryDigitalkeyTradepayEx(request: QueryDigitalkeyTradepayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyTradepayResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.digitalkey.tradepay.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDigitalkeyDeviceinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备DID，注册蚂蚁链返回的设备唯一ID
+  deviceDid: string(name='device_did'),
+  // 使用deviceSecret对deviceDid进行加签
+  signature: string(name='signature'),
+}
+
+model GetDigitalkeyDeviceinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+  // iotbasic数控设备信息
+  data?: IotbasicDigitalKeyDeviceInfo(name='data'),
+}
+
+/**
+ * Description: iotbasic-查询数控设备信息
+ * Summary: iotbasic-查询数控设备信息
+ */
+async function getDigitalkeyDeviceinfo(request: GetDigitalkeyDeviceinfoRequest): GetDigitalkeyDeviceinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDigitalkeyDeviceinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-查询数控设备信息
+ * Summary: iotbasic-查询数控设备信息
+ */
+async function getDigitalkeyDeviceinfoEx(request: GetDigitalkeyDeviceinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDigitalkeyDeviceinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.deviceinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadIotbasicAppmanagerfileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用文件
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 应用模块名称，由查询应用类型列表获取
+  bizType: string(name='biz_type'),
+}
+
+model UploadIotbasicAppmanagerfileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+  // 上传应用文件解析结果，json字符串
+  data?: string(name='data'),
+}
+
+/**
+ * Description: iotbasic-上传apk文件
+ * Summary: iotbasic-上传apk文件
+ */
+async function uploadIotbasicAppmanagerfile(request: UploadIotbasicAppmanagerfileRequest): UploadIotbasicAppmanagerfileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadIotbasicAppmanagerfileEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-上传apk文件
+ * Summary: iotbasic-上传apk文件
+ */
+async function uploadIotbasicAppmanagerfileEx(request: UploadIotbasicAppmanagerfileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadIotbasicAppmanagerfileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'blockchain.bot.iotbasic.appmanagerfile.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadIotbasicAppmanagerfileResponse = new UploadIotbasicAppmanagerfileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadIotbasicAppmanagerfileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotbasic.appmanagerfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
