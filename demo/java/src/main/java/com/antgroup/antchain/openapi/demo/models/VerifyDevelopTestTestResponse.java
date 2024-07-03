@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTimetestTimetestTimetestResponse extends TeaModel {
+public class VerifyDevelopTestTestResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class QueryTimetestTimetestTimetestResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryTimetestTimetestTimetestResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryTimetestTimetestTimetestResponse self = new QueryTimetestTimetestTimetestResponse();
+    public static VerifyDevelopTestTestResponse build(java.util.Map<String, ?> map) throws Exception {
+        VerifyDevelopTestTestResponse self = new VerifyDevelopTestTestResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryTimetestTimetestTimetestResponse setReqMsgId(String reqMsgId) {
+    public VerifyDevelopTestTestResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryTimetestTimetestTimetestResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryTimetestTimetestTimetestResponse setResultCode(String resultCode) {
+    public VerifyDevelopTestTestResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryTimetestTimetestTimetestResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryTimetestTimetestTimetestResponse setResultMsg(String resultMsg) {
+    public VerifyDevelopTestTestResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }

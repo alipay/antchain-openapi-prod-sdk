@@ -21,6 +21,11 @@ public class QueryInstanceidRuleRequest extends TeaModel {
     @Validation(required = true)
     public String oprator;
 
+    // 结构体
+    @NameInMap("struct")
+    @Validation(required = true)
+    public TestA struct;
+
     public static QueryInstanceidRuleRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryInstanceidRuleRequest self = new QueryInstanceidRuleRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class QueryInstanceidRuleRequest extends TeaModel {
     }
     public String getOprator() {
         return this.oprator;
+    }
+
+    public QueryInstanceidRuleRequest setStruct(TestA struct) {
+        this.struct = struct;
+        return this;
+    }
+    public TestA getStruct() {
+        return this.struct;
     }
 
 }

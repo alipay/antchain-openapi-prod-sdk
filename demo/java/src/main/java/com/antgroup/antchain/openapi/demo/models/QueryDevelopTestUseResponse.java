@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class UploadJzqFailResponse extends TeaModel {
+public class QueryDevelopTestUseResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class UploadJzqFailResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static UploadJzqFailResponse build(java.util.Map<String, ?> map) throws Exception {
-        UploadJzqFailResponse self = new UploadJzqFailResponse();
+    public static QueryDevelopTestUseResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryDevelopTestUseResponse self = new QueryDevelopTestUseResponse();
         return TeaModel.build(map, self);
     }
 
-    public UploadJzqFailResponse setReqMsgId(String reqMsgId) {
+    public QueryDevelopTestUseResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class UploadJzqFailResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UploadJzqFailResponse setResultCode(String resultCode) {
+    public QueryDevelopTestUseResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class UploadJzqFailResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UploadJzqFailResponse setResultMsg(String resultMsg) {
+    public QueryDevelopTestUseResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
