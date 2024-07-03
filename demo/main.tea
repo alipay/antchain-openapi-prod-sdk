@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.299',
+    sdk_version = '1.0.306',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -421,6 +421,26 @@ model QueryMap {
 
 // 123
 model TestA {
+  // 1
+  parameter1: string(name='parameter_1', example='1'),
+  // 2
+  parameter2: string(name='parameter_2', example='2'),
+  // 3
+  parameter3: string(name='parameter_3', example='3'),
+  // 4
+  parameter4: string(name='parameter_4', example='4'),
+  // 5
+  parameter5: string(name='parameter_5', example='5'),
+  // 6
+  parameter6: string(name='parameter_6', example='6'),
+  // 7
+  parameter7: string(name='parameter_7', example='7'),
+  // 8
+  parameter8: string(name='parameter_8', example='8'),
+  // 9
+  parameter9: string(name='parameter_9', example='9'),
+  // 10
+  parameter10: string(name='parameter_10', example='10'),
 }
 
 // 自动化测试创建（勿删）
@@ -457,40 +477,6 @@ model XNameValuePair {
   name: string(name='name', example='key'),
   // 键值
   value: string(name='value', example='value'),
-}
-
-model BindSdfSssSssRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model BindSdfSssSssResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: sdf
- * Summary: sdf
- */
-async function bindSdfSssSss(request: BindSdfSssSssRequest): BindSdfSssSssResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return bindSdfSssSssEx(request, headers, runtime);
-}
-
-/**
- * Description: sdf
- * Summary: sdf
- */
-async function bindSdfSssSssEx(request: BindSdfSssSssRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindSdfSssSssResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.sdf.sss.sss.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StatusGatewayCheckRequest = {
@@ -1235,131 +1221,6 @@ async function queryDemoAbcAbcEx(request: QueryDemoAbcAbcRequest, headers: map[s
   return doRequest('1.0' ,'demo.demo.abc.abc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model UploadShaofangFileRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 1
-  fileObject?: readable(description='待上传文件', ignore='true'),
-  fileObjectName?: string(description='待上传文件名', ignore='true'),
-  fileId: string(name='file_id'),
-}
-
-model UploadShaofangFileResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 文件上传
- * Summary: 测试
- */
-async function uploadShaofangFile(request: UploadShaofangFileRequest): UploadShaofangFileResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return uploadShaofangFileEx(request, headers, runtime);
-}
-
-/**
- * Description: 文件上传
- * Summary: 测试
- */
-async function uploadShaofangFileEx(request: UploadShaofangFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadShaofangFileResponse {
-  if (!Util.isUnset(request.fileObject)) {
-    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
-      authToken = request.authToken,
-      apiCode = 'demo.shaofang.file.upload',
-      fileName = request.fileObjectName,
-    };
-    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
-    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "OK")) {
-      var uploadShaofangFileResponse = new UploadShaofangFileResponse{
-        reqMsgId = uploadResp.reqMsgId,
-        resultCode = uploadResp.resultCode,
-        resultMsg = uploadResp.resultMsg,
-      };
-      return uploadShaofangFileResponse;
-    }
-    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
-    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
-    request.fileId = uploadResp.fileId;
-  }
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.shaofang.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryShaofangTestTtRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model QueryShaofangTestTtResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: test
- * Summary: 测试
- */
-async function queryShaofangTestTt(request: QueryShaofangTestTtRequest): QueryShaofangTestTtResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryShaofangTestTtEx(request, headers, runtime);
-}
-
-/**
- * Description: test
- * Summary: 测试
- */
-async function queryShaofangTestTtEx(request: QueryShaofangTestTtRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryShaofangTestTtResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.shaofang.test.tt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model ImportShaofangTestTtRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model ImportShaofangTestTtResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 中文测试test
- * Summary: 中文测试test
- */
-async function importShaofangTestTt(request: ImportShaofangTestTtRequest): ImportShaofangTestTtResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return importShaofangTestTtEx(request, headers, runtime);
-}
-
-/**
- * Description: 中文测试test
- * Summary: 中文测试test
- */
-async function importShaofangTestTtEx(request: ImportShaofangTestTtRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportShaofangTestTtResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.shaofang.test.tt.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model QueryXxxxTestxAaaRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1430,40 +1291,6 @@ async function queryTestTestaTestaEx(request: QueryTestTestaTestaRequest, header
   return doRequest('1.0' ,'demo.test.testa.testa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryTimetestTimetestTimetestRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model QueryTimetestTimetestTimetestResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: test
- * Summary: test
- */
-async function queryTimetestTimetestTimetest(request: QueryTimetestTimetestTimetestRequest): QueryTimetestTimetestTimetestResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryTimetestTimetestTimetestEx(request, headers, runtime);
-}
-
-/**
- * Description: test
- * Summary: test
- */
-async function queryTimetestTimetestTimetestEx(request: QueryTimetestTimetestTimetestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTimetestTimetestTimetestResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.timetest.timetest.timetest.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model QueryInstanceidRuleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1472,6 +1299,8 @@ model QueryInstanceidRuleRequest = {
   count: string(name='count'),
   // 姓名
   oprator: string(name='oprator'),
+  // 结构体
+  struct: TestA(name='struct'),
 }
 
 model QueryInstanceidRuleResponse = {
@@ -1654,6 +1483,82 @@ async function matchBusinessAndInstance(request: MatchBusinessAndInstanceRequest
 async function matchBusinessAndInstanceEx(request: MatchBusinessAndInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): MatchBusinessAndInstanceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.business.and.instance.match', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDevelopTestUseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 入参1
+  stringparameter: string(name='stringparameter'),
+  // 数字入参
+  numberparameter: long(name='numberparameter'),
+}
+
+model QueryDevelopTestUseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 研发自测使用API
+ * Summary: 研发自测使用API
+ */
+async function queryDevelopTestUse(request: QueryDevelopTestUseRequest): QueryDevelopTestUseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDevelopTestUseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 研发自测使用API
+ * Summary: 研发自测使用API
+ */
+async function queryDevelopTestUseEx(request: QueryDevelopTestUseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDevelopTestUseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.develop.test.use.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifyDevelopTestTestRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 入参
+  stringparameter: string(name='stringparameter'),
+  // number类型入参
+  numberparameter: long(name='numberparameter'),
+}
+
+model VerifyDevelopTestTestResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 资损防控研发自测使用API
+ * Summary: 研发自测使用API
+ */
+async function verifyDevelopTestTest(request: VerifyDevelopTestTestRequest): VerifyDevelopTestTestResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifyDevelopTestTestEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资损防控研发自测使用API
+ * Summary: 研发自测使用API
+ */
+async function verifyDevelopTestTestEx(request: VerifyDevelopTestTestRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifyDevelopTestTestResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.develop.test.test.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ImportPreObWriteRequest = {
@@ -2053,46 +1958,6 @@ async function queryApdevcenterTestobjectTestsubaEx(request: QueryApdevcenterTes
   return doRequest('1.0' ,'demo.apdevcenter.testobject.testsuba.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryTestproductTestobjectTestsubqRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // test
-  id: long(name='id'),
-  // test
-  name: string(name='name'),
-}
-
-model QueryTestproductTestobjectTestsubqResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // test
-  id?: long(name='id'),
-}
-
-/**
- * Description: test
- * Summary: 新增API测试查询接口(只是测试使用)
- */
-async function queryTestproductTestobjectTestsubq(request: QueryTestproductTestobjectTestsubqRequest): QueryTestproductTestobjectTestsubqResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryTestproductTestobjectTestsubqEx(request, headers, runtime);
-}
-
-/**
- * Description: test
- * Summary: 新增API测试查询接口(只是测试使用)
- */
-async function queryTestproductTestobjectTestsubqEx(request: QueryTestproductTestobjectTestsubqRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTestproductTestobjectTestsubqResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.testproduct.testobject.testsubq.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model QueryTestFilesystemFileinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -2413,80 +2278,6 @@ async function createAutoGenerateCode(request: CreateAutoGenerateCodeRequest): C
 async function createAutoGenerateCodeEx(request: CreateAutoGenerateCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAutoGenerateCodeResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.auto.generate.code.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryWwwwEeeeRrrRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-}
-
-model QueryWwwwEeeeRrrResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 1
- * Summary: test
- */
-async function queryWwwwEeeeRrr(request: QueryWwwwEeeeRrrRequest): QueryWwwwEeeeRrrResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryWwwwEeeeRrrEx(request, headers, runtime);
-}
-
-/**
- * Description: 1
- * Summary: test
- */
-async function queryWwwwEeeeRrrEx(request: QueryWwwwEeeeRrrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryWwwwEeeeRrrResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.wwww.eeee.rrr.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model UploadJzqFailRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 文件上传
-  fileObject?: readable(description='待上传文件', ignore='true'),
-  fileObjectName?: string(description='待上传文件名', ignore='true'),
-  fileId: string(name='file_id'),
-  // 预发验证
-  struct1: PreTestUse(name='struct_1'),
-}
-
-model UploadJzqFailResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: 文件上传测试使用
- * Summary: 文件上传测试
- */
-async function uploadJzqFail(request: UploadJzqFailRequest): UploadJzqFailResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return uploadJzqFailEx(request, headers, runtime);
-}
-
-/**
- * Description: 文件上传测试使用
- * Summary: 文件上传测试
- */
-async function uploadJzqFailEx(request: UploadJzqFailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadJzqFailResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.jzq.fail.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryPreTestUseRequest = {
