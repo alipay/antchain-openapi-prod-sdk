@@ -4973,6 +4973,60 @@ func (s *LabelChainResult) SetErrorMsg(v string) *LabelChainResult {
 	return s
 }
 
+// iotbasic数控设备信息
+type IotbasicDigitalKeyDeviceInfo struct {
+	// 设备id
+	Devid *string `json:"devid,omitempty" xml:"devid,omitempty" require:"true"`
+	// 设备名称
+	DevName *string `json:"dev_name,omitempty" xml:"dev_name,omitempty" require:"true"`
+	// 设备sn
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty" require:"true"`
+	// Ccid
+	Ccid *string `json:"ccid,omitempty" xml:"ccid,omitempty" require:"true"`
+	// Msisdn
+	Msisdn *string `json:"msisdn,omitempty" xml:"msisdn,omitempty" require:"true"`
+	// tbox固件版本号(16进制)
+	Ver *string `json:"ver,omitempty" xml:"ver,omitempty" require:"true"`
+}
+
+func (s IotbasicDigitalKeyDeviceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicDigitalKeyDeviceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicDigitalKeyDeviceInfo) SetDevid(v string) *IotbasicDigitalKeyDeviceInfo {
+	s.Devid = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceInfo) SetDevName(v string) *IotbasicDigitalKeyDeviceInfo {
+	s.DevName = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceInfo) SetSn(v string) *IotbasicDigitalKeyDeviceInfo {
+	s.Sn = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceInfo) SetCcid(v string) *IotbasicDigitalKeyDeviceInfo {
+	s.Ccid = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceInfo) SetMsisdn(v string) *IotbasicDigitalKeyDeviceInfo {
+	s.Msisdn = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceInfo) SetVer(v string) *IotbasicDigitalKeyDeviceInfo {
+	s.Ver = &v
+	return s
+}
+
 // 二维码识别请求
 type BaiQrcodeParseReqData struct {
 	// 待识别图片的url
@@ -7235,6 +7289,67 @@ func (s *CollectLabelRawContent) SetContent(v string) *CollectLabelRawContent {
 
 func (s *CollectLabelRawContent) SetDataModelId(v string) *CollectLabelRawContent {
 	s.DataModelId = &v
+	return s
+}
+
+// iotbasic数控设备信息（不包含出库信息）
+type IotbasicDigitalKeyDeviceNoShipInfo struct {
+	// 设备id
+	Devid *string `json:"devid,omitempty" xml:"devid,omitempty" require:"true"`
+	// 设备sn
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty" require:"true"`
+	// ccid
+	Ccid *string `json:"ccid,omitempty" xml:"ccid,omitempty" require:"true"`
+	// imei
+	Imei *string `json:"imei,omitempty" xml:"imei,omitempty" require:"true"`
+	// tbox固件版本号(16进制)
+	Ver *string `json:"ver,omitempty" xml:"ver,omitempty" require:"true"`
+	// PEPS系统固件版本号(16进制)
+	PepsVer *string `json:"peps_ver,omitempty" xml:"peps_ver,omitempty" require:"true"`
+	// 蓝牙固件版本号(16进制)
+	BleVer *string `json:"ble_ver,omitempty" xml:"ble_ver,omitempty" require:"true"`
+}
+
+func (s IotbasicDigitalKeyDeviceNoShipInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicDigitalKeyDeviceNoShipInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetDevid(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Devid = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetSn(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Sn = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetCcid(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Ccid = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetImei(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Imei = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.Ver = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetPepsVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.PepsVer = &v
+	return s
+}
+
+func (s *IotbasicDigitalKeyDeviceNoShipInfo) SetBleVer(v string) *IotbasicDigitalKeyDeviceNoShipInfo {
+	s.BleVer = &v
 	return s
 }
 
@@ -16292,6 +16407,10 @@ type QueryIotbasicCategorylistRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty"`
+	// 场景
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
 }
 
 func (s QueryIotbasicCategorylistRequest) String() string {
@@ -16309,6 +16428,16 @@ func (s *QueryIotbasicCategorylistRequest) SetAuthToken(v string) *QueryIotbasic
 
 func (s *QueryIotbasicCategorylistRequest) SetProductInstanceId(v string) *QueryIotbasicCategorylistRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIotbasicCategorylistRequest) SetIndustry(v string) *QueryIotbasicCategorylistRequest {
+	s.Industry = &v
+	return s
+}
+
+func (s *QueryIotbasicCategorylistRequest) SetScene(v string) *QueryIotbasicCategorylistRequest {
+	s.Scene = &v
 	return s
 }
 
@@ -19120,6 +19249,188 @@ func (s *QueryDigitalkeyTradepayResponse) SetResultMsg(v string) *QueryDigitalke
 
 func (s *QueryDigitalkeyTradepayResponse) SetX(v string) *QueryDigitalkeyTradepayResponse {
 	s.X = &v
+	return s
+}
+
+type GetDigitalkeyDeviceinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备DID，注册蚂蚁链返回的设备唯一ID
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 使用deviceSecret对deviceDid进行加签
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+}
+
+func (s GetDigitalkeyDeviceinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDigitalkeyDeviceinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetDigitalkeyDeviceinfoRequest) SetAuthToken(v string) *GetDigitalkeyDeviceinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetDigitalkeyDeviceinfoRequest) SetProductInstanceId(v string) *GetDigitalkeyDeviceinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetDigitalkeyDeviceinfoRequest) SetDeviceDid(v string) *GetDigitalkeyDeviceinfoRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *GetDigitalkeyDeviceinfoRequest) SetSignature(v string) *GetDigitalkeyDeviceinfoRequest {
+	s.Signature = &v
+	return s
+}
+
+type GetDigitalkeyDeviceinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// iotbasic数控设备信息
+	Data *IotbasicDigitalKeyDeviceInfo `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s GetDigitalkeyDeviceinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDigitalkeyDeviceinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetDigitalkeyDeviceinfoResponse) SetReqMsgId(v string) *GetDigitalkeyDeviceinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetDigitalkeyDeviceinfoResponse) SetResultCode(v string) *GetDigitalkeyDeviceinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetDigitalkeyDeviceinfoResponse) SetResultMsg(v string) *GetDigitalkeyDeviceinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetDigitalkeyDeviceinfoResponse) SetSuccess(v bool) *GetDigitalkeyDeviceinfoResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *GetDigitalkeyDeviceinfoResponse) SetData(v *IotbasicDigitalKeyDeviceInfo) *GetDigitalkeyDeviceinfoResponse {
+	s.Data = v
+	return s
+}
+
+type UploadIotbasicAppmanagerfileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 应用模块名称，由查询应用类型列表获取
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+}
+
+func (s UploadIotbasicAppmanagerfileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadIotbasicAppmanagerfileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadIotbasicAppmanagerfileRequest) SetAuthToken(v string) *UploadIotbasicAppmanagerfileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileRequest) SetProductInstanceId(v string) *UploadIotbasicAppmanagerfileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileRequest) SetFileObject(v io.Reader) *UploadIotbasicAppmanagerfileRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileRequest) SetFileObjectName(v string) *UploadIotbasicAppmanagerfileRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileRequest) SetFileId(v string) *UploadIotbasicAppmanagerfileRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileRequest) SetBizType(v string) *UploadIotbasicAppmanagerfileRequest {
+	s.BizType = &v
+	return s
+}
+
+type UploadIotbasicAppmanagerfileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 上传应用文件解析结果，json字符串
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s UploadIotbasicAppmanagerfileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadIotbasicAppmanagerfileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadIotbasicAppmanagerfileResponse) SetReqMsgId(v string) *UploadIotbasicAppmanagerfileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileResponse) SetResultCode(v string) *UploadIotbasicAppmanagerfileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileResponse) SetResultMsg(v string) *UploadIotbasicAppmanagerfileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileResponse) SetSuccess(v bool) *UploadIotbasicAppmanagerfileResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *UploadIotbasicAppmanagerfileResponse) SetData(v string) *UploadIotbasicAppmanagerfileResponse {
+	s.Data = &v
 	return s
 }
 
@@ -32072,7 +32383,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.12"),
+				"sdk_version":      tea.String("1.11.14"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -34914,8 +35225,8 @@ func (client *Client) SetDevicelistPropertyEx(request *SetDevicelistPropertyRequ
 }
 
 /**
- * Description: iotbasic-查询品类列表
- * Summary: iotbasic-查询品类列表
+ * Description: iotbasic-分页查询品类列表
+ * Summary: iotbasic-分页查询品类列表
  */
 func (client *Client) QueryIotbasicCategorylist(request *QueryIotbasicCategorylistRequest) (_result *QueryIotbasicCategorylistResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -34930,8 +35241,8 @@ func (client *Client) QueryIotbasicCategorylist(request *QueryIotbasicCategoryli
 }
 
 /**
- * Description: iotbasic-查询品类列表
- * Summary: iotbasic-查询品类列表
+ * Description: iotbasic-分页查询品类列表
+ * Summary: iotbasic-分页查询品类列表
  */
 func (client *Client) QueryIotbasicCategorylistEx(request *QueryIotbasicCategorylistRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotbasicCategorylistResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -35892,6 +36203,103 @@ func (client *Client) QueryDigitalkeyTradepayEx(request *QueryDigitalkeyTradepay
 	}
 	_result = &QueryDigitalkeyTradepayResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.tradepay.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-查询数控设备信息
+ * Summary: iotbasic-查询数控设备信息
+ */
+func (client *Client) GetDigitalkeyDeviceinfo(request *GetDigitalkeyDeviceinfoRequest) (_result *GetDigitalkeyDeviceinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetDigitalkeyDeviceinfoResponse{}
+	_body, _err := client.GetDigitalkeyDeviceinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-查询数控设备信息
+ * Summary: iotbasic-查询数控设备信息
+ */
+func (client *Client) GetDigitalkeyDeviceinfoEx(request *GetDigitalkeyDeviceinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDigitalkeyDeviceinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetDigitalkeyDeviceinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.deviceinfo.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-上传apk文件
+ * Summary: iotbasic-上传apk文件
+ */
+func (client *Client) UploadIotbasicAppmanagerfile(request *UploadIotbasicAppmanagerfileRequest) (_result *UploadIotbasicAppmanagerfileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadIotbasicAppmanagerfileResponse{}
+	_body, _err := client.UploadIotbasicAppmanagerfileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-上传apk文件
+ * Summary: iotbasic-上传apk文件
+ */
+func (client *Client) UploadIotbasicAppmanagerfileEx(request *UploadIotbasicAppmanagerfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadIotbasicAppmanagerfileResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("blockchain.bot.iotbasic.appmanagerfile.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadIotbasicAppmanagerfileResponse := &UploadIotbasicAppmanagerfileResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadIotbasicAppmanagerfileResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadIotbasicAppmanagerfileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanagerfile.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
