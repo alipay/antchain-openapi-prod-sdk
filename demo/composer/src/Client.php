@@ -15,8 +15,6 @@ use AntChain\DEMO\Models\BindAaaBbbCccRequest;
 use AntChain\DEMO\Models\BindAaaBbbCccResponse;
 use AntChain\DEMO\Models\BindAaaBbbCcdRequest;
 use AntChain\DEMO\Models\BindAaaBbbCcdResponse;
-use AntChain\DEMO\Models\BindSdfSssSssRequest;
-use AntChain\DEMO\Models\BindSdfSssSssResponse;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\DEMO\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\DEMO\Models\CreateAutoGenerateCodeRequest;
@@ -29,8 +27,6 @@ use AntChain\DEMO\Models\ExecGatewayRoadRequest;
 use AntChain\DEMO\Models\ExecGatewayRoadResponse;
 use AntChain\DEMO\Models\ImportPreObWriteRequest;
 use AntChain\DEMO\Models\ImportPreObWriteResponse;
-use AntChain\DEMO\Models\ImportShaofangTestTtRequest;
-use AntChain\DEMO\Models\ImportShaofangTestTtResponse;
 use AntChain\DEMO\Models\InitBbpInsuranceUserRequest;
 use AntChain\DEMO\Models\InitBbpInsuranceUserResponse;
 use AntChain\DEMO\Models\InitCjtestAcopmResRequest;
@@ -61,6 +57,8 @@ use AntChain\DEMO\Models\QueryCjtestCjResRequest;
 use AntChain\DEMO\Models\QueryCjtestCjResResponse;
 use AntChain\DEMO\Models\QueryDemoAbcAbcRequest;
 use AntChain\DEMO\Models\QueryDemoAbcAbcResponse;
+use AntChain\DEMO\Models\QueryDevelopTestUseRequest;
+use AntChain\DEMO\Models\QueryDevelopTestUseResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenRequest;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotimeoutokRequest;
@@ -83,22 +81,14 @@ use AntChain\DEMO\Models\QueryLoadtestTimeTwoRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeTwoResponse;
 use AntChain\DEMO\Models\QueryPreTestUseRequest;
 use AntChain\DEMO\Models\QueryPreTestUseResponse;
-use AntChain\DEMO\Models\QueryShaofangTestTtRequest;
-use AntChain\DEMO\Models\QueryShaofangTestTtResponse;
 use AntChain\DEMO\Models\QueryTestFilesystemFileinfoRequest;
 use AntChain\DEMO\Models\QueryTestFilesystemFileinfoResponse;
 use AntChain\DEMO\Models\QueryTestGatewayTestRequest;
 use AntChain\DEMO\Models\QueryTestGatewayTestResponse;
 use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubaaaRequest;
 use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubaaaResponse;
-use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubqRequest;
-use AntChain\DEMO\Models\QueryTestproductTestobjectTestsubqResponse;
 use AntChain\DEMO\Models\QueryTestTestaTestaRequest;
 use AntChain\DEMO\Models\QueryTestTestaTestaResponse;
-use AntChain\DEMO\Models\QueryTimetestTimetestTimetestRequest;
-use AntChain\DEMO\Models\QueryTimetestTimetestTimetestResponse;
-use AntChain\DEMO\Models\QueryWwwwEeeeRrrRequest;
-use AntChain\DEMO\Models\QueryWwwwEeeeRrrResponse;
 use AntChain\DEMO\Models\QueryXxxxTestxAaaRequest;
 use AntChain\DEMO\Models\QueryXxxxTestxAaaResponse;
 use AntChain\DEMO\Models\RegisterTestBizeventMessageRequest;
@@ -111,10 +101,8 @@ use AntChain\DEMO\Models\UpdateGatewayRoadRequest;
 use AntChain\DEMO\Models\UpdateGatewayRoadResponse;
 use AntChain\DEMO\Models\UploadCjtestSourceFileRequest;
 use AntChain\DEMO\Models\UploadCjtestSourceFileResponse;
-use AntChain\DEMO\Models\UploadJzqFailRequest;
-use AntChain\DEMO\Models\UploadJzqFailResponse;
-use AntChain\DEMO\Models\UploadShaofangFileRequest;
-use AntChain\DEMO\Models\UploadShaofangFileResponse;
+use AntChain\DEMO\Models\VerifyDevelopTestTestRequest;
+use AntChain\DEMO\Models\VerifyDevelopTestTestResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -262,7 +250,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.299',
+                    'sdk_version'      => '1.0.306',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -308,39 +296,6 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
-    }
-
-    /**
-     * Description: sdf
-     * Summary: sdf.
-     *
-     * @param BindSdfSssSssRequest $request
-     *
-     * @return BindSdfSssSssResponse
-     */
-    public function bindSdfSssSss($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->bindSdfSssSssEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: sdf
-     * Summary: sdf.
-     *
-     * @param BindSdfSssSssRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
-     *
-     * @return BindSdfSssSssResponse
-     */
-    public function bindSdfSssSssEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return BindSdfSssSssResponse::fromMap($this->doRequest('1.0', 'demo.sdf.sss.sss.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -941,123 +896,6 @@ class Client
     }
 
     /**
-     * Description: 文件上传
-     * Summary: 测试.
-     *
-     * @param UploadShaofangFileRequest $request
-     *
-     * @return UploadShaofangFileResponse
-     */
-    public function uploadShaofangFile($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->uploadShaofangFileEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 文件上传
-     * Summary: 测试.
-     *
-     * @param UploadShaofangFileRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return UploadShaofangFileResponse
-     */
-    public function uploadShaofangFileEx($request, $headers, $runtime)
-    {
-        if (!Utils::isUnset($request->fileObject)) {
-            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
-                'authToken' => $request->authToken,
-                'apiCode'   => 'demo.shaofang.file.upload',
-                'fileName'  => $request->fileObjectName,
-            ]);
-            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
-            if (!UtilClient::isSuccess($uploadResp->resultCode, 'OK')) {
-                return new UploadShaofangFileResponse([
-                    'reqMsgId'   => $uploadResp->reqMsgId,
-                    'resultCode' => $uploadResp->resultCode,
-                    'resultMsg'  => $uploadResp->resultMsg,
-                ]);
-            }
-            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
-            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
-        }
-        Utils::validateModel($request);
-
-        return UploadShaofangFileResponse::fromMap($this->doRequest('1.0', 'demo.shaofang.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: test
-     * Summary: 测试.
-     *
-     * @param QueryShaofangTestTtRequest $request
-     *
-     * @return QueryShaofangTestTtResponse
-     */
-    public function queryShaofangTestTt($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryShaofangTestTtEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: 测试.
-     *
-     * @param QueryShaofangTestTtRequest $request
-     * @param string[]                   $headers
-     * @param RuntimeOptions             $runtime
-     *
-     * @return QueryShaofangTestTtResponse
-     */
-    public function queryShaofangTestTtEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryShaofangTestTtResponse::fromMap($this->doRequest('1.0', 'demo.shaofang.test.tt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 中文测试test
-     * Summary: 中文测试test.
-     *
-     * @param ImportShaofangTestTtRequest $request
-     *
-     * @return ImportShaofangTestTtResponse
-     */
-    public function importShaofangTestTt($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->importShaofangTestTtEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 中文测试test
-     * Summary: 中文测试test.
-     *
-     * @param ImportShaofangTestTtRequest $request
-     * @param string[]                    $headers
-     * @param RuntimeOptions              $runtime
-     *
-     * @return ImportShaofangTestTtResponse
-     */
-    public function importShaofangTestTtEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return ImportShaofangTestTtResponse::fromMap($this->doRequest('1.0', 'demo.shaofang.test.tt.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: test
      * Summary: test.
      *
@@ -1121,39 +959,6 @@ class Client
         Utils::validateModel($request);
 
         return QueryTestTestaTestaResponse::fromMap($this->doRequest('1.0', 'demo.test.testa.testa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: test
-     * Summary: test.
-     *
-     * @param QueryTimetestTimetestTimetestRequest $request
-     *
-     * @return QueryTimetestTimetestTimetestResponse
-     */
-    public function queryTimetestTimetestTimetest($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryTimetestTimetestTimetestEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: test.
-     *
-     * @param QueryTimetestTimetestTimetestRequest $request
-     * @param string[]                             $headers
-     * @param RuntimeOptions                       $runtime
-     *
-     * @return QueryTimetestTimetestTimetestResponse
-     */
-    public function queryTimetestTimetestTimetestEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryTimetestTimetestTimetestResponse::fromMap($this->doRequest('1.0', 'demo.timetest.timetest.timetest.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1319,6 +1124,72 @@ class Client
         Utils::validateModel($request);
 
         return MatchBusinessAndInstanceResponse::fromMap($this->doRequest('1.0', 'demo.business.and.instance.match', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 研发自测使用API
+     * Summary: 研发自测使用API.
+     *
+     * @param QueryDevelopTestUseRequest $request
+     *
+     * @return QueryDevelopTestUseResponse
+     */
+    public function queryDevelopTestUse($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDevelopTestUseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 研发自测使用API
+     * Summary: 研发自测使用API.
+     *
+     * @param QueryDevelopTestUseRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryDevelopTestUseResponse
+     */
+    public function queryDevelopTestUseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDevelopTestUseResponse::fromMap($this->doRequest('1.0', 'demo.develop.test.use.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资损防控研发自测使用API
+     * Summary: 研发自测使用API.
+     *
+     * @param VerifyDevelopTestTestRequest $request
+     *
+     * @return VerifyDevelopTestTestResponse
+     */
+    public function verifyDevelopTestTest($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->verifyDevelopTestTestEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资损防控研发自测使用API
+     * Summary: 研发自测使用API.
+     *
+     * @param VerifyDevelopTestTestRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return VerifyDevelopTestTestResponse
+     */
+    public function verifyDevelopTestTestEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return VerifyDevelopTestTestResponse::fromMap($this->doRequest('1.0', 'demo.develop.test.test.verify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1655,39 +1526,6 @@ class Client
      * Description: test
      * Summary: 新增API测试查询接口(只是测试使用).
      *
-     * @param QueryTestproductTestobjectTestsubqRequest $request
-     *
-     * @return array|QueryTestproductTestobjectTestsubqResponse
-     */
-    public function queryTestproductTestobjectTestsubq($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryTestproductTestobjectTestsubqEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: 新增API测试查询接口(只是测试使用).
-     *
-     * @param QueryTestproductTestobjectTestsubqRequest $request
-     * @param string[]                                  $headers
-     * @param RuntimeOptions                            $runtime
-     *
-     * @return array|QueryTestproductTestobjectTestsubqResponse
-     */
-    public function queryTestproductTestobjectTestsubqEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryTestproductTestobjectTestsubqResponse::fromMap($this->doRequest('1.0', 'demo.testproduct.testobject.testsubq.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: test
-     * Summary: 新增API测试查询接口(只是测试使用).
-     *
      * @param QueryTestFilesystemFileinfoRequest $request
      *
      * @return QueryTestFilesystemFileinfoResponse
@@ -1946,72 +1784,6 @@ class Client
         Utils::validateModel($request);
 
         return CreateAutoGenerateCodeResponse::fromMap($this->doRequest('1.0', 'demo.auto.generate.code.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 1
-     * Summary: test.
-     *
-     * @param QueryWwwwEeeeRrrRequest $request
-     *
-     * @return QueryWwwwEeeeRrrResponse
-     */
-    public function queryWwwwEeeeRrr($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryWwwwEeeeRrrEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 1
-     * Summary: test.
-     *
-     * @param QueryWwwwEeeeRrrRequest $request
-     * @param string[]                $headers
-     * @param RuntimeOptions          $runtime
-     *
-     * @return QueryWwwwEeeeRrrResponse
-     */
-    public function queryWwwwEeeeRrrEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryWwwwEeeeRrrResponse::fromMap($this->doRequest('1.0', 'demo.wwww.eeee.rrr.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 文件上传测试使用
-     * Summary: 文件上传测试.
-     *
-     * @param UploadJzqFailRequest $request
-     *
-     * @return UploadJzqFailResponse
-     */
-    public function uploadJzqFail($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->uploadJzqFailEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 文件上传测试使用
-     * Summary: 文件上传测试.
-     *
-     * @param UploadJzqFailRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
-     *
-     * @return UploadJzqFailResponse
-     */
-    public function uploadJzqFailEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return UploadJzqFailResponse::fromMap($this->doRequest('1.0', 'demo.jzq.fail.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

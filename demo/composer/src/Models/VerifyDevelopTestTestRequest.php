@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryTimetestTimetestTimetestRequest extends Model
+class VerifyDevelopTestTestRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,29 @@ class QueryTimetestTimetestTimetestRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 入参
+    /**
+     * @var string
+     */
+    public $stringparameter;
+
+    // number类型入参
+    /**
+     * @var int
+     */
+    public $numberparameter;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'stringparameter'   => 'stringparameter',
+        'numberparameter'   => 'numberparameter',
     ];
 
     public function validate()
     {
+        Model::validateRequired('stringparameter', $this->stringparameter, true);
+        Model::validateRequired('numberparameter', $this->numberparameter, true);
     }
 
     public function toMap()
@@ -36,6 +52,12 @@ class QueryTimetestTimetestTimetestRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->stringparameter) {
+            $res['stringparameter'] = $this->stringparameter;
+        }
+        if (null !== $this->numberparameter) {
+            $res['numberparameter'] = $this->numberparameter;
+        }
 
         return $res;
     }
@@ -43,7 +65,7 @@ class QueryTimetestTimetestTimetestRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryTimetestTimetestTimetestRequest
+     * @return VerifyDevelopTestTestRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +75,12 @@ class QueryTimetestTimetestTimetestRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['stringparameter'])) {
+            $model->stringparameter = $map['stringparameter'];
+        }
+        if (isset($map['numberparameter'])) {
+            $model->numberparameter = $map['numberparameter'];
         }
 
         return $model;

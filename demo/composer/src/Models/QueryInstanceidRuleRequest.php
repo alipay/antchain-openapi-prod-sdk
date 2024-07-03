@@ -30,17 +30,25 @@ class QueryInstanceidRuleRequest extends Model
      * @var string
      */
     public $oprator;
+
+    // 结构体
+    /**
+     * @var TestA
+     */
+    public $struct;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'count'             => 'count',
         'oprator'           => 'oprator',
+        'struct'            => 'struct',
     ];
 
     public function validate()
     {
         Model::validateRequired('count', $this->count, true);
         Model::validateRequired('oprator', $this->oprator, true);
+        Model::validateRequired('struct', $this->struct, true);
     }
 
     public function toMap()
@@ -57,6 +65,9 @@ class QueryInstanceidRuleRequest extends Model
         }
         if (null !== $this->oprator) {
             $res['oprator'] = $this->oprator;
+        }
+        if (null !== $this->struct) {
+            $res['struct'] = null !== $this->struct ? $this->struct->toMap() : null;
         }
 
         return $res;
@@ -81,6 +92,9 @@ class QueryInstanceidRuleRequest extends Model
         }
         if (isset($map['oprator'])) {
             $model->oprator = $map['oprator'];
+        }
+        if (isset($map['struct'])) {
+            $model->struct = TestA::fromMap($map['struct']);
         }
 
         return $model;
