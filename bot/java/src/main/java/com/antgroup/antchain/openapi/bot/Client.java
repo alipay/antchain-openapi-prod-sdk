@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.11.12"),
+                    new TeaPair("sdk_version", "1.11.14"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1745,8 +1745,8 @@ public class Client {
     }
 
     /**
-     * Description: iotbasic-查询品类列表
-     * Summary: iotbasic-查询品类列表
+     * Description: iotbasic-分页查询品类列表
+     * Summary: iotbasic-分页查询品类列表
      */
     public QueryIotbasicCategorylistResponse queryIotbasicCategorylist(QueryIotbasicCategorylistRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1755,8 +1755,8 @@ public class Client {
     }
 
     /**
-     * Description: iotbasic-查询品类列表
-     * Summary: iotbasic-查询品类列表
+     * Description: iotbasic-分页查询品类列表
+     * Summary: iotbasic-分页查询品类列表
      */
     public QueryIotbasicCategorylistResponse queryIotbasicCategorylistEx(QueryIotbasicCategorylistRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2293,6 +2293,65 @@ public class Client {
     public QueryDigitalkeyTradepayResponse queryDigitalkeyTradepayEx(QueryDigitalkeyTradepayRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.tradepay.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDigitalkeyTradepayResponse());
+    }
+
+    /**
+     * Description: iotbasic-查询数控设备信息
+     * Summary: iotbasic-查询数控设备信息
+     */
+    public GetDigitalkeyDeviceinfoResponse getDigitalkeyDeviceinfo(GetDigitalkeyDeviceinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getDigitalkeyDeviceinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询数控设备信息
+     * Summary: iotbasic-查询数控设备信息
+     */
+    public GetDigitalkeyDeviceinfoResponse getDigitalkeyDeviceinfoEx(GetDigitalkeyDeviceinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.digitalkey.deviceinfo.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetDigitalkeyDeviceinfoResponse());
+    }
+
+    /**
+     * Description: iotbasic-上传apk文件
+     * Summary: iotbasic-上传apk文件
+     */
+    public UploadIotbasicAppmanagerfileResponse uploadIotbasicAppmanagerfile(UploadIotbasicAppmanagerfileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadIotbasicAppmanagerfileEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-上传apk文件
+     * Summary: iotbasic-上传apk文件
+     */
+    public UploadIotbasicAppmanagerfileResponse uploadIotbasicAppmanagerfileEx(UploadIotbasicAppmanagerfileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "blockchain.bot.iotbasic.appmanagerfile.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadIotbasicAppmanagerfileResponse uploadIotbasicAppmanagerfileResponse = UploadIotbasicAppmanagerfileResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadIotbasicAppmanagerfileResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerfile.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadIotbasicAppmanagerfileResponse());
     }
 
     /**
