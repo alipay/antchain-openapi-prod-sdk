@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.12"},
+                        {"sdk_version", "1.11.14"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.12"},
+                        {"sdk_version", "1.11.14"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3770,8 +3770,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: iotbasic-查询品类列表
-         * Summary: iotbasic-查询品类列表
+         * Description: iotbasic-分页查询品类列表
+         * Summary: iotbasic-分页查询品类列表
          */
         public QueryIotbasicCategorylistResponse QueryIotbasicCategorylist(QueryIotbasicCategorylistRequest request)
         {
@@ -3781,8 +3781,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: iotbasic-查询品类列表
-         * Summary: iotbasic-查询品类列表
+         * Description: iotbasic-分页查询品类列表
+         * Summary: iotbasic-分页查询品类列表
          */
         public async Task<QueryIotbasicCategorylistResponse> QueryIotbasicCategorylistAsync(QueryIotbasicCategorylistRequest request)
         {
@@ -3792,8 +3792,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: iotbasic-查询品类列表
-         * Summary: iotbasic-查询品类列表
+         * Description: iotbasic-分页查询品类列表
+         * Summary: iotbasic-分页查询品类列表
          */
         public QueryIotbasicCategorylistResponse QueryIotbasicCategorylistEx(QueryIotbasicCategorylistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3802,8 +3802,8 @@ namespace AntChain.SDK.BOT
         }
 
         /**
-         * Description: iotbasic-查询品类列表
-         * Summary: iotbasic-查询品类列表
+         * Description: iotbasic-分页查询品类列表
+         * Summary: iotbasic-分页查询品类列表
          */
         public async Task<QueryIotbasicCategorylistResponse> QueryIotbasicCategorylistExAsync(QueryIotbasicCategorylistRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -4985,6 +4985,136 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDigitalkeyTradepayResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.tradepay.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-查询数控设备信息
+         * Summary: iotbasic-查询数控设备信息
+         */
+        public GetDigitalkeyDeviceinfoResponse GetDigitalkeyDeviceinfo(GetDigitalkeyDeviceinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetDigitalkeyDeviceinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-查询数控设备信息
+         * Summary: iotbasic-查询数控设备信息
+         */
+        public async Task<GetDigitalkeyDeviceinfoResponse> GetDigitalkeyDeviceinfoAsync(GetDigitalkeyDeviceinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetDigitalkeyDeviceinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-查询数控设备信息
+         * Summary: iotbasic-查询数控设备信息
+         */
+        public GetDigitalkeyDeviceinfoResponse GetDigitalkeyDeviceinfoEx(GetDigitalkeyDeviceinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDigitalkeyDeviceinfoResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.deviceinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-查询数控设备信息
+         * Summary: iotbasic-查询数控设备信息
+         */
+        public async Task<GetDigitalkeyDeviceinfoResponse> GetDigitalkeyDeviceinfoExAsync(GetDigitalkeyDeviceinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDigitalkeyDeviceinfoResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.deviceinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-上传apk文件
+         * Summary: iotbasic-上传apk文件
+         */
+        public UploadIotbasicAppmanagerfileResponse UploadIotbasicAppmanagerfile(UploadIotbasicAppmanagerfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadIotbasicAppmanagerfileEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-上传apk文件
+         * Summary: iotbasic-上传apk文件
+         */
+        public async Task<UploadIotbasicAppmanagerfileResponse> UploadIotbasicAppmanagerfileAsync(UploadIotbasicAppmanagerfileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadIotbasicAppmanagerfileExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-上传apk文件
+         * Summary: iotbasic-上传apk文件
+         */
+        public UploadIotbasicAppmanagerfileResponse UploadIotbasicAppmanagerfileEx(UploadIotbasicAppmanagerfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "blockchain.bot.iotbasic.appmanagerfile.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadIotbasicAppmanagerfileResponse uploadIotbasicAppmanagerfileResponse = new UploadIotbasicAppmanagerfileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadIotbasicAppmanagerfileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadIotbasicAppmanagerfileResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.appmanagerfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-上传apk文件
+         * Summary: iotbasic-上传apk文件
+         */
+        public async Task<UploadIotbasicAppmanagerfileResponse> UploadIotbasicAppmanagerfileExAsync(UploadIotbasicAppmanagerfileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "blockchain.bot.iotbasic.appmanagerfile.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadIotbasicAppmanagerfileResponse uploadIotbasicAppmanagerfileResponse = new UploadIotbasicAppmanagerfileResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadIotbasicAppmanagerfileResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadIotbasicAppmanagerfileResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.appmanagerfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
