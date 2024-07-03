@@ -3818,6 +3818,47 @@ export class LabelChainResult extends $tea.Model {
   }
 }
 
+// iotbasic数控设备信息
+export class IotbasicDigitalKeyDeviceInfo extends $tea.Model {
+  // 设备id
+  devid: string;
+  // 设备名称
+  devName: string;
+  // 设备sn
+  sn: string;
+  // Ccid
+  ccid: string;
+  // Msisdn
+  msisdn: string;
+  // tbox固件版本号(16进制)
+  ver: string;
+  static names(): { [key: string]: string } {
+    return {
+      devid: 'devid',
+      devName: 'dev_name',
+      sn: 'sn',
+      ccid: 'ccid',
+      msisdn: 'msisdn',
+      ver: 'ver',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      devid: 'string',
+      devName: 'string',
+      sn: 'string',
+      ccid: 'string',
+      msisdn: 'string',
+      ver: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 二维码识别请求
 export class BaiQrcodeParseReqData extends $tea.Model {
   // 待识别图片的url
@@ -5579,6 +5620,51 @@ export class CollectLabelRawContent extends $tea.Model {
     return {
       content: 'string',
       dataModelId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// iotbasic数控设备信息（不包含出库信息）
+export class IotbasicDigitalKeyDeviceNoShipInfo extends $tea.Model {
+  // 设备id
+  devid: string;
+  // 设备sn
+  sn: string;
+  // ccid
+  ccid: string;
+  // imei
+  imei: string;
+  // tbox固件版本号(16进制)
+  ver: string;
+  // PEPS系统固件版本号(16进制)
+  pepsVer: string;
+  // 蓝牙固件版本号(16进制)
+  bleVer: string;
+  static names(): { [key: string]: string } {
+    return {
+      devid: 'devid',
+      sn: 'sn',
+      ccid: 'ccid',
+      imei: 'imei',
+      ver: 'ver',
+      pepsVer: 'peps_ver',
+      bleVer: 'ble_ver',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      devid: 'string',
+      sn: 'string',
+      ccid: 'string',
+      imei: 'string',
+      ver: 'string',
+      pepsVer: 'string',
+      bleVer: 'string',
     };
   }
 
@@ -12418,10 +12504,16 @@ export class QueryIotbasicCategorylistRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 行业
+  industry?: string;
+  // 场景
+  scene?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      industry: 'industry',
+      scene: 'scene',
     };
   }
 
@@ -12429,6 +12521,8 @@ export class QueryIotbasicCategorylistRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      industry: 'string',
+      scene: 'string',
     };
   }
 
@@ -14592,6 +14686,146 @@ export class QueryDigitalkeyTradepayResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       x: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDigitalkeyDeviceinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备DID，注册蚂蚁链返回的设备唯一ID
+  deviceDid: string;
+  // 使用deviceSecret对deviceDid进行加签
+  signature: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceDid: 'device_did',
+      signature: 'signature',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceDid: 'string',
+      signature: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDigitalkeyDeviceinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作结果
+  success?: boolean;
+  // iotbasic数控设备信息
+  data?: IotbasicDigitalKeyDeviceInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      data: IotbasicDigitalKeyDeviceInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadIotbasicAppmanagerfileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用文件
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 应用模块名称，由查询应用类型列表获取
+  bizType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      bizType: 'biz_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      bizType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadIotbasicAppmanagerfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口调用结果
+  success?: boolean;
+  // 上传应用文件解析结果，json字符串
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      data: 'string',
     };
   }
 
@@ -24681,7 +24915,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.12",
+          sdk_version: "1.11.14",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -26290,8 +26524,8 @@ export default class Client {
   }
 
   /**
-   * Description: iotbasic-查询品类列表
-   * Summary: iotbasic-查询品类列表
+   * Description: iotbasic-分页查询品类列表
+   * Summary: iotbasic-分页查询品类列表
    */
   async queryIotbasicCategorylist(request: QueryIotbasicCategorylistRequest): Promise<QueryIotbasicCategorylistResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -26300,8 +26534,8 @@ export default class Client {
   }
 
   /**
-   * Description: iotbasic-查询品类列表
-   * Summary: iotbasic-查询品类列表
+   * Description: iotbasic-分页查询品类列表
+   * Summary: iotbasic-分页查询品类列表
    */
   async queryIotbasicCategorylistEx(request: QueryIotbasicCategorylistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIotbasicCategorylistResponse> {
     Util.validateModel(request);
@@ -26838,6 +27072,65 @@ export default class Client {
   async queryDigitalkeyTradepayEx(request: QueryDigitalkeyTradepayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyTradepayResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryDigitalkeyTradepayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.tradepay.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyTradepayResponse({}));
+  }
+
+  /**
+   * Description: iotbasic-查询数控设备信息
+   * Summary: iotbasic-查询数控设备信息
+   */
+  async getDigitalkeyDeviceinfo(request: GetDigitalkeyDeviceinfoRequest): Promise<GetDigitalkeyDeviceinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getDigitalkeyDeviceinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: iotbasic-查询数控设备信息
+   * Summary: iotbasic-查询数控设备信息
+   */
+  async getDigitalkeyDeviceinfoEx(request: GetDigitalkeyDeviceinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDigitalkeyDeviceinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetDigitalkeyDeviceinfoResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.deviceinfo.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDigitalkeyDeviceinfoResponse({}));
+  }
+
+  /**
+   * Description: iotbasic-上传apk文件
+   * Summary: iotbasic-上传apk文件
+   */
+  async uploadIotbasicAppmanagerfile(request: UploadIotbasicAppmanagerfileRequest): Promise<UploadIotbasicAppmanagerfileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadIotbasicAppmanagerfileEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: iotbasic-上传apk文件
+   * Summary: iotbasic-上传apk文件
+   */
+  async uploadIotbasicAppmanagerfileEx(request: UploadIotbasicAppmanagerfileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadIotbasicAppmanagerfileResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "blockchain.bot.iotbasic.appmanagerfile.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadIotbasicAppmanagerfileResponse = new UploadIotbasicAppmanagerfileResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadIotbasicAppmanagerfileResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadIotbasicAppmanagerfileResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerfile.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadIotbasicAppmanagerfileResponse({}));
   }
 
   /**
