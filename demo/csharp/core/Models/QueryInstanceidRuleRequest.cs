@@ -28,6 +28,11 @@ namespace AntChain.SDK.DEMO.Models
         [Validation(Required=true)]
         public string Oprator { get; set; }
 
+        // 结构体
+        [NameInMap("struct")]
+        [Validation(Required=true)]
+        public TestA Struct { get; set; }
+
     }
 
 }
