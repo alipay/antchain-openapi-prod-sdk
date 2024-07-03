@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.12',
+                    'sdk_version': '1.11.14',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.12',
+                    'sdk_version': '1.11.14',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -4850,8 +4850,8 @@ class Client:
         request: bot_models.QueryIotbasicCategorylistRequest,
     ) -> bot_models.QueryIotbasicCategorylistResponse:
         """
-        Description: iotbasic-查询品类列表
-        Summary: iotbasic-查询品类列表
+        Description: iotbasic-分页查询品类列表
+        Summary: iotbasic-分页查询品类列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4862,8 +4862,8 @@ class Client:
         request: bot_models.QueryIotbasicCategorylistRequest,
     ) -> bot_models.QueryIotbasicCategorylistResponse:
         """
-        Description: iotbasic-查询品类列表
-        Summary: iotbasic-查询品类列表
+        Description: iotbasic-分页查询品类列表
+        Summary: iotbasic-分页查询品类列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4876,8 +4876,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.QueryIotbasicCategorylistResponse:
         """
-        Description: iotbasic-查询品类列表
-        Summary: iotbasic-查询品类列表
+        Description: iotbasic-分页查询品类列表
+        Summary: iotbasic-分页查询品类列表
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4892,8 +4892,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.QueryIotbasicCategorylistResponse:
         """
-        Description: iotbasic-查询品类列表
-        Summary: iotbasic-查询品类列表
+        Description: iotbasic-分页查询品类列表
+        Summary: iotbasic-分页查询品类列表
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -6467,6 +6467,152 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryDigitalkeyTradepayResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.digitalkey.tradepay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_digitalkey_deviceinfo(
+        self,
+        request: bot_models.GetDigitalkeyDeviceinfoRequest,
+    ) -> bot_models.GetDigitalkeyDeviceinfoResponse:
+        """
+        Description: iotbasic-查询数控设备信息
+        Summary: iotbasic-查询数控设备信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_digitalkey_deviceinfo_ex(request, headers, runtime)
+
+    async def get_digitalkey_deviceinfo_async(
+        self,
+        request: bot_models.GetDigitalkeyDeviceinfoRequest,
+    ) -> bot_models.GetDigitalkeyDeviceinfoResponse:
+        """
+        Description: iotbasic-查询数控设备信息
+        Summary: iotbasic-查询数控设备信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_digitalkey_deviceinfo_ex_async(request, headers, runtime)
+
+    def get_digitalkey_deviceinfo_ex(
+        self,
+        request: bot_models.GetDigitalkeyDeviceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GetDigitalkeyDeviceinfoResponse:
+        """
+        Description: iotbasic-查询数控设备信息
+        Summary: iotbasic-查询数控设备信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GetDigitalkeyDeviceinfoResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.deviceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_digitalkey_deviceinfo_ex_async(
+        self,
+        request: bot_models.GetDigitalkeyDeviceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GetDigitalkeyDeviceinfoResponse:
+        """
+        Description: iotbasic-查询数控设备信息
+        Summary: iotbasic-查询数控设备信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GetDigitalkeyDeviceinfoResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.deviceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_iotbasic_appmanagerfile(
+        self,
+        request: bot_models.UploadIotbasicAppmanagerfileRequest,
+    ) -> bot_models.UploadIotbasicAppmanagerfileResponse:
+        """
+        Description: iotbasic-上传apk文件
+        Summary: iotbasic-上传apk文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_iotbasic_appmanagerfile_ex(request, headers, runtime)
+
+    async def upload_iotbasic_appmanagerfile_async(
+        self,
+        request: bot_models.UploadIotbasicAppmanagerfileRequest,
+    ) -> bot_models.UploadIotbasicAppmanagerfileResponse:
+        """
+        Description: iotbasic-上传apk文件
+        Summary: iotbasic-上传apk文件
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_iotbasic_appmanagerfile_ex_async(request, headers, runtime)
+
+    def upload_iotbasic_appmanagerfile_ex(
+        self,
+        request: bot_models.UploadIotbasicAppmanagerfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UploadIotbasicAppmanagerfileResponse:
+        """
+        Description: iotbasic-上传apk文件
+        Summary: iotbasic-上传apk文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='blockchain.bot.iotbasic.appmanagerfile.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_iotbasic_appmanagerfile_response = bot_models.UploadIotbasicAppmanagerfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_iotbasic_appmanagerfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UploadIotbasicAppmanagerfileResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanagerfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_iotbasic_appmanagerfile_ex_async(
+        self,
+        request: bot_models.UploadIotbasicAppmanagerfileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UploadIotbasicAppmanagerfileResponse:
+        """
+        Description: iotbasic-上传apk文件
+        Summary: iotbasic-上传apk文件
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='blockchain.bot.iotbasic.appmanagerfile.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_iotbasic_appmanagerfile_response = bot_models.UploadIotbasicAppmanagerfileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_iotbasic_appmanagerfile_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UploadIotbasicAppmanagerfileResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanagerfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
