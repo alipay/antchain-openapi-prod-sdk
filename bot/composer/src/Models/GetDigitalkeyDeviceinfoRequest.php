@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIotbasicCategorylistRequest extends Model
+class GetDigitalkeyDeviceinfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,26 +19,28 @@ class QueryIotbasicCategorylistRequest extends Model
      */
     public $productInstanceId;
 
-    // 行业
+    // 设备DID，注册蚂蚁链返回的设备唯一ID
     /**
      * @var string
      */
-    public $industry;
+    public $deviceDid;
 
-    // 场景
+    // 使用deviceSecret对deviceDid进行加签
     /**
      * @var string
      */
-    public $scene;
+    public $signature;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'industry'          => 'industry',
-        'scene'             => 'scene',
+        'deviceDid'         => 'device_did',
+        'signature'         => 'signature',
     ];
 
     public function validate()
     {
+        Model::validateRequired('deviceDid', $this->deviceDid, true);
+        Model::validateRequired('signature', $this->signature, true);
     }
 
     public function toMap()
@@ -50,11 +52,11 @@ class QueryIotbasicCategorylistRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->industry) {
-            $res['industry'] = $this->industry;
+        if (null !== $this->deviceDid) {
+            $res['device_did'] = $this->deviceDid;
         }
-        if (null !== $this->scene) {
-            $res['scene'] = $this->scene;
+        if (null !== $this->signature) {
+            $res['signature'] = $this->signature;
         }
 
         return $res;
@@ -63,7 +65,7 @@ class QueryIotbasicCategorylistRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIotbasicCategorylistRequest
+     * @return GetDigitalkeyDeviceinfoRequest
      */
     public static function fromMap($map = [])
     {
@@ -74,11 +76,11 @@ class QueryIotbasicCategorylistRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['industry'])) {
-            $model->industry = $map['industry'];
+        if (isset($map['device_did'])) {
+            $model->deviceDid = $map['device_did'];
         }
-        if (isset($map['scene'])) {
-            $model->scene = $map['scene'];
+        if (isset($map['signature'])) {
+            $model->signature = $map['signature'];
         }
 
         return $model;

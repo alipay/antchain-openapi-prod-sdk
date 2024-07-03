@@ -155,6 +155,8 @@ use AntChain\BOT\Models\GetDevicecorpProductinfoRequest;
 use AntChain\BOT\Models\GetDevicecorpProductinfoResponse;
 use AntChain\BOT\Models\GetDeviceDatamodelRequest;
 use AntChain\BOT\Models\GetDeviceDatamodelResponse;
+use AntChain\BOT\Models\GetDigitalkeyDeviceinfoRequest;
+use AntChain\BOT\Models\GetDigitalkeyDeviceinfoResponse;
 use AntChain\BOT\Models\GetDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\GetDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\GetDistributedeviceBydeviceidRequest;
@@ -491,6 +493,8 @@ use AntChain\BOT\Models\UpdateThingsdidTenantRequest;
 use AntChain\BOT\Models\UpdateThingsdidTenantResponse;
 use AntChain\BOT\Models\UpdateXrXrticketpoolRequest;
 use AntChain\BOT\Models\UpdateXrXrticketpoolResponse;
+use AntChain\BOT\Models\UploadIotbasicAppmanagerfileRequest;
+use AntChain\BOT\Models\UploadIotbasicAppmanagerfileResponse;
 use AntChain\BOT\Models\VerifyAiidentificationQrcodeRequest;
 use AntChain\BOT\Models\VerifyAiidentificationQrcodeResponse;
 use AntChain\BOT\Models\VerifyIotbasicIdentifyRequest;
@@ -642,7 +646,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.12',
+                    'sdk_version'      => '1.11.14',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3382,8 +3386,8 @@ class Client
     }
 
     /**
-     * Description: iotbasic-查询品类列表
-     * Summary: iotbasic-查询品类列表.
+     * Description: iotbasic-分页查询品类列表
+     * Summary: iotbasic-分页查询品类列表.
      *
      * @param QueryIotbasicCategorylistRequest $request
      *
@@ -3398,8 +3402,8 @@ class Client
     }
 
     /**
-     * Description: iotbasic-查询品类列表
-     * Summary: iotbasic-查询品类列表.
+     * Description: iotbasic-分页查询品类列表
+     * Summary: iotbasic-分页查询品类列表.
      *
      * @param QueryIotbasicCategorylistRequest $request
      * @param string[]                         $headers
@@ -4336,6 +4340,90 @@ class Client
         Utils::validateModel($request);
 
         return QueryDigitalkeyTradepayResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.tradepay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-查询数控设备信息
+     * Summary: iotbasic-查询数控设备信息.
+     *
+     * @param GetDigitalkeyDeviceinfoRequest $request
+     *
+     * @return GetDigitalkeyDeviceinfoResponse
+     */
+    public function getDigitalkeyDeviceinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getDigitalkeyDeviceinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-查询数控设备信息
+     * Summary: iotbasic-查询数控设备信息.
+     *
+     * @param GetDigitalkeyDeviceinfoRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return GetDigitalkeyDeviceinfoResponse
+     */
+    public function getDigitalkeyDeviceinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetDigitalkeyDeviceinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.deviceinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-上传apk文件
+     * Summary: iotbasic-上传apk文件.
+     *
+     * @param UploadIotbasicAppmanagerfileRequest $request
+     *
+     * @return UploadIotbasicAppmanagerfileResponse
+     */
+    public function uploadIotbasicAppmanagerfile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadIotbasicAppmanagerfileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-上传apk文件
+     * Summary: iotbasic-上传apk文件.
+     *
+     * @param UploadIotbasicAppmanagerfileRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UploadIotbasicAppmanagerfileResponse
+     */
+    public function uploadIotbasicAppmanagerfileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'blockchain.bot.iotbasic.appmanagerfile.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadIotbasicAppmanagerfileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadIotbasicAppmanagerfileResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appmanagerfile.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
