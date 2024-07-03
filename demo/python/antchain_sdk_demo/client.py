@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.299',
+                    'sdk_version': '1.0.306',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.299',
+                    'sdk_version': '1.0.306',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -274,62 +274,6 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
-
-    def bind_sdf_sss_sss(
-        self,
-        request: demo_models.BindSdfSssSssRequest,
-    ) -> demo_models.BindSdfSssSssResponse:
-        """
-        Description: sdf
-        Summary: sdf
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_sdf_sss_sss_ex(request, headers, runtime)
-
-    async def bind_sdf_sss_sss_async(
-        self,
-        request: demo_models.BindSdfSssSssRequest,
-    ) -> demo_models.BindSdfSssSssResponse:
-        """
-        Description: sdf
-        Summary: sdf
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.bind_sdf_sss_sss_ex_async(request, headers, runtime)
-
-    def bind_sdf_sss_sss_ex(
-        self,
-        request: demo_models.BindSdfSssSssRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.BindSdfSssSssResponse:
-        """
-        Description: sdf
-        Summary: sdf
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.BindSdfSssSssResponse(),
-            self.do_request('1.0', 'demo.sdf.sss.sss.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def bind_sdf_sss_sss_ex_async(
-        self,
-        request: demo_models.BindSdfSssSssRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.BindSdfSssSssResponse:
-        """
-        Description: sdf
-        Summary: sdf
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.BindSdfSssSssResponse(),
-            await self.do_request_async('1.0', 'demo.sdf.sss.sss.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
 
     def status_gateway_check(
         self,
@@ -1351,208 +1295,6 @@ class Client:
             await self.do_request_async('1.0', 'demo.demo.abc.abc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def upload_shaofang_file(
-        self,
-        request: demo_models.UploadShaofangFileRequest,
-    ) -> demo_models.UploadShaofangFileResponse:
-        """
-        Description: 文件上传
-        Summary: 测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.upload_shaofang_file_ex(request, headers, runtime)
-
-    async def upload_shaofang_file_async(
-        self,
-        request: demo_models.UploadShaofangFileRequest,
-    ) -> demo_models.UploadShaofangFileResponse:
-        """
-        Description: 文件上传
-        Summary: 测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.upload_shaofang_file_ex_async(request, headers, runtime)
-
-    def upload_shaofang_file_ex(
-        self,
-        request: demo_models.UploadShaofangFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.UploadShaofangFileResponse:
-        """
-        Description: 文件上传
-        Summary: 测试
-        """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='demo.shaofang.file.upload',
-                file_name=request.file_object_name
-            )
-            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
-                upload_shaofang_file_response = demo_models.UploadShaofangFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return upload_shaofang_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.UploadShaofangFileResponse(),
-            self.do_request('1.0', 'demo.shaofang.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def upload_shaofang_file_ex_async(
-        self,
-        request: demo_models.UploadShaofangFileRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.UploadShaofangFileResponse:
-        """
-        Description: 文件上传
-        Summary: 测试
-        """
-        if not UtilClient.is_unset(request.file_object):
-            upload_req = demo_models.CreateAntcloudGatewayxFileUploadRequest(
-                auth_token=request.auth_token,
-                api_code='demo.shaofang.file.upload',
-                file_name=request.file_object_name
-            )
-            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
-            if not AntchainUtils.is_success(upload_resp.result_code, 'OK'):
-                upload_shaofang_file_response = demo_models.UploadShaofangFileResponse(
-                    req_msg_id=upload_resp.req_msg_id,
-                    result_code=upload_resp.result_code,
-                    result_msg=upload_resp.result_msg
-                )
-                return upload_shaofang_file_response
-            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
-            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
-            request.file_id = upload_resp.file_id
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.UploadShaofangFileResponse(),
-            await self.do_request_async('1.0', 'demo.shaofang.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_shaofang_test_tt(
-        self,
-        request: demo_models.QueryShaofangTestTtRequest,
-    ) -> demo_models.QueryShaofangTestTtResponse:
-        """
-        Description: test
-        Summary: 测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_shaofang_test_tt_ex(request, headers, runtime)
-
-    async def query_shaofang_test_tt_async(
-        self,
-        request: demo_models.QueryShaofangTestTtRequest,
-    ) -> demo_models.QueryShaofangTestTtResponse:
-        """
-        Description: test
-        Summary: 测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_shaofang_test_tt_ex_async(request, headers, runtime)
-
-    def query_shaofang_test_tt_ex(
-        self,
-        request: demo_models.QueryShaofangTestTtRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryShaofangTestTtResponse:
-        """
-        Description: test
-        Summary: 测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryShaofangTestTtResponse(),
-            self.do_request('1.0', 'demo.shaofang.test.tt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_shaofang_test_tt_ex_async(
-        self,
-        request: demo_models.QueryShaofangTestTtRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryShaofangTestTtResponse:
-        """
-        Description: test
-        Summary: 测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryShaofangTestTtResponse(),
-            await self.do_request_async('1.0', 'demo.shaofang.test.tt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def import_shaofang_test_tt(
-        self,
-        request: demo_models.ImportShaofangTestTtRequest,
-    ) -> demo_models.ImportShaofangTestTtResponse:
-        """
-        Description: 中文测试test
-        Summary: 中文测试test
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.import_shaofang_test_tt_ex(request, headers, runtime)
-
-    async def import_shaofang_test_tt_async(
-        self,
-        request: demo_models.ImportShaofangTestTtRequest,
-    ) -> demo_models.ImportShaofangTestTtResponse:
-        """
-        Description: 中文测试test
-        Summary: 中文测试test
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.import_shaofang_test_tt_ex_async(request, headers, runtime)
-
-    def import_shaofang_test_tt_ex(
-        self,
-        request: demo_models.ImportShaofangTestTtRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.ImportShaofangTestTtResponse:
-        """
-        Description: 中文测试test
-        Summary: 中文测试test
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.ImportShaofangTestTtResponse(),
-            self.do_request('1.0', 'demo.shaofang.test.tt.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def import_shaofang_test_tt_ex_async(
-        self,
-        request: demo_models.ImportShaofangTestTtRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.ImportShaofangTestTtResponse:
-        """
-        Description: 中文测试test
-        Summary: 中文测试test
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.ImportShaofangTestTtResponse(),
-            await self.do_request_async('1.0', 'demo.shaofang.test.tt.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_xxxx_testx_aaa(
         self,
         request: demo_models.QueryXxxxTestxAaaRequest,
@@ -1663,62 +1405,6 @@ class Client:
         return TeaCore.from_map(
             demo_models.QueryTestTestaTestaResponse(),
             await self.do_request_async('1.0', 'demo.test.testa.testa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_timetest_timetest_timetest(
-        self,
-        request: demo_models.QueryTimetestTimetestTimetestRequest,
-    ) -> demo_models.QueryTimetestTimetestTimetestResponse:
-        """
-        Description: test
-        Summary: test
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_timetest_timetest_timetest_ex(request, headers, runtime)
-
-    async def query_timetest_timetest_timetest_async(
-        self,
-        request: demo_models.QueryTimetestTimetestTimetestRequest,
-    ) -> demo_models.QueryTimetestTimetestTimetestResponse:
-        """
-        Description: test
-        Summary: test
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_timetest_timetest_timetest_ex_async(request, headers, runtime)
-
-    def query_timetest_timetest_timetest_ex(
-        self,
-        request: demo_models.QueryTimetestTimetestTimetestRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryTimetestTimetestTimetestResponse:
-        """
-        Description: test
-        Summary: test
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryTimetestTimetestTimetestResponse(),
-            self.do_request('1.0', 'demo.timetest.timetest.timetest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_timetest_timetest_timetest_ex_async(
-        self,
-        request: demo_models.QueryTimetestTimetestTimetestRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryTimetestTimetestTimetestResponse:
-        """
-        Description: test
-        Summary: test
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryTimetestTimetestTimetestResponse(),
-            await self.do_request_async('1.0', 'demo.timetest.timetest.timetest.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_instanceid_rule(
@@ -1999,6 +1685,118 @@ class Client:
         return TeaCore.from_map(
             demo_models.MatchBusinessAndInstanceResponse(),
             await self.do_request_async('1.0', 'demo.business.and.instance.match', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_develop_test_use(
+        self,
+        request: demo_models.QueryDevelopTestUseRequest,
+    ) -> demo_models.QueryDevelopTestUseResponse:
+        """
+        Description: 研发自测使用API
+        Summary: 研发自测使用API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_develop_test_use_ex(request, headers, runtime)
+
+    async def query_develop_test_use_async(
+        self,
+        request: demo_models.QueryDevelopTestUseRequest,
+    ) -> demo_models.QueryDevelopTestUseResponse:
+        """
+        Description: 研发自测使用API
+        Summary: 研发自测使用API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_develop_test_use_ex_async(request, headers, runtime)
+
+    def query_develop_test_use_ex(
+        self,
+        request: demo_models.QueryDevelopTestUseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryDevelopTestUseResponse:
+        """
+        Description: 研发自测使用API
+        Summary: 研发自测使用API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryDevelopTestUseResponse(),
+            self.do_request('1.0', 'demo.develop.test.use.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_develop_test_use_ex_async(
+        self,
+        request: demo_models.QueryDevelopTestUseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryDevelopTestUseResponse:
+        """
+        Description: 研发自测使用API
+        Summary: 研发自测使用API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryDevelopTestUseResponse(),
+            await self.do_request_async('1.0', 'demo.develop.test.use.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def verify_develop_test_test(
+        self,
+        request: demo_models.VerifyDevelopTestTestRequest,
+    ) -> demo_models.VerifyDevelopTestTestResponse:
+        """
+        Description: 资损防控研发自测使用API
+        Summary: 研发自测使用API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_develop_test_test_ex(request, headers, runtime)
+
+    async def verify_develop_test_test_async(
+        self,
+        request: demo_models.VerifyDevelopTestTestRequest,
+    ) -> demo_models.VerifyDevelopTestTestResponse:
+        """
+        Description: 资损防控研发自测使用API
+        Summary: 研发自测使用API
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.verify_develop_test_test_ex_async(request, headers, runtime)
+
+    def verify_develop_test_test_ex(
+        self,
+        request: demo_models.VerifyDevelopTestTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.VerifyDevelopTestTestResponse:
+        """
+        Description: 资损防控研发自测使用API
+        Summary: 研发自测使用API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.VerifyDevelopTestTestResponse(),
+            self.do_request('1.0', 'demo.develop.test.test.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def verify_develop_test_test_ex_async(
+        self,
+        request: demo_models.VerifyDevelopTestTestRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.VerifyDevelopTestTestResponse:
+        """
+        Description: 资损防控研发自测使用API
+        Summary: 研发自测使用API
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.VerifyDevelopTestTestResponse(),
+            await self.do_request_async('1.0', 'demo.develop.test.test.verify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def import_pre_ob_write(
@@ -2561,62 +2359,6 @@ class Client:
             await self.do_request_async('1.0', 'demo.apdevcenter.testobject.testsuba.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_testproduct_testobject_testsubq(
-        self,
-        request: demo_models.QueryTestproductTestobjectTestsubqRequest,
-    ) -> demo_models.QueryTestproductTestobjectTestsubqResponse:
-        """
-        Description: test
-        Summary: 新增API测试查询接口(只是测试使用)
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_testproduct_testobject_testsubq_ex(request, headers, runtime)
-
-    async def query_testproduct_testobject_testsubq_async(
-        self,
-        request: demo_models.QueryTestproductTestobjectTestsubqRequest,
-    ) -> demo_models.QueryTestproductTestobjectTestsubqResponse:
-        """
-        Description: test
-        Summary: 新增API测试查询接口(只是测试使用)
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_testproduct_testobject_testsubq_ex_async(request, headers, runtime)
-
-    def query_testproduct_testobject_testsubq_ex(
-        self,
-        request: demo_models.QueryTestproductTestobjectTestsubqRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryTestproductTestobjectTestsubqResponse:
-        """
-        Description: test
-        Summary: 新增API测试查询接口(只是测试使用)
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryTestproductTestobjectTestsubqResponse(),
-            self.do_request('1.0', 'demo.testproduct.testobject.testsubq.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_testproduct_testobject_testsubq_ex_async(
-        self,
-        request: demo_models.QueryTestproductTestobjectTestsubqRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryTestproductTestobjectTestsubqResponse:
-        """
-        Description: test
-        Summary: 新增API测试查询接口(只是测试使用)
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryTestproductTestobjectTestsubqResponse(),
-            await self.do_request_async('1.0', 'demo.testproduct.testobject.testsubq.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
     def query_test_filesystem_fileinfo(
         self,
         request: demo_models.QueryTestFilesystemFileinfoRequest,
@@ -3063,118 +2805,6 @@ class Client:
         return TeaCore.from_map(
             demo_models.CreateAutoGenerateCodeResponse(),
             await self.do_request_async('1.0', 'demo.auto.generate.code.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_wwww_eeee_rrr(
-        self,
-        request: demo_models.QueryWwwwEeeeRrrRequest,
-    ) -> demo_models.QueryWwwwEeeeRrrResponse:
-        """
-        Description: 1
-        Summary: test
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_wwww_eeee_rrr_ex(request, headers, runtime)
-
-    async def query_wwww_eeee_rrr_async(
-        self,
-        request: demo_models.QueryWwwwEeeeRrrRequest,
-    ) -> demo_models.QueryWwwwEeeeRrrResponse:
-        """
-        Description: 1
-        Summary: test
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_wwww_eeee_rrr_ex_async(request, headers, runtime)
-
-    def query_wwww_eeee_rrr_ex(
-        self,
-        request: demo_models.QueryWwwwEeeeRrrRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryWwwwEeeeRrrResponse:
-        """
-        Description: 1
-        Summary: test
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryWwwwEeeeRrrResponse(),
-            self.do_request('1.0', 'demo.wwww.eeee.rrr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_wwww_eeee_rrr_ex_async(
-        self,
-        request: demo_models.QueryWwwwEeeeRrrRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.QueryWwwwEeeeRrrResponse:
-        """
-        Description: 1
-        Summary: test
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.QueryWwwwEeeeRrrResponse(),
-            await self.do_request_async('1.0', 'demo.wwww.eeee.rrr.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def upload_jzq_fail(
-        self,
-        request: demo_models.UploadJzqFailRequest,
-    ) -> demo_models.UploadJzqFailResponse:
-        """
-        Description: 文件上传测试使用
-        Summary: 文件上传测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.upload_jzq_fail_ex(request, headers, runtime)
-
-    async def upload_jzq_fail_async(
-        self,
-        request: demo_models.UploadJzqFailRequest,
-    ) -> demo_models.UploadJzqFailResponse:
-        """
-        Description: 文件上传测试使用
-        Summary: 文件上传测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.upload_jzq_fail_ex_async(request, headers, runtime)
-
-    def upload_jzq_fail_ex(
-        self,
-        request: demo_models.UploadJzqFailRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.UploadJzqFailResponse:
-        """
-        Description: 文件上传测试使用
-        Summary: 文件上传测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.UploadJzqFailResponse(),
-            self.do_request('1.0', 'demo.jzq.fail.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def upload_jzq_fail_ex_async(
-        self,
-        request: demo_models.UploadJzqFailRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> demo_models.UploadJzqFailResponse:
-        """
-        Description: 文件上传测试使用
-        Summary: 文件上传测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            demo_models.UploadJzqFailResponse(),
-            await self.do_request_async('1.0', 'demo.jzq.fail.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_pre_test_use(
