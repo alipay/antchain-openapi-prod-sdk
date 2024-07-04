@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.76',
+    sdk_version = '1.8.81',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -268,6 +268,31 @@ model MerchantAgentPage {
   bizType: string(name='biz_type', example='业务类型'),
   // 进件审核状态 枚举
   payExpandStatus: string(name='pay_expand_status', example='SUCCESS'),
+}
+
+// 订单消息结构体
+model OrderMsgInfo {
+  // 订单id
+  // 
+  orderId: string(name='order_id', example='13213123'),
+  // 消息ID
+  // 
+  msgId: string(name='msg_id', example='79256C48A6004E1EA4E18AF06745DB0A'),
+  // 消息类型
+  // 
+  msgPublishType: string(name='msg_publish_type', example='ORDER_STATUS_CHANGE'),
+  // 消息创建时间
+  // 
+  msgCreateTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='msg_create_time', example='2018-10-10T10:10:00Z'),
+  // 消息投递状态 SUCCESS 成功 FAIL 失败 WAIT 等待投递重试
+  msgStatus: string(name='msg_status', example='SUCCESS'),
+  // 消息重投次数
+  // 
+  msgRetryTime: long(name='msg_retry_time', example='1'),
+  // 消息回调地址
+  msgCallbackUrl: string(name='msg_callback_url', example='https://hstest02.xd0.co/antchain/ato/notify'),
+  // 消息体内容
+  msgContent: string(name='msg_content', example='{}'),
 }
 
 // 主订单信息
@@ -3025,6 +3050,105 @@ async function queryInnerTemplateversionEx(request: QueryInnerTemplateversionReq
   return doRequest('1.0' ,'antchain.ato.inner.templateversion.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model PagequeryInnerOrdermsgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户8位id
+  // 
+  tenantId: string(name='tenant_id'),
+  // 订单ID
+  orderId: string(name='order_id'),
+  // 消息类型
+  msgPublishType?: string(name='msg_publish_type'),
+  // 消息创建时间起始
+  msgCreateTimeFrom?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='msg_create_time_from'),
+  // 消息创建时间结束
+  msgCreateTimeTo?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='msg_create_time_to'),
+  // SANDBOX 沙箱 ；PROD 生产
+  env: string(name='env'),
+  // 分页查询对象
+  pageInfo: PageQuery(name='page_info'),
+}
+
+model PagequeryInnerOrdermsgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据总量
+  totalSize?: long(name='total_size'),
+  // 消息内容列表
+  orderMsgInfos?: [ OrderMsgInfo ](name='order_msg_infos'),
+}
+
+/**
+ * Description: 订单消息查询
+ * Summary: 订单消息查询
+ */
+async function pagequeryInnerOrdermsg(request: PagequeryInnerOrdermsgRequest): PagequeryInnerOrdermsgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryInnerOrdermsgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单消息查询
+ * Summary: 订单消息查询
+ */
+async function pagequeryInnerOrdermsgEx(request: PagequeryInnerOrdermsgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryInnerOrdermsgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.ordermsg.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RetryInnerOrdermsgRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // SANDBOX 沙箱 PROD 生产
+  env: string(name='env'),
+  // 订单id
+  // 
+  orderId: string(name='order_id'),
+  // 消息ID
+  // 
+  msgId: string(name='msg_id'),
+  // 使用租户新回调地址
+  usingNewCallbackUrl: boolean(name='using_new_callback_url'),
+}
+
+model RetryInnerOrdermsgResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 订单消息重试
+ * Summary: 订单消息重试
+ */
+async function retryInnerOrdermsg(request: RetryInnerOrdermsgRequest): RetryInnerOrdermsgResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return retryInnerOrdermsgEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单消息重试
+ * Summary: 订单消息重试
+ */
+async function retryInnerOrdermsgEx(request: RetryInnerOrdermsgRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RetryInnerOrdermsgResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.inner.ordermsg.retry', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model RegisterMerchantexpandMerchantRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -3815,6 +3939,8 @@ model UploadSignCreditRequest = {
   fileUrl?: string(name='file_url'),
   // 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
   content?: string(name='content'),
+  // 商户统一社会信用代码
+  merchantId?: string(name='merchant_id'),
 }
 
 model UploadSignCreditResponse = {
@@ -3855,6 +3981,8 @@ model QuerySignCreditRequest = {
   orderNoType: string(name='order_no_type'),
   // 订单号，或资产包号
   orderNo: string(name='order_no'),
+  // 商户统一社会信用代码
+  merchantId?: string(name='merchant_id'),
 }
 
 model QuerySignCreditResponse = {
@@ -4015,7 +4143,7 @@ model SyncTradeFinanceloanapplyRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 订单id 
-  orderId: string(maxLength=50, minLength=1, name='order_id'),
+  orderId?: string(maxLength=50, minLength=1, name='order_id'),
   // 订单所属商户的社会信用代码
   merchantId: string(maxLength=64, minLength=1, name='merchant_id'),
   // 融资放款申请接口
@@ -4526,9 +4654,9 @@ model RepayWithholdPlanResponse = {
 }
 
 /**
- * Description: ● 重要说明：
-     ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-     ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+ * Description: 重要说明：
+    1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+    2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
  * Summary: 单期代扣取消
  */
 async function repayWithholdPlan(request: RepayWithholdPlanRequest): RepayWithholdPlanResponse {
@@ -4538,9 +4666,9 @@ async function repayWithholdPlan(request: RepayWithholdPlanRequest): RepayWithho
 }
 
 /**
- * Description: ● 重要说明：
-     ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-     ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+ * Description: 重要说明：
+    1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+    2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
  * Summary: 单期代扣取消
  */
 async function repayWithholdPlanEx(request: RepayWithholdPlanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayWithholdPlanResponse {
