@@ -97,6 +97,8 @@ use AntChain\ATO\Models\PagequeryInnerMerchantagentRequest;
 use AntChain\ATO\Models\PagequeryInnerMerchantagentResponse;
 use AntChain\ATO\Models\PagequeryInnerMerchantagreementRequest;
 use AntChain\ATO\Models\PagequeryInnerMerchantagreementResponse;
+use AntChain\ATO\Models\PagequeryInnerOrdermsgRequest;
+use AntChain\ATO\Models\PagequeryInnerOrdermsgResponse;
 use AntChain\ATO\Models\PreviewInnerTemplateRequest;
 use AntChain\ATO\Models\PreviewInnerTemplateResponse;
 use AntChain\ATO\Models\PublishInnerTemplateRequest;
@@ -141,6 +143,8 @@ use AntChain\ATO\Models\RegisterMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\RegisterMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\RepayWithholdPlanRequest;
 use AntChain\ATO\Models\RepayWithholdPlanResponse;
+use AntChain\ATO\Models\RetryInnerOrdermsgRequest;
+use AntChain\ATO\Models\RetryInnerOrdermsgResponse;
 use AntChain\ATO\Models\RetryWithholdPlanRequest;
 use AntChain\ATO\Models\RetryWithholdPlanResponse;
 use AntChain\ATO\Models\SaveInnerSignfieldsRequest;
@@ -350,7 +354,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.76',
+                    'sdk_version'      => '1.8.81',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2331,6 +2335,72 @@ class Client
     }
 
     /**
+     * Description: 订单消息查询
+     * Summary: 订单消息查询.
+     *
+     * @param PagequeryInnerOrdermsgRequest $request
+     *
+     * @return PagequeryInnerOrdermsgResponse
+     */
+    public function pagequeryInnerOrdermsg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerOrdermsgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单消息查询
+     * Summary: 订单消息查询.
+     *
+     * @param PagequeryInnerOrdermsgRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return PagequeryInnerOrdermsgResponse
+     */
+    public function pagequeryInnerOrdermsgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerOrdermsgResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.ordermsg.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单消息重试
+     * Summary: 订单消息重试.
+     *
+     * @param RetryInnerOrdermsgRequest $request
+     *
+     * @return RetryInnerOrdermsgResponse
+     */
+    public function retryInnerOrdermsg($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryInnerOrdermsgEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单消息重试
+     * Summary: 订单消息重试.
+     *
+     * @param RetryInnerOrdermsgRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return RetryInnerOrdermsgResponse
+     */
+    public function retryInnerOrdermsgEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryInnerOrdermsgResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.ordermsg.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 商户入驻
      * Summary: 商户入驻.
      *
@@ -3324,9 +3394,9 @@ class Client
     }
 
     /**
-     * Description: ● 重要说明：
-     *      ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-     *      ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+     * Description: 重要说明：
+     *     1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
      * Summary: 单期代扣取消.
      *
      * @param RepayWithholdPlanRequest $request
@@ -3342,9 +3412,9 @@ class Client
     }
 
     /**
-     * Description: ● 重要说明：
-     *      ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-     *      ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+     * Description: 重要说明：
+     *     1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
      * Summary: 单期代扣取消.
      *
      * @param RepayWithholdPlanRequest $request

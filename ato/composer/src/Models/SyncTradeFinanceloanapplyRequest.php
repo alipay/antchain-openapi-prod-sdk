@@ -87,9 +87,6 @@ class SyncTradeFinanceloanapplyRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('merchantName', $this->merchantName, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('merchantId', $this->merchantId, 64);
         Model::validateMaxLength('fundId', $this->fundId, 64);
@@ -97,6 +94,8 @@ class SyncTradeFinanceloanapplyRequest extends Model
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('merchantId', $this->merchantId, 1);
         Model::validateMinLength('assetPackageId', $this->assetPackageId, 6);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('merchantName', $this->merchantName, true);
     }
 
     public function toMap()

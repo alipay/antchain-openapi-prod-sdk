@@ -30,11 +30,18 @@ class QuerySignCreditRequest extends Model
      * @var string
      */
     public $orderNo;
+
+    // 商户统一社会信用代码
+    /**
+     * @var string
+     */
+    public $merchantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderNoType'       => 'order_no_type',
         'orderNo'           => 'order_no',
+        'merchantId'        => 'merchant_id',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class QuerySignCreditRequest extends Model
         }
         if (null !== $this->orderNo) {
             $res['order_no'] = $this->orderNo;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class QuerySignCreditRequest extends Model
         }
         if (isset($map['order_no'])) {
             $model->orderNo = $map['order_no'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;
