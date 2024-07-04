@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BOT",
-  "version": "1.0.102",
+  "version": "1.0.103",
   "main": "./main.tea",
   "maintainers": [
     {
