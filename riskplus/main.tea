@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.22',
+    sdk_version = '1.19.23',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -6123,6 +6123,8 @@ model QueryQmpRobotcallDetailRequest = {
   templateType: string(name='template_type'),
   // 场景策略id
   sceneStrategyId: long(name='scene_strategy_id'),
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string(name='industry_tag'),
 }
 
 model QueryQmpRobotcallDetailResponse = {
@@ -6165,6 +6167,8 @@ model QueryQmpDataaccessStatisticRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 查询回执统计的任务id
   taskId: long(name='task_id'),
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string(name='industry_tag'),
 }
 
 model QueryQmpDataaccessStatisticResponse = {
@@ -6207,6 +6211,8 @@ model QueryQmpRobotcallStatisticinfoRequest = {
   sceneStrategyId: long(name='scene_strategy_id'),
   // 客户透传字段
   outInfo: string(name='out_info'),
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string(name='industry_tag'),
 }
 
 model QueryQmpRobotcallStatisticinfoResponse = {
@@ -6265,6 +6271,8 @@ model BatchqueryQmpTaskDetailRequest = {
   callDate?: string(name='call_date'),
   // 结束外呼时间
   endCallDate?: string(name='end_call_date'),
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string(name='industry_tag'),
 }
 
 model BatchqueryQmpTaskDetailResponse = {
@@ -6349,6 +6357,8 @@ model BatchqueryQmpActionplanDetailRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 场景策略id
   sceneStrategyId: [ long ](name='scene_strategy_id'),
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string(name='industry_tag'),
 }
 
 model BatchqueryQmpActionplanDetailResponse = {
@@ -6435,6 +6445,8 @@ model BatchqueryQmpTenantActionplaninfoRequest = {
   pageNum: long(name='page_num'),
   // 页数
   pageSize: long(name='page_size'),
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string(name='industry_tag'),
 }
 
 model BatchqueryQmpTenantActionplaninfoResponse = {
@@ -6479,6 +6491,8 @@ model QueryQmpTenantActionplaninfoRequest = {
   pageSize?: long(name='page_size'),
   // 渠道code
   channelType: string(name='channel_type'),
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string(name='industry_tag'),
 }
 
 model QueryQmpTenantActionplaninfoResponse = {
