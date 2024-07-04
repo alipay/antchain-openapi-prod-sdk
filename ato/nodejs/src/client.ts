@@ -376,6 +376,60 @@ export class MerchantAgentPage extends $tea.Model {
   }
 }
 
+// 订单消息结构体
+export class OrderMsgInfo extends $tea.Model {
+  // 订单id
+  // 
+  orderId: string;
+  // 消息ID
+  // 
+  msgId: string;
+  // 消息类型
+  // 
+  msgPublishType: string;
+  // 消息创建时间
+  // 
+  msgCreateTime: string;
+  // 消息投递状态 SUCCESS 成功 FAIL 失败 WAIT 等待投递重试
+  msgStatus: string;
+  // 消息重投次数
+  // 
+  msgRetryTime: number;
+  // 消息回调地址
+  msgCallbackUrl: string;
+  // 消息体内容
+  msgContent: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      msgId: 'msg_id',
+      msgPublishType: 'msg_publish_type',
+      msgCreateTime: 'msg_create_time',
+      msgStatus: 'msg_status',
+      msgRetryTime: 'msg_retry_time',
+      msgCallbackUrl: 'msg_callback_url',
+      msgContent: 'msg_content',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      msgId: 'string',
+      msgPublishType: 'string',
+      msgCreateTime: 'string',
+      msgStatus: 'string',
+      msgRetryTime: 'number',
+      msgCallbackUrl: 'string',
+      msgContent: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 主订单信息
 export class OrderInfo extends $tea.Model {
   static names(): { [key: string]: string } {
@@ -4910,6 +4964,167 @@ export class QueryInnerTemplateversionResponse extends $tea.Model {
   }
 }
 
+export class PagequeryInnerOrdermsgRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户8位id
+  // 
+  tenantId: string;
+  // 订单ID
+  orderId: string;
+  // 消息类型
+  msgPublishType?: string;
+  // 消息创建时间起始
+  msgCreateTimeFrom?: string;
+  // 消息创建时间结束
+  msgCreateTimeTo?: string;
+  // SANDBOX 沙箱 ；PROD 生产
+  env: string;
+  // 分页查询对象
+  pageInfo: PageQuery;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      orderId: 'order_id',
+      msgPublishType: 'msg_publish_type',
+      msgCreateTimeFrom: 'msg_create_time_from',
+      msgCreateTimeTo: 'msg_create_time_to',
+      env: 'env',
+      pageInfo: 'page_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      orderId: 'string',
+      msgPublishType: 'string',
+      msgCreateTimeFrom: 'string',
+      msgCreateTimeTo: 'string',
+      env: 'string',
+      pageInfo: PageQuery,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryInnerOrdermsgResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 数据总量
+  totalSize?: number;
+  // 消息内容列表
+  orderMsgInfos?: OrderMsgInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalSize: 'total_size',
+      orderMsgInfos: 'order_msg_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalSize: 'number',
+      orderMsgInfos: { 'type': 'array', 'itemType': OrderMsgInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RetryInnerOrdermsgRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户ID
+  tenantId: string;
+  // SANDBOX 沙箱 PROD 生产
+  env: string;
+  // 订单id
+  // 
+  orderId: string;
+  // 消息ID
+  // 
+  msgId: string;
+  // 使用租户新回调地址
+  usingNewCallbackUrl: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      env: 'env',
+      orderId: 'order_id',
+      msgId: 'msg_id',
+      usingNewCallbackUrl: 'using_new_callback_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      env: 'string',
+      orderId: 'string',
+      msgId: 'string',
+      usingNewCallbackUrl: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RetryInnerOrdermsgResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RegisterMerchantexpandMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6129,6 +6344,8 @@ export class UploadSignCreditRequest extends $tea.Model {
   fileUrl?: string;
   // 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
   content?: string;
+  // 商户统一社会信用代码
+  merchantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6140,6 +6357,7 @@ export class UploadSignCreditRequest extends $tea.Model {
       contentType: 'content_type',
       fileUrl: 'file_url',
       content: 'content',
+      merchantId: 'merchant_id',
     };
   }
 
@@ -6154,6 +6372,7 @@ export class UploadSignCreditRequest extends $tea.Model {
       contentType: 'string',
       fileUrl: 'string',
       content: 'string',
+      merchantId: 'string',
     };
   }
 
@@ -6202,12 +6421,15 @@ export class QuerySignCreditRequest extends $tea.Model {
   orderNoType: string;
   // 订单号，或资产包号
   orderNo: string;
+  // 商户统一社会信用代码
+  merchantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderNoType: 'order_no_type',
       orderNo: 'order_no',
+      merchantId: 'merchant_id',
     };
   }
 
@@ -6217,6 +6439,7 @@ export class QuerySignCreditRequest extends $tea.Model {
       productInstanceId: 'string',
       orderNoType: 'string',
       orderNo: 'string',
+      merchantId: 'string',
     };
   }
 
@@ -6454,7 +6677,7 @@ export class SyncTradeFinanceloanapplyRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 订单id 
-  orderId: string;
+  orderId?: string;
   // 订单所属商户的社会信用代码
   merchantId: string;
   // 融资放款申请接口
@@ -8014,7 +8237,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.76",
+          sdk_version: "1.8.81",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -9186,6 +9409,44 @@ export default class Client {
   }
 
   /**
+   * Description: 订单消息查询
+   * Summary: 订单消息查询
+   */
+  async pagequeryInnerOrdermsg(request: PagequeryInnerOrdermsgRequest): Promise<PagequeryInnerOrdermsgResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryInnerOrdermsgEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 订单消息查询
+   * Summary: 订单消息查询
+   */
+  async pagequeryInnerOrdermsgEx(request: PagequeryInnerOrdermsgRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryInnerOrdermsgResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryInnerOrdermsgResponse>(await this.doRequest("1.0", "antchain.ato.inner.ordermsg.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryInnerOrdermsgResponse({}));
+  }
+
+  /**
+   * Description: 订单消息重试
+   * Summary: 订单消息重试
+   */
+  async retryInnerOrdermsg(request: RetryInnerOrdermsgRequest): Promise<RetryInnerOrdermsgResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.retryInnerOrdermsgEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 订单消息重试
+   * Summary: 订单消息重试
+   */
+  async retryInnerOrdermsgEx(request: RetryInnerOrdermsgRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RetryInnerOrdermsgResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RetryInnerOrdermsgResponse>(await this.doRequest("1.0", "antchain.ato.inner.ordermsg.retry", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RetryInnerOrdermsgResponse({}));
+  }
+
+  /**
    * Description: 商户入驻
    * Summary: 商户入驻
    */
@@ -9779,9 +10040,9 @@ export default class Client {
   }
 
   /**
-   * Description: ● 重要说明：
-       ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-       ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+   * Description: 重要说明：
+      1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+      2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
    * Summary: 单期代扣取消
    */
   async repayWithholdPlan(request: RepayWithholdPlanRequest): Promise<RepayWithholdPlanResponse> {
@@ -9791,9 +10052,9 @@ export default class Client {
   }
 
   /**
-   * Description: ● 重要说明：
-       ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-       ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+   * Description: 重要说明：
+      1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+      2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
    * Summary: 单期代扣取消
    */
   async repayWithholdPlanEx(request: RepayWithholdPlanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayWithholdPlanResponse> {
