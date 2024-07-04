@@ -625,6 +625,97 @@ class MerchantAgentPage(TeaModel):
         return self
 
 
+class OrderMsgInfo(TeaModel):
+    def __init__(
+        self,
+        order_id: str = None,
+        msg_id: str = None,
+        msg_publish_type: str = None,
+        msg_create_time: str = None,
+        msg_status: str = None,
+        msg_retry_time: int = None,
+        msg_callback_url: str = None,
+        msg_content: str = None,
+    ):
+        # 订单id
+        # 
+        self.order_id = order_id
+        # 消息ID
+        # 
+        self.msg_id = msg_id
+        # 消息类型
+        # 
+        self.msg_publish_type = msg_publish_type
+        # 消息创建时间
+        # 
+        self.msg_create_time = msg_create_time
+        # 消息投递状态 SUCCESS 成功 FAIL 失败 WAIT 等待投递重试
+        self.msg_status = msg_status
+        # 消息重投次数
+        # 
+        self.msg_retry_time = msg_retry_time
+        # 消息回调地址
+        self.msg_callback_url = msg_callback_url
+        # 消息体内容
+        self.msg_content = msg_content
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.msg_id, 'msg_id')
+        self.validate_required(self.msg_publish_type, 'msg_publish_type')
+        self.validate_required(self.msg_create_time, 'msg_create_time')
+        if self.msg_create_time is not None:
+            self.validate_pattern(self.msg_create_time, 'msg_create_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.msg_status, 'msg_status')
+        self.validate_required(self.msg_retry_time, 'msg_retry_time')
+        self.validate_required(self.msg_callback_url, 'msg_callback_url')
+        self.validate_required(self.msg_content, 'msg_content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.msg_id is not None:
+            result['msg_id'] = self.msg_id
+        if self.msg_publish_type is not None:
+            result['msg_publish_type'] = self.msg_publish_type
+        if self.msg_create_time is not None:
+            result['msg_create_time'] = self.msg_create_time
+        if self.msg_status is not None:
+            result['msg_status'] = self.msg_status
+        if self.msg_retry_time is not None:
+            result['msg_retry_time'] = self.msg_retry_time
+        if self.msg_callback_url is not None:
+            result['msg_callback_url'] = self.msg_callback_url
+        if self.msg_content is not None:
+            result['msg_content'] = self.msg_content
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('msg_id') is not None:
+            self.msg_id = m.get('msg_id')
+        if m.get('msg_publish_type') is not None:
+            self.msg_publish_type = m.get('msg_publish_type')
+        if m.get('msg_create_time') is not None:
+            self.msg_create_time = m.get('msg_create_time')
+        if m.get('msg_status') is not None:
+            self.msg_status = m.get('msg_status')
+        if m.get('msg_retry_time') is not None:
+            self.msg_retry_time = m.get('msg_retry_time')
+        if m.get('msg_callback_url') is not None:
+            self.msg_callback_url = m.get('msg_callback_url')
+        if m.get('msg_content') is not None:
+            self.msg_content = m.get('msg_content')
+        return self
+
+
 class OrderInfo(TeaModel):
     def __init__(self):
         pass
@@ -8051,6 +8142,281 @@ class QueryInnerTemplateversionResponse(TeaModel):
         return self
 
 
+class PagequeryInnerOrdermsgRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        order_id: str = None,
+        msg_publish_type: str = None,
+        msg_create_time_from: str = None,
+        msg_create_time_to: str = None,
+        env: str = None,
+        page_info: PageQuery = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户8位id
+        # 
+        self.tenant_id = tenant_id
+        # 订单ID
+        self.order_id = order_id
+        # 消息类型
+        self.msg_publish_type = msg_publish_type
+        # 消息创建时间起始
+        self.msg_create_time_from = msg_create_time_from
+        # 消息创建时间结束
+        self.msg_create_time_to = msg_create_time_to
+        # SANDBOX 沙箱 ；PROD 生产
+        self.env = env
+        # 分页查询对象
+        self.page_info = page_info
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.order_id, 'order_id')
+        if self.msg_create_time_from is not None:
+            self.validate_pattern(self.msg_create_time_from, 'msg_create_time_from', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.msg_create_time_to is not None:
+            self.validate_pattern(self.msg_create_time_to, 'msg_create_time_to', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.env, 'env')
+        self.validate_required(self.page_info, 'page_info')
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.msg_publish_type is not None:
+            result['msg_publish_type'] = self.msg_publish_type
+        if self.msg_create_time_from is not None:
+            result['msg_create_time_from'] = self.msg_create_time_from
+        if self.msg_create_time_to is not None:
+            result['msg_create_time_to'] = self.msg_create_time_to
+        if self.env is not None:
+            result['env'] = self.env
+        if self.page_info is not None:
+            result['page_info'] = self.page_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('msg_publish_type') is not None:
+            self.msg_publish_type = m.get('msg_publish_type')
+        if m.get('msg_create_time_from') is not None:
+            self.msg_create_time_from = m.get('msg_create_time_from')
+        if m.get('msg_create_time_to') is not None:
+            self.msg_create_time_to = m.get('msg_create_time_to')
+        if m.get('env') is not None:
+            self.env = m.get('env')
+        if m.get('page_info') is not None:
+            temp_model = PageQuery()
+            self.page_info = temp_model.from_map(m['page_info'])
+        return self
+
+
+class PagequeryInnerOrdermsgResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_size: int = None,
+        order_msg_infos: List[OrderMsgInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 数据总量
+        self.total_size = total_size
+        # 消息内容列表
+        self.order_msg_infos = order_msg_infos
+
+    def validate(self):
+        if self.order_msg_infos:
+            for k in self.order_msg_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        result['order_msg_infos'] = []
+        if self.order_msg_infos is not None:
+            for k in self.order_msg_infos:
+                result['order_msg_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        self.order_msg_infos = []
+        if m.get('order_msg_infos') is not None:
+            for k in m.get('order_msg_infos'):
+                temp_model = OrderMsgInfo()
+                self.order_msg_infos.append(temp_model.from_map(k))
+        return self
+
+
+class RetryInnerOrdermsgRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        env: str = None,
+        order_id: str = None,
+        msg_id: str = None,
+        using_new_callback_url: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户ID
+        self.tenant_id = tenant_id
+        # SANDBOX 沙箱 PROD 生产
+        self.env = env
+        # 订单id
+        # 
+        self.order_id = order_id
+        # 消息ID
+        # 
+        self.msg_id = msg_id
+        # 使用租户新回调地址
+        self.using_new_callback_url = using_new_callback_url
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.env, 'env')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.msg_id, 'msg_id')
+        self.validate_required(self.using_new_callback_url, 'using_new_callback_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.env is not None:
+            result['env'] = self.env
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.msg_id is not None:
+            result['msg_id'] = self.msg_id
+        if self.using_new_callback_url is not None:
+            result['using_new_callback_url'] = self.using_new_callback_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('env') is not None:
+            self.env = m.get('env')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('msg_id') is not None:
+            self.msg_id = m.get('msg_id')
+        if m.get('using_new_callback_url') is not None:
+            self.using_new_callback_url = m.get('using_new_callback_url')
+        return self
+
+
+class RetryInnerOrdermsgResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class RegisterMerchantexpandMerchantRequest(TeaModel):
     def __init__(
         self,
@@ -10070,6 +10436,7 @@ class UploadSignCreditRequest(TeaModel):
         content_type: str = None,
         file_url: str = None,
         content: str = None,
+        merchant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10088,6 +10455,8 @@ class UploadSignCreditRequest(TeaModel):
         self.file_url = file_url
         # 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
         self.content = content
+        # 商户统一社会信用代码
+        self.merchant_id = merchant_id
 
     def validate(self):
         self.validate_required(self.order_no_type, 'order_no_type')
@@ -10119,6 +10488,8 @@ class UploadSignCreditRequest(TeaModel):
             result['file_url'] = self.file_url
         if self.content is not None:
             result['content'] = self.content
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -10141,6 +10512,8 @@ class UploadSignCreditRequest(TeaModel):
             self.file_url = m.get('file_url')
         if m.get('content') is not None:
             self.content = m.get('content')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
         return self
 
 
@@ -10200,6 +10573,7 @@ class QuerySignCreditRequest(TeaModel):
         product_instance_id: str = None,
         order_no_type: str = None,
         order_no: str = None,
+        merchant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10208,6 +10582,8 @@ class QuerySignCreditRequest(TeaModel):
         self.order_no_type = order_no_type
         # 订单号，或资产包号
         self.order_no = order_no
+        # 商户统一社会信用代码
+        self.merchant_id = merchant_id
 
     def validate(self):
         self.validate_required(self.order_no_type, 'order_no_type')
@@ -10227,6 +10603,8 @@ class QuerySignCreditRequest(TeaModel):
             result['order_no_type'] = self.order_no_type
         if self.order_no is not None:
             result['order_no'] = self.order_no
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -10239,6 +10617,8 @@ class QuerySignCreditRequest(TeaModel):
             self.order_no_type = m.get('order_no_type')
         if m.get('order_no') is not None:
             self.order_no = m.get('order_no')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
         return self
 
 
@@ -10629,7 +11009,6 @@ class SyncTradeFinanceloanapplyRequest(TeaModel):
         self.order_id_list = order_id_list
 
     def validate(self):
-        self.validate_required(self.order_id, 'order_id')
         if self.order_id is not None:
             self.validate_max_length(self.order_id, 'order_id', 50)
         self.validate_required(self.merchant_id, 'merchant_id')

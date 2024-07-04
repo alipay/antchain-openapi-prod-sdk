@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.76',
+                    'sdk_version': '1.8.81',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.76',
+                    'sdk_version': '1.8.81',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -3557,6 +3557,118 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.inner.templateversion.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def pagequery_inner_ordermsg(
+        self,
+        request: ato_models.PagequeryInnerOrdermsgRequest,
+    ) -> ato_models.PagequeryInnerOrdermsgResponse:
+        """
+        Description: 订单消息查询
+        Summary: 订单消息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_ordermsg_ex(request, headers, runtime)
+
+    async def pagequery_inner_ordermsg_async(
+        self,
+        request: ato_models.PagequeryInnerOrdermsgRequest,
+    ) -> ato_models.PagequeryInnerOrdermsgResponse:
+        """
+        Description: 订单消息查询
+        Summary: 订单消息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_ordermsg_ex_async(request, headers, runtime)
+
+    def pagequery_inner_ordermsg_ex(
+        self,
+        request: ato_models.PagequeryInnerOrdermsgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerOrdermsgResponse:
+        """
+        Description: 订单消息查询
+        Summary: 订单消息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerOrdermsgResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.ordermsg.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_ordermsg_ex_async(
+        self,
+        request: ato_models.PagequeryInnerOrdermsgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerOrdermsgResponse:
+        """
+        Description: 订单消息查询
+        Summary: 订单消息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerOrdermsgResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.ordermsg.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_inner_ordermsg(
+        self,
+        request: ato_models.RetryInnerOrdermsgRequest,
+    ) -> ato_models.RetryInnerOrdermsgResponse:
+        """
+        Description: 订单消息重试
+        Summary: 订单消息重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_inner_ordermsg_ex(request, headers, runtime)
+
+    async def retry_inner_ordermsg_async(
+        self,
+        request: ato_models.RetryInnerOrdermsgRequest,
+    ) -> ato_models.RetryInnerOrdermsgResponse:
+        """
+        Description: 订单消息重试
+        Summary: 订单消息重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_inner_ordermsg_ex_async(request, headers, runtime)
+
+    def retry_inner_ordermsg_ex(
+        self,
+        request: ato_models.RetryInnerOrdermsgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryInnerOrdermsgResponse:
+        """
+        Description: 订单消息重试
+        Summary: 订单消息重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryInnerOrdermsgResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.ordermsg.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_inner_ordermsg_ex_async(
+        self,
+        request: ato_models.RetryInnerOrdermsgRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryInnerOrdermsgResponse:
+        """
+        Description: 订单消息重试
+        Summary: 订单消息重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryInnerOrdermsgResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.ordermsg.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def register_merchantexpand_merchant(
         self,
         request: ato_models.RegisterMerchantexpandMerchantRequest,
@@ -5254,9 +5366,9 @@ class Client:
         request: ato_models.RepayWithholdPlanRequest,
     ) -> ato_models.RepayWithholdPlanResponse:
         """
-        Description: ● 重要说明：
-        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Description: 重要说明：
+        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         Summary: 单期代扣取消
         """
         runtime = util_models.RuntimeOptions()
@@ -5268,9 +5380,9 @@ class Client:
         request: ato_models.RepayWithholdPlanRequest,
     ) -> ato_models.RepayWithholdPlanResponse:
         """
-        Description: ● 重要说明：
-        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Description: 重要说明：
+        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         Summary: 单期代扣取消
         """
         runtime = util_models.RuntimeOptions()
@@ -5284,9 +5396,9 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.RepayWithholdPlanResponse:
         """
-        Description: ● 重要说明：
-        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Description: 重要说明：
+        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         Summary: 单期代扣取消
         """
         UtilClient.validate_model(request)
@@ -5302,9 +5414,9 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ato_models.RepayWithholdPlanResponse:
         """
-        Description: ● 重要说明：
-        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Description: 重要说明：
+        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         Summary: 单期代扣取消
         """
         UtilClient.validate_model(request)
