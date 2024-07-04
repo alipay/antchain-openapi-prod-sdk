@@ -21,6 +21,10 @@ public class QuerySignCreditRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 商户统一社会信用代码
+    @NameInMap("merchant_id")
+    public String merchantId;
+
     public static QuerySignCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySignCreditRequest self = new QuerySignCreditRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QuerySignCreditRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public QuerySignCreditRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }

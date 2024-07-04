@@ -43,6 +43,10 @@ public class UploadSignCreditRequest extends TeaModel {
     @NameInMap("content")
     public String content;
 
+    // 商户统一社会信用代码
+    @NameInMap("merchant_id")
+    public String merchantId;
+
     public static UploadSignCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadSignCreditRequest self = new UploadSignCreditRequest();
         return TeaModel.build(map, self);
@@ -118,6 +122,14 @@ public class UploadSignCreditRequest extends TeaModel {
     }
     public String getContent() {
         return this.content;
+    }
+
+    public UploadSignCreditRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }

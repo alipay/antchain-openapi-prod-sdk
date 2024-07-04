@@ -13,7 +13,7 @@ public class SyncTradeFinanceloanapplyRequest extends TeaModel {
 
     // 订单id 
     @NameInMap("order_id")
-    @Validation(required = true, maxLength = 50, minLength = 1)
+    @Validation(maxLength = 50, minLength = 1)
     public String orderId;
 
     // 订单所属商户的社会信用代码
