@@ -11372,6 +11372,8 @@ export class QueryQmpRobotcallDetailRequest extends $tea.Model {
   templateType: string;
   // 场景策略id
   sceneStrategyId: number;
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11380,6 +11382,7 @@ export class QueryQmpRobotcallDetailRequest extends $tea.Model {
       phoneNumber: 'phone_number',
       templateType: 'template_type',
       sceneStrategyId: 'scene_strategy_id',
+      industryTag: 'industry_tag',
     };
   }
 
@@ -11391,6 +11394,7 @@ export class QueryQmpRobotcallDetailRequest extends $tea.Model {
       phoneNumber: 'string',
       templateType: 'string',
       sceneStrategyId: 'number',
+      industryTag: 'string',
     };
   }
 
@@ -11445,11 +11449,14 @@ export class QueryQmpDataaccessStatisticRequest extends $tea.Model {
   productInstanceId?: string;
   // 查询回执统计的任务id
   taskId: number;
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       taskId: 'task_id',
+      industryTag: 'industry_tag',
     };
   }
 
@@ -11458,6 +11465,7 @@ export class QueryQmpDataaccessStatisticRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       taskId: 'number',
+      industryTag: 'string',
     };
   }
 
@@ -11510,12 +11518,15 @@ export class QueryQmpRobotcallStatisticinfoRequest extends $tea.Model {
   sceneStrategyId: number;
   // 客户透传字段
   outInfo: string;
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       sceneStrategyId: 'scene_strategy_id',
       outInfo: 'out_info',
+      industryTag: 'industry_tag',
     };
   }
 
@@ -11525,6 +11536,7 @@ export class QueryQmpRobotcallStatisticinfoRequest extends $tea.Model {
       productInstanceId: 'string',
       sceneStrategyId: 'number',
       outInfo: 'string',
+      industryTag: 'string',
     };
   }
 
@@ -11601,6 +11613,8 @@ export class BatchqueryQmpTaskDetailRequest extends $tea.Model {
   callDate?: string;
   // 结束外呼时间
   endCallDate?: string;
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11611,6 +11625,7 @@ export class BatchqueryQmpTaskDetailRequest extends $tea.Model {
       sceneStrategyId: 'scene_strategy_id',
       callDate: 'call_date',
       endCallDate: 'end_call_date',
+      industryTag: 'industry_tag',
     };
   }
 
@@ -11624,6 +11639,7 @@ export class BatchqueryQmpTaskDetailRequest extends $tea.Model {
       sceneStrategyId: 'number',
       callDate: 'string',
       endCallDate: 'string',
+      industryTag: 'string',
     };
   }
 
@@ -11745,11 +11761,14 @@ export class BatchqueryQmpActionplanDetailRequest extends $tea.Model {
   productInstanceId?: string;
   // 场景策略id
   sceneStrategyId: number[];
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       sceneStrategyId: 'scene_strategy_id',
+      industryTag: 'industry_tag',
     };
   }
 
@@ -11758,6 +11777,7 @@ export class BatchqueryQmpActionplanDetailRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       sceneStrategyId: { 'type': 'array', 'itemType': 'number' },
+      industryTag: 'string',
     };
   }
 
@@ -11879,6 +11899,8 @@ export class BatchqueryQmpTenantActionplaninfoRequest extends $tea.Model {
   pageNum: number;
   // 页数
   pageSize: number;
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11886,6 +11908,7 @@ export class BatchqueryQmpTenantActionplaninfoRequest extends $tea.Model {
       contentType: 'content_type',
       pageNum: 'page_num',
       pageSize: 'page_size',
+      industryTag: 'industry_tag',
     };
   }
 
@@ -11896,6 +11919,7 @@ export class BatchqueryQmpTenantActionplaninfoRequest extends $tea.Model {
       contentType: 'string',
       pageNum: 'number',
       pageSize: 'number',
+      industryTag: 'string',
     };
   }
 
@@ -11950,6 +11974,8 @@ export class QueryQmpTenantActionplaninfoRequest extends $tea.Model {
   pageSize?: number;
   // 渠道code
   channelType: string;
+  // 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+  industryTag?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11957,6 +11983,7 @@ export class QueryQmpTenantActionplaninfoRequest extends $tea.Model {
       pageNum: 'page_num',
       pageSize: 'page_size',
       channelType: 'channel_type',
+      industryTag: 'industry_tag',
     };
   }
 
@@ -11967,6 +11994,7 @@ export class QueryQmpTenantActionplaninfoRequest extends $tea.Model {
       pageNum: 'number',
       pageSize: 'number',
       channelType: 'string',
+      industryTag: 'string',
     };
   }
 
@@ -19903,7 +19931,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.22",
+          sdk_version: "1.19.23",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
