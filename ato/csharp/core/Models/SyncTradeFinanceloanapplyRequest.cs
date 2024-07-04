@@ -20,7 +20,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 订单id 
         [NameInMap("order_id")]
-        [Validation(Required=true, MaxLength=50)]
+        [Validation(Required=false, MaxLength=50)]
         public string OrderId { get; set; }
 
         // 订单所属商户的社会信用代码

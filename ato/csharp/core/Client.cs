@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.76"},
+                        {"sdk_version", "1.8.81"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.76"},
+                        {"sdk_version", "1.8.81"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2804,6 +2804,90 @@ namespace AntChain.SDK.ATO
         }
 
         /**
+         * Description: 订单消息查询
+         * Summary: 订单消息查询
+         */
+        public PagequeryInnerOrdermsgResponse PagequeryInnerOrdermsg(PagequeryInnerOrdermsgRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryInnerOrdermsgEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单消息查询
+         * Summary: 订单消息查询
+         */
+        public async Task<PagequeryInnerOrdermsgResponse> PagequeryInnerOrdermsgAsync(PagequeryInnerOrdermsgRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryInnerOrdermsgExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单消息查询
+         * Summary: 订单消息查询
+         */
+        public PagequeryInnerOrdermsgResponse PagequeryInnerOrdermsgEx(PagequeryInnerOrdermsgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryInnerOrdermsgResponse>(DoRequest("1.0", "antchain.ato.inner.ordermsg.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单消息查询
+         * Summary: 订单消息查询
+         */
+        public async Task<PagequeryInnerOrdermsgResponse> PagequeryInnerOrdermsgExAsync(PagequeryInnerOrdermsgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryInnerOrdermsgResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.ordermsg.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单消息重试
+         * Summary: 订单消息重试
+         */
+        public RetryInnerOrdermsgResponse RetryInnerOrdermsg(RetryInnerOrdermsgRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RetryInnerOrdermsgEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单消息重试
+         * Summary: 订单消息重试
+         */
+        public async Task<RetryInnerOrdermsgResponse> RetryInnerOrdermsgAsync(RetryInnerOrdermsgRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RetryInnerOrdermsgExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单消息重试
+         * Summary: 订单消息重试
+         */
+        public RetryInnerOrdermsgResponse RetryInnerOrdermsgEx(RetryInnerOrdermsgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryInnerOrdermsgResponse>(DoRequest("1.0", "antchain.ato.inner.ordermsg.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单消息重试
+         * Summary: 订单消息重试
+         */
+        public async Task<RetryInnerOrdermsgResponse> RetryInnerOrdermsgExAsync(RetryInnerOrdermsgRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RetryInnerOrdermsgResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.ordermsg.retry", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 商户入驻
          * Summary: 商户入驻
          */
@@ -4114,9 +4198,9 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: ● 重要说明：
-             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Description: 重要说明：
+            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
          * Summary: 单期代扣取消
          */
         public RepayWithholdPlanResponse RepayWithholdPlan(RepayWithholdPlanRequest request)
@@ -4127,9 +4211,9 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: ● 重要说明：
-             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Description: 重要说明：
+            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
          * Summary: 单期代扣取消
          */
         public async Task<RepayWithholdPlanResponse> RepayWithholdPlanAsync(RepayWithholdPlanRequest request)
@@ -4140,9 +4224,9 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: ● 重要说明：
-             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Description: 重要说明：
+            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
          * Summary: 单期代扣取消
          */
         public RepayWithholdPlanResponse RepayWithholdPlanEx(RepayWithholdPlanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -4152,9 +4236,9 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: ● 重要说明：
-             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Description: 重要说明：
+            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
          * Summary: 单期代扣取消
          */
         public async Task<RepayWithholdPlanResponse> RepayWithholdPlanExAsync(RepayWithholdPlanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
