@@ -18975,6 +18975,7 @@ class QueryQmpRobotcallDetailRequest(TeaModel):
         phone_number: str = None,
         template_type: str = None,
         scene_strategy_id: int = None,
+        industry_tag: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -18987,6 +18988,8 @@ class QueryQmpRobotcallDetailRequest(TeaModel):
         self.template_type = template_type
         # 场景策略id
         self.scene_strategy_id = scene_strategy_id
+        # 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+        self.industry_tag = industry_tag
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -19012,6 +19015,8 @@ class QueryQmpRobotcallDetailRequest(TeaModel):
             result['template_type'] = self.template_type
         if self.scene_strategy_id is not None:
             result['scene_strategy_id'] = self.scene_strategy_id
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
         return result
 
     def from_map(self, m: dict = None):
@@ -19028,6 +19033,8 @@ class QueryQmpRobotcallDetailRequest(TeaModel):
             self.template_type = m.get('template_type')
         if m.get('scene_strategy_id') is not None:
             self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
         return self
 
 
@@ -19108,12 +19115,15 @@ class QueryQmpDataaccessStatisticRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         task_id: int = None,
+        industry_tag: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 查询回执统计的任务id
         self.task_id = task_id
+        # 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+        self.industry_tag = industry_tag
 
     def validate(self):
         self.validate_required(self.task_id, 'task_id')
@@ -19130,6 +19140,8 @@ class QueryQmpDataaccessStatisticRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.task_id is not None:
             result['task_id'] = self.task_id
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
         return result
 
     def from_map(self, m: dict = None):
@@ -19140,6 +19152,8 @@ class QueryQmpDataaccessStatisticRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('task_id') is not None:
             self.task_id = m.get('task_id')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
         return self
 
 
@@ -19208,6 +19222,7 @@ class QueryQmpRobotcallStatisticinfoRequest(TeaModel):
         product_instance_id: str = None,
         scene_strategy_id: int = None,
         out_info: str = None,
+        industry_tag: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19216,6 +19231,8 @@ class QueryQmpRobotcallStatisticinfoRequest(TeaModel):
         self.scene_strategy_id = scene_strategy_id
         # 客户透传字段
         self.out_info = out_info
+        # 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+        self.industry_tag = industry_tag
 
     def validate(self):
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
@@ -19235,6 +19252,8 @@ class QueryQmpRobotcallStatisticinfoRequest(TeaModel):
             result['scene_strategy_id'] = self.scene_strategy_id
         if self.out_info is not None:
             result['out_info'] = self.out_info
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
         return result
 
     def from_map(self, m: dict = None):
@@ -19247,6 +19266,8 @@ class QueryQmpRobotcallStatisticinfoRequest(TeaModel):
             self.scene_strategy_id = m.get('scene_strategy_id')
         if m.get('out_info') is not None:
             self.out_info = m.get('out_info')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
         return self
 
 
@@ -19345,6 +19366,7 @@ class BatchqueryQmpTaskDetailRequest(TeaModel):
         scene_strategy_id: int = None,
         call_date: str = None,
         end_call_date: str = None,
+        industry_tag: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19361,6 +19383,8 @@ class BatchqueryQmpTaskDetailRequest(TeaModel):
         self.call_date = call_date
         # 结束外呼时间
         self.end_call_date = end_call_date
+        # 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+        self.industry_tag = industry_tag
 
     def validate(self):
         self.validate_required(self.biz_id, 'biz_id')
@@ -19390,6 +19414,8 @@ class BatchqueryQmpTaskDetailRequest(TeaModel):
             result['call_date'] = self.call_date
         if self.end_call_date is not None:
             result['end_call_date'] = self.end_call_date
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
         return result
 
     def from_map(self, m: dict = None):
@@ -19410,6 +19436,8 @@ class BatchqueryQmpTaskDetailRequest(TeaModel):
             self.call_date = m.get('call_date')
         if m.get('end_call_date') is not None:
             self.end_call_date = m.get('end_call_date')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
         return self
 
 
@@ -19596,12 +19624,15 @@ class BatchqueryQmpActionplanDetailRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         scene_strategy_id: List[int] = None,
+        industry_tag: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 场景策略id
         self.scene_strategy_id = scene_strategy_id
+        # 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+        self.industry_tag = industry_tag
 
     def validate(self):
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
@@ -19618,6 +19649,8 @@ class BatchqueryQmpActionplanDetailRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.scene_strategy_id is not None:
             result['scene_strategy_id'] = self.scene_strategy_id
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
         return result
 
     def from_map(self, m: dict = None):
@@ -19628,6 +19661,8 @@ class BatchqueryQmpActionplanDetailRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('scene_strategy_id') is not None:
             self.scene_strategy_id = m.get('scene_strategy_id')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
         return self
 
 
@@ -19808,6 +19843,7 @@ class BatchqueryQmpTenantActionplaninfoRequest(TeaModel):
         content_type: str = None,
         page_num: int = None,
         page_size: int = None,
+        industry_tag: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19818,6 +19854,8 @@ class BatchqueryQmpTenantActionplaninfoRequest(TeaModel):
         self.page_num = page_num
         # 页数
         self.page_size = page_size
+        # 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+        self.industry_tag = industry_tag
 
     def validate(self):
         self.validate_required(self.content_type, 'content_type')
@@ -19840,6 +19878,8 @@ class BatchqueryQmpTenantActionplaninfoRequest(TeaModel):
             result['page_num'] = self.page_num
         if self.page_size is not None:
             result['page_size'] = self.page_size
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
         return result
 
     def from_map(self, m: dict = None):
@@ -19854,6 +19894,8 @@ class BatchqueryQmpTenantActionplaninfoRequest(TeaModel):
             self.page_num = m.get('page_num')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
         return self
 
 
@@ -19929,6 +19971,7 @@ class QueryQmpTenantActionplaninfoRequest(TeaModel):
         page_num: int = None,
         page_size: int = None,
         channel_type: str = None,
+        industry_tag: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -19939,6 +19982,8 @@ class QueryQmpTenantActionplaninfoRequest(TeaModel):
         self.page_size = page_size
         # 渠道code
         self.channel_type = channel_type
+        # 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+        self.industry_tag = industry_tag
 
     def validate(self):
         self.validate_required(self.channel_type, 'channel_type')
@@ -19959,6 +20004,8 @@ class QueryQmpTenantActionplaninfoRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.channel_type is not None:
             result['channel_type'] = self.channel_type
+        if self.industry_tag is not None:
+            result['industry_tag'] = self.industry_tag
         return result
 
     def from_map(self, m: dict = None):
@@ -19973,6 +20020,8 @@ class QueryQmpTenantActionplaninfoRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('channel_type') is not None:
             self.channel_type = m.get('channel_type')
+        if m.get('industry_tag') is not None:
+            self.industry_tag = m.get('industry_tag')
         return self
 
 
