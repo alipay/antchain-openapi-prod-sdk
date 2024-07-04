@@ -15373,6 +15373,8 @@ type QueryQmpRobotcallDetailRequest struct {
 	TemplateType *string `json:"template_type,omitempty" xml:"template_type,omitempty" require:"true"`
 	// 场景策略id
 	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
+	// 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty"`
 }
 
 func (s QueryQmpRobotcallDetailRequest) String() string {
@@ -15410,6 +15412,11 @@ func (s *QueryQmpRobotcallDetailRequest) SetTemplateType(v string) *QueryQmpRobo
 
 func (s *QueryQmpRobotcallDetailRequest) SetSceneStrategyId(v int64) *QueryQmpRobotcallDetailRequest {
 	s.SceneStrategyId = &v
+	return s
+}
+
+func (s *QueryQmpRobotcallDetailRequest) SetIndustryTag(v string) *QueryQmpRobotcallDetailRequest {
+	s.IndustryTag = &v
 	return s
 }
 
@@ -15472,6 +15479,8 @@ type QueryQmpDataaccessStatisticRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 查询回执统计的任务id
 	TaskId *int64 `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty"`
 }
 
 func (s QueryQmpDataaccessStatisticRequest) String() string {
@@ -15494,6 +15503,11 @@ func (s *QueryQmpDataaccessStatisticRequest) SetProductInstanceId(v string) *Que
 
 func (s *QueryQmpDataaccessStatisticRequest) SetTaskId(v int64) *QueryQmpDataaccessStatisticRequest {
 	s.TaskId = &v
+	return s
+}
+
+func (s *QueryQmpDataaccessStatisticRequest) SetIndustryTag(v string) *QueryQmpDataaccessStatisticRequest {
+	s.IndustryTag = &v
 	return s
 }
 
@@ -15551,6 +15565,8 @@ type QueryQmpRobotcallStatisticinfoRequest struct {
 	SceneStrategyId *int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true"`
 	// 客户透传字段
 	OutInfo *string `json:"out_info,omitempty" xml:"out_info,omitempty" require:"true"`
+	// 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty"`
 }
 
 func (s QueryQmpRobotcallStatisticinfoRequest) String() string {
@@ -15578,6 +15594,11 @@ func (s *QueryQmpRobotcallStatisticinfoRequest) SetSceneStrategyId(v int64) *Que
 
 func (s *QueryQmpRobotcallStatisticinfoRequest) SetOutInfo(v string) *QueryQmpRobotcallStatisticinfoRequest {
 	s.OutInfo = &v
+	return s
+}
+
+func (s *QueryQmpRobotcallStatisticinfoRequest) SetIndustryTag(v string) *QueryQmpRobotcallStatisticinfoRequest {
+	s.IndustryTag = &v
 	return s
 }
 
@@ -15671,6 +15692,8 @@ type BatchqueryQmpTaskDetailRequest struct {
 	CallDate *string `json:"call_date,omitempty" xml:"call_date,omitempty"`
 	// 结束外呼时间
 	EndCallDate *string `json:"end_call_date,omitempty" xml:"end_call_date,omitempty"`
+	// 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty"`
 }
 
 func (s BatchqueryQmpTaskDetailRequest) String() string {
@@ -15718,6 +15741,11 @@ func (s *BatchqueryQmpTaskDetailRequest) SetCallDate(v string) *BatchqueryQmpTas
 
 func (s *BatchqueryQmpTaskDetailRequest) SetEndCallDate(v string) *BatchqueryQmpTaskDetailRequest {
 	s.EndCallDate = &v
+	return s
+}
+
+func (s *BatchqueryQmpTaskDetailRequest) SetIndustryTag(v string) *BatchqueryQmpTaskDetailRequest {
+	s.IndustryTag = &v
 	return s
 }
 
@@ -15864,6 +15892,8 @@ type BatchqueryQmpActionplanDetailRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 场景策略id
 	SceneStrategyId []*int64 `json:"scene_strategy_id,omitempty" xml:"scene_strategy_id,omitempty" require:"true" type:"Repeated"`
+	// 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty"`
 }
 
 func (s BatchqueryQmpActionplanDetailRequest) String() string {
@@ -15886,6 +15916,11 @@ func (s *BatchqueryQmpActionplanDetailRequest) SetProductInstanceId(v string) *B
 
 func (s *BatchqueryQmpActionplanDetailRequest) SetSceneStrategyId(v []*int64) *BatchqueryQmpActionplanDetailRequest {
 	s.SceneStrategyId = v
+	return s
+}
+
+func (s *BatchqueryQmpActionplanDetailRequest) SetIndustryTag(v string) *BatchqueryQmpActionplanDetailRequest {
+	s.IndustryTag = &v
 	return s
 }
 
@@ -16029,6 +16064,8 @@ type BatchqueryQmpTenantActionplaninfoRequest struct {
 	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
 	// 页数
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty"`
 }
 
 func (s BatchqueryQmpTenantActionplaninfoRequest) String() string {
@@ -16061,6 +16098,11 @@ func (s *BatchqueryQmpTenantActionplaninfoRequest) SetPageNum(v int64) *Batchque
 
 func (s *BatchqueryQmpTenantActionplaninfoRequest) SetPageSize(v int64) *BatchqueryQmpTenantActionplaninfoRequest {
 	s.PageSize = &v
+	return s
+}
+
+func (s *BatchqueryQmpTenantActionplaninfoRequest) SetIndustryTag(v string) *BatchqueryQmpTenantActionplaninfoRequest {
+	s.IndustryTag = &v
 	return s
 }
 
@@ -16120,6 +16162,8 @@ type QueryQmpTenantActionplaninfoRequest struct {
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
 	// 渠道code
 	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty" require:"true"`
+	// 分流字段，行业标签区分哈啰流量归属于umkt或qmp
+	IndustryTag *string `json:"industry_tag,omitempty" xml:"industry_tag,omitempty"`
 }
 
 func (s QueryQmpTenantActionplaninfoRequest) String() string {
@@ -16152,6 +16196,11 @@ func (s *QueryQmpTenantActionplaninfoRequest) SetPageSize(v int64) *QueryQmpTena
 
 func (s *QueryQmpTenantActionplaninfoRequest) SetChannelType(v string) *QueryQmpTenantActionplaninfoRequest {
 	s.ChannelType = &v
+	return s
+}
+
+func (s *QueryQmpTenantActionplaninfoRequest) SetIndustryTag(v string) *QueryQmpTenantActionplaninfoRequest {
+	s.IndustryTag = &v
 	return s
 }
 
@@ -26637,7 +26686,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.22"),
+				"sdk_version":      tea.String("1.19.23"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
