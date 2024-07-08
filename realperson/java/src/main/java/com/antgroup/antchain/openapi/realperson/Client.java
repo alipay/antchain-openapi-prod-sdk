@@ -2,13 +2,15 @@
 package com.antgroup.antchain.openapi.realperson;
 
 import com.aliyun.tea.*;
+import com.aliyun.tea.interceptor.InterceptorChain;
+import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
+import com.aliyun.tea.interceptor.RequestInterceptor;
+import com.aliyun.tea.interceptor.ResponseInterceptor;
 import com.antgroup.antchain.openapi.realperson.models.*;
-import com.antgroup.antchain.openapi.antchain.util.*;
-import com.aliyun.teautil.*;
-import com.aliyun.teautil.models.*;
-import com.aliyun.common.*;
 
 public class Client {
+
+    private final static InterceptorChain interceptorChain = InterceptorChain.create();
 
     public String _endpoint;
     public String _regionId;
@@ -34,7 +36,7 @@ public class Client {
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
-        if (com.aliyun.teautil.Common.isUnset(TeaModel.buildMap(config))) {
+        if (com.aliyun.teautil.Common.isUnset(config)) {
             throw new TeaException(TeaConverter.buildMap(
                 new TeaPair("code", "ParameterMissing"),
                 new TeaPair("message", "'config' can not be unset")
@@ -61,7 +63,17 @@ public class Client {
         this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
-    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    /**
+     * Encapsulate the request and invoke the network
+     * @param action api name
+     * @param protocol http or https
+     * @param method e.g. GET
+     * @param pathname pathname of every api
+     * @param request which contains request params
+     * @param runtime which controls some details of call api, such as retry times
+     * @return the response
+     */
+    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         java.util.Map<String, Object> runtime_ = TeaConverter.buildMap(
             new TeaPair("timeouted", "retry"),
             new TeaPair("readTimeout", com.aliyun.teautil.Common.defaultNumber(runtime.readTimeout, _readTimeout)),
@@ -110,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.15.16"),
+                    new TeaPair("sdk_version", "1.15.18"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -134,7 +146,7 @@ public class Client {
                 );
                 request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
-                TeaResponse response_ = Tea.doAction(request_, runtime_);
+                TeaResponse response_ = Tea.doAction(request_, runtime_, interceptorChain);
 
                 String raw = com.aliyun.teautil.Common.readAsString(response_.body);
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
@@ -157,8 +169,19 @@ public class Client {
                 throw e;
             }
         }
-
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    public void addRuntimeOptionsInterceptor(RuntimeOptionsInterceptor interceptor) {
+        interceptorChain.addRuntimeOptionsInterceptor(interceptor);
+    }
+
+    public void addRequestInterceptor(RequestInterceptor interceptor) {
+        interceptorChain.addRequestInterceptor(interceptor);
+    }
+
+    public void addResponseInterceptor(ResponseInterceptor interceptor) {
+        interceptorChain.addResponseInterceptor(interceptor);
     }
 
     /**
@@ -166,7 +189,7 @@ public class Client {
      * Summary: 认证查询
      */
     public QueryFacevrfServerResponse queryFacevrfServer(QueryFacevrfServerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFacevrfServerEx(request, headers, runtime);
     }
@@ -175,7 +198,7 @@ public class Client {
      * Description: 查询认证的结果和相关信息
      * Summary: 认证查询
      */
-    public QueryFacevrfServerResponse queryFacevrfServerEx(QueryFacevrfServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFacevrfServerResponse queryFacevrfServerEx(QueryFacevrfServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.server.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFacevrfServerResponse());
     }
@@ -185,7 +208,7 @@ public class Client {
      * Summary: 认证创建
      */
     public CreateFacevrfServerResponse createFacevrfServer(CreateFacevrfServerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createFacevrfServerEx(request, headers, runtime);
     }
@@ -194,7 +217,7 @@ public class Client {
      * Description: 服务端认证创建，传入认证信息，获取认证ID（和url）
      * Summary: 认证创建
      */
-    public CreateFacevrfServerResponse createFacevrfServerEx(CreateFacevrfServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateFacevrfServerResponse createFacevrfServerEx(CreateFacevrfServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.server.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateFacevrfServerResponse());
     }
@@ -204,7 +227,7 @@ public class Client {
      * Summary: 纯服务端比对
      */
     public ExecFacevrfServerResponse execFacevrfServer(ExecFacevrfServerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.execFacevrfServerEx(request, headers, runtime);
     }
@@ -213,7 +236,7 @@ public class Client {
      * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
      * Summary: 纯服务端比对
      */
-    public ExecFacevrfServerResponse execFacevrfServerEx(ExecFacevrfServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ExecFacevrfServerResponse execFacevrfServerEx(ExecFacevrfServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.server.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecFacevrfServerResponse());
     }
@@ -223,7 +246,7 @@ public class Client {
      * Summary: 商户获取司法链上刷脸存证和统一证据ID
      */
     public GetFacevrfEvidenceResponse getFacevrfEvidence(GetFacevrfEvidenceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getFacevrfEvidenceEx(request, headers, runtime);
     }
@@ -232,7 +255,7 @@ public class Client {
      * Description: 传入某次刷脸的certifyID，获得刷脸存证的pdf文件和司法脸统一证据ID，这两份数据可以在司法链的控制台中进行核验存证是否被记录在区块链上从而证实其真实可信。
      * Summary: 商户获取司法链上刷脸存证和统一证据ID
      */
-    public GetFacevrfEvidenceResponse getFacevrfEvidenceEx(GetFacevrfEvidenceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetFacevrfEvidenceResponse getFacevrfEvidenceEx(GetFacevrfEvidenceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.evidence.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetFacevrfEvidenceResponse());
     }
@@ -242,7 +265,7 @@ public class Client {
      * Summary: 个人二要素认证
      */
     public CheckIndividualidTwometaResponse checkIndividualidTwometa(CheckIndividualidTwometaRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkIndividualidTwometaEx(request, headers, runtime);
     }
@@ -251,7 +274,7 @@ public class Client {
      * Description: 个人二要素认证
      * Summary: 个人二要素认证
      */
-    public CheckIndividualidTwometaResponse checkIndividualidTwometaEx(CheckIndividualidTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckIndividualidTwometaResponse checkIndividualidTwometaEx(CheckIndividualidTwometaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.individualid.twometa.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckIndividualidTwometaResponse());
     }
@@ -261,7 +284,7 @@ public class Client {
      * Summary: 个人三要素认证
      */
     public CheckIndividualidThreemetaResponse checkIndividualidThreemeta(CheckIndividualidThreemetaRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkIndividualidThreemetaEx(request, headers, runtime);
     }
@@ -270,7 +293,7 @@ public class Client {
      * Description: 个人三要素认证
      * Summary: 个人三要素认证
      */
-    public CheckIndividualidThreemetaResponse checkIndividualidThreemetaEx(CheckIndividualidThreemetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckIndividualidThreemetaResponse checkIndividualidThreemetaEx(CheckIndividualidThreemetaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.individualid.threemeta.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckIndividualidThreemetaResponse());
     }
@@ -280,7 +303,7 @@ public class Client {
      * Summary: 个人四要素认证
      */
     public CheckIndividualidFourmetaResponse checkIndividualidFourmeta(CheckIndividualidFourmetaRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkIndividualidFourmetaEx(request, headers, runtime);
     }
@@ -289,7 +312,7 @@ public class Client {
      * Description: 个人四要素认证
      * Summary: 个人四要素认证
      */
-    public CheckIndividualidFourmetaResponse checkIndividualidFourmetaEx(CheckIndividualidFourmetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckIndividualidFourmetaResponse checkIndividualidFourmetaEx(CheckIndividualidFourmetaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.individualid.fourmeta.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckIndividualidFourmetaResponse());
     }
@@ -299,7 +322,7 @@ public class Client {
      * Summary: 个人三要素认证（场景路由）
      */
     public CheckRouteThreemetaResponse checkRouteThreemeta(CheckRouteThreemetaRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkRouteThreemetaEx(request, headers, runtime);
     }
@@ -308,7 +331,7 @@ public class Client {
      * Description: 个人三要素认证（场景路由）
      * Summary: 个人三要素认证（场景路由）
      */
-    public CheckRouteThreemetaResponse checkRouteThreemetaEx(CheckRouteThreemetaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckRouteThreemetaResponse checkRouteThreemetaEx(CheckRouteThreemetaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.route.threemeta.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckRouteThreemetaResponse());
     }
@@ -318,7 +341,7 @@ public class Client {
      * Summary: 纯服务端声纹注册
      */
     public CreateVoiceprintServermodeResponse createVoiceprintServermode(CreateVoiceprintServermodeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createVoiceprintServermodeEx(request, headers, runtime);
     }
@@ -327,7 +350,7 @@ public class Client {
      * Description: 纯服务端声纹注册
      * Summary: 纯服务端声纹注册
      */
-    public CreateVoiceprintServermodeResponse createVoiceprintServermodeEx(CreateVoiceprintServermodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateVoiceprintServermodeResponse createVoiceprintServermodeEx(CreateVoiceprintServermodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
             CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
                 new TeaPair("authToken", request.authToken),
@@ -358,7 +381,7 @@ public class Client {
      * Summary: 纯服务端声纹比对
      */
     public VerifyVoiceprintServermodeResponse verifyVoiceprintServermode(VerifyVoiceprintServermodeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.verifyVoiceprintServermodeEx(request, headers, runtime);
     }
@@ -367,7 +390,7 @@ public class Client {
      * Description: 纯服务端声纹比对
      * Summary: 纯服务端声纹比对
      */
-    public VerifyVoiceprintServermodeResponse verifyVoiceprintServermodeEx(VerifyVoiceprintServermodeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public VerifyVoiceprintServermodeResponse verifyVoiceprintServermodeEx(VerifyVoiceprintServermodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.voiceprint.servermode.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyVoiceprintServermodeResponse());
     }
@@ -377,7 +400,7 @@ public class Client {
      * Summary: 个人二要素认证（场景路由）
      */
     public CheckRouteTwometaResponse checkRouteTwometa(CheckRouteTwometaRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkRouteTwometaEx(request, headers, runtime);
     }
@@ -386,7 +409,7 @@ public class Client {
      * Description: 个人二要素认证（场景路由）
      * Summary: 个人二要素认证（场景路由）
      */
-    public CheckRouteTwometaResponse checkRouteTwometaEx(CheckRouteTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckRouteTwometaResponse checkRouteTwometaEx(CheckRouteTwometaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.route.twometa.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckRouteTwometaResponse());
     }
@@ -396,7 +419,7 @@ public class Client {
      * Summary: 移动风险设备查询
      */
     public QueryMobileRiskResponse queryMobileRisk(QueryMobileRiskRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryMobileRiskEx(request, headers, runtime);
     }
@@ -405,7 +428,7 @@ public class Client {
      * Description: 通过移动设备身份临时标识查询该设备相关的设备风险信息的服务
      * Summary: 移动风险设备查询
      */
-    public QueryMobileRiskResponse queryMobileRiskEx(QueryMobileRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryMobileRiskResponse queryMobileRiskEx(QueryMobileRiskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.mobile.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMobileRiskResponse());
     }
@@ -415,7 +438,7 @@ public class Client {
      * Summary: 查询认证人、认证时间等相关信息
      */
     public DetailFacevrfServerResponse detailFacevrfServer(DetailFacevrfServerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.detailFacevrfServerEx(request, headers, runtime);
     }
@@ -424,7 +447,7 @@ public class Client {
      * Description: 通过认证ID查询认证人、认证时间等相关信息，供智科内部使用
      * Summary: 查询认证人、认证时间等相关信息
      */
-    public DetailFacevrfServerResponse detailFacevrfServerEx(DetailFacevrfServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public DetailFacevrfServerResponse detailFacevrfServerEx(DetailFacevrfServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.server.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailFacevrfServerResponse());
     }
@@ -434,7 +457,7 @@ public class Client {
      * Summary: 个人反欺诈风险校验
      */
     public CheckAnticheatPersonalResponse checkAnticheatPersonal(CheckAnticheatPersonalRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkAnticheatPersonalEx(request, headers, runtime);
     }
@@ -443,7 +466,7 @@ public class Client {
      * Description: 临工场景等场景下，通过主体的社保缴纳情况进行的反欺诈校验
      * Summary: 个人反欺诈风险校验
      */
-    public CheckAnticheatPersonalResponse checkAnticheatPersonalEx(CheckAnticheatPersonalRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckAnticheatPersonalResponse checkAnticheatPersonalEx(CheckAnticheatPersonalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.anticheat.personal.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAnticheatPersonalResponse());
     }
@@ -453,7 +476,7 @@ public class Client {
      * Summary: 个人二要素核验支持hash的主体信息
      */
     public CheckTwometaHashResponse checkTwometaHash(CheckTwometaHashRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkTwometaHashEx(request, headers, runtime);
     }
@@ -462,7 +485,7 @@ public class Client {
      * Description: 二要素支持hash主体信息
      * Summary: 个人二要素核验支持hash的主体信息
      */
-    public CheckTwometaHashResponse checkTwometaHashEx(CheckTwometaHashRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckTwometaHashResponse checkTwometaHashEx(CheckTwometaHashRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.twometa.hash.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckTwometaHashResponse());
     }
@@ -472,7 +495,7 @@ public class Client {
      * Summary: 三要素在网时长查询接口
      */
     public QueryThreemetaOnlinetimeResponse queryThreemetaOnlinetime(QueryThreemetaOnlinetimeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryThreemetaOnlinetimeEx(request, headers, runtime);
     }
@@ -481,7 +504,7 @@ public class Client {
      * Description: 对接运营商等数据源查询手机号码的在网时长
      * Summary: 三要素在网时长查询接口
      */
-    public QueryThreemetaOnlinetimeResponse queryThreemetaOnlinetimeEx(QueryThreemetaOnlinetimeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryThreemetaOnlinetimeResponse queryThreemetaOnlinetimeEx(QueryThreemetaOnlinetimeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.threemeta.onlinetime.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThreemetaOnlinetimeResponse());
     }
@@ -491,7 +514,7 @@ public class Client {
      * Summary: 客户端初始化认证(OEM专用)
      */
     public InitFacevrfZimResponse initFacevrfZim(InitFacevrfZimRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initFacevrfZimEx(request, headers, runtime);
     }
@@ -500,7 +523,7 @@ public class Client {
      * Description: 客户端初始化认证(OEM专用)
      * Summary: 客户端初始化认证(OEM专用)
      */
-    public InitFacevrfZimResponse initFacevrfZimEx(InitFacevrfZimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitFacevrfZimResponse initFacevrfZimEx(InitFacevrfZimRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.zim.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitFacevrfZimResponse());
     }
@@ -510,7 +533,7 @@ public class Client {
      * Summary: 客户端人脸验证(OEM专用)
      */
     public VerifyFacevrfZimResponse verifyFacevrfZim(VerifyFacevrfZimRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.verifyFacevrfZimEx(request, headers, runtime);
     }
@@ -519,7 +542,7 @@ public class Client {
      * Description: 客户端人脸验证(OEM专用)
      * Summary: 客户端人脸验证(OEM专用)
      */
-    public VerifyFacevrfZimResponse verifyFacevrfZimEx(VerifyFacevrfZimRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public VerifyFacevrfZimResponse verifyFacevrfZimEx(VerifyFacevrfZimRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.zim.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyFacevrfZimResponse());
     }
@@ -529,7 +552,7 @@ public class Client {
      * Summary: 卡证OCR
      */
     public RecognizeDocIndividualcardResponse recognizeDocIndividualcard(RecognizeDocIndividualcardRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.recognizeDocIndividualcardEx(request, headers, runtime);
     }
@@ -538,7 +561,7 @@ public class Client {
      * Description: 卡证OCR
      * Summary: 卡证OCR
      */
-    public RecognizeDocIndividualcardResponse recognizeDocIndividualcardEx(RecognizeDocIndividualcardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RecognizeDocIndividualcardResponse recognizeDocIndividualcardEx(RecognizeDocIndividualcardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.doc.individualcard.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeDocIndividualcardResponse());
     }
@@ -548,7 +571,7 @@ public class Client {
      * Summary: 个人银行卡三要素
      */
     public CheckThreemetaBankcardResponse checkThreemetaBankcard(CheckThreemetaBankcardRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkThreemetaBankcardEx(request, headers, runtime);
     }
@@ -557,7 +580,7 @@ public class Client {
      * Description: 个人银行卡三要素
      * Summary: 个人银行卡三要素
      */
-    public CheckThreemetaBankcardResponse checkThreemetaBankcardEx(CheckThreemetaBankcardRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckThreemetaBankcardResponse checkThreemetaBankcardEx(CheckThreemetaBankcardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.threemeta.bankcard.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckThreemetaBankcardResponse());
     }
@@ -567,7 +590,7 @@ public class Client {
      * Summary: deepsec终端安全风险标签查询
      */
     public QueryDeepsecRiskResponse queryDeepsecRisk(QueryDeepsecRiskRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDeepsecRiskEx(request, headers, runtime);
     }
@@ -576,7 +599,7 @@ public class Client {
      * Description: deepsec终端安全风险标签查询
      * Summary: deepsec终端安全风险标签查询
      */
-    public QueryDeepsecRiskResponse queryDeepsecRiskEx(QueryDeepsecRiskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDeepsecRiskResponse queryDeepsecRiskEx(QueryDeepsecRiskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.deepsec.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeepsecRiskResponse());
     }
@@ -586,7 +609,7 @@ public class Client {
      * Summary: tsbmrq设备id查询入口
      */
     public QueryDeepsecTsbmrqResponse queryDeepsecTsbmrq(QueryDeepsecTsbmrqRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDeepsecTsbmrqEx(request, headers, runtime);
     }
@@ -595,7 +618,7 @@ public class Client {
      * Description: deepsec终端安全api，用于apdid查询
      * Summary: tsbmrq设备id查询入口
      */
-    public QueryDeepsecTsbmrqResponse queryDeepsecTsbmrqEx(QueryDeepsecTsbmrqRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDeepsecTsbmrqResponse queryDeepsecTsbmrqEx(QueryDeepsecTsbmrqRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.deepsec.tsbmrq.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeepsecTsbmrqResponse());
     }
@@ -605,7 +628,7 @@ public class Client {
      * Summary: 个人运营商二次放号
      */
     public QueryThreemetaPhonereuseResponse queryThreemetaPhonereuse(QueryThreemetaPhonereuseRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryThreemetaPhonereuseEx(request, headers, runtime);
     }
@@ -614,7 +637,7 @@ public class Client {
      * Description: 个人运营商二次放号
      * Summary: 个人运营商二次放号
      */
-    public QueryThreemetaPhonereuseResponse queryThreemetaPhonereuseEx(QueryThreemetaPhonereuseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryThreemetaPhonereuseResponse queryThreemetaPhonereuseEx(QueryThreemetaPhonereuseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.threemeta.phonereuse.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryThreemetaPhonereuseResponse());
     }
@@ -624,7 +647,7 @@ public class Client {
      * Summary: 设备信息查询for蚁盾
      */
     public QueryTscenterDeviceResponse queryTscenterDevice(QueryTscenterDeviceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryTscenterDeviceEx(request, headers, runtime);
     }
@@ -633,7 +656,7 @@ public class Client {
      * Description: 查询设备信息
      * Summary: 设备信息查询for蚁盾
      */
-    public QueryTscenterDeviceResponse queryTscenterDeviceEx(QueryTscenterDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryTscenterDeviceResponse queryTscenterDeviceEx(QueryTscenterDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.tscenter.device.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTscenterDeviceResponse());
     }
@@ -643,7 +666,7 @@ public class Client {
      * Summary: 学历验证
      */
     public QueryEducationInfoResponse queryEducationInfo(QueryEducationInfoRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryEducationInfoEx(request, headers, runtime);
     }
@@ -652,7 +675,7 @@ public class Client {
      * Description: 学历验证
      * Summary: 学历验证
      */
-    public QueryEducationInfoResponse queryEducationInfoEx(QueryEducationInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryEducationInfoResponse queryEducationInfoEx(QueryEducationInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.education.info.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEducationInfoResponse());
     }
@@ -662,7 +685,7 @@ public class Client {
      * Summary: demo用记录查询
      */
     public QueryDemoInfoResponse queryDemoInfo(QueryDemoInfoRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDemoInfoEx(request, headers, runtime);
     }
@@ -671,7 +694,7 @@ public class Client {
      * Description: demo用记录查询
      * Summary: demo用记录查询
      */
-    public QueryDemoInfoResponse queryDemoInfoEx(QueryDemoInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDemoInfoResponse queryDemoInfoEx(QueryDemoInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.demo.info.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoInfoResponse());
     }
@@ -681,7 +704,7 @@ public class Client {
      * Summary: 个人银行卡二要素
      */
     public CheckBankcardTwometaResponse checkBankcardTwometa(CheckBankcardTwometaRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkBankcardTwometaEx(request, headers, runtime);
     }
@@ -690,7 +713,7 @@ public class Client {
      * Description: 个人银行卡二要素
      * Summary: 个人银行卡二要素
      */
-    public CheckBankcardTwometaResponse checkBankcardTwometaEx(CheckBankcardTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckBankcardTwometaResponse checkBankcardTwometaEx(CheckBankcardTwometaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.bankcard.twometa.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckBankcardTwometaResponse());
     }
@@ -700,7 +723,7 @@ public class Client {
      * Summary: 个人运营商二要素
      */
     public CheckCarrierTwometaResponse checkCarrierTwometa(CheckCarrierTwometaRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkCarrierTwometaEx(request, headers, runtime);
     }
@@ -709,7 +732,7 @@ public class Client {
      * Description: 个人运营商二要素
      * Summary: 个人运营商二要素
      */
-    public CheckCarrierTwometaResponse checkCarrierTwometaEx(CheckCarrierTwometaRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckCarrierTwometaResponse checkCarrierTwometaEx(CheckCarrierTwometaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carrier.twometa.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckCarrierTwometaResponse());
     }
@@ -719,7 +742,7 @@ public class Client {
      * Summary: NFC实证
      */
     public CreateNfcServerResponse createNfcServer(CreateNfcServerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createNfcServerEx(request, headers, runtime);
     }
@@ -728,7 +751,7 @@ public class Client {
      * Description: NFC实证
      * Summary: NFC实证
      */
-    public CreateNfcServerResponse createNfcServerEx(CreateNfcServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateNfcServerResponse createNfcServerEx(CreateNfcServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.nfc.server.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateNfcServerResponse());
     }
@@ -738,7 +761,7 @@ public class Client {
      * Summary: NFC实证
      */
     public QueryNfcServerResponse queryNfcServer(QueryNfcServerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryNfcServerEx(request, headers, runtime);
     }
@@ -747,7 +770,7 @@ public class Client {
      * Description: NFC实证
      * Summary: NFC实证
      */
-    public QueryNfcServerResponse queryNfcServerEx(QueryNfcServerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryNfcServerResponse queryNfcServerEx(QueryNfcServerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.nfc.server.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryNfcServerResponse());
     }
@@ -757,7 +780,7 @@ public class Client {
      * Summary: 社会安全风险
      */
     public QuerySocialriskDetailResponse querySocialriskDetail(QuerySocialriskDetailRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.querySocialriskDetailEx(request, headers, runtime);
     }
@@ -766,7 +789,7 @@ public class Client {
      * Description: 社会安全风险
      * Summary: 社会安全风险
      */
-    public QuerySocialriskDetailResponse querySocialriskDetailEx(QuerySocialriskDetailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QuerySocialriskDetailResponse querySocialriskDetailEx(QuerySocialriskDetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.socialrisk.detail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySocialriskDetailResponse());
     }
@@ -776,7 +799,7 @@ public class Client {
      * Summary: 运营商在网状态查询
      */
     public QueryCarrierNetstatusResponse queryCarrierNetstatus(QueryCarrierNetstatusRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryCarrierNetstatusEx(request, headers, runtime);
     }
@@ -785,7 +808,7 @@ public class Client {
      * Description: 运营商在网状态查询
      * Summary: 运营商在网状态查询
      */
-    public QueryCarrierNetstatusResponse queryCarrierNetstatusEx(QueryCarrierNetstatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryCarrierNetstatusResponse queryCarrierNetstatusEx(QueryCarrierNetstatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.carrier.netstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCarrierNetstatusResponse());
     }
@@ -795,7 +818,7 @@ public class Client {
      * Summary: 社会安全风险（简版）
      */
     public QuerySocialriskBriefResponse querySocialriskBrief(QuerySocialriskBriefRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.querySocialriskBriefEx(request, headers, runtime);
     }
@@ -804,7 +827,7 @@ public class Client {
      * Description: 社会安全风险（简版）
      * Summary: 社会安全风险（简版）
      */
-    public QuerySocialriskBriefResponse querySocialriskBriefEx(QuerySocialriskBriefRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QuerySocialriskBriefResponse querySocialriskBriefEx(QuerySocialriskBriefRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.socialrisk.brief.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySocialriskBriefResponse());
     }
@@ -814,7 +837,7 @@ public class Client {
      * Summary: 社会安全风险（tob风控版）
      */
     public QuerySocialriskTobriskResponse querySocialriskTobrisk(QuerySocialriskTobriskRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.querySocialriskTobriskEx(request, headers, runtime);
     }
@@ -823,7 +846,7 @@ public class Client {
      * Description: 社会安全风险（tob风控版）
      * Summary: 社会安全风险（tob风控版）
      */
-    public QuerySocialriskTobriskResponse querySocialriskTobriskEx(QuerySocialriskTobriskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QuerySocialriskTobriskResponse querySocialriskTobriskEx(QuerySocialriskTobriskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.socialrisk.tobrisk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySocialriskTobriskResponse());
     }
@@ -833,7 +856,7 @@ public class Client {
      * Summary: 个人运营商二次放号-meta版本
      */
     public QueryZolozmetaThreemetamobilereuseResponse queryZolozmetaThreemetamobilereuse(QueryZolozmetaThreemetamobilereuseRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryZolozmetaThreemetamobilereuseEx(request, headers, runtime);
     }
@@ -842,7 +865,7 @@ public class Client {
      * Description: 个人运营商二次放号
      * Summary: 个人运营商二次放号-meta版本
      */
-    public QueryZolozmetaThreemetamobilereuseResponse queryZolozmetaThreemetamobilereuseEx(QueryZolozmetaThreemetamobilereuseRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryZolozmetaThreemetamobilereuseResponse queryZolozmetaThreemetamobilereuseEx(QueryZolozmetaThreemetamobilereuseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "di.realperson.zolozmeta.threemetamobilereuse.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryZolozmetaThreemetamobilereuseResponse());
     }
@@ -852,7 +875,7 @@ public class Client {
      * Summary: 文件上传创建
      */
     public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUpload(CreateAntcloudGatewayxFileUploadRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
     }
@@ -861,7 +884,7 @@ public class Client {
      * Description: 创建HTTP PUT提交的文件上传
      * Summary: 文件上传创建
      */
-    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateAntcloudGatewayxFileUploadResponse createAntcloudGatewayxFileUploadEx(CreateAntcloudGatewayxFileUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse());
     }

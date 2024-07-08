@@ -20,6 +20,10 @@ public class CheckCarrierTwometaResponse extends TeaModel {
     @NameInMap("extern_info")
     public String externInfo;
 
+    // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+    @NameInMap("carrier")
+    public String carrier;
+
     public static CheckCarrierTwometaResponse build(java.util.Map<String, ?> map) throws Exception {
         CheckCarrierTwometaResponse self = new CheckCarrierTwometaResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CheckCarrierTwometaResponse extends TeaModel {
     }
     public String getExternInfo() {
         return this.externInfo;
+    }
+
+    public CheckCarrierTwometaResponse setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+    public String getCarrier() {
+        return this.carrier;
     }
 
 }

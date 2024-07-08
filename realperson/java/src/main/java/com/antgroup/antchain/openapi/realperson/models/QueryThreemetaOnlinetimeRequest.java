@@ -39,6 +39,12 @@ public class QueryThreemetaOnlinetimeRequest extends TeaModel {
     @NameInMap("carrier")
     public String carrier;
 
+    // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+    // 0：明文
+    // 1：MD5
+    @NameInMap("encrypt_type")
+    public String encryptType;
+
     // 扩展参数
     @NameInMap("extern_param")
     public String externParam;
@@ -110,6 +116,14 @@ public class QueryThreemetaOnlinetimeRequest extends TeaModel {
     }
     public String getCarrier() {
         return this.carrier;
+    }
+
+    public QueryThreemetaOnlinetimeRequest setEncryptType(String encryptType) {
+        this.encryptType = encryptType;
+        return this;
+    }
+    public String getEncryptType() {
+        return this.encryptType;
     }
 
     public QueryThreemetaOnlinetimeRequest setExternParam(String externParam) {

@@ -25,6 +25,12 @@ public class QueryThreemetaOnlinetimeResponse extends TeaModel {
     @NameInMap("length_code")
     public String lengthCode;
 
+    // CHINA_TELECOM：中国电信
+    // CHINA_MOBILE：中国移动
+    // CHINA_UNICOM：中国联通
+    @NameInMap("carrier")
+    public String carrier;
+
     // 扩展信息，json格式
     @NameInMap("extern_info")
     public String externInfo;
@@ -64,6 +70,14 @@ public class QueryThreemetaOnlinetimeResponse extends TeaModel {
     }
     public String getLengthCode() {
         return this.lengthCode;
+    }
+
+    public QueryThreemetaOnlinetimeResponse setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+    public String getCarrier() {
+        return this.carrier;
     }
 
     public QueryThreemetaOnlinetimeResponse setExternInfo(String externInfo) {
