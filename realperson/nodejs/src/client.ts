@@ -1514,6 +1514,10 @@ export class QueryThreemetaOnlinetimeRequest extends $tea.Model {
   divCarrier?: boolean;
   // 运营商类型
   carrier?: string;
+  // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+  // 0：明文
+  // 1：MD5
+  encryptType?: string;
   // 扩展参数
   externParam?: string;
   static names(): { [key: string]: string } {
@@ -1526,6 +1530,7 @@ export class QueryThreemetaOnlinetimeRequest extends $tea.Model {
       phoneNo: 'phone_no',
       divCarrier: 'div_carrier',
       carrier: 'carrier',
+      encryptType: 'encrypt_type',
       externParam: 'extern_param',
     };
   }
@@ -1540,6 +1545,7 @@ export class QueryThreemetaOnlinetimeRequest extends $tea.Model {
       phoneNo: 'string',
       divCarrier: 'boolean',
       carrier: 'string',
+      encryptType: 'string',
       externParam: 'string',
     };
   }
@@ -1563,6 +1569,10 @@ export class QueryThreemetaOnlinetimeResponse extends $tea.Model {
   // 4: [12,24)表示在⽹时⻓是 12~24 ⽉
   // 5: [24,+)表示在⽹时⻓是 24个⽉及以上
   lengthCode?: string;
+  // CHINA_TELECOM：中国电信
+  // CHINA_MOBILE：中国移动
+  // CHINA_UNICOM：中国联通
+  carrier?: string;
   // 扩展信息，json格式
   externInfo?: string;
   static names(): { [key: string]: string } {
@@ -1571,6 +1581,7 @@ export class QueryThreemetaOnlinetimeResponse extends $tea.Model {
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       lengthCode: 'length_code',
+      carrier: 'carrier',
       externInfo: 'extern_info',
     };
   }
@@ -1581,6 +1592,7 @@ export class QueryThreemetaOnlinetimeResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       lengthCode: 'string',
+      carrier: 'string',
       externInfo: 'string',
     };
   }
@@ -2627,12 +2639,15 @@ export class CheckCarrierTwometaResponse extends $tea.Model {
   resultMsg?: string;
   // 扩展信息，为JSONObject。
   externInfo?: string;
+  // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+  carrier?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       externInfo: 'extern_info',
+      carrier: 'carrier',
     };
   }
 
@@ -2642,6 +2657,7 @@ export class CheckCarrierTwometaResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       externInfo: 'string',
+      carrier: 'string',
     };
   }
 
@@ -3445,7 +3461,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.16",
+          sdk_version: "1.15.18",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
