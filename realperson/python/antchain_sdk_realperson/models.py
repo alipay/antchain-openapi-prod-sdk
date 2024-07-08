@@ -2472,6 +2472,7 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
         phone_no: str = None,
         div_carrier: bool = None,
         carrier: str = None,
+        encrypt_type: str = None,
         extern_param: str = None,
     ):
         # OAuth模式下的授权token
@@ -2489,6 +2490,10 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
         self.div_carrier = div_carrier
         # 运营商类型
         self.carrier = carrier
+        # 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+        # 0：明文
+        # 1：MD5
+        self.encrypt_type = encrypt_type
         # 扩展参数
         self.extern_param = extern_param
 
@@ -2520,6 +2525,8 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
             result['div_carrier'] = self.div_carrier
         if self.carrier is not None:
             result['carrier'] = self.carrier
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         return result
@@ -2542,6 +2549,8 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
             self.div_carrier = m.get('div_carrier')
         if m.get('carrier') is not None:
             self.carrier = m.get('carrier')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         return self
@@ -2554,6 +2563,7 @@ class QueryThreemetaOnlinetimeResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         length_code: str = None,
+        carrier: str = None,
         extern_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -2569,6 +2579,10 @@ class QueryThreemetaOnlinetimeResponse(TeaModel):
         # 4: [12,24)表示在⽹时⻓是 12~24 ⽉
         # 5: [24,+)表示在⽹时⻓是 24个⽉及以上
         self.length_code = length_code
+        # CHINA_TELECOM：中国电信
+        # CHINA_MOBILE：中国移动
+        # CHINA_UNICOM：中国联通
+        self.carrier = carrier
         # 扩展信息，json格式
         self.extern_info = extern_info
 
@@ -2589,6 +2603,8 @@ class QueryThreemetaOnlinetimeResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.length_code is not None:
             result['length_code'] = self.length_code
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
         return result
@@ -2603,6 +2619,8 @@ class QueryThreemetaOnlinetimeResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('length_code') is not None:
             self.length_code = m.get('length_code')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
@@ -4275,6 +4293,7 @@ class CheckCarrierTwometaResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         extern_info: str = None,
+        carrier: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -4284,6 +4303,8 @@ class CheckCarrierTwometaResponse(TeaModel):
         self.result_msg = result_msg
         # 扩展信息，为JSONObject。
         self.extern_info = extern_info
+        # 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+        self.carrier = carrier
 
     def validate(self):
         pass
@@ -4302,6 +4323,8 @@ class CheckCarrierTwometaResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
         return result
 
     def from_map(self, m: dict = None):
@@ -4314,6 +4337,8 @@ class CheckCarrierTwometaResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
         return self
 
 
