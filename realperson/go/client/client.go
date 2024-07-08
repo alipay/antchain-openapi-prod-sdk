@@ -2088,6 +2088,10 @@ type QueryThreemetaOnlinetimeRequest struct {
 	DivCarrier *bool `json:"div_carrier,omitempty" xml:"div_carrier,omitempty"`
 	// 运营商类型
 	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式
+	// 0：明文
+	// 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
 	// 扩展参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
@@ -2140,6 +2144,11 @@ func (s *QueryThreemetaOnlinetimeRequest) SetCarrier(v string) *QueryThreemetaOn
 	return s
 }
 
+func (s *QueryThreemetaOnlinetimeRequest) SetEncryptType(v string) *QueryThreemetaOnlinetimeRequest {
+	s.EncryptType = &v
+	return s
+}
+
 func (s *QueryThreemetaOnlinetimeRequest) SetExternParam(v string) *QueryThreemetaOnlinetimeRequest {
 	s.ExternParam = &v
 	return s
@@ -2159,6 +2168,10 @@ type QueryThreemetaOnlinetimeResponse struct {
 	// 4: [12,24)表示在⽹时⻓是 12~24 ⽉
 	// 5: [24,+)表示在⽹时⻓是 24个⽉及以上
 	LengthCode *string `json:"length_code,omitempty" xml:"length_code,omitempty"`
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
 	// 扩展信息，json格式
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 }
@@ -2188,6 +2201,11 @@ func (s *QueryThreemetaOnlinetimeResponse) SetResultMsg(v string) *QueryThreemet
 
 func (s *QueryThreemetaOnlinetimeResponse) SetLengthCode(v string) *QueryThreemetaOnlinetimeResponse {
 	s.LengthCode = &v
+	return s
+}
+
+func (s *QueryThreemetaOnlinetimeResponse) SetCarrier(v string) *QueryThreemetaOnlinetimeResponse {
+	s.Carrier = &v
 	return s
 }
 
@@ -3613,6 +3631,8 @@ type CheckCarrierTwometaResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 扩展信息，为JSONObject。
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
 }
 
 func (s CheckCarrierTwometaResponse) String() string {
@@ -3640,6 +3660,11 @@ func (s *CheckCarrierTwometaResponse) SetResultMsg(v string) *CheckCarrierTwomet
 
 func (s *CheckCarrierTwometaResponse) SetExternInfo(v string) *CheckCarrierTwometaResponse {
 	s.ExternInfo = &v
+	return s
+}
+
+func (s *CheckCarrierTwometaResponse) SetCarrier(v string) *CheckCarrierTwometaResponse {
+	s.Carrier = &v
 	return s
 }
 
@@ -4682,7 +4707,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.16"),
+				"sdk_version":      tea.String("1.15.18"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
