@@ -31,11 +31,18 @@ class CheckCarrierTwometaResponse extends Model
      * @var string
      */
     public $externInfo;
+
+    // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+    /**
+     * @var string
+     */
+    public $carrier;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'externInfo' => 'extern_info',
+        'carrier'    => 'carrier',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class CheckCarrierTwometaResponse extends Model
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
+        }
+        if (null !== $this->carrier) {
+            $res['carrier'] = $this->carrier;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class CheckCarrierTwometaResponse extends Model
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];
+        }
+        if (isset($map['carrier'])) {
+            $model->carrier = $map['carrier'];
         }
 
         return $model;

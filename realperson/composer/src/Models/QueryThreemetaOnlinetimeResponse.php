@@ -37,6 +37,14 @@ class QueryThreemetaOnlinetimeResponse extends Model
      */
     public $lengthCode;
 
+    // CHINA_TELECOM：中国电信
+    // CHINA_MOBILE：中国移动
+    // CHINA_UNICOM：中国联通
+    /**
+     * @var string
+     */
+    public $carrier;
+
     // 扩展信息，json格式
     /**
      * @var string
@@ -47,6 +55,7 @@ class QueryThreemetaOnlinetimeResponse extends Model
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'lengthCode' => 'length_code',
+        'carrier'    => 'carrier',
         'externInfo' => 'extern_info',
     ];
 
@@ -68,6 +77,9 @@ class QueryThreemetaOnlinetimeResponse extends Model
         }
         if (null !== $this->lengthCode) {
             $res['length_code'] = $this->lengthCode;
+        }
+        if (null !== $this->carrier) {
+            $res['carrier'] = $this->carrier;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
@@ -95,6 +107,9 @@ class QueryThreemetaOnlinetimeResponse extends Model
         }
         if (isset($map['length_code'])) {
             $model->lengthCode = $map['length_code'];
+        }
+        if (isset($map['carrier'])) {
+            $model->carrier = $map['carrier'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];
