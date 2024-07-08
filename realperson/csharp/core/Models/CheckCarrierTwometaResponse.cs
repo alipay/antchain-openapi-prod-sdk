@@ -29,6 +29,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ExternInfo { get; set; }
 
+        // 运营商类型： CHINA_TELECOM； CHINA_MOBILE； CHINA_UNICOM
+        [NameInMap("carrier")]
+        [Validation(Required=false)]
+        public string Carrier { get; set; }
+
     }
 
 }

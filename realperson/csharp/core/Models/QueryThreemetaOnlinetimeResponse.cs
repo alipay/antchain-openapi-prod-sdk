@@ -34,6 +34,13 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string LengthCode { get; set; }
 
+        // CHINA_TELECOM：中国电信
+        // CHINA_MOBILE：中国移动
+        // CHINA_UNICOM：中国联通
+        [NameInMap("carrier")]
+        [Validation(Required=false)]
+        public string Carrier { get; set; }
+
         // 扩展信息，json格式
         [NameInMap("extern_info")]
         [Validation(Required=false)]
