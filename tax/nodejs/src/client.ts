@@ -4218,7 +4218,7 @@ export class RunApiDataprocessRequest extends $tea.Model {
   // 是否采用加密算法
   encryption?: boolean;
   // 对称秘钥加密后的数据
-  encryptionKey: string;
+  encryptionKey?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4931,7 +4931,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.38",
+          sdk_version: "1.8.40",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
