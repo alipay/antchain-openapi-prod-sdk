@@ -78,7 +78,6 @@ class RunApiDataprocessRequest extends Model
         Model::validateRequired('bizParam', $this->bizParam, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('methodCode', $this->methodCode, true);
-        Model::validateRequired('encryptionKey', $this->encryptionKey, true);
     }
 
     public function toMap()
