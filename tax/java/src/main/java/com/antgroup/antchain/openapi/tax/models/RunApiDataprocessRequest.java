@@ -41,7 +41,6 @@ public class RunApiDataprocessRequest extends TeaModel {
 
     // 对称秘钥加密后的数据
     @NameInMap("encryption_key")
-    @Validation(required = true)
     public String encryptionKey;
 
     public static RunApiDataprocessRequest build(java.util.Map<String, ?> map) throws Exception {
