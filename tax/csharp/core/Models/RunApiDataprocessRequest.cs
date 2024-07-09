@@ -51,7 +51,7 @@ namespace AntChain.SDK.TAX.Models
 
         // 对称秘钥加密后的数据
         [NameInMap("encryption_key")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string EncryptionKey { get; set; }
 
     }
