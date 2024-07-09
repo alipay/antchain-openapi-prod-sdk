@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.38',
+    sdk_version = '1.8.40',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -2449,7 +2449,7 @@ model RunApiDataprocessRequest = {
   // 是否采用加密算法
   encryption?: boolean(name='encryption'),
   // 对称秘钥加密后的数据
-  encryptionKey: string(name='encryption_key'),
+  encryptionKey?: string(name='encryption_key'),
 }
 
 model RunApiDataprocessResponse = {
