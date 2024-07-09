@@ -5571,7 +5571,7 @@ type RunApiDataprocessRequest struct {
 	// 是否采用加密算法
 	Encryption *bool `json:"encryption,omitempty" xml:"encryption,omitempty"`
 	// 对称秘钥加密后的数据
-	EncryptionKey *string `json:"encryption_key,omitempty" xml:"encryption_key,omitempty" require:"true"`
+	EncryptionKey *string `json:"encryption_key,omitempty" xml:"encryption_key,omitempty"`
 }
 
 func (s RunApiDataprocessRequest) String() string {
@@ -6523,7 +6523,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.38"),
+				"sdk_version":      tea.String("1.8.40"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
