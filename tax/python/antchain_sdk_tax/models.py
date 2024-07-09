@@ -6971,7 +6971,6 @@ class RunApiDataprocessRequest(TeaModel):
         self.validate_required(self.biz_param, 'biz_param')
         self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.method_code, 'method_code')
-        self.validate_required(self.encryption_key, 'encryption_key')
 
     def to_map(self):
         _map = super().to_map()
