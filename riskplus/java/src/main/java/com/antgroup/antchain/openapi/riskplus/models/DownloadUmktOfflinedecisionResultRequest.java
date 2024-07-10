@@ -25,7 +25,6 @@ public class DownloadUmktOfflinedecisionResultRequest extends TeaModel {
     // 格式：yyyy-MM-dd
     // 默认当前时间的前一天
     @NameInMap("result_date")
-    @Validation(required = true)
     public String resultDate;
 
     public static DownloadUmktOfflinedecisionResultRequest build(java.util.Map<String, ?> map) throws Exception {
