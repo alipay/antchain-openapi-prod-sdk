@@ -32879,7 +32879,6 @@ class DownloadUmktOfflinedecisionResultRequest(TeaModel):
     def validate(self):
         self.validate_required(self.offline_decision_plan_id, 'offline_decision_plan_id')
         self.validate_required(self.decision_plan_id, 'decision_plan_id')
-        self.validate_required(self.result_date, 'result_date')
 
     def to_map(self):
         _map = super().to_map()
