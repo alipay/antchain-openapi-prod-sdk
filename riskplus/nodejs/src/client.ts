@@ -19672,7 +19672,7 @@ export class DownloadUmktOfflinedecisionResultRequest extends $tea.Model {
   // 圈客结果的产出日期
   // 格式：yyyy-MM-dd
   // 默认当前时间的前一天
-  resultDate: string;
+  resultDate?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -19931,7 +19931,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.23",
+          sdk_version: "1.19.24",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
