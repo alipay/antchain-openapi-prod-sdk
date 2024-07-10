@@ -50,7 +50,6 @@ class DownloadUmktOfflinedecisionResultRequest extends Model
     {
         Model::validateRequired('offlineDecisionPlanId', $this->offlineDecisionPlanId, true);
         Model::validateRequired('decisionPlanId', $this->decisionPlanId, true);
-        Model::validateRequired('resultDate', $this->resultDate, true);
     }
 
     public function toMap()
