@@ -32,7 +32,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         // 格式：yyyy-MM-dd
         // 默认当前时间的前一天
         [NameInMap("result_date")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ResultDate { get; set; }
 
     }
