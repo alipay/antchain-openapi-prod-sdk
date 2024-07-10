@@ -26369,7 +26369,7 @@ type DownloadUmktOfflinedecisionResultRequest struct {
 	// 圈客结果的产出日期
 	// 格式：yyyy-MM-dd
 	// 默认当前时间的前一天
-	ResultDate *string `json:"result_date,omitempty" xml:"result_date,omitempty" require:"true"`
+	ResultDate *string `json:"result_date,omitempty" xml:"result_date,omitempty"`
 }
 
 func (s DownloadUmktOfflinedecisionResultRequest) String() string {
@@ -26686,7 +26686,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.23"),
+				"sdk_version":      tea.String("1.19.24"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
