@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.23',
+    sdk_version = '1.19.24',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -11242,7 +11242,7 @@ model DownloadUmktOfflinedecisionResultRequest = {
   // 圈客结果的产出日期
   // 格式：yyyy-MM-dd
   // 默认当前时间的前一天
-  resultDate: string(name='result_date'),
+  resultDate?: string(name='result_date'),
 }
 
 model DownloadUmktOfflinedecisionResultResponse = {
