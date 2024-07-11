@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.3',
+                    'sdk_version': '1.3.4',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.3',
+                    'sdk_version': '1.3.4',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -952,9 +952,9 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
-        Description: ● 重要说明：
-        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Description: 重要说明：
+        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         Summary: 单期代扣取消
         """
         runtime = util_models.RuntimeOptions()
@@ -966,9 +966,9 @@ class Client:
         request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanRequest,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
-        Description: ● 重要说明：
-        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Description: 重要说明：
+        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         Summary: 单期代扣取消
         """
         runtime = util_models.RuntimeOptions()
@@ -982,9 +982,9 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
-        Description: ● 重要说明：
-        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Description: 重要说明：
+        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         Summary: 单期代扣取消
         """
         UtilClient.validate_model(request)
@@ -1000,9 +1000,9 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
-        Description: ● 重要说明：
-        ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-        ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+        Description: 重要说明：
+        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         Summary: 单期代扣取消
         """
         UtilClient.validate_model(request)
@@ -3239,6 +3239,62 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse(),
             await self.do_request_async('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_antchain_ato_merchantexpand_merchant(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商家信息修改
+        Summary: 商家信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_antchain_ato_merchantexpand_merchant_ex(request, headers, runtime)
+
+    async def update_antchain_ato_merchantexpand_merchant_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商家信息修改
+        Summary: 商家信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_antchain_ato_merchantexpand_merchant_ex_async(request, headers, runtime)
+
+    def update_antchain_ato_merchantexpand_merchant_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商家信息修改
+        Summary: 商家信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantResponse(),
+            self.do_request('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_antchain_ato_merchantexpand_merchant_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantResponse:
+        """
+        Description: 商家信息修改
+        Summary: 商家信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
