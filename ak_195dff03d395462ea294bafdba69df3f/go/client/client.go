@@ -457,6 +457,81 @@ func (s *LegalInfo) SetLegalCertBackFile(v *FileInfo) *LegalInfo {
 	return s
 }
 
+//  公司信息修改
+type CompanyInfoUpdate struct {
+	// 营业执照文件信息
+	BusinessLicenseFile *FileInfo `json:"business_license_file,omitempty" xml:"business_license_file,omitempty" require:"true"`
+	// 业务类型 枚举
+	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty" require:"true"`
+	// 公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 公司别名
+	CompanyAliasName *string `json:"company_alias_name,omitempty" xml:"company_alias_name,omitempty" require:"true"`
+	// 公司数科租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 公司联系电话
+	CompanyMobile *string `json:"company_mobile,omitempty" xml:"company_mobile,omitempty" require:"true"`
+	// 公司联系地址
+	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty" require:"true"`
+	// 联系人姓名
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
+	// 联系人手机号码
+	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty" require:"true"`
+}
+
+func (s CompanyInfoUpdate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CompanyInfoUpdate) GoString() string {
+	return s.String()
+}
+
+func (s *CompanyInfoUpdate) SetBusinessLicenseFile(v *FileInfo) *CompanyInfoUpdate {
+	s.BusinessLicenseFile = v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetProductMainClass(v string) *CompanyInfoUpdate {
+	s.ProductMainClass = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetCompanyName(v string) *CompanyInfoUpdate {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetCompanyAliasName(v string) *CompanyInfoUpdate {
+	s.CompanyAliasName = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetTenantId(v string) *CompanyInfoUpdate {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetCompanyMobile(v string) *CompanyInfoUpdate {
+	s.CompanyMobile = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetCompanyAddress(v string) *CompanyInfoUpdate {
+	s.CompanyAddress = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetContactName(v string) *CompanyInfoUpdate {
+	s.ContactName = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetContactMobile(v string) *CompanyInfoUpdate {
+	s.ContactMobile = &v
+	return s
+}
+
 // 键值对
 type XNameValuePair struct {
 	// 键名
@@ -643,22 +718,27 @@ type CreateAntchainAtoRealpersonFacevrfRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 实人认证方案枚举
+	// APP（客户端android/ios方案）
+	// H5（网页）
+	// ZFB（支付宝客户端H5方案）
+	SolutionType *string `json:"solution_type,omitempty" xml:"solution_type,omitempty" require:"true"`
 	// 真实姓名
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
 	// 证件号码
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
-	// 身份信息来源类型，当前仅支持证件（CERT_INFO）
-	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
-	// 证件类型，当前仅支持身份证（IDENTITY_CARD）
+	// 身份信息来源类型
+	// IDENTITY_CARD（身份证）
+	// RESIDENCE_HK_MC（港澳居民居住证）
+	// RESIDENCE_TAIWAN（台湾居民居住证）
 	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
-	// 商户请求的唯一标识。
-	//
-	// 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
-	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
-	// 认证结束回跳地址
-	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty" require:"true"`
-	// 订单id 长度不可超过50
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 【solution_type=ZFB使用】
+	// reserve（保存活体人脸 默认值）
+	// never（不保存活体人脸）
+	FaceReserveStrategy *string `json:"face_reserve_strategy,omitempty" xml:"face_reserve_strategy,omitempty"`
+	// 【solution_type=ZFB使用】
+	// 认证成功后需要跳转的地址
+	ReturnUrl *string `json:"return_url,omitempty" xml:"return_url,omitempty"`
 }
 
 func (s CreateAntchainAtoRealpersonFacevrfRequest) String() string {
@@ -679,6 +759,11 @@ func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetProductInstanceId(v strin
 	return s
 }
 
+func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetSolutionType(v string) *CreateAntchainAtoRealpersonFacevrfRequest {
+	s.SolutionType = &v
+	return s
+}
+
 func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetCertName(v string) *CreateAntchainAtoRealpersonFacevrfRequest {
 	s.CertName = &v
 	return s
@@ -689,28 +774,18 @@ func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetCertNo(v string) *CreateA
 	return s
 }
 
-func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetIdentityType(v string) *CreateAntchainAtoRealpersonFacevrfRequest {
-	s.IdentityType = &v
-	return s
-}
-
 func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetCertType(v string) *CreateAntchainAtoRealpersonFacevrfRequest {
 	s.CertType = &v
 	return s
 }
 
-func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetOuterOrderNo(v string) *CreateAntchainAtoRealpersonFacevrfRequest {
-	s.OuterOrderNo = &v
+func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetFaceReserveStrategy(v string) *CreateAntchainAtoRealpersonFacevrfRequest {
+	s.FaceReserveStrategy = &v
 	return s
 }
 
 func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetReturnUrl(v string) *CreateAntchainAtoRealpersonFacevrfRequest {
 	s.ReturnUrl = &v
-	return s
-}
-
-func (s *CreateAntchainAtoRealpersonFacevrfRequest) SetOrderId(v string) *CreateAntchainAtoRealpersonFacevrfRequest {
-	s.OrderId = &v
 	return s
 }
 
@@ -721,8 +796,11 @@ type CreateAntchainAtoRealpersonFacevrfResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 业务返回字段，JSON格式
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 请求唯一ID标识，为空则是异常
+	RealPersonVerificationCode *string `json:"real_person_verification_code,omitempty" xml:"real_person_verification_code,omitempty"`
+	// 【solution_type=H5 | ZFB返回】
+	// 人脸核身url地址
+	WebUrl *string `json:"web_url,omitempty" xml:"web_url,omitempty"`
 }
 
 func (s CreateAntchainAtoRealpersonFacevrfResponse) String() string {
@@ -748,8 +826,13 @@ func (s *CreateAntchainAtoRealpersonFacevrfResponse) SetResultMsg(v string) *Cre
 	return s
 }
 
-func (s *CreateAntchainAtoRealpersonFacevrfResponse) SetData(v string) *CreateAntchainAtoRealpersonFacevrfResponse {
-	s.Data = &v
+func (s *CreateAntchainAtoRealpersonFacevrfResponse) SetRealPersonVerificationCode(v string) *CreateAntchainAtoRealpersonFacevrfResponse {
+	s.RealPersonVerificationCode = &v
+	return s
+}
+
+func (s *CreateAntchainAtoRealpersonFacevrfResponse) SetWebUrl(v string) *CreateAntchainAtoRealpersonFacevrfResponse {
+	s.WebUrl = &v
 	return s
 }
 
@@ -758,13 +841,7 @@ type QueryAntchainAtoRealpersonFacevrfRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 可信实人认证的唯一标识
-	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty" require:"true"`
-	// 商户请求的唯一标识。
-	//
-	// 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
-	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
-	// 订单id 长度不可超过50
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	RealPersonVerificationCode *string `json:"real_person_verification_code,omitempty" xml:"real_person_verification_code,omitempty" require:"true"`
 }
 
 func (s QueryAntchainAtoRealpersonFacevrfRequest) String() string {
@@ -785,18 +862,8 @@ func (s *QueryAntchainAtoRealpersonFacevrfRequest) SetProductInstanceId(v string
 	return s
 }
 
-func (s *QueryAntchainAtoRealpersonFacevrfRequest) SetCertifyId(v string) *QueryAntchainAtoRealpersonFacevrfRequest {
-	s.CertifyId = &v
-	return s
-}
-
-func (s *QueryAntchainAtoRealpersonFacevrfRequest) SetOuterOrderNo(v string) *QueryAntchainAtoRealpersonFacevrfRequest {
-	s.OuterOrderNo = &v
-	return s
-}
-
-func (s *QueryAntchainAtoRealpersonFacevrfRequest) SetOrderId(v string) *QueryAntchainAtoRealpersonFacevrfRequest {
-	s.OrderId = &v
+func (s *QueryAntchainAtoRealpersonFacevrfRequest) SetRealPersonVerificationCode(v string) *QueryAntchainAtoRealpersonFacevrfRequest {
+	s.RealPersonVerificationCode = &v
 	return s
 }
 
@@ -807,8 +874,18 @@ type QueryAntchainAtoRealpersonFacevrfResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 业务返回字段，JSON格式
-	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 实人认证结果
+	// PROCESSING（初始化）
+	// SUCCESS（认证通过）FAIL（认证不通过）
+	CertifyState *string `json:"certify_state,omitempty" xml:"certify_state,omitempty"`
+	// 【solution_type=H5 | APP 返回】
+	// 本次认证是否存在安全风险
+	// true(检测到安全风险)
+	// false(未检测到安全风险)
+	AttackFlag *string `json:"attack_flag,omitempty" xml:"attack_flag,omitempty"`
+	// 【solution_type=H5 | APP 返回】
+	// base64过后的二值化图片
+	AlivePhoto *string `json:"alive_photo,omitempty" xml:"alive_photo,omitempty"`
 }
 
 func (s QueryAntchainAtoRealpersonFacevrfResponse) String() string {
@@ -834,8 +911,18 @@ func (s *QueryAntchainAtoRealpersonFacevrfResponse) SetResultMsg(v string) *Quer
 	return s
 }
 
-func (s *QueryAntchainAtoRealpersonFacevrfResponse) SetData(v string) *QueryAntchainAtoRealpersonFacevrfResponse {
-	s.Data = &v
+func (s *QueryAntchainAtoRealpersonFacevrfResponse) SetCertifyState(v string) *QueryAntchainAtoRealpersonFacevrfResponse {
+	s.CertifyState = &v
+	return s
+}
+
+func (s *QueryAntchainAtoRealpersonFacevrfResponse) SetAttackFlag(v string) *QueryAntchainAtoRealpersonFacevrfResponse {
+	s.AttackFlag = &v
+	return s
+}
+
+func (s *QueryAntchainAtoRealpersonFacevrfResponse) SetAlivePhoto(v string) *QueryAntchainAtoRealpersonFacevrfResponse {
+	s.AlivePhoto = &v
 	return s
 }
 
@@ -3152,7 +3239,7 @@ type SyncAntchainAtoTradeFinanceloanapplyRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单id
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" maxLength:"50" minLength:"1"`
 	// 订单所属商户的社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
 	// 融资放款申请接口
@@ -5283,6 +5370,8 @@ type UploadAntchainAtoSignCreditRequest struct {
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
 	// 内容数据，格式为JSON类型文本，如果类型是JSON_TEXT则必填
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 }
 
 func (s UploadAntchainAtoSignCreditRequest) String() string {
@@ -5335,6 +5424,11 @@ func (s *UploadAntchainAtoSignCreditRequest) SetFileUrl(v string) *UploadAntchai
 
 func (s *UploadAntchainAtoSignCreditRequest) SetContent(v string) *UploadAntchainAtoSignCreditRequest {
 	s.Content = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignCreditRequest) SetMerchantId(v string) *UploadAntchainAtoSignCreditRequest {
+	s.MerchantId = &v
 	return s
 }
 
@@ -5476,6 +5570,8 @@ type QueryAntchainAtoSignCreditRequest struct {
 	OrderNoType *string `json:"order_no_type,omitempty" xml:"order_no_type,omitempty" require:"true"`
 	// 订单号，或资产包号
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 }
 
 func (s QueryAntchainAtoSignCreditRequest) String() string {
@@ -5503,6 +5599,11 @@ func (s *QueryAntchainAtoSignCreditRequest) SetOrderNoType(v string) *QueryAntch
 
 func (s *QueryAntchainAtoSignCreditRequest) SetOrderNo(v string) *QueryAntchainAtoSignCreditRequest {
 	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryAntchainAtoSignCreditRequest) SetMerchantId(v string) *QueryAntchainAtoSignCreditRequest {
+	s.MerchantId = &v
 	return s
 }
 
@@ -5542,6 +5643,111 @@ func (s *QueryAntchainAtoSignCreditResponse) SetResultMsg(v string) *QueryAntcha
 
 func (s *QueryAntchainAtoSignCreditResponse) SetContentInfo(v string) *QueryAntchainAtoSignCreditResponse {
 	s.ContentInfo = &v
+	return s
+}
+
+type UpdateAntchainAtoMerchantexpandMerchantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 公司信息
+	CompanyInfo *CompanyInfoUpdate `json:"company_info,omitempty" xml:"company_info,omitempty" require:"true"`
+	// 法人信息
+	LegalInfo *LegalInfo `json:"legal_info,omitempty" xml:"legal_info,omitempty" require:"true"`
+	// 应用信息
+	ApplicationInfo *ApplicationInfo `json:"application_info,omitempty" xml:"application_info,omitempty" require:"true"`
+	// 进件模式 DIRECT(直连进件) AGENT(代理进件)
+	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
+	// expand_mode=_AGENT_ 必填
+	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
+	// 进件流水号
+	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty" require:"true"`
+}
+
+func (s UpdateAntchainAtoMerchantexpandMerchantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAntchainAtoMerchantexpandMerchantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantRequest) SetAuthToken(v string) *UpdateAntchainAtoMerchantexpandMerchantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantRequest) SetProductInstanceId(v string) *UpdateAntchainAtoMerchantexpandMerchantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantRequest) SetCompanyInfo(v *CompanyInfoUpdate) *UpdateAntchainAtoMerchantexpandMerchantRequest {
+	s.CompanyInfo = v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantRequest) SetLegalInfo(v *LegalInfo) *UpdateAntchainAtoMerchantexpandMerchantRequest {
+	s.LegalInfo = v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantRequest) SetApplicationInfo(v *ApplicationInfo) *UpdateAntchainAtoMerchantexpandMerchantRequest {
+	s.ApplicationInfo = v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantRequest) SetExpandMode(v string) *UpdateAntchainAtoMerchantexpandMerchantRequest {
+	s.ExpandMode = &v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantRequest) SetSubTenantId(v string) *UpdateAntchainAtoMerchantexpandMerchantRequest {
+	s.SubTenantId = &v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantRequest) SetPayExpandId(v string) *UpdateAntchainAtoMerchantexpandMerchantRequest {
+	s.PayExpandId = &v
+	return s
+}
+
+type UpdateAntchainAtoMerchantexpandMerchantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 进件流水号
+	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty"`
+}
+
+func (s UpdateAntchainAtoMerchantexpandMerchantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateAntchainAtoMerchantexpandMerchantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantResponse) SetReqMsgId(v string) *UpdateAntchainAtoMerchantexpandMerchantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantResponse) SetResultCode(v string) *UpdateAntchainAtoMerchantexpandMerchantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantResponse) SetResultMsg(v string) *UpdateAntchainAtoMerchantexpandMerchantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateAntchainAtoMerchantexpandMerchantResponse) SetPayExpandId(v string) *UpdateAntchainAtoMerchantexpandMerchantResponse {
+	s.PayExpandId = &v
 	return s
 }
 
@@ -5787,7 +5993,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.3"),
+				"sdk_version":      tea.String("1.3.4"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -6254,9 +6460,9 @@ func (client *Client) CancelAntchainAtoWithholdPlanEx(request *CancelAntchainAto
 }
 
 /**
-* Description: ● 重要说明：
-    ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-    ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+* Description: 重要说明：
+   1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+   2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
 * Summary: 单期代扣取消
 */
 func (client *Client) RepayAntchainAtoWithholdPlan(request *RepayAntchainAtoWithholdPlanRequest) (_result *RepayAntchainAtoWithholdPlanResponse, _err error) {
@@ -6272,9 +6478,9 @@ func (client *Client) RepayAntchainAtoWithholdPlan(request *RepayAntchainAtoWith
 }
 
 /**
-* Description: ● 重要说明：
-    ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-    ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+* Description: 重要说明：
+   1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+   2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
 * Summary: 单期代扣取消
 */
 func (client *Client) RepayAntchainAtoWithholdPlanEx(request *RepayAntchainAtoWithholdPlanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RepayAntchainAtoWithholdPlanResponse, _err error) {
@@ -7663,6 +7869,40 @@ func (client *Client) QueryAntchainAtoSignCreditEx(request *QueryAntchainAtoSign
 	}
 	_result = &QueryAntchainAtoSignCreditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.credit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商家信息修改
+ * Summary: 商家信息修改
+ */
+func (client *Client) UpdateAntchainAtoMerchantexpandMerchant(request *UpdateAntchainAtoMerchantexpandMerchantRequest) (_result *UpdateAntchainAtoMerchantexpandMerchantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateAntchainAtoMerchantexpandMerchantResponse{}
+	_body, _err := client.UpdateAntchainAtoMerchantexpandMerchantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商家信息修改
+ * Summary: 商家信息修改
+ */
+func (client *Client) UpdateAntchainAtoMerchantexpandMerchantEx(request *UpdateAntchainAtoMerchantexpandMerchantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateAntchainAtoMerchantexpandMerchantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateAntchainAtoMerchantexpandMerchantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.merchantexpand.merchant.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
