@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.3"},
+                        {"sdk_version", "1.3.4"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.3"},
+                        {"sdk_version", "1.3.4"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -826,9 +826,9 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: ● 重要说明：
-             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Description: 重要说明：
+            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
          * Summary: 单期代扣取消
          */
         public RepayAntchainAtoWithholdPlanResponse RepayAntchainAtoWithholdPlan(RepayAntchainAtoWithholdPlanRequest request)
@@ -839,9 +839,9 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: ● 重要说明：
-             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Description: 重要说明：
+            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
          * Summary: 单期代扣取消
          */
         public async Task<RepayAntchainAtoWithholdPlanResponse> RepayAntchainAtoWithholdPlanAsync(RepayAntchainAtoWithholdPlanRequest request)
@@ -852,9 +852,9 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: ● 重要说明：
-             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Description: 重要说明：
+            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
          * Summary: 单期代扣取消
          */
         public RepayAntchainAtoWithholdPlanResponse RepayAntchainAtoWithholdPlanEx(RepayAntchainAtoWithholdPlanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -864,9 +864,9 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         }
 
         /**
-         * Description: ● 重要说明：
-             ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-             ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+         * Description: 重要说明：
+            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
          * Summary: 单期代扣取消
          */
         public async Task<RepayAntchainAtoWithholdPlanResponse> RepayAntchainAtoWithholdPlanExAsync(RepayAntchainAtoWithholdPlanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -2607,6 +2607,48 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntchainAtoSignCreditResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.credit.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家信息修改
+         * Summary: 商家信息修改
+         */
+        public UpdateAntchainAtoMerchantexpandMerchantResponse UpdateAntchainAtoMerchantexpandMerchant(UpdateAntchainAtoMerchantexpandMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateAntchainAtoMerchantexpandMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家信息修改
+         * Summary: 商家信息修改
+         */
+        public async Task<UpdateAntchainAtoMerchantexpandMerchantResponse> UpdateAntchainAtoMerchantexpandMerchantAsync(UpdateAntchainAtoMerchantexpandMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateAntchainAtoMerchantexpandMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家信息修改
+         * Summary: 商家信息修改
+         */
+        public UpdateAntchainAtoMerchantexpandMerchantResponse UpdateAntchainAtoMerchantexpandMerchantEx(UpdateAntchainAtoMerchantexpandMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAntchainAtoMerchantexpandMerchantResponse>(DoRequest("1.0", "antchain.ato.merchantexpand.merchant.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家信息修改
+         * Summary: 商家信息修改
+         */
+        public async Task<UpdateAntchainAtoMerchantexpandMerchantResponse> UpdateAntchainAtoMerchantexpandMerchantExAsync(UpdateAntchainAtoMerchantexpandMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAntchainAtoMerchantexpandMerchantResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.merchant.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
