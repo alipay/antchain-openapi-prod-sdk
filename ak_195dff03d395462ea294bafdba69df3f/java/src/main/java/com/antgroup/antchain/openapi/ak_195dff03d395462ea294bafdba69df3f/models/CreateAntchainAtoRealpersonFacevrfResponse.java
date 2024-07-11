@@ -16,9 +16,14 @@ public class CreateAntchainAtoRealpersonFacevrfResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 业务返回字段，JSON格式
-    @NameInMap("data")
-    public String data;
+    // 请求唯一ID标识，为空则是异常
+    @NameInMap("real_person_verification_code")
+    public String realPersonVerificationCode;
+
+    // 【solution_type=H5 | ZFB返回】
+    // 人脸核身url地址
+    @NameInMap("web_url")
+    public String webUrl;
 
     public static CreateAntchainAtoRealpersonFacevrfResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoRealpersonFacevrfResponse self = new CreateAntchainAtoRealpersonFacevrfResponse();
@@ -49,12 +54,20 @@ public class CreateAntchainAtoRealpersonFacevrfResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateAntchainAtoRealpersonFacevrfResponse setData(String data) {
-        this.data = data;
+    public CreateAntchainAtoRealpersonFacevrfResponse setRealPersonVerificationCode(String realPersonVerificationCode) {
+        this.realPersonVerificationCode = realPersonVerificationCode;
         return this;
     }
-    public String getData() {
-        return this.data;
+    public String getRealPersonVerificationCode() {
+        return this.realPersonVerificationCode;
+    }
+
+    public CreateAntchainAtoRealpersonFacevrfResponse setWebUrl(String webUrl) {
+        this.webUrl = webUrl;
+        return this;
+    }
+    public String getWebUrl() {
+        return this.webUrl;
     }
 
 }

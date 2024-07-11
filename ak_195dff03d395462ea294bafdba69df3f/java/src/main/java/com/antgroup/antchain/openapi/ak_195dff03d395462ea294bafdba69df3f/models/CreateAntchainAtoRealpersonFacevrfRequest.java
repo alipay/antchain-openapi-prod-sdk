@@ -11,6 +11,14 @@ public class CreateAntchainAtoRealpersonFacevrfRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 实人认证方案枚举
+    // APP（客户端android/ios方案）
+    // H5（网页）
+    // ZFB（支付宝客户端H5方案）
+    @NameInMap("solution_type")
+    @Validation(required = true)
+    public String solutionType;
+
     // 真实姓名
     @NameInMap("cert_name")
     @Validation(required = true)
@@ -21,32 +29,24 @@ public class CreateAntchainAtoRealpersonFacevrfRequest extends TeaModel {
     @Validation(required = true)
     public String certNo;
 
-    // 身份信息来源类型，当前仅支持证件（CERT_INFO）
-    @NameInMap("identity_type")
-    @Validation(required = true)
-    public String identityType;
-
-    // 证件类型，当前仅支持身份证（IDENTITY_CARD）
+    // 身份信息来源类型
+    // IDENTITY_CARD（身份证）
+    // RESIDENCE_HK_MC（港澳居民居住证）
+    // RESIDENCE_TAIWAN（台湾居民居住证）
     @NameInMap("cert_type")
     @Validation(required = true)
     public String certType;
 
-    // 商户请求的唯一标识。
-    // 
-    // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
-    @NameInMap("outer_order_no")
-    @Validation(required = true)
-    public String outerOrderNo;
+    // 【solution_type=ZFB使用】
+    // reserve（保存活体人脸 默认值）
+    // never（不保存活体人脸）
+    @NameInMap("face_reserve_strategy")
+    public String faceReserveStrategy;
 
-    // 认证结束回跳地址
+    // 【solution_type=ZFB使用】
+    // 认证成功后需要跳转的地址
     @NameInMap("return_url")
-    @Validation(required = true)
     public String returnUrl;
-
-    // 订单id 长度不可超过50
-    @NameInMap("order_id")
-    @Validation(required = true)
-    public String orderId;
 
     public static CreateAntchainAtoRealpersonFacevrfRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoRealpersonFacevrfRequest self = new CreateAntchainAtoRealpersonFacevrfRequest();
@@ -69,6 +69,14 @@ public class CreateAntchainAtoRealpersonFacevrfRequest extends TeaModel {
         return this.productInstanceId;
     }
 
+    public CreateAntchainAtoRealpersonFacevrfRequest setSolutionType(String solutionType) {
+        this.solutionType = solutionType;
+        return this;
+    }
+    public String getSolutionType() {
+        return this.solutionType;
+    }
+
     public CreateAntchainAtoRealpersonFacevrfRequest setCertName(String certName) {
         this.certName = certName;
         return this;
@@ -85,14 +93,6 @@ public class CreateAntchainAtoRealpersonFacevrfRequest extends TeaModel {
         return this.certNo;
     }
 
-    public CreateAntchainAtoRealpersonFacevrfRequest setIdentityType(String identityType) {
-        this.identityType = identityType;
-        return this;
-    }
-    public String getIdentityType() {
-        return this.identityType;
-    }
-
     public CreateAntchainAtoRealpersonFacevrfRequest setCertType(String certType) {
         this.certType = certType;
         return this;
@@ -101,12 +101,12 @@ public class CreateAntchainAtoRealpersonFacevrfRequest extends TeaModel {
         return this.certType;
     }
 
-    public CreateAntchainAtoRealpersonFacevrfRequest setOuterOrderNo(String outerOrderNo) {
-        this.outerOrderNo = outerOrderNo;
+    public CreateAntchainAtoRealpersonFacevrfRequest setFaceReserveStrategy(String faceReserveStrategy) {
+        this.faceReserveStrategy = faceReserveStrategy;
         return this;
     }
-    public String getOuterOrderNo() {
-        return this.outerOrderNo;
+    public String getFaceReserveStrategy() {
+        return this.faceReserveStrategy;
     }
 
     public CreateAntchainAtoRealpersonFacevrfRequest setReturnUrl(String returnUrl) {
@@ -115,14 +115,6 @@ public class CreateAntchainAtoRealpersonFacevrfRequest extends TeaModel {
     }
     public String getReturnUrl() {
         return this.returnUrl;
-    }
-
-    public CreateAntchainAtoRealpersonFacevrfRequest setOrderId(String orderId) {
-        this.orderId = orderId;
-        return this;
-    }
-    public String getOrderId() {
-        return this.orderId;
     }
 
 }

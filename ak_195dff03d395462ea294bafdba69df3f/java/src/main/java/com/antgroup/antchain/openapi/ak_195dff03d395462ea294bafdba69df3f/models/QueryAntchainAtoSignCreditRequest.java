@@ -21,6 +21,10 @@ public class QueryAntchainAtoSignCreditRequest extends TeaModel {
     @Validation(required = true)
     public String orderNo;
 
+    // 商户统一社会信用代码
+    @NameInMap("merchant_id")
+    public String merchantId;
+
     public static QueryAntchainAtoSignCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoSignCreditRequest self = new QueryAntchainAtoSignCreditRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class QueryAntchainAtoSignCreditRequest extends TeaModel {
     }
     public String getOrderNo() {
         return this.orderNo;
+    }
+
+    public QueryAntchainAtoSignCreditRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }
