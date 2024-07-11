@@ -31,6 +31,12 @@ class PagequeryInnerMerchantagentRequest extends Model
      */
     public $agentName;
 
+    // 进件状态
+    /**
+     * @var string
+     */
+    public $payExpandStatus;
+
     // 分页对象
     /**
      * @var PageQuery
@@ -41,13 +47,13 @@ class PagequeryInnerMerchantagentRequest extends Model
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'agentName'         => 'agent_name',
+        'payExpandStatus'   => 'pay_expand_status',
         'pageInfo'          => 'page_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('agentName', $this->agentName, true);
         Model::validateRequired('pageInfo', $this->pageInfo, true);
     }
 
@@ -65,6 +71,9 @@ class PagequeryInnerMerchantagentRequest extends Model
         }
         if (null !== $this->agentName) {
             $res['agent_name'] = $this->agentName;
+        }
+        if (null !== $this->payExpandStatus) {
+            $res['pay_expand_status'] = $this->payExpandStatus;
         }
         if (null !== $this->pageInfo) {
             $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
@@ -92,6 +101,9 @@ class PagequeryInnerMerchantagentRequest extends Model
         }
         if (isset($map['agent_name'])) {
             $model->agentName = $map['agent_name'];
+        }
+        if (isset($map['pay_expand_status'])) {
+            $model->payExpandStatus = $map['pay_expand_status'];
         }
         if (isset($map['page_info'])) {
             $model->pageInfo = PageQuery::fromMap($map['page_info']);

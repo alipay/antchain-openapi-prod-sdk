@@ -19,6 +19,15 @@ class CreateRealpersonFacevrfRequest extends Model
      */
     public $productInstanceId;
 
+    // 实人认证方案枚举
+    // APP（客户端android/ios方案）
+    // H5（网页）
+    // ZFB（支付宝客户端H5方案）
+    /**
+     * @var string
+     */
+    public $solutionType;
+
     // 真实姓名
     /**
      * @var string
@@ -31,58 +40,46 @@ class CreateRealpersonFacevrfRequest extends Model
      */
     public $certNo;
 
-    // 身份信息来源类型，当前仅支持证件（CERT_INFO）
-    /**
-     * @var string
-     */
-    public $identityType;
-
-    // 证件类型，当前仅支持身份证（IDENTITY_CARD）
+    // 身份信息来源类型
+    // IDENTITY_CARD（身份证）
+    // RESIDENCE_HK_MC（港澳居民居住证）
+    // RESIDENCE_TAIWAN（台湾居民居住证）
     /**
      * @var string
      */
     public $certType;
 
-    // 商户请求的唯一标识。
-    //
-    // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
+    // 【solution_type=ZFB使用】
+    // reserve（保存活体人脸 默认值）
+    // never（不保存活体人脸）
     /**
      * @var string
      */
-    public $outerOrderNo;
+    public $faceReserveStrategy;
 
-    // 认证结束回跳地址
+    // 【solution_type=ZFB使用】
+    // 认证成功后需要跳转的地址
     /**
      * @var string
      */
     public $returnUrl;
-
-    // 订单id 长度不可超过50
-    /**
-     * @var string
-     */
-    public $orderId;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'certName'          => 'cert_name',
-        'certNo'            => 'cert_no',
-        'identityType'      => 'identity_type',
-        'certType'          => 'cert_type',
-        'outerOrderNo'      => 'outer_order_no',
-        'returnUrl'         => 'return_url',
-        'orderId'           => 'order_id',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'solutionType'        => 'solution_type',
+        'certName'            => 'cert_name',
+        'certNo'              => 'cert_no',
+        'certType'            => 'cert_type',
+        'faceReserveStrategy' => 'face_reserve_strategy',
+        'returnUrl'           => 'return_url',
     ];
 
     public function validate()
     {
+        Model::validateRequired('solutionType', $this->solutionType, true);
         Model::validateRequired('certName', $this->certName, true);
         Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('identityType', $this->identityType, true);
         Model::validateRequired('certType', $this->certType, true);
-        Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('returnUrl', $this->returnUrl, true);
-        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
@@ -94,26 +91,23 @@ class CreateRealpersonFacevrfRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->solutionType) {
+            $res['solution_type'] = $this->solutionType;
+        }
         if (null !== $this->certName) {
             $res['cert_name'] = $this->certName;
         }
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
         }
-        if (null !== $this->identityType) {
-            $res['identity_type'] = $this->identityType;
-        }
         if (null !== $this->certType) {
             $res['cert_type'] = $this->certType;
         }
-        if (null !== $this->outerOrderNo) {
-            $res['outer_order_no'] = $this->outerOrderNo;
+        if (null !== $this->faceReserveStrategy) {
+            $res['face_reserve_strategy'] = $this->faceReserveStrategy;
         }
         if (null !== $this->returnUrl) {
             $res['return_url'] = $this->returnUrl;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
         }
 
         return $res;
@@ -133,26 +127,23 @@ class CreateRealpersonFacevrfRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if (isset($map['solution_type'])) {
+            $model->solutionType = $map['solution_type'];
+        }
         if (isset($map['cert_name'])) {
             $model->certName = $map['cert_name'];
         }
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];
         }
-        if (isset($map['identity_type'])) {
-            $model->identityType = $map['identity_type'];
-        }
         if (isset($map['cert_type'])) {
             $model->certType = $map['cert_type'];
         }
-        if (isset($map['outer_order_no'])) {
-            $model->outerOrderNo = $map['outer_order_no'];
+        if (isset($map['face_reserve_strategy'])) {
+            $model->faceReserveStrategy = $map['face_reserve_strategy'];
         }
         if (isset($map['return_url'])) {
             $model->returnUrl = $map['return_url'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
         }
 
         return $model;

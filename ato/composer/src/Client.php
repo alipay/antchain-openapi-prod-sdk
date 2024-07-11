@@ -191,6 +191,8 @@ use AntChain\ATO\Models\UnbindWithholdSignRequest;
 use AntChain\ATO\Models\UnbindWithholdSignResponse;
 use AntChain\ATO\Models\UpdateInnerTemplateRequest;
 use AntChain\ATO\Models\UpdateInnerTemplateResponse;
+use AntChain\ATO\Models\UpdateMerchantexpandMerchantRequest;
+use AntChain\ATO\Models\UpdateMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\UpdateTradeUserpromiseRequest;
 use AntChain\ATO\Models\UpdateTradeUserpromiseResponse;
 use AntChain\ATO\Models\UploadFundCreditRequest;
@@ -354,7 +356,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.81',
+                    'sdk_version'      => '1.8.86',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2497,6 +2499,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryMerchantexpandMerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家信息修改
+     * Summary: 商家信息修改.
+     *
+     * @param UpdateMerchantexpandMerchantRequest $request
+     *
+     * @return UpdateMerchantexpandMerchantResponse
+     */
+    public function updateMerchantexpandMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateMerchantexpandMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家信息修改
+     * Summary: 商家信息修改.
+     *
+     * @param UpdateMerchantexpandMerchantRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UpdateMerchantexpandMerchantResponse
+     */
+    public function updateMerchantexpandMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateMerchantexpandMerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

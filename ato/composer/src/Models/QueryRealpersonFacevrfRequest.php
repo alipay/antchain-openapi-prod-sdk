@@ -23,34 +23,16 @@ class QueryRealpersonFacevrfRequest extends Model
     /**
      * @var string
      */
-    public $certifyId;
-
-    // 商户请求的唯一标识。
-    //
-    // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
-    /**
-     * @var string
-     */
-    public $outerOrderNo;
-
-    // 订单id 长度不可超过50
-    /**
-     * @var string
-     */
-    public $orderId;
+    public $realPersonVerificationCode;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'certifyId'         => 'certify_id',
-        'outerOrderNo'      => 'outer_order_no',
-        'orderId'           => 'order_id',
+        'authToken'                  => 'auth_token',
+        'productInstanceId'          => 'product_instance_id',
+        'realPersonVerificationCode' => 'real_person_verification_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('certifyId', $this->certifyId, true);
-        Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('realPersonVerificationCode', $this->realPersonVerificationCode, true);
     }
 
     public function toMap()
@@ -62,14 +44,8 @@ class QueryRealpersonFacevrfRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->certifyId) {
-            $res['certify_id'] = $this->certifyId;
-        }
-        if (null !== $this->outerOrderNo) {
-            $res['outer_order_no'] = $this->outerOrderNo;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
+        if (null !== $this->realPersonVerificationCode) {
+            $res['real_person_verification_code'] = $this->realPersonVerificationCode;
         }
 
         return $res;
@@ -89,14 +65,8 @@ class QueryRealpersonFacevrfRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['certify_id'])) {
-            $model->certifyId = $map['certify_id'];
-        }
-        if (isset($map['outer_order_no'])) {
-            $model->outerOrderNo = $map['outer_order_no'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
+        if (isset($map['real_person_verification_code'])) {
+            $model->realPersonVerificationCode = $map['real_person_verification_code'];
         }
 
         return $model;

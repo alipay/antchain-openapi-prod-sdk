@@ -61,6 +61,14 @@ class OrderMsgInfo extends Model
      */
     public $msgRetryTime;
 
+    // 消息体内容
+    /**
+     * @example {}
+     *
+     * @var string
+     */
+    public $msgContent;
+
     // 消息回调地址
     /**
      * @example https://hstest02.xd0.co/antchain/ato/notify
@@ -69,22 +77,23 @@ class OrderMsgInfo extends Model
      */
     public $msgCallbackUrl;
 
-    // 消息体内容
+    // 新回调地址
     /**
-     * @example {}
+     * @example http://test
      *
      * @var string
      */
-    public $msgContent;
+    public $newMsgCallbackUrl;
     protected $_name = [
-        'orderId'        => 'order_id',
-        'msgId'          => 'msg_id',
-        'msgPublishType' => 'msg_publish_type',
-        'msgCreateTime'  => 'msg_create_time',
-        'msgStatus'      => 'msg_status',
-        'msgRetryTime'   => 'msg_retry_time',
-        'msgCallbackUrl' => 'msg_callback_url',
-        'msgContent'     => 'msg_content',
+        'orderId'           => 'order_id',
+        'msgId'             => 'msg_id',
+        'msgPublishType'    => 'msg_publish_type',
+        'msgCreateTime'     => 'msg_create_time',
+        'msgStatus'         => 'msg_status',
+        'msgRetryTime'      => 'msg_retry_time',
+        'msgContent'        => 'msg_content',
+        'msgCallbackUrl'    => 'msg_callback_url',
+        'newMsgCallbackUrl' => 'new_msg_callback_url',
     ];
 
     public function validate()
@@ -95,8 +104,9 @@ class OrderMsgInfo extends Model
         Model::validateRequired('msgCreateTime', $this->msgCreateTime, true);
         Model::validateRequired('msgStatus', $this->msgStatus, true);
         Model::validateRequired('msgRetryTime', $this->msgRetryTime, true);
-        Model::validateRequired('msgCallbackUrl', $this->msgCallbackUrl, true);
         Model::validateRequired('msgContent', $this->msgContent, true);
+        Model::validateRequired('msgCallbackUrl', $this->msgCallbackUrl, true);
+        Model::validateRequired('newMsgCallbackUrl', $this->newMsgCallbackUrl, true);
         Model::validatePattern('msgCreateTime', $this->msgCreateTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
@@ -121,11 +131,14 @@ class OrderMsgInfo extends Model
         if (null !== $this->msgRetryTime) {
             $res['msg_retry_time'] = $this->msgRetryTime;
         }
+        if (null !== $this->msgContent) {
+            $res['msg_content'] = $this->msgContent;
+        }
         if (null !== $this->msgCallbackUrl) {
             $res['msg_callback_url'] = $this->msgCallbackUrl;
         }
-        if (null !== $this->msgContent) {
-            $res['msg_content'] = $this->msgContent;
+        if (null !== $this->newMsgCallbackUrl) {
+            $res['new_msg_callback_url'] = $this->newMsgCallbackUrl;
         }
 
         return $res;
@@ -157,11 +170,14 @@ class OrderMsgInfo extends Model
         if (isset($map['msg_retry_time'])) {
             $model->msgRetryTime = $map['msg_retry_time'];
         }
+        if (isset($map['msg_content'])) {
+            $model->msgContent = $map['msg_content'];
+        }
         if (isset($map['msg_callback_url'])) {
             $model->msgCallbackUrl = $map['msg_callback_url'];
         }
-        if (isset($map['msg_content'])) {
-            $model->msgContent = $map['msg_content'];
+        if (isset($map['new_msg_callback_url'])) {
+            $model->newMsgCallbackUrl = $map['new_msg_callback_url'];
         }
 
         return $model;

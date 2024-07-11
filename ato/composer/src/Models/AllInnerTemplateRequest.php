@@ -42,6 +42,12 @@ class AllInnerTemplateRequest extends Model
      * @var string
      */
     public $templateName;
+
+    // 线上模板ID
+    /**
+     * @var string
+     */
+    public $templateCodeProd;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class AllInnerTemplateRequest extends Model
         'tenantId'          => 'tenant_id',
         'templateCode'      => 'template_code',
         'templateName'      => 'template_name',
+        'templateCodeProd'  => 'template_code_prod',
     ];
 
     public function validate()
@@ -77,6 +84,9 @@ class AllInnerTemplateRequest extends Model
         }
         if (null !== $this->templateName) {
             $res['template_name'] = $this->templateName;
+        }
+        if (null !== $this->templateCodeProd) {
+            $res['template_code_prod'] = $this->templateCodeProd;
         }
 
         return $res;
@@ -107,6 +117,9 @@ class AllInnerTemplateRequest extends Model
         }
         if (isset($map['template_name'])) {
             $model->templateName = $map['template_name'];
+        }
+        if (isset($map['template_code_prod'])) {
+            $model->templateCodeProd = $map['template_code_prod'];
         }
 
         return $model;
