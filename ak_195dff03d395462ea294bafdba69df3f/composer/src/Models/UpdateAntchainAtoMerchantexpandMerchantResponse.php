@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateAntchainAtoRealpersonFacevrfResponse extends Model
+class UpdateAntchainAtoMerchantexpandMerchantResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,24 +26,16 @@ class CreateAntchainAtoRealpersonFacevrfResponse extends Model
      */
     public $resultMsg;
 
-    // 请求唯一ID标识，为空则是异常
+    // 进件流水号
     /**
      * @var string
      */
-    public $realPersonVerificationCode;
-
-    // 【solution_type=H5 | ZFB返回】
-    // 人脸核身url地址
-    /**
-     * @var string
-     */
-    public $webUrl;
+    public $payExpandId;
     protected $_name = [
-        'reqMsgId'                   => 'req_msg_id',
-        'resultCode'                 => 'result_code',
-        'resultMsg'                  => 'result_msg',
-        'realPersonVerificationCode' => 'real_person_verification_code',
-        'webUrl'                     => 'web_url',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'payExpandId' => 'pay_expand_id',
     ];
 
     public function validate()
@@ -62,11 +54,8 @@ class CreateAntchainAtoRealpersonFacevrfResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->realPersonVerificationCode) {
-            $res['real_person_verification_code'] = $this->realPersonVerificationCode;
-        }
-        if (null !== $this->webUrl) {
-            $res['web_url'] = $this->webUrl;
+        if (null !== $this->payExpandId) {
+            $res['pay_expand_id'] = $this->payExpandId;
         }
 
         return $res;
@@ -75,7 +64,7 @@ class CreateAntchainAtoRealpersonFacevrfResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateAntchainAtoRealpersonFacevrfResponse
+     * @return UpdateAntchainAtoMerchantexpandMerchantResponse
      */
     public static function fromMap($map = [])
     {
@@ -89,11 +78,8 @@ class CreateAntchainAtoRealpersonFacevrfResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['real_person_verification_code'])) {
-            $model->realPersonVerificationCode = $map['real_person_verification_code'];
-        }
-        if (isset($map['web_url'])) {
-            $model->webUrl = $map['web_url'];
+        if (isset($map['pay_expand_id'])) {
+            $model->payExpandId = $map['pay_expand_id'];
         }
 
         return $model;

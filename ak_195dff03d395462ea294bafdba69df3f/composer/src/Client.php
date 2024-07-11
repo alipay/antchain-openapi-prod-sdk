@@ -101,6 +101,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeRequ
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoMerchantexpandMerchantRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoMerchantexpandMerchantResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeUserpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeUserpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundCreditRequest;
@@ -262,7 +264,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.3',
+                    'sdk_version'      => '1.3.4',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -707,9 +709,9 @@ class Client
     }
 
     /**
-     * Description: ● 重要说明：
-     *      ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-     *      ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+     * Description: 重要说明：
+     *     1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
      * Summary: 单期代扣取消.
      *
      * @param RepayAntchainAtoWithholdPlanRequest $request
@@ -725,9 +727,9 @@ class Client
     }
 
     /**
-     * Description: ● 重要说明：
-     *      ①这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
-     *      ②对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
+     * Description: 重要说明：
+     *     1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
      * Summary: 单期代扣取消.
      *
      * @param RepayAntchainAtoWithholdPlanRequest $request
@@ -2049,6 +2051,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntchainAtoSignCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商家信息修改
+     * Summary: 商家信息修改.
+     *
+     * @param UpdateAntchainAtoMerchantexpandMerchantRequest $request
+     *
+     * @return UpdateAntchainAtoMerchantexpandMerchantResponse
+     */
+    public function updateAntchainAtoMerchantexpandMerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAntchainAtoMerchantexpandMerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商家信息修改
+     * Summary: 商家信息修改.
+     *
+     * @param UpdateAntchainAtoMerchantexpandMerchantRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return UpdateAntchainAtoMerchantexpandMerchantResponse
+     */
+    public function updateAntchainAtoMerchantexpandMerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAntchainAtoMerchantexpandMerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

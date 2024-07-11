@@ -60,6 +60,12 @@ class UploadAntchainAtoSignCreditRequest extends Model
      * @var string
      */
     public $content;
+
+    // 商户统一社会信用代码
+    /**
+     * @var string
+     */
+    public $merchantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class UploadAntchainAtoSignCreditRequest extends Model
         'contentType'       => 'content_type',
         'fileUrl'           => 'file_url',
         'content'           => 'content',
+        'merchantId'        => 'merchant_id',
     ];
 
     public function validate()
@@ -110,6 +117,9 @@ class UploadAntchainAtoSignCreditRequest extends Model
         if (null !== $this->content) {
             $res['content'] = $this->content;
         }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
 
         return $res;
     }
@@ -148,6 +158,9 @@ class UploadAntchainAtoSignCreditRequest extends Model
         }
         if (isset($map['content'])) {
             $model->content = $map['content'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;

@@ -26,16 +26,36 @@ class QueryAntchainAtoRealpersonFacevrfResponse extends Model
      */
     public $resultMsg;
 
-    // 业务返回字段，JSON格式
+    // 实人认证结果
+    // PROCESSING（初始化）
+    // SUCCESS（认证通过）FAIL（认证不通过）
     /**
      * @var string
      */
-    public $data;
+    public $certifyState;
+
+    // 【solution_type=H5 | APP 返回】
+    // 本次认证是否存在安全风险
+    // true(检测到安全风险)
+    // false(未检测到安全风险)
+    /**
+     * @var string
+     */
+    public $attackFlag;
+
+    // 【solution_type=H5 | APP 返回】
+    // base64过后的二值化图片
+    /**
+     * @var string
+     */
+    public $alivePhoto;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'data'       => 'data',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'certifyState' => 'certify_state',
+        'attackFlag'   => 'attack_flag',
+        'alivePhoto'   => 'alive_photo',
     ];
 
     public function validate()
@@ -54,8 +74,14 @@ class QueryAntchainAtoRealpersonFacevrfResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
+        if (null !== $this->certifyState) {
+            $res['certify_state'] = $this->certifyState;
+        }
+        if (null !== $this->attackFlag) {
+            $res['attack_flag'] = $this->attackFlag;
+        }
+        if (null !== $this->alivePhoto) {
+            $res['alive_photo'] = $this->alivePhoto;
         }
 
         return $res;
@@ -78,8 +104,14 @@ class QueryAntchainAtoRealpersonFacevrfResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
+        if (isset($map['certify_state'])) {
+            $model->certifyState = $map['certify_state'];
+        }
+        if (isset($map['attack_flag'])) {
+            $model->attackFlag = $map['attack_flag'];
+        }
+        if (isset($map['alive_photo'])) {
+            $model->alivePhoto = $map['alive_photo'];
         }
 
         return $model;
