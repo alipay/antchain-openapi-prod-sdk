@@ -338,6 +338,59 @@ export class RelationPage extends $tea.Model {
   }
 }
 
+//  公司信息修改
+export class CompanyInfoUpdate extends $tea.Model {
+  // 营业执照文件信息
+  businessLicenseFile: FileInfo;
+  // 业务类型 枚举
+  productMainClass: string;
+  // 公司名称
+  companyName: string;
+  // 公司别名
+  companyAliasName: string;
+  // 公司数科租户id
+  tenantId?: string;
+  // 公司联系电话
+  companyMobile: string;
+  // 公司联系地址
+  companyAddress: string;
+  // 联系人姓名
+  contactName: string;
+  // 联系人手机号码
+  contactMobile: string;
+  static names(): { [key: string]: string } {
+    return {
+      businessLicenseFile: 'business_license_file',
+      productMainClass: 'product_main_class',
+      companyName: 'company_name',
+      companyAliasName: 'company_alias_name',
+      tenantId: 'tenant_id',
+      companyMobile: 'company_mobile',
+      companyAddress: 'company_address',
+      contactName: 'contact_name',
+      contactMobile: 'contact_mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      businessLicenseFile: FileInfo,
+      productMainClass: 'string',
+      companyName: 'string',
+      companyAliasName: 'string',
+      tenantId: 'string',
+      companyMobile: 'string',
+      companyAddress: 'string',
+      contactName: 'string',
+      contactMobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 进件分页对象
 export class MerchantAgentPage extends $tea.Model {
   // 进件id
@@ -395,10 +448,12 @@ export class OrderMsgInfo extends $tea.Model {
   // 消息重投次数
   // 
   msgRetryTime: number;
-  // 消息回调地址
-  msgCallbackUrl: string;
   // 消息体内容
   msgContent: string;
+  // 消息回调地址
+  msgCallbackUrl: string;
+  // 新回调地址
+  newMsgCallbackUrl: string;
   static names(): { [key: string]: string } {
     return {
       orderId: 'order_id',
@@ -407,8 +462,9 @@ export class OrderMsgInfo extends $tea.Model {
       msgCreateTime: 'msg_create_time',
       msgStatus: 'msg_status',
       msgRetryTime: 'msg_retry_time',
-      msgCallbackUrl: 'msg_callback_url',
       msgContent: 'msg_content',
+      msgCallbackUrl: 'msg_callback_url',
+      newMsgCallbackUrl: 'new_msg_callback_url',
     };
   }
 
@@ -420,8 +476,9 @@ export class OrderMsgInfo extends $tea.Model {
       msgCreateTime: 'string',
       msgStatus: 'string',
       msgRetryTime: 'number',
-      msgCallbackUrl: 'string',
       msgContent: 'string',
+      msgCallbackUrl: 'string',
+      newMsgCallbackUrl: 'string',
     };
   }
 
@@ -2546,6 +2603,8 @@ export class AllInnerTemplateRequest extends $tea.Model {
   templateCode?: string;
   // 魔法库模板文件名称
   templateName?: string;
+  // 线上模板ID
+  templateCodeProd?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2554,6 +2613,7 @@ export class AllInnerTemplateRequest extends $tea.Model {
       tenantId: 'tenant_id',
       templateCode: 'template_code',
       templateName: 'template_name',
+      templateCodeProd: 'template_code_prod',
     };
   }
 
@@ -2565,6 +2625,7 @@ export class AllInnerTemplateRequest extends $tea.Model {
       tenantId: 'string',
       templateCode: 'string',
       templateName: 'string',
+      templateCodeProd: 'string',
     };
   }
 
@@ -4431,7 +4492,9 @@ export class PagequeryInnerMerchantagentRequest extends $tea.Model {
   // 租户8位id
   tenantId: string;
   // 代理商户名称
-  agentName: string;
+  agentName?: string;
+  // 进件状态
+  payExpandStatus?: string;
   // 分页对象
   pageInfo: PageQuery;
   static names(): { [key: string]: string } {
@@ -4440,6 +4503,7 @@ export class PagequeryInnerMerchantagentRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       tenantId: 'tenant_id',
       agentName: 'agent_name',
+      payExpandStatus: 'pay_expand_status',
       pageInfo: 'page_info',
     };
   }
@@ -4450,6 +4514,7 @@ export class PagequeryInnerMerchantagentRequest extends $tea.Model {
       productInstanceId: 'string',
       tenantId: 'string',
       agentName: 'string',
+      payExpandStatus: 'string',
       pageInfo: PageQuery,
     };
   }
@@ -5333,37 +5398,32 @@ export class QueryMerchantexpandMerchantResponse extends $tea.Model {
   }
 }
 
-export class CreateRealpersonFacevrfRequest extends $tea.Model {
+export class UpdateMerchantexpandMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 真实姓名
-  certName: string;
-  // 证件号码
-  certNo: string;
-  // 身份信息来源类型，当前仅支持证件（CERT_INFO）
-  identityType: string;
-  // 证件类型，当前仅支持身份证（IDENTITY_CARD）
-  certType: string;
-  // 商户请求的唯一标识。
-  // 
-  // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
-  outerOrderNo: string;
-  // 认证结束回跳地址
-  returnUrl: string;
-  // 订单id 长度不可超过50
-  orderId: string;
+  // 公司信息
+  companyInfo: CompanyInfoUpdate;
+  // 法人信息
+  legalInfo: LegalInfo;
+  // 应用信息
+  applicationInfo: ApplicationInfo;
+  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
+  expandMode: string;
+  // expand_mode=_AGENT_ 必填
+  subTenantId?: string;
+  // 进件流水号
+  payExpandId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      certName: 'cert_name',
-      certNo: 'cert_no',
-      identityType: 'identity_type',
-      certType: 'cert_type',
-      outerOrderNo: 'outer_order_no',
-      returnUrl: 'return_url',
-      orderId: 'order_id',
+      companyInfo: 'company_info',
+      legalInfo: 'legal_info',
+      applicationInfo: 'application_info',
+      expandMode: 'expand_mode',
+      subTenantId: 'sub_tenant_id',
+      payExpandId: 'pay_expand_id',
     };
   }
 
@@ -5371,13 +5431,100 @@ export class CreateRealpersonFacevrfRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      companyInfo: CompanyInfoUpdate,
+      legalInfo: LegalInfo,
+      applicationInfo: ApplicationInfo,
+      expandMode: 'string',
+      subTenantId: 'string',
+      payExpandId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateMerchantexpandMerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 进件流水号
+  payExpandId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      payExpandId: 'pay_expand_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      payExpandId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateRealpersonFacevrfRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 实人认证方案枚举
+  // APP（客户端android/ios方案）
+  // H5（网页）
+  // ZFB（支付宝客户端H5方案）
+  solutionType: string;
+  // 真实姓名
+  certName: string;
+  // 证件号码
+  certNo: string;
+  // 身份信息来源类型
+  // IDENTITY_CARD（身份证）
+  // RESIDENCE_HK_MC（港澳居民居住证）
+  // RESIDENCE_TAIWAN（台湾居民居住证）
+  certType: string;
+  // 【solution_type=ZFB使用】
+  // reserve（保存活体人脸 默认值）
+  // never（不保存活体人脸）
+  faceReserveStrategy?: string;
+  // 【solution_type=ZFB使用】
+  // 认证成功后需要跳转的地址
+  returnUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      solutionType: 'solution_type',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      certType: 'cert_type',
+      faceReserveStrategy: 'face_reserve_strategy',
+      returnUrl: 'return_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      solutionType: 'string',
       certName: 'string',
       certNo: 'string',
-      identityType: 'string',
       certType: 'string',
-      outerOrderNo: 'string',
+      faceReserveStrategy: 'string',
       returnUrl: 'string',
-      orderId: 'string',
     };
   }
 
@@ -5393,14 +5540,18 @@ export class CreateRealpersonFacevrfResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 业务返回字段，JSON格式
-  data?: string;
+  // 请求唯一ID标识，为空则是异常
+  realPersonVerificationCode?: string;
+  // 【solution_type=H5 | ZFB返回】
+  // 人脸核身url地址
+  webUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      data: 'data',
+      realPersonVerificationCode: 'real_person_verification_code',
+      webUrl: 'web_url',
     };
   }
 
@@ -5409,7 +5560,8 @@ export class CreateRealpersonFacevrfResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: 'string',
+      realPersonVerificationCode: 'string',
+      webUrl: 'string',
     };
   }
 
@@ -5423,20 +5575,12 @@ export class QueryRealpersonFacevrfRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 可信实人认证的唯一标识
-  certifyId: string;
-  // 商户请求的唯一标识。
-  // 
-  // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
-  outerOrderNo: string;
-  // 订单id 长度不可超过50
-  orderId: string;
+  realPersonVerificationCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      certifyId: 'certify_id',
-      outerOrderNo: 'outer_order_no',
-      orderId: 'order_id',
+      realPersonVerificationCode: 'real_person_verification_code',
     };
   }
 
@@ -5444,9 +5588,7 @@ export class QueryRealpersonFacevrfRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      certifyId: 'string',
-      outerOrderNo: 'string',
-      orderId: 'string',
+      realPersonVerificationCode: 'string',
     };
   }
 
@@ -5462,14 +5604,26 @@ export class QueryRealpersonFacevrfResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 业务返回字段，JSON格式
-  data?: string;
+  // 实人认证结果
+  // PROCESSING（初始化）
+  // SUCCESS（认证通过）FAIL（认证不通过）
+  certifyState?: string;
+  // 【solution_type=H5 | APP 返回】
+  // 本次认证是否存在安全风险
+  // true(检测到安全风险)
+  // false(未检测到安全风险)
+  attackFlag?: string;
+  // 【solution_type=H5 | APP 返回】
+  // base64过后的二值化图片
+  alivePhoto?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      data: 'data',
+      certifyState: 'certify_state',
+      attackFlag: 'attack_flag',
+      alivePhoto: 'alive_photo',
     };
   }
 
@@ -5478,7 +5632,9 @@ export class QueryRealpersonFacevrfResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      data: 'string',
+      certifyState: 'string',
+      attackFlag: 'string',
+      alivePhoto: 'string',
     };
   }
 
@@ -8237,7 +8393,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.81",
+          sdk_version: "1.8.86",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -9501,6 +9657,25 @@ export default class Client {
   async queryMerchantexpandMerchantEx(request: QueryMerchantexpandMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMerchantexpandMerchantResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMerchantexpandMerchantResponse>(await this.doRequest("1.0", "antchain.ato.merchantexpand.merchant.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMerchantexpandMerchantResponse({}));
+  }
+
+  /**
+   * Description: 商家信息修改
+   * Summary: 商家信息修改
+   */
+  async updateMerchantexpandMerchant(request: UpdateMerchantexpandMerchantRequest): Promise<UpdateMerchantexpandMerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateMerchantexpandMerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 商家信息修改
+   * Summary: 商家信息修改
+   */
+  async updateMerchantexpandMerchantEx(request: UpdateMerchantexpandMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateMerchantexpandMerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateMerchantexpandMerchantResponse>(await this.doRequest("1.0", "antchain.ato.merchantexpand.merchant.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateMerchantexpandMerchantResponse({}));
   }
 
   /**
