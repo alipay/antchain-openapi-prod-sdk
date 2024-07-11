@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.81',
+    sdk_version = '1.8.86',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -255,6 +255,28 @@ model RelationPage {
   status: string(name='status', example='AUDIT_PASSED'),
 }
 
+//  公司信息修改
+model CompanyInfoUpdate {
+  // 营业执照文件信息
+  businessLicenseFile: FileInfo(name='business_license_file', example=''),
+  // 业务类型 枚举
+  productMainClass: string(name='product_main_class', example='业务类型'),
+  // 公司名称
+  companyName: string(name='company_name', example='xx公司'),
+  // 公司别名
+  companyAliasName: string(name='company_alias_name', example='公司别名'),
+  // 公司数科租户id
+  tenantId?: string(name='tenant_id', example='ASSDDDAS'),
+  // 公司联系电话
+  companyMobile: string(name='company_mobile', example='1231xx2322'),
+  // 公司联系地址
+  companyAddress: string(name='company_address', example='xx市xx区'),
+  // 联系人姓名
+  contactName: string(name='contact_name', example='李xx'),
+  // 联系人手机号码
+  contactMobile: string(name='contact_mobile', example='132xx2312312'),
+}
+
 // 进件分页对象
 model MerchantAgentPage {
   // 进件id
@@ -289,10 +311,12 @@ model OrderMsgInfo {
   // 消息重投次数
   // 
   msgRetryTime: long(name='msg_retry_time', example='1'),
-  // 消息回调地址
-  msgCallbackUrl: string(name='msg_callback_url', example='https://hstest02.xd0.co/antchain/ato/notify'),
   // 消息体内容
   msgContent: string(name='msg_content', example='{}'),
+  // 消息回调地址
+  msgCallbackUrl: string(name='msg_callback_url', example='https://hstest02.xd0.co/antchain/ato/notify'),
+  // 新回调地址
+  newMsgCallbackUrl: string(name='new_msg_callback_url', example='http://test'),
 }
 
 // 主订单信息
@@ -1550,6 +1574,8 @@ model AllInnerTemplateRequest = {
   templateCode?: string(name='template_code'),
   // 魔法库模板文件名称
   templateName?: string(name='template_name'),
+  // 线上模板ID
+  templateCodeProd?: string(name='template_code_prod'),
 }
 
 model AllInnerTemplateResponse = {
@@ -2719,7 +2745,9 @@ model PagequeryInnerMerchantagentRequest = {
   // 租户8位id
   tenantId: string(name='tenant_id'),
   // 代理商户名称
-  agentName: string(name='agent_name'),
+  agentName?: string(name='agent_name'),
+  // 进件状态
+  payExpandStatus?: string(name='pay_expand_status'),
   // 分页对象
   pageInfo: PageQuery(name='page_info'),
 }
@@ -3280,26 +3308,79 @@ async function queryMerchantexpandMerchantEx(request: QueryMerchantexpandMerchan
   return doRequest('1.0' ,'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model UpdateMerchantexpandMerchantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 公司信息
+  companyInfo: CompanyInfoUpdate(name='company_info'),
+  // 法人信息
+  legalInfo: LegalInfo(name='legal_info'),
+  // 应用信息
+  applicationInfo: ApplicationInfo(name='application_info'),
+  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
+  expandMode: string(name='expand_mode'),
+  // expand_mode=_AGENT_ 必填
+  subTenantId?: string(name='sub_tenant_id'),
+  // 进件流水号
+  payExpandId: string(name='pay_expand_id'),
+}
+
+model UpdateMerchantexpandMerchantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 进件流水号
+  payExpandId?: string(name='pay_expand_id'),
+}
+
+/**
+ * Description: 商家信息修改
+ * Summary: 商家信息修改
+ */
+async function updateMerchantexpandMerchant(request: UpdateMerchantexpandMerchantRequest): UpdateMerchantexpandMerchantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateMerchantexpandMerchantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商家信息修改
+ * Summary: 商家信息修改
+ */
+async function updateMerchantexpandMerchantEx(request: UpdateMerchantexpandMerchantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateMerchantexpandMerchantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model CreateRealpersonFacevrfRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 实人认证方案枚举
+  // APP（客户端android/ios方案）
+  // H5（网页）
+  // ZFB（支付宝客户端H5方案）
+  solutionType: string(name='solution_type'),
   // 真实姓名
   certName: string(name='cert_name'),
   // 证件号码
   certNo: string(name='cert_no'),
-  // 身份信息来源类型，当前仅支持证件（CERT_INFO）
-  identityType: string(name='identity_type'),
-  // 证件类型，当前仅支持身份证（IDENTITY_CARD）
+  // 身份信息来源类型
+  // IDENTITY_CARD（身份证）
+  // RESIDENCE_HK_MC（港澳居民居住证）
+  // RESIDENCE_TAIWAN（台湾居民居住证）
   certType: string(name='cert_type'),
-  // 商户请求的唯一标识。
-  // 
-  // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
-  outerOrderNo: string(name='outer_order_no'),
-  // 认证结束回跳地址
-  returnUrl: string(name='return_url'),
-  // 订单id 长度不可超过50
-  orderId: string(name='order_id'),
+  // 【solution_type=ZFB使用】
+  // reserve（保存活体人脸 默认值）
+  // never（不保存活体人脸）
+  faceReserveStrategy?: string(name='face_reserve_strategy'),
+  // 【solution_type=ZFB使用】
+  // 认证成功后需要跳转的地址
+  returnUrl?: string(name='return_url'),
 }
 
 model CreateRealpersonFacevrfResponse = {
@@ -3309,8 +3390,11 @@ model CreateRealpersonFacevrfResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 业务返回字段，JSON格式
-  data?: string(name='data'),
+  // 请求唯一ID标识，为空则是异常
+  realPersonVerificationCode?: string(name='real_person_verification_code'),
+  // 【solution_type=H5 | ZFB返回】
+  // 人脸核身url地址
+  webUrl?: string(name='web_url'),
 }
 
 /**
@@ -3337,13 +3421,7 @@ model QueryRealpersonFacevrfRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 可信实人认证的唯一标识
-  certifyId: string(name='certify_id'),
-  // 商户请求的唯一标识。
-  // 
-  // 值为 32 位长度的字母数字组合。其中，前面几位字符是商户自定义的简称，中间几位可以使用一段时间，后段可以使用一个随机或递增序列。该值也可以使用 UUID。
-  outerOrderNo: string(name='outer_order_no'),
-  // 订单id 长度不可超过50
-  orderId: string(name='order_id'),
+  realPersonVerificationCode: string(name='real_person_verification_code'),
 }
 
 model QueryRealpersonFacevrfResponse = {
@@ -3353,8 +3431,18 @@ model QueryRealpersonFacevrfResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 业务返回字段，JSON格式
-  data?: string(name='data'),
+  // 实人认证结果
+  // PROCESSING（初始化）
+  // SUCCESS（认证通过）FAIL（认证不通过）
+  certifyState?: string(name='certify_state'),
+  // 【solution_type=H5 | APP 返回】
+  // 本次认证是否存在安全风险
+  // true(检测到安全风险)
+  // false(未检测到安全风险)
+  attackFlag?: string(name='attack_flag'),
+  // 【solution_type=H5 | APP 返回】
+  // base64过后的二值化图片
+  alivePhoto?: string(name='alive_photo'),
 }
 
 /**
