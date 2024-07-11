@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.81',
+                    'sdk_version': '1.8.86',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.81',
+                    'sdk_version': '1.8.86',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -3835,6 +3835,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryMerchantexpandMerchantResponse(),
             await self.do_request_async('1.0', 'antchain.ato.merchantexpand.merchant.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_merchantexpand_merchant(
+        self,
+        request: ato_models.UpdateMerchantexpandMerchantRequest,
+    ) -> ato_models.UpdateMerchantexpandMerchantResponse:
+        """
+        Description: 商家信息修改
+        Summary: 商家信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_merchantexpand_merchant_ex(request, headers, runtime)
+
+    async def update_merchantexpand_merchant_async(
+        self,
+        request: ato_models.UpdateMerchantexpandMerchantRequest,
+    ) -> ato_models.UpdateMerchantexpandMerchantResponse:
+        """
+        Description: 商家信息修改
+        Summary: 商家信息修改
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_merchantexpand_merchant_ex_async(request, headers, runtime)
+
+    def update_merchantexpand_merchant_ex(
+        self,
+        request: ato_models.UpdateMerchantexpandMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateMerchantexpandMerchantResponse:
+        """
+        Description: 商家信息修改
+        Summary: 商家信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateMerchantexpandMerchantResponse(),
+            self.do_request('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_merchantexpand_merchant_ex_async(
+        self,
+        request: ato_models.UpdateMerchantexpandMerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateMerchantexpandMerchantResponse:
+        """
+        Description: 商家信息修改
+        Summary: 商家信息修改
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateMerchantexpandMerchantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_realperson_facevrf(
