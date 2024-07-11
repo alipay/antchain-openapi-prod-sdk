@@ -16,9 +16,23 @@ public class QueryRealpersonFacevrfResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 业务返回字段，JSON格式
-    @NameInMap("data")
-    public String data;
+    // 实人认证结果
+    // PROCESSING（初始化）
+    // SUCCESS（认证通过）FAIL（认证不通过）
+    @NameInMap("certify_state")
+    public String certifyState;
+
+    // 【solution_type=H5 | APP 返回】
+    // 本次认证是否存在安全风险
+    // true(检测到安全风险)
+    // false(未检测到安全风险)
+    @NameInMap("attack_flag")
+    public String attackFlag;
+
+    // 【solution_type=H5 | APP 返回】
+    // base64过后的二值化图片
+    @NameInMap("alive_photo")
+    public String alivePhoto;
 
     public static QueryRealpersonFacevrfResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRealpersonFacevrfResponse self = new QueryRealpersonFacevrfResponse();
@@ -49,12 +63,28 @@ public class QueryRealpersonFacevrfResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryRealpersonFacevrfResponse setData(String data) {
-        this.data = data;
+    public QueryRealpersonFacevrfResponse setCertifyState(String certifyState) {
+        this.certifyState = certifyState;
         return this;
     }
-    public String getData() {
-        return this.data;
+    public String getCertifyState() {
+        return this.certifyState;
+    }
+
+    public QueryRealpersonFacevrfResponse setAttackFlag(String attackFlag) {
+        this.attackFlag = attackFlag;
+        return this;
+    }
+    public String getAttackFlag() {
+        return this.attackFlag;
+    }
+
+    public QueryRealpersonFacevrfResponse setAlivePhoto(String alivePhoto) {
+        this.alivePhoto = alivePhoto;
+        return this;
+    }
+    public String getAlivePhoto() {
+        return this.alivePhoto;
     }
 
 }

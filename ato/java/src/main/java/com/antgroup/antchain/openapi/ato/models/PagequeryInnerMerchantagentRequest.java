@@ -18,8 +18,11 @@ public class PagequeryInnerMerchantagentRequest extends TeaModel {
 
     // 代理商户名称
     @NameInMap("agent_name")
-    @Validation(required = true)
     public String agentName;
+
+    // 进件状态
+    @NameInMap("pay_expand_status")
+    public String payExpandStatus;
 
     // 分页对象
     @NameInMap("page_info")
@@ -61,6 +64,14 @@ public class PagequeryInnerMerchantagentRequest extends TeaModel {
     }
     public String getAgentName() {
         return this.agentName;
+    }
+
+    public PagequeryInnerMerchantagentRequest setPayExpandStatus(String payExpandStatus) {
+        this.payExpandStatus = payExpandStatus;
+        return this;
+    }
+    public String getPayExpandStatus() {
+        return this.payExpandStatus;
     }
 
     public PagequeryInnerMerchantagentRequest setPageInfo(PageQuery pageInfo) {

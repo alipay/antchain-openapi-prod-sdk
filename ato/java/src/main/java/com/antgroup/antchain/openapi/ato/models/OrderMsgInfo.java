@@ -39,15 +39,20 @@ public class OrderMsgInfo extends TeaModel {
     @Validation(required = true)
     public Long msgRetryTime;
 
+    // 消息体内容
+    @NameInMap("msg_content")
+    @Validation(required = true)
+    public String msgContent;
+
     // 消息回调地址
     @NameInMap("msg_callback_url")
     @Validation(required = true)
     public String msgCallbackUrl;
 
-    // 消息体内容
-    @NameInMap("msg_content")
+    // 新回调地址
+    @NameInMap("new_msg_callback_url")
     @Validation(required = true)
-    public String msgContent;
+    public String newMsgCallbackUrl;
 
     public static OrderMsgInfo build(java.util.Map<String, ?> map) throws Exception {
         OrderMsgInfo self = new OrderMsgInfo();
@@ -102,6 +107,14 @@ public class OrderMsgInfo extends TeaModel {
         return this.msgRetryTime;
     }
 
+    public OrderMsgInfo setMsgContent(String msgContent) {
+        this.msgContent = msgContent;
+        return this;
+    }
+    public String getMsgContent() {
+        return this.msgContent;
+    }
+
     public OrderMsgInfo setMsgCallbackUrl(String msgCallbackUrl) {
         this.msgCallbackUrl = msgCallbackUrl;
         return this;
@@ -110,12 +123,12 @@ public class OrderMsgInfo extends TeaModel {
         return this.msgCallbackUrl;
     }
 
-    public OrderMsgInfo setMsgContent(String msgContent) {
-        this.msgContent = msgContent;
+    public OrderMsgInfo setNewMsgCallbackUrl(String newMsgCallbackUrl) {
+        this.newMsgCallbackUrl = newMsgCallbackUrl;
         return this;
     }
-    public String getMsgContent() {
-        return this.msgContent;
+    public String getNewMsgCallbackUrl() {
+        return this.newMsgCallbackUrl;
     }
 
 }

@@ -29,6 +29,10 @@ public class AllInnerTemplateRequest extends TeaModel {
     @NameInMap("template_name")
     public String templateName;
 
+    // 线上模板ID
+    @NameInMap("template_code_prod")
+    public String templateCodeProd;
+
     public static AllInnerTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
         AllInnerTemplateRequest self = new AllInnerTemplateRequest();
         return TeaModel.build(map, self);
@@ -80,6 +84,14 @@ public class AllInnerTemplateRequest extends TeaModel {
     }
     public String getTemplateName() {
         return this.templateName;
+    }
+
+    public AllInnerTemplateRequest setTemplateCodeProd(String templateCodeProd) {
+        this.templateCodeProd = templateCodeProd;
+        return this;
+    }
+    public String getTemplateCodeProd() {
+        return this.templateCodeProd;
     }
 
 }
