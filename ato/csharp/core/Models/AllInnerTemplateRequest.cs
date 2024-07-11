@@ -38,6 +38,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string TemplateName { get; set; }
 
+        // 线上模板ID
+        [NameInMap("template_code_prod")]
+        [Validation(Required=false)]
+        public string TemplateCodeProd { get; set; }
+
     }
 
 }

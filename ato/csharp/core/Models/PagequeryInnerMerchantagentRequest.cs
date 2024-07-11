@@ -25,8 +25,13 @@ namespace AntChain.SDK.ATO.Models
 
         // 代理商户名称
         [NameInMap("agent_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string AgentName { get; set; }
+
+        // 进件状态
+        [NameInMap("pay_expand_status")]
+        [Validation(Required=false)]
+        public string PayExpandStatus { get; set; }
 
         // 分页对象
         [NameInMap("page_info")]

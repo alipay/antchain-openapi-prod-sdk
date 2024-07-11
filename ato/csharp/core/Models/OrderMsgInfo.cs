@@ -45,15 +45,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public long? MsgRetryTime { get; set; }
 
+        // 消息体内容
+        [NameInMap("msg_content")]
+        [Validation(Required=true)]
+        public string MsgContent { get; set; }
+
         // 消息回调地址
         [NameInMap("msg_callback_url")]
         [Validation(Required=true)]
         public string MsgCallbackUrl { get; set; }
 
-        // 消息体内容
-        [NameInMap("msg_content")]
+        // 新回调地址
+        [NameInMap("new_msg_callback_url")]
         [Validation(Required=true)]
-        public string MsgContent { get; set; }
+        public string NewMsgCallbackUrl { get; set; }
 
     }
 

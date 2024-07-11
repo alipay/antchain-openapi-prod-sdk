@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.81"},
+                        {"sdk_version", "1.8.86"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.81"},
+                        {"sdk_version", "1.8.86"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3011,6 +3011,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMerchantexpandMerchantResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.merchant.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家信息修改
+         * Summary: 商家信息修改
+         */
+        public UpdateMerchantexpandMerchantResponse UpdateMerchantexpandMerchant(UpdateMerchantexpandMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateMerchantexpandMerchantEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家信息修改
+         * Summary: 商家信息修改
+         */
+        public async Task<UpdateMerchantexpandMerchantResponse> UpdateMerchantexpandMerchantAsync(UpdateMerchantexpandMerchantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateMerchantexpandMerchantExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商家信息修改
+         * Summary: 商家信息修改
+         */
+        public UpdateMerchantexpandMerchantResponse UpdateMerchantexpandMerchantEx(UpdateMerchantexpandMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateMerchantexpandMerchantResponse>(DoRequest("1.0", "antchain.ato.merchantexpand.merchant.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商家信息修改
+         * Summary: 商家信息修改
+         */
+        public async Task<UpdateMerchantexpandMerchantResponse> UpdateMerchantexpandMerchantExAsync(UpdateMerchantexpandMerchantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateMerchantexpandMerchantResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.merchant.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

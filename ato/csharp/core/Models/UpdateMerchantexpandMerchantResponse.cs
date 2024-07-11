@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class CreateRealpersonFacevrfResponse : TeaModel {
+    public class UpdateMerchantexpandMerchantResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,16 +24,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 请求唯一ID标识，为空则是异常
-        [NameInMap("real_person_verification_code")]
+        // 进件流水号
+        [NameInMap("pay_expand_id")]
         [Validation(Required=false)]
-        public string RealPersonVerificationCode { get; set; }
-
-        // 【solution_type=H5 | ZFB返回】
-        // 人脸核身url地址
-        [NameInMap("web_url")]
-        [Validation(Required=false)]
-        public string WebUrl { get; set; }
+        public string PayExpandId { get; set; }
 
     }
 

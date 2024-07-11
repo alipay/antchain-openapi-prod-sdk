@@ -24,10 +24,26 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 业务返回字段，JSON格式
-        [NameInMap("data")]
+        // 实人认证结果
+        // PROCESSING（初始化）
+        // SUCCESS（认证通过）FAIL（认证不通过）
+        [NameInMap("certify_state")]
         [Validation(Required=false)]
-        public string Data { get; set; }
+        public string CertifyState { get; set; }
+
+        // 【solution_type=H5 | APP 返回】
+        // 本次认证是否存在安全风险
+        // true(检测到安全风险)
+        // false(未检测到安全风险)
+        [NameInMap("attack_flag")]
+        [Validation(Required=false)]
+        public string AttackFlag { get; set; }
+
+        // 【solution_type=H5 | APP 返回】
+        // base64过后的二值化图片
+        [NameInMap("alive_photo")]
+        [Validation(Required=false)]
+        public string AlivePhoto { get; set; }
 
     }
 
