@@ -57,6 +57,16 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
         [Validation(Required=true)]
         public string FileId { get; set; }
 
+        // 合同模板密钥:若为合同模板该值必填,否则不需要填写
+        [NameInMap("template_secret_key")]
+        [Validation(Required=false)]
+        public string TemplateSecretKey { get; set; }
+
+        // 模板填充字段集合
+        [NameInMap("template_field_config_request_list")]
+        [Validation(Required=false)]
+        public List<TemplateFieldConfigRequest> TemplateFieldConfigRequestList { get; set; }
+
     }
 
 }
