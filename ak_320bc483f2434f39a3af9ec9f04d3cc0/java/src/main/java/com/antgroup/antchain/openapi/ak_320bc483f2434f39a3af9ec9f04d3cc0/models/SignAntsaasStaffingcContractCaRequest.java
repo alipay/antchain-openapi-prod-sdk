@@ -32,17 +32,29 @@ public class SignAntsaasStaffingcContractCaRequest extends TeaModel {
     public java.util.List<CaSignTaskRequest> signTaskRequestList;
 
     // 通过文件API上传的文件的file_id
-    // 待上传文件
+    /**
+     * <p>待上传文件</p>
+     */
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
 
-    // 待上传文件名
+    /**
+     * <p>待上传文件名</p>
+     */
     @NameInMap("fileObjectName")
     public String fileObjectName;
 
     @NameInMap("file_id")
     @Validation(required = true)
     public String fileId;
+
+    // 合同模板密钥:若为合同模板该值必填,否则不需要填写
+    @NameInMap("template_secret_key")
+    public String templateSecretKey;
+
+    // 模板填充字段集合
+    @NameInMap("template_field_config_request_list")
+    public java.util.List<TemplateFieldConfigRequest> templateFieldConfigRequestList;
 
     public static SignAntsaasStaffingcContractCaRequest build(java.util.Map<String, ?> map) throws Exception {
         SignAntsaasStaffingcContractCaRequest self = new SignAntsaasStaffingcContractCaRequest();
@@ -119,6 +131,22 @@ public class SignAntsaasStaffingcContractCaRequest extends TeaModel {
     }
     public String getFileId() {
         return this.fileId;
+    }
+
+    public SignAntsaasStaffingcContractCaRequest setTemplateSecretKey(String templateSecretKey) {
+        this.templateSecretKey = templateSecretKey;
+        return this;
+    }
+    public String getTemplateSecretKey() {
+        return this.templateSecretKey;
+    }
+
+    public SignAntsaasStaffingcContractCaRequest setTemplateFieldConfigRequestList(java.util.List<TemplateFieldConfigRequest> templateFieldConfigRequestList) {
+        this.templateFieldConfigRequestList = templateFieldConfigRequestList;
+        return this;
+    }
+    public java.util.List<TemplateFieldConfigRequest> getTemplateFieldConfigRequestList() {
+        return this.templateFieldConfigRequestList;
     }
 
 }
