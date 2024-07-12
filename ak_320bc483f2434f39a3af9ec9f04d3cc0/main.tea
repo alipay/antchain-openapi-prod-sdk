@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '2.0.0',
+    sdk_version = '2.0.1',
     _prod_code = 'ak_320bc483f2434f39a3af9ec9f04d3cc0',
     _prod_channel = 'saas'
   };
@@ -389,6 +389,18 @@ model CaSubSignResult {
   relatedBusiness?: boolean(name='related_business', example='true, false'),
   // 签署链接结果列表
   caSignUrlResultList?: [ CaSignUrlResult ](name='ca_sign_url_result_list', example=''),
+}
+
+// 模板填充字段实体
+model TemplateFieldConfigRequest {
+  // 字段拥有者（1个人，2客户，3人资服务商）
+  type: long(name='type', example='1'),
+  // 字段名称（英文：identityName、identityNumber、phoneNumber、positionName、salary、salaryNumber、examineStandard、projectDesc）
+  fieldName: string(name='field_name', example='identityName'),
+  // 字段名称描述（中文名：姓名、身份证号、手机号、职位、薪资、薪数、考核标准、项目描述）
+  fieldNameDesc: string(name='field_name_desc', example='姓名'),
+  // 字段值
+  fieldValue: string(name='field_value', example='张三'),
 }
 
 // 签署任务结果
@@ -1032,6 +1044,10 @@ model SignAntsaasStaffingcContractCaRequest = {
   fileObject?: readable(description='待上传文件', ignore='true'),
   fileObjectName?: string(description='待上传文件名', ignore='true'),
   fileId: string(name='file_id'),
+  // 合同模板密钥:若为合同模板该值必填,否则不需要填写
+  templateSecretKey?: string(name='template_secret_key'),
+  // 模板填充字段集合
+  templateFieldConfigRequestList?: [ TemplateFieldConfigRequest ](name='template_field_config_request_list'),
 }
 
 model SignAntsaasStaffingcContractCaResponse = {
