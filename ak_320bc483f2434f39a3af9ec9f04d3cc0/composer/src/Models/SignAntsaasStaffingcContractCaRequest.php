@@ -63,14 +63,28 @@ class SignAntsaasStaffingcContractCaRequest extends Model
      * @var string
      */
     public $fileId;
+
+    // 合同模板密钥:若为合同模板该值必填,否则不需要填写
+    /**
+     * @var string
+     */
+    public $templateSecretKey;
+
+    // 模板填充字段集合
+    /**
+     * @var TemplateFieldConfigRequest[]
+     */
+    public $templateFieldConfigRequestList;
     protected $_name = [
-        'authToken'           => 'auth_token',
-        'productInstanceId'   => 'product_instance_id',
-        'bizName'             => 'biz_name',
-        'bizNo'               => 'biz_no',
-        'signVersion'         => 'sign_version',
-        'signTaskRequestList' => 'sign_task_request_list',
-        'fileId'              => 'file_id',
+        'authToken'                      => 'auth_token',
+        'productInstanceId'              => 'product_instance_id',
+        'bizName'                        => 'biz_name',
+        'bizNo'                          => 'biz_no',
+        'signVersion'                    => 'sign_version',
+        'signTaskRequestList'            => 'sign_task_request_list',
+        'fileId'                         => 'file_id',
+        'templateSecretKey'              => 'template_secret_key',
+        'templateFieldConfigRequestList' => 'template_field_config_request_list',
     ];
 
     public function validate()
@@ -118,6 +132,18 @@ class SignAntsaasStaffingcContractCaRequest extends Model
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
         }
+        if (null !== $this->templateSecretKey) {
+            $res['template_secret_key'] = $this->templateSecretKey;
+        }
+        if (null !== $this->templateFieldConfigRequestList) {
+            $res['template_field_config_request_list'] = [];
+            if (null !== $this->templateFieldConfigRequestList && \is_array($this->templateFieldConfigRequestList)) {
+                $n = 0;
+                foreach ($this->templateFieldConfigRequestList as $item) {
+                    $res['template_field_config_request_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -162,6 +188,18 @@ class SignAntsaasStaffingcContractCaRequest extends Model
         }
         if (isset($map['file_id'])) {
             $model->fileId = $map['file_id'];
+        }
+        if (isset($map['template_secret_key'])) {
+            $model->templateSecretKey = $map['template_secret_key'];
+        }
+        if (isset($map['template_field_config_request_list'])) {
+            if (!empty($map['template_field_config_request_list'])) {
+                $model->templateFieldConfigRequestList = [];
+                $n                                     = 0;
+                foreach ($map['template_field_config_request_list'] as $item) {
+                    $model->templateFieldConfigRequestList[$n++] = null !== $item ? TemplateFieldConfigRequest::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
