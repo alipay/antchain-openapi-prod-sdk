@@ -680,6 +680,39 @@ export class CaSubSignResult extends $tea.Model {
   }
 }
 
+// 模板填充字段实体
+export class TemplateFieldConfigRequest extends $tea.Model {
+  // 字段拥有者（1个人，2客户，3人资服务商）
+  type: number;
+  // 字段名称（英文：identityName、identityNumber、phoneNumber、positionName、salary、salaryNumber、examineStandard、projectDesc）
+  fieldName: string;
+  // 字段名称描述（中文名：姓名、身份证号、手机号、职位、薪资、薪数、考核标准、项目描述）
+  fieldNameDesc: string;
+  // 字段值
+  fieldValue: string;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      fieldName: 'field_name',
+      fieldNameDesc: 'field_name_desc',
+      fieldValue: 'field_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'number',
+      fieldName: 'string',
+      fieldNameDesc: 'string',
+      fieldValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 签署任务结果
 export class CaSignTaskResult extends $tea.Model {
   // 子任务流水号
@@ -1733,6 +1766,10 @@ export class SignAntsaasStaffingcContractCaRequest extends $tea.Model {
   fileObject?: Readable;
   fileObjectName?: string;
   fileId: string;
+  // 合同模板密钥:若为合同模板该值必填,否则不需要填写
+  templateSecretKey?: string;
+  // 模板填充字段集合
+  templateFieldConfigRequestList?: TemplateFieldConfigRequest[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1744,6 +1781,8 @@ export class SignAntsaasStaffingcContractCaRequest extends $tea.Model {
       fileObject: 'fileObject',
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
+      templateSecretKey: 'template_secret_key',
+      templateFieldConfigRequestList: 'template_field_config_request_list',
     };
   }
 
@@ -1758,6 +1797,8 @@ export class SignAntsaasStaffingcContractCaRequest extends $tea.Model {
       fileObject: 'Readable',
       fileObjectName: 'string',
       fileId: 'string',
+      templateSecretKey: 'string',
+      templateFieldConfigRequestList: { 'type': 'array', 'itemType': TemplateFieldConfigRequest },
     };
   }
 
@@ -2000,7 +2041,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -2086,7 +2127,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.0",
+          sdk_version: "2.0.1",
           _prod_code: "ak_320bc483f2434f39a3af9ec9f04d3cc0",
           _prod_channel: "saas",
         };
