@@ -1146,6 +1146,58 @@ class CaSubSignResult(TeaModel):
         return self
 
 
+class TemplateFieldConfigRequest(TeaModel):
+    def __init__(
+        self,
+        type: int = None,
+        field_name: str = None,
+        field_name_desc: str = None,
+        field_value: str = None,
+    ):
+        # 字段拥有者（1个人，2客户，3人资服务商）
+        self.type = type
+        # 字段名称（英文：identityName、identityNumber、phoneNumber、positionName、salary、salaryNumber、examineStandard、projectDesc）
+        self.field_name = field_name
+        # 字段名称描述（中文名：姓名、身份证号、手机号、职位、薪资、薪数、考核标准、项目描述）
+        self.field_name_desc = field_name_desc
+        # 字段值
+        self.field_value = field_value
+
+    def validate(self):
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.field_name, 'field_name')
+        self.validate_required(self.field_name_desc, 'field_name_desc')
+        self.validate_required(self.field_value, 'field_value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['type'] = self.type
+        if self.field_name is not None:
+            result['field_name'] = self.field_name
+        if self.field_name_desc is not None:
+            result['field_name_desc'] = self.field_name_desc
+        if self.field_value is not None:
+            result['field_value'] = self.field_value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('field_name') is not None:
+            self.field_name = m.get('field_name')
+        if m.get('field_name_desc') is not None:
+            self.field_name_desc = m.get('field_name_desc')
+        if m.get('field_value') is not None:
+            self.field_value = m.get('field_value')
+        return self
+
+
 class CaSignTaskResult(TeaModel):
     def __init__(
         self,
@@ -2910,6 +2962,8 @@ class SignAntsaasStaffingcContractCaRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
+        template_secret_key: str = None,
+        template_field_config_request_list: List[TemplateFieldConfigRequest] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -2928,6 +2982,10 @@ class SignAntsaasStaffingcContractCaRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
+        # 合同模板密钥:若为合同模板该值必填,否则不需要填写
+        self.template_secret_key = template_secret_key
+        # 模板填充字段集合
+        self.template_field_config_request_list = template_field_config_request_list
 
     def validate(self):
         self.validate_required(self.biz_name, 'biz_name')
@@ -2939,6 +2997,10 @@ class SignAntsaasStaffingcContractCaRequest(TeaModel):
                 if k:
                     k.validate()
         self.validate_required(self.file_id, 'file_id')
+        if self.template_field_config_request_list:
+            for k in self.template_field_config_request_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -2966,6 +3028,12 @@ class SignAntsaasStaffingcContractCaRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
+        if self.template_secret_key is not None:
+            result['template_secret_key'] = self.template_secret_key
+        result['template_field_config_request_list'] = []
+        if self.template_field_config_request_list is not None:
+            for k in self.template_field_config_request_list:
+                result['template_field_config_request_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -2991,6 +3059,13 @@ class SignAntsaasStaffingcContractCaRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
+        if m.get('template_secret_key') is not None:
+            self.template_secret_key = m.get('template_secret_key')
+        self.template_field_config_request_list = []
+        if m.get('template_field_config_request_list') is not None:
+            for k in m.get('template_field_config_request_list'):
+                temp_model = TemplateFieldConfigRequest()
+                self.template_field_config_request_list.append(temp_model.from_map(k))
         return self
 
 
