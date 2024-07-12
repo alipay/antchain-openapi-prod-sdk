@@ -917,6 +917,46 @@ func (s *CaSubSignResult) SetCaSignUrlResultList(v []*CaSignUrlResult) *CaSubSig
 	return s
 }
 
+// 模板填充字段实体
+type TemplateFieldConfigRequest struct {
+	// 字段拥有者（1个人，2客户，3人资服务商）
+	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 字段名称（英文：identityName、identityNumber、phoneNumber、positionName、salary、salaryNumber、examineStandard、projectDesc）
+	FieldName *string `json:"field_name,omitempty" xml:"field_name,omitempty" require:"true"`
+	// 字段名称描述（中文名：姓名、身份证号、手机号、职位、薪资、薪数、考核标准、项目描述）
+	FieldNameDesc *string `json:"field_name_desc,omitempty" xml:"field_name_desc,omitempty" require:"true"`
+	// 字段值
+	FieldValue *string `json:"field_value,omitempty" xml:"field_value,omitempty" require:"true"`
+}
+
+func (s TemplateFieldConfigRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TemplateFieldConfigRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TemplateFieldConfigRequest) SetType(v int64) *TemplateFieldConfigRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *TemplateFieldConfigRequest) SetFieldName(v string) *TemplateFieldConfigRequest {
+	s.FieldName = &v
+	return s
+}
+
+func (s *TemplateFieldConfigRequest) SetFieldNameDesc(v string) *TemplateFieldConfigRequest {
+	s.FieldNameDesc = &v
+	return s
+}
+
+func (s *TemplateFieldConfigRequest) SetFieldValue(v string) *TemplateFieldConfigRequest {
+	s.FieldValue = &v
+	return s
+}
+
 // 签署任务结果
 type CaSignTaskResult struct {
 	// 子任务流水号
@@ -2293,6 +2333,10 @@ type SignAntsaasStaffingcContractCaRequest struct {
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 合同模板密钥:若为合同模板该值必填,否则不需要填写
+	TemplateSecretKey *string `json:"template_secret_key,omitempty" xml:"template_secret_key,omitempty"`
+	// 模板填充字段集合
+	TemplateFieldConfigRequestList []*TemplateFieldConfigRequest `json:"template_field_config_request_list,omitempty" xml:"template_field_config_request_list,omitempty" type:"Repeated"`
 }
 
 func (s SignAntsaasStaffingcContractCaRequest) String() string {
@@ -2345,6 +2389,16 @@ func (s *SignAntsaasStaffingcContractCaRequest) SetFileObjectName(v string) *Sig
 
 func (s *SignAntsaasStaffingcContractCaRequest) SetFileId(v string) *SignAntsaasStaffingcContractCaRequest {
 	s.FileId = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetTemplateSecretKey(v string) *SignAntsaasStaffingcContractCaRequest {
+	s.TemplateSecretKey = &v
+	return s
+}
+
+func (s *SignAntsaasStaffingcContractCaRequest) SetTemplateFieldConfigRequestList(v []*TemplateFieldConfigRequest) *SignAntsaasStaffingcContractCaRequest {
+	s.TemplateFieldConfigRequestList = v
 	return s
 }
 
@@ -2748,7 +2802,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.0"),
+				"sdk_version":      tea.String("2.0.1"),
 				"_prod_code":       tea.String("ak_320bc483f2434f39a3af9ec9f04d3cc0"),
 				"_prod_channel":    tea.String("saas"),
 			}
