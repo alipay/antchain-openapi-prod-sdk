@@ -1147,12 +1147,16 @@ class SaleDigestData(TeaModel):
     def __init__(
         self,
         hash: str = None,
+        score: str = None,
     ):
         # 商品hash值
         self.hash = hash
+        # 物料置信度
+        self.score = score
 
     def validate(self):
         self.validate_required(self.hash, 'hash')
+        self.validate_required(self.score, 'score')
 
     def to_map(self):
         _map = super().to_map()
@@ -1162,12 +1166,16 @@ class SaleDigestData(TeaModel):
         result = dict()
         if self.hash is not None:
             result['hash'] = self.hash
+        if self.score is not None:
+            result['score'] = self.score
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('hash') is not None:
             self.hash = m.get('hash')
+        if m.get('score') is not None:
+            self.score = m.get('score')
         return self
 
 
