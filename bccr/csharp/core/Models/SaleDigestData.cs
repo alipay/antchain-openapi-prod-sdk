@@ -15,6 +15,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string Hash { get; set; }
 
+        // 物料置信度
+        [NameInMap("score")]
+        [Validation(Required=true)]
+        public string Score { get; set; }
+
     }
 
 }
