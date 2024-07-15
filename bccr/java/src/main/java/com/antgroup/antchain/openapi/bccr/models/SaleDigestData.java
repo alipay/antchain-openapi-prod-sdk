@@ -9,6 +9,11 @@ public class SaleDigestData extends TeaModel {
     @Validation(required = true)
     public String hash;
 
+    // 物料置信度
+    @NameInMap("score")
+    @Validation(required = true)
+    public String score;
+
     public static SaleDigestData build(java.util.Map<String, ?> map) throws Exception {
         SaleDigestData self = new SaleDigestData();
         return TeaModel.build(map, self);
@@ -20,6 +25,14 @@ public class SaleDigestData extends TeaModel {
     }
     public String getHash() {
         return this.hash;
+    }
+
+    public SaleDigestData setScore(String score) {
+        this.score = score;
+        return this;
+    }
+    public String getScore() {
+        return this.score;
     }
 
 }
