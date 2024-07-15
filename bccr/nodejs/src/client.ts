@@ -701,15 +701,19 @@ export class NotaryInvoiceInfo extends $tea.Model {
 export class SaleDigestData extends $tea.Model {
   // 商品hash值
   hash: string;
+  // 物料置信度
+  score: string;
   static names(): { [key: string]: string } {
     return {
       hash: 'hash',
+      score: 'score',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       hash: 'string',
+      score: 'string',
     };
   }
 
@@ -9941,7 +9945,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.18.39",
+          sdk_version: "1.18.41",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };

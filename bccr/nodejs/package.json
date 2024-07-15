@@ -1,6 +1,6 @@
 {
   "name": "@antchain/bccr",
-  "version": "1.18.39",
+  "version": "1.18.41",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
