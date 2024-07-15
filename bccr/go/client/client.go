@@ -953,6 +953,8 @@ func (s *NotaryInvoiceInfo) SetDelivery(v *DeliveryInfo) *NotaryInvoiceInfo {
 type SaleDigestData struct {
 	// 商品hash值
 	Hash *string `json:"hash,omitempty" xml:"hash,omitempty" require:"true"`
+	// 物料置信度
+	Score *string `json:"score,omitempty" xml:"score,omitempty" require:"true"`
 }
 
 func (s SaleDigestData) String() string {
@@ -965,6 +967,11 @@ func (s SaleDigestData) GoString() string {
 
 func (s *SaleDigestData) SetHash(v string) *SaleDigestData {
 	s.Hash = &v
+	return s
+}
+
+func (s *SaleDigestData) SetScore(v string) *SaleDigestData {
+	s.Score = &v
 	return s
 }
 
@@ -13390,7 +13397,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.39"),
+				"sdk_version":      tea.String("1.18.41"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
