@@ -15,13 +15,23 @@ class SaleDigestData extends Model
      * @var string
      */
     public $hash;
+
+    // 物料置信度
+    /**
+     * @example 0.8
+     *
+     * @var string
+     */
+    public $score;
     protected $_name = [
-        'hash' => 'hash',
+        'hash'  => 'hash',
+        'score' => 'score',
     ];
 
     public function validate()
     {
         Model::validateRequired('hash', $this->hash, true);
+        Model::validateRequired('score', $this->score, true);
     }
 
     public function toMap()
@@ -29,6 +39,9 @@ class SaleDigestData extends Model
         $res = [];
         if (null !== $this->hash) {
             $res['hash'] = $this->hash;
+        }
+        if (null !== $this->score) {
+            $res['score'] = $this->score;
         }
 
         return $res;
@@ -44,6 +57,9 @@ class SaleDigestData extends Model
         $model = new self();
         if (isset($map['hash'])) {
             $model->hash = $map['hash'];
+        }
+        if (isset($map['score'])) {
+            $model->score = $map['score'];
         }
 
         return $model;
