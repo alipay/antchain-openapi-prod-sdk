@@ -52,6 +52,14 @@ public class GetEvidenceInfoResponse extends TeaModel {
     @NameInMap("evidence_error_msg")
     public String evidenceErrorMsg;
 
+    // 取证开始时间
+    @NameInMap("start_time")
+    public Long startTime;
+
+    // 取证结束时间
+    @NameInMap("finish_time")
+    public Long finishTime;
+
     public static GetEvidenceInfoResponse build(java.util.Map<String, ?> map) throws Exception {
         GetEvidenceInfoResponse self = new GetEvidenceInfoResponse();
         return TeaModel.build(map, self);
@@ -151,6 +159,22 @@ public class GetEvidenceInfoResponse extends TeaModel {
     }
     public String getEvidenceErrorMsg() {
         return this.evidenceErrorMsg;
+    }
+
+    public GetEvidenceInfoResponse setStartTime(Long startTime) {
+        this.startTime = startTime;
+        return this;
+    }
+    public Long getStartTime() {
+        return this.startTime;
+    }
+
+    public GetEvidenceInfoResponse setFinishTime(Long finishTime) {
+        this.finishTime = finishTime;
+        return this;
+    }
+    public Long getFinishTime() {
+        return this.finishTime;
     }
 
 }
