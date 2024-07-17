@@ -79,6 +79,18 @@ class GetEvidenceInfoResponse extends Model
      * @var string
      */
     public $evidenceErrorMsg;
+
+    // 取证开始时间
+    /**
+     * @var int
+     */
+    public $startTime;
+
+    // 取证结束时间
+    /**
+     * @var int
+     */
+    public $finishTime;
     protected $_name = [
         'reqMsgId'          => 'req_msg_id',
         'resultCode'        => 'result_code',
@@ -92,6 +104,8 @@ class GetEvidenceInfoResponse extends Model
         'certificateInfo'   => 'certificate_info',
         'evidenceErrorCode' => 'evidence_error_code',
         'evidenceErrorMsg'  => 'evidence_error_msg',
+        'startTime'         => 'start_time',
+        'finishTime'        => 'finish_time',
     ];
 
     public function validate()
@@ -136,6 +150,12 @@ class GetEvidenceInfoResponse extends Model
         }
         if (null !== $this->evidenceErrorMsg) {
             $res['evidence_error_msg'] = $this->evidenceErrorMsg;
+        }
+        if (null !== $this->startTime) {
+            $res['start_time'] = $this->startTime;
+        }
+        if (null !== $this->finishTime) {
+            $res['finish_time'] = $this->finishTime;
         }
 
         return $res;
@@ -184,6 +204,12 @@ class GetEvidenceInfoResponse extends Model
         }
         if (isset($map['evidence_error_msg'])) {
             $model->evidenceErrorMsg = $map['evidence_error_msg'];
+        }
+        if (isset($map['start_time'])) {
+            $model->startTime = $map['start_time'];
+        }
+        if (isset($map['finish_time'])) {
+            $model->finishTime = $map['finish_time'];
         }
 
         return $model;
