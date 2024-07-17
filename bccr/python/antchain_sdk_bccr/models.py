@@ -14929,6 +14929,8 @@ class GetEvidenceInfoResponse(TeaModel):
         certificate_info: EvidenceCertificateInfo = None,
         evidence_error_code: str = None,
         evidence_error_msg: str = None,
+        start_time: int = None,
+        finish_time: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -14954,6 +14956,10 @@ class GetEvidenceInfoResponse(TeaModel):
         self.evidence_error_code = evidence_error_code
         # 取证错误描述
         self.evidence_error_msg = evidence_error_msg
+        # 取证开始时间
+        self.start_time = start_time
+        # 取证结束时间
+        self.finish_time = finish_time
 
     def validate(self):
         if self.evidence_url:
@@ -14991,6 +14997,10 @@ class GetEvidenceInfoResponse(TeaModel):
             result['evidence_error_code'] = self.evidence_error_code
         if self.evidence_error_msg is not None:
             result['evidence_error_msg'] = self.evidence_error_msg
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.finish_time is not None:
+            result['finish_time'] = self.finish_time
         return result
 
     def from_map(self, m: dict = None):
@@ -15021,6 +15031,10 @@ class GetEvidenceInfoResponse(TeaModel):
             self.evidence_error_code = m.get('evidence_error_code')
         if m.get('evidence_error_msg') is not None:
             self.evidence_error_msg = m.get('evidence_error_msg')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('finish_time') is not None:
+            self.finish_time = m.get('finish_time')
         return self
 
 
