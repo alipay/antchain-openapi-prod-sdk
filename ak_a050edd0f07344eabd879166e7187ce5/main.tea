@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_a050edd0f07344eabd879166e7187ce5',
     _prod_channel = 'saas'
   };
@@ -161,6 +161,241 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 播报内容数据结构
+model Output {
+  // 交互类型多媒体节点使用
+  // 
+  interactionType: string(name='interaction_type', example='VOICE'),
+  // 播报内容类型
+  contentKey: string(name='content_key', example='RECORD'),
+  // 合成的播报内容或者是录音的文件地址
+  content: string(name='content', example='ss'),
+  // 视频文件id
+  videoFileId: string(name='video_file_id', example='1234'),
+  // 视频文件播放长度毫秒
+  videoFileContentTime: long(name='video_file_content_time', example=''),
+  // 扩展信息
+  extInfo: string(name='ext_info', example='ss'),
+  // key为上面content中的变量value为名称
+  variableMap: string(name='variable_map', example='ss'),
+  // 视频文件code
+  videoCode: string(name='video_code', example='sadfq2342134'),
+  // 语音文件code
+  voiceCode: string(name='voice_code', example='dsafqwer2134214'),
+  // 输出内容list
+  contentList: [ string ](name='content_list', example=''),
+}
+
+// 动作节点数据结构
+model Input {
+  // 参数唯一id
+  feId: string(name='fe_id', example='u7jdde34'),
+  // 因子的id
+  id: long(name='id', example=''),
+  // 参数的code
+  code: string(name='code', example='TEST_CODE'),
+  // 参数的名称
+  name: string(name='name', example='ss'),
+  // 参数取值
+  value: [ string ](name='value', example=''),
+  // 参数的值类型
+  type: string(name='type', example='STRING'),
+  // 是否使用自定义值
+  custom: boolean(name='custom', example='true, false'),
+  // 是否多选
+  multiple: boolean(name='multiple', example='true, false'),
+}
+
+// 交互节点数据结构
+model OutputGroup {
+  // 子节点id
+  id: string(name='id', example='string'),
+  // 自节点名称
+  name: string(name='name', example='ss'),
+  // 快捷条件选择类型
+  conditionType: string(name='condition_type', example='ss'),
+  // 条件表达式
+  conditionConfig: [ string ](name='condition_config', example=''),
+  // 子节点下的播报内容
+  contentList: [ Output ](name='content_list', example=''),
+  // 重试播报时的优先级
+  priority: long(name='priority', example=''),
+}
+
+// 节点配置信息数据结构
+model NodeInfo {
+  // 业务标签
+  bizTag: Output(name='biz_tag', example=''),
+  // 节点子类型
+  subType: string(name='sub_type', example='HANGUP'),
+  // 人工类型
+  transferTargetType: string(name='transfer_target_type', example='ss'),
+  // 路由点
+  transferData: string(name='transfer_data', example='xxx'),
+  // 技能组
+  skillGroupNo: string(name='skill_group_no', example='xxx'),
+  // 扩展信息
+  extInfo: string(name='ext_info', example='{}'),
+  // 业务达成
+  bizAchieve: boolean(name='biz_achieve', example='true, false'),
+  // 音色
+  voiceType: string(name='voice_type', example='luoli'),
+  // 模型类型
+  modelType: string(name='model_type', example='MODEL'),
+  // 分类模型id
+  modelId: string(name='model_id', example='345'),
+  // llm意图识别列表配置
+  llmLabels: [ string ](name='llm_labels', example=''),
+  // 是否必填
+  required: boolean(name='required', example='true, false'),
+  // 失败后重复次数
+  repeatTime: long(name='repeat_time', example=''),
+  // 是否允许重试话术打断
+  interruptable: boolean(name='interruptable', example='true, false'),
+  // sts配置
+  sts: string(name='sts', example='STSPLUS'),
+  // appkey
+  appkey: string(name='appkey', example='sdfsdfss'),
+  // 交互组件后置
+  postInteractionComponent: boolean(name='post_interaction_component', example='true, false'),
+  // 话术选择策略
+  corpusChooseStrategy: string(name='corpus_choose_strategy', example='ORDER'),
+  // 话术选择策略模型的地址
+  corpusChooseModelUrl: string(name='corpus_choose_model_url', example='http'),
+  // 话术选择策略模型类型
+  corpusChooseModelType: string(name='corpus_choose_model_type', example='SYSTEM'),
+  // 全局意图
+  globalIntention: boolean(name='global_intention', example='true, false'),
+  // 命中全局意图后需要播报的内容
+  globalIntentionReply: Output(name='global_intention_reply', example=''),
+  // 按键类型
+  buttonType: string(name='button_type', example='ss'),
+  // 按键位数
+  buttonDigit: long(name='button_digit', example=''),
+  // 结束按键
+  buttonTerminator: string(name='button_terminator', example='ss'),
+  // 收号超时时间
+  buttonTimeout: long(name='button_timeout', example=''),
+  // 收号校验规则
+  buttonValidator: string(name='button_validator', example='ss'),
+  // 静态菜单配置
+  staticKeys: [ string ](name='static_keys', example=''),
+  // 是否支持按键返回上一级
+  staticKeyPrevious: boolean(name='static_key_previous', example='true, false'),
+  // 是否支持按键重播
+  staticKeyRepeat: boolean(name='static_key_repeat', example='true, false'),
+  // 是否跳过用户输入的错误校验
+  staticKeySkipInputCheck: boolean(name='static_key_skip_input_check', example='true, false'),
+  // 只有客权的静态菜单开发
+  round: boolean(name='round', example='true, false'),
+  // 静态菜单语言
+  language: string(name='language', example='ch'),
+  // 实例码
+  ieInstanceCode: string(name='ie_instance_code', example='xxx'),
+  // 子流程ID
+  subFlowFeId: string(name='sub_flow_fe_id', example='df34sdf'),
+  // 动态子流程id值
+  subFlowDynamicId: string(name='sub_flow_dynamic_id', example='ss'),
+  // 输入参数配置
+  subFlowInput: [ Input ](name='sub_flow_input', example=''),
+  // 开始节点参数
+  startParams: [ Input ](name='start_params', example=''),
+  // 和ouput中的interactionType保持一致
+  allowInteractionTypes: [ string ](name='allow_interaction_types', example=''),
+  // 需要共享上下文的虚拟因子列表
+  shareFactors: [ Input ](name='share_factors', example=''),
+}
+
+// 前端图形相关
+model Shape {
+  // 边的样式
+  shape: string(name='shape', example='ss'),
+  // edgeId
+  edgeId: string(name='edge_id', example='ss'),
+  // 边起点的锚点位置
+  sourceAnchor: long(name='source_anchor', example=''),
+  // 边终点的锚点位置
+  targetAnchor: long(name='target_anchor', example=''),
+}
+
+// 流程数据结构
+model Edge {
+  // 边的id，这个是前端生成的，用于图关系
+  edgeId: string(name='edge_id', example='e9dfjd'),
+  // key为上面content中的变量value为名称
+  variableMap: string(name='variable_map', example='ss'),
+  // 边的规则表达式
+  frontConditionExpression: [ string ](name='front_condition_expression', example=''),
+  // 前端图形相关
+  shape: Shape(name='shape', example=''),
+  // 边连接的上一个节点的feId
+  source: string(name='source', example='d9fvnei3'),
+  // 边连接的下一个节点的feId
+  target: string(name='target', example='ie9f3jox'),
+  // 优先级，0~999
+  priority: long(name='priority', example=''),
+}
+
+// 节点数据结构
+model Node {
+  // 节点的id
+  nodeId: string(name='node_id', example='p9endh76'),
+  // 节点名称
+  nodeName: string(name='node_name', example='ss'),
+  // 节点类型
+  nodeType: string(name='node_type', example='START'),
+  // 节点在画布的横向位置
+  x: long(name='x', example=''),
+  // 节点在画布的纵向位置
+  y: long(name='y', example=''),
+  // 节点配置信息
+  nodeInfo: NodeInfo(name='node_info', example=''),
+  // 交互节点的首问播报
+  nodeOutputs: Output(name='node_outputs', example=''),
+  // 交互节点的新的首问播报
+  firstOutputs: [ Output ](name='first_outputs', example=''),
+  // 视频首句播报配置
+  nodeVideoOutput: Output(name='node_video_output', example=''),
+  // 视频结束配置
+  endVideoOutput: OutputGroup(name='end_video_output', example=''),
+}
+
+// 其他统计类数据
+model Page {
+  // 页码
+  currenyPage: long(name='curreny_page', example=''),
+  // 每页数据个数
+  pageSize: long(name='page_size', example=''),
+  // 总页数
+  total: long(name='total', example=''),
+}
+
+// 流程详情返回体
+model OutboundDialogFlowDetailResponseData {
+  // 数据库自增id
+  id?: long(name='id', example=''),
+  // 前端生成的随机字符串id
+  feId: string(name='fe_id', example='di89es8'),
+  // 流程名称
+  name: string(name='name', example='ss'),
+  // 流程当前版本号
+  version: long(name='version', example=''),
+  // 流程版本号集合
+  versions: [ long ](name='versions', example=''),
+  // 全局配置
+  globalConfig: string(name='global_config', example='ss'),
+  // 流程类型
+  type: string(name='type', example='MAIN'),
+  // 暂存code
+  temporaryStorageCode: string(name='temporary_storage_code', example='default'),
+  // 视频播报类型
+  flowInteractiveType: string(name='flow_interactive_type', example='VIDEO'),
+  // 流程图边数据
+  edges: [ Edge ](name='edges', example=''),
+  // 流程图节点数据
+  nodes: [ Node ](name='nodes', example=''),
+}
+
 // 收单返回结构体
 model OutboundPhoneResponseData {
   // 通话唯一ID
@@ -171,6 +406,51 @@ model OutboundPhoneResponseData {
   outcallRequestId?: string(name='outcall_request_id', example='XXX'),
   // 外呼DB的ID
   asynDbId?: string(name='asyn_db_id', example='XXX'),
+}
+
+// 任务列表返回体
+model OutboundTaskListResponseData {
+  // 任务数据库id
+  id?: long(name='id', example=''),
+  // 任务名称
+  name?: string(name='name', example='ss'),
+  // 任务id
+  code?: string(name='code', example='ss'),
+  // 流程前端id/流程code
+  flowFeld?: string(name='flow_feld', example='cjnsdfkj234r'),
+  // 流程id
+  flowId?: long(name='flow_id', example=''),
+  // 流程名称
+  flowName?: string(name='flow_name', example='ss'),
+  // 流程环境区分
+  // PRE——预发
+  // PUB——线上
+  flowEnv?: string(name='flow_env', example='PRE'),
+  // 规则id
+  ruleId?: long(name='rule_id', example=''),
+  // 规则名称
+  ruleName?: string(name='rule_name', example='ss'),
+  // 状态
+  // USING-启用
+  // UNUSED-不启用
+  // DELETED-已删除
+  status?: string(name='status', example='USING'),
+  // 当前任务版本号
+  version?: long(name='version', example=''),
+  // 当前引用流程版本号
+  flowVersion?: long(name='flow_version', example=''),
+  // 流程最新的版本号
+  flowLatestVersion?: long(name='flow_latest_version', example=''),
+  // 当前引用规则版本号
+  ruleVersion?: long(name='rule_version', example=''),
+  // 规则最新的版本号
+  ruleLatestVersion?: long(name='rule_latest_version', example=''),
+  // 任务最新的版本号
+  latestVersion?: long(name='latest_version', example=''),
+  // 任务线上版本号
+  pubVersion?: long(name='pub_version', example=''),
+  // 任务是否在发布流程中
+  publishing: boolean(name='publishing', example='true, false'),
 }
 
 model ImportAntchainAioOutboundPhoneRequest = {
@@ -227,5 +507,166 @@ async function importAntchainAioOutboundPhone(request: ImportAntchainAioOutbound
 async function importAntchainAioOutboundPhoneEx(request: ImportAntchainAioOutboundPhoneRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportAntchainAioOutboundPhoneResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.aio.outbound.phone.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAioOutboundTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务名称
+  name?: string(name='name'),
+  // 外呼流程id
+  flowId?: long(name='flow_id'),
+  // 环境区分
+  env: string(name='env'),
+  // 与env对应
+  ldcName: string(name='ldc_name'),
+  // 根据状态过滤数据
+  status?: string(name='status'),
+  // 租户id
+  tntInstId: string(name='tnt_inst_id'),
+  // 业务id
+  bizCode: string(name='biz_code'),
+  // 当前页码
+  currentPage: long(name='current_page'),
+  // 每页数据个数
+  pageSize: long(name='page_size'),
+}
+
+model QueryAntchainAioOutboundTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+  // 请求结果说明
+  message?: string(name='message'),
+  // 接口业务数据
+  data?: [ OutboundTaskListResponseData ](name='data'),
+  // 其他统计类数据
+  stat?: Page(name='stat'),
+}
+
+/**
+ * Description: 任务列表接口
+ * Summary: 任务列表接口
+ */
+async function queryAntchainAioOutboundTask(request: QueryAntchainAioOutboundTaskRequest): QueryAntchainAioOutboundTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAioOutboundTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务列表接口
+ * Summary: 任务列表接口
+ */
+async function queryAntchainAioOutboundTaskEx(request: QueryAntchainAioOutboundTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAioOutboundTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.aio.outbound.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAioOutboundDialogflowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务id
+  id: long(name='id'),
+  // 租户id
+  tntInstId: string(name='tnt_inst_id'),
+  // 业务id
+  bizCode: string(name='biz_code'),
+}
+
+model QueryAntchainAioOutboundDialogflowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求是否成功
+  // 
+  success?: boolean(name='success'),
+  // 请求结果说明
+  // 
+  message?: string(name='message'),
+  // 接口业务数据
+  // 
+  data?: OutboundDialogFlowDetailResponseData(name='data'),
+  // traceId
+  traceId?: string(name='trace_id'),
+}
+
+/**
+ * Description: 话术详情
+ * Summary: 话术详情
+ */
+async function queryAntchainAioOutboundDialogflow(request: QueryAntchainAioOutboundDialogflowRequest): QueryAntchainAioOutboundDialogflowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAioOutboundDialogflowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 话术详情
+ * Summary: 话术详情
+ */
+async function queryAntchainAioOutboundDialogflowEx(request: QueryAntchainAioOutboundDialogflowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAioOutboundDialogflowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.aio.outbound.dialogflow.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAioOutboundRecordurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tntInstId: string(name='tnt_inst_id'),
+  // 业务code
+  bizCode: string(name='biz_code'),
+  // acid
+  acid?: string(name='acid'),
+  // callRequestId
+  callRequestId?: string(name='call_request_id'),
+}
+
+model QueryAntchainAioOutboundRecordurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求是否成功
+  // 
+  success?: boolean(name='success'),
+  // 请求结果说明
+  // 
+  message?: string(name='message'),
+  // 录音下载地址
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 录音下载
+ * Summary: 录音下载接口
+ */
+async function queryAntchainAioOutboundRecordurl(request: QueryAntchainAioOutboundRecordurlRequest): QueryAntchainAioOutboundRecordurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAioOutboundRecordurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 录音下载
+ * Summary: 录音下载接口
+ */
+async function queryAntchainAioOutboundRecordurlEx(request: QueryAntchainAioOutboundRecordurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAioOutboundRecordurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.aio.outbound.recordurl.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
