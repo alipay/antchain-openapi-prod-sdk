@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 收单返回结构体
+            # 播报内容数据结构
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_a050edd0f07344eabd879166e7187ce5',
                     '_prod_channel': 'saas'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 收单返回结构体
+            # 播报内容数据结构
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.0',
+                    'sdk_version': '1.0.1',
                     '_prod_code': 'ak_a050edd0f07344eabd879166e7187ce5',
                     '_prod_channel': 'saas'
                 }
@@ -329,4 +329,172 @@ class Client:
         return TeaCore.from_map(
             ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.ImportAntchainAioOutboundPhoneResponse(),
             await self.do_request_async('1.0', 'antchain.aio.outbound.phone.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_aio_outbound_task(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskRequest,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskResponse:
+        """
+        Description: 任务列表接口
+        Summary: 任务列表接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_aio_outbound_task_ex(request, headers, runtime)
+
+    async def query_antchain_aio_outbound_task_async(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskRequest,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskResponse:
+        """
+        Description: 任务列表接口
+        Summary: 任务列表接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_aio_outbound_task_ex_async(request, headers, runtime)
+
+    def query_antchain_aio_outbound_task_ex(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskResponse:
+        """
+        Description: 任务列表接口
+        Summary: 任务列表接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskResponse(),
+            self.do_request('1.0', 'antchain.aio.outbound.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_aio_outbound_task_ex_async(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskResponse:
+        """
+        Description: 任务列表接口
+        Summary: 任务列表接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundTaskResponse(),
+            await self.do_request_async('1.0', 'antchain.aio.outbound.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_aio_outbound_dialogflow(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowRequest,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowResponse:
+        """
+        Description: 话术详情
+        Summary: 话术详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_aio_outbound_dialogflow_ex(request, headers, runtime)
+
+    async def query_antchain_aio_outbound_dialogflow_async(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowRequest,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowResponse:
+        """
+        Description: 话术详情
+        Summary: 话术详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_aio_outbound_dialogflow_ex_async(request, headers, runtime)
+
+    def query_antchain_aio_outbound_dialogflow_ex(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowResponse:
+        """
+        Description: 话术详情
+        Summary: 话术详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowResponse(),
+            self.do_request('1.0', 'antchain.aio.outbound.dialogflow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_aio_outbound_dialogflow_ex_async(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowResponse:
+        """
+        Description: 话术详情
+        Summary: 话术详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundDialogflowResponse(),
+            await self.do_request_async('1.0', 'antchain.aio.outbound.dialogflow.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_aio_outbound_recordurl(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlRequest,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlResponse:
+        """
+        Description: 录音下载
+        Summary: 录音下载接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_aio_outbound_recordurl_ex(request, headers, runtime)
+
+    async def query_antchain_aio_outbound_recordurl_async(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlRequest,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlResponse:
+        """
+        Description: 录音下载
+        Summary: 录音下载接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_aio_outbound_recordurl_ex_async(request, headers, runtime)
+
+    def query_antchain_aio_outbound_recordurl_ex(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlResponse:
+        """
+        Description: 录音下载
+        Summary: 录音下载接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlResponse(),
+            self.do_request('1.0', 'antchain.aio.outbound.recordurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_aio_outbound_recordurl_ex_async(
+        self,
+        request: ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlResponse:
+        """
+        Description: 录音下载
+        Summary: 录音下载接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak_a_050edd_0f_07344eabd_879166e_7187ce_5_models.QueryAntchainAioOutboundRecordurlResponse(),
+            await self.do_request_async('1.0', 'antchain.aio.outbound.recordurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
