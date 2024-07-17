@@ -8975,6 +8975,10 @@ export class GetEvidenceInfoResponse extends $tea.Model {
   evidenceErrorCode?: string;
   // 取证错误描述
   evidenceErrorMsg?: string;
+  // 取证开始时间
+  startTime?: number;
+  // 取证结束时间
+  finishTime?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8989,6 +8993,8 @@ export class GetEvidenceInfoResponse extends $tea.Model {
       certificateInfo: 'certificate_info',
       evidenceErrorCode: 'evidence_error_code',
       evidenceErrorMsg: 'evidence_error_msg',
+      startTime: 'start_time',
+      finishTime: 'finish_time',
     };
   }
 
@@ -9006,6 +9012,8 @@ export class GetEvidenceInfoResponse extends $tea.Model {
       certificateInfo: EvidenceCertificateInfo,
       evidenceErrorCode: 'string',
       evidenceErrorMsg: 'string',
+      startTime: 'number',
+      finishTime: 'number',
     };
   }
 
@@ -9945,7 +9953,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.18.41",
+          sdk_version: "1.18.42",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
