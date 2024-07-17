@@ -12106,6 +12106,10 @@ type GetEvidenceInfoResponse struct {
 	EvidenceErrorCode *string `json:"evidence_error_code,omitempty" xml:"evidence_error_code,omitempty"`
 	// 取证错误描述
 	EvidenceErrorMsg *string `json:"evidence_error_msg,omitempty" xml:"evidence_error_msg,omitempty"`
+	// 取证开始时间
+	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty"`
+	// 取证结束时间
+	FinishTime *int64 `json:"finish_time,omitempty" xml:"finish_time,omitempty"`
 }
 
 func (s GetEvidenceInfoResponse) String() string {
@@ -12173,6 +12177,16 @@ func (s *GetEvidenceInfoResponse) SetEvidenceErrorCode(v string) *GetEvidenceInf
 
 func (s *GetEvidenceInfoResponse) SetEvidenceErrorMsg(v string) *GetEvidenceInfoResponse {
 	s.EvidenceErrorMsg = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetStartTime(v int64) *GetEvidenceInfoResponse {
+	s.StartTime = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetFinishTime(v int64) *GetEvidenceInfoResponse {
+	s.FinishTime = &v
 	return s
 }
 
@@ -13397,7 +13411,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.41"),
+				"sdk_version":      tea.String("1.18.42"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
