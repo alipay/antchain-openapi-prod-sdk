@@ -69,6 +69,16 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string EvidenceErrorMsg { get; set; }
 
+        // 取证开始时间
+        [NameInMap("start_time")]
+        [Validation(Required=false)]
+        public long? StartTime { get; set; }
+
+        // 取证结束时间
+        [NameInMap("finish_time")]
+        [Validation(Required=false)]
+        public long? FinishTime { get; set; }
+
     }
 
 }
