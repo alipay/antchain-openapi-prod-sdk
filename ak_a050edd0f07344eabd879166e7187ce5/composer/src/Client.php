@@ -13,6 +13,12 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_a050edd0f07344eabd879166e7187ce5\Models\ImportAntchainAioOutboundPhoneRequest;
 use AntChain\Ak_a050edd0f07344eabd879166e7187ce5\Models\ImportAntchainAioOutboundPhoneResponse;
+use AntChain\Ak_a050edd0f07344eabd879166e7187ce5\Models\QueryAntchainAioOutboundDialogflowRequest;
+use AntChain\Ak_a050edd0f07344eabd879166e7187ce5\Models\QueryAntchainAioOutboundDialogflowResponse;
+use AntChain\Ak_a050edd0f07344eabd879166e7187ce5\Models\QueryAntchainAioOutboundRecordurlRequest;
+use AntChain\Ak_a050edd0f07344eabd879166e7187ce5\Models\QueryAntchainAioOutboundRecordurlResponse;
+use AntChain\Ak_a050edd0f07344eabd879166e7187ce5\Models\QueryAntchainAioOutboundTaskRequest;
+use AntChain\Ak_a050edd0f07344eabd879166e7187ce5\Models\QueryAntchainAioOutboundTaskResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,7 +138,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 收单返回结构体
+            // 播报内容数据结构
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -160,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.0',
+                    'sdk_version'      => '1.0.1',
                     '_prod_code'       => 'ak_a050edd0f07344eabd879166e7187ce5',
                     '_prod_channel'    => 'saas',
                 ];
@@ -239,5 +245,104 @@ class Client
         Utils::validateModel($request);
 
         return ImportAntchainAioOutboundPhoneResponse::fromMap($this->doRequest('1.0', 'antchain.aio.outbound.phone.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 任务列表接口
+     * Summary: 任务列表接口.
+     *
+     * @param QueryAntchainAioOutboundTaskRequest $request
+     *
+     * @return QueryAntchainAioOutboundTaskResponse
+     */
+    public function queryAntchainAioOutboundTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAioOutboundTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 任务列表接口
+     * Summary: 任务列表接口.
+     *
+     * @param QueryAntchainAioOutboundTaskRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryAntchainAioOutboundTaskResponse
+     */
+    public function queryAntchainAioOutboundTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAioOutboundTaskResponse::fromMap($this->doRequest('1.0', 'antchain.aio.outbound.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 话术详情
+     * Summary: 话术详情.
+     *
+     * @param QueryAntchainAioOutboundDialogflowRequest $request
+     *
+     * @return QueryAntchainAioOutboundDialogflowResponse
+     */
+    public function queryAntchainAioOutboundDialogflow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAioOutboundDialogflowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 话术详情
+     * Summary: 话术详情.
+     *
+     * @param QueryAntchainAioOutboundDialogflowRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return QueryAntchainAioOutboundDialogflowResponse
+     */
+    public function queryAntchainAioOutboundDialogflowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAioOutboundDialogflowResponse::fromMap($this->doRequest('1.0', 'antchain.aio.outbound.dialogflow.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 录音下载
+     * Summary: 录音下载接口.
+     *
+     * @param QueryAntchainAioOutboundRecordurlRequest $request
+     *
+     * @return QueryAntchainAioOutboundRecordurlResponse
+     */
+    public function queryAntchainAioOutboundRecordurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAioOutboundRecordurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 录音下载
+     * Summary: 录音下载接口.
+     *
+     * @param QueryAntchainAioOutboundRecordurlRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryAntchainAioOutboundRecordurlResponse
+     */
+    public function queryAntchainAioOutboundRecordurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAioOutboundRecordurlResponse::fromMap($this->doRequest('1.0', 'antchain.aio.outbound.recordurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
