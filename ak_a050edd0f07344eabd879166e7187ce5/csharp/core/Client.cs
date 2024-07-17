@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_a050edd0f07344eabd879166e7187ce5
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_a050edd0f07344eabd879166e7187ce5"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_a050edd0f07344eabd879166e7187ce5
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.0"},
+                        {"sdk_version", "1.0.1"},
                         {"_prod_code", "ak_a050edd0f07344eabd879166e7187ce5"},
                         {"_prod_channel", "saas"},
                     };
@@ -361,6 +361,132 @@ namespace AntChain.SDK.Ak_a050edd0f07344eabd879166e7187ce5
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportAntchainAioOutboundPhoneResponse>(await DoRequestAsync("1.0", "antchain.aio.outbound.phone.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务列表接口
+         * Summary: 任务列表接口
+         */
+        public QueryAntchainAioOutboundTaskResponse QueryAntchainAioOutboundTask(QueryAntchainAioOutboundTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAioOutboundTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务列表接口
+         * Summary: 任务列表接口
+         */
+        public async Task<QueryAntchainAioOutboundTaskResponse> QueryAntchainAioOutboundTaskAsync(QueryAntchainAioOutboundTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAioOutboundTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 任务列表接口
+         * Summary: 任务列表接口
+         */
+        public QueryAntchainAioOutboundTaskResponse QueryAntchainAioOutboundTaskEx(QueryAntchainAioOutboundTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAioOutboundTaskResponse>(DoRequest("1.0", "antchain.aio.outbound.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 任务列表接口
+         * Summary: 任务列表接口
+         */
+        public async Task<QueryAntchainAioOutboundTaskResponse> QueryAntchainAioOutboundTaskExAsync(QueryAntchainAioOutboundTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAioOutboundTaskResponse>(await DoRequestAsync("1.0", "antchain.aio.outbound.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 话术详情
+         * Summary: 话术详情
+         */
+        public QueryAntchainAioOutboundDialogflowResponse QueryAntchainAioOutboundDialogflow(QueryAntchainAioOutboundDialogflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAioOutboundDialogflowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 话术详情
+         * Summary: 话术详情
+         */
+        public async Task<QueryAntchainAioOutboundDialogflowResponse> QueryAntchainAioOutboundDialogflowAsync(QueryAntchainAioOutboundDialogflowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAioOutboundDialogflowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 话术详情
+         * Summary: 话术详情
+         */
+        public QueryAntchainAioOutboundDialogflowResponse QueryAntchainAioOutboundDialogflowEx(QueryAntchainAioOutboundDialogflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAioOutboundDialogflowResponse>(DoRequest("1.0", "antchain.aio.outbound.dialogflow.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 话术详情
+         * Summary: 话术详情
+         */
+        public async Task<QueryAntchainAioOutboundDialogflowResponse> QueryAntchainAioOutboundDialogflowExAsync(QueryAntchainAioOutboundDialogflowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAioOutboundDialogflowResponse>(await DoRequestAsync("1.0", "antchain.aio.outbound.dialogflow.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 录音下载
+         * Summary: 录音下载接口
+         */
+        public QueryAntchainAioOutboundRecordurlResponse QueryAntchainAioOutboundRecordurl(QueryAntchainAioOutboundRecordurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntchainAioOutboundRecordurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 录音下载
+         * Summary: 录音下载接口
+         */
+        public async Task<QueryAntchainAioOutboundRecordurlResponse> QueryAntchainAioOutboundRecordurlAsync(QueryAntchainAioOutboundRecordurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntchainAioOutboundRecordurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 录音下载
+         * Summary: 录音下载接口
+         */
+        public QueryAntchainAioOutboundRecordurlResponse QueryAntchainAioOutboundRecordurlEx(QueryAntchainAioOutboundRecordurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAioOutboundRecordurlResponse>(DoRequest("1.0", "antchain.aio.outbound.recordurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 录音下载
+         * Summary: 录音下载接口
+         */
+        public async Task<QueryAntchainAioOutboundRecordurlResponse> QueryAntchainAioOutboundRecordurlExAsync(QueryAntchainAioOutboundRecordurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntchainAioOutboundRecordurlResponse>(await DoRequestAsync("1.0", "antchain.aio.outbound.recordurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
