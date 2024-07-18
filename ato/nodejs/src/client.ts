@@ -151,6 +151,9 @@ export class CompanyInfo extends $tea.Model {
   tenantId?: string;
   // 统一社会信用代码
   merchantId: string;
+  // 商户类型： 01：企业；07：个体工商户
+  // 默认不填为01
+  merchantType?: string;
   // 公司联系电话
   companyMobile: string;
   // 公司联系地址
@@ -173,6 +176,7 @@ export class CompanyInfo extends $tea.Model {
       companyAliasName: 'company_alias_name',
       tenantId: 'tenant_id',
       merchantId: 'merchant_id',
+      merchantType: 'merchant_type',
       companyMobile: 'company_mobile',
       companyAddress: 'company_address',
       contactName: 'contact_name',
@@ -191,6 +195,7 @@ export class CompanyInfo extends $tea.Model {
       companyAliasName: 'string',
       tenantId: 'string',
       merchantId: 'string',
+      merchantType: 'string',
       companyMobile: 'string',
       companyAddress: 'string',
       contactName: 'string',
@@ -341,23 +346,23 @@ export class RelationPage extends $tea.Model {
 //  公司信息修改
 export class CompanyInfoUpdate extends $tea.Model {
   // 营业执照文件信息
-  businessLicenseFile: FileInfo;
+  businessLicenseFile?: FileInfo;
   // 业务类型 枚举
-  productMainClass: string;
+  productMainClass?: string;
   // 公司名称
-  companyName: string;
+  companyName?: string;
   // 公司别名
-  companyAliasName: string;
+  companyAliasName?: string;
   // 公司数科租户id
   tenantId?: string;
   // 公司联系电话
-  companyMobile: string;
+  companyMobile?: string;
   // 公司联系地址
-  companyAddress: string;
+  companyAddress?: string;
   // 联系人姓名
-  contactName: string;
+  contactName?: string;
   // 联系人手机号码
-  contactMobile: string;
+  contactMobile?: string;
   static names(): { [key: string]: string } {
     return {
       businessLicenseFile: 'business_license_file',
@@ -573,11 +578,14 @@ export class ApplicationInfo extends $tea.Model {
   siteName: string;
   // 网站地址
   sitUrl: string;
-  // 商户名称
+  // 商户名称。
+  // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
   merchantName: string;
-  // 商户服务名称
+  // 商户服务名称。
+  // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
   merchantServiceName: string;
-  // 商户服务描述
+  // 商户服务描述。
+  // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
   merchantServiceDesc: string;
   static names(): { [key: string]: string } {
     return {
@@ -642,6 +650,51 @@ export class PageQuery extends $tea.Model {
     return {
       pageSize: 'number',
       pageIndex: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用信息修改
+export class ApplicationInfoUpdate extends $tea.Model {
+  // 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
+  applicationScene?: string;
+  // 小程序id
+  tinyAppId?: string;
+  // 小程序名称
+  siteName?: string;
+  // http://asdasas.com
+  sitUrl?: string;
+  // 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+  merchantName?: string;
+  // 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+  merchantServiceName?: string;
+  // 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+  merchantServiceDesc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      applicationScene: 'application_scene',
+      tinyAppId: 'tiny_app_id',
+      siteName: 'site_name',
+      sitUrl: 'sit_url',
+      merchantName: 'merchant_name',
+      merchantServiceName: 'merchant_service_name',
+      merchantServiceDesc: 'merchant_service_desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      applicationScene: 'string',
+      tinyAppId: 'string',
+      siteName: 'string',
+      sitUrl: 'string',
+      merchantName: 'string',
+      merchantServiceName: 'string',
+      merchantServiceDesc: 'string',
     };
   }
 
@@ -754,6 +807,39 @@ export class OrderGoodsModel extends $tea.Model {
 
   static types(): { [key: string]: any } {
     return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 法人信息修改
+export class LegalInfoUpdate extends $tea.Model {
+  // 法人名称
+  legalName?: string;
+  // 法人证件号
+  legalCertNo?: string;
+  // 法人证件正面
+  legalCertFrontFile?: FileInfo;
+  // 法人证件反面
+  legalCertBackFile?: FileInfo;
+  static names(): { [key: string]: string } {
+    return {
+      legalName: 'legal_name',
+      legalCertNo: 'legal_cert_no',
+      legalCertFrontFile: 'legal_cert_front_file',
+      legalCertBackFile: 'legal_cert_back_file',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      legalName: 'string',
+      legalCertNo: 'string',
+      legalCertFrontFile: FileInfo,
+      legalCertBackFile: FileInfo,
     };
   }
 
@@ -5169,11 +5255,14 @@ export class RetryInnerOrdermsgResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 消息重试结果
+  retryResult?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      retryResult: 'retry_result',
     };
   }
 
@@ -5182,6 +5271,7 @@ export class RetryInnerOrdermsgResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      retryResult: 'string',
     };
   }
 
@@ -5405,15 +5495,13 @@ export class UpdateMerchantexpandMerchantRequest extends $tea.Model {
   // 公司信息
   companyInfo: CompanyInfoUpdate;
   // 法人信息
-  legalInfo: LegalInfo;
+  legalInfo: LegalInfoUpdate;
   // 应用信息
-  applicationInfo: ApplicationInfo;
-  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
-  expandMode: string;
-  // expand_mode=_AGENT_ 必填
-  subTenantId?: string;
+  applicationInfo: ApplicationInfoUpdate;
   // 进件流水号
   payExpandId: string;
+  // 社会统一信用代码
+  merchantId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5421,9 +5509,8 @@ export class UpdateMerchantexpandMerchantRequest extends $tea.Model {
       companyInfo: 'company_info',
       legalInfo: 'legal_info',
       applicationInfo: 'application_info',
-      expandMode: 'expand_mode',
-      subTenantId: 'sub_tenant_id',
       payExpandId: 'pay_expand_id',
+      merchantId: 'merchant_id',
     };
   }
 
@@ -5432,11 +5519,10 @@ export class UpdateMerchantexpandMerchantRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       companyInfo: CompanyInfoUpdate,
-      legalInfo: LegalInfo,
-      applicationInfo: ApplicationInfo,
-      expandMode: 'string',
-      subTenantId: 'string',
+      legalInfo: LegalInfoUpdate,
+      applicationInfo: ApplicationInfoUpdate,
       payExpandId: 'string',
+      merchantId: 'string',
     };
   }
 
@@ -5492,8 +5578,6 @@ export class CreateRealpersonFacevrfRequest extends $tea.Model {
   certNo: string;
   // 身份信息来源类型
   // IDENTITY_CARD（身份证）
-  // RESIDENCE_HK_MC（港澳居民居住证）
-  // RESIDENCE_TAIWAN（台湾居民居住证）
   certType: string;
   // 【solution_type=ZFB使用】
   // reserve（保存活体人脸 默认值）
@@ -7443,6 +7527,8 @@ export class QueryWithholdSignResponse extends $tea.Model {
   validTime?: string;
   // 协议失效时间
   invalidTime?: string;
+  // 代扣协议号
+  agreementNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7452,6 +7538,7 @@ export class QueryWithholdSignResponse extends $tea.Model {
       signTime: 'sign_time',
       validTime: 'valid_time',
       invalidTime: 'invalid_time',
+      agreementNo: 'agreement_no',
     };
   }
 
@@ -7464,6 +7551,7 @@ export class QueryWithholdSignResponse extends $tea.Model {
       signTime: 'string',
       validTime: 'string',
       invalidTime: 'string',
+      agreementNo: 'string',
     };
   }
 
@@ -8393,7 +8481,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.86",
+          sdk_version: "1.8.92",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
