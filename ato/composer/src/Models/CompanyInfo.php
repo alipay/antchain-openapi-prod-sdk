@@ -56,6 +56,15 @@ class CompanyInfo extends Model
      */
     public $merchantId;
 
+    // 商户类型： 01：企业；07：个体工商户
+    // 默认不填为01
+    /**
+     * @example 01
+     *
+     * @var string
+     */
+    public $merchantType;
+
     // 公司联系电话
     /**
      * @example 1231xx2322
@@ -118,6 +127,7 @@ class CompanyInfo extends Model
         'companyAliasName'    => 'company_alias_name',
         'tenantId'            => 'tenant_id',
         'merchantId'          => 'merchant_id',
+        'merchantType'        => 'merchant_type',
         'companyMobile'       => 'company_mobile',
         'companyAddress'      => 'company_address',
         'contactName'         => 'contact_name',
@@ -163,6 +173,9 @@ class CompanyInfo extends Model
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->merchantType) {
+            $res['merchant_type'] = $this->merchantType;
         }
         if (null !== $this->companyMobile) {
             $res['company_mobile'] = $this->companyMobile;
@@ -214,6 +227,9 @@ class CompanyInfo extends Model
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['merchant_type'])) {
+            $model->merchantType = $map['merchant_type'];
         }
         if (isset($map['company_mobile'])) {
             $model->companyMobile = $map['company_mobile'];

@@ -93,14 +93,6 @@ class CompanyInfoUpdate extends Model
 
     public function validate()
     {
-        Model::validateRequired('businessLicenseFile', $this->businessLicenseFile, true);
-        Model::validateRequired('productMainClass', $this->productMainClass, true);
-        Model::validateRequired('companyName', $this->companyName, true);
-        Model::validateRequired('companyAliasName', $this->companyAliasName, true);
-        Model::validateRequired('companyMobile', $this->companyMobile, true);
-        Model::validateRequired('companyAddress', $this->companyAddress, true);
-        Model::validateRequired('contactName', $this->contactName, true);
-        Model::validateRequired('contactMobile', $this->contactMobile, true);
     }
 
     public function toMap()

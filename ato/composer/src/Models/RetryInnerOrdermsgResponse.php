@@ -25,10 +25,17 @@ class RetryInnerOrdermsgResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 消息重试结果
+    /**
+     * @var string
+     */
+    public $retryResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'retryResult' => 'retry_result',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class RetryInnerOrdermsgResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->retryResult) {
+            $res['retry_result'] = $this->retryResult;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class RetryInnerOrdermsgResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['retry_result'])) {
+            $model->retryResult = $map['retry_result'];
         }
 
         return $model;
