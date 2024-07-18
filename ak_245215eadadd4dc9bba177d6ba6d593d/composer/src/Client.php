@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVideoTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVideoTaskResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVoiceRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVoiceResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoProfileRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoProfileResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoVoiceRequest;
@@ -166,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.3',
+                    'sdk_version'      => '1.1.0',
                     '_prod_code'       => 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel'    => 'saas',
                 ];
@@ -344,5 +346,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryUniversalsaasDigitalhumanVideoTaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.video.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字人tts接口
+     * Summary: 数字人tts接口.
+     *
+     * @param CreateUniversalsaasDigitalhumanVoiceRequest $request
+     *
+     * @return CreateUniversalsaasDigitalhumanVoiceResponse
+     */
+    public function createUniversalsaasDigitalhumanVoice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createUniversalsaasDigitalhumanVoiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字人tts接口
+     * Summary: 数字人tts接口.
+     *
+     * @param CreateUniversalsaasDigitalhumanVoiceRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return CreateUniversalsaasDigitalhumanVoiceResponse
+     */
+    public function createUniversalsaasDigitalhumanVoiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateUniversalsaasDigitalhumanVoiceResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
