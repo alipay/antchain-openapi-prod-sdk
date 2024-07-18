@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.86',
+    sdk_version = '1.8.92',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -191,6 +191,9 @@ model CompanyInfo {
   tenantId?: string(name='tenant_id', example='ASSDDDAS'),
   // 统一社会信用代码
   merchantId: string(name='merchant_id', example='9121asd231231231231'),
+  // 商户类型： 01：企业；07：个体工商户
+  // 默认不填为01
+  merchantType?: string(name='merchant_type', example='01'),
   // 公司联系电话
   companyMobile: string(name='company_mobile', example='1231xx2322'),
   // 公司联系地址
@@ -258,23 +261,23 @@ model RelationPage {
 //  公司信息修改
 model CompanyInfoUpdate {
   // 营业执照文件信息
-  businessLicenseFile: FileInfo(name='business_license_file', example=''),
+  businessLicenseFile?: FileInfo(name='business_license_file', example=''),
   // 业务类型 枚举
-  productMainClass: string(name='product_main_class', example='业务类型'),
+  productMainClass?: string(name='product_main_class', example='业务类型'),
   // 公司名称
-  companyName: string(name='company_name', example='xx公司'),
+  companyName?: string(name='company_name', example='xx公司'),
   // 公司别名
-  companyAliasName: string(name='company_alias_name', example='公司别名'),
+  companyAliasName?: string(name='company_alias_name', example='公司别名'),
   // 公司数科租户id
   tenantId?: string(name='tenant_id', example='ASSDDDAS'),
   // 公司联系电话
-  companyMobile: string(name='company_mobile', example='1231xx2322'),
+  companyMobile?: string(name='company_mobile', example='1231xx2322'),
   // 公司联系地址
-  companyAddress: string(name='company_address', example='xx市xx区'),
+  companyAddress?: string(name='company_address', example='xx市xx区'),
   // 联系人姓名
-  contactName: string(name='contact_name', example='李xx'),
+  contactName?: string(name='contact_name', example='李xx'),
   // 联系人手机号码
-  contactMobile: string(name='contact_mobile', example='132xx2312312'),
+  contactMobile?: string(name='contact_mobile', example='132xx2312312'),
 }
 
 // 进件分页对象
@@ -363,11 +366,14 @@ model ApplicationInfo {
   siteName: string(name='site_name', example='xx小程序'),
   // 网站地址
   sitUrl: string(name='sit_url', example='http://asdasas.com'),
-  // 商户名称
+  // 商户名称。
+  // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
   merchantName: string(name='merchant_name', example='xx商户'),
-  // 商户服务名称
+  // 商户服务名称。
+  // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
   merchantServiceName: string(name='merchant_service_name', example='xx商户服务'),
-  // 商户服务描述
+  // 商户服务描述。
+  // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
   merchantServiceDesc: string(name='merchant_service_desc', example='xx服务描述'),
 }
 
@@ -381,6 +387,24 @@ model PageQuery {
   pageSize: long(name='page_size', example='10'),
   // 当前页
   pageIndex: long(name='page_index', example='2'),
+}
+
+// 应用信息修改
+model ApplicationInfoUpdate {
+  // 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
+  applicationScene?: string(name='application_scene', example='ALL'),
+  // 小程序id
+  tinyAppId?: string(name='tiny_app_id', example='小程序id'),
+  // 小程序名称
+  siteName?: string(name='site_name', example='xx小程序'),
+  // http://asdasas.com
+  sitUrl?: string(name='sit_url', example='http://asdasas.com'),
+  // 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+  merchantName?: string(name='merchant_name', example='xx商户'),
+  // 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+  merchantServiceName?: string(name='merchant_service_name', example='xx商户服务'),
+  // 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+  merchantServiceDesc?: string(name='merchant_service_desc', example='xx服务描述'),
 }
 
 // 法人信息
@@ -419,6 +443,18 @@ model RiskModel {
 
 // 订单包含的单个商品模型
 model OrderGoodsModel {
+}
+
+// 法人信息修改
+model LegalInfoUpdate {
+  // 法人名称
+  legalName?: string(name='legal_name', example='法人名称'),
+  // 法人证件号
+  legalCertNo?: string(name='legal_cert_no', example='法人证件号'),
+  // 法人证件正面
+  legalCertFrontFile?: FileInfo(name='legal_cert_front_file', example=''),
+  // 法人证件反面
+  legalCertBackFile?: FileInfo(name='legal_cert_back_file', example=''),
 }
 
 // 键值对
@@ -3156,6 +3192,8 @@ model RetryInnerOrdermsgResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 消息重试结果
+  retryResult?: string(name='retry_result'),
 }
 
 /**
@@ -3315,15 +3353,13 @@ model UpdateMerchantexpandMerchantRequest = {
   // 公司信息
   companyInfo: CompanyInfoUpdate(name='company_info'),
   // 法人信息
-  legalInfo: LegalInfo(name='legal_info'),
+  legalInfo: LegalInfoUpdate(name='legal_info'),
   // 应用信息
-  applicationInfo: ApplicationInfo(name='application_info'),
-  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
-  expandMode: string(name='expand_mode'),
-  // expand_mode=_AGENT_ 必填
-  subTenantId?: string(name='sub_tenant_id'),
+  applicationInfo: ApplicationInfoUpdate(name='application_info'),
   // 进件流水号
   payExpandId: string(name='pay_expand_id'),
+  // 社会统一信用代码
+  merchantId: string(name='merchant_id'),
 }
 
 model UpdateMerchantexpandMerchantResponse = {
@@ -3371,8 +3407,6 @@ model CreateRealpersonFacevrfRequest = {
   certNo: string(name='cert_no'),
   // 身份信息来源类型
   // IDENTITY_CARD（身份证）
-  // RESIDENCE_HK_MC（港澳居民居住证）
-  // RESIDENCE_TAIWAN（台湾居民居住证）
   certType: string(name='cert_type'),
   // 【solution_type=ZFB使用】
   // reserve（保存活体人脸 默认值）
@@ -4610,6 +4644,8 @@ model QueryWithholdSignResponse = {
   validTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time'),
   // 协议失效时间
   invalidTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='invalid_time'),
+  // 代扣协议号
+  agreementNo?: string(name='agreement_no'),
 }
 
 /**
