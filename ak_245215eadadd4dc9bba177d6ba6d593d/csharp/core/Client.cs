@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.3"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -487,6 +487,48 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUniversalsaasDigitalhumanVideoTaskResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.video.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人tts接口
+         * Summary: 数字人tts接口
+         */
+        public CreateUniversalsaasDigitalhumanVoiceResponse CreateUniversalsaasDigitalhumanVoice(CreateUniversalsaasDigitalhumanVoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateUniversalsaasDigitalhumanVoiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人tts接口
+         * Summary: 数字人tts接口
+         */
+        public async Task<CreateUniversalsaasDigitalhumanVoiceResponse> CreateUniversalsaasDigitalhumanVoiceAsync(CreateUniversalsaasDigitalhumanVoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateUniversalsaasDigitalhumanVoiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人tts接口
+         * Summary: 数字人tts接口
+         */
+        public CreateUniversalsaasDigitalhumanVoiceResponse CreateUniversalsaasDigitalhumanVoiceEx(CreateUniversalsaasDigitalhumanVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateUniversalsaasDigitalhumanVoiceResponse>(DoRequest("1.0", "universalsaas.digitalhuman.voice.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人tts接口
+         * Summary: 数字人tts接口
+         */
+        public async Task<CreateUniversalsaasDigitalhumanVoiceResponse> CreateUniversalsaasDigitalhumanVoiceExAsync(CreateUniversalsaasDigitalhumanVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateUniversalsaasDigitalhumanVoiceResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.voice.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
