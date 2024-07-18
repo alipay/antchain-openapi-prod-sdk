@@ -24,6 +24,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 消息重试结果
+        [NameInMap("retry_result")]
+        [Validation(Required=false)]
+        public string RetryResult { get; set; }
+
     }
 
 }
