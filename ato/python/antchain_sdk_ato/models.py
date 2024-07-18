@@ -239,6 +239,7 @@ class CompanyInfo(TeaModel):
         company_alias_name: str = None,
         tenant_id: str = None,
         merchant_id: str = None,
+        merchant_type: str = None,
         company_mobile: str = None,
         company_address: str = None,
         contact_name: str = None,
@@ -259,6 +260,9 @@ class CompanyInfo(TeaModel):
         self.tenant_id = tenant_id
         # 统一社会信用代码
         self.merchant_id = merchant_id
+        # 商户类型： 01：企业；07：个体工商户
+        # 默认不填为01
+        self.merchant_type = merchant_type
         # 公司联系电话
         self.company_mobile = company_mobile
         # 公司联系地址
@@ -308,6 +312,8 @@ class CompanyInfo(TeaModel):
             result['tenant_id'] = self.tenant_id
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.merchant_type is not None:
+            result['merchant_type'] = self.merchant_type
         if self.company_mobile is not None:
             result['company_mobile'] = self.company_mobile
         if self.company_address is not None:
@@ -339,6 +345,8 @@ class CompanyInfo(TeaModel):
             self.tenant_id = m.get('tenant_id')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('merchant_type') is not None:
+            self.merchant_type = m.get('merchant_type')
         if m.get('company_mobile') is not None:
             self.company_mobile = m.get('company_mobile')
         if m.get('company_address') is not None:
@@ -597,16 +605,8 @@ class CompanyInfoUpdate(TeaModel):
         self.contact_mobile = contact_mobile
 
     def validate(self):
-        self.validate_required(self.business_license_file, 'business_license_file')
         if self.business_license_file:
             self.business_license_file.validate()
-        self.validate_required(self.product_main_class, 'product_main_class')
-        self.validate_required(self.company_name, 'company_name')
-        self.validate_required(self.company_alias_name, 'company_alias_name')
-        self.validate_required(self.company_mobile, 'company_mobile')
-        self.validate_required(self.company_address, 'company_address')
-        self.validate_required(self.contact_name, 'contact_name')
-        self.validate_required(self.contact_mobile, 'contact_mobile')
 
     def to_map(self):
         _map = super().to_map()
@@ -957,11 +957,14 @@ class ApplicationInfo(TeaModel):
         self.site_name = site_name
         # 网站地址
         self.sit_url = sit_url
-        # 商户名称
+        # 商户名称。
+        # 修改后的商户名称，将同步支付宝代扣签约页面字段展示
         self.merchant_name = merchant_name
-        # 商户服务名称
+        # 商户服务名称。
+        # 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
         self.merchant_service_name = merchant_service_name
-        # 商户服务描述
+        # 商户服务描述。
+        # 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
         self.merchant_service_desc = merchant_service_desc
 
     def validate(self):
@@ -1067,6 +1070,76 @@ class PageQuery(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('page_index') is not None:
             self.page_index = m.get('page_index')
+        return self
+
+
+class ApplicationInfoUpdate(TeaModel):
+    def __init__(
+        self,
+        application_scene: str = None,
+        tiny_app_id: str = None,
+        site_name: str = None,
+        sit_url: str = None,
+        merchant_name: str = None,
+        merchant_service_name: str = None,
+        merchant_service_desc: str = None,
+    ):
+        # 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
+        self.application_scene = application_scene
+        # 小程序id
+        self.tiny_app_id = tiny_app_id
+        # 小程序名称
+        self.site_name = site_name
+        # http://asdasas.com
+        self.sit_url = sit_url
+        # 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+        self.merchant_name = merchant_name
+        # 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+        self.merchant_service_name = merchant_service_name
+        # 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+        self.merchant_service_desc = merchant_service_desc
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_scene is not None:
+            result['application_scene'] = self.application_scene
+        if self.tiny_app_id is not None:
+            result['tiny_app_id'] = self.tiny_app_id
+        if self.site_name is not None:
+            result['site_name'] = self.site_name
+        if self.sit_url is not None:
+            result['sit_url'] = self.sit_url
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        if self.merchant_service_name is not None:
+            result['merchant_service_name'] = self.merchant_service_name
+        if self.merchant_service_desc is not None:
+            result['merchant_service_desc'] = self.merchant_service_desc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('application_scene') is not None:
+            self.application_scene = m.get('application_scene')
+        if m.get('tiny_app_id') is not None:
+            self.tiny_app_id = m.get('tiny_app_id')
+        if m.get('site_name') is not None:
+            self.site_name = m.get('site_name')
+        if m.get('sit_url') is not None:
+            self.sit_url = m.get('sit_url')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        if m.get('merchant_service_name') is not None:
+            self.merchant_service_name = m.get('merchant_service_name')
+        if m.get('merchant_service_desc') is not None:
+            self.merchant_service_desc = m.get('merchant_service_desc')
         return self
 
 
@@ -1241,6 +1314,60 @@ class OrderGoodsModel(TeaModel):
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        return self
+
+
+class LegalInfoUpdate(TeaModel):
+    def __init__(
+        self,
+        legal_name: str = None,
+        legal_cert_no: str = None,
+        legal_cert_front_file: FileInfo = None,
+        legal_cert_back_file: FileInfo = None,
+    ):
+        # 法人名称
+        self.legal_name = legal_name
+        # 法人证件号
+        self.legal_cert_no = legal_cert_no
+        # 法人证件正面
+        self.legal_cert_front_file = legal_cert_front_file
+        # 法人证件反面
+        self.legal_cert_back_file = legal_cert_back_file
+
+    def validate(self):
+        if self.legal_cert_front_file:
+            self.legal_cert_front_file.validate()
+        if self.legal_cert_back_file:
+            self.legal_cert_back_file.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.legal_name is not None:
+            result['legal_name'] = self.legal_name
+        if self.legal_cert_no is not None:
+            result['legal_cert_no'] = self.legal_cert_no
+        if self.legal_cert_front_file is not None:
+            result['legal_cert_front_file'] = self.legal_cert_front_file.to_map()
+        if self.legal_cert_back_file is not None:
+            result['legal_cert_back_file'] = self.legal_cert_back_file.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('legal_name') is not None:
+            self.legal_name = m.get('legal_name')
+        if m.get('legal_cert_no') is not None:
+            self.legal_cert_no = m.get('legal_cert_no')
+        if m.get('legal_cert_front_file') is not None:
+            temp_model = FileInfo()
+            self.legal_cert_front_file = temp_model.from_map(m['legal_cert_front_file'])
+        if m.get('legal_cert_back_file') is not None:
+            temp_model = FileInfo()
+            self.legal_cert_back_file = temp_model.from_map(m['legal_cert_back_file'])
         return self
 
 
@@ -8496,6 +8623,7 @@ class RetryInnerOrdermsgResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        retry_result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -8503,6 +8631,8 @@ class RetryInnerOrdermsgResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 消息重试结果
+        self.retry_result = retry_result
 
     def validate(self):
         pass
@@ -8519,6 +8649,8 @@ class RetryInnerOrdermsgResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.retry_result is not None:
+            result['retry_result'] = self.retry_result
         return result
 
     def from_map(self, m: dict = None):
@@ -8529,6 +8661,8 @@ class RetryInnerOrdermsgResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('retry_result') is not None:
+            self.retry_result = m.get('retry_result')
         return self
 
 
@@ -8873,11 +9007,10 @@ class UpdateMerchantexpandMerchantRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         company_info: CompanyInfoUpdate = None,
-        legal_info: LegalInfo = None,
-        application_info: ApplicationInfo = None,
-        expand_mode: str = None,
-        sub_tenant_id: str = None,
+        legal_info: LegalInfoUpdate = None,
+        application_info: ApplicationInfoUpdate = None,
         pay_expand_id: str = None,
+        merchant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8888,12 +9021,10 @@ class UpdateMerchantexpandMerchantRequest(TeaModel):
         self.legal_info = legal_info
         # 应用信息
         self.application_info = application_info
-        # 进件模式 DIRECT(直连进件) AGENT(代理进件)
-        self.expand_mode = expand_mode
-        # expand_mode=_AGENT_ 必填
-        self.sub_tenant_id = sub_tenant_id
         # 进件流水号
         self.pay_expand_id = pay_expand_id
+        # 社会统一信用代码
+        self.merchant_id = merchant_id
 
     def validate(self):
         self.validate_required(self.company_info, 'company_info')
@@ -8905,8 +9036,8 @@ class UpdateMerchantexpandMerchantRequest(TeaModel):
         self.validate_required(self.application_info, 'application_info')
         if self.application_info:
             self.application_info.validate()
-        self.validate_required(self.expand_mode, 'expand_mode')
         self.validate_required(self.pay_expand_id, 'pay_expand_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -8924,12 +9055,10 @@ class UpdateMerchantexpandMerchantRequest(TeaModel):
             result['legal_info'] = self.legal_info.to_map()
         if self.application_info is not None:
             result['application_info'] = self.application_info.to_map()
-        if self.expand_mode is not None:
-            result['expand_mode'] = self.expand_mode
-        if self.sub_tenant_id is not None:
-            result['sub_tenant_id'] = self.sub_tenant_id
         if self.pay_expand_id is not None:
             result['pay_expand_id'] = self.pay_expand_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -8942,17 +9071,15 @@ class UpdateMerchantexpandMerchantRequest(TeaModel):
             temp_model = CompanyInfoUpdate()
             self.company_info = temp_model.from_map(m['company_info'])
         if m.get('legal_info') is not None:
-            temp_model = LegalInfo()
+            temp_model = LegalInfoUpdate()
             self.legal_info = temp_model.from_map(m['legal_info'])
         if m.get('application_info') is not None:
-            temp_model = ApplicationInfo()
+            temp_model = ApplicationInfoUpdate()
             self.application_info = temp_model.from_map(m['application_info'])
-        if m.get('expand_mode') is not None:
-            self.expand_mode = m.get('expand_mode')
-        if m.get('sub_tenant_id') is not None:
-            self.sub_tenant_id = m.get('sub_tenant_id')
         if m.get('pay_expand_id') is not None:
             self.pay_expand_id = m.get('pay_expand_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
         return self
 
 
@@ -9031,8 +9158,6 @@ class CreateRealpersonFacevrfRequest(TeaModel):
         self.cert_no = cert_no
         # 身份信息来源类型
         # IDENTITY_CARD（身份证）
-        # RESIDENCE_HK_MC（港澳居民居住证）
-        # RESIDENCE_TAIWAN（台湾居民居住证）
         self.cert_type = cert_type
         # 【solution_type=ZFB使用】
         # reserve（保存活体人脸 默认值）
@@ -12216,6 +12341,7 @@ class QueryWithholdSignResponse(TeaModel):
         sign_time: str = None,
         valid_time: str = None,
         invalid_time: str = None,
+        agreement_no: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12234,6 +12360,8 @@ class QueryWithholdSignResponse(TeaModel):
         self.valid_time = valid_time
         # 协议失效时间
         self.invalid_time = invalid_time
+        # 代扣协议号
+        self.agreement_no = agreement_no
 
     def validate(self):
         if self.sign_time is not None:
@@ -12263,6 +12391,8 @@ class QueryWithholdSignResponse(TeaModel):
             result['valid_time'] = self.valid_time
         if self.invalid_time is not None:
             result['invalid_time'] = self.invalid_time
+        if self.agreement_no is not None:
+            result['agreement_no'] = self.agreement_no
         return result
 
     def from_map(self, m: dict = None):
@@ -12281,6 +12411,8 @@ class QueryWithholdSignResponse(TeaModel):
             self.valid_time = m.get('valid_time')
         if m.get('invalid_time') is not None:
             self.invalid_time = m.get('invalid_time')
+        if m.get('agreement_no') is not None:
+            self.agreement_no = m.get('agreement_no')
         return self
 
 
