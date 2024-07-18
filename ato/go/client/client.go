@@ -213,6 +213,9 @@ type CompanyInfo struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 统一社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 商户类型： 01：企业；07：个体工商户
+	// 默认不填为01
+	MerchantType *string `json:"merchant_type,omitempty" xml:"merchant_type,omitempty"`
 	// 公司联系电话
 	CompanyMobile *string `json:"company_mobile,omitempty" xml:"company_mobile,omitempty" require:"true"`
 	// 公司联系地址
@@ -264,6 +267,11 @@ func (s *CompanyInfo) SetTenantId(v string) *CompanyInfo {
 
 func (s *CompanyInfo) SetMerchantId(v string) *CompanyInfo {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *CompanyInfo) SetMerchantType(v string) *CompanyInfo {
+	s.MerchantType = &v
 	return s
 }
 
@@ -465,23 +473,23 @@ func (s *RelationPage) SetStatus(v string) *RelationPage {
 //  公司信息修改
 type CompanyInfoUpdate struct {
 	// 营业执照文件信息
-	BusinessLicenseFile *FileInfo `json:"business_license_file,omitempty" xml:"business_license_file,omitempty" require:"true"`
+	BusinessLicenseFile *FileInfo `json:"business_license_file,omitempty" xml:"business_license_file,omitempty"`
 	// 业务类型 枚举
-	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty" require:"true"`
+	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty"`
 	// 公司名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
 	// 公司别名
-	CompanyAliasName *string `json:"company_alias_name,omitempty" xml:"company_alias_name,omitempty" require:"true"`
+	CompanyAliasName *string `json:"company_alias_name,omitempty" xml:"company_alias_name,omitempty"`
 	// 公司数科租户id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
 	// 公司联系电话
-	CompanyMobile *string `json:"company_mobile,omitempty" xml:"company_mobile,omitempty" require:"true"`
+	CompanyMobile *string `json:"company_mobile,omitempty" xml:"company_mobile,omitempty"`
 	// 公司联系地址
-	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty" require:"true"`
+	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty"`
 	// 联系人姓名
-	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
 	// 联系人手机号码
-	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty" require:"true"`
+	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
 }
 
 func (s CompanyInfoUpdate) String() string {
@@ -765,11 +773,14 @@ type ApplicationInfo struct {
 	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty" require:"true"`
 	// 网站地址
 	SitUrl *string `json:"sit_url,omitempty" xml:"sit_url,omitempty" require:"true"`
-	// 商户名称
+	// 商户名称。
+	// 修改后的商户名称，将同步支付宝代扣签约页面字段展示
 	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
-	// 商户服务名称
+	// 商户服务名称。
+	// 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
 	MerchantServiceName *string `json:"merchant_service_name,omitempty" xml:"merchant_service_name,omitempty" require:"true"`
-	// 商户服务描述
+	// 商户服务描述。
+	// 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
 	MerchantServiceDesc *string `json:"merchant_service_desc,omitempty" xml:"merchant_service_desc,omitempty" require:"true"`
 }
 
@@ -851,6 +862,67 @@ func (s *PageQuery) SetPageSize(v int64) *PageQuery {
 
 func (s *PageQuery) SetPageIndex(v int64) *PageQuery {
 	s.PageIndex = &v
+	return s
+}
+
+// 应用信息修改
+type ApplicationInfoUpdate struct {
+	// 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
+	ApplicationScene *string `json:"application_scene,omitempty" xml:"application_scene,omitempty"`
+	// 小程序id
+	TinyAppId *string `json:"tiny_app_id,omitempty" xml:"tiny_app_id,omitempty"`
+	// 小程序名称
+	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty"`
+	// http://asdasas.com
+	SitUrl *string `json:"sit_url,omitempty" xml:"sit_url,omitempty"`
+	// 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+	MerchantServiceName *string `json:"merchant_service_name,omitempty" xml:"merchant_service_name,omitempty"`
+	// 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+	MerchantServiceDesc *string `json:"merchant_service_desc,omitempty" xml:"merchant_service_desc,omitempty"`
+}
+
+func (s ApplicationInfoUpdate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplicationInfoUpdate) GoString() string {
+	return s.String()
+}
+
+func (s *ApplicationInfoUpdate) SetApplicationScene(v string) *ApplicationInfoUpdate {
+	s.ApplicationScene = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetTinyAppId(v string) *ApplicationInfoUpdate {
+	s.TinyAppId = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetSiteName(v string) *ApplicationInfoUpdate {
+	s.SiteName = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetSitUrl(v string) *ApplicationInfoUpdate {
+	s.SitUrl = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetMerchantName(v string) *ApplicationInfoUpdate {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetMerchantServiceName(v string) *ApplicationInfoUpdate {
+	s.MerchantServiceName = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetMerchantServiceDesc(v string) *ApplicationInfoUpdate {
+	s.MerchantServiceDesc = &v
 	return s
 }
 
@@ -977,6 +1049,46 @@ func (s OrderGoodsModel) String() string {
 
 func (s OrderGoodsModel) GoString() string {
 	return s.String()
+}
+
+// 法人信息修改
+type LegalInfoUpdate struct {
+	// 法人名称
+	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty"`
+	// 法人证件号
+	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty"`
+	// 法人证件正面
+	LegalCertFrontFile *FileInfo `json:"legal_cert_front_file,omitempty" xml:"legal_cert_front_file,omitempty"`
+	// 法人证件反面
+	LegalCertBackFile *FileInfo `json:"legal_cert_back_file,omitempty" xml:"legal_cert_back_file,omitempty"`
+}
+
+func (s LegalInfoUpdate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LegalInfoUpdate) GoString() string {
+	return s.String()
+}
+
+func (s *LegalInfoUpdate) SetLegalName(v string) *LegalInfoUpdate {
+	s.LegalName = &v
+	return s
+}
+
+func (s *LegalInfoUpdate) SetLegalCertNo(v string) *LegalInfoUpdate {
+	s.LegalCertNo = &v
+	return s
+}
+
+func (s *LegalInfoUpdate) SetLegalCertFrontFile(v *FileInfo) *LegalInfoUpdate {
+	s.LegalCertFrontFile = v
+	return s
+}
+
+func (s *LegalInfoUpdate) SetLegalCertBackFile(v *FileInfo) *LegalInfoUpdate {
+	s.LegalCertBackFile = v
+	return s
 }
 
 // 键值对
@@ -6666,6 +6778,8 @@ type RetryInnerOrdermsgResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 消息重试结果
+	RetryResult *string `json:"retry_result,omitempty" xml:"retry_result,omitempty"`
 }
 
 func (s RetryInnerOrdermsgResponse) String() string {
@@ -6688,6 +6802,11 @@ func (s *RetryInnerOrdermsgResponse) SetResultCode(v string) *RetryInnerOrdermsg
 
 func (s *RetryInnerOrdermsgResponse) SetResultMsg(v string) *RetryInnerOrdermsgResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *RetryInnerOrdermsgResponse) SetRetryResult(v string) *RetryInnerOrdermsgResponse {
+	s.RetryResult = &v
 	return s
 }
 
@@ -6960,15 +7079,13 @@ type UpdateMerchantexpandMerchantRequest struct {
 	// 公司信息
 	CompanyInfo *CompanyInfoUpdate `json:"company_info,omitempty" xml:"company_info,omitempty" require:"true"`
 	// 法人信息
-	LegalInfo *LegalInfo `json:"legal_info,omitempty" xml:"legal_info,omitempty" require:"true"`
+	LegalInfo *LegalInfoUpdate `json:"legal_info,omitempty" xml:"legal_info,omitempty" require:"true"`
 	// 应用信息
-	ApplicationInfo *ApplicationInfo `json:"application_info,omitempty" xml:"application_info,omitempty" require:"true"`
-	// 进件模式 DIRECT(直连进件) AGENT(代理进件)
-	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
-	// expand_mode=_AGENT_ 必填
-	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
+	ApplicationInfo *ApplicationInfoUpdate `json:"application_info,omitempty" xml:"application_info,omitempty" require:"true"`
 	// 进件流水号
 	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty" require:"true"`
+	// 社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
 }
 
 func (s UpdateMerchantexpandMerchantRequest) String() string {
@@ -6994,28 +7111,23 @@ func (s *UpdateMerchantexpandMerchantRequest) SetCompanyInfo(v *CompanyInfoUpdat
 	return s
 }
 
-func (s *UpdateMerchantexpandMerchantRequest) SetLegalInfo(v *LegalInfo) *UpdateMerchantexpandMerchantRequest {
+func (s *UpdateMerchantexpandMerchantRequest) SetLegalInfo(v *LegalInfoUpdate) *UpdateMerchantexpandMerchantRequest {
 	s.LegalInfo = v
 	return s
 }
 
-func (s *UpdateMerchantexpandMerchantRequest) SetApplicationInfo(v *ApplicationInfo) *UpdateMerchantexpandMerchantRequest {
+func (s *UpdateMerchantexpandMerchantRequest) SetApplicationInfo(v *ApplicationInfoUpdate) *UpdateMerchantexpandMerchantRequest {
 	s.ApplicationInfo = v
-	return s
-}
-
-func (s *UpdateMerchantexpandMerchantRequest) SetExpandMode(v string) *UpdateMerchantexpandMerchantRequest {
-	s.ExpandMode = &v
-	return s
-}
-
-func (s *UpdateMerchantexpandMerchantRequest) SetSubTenantId(v string) *UpdateMerchantexpandMerchantRequest {
-	s.SubTenantId = &v
 	return s
 }
 
 func (s *UpdateMerchantexpandMerchantRequest) SetPayExpandId(v string) *UpdateMerchantexpandMerchantRequest {
 	s.PayExpandId = &v
+	return s
+}
+
+func (s *UpdateMerchantexpandMerchantRequest) SetMerchantId(v string) *UpdateMerchantexpandMerchantRequest {
+	s.MerchantId = &v
 	return s
 }
 
@@ -7073,8 +7185,6 @@ type CreateRealpersonFacevrfRequest struct {
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
 	// 身份信息来源类型
 	// IDENTITY_CARD（身份证）
-	// RESIDENCE_HK_MC（港澳居民居住证）
-	// RESIDENCE_TAIWAN（台湾居民居住证）
 	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
 	// 【solution_type=ZFB使用】
 	// reserve（保存活体人脸 默认值）
@@ -9657,6 +9767,8 @@ type QueryWithholdSignResponse struct {
 	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 协议失效时间
 	InvalidTime *string `json:"invalid_time,omitempty" xml:"invalid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 代扣协议号
+	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty"`
 }
 
 func (s QueryWithholdSignResponse) String() string {
@@ -9699,6 +9811,11 @@ func (s *QueryWithholdSignResponse) SetValidTime(v string) *QueryWithholdSignRes
 
 func (s *QueryWithholdSignResponse) SetInvalidTime(v string) *QueryWithholdSignResponse {
 	s.InvalidTime = &v
+	return s
+}
+
+func (s *QueryWithholdSignResponse) SetAgreementNo(v string) *QueryWithholdSignResponse {
+	s.AgreementNo = &v
 	return s
 }
 
@@ -10855,7 +10972,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.86"),
+				"sdk_version":      tea.String("1.8.92"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
