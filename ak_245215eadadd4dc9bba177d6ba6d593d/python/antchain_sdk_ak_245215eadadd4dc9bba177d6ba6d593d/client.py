@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.3',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -497,4 +497,60 @@ class Client:
         return TeaCore.from_map(
             ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVideoTaskResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.video.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_universalsaas_digitalhuman_voice(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人tts接口
+        Summary: 数字人tts接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_universalsaas_digitalhuman_voice_ex(request, headers, runtime)
+
+    async def create_universalsaas_digitalhuman_voice_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人tts接口
+        Summary: 数字人tts接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_universalsaas_digitalhuman_voice_ex_async(request, headers, runtime)
+
+    def create_universalsaas_digitalhuman_voice_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人tts接口
+        Summary: 数字人tts接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.voice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_universalsaas_digitalhuman_voice_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse:
+        """
+        Description: 数字人tts接口
+        Summary: 数字人tts接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.voice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

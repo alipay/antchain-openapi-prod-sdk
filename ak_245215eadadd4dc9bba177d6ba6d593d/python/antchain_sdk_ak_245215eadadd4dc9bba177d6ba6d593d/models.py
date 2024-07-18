@@ -1210,3 +1210,129 @@ class QueryUniversalsaasDigitalhumanVideoTaskResponse(TeaModel):
         return self
 
 
+class CreateUniversalsaasDigitalhumanVoiceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        text: str = None,
+        speed: str = None,
+        pitch: str = None,
+        volume: str = None,
+        voice: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 需要转语音的文字
+        self.text = text
+        # 语速，[0.5,2.0]，默认1.0
+        self.speed = speed
+        # 音调，[0.1,3.0]，默认1.0
+        self.pitch = pitch
+        # 音量，[0.1,3.0]，默认1.0
+        self.volume = volume
+        # 音色id
+        self.voice = voice
+
+    def validate(self):
+        self.validate_required(self.text, 'text')
+        self.validate_required(self.voice, 'voice')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.text is not None:
+            result['text'] = self.text
+        if self.speed is not None:
+            result['speed'] = self.speed
+        if self.pitch is not None:
+            result['pitch'] = self.pitch
+        if self.volume is not None:
+            result['volume'] = self.volume
+        if self.voice is not None:
+            result['voice'] = self.voice
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('speed') is not None:
+            self.speed = m.get('speed')
+        if m.get('pitch') is not None:
+            self.pitch = m.get('pitch')
+        if m.get('volume') is not None:
+            self.volume = m.get('volume')
+        if m.get('voice') is not None:
+            self.voice = m.get('voice')
+        return self
+
+
+class CreateUniversalsaasDigitalhumanVoiceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        status: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 音频url
+        self.data = data
+        # 结果状态
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
