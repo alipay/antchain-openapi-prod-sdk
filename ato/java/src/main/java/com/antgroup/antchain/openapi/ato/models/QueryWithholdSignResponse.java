@@ -38,6 +38,10 @@ public class QueryWithholdSignResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String invalidTime;
 
+    // 代扣协议号
+    @NameInMap("agreement_no")
+    public String agreementNo;
+
     public static QueryWithholdSignResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryWithholdSignResponse self = new QueryWithholdSignResponse();
         return TeaModel.build(map, self);
@@ -97,6 +101,14 @@ public class QueryWithholdSignResponse extends TeaModel {
     }
     public String getInvalidTime() {
         return this.invalidTime;
+    }
+
+    public QueryWithholdSignResponse setAgreementNo(String agreementNo) {
+        this.agreementNo = agreementNo;
+        return this;
+    }
+    public String getAgreementNo() {
+        return this.agreementNo;
     }
 
 }

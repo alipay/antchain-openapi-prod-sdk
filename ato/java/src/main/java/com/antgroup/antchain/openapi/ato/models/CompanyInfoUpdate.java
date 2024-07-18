@@ -6,22 +6,18 @@ import com.aliyun.tea.*;
 public class CompanyInfoUpdate extends TeaModel {
     // 营业执照文件信息
     @NameInMap("business_license_file")
-    @Validation(required = true)
     public FileInfo businessLicenseFile;
 
     // 业务类型 枚举
     @NameInMap("product_main_class")
-    @Validation(required = true)
     public String productMainClass;
 
     // 公司名称
     @NameInMap("company_name")
-    @Validation(required = true)
     public String companyName;
 
     // 公司别名
     @NameInMap("company_alias_name")
-    @Validation(required = true)
     public String companyAliasName;
 
     // 公司数科租户id
@@ -30,22 +26,18 @@ public class CompanyInfoUpdate extends TeaModel {
 
     // 公司联系电话
     @NameInMap("company_mobile")
-    @Validation(required = true)
     public String companyMobile;
 
     // 公司联系地址
     @NameInMap("company_address")
-    @Validation(required = true)
     public String companyAddress;
 
     // 联系人姓名
     @NameInMap("contact_name")
-    @Validation(required = true)
     public String contactName;
 
     // 联系人手机号码
     @NameInMap("contact_mobile")
-    @Validation(required = true)
     public String contactMobile;
 
     public static CompanyInfoUpdate build(java.util.Map<String, ?> map) throws Exception {

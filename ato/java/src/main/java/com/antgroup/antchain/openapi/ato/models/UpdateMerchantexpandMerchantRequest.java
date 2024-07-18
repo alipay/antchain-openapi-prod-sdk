@@ -19,26 +19,22 @@ public class UpdateMerchantexpandMerchantRequest extends TeaModel {
     // 法人信息
     @NameInMap("legal_info")
     @Validation(required = true)
-    public LegalInfo legalInfo;
+    public LegalInfoUpdate legalInfo;
 
     // 应用信息
     @NameInMap("application_info")
     @Validation(required = true)
-    public ApplicationInfo applicationInfo;
-
-    // 进件模式 DIRECT(直连进件) AGENT(代理进件)
-    @NameInMap("expand_mode")
-    @Validation(required = true)
-    public String expandMode;
-
-    // expand_mode=_AGENT_ 必填
-    @NameInMap("sub_tenant_id")
-    public String subTenantId;
+    public ApplicationInfoUpdate applicationInfo;
 
     // 进件流水号
     @NameInMap("pay_expand_id")
     @Validation(required = true)
     public String payExpandId;
+
+    // 社会统一信用代码
+    @NameInMap("merchant_id")
+    @Validation(required = true)
+    public String merchantId;
 
     public static UpdateMerchantexpandMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateMerchantexpandMerchantRequest self = new UpdateMerchantexpandMerchantRequest();
@@ -69,36 +65,20 @@ public class UpdateMerchantexpandMerchantRequest extends TeaModel {
         return this.companyInfo;
     }
 
-    public UpdateMerchantexpandMerchantRequest setLegalInfo(LegalInfo legalInfo) {
+    public UpdateMerchantexpandMerchantRequest setLegalInfo(LegalInfoUpdate legalInfo) {
         this.legalInfo = legalInfo;
         return this;
     }
-    public LegalInfo getLegalInfo() {
+    public LegalInfoUpdate getLegalInfo() {
         return this.legalInfo;
     }
 
-    public UpdateMerchantexpandMerchantRequest setApplicationInfo(ApplicationInfo applicationInfo) {
+    public UpdateMerchantexpandMerchantRequest setApplicationInfo(ApplicationInfoUpdate applicationInfo) {
         this.applicationInfo = applicationInfo;
         return this;
     }
-    public ApplicationInfo getApplicationInfo() {
+    public ApplicationInfoUpdate getApplicationInfo() {
         return this.applicationInfo;
-    }
-
-    public UpdateMerchantexpandMerchantRequest setExpandMode(String expandMode) {
-        this.expandMode = expandMode;
-        return this;
-    }
-    public String getExpandMode() {
-        return this.expandMode;
-    }
-
-    public UpdateMerchantexpandMerchantRequest setSubTenantId(String subTenantId) {
-        this.subTenantId = subTenantId;
-        return this;
-    }
-    public String getSubTenantId() {
-        return this.subTenantId;
     }
 
     public UpdateMerchantexpandMerchantRequest setPayExpandId(String payExpandId) {
@@ -107,6 +87,14 @@ public class UpdateMerchantexpandMerchantRequest extends TeaModel {
     }
     public String getPayExpandId() {
         return this.payExpandId;
+    }
+
+    public UpdateMerchantexpandMerchantRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }

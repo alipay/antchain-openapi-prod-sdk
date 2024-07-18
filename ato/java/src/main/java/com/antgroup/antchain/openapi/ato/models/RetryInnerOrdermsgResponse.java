@@ -16,6 +16,10 @@ public class RetryInnerOrdermsgResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 消息重试结果
+    @NameInMap("retry_result")
+    public String retryResult;
+
     public static RetryInnerOrdermsgResponse build(java.util.Map<String, ?> map) throws Exception {
         RetryInnerOrdermsgResponse self = new RetryInnerOrdermsgResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class RetryInnerOrdermsgResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public RetryInnerOrdermsgResponse setRetryResult(String retryResult) {
+        this.retryResult = retryResult;
+        return this;
+    }
+    public String getRetryResult() {
+        return this.retryResult;
     }
 
 }
