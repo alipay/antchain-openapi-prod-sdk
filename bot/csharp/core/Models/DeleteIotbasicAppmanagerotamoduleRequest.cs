@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class QueryIotbasicCategorylistRequest : TeaModel {
+    public class DeleteIotbasicAppmanagerotamoduleRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 项目编码
-        [NameInMap("project_code")]
+        // 品类code
+        [NameInMap("category_code")]
         [Validation(Required=true)]
-        public string ProjectCode { get; set; }
+        public string CategoryCode { get; set; }
+
+        // 要删除的OTA模块名称。
+        [NameInMap("module_name")]
+        [Validation(Required=true)]
+        public string ModuleName { get; set; }
 
     }
 

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class ApplyTechintegrationSkushipResponse : TeaModel {
+    public class PublishIotbasicAppreleaseorderResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 支付芯证书列表
-        [NameInMap("data")]
+        // 接口调用结果
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public List<string> Data { get; set; }
+        public bool? Success { get; set; }
 
-        // 证书拉取任务ID
-        [NameInMap("task_id")]
+        // 未完成的设备升级列表
+        [NameInMap("unfinished_list")]
         [Validation(Required=false)]
-        public string TaskId { get; set; }
-
-        // 证书拉取任务批次
-        [NameInMap("task_batch_num")]
-        [Validation(Required=false)]
-        public string TaskBatchNum { get; set; }
+        public List<IotbasicReleaseDeviceInfo> UnfinishedList { get; set; }
 
     }
 

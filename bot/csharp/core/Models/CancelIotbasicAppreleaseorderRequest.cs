@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class QueryIotbasicCategorylistRequest : TeaModel {
+    public class CancelIotbasicAppreleaseorderRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 项目编码
-        [NameInMap("project_code")]
+        // 工单id
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public string ProjectCode { get; set; }
+        public string OrderId { get; set; }
 
     }
 

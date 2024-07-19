@@ -48,6 +48,21 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public List<string> Features { get; set; }
 
+        // 证书拉取任务ID
+        [NameInMap("task_id")]
+        [Validation(Required=false)]
+        public string TaskId { get; set; }
+
+        // 证书拉取任务批次
+        [NameInMap("task_batch_num")]
+        [Validation(Required=false)]
+        public string TaskBatchNum { get; set; }
+
+        // 重试标志
+        [NameInMap("retry_flag")]
+        [Validation(Required=false)]
+        public bool? RetryFlag { get; set; }
+
     }
 
 }
