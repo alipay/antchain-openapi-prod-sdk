@@ -1521,6 +1521,116 @@ func (s *CodeListView) SetDataName(v string) *CodeListView {
 	return s
 }
 
+// iotbasic-应用列表信息
+type IotbasicAppManagerPageInfo struct {
+	// 应用类型
+	FileFormat *string `json:"file_format,omitempty" xml:"file_format,omitempty" require:"true"`
+	// 应用大小
+	FileSize *int64 `json:"file_size,omitempty" xml:"file_size,omitempty" require:"true"`
+	// 应用模块名称
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+	// 设备品类code
+	DeviceCategory *string `json:"device_category,omitempty" xml:"device_category,omitempty" require:"true"`
+	// 设备品类名称
+	DeviceCategoryName *string `json:"device_category_name,omitempty" xml:"device_category_name,omitempty" require:"true"`
+	// 应用模块包名
+	PackageName *string `json:"package_name,omitempty" xml:"package_name,omitempty" require:"true"`
+	// 应用描述
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 应用版本号
+	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty" require:"true"`
+	// 应用包类型（整包：0/差分：1）
+	ApkType *int64 `json:"apk_type,omitempty" xml:"apk_type,omitempty" require:"true"`
+	// 应用名称
+	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty" require:"true"`
+	// 应用包id
+	ApkId *string `json:"apk_id,omitempty" xml:"apk_id,omitempty" require:"true"`
+	// 下载次数
+	DownloadCount *int64 `json:"download_count,omitempty" xml:"download_count,omitempty" require:"true"`
+	// 安装次数
+	InstallCount *int64 `json:"install_count,omitempty" xml:"install_count,omitempty" require:"true"`
+	// 设备型号
+	DeviceModel *string `json:"device_model,omitempty" xml:"device_model,omitempty"`
+}
+
+func (s IotbasicAppManagerPageInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicAppManagerPageInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicAppManagerPageInfo) SetFileFormat(v string) *IotbasicAppManagerPageInfo {
+	s.FileFormat = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetFileSize(v int64) *IotbasicAppManagerPageInfo {
+	s.FileSize = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetModuleName(v string) *IotbasicAppManagerPageInfo {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetDeviceCategory(v string) *IotbasicAppManagerPageInfo {
+	s.DeviceCategory = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetDeviceCategoryName(v string) *IotbasicAppManagerPageInfo {
+	s.DeviceCategoryName = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetPackageName(v string) *IotbasicAppManagerPageInfo {
+	s.PackageName = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetRemark(v string) *IotbasicAppManagerPageInfo {
+	s.Remark = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetApkVersion(v string) *IotbasicAppManagerPageInfo {
+	s.ApkVersion = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetApkType(v int64) *IotbasicAppManagerPageInfo {
+	s.ApkType = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetApkName(v string) *IotbasicAppManagerPageInfo {
+	s.ApkName = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetApkId(v string) *IotbasicAppManagerPageInfo {
+	s.ApkId = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetDownloadCount(v int64) *IotbasicAppManagerPageInfo {
+	s.DownloadCount = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetInstallCount(v int64) *IotbasicAppManagerPageInfo {
+	s.InstallCount = &v
+	return s
+}
+
+func (s *IotbasicAppManagerPageInfo) SetDeviceModel(v string) *IotbasicAppManagerPageInfo {
+	s.DeviceModel = &v
+	return s
+}
+
 // 查询设备列表结构体
 type IotBasicDeviceQueryResponse struct {
 	// 设备名称
@@ -2114,6 +2224,89 @@ func (s *PurchaseOrderInfoDetail) SetLeaseId(v string) *PurchaseOrderInfoDetail 
 
 func (s *PurchaseOrderInfoDetail) SetGoodsIdAndCount(v []*GoodsIdAndCount) *PurchaseOrderInfoDetail {
 	s.GoodsIdAndCount = v
+	return s
+}
+
+// iotbasic发布批次信息
+type IotbasicReleaseOrderInfo struct {
+	// 应用名称
+	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty" require:"true"`
+	// 应用版本号
+	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty" require:"true"`
+	// 工单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 工单名称
+	OrderName *string `json:"order_name,omitempty" xml:"order_name,omitempty" require:"true"`
+	// 发布批次状态
+	// 升级中：IN_PROGRESS
+	// 取消中：CANCELING
+	// 部分成功：PARTIAL_SUCCESS
+	// 部分失败：PARTIAL_FAILED
+	// 部分取消：PARTIAL_CANCELED
+	// 全部成功：ALL_SUCCESS
+	// 全部失败：ALL_FAILED
+	// 全部取消：ALL_CANCELED
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 发布时间
+	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty" require:"true"`
+	// 设备升级总数
+	ReleaseTotal *int64 `json:"release_total,omitempty" xml:"release_total,omitempty" require:"true"`
+	// 设备升级完成数
+	ReleaseFinished *int64 `json:"release_finished,omitempty" xml:"release_finished,omitempty" require:"true"`
+	// 工单状态变更时间
+	StatusChangeTime *string `json:"status_change_time,omitempty" xml:"status_change_time,omitempty" require:"true"`
+}
+
+func (s IotbasicReleaseOrderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicReleaseOrderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicReleaseOrderInfo) SetApkName(v string) *IotbasicReleaseOrderInfo {
+	s.ApkName = &v
+	return s
+}
+
+func (s *IotbasicReleaseOrderInfo) SetApkVersion(v string) *IotbasicReleaseOrderInfo {
+	s.ApkVersion = &v
+	return s
+}
+
+func (s *IotbasicReleaseOrderInfo) SetOrderId(v string) *IotbasicReleaseOrderInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *IotbasicReleaseOrderInfo) SetOrderName(v string) *IotbasicReleaseOrderInfo {
+	s.OrderName = &v
+	return s
+}
+
+func (s *IotbasicReleaseOrderInfo) SetStatus(v string) *IotbasicReleaseOrderInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *IotbasicReleaseOrderInfo) SetReleaseTime(v string) *IotbasicReleaseOrderInfo {
+	s.ReleaseTime = &v
+	return s
+}
+
+func (s *IotbasicReleaseOrderInfo) SetReleaseTotal(v int64) *IotbasicReleaseOrderInfo {
+	s.ReleaseTotal = &v
+	return s
+}
+
+func (s *IotbasicReleaseOrderInfo) SetReleaseFinished(v int64) *IotbasicReleaseOrderInfo {
+	s.ReleaseFinished = &v
+	return s
+}
+
+func (s *IotbasicReleaseOrderInfo) SetStatusChangeTime(v string) *IotbasicReleaseOrderInfo {
+	s.StatusChangeTime = &v
 	return s
 }
 
@@ -5107,6 +5300,32 @@ func (s *JtDevice) SetTerminalType(v string) *JtDevice {
 	return s
 }
 
+// iotbasic ota模块信息
+type IotbasicOtaModuleInfo struct {
+	// OTA模块名称
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+	// 最新版本号
+	LastVersion *string `json:"last_version,omitempty" xml:"last_version,omitempty"`
+}
+
+func (s IotbasicOtaModuleInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicOtaModuleInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicOtaModuleInfo) SetModuleName(v string) *IotbasicOtaModuleInfo {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *IotbasicOtaModuleInfo) SetLastVersion(v string) *IotbasicOtaModuleInfo {
+	s.LastVersion = &v
+	return s
+}
+
 // 电脑型号信息
 type ComputerInfo struct {
 	// 颜色
@@ -5412,6 +5631,103 @@ func (s *GoodsDigitalFingerprintRegisterResultData) SetSuccess(v bool) *GoodsDig
 
 func (s *GoodsDigitalFingerprintRegisterResultData) SetDescribe(v string) *GoodsDigitalFingerprintRegisterResultData {
 	s.Describe = &v
+	return s
+}
+
+// iotbasic设备升级列表信息
+type IotbasicReleaseDeviceInfo struct {
+	// 应用名称
+	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty" require:"true"`
+	// 应用版本号
+	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty" require:"true"`
+	// 工单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 工单名称
+	OrderName *string `json:"order_name,omitempty" xml:"order_name,omitempty" require:"true"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 设备升级任务唯一id
+	OrderDetailId *string `json:"order_detail_id,omitempty" xml:"order_detail_id,omitempty" require:"true"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty" require:"true"`
+	// 设备id
+	DeviceId *string `json:"device_id,omitempty" xml:"device_id,omitempty" require:"true"`
+	// 设备升级状态
+	// 待确认：CONFIRM
+	// 待推送：QUEUED
+	// 已推送：NOTIFIED
+	// 升级中：IN_PROGRESS
+	// 升级成功：SUCCEEDED
+	// 升级失败：FAILED
+	// 已取消：CANCELED
+	// 升级超时：TIMEOUT
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 发布时间
+	ReleaseTime *string `json:"release_time,omitempty" xml:"release_time,omitempty"`
+	// 升级完成时间
+	UpgradeTime *string `json:"upgrade_time,omitempty" xml:"upgrade_time,omitempty"`
+}
+
+func (s IotbasicReleaseDeviceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IotbasicReleaseDeviceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetApkName(v string) *IotbasicReleaseDeviceInfo {
+	s.ApkName = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetApkVersion(v string) *IotbasicReleaseDeviceInfo {
+	s.ApkVersion = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetOrderId(v string) *IotbasicReleaseDeviceInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetOrderName(v string) *IotbasicReleaseDeviceInfo {
+	s.OrderName = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetTaskId(v string) *IotbasicReleaseDeviceInfo {
+	s.TaskId = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetOrderDetailId(v string) *IotbasicReleaseDeviceInfo {
+	s.OrderDetailId = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetDeviceSn(v string) *IotbasicReleaseDeviceInfo {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetDeviceId(v string) *IotbasicReleaseDeviceInfo {
+	s.DeviceId = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetStatus(v string) *IotbasicReleaseDeviceInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetReleaseTime(v string) *IotbasicReleaseDeviceInfo {
+	s.ReleaseTime = &v
+	return s
+}
+
+func (s *IotbasicReleaseDeviceInfo) SetUpgradeTime(v string) *IotbasicReleaseDeviceInfo {
+	s.UpgradeTime = &v
 	return s
 }
 
@@ -6288,6 +6604,46 @@ func (s *OrderPushInfo) SetTotalAmount(v string) *OrderPushInfo {
 
 func (s *OrderPushInfo) SetTenantId(v string) *OrderPushInfo {
 	s.TenantId = &v
+	return s
+}
+
+// 证书授权信息查询结果
+type SkuGrantStockInfoResp struct {
+	// 产品型号
+	ProductModel *string `json:"product_model,omitempty" xml:"product_model,omitempty"`
+	// 产品形式，取值范围： SOFTWARE_HARDWARE：软硬一体（SE方案）, SOFTWARE：纯软（非SE方案）
+	ProductForm *string `json:"product_form,omitempty" xml:"product_form,omitempty"`
+	// 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+	Features []*string `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
+	// 授权数量(指当前证书凭证种类下未消耗的证书数量)
+	CertNum *int64 `json:"cert_num,omitempty" xml:"cert_num,omitempty"`
+}
+
+func (s SkuGrantStockInfoResp) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SkuGrantStockInfoResp) GoString() string {
+	return s.String()
+}
+
+func (s *SkuGrantStockInfoResp) SetProductModel(v string) *SkuGrantStockInfoResp {
+	s.ProductModel = &v
+	return s
+}
+
+func (s *SkuGrantStockInfoResp) SetProductForm(v string) *SkuGrantStockInfoResp {
+	s.ProductForm = &v
+	return s
+}
+
+func (s *SkuGrantStockInfoResp) SetFeatures(v []*string) *SkuGrantStockInfoResp {
+	s.Features = v
+	return s
+}
+
+func (s *SkuGrantStockInfoResp) SetCertNum(v int64) *SkuGrantStockInfoResp {
+	s.CertNum = &v
 	return s
 }
 
@@ -16407,10 +16763,8 @@ type QueryIotbasicCategorylistRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 行业
-	Industry *string `json:"industry,omitempty" xml:"industry,omitempty"`
-	// 场景
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
+	// 项目编码
+	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
 }
 
 func (s QueryIotbasicCategorylistRequest) String() string {
@@ -16431,13 +16785,8 @@ func (s *QueryIotbasicCategorylistRequest) SetProductInstanceId(v string) *Query
 	return s
 }
 
-func (s *QueryIotbasicCategorylistRequest) SetIndustry(v string) *QueryIotbasicCategorylistRequest {
-	s.Industry = &v
-	return s
-}
-
-func (s *QueryIotbasicCategorylistRequest) SetScene(v string) *QueryIotbasicCategorylistRequest {
-	s.Scene = &v
+func (s *QueryIotbasicCategorylistRequest) SetProjectCode(v string) *QueryIotbasicCategorylistRequest {
+	s.ProjectCode = &v
 	return s
 }
 
@@ -19336,7 +19685,7 @@ func (s *GetDigitalkeyDeviceinfoResponse) SetData(v *IotbasicDigitalKeyDeviceInf
 	return s
 }
 
-type UploadIotbasicAppmanagerfileRequest struct {
+type CreateIotbasicAppmanagerRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -19345,50 +19694,101 @@ type UploadIotbasicAppmanagerfileRequest struct {
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
-	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
-	// 应用模块名称，由查询应用类型列表获取
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 应用模块名称，由查询应用类型列表获取。默认使用default模块
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+	// OTA升级包名称，需在iot账号下唯一，创建后不可修改。支持中文、英文字母、日文、数字、短划线（-）、下划线（_）和半角圆括号（()），必须以中文、英文、日文或数字开头，长度限制为1~40个字符。
+	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty" require:"true"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
+	// 设备型号值
+	DeviceModelValue *string `json:"device_model_value,omitempty" xml:"device_model_value,omitempty"`
+	// 应用包描述
+	// 最大字符为100
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+	// 当前OTA升级包的版本号，仅支持英文字母、数字、半角句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。
+	// 最新模块版本好可通过查询应用类型列表接口获取
+	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty" require:"true"`
+	// 项目编码
+	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
+	// 文件地址
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
 }
 
-func (s UploadIotbasicAppmanagerfileRequest) String() string {
+func (s CreateIotbasicAppmanagerRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UploadIotbasicAppmanagerfileRequest) GoString() string {
+func (s CreateIotbasicAppmanagerRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UploadIotbasicAppmanagerfileRequest) SetAuthToken(v string) *UploadIotbasicAppmanagerfileRequest {
+func (s *CreateIotbasicAppmanagerRequest) SetAuthToken(v string) *CreateIotbasicAppmanagerRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileRequest) SetProductInstanceId(v string) *UploadIotbasicAppmanagerfileRequest {
+func (s *CreateIotbasicAppmanagerRequest) SetProductInstanceId(v string) *CreateIotbasicAppmanagerRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileRequest) SetFileObject(v io.Reader) *UploadIotbasicAppmanagerfileRequest {
+func (s *CreateIotbasicAppmanagerRequest) SetFileObject(v io.Reader) *CreateIotbasicAppmanagerRequest {
 	s.FileObject = v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileRequest) SetFileObjectName(v string) *UploadIotbasicAppmanagerfileRequest {
+func (s *CreateIotbasicAppmanagerRequest) SetFileObjectName(v string) *CreateIotbasicAppmanagerRequest {
 	s.FileObjectName = &v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileRequest) SetFileId(v string) *UploadIotbasicAppmanagerfileRequest {
+func (s *CreateIotbasicAppmanagerRequest) SetFileId(v string) *CreateIotbasicAppmanagerRequest {
 	s.FileId = &v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileRequest) SetBizType(v string) *UploadIotbasicAppmanagerfileRequest {
-	s.BizType = &v
+func (s *CreateIotbasicAppmanagerRequest) SetModuleName(v string) *CreateIotbasicAppmanagerRequest {
+	s.ModuleName = &v
 	return s
 }
 
-type UploadIotbasicAppmanagerfileResponse struct {
+func (s *CreateIotbasicAppmanagerRequest) SetApkName(v string) *CreateIotbasicAppmanagerRequest {
+	s.ApkName = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerRequest) SetCategoryCode(v string) *CreateIotbasicAppmanagerRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerRequest) SetDeviceModelValue(v string) *CreateIotbasicAppmanagerRequest {
+	s.DeviceModelValue = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerRequest) SetRemark(v string) *CreateIotbasicAppmanagerRequest {
+	s.Remark = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerRequest) SetApkVersion(v string) *CreateIotbasicAppmanagerRequest {
+	s.ApkVersion = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerRequest) SetProjectCode(v string) *CreateIotbasicAppmanagerRequest {
+	s.ProjectCode = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerRequest) SetFileUrl(v string) *CreateIotbasicAppmanagerRequest {
+	s.FileUrl = &v
+	return s
+}
+
+type CreateIotbasicAppmanagerResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -19397,40 +19797,1218 @@ type UploadIotbasicAppmanagerfileResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 接口调用结果
 	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
-	// 上传应用文件解析结果，json字符串
+	// 文件id
 	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
-func (s UploadIotbasicAppmanagerfileResponse) String() string {
+func (s CreateIotbasicAppmanagerResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UploadIotbasicAppmanagerfileResponse) GoString() string {
+func (s CreateIotbasicAppmanagerResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UploadIotbasicAppmanagerfileResponse) SetReqMsgId(v string) *UploadIotbasicAppmanagerfileResponse {
+func (s *CreateIotbasicAppmanagerResponse) SetReqMsgId(v string) *CreateIotbasicAppmanagerResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileResponse) SetResultCode(v string) *UploadIotbasicAppmanagerfileResponse {
+func (s *CreateIotbasicAppmanagerResponse) SetResultCode(v string) *CreateIotbasicAppmanagerResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileResponse) SetResultMsg(v string) *UploadIotbasicAppmanagerfileResponse {
+func (s *CreateIotbasicAppmanagerResponse) SetResultMsg(v string) *CreateIotbasicAppmanagerResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileResponse) SetSuccess(v bool) *UploadIotbasicAppmanagerfileResponse {
+func (s *CreateIotbasicAppmanagerResponse) SetSuccess(v bool) *CreateIotbasicAppmanagerResponse {
 	s.Success = &v
 	return s
 }
 
-func (s *UploadIotbasicAppmanagerfileResponse) SetData(v string) *UploadIotbasicAppmanagerfileResponse {
+func (s *CreateIotbasicAppmanagerResponse) SetData(v string) *CreateIotbasicAppmanagerResponse {
 	s.Data = &v
+	return s
+}
+
+type ListIotbasicAppmanagerotamoduleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
+}
+
+func (s ListIotbasicAppmanagerotamoduleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListIotbasicAppmanagerotamoduleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListIotbasicAppmanagerotamoduleRequest) SetAuthToken(v string) *ListIotbasicAppmanagerotamoduleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListIotbasicAppmanagerotamoduleRequest) SetProductInstanceId(v string) *ListIotbasicAppmanagerotamoduleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListIotbasicAppmanagerotamoduleRequest) SetCategoryCode(v string) *ListIotbasicAppmanagerotamoduleRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+type ListIotbasicAppmanagerotamoduleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 应用模块列表
+	Data []*IotbasicOtaModuleInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s ListIotbasicAppmanagerotamoduleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListIotbasicAppmanagerotamoduleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListIotbasicAppmanagerotamoduleResponse) SetReqMsgId(v string) *ListIotbasicAppmanagerotamoduleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListIotbasicAppmanagerotamoduleResponse) SetResultCode(v string) *ListIotbasicAppmanagerotamoduleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListIotbasicAppmanagerotamoduleResponse) SetResultMsg(v string) *ListIotbasicAppmanagerotamoduleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListIotbasicAppmanagerotamoduleResponse) SetSuccess(v bool) *ListIotbasicAppmanagerotamoduleResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ListIotbasicAppmanagerotamoduleResponse) SetData(v []*IotbasicOtaModuleInfo) *ListIotbasicAppmanagerotamoduleResponse {
+	s.Data = v
+	return s
+}
+
+type PagequeryIotbasicAppmanagerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属项目空间
+	ProjectSpace *string `json:"project_space,omitempty" xml:"project_space,omitempty" require:"true"`
+	// 应用名称
+	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty"`
+	// 应用版本号
+	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty"`
+	// 当前页
+	// 默认第一页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页数量
+	// 默认20条，最大100条
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty"`
+	// 应用模块名称，由查询应用类型列表获取
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty"`
+}
+
+func (s PagequeryIotbasicAppmanagerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIotbasicAppmanagerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetAuthToken(v string) *PagequeryIotbasicAppmanagerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetProductInstanceId(v string) *PagequeryIotbasicAppmanagerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetProjectSpace(v string) *PagequeryIotbasicAppmanagerRequest {
+	s.ProjectSpace = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetApkName(v string) *PagequeryIotbasicAppmanagerRequest {
+	s.ApkName = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetApkVersion(v string) *PagequeryIotbasicAppmanagerRequest {
+	s.ApkVersion = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetCurrent(v int64) *PagequeryIotbasicAppmanagerRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetPageSize(v int64) *PagequeryIotbasicAppmanagerRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetCategoryCode(v string) *PagequeryIotbasicAppmanagerRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerRequest) SetModuleName(v string) *PagequeryIotbasicAppmanagerRequest {
+	s.ModuleName = &v
+	return s
+}
+
+type PagequeryIotbasicAppmanagerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总数量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 列表数据
+	Data []*IotbasicAppManagerPageInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryIotbasicAppmanagerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIotbasicAppmanagerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIotbasicAppmanagerResponse) SetReqMsgId(v string) *PagequeryIotbasicAppmanagerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerResponse) SetResultCode(v string) *PagequeryIotbasicAppmanagerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerResponse) SetResultMsg(v string) *PagequeryIotbasicAppmanagerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerResponse) SetSuccess(v bool) *PagequeryIotbasicAppmanagerResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerResponse) SetCurrent(v int64) *PagequeryIotbasicAppmanagerResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerResponse) SetPageSize(v int64) *PagequeryIotbasicAppmanagerResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerResponse) SetTotal(v int64) *PagequeryIotbasicAppmanagerResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppmanagerResponse) SetData(v []*IotbasicAppManagerPageInfo) *PagequeryIotbasicAppmanagerResponse {
+	s.Data = v
+	return s
+}
+
+type GetIotbasicAppmanagerfileurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用包id
+	ApkId *string `json:"apk_id,omitempty" xml:"apk_id,omitempty" require:"true"`
+}
+
+func (s GetIotbasicAppmanagerfileurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetIotbasicAppmanagerfileurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetIotbasicAppmanagerfileurlRequest) SetAuthToken(v string) *GetIotbasicAppmanagerfileurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetIotbasicAppmanagerfileurlRequest) SetProductInstanceId(v string) *GetIotbasicAppmanagerfileurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetIotbasicAppmanagerfileurlRequest) SetApkId(v string) *GetIotbasicAppmanagerfileurlRequest {
+	s.ApkId = &v
+	return s
+}
+
+type GetIotbasicAppmanagerfileurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 应用下载地址
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s GetIotbasicAppmanagerfileurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetIotbasicAppmanagerfileurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetIotbasicAppmanagerfileurlResponse) SetReqMsgId(v string) *GetIotbasicAppmanagerfileurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetIotbasicAppmanagerfileurlResponse) SetResultCode(v string) *GetIotbasicAppmanagerfileurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetIotbasicAppmanagerfileurlResponse) SetResultMsg(v string) *GetIotbasicAppmanagerfileurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetIotbasicAppmanagerfileurlResponse) SetSuccess(v bool) *GetIotbasicAppmanagerfileurlResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *GetIotbasicAppmanagerfileurlResponse) SetData(v string) *GetIotbasicAppmanagerfileurlResponse {
+	s.Data = &v
+	return s
+}
+
+type PagequeryIotbasicAppreleaseorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属项目空间
+	ProjectSpace *string `json:"project_space,omitempty" xml:"project_space,omitempty" require:"true"`
+	// 应用名称
+	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty"`
+	// 应用版本号
+	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty"`
+	// 工单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 发布批次状态
+	// 升级中：IN_PROGRESS
+	// 取消中：CANCELING
+	// 部分成功：PARTIAL_SUCCESS
+	// 部分失败：PARTIAL_FAILED
+	// 部分取消：PARTIAL_CANCELED
+	// 全部成功：ALL_SUCCESS
+	// 全部失败：ALL_FAILED
+	// 全部取消：ALL_CANCELED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s PagequeryIotbasicAppreleaseorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIotbasicAppreleaseorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetAuthToken(v string) *PagequeryIotbasicAppreleaseorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetProductInstanceId(v string) *PagequeryIotbasicAppreleaseorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetProjectSpace(v string) *PagequeryIotbasicAppreleaseorderRequest {
+	s.ProjectSpace = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetApkName(v string) *PagequeryIotbasicAppreleaseorderRequest {
+	s.ApkName = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetApkVersion(v string) *PagequeryIotbasicAppreleaseorderRequest {
+	s.ApkVersion = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetOrderId(v string) *PagequeryIotbasicAppreleaseorderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetStatus(v string) *PagequeryIotbasicAppreleaseorderRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetCurrent(v int64) *PagequeryIotbasicAppreleaseorderRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderRequest) SetPageSize(v int64) *PagequeryIotbasicAppreleaseorderRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryIotbasicAppreleaseorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总记录
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 分页查询结果列表
+	Data []*IotbasicReleaseOrderInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryIotbasicAppreleaseorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIotbasicAppreleaseorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIotbasicAppreleaseorderResponse) SetReqMsgId(v string) *PagequeryIotbasicAppreleaseorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderResponse) SetResultCode(v string) *PagequeryIotbasicAppreleaseorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderResponse) SetResultMsg(v string) *PagequeryIotbasicAppreleaseorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderResponse) SetSuccess(v bool) *PagequeryIotbasicAppreleaseorderResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderResponse) SetCurrent(v int64) *PagequeryIotbasicAppreleaseorderResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderResponse) SetPageSize(v int64) *PagequeryIotbasicAppreleaseorderResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderResponse) SetTotal(v int64) *PagequeryIotbasicAppreleaseorderResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleaseorderResponse) SetData(v []*IotbasicReleaseOrderInfo) *PagequeryIotbasicAppreleaseorderResponse {
+	s.Data = v
+	return s
+}
+
+type PagequeryIotbasicAppreleasedeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 所属项目空间
+	ProjectSpace *string `json:"project_space,omitempty" xml:"project_space,omitempty" require:"true"`
+	// 应用名称
+	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty"`
+	// 应用版本号
+	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty"`
+	// 工单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 设备sn
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
+	// 设备升级状态
+	// 待确认：CONFIRM
+	// 待推送：QUEUED
+	// 已推送：NOTIFIED
+	// 升级中：IN_PROGRESS
+	// 升级成功：SUCCEEDED
+	// 升级失败：FAILED
+	// 已取消：CANCELED
+	// 升级超时：TIMEOUT
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+}
+
+func (s PagequeryIotbasicAppreleasedeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIotbasicAppreleasedeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetAuthToken(v string) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetProductInstanceId(v string) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetProjectSpace(v string) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.ProjectSpace = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetApkName(v string) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.ApkName = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetApkVersion(v string) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.ApkVersion = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetOrderId(v string) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetDeviceSn(v string) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetStatus(v string) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetCurrent(v int64) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceRequest) SetPageSize(v int64) *PagequeryIotbasicAppreleasedeviceRequest {
+	s.PageSize = &v
+	return s
+}
+
+type PagequeryIotbasicAppreleasedeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 当前页
+	Current *int64 `json:"current,omitempty" xml:"current,omitempty"`
+	// 每页数量
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 总记录
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 结果列表数据
+	Data []*IotbasicReleaseDeviceInfo `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryIotbasicAppreleasedeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryIotbasicAppreleasedeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceResponse) SetReqMsgId(v string) *PagequeryIotbasicAppreleasedeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceResponse) SetResultCode(v string) *PagequeryIotbasicAppreleasedeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceResponse) SetResultMsg(v string) *PagequeryIotbasicAppreleasedeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceResponse) SetSuccess(v bool) *PagequeryIotbasicAppreleasedeviceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceResponse) SetCurrent(v int64) *PagequeryIotbasicAppreleasedeviceResponse {
+	s.Current = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceResponse) SetPageSize(v int64) *PagequeryIotbasicAppreleasedeviceResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceResponse) SetTotal(v int64) *PagequeryIotbasicAppreleasedeviceResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryIotbasicAppreleasedeviceResponse) SetData(v []*IotbasicReleaseDeviceInfo) *PagequeryIotbasicAppreleasedeviceResponse {
+	s.Data = v
+	return s
+}
+
+type PublishIotbasicAppreleaseorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用包id
+	ApkId *string `json:"apk_id,omitempty" xml:"apk_id,omitempty" require:"true"`
+	// 发布方式
+	// DEVICE：指定设备发布
+	// VERSION：指定版本发布
+	ReleaseMode *string `json:"release_mode,omitempty" xml:"release_mode,omitempty" require:"true"`
+	// 指定发布方式的数据列表
+	// 发布方式为DEVICE，字段为设备did列表；
+	// 发布方式为VERSION，字段为应用包id列表；
+	DataList []*string `json:"data_list,omitempty" xml:"data_list,omitempty" require:"true" type:"Repeated"`
+	// 对于数据列表中的设备存在升级中的任务是否覆盖安装？否：返回升级中的设备列表；是：取消升级中的设备升级任务，使用新的任务覆盖升级
+	Cover *bool `json:"cover,omitempty" xml:"cover,omitempty" require:"true"`
+}
+
+func (s PublishIotbasicAppreleaseorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishIotbasicAppreleaseorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PublishIotbasicAppreleaseorderRequest) SetAuthToken(v string) *PublishIotbasicAppreleaseorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderRequest) SetProductInstanceId(v string) *PublishIotbasicAppreleaseorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderRequest) SetApkId(v string) *PublishIotbasicAppreleaseorderRequest {
+	s.ApkId = &v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderRequest) SetReleaseMode(v string) *PublishIotbasicAppreleaseorderRequest {
+	s.ReleaseMode = &v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderRequest) SetDataList(v []*string) *PublishIotbasicAppreleaseorderRequest {
+	s.DataList = v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderRequest) SetCover(v bool) *PublishIotbasicAppreleaseorderRequest {
+	s.Cover = &v
+	return s
+}
+
+type PublishIotbasicAppreleaseorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 未完成的设备升级列表
+	UnfinishedList []*IotbasicReleaseDeviceInfo `json:"unfinished_list,omitempty" xml:"unfinished_list,omitempty" type:"Repeated"`
+}
+
+func (s PublishIotbasicAppreleaseorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PublishIotbasicAppreleaseorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PublishIotbasicAppreleaseorderResponse) SetReqMsgId(v string) *PublishIotbasicAppreleaseorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderResponse) SetResultCode(v string) *PublishIotbasicAppreleaseorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderResponse) SetResultMsg(v string) *PublishIotbasicAppreleaseorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderResponse) SetSuccess(v bool) *PublishIotbasicAppreleaseorderResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PublishIotbasicAppreleaseorderResponse) SetUnfinishedList(v []*IotbasicReleaseDeviceInfo) *PublishIotbasicAppreleaseorderResponse {
+	s.UnfinishedList = v
+	return s
+}
+
+type CancelIotbasicAppreleaseorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 工单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s CancelIotbasicAppreleaseorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelIotbasicAppreleaseorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelIotbasicAppreleaseorderRequest) SetAuthToken(v string) *CancelIotbasicAppreleaseorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleaseorderRequest) SetProductInstanceId(v string) *CancelIotbasicAppreleaseorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleaseorderRequest) SetOrderId(v string) *CancelIotbasicAppreleaseorderRequest {
+	s.OrderId = &v
+	return s
+}
+
+type CancelIotbasicAppreleaseorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s CancelIotbasicAppreleaseorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelIotbasicAppreleaseorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelIotbasicAppreleaseorderResponse) SetReqMsgId(v string) *CancelIotbasicAppreleaseorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleaseorderResponse) SetResultCode(v string) *CancelIotbasicAppreleaseorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleaseorderResponse) SetResultMsg(v string) *CancelIotbasicAppreleaseorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleaseorderResponse) SetSuccess(v bool) *CancelIotbasicAppreleaseorderResponse {
+	s.Success = &v
+	return s
+}
+
+type CancelIotbasicAppreleasedeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备升级任务唯一id列表
+	OrderDetailIdList []*string `json:"order_detail_id_list,omitempty" xml:"order_detail_id_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s CancelIotbasicAppreleasedeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelIotbasicAppreleasedeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelIotbasicAppreleasedeviceRequest) SetAuthToken(v string) *CancelIotbasicAppreleasedeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleasedeviceRequest) SetProductInstanceId(v string) *CancelIotbasicAppreleasedeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleasedeviceRequest) SetOrderDetailIdList(v []*string) *CancelIotbasicAppreleasedeviceRequest {
+	s.OrderDetailIdList = v
+	return s
+}
+
+type CancelIotbasicAppreleasedeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s CancelIotbasicAppreleasedeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelIotbasicAppreleasedeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelIotbasicAppreleasedeviceResponse) SetReqMsgId(v string) *CancelIotbasicAppreleasedeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleasedeviceResponse) SetResultCode(v string) *CancelIotbasicAppreleasedeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleasedeviceResponse) SetResultMsg(v string) *CancelIotbasicAppreleasedeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelIotbasicAppreleasedeviceResponse) SetSuccess(v bool) *CancelIotbasicAppreleasedeviceResponse {
+	s.Success = &v
+	return s
+}
+
+type RetryIotbasicAppreleasedeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备升级任务唯一id列表
+	OrderDetailIdList []*string `json:"order_detail_id_list,omitempty" xml:"order_detail_id_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s RetryIotbasicAppreleasedeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RetryIotbasicAppreleasedeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RetryIotbasicAppreleasedeviceRequest) SetAuthToken(v string) *RetryIotbasicAppreleasedeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RetryIotbasicAppreleasedeviceRequest) SetProductInstanceId(v string) *RetryIotbasicAppreleasedeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RetryIotbasicAppreleasedeviceRequest) SetOrderDetailIdList(v []*string) *RetryIotbasicAppreleasedeviceRequest {
+	s.OrderDetailIdList = v
+	return s
+}
+
+type RetryIotbasicAppreleasedeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s RetryIotbasicAppreleasedeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RetryIotbasicAppreleasedeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RetryIotbasicAppreleasedeviceResponse) SetReqMsgId(v string) *RetryIotbasicAppreleasedeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RetryIotbasicAppreleasedeviceResponse) SetResultCode(v string) *RetryIotbasicAppreleasedeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RetryIotbasicAppreleasedeviceResponse) SetResultMsg(v string) *RetryIotbasicAppreleasedeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *RetryIotbasicAppreleasedeviceResponse) SetSuccess(v bool) *RetryIotbasicAppreleasedeviceResponse {
+	s.Success = &v
+	return s
+}
+
+type CreateIotbasicAppmanagerotamoduleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
+	// OTA模块名称，产品下唯一且不可修改。仅支持英文字母、数字、英文句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。
+	// 英文字母不区分大小写，例如“scanner”和“Scanner”被认为是相同的模块名称，不可重复使用
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+	// OTA模块别名。支持中文、英文字母、数字、英文句号（.）、短划线（-）和下划线（_），长度限制为1~64个字符。
+	AliasName *string `json:"alias_name,omitempty" xml:"alias_name,omitempty"`
+	// OTA模块的描述信息，支持最多100个字符。
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+	// 项目编码
+	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
+}
+
+func (s CreateIotbasicAppmanagerotamoduleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIotbasicAppmanagerotamoduleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleRequest) SetAuthToken(v string) *CreateIotbasicAppmanagerotamoduleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleRequest) SetProductInstanceId(v string) *CreateIotbasicAppmanagerotamoduleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleRequest) SetCategoryCode(v string) *CreateIotbasicAppmanagerotamoduleRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleRequest) SetModuleName(v string) *CreateIotbasicAppmanagerotamoduleRequest {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleRequest) SetAliasName(v string) *CreateIotbasicAppmanagerotamoduleRequest {
+	s.AliasName = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleRequest) SetDesc(v string) *CreateIotbasicAppmanagerotamoduleRequest {
+	s.Desc = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleRequest) SetProjectCode(v string) *CreateIotbasicAppmanagerotamoduleRequest {
+	s.ProjectCode = &v
+	return s
+}
+
+type CreateIotbasicAppmanagerotamoduleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s CreateIotbasicAppmanagerotamoduleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateIotbasicAppmanagerotamoduleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleResponse) SetReqMsgId(v string) *CreateIotbasicAppmanagerotamoduleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleResponse) SetResultCode(v string) *CreateIotbasicAppmanagerotamoduleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleResponse) SetResultMsg(v string) *CreateIotbasicAppmanagerotamoduleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateIotbasicAppmanagerotamoduleResponse) SetSuccess(v bool) *CreateIotbasicAppmanagerotamoduleResponse {
+	s.Success = &v
+	return s
+}
+
+type UpdateIotbasicAppmanagerotamoduleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
+	// OTA模块名称，产品下唯一且不可修改。仅支持英文字母、数字、英文句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。 英文字母不区分大小写，例如“scanner”和“Scanner”被认为是相同的模块名称，不可重复使用
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+	// OTA模块别名。支持中文、英文字母、数字、英文句号（.）、短划线（-）和下划线（_），长度限制为1~64个字符。
+	AliasName *string `json:"alias_name,omitempty" xml:"alias_name,omitempty"`
+	// OTA模块的描述信息，支持最多100个字符。
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
+}
+
+func (s UpdateIotbasicAppmanagerotamoduleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIotbasicAppmanagerotamoduleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleRequest) SetAuthToken(v string) *UpdateIotbasicAppmanagerotamoduleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleRequest) SetProductInstanceId(v string) *UpdateIotbasicAppmanagerotamoduleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleRequest) SetCategoryCode(v string) *UpdateIotbasicAppmanagerotamoduleRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleRequest) SetModuleName(v string) *UpdateIotbasicAppmanagerotamoduleRequest {
+	s.ModuleName = &v
+	return s
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleRequest) SetAliasName(v string) *UpdateIotbasicAppmanagerotamoduleRequest {
+	s.AliasName = &v
+	return s
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleRequest) SetDesc(v string) *UpdateIotbasicAppmanagerotamoduleRequest {
+	s.Desc = &v
+	return s
+}
+
+type UpdateIotbasicAppmanagerotamoduleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s UpdateIotbasicAppmanagerotamoduleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateIotbasicAppmanagerotamoduleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleResponse) SetReqMsgId(v string) *UpdateIotbasicAppmanagerotamoduleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleResponse) SetResultCode(v string) *UpdateIotbasicAppmanagerotamoduleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleResponse) SetResultMsg(v string) *UpdateIotbasicAppmanagerotamoduleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateIotbasicAppmanagerotamoduleResponse) SetSuccess(v bool) *UpdateIotbasicAppmanagerotamoduleResponse {
+	s.Success = &v
+	return s
+}
+
+type DeleteIotbasicAppmanagerotamoduleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty" require:"true"`
+	// 要删除的OTA模块名称。
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+}
+
+func (s DeleteIotbasicAppmanagerotamoduleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteIotbasicAppmanagerotamoduleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteIotbasicAppmanagerotamoduleRequest) SetAuthToken(v string) *DeleteIotbasicAppmanagerotamoduleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteIotbasicAppmanagerotamoduleRequest) SetProductInstanceId(v string) *DeleteIotbasicAppmanagerotamoduleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteIotbasicAppmanagerotamoduleRequest) SetCategoryCode(v string) *DeleteIotbasicAppmanagerotamoduleRequest {
+	s.CategoryCode = &v
+	return s
+}
+
+func (s *DeleteIotbasicAppmanagerotamoduleRequest) SetModuleName(v string) *DeleteIotbasicAppmanagerotamoduleRequest {
+	s.ModuleName = &v
+	return s
+}
+
+type DeleteIotbasicAppmanagerotamoduleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 操作结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s DeleteIotbasicAppmanagerotamoduleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteIotbasicAppmanagerotamoduleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteIotbasicAppmanagerotamoduleResponse) SetReqMsgId(v string) *DeleteIotbasicAppmanagerotamoduleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteIotbasicAppmanagerotamoduleResponse) SetResultCode(v string) *DeleteIotbasicAppmanagerotamoduleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteIotbasicAppmanagerotamoduleResponse) SetResultMsg(v string) *DeleteIotbasicAppmanagerotamoduleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteIotbasicAppmanagerotamoduleResponse) SetSuccess(v bool) *DeleteIotbasicAppmanagerotamoduleResponse {
+	s.Success = &v
 	return s
 }
 
@@ -29954,6 +31532,12 @@ type ApplyTechintegrationSkushipRequest struct {
 	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty" require:"true"`
 	// 凭证种类
 	Features []*string `json:"features,omitempty" xml:"features,omitempty" require:"true" type:"Repeated"`
+	// 证书拉取任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 证书拉取任务批次
+	TaskBatchNum *string `json:"task_batch_num,omitempty" xml:"task_batch_num,omitempty"`
+	// 重试标志
+	RetryFlag *bool `json:"retry_flag,omitempty" xml:"retry_flag,omitempty"`
 }
 
 func (s ApplyTechintegrationSkushipRequest) String() string {
@@ -30004,6 +31588,21 @@ func (s *ApplyTechintegrationSkushipRequest) SetFeatures(v []*string) *ApplyTech
 	return s
 }
 
+func (s *ApplyTechintegrationSkushipRequest) SetTaskId(v string) *ApplyTechintegrationSkushipRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipRequest) SetTaskBatchNum(v string) *ApplyTechintegrationSkushipRequest {
+	s.TaskBatchNum = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipRequest) SetRetryFlag(v bool) *ApplyTechintegrationSkushipRequest {
+	s.RetryFlag = &v
+	return s
+}
+
 type ApplyTechintegrationSkushipResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -30013,6 +31612,10 @@ type ApplyTechintegrationSkushipResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 支付芯证书列表
 	Data []*string `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 证书拉取任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 证书拉取任务批次
+	TaskBatchNum *string `json:"task_batch_num,omitempty" xml:"task_batch_num,omitempty"`
 }
 
 func (s ApplyTechintegrationSkushipResponse) String() string {
@@ -30040,6 +31643,16 @@ func (s *ApplyTechintegrationSkushipResponse) SetResultMsg(v string) *ApplyTechi
 
 func (s *ApplyTechintegrationSkushipResponse) SetData(v []*string) *ApplyTechintegrationSkushipResponse {
 	s.Data = v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipResponse) SetTaskId(v string) *ApplyTechintegrationSkushipResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ApplyTechintegrationSkushipResponse) SetTaskBatchNum(v string) *ApplyTechintegrationSkushipResponse {
+	s.TaskBatchNum = &v
 	return s
 }
 
@@ -30610,6 +32223,94 @@ func (s *SendThingDataResponse) SetResultCode(v string) *SendThingDataResponse {
 
 func (s *SendThingDataResponse) SetResultMsg(v string) *SendThingDataResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type QueryTechintegrationSkugrantstockinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 产品型号
+	ProductModel *string `json:"product_model,omitempty" xml:"product_model,omitempty"`
+	// 产品形式，取值范围：
+	// SOFTWARE_HARDWARE：软硬一体（SE方案）,
+	// SOFTWARE：纯软（非SE方案）
+	ProductForm *string `json:"product_form,omitempty" xml:"product_form,omitempty"`
+	// 凭证种类列表，取值范围：
+	// ["PAYMENT"]：支付码，
+	// ["PAYMENT","TRANSIT"]：支付码+乘车码
+	Features []*string `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
+}
+
+func (s QueryTechintegrationSkugrantstockinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTechintegrationSkugrantstockinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoRequest) SetAuthToken(v string) *QueryTechintegrationSkugrantstockinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoRequest) SetProductInstanceId(v string) *QueryTechintegrationSkugrantstockinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoRequest) SetProductModel(v string) *QueryTechintegrationSkugrantstockinfoRequest {
+	s.ProductModel = &v
+	return s
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoRequest) SetProductForm(v string) *QueryTechintegrationSkugrantstockinfoRequest {
+	s.ProductForm = &v
+	return s
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoRequest) SetFeatures(v []*string) *QueryTechintegrationSkugrantstockinfoRequest {
+	s.Features = v
+	return s
+}
+
+type QueryTechintegrationSkugrantstockinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 证书授权信息列表
+	GrantStockInfoList []*SkuGrantStockInfoResp `json:"grant_stock_info_list,omitempty" xml:"grant_stock_info_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryTechintegrationSkugrantstockinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryTechintegrationSkugrantstockinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoResponse) SetReqMsgId(v string) *QueryTechintegrationSkugrantstockinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoResponse) SetResultCode(v string) *QueryTechintegrationSkugrantstockinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoResponse) SetResultMsg(v string) *QueryTechintegrationSkugrantstockinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryTechintegrationSkugrantstockinfoResponse) SetGrantStockInfoList(v []*SkuGrantStockInfoResp) *QueryTechintegrationSkugrantstockinfoResponse {
+	s.GrantStockInfoList = v
 	return s
 }
 
@@ -32383,7 +34084,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.19"),
+				"sdk_version":      tea.String("1.11.34"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -35225,8 +36926,8 @@ func (client *Client) SetDevicelistPropertyEx(request *SetDevicelistPropertyRequ
 }
 
 /**
- * Description: iotbasic-分页查询品类列表
- * Summary: iotbasic-分页查询品类列表
+ * Description: iotbasic-查询品类列表
+ * Summary: iotbasic-查询品类列表
  */
 func (client *Client) QueryIotbasicCategorylist(request *QueryIotbasicCategorylistRequest) (_result *QueryIotbasicCategorylistResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -35241,8 +36942,8 @@ func (client *Client) QueryIotbasicCategorylist(request *QueryIotbasicCategoryli
 }
 
 /**
- * Description: iotbasic-分页查询品类列表
- * Summary: iotbasic-分页查询品类列表
+ * Description: iotbasic-查询品类列表
+ * Summary: iotbasic-查询品类列表
  */
 func (client *Client) QueryIotbasicCategorylistEx(request *QueryIotbasicCategorylistRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIotbasicCategorylistResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -36245,14 +37946,14 @@ func (client *Client) GetDigitalkeyDeviceinfoEx(request *GetDigitalkeyDeviceinfo
 }
 
 /**
- * Description: iotbasic-上传apk文件
- * Summary: iotbasic-上传apk文件
+ * Description: iotbasic-新增应用
+ * Summary: iotbasic-新增应用
  */
-func (client *Client) UploadIotbasicAppmanagerfile(request *UploadIotbasicAppmanagerfileRequest) (_result *UploadIotbasicAppmanagerfileResponse, _err error) {
+func (client *Client) CreateIotbasicAppmanager(request *CreateIotbasicAppmanagerRequest) (_result *CreateIotbasicAppmanagerResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &UploadIotbasicAppmanagerfileResponse{}
-	_body, _err := client.UploadIotbasicAppmanagerfileEx(request, headers, runtime)
+	_result = &CreateIotbasicAppmanagerResponse{}
+	_body, _err := client.CreateIotbasicAppmanagerEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -36261,14 +37962,14 @@ func (client *Client) UploadIotbasicAppmanagerfile(request *UploadIotbasicAppman
 }
 
 /**
- * Description: iotbasic-上传apk文件
- * Summary: iotbasic-上传apk文件
+ * Description: iotbasic-新增应用
+ * Summary: iotbasic-新增应用
  */
-func (client *Client) UploadIotbasicAppmanagerfileEx(request *UploadIotbasicAppmanagerfileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadIotbasicAppmanagerfileResponse, _err error) {
+func (client *Client) CreateIotbasicAppmanagerEx(request *CreateIotbasicAppmanagerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateIotbasicAppmanagerResponse, _err error) {
 	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
 		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
 			AuthToken: request.AuthToken,
-			ApiCode:   tea.String("blockchain.bot.iotbasic.appmanagerfile.upload"),
+			ApiCode:   tea.String("blockchain.bot.iotbasic.appmanager.create"),
 			FileName:  request.FileObjectName,
 		}
 		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
@@ -36277,12 +37978,12 @@ func (client *Client) UploadIotbasicAppmanagerfileEx(request *UploadIotbasicAppm
 		}
 
 		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
-			uploadIotbasicAppmanagerfileResponse := &UploadIotbasicAppmanagerfileResponse{
+			createIotbasicAppmanagerResponse := &CreateIotbasicAppmanagerResponse{
 				ReqMsgId:   uploadResp.ReqMsgId,
 				ResultCode: uploadResp.ResultCode,
 				ResultMsg:  uploadResp.ResultMsg,
 			}
-			_result = uploadIotbasicAppmanagerfileResponse
+			_result = createIotbasicAppmanagerResponse
 			return _result, _err
 		}
 
@@ -36298,8 +37999,416 @@ func (client *Client) UploadIotbasicAppmanagerfileEx(request *UploadIotbasicAppm
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UploadIotbasicAppmanagerfileResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanagerfile.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &CreateIotbasicAppmanagerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanager.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-获取应用类型列表
+ * Summary: iotbasic-获取应用类型列表
+ */
+func (client *Client) ListIotbasicAppmanagerotamodule(request *ListIotbasicAppmanagerotamoduleRequest) (_result *ListIotbasicAppmanagerotamoduleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListIotbasicAppmanagerotamoduleResponse{}
+	_body, _err := client.ListIotbasicAppmanagerotamoduleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-获取应用类型列表
+ * Summary: iotbasic-获取应用类型列表
+ */
+func (client *Client) ListIotbasicAppmanagerotamoduleEx(request *ListIotbasicAppmanagerotamoduleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListIotbasicAppmanagerotamoduleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListIotbasicAppmanagerotamoduleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanagerotamodule.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-分页查询应用列表
+ * Summary: iotbasic-分页查询应用列表
+ */
+func (client *Client) PagequeryIotbasicAppmanager(request *PagequeryIotbasicAppmanagerRequest) (_result *PagequeryIotbasicAppmanagerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIotbasicAppmanagerResponse{}
+	_body, _err := client.PagequeryIotbasicAppmanagerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-分页查询应用列表
+ * Summary: iotbasic-分页查询应用列表
+ */
+func (client *Client) PagequeryIotbasicAppmanagerEx(request *PagequeryIotbasicAppmanagerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIotbasicAppmanagerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIotbasicAppmanagerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanager.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-获取应用下载地址
+ * Summary: iotbasic-获取应用下载地址
+ */
+func (client *Client) GetIotbasicAppmanagerfileurl(request *GetIotbasicAppmanagerfileurlRequest) (_result *GetIotbasicAppmanagerfileurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetIotbasicAppmanagerfileurlResponse{}
+	_body, _err := client.GetIotbasicAppmanagerfileurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-获取应用下载地址
+ * Summary: iotbasic-获取应用下载地址
+ */
+func (client *Client) GetIotbasicAppmanagerfileurlEx(request *GetIotbasicAppmanagerfileurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetIotbasicAppmanagerfileurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetIotbasicAppmanagerfileurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanagerfileurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-分页查询发布批次列表
+ * Summary: iotbasic-分页查询发布批次列表
+ */
+func (client *Client) PagequeryIotbasicAppreleaseorder(request *PagequeryIotbasicAppreleaseorderRequest) (_result *PagequeryIotbasicAppreleaseorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIotbasicAppreleaseorderResponse{}
+	_body, _err := client.PagequeryIotbasicAppreleaseorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-分页查询发布批次列表
+ * Summary: iotbasic-分页查询发布批次列表
+ */
+func (client *Client) PagequeryIotbasicAppreleaseorderEx(request *PagequeryIotbasicAppreleaseorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIotbasicAppreleaseorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIotbasicAppreleaseorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appreleaseorder.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-分页查询设备升级列表
+ * Summary: iotbasic-分页查询设备升级列表
+ */
+func (client *Client) PagequeryIotbasicAppreleasedevice(request *PagequeryIotbasicAppreleasedeviceRequest) (_result *PagequeryIotbasicAppreleasedeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryIotbasicAppreleasedeviceResponse{}
+	_body, _err := client.PagequeryIotbasicAppreleasedeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-分页查询设备升级列表
+ * Summary: iotbasic-分页查询设备升级列表
+ */
+func (client *Client) PagequeryIotbasicAppreleasedeviceEx(request *PagequeryIotbasicAppreleasedeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryIotbasicAppreleasedeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryIotbasicAppreleasedeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appreleasedevice.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-发布工单
+ * Summary: iotbasic-发布工单
+ */
+func (client *Client) PublishIotbasicAppreleaseorder(request *PublishIotbasicAppreleaseorderRequest) (_result *PublishIotbasicAppreleaseorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PublishIotbasicAppreleaseorderResponse{}
+	_body, _err := client.PublishIotbasicAppreleaseorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-发布工单
+ * Summary: iotbasic-发布工单
+ */
+func (client *Client) PublishIotbasicAppreleaseorderEx(request *PublishIotbasicAppreleaseorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PublishIotbasicAppreleaseorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PublishIotbasicAppreleaseorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appreleaseorder.publish"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-取消工单发布
+ * Summary: iotbasic-取消工单发布
+ */
+func (client *Client) CancelIotbasicAppreleaseorder(request *CancelIotbasicAppreleaseorderRequest) (_result *CancelIotbasicAppreleaseorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelIotbasicAppreleaseorderResponse{}
+	_body, _err := client.CancelIotbasicAppreleaseorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-取消工单发布
+ * Summary: iotbasic-取消工单发布
+ */
+func (client *Client) CancelIotbasicAppreleaseorderEx(request *CancelIotbasicAppreleaseorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelIotbasicAppreleaseorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelIotbasicAppreleaseorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appreleaseorder.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-取消设备升级
+ * Summary: iotbasic-取消设备升级
+ */
+func (client *Client) CancelIotbasicAppreleasedevice(request *CancelIotbasicAppreleasedeviceRequest) (_result *CancelIotbasicAppreleasedeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelIotbasicAppreleasedeviceResponse{}
+	_body, _err := client.CancelIotbasicAppreleasedeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-取消设备升级
+ * Summary: iotbasic-取消设备升级
+ */
+func (client *Client) CancelIotbasicAppreleasedeviceEx(request *CancelIotbasicAppreleasedeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelIotbasicAppreleasedeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelIotbasicAppreleasedeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appreleasedevice.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-重试设备升级
+ * Summary: iotbasic-重试设备升级
+ */
+func (client *Client) RetryIotbasicAppreleasedevice(request *RetryIotbasicAppreleasedeviceRequest) (_result *RetryIotbasicAppreleasedeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RetryIotbasicAppreleasedeviceResponse{}
+	_body, _err := client.RetryIotbasicAppreleasedeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-重试设备升级
+ * Summary: iotbasic-重试设备升级
+ */
+func (client *Client) RetryIotbasicAppreleasedeviceEx(request *RetryIotbasicAppreleasedeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RetryIotbasicAppreleasedeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RetryIotbasicAppreleasedeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appreleasedevice.retry"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-创建应用类型
+ * Summary: iotbasic-创建应用类型
+ */
+func (client *Client) CreateIotbasicAppmanagerotamodule(request *CreateIotbasicAppmanagerotamoduleRequest) (_result *CreateIotbasicAppmanagerotamoduleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateIotbasicAppmanagerotamoduleResponse{}
+	_body, _err := client.CreateIotbasicAppmanagerotamoduleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-创建应用类型
+ * Summary: iotbasic-创建应用类型
+ */
+func (client *Client) CreateIotbasicAppmanagerotamoduleEx(request *CreateIotbasicAppmanagerotamoduleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateIotbasicAppmanagerotamoduleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateIotbasicAppmanagerotamoduleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanagerotamodule.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-修改应用类型
+ * Summary: iotbasic-修改应用类型
+ */
+func (client *Client) UpdateIotbasicAppmanagerotamodule(request *UpdateIotbasicAppmanagerotamoduleRequest) (_result *UpdateIotbasicAppmanagerotamoduleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateIotbasicAppmanagerotamoduleResponse{}
+	_body, _err := client.UpdateIotbasicAppmanagerotamoduleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-修改应用类型
+ * Summary: iotbasic-修改应用类型
+ */
+func (client *Client) UpdateIotbasicAppmanagerotamoduleEx(request *UpdateIotbasicAppmanagerotamoduleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateIotbasicAppmanagerotamoduleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateIotbasicAppmanagerotamoduleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanagerotamodule.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-删除应用类型
+ * Summary: iotbasic-删除应用类型
+ */
+func (client *Client) DeleteIotbasicAppmanagerotamodule(request *DeleteIotbasicAppmanagerotamoduleRequest) (_result *DeleteIotbasicAppmanagerotamoduleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteIotbasicAppmanagerotamoduleResponse{}
+	_body, _err := client.DeleteIotbasicAppmanagerotamoduleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-删除应用类型
+ * Summary: iotbasic-删除应用类型
+ */
+func (client *Client) DeleteIotbasicAppmanagerotamoduleEx(request *DeleteIotbasicAppmanagerotamoduleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteIotbasicAppmanagerotamoduleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteIotbasicAppmanagerotamoduleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotbasic.appmanagerotamodule.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -40210,6 +42319,40 @@ func (client *Client) SendThingDataEx(request *SendThingDataRequest, headers map
 	}
 	_result = &SendThingDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.thing.data.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 支付芯证书授权信息查询
+ * Summary: 支付芯证书授权信息查询
+ */
+func (client *Client) QueryTechintegrationSkugrantstockinfo(request *QueryTechintegrationSkugrantstockinfoRequest) (_result *QueryTechintegrationSkugrantstockinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryTechintegrationSkugrantstockinfoResponse{}
+	_body, _err := client.QueryTechintegrationSkugrantstockinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 支付芯证书授权信息查询
+ * Summary: 支付芯证书授权信息查询
+ */
+func (client *Client) QueryTechintegrationSkugrantstockinfoEx(request *QueryTechintegrationSkugrantstockinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryTechintegrationSkugrantstockinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryTechintegrationSkugrantstockinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.techintegration.skugrantstockinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
