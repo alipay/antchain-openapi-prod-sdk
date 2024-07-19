@@ -20,6 +20,14 @@ public class ApplyTechintegrationSkushipResponse extends TeaModel {
     @NameInMap("data")
     public java.util.List<String> data;
 
+    // 证书拉取任务ID
+    @NameInMap("task_id")
+    public String taskId;
+
+    // 证书拉取任务批次
+    @NameInMap("task_batch_num")
+    public String taskBatchNum;
+
     public static ApplyTechintegrationSkushipResponse build(java.util.Map<String, ?> map) throws Exception {
         ApplyTechintegrationSkushipResponse self = new ApplyTechintegrationSkushipResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class ApplyTechintegrationSkushipResponse extends TeaModel {
     }
     public java.util.List<String> getData() {
         return this.data;
+    }
+
+    public ApplyTechintegrationSkushipResponse setTaskId(String taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+    public String getTaskId() {
+        return this.taskId;
+    }
+
+    public ApplyTechintegrationSkushipResponse setTaskBatchNum(String taskBatchNum) {
+        this.taskBatchNum = taskBatchNum;
+        return this;
+    }
+    public String getTaskBatchNum() {
+        return this.taskBatchNum;
     }
 
 }

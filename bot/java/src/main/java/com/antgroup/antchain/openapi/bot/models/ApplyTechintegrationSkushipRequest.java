@@ -41,6 +41,18 @@ public class ApplyTechintegrationSkushipRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> features;
 
+    // 证书拉取任务ID
+    @NameInMap("task_id")
+    public String taskId;
+
+    // 证书拉取任务批次
+    @NameInMap("task_batch_num")
+    public String taskBatchNum;
+
+    // 重试标志
+    @NameInMap("retry_flag")
+    public Boolean retryFlag;
+
     public static ApplyTechintegrationSkushipRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyTechintegrationSkushipRequest self = new ApplyTechintegrationSkushipRequest();
         return TeaModel.build(map, self);
@@ -108,6 +120,30 @@ public class ApplyTechintegrationSkushipRequest extends TeaModel {
     }
     public java.util.List<String> getFeatures() {
         return this.features;
+    }
+
+    public ApplyTechintegrationSkushipRequest setTaskId(String taskId) {
+        this.taskId = taskId;
+        return this;
+    }
+    public String getTaskId() {
+        return this.taskId;
+    }
+
+    public ApplyTechintegrationSkushipRequest setTaskBatchNum(String taskBatchNum) {
+        this.taskBatchNum = taskBatchNum;
+        return this;
+    }
+    public String getTaskBatchNum() {
+        return this.taskBatchNum;
+    }
+
+    public ApplyTechintegrationSkushipRequest setRetryFlag(Boolean retryFlag) {
+        this.retryFlag = retryFlag;
+        return this;
+    }
+    public Boolean getRetryFlag() {
+        return this.retryFlag;
     }
 
 }

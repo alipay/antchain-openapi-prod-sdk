@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class QueryIotbasicCategorylistRequest extends TeaModel {
+public class GetIotbasicAppmanagerfileurlRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class QueryIotbasicCategorylistRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 项目编码
-    @NameInMap("project_code")
+    // 应用包id
+    @NameInMap("apk_id")
     @Validation(required = true)
-    public String projectCode;
+    public String apkId;
 
-    public static QueryIotbasicCategorylistRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryIotbasicCategorylistRequest self = new QueryIotbasicCategorylistRequest();
+    public static GetIotbasicAppmanagerfileurlRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetIotbasicAppmanagerfileurlRequest self = new GetIotbasicAppmanagerfileurlRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryIotbasicCategorylistRequest setAuthToken(String authToken) {
+    public GetIotbasicAppmanagerfileurlRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class QueryIotbasicCategorylistRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryIotbasicCategorylistRequest setProductInstanceId(String productInstanceId) {
+    public GetIotbasicAppmanagerfileurlRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class QueryIotbasicCategorylistRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryIotbasicCategorylistRequest setProjectCode(String projectCode) {
-        this.projectCode = projectCode;
+    public GetIotbasicAppmanagerfileurlRequest setApkId(String apkId) {
+        this.apkId = apkId;
         return this;
     }
-    public String getProjectCode() {
-        return this.projectCode;
+    public String getApkId() {
+        return this.apkId;
     }
 
 }
