@@ -54,6 +54,24 @@ class ApplyTechintegrationSkushipRequest extends Model
      * @var string[]
      */
     public $features;
+
+    // 证书拉取任务ID
+    /**
+     * @var string
+     */
+    public $taskId;
+
+    // 证书拉取任务批次
+    /**
+     * @var string
+     */
+    public $taskBatchNum;
+
+    // 重试标志
+    /**
+     * @var bool
+     */
+    public $retryFlag;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +81,9 @@ class ApplyTechintegrationSkushipRequest extends Model
         'securityMechanism' => 'security_mechanism',
         'certType'          => 'cert_type',
         'features'          => 'features',
+        'taskId'            => 'task_id',
+        'taskBatchNum'      => 'task_batch_num',
+        'retryFlag'         => 'retry_flag',
     ];
 
     public function validate()
@@ -104,6 +125,15 @@ class ApplyTechintegrationSkushipRequest extends Model
         if (null !== $this->features) {
             $res['features'] = $this->features;
         }
+        if (null !== $this->taskId) {
+            $res['task_id'] = $this->taskId;
+        }
+        if (null !== $this->taskBatchNum) {
+            $res['task_batch_num'] = $this->taskBatchNum;
+        }
+        if (null !== $this->retryFlag) {
+            $res['retry_flag'] = $this->retryFlag;
+        }
 
         return $res;
     }
@@ -141,6 +171,15 @@ class ApplyTechintegrationSkushipRequest extends Model
             if (!empty($map['features'])) {
                 $model->features = $map['features'];
             }
+        }
+        if (isset($map['task_id'])) {
+            $model->taskId = $map['task_id'];
+        }
+        if (isset($map['task_batch_num'])) {
+            $model->taskBatchNum = $map['task_batch_num'];
+        }
+        if (isset($map['retry_flag'])) {
+            $model->retryFlag = $map['retry_flag'];
         }
 
         return $model;

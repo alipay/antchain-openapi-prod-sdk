@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIotbasicCategorylistRequest extends Model
+class GetIotbasicAppmanagerfileurlRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class QueryIotbasicCategorylistRequest extends Model
      */
     public $productInstanceId;
 
-    // 项目编码
+    // 应用包id
     /**
      * @var string
      */
-    public $projectCode;
+    public $apkId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'projectCode'       => 'project_code',
+        'apkId'             => 'apk_id',
     ];
 
     public function validate()
     {
-        Model::validateRequired('projectCode', $this->projectCode, true);
+        Model::validateRequired('apkId', $this->apkId, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class QueryIotbasicCategorylistRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->projectCode) {
-            $res['project_code'] = $this->projectCode;
+        if (null !== $this->apkId) {
+            $res['apk_id'] = $this->apkId;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class QueryIotbasicCategorylistRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIotbasicCategorylistRequest
+     * @return GetIotbasicAppmanagerfileurlRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +65,8 @@ class QueryIotbasicCategorylistRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['project_code'])) {
-            $model->projectCode = $map['project_code'];
+        if (isset($map['apk_id'])) {
+            $model->apkId = $map['apk_id'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UploadIotbasicAppmanagerfileResponse extends Model
+class CreateIotbasicAppmanagerResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -32,7 +32,7 @@ class UploadIotbasicAppmanagerfileResponse extends Model
      */
     public $success;
 
-    // 上传应用文件解析结果，json字符串
+    // 文件id
     /**
      * @var string
      */
@@ -74,7 +74,7 @@ class UploadIotbasicAppmanagerfileResponse extends Model
     /**
      * @param array $map
      *
-     * @return UploadIotbasicAppmanagerfileResponse
+     * @return CreateIotbasicAppmanagerResponse
      */
     public static function fromMap($map = [])
     {

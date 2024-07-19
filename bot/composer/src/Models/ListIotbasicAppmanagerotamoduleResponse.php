@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyTechintegrationSkushipResponse extends Model
+class ListIotbasicAppmanagerotamoduleResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,23 @@ class ApplyTechintegrationSkushipResponse extends Model
      */
     public $resultMsg;
 
-    // 支付芯证书列表
+    // 操作结果
     /**
-     * @var string[]
+     * @var bool
+     */
+    public $success;
+
+    // 应用模块列表
+    /**
+     * @var IotbasicOtaModuleInfo[]
      */
     public $data;
-
-    // 证书拉取任务ID
-    /**
-     * @var string
-     */
-    public $taskId;
-
-    // 证书拉取任务批次
-    /**
-     * @var string
-     */
-    public $taskBatchNum;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'data'         => 'data',
-        'taskId'       => 'task_id',
-        'taskBatchNum' => 'task_batch_num',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'success'    => 'success',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -68,14 +61,17 @@ class ApplyTechintegrationSkushipResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->success) {
+            $res['success'] = $this->success;
+        }
         if (null !== $this->data) {
-            $res['data'] = $this->data;
-        }
-        if (null !== $this->taskId) {
-            $res['task_id'] = $this->taskId;
-        }
-        if (null !== $this->taskBatchNum) {
-            $res['task_batch_num'] = $this->taskBatchNum;
+            $res['data'] = [];
+            if (null !== $this->data && \is_array($this->data)) {
+                $n = 0;
+                foreach ($this->data as $item) {
+                    $res['data'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -84,7 +80,7 @@ class ApplyTechintegrationSkushipResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyTechintegrationSkushipResponse
+     * @return ListIotbasicAppmanagerotamoduleResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,16 +94,17 @@ class ApplyTechintegrationSkushipResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
+        if (isset($map['success'])) {
+            $model->success = $map['success'];
+        }
         if (isset($map['data'])) {
             if (!empty($map['data'])) {
-                $model->data = $map['data'];
+                $model->data = [];
+                $n           = 0;
+                foreach ($map['data'] as $item) {
+                    $model->data[$n++] = null !== $item ? IotbasicOtaModuleInfo::fromMap($item) : $item;
+                }
             }
-        }
-        if (isset($map['task_id'])) {
-            $model->taskId = $map['task_id'];
-        }
-        if (isset($map['task_batch_num'])) {
-            $model->taskBatchNum = $map['task_batch_num'];
         }
 
         return $model;

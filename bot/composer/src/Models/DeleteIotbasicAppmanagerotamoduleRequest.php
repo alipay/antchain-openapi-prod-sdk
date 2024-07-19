@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryIotbasicCategorylistRequest extends Model
+class DeleteIotbasicAppmanagerotamoduleRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,28 @@ class QueryIotbasicCategorylistRequest extends Model
      */
     public $productInstanceId;
 
-    // 项目编码
+    // 品类code
     /**
      * @var string
      */
-    public $projectCode;
+    public $categoryCode;
+
+    // 要删除的OTA模块名称。
+    /**
+     * @var string
+     */
+    public $moduleName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'projectCode'       => 'project_code',
+        'categoryCode'      => 'category_code',
+        'moduleName'        => 'module_name',
     ];
 
     public function validate()
     {
-        Model::validateRequired('projectCode', $this->projectCode, true);
+        Model::validateRequired('categoryCode', $this->categoryCode, true);
+        Model::validateRequired('moduleName', $this->moduleName, true);
     }
 
     public function toMap()
@@ -44,8 +52,11 @@ class QueryIotbasicCategorylistRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->projectCode) {
-            $res['project_code'] = $this->projectCode;
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
+        }
+        if (null !== $this->moduleName) {
+            $res['module_name'] = $this->moduleName;
         }
 
         return $res;
@@ -54,7 +65,7 @@ class QueryIotbasicCategorylistRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryIotbasicCategorylistRequest
+     * @return DeleteIotbasicAppmanagerotamoduleRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +76,11 @@ class QueryIotbasicCategorylistRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['project_code'])) {
-            $model->projectCode = $map['project_code'];
+        if (isset($map['category_code'])) {
+            $model->categoryCode = $map['category_code'];
+        }
+        if (isset($map['module_name'])) {
+            $model->moduleName = $map['module_name'];
         }
 
         return $model;

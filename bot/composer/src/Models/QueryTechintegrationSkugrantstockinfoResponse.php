@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplyTechintegrationSkushipResponse extends Model
+class QueryTechintegrationSkugrantstockinfoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,16 @@ class ApplyTechintegrationSkushipResponse extends Model
      */
     public $resultMsg;
 
-    // 支付芯证书列表
+    // 证书授权信息列表
     /**
-     * @var string[]
+     * @var SkuGrantStockInfoResp[]
      */
-    public $data;
-
-    // 证书拉取任务ID
-    /**
-     * @var string
-     */
-    public $taskId;
-
-    // 证书拉取任务批次
-    /**
-     * @var string
-     */
-    public $taskBatchNum;
+    public $grantStockInfoList;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'data'         => 'data',
-        'taskId'       => 'task_id',
-        'taskBatchNum' => 'task_batch_num',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'grantStockInfoList' => 'grant_stock_info_list',
     ];
 
     public function validate()
@@ -68,14 +54,14 @@ class ApplyTechintegrationSkushipResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
-        }
-        if (null !== $this->taskId) {
-            $res['task_id'] = $this->taskId;
-        }
-        if (null !== $this->taskBatchNum) {
-            $res['task_batch_num'] = $this->taskBatchNum;
+        if (null !== $this->grantStockInfoList) {
+            $res['grant_stock_info_list'] = [];
+            if (null !== $this->grantStockInfoList && \is_array($this->grantStockInfoList)) {
+                $n = 0;
+                foreach ($this->grantStockInfoList as $item) {
+                    $res['grant_stock_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -84,7 +70,7 @@ class ApplyTechintegrationSkushipResponse extends Model
     /**
      * @param array $map
      *
-     * @return ApplyTechintegrationSkushipResponse
+     * @return QueryTechintegrationSkugrantstockinfoResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,16 +84,14 @@ class ApplyTechintegrationSkushipResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['data'])) {
-            if (!empty($map['data'])) {
-                $model->data = $map['data'];
+        if (isset($map['grant_stock_info_list'])) {
+            if (!empty($map['grant_stock_info_list'])) {
+                $model->grantStockInfoList = [];
+                $n                         = 0;
+                foreach ($map['grant_stock_info_list'] as $item) {
+                    $model->grantStockInfoList[$n++] = null !== $item ? SkuGrantStockInfoResp::fromMap($item) : $item;
+                }
             }
-        }
-        if (isset($map['task_id'])) {
-            $model->taskId = $map['task_id'];
-        }
-        if (isset($map['task_batch_num'])) {
-            $model->taskBatchNum = $map['task_batch_num'];
         }
 
         return $model;
