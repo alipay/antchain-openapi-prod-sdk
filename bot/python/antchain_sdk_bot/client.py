@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.19',
+                    'sdk_version': '1.11.34',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.19',
+                    'sdk_version': '1.11.34',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -4850,8 +4850,8 @@ class Client:
         request: bot_models.QueryIotbasicCategorylistRequest,
     ) -> bot_models.QueryIotbasicCategorylistResponse:
         """
-        Description: iotbasic-分页查询品类列表
-        Summary: iotbasic-分页查询品类列表
+        Description: iotbasic-查询品类列表
+        Summary: iotbasic-查询品类列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4862,8 +4862,8 @@ class Client:
         request: bot_models.QueryIotbasicCategorylistRequest,
     ) -> bot_models.QueryIotbasicCategorylistResponse:
         """
-        Description: iotbasic-分页查询品类列表
-        Summary: iotbasic-分页查询品类列表
+        Description: iotbasic-查询品类列表
+        Summary: iotbasic-查询品类列表
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4876,8 +4876,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.QueryIotbasicCategorylistResponse:
         """
-        Description: iotbasic-分页查询品类列表
-        Summary: iotbasic-分页查询品类列表
+        Description: iotbasic-查询品类列表
+        Summary: iotbasic-查询品类列表
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4892,8 +4892,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.QueryIotbasicCategorylistResponse:
         """
-        Description: iotbasic-分页查询品类列表
-        Summary: iotbasic-分页查询品类列表
+        Description: iotbasic-查询品类列表
+        Summary: iotbasic-查询品类列表
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -6525,94 +6525,766 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.digitalkey.deviceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def upload_iotbasic_appmanagerfile(
+    def create_iotbasic_appmanager(
         self,
-        request: bot_models.UploadIotbasicAppmanagerfileRequest,
-    ) -> bot_models.UploadIotbasicAppmanagerfileResponse:
+        request: bot_models.CreateIotbasicAppmanagerRequest,
+    ) -> bot_models.CreateIotbasicAppmanagerResponse:
         """
-        Description: iotbasic-上传apk文件
-        Summary: iotbasic-上传apk文件
+        Description: iotbasic-新增应用
+        Summary: iotbasic-新增应用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.upload_iotbasic_appmanagerfile_ex(request, headers, runtime)
+        return self.create_iotbasic_appmanager_ex(request, headers, runtime)
 
-    async def upload_iotbasic_appmanagerfile_async(
+    async def create_iotbasic_appmanager_async(
         self,
-        request: bot_models.UploadIotbasicAppmanagerfileRequest,
-    ) -> bot_models.UploadIotbasicAppmanagerfileResponse:
+        request: bot_models.CreateIotbasicAppmanagerRequest,
+    ) -> bot_models.CreateIotbasicAppmanagerResponse:
         """
-        Description: iotbasic-上传apk文件
-        Summary: iotbasic-上传apk文件
+        Description: iotbasic-新增应用
+        Summary: iotbasic-新增应用
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.upload_iotbasic_appmanagerfile_ex_async(request, headers, runtime)
+        return await self.create_iotbasic_appmanager_ex_async(request, headers, runtime)
 
-    def upload_iotbasic_appmanagerfile_ex(
+    def create_iotbasic_appmanager_ex(
         self,
-        request: bot_models.UploadIotbasicAppmanagerfileRequest,
+        request: bot_models.CreateIotbasicAppmanagerRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.UploadIotbasicAppmanagerfileResponse:
+    ) -> bot_models.CreateIotbasicAppmanagerResponse:
         """
-        Description: iotbasic-上传apk文件
-        Summary: iotbasic-上传apk文件
+        Description: iotbasic-新增应用
+        Summary: iotbasic-新增应用
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
                 auth_token=request.auth_token,
-                api_code='blockchain.bot.iotbasic.appmanagerfile.upload',
+                api_code='blockchain.bot.iotbasic.appmanager.create',
                 file_name=request.file_object_name
             )
             upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
             if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                upload_iotbasic_appmanagerfile_response = bot_models.UploadIotbasicAppmanagerfileResponse(
+                create_iotbasic_appmanager_response = bot_models.CreateIotbasicAppmanagerResponse(
                     req_msg_id=upload_resp.req_msg_id,
                     result_code=upload_resp.result_code,
                     result_msg=upload_resp.result_msg
                 )
-                return upload_iotbasic_appmanagerfile_response
+                return create_iotbasic_appmanager_response
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.UploadIotbasicAppmanagerfileResponse(),
-            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanagerfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.CreateIotbasicAppmanagerResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanager.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def upload_iotbasic_appmanagerfile_ex_async(
+    async def create_iotbasic_appmanager_ex_async(
         self,
-        request: bot_models.UploadIotbasicAppmanagerfileRequest,
+        request: bot_models.CreateIotbasicAppmanagerRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> bot_models.UploadIotbasicAppmanagerfileResponse:
+    ) -> bot_models.CreateIotbasicAppmanagerResponse:
         """
-        Description: iotbasic-上传apk文件
-        Summary: iotbasic-上传apk文件
+        Description: iotbasic-新增应用
+        Summary: iotbasic-新增应用
         """
         if not UtilClient.is_unset(request.file_object):
             upload_req = bot_models.CreateAntcloudGatewayxFileUploadRequest(
                 auth_token=request.auth_token,
-                api_code='blockchain.bot.iotbasic.appmanagerfile.upload',
+                api_code='blockchain.bot.iotbasic.appmanager.create',
                 file_name=request.file_object_name
             )
             upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
             if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
-                upload_iotbasic_appmanagerfile_response = bot_models.UploadIotbasicAppmanagerfileResponse(
+                create_iotbasic_appmanager_response = bot_models.CreateIotbasicAppmanagerResponse(
                     req_msg_id=upload_resp.req_msg_id,
                     result_code=upload_resp.result_code,
                     result_msg=upload_resp.result_msg
                 )
-                return upload_iotbasic_appmanagerfile_response
+                return create_iotbasic_appmanager_response
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            bot_models.UploadIotbasicAppmanagerfileResponse(),
-            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanagerfile.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            bot_models.CreateIotbasicAppmanagerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanager.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotbasic_appmanagerotamodule(
+        self,
+        request: bot_models.ListIotbasicAppmanagerotamoduleRequest,
+    ) -> bot_models.ListIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-获取应用类型列表
+        Summary: iotbasic-获取应用类型列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotbasic_appmanagerotamodule_ex(request, headers, runtime)
+
+    async def list_iotbasic_appmanagerotamodule_async(
+        self,
+        request: bot_models.ListIotbasicAppmanagerotamoduleRequest,
+    ) -> bot_models.ListIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-获取应用类型列表
+        Summary: iotbasic-获取应用类型列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotbasic_appmanagerotamodule_ex_async(request, headers, runtime)
+
+    def list_iotbasic_appmanagerotamodule_ex(
+        self,
+        request: bot_models.ListIotbasicAppmanagerotamoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-获取应用类型列表
+        Summary: iotbasic-获取应用类型列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotbasicAppmanagerotamoduleResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotbasic_appmanagerotamodule_ex_async(
+        self,
+        request: bot_models.ListIotbasicAppmanagerotamoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-获取应用类型列表
+        Summary: iotbasic-获取应用类型列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotbasicAppmanagerotamoduleResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_iotbasic_appmanager(
+        self,
+        request: bot_models.PagequeryIotbasicAppmanagerRequest,
+    ) -> bot_models.PagequeryIotbasicAppmanagerResponse:
+        """
+        Description: iotbasic-分页查询应用列表
+        Summary: iotbasic-分页查询应用列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_iotbasic_appmanager_ex(request, headers, runtime)
+
+    async def pagequery_iotbasic_appmanager_async(
+        self,
+        request: bot_models.PagequeryIotbasicAppmanagerRequest,
+    ) -> bot_models.PagequeryIotbasicAppmanagerResponse:
+        """
+        Description: iotbasic-分页查询应用列表
+        Summary: iotbasic-分页查询应用列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_iotbasic_appmanager_ex_async(request, headers, runtime)
+
+    def pagequery_iotbasic_appmanager_ex(
+        self,
+        request: bot_models.PagequeryIotbasicAppmanagerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryIotbasicAppmanagerResponse:
+        """
+        Description: iotbasic-分页查询应用列表
+        Summary: iotbasic-分页查询应用列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryIotbasicAppmanagerResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanager.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_iotbasic_appmanager_ex_async(
+        self,
+        request: bot_models.PagequeryIotbasicAppmanagerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryIotbasicAppmanagerResponse:
+        """
+        Description: iotbasic-分页查询应用列表
+        Summary: iotbasic-分页查询应用列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryIotbasicAppmanagerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanager.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_iotbasic_appmanagerfileurl(
+        self,
+        request: bot_models.GetIotbasicAppmanagerfileurlRequest,
+    ) -> bot_models.GetIotbasicAppmanagerfileurlResponse:
+        """
+        Description: iotbasic-获取应用下载地址
+        Summary: iotbasic-获取应用下载地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_iotbasic_appmanagerfileurl_ex(request, headers, runtime)
+
+    async def get_iotbasic_appmanagerfileurl_async(
+        self,
+        request: bot_models.GetIotbasicAppmanagerfileurlRequest,
+    ) -> bot_models.GetIotbasicAppmanagerfileurlResponse:
+        """
+        Description: iotbasic-获取应用下载地址
+        Summary: iotbasic-获取应用下载地址
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_iotbasic_appmanagerfileurl_ex_async(request, headers, runtime)
+
+    def get_iotbasic_appmanagerfileurl_ex(
+        self,
+        request: bot_models.GetIotbasicAppmanagerfileurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GetIotbasicAppmanagerfileurlResponse:
+        """
+        Description: iotbasic-获取应用下载地址
+        Summary: iotbasic-获取应用下载地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GetIotbasicAppmanagerfileurlResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanagerfileurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_iotbasic_appmanagerfileurl_ex_async(
+        self,
+        request: bot_models.GetIotbasicAppmanagerfileurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.GetIotbasicAppmanagerfileurlResponse:
+        """
+        Description: iotbasic-获取应用下载地址
+        Summary: iotbasic-获取应用下载地址
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.GetIotbasicAppmanagerfileurlResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanagerfileurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_iotbasic_appreleaseorder(
+        self,
+        request: bot_models.PagequeryIotbasicAppreleaseorderRequest,
+    ) -> bot_models.PagequeryIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-分页查询发布批次列表
+        Summary: iotbasic-分页查询发布批次列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_iotbasic_appreleaseorder_ex(request, headers, runtime)
+
+    async def pagequery_iotbasic_appreleaseorder_async(
+        self,
+        request: bot_models.PagequeryIotbasicAppreleaseorderRequest,
+    ) -> bot_models.PagequeryIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-分页查询发布批次列表
+        Summary: iotbasic-分页查询发布批次列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_iotbasic_appreleaseorder_ex_async(request, headers, runtime)
+
+    def pagequery_iotbasic_appreleaseorder_ex(
+        self,
+        request: bot_models.PagequeryIotbasicAppreleaseorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-分页查询发布批次列表
+        Summary: iotbasic-分页查询发布批次列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryIotbasicAppreleaseorderResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appreleaseorder.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_iotbasic_appreleaseorder_ex_async(
+        self,
+        request: bot_models.PagequeryIotbasicAppreleaseorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-分页查询发布批次列表
+        Summary: iotbasic-分页查询发布批次列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryIotbasicAppreleaseorderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appreleaseorder.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_iotbasic_appreleasedevice(
+        self,
+        request: bot_models.PagequeryIotbasicAppreleasedeviceRequest,
+    ) -> bot_models.PagequeryIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-分页查询设备升级列表
+        Summary: iotbasic-分页查询设备升级列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_iotbasic_appreleasedevice_ex(request, headers, runtime)
+
+    async def pagequery_iotbasic_appreleasedevice_async(
+        self,
+        request: bot_models.PagequeryIotbasicAppreleasedeviceRequest,
+    ) -> bot_models.PagequeryIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-分页查询设备升级列表
+        Summary: iotbasic-分页查询设备升级列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_iotbasic_appreleasedevice_ex_async(request, headers, runtime)
+
+    def pagequery_iotbasic_appreleasedevice_ex(
+        self,
+        request: bot_models.PagequeryIotbasicAppreleasedeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-分页查询设备升级列表
+        Summary: iotbasic-分页查询设备升级列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryIotbasicAppreleasedeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appreleasedevice.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_iotbasic_appreleasedevice_ex_async(
+        self,
+        request: bot_models.PagequeryIotbasicAppreleasedeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PagequeryIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-分页查询设备升级列表
+        Summary: iotbasic-分页查询设备升级列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PagequeryIotbasicAppreleasedeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appreleasedevice.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def publish_iotbasic_appreleaseorder(
+        self,
+        request: bot_models.PublishIotbasicAppreleaseorderRequest,
+    ) -> bot_models.PublishIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-发布工单
+        Summary: iotbasic-发布工单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.publish_iotbasic_appreleaseorder_ex(request, headers, runtime)
+
+    async def publish_iotbasic_appreleaseorder_async(
+        self,
+        request: bot_models.PublishIotbasicAppreleaseorderRequest,
+    ) -> bot_models.PublishIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-发布工单
+        Summary: iotbasic-发布工单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.publish_iotbasic_appreleaseorder_ex_async(request, headers, runtime)
+
+    def publish_iotbasic_appreleaseorder_ex(
+        self,
+        request: bot_models.PublishIotbasicAppreleaseorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PublishIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-发布工单
+        Summary: iotbasic-发布工单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PublishIotbasicAppreleaseorderResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appreleaseorder.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def publish_iotbasic_appreleaseorder_ex_async(
+        self,
+        request: bot_models.PublishIotbasicAppreleaseorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PublishIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-发布工单
+        Summary: iotbasic-发布工单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PublishIotbasicAppreleaseorderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appreleaseorder.publish', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_iotbasic_appreleaseorder(
+        self,
+        request: bot_models.CancelIotbasicAppreleaseorderRequest,
+    ) -> bot_models.CancelIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-取消工单发布
+        Summary: iotbasic-取消工单发布
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_iotbasic_appreleaseorder_ex(request, headers, runtime)
+
+    async def cancel_iotbasic_appreleaseorder_async(
+        self,
+        request: bot_models.CancelIotbasicAppreleaseorderRequest,
+    ) -> bot_models.CancelIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-取消工单发布
+        Summary: iotbasic-取消工单发布
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_iotbasic_appreleaseorder_ex_async(request, headers, runtime)
+
+    def cancel_iotbasic_appreleaseorder_ex(
+        self,
+        request: bot_models.CancelIotbasicAppreleaseorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CancelIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-取消工单发布
+        Summary: iotbasic-取消工单发布
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CancelIotbasicAppreleaseorderResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appreleaseorder.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_iotbasic_appreleaseorder_ex_async(
+        self,
+        request: bot_models.CancelIotbasicAppreleaseorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CancelIotbasicAppreleaseorderResponse:
+        """
+        Description: iotbasic-取消工单发布
+        Summary: iotbasic-取消工单发布
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CancelIotbasicAppreleaseorderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appreleaseorder.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_iotbasic_appreleasedevice(
+        self,
+        request: bot_models.CancelIotbasicAppreleasedeviceRequest,
+    ) -> bot_models.CancelIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-取消设备升级
+        Summary: iotbasic-取消设备升级
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_iotbasic_appreleasedevice_ex(request, headers, runtime)
+
+    async def cancel_iotbasic_appreleasedevice_async(
+        self,
+        request: bot_models.CancelIotbasicAppreleasedeviceRequest,
+    ) -> bot_models.CancelIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-取消设备升级
+        Summary: iotbasic-取消设备升级
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_iotbasic_appreleasedevice_ex_async(request, headers, runtime)
+
+    def cancel_iotbasic_appreleasedevice_ex(
+        self,
+        request: bot_models.CancelIotbasicAppreleasedeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CancelIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-取消设备升级
+        Summary: iotbasic-取消设备升级
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CancelIotbasicAppreleasedeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appreleasedevice.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_iotbasic_appreleasedevice_ex_async(
+        self,
+        request: bot_models.CancelIotbasicAppreleasedeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CancelIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-取消设备升级
+        Summary: iotbasic-取消设备升级
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CancelIotbasicAppreleasedeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appreleasedevice.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_iotbasic_appreleasedevice(
+        self,
+        request: bot_models.RetryIotbasicAppreleasedeviceRequest,
+    ) -> bot_models.RetryIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-重试设备升级
+        Summary: iotbasic-重试设备升级
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_iotbasic_appreleasedevice_ex(request, headers, runtime)
+
+    async def retry_iotbasic_appreleasedevice_async(
+        self,
+        request: bot_models.RetryIotbasicAppreleasedeviceRequest,
+    ) -> bot_models.RetryIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-重试设备升级
+        Summary: iotbasic-重试设备升级
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_iotbasic_appreleasedevice_ex_async(request, headers, runtime)
+
+    def retry_iotbasic_appreleasedevice_ex(
+        self,
+        request: bot_models.RetryIotbasicAppreleasedeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RetryIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-重试设备升级
+        Summary: iotbasic-重试设备升级
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RetryIotbasicAppreleasedeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appreleasedevice.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_iotbasic_appreleasedevice_ex_async(
+        self,
+        request: bot_models.RetryIotbasicAppreleasedeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.RetryIotbasicAppreleasedeviceResponse:
+        """
+        Description: iotbasic-重试设备升级
+        Summary: iotbasic-重试设备升级
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.RetryIotbasicAppreleasedeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appreleasedevice.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_iotbasic_appmanagerotamodule(
+        self,
+        request: bot_models.CreateIotbasicAppmanagerotamoduleRequest,
+    ) -> bot_models.CreateIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-创建应用类型
+        Summary: iotbasic-创建应用类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_iotbasic_appmanagerotamodule_ex(request, headers, runtime)
+
+    async def create_iotbasic_appmanagerotamodule_async(
+        self,
+        request: bot_models.CreateIotbasicAppmanagerotamoduleRequest,
+    ) -> bot_models.CreateIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-创建应用类型
+        Summary: iotbasic-创建应用类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_iotbasic_appmanagerotamodule_ex_async(request, headers, runtime)
+
+    def create_iotbasic_appmanagerotamodule_ex(
+        self,
+        request: bot_models.CreateIotbasicAppmanagerotamoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-创建应用类型
+        Summary: iotbasic-创建应用类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotbasicAppmanagerotamoduleResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_iotbasic_appmanagerotamodule_ex_async(
+        self,
+        request: bot_models.CreateIotbasicAppmanagerotamoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-创建应用类型
+        Summary: iotbasic-创建应用类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotbasicAppmanagerotamoduleResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_iotbasic_appmanagerotamodule(
+        self,
+        request: bot_models.UpdateIotbasicAppmanagerotamoduleRequest,
+    ) -> bot_models.UpdateIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-修改应用类型
+        Summary: iotbasic-修改应用类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_iotbasic_appmanagerotamodule_ex(request, headers, runtime)
+
+    async def update_iotbasic_appmanagerotamodule_async(
+        self,
+        request: bot_models.UpdateIotbasicAppmanagerotamoduleRequest,
+    ) -> bot_models.UpdateIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-修改应用类型
+        Summary: iotbasic-修改应用类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_iotbasic_appmanagerotamodule_ex_async(request, headers, runtime)
+
+    def update_iotbasic_appmanagerotamodule_ex(
+        self,
+        request: bot_models.UpdateIotbasicAppmanagerotamoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-修改应用类型
+        Summary: iotbasic-修改应用类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotbasicAppmanagerotamoduleResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_iotbasic_appmanagerotamodule_ex_async(
+        self,
+        request: bot_models.UpdateIotbasicAppmanagerotamoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-修改应用类型
+        Summary: iotbasic-修改应用类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotbasicAppmanagerotamoduleResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_iotbasic_appmanagerotamodule(
+        self,
+        request: bot_models.DeleteIotbasicAppmanagerotamoduleRequest,
+    ) -> bot_models.DeleteIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-删除应用类型
+        Summary: iotbasic-删除应用类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_iotbasic_appmanagerotamodule_ex(request, headers, runtime)
+
+    async def delete_iotbasic_appmanagerotamodule_async(
+        self,
+        request: bot_models.DeleteIotbasicAppmanagerotamoduleRequest,
+    ) -> bot_models.DeleteIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-删除应用类型
+        Summary: iotbasic-删除应用类型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_iotbasic_appmanagerotamodule_ex_async(request, headers, runtime)
+
+    def delete_iotbasic_appmanagerotamodule_ex(
+        self,
+        request: bot_models.DeleteIotbasicAppmanagerotamoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-删除应用类型
+        Summary: iotbasic-删除应用类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotbasicAppmanagerotamoduleResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_iotbasic_appmanagerotamodule_ex_async(
+        self,
+        request: bot_models.DeleteIotbasicAppmanagerotamoduleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotbasicAppmanagerotamoduleResponse:
+        """
+        Description: iotbasic-删除应用类型
+        Summary: iotbasic-删除应用类型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotbasicAppmanagerotamoduleResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
@@ -13053,6 +13725,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.SendThingDataResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.thing.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_techintegration_skugrantstockinfo(
+        self,
+        request: bot_models.QueryTechintegrationSkugrantstockinfoRequest,
+    ) -> bot_models.QueryTechintegrationSkugrantstockinfoResponse:
+        """
+        Description: 支付芯证书授权信息查询
+        Summary: 支付芯证书授权信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_techintegration_skugrantstockinfo_ex(request, headers, runtime)
+
+    async def query_techintegration_skugrantstockinfo_async(
+        self,
+        request: bot_models.QueryTechintegrationSkugrantstockinfoRequest,
+    ) -> bot_models.QueryTechintegrationSkugrantstockinfoResponse:
+        """
+        Description: 支付芯证书授权信息查询
+        Summary: 支付芯证书授权信息查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_techintegration_skugrantstockinfo_ex_async(request, headers, runtime)
+
+    def query_techintegration_skugrantstockinfo_ex(
+        self,
+        request: bot_models.QueryTechintegrationSkugrantstockinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTechintegrationSkugrantstockinfoResponse:
+        """
+        Description: 支付芯证书授权信息查询
+        Summary: 支付芯证书授权信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTechintegrationSkugrantstockinfoResponse(),
+            self.do_request('1.0', 'blockchain.bot.techintegration.skugrantstockinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_techintegration_skugrantstockinfo_ex_async(
+        self,
+        request: bot_models.QueryTechintegrationSkugrantstockinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTechintegrationSkugrantstockinfoResponse:
+        """
+        Description: 支付芯证书授权信息查询
+        Summary: 支付芯证书授权信息查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTechintegrationSkugrantstockinfoResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.techintegration.skugrantstockinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

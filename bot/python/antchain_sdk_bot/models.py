@@ -1870,6 +1870,136 @@ class CodeListView(TeaModel):
         return self
 
 
+class IotbasicAppManagerPageInfo(TeaModel):
+    def __init__(
+        self,
+        file_format: str = None,
+        file_size: int = None,
+        module_name: str = None,
+        device_category: str = None,
+        device_category_name: str = None,
+        package_name: str = None,
+        remark: str = None,
+        apk_version: str = None,
+        apk_type: int = None,
+        apk_name: str = None,
+        apk_id: str = None,
+        download_count: int = None,
+        install_count: int = None,
+        device_model: str = None,
+    ):
+        # 应用类型
+        self.file_format = file_format
+        # 应用大小
+        self.file_size = file_size
+        # 应用模块名称
+        self.module_name = module_name
+        # 设备品类code
+        self.device_category = device_category
+        # 设备品类名称
+        self.device_category_name = device_category_name
+        # 应用模块包名
+        self.package_name = package_name
+        # 应用描述
+        self.remark = remark
+        # 应用版本号
+        self.apk_version = apk_version
+        # 应用包类型（整包：0/差分：1）
+        self.apk_type = apk_type
+        # 应用名称
+        self.apk_name = apk_name
+        # 应用包id
+        self.apk_id = apk_id
+        # 下载次数
+        self.download_count = download_count
+        # 安装次数
+        self.install_count = install_count
+        # 设备型号
+        self.device_model = device_model
+
+    def validate(self):
+        self.validate_required(self.file_format, 'file_format')
+        self.validate_required(self.file_size, 'file_size')
+        self.validate_required(self.module_name, 'module_name')
+        self.validate_required(self.device_category, 'device_category')
+        self.validate_required(self.device_category_name, 'device_category_name')
+        self.validate_required(self.package_name, 'package_name')
+        self.validate_required(self.apk_version, 'apk_version')
+        self.validate_required(self.apk_type, 'apk_type')
+        self.validate_required(self.apk_name, 'apk_name')
+        self.validate_required(self.apk_id, 'apk_id')
+        self.validate_required(self.download_count, 'download_count')
+        self.validate_required(self.install_count, 'install_count')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_format is not None:
+            result['file_format'] = self.file_format
+        if self.file_size is not None:
+            result['file_size'] = self.file_size
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.device_category is not None:
+            result['device_category'] = self.device_category
+        if self.device_category_name is not None:
+            result['device_category_name'] = self.device_category_name
+        if self.package_name is not None:
+            result['package_name'] = self.package_name
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.apk_version is not None:
+            result['apk_version'] = self.apk_version
+        if self.apk_type is not None:
+            result['apk_type'] = self.apk_type
+        if self.apk_name is not None:
+            result['apk_name'] = self.apk_name
+        if self.apk_id is not None:
+            result['apk_id'] = self.apk_id
+        if self.download_count is not None:
+            result['download_count'] = self.download_count
+        if self.install_count is not None:
+            result['install_count'] = self.install_count
+        if self.device_model is not None:
+            result['device_model'] = self.device_model
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_format') is not None:
+            self.file_format = m.get('file_format')
+        if m.get('file_size') is not None:
+            self.file_size = m.get('file_size')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('device_category') is not None:
+            self.device_category = m.get('device_category')
+        if m.get('device_category_name') is not None:
+            self.device_category_name = m.get('device_category_name')
+        if m.get('package_name') is not None:
+            self.package_name = m.get('package_name')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('apk_version') is not None:
+            self.apk_version = m.get('apk_version')
+        if m.get('apk_type') is not None:
+            self.apk_type = m.get('apk_type')
+        if m.get('apk_name') is not None:
+            self.apk_name = m.get('apk_name')
+        if m.get('apk_id') is not None:
+            self.apk_id = m.get('apk_id')
+        if m.get('download_count') is not None:
+            self.download_count = m.get('download_count')
+        if m.get('install_count') is not None:
+            self.install_count = m.get('install_count')
+        if m.get('device_model') is not None:
+            self.device_model = m.get('device_model')
+        return self
+
+
 class IotBasicDeviceQueryResponse(TeaModel):
     def __init__(
         self,
@@ -2604,6 +2734,106 @@ class PurchaseOrderInfoDetail(TeaModel):
             for k in m.get('goods_id_and_count'):
                 temp_model = GoodsIdAndCount()
                 self.goods_id_and_count.append(temp_model.from_map(k))
+        return self
+
+
+class IotbasicReleaseOrderInfo(TeaModel):
+    def __init__(
+        self,
+        apk_name: str = None,
+        apk_version: str = None,
+        order_id: str = None,
+        order_name: str = None,
+        status: str = None,
+        release_time: str = None,
+        release_total: int = None,
+        release_finished: int = None,
+        status_change_time: str = None,
+    ):
+        # 应用名称
+        self.apk_name = apk_name
+        # 应用版本号
+        self.apk_version = apk_version
+        # 工单id
+        self.order_id = order_id
+        # 工单名称
+        self.order_name = order_name
+        # 发布批次状态
+        # 升级中：IN_PROGRESS
+        # 取消中：CANCELING
+        # 部分成功：PARTIAL_SUCCESS
+        # 部分失败：PARTIAL_FAILED
+        # 部分取消：PARTIAL_CANCELED
+        # 全部成功：ALL_SUCCESS
+        # 全部失败：ALL_FAILED
+        # 全部取消：ALL_CANCELED
+        self.status = status
+        # 发布时间
+        self.release_time = release_time
+        # 设备升级总数
+        self.release_total = release_total
+        # 设备升级完成数
+        self.release_finished = release_finished
+        # 工单状态变更时间
+        self.status_change_time = status_change_time
+
+    def validate(self):
+        self.validate_required(self.apk_name, 'apk_name')
+        self.validate_required(self.apk_version, 'apk_version')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.order_name, 'order_name')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.release_time, 'release_time')
+        self.validate_required(self.release_total, 'release_total')
+        self.validate_required(self.release_finished, 'release_finished')
+        self.validate_required(self.status_change_time, 'status_change_time')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apk_name is not None:
+            result['apk_name'] = self.apk_name
+        if self.apk_version is not None:
+            result['apk_version'] = self.apk_version
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.order_name is not None:
+            result['order_name'] = self.order_name
+        if self.status is not None:
+            result['status'] = self.status
+        if self.release_time is not None:
+            result['release_time'] = self.release_time
+        if self.release_total is not None:
+            result['release_total'] = self.release_total
+        if self.release_finished is not None:
+            result['release_finished'] = self.release_finished
+        if self.status_change_time is not None:
+            result['status_change_time'] = self.status_change_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('apk_name') is not None:
+            self.apk_name = m.get('apk_name')
+        if m.get('apk_version') is not None:
+            self.apk_version = m.get('apk_version')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('order_name') is not None:
+            self.order_name = m.get('order_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('release_time') is not None:
+            self.release_time = m.get('release_time')
+        if m.get('release_total') is not None:
+            self.release_total = m.get('release_total')
+        if m.get('release_finished') is not None:
+            self.release_finished = m.get('release_finished')
+        if m.get('status_change_time') is not None:
+            self.status_change_time = m.get('status_change_time')
         return self
 
 
@@ -6338,6 +6568,41 @@ class JtDevice(TeaModel):
         return self
 
 
+class IotbasicOtaModuleInfo(TeaModel):
+    def __init__(
+        self,
+        module_name: str = None,
+        last_version: str = None,
+    ):
+        # OTA模块名称
+        self.module_name = module_name
+        # 最新版本号
+        self.last_version = last_version
+
+    def validate(self):
+        self.validate_required(self.module_name, 'module_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.last_version is not None:
+            result['last_version'] = self.last_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('last_version') is not None:
+            self.last_version = m.get('last_version')
+        return self
+
+
 class ComputerInfo(TeaModel):
     def __init__(
         self,
@@ -6737,6 +7002,120 @@ class GoodsDigitalFingerprintRegisterResultData(TeaModel):
             self.success = m.get('success')
         if m.get('describe') is not None:
             self.describe = m.get('describe')
+        return self
+
+
+class IotbasicReleaseDeviceInfo(TeaModel):
+    def __init__(
+        self,
+        apk_name: str = None,
+        apk_version: str = None,
+        order_id: str = None,
+        order_name: str = None,
+        task_id: str = None,
+        order_detail_id: str = None,
+        device_sn: str = None,
+        device_id: str = None,
+        status: str = None,
+        release_time: str = None,
+        upgrade_time: str = None,
+    ):
+        # 应用名称
+        self.apk_name = apk_name
+        # 应用版本号
+        self.apk_version = apk_version
+        # 工单id
+        self.order_id = order_id
+        # 工单名称
+        self.order_name = order_name
+        # 任务id
+        self.task_id = task_id
+        # 设备升级任务唯一id
+        self.order_detail_id = order_detail_id
+        # 设备sn
+        self.device_sn = device_sn
+        # 设备id
+        self.device_id = device_id
+        # 设备升级状态
+        # 待确认：CONFIRM
+        # 待推送：QUEUED
+        # 已推送：NOTIFIED
+        # 升级中：IN_PROGRESS
+        # 升级成功：SUCCEEDED
+        # 升级失败：FAILED
+        # 已取消：CANCELED
+        # 升级超时：TIMEOUT
+        self.status = status
+        # 发布时间
+        self.release_time = release_time
+        # 升级完成时间
+        self.upgrade_time = upgrade_time
+
+    def validate(self):
+        self.validate_required(self.apk_name, 'apk_name')
+        self.validate_required(self.apk_version, 'apk_version')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.order_name, 'order_name')
+        self.validate_required(self.task_id, 'task_id')
+        self.validate_required(self.order_detail_id, 'order_detail_id')
+        self.validate_required(self.device_sn, 'device_sn')
+        self.validate_required(self.device_id, 'device_id')
+        self.validate_required(self.status, 'status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apk_name is not None:
+            result['apk_name'] = self.apk_name
+        if self.apk_version is not None:
+            result['apk_version'] = self.apk_version
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.order_name is not None:
+            result['order_name'] = self.order_name
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.order_detail_id is not None:
+            result['order_detail_id'] = self.order_detail_id
+        if self.device_sn is not None:
+            result['device_sn'] = self.device_sn
+        if self.device_id is not None:
+            result['device_id'] = self.device_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.release_time is not None:
+            result['release_time'] = self.release_time
+        if self.upgrade_time is not None:
+            result['upgrade_time'] = self.upgrade_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('apk_name') is not None:
+            self.apk_name = m.get('apk_name')
+        if m.get('apk_version') is not None:
+            self.apk_version = m.get('apk_version')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('order_name') is not None:
+            self.order_name = m.get('order_name')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('order_detail_id') is not None:
+            self.order_detail_id = m.get('order_detail_id')
+        if m.get('device_sn') is not None:
+            self.device_sn = m.get('device_sn')
+        if m.get('device_id') is not None:
+            self.device_id = m.get('device_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('release_time') is not None:
+            self.release_time = m.get('release_time')
+        if m.get('upgrade_time') is not None:
+            self.upgrade_time = m.get('upgrade_time')
         return self
 
 
@@ -7821,6 +8200,55 @@ class OrderPushInfo(TeaModel):
             self.total_amount = m.get('total_amount')
         if m.get('tenant_id') is not None:
             self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class SkuGrantStockInfoResp(TeaModel):
+    def __init__(
+        self,
+        product_model: str = None,
+        product_form: str = None,
+        features: List[str] = None,
+        cert_num: int = None,
+    ):
+        # 产品型号
+        self.product_model = product_model
+        # 产品形式，取值范围： SOFTWARE_HARDWARE：软硬一体（SE方案）, SOFTWARE：纯软（非SE方案）
+        self.product_form = product_form
+        # 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+        self.features = features
+        # 授权数量(指当前证书凭证种类下未消耗的证书数量)
+        self.cert_num = cert_num
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product_model is not None:
+            result['product_model'] = self.product_model
+        if self.product_form is not None:
+            result['product_form'] = self.product_form
+        if self.features is not None:
+            result['features'] = self.features
+        if self.cert_num is not None:
+            result['cert_num'] = self.cert_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('product_model') is not None:
+            self.product_model = m.get('product_model')
+        if m.get('product_form') is not None:
+            self.product_form = m.get('product_form')
+        if m.get('features') is not None:
+            self.features = m.get('features')
+        if m.get('cert_num') is not None:
+            self.cert_num = m.get('cert_num')
         return self
 
 
@@ -20586,19 +21014,16 @@ class QueryIotbasicCategorylistRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        industry: str = None,
-        scene: str = None,
+        project_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 行业
-        self.industry = industry
-        # 场景
-        self.scene = scene
+        # 项目编码
+        self.project_code = project_code
 
     def validate(self):
-        pass
+        self.validate_required(self.project_code, 'project_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -20610,10 +21035,8 @@ class QueryIotbasicCategorylistRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.industry is not None:
-            result['industry'] = self.industry
-        if self.scene is not None:
-            result['scene'] = self.scene
+        if self.project_code is not None:
+            result['project_code'] = self.project_code
         return result
 
     def from_map(self, m: dict = None):
@@ -20622,10 +21045,8 @@ class QueryIotbasicCategorylistRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('industry') is not None:
-            self.industry = m.get('industry')
-        if m.get('scene') is not None:
-            self.scene = m.get('scene')
+        if m.get('project_code') is not None:
+            self.project_code = m.get('project_code')
         return self
 
 
@@ -24279,7 +24700,7 @@ class GetDigitalkeyDeviceinfoResponse(TeaModel):
         return self
 
 
-class UploadIotbasicAppmanagerfileRequest(TeaModel):
+class CreateIotbasicAppmanagerRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -24287,7 +24708,14 @@ class UploadIotbasicAppmanagerfileRequest(TeaModel):
         file_object: BinaryIO = None,
         file_object_name: str = None,
         file_id: str = None,
-        biz_type: str = None,
+        module_name: str = None,
+        apk_name: str = None,
+        category_code: str = None,
+        device_model_value: str = None,
+        remark: str = None,
+        apk_version: str = None,
+        project_code: str = None,
+        file_url: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24298,12 +24726,30 @@ class UploadIotbasicAppmanagerfileRequest(TeaModel):
         # 待上传文件名
         self.file_object_name = file_object_name
         self.file_id = file_id
-        # 应用模块名称，由查询应用类型列表获取
-        self.biz_type = biz_type
+        # 应用模块名称，由查询应用类型列表获取。默认使用default模块
+        self.module_name = module_name
+        # OTA升级包名称，需在iot账号下唯一，创建后不可修改。支持中文、英文字母、日文、数字、短划线（-）、下划线（_）和半角圆括号（()），必须以中文、英文、日文或数字开头，长度限制为1~40个字符。
+        self.apk_name = apk_name
+        # 品类code
+        self.category_code = category_code
+        # 设备型号值
+        self.device_model_value = device_model_value
+        # 应用包描述
+        # 最大字符为100
+        self.remark = remark
+        # 当前OTA升级包的版本号，仅支持英文字母、数字、半角句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。
+        # 最新模块版本好可通过查询应用类型列表接口获取
+        self.apk_version = apk_version
+        # 项目编码
+        self.project_code = project_code
+        # 文件地址
+        self.file_url = file_url
 
     def validate(self):
-        self.validate_required(self.file_id, 'file_id')
-        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.apk_name, 'apk_name')
+        self.validate_required(self.category_code, 'category_code')
+        self.validate_required(self.apk_version, 'apk_version')
+        self.validate_required(self.project_code, 'project_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -24321,8 +24767,22 @@ class UploadIotbasicAppmanagerfileRequest(TeaModel):
             result['fileObjectName'] = self.file_object_name
         if self.file_id is not None:
             result['file_id'] = self.file_id
-        if self.biz_type is not None:
-            result['biz_type'] = self.biz_type
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.apk_name is not None:
+            result['apk_name'] = self.apk_name
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        if self.device_model_value is not None:
+            result['device_model_value'] = self.device_model_value
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.apk_version is not None:
+            result['apk_version'] = self.apk_version
+        if self.project_code is not None:
+            result['project_code'] = self.project_code
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
         return result
 
     def from_map(self, m: dict = None):
@@ -24337,12 +24797,26 @@ class UploadIotbasicAppmanagerfileRequest(TeaModel):
             self.file_object_name = m.get('fileObjectName')
         if m.get('file_id') is not None:
             self.file_id = m.get('file_id')
-        if m.get('biz_type') is not None:
-            self.biz_type = m.get('biz_type')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('apk_name') is not None:
+            self.apk_name = m.get('apk_name')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        if m.get('device_model_value') is not None:
+            self.device_model_value = m.get('device_model_value')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('apk_version') is not None:
+            self.apk_version = m.get('apk_version')
+        if m.get('project_code') is not None:
+            self.project_code = m.get('project_code')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
         return self
 
 
-class UploadIotbasicAppmanagerfileResponse(TeaModel):
+class CreateIotbasicAppmanagerResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -24359,7 +24833,7 @@ class UploadIotbasicAppmanagerfileResponse(TeaModel):
         self.result_msg = result_msg
         # 接口调用结果
         self.success = success
-        # 上传应用文件解析结果，json字符串
+        # 文件id
         self.data = data
 
     def validate(self):
@@ -24395,6 +24869,1477 @@ class UploadIotbasicAppmanagerfileResponse(TeaModel):
             self.success = m.get('success')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class ListIotbasicAppmanagerotamoduleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        category_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品类code
+        self.category_code = category_code
+
+    def validate(self):
+        self.validate_required(self.category_code, 'category_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        return self
+
+
+class ListIotbasicAppmanagerotamoduleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        data: List[IotbasicOtaModuleInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+        # 应用模块列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = IotbasicOtaModuleInfo()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class PagequeryIotbasicAppmanagerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        project_space: str = None,
+        apk_name: str = None,
+        apk_version: str = None,
+        current: int = None,
+        page_size: int = None,
+        category_code: str = None,
+        module_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 所属项目空间
+        self.project_space = project_space
+        # 应用名称
+        self.apk_name = apk_name
+        # 应用版本号
+        self.apk_version = apk_version
+        # 当前页
+        # 默认第一页
+        self.current = current
+        # 每页数量
+        # 默认20条，最大100条
+        self.page_size = page_size
+        # 品类code
+        self.category_code = category_code
+        # 应用模块名称，由查询应用类型列表获取
+        self.module_name = module_name
+
+    def validate(self):
+        self.validate_required(self.project_space, 'project_space')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.project_space is not None:
+            result['project_space'] = self.project_space
+        if self.apk_name is not None:
+            result['apk_name'] = self.apk_name
+        if self.apk_version is not None:
+            result['apk_version'] = self.apk_version
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('project_space') is not None:
+            self.project_space = m.get('project_space')
+        if m.get('apk_name') is not None:
+            self.apk_name = m.get('apk_name')
+        if m.get('apk_version') is not None:
+            self.apk_version = m.get('apk_version')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        return self
+
+
+class PagequeryIotbasicAppmanagerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        current: int = None,
+        page_size: int = None,
+        total: int = None,
+        data: List[IotbasicAppManagerPageInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+        # 当前页
+        self.current = current
+        # 每页数量
+        self.page_size = page_size
+        # 总数量
+        self.total = total
+        # 列表数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = IotbasicAppManagerPageInfo()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class GetIotbasicAppmanagerfileurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        apk_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 应用包id
+        self.apk_id = apk_id
+
+    def validate(self):
+        self.validate_required(self.apk_id, 'apk_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.apk_id is not None:
+            result['apk_id'] = self.apk_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('apk_id') is not None:
+            self.apk_id = m.get('apk_id')
+        return self
+
+
+class GetIotbasicAppmanagerfileurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+        # 应用下载地址
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class PagequeryIotbasicAppreleaseorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        project_space: str = None,
+        apk_name: str = None,
+        apk_version: str = None,
+        order_id: str = None,
+        status: str = None,
+        current: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 所属项目空间
+        self.project_space = project_space
+        # 应用名称
+        self.apk_name = apk_name
+        # 应用版本号
+        self.apk_version = apk_version
+        # 工单id
+        self.order_id = order_id
+        # 发布批次状态
+        # 升级中：IN_PROGRESS
+        # 取消中：CANCELING
+        # 部分成功：PARTIAL_SUCCESS
+        # 部分失败：PARTIAL_FAILED
+        # 部分取消：PARTIAL_CANCELED
+        # 全部成功：ALL_SUCCESS
+        # 全部失败：ALL_FAILED
+        # 全部取消：ALL_CANCELED
+        self.status = status
+        # 当前页
+        self.current = current
+        # 每页数量
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.project_space, 'project_space')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.project_space is not None:
+            result['project_space'] = self.project_space
+        if self.apk_name is not None:
+            result['apk_name'] = self.apk_name
+        if self.apk_version is not None:
+            result['apk_version'] = self.apk_version
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('project_space') is not None:
+            self.project_space = m.get('project_space')
+        if m.get('apk_name') is not None:
+            self.apk_name = m.get('apk_name')
+        if m.get('apk_version') is not None:
+            self.apk_version = m.get('apk_version')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryIotbasicAppreleaseorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        current: int = None,
+        page_size: int = None,
+        total: int = None,
+        data: List[IotbasicReleaseOrderInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+        # 当前页
+        self.current = current
+        # 每页数量
+        self.page_size = page_size
+        # 总记录
+        self.total = total
+        # 分页查询结果列表
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = IotbasicReleaseOrderInfo()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class PagequeryIotbasicAppreleasedeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        project_space: str = None,
+        apk_name: str = None,
+        apk_version: str = None,
+        order_id: str = None,
+        device_sn: str = None,
+        status: str = None,
+        current: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 所属项目空间
+        self.project_space = project_space
+        # 应用名称
+        self.apk_name = apk_name
+        # 应用版本号
+        self.apk_version = apk_version
+        # 工单id
+        self.order_id = order_id
+        # 设备sn
+        self.device_sn = device_sn
+        # 设备升级状态
+        # 待确认：CONFIRM
+        # 待推送：QUEUED
+        # 已推送：NOTIFIED
+        # 升级中：IN_PROGRESS
+        # 升级成功：SUCCEEDED
+        # 升级失败：FAILED
+        # 已取消：CANCELED
+        # 升级超时：TIMEOUT
+        self.status = status
+        # 当前页
+        self.current = current
+        # 每页数量
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.project_space, 'project_space')
+        self.validate_required(self.current, 'current')
+        self.validate_required(self.page_size, 'page_size')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.project_space is not None:
+            result['project_space'] = self.project_space
+        if self.apk_name is not None:
+            result['apk_name'] = self.apk_name
+        if self.apk_version is not None:
+            result['apk_version'] = self.apk_version
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.device_sn is not None:
+            result['device_sn'] = self.device_sn
+        if self.status is not None:
+            result['status'] = self.status
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('project_space') is not None:
+            self.project_space = m.get('project_space')
+        if m.get('apk_name') is not None:
+            self.apk_name = m.get('apk_name')
+        if m.get('apk_version') is not None:
+            self.apk_version = m.get('apk_version')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('device_sn') is not None:
+            self.device_sn = m.get('device_sn')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class PagequeryIotbasicAppreleasedeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        current: int = None,
+        page_size: int = None,
+        total: int = None,
+        data: List[IotbasicReleaseDeviceInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+        # 当前页
+        self.current = current
+        # 每页数量
+        self.page_size = page_size
+        # 总记录
+        self.total = total
+        # 结果列表数据
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.current is not None:
+            result['current'] = self.current
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total is not None:
+            result['total'] = self.total
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('current') is not None:
+            self.current = m.get('current')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = IotbasicReleaseDeviceInfo()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class PublishIotbasicAppreleaseorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        apk_id: str = None,
+        release_mode: str = None,
+        data_list: List[str] = None,
+        cover: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 应用包id
+        self.apk_id = apk_id
+        # 发布方式
+        # DEVICE：指定设备发布
+        # VERSION：指定版本发布
+        self.release_mode = release_mode
+        # 指定发布方式的数据列表
+        # 发布方式为DEVICE，字段为设备did列表；
+        # 发布方式为VERSION，字段为应用包id列表；
+        self.data_list = data_list
+        # 对于数据列表中的设备存在升级中的任务是否覆盖安装？否：返回升级中的设备列表；是：取消升级中的设备升级任务，使用新的任务覆盖升级
+        self.cover = cover
+
+    def validate(self):
+        self.validate_required(self.apk_id, 'apk_id')
+        self.validate_required(self.release_mode, 'release_mode')
+        self.validate_required(self.data_list, 'data_list')
+        self.validate_required(self.cover, 'cover')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.apk_id is not None:
+            result['apk_id'] = self.apk_id
+        if self.release_mode is not None:
+            result['release_mode'] = self.release_mode
+        if self.data_list is not None:
+            result['data_list'] = self.data_list
+        if self.cover is not None:
+            result['cover'] = self.cover
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('apk_id') is not None:
+            self.apk_id = m.get('apk_id')
+        if m.get('release_mode') is not None:
+            self.release_mode = m.get('release_mode')
+        if m.get('data_list') is not None:
+            self.data_list = m.get('data_list')
+        if m.get('cover') is not None:
+            self.cover = m.get('cover')
+        return self
+
+
+class PublishIotbasicAppreleaseorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        unfinished_list: List[IotbasicReleaseDeviceInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+        # 未完成的设备升级列表
+        self.unfinished_list = unfinished_list
+
+    def validate(self):
+        if self.unfinished_list:
+            for k in self.unfinished_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['unfinished_list'] = []
+        if self.unfinished_list is not None:
+            for k in self.unfinished_list:
+                result['unfinished_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.unfinished_list = []
+        if m.get('unfinished_list') is not None:
+            for k in m.get('unfinished_list'):
+                temp_model = IotbasicReleaseDeviceInfo()
+                self.unfinished_list.append(temp_model.from_map(k))
+        return self
+
+
+class CancelIotbasicAppreleaseorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 工单id
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class CancelIotbasicAppreleaseorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class CancelIotbasicAppreleasedeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_detail_id_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备升级任务唯一id列表
+        self.order_detail_id_list = order_detail_id_list
+
+    def validate(self):
+        self.validate_required(self.order_detail_id_list, 'order_detail_id_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_detail_id_list is not None:
+            result['order_detail_id_list'] = self.order_detail_id_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_detail_id_list') is not None:
+            self.order_detail_id_list = m.get('order_detail_id_list')
+        return self
+
+
+class CancelIotbasicAppreleasedeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class RetryIotbasicAppreleasedeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_detail_id_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备升级任务唯一id列表
+        self.order_detail_id_list = order_detail_id_list
+
+    def validate(self):
+        self.validate_required(self.order_detail_id_list, 'order_detail_id_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_detail_id_list is not None:
+            result['order_detail_id_list'] = self.order_detail_id_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_detail_id_list') is not None:
+            self.order_detail_id_list = m.get('order_detail_id_list')
+        return self
+
+
+class RetryIotbasicAppreleasedeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class CreateIotbasicAppmanagerotamoduleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        category_code: str = None,
+        module_name: str = None,
+        alias_name: str = None,
+        desc: str = None,
+        project_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品类code
+        self.category_code = category_code
+        # OTA模块名称，产品下唯一且不可修改。仅支持英文字母、数字、英文句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。
+        # 英文字母不区分大小写，例如“scanner”和“Scanner”被认为是相同的模块名称，不可重复使用
+        self.module_name = module_name
+        # OTA模块别名。支持中文、英文字母、数字、英文句号（.）、短划线（-）和下划线（_），长度限制为1~64个字符。
+        self.alias_name = alias_name
+        # OTA模块的描述信息，支持最多100个字符。
+        self.desc = desc
+        # 项目编码
+        self.project_code = project_code
+
+    def validate(self):
+        self.validate_required(self.category_code, 'category_code')
+        self.validate_required(self.module_name, 'module_name')
+        self.validate_required(self.project_code, 'project_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.alias_name is not None:
+            result['alias_name'] = self.alias_name
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.project_code is not None:
+            result['project_code'] = self.project_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('alias_name') is not None:
+            self.alias_name = m.get('alias_name')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('project_code') is not None:
+            self.project_code = m.get('project_code')
+        return self
+
+
+class CreateIotbasicAppmanagerotamoduleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class UpdateIotbasicAppmanagerotamoduleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        category_code: str = None,
+        module_name: str = None,
+        alias_name: str = None,
+        desc: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品类code
+        self.category_code = category_code
+        # OTA模块名称，产品下唯一且不可修改。仅支持英文字母、数字、英文句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。 英文字母不区分大小写，例如“scanner”和“Scanner”被认为是相同的模块名称，不可重复使用
+        self.module_name = module_name
+        # OTA模块别名。支持中文、英文字母、数字、英文句号（.）、短划线（-）和下划线（_），长度限制为1~64个字符。
+        self.alias_name = alias_name
+        # OTA模块的描述信息，支持最多100个字符。
+        self.desc = desc
+
+    def validate(self):
+        self.validate_required(self.category_code, 'category_code')
+        self.validate_required(self.module_name, 'module_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        if self.alias_name is not None:
+            result['alias_name'] = self.alias_name
+        if self.desc is not None:
+            result['desc'] = self.desc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        if m.get('alias_name') is not None:
+            self.alias_name = m.get('alias_name')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        return self
+
+
+class UpdateIotbasicAppmanagerotamoduleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class DeleteIotbasicAppmanagerotamoduleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        category_code: str = None,
+        module_name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品类code
+        self.category_code = category_code
+        # 要删除的OTA模块名称。
+        self.module_name = module_name
+
+    def validate(self):
+        self.validate_required(self.category_code, 'category_code')
+        self.validate_required(self.module_name, 'module_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        return self
+
+
+class DeleteIotbasicAppmanagerotamoduleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
         return self
 
 
@@ -37642,6 +39587,9 @@ class ApplyTechintegrationSkushipRequest(TeaModel):
         security_mechanism: str = None,
         cert_type: str = None,
         features: List[str] = None,
+        task_id: str = None,
+        task_batch_num: str = None,
+        retry_flag: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -37658,6 +39606,12 @@ class ApplyTechintegrationSkushipRequest(TeaModel):
         self.cert_type = cert_type
         # 凭证种类
         self.features = features
+        # 证书拉取任务ID
+        self.task_id = task_id
+        # 证书拉取任务批次
+        self.task_batch_num = task_batch_num
+        # 重试标志
+        self.retry_flag = retry_flag
 
     def validate(self):
         self.validate_required(self.device_model, 'device_model')
@@ -37692,6 +39646,12 @@ class ApplyTechintegrationSkushipRequest(TeaModel):
             result['cert_type'] = self.cert_type
         if self.features is not None:
             result['features'] = self.features
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.task_batch_num is not None:
+            result['task_batch_num'] = self.task_batch_num
+        if self.retry_flag is not None:
+            result['retry_flag'] = self.retry_flag
         return result
 
     def from_map(self, m: dict = None):
@@ -37712,6 +39672,12 @@ class ApplyTechintegrationSkushipRequest(TeaModel):
             self.cert_type = m.get('cert_type')
         if m.get('features') is not None:
             self.features = m.get('features')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('task_batch_num') is not None:
+            self.task_batch_num = m.get('task_batch_num')
+        if m.get('retry_flag') is not None:
+            self.retry_flag = m.get('retry_flag')
         return self
 
 
@@ -37722,6 +39688,8 @@ class ApplyTechintegrationSkushipResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         data: List[str] = None,
+        task_id: str = None,
+        task_batch_num: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -37731,6 +39699,10 @@ class ApplyTechintegrationSkushipResponse(TeaModel):
         self.result_msg = result_msg
         # 支付芯证书列表
         self.data = data
+        # 证书拉取任务ID
+        self.task_id = task_id
+        # 证书拉取任务批次
+        self.task_batch_num = task_batch_num
 
     def validate(self):
         pass
@@ -37749,6 +39721,10 @@ class ApplyTechintegrationSkushipResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.data is not None:
             result['data'] = self.data
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.task_batch_num is not None:
+            result['task_batch_num'] = self.task_batch_num
         return result
 
     def from_map(self, m: dict = None):
@@ -37761,6 +39737,10 @@ class ApplyTechintegrationSkushipResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('task_batch_num') is not None:
+            self.task_batch_num = m.get('task_batch_num')
         return self
 
 
@@ -38477,6 +40457,122 @@ class SendThingDataResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class QueryTechintegrationSkugrantstockinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        product_model: str = None,
+        product_form: str = None,
+        features: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 产品型号
+        self.product_model = product_model
+        # 产品形式，取值范围：
+        # SOFTWARE_HARDWARE：软硬一体（SE方案）,
+        # SOFTWARE：纯软（非SE方案）
+        self.product_form = product_form
+        # 凭证种类列表，取值范围：
+        # ["PAYMENT"]：支付码，
+        # ["PAYMENT","TRANSIT"]：支付码+乘车码
+        self.features = features
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.product_model is not None:
+            result['product_model'] = self.product_model
+        if self.product_form is not None:
+            result['product_form'] = self.product_form
+        if self.features is not None:
+            result['features'] = self.features
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('product_model') is not None:
+            self.product_model = m.get('product_model')
+        if m.get('product_form') is not None:
+            self.product_form = m.get('product_form')
+        if m.get('features') is not None:
+            self.features = m.get('features')
+        return self
+
+
+class QueryTechintegrationSkugrantstockinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        grant_stock_info_list: List[SkuGrantStockInfoResp] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 证书授权信息列表
+        self.grant_stock_info_list = grant_stock_info_list
+
+    def validate(self):
+        if self.grant_stock_info_list:
+            for k in self.grant_stock_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['grant_stock_info_list'] = []
+        if self.grant_stock_info_list is not None:
+            for k in self.grant_stock_info_list:
+                result['grant_stock_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.grant_stock_info_list = []
+        if m.get('grant_stock_info_list') is not None:
+            for k in m.get('grant_stock_info_list'):
+                temp_model = SkuGrantStockInfoResp()
+                self.grant_stock_info_list.append(temp_model.from_map(k))
         return self
 
 
