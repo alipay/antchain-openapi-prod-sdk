@@ -77,12 +77,105 @@ export class Config extends $tea.Model {
   }
 }
 
+export class QueryAntchainZkcollabinvLocationInternalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // md5加密的身份证号
+  idNumber?: string;
+  // md5加密的手机号
+  phoneNo?: string;
+  // 定位时间范围开始时间
+  startTime: string;
+  // 定位时间范围结束时间
+  endTime: string;
+  // 核查中心位置（经度,纬度）
+  centerPosition?: string;
+  // 核查省市区县范围
+  distinctCounty?: string;
+  // 协查类型：
+  // 0: 为经纬度精准定位协查 (默认)
+  // 1:  为区县定位 (省-市-区/县) 协查
+  invType?: number;
+  // 服务级别与结果值定义
+  apiServiceLevel: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      idNumber: 'id_number',
+      phoneNo: 'phone_no',
+      startTime: 'start_time',
+      endTime: 'end_time',
+      centerPosition: 'center_position',
+      distinctCounty: 'distinct_county',
+      invType: 'inv_type',
+      apiServiceLevel: 'api_service_level',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      idNumber: 'string',
+      phoneNo: 'string',
+      startTime: 'string',
+      endTime: 'string',
+      centerPosition: 'string',
+      distinctCounty: 'string',
+      invType: 'number',
+      apiServiceLevel: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainZkcollabinvLocationInternalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 置信度取值：A/B/C
+  confidenceValue?: string;
+  // 扩展字段，其他信息
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      confidenceValue: 'confidence_value',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      confidenceValue: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryAntchainZkcollabinvLocationTradeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
   // md5加密的身份证号
-  idNumer?: string;
+  idNumber?: string;
   // md5加密的手机号
   phoneNo?: string;
   // 调用者用户ID（或外部系统业务ID）
@@ -103,7 +196,7 @@ export class QueryAntchainZkcollabinvLocationTradeRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      idNumer: 'id_numer',
+      idNumber: 'id_number',
       phoneNo: 'phone_no',
       callerId: 'caller_id',
       startTime: 'start_time',
@@ -118,7 +211,7 @@ export class QueryAntchainZkcollabinvLocationTradeRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      idNumer: 'string',
+      idNumber: 'string',
       phoneNo: 'string',
       callerId: 'string',
       startTime: 'string',
@@ -283,7 +376,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.5",
           _prod_code: "ak_1470b9714f184f1885db246eb9933e95",
           _prod_channel: "saas",
         };
@@ -329,6 +422,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 基于交易数据的定位信息协查
+   * Summary: 定位协查
+   */
+  async queryAntchainZkcollabinvLocationInternal(request: QueryAntchainZkcollabinvLocationInternalRequest): Promise<QueryAntchainZkcollabinvLocationInternalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainZkcollabinvLocationInternalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 基于交易数据的定位信息协查
+   * Summary: 定位协查
+   */
+  async queryAntchainZkcollabinvLocationInternalEx(request: QueryAntchainZkcollabinvLocationInternalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainZkcollabinvLocationInternalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainZkcollabinvLocationInternalResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.location.internal.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainZkcollabinvLocationInternalResponse({}));
   }
 
   /**
