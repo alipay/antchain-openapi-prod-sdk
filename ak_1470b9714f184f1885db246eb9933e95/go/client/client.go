@@ -148,12 +148,140 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+type QueryAntchainZkcollabinvLocationInternalRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// md5加密的身份证号
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty"`
+	// md5加密的手机号
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty"`
+	// 定位时间范围开始时间
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" require:"true"`
+	// 定位时间范围结束时间
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 核查中心位置（经度,纬度）
+	CenterPosition *string `json:"center_position,omitempty" xml:"center_position,omitempty"`
+	// 核查省市区县范围
+	DistinctCounty *string `json:"distinct_county,omitempty" xml:"distinct_county,omitempty"`
+	// 协查类型：
+	// 0: 为经纬度精准定位协查 (默认)
+	// 1:  为区县定位 (省-市-区/县) 协查
+	InvType *int64 `json:"inv_type,omitempty" xml:"inv_type,omitempty"`
+	// 服务级别与结果值定义
+	ApiServiceLevel *string `json:"api_service_level,omitempty" xml:"api_service_level,omitempty" require:"true"`
+}
+
+func (s QueryAntchainZkcollabinvLocationInternalRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainZkcollabinvLocationInternalRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetAuthToken(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetProductInstanceId(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetIdNumber(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.IdNumber = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetPhoneNo(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetStartTime(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetEndTime(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.EndTime = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetCenterPosition(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.CenterPosition = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetDistinctCounty(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.DistinctCounty = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetInvType(v int64) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.InvType = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalRequest) SetApiServiceLevel(v string) *QueryAntchainZkcollabinvLocationInternalRequest {
+	s.ApiServiceLevel = &v
+	return s
+}
+
+type QueryAntchainZkcollabinvLocationInternalResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 置信度取值：A/B/C
+	ConfidenceValue *string `json:"confidence_value,omitempty" xml:"confidence_value,omitempty"`
+	// 扩展字段，其他信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryAntchainZkcollabinvLocationInternalResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainZkcollabinvLocationInternalResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetReqMsgId(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetResultCode(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetResultMsg(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetConfidenceValue(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+	s.ConfidenceValue = &v
+	return s
+}
+
+func (s *QueryAntchainZkcollabinvLocationInternalResponse) SetExtInfo(v string) *QueryAntchainZkcollabinvLocationInternalResponse {
+	s.ExtInfo = &v
+	return s
+}
+
 type QueryAntchainZkcollabinvLocationTradeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// md5加密的身份证号
-	IdNumer *string `json:"id_numer,omitempty" xml:"id_numer,omitempty" maxLength:"32"`
+	IdNumber *string `json:"id_number,omitempty" xml:"id_number,omitempty" maxLength:"32"`
 	// md5加密的手机号
 	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty" maxLength:"32"`
 	// 调用者用户ID（或外部系统业务ID）
@@ -190,8 +318,8 @@ func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetProductInstanceId(v st
 	return s
 }
 
-func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetIdNumer(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
-	s.IdNumer = &v
+func (s *QueryAntchainZkcollabinvLocationTradeRequest) SetIdNumber(v string) *QueryAntchainZkcollabinvLocationTradeRequest {
+	s.IdNumber = &v
 	return s
 }
 
@@ -398,7 +526,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.5"),
 				"_prod_code":       tea.String("ak_1470b9714f184f1885db246eb9933e95"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -454,6 +582,40 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: 基于交易数据的定位信息协查
+ * Summary: 定位协查
+ */
+func (client *Client) QueryAntchainZkcollabinvLocationInternal(request *QueryAntchainZkcollabinvLocationInternalRequest) (_result *QueryAntchainZkcollabinvLocationInternalResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainZkcollabinvLocationInternalResponse{}
+	_body, _err := client.QueryAntchainZkcollabinvLocationInternalEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 基于交易数据的定位信息协查
+ * Summary: 定位协查
+ */
+func (client *Client) QueryAntchainZkcollabinvLocationInternalEx(request *QueryAntchainZkcollabinvLocationInternalRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainZkcollabinvLocationInternalResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainZkcollabinvLocationInternalResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.location.internal.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
