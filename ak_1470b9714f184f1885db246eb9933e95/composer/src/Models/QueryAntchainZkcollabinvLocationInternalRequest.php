@@ -6,7 +6,7 @@ namespace AntChain\Ak_1470b9714f184f1885db246eb9933e95\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainZkcollabinvLocationTradeRequest extends Model
+class QueryAntchainZkcollabinvLocationInternalRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -30,12 +30,6 @@ class QueryAntchainZkcollabinvLocationTradeRequest extends Model
      * @var string
      */
     public $phoneNo;
-
-    // 调用者用户ID（或外部系统业务ID）
-    /**
-     * @var string
-     */
-    public $callerId;
 
     // 定位时间范围开始时间
     /**
@@ -65,35 +59,33 @@ class QueryAntchainZkcollabinvLocationTradeRequest extends Model
     // 0: 为经纬度精准定位协查 (默认)
     // 1:  为区县定位 (省-市-区/县) 协查
     /**
-     * @var string
+     * @var int
      */
     public $invType;
+
+    // 服务级别与结果值定义
+    /**
+     * @var string
+     */
+    public $apiServiceLevel;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'idNumber'          => 'id_number',
         'phoneNo'           => 'phone_no',
-        'callerId'          => 'caller_id',
         'startTime'         => 'start_time',
         'endTime'           => 'end_time',
         'centerPosition'    => 'center_position',
         'distinctCounty'    => 'distinct_county',
         'invType'           => 'inv_type',
+        'apiServiceLevel'   => 'api_service_level',
     ];
 
     public function validate()
     {
-        Model::validateMaxLength('idNumber', $this->idNumber, 32);
-        Model::validateMaxLength('phoneNo', $this->phoneNo, 32);
-        Model::validateMaxLength('callerId', $this->callerId, 128);
-        Model::validateMaxLength('startTime', $this->startTime, 19);
-        Model::validateMaxLength('endTime', $this->endTime, 19);
-        Model::validateMaxLength('centerPosition', $this->centerPosition, 64);
-        Model::validateMaxLength('distinctCounty', $this->distinctCounty, 128);
-        Model::validateMaxLength('invType', $this->invType, 2);
-        Model::validateRequired('callerId', $this->callerId, true);
         Model::validateRequired('startTime', $this->startTime, true);
         Model::validateRequired('endTime', $this->endTime, true);
+        Model::validateRequired('apiServiceLevel', $this->apiServiceLevel, true);
     }
 
     public function toMap()
@@ -111,9 +103,6 @@ class QueryAntchainZkcollabinvLocationTradeRequest extends Model
         if (null !== $this->phoneNo) {
             $res['phone_no'] = $this->phoneNo;
         }
-        if (null !== $this->callerId) {
-            $res['caller_id'] = $this->callerId;
-        }
         if (null !== $this->startTime) {
             $res['start_time'] = $this->startTime;
         }
@@ -129,6 +118,9 @@ class QueryAntchainZkcollabinvLocationTradeRequest extends Model
         if (null !== $this->invType) {
             $res['inv_type'] = $this->invType;
         }
+        if (null !== $this->apiServiceLevel) {
+            $res['api_service_level'] = $this->apiServiceLevel;
+        }
 
         return $res;
     }
@@ -136,7 +128,7 @@ class QueryAntchainZkcollabinvLocationTradeRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAntchainZkcollabinvLocationTradeRequest
+     * @return QueryAntchainZkcollabinvLocationInternalRequest
      */
     public static function fromMap($map = [])
     {
@@ -153,9 +145,6 @@ class QueryAntchainZkcollabinvLocationTradeRequest extends Model
         if (isset($map['phone_no'])) {
             $model->phoneNo = $map['phone_no'];
         }
-        if (isset($map['caller_id'])) {
-            $model->callerId = $map['caller_id'];
-        }
         if (isset($map['start_time'])) {
             $model->startTime = $map['start_time'];
         }
@@ -170,6 +159,9 @@ class QueryAntchainZkcollabinvLocationTradeRequest extends Model
         }
         if (isset($map['inv_type'])) {
             $model->invType = $map['inv_type'];
+        }
+        if (isset($map['api_service_level'])) {
+            $model->apiServiceLevel = $map['api_service_level'];
         }
 
         return $model;
