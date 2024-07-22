@@ -153,12 +153,162 @@ class Config(TeaModel):
         return self
 
 
+class QueryAntchainZkcollabinvLocationInternalRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        id_number: str = None,
+        phone_no: str = None,
+        start_time: str = None,
+        end_time: str = None,
+        center_position: str = None,
+        distinct_county: str = None,
+        inv_type: int = None,
+        api_service_level: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # md5加密的身份证号
+        self.id_number = id_number
+        # md5加密的手机号
+        self.phone_no = phone_no
+        # 定位时间范围开始时间
+        self.start_time = start_time
+        # 定位时间范围结束时间
+        self.end_time = end_time
+        # 核查中心位置（经度,纬度）
+        self.center_position = center_position
+        # 核查省市区县范围
+        self.distinct_county = distinct_county
+        # 协查类型：
+        # 0: 为经纬度精准定位协查 (默认)
+        # 1:  为区县定位 (省-市-区/县) 协查
+        self.inv_type = inv_type
+        # 服务级别与结果值定义
+        self.api_service_level = api_service_level
+
+    def validate(self):
+        self.validate_required(self.start_time, 'start_time')
+        self.validate_required(self.end_time, 'end_time')
+        self.validate_required(self.api_service_level, 'api_service_level')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
+        if self.phone_no is not None:
+            result['phone_no'] = self.phone_no
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.center_position is not None:
+            result['center_position'] = self.center_position
+        if self.distinct_county is not None:
+            result['distinct_county'] = self.distinct_county
+        if self.inv_type is not None:
+            result['inv_type'] = self.inv_type
+        if self.api_service_level is not None:
+            result['api_service_level'] = self.api_service_level
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
+        if m.get('phone_no') is not None:
+            self.phone_no = m.get('phone_no')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('center_position') is not None:
+            self.center_position = m.get('center_position')
+        if m.get('distinct_county') is not None:
+            self.distinct_county = m.get('distinct_county')
+        if m.get('inv_type') is not None:
+            self.inv_type = m.get('inv_type')
+        if m.get('api_service_level') is not None:
+            self.api_service_level = m.get('api_service_level')
+        return self
+
+
+class QueryAntchainZkcollabinvLocationInternalResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        confidence_value: str = None,
+        ext_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 置信度取值：A/B/C
+        self.confidence_value = confidence_value
+        # 扩展字段，其他信息
+        self.ext_info = ext_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.confidence_value is not None:
+            result['confidence_value'] = self.confidence_value
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('confidence_value') is not None:
+            self.confidence_value = m.get('confidence_value')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
 class QueryAntchainZkcollabinvLocationTradeRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        id_numer: str = None,
+        id_number: str = None,
         phone_no: str = None,
         caller_id: str = None,
         start_time: str = None,
@@ -171,7 +321,7 @@ class QueryAntchainZkcollabinvLocationTradeRequest(TeaModel):
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # md5加密的身份证号
-        self.id_numer = id_numer
+        self.id_number = id_number
         # md5加密的手机号
         self.phone_no = phone_no
         # 调用者用户ID（或外部系统业务ID）
@@ -190,8 +340,8 @@ class QueryAntchainZkcollabinvLocationTradeRequest(TeaModel):
         self.inv_type = inv_type
 
     def validate(self):
-        if self.id_numer is not None:
-            self.validate_max_length(self.id_numer, 'id_numer', 32)
+        if self.id_number is not None:
+            self.validate_max_length(self.id_number, 'id_number', 32)
         if self.phone_no is not None:
             self.validate_max_length(self.phone_no, 'phone_no', 32)
         self.validate_required(self.caller_id, 'caller_id')
@@ -220,8 +370,8 @@ class QueryAntchainZkcollabinvLocationTradeRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.id_numer is not None:
-            result['id_numer'] = self.id_numer
+        if self.id_number is not None:
+            result['id_number'] = self.id_number
         if self.phone_no is not None:
             result['phone_no'] = self.phone_no
         if self.caller_id is not None:
@@ -244,8 +394,8 @@ class QueryAntchainZkcollabinvLocationTradeRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('id_numer') is not None:
-            self.id_numer = m.get('id_numer')
+        if m.get('id_number') is not None:
+            self.id_number = m.get('id_number')
         if m.get('phone_no') is not None:
             self.phone_no = m.get('phone_no')
         if m.get('caller_id') is not None:
