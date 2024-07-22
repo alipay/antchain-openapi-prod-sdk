@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.5',
     _prod_code = 'ak_1470b9714f184f1885db246eb9933e95',
     _prod_channel = 'saas'
   };
@@ -161,12 +161,68 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+model QueryAntchainZkcollabinvLocationInternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // md5加密的身份证号
+  idNumber?: string(name='id_number'),
+  // md5加密的手机号
+  phoneNo?: string(name='phone_no'),
+  // 定位时间范围开始时间
+  startTime: string(name='start_time'),
+  // 定位时间范围结束时间
+  endTime: string(name='end_time'),
+  // 核查中心位置（经度,纬度）
+  centerPosition?: string(name='center_position'),
+  // 核查省市区县范围
+  distinctCounty?: string(name='distinct_county'),
+  // 协查类型：
+  // 0: 为经纬度精准定位协查 (默认)
+  // 1:  为区县定位 (省-市-区/县) 协查
+  invType?: long(name='inv_type'),
+  // 服务级别与结果值定义
+  apiServiceLevel: string(name='api_service_level'),
+}
+
+model QueryAntchainZkcollabinvLocationInternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 置信度取值：A/B/C
+  confidenceValue?: string(name='confidence_value'),
+  // 扩展字段，其他信息
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 基于交易数据的定位信息协查
+ * Summary: 定位协查
+ */
+async function queryAntchainZkcollabinvLocationInternal(request: QueryAntchainZkcollabinvLocationInternalRequest): QueryAntchainZkcollabinvLocationInternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainZkcollabinvLocationInternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于交易数据的定位信息协查
+ * Summary: 定位协查
+ */
+async function queryAntchainZkcollabinvLocationInternalEx(request: QueryAntchainZkcollabinvLocationInternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainZkcollabinvLocationInternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.location.internal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryAntchainZkcollabinvLocationTradeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // md5加密的身份证号
-  idNumer?: string(maxLength=32, name='id_numer'),
+  idNumber?: string(maxLength=32, name='id_number'),
   // md5加密的手机号
   phoneNo?: string(maxLength=32, name='phone_no'),
   // 调用者用户ID（或外部系统业务ID）
