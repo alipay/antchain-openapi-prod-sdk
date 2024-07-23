@@ -271,6 +271,8 @@ export class HotspotMessage extends $tea.Model {
   hotspotType: string;
   // 第一次上榜的时间
   firstXxistTimestamp: number;
+  // 第一次上榜时间
+  firstExistTimestamp?: number;
   static names(): { [key: string]: string } {
     return {
       userId: 'user_id',
@@ -311,6 +313,7 @@ export class HotspotMessage extends $tea.Model {
       firstHotValue: 'first_hot_value',
       hotspotType: 'hotspot_type',
       firstXxistTimestamp: 'first_xxist_timestamp',
+      firstExistTimestamp: 'first_exist_timestamp',
     };
   }
 
@@ -354,6 +357,7 @@ export class HotspotMessage extends $tea.Model {
       firstHotValue: 'number',
       hotspotType: 'string',
       firstXxistTimestamp: 'number',
+      firstExistTimestamp: 'number',
     };
   }
 
@@ -3062,7 +3066,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.21",
+          sdk_version: "1.2.29",
           _prod_code: "YUQING",
           _prod_channel: "undefined",
         };
