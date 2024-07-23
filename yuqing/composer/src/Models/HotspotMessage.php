@@ -311,6 +311,14 @@ class HotspotMessage extends Model
      * @var int
      */
     public $firstXxistTimestamp;
+
+    // 第一次上榜时间
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $firstExistTimestamp;
     protected $_name = [
         'userId'                  => 'user_id',
         'totalExistTimestamp'     => 'total_exist_timestamp',
@@ -350,6 +358,7 @@ class HotspotMessage extends Model
         'firstHotValue'           => 'first_hot_value',
         'hotspotType'             => 'hotspot_type',
         'firstXxistTimestamp'     => 'first_xxist_timestamp',
+        'firstExistTimestamp'     => 'first_exist_timestamp',
     ];
 
     public function validate()
@@ -510,6 +519,9 @@ class HotspotMessage extends Model
         if (null !== $this->firstXxistTimestamp) {
             $res['first_xxist_timestamp'] = $this->firstXxistTimestamp;
         }
+        if (null !== $this->firstExistTimestamp) {
+            $res['first_exist_timestamp'] = $this->firstExistTimestamp;
+        }
 
         return $res;
     }
@@ -635,6 +647,9 @@ class HotspotMessage extends Model
         }
         if (isset($map['first_xxist_timestamp'])) {
             $model->firstXxistTimestamp = $map['first_xxist_timestamp'];
+        }
+        if (isset($map['first_exist_timestamp'])) {
+            $model->firstExistTimestamp = $map['first_exist_timestamp'];
         }
 
         return $model;
