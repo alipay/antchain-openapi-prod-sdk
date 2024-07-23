@@ -358,6 +358,8 @@ type HotspotMessage struct {
 	HotspotType *string `json:"hotspot_type,omitempty" xml:"hotspot_type,omitempty" require:"true"`
 	// 第一次上榜的时间
 	FirstXxistTimestamp *int64 `json:"first_xxist_timestamp,omitempty" xml:"first_xxist_timestamp,omitempty" require:"true"`
+	// 第一次上榜时间
+	FirstExistTimestamp *int64 `json:"first_exist_timestamp,omitempty" xml:"first_exist_timestamp,omitempty"`
 }
 
 func (s HotspotMessage) String() string {
@@ -555,6 +557,11 @@ func (s *HotspotMessage) SetHotspotType(v string) *HotspotMessage {
 
 func (s *HotspotMessage) SetFirstXxistTimestamp(v int64) *HotspotMessage {
 	s.FirstXxistTimestamp = &v
+	return s
+}
+
+func (s *HotspotMessage) SetFirstExistTimestamp(v int64) *HotspotMessage {
+	s.FirstExistTimestamp = &v
 	return s
 }
 
@@ -4225,7 +4232,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.21"),
+				"sdk_version":      tea.String("1.2.29"),
 				"_prod_code":       tea.String("YUQING"),
 				"_prod_channel":    tea.String("undefined"),
 			}
