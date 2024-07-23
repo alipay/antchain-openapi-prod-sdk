@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.21',
+    sdk_version = '1.2.29',
     _prod_code = 'YUQING',
     _prod_channel = 'undefined'
   };
@@ -279,6 +279,8 @@ model HotspotMessage {
   hotspotType: string(name='hotspot_type', example='XXX'),
   // 第一次上榜的时间
   firstXxistTimestamp: long(name='first_xxist_timestamp', example='1'),
+  // 第一次上榜时间
+  firstExistTimestamp?: long(name='first_exist_timestamp', example=''),
 }
 
 // 钉钉Markdown
