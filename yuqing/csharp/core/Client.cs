@@ -137,7 +137,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.21"},
+                        {"sdk_version", "1.2.29"},
                         {"_prod_code", "YUQING"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.YUQING
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.21"},
+                        {"sdk_version", "1.2.29"},
                         {"_prod_code", "YUQING"},
                         {"_prod_channel", "undefined"},
                     };

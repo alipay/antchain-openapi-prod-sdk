@@ -200,6 +200,11 @@ namespace AntChain.SDK.YUQING.Models
         [Validation(Required=true)]
         public long? FirstXxistTimestamp { get; set; }
 
+        // 第一次上榜时间
+        [NameInMap("first_exist_timestamp")]
+        [Validation(Required=false)]
+        public long? FirstExistTimestamp { get; set; }
+
     }
 
 }
