@@ -364,6 +364,7 @@ class HotspotMessage(TeaModel):
         first_hot_value: int = None,
         hotspot_type: str = None,
         first_xxist_timestamp: int = None,
+        first_exist_timestamp: int = None,
     ):
         # 热搜/热榜/话题 对应用户id (可能为空)
         self.user_id = user_id
@@ -441,6 +442,8 @@ class HotspotMessage(TeaModel):
         self.hotspot_type = hotspot_type
         # 第一次上榜的时间
         self.first_xxist_timestamp = first_xxist_timestamp
+        # 第一次上榜时间
+        self.first_exist_timestamp = first_exist_timestamp
 
     def validate(self):
         self.validate_required(self.user_id, 'user_id')
@@ -563,6 +566,8 @@ class HotspotMessage(TeaModel):
             result['hotspot_type'] = self.hotspot_type
         if self.first_xxist_timestamp is not None:
             result['first_xxist_timestamp'] = self.first_xxist_timestamp
+        if self.first_exist_timestamp is not None:
+            result['first_exist_timestamp'] = self.first_exist_timestamp
         return result
 
     def from_map(self, m: dict = None):
@@ -643,6 +648,8 @@ class HotspotMessage(TeaModel):
             self.hotspot_type = m.get('hotspot_type')
         if m.get('first_xxist_timestamp') is not None:
             self.first_xxist_timestamp = m.get('first_xxist_timestamp')
+        if m.get('first_exist_timestamp') is not None:
+            self.first_exist_timestamp = m.get('first_exist_timestamp')
         return self
 
 
