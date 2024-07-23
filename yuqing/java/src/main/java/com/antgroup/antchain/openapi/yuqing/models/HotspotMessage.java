@@ -193,6 +193,10 @@ public class HotspotMessage extends TeaModel {
     @Validation(required = true)
     public Long firstXxistTimestamp;
 
+    // 第一次上榜时间
+    @NameInMap("first_exist_timestamp")
+    public Long firstExistTimestamp;
+
     public static HotspotMessage build(java.util.Map<String, ?> map) throws Exception {
         HotspotMessage self = new HotspotMessage();
         return TeaModel.build(map, self);
@@ -500,6 +504,14 @@ public class HotspotMessage extends TeaModel {
     }
     public Long getFirstXxistTimestamp() {
         return this.firstXxistTimestamp;
+    }
+
+    public HotspotMessage setFirstExistTimestamp(Long firstExistTimestamp) {
+        this.firstExistTimestamp = firstExistTimestamp;
+        return this;
+    }
+    public Long getFirstExistTimestamp() {
+        return this.firstExistTimestamp;
     }
 
 }
