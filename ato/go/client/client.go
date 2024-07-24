@@ -8760,6 +8760,83 @@ func (s *QuerySignCreditResponse) SetContentInfo(v string) *QuerySignCreditRespo
 	return s
 }
 
+type CancelSignFlowRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 签署合同单号
+	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
+	// 默认:“撤销”
+	RevokeReason *string `json:"revoke_reason,omitempty" xml:"revoke_reason,omitempty"`
+	// 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
+}
+
+func (s CancelSignFlowRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelSignFlowRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelSignFlowRequest) SetAuthToken(v string) *CancelSignFlowRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelSignFlowRequest) SetProductInstanceId(v string) *CancelSignFlowRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelSignFlowRequest) SetSignNo(v string) *CancelSignFlowRequest {
+	s.SignNo = &v
+	return s
+}
+
+func (s *CancelSignFlowRequest) SetRevokeReason(v string) *CancelSignFlowRequest {
+	s.RevokeReason = &v
+	return s
+}
+
+func (s *CancelSignFlowRequest) SetOperatorId(v string) *CancelSignFlowRequest {
+	s.OperatorId = &v
+	return s
+}
+
+type CancelSignFlowResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CancelSignFlowResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelSignFlowResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelSignFlowResponse) SetReqMsgId(v string) *CancelSignFlowResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelSignFlowResponse) SetResultCode(v string) *CancelSignFlowResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelSignFlowResponse) SetResultMsg(v string) *CancelSignFlowResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type SyncTradeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -10972,7 +11049,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.92"),
+				"sdk_version":      tea.String("1.8.95"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -13694,6 +13771,40 @@ func (client *Client) QuerySignCreditEx(request *QuerySignCreditRequest, headers
 	}
 	_result = &QuerySignCreditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.credit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 撤销签署流程
+ * Summary: 撤销签署流程
+ */
+func (client *Client) CancelSignFlow(request *CancelSignFlowRequest) (_result *CancelSignFlowResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelSignFlowResponse{}
+	_body, _err := client.CancelSignFlowEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 撤销签署流程
+ * Summary: 撤销签署流程
+ */
+func (client *Client) CancelSignFlowEx(request *CancelSignFlowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelSignFlowResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelSignFlowResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.flow.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
