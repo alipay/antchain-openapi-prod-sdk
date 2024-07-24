@@ -23,6 +23,8 @@ use AntChain\ATO\Models\CallbackFundNotifyRequest;
 use AntChain\ATO\Models\CallbackFundNotifyResponse;
 use AntChain\ATO\Models\CancelFundPlanRequest;
 use AntChain\ATO\Models\CancelFundPlanResponse;
+use AntChain\ATO\Models\CancelSignFlowRequest;
+use AntChain\ATO\Models\CancelSignFlowResponse;
 use AntChain\ATO\Models\CancelWithholdActivepayRequest;
 use AntChain\ATO\Models\CancelWithholdActivepayResponse;
 use AntChain\ATO\Models\CancelWithholdPlanRequest;
@@ -356,7 +358,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.92',
+                    'sdk_version'      => '1.8.95',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2964,6 +2966,39 @@ class Client
         Utils::validateModel($request);
 
         return QuerySignCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 撤销签署流程
+     * Summary: 撤销签署流程.
+     *
+     * @param CancelSignFlowRequest $request
+     *
+     * @return CancelSignFlowResponse
+     */
+    public function cancelSignFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelSignFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 撤销签署流程
+     * Summary: 撤销签署流程.
+     *
+     * @param CancelSignFlowRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CancelSignFlowResponse
+     */
+    public function cancelSignFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
