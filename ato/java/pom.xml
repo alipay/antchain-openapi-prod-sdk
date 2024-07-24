@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-ato</artifactId>
-  <version>1.8.92</version>
+  <version>1.8.95</version>
   <packaging>jar</packaging>
   <name>openapi-ato</name>
   <description>Ant Chain ATO SDK for Java
