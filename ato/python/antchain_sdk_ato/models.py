@@ -11056,6 +11056,103 @@ class QuerySignCreditResponse(TeaModel):
         return self
 
 
+class CancelSignFlowRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        sign_no: str = None,
+        revoke_reason: str = None,
+        operator_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 签署合同单号
+        self.sign_no = sign_no
+        # 默认:“撤销”
+        self.revoke_reason = revoke_reason
+        # 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
+        self.operator_id = operator_id
+
+    def validate(self):
+        self.validate_required(self.sign_no, 'sign_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.sign_no is not None:
+            result['sign_no'] = self.sign_no
+        if self.revoke_reason is not None:
+            result['revoke_reason'] = self.revoke_reason
+        if self.operator_id is not None:
+            result['operator_id'] = self.operator_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('sign_no') is not None:
+            self.sign_no = m.get('sign_no')
+        if m.get('revoke_reason') is not None:
+            self.revoke_reason = m.get('revoke_reason')
+        if m.get('operator_id') is not None:
+            self.operator_id = m.get('operator_id')
+        return self
+
+
+class CancelSignFlowResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class SyncTradeRequest(TeaModel):
     def __init__(
         self,

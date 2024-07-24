@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.92',
+                    'sdk_version': '1.8.95',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.92',
+                    'sdk_version': '1.8.95',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -4631,6 +4631,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.QuerySignCreditResponse(),
             await self.do_request_async('1.0', 'antchain.ato.sign.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_sign_flow(
+        self,
+        request: ato_models.CancelSignFlowRequest,
+    ) -> ato_models.CancelSignFlowResponse:
+        """
+        Description: 撤销签署流程
+        Summary: 撤销签署流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_sign_flow_ex(request, headers, runtime)
+
+    async def cancel_sign_flow_async(
+        self,
+        request: ato_models.CancelSignFlowRequest,
+    ) -> ato_models.CancelSignFlowResponse:
+        """
+        Description: 撤销签署流程
+        Summary: 撤销签署流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_sign_flow_ex_async(request, headers, runtime)
+
+    def cancel_sign_flow_ex(
+        self,
+        request: ato_models.CancelSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CancelSignFlowResponse:
+        """
+        Description: 撤销签署流程
+        Summary: 撤销签署流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CancelSignFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_sign_flow_ex_async(
+        self,
+        request: ato_models.CancelSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CancelSignFlowResponse:
+        """
+        Description: 撤销签署流程
+        Summary: 撤销签署流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CancelSignFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def sync_trade(
