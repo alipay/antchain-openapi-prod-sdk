@@ -10022,6 +10022,7 @@ class GetSignFlowResponse(TeaModel):
         business_scene: str = None,
         alipay_user_id: str = None,
         sign_info: str = None,
+        initiator_account_id: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -10049,6 +10050,8 @@ class GetSignFlowResponse(TeaModel):
         self.alipay_user_id = alipay_user_id
         # 签署扩展信息，用于获取签署链接等。JSON格式字符串。
         self.sign_info = sign_info
+        # 发起人账户id
+        self.initiator_account_id = initiator_account_id
 
     def validate(self):
         pass
@@ -10083,6 +10086,8 @@ class GetSignFlowResponse(TeaModel):
             result['alipay_user_id'] = self.alipay_user_id
         if self.sign_info is not None:
             result['sign_info'] = self.sign_info
+        if self.initiator_account_id is not None:
+            result['initiator_account_id'] = self.initiator_account_id
         return result
 
     def from_map(self, m: dict = None):
@@ -10111,6 +10116,8 @@ class GetSignFlowResponse(TeaModel):
             self.alipay_user_id = m.get('alipay_user_id')
         if m.get('sign_info') is not None:
             self.sign_info = m.get('sign_info')
+        if m.get('initiator_account_id') is not None:
+            self.initiator_account_id = m.get('initiator_account_id')
         return self
 
 
