@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class RetryIotbasicAppreleasedeviceRequest : TeaModel {
+    public class ImportIotlinkThingmodeltslRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,10 +18,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 设备升级任务唯一id列表
-        [NameInMap("order_detail_id_list")]
+        // 品类code
+        [NameInMap("category_code")]
         [Validation(Required=true)]
-        public List<string> OrderDetailIdList { get; set; }
+        public string CategoryCode { get; set; }
+
+        // 您编辑的物模型（TSL）。JSON格式的字符串。产品的物模型（TSL）包含属性、服务和事件的定义。
+        [NameInMap("tsl_str")]
+        [Validation(Required=true)]
+        public string TslStr { get; set; }
 
     }
 

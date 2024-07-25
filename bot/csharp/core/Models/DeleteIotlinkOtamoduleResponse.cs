@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class PublishIotbasicAppreleaseorderResponse : TeaModel {
+    public class DeleteIotlinkOtamoduleResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 接口调用结果
+        // 操作结果
         [NameInMap("success")]
         [Validation(Required=false)]
         public bool? Success { get; set; }
-
-        // 未完成的设备升级列表
-        [NameInMap("unfinished_list")]
-        [Validation(Required=false)]
-        public List<IotbasicReleaseDeviceInfo> UnfinishedList { get; set; }
 
     }
 

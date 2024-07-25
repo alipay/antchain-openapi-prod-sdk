@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class CreateIotbasicAppmanagerotamoduleRequest : TeaModel {
+    public class CreateIotlinkOtamoduleRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]

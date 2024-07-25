@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class PagequeryIotbasicAppreleasedeviceRequest : TeaModel {
+    public class PagequeryIotlinkAppreleasedeviceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class CreateIotbasicAppmanagerotamoduleResponse : TeaModel {
+    public class ListIotlinkOtamoduleResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -28,6 +28,11 @@ namespace AntChain.SDK.BOT.Models
         [NameInMap("success")]
         [Validation(Required=false)]
         public bool? Success { get; set; }
+
+        // 应用模块列表
+        [NameInMap("data")]
+        [Validation(Required=false)]
+        public List<IotbasicOtaModuleInfo> Data { get; set; }
 
     }
 
