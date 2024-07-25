@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.34',
+    sdk_version = '1.11.39',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -8074,7 +8074,7 @@ async function getDigitalkeyDeviceinfoEx(request: GetDigitalkeyDeviceinfoRequest
   return doRequest('1.0' ,'blockchain.bot.digitalkey.deviceinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CreateIotbasicAppmanagerRequest = {
+model CreateIotlinkAppmanagerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8102,7 +8102,7 @@ model CreateIotbasicAppmanagerRequest = {
   fileUrl?: string(name='file_url'),
 }
 
-model CreateIotbasicAppmanagerResponse = {
+model CreateIotlinkAppmanagerResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8119,41 +8119,41 @@ model CreateIotbasicAppmanagerResponse = {
  * Description: iotbasic-新增应用
  * Summary: iotbasic-新增应用
  */
-async function createIotbasicAppmanager(request: CreateIotbasicAppmanagerRequest): CreateIotbasicAppmanagerResponse {
+async function createIotlinkAppmanager(request: CreateIotlinkAppmanagerRequest): CreateIotlinkAppmanagerResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return createIotbasicAppmanagerEx(request, headers, runtime);
+  return createIotlinkAppmanagerEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-新增应用
  * Summary: iotbasic-新增应用
  */
-async function createIotbasicAppmanagerEx(request: CreateIotbasicAppmanagerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIotbasicAppmanagerResponse {
+async function createIotlinkAppmanagerEx(request: CreateIotlinkAppmanagerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIotlinkAppmanagerResponse {
   if (!Util.isUnset(request.fileObject)) {
     var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
       authToken = request.authToken,
-      apiCode = 'blockchain.bot.iotbasic.appmanager.create',
+      apiCode = 'blockchain.bot.iotlink.appmanager.create',
       fileName = request.fileObjectName,
     };
     var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
     if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
-      var createIotbasicAppmanagerResponse = new CreateIotbasicAppmanagerResponse{
+      var createIotlinkAppmanagerResponse = new CreateIotlinkAppmanagerResponse{
         reqMsgId = uploadResp.reqMsgId,
         resultCode = uploadResp.resultCode,
         resultMsg = uploadResp.resultMsg,
       };
-      return createIotbasicAppmanagerResponse;
+      return createIotlinkAppmanagerResponse;
     }
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
   }
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appmanager.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appmanager.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model ListIotbasicAppmanagerotamoduleRequest = {
+model ListIotlinkOtamoduleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8161,7 +8161,7 @@ model ListIotbasicAppmanagerotamoduleRequest = {
   categoryCode: string(name='category_code'),
 }
 
-model ListIotbasicAppmanagerotamoduleResponse = {
+model ListIotlinkOtamoduleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8175,25 +8175,25 @@ model ListIotbasicAppmanagerotamoduleResponse = {
 }
 
 /**
- * Description: iotbasic-获取应用类型列表
- * Summary: iotbasic-获取应用类型列表
+ * Description: iotbasic-获取应用模块列表
+ * Summary: iotbasic-获取应用模块列表
  */
-async function listIotbasicAppmanagerotamodule(request: ListIotbasicAppmanagerotamoduleRequest): ListIotbasicAppmanagerotamoduleResponse {
+async function listIotlinkOtamodule(request: ListIotlinkOtamoduleRequest): ListIotlinkOtamoduleResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return listIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+  return listIotlinkOtamoduleEx(request, headers, runtime);
 }
 
 /**
- * Description: iotbasic-获取应用类型列表
- * Summary: iotbasic-获取应用类型列表
+ * Description: iotbasic-获取应用模块列表
+ * Summary: iotbasic-获取应用模块列表
  */
-async function listIotbasicAppmanagerotamoduleEx(request: ListIotbasicAppmanagerotamoduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIotbasicAppmanagerotamoduleResponse {
+async function listIotlinkOtamoduleEx(request: ListIotlinkOtamoduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIotlinkOtamoduleResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appmanagerotamodule.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.otamodule.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model PagequeryIotbasicAppmanagerRequest = {
+model PagequeryIotlinkAppmanagerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8215,7 +8215,7 @@ model PagequeryIotbasicAppmanagerRequest = {
   moduleName?: string(name='module_name'),
 }
 
-model PagequeryIotbasicAppmanagerResponse = {
+model PagequeryIotlinkAppmanagerResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8238,22 +8238,22 @@ model PagequeryIotbasicAppmanagerResponse = {
  * Description: iotbasic-分页查询应用列表
  * Summary: iotbasic-分页查询应用列表
  */
-async function pagequeryIotbasicAppmanager(request: PagequeryIotbasicAppmanagerRequest): PagequeryIotbasicAppmanagerResponse {
+async function pagequeryIotlinkAppmanager(request: PagequeryIotlinkAppmanagerRequest): PagequeryIotlinkAppmanagerResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return pagequeryIotbasicAppmanagerEx(request, headers, runtime);
+  return pagequeryIotlinkAppmanagerEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-分页查询应用列表
  * Summary: iotbasic-分页查询应用列表
  */
-async function pagequeryIotbasicAppmanagerEx(request: PagequeryIotbasicAppmanagerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIotbasicAppmanagerResponse {
+async function pagequeryIotlinkAppmanagerEx(request: PagequeryIotlinkAppmanagerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIotlinkAppmanagerResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appmanager.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appmanager.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model GetIotbasicAppmanagerfileurlRequest = {
+model GetIotlinkAppmanagerfileurlRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8261,7 +8261,7 @@ model GetIotbasicAppmanagerfileurlRequest = {
   apkId: string(name='apk_id'),
 }
 
-model GetIotbasicAppmanagerfileurlResponse = {
+model GetIotlinkAppmanagerfileurlResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8278,22 +8278,22 @@ model GetIotbasicAppmanagerfileurlResponse = {
  * Description: iotbasic-获取应用下载地址
  * Summary: iotbasic-获取应用下载地址
  */
-async function getIotbasicAppmanagerfileurl(request: GetIotbasicAppmanagerfileurlRequest): GetIotbasicAppmanagerfileurlResponse {
+async function getIotlinkAppmanagerfileurl(request: GetIotlinkAppmanagerfileurlRequest): GetIotlinkAppmanagerfileurlResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return getIotbasicAppmanagerfileurlEx(request, headers, runtime);
+  return getIotlinkAppmanagerfileurlEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-获取应用下载地址
  * Summary: iotbasic-获取应用下载地址
  */
-async function getIotbasicAppmanagerfileurlEx(request: GetIotbasicAppmanagerfileurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetIotbasicAppmanagerfileurlResponse {
+async function getIotlinkAppmanagerfileurlEx(request: GetIotlinkAppmanagerfileurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetIotlinkAppmanagerfileurlResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appmanagerfileurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appmanagerfileurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model PagequeryIotbasicAppreleaseorderRequest = {
+model PagequeryIotlinkAppreleaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8321,7 +8321,7 @@ model PagequeryIotbasicAppreleaseorderRequest = {
   pageSize: long(name='page_size'),
 }
 
-model PagequeryIotbasicAppreleaseorderResponse = {
+model PagequeryIotlinkAppreleaseorderResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8344,22 +8344,22 @@ model PagequeryIotbasicAppreleaseorderResponse = {
  * Description: iotbasic-分页查询发布批次列表
  * Summary: iotbasic-分页查询发布批次列表
  */
-async function pagequeryIotbasicAppreleaseorder(request: PagequeryIotbasicAppreleaseorderRequest): PagequeryIotbasicAppreleaseorderResponse {
+async function pagequeryIotlinkAppreleaseorder(request: PagequeryIotlinkAppreleaseorderRequest): PagequeryIotlinkAppreleaseorderResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return pagequeryIotbasicAppreleaseorderEx(request, headers, runtime);
+  return pagequeryIotlinkAppreleaseorderEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-分页查询发布批次列表
  * Summary: iotbasic-分页查询发布批次列表
  */
-async function pagequeryIotbasicAppreleaseorderEx(request: PagequeryIotbasicAppreleaseorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIotbasicAppreleaseorderResponse {
+async function pagequeryIotlinkAppreleaseorderEx(request: PagequeryIotlinkAppreleaseorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIotlinkAppreleaseorderResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appreleaseorder.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appreleaseorder.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model PagequeryIotbasicAppreleasedeviceRequest = {
+model PagequeryIotlinkAppreleasedeviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8389,7 +8389,7 @@ model PagequeryIotbasicAppreleasedeviceRequest = {
   pageSize: long(name='page_size'),
 }
 
-model PagequeryIotbasicAppreleasedeviceResponse = {
+model PagequeryIotlinkAppreleasedeviceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8412,22 +8412,22 @@ model PagequeryIotbasicAppreleasedeviceResponse = {
  * Description: iotbasic-分页查询设备升级列表
  * Summary: iotbasic-分页查询设备升级列表
  */
-async function pagequeryIotbasicAppreleasedevice(request: PagequeryIotbasicAppreleasedeviceRequest): PagequeryIotbasicAppreleasedeviceResponse {
+async function pagequeryIotlinkAppreleasedevice(request: PagequeryIotlinkAppreleasedeviceRequest): PagequeryIotlinkAppreleasedeviceResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return pagequeryIotbasicAppreleasedeviceEx(request, headers, runtime);
+  return pagequeryIotlinkAppreleasedeviceEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-分页查询设备升级列表
  * Summary: iotbasic-分页查询设备升级列表
  */
-async function pagequeryIotbasicAppreleasedeviceEx(request: PagequeryIotbasicAppreleasedeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIotbasicAppreleasedeviceResponse {
+async function pagequeryIotlinkAppreleasedeviceEx(request: PagequeryIotlinkAppreleasedeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIotlinkAppreleasedeviceResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appreleasedevice.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appreleasedevice.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model PublishIotbasicAppreleaseorderRequest = {
+model PublishIotlinkAppreleaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8445,7 +8445,7 @@ model PublishIotbasicAppreleaseorderRequest = {
   cover: boolean(name='cover'),
 }
 
-model PublishIotbasicAppreleaseorderResponse = {
+model PublishIotlinkAppreleaseorderResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8462,22 +8462,22 @@ model PublishIotbasicAppreleaseorderResponse = {
  * Description: iotbasic-发布工单
  * Summary: iotbasic-发布工单
  */
-async function publishIotbasicAppreleaseorder(request: PublishIotbasicAppreleaseorderRequest): PublishIotbasicAppreleaseorderResponse {
+async function publishIotlinkAppreleaseorder(request: PublishIotlinkAppreleaseorderRequest): PublishIotlinkAppreleaseorderResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return publishIotbasicAppreleaseorderEx(request, headers, runtime);
+  return publishIotlinkAppreleaseorderEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-发布工单
  * Summary: iotbasic-发布工单
  */
-async function publishIotbasicAppreleaseorderEx(request: PublishIotbasicAppreleaseorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishIotbasicAppreleaseorderResponse {
+async function publishIotlinkAppreleaseorderEx(request: PublishIotlinkAppreleaseorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishIotlinkAppreleaseorderResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appreleaseorder.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appreleaseorder.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CancelIotbasicAppreleaseorderRequest = {
+model CancelIotlinkAppreleaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8485,7 +8485,7 @@ model CancelIotbasicAppreleaseorderRequest = {
   orderId: string(name='order_id'),
 }
 
-model CancelIotbasicAppreleaseorderResponse = {
+model CancelIotlinkAppreleaseorderResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8500,22 +8500,22 @@ model CancelIotbasicAppreleaseorderResponse = {
  * Description: iotbasic-取消工单发布
  * Summary: iotbasic-取消工单发布
  */
-async function cancelIotbasicAppreleaseorder(request: CancelIotbasicAppreleaseorderRequest): CancelIotbasicAppreleaseorderResponse {
+async function cancelIotlinkAppreleaseorder(request: CancelIotlinkAppreleaseorderRequest): CancelIotlinkAppreleaseorderResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return cancelIotbasicAppreleaseorderEx(request, headers, runtime);
+  return cancelIotlinkAppreleaseorderEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-取消工单发布
  * Summary: iotbasic-取消工单发布
  */
-async function cancelIotbasicAppreleaseorderEx(request: CancelIotbasicAppreleaseorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelIotbasicAppreleaseorderResponse {
+async function cancelIotlinkAppreleaseorderEx(request: CancelIotlinkAppreleaseorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelIotlinkAppreleaseorderResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appreleaseorder.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appreleaseorder.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CancelIotbasicAppreleasedeviceRequest = {
+model CancelIotlinkAppreleasedeviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8523,7 +8523,7 @@ model CancelIotbasicAppreleasedeviceRequest = {
   orderDetailIdList: [ string ](name='order_detail_id_list'),
 }
 
-model CancelIotbasicAppreleasedeviceResponse = {
+model CancelIotlinkAppreleasedeviceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8538,22 +8538,22 @@ model CancelIotbasicAppreleasedeviceResponse = {
  * Description: iotbasic-取消设备升级
  * Summary: iotbasic-取消设备升级
  */
-async function cancelIotbasicAppreleasedevice(request: CancelIotbasicAppreleasedeviceRequest): CancelIotbasicAppreleasedeviceResponse {
+async function cancelIotlinkAppreleasedevice(request: CancelIotlinkAppreleasedeviceRequest): CancelIotlinkAppreleasedeviceResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return cancelIotbasicAppreleasedeviceEx(request, headers, runtime);
+  return cancelIotlinkAppreleasedeviceEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-取消设备升级
  * Summary: iotbasic-取消设备升级
  */
-async function cancelIotbasicAppreleasedeviceEx(request: CancelIotbasicAppreleasedeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelIotbasicAppreleasedeviceResponse {
+async function cancelIotlinkAppreleasedeviceEx(request: CancelIotlinkAppreleasedeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelIotlinkAppreleasedeviceResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appreleasedevice.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appreleasedevice.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model RetryIotbasicAppreleasedeviceRequest = {
+model RetryIotlinkAppreleasedeviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8561,7 +8561,7 @@ model RetryIotbasicAppreleasedeviceRequest = {
   orderDetailIdList: [ string ](name='order_detail_id_list'),
 }
 
-model RetryIotbasicAppreleasedeviceResponse = {
+model RetryIotlinkAppreleasedeviceResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8576,22 +8576,22 @@ model RetryIotbasicAppreleasedeviceResponse = {
  * Description: iotbasic-重试设备升级
  * Summary: iotbasic-重试设备升级
  */
-async function retryIotbasicAppreleasedevice(request: RetryIotbasicAppreleasedeviceRequest): RetryIotbasicAppreleasedeviceResponse {
+async function retryIotlinkAppreleasedevice(request: RetryIotlinkAppreleasedeviceRequest): RetryIotlinkAppreleasedeviceResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return retryIotbasicAppreleasedeviceEx(request, headers, runtime);
+  return retryIotlinkAppreleasedeviceEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-重试设备升级
  * Summary: iotbasic-重试设备升级
  */
-async function retryIotbasicAppreleasedeviceEx(request: RetryIotbasicAppreleasedeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RetryIotbasicAppreleasedeviceResponse {
+async function retryIotlinkAppreleasedeviceEx(request: RetryIotlinkAppreleasedeviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RetryIotlinkAppreleasedeviceResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appreleasedevice.retry', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.appreleasedevice.retry', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model CreateIotbasicAppmanagerotamoduleRequest = {
+model CreateIotlinkOtamoduleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8608,7 +8608,7 @@ model CreateIotbasicAppmanagerotamoduleRequest = {
   projectCode: string(name='project_code'),
 }
 
-model CreateIotbasicAppmanagerotamoduleResponse = {
+model CreateIotlinkOtamoduleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8623,22 +8623,22 @@ model CreateIotbasicAppmanagerotamoduleResponse = {
  * Description: iotbasic-创建应用类型
  * Summary: iotbasic-创建应用类型
  */
-async function createIotbasicAppmanagerotamodule(request: CreateIotbasicAppmanagerotamoduleRequest): CreateIotbasicAppmanagerotamoduleResponse {
+async function createIotlinkOtamodule(request: CreateIotlinkOtamoduleRequest): CreateIotlinkOtamoduleResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return createIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+  return createIotlinkOtamoduleEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-创建应用类型
  * Summary: iotbasic-创建应用类型
  */
-async function createIotbasicAppmanagerotamoduleEx(request: CreateIotbasicAppmanagerotamoduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIotbasicAppmanagerotamoduleResponse {
+async function createIotlinkOtamoduleEx(request: CreateIotlinkOtamoduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIotlinkOtamoduleResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appmanagerotamodule.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.otamodule.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model UpdateIotbasicAppmanagerotamoduleRequest = {
+model UpdateIotlinkOtamoduleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8652,7 +8652,7 @@ model UpdateIotbasicAppmanagerotamoduleRequest = {
   desc?: string(name='desc'),
 }
 
-model UpdateIotbasicAppmanagerotamoduleResponse = {
+model UpdateIotlinkOtamoduleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8667,22 +8667,22 @@ model UpdateIotbasicAppmanagerotamoduleResponse = {
  * Description: iotbasic-修改应用类型
  * Summary: iotbasic-修改应用类型
  */
-async function updateIotbasicAppmanagerotamodule(request: UpdateIotbasicAppmanagerotamoduleRequest): UpdateIotbasicAppmanagerotamoduleResponse {
+async function updateIotlinkOtamodule(request: UpdateIotlinkOtamoduleRequest): UpdateIotlinkOtamoduleResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return updateIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+  return updateIotlinkOtamoduleEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-修改应用类型
  * Summary: iotbasic-修改应用类型
  */
-async function updateIotbasicAppmanagerotamoduleEx(request: UpdateIotbasicAppmanagerotamoduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIotbasicAppmanagerotamoduleResponse {
+async function updateIotlinkOtamoduleEx(request: UpdateIotlinkOtamoduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIotlinkOtamoduleResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appmanagerotamodule.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.otamodule.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model DeleteIotbasicAppmanagerotamoduleRequest = {
+model DeleteIotlinkOtamoduleRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -8692,7 +8692,7 @@ model DeleteIotbasicAppmanagerotamoduleRequest = {
   moduleName: string(name='module_name'),
 }
 
-model DeleteIotbasicAppmanagerotamoduleResponse = {
+model DeleteIotlinkOtamoduleResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
@@ -8707,19 +8707,59 @@ model DeleteIotbasicAppmanagerotamoduleResponse = {
  * Description: iotbasic-删除应用类型
  * Summary: iotbasic-删除应用类型
  */
-async function deleteIotbasicAppmanagerotamodule(request: DeleteIotbasicAppmanagerotamoduleRequest): DeleteIotbasicAppmanagerotamoduleResponse {
+async function deleteIotlinkOtamodule(request: DeleteIotlinkOtamoduleRequest): DeleteIotlinkOtamoduleResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return deleteIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+  return deleteIotlinkOtamoduleEx(request, headers, runtime);
 }
 
 /**
  * Description: iotbasic-删除应用类型
  * Summary: iotbasic-删除应用类型
  */
-async function deleteIotbasicAppmanagerotamoduleEx(request: DeleteIotbasicAppmanagerotamoduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteIotbasicAppmanagerotamoduleResponse {
+async function deleteIotlinkOtamoduleEx(request: DeleteIotlinkOtamoduleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteIotlinkOtamoduleResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'blockchain.bot.iotbasic.appmanagerotamodule.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.otamodule.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ImportIotlinkThingmodeltslRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 品类code
+  categoryCode: string(name='category_code'),
+  // 您编辑的物模型（TSL）。JSON格式的字符串。产品的物模型（TSL）包含属性、服务和事件的定义。
+  tslStr: string(name='tsl_str'),
+}
+
+model ImportIotlinkThingmodeltslResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 操作结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-设备厂商导入物模型
+ * Summary: iotbasic-设备厂商导入物模型
+ */
+async function importIotlinkThingmodeltsl(request: ImportIotlinkThingmodeltslRequest): ImportIotlinkThingmodeltslResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return importIotlinkThingmodeltslEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-设备厂商导入物模型
+ * Summary: iotbasic-设备厂商导入物模型
+ */
+async function importIotlinkThingmodeltslEx(request: ImportIotlinkThingmodeltslRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ImportIotlinkThingmodeltslResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.iotlink.thingmodeltsl.import', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
