@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
+public class PagequeryIotlinkAppreleasedeviceResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -32,16 +32,16 @@ public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
     @NameInMap("total")
     public Long total;
 
-    // 分页查询结果列表
+    // 结果列表数据
     @NameInMap("data")
-    public java.util.List<IotbasicReleaseOrderInfo> data;
+    public java.util.List<IotbasicReleaseDeviceInfo> data;
 
-    public static PagequeryIotbasicAppreleaseorderResponse build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIotbasicAppreleaseorderResponse self = new PagequeryIotbasicAppreleaseorderResponse();
+    public static PagequeryIotlinkAppreleasedeviceResponse build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryIotlinkAppreleasedeviceResponse self = new PagequeryIotlinkAppreleasedeviceResponse();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIotbasicAppreleaseorderResponse setReqMsgId(String reqMsgId) {
+    public PagequeryIotlinkAppreleasedeviceResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -49,7 +49,7 @@ public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public PagequeryIotbasicAppreleaseorderResponse setResultCode(String resultCode) {
+    public PagequeryIotlinkAppreleasedeviceResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -57,7 +57,7 @@ public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public PagequeryIotbasicAppreleaseorderResponse setResultMsg(String resultMsg) {
+    public PagequeryIotlinkAppreleasedeviceResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -65,7 +65,7 @@ public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PagequeryIotbasicAppreleaseorderResponse setSuccess(Boolean success) {
+    public PagequeryIotlinkAppreleasedeviceResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
@@ -73,7 +73,7 @@ public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
         return this.success;
     }
 
-    public PagequeryIotbasicAppreleaseorderResponse setCurrent(Long current) {
+    public PagequeryIotlinkAppreleasedeviceResponse setCurrent(Long current) {
         this.current = current;
         return this;
     }
@@ -81,7 +81,7 @@ public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
         return this.current;
     }
 
-    public PagequeryIotbasicAppreleaseorderResponse setPageSize(Long pageSize) {
+    public PagequeryIotlinkAppreleasedeviceResponse setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -89,7 +89,7 @@ public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public PagequeryIotbasicAppreleaseorderResponse setTotal(Long total) {
+    public PagequeryIotlinkAppreleasedeviceResponse setTotal(Long total) {
         this.total = total;
         return this;
     }
@@ -97,11 +97,11 @@ public class PagequeryIotbasicAppreleaseorderResponse extends TeaModel {
         return this.total;
     }
 
-    public PagequeryIotbasicAppreleaseorderResponse setData(java.util.List<IotbasicReleaseOrderInfo> data) {
+    public PagequeryIotlinkAppreleasedeviceResponse setData(java.util.List<IotbasicReleaseDeviceInfo> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<IotbasicReleaseOrderInfo> getData() {
+    public java.util.List<IotbasicReleaseDeviceInfo> getData() {
         return this.data;
     }
 

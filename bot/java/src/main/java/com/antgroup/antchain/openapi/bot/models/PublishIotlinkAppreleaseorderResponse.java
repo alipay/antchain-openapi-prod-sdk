@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class DeleteIotbasicAppmanagerotamoduleResponse extends TeaModel {
+public class PublishIotlinkAppreleaseorderResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class DeleteIotbasicAppmanagerotamoduleResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 操作结果
+    // 接口调用结果
     @NameInMap("success")
     public Boolean success;
 
-    public static DeleteIotbasicAppmanagerotamoduleResponse build(java.util.Map<String, ?> map) throws Exception {
-        DeleteIotbasicAppmanagerotamoduleResponse self = new DeleteIotbasicAppmanagerotamoduleResponse();
+    // 未完成的设备升级列表
+    @NameInMap("unfinished_list")
+    public java.util.List<IotbasicReleaseDeviceInfo> unfinishedList;
+
+    public static PublishIotlinkAppreleaseorderResponse build(java.util.Map<String, ?> map) throws Exception {
+        PublishIotlinkAppreleaseorderResponse self = new PublishIotlinkAppreleaseorderResponse();
         return TeaModel.build(map, self);
     }
 
-    public DeleteIotbasicAppmanagerotamoduleResponse setReqMsgId(String reqMsgId) {
+    public PublishIotlinkAppreleaseorderResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class DeleteIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public DeleteIotbasicAppmanagerotamoduleResponse setResultCode(String resultCode) {
+    public PublishIotlinkAppreleaseorderResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class DeleteIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public DeleteIotbasicAppmanagerotamoduleResponse setResultMsg(String resultMsg) {
+    public PublishIotlinkAppreleaseorderResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class DeleteIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public DeleteIotbasicAppmanagerotamoduleResponse setSuccess(Boolean success) {
+    public PublishIotlinkAppreleaseorderResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
     public Boolean getSuccess() {
         return this.success;
+    }
+
+    public PublishIotlinkAppreleaseorderResponse setUnfinishedList(java.util.List<IotbasicReleaseDeviceInfo> unfinishedList) {
+        this.unfinishedList = unfinishedList;
+        return this;
+    }
+    public java.util.List<IotbasicReleaseDeviceInfo> getUnfinishedList() {
+        return this.unfinishedList;
     }
 
 }

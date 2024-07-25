@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
+public class PagequeryIotlinkAppreleaseorderRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -28,19 +28,15 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
     @NameInMap("order_id")
     public String orderId;
 
-    // 设备sn
-    @NameInMap("device_sn")
-    public String deviceSn;
-
-    // 设备升级状态
-    // 待确认：CONFIRM
-    // 待推送：QUEUED
-    // 已推送：NOTIFIED
+    // 发布批次状态
     // 升级中：IN_PROGRESS
-    // 升级成功：SUCCEEDED
-    // 升级失败：FAILED
-    // 已取消：CANCELED
-    // 升级超时：TIMEOUT
+    // 取消中：CANCELING
+    // 部分成功：PARTIAL_SUCCESS
+    // 部分失败：PARTIAL_FAILED
+    // 部分取消：PARTIAL_CANCELED
+    // 全部成功：ALL_SUCCESS
+    // 全部失败：ALL_FAILED
+    // 全部取消：ALL_CANCELED
     @NameInMap("status")
     public String status;
 
@@ -54,12 +50,12 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
-    public static PagequeryIotbasicAppreleasedeviceRequest build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIotbasicAppreleasedeviceRequest self = new PagequeryIotbasicAppreleasedeviceRequest();
+    public static PagequeryIotlinkAppreleaseorderRequest build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryIotlinkAppreleaseorderRequest self = new PagequeryIotlinkAppreleaseorderRequest();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setAuthToken(String authToken) {
+    public PagequeryIotlinkAppreleaseorderRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -67,7 +63,7 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.authToken;
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setProductInstanceId(String productInstanceId) {
+    public PagequeryIotlinkAppreleaseorderRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -75,7 +71,7 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setProjectSpace(String projectSpace) {
+    public PagequeryIotlinkAppreleaseorderRequest setProjectSpace(String projectSpace) {
         this.projectSpace = projectSpace;
         return this;
     }
@@ -83,7 +79,7 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.projectSpace;
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setApkName(String apkName) {
+    public PagequeryIotlinkAppreleaseorderRequest setApkName(String apkName) {
         this.apkName = apkName;
         return this;
     }
@@ -91,7 +87,7 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.apkName;
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setApkVersion(String apkVersion) {
+    public PagequeryIotlinkAppreleaseorderRequest setApkVersion(String apkVersion) {
         this.apkVersion = apkVersion;
         return this;
     }
@@ -99,7 +95,7 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.apkVersion;
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setOrderId(String orderId) {
+    public PagequeryIotlinkAppreleaseorderRequest setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }
@@ -107,15 +103,7 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.orderId;
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setDeviceSn(String deviceSn) {
-        this.deviceSn = deviceSn;
-        return this;
-    }
-    public String getDeviceSn() {
-        return this.deviceSn;
-    }
-
-    public PagequeryIotbasicAppreleasedeviceRequest setStatus(String status) {
+    public PagequeryIotlinkAppreleaseorderRequest setStatus(String status) {
         this.status = status;
         return this;
     }
@@ -123,7 +111,7 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.status;
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setCurrent(Long current) {
+    public PagequeryIotlinkAppreleaseorderRequest setCurrent(Long current) {
         this.current = current;
         return this;
     }
@@ -131,7 +119,7 @@ public class PagequeryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.current;
     }
 
-    public PagequeryIotbasicAppreleasedeviceRequest setPageSize(Long pageSize) {
+    public PagequeryIotlinkAppreleaseorderRequest setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }

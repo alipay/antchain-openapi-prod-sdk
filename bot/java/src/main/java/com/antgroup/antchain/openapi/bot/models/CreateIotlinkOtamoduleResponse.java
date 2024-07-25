@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CreateIotbasicAppmanagerotamoduleResponse extends TeaModel {
+public class CreateIotlinkOtamoduleResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class CreateIotbasicAppmanagerotamoduleResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    public static CreateIotbasicAppmanagerotamoduleResponse build(java.util.Map<String, ?> map) throws Exception {
-        CreateIotbasicAppmanagerotamoduleResponse self = new CreateIotbasicAppmanagerotamoduleResponse();
+    public static CreateIotlinkOtamoduleResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateIotlinkOtamoduleResponse self = new CreateIotlinkOtamoduleResponse();
         return TeaModel.build(map, self);
     }
 
-    public CreateIotbasicAppmanagerotamoduleResponse setReqMsgId(String reqMsgId) {
+    public CreateIotlinkOtamoduleResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class CreateIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CreateIotbasicAppmanagerotamoduleResponse setResultCode(String resultCode) {
+    public CreateIotlinkOtamoduleResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class CreateIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CreateIotbasicAppmanagerotamoduleResponse setResultMsg(String resultMsg) {
+    public CreateIotlinkOtamoduleResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class CreateIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateIotbasicAppmanagerotamoduleResponse setSuccess(Boolean success) {
+    public CreateIotlinkOtamoduleResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }

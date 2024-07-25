@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class PublishIotbasicAppreleaseorderResponse extends TeaModel {
+public class GetIotlinkAppmanagerfileurlResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,20 @@ public class PublishIotbasicAppreleaseorderResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 接口调用结果
+    // 操作结果
     @NameInMap("success")
     public Boolean success;
 
-    // 未完成的设备升级列表
-    @NameInMap("unfinished_list")
-    public java.util.List<IotbasicReleaseDeviceInfo> unfinishedList;
+    // 应用下载地址
+    @NameInMap("data")
+    public String data;
 
-    public static PublishIotbasicAppreleaseorderResponse build(java.util.Map<String, ?> map) throws Exception {
-        PublishIotbasicAppreleaseorderResponse self = new PublishIotbasicAppreleaseorderResponse();
+    public static GetIotlinkAppmanagerfileurlResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetIotlinkAppmanagerfileurlResponse self = new GetIotlinkAppmanagerfileurlResponse();
         return TeaModel.build(map, self);
     }
 
-    public PublishIotbasicAppreleaseorderResponse setReqMsgId(String reqMsgId) {
+    public GetIotlinkAppmanagerfileurlResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class PublishIotbasicAppreleaseorderResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public PublishIotbasicAppreleaseorderResponse setResultCode(String resultCode) {
+    public GetIotlinkAppmanagerfileurlResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class PublishIotbasicAppreleaseorderResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public PublishIotbasicAppreleaseorderResponse setResultMsg(String resultMsg) {
+    public GetIotlinkAppmanagerfileurlResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,7 +53,7 @@ public class PublishIotbasicAppreleaseorderResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PublishIotbasicAppreleaseorderResponse setSuccess(Boolean success) {
+    public GetIotlinkAppmanagerfileurlResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
@@ -61,12 +61,12 @@ public class PublishIotbasicAppreleaseorderResponse extends TeaModel {
         return this.success;
     }
 
-    public PublishIotbasicAppreleaseorderResponse setUnfinishedList(java.util.List<IotbasicReleaseDeviceInfo> unfinishedList) {
-        this.unfinishedList = unfinishedList;
+    public GetIotlinkAppmanagerfileurlResponse setData(String data) {
+        this.data = data;
         return this;
     }
-    public java.util.List<IotbasicReleaseDeviceInfo> getUnfinishedList() {
-        return this.unfinishedList;
+    public String getData() {
+        return this.data;
     }
 
 }

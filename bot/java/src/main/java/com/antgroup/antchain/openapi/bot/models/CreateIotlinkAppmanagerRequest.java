@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CreateIotbasicAppmanagerRequest extends TeaModel {
+public class CreateIotlinkAppmanagerRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -65,12 +65,12 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
     @NameInMap("file_url")
     public String fileUrl;
 
-    public static CreateIotbasicAppmanagerRequest build(java.util.Map<String, ?> map) throws Exception {
-        CreateIotbasicAppmanagerRequest self = new CreateIotbasicAppmanagerRequest();
+    public static CreateIotlinkAppmanagerRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateIotlinkAppmanagerRequest self = new CreateIotlinkAppmanagerRequest();
         return TeaModel.build(map, self);
     }
 
-    public CreateIotbasicAppmanagerRequest setAuthToken(String authToken) {
+    public CreateIotlinkAppmanagerRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -78,7 +78,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CreateIotbasicAppmanagerRequest setProductInstanceId(String productInstanceId) {
+    public CreateIotlinkAppmanagerRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -86,7 +86,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CreateIotbasicAppmanagerRequest setFileObject(java.io.InputStream fileObject) {
+    public CreateIotlinkAppmanagerRequest setFileObject(java.io.InputStream fileObject) {
         this.fileObject = fileObject;
         return this;
     }
@@ -94,7 +94,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.fileObject;
     }
 
-    public CreateIotbasicAppmanagerRequest setFileObjectName(String fileObjectName) {
+    public CreateIotlinkAppmanagerRequest setFileObjectName(String fileObjectName) {
         this.fileObjectName = fileObjectName;
         return this;
     }
@@ -102,7 +102,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.fileObjectName;
     }
 
-    public CreateIotbasicAppmanagerRequest setFileId(String fileId) {
+    public CreateIotlinkAppmanagerRequest setFileId(String fileId) {
         this.fileId = fileId;
         return this;
     }
@@ -110,7 +110,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.fileId;
     }
 
-    public CreateIotbasicAppmanagerRequest setModuleName(String moduleName) {
+    public CreateIotlinkAppmanagerRequest setModuleName(String moduleName) {
         this.moduleName = moduleName;
         return this;
     }
@@ -118,7 +118,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.moduleName;
     }
 
-    public CreateIotbasicAppmanagerRequest setApkName(String apkName) {
+    public CreateIotlinkAppmanagerRequest setApkName(String apkName) {
         this.apkName = apkName;
         return this;
     }
@@ -126,7 +126,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.apkName;
     }
 
-    public CreateIotbasicAppmanagerRequest setCategoryCode(String categoryCode) {
+    public CreateIotlinkAppmanagerRequest setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
         return this;
     }
@@ -134,7 +134,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.categoryCode;
     }
 
-    public CreateIotbasicAppmanagerRequest setDeviceModelValue(String deviceModelValue) {
+    public CreateIotlinkAppmanagerRequest setDeviceModelValue(String deviceModelValue) {
         this.deviceModelValue = deviceModelValue;
         return this;
     }
@@ -142,7 +142,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.deviceModelValue;
     }
 
-    public CreateIotbasicAppmanagerRequest setRemark(String remark) {
+    public CreateIotlinkAppmanagerRequest setRemark(String remark) {
         this.remark = remark;
         return this;
     }
@@ -150,7 +150,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.remark;
     }
 
-    public CreateIotbasicAppmanagerRequest setApkVersion(String apkVersion) {
+    public CreateIotlinkAppmanagerRequest setApkVersion(String apkVersion) {
         this.apkVersion = apkVersion;
         return this;
     }
@@ -158,7 +158,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.apkVersion;
     }
 
-    public CreateIotbasicAppmanagerRequest setProjectCode(String projectCode) {
+    public CreateIotlinkAppmanagerRequest setProjectCode(String projectCode) {
         this.projectCode = projectCode;
         return this;
     }
@@ -166,7 +166,7 @@ public class CreateIotbasicAppmanagerRequest extends TeaModel {
         return this.projectCode;
     }
 
-    public CreateIotbasicAppmanagerRequest setFileUrl(String fileUrl) {
+    public CreateIotlinkAppmanagerRequest setFileUrl(String fileUrl) {
         this.fileUrl = fileUrl;
         return this;
     }

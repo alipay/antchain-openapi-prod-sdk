@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class RetryIotbasicAppreleasedeviceResponse extends TeaModel {
+public class ImportIotlinkThingmodeltslResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class RetryIotbasicAppreleasedeviceResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 接口调用结果
+    // 操作结果
     @NameInMap("success")
     public Boolean success;
 
-    public static RetryIotbasicAppreleasedeviceResponse build(java.util.Map<String, ?> map) throws Exception {
-        RetryIotbasicAppreleasedeviceResponse self = new RetryIotbasicAppreleasedeviceResponse();
+    public static ImportIotlinkThingmodeltslResponse build(java.util.Map<String, ?> map) throws Exception {
+        ImportIotlinkThingmodeltslResponse self = new ImportIotlinkThingmodeltslResponse();
         return TeaModel.build(map, self);
     }
 
-    public RetryIotbasicAppreleasedeviceResponse setReqMsgId(String reqMsgId) {
+    public ImportIotlinkThingmodeltslResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class RetryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public RetryIotbasicAppreleasedeviceResponse setResultCode(String resultCode) {
+    public ImportIotlinkThingmodeltslResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class RetryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public RetryIotbasicAppreleasedeviceResponse setResultMsg(String resultMsg) {
+    public ImportIotlinkThingmodeltslResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class RetryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public RetryIotbasicAppreleasedeviceResponse setSuccess(Boolean success) {
+    public ImportIotlinkThingmodeltslResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }

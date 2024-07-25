@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
+public class PagequeryIotlinkAppmanagerResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -36,12 +36,12 @@ public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
     @NameInMap("data")
     public java.util.List<IotbasicAppManagerPageInfo> data;
 
-    public static PagequeryIotbasicAppmanagerResponse build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIotbasicAppmanagerResponse self = new PagequeryIotbasicAppmanagerResponse();
+    public static PagequeryIotlinkAppmanagerResponse build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryIotlinkAppmanagerResponse self = new PagequeryIotlinkAppmanagerResponse();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIotbasicAppmanagerResponse setReqMsgId(String reqMsgId) {
+    public PagequeryIotlinkAppmanagerResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -49,7 +49,7 @@ public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public PagequeryIotbasicAppmanagerResponse setResultCode(String resultCode) {
+    public PagequeryIotlinkAppmanagerResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -57,7 +57,7 @@ public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public PagequeryIotbasicAppmanagerResponse setResultMsg(String resultMsg) {
+    public PagequeryIotlinkAppmanagerResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -65,7 +65,7 @@ public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PagequeryIotbasicAppmanagerResponse setSuccess(Boolean success) {
+    public PagequeryIotlinkAppmanagerResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
@@ -73,7 +73,7 @@ public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
         return this.success;
     }
 
-    public PagequeryIotbasicAppmanagerResponse setCurrent(Long current) {
+    public PagequeryIotlinkAppmanagerResponse setCurrent(Long current) {
         this.current = current;
         return this;
     }
@@ -81,7 +81,7 @@ public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
         return this.current;
     }
 
-    public PagequeryIotbasicAppmanagerResponse setPageSize(Long pageSize) {
+    public PagequeryIotlinkAppmanagerResponse setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -89,7 +89,7 @@ public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public PagequeryIotbasicAppmanagerResponse setTotal(Long total) {
+    public PagequeryIotlinkAppmanagerResponse setTotal(Long total) {
         this.total = total;
         return this;
     }
@@ -97,7 +97,7 @@ public class PagequeryIotbasicAppmanagerResponse extends TeaModel {
         return this.total;
     }
 
-    public PagequeryIotbasicAppmanagerResponse setData(java.util.List<IotbasicAppManagerPageInfo> data) {
+    public PagequeryIotlinkAppmanagerResponse setData(java.util.List<IotbasicAppManagerPageInfo> data) {
         this.data = data;
         return this;
     }

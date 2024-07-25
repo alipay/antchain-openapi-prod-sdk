@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CancelIotbasicAppreleaseorderResponse extends TeaModel {
+public class ListIotlinkOtamoduleResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,20 @@ public class CancelIotbasicAppreleaseorderResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 接口调用结果
+    // 操作结果
     @NameInMap("success")
     public Boolean success;
 
-    public static CancelIotbasicAppreleaseorderResponse build(java.util.Map<String, ?> map) throws Exception {
-        CancelIotbasicAppreleaseorderResponse self = new CancelIotbasicAppreleaseorderResponse();
+    // 应用模块列表
+    @NameInMap("data")
+    public java.util.List<IotbasicOtaModuleInfo> data;
+
+    public static ListIotlinkOtamoduleResponse build(java.util.Map<String, ?> map) throws Exception {
+        ListIotlinkOtamoduleResponse self = new ListIotlinkOtamoduleResponse();
         return TeaModel.build(map, self);
     }
 
-    public CancelIotbasicAppreleaseorderResponse setReqMsgId(String reqMsgId) {
+    public ListIotlinkOtamoduleResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +37,7 @@ public class CancelIotbasicAppreleaseorderResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CancelIotbasicAppreleaseorderResponse setResultCode(String resultCode) {
+    public ListIotlinkOtamoduleResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +45,7 @@ public class CancelIotbasicAppreleaseorderResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CancelIotbasicAppreleaseorderResponse setResultMsg(String resultMsg) {
+    public ListIotlinkOtamoduleResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +53,20 @@ public class CancelIotbasicAppreleaseorderResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CancelIotbasicAppreleaseorderResponse setSuccess(Boolean success) {
+    public ListIotlinkOtamoduleResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
     public Boolean getSuccess() {
         return this.success;
+    }
+
+    public ListIotlinkOtamoduleResponse setData(java.util.List<IotbasicOtaModuleInfo> data) {
+        this.data = data;
+        return this;
+    }
+    public java.util.List<IotbasicOtaModuleInfo> getData() {
+        return this.data;
     }
 
 }

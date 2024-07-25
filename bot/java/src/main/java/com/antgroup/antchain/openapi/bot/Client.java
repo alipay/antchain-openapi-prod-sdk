@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.11.34"),
+                    new TeaPair("sdk_version", "1.11.39"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2318,31 +2318,31 @@ public class Client {
      * Description: iotbasic-新增应用
      * Summary: iotbasic-新增应用
      */
-    public CreateIotbasicAppmanagerResponse createIotbasicAppmanager(CreateIotbasicAppmanagerRequest request) throws Exception {
+    public CreateIotlinkAppmanagerResponse createIotlinkAppmanager(CreateIotlinkAppmanagerRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createIotbasicAppmanagerEx(request, headers, runtime);
+        return this.createIotlinkAppmanagerEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-新增应用
      * Summary: iotbasic-新增应用
      */
-    public CreateIotbasicAppmanagerResponse createIotbasicAppmanagerEx(CreateIotbasicAppmanagerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public CreateIotlinkAppmanagerResponse createIotlinkAppmanagerEx(CreateIotlinkAppmanagerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
             CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
                 new TeaPair("authToken", request.authToken),
-                new TeaPair("apiCode", "blockchain.bot.iotbasic.appmanager.create"),
+                new TeaPair("apiCode", "blockchain.bot.iotlink.appmanager.create"),
                 new TeaPair("fileName", request.fileObjectName)
             ));
             CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
             if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
-                CreateIotbasicAppmanagerResponse createIotbasicAppmanagerResponse = CreateIotbasicAppmanagerResponse.build(TeaConverter.buildMap(
+                CreateIotlinkAppmanagerResponse createIotlinkAppmanagerResponse = CreateIotlinkAppmanagerResponse.build(TeaConverter.buildMap(
                     new TeaPair("reqMsgId", uploadResp.reqMsgId),
                     new TeaPair("resultCode", uploadResp.resultCode),
                     new TeaPair("resultMsg", uploadResp.resultMsg)
                 ));
-                return createIotbasicAppmanagerResponse;
+                return createIotlinkAppmanagerResponse;
             }
 
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
@@ -2351,235 +2351,254 @@ public class Client {
         }
 
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appmanager.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateIotbasicAppmanagerResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appmanager.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateIotlinkAppmanagerResponse());
     }
 
     /**
-     * Description: iotbasic-获取应用类型列表
-     * Summary: iotbasic-获取应用类型列表
+     * Description: iotbasic-获取应用模块列表
+     * Summary: iotbasic-获取应用模块列表
      */
-    public ListIotbasicAppmanagerotamoduleResponse listIotbasicAppmanagerotamodule(ListIotbasicAppmanagerotamoduleRequest request) throws Exception {
+    public ListIotlinkOtamoduleResponse listIotlinkOtamodule(ListIotlinkOtamoduleRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.listIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+        return this.listIotlinkOtamoduleEx(request, headers, runtime);
     }
 
     /**
-     * Description: iotbasic-获取应用类型列表
-     * Summary: iotbasic-获取应用类型列表
+     * Description: iotbasic-获取应用模块列表
+     * Summary: iotbasic-获取应用模块列表
      */
-    public ListIotbasicAppmanagerotamoduleResponse listIotbasicAppmanagerotamoduleEx(ListIotbasicAppmanagerotamoduleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ListIotlinkOtamoduleResponse listIotlinkOtamoduleEx(ListIotlinkOtamoduleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerotamodule.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListIotbasicAppmanagerotamoduleResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.otamodule.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListIotlinkOtamoduleResponse());
     }
 
     /**
      * Description: iotbasic-分页查询应用列表
      * Summary: iotbasic-分页查询应用列表
      */
-    public PagequeryIotbasicAppmanagerResponse pagequeryIotbasicAppmanager(PagequeryIotbasicAppmanagerRequest request) throws Exception {
+    public PagequeryIotlinkAppmanagerResponse pagequeryIotlinkAppmanager(PagequeryIotlinkAppmanagerRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.pagequeryIotbasicAppmanagerEx(request, headers, runtime);
+        return this.pagequeryIotlinkAppmanagerEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-分页查询应用列表
      * Summary: iotbasic-分页查询应用列表
      */
-    public PagequeryIotbasicAppmanagerResponse pagequeryIotbasicAppmanagerEx(PagequeryIotbasicAppmanagerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public PagequeryIotlinkAppmanagerResponse pagequeryIotlinkAppmanagerEx(PagequeryIotlinkAppmanagerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appmanager.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIotbasicAppmanagerResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appmanager.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIotlinkAppmanagerResponse());
     }
 
     /**
      * Description: iotbasic-获取应用下载地址
      * Summary: iotbasic-获取应用下载地址
      */
-    public GetIotbasicAppmanagerfileurlResponse getIotbasicAppmanagerfileurl(GetIotbasicAppmanagerfileurlRequest request) throws Exception {
+    public GetIotlinkAppmanagerfileurlResponse getIotlinkAppmanagerfileurl(GetIotlinkAppmanagerfileurlRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getIotbasicAppmanagerfileurlEx(request, headers, runtime);
+        return this.getIotlinkAppmanagerfileurlEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-获取应用下载地址
      * Summary: iotbasic-获取应用下载地址
      */
-    public GetIotbasicAppmanagerfileurlResponse getIotbasicAppmanagerfileurlEx(GetIotbasicAppmanagerfileurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public GetIotlinkAppmanagerfileurlResponse getIotlinkAppmanagerfileurlEx(GetIotlinkAppmanagerfileurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerfileurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetIotbasicAppmanagerfileurlResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appmanagerfileurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetIotlinkAppmanagerfileurlResponse());
     }
 
     /**
      * Description: iotbasic-分页查询发布批次列表
      * Summary: iotbasic-分页查询发布批次列表
      */
-    public PagequeryIotbasicAppreleaseorderResponse pagequeryIotbasicAppreleaseorder(PagequeryIotbasicAppreleaseorderRequest request) throws Exception {
+    public PagequeryIotlinkAppreleaseorderResponse pagequeryIotlinkAppreleaseorder(PagequeryIotlinkAppreleaseorderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.pagequeryIotbasicAppreleaseorderEx(request, headers, runtime);
+        return this.pagequeryIotlinkAppreleaseorderEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-分页查询发布批次列表
      * Summary: iotbasic-分页查询发布批次列表
      */
-    public PagequeryIotbasicAppreleaseorderResponse pagequeryIotbasicAppreleaseorderEx(PagequeryIotbasicAppreleaseorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public PagequeryIotlinkAppreleaseorderResponse pagequeryIotlinkAppreleaseorderEx(PagequeryIotlinkAppreleaseorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appreleaseorder.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIotbasicAppreleaseorderResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appreleaseorder.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIotlinkAppreleaseorderResponse());
     }
 
     /**
      * Description: iotbasic-分页查询设备升级列表
      * Summary: iotbasic-分页查询设备升级列表
      */
-    public PagequeryIotbasicAppreleasedeviceResponse pagequeryIotbasicAppreleasedevice(PagequeryIotbasicAppreleasedeviceRequest request) throws Exception {
+    public PagequeryIotlinkAppreleasedeviceResponse pagequeryIotlinkAppreleasedevice(PagequeryIotlinkAppreleasedeviceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.pagequeryIotbasicAppreleasedeviceEx(request, headers, runtime);
+        return this.pagequeryIotlinkAppreleasedeviceEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-分页查询设备升级列表
      * Summary: iotbasic-分页查询设备升级列表
      */
-    public PagequeryIotbasicAppreleasedeviceResponse pagequeryIotbasicAppreleasedeviceEx(PagequeryIotbasicAppreleasedeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public PagequeryIotlinkAppreleasedeviceResponse pagequeryIotlinkAppreleasedeviceEx(PagequeryIotlinkAppreleasedeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appreleasedevice.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIotbasicAppreleasedeviceResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appreleasedevice.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryIotlinkAppreleasedeviceResponse());
     }
 
     /**
      * Description: iotbasic-发布工单
      * Summary: iotbasic-发布工单
      */
-    public PublishIotbasicAppreleaseorderResponse publishIotbasicAppreleaseorder(PublishIotbasicAppreleaseorderRequest request) throws Exception {
+    public PublishIotlinkAppreleaseorderResponse publishIotlinkAppreleaseorder(PublishIotlinkAppreleaseorderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.publishIotbasicAppreleaseorderEx(request, headers, runtime);
+        return this.publishIotlinkAppreleaseorderEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-发布工单
      * Summary: iotbasic-发布工单
      */
-    public PublishIotbasicAppreleaseorderResponse publishIotbasicAppreleaseorderEx(PublishIotbasicAppreleaseorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public PublishIotlinkAppreleaseorderResponse publishIotlinkAppreleaseorderEx(PublishIotlinkAppreleaseorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appreleaseorder.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishIotbasicAppreleaseorderResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appreleaseorder.publish", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PublishIotlinkAppreleaseorderResponse());
     }
 
     /**
      * Description: iotbasic-取消工单发布
      * Summary: iotbasic-取消工单发布
      */
-    public CancelIotbasicAppreleaseorderResponse cancelIotbasicAppreleaseorder(CancelIotbasicAppreleaseorderRequest request) throws Exception {
+    public CancelIotlinkAppreleaseorderResponse cancelIotlinkAppreleaseorder(CancelIotlinkAppreleaseorderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.cancelIotbasicAppreleaseorderEx(request, headers, runtime);
+        return this.cancelIotlinkAppreleaseorderEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-取消工单发布
      * Summary: iotbasic-取消工单发布
      */
-    public CancelIotbasicAppreleaseorderResponse cancelIotbasicAppreleaseorderEx(CancelIotbasicAppreleaseorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public CancelIotlinkAppreleaseorderResponse cancelIotlinkAppreleaseorderEx(CancelIotlinkAppreleaseorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appreleaseorder.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelIotbasicAppreleaseorderResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appreleaseorder.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelIotlinkAppreleaseorderResponse());
     }
 
     /**
      * Description: iotbasic-取消设备升级
      * Summary: iotbasic-取消设备升级
      */
-    public CancelIotbasicAppreleasedeviceResponse cancelIotbasicAppreleasedevice(CancelIotbasicAppreleasedeviceRequest request) throws Exception {
+    public CancelIotlinkAppreleasedeviceResponse cancelIotlinkAppreleasedevice(CancelIotlinkAppreleasedeviceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.cancelIotbasicAppreleasedeviceEx(request, headers, runtime);
+        return this.cancelIotlinkAppreleasedeviceEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-取消设备升级
      * Summary: iotbasic-取消设备升级
      */
-    public CancelIotbasicAppreleasedeviceResponse cancelIotbasicAppreleasedeviceEx(CancelIotbasicAppreleasedeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public CancelIotlinkAppreleasedeviceResponse cancelIotlinkAppreleasedeviceEx(CancelIotlinkAppreleasedeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appreleasedevice.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelIotbasicAppreleasedeviceResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appreleasedevice.cancel", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CancelIotlinkAppreleasedeviceResponse());
     }
 
     /**
      * Description: iotbasic-重试设备升级
      * Summary: iotbasic-重试设备升级
      */
-    public RetryIotbasicAppreleasedeviceResponse retryIotbasicAppreleasedevice(RetryIotbasicAppreleasedeviceRequest request) throws Exception {
+    public RetryIotlinkAppreleasedeviceResponse retryIotlinkAppreleasedevice(RetryIotlinkAppreleasedeviceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.retryIotbasicAppreleasedeviceEx(request, headers, runtime);
+        return this.retryIotlinkAppreleasedeviceEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-重试设备升级
      * Summary: iotbasic-重试设备升级
      */
-    public RetryIotbasicAppreleasedeviceResponse retryIotbasicAppreleasedeviceEx(RetryIotbasicAppreleasedeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public RetryIotlinkAppreleasedeviceResponse retryIotlinkAppreleasedeviceEx(RetryIotlinkAppreleasedeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appreleasedevice.retry", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RetryIotbasicAppreleasedeviceResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.appreleasedevice.retry", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RetryIotlinkAppreleasedeviceResponse());
     }
 
     /**
      * Description: iotbasic-创建应用类型
      * Summary: iotbasic-创建应用类型
      */
-    public CreateIotbasicAppmanagerotamoduleResponse createIotbasicAppmanagerotamodule(CreateIotbasicAppmanagerotamoduleRequest request) throws Exception {
+    public CreateIotlinkOtamoduleResponse createIotlinkOtamodule(CreateIotlinkOtamoduleRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.createIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+        return this.createIotlinkOtamoduleEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-创建应用类型
      * Summary: iotbasic-创建应用类型
      */
-    public CreateIotbasicAppmanagerotamoduleResponse createIotbasicAppmanagerotamoduleEx(CreateIotbasicAppmanagerotamoduleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public CreateIotlinkOtamoduleResponse createIotlinkOtamoduleEx(CreateIotlinkOtamoduleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerotamodule.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateIotbasicAppmanagerotamoduleResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.otamodule.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateIotlinkOtamoduleResponse());
     }
 
     /**
      * Description: iotbasic-修改应用类型
      * Summary: iotbasic-修改应用类型
      */
-    public UpdateIotbasicAppmanagerotamoduleResponse updateIotbasicAppmanagerotamodule(UpdateIotbasicAppmanagerotamoduleRequest request) throws Exception {
+    public UpdateIotlinkOtamoduleResponse updateIotlinkOtamodule(UpdateIotlinkOtamoduleRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.updateIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+        return this.updateIotlinkOtamoduleEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-修改应用类型
      * Summary: iotbasic-修改应用类型
      */
-    public UpdateIotbasicAppmanagerotamoduleResponse updateIotbasicAppmanagerotamoduleEx(UpdateIotbasicAppmanagerotamoduleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public UpdateIotlinkOtamoduleResponse updateIotlinkOtamoduleEx(UpdateIotlinkOtamoduleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerotamodule.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateIotbasicAppmanagerotamoduleResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.otamodule.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateIotlinkOtamoduleResponse());
     }
 
     /**
      * Description: iotbasic-删除应用类型
      * Summary: iotbasic-删除应用类型
      */
-    public DeleteIotbasicAppmanagerotamoduleResponse deleteIotbasicAppmanagerotamodule(DeleteIotbasicAppmanagerotamoduleRequest request) throws Exception {
+    public DeleteIotlinkOtamoduleResponse deleteIotlinkOtamodule(DeleteIotlinkOtamoduleRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.deleteIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+        return this.deleteIotlinkOtamoduleEx(request, headers, runtime);
     }
 
     /**
      * Description: iotbasic-删除应用类型
      * Summary: iotbasic-删除应用类型
      */
-    public DeleteIotbasicAppmanagerotamoduleResponse deleteIotbasicAppmanagerotamoduleEx(DeleteIotbasicAppmanagerotamoduleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public DeleteIotlinkOtamoduleResponse deleteIotlinkOtamoduleEx(DeleteIotlinkOtamoduleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerotamodule.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteIotbasicAppmanagerotamoduleResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.otamodule.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteIotlinkOtamoduleResponse());
+    }
+
+    /**
+     * Description: iotbasic-设备厂商导入物模型
+     * Summary: iotbasic-设备厂商导入物模型
+     */
+    public ImportIotlinkThingmodeltslResponse importIotlinkThingmodeltsl(ImportIotlinkThingmodeltslRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importIotlinkThingmodeltslEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商导入物模型
+     * Summary: iotbasic-设备厂商导入物模型
+     */
+    public ImportIotlinkThingmodeltslResponse importIotlinkThingmodeltslEx(ImportIotlinkThingmodeltslRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotlink.thingmodeltsl.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportIotlinkThingmodeltslResponse());
     }
 
     /**

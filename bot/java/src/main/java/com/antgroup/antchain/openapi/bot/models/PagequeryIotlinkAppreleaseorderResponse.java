@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
+public class PagequeryIotlinkAppreleaseorderResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -32,16 +32,16 @@ public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
     @NameInMap("total")
     public Long total;
 
-    // 结果列表数据
+    // 分页查询结果列表
     @NameInMap("data")
-    public java.util.List<IotbasicReleaseDeviceInfo> data;
+    public java.util.List<IotbasicReleaseOrderInfo> data;
 
-    public static PagequeryIotbasicAppreleasedeviceResponse build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIotbasicAppreleasedeviceResponse self = new PagequeryIotbasicAppreleasedeviceResponse();
+    public static PagequeryIotlinkAppreleaseorderResponse build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryIotlinkAppreleaseorderResponse self = new PagequeryIotlinkAppreleaseorderResponse();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIotbasicAppreleasedeviceResponse setReqMsgId(String reqMsgId) {
+    public PagequeryIotlinkAppreleaseorderResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -49,7 +49,7 @@ public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public PagequeryIotbasicAppreleasedeviceResponse setResultCode(String resultCode) {
+    public PagequeryIotlinkAppreleaseorderResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -57,7 +57,7 @@ public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public PagequeryIotbasicAppreleasedeviceResponse setResultMsg(String resultMsg) {
+    public PagequeryIotlinkAppreleaseorderResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -65,7 +65,7 @@ public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PagequeryIotbasicAppreleasedeviceResponse setSuccess(Boolean success) {
+    public PagequeryIotlinkAppreleaseorderResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
@@ -73,7 +73,7 @@ public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.success;
     }
 
-    public PagequeryIotbasicAppreleasedeviceResponse setCurrent(Long current) {
+    public PagequeryIotlinkAppreleaseorderResponse setCurrent(Long current) {
         this.current = current;
         return this;
     }
@@ -81,7 +81,7 @@ public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.current;
     }
 
-    public PagequeryIotbasicAppreleasedeviceResponse setPageSize(Long pageSize) {
+    public PagequeryIotlinkAppreleaseorderResponse setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -89,7 +89,7 @@ public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.pageSize;
     }
 
-    public PagequeryIotbasicAppreleasedeviceResponse setTotal(Long total) {
+    public PagequeryIotlinkAppreleaseorderResponse setTotal(Long total) {
         this.total = total;
         return this;
     }
@@ -97,11 +97,11 @@ public class PagequeryIotbasicAppreleasedeviceResponse extends TeaModel {
         return this.total;
     }
 
-    public PagequeryIotbasicAppreleasedeviceResponse setData(java.util.List<IotbasicReleaseDeviceInfo> data) {
+    public PagequeryIotlinkAppreleaseorderResponse setData(java.util.List<IotbasicReleaseOrderInfo> data) {
         this.data = data;
         return this;
     }
-    public java.util.List<IotbasicReleaseDeviceInfo> getData() {
+    public java.util.List<IotbasicReleaseOrderInfo> getData() {
         return this.data;
     }
 

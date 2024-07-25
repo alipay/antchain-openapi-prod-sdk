@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class PublishIotbasicAppreleaseorderRequest extends TeaModel {
+public class PublishIotlinkAppreleaseorderRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -35,12 +35,12 @@ public class PublishIotbasicAppreleaseorderRequest extends TeaModel {
     @Validation(required = true)
     public Boolean cover;
 
-    public static PublishIotbasicAppreleaseorderRequest build(java.util.Map<String, ?> map) throws Exception {
-        PublishIotbasicAppreleaseorderRequest self = new PublishIotbasicAppreleaseorderRequest();
+    public static PublishIotlinkAppreleaseorderRequest build(java.util.Map<String, ?> map) throws Exception {
+        PublishIotlinkAppreleaseorderRequest self = new PublishIotlinkAppreleaseorderRequest();
         return TeaModel.build(map, self);
     }
 
-    public PublishIotbasicAppreleaseorderRequest setAuthToken(String authToken) {
+    public PublishIotlinkAppreleaseorderRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -48,7 +48,7 @@ public class PublishIotbasicAppreleaseorderRequest extends TeaModel {
         return this.authToken;
     }
 
-    public PublishIotbasicAppreleaseorderRequest setProductInstanceId(String productInstanceId) {
+    public PublishIotlinkAppreleaseorderRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -56,7 +56,7 @@ public class PublishIotbasicAppreleaseorderRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public PublishIotbasicAppreleaseorderRequest setApkId(String apkId) {
+    public PublishIotlinkAppreleaseorderRequest setApkId(String apkId) {
         this.apkId = apkId;
         return this;
     }
@@ -64,7 +64,7 @@ public class PublishIotbasicAppreleaseorderRequest extends TeaModel {
         return this.apkId;
     }
 
-    public PublishIotbasicAppreleaseorderRequest setReleaseMode(String releaseMode) {
+    public PublishIotlinkAppreleaseorderRequest setReleaseMode(String releaseMode) {
         this.releaseMode = releaseMode;
         return this;
     }
@@ -72,7 +72,7 @@ public class PublishIotbasicAppreleaseorderRequest extends TeaModel {
         return this.releaseMode;
     }
 
-    public PublishIotbasicAppreleaseorderRequest setDataList(java.util.List<String> dataList) {
+    public PublishIotlinkAppreleaseorderRequest setDataList(java.util.List<String> dataList) {
         this.dataList = dataList;
         return this;
     }
@@ -80,7 +80,7 @@ public class PublishIotbasicAppreleaseorderRequest extends TeaModel {
         return this.dataList;
     }
 
-    public PublishIotbasicAppreleaseorderRequest setCover(Boolean cover) {
+    public PublishIotlinkAppreleaseorderRequest setCover(Boolean cover) {
         this.cover = cover;
         return this;
     }

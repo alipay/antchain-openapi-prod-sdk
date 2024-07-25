@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class DeleteIotbasicAppmanagerotamoduleRequest extends TeaModel {
+public class DeleteIotlinkOtamoduleRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -21,12 +21,12 @@ public class DeleteIotbasicAppmanagerotamoduleRequest extends TeaModel {
     @Validation(required = true)
     public String moduleName;
 
-    public static DeleteIotbasicAppmanagerotamoduleRequest build(java.util.Map<String, ?> map) throws Exception {
-        DeleteIotbasicAppmanagerotamoduleRequest self = new DeleteIotbasicAppmanagerotamoduleRequest();
+    public static DeleteIotlinkOtamoduleRequest build(java.util.Map<String, ?> map) throws Exception {
+        DeleteIotlinkOtamoduleRequest self = new DeleteIotlinkOtamoduleRequest();
         return TeaModel.build(map, self);
     }
 
-    public DeleteIotbasicAppmanagerotamoduleRequest setAuthToken(String authToken) {
+    public DeleteIotlinkOtamoduleRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +34,7 @@ public class DeleteIotbasicAppmanagerotamoduleRequest extends TeaModel {
         return this.authToken;
     }
 
-    public DeleteIotbasicAppmanagerotamoduleRequest setProductInstanceId(String productInstanceId) {
+    public DeleteIotlinkOtamoduleRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,7 +42,7 @@ public class DeleteIotbasicAppmanagerotamoduleRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public DeleteIotbasicAppmanagerotamoduleRequest setCategoryCode(String categoryCode) {
+    public DeleteIotlinkOtamoduleRequest setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
         return this;
     }
@@ -50,7 +50,7 @@ public class DeleteIotbasicAppmanagerotamoduleRequest extends TeaModel {
         return this.categoryCode;
     }
 
-    public DeleteIotbasicAppmanagerotamoduleRequest setModuleName(String moduleName) {
+    public DeleteIotlinkOtamoduleRequest setModuleName(String moduleName) {
         this.moduleName = moduleName;
         return this;
     }

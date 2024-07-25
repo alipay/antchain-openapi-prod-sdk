@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class GetIotbasicAppmanagerfileurlResponse extends TeaModel {
+public class UpdateIotlinkOtamoduleResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,16 +20,12 @@ public class GetIotbasicAppmanagerfileurlResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    // 应用下载地址
-    @NameInMap("data")
-    public String data;
-
-    public static GetIotbasicAppmanagerfileurlResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetIotbasicAppmanagerfileurlResponse self = new GetIotbasicAppmanagerfileurlResponse();
+    public static UpdateIotlinkOtamoduleResponse build(java.util.Map<String, ?> map) throws Exception {
+        UpdateIotlinkOtamoduleResponse self = new UpdateIotlinkOtamoduleResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetIotbasicAppmanagerfileurlResponse setReqMsgId(String reqMsgId) {
+    public UpdateIotlinkOtamoduleResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class GetIotbasicAppmanagerfileurlResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetIotbasicAppmanagerfileurlResponse setResultCode(String resultCode) {
+    public UpdateIotlinkOtamoduleResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class GetIotbasicAppmanagerfileurlResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetIotbasicAppmanagerfileurlResponse setResultMsg(String resultMsg) {
+    public UpdateIotlinkOtamoduleResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +49,12 @@ public class GetIotbasicAppmanagerfileurlResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetIotbasicAppmanagerfileurlResponse setSuccess(Boolean success) {
+    public UpdateIotlinkOtamoduleResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
     public Boolean getSuccess() {
         return this.success;
-    }
-
-    public GetIotbasicAppmanagerfileurlResponse setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
     }
 
 }

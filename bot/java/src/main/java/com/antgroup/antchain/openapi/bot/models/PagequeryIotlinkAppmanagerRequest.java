@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
+public class PagequeryIotlinkAppmanagerRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -44,12 +44,12 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
     @NameInMap("module_name")
     public String moduleName;
 
-    public static PagequeryIotbasicAppmanagerRequest build(java.util.Map<String, ?> map) throws Exception {
-        PagequeryIotbasicAppmanagerRequest self = new PagequeryIotbasicAppmanagerRequest();
+    public static PagequeryIotlinkAppmanagerRequest build(java.util.Map<String, ?> map) throws Exception {
+        PagequeryIotlinkAppmanagerRequest self = new PagequeryIotlinkAppmanagerRequest();
         return TeaModel.build(map, self);
     }
 
-    public PagequeryIotbasicAppmanagerRequest setAuthToken(String authToken) {
+    public PagequeryIotlinkAppmanagerRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -57,7 +57,7 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
         return this.authToken;
     }
 
-    public PagequeryIotbasicAppmanagerRequest setProductInstanceId(String productInstanceId) {
+    public PagequeryIotlinkAppmanagerRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -65,7 +65,7 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public PagequeryIotbasicAppmanagerRequest setProjectSpace(String projectSpace) {
+    public PagequeryIotlinkAppmanagerRequest setProjectSpace(String projectSpace) {
         this.projectSpace = projectSpace;
         return this;
     }
@@ -73,7 +73,7 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
         return this.projectSpace;
     }
 
-    public PagequeryIotbasicAppmanagerRequest setApkName(String apkName) {
+    public PagequeryIotlinkAppmanagerRequest setApkName(String apkName) {
         this.apkName = apkName;
         return this;
     }
@@ -81,7 +81,7 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
         return this.apkName;
     }
 
-    public PagequeryIotbasicAppmanagerRequest setApkVersion(String apkVersion) {
+    public PagequeryIotlinkAppmanagerRequest setApkVersion(String apkVersion) {
         this.apkVersion = apkVersion;
         return this;
     }
@@ -89,7 +89,7 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
         return this.apkVersion;
     }
 
-    public PagequeryIotbasicAppmanagerRequest setCurrent(Long current) {
+    public PagequeryIotlinkAppmanagerRequest setCurrent(Long current) {
         this.current = current;
         return this;
     }
@@ -97,7 +97,7 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
         return this.current;
     }
 
-    public PagequeryIotbasicAppmanagerRequest setPageSize(Long pageSize) {
+    public PagequeryIotlinkAppmanagerRequest setPageSize(Long pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -105,7 +105,7 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
         return this.pageSize;
     }
 
-    public PagequeryIotbasicAppmanagerRequest setCategoryCode(String categoryCode) {
+    public PagequeryIotlinkAppmanagerRequest setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
         return this;
     }
@@ -113,7 +113,7 @@ public class PagequeryIotbasicAppmanagerRequest extends TeaModel {
         return this.categoryCode;
     }
 
-    public PagequeryIotbasicAppmanagerRequest setModuleName(String moduleName) {
+    public PagequeryIotlinkAppmanagerRequest setModuleName(String moduleName) {
         this.moduleName = moduleName;
         return this;
     }

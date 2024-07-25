@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CancelIotbasicAppreleaseorderRequest extends TeaModel {
+public class ListIotlinkOtamoduleRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,17 +11,17 @@ public class CancelIotbasicAppreleaseorderRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 工单id
-    @NameInMap("order_id")
+    // 品类code
+    @NameInMap("category_code")
     @Validation(required = true)
-    public String orderId;
+    public String categoryCode;
 
-    public static CancelIotbasicAppreleaseorderRequest build(java.util.Map<String, ?> map) throws Exception {
-        CancelIotbasicAppreleaseorderRequest self = new CancelIotbasicAppreleaseorderRequest();
+    public static ListIotlinkOtamoduleRequest build(java.util.Map<String, ?> map) throws Exception {
+        ListIotlinkOtamoduleRequest self = new ListIotlinkOtamoduleRequest();
         return TeaModel.build(map, self);
     }
 
-    public CancelIotbasicAppreleaseorderRequest setAuthToken(String authToken) {
+    public ListIotlinkOtamoduleRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class CancelIotbasicAppreleaseorderRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CancelIotbasicAppreleaseorderRequest setProductInstanceId(String productInstanceId) {
+    public ListIotlinkOtamoduleRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,12 +37,12 @@ public class CancelIotbasicAppreleaseorderRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CancelIotbasicAppreleaseorderRequest setOrderId(String orderId) {
-        this.orderId = orderId;
+    public ListIotlinkOtamoduleRequest setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
         return this;
     }
-    public String getOrderId() {
-        return this.orderId;
+    public String getCategoryCode() {
+        return this.categoryCode;
     }
 
 }

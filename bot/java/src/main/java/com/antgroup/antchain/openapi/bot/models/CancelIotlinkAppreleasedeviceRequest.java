@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class RetryIotbasicAppreleasedeviceRequest extends TeaModel {
+public class CancelIotlinkAppreleasedeviceRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,12 @@ public class RetryIotbasicAppreleasedeviceRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> orderDetailIdList;
 
-    public static RetryIotbasicAppreleasedeviceRequest build(java.util.Map<String, ?> map) throws Exception {
-        RetryIotbasicAppreleasedeviceRequest self = new RetryIotbasicAppreleasedeviceRequest();
+    public static CancelIotlinkAppreleasedeviceRequest build(java.util.Map<String, ?> map) throws Exception {
+        CancelIotlinkAppreleasedeviceRequest self = new CancelIotlinkAppreleasedeviceRequest();
         return TeaModel.build(map, self);
     }
 
-    public RetryIotbasicAppreleasedeviceRequest setAuthToken(String authToken) {
+    public CancelIotlinkAppreleasedeviceRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class RetryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.authToken;
     }
 
-    public RetryIotbasicAppreleasedeviceRequest setProductInstanceId(String productInstanceId) {
+    public CancelIotlinkAppreleasedeviceRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class RetryIotbasicAppreleasedeviceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public RetryIotbasicAppreleasedeviceRequest setOrderDetailIdList(java.util.List<String> orderDetailIdList) {
+    public CancelIotlinkAppreleasedeviceRequest setOrderDetailIdList(java.util.List<String> orderDetailIdList) {
         this.orderDetailIdList = orderDetailIdList;
         return this;
     }

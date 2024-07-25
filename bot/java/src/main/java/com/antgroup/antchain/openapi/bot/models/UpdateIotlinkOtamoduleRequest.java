@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class UpdateIotbasicAppmanagerotamoduleRequest extends TeaModel {
+public class UpdateIotlinkOtamoduleRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -29,12 +29,12 @@ public class UpdateIotbasicAppmanagerotamoduleRequest extends TeaModel {
     @NameInMap("desc")
     public String desc;
 
-    public static UpdateIotbasicAppmanagerotamoduleRequest build(java.util.Map<String, ?> map) throws Exception {
-        UpdateIotbasicAppmanagerotamoduleRequest self = new UpdateIotbasicAppmanagerotamoduleRequest();
+    public static UpdateIotlinkOtamoduleRequest build(java.util.Map<String, ?> map) throws Exception {
+        UpdateIotlinkOtamoduleRequest self = new UpdateIotlinkOtamoduleRequest();
         return TeaModel.build(map, self);
     }
 
-    public UpdateIotbasicAppmanagerotamoduleRequest setAuthToken(String authToken) {
+    public UpdateIotlinkOtamoduleRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -42,7 +42,7 @@ public class UpdateIotbasicAppmanagerotamoduleRequest extends TeaModel {
         return this.authToken;
     }
 
-    public UpdateIotbasicAppmanagerotamoduleRequest setProductInstanceId(String productInstanceId) {
+    public UpdateIotlinkOtamoduleRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -50,7 +50,7 @@ public class UpdateIotbasicAppmanagerotamoduleRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UpdateIotbasicAppmanagerotamoduleRequest setCategoryCode(String categoryCode) {
+    public UpdateIotlinkOtamoduleRequest setCategoryCode(String categoryCode) {
         this.categoryCode = categoryCode;
         return this;
     }
@@ -58,7 +58,7 @@ public class UpdateIotbasicAppmanagerotamoduleRequest extends TeaModel {
         return this.categoryCode;
     }
 
-    public UpdateIotbasicAppmanagerotamoduleRequest setModuleName(String moduleName) {
+    public UpdateIotlinkOtamoduleRequest setModuleName(String moduleName) {
         this.moduleName = moduleName;
         return this;
     }
@@ -66,7 +66,7 @@ public class UpdateIotbasicAppmanagerotamoduleRequest extends TeaModel {
         return this.moduleName;
     }
 
-    public UpdateIotbasicAppmanagerotamoduleRequest setAliasName(String aliasName) {
+    public UpdateIotlinkOtamoduleRequest setAliasName(String aliasName) {
         this.aliasName = aliasName;
         return this;
     }
@@ -74,7 +74,7 @@ public class UpdateIotbasicAppmanagerotamoduleRequest extends TeaModel {
         return this.aliasName;
     }
 
-    public UpdateIotbasicAppmanagerotamoduleRequest setDesc(String desc) {
+    public UpdateIotlinkOtamoduleRequest setDesc(String desc) {
         this.desc = desc;
         return this;
     }

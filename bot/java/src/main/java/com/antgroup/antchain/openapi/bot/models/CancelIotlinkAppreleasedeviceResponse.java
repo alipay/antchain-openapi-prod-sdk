@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CreateIotbasicAppmanagerResponse extends TeaModel {
+public class CancelIotlinkAppreleasedeviceResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,16 +20,12 @@ public class CreateIotbasicAppmanagerResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
-    // 文件id
-    @NameInMap("data")
-    public String data;
-
-    public static CreateIotbasicAppmanagerResponse build(java.util.Map<String, ?> map) throws Exception {
-        CreateIotbasicAppmanagerResponse self = new CreateIotbasicAppmanagerResponse();
+    public static CancelIotlinkAppreleasedeviceResponse build(java.util.Map<String, ?> map) throws Exception {
+        CancelIotlinkAppreleasedeviceResponse self = new CancelIotlinkAppreleasedeviceResponse();
         return TeaModel.build(map, self);
     }
 
-    public CreateIotbasicAppmanagerResponse setReqMsgId(String reqMsgId) {
+    public CancelIotlinkAppreleasedeviceResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class CreateIotbasicAppmanagerResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CreateIotbasicAppmanagerResponse setResultCode(String resultCode) {
+    public CancelIotlinkAppreleasedeviceResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class CreateIotbasicAppmanagerResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CreateIotbasicAppmanagerResponse setResultMsg(String resultMsg) {
+    public CancelIotlinkAppreleasedeviceResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +49,12 @@ public class CreateIotbasicAppmanagerResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CreateIotbasicAppmanagerResponse setSuccess(Boolean success) {
+    public CancelIotlinkAppreleasedeviceResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
     public Boolean getSuccess() {
         return this.success;
-    }
-
-    public CreateIotbasicAppmanagerResponse setData(String data) {
-        this.data = data;
-        return this;
-    }
-    public String getData() {
-        return this.data;
     }
 
 }

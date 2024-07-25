@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class GetIotbasicAppmanagerfileurlRequest extends TeaModel {
+public class GetIotlinkAppmanagerfileurlRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,12 @@ public class GetIotbasicAppmanagerfileurlRequest extends TeaModel {
     @Validation(required = true)
     public String apkId;
 
-    public static GetIotbasicAppmanagerfileurlRequest build(java.util.Map<String, ?> map) throws Exception {
-        GetIotbasicAppmanagerfileurlRequest self = new GetIotbasicAppmanagerfileurlRequest();
+    public static GetIotlinkAppmanagerfileurlRequest build(java.util.Map<String, ?> map) throws Exception {
+        GetIotlinkAppmanagerfileurlRequest self = new GetIotlinkAppmanagerfileurlRequest();
         return TeaModel.build(map, self);
     }
 
-    public GetIotbasicAppmanagerfileurlRequest setAuthToken(String authToken) {
+    public GetIotlinkAppmanagerfileurlRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class GetIotbasicAppmanagerfileurlRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetIotbasicAppmanagerfileurlRequest setProductInstanceId(String productInstanceId) {
+    public GetIotlinkAppmanagerfileurlRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class GetIotbasicAppmanagerfileurlRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetIotbasicAppmanagerfileurlRequest setApkId(String apkId) {
+    public GetIotlinkAppmanagerfileurlRequest setApkId(String apkId) {
         this.apkId = apkId;
         return this;
     }

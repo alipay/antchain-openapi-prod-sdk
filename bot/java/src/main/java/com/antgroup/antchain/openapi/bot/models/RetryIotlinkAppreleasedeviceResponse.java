@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class UpdateIotbasicAppmanagerotamoduleResponse extends TeaModel {
+public class RetryIotlinkAppreleasedeviceResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class UpdateIotbasicAppmanagerotamoduleResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 操作结果
+    // 接口调用结果
     @NameInMap("success")
     public Boolean success;
 
-    public static UpdateIotbasicAppmanagerotamoduleResponse build(java.util.Map<String, ?> map) throws Exception {
-        UpdateIotbasicAppmanagerotamoduleResponse self = new UpdateIotbasicAppmanagerotamoduleResponse();
+    public static RetryIotlinkAppreleasedeviceResponse build(java.util.Map<String, ?> map) throws Exception {
+        RetryIotlinkAppreleasedeviceResponse self = new RetryIotlinkAppreleasedeviceResponse();
         return TeaModel.build(map, self);
     }
 
-    public UpdateIotbasicAppmanagerotamoduleResponse setReqMsgId(String reqMsgId) {
+    public RetryIotlinkAppreleasedeviceResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class UpdateIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UpdateIotbasicAppmanagerotamoduleResponse setResultCode(String resultCode) {
+    public RetryIotlinkAppreleasedeviceResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class UpdateIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UpdateIotbasicAppmanagerotamoduleResponse setResultMsg(String resultMsg) {
+    public RetryIotlinkAppreleasedeviceResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class UpdateIotbasicAppmanagerotamoduleResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public UpdateIotbasicAppmanagerotamoduleResponse setSuccess(Boolean success) {
+    public RetryIotlinkAppreleasedeviceResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
