@@ -71,6 +71,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string SignInfo { get; set; }
 
+        // 发起人账户id
+        [NameInMap("initiator_account_id")]
+        [Validation(Required=false)]
+        public string InitiatorAccountId { get; set; }
+
     }
 
 }
