@@ -15018,7 +15018,7 @@ export class GetDigitalkeyDeviceinfoResponse extends $tea.Model {
   }
 }
 
-export class CreateIotbasicAppmanagerRequest extends $tea.Model {
+export class CreateIotlinkAppmanagerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15085,7 +15085,7 @@ export class CreateIotbasicAppmanagerRequest extends $tea.Model {
   }
 }
 
-export class CreateIotbasicAppmanagerResponse extends $tea.Model {
+export class CreateIotlinkAppmanagerResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15121,7 +15121,7 @@ export class CreateIotbasicAppmanagerResponse extends $tea.Model {
   }
 }
 
-export class ListIotbasicAppmanagerotamoduleRequest extends $tea.Model {
+export class ListIotlinkOtamoduleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15148,7 +15148,7 @@ export class ListIotbasicAppmanagerotamoduleRequest extends $tea.Model {
   }
 }
 
-export class ListIotbasicAppmanagerotamoduleResponse extends $tea.Model {
+export class ListIotlinkOtamoduleResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15184,7 +15184,7 @@ export class ListIotbasicAppmanagerotamoduleResponse extends $tea.Model {
   }
 }
 
-export class PagequeryIotbasicAppmanagerRequest extends $tea.Model {
+export class PagequeryIotlinkAppmanagerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15237,7 +15237,7 @@ export class PagequeryIotbasicAppmanagerRequest extends $tea.Model {
   }
 }
 
-export class PagequeryIotbasicAppmanagerResponse extends $tea.Model {
+export class PagequeryIotlinkAppmanagerResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15285,7 +15285,7 @@ export class PagequeryIotbasicAppmanagerResponse extends $tea.Model {
   }
 }
 
-export class GetIotbasicAppmanagerfileurlRequest extends $tea.Model {
+export class GetIotlinkAppmanagerfileurlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15312,7 +15312,7 @@ export class GetIotbasicAppmanagerfileurlRequest extends $tea.Model {
   }
 }
 
-export class GetIotbasicAppmanagerfileurlResponse extends $tea.Model {
+export class GetIotlinkAppmanagerfileurlResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15348,7 +15348,7 @@ export class GetIotbasicAppmanagerfileurlResponse extends $tea.Model {
   }
 }
 
-export class PagequeryIotbasicAppreleaseorderRequest extends $tea.Model {
+export class PagequeryIotlinkAppreleaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15407,7 +15407,7 @@ export class PagequeryIotbasicAppreleaseorderRequest extends $tea.Model {
   }
 }
 
-export class PagequeryIotbasicAppreleaseorderResponse extends $tea.Model {
+export class PagequeryIotlinkAppreleaseorderResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15455,7 +15455,7 @@ export class PagequeryIotbasicAppreleaseorderResponse extends $tea.Model {
   }
 }
 
-export class PagequeryIotbasicAppreleasedeviceRequest extends $tea.Model {
+export class PagequeryIotlinkAppreleasedeviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15518,7 +15518,7 @@ export class PagequeryIotbasicAppreleasedeviceRequest extends $tea.Model {
   }
 }
 
-export class PagequeryIotbasicAppreleasedeviceResponse extends $tea.Model {
+export class PagequeryIotlinkAppreleasedeviceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15566,7 +15566,7 @@ export class PagequeryIotbasicAppreleasedeviceResponse extends $tea.Model {
   }
 }
 
-export class PublishIotbasicAppreleaseorderRequest extends $tea.Model {
+export class PublishIotlinkAppreleaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15609,7 +15609,7 @@ export class PublishIotbasicAppreleaseorderRequest extends $tea.Model {
   }
 }
 
-export class PublishIotbasicAppreleaseorderResponse extends $tea.Model {
+export class PublishIotlinkAppreleaseorderResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15645,7 +15645,7 @@ export class PublishIotbasicAppreleaseorderResponse extends $tea.Model {
   }
 }
 
-export class CancelIotbasicAppreleaseorderRequest extends $tea.Model {
+export class CancelIotlinkAppreleaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15672,7 +15672,7 @@ export class CancelIotbasicAppreleaseorderRequest extends $tea.Model {
   }
 }
 
-export class CancelIotbasicAppreleaseorderResponse extends $tea.Model {
+export class CancelIotlinkAppreleaseorderResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15704,7 +15704,7 @@ export class CancelIotbasicAppreleaseorderResponse extends $tea.Model {
   }
 }
 
-export class CancelIotbasicAppreleasedeviceRequest extends $tea.Model {
+export class CancelIotlinkAppreleasedeviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15731,7 +15731,7 @@ export class CancelIotbasicAppreleasedeviceRequest extends $tea.Model {
   }
 }
 
-export class CancelIotbasicAppreleasedeviceResponse extends $tea.Model {
+export class CancelIotlinkAppreleasedeviceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15763,7 +15763,7 @@ export class CancelIotbasicAppreleasedeviceResponse extends $tea.Model {
   }
 }
 
-export class RetryIotbasicAppreleasedeviceRequest extends $tea.Model {
+export class RetryIotlinkAppreleasedeviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15790,7 +15790,7 @@ export class RetryIotbasicAppreleasedeviceRequest extends $tea.Model {
   }
 }
 
-export class RetryIotbasicAppreleasedeviceResponse extends $tea.Model {
+export class RetryIotlinkAppreleasedeviceResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15822,7 +15822,7 @@ export class RetryIotbasicAppreleasedeviceResponse extends $tea.Model {
   }
 }
 
-export class CreateIotbasicAppmanagerotamoduleRequest extends $tea.Model {
+export class CreateIotlinkOtamoduleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15866,7 +15866,7 @@ export class CreateIotbasicAppmanagerotamoduleRequest extends $tea.Model {
   }
 }
 
-export class CreateIotbasicAppmanagerotamoduleResponse extends $tea.Model {
+export class CreateIotlinkOtamoduleResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15898,7 +15898,7 @@ export class CreateIotbasicAppmanagerotamoduleResponse extends $tea.Model {
   }
 }
 
-export class UpdateIotbasicAppmanagerotamoduleRequest extends $tea.Model {
+export class UpdateIotlinkOtamoduleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -15937,7 +15937,7 @@ export class UpdateIotbasicAppmanagerotamoduleRequest extends $tea.Model {
   }
 }
 
-export class UpdateIotbasicAppmanagerotamoduleResponse extends $tea.Model {
+export class UpdateIotlinkOtamoduleResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -15969,7 +15969,7 @@ export class UpdateIotbasicAppmanagerotamoduleResponse extends $tea.Model {
   }
 }
 
-export class DeleteIotbasicAppmanagerotamoduleRequest extends $tea.Model {
+export class DeleteIotlinkOtamoduleRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -16000,7 +16000,70 @@ export class DeleteIotbasicAppmanagerotamoduleRequest extends $tea.Model {
   }
 }
 
-export class DeleteIotbasicAppmanagerotamoduleResponse extends $tea.Model {
+export class DeleteIotlinkOtamoduleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作结果
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIotlinkThingmodeltslRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 品类code
+  categoryCode: string;
+  // 您编辑的物模型（TSL）。JSON格式的字符串。产品的物模型（TSL）包含属性、服务和事件的定义。
+  tslStr: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      categoryCode: 'category_code',
+      tslStr: 'tsl_str',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      categoryCode: 'string',
+      tslStr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportIotlinkThingmodeltslResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -26204,7 +26267,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.34",
+          sdk_version: "1.11.39",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -28386,31 +28449,31 @@ export default class Client {
    * Description: iotbasic-新增应用
    * Summary: iotbasic-新增应用
    */
-  async createIotbasicAppmanager(request: CreateIotbasicAppmanagerRequest): Promise<CreateIotbasicAppmanagerResponse> {
+  async createIotlinkAppmanager(request: CreateIotlinkAppmanagerRequest): Promise<CreateIotlinkAppmanagerResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.createIotbasicAppmanagerEx(request, headers, runtime);
+    return await this.createIotlinkAppmanagerEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-新增应用
    * Summary: iotbasic-新增应用
    */
-  async createIotbasicAppmanagerEx(request: CreateIotbasicAppmanagerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIotbasicAppmanagerResponse> {
+  async createIotlinkAppmanagerEx(request: CreateIotlinkAppmanagerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIotlinkAppmanagerResponse> {
     if (!Util.isUnset(request.fileObject)) {
       let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
         authToken: request.authToken,
-        apiCode: "blockchain.bot.iotbasic.appmanager.create",
+        apiCode: "blockchain.bot.iotlink.appmanager.create",
         fileName: request.fileObjectName,
       });
       let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
       if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
-        let createIotbasicAppmanagerResponse = new CreateIotbasicAppmanagerResponse({
+        let createIotlinkAppmanagerResponse = new CreateIotlinkAppmanagerResponse({
           reqMsgId: uploadResp.reqMsgId,
           resultCode: uploadResp.resultCode,
           resultMsg: uploadResp.resultMsg,
         });
-        return createIotbasicAppmanagerResponse;
+        return createIotlinkAppmanagerResponse;
       }
 
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
@@ -28419,235 +28482,254 @@ export default class Client {
     }
 
     Util.validateModel(request);
-    return $tea.cast<CreateIotbasicAppmanagerResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appmanager.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIotbasicAppmanagerResponse({}));
+    return $tea.cast<CreateIotlinkAppmanagerResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appmanager.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIotlinkAppmanagerResponse({}));
   }
 
   /**
-   * Description: iotbasic-获取应用类型列表
-   * Summary: iotbasic-获取应用类型列表
+   * Description: iotbasic-获取应用模块列表
+   * Summary: iotbasic-获取应用模块列表
    */
-  async listIotbasicAppmanagerotamodule(request: ListIotbasicAppmanagerotamoduleRequest): Promise<ListIotbasicAppmanagerotamoduleResponse> {
+  async listIotlinkOtamodule(request: ListIotlinkOtamoduleRequest): Promise<ListIotlinkOtamoduleResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.listIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+    return await this.listIotlinkOtamoduleEx(request, headers, runtime);
   }
 
   /**
-   * Description: iotbasic-获取应用类型列表
-   * Summary: iotbasic-获取应用类型列表
+   * Description: iotbasic-获取应用模块列表
+   * Summary: iotbasic-获取应用模块列表
    */
-  async listIotbasicAppmanagerotamoduleEx(request: ListIotbasicAppmanagerotamoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListIotbasicAppmanagerotamoduleResponse> {
+  async listIotlinkOtamoduleEx(request: ListIotlinkOtamoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListIotlinkOtamoduleResponse> {
     Util.validateModel(request);
-    return $tea.cast<ListIotbasicAppmanagerotamoduleResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerotamodule.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListIotbasicAppmanagerotamoduleResponse({}));
+    return $tea.cast<ListIotlinkOtamoduleResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.otamodule.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListIotlinkOtamoduleResponse({}));
   }
 
   /**
    * Description: iotbasic-分页查询应用列表
    * Summary: iotbasic-分页查询应用列表
    */
-  async pagequeryIotbasicAppmanager(request: PagequeryIotbasicAppmanagerRequest): Promise<PagequeryIotbasicAppmanagerResponse> {
+  async pagequeryIotlinkAppmanager(request: PagequeryIotlinkAppmanagerRequest): Promise<PagequeryIotlinkAppmanagerResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.pagequeryIotbasicAppmanagerEx(request, headers, runtime);
+    return await this.pagequeryIotlinkAppmanagerEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-分页查询应用列表
    * Summary: iotbasic-分页查询应用列表
    */
-  async pagequeryIotbasicAppmanagerEx(request: PagequeryIotbasicAppmanagerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIotbasicAppmanagerResponse> {
+  async pagequeryIotlinkAppmanagerEx(request: PagequeryIotlinkAppmanagerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIotlinkAppmanagerResponse> {
     Util.validateModel(request);
-    return $tea.cast<PagequeryIotbasicAppmanagerResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appmanager.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIotbasicAppmanagerResponse({}));
+    return $tea.cast<PagequeryIotlinkAppmanagerResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appmanager.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIotlinkAppmanagerResponse({}));
   }
 
   /**
    * Description: iotbasic-获取应用下载地址
    * Summary: iotbasic-获取应用下载地址
    */
-  async getIotbasicAppmanagerfileurl(request: GetIotbasicAppmanagerfileurlRequest): Promise<GetIotbasicAppmanagerfileurlResponse> {
+  async getIotlinkAppmanagerfileurl(request: GetIotlinkAppmanagerfileurlRequest): Promise<GetIotlinkAppmanagerfileurlResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getIotbasicAppmanagerfileurlEx(request, headers, runtime);
+    return await this.getIotlinkAppmanagerfileurlEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-获取应用下载地址
    * Summary: iotbasic-获取应用下载地址
    */
-  async getIotbasicAppmanagerfileurlEx(request: GetIotbasicAppmanagerfileurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetIotbasicAppmanagerfileurlResponse> {
+  async getIotlinkAppmanagerfileurlEx(request: GetIotlinkAppmanagerfileurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetIotlinkAppmanagerfileurlResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetIotbasicAppmanagerfileurlResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerfileurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetIotbasicAppmanagerfileurlResponse({}));
+    return $tea.cast<GetIotlinkAppmanagerfileurlResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appmanagerfileurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetIotlinkAppmanagerfileurlResponse({}));
   }
 
   /**
    * Description: iotbasic-分页查询发布批次列表
    * Summary: iotbasic-分页查询发布批次列表
    */
-  async pagequeryIotbasicAppreleaseorder(request: PagequeryIotbasicAppreleaseorderRequest): Promise<PagequeryIotbasicAppreleaseorderResponse> {
+  async pagequeryIotlinkAppreleaseorder(request: PagequeryIotlinkAppreleaseorderRequest): Promise<PagequeryIotlinkAppreleaseorderResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.pagequeryIotbasicAppreleaseorderEx(request, headers, runtime);
+    return await this.pagequeryIotlinkAppreleaseorderEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-分页查询发布批次列表
    * Summary: iotbasic-分页查询发布批次列表
    */
-  async pagequeryIotbasicAppreleaseorderEx(request: PagequeryIotbasicAppreleaseorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIotbasicAppreleaseorderResponse> {
+  async pagequeryIotlinkAppreleaseorderEx(request: PagequeryIotlinkAppreleaseorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIotlinkAppreleaseorderResponse> {
     Util.validateModel(request);
-    return $tea.cast<PagequeryIotbasicAppreleaseorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appreleaseorder.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIotbasicAppreleaseorderResponse({}));
+    return $tea.cast<PagequeryIotlinkAppreleaseorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appreleaseorder.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIotlinkAppreleaseorderResponse({}));
   }
 
   /**
    * Description: iotbasic-分页查询设备升级列表
    * Summary: iotbasic-分页查询设备升级列表
    */
-  async pagequeryIotbasicAppreleasedevice(request: PagequeryIotbasicAppreleasedeviceRequest): Promise<PagequeryIotbasicAppreleasedeviceResponse> {
+  async pagequeryIotlinkAppreleasedevice(request: PagequeryIotlinkAppreleasedeviceRequest): Promise<PagequeryIotlinkAppreleasedeviceResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.pagequeryIotbasicAppreleasedeviceEx(request, headers, runtime);
+    return await this.pagequeryIotlinkAppreleasedeviceEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-分页查询设备升级列表
    * Summary: iotbasic-分页查询设备升级列表
    */
-  async pagequeryIotbasicAppreleasedeviceEx(request: PagequeryIotbasicAppreleasedeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIotbasicAppreleasedeviceResponse> {
+  async pagequeryIotlinkAppreleasedeviceEx(request: PagequeryIotlinkAppreleasedeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryIotlinkAppreleasedeviceResponse> {
     Util.validateModel(request);
-    return $tea.cast<PagequeryIotbasicAppreleasedeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appreleasedevice.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIotbasicAppreleasedeviceResponse({}));
+    return $tea.cast<PagequeryIotlinkAppreleasedeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appreleasedevice.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryIotlinkAppreleasedeviceResponse({}));
   }
 
   /**
    * Description: iotbasic-发布工单
    * Summary: iotbasic-发布工单
    */
-  async publishIotbasicAppreleaseorder(request: PublishIotbasicAppreleaseorderRequest): Promise<PublishIotbasicAppreleaseorderResponse> {
+  async publishIotlinkAppreleaseorder(request: PublishIotlinkAppreleaseorderRequest): Promise<PublishIotlinkAppreleaseorderResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.publishIotbasicAppreleaseorderEx(request, headers, runtime);
+    return await this.publishIotlinkAppreleaseorderEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-发布工单
    * Summary: iotbasic-发布工单
    */
-  async publishIotbasicAppreleaseorderEx(request: PublishIotbasicAppreleaseorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PublishIotbasicAppreleaseorderResponse> {
+  async publishIotlinkAppreleaseorderEx(request: PublishIotlinkAppreleaseorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PublishIotlinkAppreleaseorderResponse> {
     Util.validateModel(request);
-    return $tea.cast<PublishIotbasicAppreleaseorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appreleaseorder.publish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PublishIotbasicAppreleaseorderResponse({}));
+    return $tea.cast<PublishIotlinkAppreleaseorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appreleaseorder.publish", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PublishIotlinkAppreleaseorderResponse({}));
   }
 
   /**
    * Description: iotbasic-取消工单发布
    * Summary: iotbasic-取消工单发布
    */
-  async cancelIotbasicAppreleaseorder(request: CancelIotbasicAppreleaseorderRequest): Promise<CancelIotbasicAppreleaseorderResponse> {
+  async cancelIotlinkAppreleaseorder(request: CancelIotlinkAppreleaseorderRequest): Promise<CancelIotlinkAppreleaseorderResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.cancelIotbasicAppreleaseorderEx(request, headers, runtime);
+    return await this.cancelIotlinkAppreleaseorderEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-取消工单发布
    * Summary: iotbasic-取消工单发布
    */
-  async cancelIotbasicAppreleaseorderEx(request: CancelIotbasicAppreleaseorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelIotbasicAppreleaseorderResponse> {
+  async cancelIotlinkAppreleaseorderEx(request: CancelIotlinkAppreleaseorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelIotlinkAppreleaseorderResponse> {
     Util.validateModel(request);
-    return $tea.cast<CancelIotbasicAppreleaseorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appreleaseorder.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelIotbasicAppreleaseorderResponse({}));
+    return $tea.cast<CancelIotlinkAppreleaseorderResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appreleaseorder.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelIotlinkAppreleaseorderResponse({}));
   }
 
   /**
    * Description: iotbasic-取消设备升级
    * Summary: iotbasic-取消设备升级
    */
-  async cancelIotbasicAppreleasedevice(request: CancelIotbasicAppreleasedeviceRequest): Promise<CancelIotbasicAppreleasedeviceResponse> {
+  async cancelIotlinkAppreleasedevice(request: CancelIotlinkAppreleasedeviceRequest): Promise<CancelIotlinkAppreleasedeviceResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.cancelIotbasicAppreleasedeviceEx(request, headers, runtime);
+    return await this.cancelIotlinkAppreleasedeviceEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-取消设备升级
    * Summary: iotbasic-取消设备升级
    */
-  async cancelIotbasicAppreleasedeviceEx(request: CancelIotbasicAppreleasedeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelIotbasicAppreleasedeviceResponse> {
+  async cancelIotlinkAppreleasedeviceEx(request: CancelIotlinkAppreleasedeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelIotlinkAppreleasedeviceResponse> {
     Util.validateModel(request);
-    return $tea.cast<CancelIotbasicAppreleasedeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appreleasedevice.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelIotbasicAppreleasedeviceResponse({}));
+    return $tea.cast<CancelIotlinkAppreleasedeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appreleasedevice.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelIotlinkAppreleasedeviceResponse({}));
   }
 
   /**
    * Description: iotbasic-重试设备升级
    * Summary: iotbasic-重试设备升级
    */
-  async retryIotbasicAppreleasedevice(request: RetryIotbasicAppreleasedeviceRequest): Promise<RetryIotbasicAppreleasedeviceResponse> {
+  async retryIotlinkAppreleasedevice(request: RetryIotlinkAppreleasedeviceRequest): Promise<RetryIotlinkAppreleasedeviceResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.retryIotbasicAppreleasedeviceEx(request, headers, runtime);
+    return await this.retryIotlinkAppreleasedeviceEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-重试设备升级
    * Summary: iotbasic-重试设备升级
    */
-  async retryIotbasicAppreleasedeviceEx(request: RetryIotbasicAppreleasedeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RetryIotbasicAppreleasedeviceResponse> {
+  async retryIotlinkAppreleasedeviceEx(request: RetryIotlinkAppreleasedeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RetryIotlinkAppreleasedeviceResponse> {
     Util.validateModel(request);
-    return $tea.cast<RetryIotbasicAppreleasedeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appreleasedevice.retry", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RetryIotbasicAppreleasedeviceResponse({}));
+    return $tea.cast<RetryIotlinkAppreleasedeviceResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.appreleasedevice.retry", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RetryIotlinkAppreleasedeviceResponse({}));
   }
 
   /**
    * Description: iotbasic-创建应用类型
    * Summary: iotbasic-创建应用类型
    */
-  async createIotbasicAppmanagerotamodule(request: CreateIotbasicAppmanagerotamoduleRequest): Promise<CreateIotbasicAppmanagerotamoduleResponse> {
+  async createIotlinkOtamodule(request: CreateIotlinkOtamoduleRequest): Promise<CreateIotlinkOtamoduleResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.createIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+    return await this.createIotlinkOtamoduleEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-创建应用类型
    * Summary: iotbasic-创建应用类型
    */
-  async createIotbasicAppmanagerotamoduleEx(request: CreateIotbasicAppmanagerotamoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIotbasicAppmanagerotamoduleResponse> {
+  async createIotlinkOtamoduleEx(request: CreateIotlinkOtamoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateIotlinkOtamoduleResponse> {
     Util.validateModel(request);
-    return $tea.cast<CreateIotbasicAppmanagerotamoduleResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerotamodule.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIotbasicAppmanagerotamoduleResponse({}));
+    return $tea.cast<CreateIotlinkOtamoduleResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.otamodule.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateIotlinkOtamoduleResponse({}));
   }
 
   /**
    * Description: iotbasic-修改应用类型
    * Summary: iotbasic-修改应用类型
    */
-  async updateIotbasicAppmanagerotamodule(request: UpdateIotbasicAppmanagerotamoduleRequest): Promise<UpdateIotbasicAppmanagerotamoduleResponse> {
+  async updateIotlinkOtamodule(request: UpdateIotlinkOtamoduleRequest): Promise<UpdateIotlinkOtamoduleResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.updateIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+    return await this.updateIotlinkOtamoduleEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-修改应用类型
    * Summary: iotbasic-修改应用类型
    */
-  async updateIotbasicAppmanagerotamoduleEx(request: UpdateIotbasicAppmanagerotamoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIotbasicAppmanagerotamoduleResponse> {
+  async updateIotlinkOtamoduleEx(request: UpdateIotlinkOtamoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateIotlinkOtamoduleResponse> {
     Util.validateModel(request);
-    return $tea.cast<UpdateIotbasicAppmanagerotamoduleResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerotamodule.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateIotbasicAppmanagerotamoduleResponse({}));
+    return $tea.cast<UpdateIotlinkOtamoduleResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.otamodule.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateIotlinkOtamoduleResponse({}));
   }
 
   /**
    * Description: iotbasic-删除应用类型
    * Summary: iotbasic-删除应用类型
    */
-  async deleteIotbasicAppmanagerotamodule(request: DeleteIotbasicAppmanagerotamoduleRequest): Promise<DeleteIotbasicAppmanagerotamoduleResponse> {
+  async deleteIotlinkOtamodule(request: DeleteIotlinkOtamoduleRequest): Promise<DeleteIotlinkOtamoduleResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.deleteIotbasicAppmanagerotamoduleEx(request, headers, runtime);
+    return await this.deleteIotlinkOtamoduleEx(request, headers, runtime);
   }
 
   /**
    * Description: iotbasic-删除应用类型
    * Summary: iotbasic-删除应用类型
    */
-  async deleteIotbasicAppmanagerotamoduleEx(request: DeleteIotbasicAppmanagerotamoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteIotbasicAppmanagerotamoduleResponse> {
+  async deleteIotlinkOtamoduleEx(request: DeleteIotlinkOtamoduleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteIotlinkOtamoduleResponse> {
     Util.validateModel(request);
-    return $tea.cast<DeleteIotbasicAppmanagerotamoduleResponse>(await this.doRequest("1.0", "blockchain.bot.iotbasic.appmanagerotamodule.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteIotbasicAppmanagerotamoduleResponse({}));
+    return $tea.cast<DeleteIotlinkOtamoduleResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.otamodule.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteIotlinkOtamoduleResponse({}));
+  }
+
+  /**
+   * Description: iotbasic-设备厂商导入物模型
+   * Summary: iotbasic-设备厂商导入物模型
+   */
+  async importIotlinkThingmodeltsl(request: ImportIotlinkThingmodeltslRequest): Promise<ImportIotlinkThingmodeltslResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importIotlinkThingmodeltslEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: iotbasic-设备厂商导入物模型
+   * Summary: iotbasic-设备厂商导入物模型
+   */
+  async importIotlinkThingmodeltslEx(request: ImportIotlinkThingmodeltslRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportIotlinkThingmodeltslResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportIotlinkThingmodeltslResponse>(await this.doRequest("1.0", "blockchain.bot.iotlink.thingmodeltsl.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportIotlinkThingmodeltslResponse({}));
   }
 
   /**
