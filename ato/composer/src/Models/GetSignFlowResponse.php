@@ -81,19 +81,26 @@ class GetSignFlowResponse extends Model
      * @var string
      */
     public $signInfo;
+
+    // 发起人账户id
+    /**
+     * @var string
+     */
+    public $initiatorAccountId;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'signNo'        => 'sign_no',
-        'orderId'       => 'order_id',
-        'accountId'     => 'account_id',
-        'status'        => 'status',
-        'flowId'        => 'flow_id',
-        'docList'       => 'doc_list',
-        'businessScene' => 'business_scene',
-        'alipayUserId'  => 'alipay_user_id',
-        'signInfo'      => 'sign_info',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'signNo'             => 'sign_no',
+        'orderId'            => 'order_id',
+        'accountId'          => 'account_id',
+        'status'             => 'status',
+        'flowId'             => 'flow_id',
+        'docList'            => 'doc_list',
+        'businessScene'      => 'business_scene',
+        'alipayUserId'       => 'alipay_user_id',
+        'signInfo'           => 'sign_info',
+        'initiatorAccountId' => 'initiator_account_id',
     ];
 
     public function validate()
@@ -138,6 +145,9 @@ class GetSignFlowResponse extends Model
         }
         if (null !== $this->signInfo) {
             $res['sign_info'] = $this->signInfo;
+        }
+        if (null !== $this->initiatorAccountId) {
+            $res['initiator_account_id'] = $this->initiatorAccountId;
         }
 
         return $res;
@@ -186,6 +196,9 @@ class GetSignFlowResponse extends Model
         }
         if (isset($map['sign_info'])) {
             $model->signInfo = $map['sign_info'];
+        }
+        if (isset($map['initiator_account_id'])) {
+            $model->initiatorAccountId = $map['initiator_account_id'];
         }
 
         return $model;
