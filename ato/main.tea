@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.95',
+    sdk_version = '1.8.96',
     _prod_code = 'ATO',
     _prod_channel = 'undefined'
   };
@@ -3738,6 +3738,8 @@ model GetSignFlowResponse = {
   alipayUserId?: string(name='alipay_user_id'),
   // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
   signInfo?: string(name='sign_info'),
+  // 发起人账户id
+  initiatorAccountId?: string(name='initiator_account_id'),
 }
 
 /**
