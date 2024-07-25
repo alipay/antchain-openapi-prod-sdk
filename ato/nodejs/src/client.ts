@@ -6117,6 +6117,8 @@ export class GetSignFlowResponse extends $tea.Model {
   alipayUserId?: string;
   // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
   signInfo?: string;
+  // 发起人账户id
+  initiatorAccountId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6131,6 +6133,7 @@ export class GetSignFlowResponse extends $tea.Model {
       businessScene: 'business_scene',
       alipayUserId: 'alipay_user_id',
       signInfo: 'sign_info',
+      initiatorAccountId: 'initiator_account_id',
     };
   }
 
@@ -6148,6 +6151,7 @@ export class GetSignFlowResponse extends $tea.Model {
       businessScene: 'string',
       alipayUserId: 'string',
       signInfo: 'string',
+      initiatorAccountId: 'string',
     };
   }
 
@@ -8544,7 +8548,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.95",
+          sdk_version: "1.8.96",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
