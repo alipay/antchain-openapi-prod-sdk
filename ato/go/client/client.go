@@ -7909,6 +7909,8 @@ type GetSignFlowResponse struct {
 	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty"`
 	// 签署扩展信息，用于获取签署链接等。JSON格式字符串。
 	SignInfo *string `json:"sign_info,omitempty" xml:"sign_info,omitempty"`
+	// 发起人账户id
+	InitiatorAccountId *string `json:"initiator_account_id,omitempty" xml:"initiator_account_id,omitempty"`
 }
 
 func (s GetSignFlowResponse) String() string {
@@ -7976,6 +7978,11 @@ func (s *GetSignFlowResponse) SetAlipayUserId(v string) *GetSignFlowResponse {
 
 func (s *GetSignFlowResponse) SetSignInfo(v string) *GetSignFlowResponse {
 	s.SignInfo = &v
+	return s
+}
+
+func (s *GetSignFlowResponse) SetInitiatorAccountId(v string) *GetSignFlowResponse {
+	s.InitiatorAccountId = &v
 	return s
 }
 
@@ -11049,7 +11056,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.95"),
+				"sdk_version":      tea.String("1.8.96"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
