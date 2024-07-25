@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetIotbasicAppmanagerfileurlRequest extends Model
+class ImportIotlinkThingmodeltslRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,28 @@ class GetIotbasicAppmanagerfileurlRequest extends Model
      */
     public $productInstanceId;
 
-    // 应用包id
+    // 品类code
     /**
      * @var string
      */
-    public $apkId;
+    public $categoryCode;
+
+    // 您编辑的物模型（TSL）。JSON格式的字符串。产品的物模型（TSL）包含属性、服务和事件的定义。
+    /**
+     * @var string
+     */
+    public $tslStr;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'apkId'             => 'apk_id',
+        'categoryCode'      => 'category_code',
+        'tslStr'            => 'tsl_str',
     ];
 
     public function validate()
     {
-        Model::validateRequired('apkId', $this->apkId, true);
+        Model::validateRequired('categoryCode', $this->categoryCode, true);
+        Model::validateRequired('tslStr', $this->tslStr, true);
     }
 
     public function toMap()
@@ -44,8 +52,11 @@ class GetIotbasicAppmanagerfileurlRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->apkId) {
-            $res['apk_id'] = $this->apkId;
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
+        }
+        if (null !== $this->tslStr) {
+            $res['tsl_str'] = $this->tslStr;
         }
 
         return $res;
@@ -54,7 +65,7 @@ class GetIotbasicAppmanagerfileurlRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetIotbasicAppmanagerfileurlRequest
+     * @return ImportIotlinkThingmodeltslRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +76,11 @@ class GetIotbasicAppmanagerfileurlRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['apk_id'])) {
-            $model->apkId = $map['apk_id'];
+        if (isset($map['category_code'])) {
+            $model->categoryCode = $map['category_code'];
+        }
+        if (isset($map['tsl_str'])) {
+            $model->tslStr = $map['tsl_str'];
         }
 
         return $model;

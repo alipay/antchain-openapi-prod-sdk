@@ -7,7 +7,7 @@ namespace AntChain\BOT\Models;
 use AlibabaCloud\Tea\Model;
 use GuzzleHttp\Psr7\Stream;
 
-class CreateIotbasicAppmanagerRequest extends Model
+class CreateIotlinkAppmanagerRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -160,7 +160,7 @@ class CreateIotbasicAppmanagerRequest extends Model
     /**
      * @param array $map
      *
-     * @return CreateIotbasicAppmanagerRequest
+     * @return CreateIotlinkAppmanagerRequest
      */
     public static function fromMap($map = [])
     {

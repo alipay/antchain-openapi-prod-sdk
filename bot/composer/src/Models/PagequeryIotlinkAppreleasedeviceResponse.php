@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIotbasicAppreleasedeviceResponse extends Model
+class PagequeryIotlinkAppreleasedeviceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -110,7 +110,7 @@ class PagequeryIotbasicAppreleasedeviceResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIotbasicAppreleasedeviceResponse
+     * @return PagequeryIotlinkAppreleasedeviceResponse
      */
     public static function fromMap($map = [])
     {

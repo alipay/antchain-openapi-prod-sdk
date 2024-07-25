@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PublishIotbasicAppreleaseorderRequest extends Model
+class PublishIotlinkAppreleaseorderRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -91,7 +91,7 @@ class PublishIotbasicAppreleaseorderRequest extends Model
     /**
      * @param array $map
      *
-     * @return PublishIotbasicAppreleaseorderRequest
+     * @return PublishIotlinkAppreleaseorderRequest
      */
     public static function fromMap($map = [])
     {

@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIotbasicAppmanagerResponse extends Model
+class ListIotlinkOtamoduleResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -32,27 +32,9 @@ class PagequeryIotbasicAppmanagerResponse extends Model
      */
     public $success;
 
-    // 当前页
+    // 应用模块列表
     /**
-     * @var int
-     */
-    public $current;
-
-    // 每页数量
-    /**
-     * @var int
-     */
-    public $pageSize;
-
-    // 总数量
-    /**
-     * @var int
-     */
-    public $total;
-
-    // 列表数据
-    /**
-     * @var IotbasicAppManagerPageInfo[]
+     * @var IotbasicOtaModuleInfo[]
      */
     public $data;
     protected $_name = [
@@ -60,9 +42,6 @@ class PagequeryIotbasicAppmanagerResponse extends Model
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'success'    => 'success',
-        'current'    => 'current',
-        'pageSize'   => 'page_size',
-        'total'      => 'total',
         'data'       => 'data',
     ];
 
@@ -85,15 +64,6 @@ class PagequeryIotbasicAppmanagerResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
-        if (null !== $this->current) {
-            $res['current'] = $this->current;
-        }
-        if (null !== $this->pageSize) {
-            $res['page_size'] = $this->pageSize;
-        }
-        if (null !== $this->total) {
-            $res['total'] = $this->total;
-        }
         if (null !== $this->data) {
             $res['data'] = [];
             if (null !== $this->data && \is_array($this->data)) {
@@ -110,7 +80,7 @@ class PagequeryIotbasicAppmanagerResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIotbasicAppmanagerResponse
+     * @return ListIotlinkOtamoduleResponse
      */
     public static function fromMap($map = [])
     {
@@ -127,21 +97,12 @@ class PagequeryIotbasicAppmanagerResponse extends Model
         if (isset($map['success'])) {
             $model->success = $map['success'];
         }
-        if (isset($map['current'])) {
-            $model->current = $map['current'];
-        }
-        if (isset($map['page_size'])) {
-            $model->pageSize = $map['page_size'];
-        }
-        if (isset($map['total'])) {
-            $model->total = $map['total'];
-        }
         if (isset($map['data'])) {
             if (!empty($map['data'])) {
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? IotbasicAppManagerPageInfo::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? IotbasicOtaModuleInfo::fromMap($item) : $item;
                 }
             }
         }

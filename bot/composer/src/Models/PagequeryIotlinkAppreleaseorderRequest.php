@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIotbasicAppreleasedeviceRequest extends Model
+class PagequeryIotlinkAppreleaseorderRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -43,21 +43,15 @@ class PagequeryIotbasicAppreleasedeviceRequest extends Model
      */
     public $orderId;
 
-    // 设备sn
-    /**
-     * @var string
-     */
-    public $deviceSn;
-
-    // 设备升级状态
-    // 待确认：CONFIRM
-    // 待推送：QUEUED
-    // 已推送：NOTIFIED
+    // 发布批次状态
     // 升级中：IN_PROGRESS
-    // 升级成功：SUCCEEDED
-    // 升级失败：FAILED
-    // 已取消：CANCELED
-    // 升级超时：TIMEOUT
+    // 取消中：CANCELING
+    // 部分成功：PARTIAL_SUCCESS
+    // 部分失败：PARTIAL_FAILED
+    // 部分取消：PARTIAL_CANCELED
+    // 全部成功：ALL_SUCCESS
+    // 全部失败：ALL_FAILED
+    // 全部取消：ALL_CANCELED
     /**
      * @var string
      */
@@ -81,7 +75,6 @@ class PagequeryIotbasicAppreleasedeviceRequest extends Model
         'apkName'           => 'apk_name',
         'apkVersion'        => 'apk_version',
         'orderId'           => 'order_id',
-        'deviceSn'          => 'device_sn',
         'status'            => 'status',
         'current'           => 'current',
         'pageSize'          => 'page_size',
@@ -115,9 +108,6 @@ class PagequeryIotbasicAppreleasedeviceRequest extends Model
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->deviceSn) {
-            $res['device_sn'] = $this->deviceSn;
-        }
         if (null !== $this->status) {
             $res['status'] = $this->status;
         }
@@ -134,7 +124,7 @@ class PagequeryIotbasicAppreleasedeviceRequest extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIotbasicAppreleasedeviceRequest
+     * @return PagequeryIotlinkAppreleaseorderRequest
      */
     public static function fromMap($map = [])
     {
@@ -156,9 +146,6 @@ class PagequeryIotbasicAppreleasedeviceRequest extends Model
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
-        }
-        if (isset($map['device_sn'])) {
-            $model->deviceSn = $map['device_sn'];
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];

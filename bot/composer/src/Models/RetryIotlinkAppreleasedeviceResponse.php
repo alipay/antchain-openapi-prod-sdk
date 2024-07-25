@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteIotbasicAppmanagerotamoduleResponse extends Model
+class RetryIotlinkAppreleasedeviceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,7 +26,7 @@ class DeleteIotbasicAppmanagerotamoduleResponse extends Model
      */
     public $resultMsg;
 
-    // 操作结果
+    // 接口调用结果
     /**
      * @var bool
      */
@@ -64,7 +64,7 @@ class DeleteIotbasicAppmanagerotamoduleResponse extends Model
     /**
      * @param array $map
      *
-     * @return DeleteIotbasicAppmanagerotamoduleResponse
+     * @return RetryIotlinkAppreleasedeviceResponse
      */
     public static function fromMap($map = [])
     {

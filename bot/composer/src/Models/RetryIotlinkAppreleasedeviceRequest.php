@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelIotbasicAppreleaseorderRequest extends Model
+class RetryIotlinkAppreleasedeviceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class CancelIotbasicAppreleaseorderRequest extends Model
      */
     public $productInstanceId;
 
-    // 工单id
+    // 设备升级任务唯一id列表
     /**
-     * @var string
+     * @var string[]
      */
-    public $orderId;
+    public $orderDetailIdList;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
+        'orderDetailIdList' => 'order_detail_id_list',
     ];
 
     public function validate()
     {
-        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('orderDetailIdList', $this->orderDetailIdList, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class CancelIotbasicAppreleaseorderRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
+        if (null !== $this->orderDetailIdList) {
+            $res['order_detail_id_list'] = $this->orderDetailIdList;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class CancelIotbasicAppreleaseorderRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelIotbasicAppreleaseorderRequest
+     * @return RetryIotlinkAppreleasedeviceRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +65,10 @@ class CancelIotbasicAppreleaseorderRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
+        if (isset($map['order_detail_id_list'])) {
+            if (!empty($map['order_detail_id_list'])) {
+                $model->orderDetailIdList = $map['order_detail_id_list'];
+            }
         }
 
         return $model;

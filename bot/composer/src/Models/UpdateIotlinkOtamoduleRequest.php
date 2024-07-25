@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteIotbasicAppmanagerotamoduleRequest extends Model
+class UpdateIotlinkOtamoduleRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,16 +25,30 @@ class DeleteIotbasicAppmanagerotamoduleRequest extends Model
      */
     public $categoryCode;
 
-    // 要删除的OTA模块名称。
+    // OTA模块名称，产品下唯一且不可修改。仅支持英文字母、数字、英文句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。 英文字母不区分大小写，例如“scanner”和“Scanner”被认为是相同的模块名称，不可重复使用
     /**
      * @var string
      */
     public $moduleName;
+
+    // OTA模块别名。支持中文、英文字母、数字、英文句号（.）、短划线（-）和下划线（_），长度限制为1~64个字符。
+    /**
+     * @var string
+     */
+    public $aliasName;
+
+    // OTA模块的描述信息，支持最多100个字符。
+    /**
+     * @var string
+     */
+    public $desc;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'categoryCode'      => 'category_code',
         'moduleName'        => 'module_name',
+        'aliasName'         => 'alias_name',
+        'desc'              => 'desc',
     ];
 
     public function validate()
@@ -58,6 +72,12 @@ class DeleteIotbasicAppmanagerotamoduleRequest extends Model
         if (null !== $this->moduleName) {
             $res['module_name'] = $this->moduleName;
         }
+        if (null !== $this->aliasName) {
+            $res['alias_name'] = $this->aliasName;
+        }
+        if (null !== $this->desc) {
+            $res['desc'] = $this->desc;
+        }
 
         return $res;
     }
@@ -65,7 +85,7 @@ class DeleteIotbasicAppmanagerotamoduleRequest extends Model
     /**
      * @param array $map
      *
-     * @return DeleteIotbasicAppmanagerotamoduleRequest
+     * @return UpdateIotlinkOtamoduleRequest
      */
     public static function fromMap($map = [])
     {
@@ -81,6 +101,12 @@ class DeleteIotbasicAppmanagerotamoduleRequest extends Model
         }
         if (isset($map['module_name'])) {
             $model->moduleName = $map['module_name'];
+        }
+        if (isset($map['alias_name'])) {
+            $model->aliasName = $map['alias_name'];
+        }
+        if (isset($map['desc'])) {
+            $model->desc = $map['desc'];
         }
 
         return $model;

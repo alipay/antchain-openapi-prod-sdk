@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetIotbasicAppmanagerfileurlResponse extends Model
+class CreateIotlinkOtamoduleResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -31,18 +31,11 @@ class GetIotbasicAppmanagerfileurlResponse extends Model
      * @var bool
      */
     public $success;
-
-    // 应用下载地址
-    /**
-     * @var string
-     */
-    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'success'    => 'success',
-        'data'       => 'data',
     ];
 
     public function validate()
@@ -64,9 +57,6 @@ class GetIotbasicAppmanagerfileurlResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
-        if (null !== $this->data) {
-            $res['data'] = $this->data;
-        }
 
         return $res;
     }
@@ -74,7 +64,7 @@ class GetIotbasicAppmanagerfileurlResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetIotbasicAppmanagerfileurlResponse
+     * @return CreateIotlinkOtamoduleResponse
      */
     public static function fromMap($map = [])
     {
@@ -90,9 +80,6 @@ class GetIotbasicAppmanagerfileurlResponse extends Model
         }
         if (isset($map['success'])) {
             $model->success = $map['success'];
-        }
-        if (isset($map['data'])) {
-            $model->data = $map['data'];
         }
 
         return $model;

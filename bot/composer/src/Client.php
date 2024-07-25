@@ -51,10 +51,10 @@ use AntChain\BOT\Models\CallbackThingServicebyeventRequest;
 use AntChain\BOT\Models\CallbackThingServicebyeventResponse;
 use AntChain\BOT\Models\CancelDigitalkeyWithholdpayRequest;
 use AntChain\BOT\Models\CancelDigitalkeyWithholdpayResponse;
-use AntChain\BOT\Models\CancelIotbasicAppreleasedeviceRequest;
-use AntChain\BOT\Models\CancelIotbasicAppreleasedeviceResponse;
-use AntChain\BOT\Models\CancelIotbasicAppreleaseorderRequest;
-use AntChain\BOT\Models\CancelIotbasicAppreleaseorderResponse;
+use AntChain\BOT\Models\CancelIotlinkAppreleasedeviceRequest;
+use AntChain\BOT\Models\CancelIotlinkAppreleasedeviceResponse;
+use AntChain\BOT\Models\CancelIotlinkAppreleaseorderRequest;
+use AntChain\BOT\Models\CancelIotlinkAppreleaseorderResponse;
 use AntChain\BOT\Models\CertifyIotbasicDeviceRequest;
 use AntChain\BOT\Models\CertifyIotbasicDeviceResponse;
 use AntChain\BOT\Models\CheckAiidentificationGoodsdigitalfingerprintRequest;
@@ -105,14 +105,14 @@ use AntChain\BOT\Models\CreateDistributedeviceBydeviceRequest;
 use AntChain\BOT\Models\CreateDistributedeviceBydeviceResponse;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidRequest;
 use AntChain\BOT\Models\CreateDistributedeviceByperipheralidResponse;
-use AntChain\BOT\Models\CreateIotbasicAppmanagerotamoduleRequest;
-use AntChain\BOT\Models\CreateIotbasicAppmanagerotamoduleResponse;
-use AntChain\BOT\Models\CreateIotbasicAppmanagerRequest;
-use AntChain\BOT\Models\CreateIotbasicAppmanagerResponse;
 use AntChain\BOT\Models\CreateIotbasicDeviceRequest;
 use AntChain\BOT\Models\CreateIotbasicDeviceResponse;
 use AntChain\BOT\Models\CreateIotbasicProductRequest;
 use AntChain\BOT\Models\CreateIotbasicProductResponse;
+use AntChain\BOT\Models\CreateIotlinkAppmanagerRequest;
+use AntChain\BOT\Models\CreateIotlinkAppmanagerResponse;
+use AntChain\BOT\Models\CreateIotlinkOtamoduleRequest;
+use AntChain\BOT\Models\CreateIotlinkOtamoduleResponse;
 use AntChain\BOT\Models\CreateLeaseRealpersonRequest;
 use AntChain\BOT\Models\CreateLeaseRealpersonResponse;
 use AntChain\BOT\Models\CreateOnlinepressuretestRequest;
@@ -133,10 +133,10 @@ use AntChain\BOT\Models\DeleteDevicecorpThingmodelRequest;
 use AntChain\BOT\Models\DeleteDevicecorpThingmodelResponse;
 use AntChain\BOT\Models\DeleteDeviceRelationRequest;
 use AntChain\BOT\Models\DeleteDeviceRelationResponse;
-use AntChain\BOT\Models\DeleteIotbasicAppmanagerotamoduleRequest;
-use AntChain\BOT\Models\DeleteIotbasicAppmanagerotamoduleResponse;
 use AntChain\BOT\Models\DeleteIotbasicDeviceRequest;
 use AntChain\BOT\Models\DeleteIotbasicDeviceResponse;
+use AntChain\BOT\Models\DeleteIotlinkOtamoduleRequest;
+use AntChain\BOT\Models\DeleteIotlinkOtamoduleResponse;
 use AntChain\BOT\Models\DeploySceneRequest;
 use AntChain\BOT\Models\DeploySceneResponse;
 use AntChain\BOT\Models\DeployThingudfRequest;
@@ -175,8 +175,8 @@ use AntChain\BOT\Models\GetDistributedeviceBydisidRequest;
 use AntChain\BOT\Models\GetDistributedeviceBydisidResponse;
 use AntChain\BOT\Models\GetDistributedeviceByperipheralidRequest;
 use AntChain\BOT\Models\GetDistributedeviceByperipheralidResponse;
-use AntChain\BOT\Models\GetIotbasicAppmanagerfileurlRequest;
-use AntChain\BOT\Models\GetIotbasicAppmanagerfileurlResponse;
+use AntChain\BOT\Models\GetIotlinkAppmanagerfileurlRequest;
+use AntChain\BOT\Models\GetIotlinkAppmanagerfileurlResponse;
 use AntChain\BOT\Models\GetPeripheralBychainperipheralidRequest;
 use AntChain\BOT\Models\GetPeripheralBychainperipheralidResponse;
 use AntChain\BOT\Models\GetPeripheralByperipheralidRequest;
@@ -189,6 +189,8 @@ use AntChain\BOT\Models\ImportIotbasicDeviceorderbatchRequest;
 use AntChain\BOT\Models\ImportIotbasicDeviceorderbatchResponse;
 use AntChain\BOT\Models\ImportIotbasicDeviceorderRequest;
 use AntChain\BOT\Models\ImportIotbasicDeviceorderResponse;
+use AntChain\BOT\Models\ImportIotlinkThingmodeltslRequest;
+use AntChain\BOT\Models\ImportIotlinkThingmodeltslResponse;
 use AntChain\BOT\Models\ImportIotplatformMeshidRequest;
 use AntChain\BOT\Models\ImportIotplatformMeshidResponse;
 use AntChain\BOT\Models\ImportPeripheralRequest;
@@ -205,8 +207,8 @@ use AntChain\BOT\Models\ListDistributedeviceByperipheralsceneRequest;
 use AntChain\BOT\Models\ListDistributedeviceByperipheralsceneResponse;
 use AntChain\BOT\Models\ListDistributedeviceBysceneRequest;
 use AntChain\BOT\Models\ListDistributedeviceBysceneResponse;
-use AntChain\BOT\Models\ListIotbasicAppmanagerotamoduleRequest;
-use AntChain\BOT\Models\ListIotbasicAppmanagerotamoduleResponse;
+use AntChain\BOT\Models\ListIotlinkOtamoduleRequest;
+use AntChain\BOT\Models\ListIotlinkOtamoduleResponse;
 use AntChain\BOT\Models\ListPeripheralBysceneRequest;
 use AntChain\BOT\Models\ListPeripheralBysceneResponse;
 use AntChain\BOT\Models\ListXrResourceRequest;
@@ -275,12 +277,12 @@ use AntChain\BOT\Models\PagequeryDataverifyFailureRequest;
 use AntChain\BOT\Models\PagequeryDataverifyFailureResponse;
 use AntChain\BOT\Models\PagequeryEbikeOperationlogRequest;
 use AntChain\BOT\Models\PagequeryEbikeOperationlogResponse;
-use AntChain\BOT\Models\PagequeryIotbasicAppmanagerRequest;
-use AntChain\BOT\Models\PagequeryIotbasicAppmanagerResponse;
-use AntChain\BOT\Models\PagequeryIotbasicAppreleasedeviceRequest;
-use AntChain\BOT\Models\PagequeryIotbasicAppreleasedeviceResponse;
-use AntChain\BOT\Models\PagequeryIotbasicAppreleaseorderRequest;
-use AntChain\BOT\Models\PagequeryIotbasicAppreleaseorderResponse;
+use AntChain\BOT\Models\PagequeryIotlinkAppmanagerRequest;
+use AntChain\BOT\Models\PagequeryIotlinkAppmanagerResponse;
+use AntChain\BOT\Models\PagequeryIotlinkAppreleasedeviceRequest;
+use AntChain\BOT\Models\PagequeryIotlinkAppreleasedeviceResponse;
+use AntChain\BOT\Models\PagequeryIotlinkAppreleaseorderRequest;
+use AntChain\BOT\Models\PagequeryIotlinkAppreleaseorderResponse;
 use AntChain\BOT\Models\PagequeryProductkeyRequest;
 use AntChain\BOT\Models\PagequeryProductkeyResponse;
 use AntChain\BOT\Models\PagequerySceneRequest;
@@ -301,8 +303,8 @@ use AntChain\BOT\Models\PayDigitalkeyWithholdRequest;
 use AntChain\BOT\Models\PayDigitalkeyWithholdResponse;
 use AntChain\BOT\Models\PublishDevicecorpThingmodelRequest;
 use AntChain\BOT\Models\PublishDevicecorpThingmodelResponse;
-use AntChain\BOT\Models\PublishIotbasicAppreleaseorderRequest;
-use AntChain\BOT\Models\PublishIotbasicAppreleaseorderResponse;
+use AntChain\BOT\Models\PublishIotlinkAppreleaseorderRequest;
+use AntChain\BOT\Models\PublishIotlinkAppreleaseorderResponse;
 use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
@@ -429,8 +431,8 @@ use AntChain\BOT\Models\ResumeAcecContractRequest;
 use AntChain\BOT\Models\ResumeAcecContractResponse;
 use AntChain\BOT\Models\ResumeIotplantformProductRequest;
 use AntChain\BOT\Models\ResumeIotplantformProductResponse;
-use AntChain\BOT\Models\RetryIotbasicAppreleasedeviceRequest;
-use AntChain\BOT\Models\RetryIotbasicAppreleasedeviceResponse;
+use AntChain\BOT\Models\RetryIotlinkAppreleasedeviceRequest;
+use AntChain\BOT\Models\RetryIotlinkAppreleasedeviceResponse;
 use AntChain\BOT\Models\SaveIotbasicCustomerRequest;
 use AntChain\BOT\Models\SaveIotbasicCustomerResponse;
 use AntChain\BOT\Models\SendAcsCollectorRequest;
@@ -497,10 +499,10 @@ use AntChain\BOT\Models\UpdateDeviceInfobydeviceRequest;
 use AntChain\BOT\Models\UpdateDeviceInfobydeviceResponse;
 use AntChain\BOT\Models\UpdateDeviceInfoRequest;
 use AntChain\BOT\Models\UpdateDeviceInfoResponse;
-use AntChain\BOT\Models\UpdateIotbasicAppmanagerotamoduleRequest;
-use AntChain\BOT\Models\UpdateIotbasicAppmanagerotamoduleResponse;
 use AntChain\BOT\Models\UpdateIotbasicDeviceRequest;
 use AntChain\BOT\Models\UpdateIotbasicDeviceResponse;
+use AntChain\BOT\Models\UpdateIotlinkOtamoduleRequest;
+use AntChain\BOT\Models\UpdateIotlinkOtamoduleResponse;
 use AntChain\BOT\Models\UpdateOnlinepressuretestCustomerreportRequest;
 use AntChain\BOT\Models\UpdateOnlinepressuretestCustomerreportResponse;
 use AntChain\BOT\Models\UpdateProductkeyRequest;
@@ -672,7 +674,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.34',
+                    'sdk_version'      => '1.11.39',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4405,39 +4407,39 @@ class Client
      * Description: iotbasic-新增应用
      * Summary: iotbasic-新增应用.
      *
-     * @param CreateIotbasicAppmanagerRequest $request
+     * @param CreateIotlinkAppmanagerRequest $request
      *
-     * @return CreateIotbasicAppmanagerResponse
+     * @return CreateIotlinkAppmanagerResponse
      */
-    public function createIotbasicAppmanager($request)
+    public function createIotlinkAppmanager($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->createIotbasicAppmanagerEx($request, $headers, $runtime);
+        return $this->createIotlinkAppmanagerEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-新增应用
      * Summary: iotbasic-新增应用.
      *
-     * @param CreateIotbasicAppmanagerRequest $request
-     * @param string[]                        $headers
-     * @param RuntimeOptions                  $runtime
+     * @param CreateIotlinkAppmanagerRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
      *
-     * @return CreateIotbasicAppmanagerResponse
+     * @return CreateIotlinkAppmanagerResponse
      */
-    public function createIotbasicAppmanagerEx($request, $headers, $runtime)
+    public function createIotlinkAppmanagerEx($request, $headers, $runtime)
     {
         if (!Utils::isUnset($request->fileObject)) {
             $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
                 'authToken' => $request->authToken,
-                'apiCode'   => 'blockchain.bot.iotbasic.appmanager.create',
+                'apiCode'   => 'blockchain.bot.iotlink.appmanager.create',
                 'fileName'  => $request->fileObjectName,
             ]);
             $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
             if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
-                return new CreateIotbasicAppmanagerResponse([
+                return new CreateIotlinkAppmanagerResponse([
                     'reqMsgId'   => $uploadResp->reqMsgId,
                     'resultCode' => $uploadResp->resultCode,
                     'resultMsg'  => $uploadResp->resultMsg,
@@ -4449,403 +4451,436 @@ class Client
         }
         Utils::validateModel($request);
 
-        return CreateIotbasicAppmanagerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appmanager.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CreateIotlinkAppmanagerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appmanager.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
-     * Description: iotbasic-获取应用类型列表
-     * Summary: iotbasic-获取应用类型列表.
+     * Description: iotbasic-获取应用模块列表
+     * Summary: iotbasic-获取应用模块列表.
      *
-     * @param ListIotbasicAppmanagerotamoduleRequest $request
+     * @param ListIotlinkOtamoduleRequest $request
      *
-     * @return ListIotbasicAppmanagerotamoduleResponse
+     * @return ListIotlinkOtamoduleResponse
      */
-    public function listIotbasicAppmanagerotamodule($request)
+    public function listIotlinkOtamodule($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->listIotbasicAppmanagerotamoduleEx($request, $headers, $runtime);
+        return $this->listIotlinkOtamoduleEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: iotbasic-获取应用类型列表
-     * Summary: iotbasic-获取应用类型列表.
+     * Description: iotbasic-获取应用模块列表
+     * Summary: iotbasic-获取应用模块列表.
      *
-     * @param ListIotbasicAppmanagerotamoduleRequest $request
-     * @param string[]                               $headers
-     * @param RuntimeOptions                         $runtime
+     * @param ListIotlinkOtamoduleRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
      *
-     * @return ListIotbasicAppmanagerotamoduleResponse
+     * @return ListIotlinkOtamoduleResponse
      */
-    public function listIotbasicAppmanagerotamoduleEx($request, $headers, $runtime)
+    public function listIotlinkOtamoduleEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return ListIotbasicAppmanagerotamoduleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ListIotlinkOtamoduleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.otamodule.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: iotbasic-分页查询应用列表
      * Summary: iotbasic-分页查询应用列表.
      *
-     * @param PagequeryIotbasicAppmanagerRequest $request
+     * @param PagequeryIotlinkAppmanagerRequest $request
      *
-     * @return PagequeryIotbasicAppmanagerResponse
+     * @return PagequeryIotlinkAppmanagerResponse
      */
-    public function pagequeryIotbasicAppmanager($request)
+    public function pagequeryIotlinkAppmanager($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->pagequeryIotbasicAppmanagerEx($request, $headers, $runtime);
+        return $this->pagequeryIotlinkAppmanagerEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-分页查询应用列表
      * Summary: iotbasic-分页查询应用列表.
      *
-     * @param PagequeryIotbasicAppmanagerRequest $request
+     * @param PagequeryIotlinkAppmanagerRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return PagequeryIotlinkAppmanagerResponse
+     */
+    public function pagequeryIotlinkAppmanagerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryIotlinkAppmanagerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appmanager.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-获取应用下载地址
+     * Summary: iotbasic-获取应用下载地址
+     *
+     * @param GetIotlinkAppmanagerfileurlRequest $request
+     *
+     * @return GetIotlinkAppmanagerfileurlResponse
+     */
+    public function getIotlinkAppmanagerfileurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getIotlinkAppmanagerfileurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-获取应用下载地址
+     * Summary: iotbasic-获取应用下载地址
+     *
+     * @param GetIotlinkAppmanagerfileurlRequest $request
      * @param string[]                           $headers
      * @param RuntimeOptions                     $runtime
      *
-     * @return PagequeryIotbasicAppmanagerResponse
+     * @return GetIotlinkAppmanagerfileurlResponse
      */
-    public function pagequeryIotbasicAppmanagerEx($request, $headers, $runtime)
+    public function getIotlinkAppmanagerfileurlEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return PagequeryIotbasicAppmanagerResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appmanager.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: iotbasic-获取应用下载地址
-     * Summary: iotbasic-获取应用下载地址
-     *
-     * @param GetIotbasicAppmanagerfileurlRequest $request
-     *
-     * @return GetIotbasicAppmanagerfileurlResponse
-     */
-    public function getIotbasicAppmanagerfileurl($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->getIotbasicAppmanagerfileurlEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: iotbasic-获取应用下载地址
-     * Summary: iotbasic-获取应用下载地址
-     *
-     * @param GetIotbasicAppmanagerfileurlRequest $request
-     * @param string[]                            $headers
-     * @param RuntimeOptions                      $runtime
-     *
-     * @return GetIotbasicAppmanagerfileurlResponse
-     */
-    public function getIotbasicAppmanagerfileurlEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return GetIotbasicAppmanagerfileurlResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appmanagerfileurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return GetIotlinkAppmanagerfileurlResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appmanagerfileurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: iotbasic-分页查询发布批次列表
      * Summary: iotbasic-分页查询发布批次列表.
      *
-     * @param PagequeryIotbasicAppreleaseorderRequest $request
+     * @param PagequeryIotlinkAppreleaseorderRequest $request
      *
-     * @return PagequeryIotbasicAppreleaseorderResponse
+     * @return PagequeryIotlinkAppreleaseorderResponse
      */
-    public function pagequeryIotbasicAppreleaseorder($request)
+    public function pagequeryIotlinkAppreleaseorder($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->pagequeryIotbasicAppreleaseorderEx($request, $headers, $runtime);
+        return $this->pagequeryIotlinkAppreleaseorderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-分页查询发布批次列表
      * Summary: iotbasic-分页查询发布批次列表.
      *
-     * @param PagequeryIotbasicAppreleaseorderRequest $request
+     * @param PagequeryIotlinkAppreleaseorderRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return PagequeryIotlinkAppreleaseorderResponse
+     */
+    public function pagequeryIotlinkAppreleaseorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryIotlinkAppreleaseorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appreleaseorder.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-分页查询设备升级列表
+     * Summary: iotbasic-分页查询设备升级列表.
+     *
+     * @param PagequeryIotlinkAppreleasedeviceRequest $request
+     *
+     * @return PagequeryIotlinkAppreleasedeviceResponse
+     */
+    public function pagequeryIotlinkAppreleasedevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryIotlinkAppreleasedeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-分页查询设备升级列表
+     * Summary: iotbasic-分页查询设备升级列表.
+     *
+     * @param PagequeryIotlinkAppreleasedeviceRequest $request
      * @param string[]                                $headers
      * @param RuntimeOptions                          $runtime
      *
-     * @return PagequeryIotbasicAppreleaseorderResponse
+     * @return PagequeryIotlinkAppreleasedeviceResponse
      */
-    public function pagequeryIotbasicAppreleaseorderEx($request, $headers, $runtime)
+    public function pagequeryIotlinkAppreleasedeviceEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return PagequeryIotbasicAppreleaseorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appreleaseorder.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: iotbasic-分页查询设备升级列表
-     * Summary: iotbasic-分页查询设备升级列表.
-     *
-     * @param PagequeryIotbasicAppreleasedeviceRequest $request
-     *
-     * @return PagequeryIotbasicAppreleasedeviceResponse
-     */
-    public function pagequeryIotbasicAppreleasedevice($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->pagequeryIotbasicAppreleasedeviceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: iotbasic-分页查询设备升级列表
-     * Summary: iotbasic-分页查询设备升级列表.
-     *
-     * @param PagequeryIotbasicAppreleasedeviceRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
-     *
-     * @return PagequeryIotbasicAppreleasedeviceResponse
-     */
-    public function pagequeryIotbasicAppreleasedeviceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return PagequeryIotbasicAppreleasedeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appreleasedevice.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return PagequeryIotlinkAppreleasedeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appreleasedevice.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: iotbasic-发布工单
      * Summary: iotbasic-发布工单.
      *
-     * @param PublishIotbasicAppreleaseorderRequest $request
+     * @param PublishIotlinkAppreleaseorderRequest $request
      *
-     * @return PublishIotbasicAppreleaseorderResponse
+     * @return PublishIotlinkAppreleaseorderResponse
      */
-    public function publishIotbasicAppreleaseorder($request)
+    public function publishIotlinkAppreleaseorder($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->publishIotbasicAppreleaseorderEx($request, $headers, $runtime);
+        return $this->publishIotlinkAppreleaseorderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-发布工单
      * Summary: iotbasic-发布工单.
      *
-     * @param PublishIotbasicAppreleaseorderRequest $request
-     * @param string[]                              $headers
-     * @param RuntimeOptions                        $runtime
+     * @param PublishIotlinkAppreleaseorderRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
      *
-     * @return PublishIotbasicAppreleaseorderResponse
+     * @return PublishIotlinkAppreleaseorderResponse
      */
-    public function publishIotbasicAppreleaseorderEx($request, $headers, $runtime)
+    public function publishIotlinkAppreleaseorderEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return PublishIotbasicAppreleaseorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appreleaseorder.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return PublishIotlinkAppreleaseorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appreleaseorder.publish', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: iotbasic-取消工单发布
      * Summary: iotbasic-取消工单发布.
      *
-     * @param CancelIotbasicAppreleaseorderRequest $request
+     * @param CancelIotlinkAppreleaseorderRequest $request
      *
-     * @return CancelIotbasicAppreleaseorderResponse
+     * @return CancelIotlinkAppreleaseorderResponse
      */
-    public function cancelIotbasicAppreleaseorder($request)
+    public function cancelIotlinkAppreleaseorder($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->cancelIotbasicAppreleaseorderEx($request, $headers, $runtime);
+        return $this->cancelIotlinkAppreleaseorderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-取消工单发布
      * Summary: iotbasic-取消工单发布.
      *
-     * @param CancelIotbasicAppreleaseorderRequest $request
-     * @param string[]                             $headers
-     * @param RuntimeOptions                       $runtime
+     * @param CancelIotlinkAppreleaseorderRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
      *
-     * @return CancelIotbasicAppreleaseorderResponse
+     * @return CancelIotlinkAppreleaseorderResponse
      */
-    public function cancelIotbasicAppreleaseorderEx($request, $headers, $runtime)
+    public function cancelIotlinkAppreleaseorderEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return CancelIotbasicAppreleaseorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appreleaseorder.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CancelIotlinkAppreleaseorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appreleaseorder.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: iotbasic-取消设备升级
      * Summary: iotbasic-取消设备升级.
      *
-     * @param CancelIotbasicAppreleasedeviceRequest $request
+     * @param CancelIotlinkAppreleasedeviceRequest $request
      *
-     * @return CancelIotbasicAppreleasedeviceResponse
+     * @return CancelIotlinkAppreleasedeviceResponse
      */
-    public function cancelIotbasicAppreleasedevice($request)
+    public function cancelIotlinkAppreleasedevice($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->cancelIotbasicAppreleasedeviceEx($request, $headers, $runtime);
+        return $this->cancelIotlinkAppreleasedeviceEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-取消设备升级
      * Summary: iotbasic-取消设备升级.
      *
-     * @param CancelIotbasicAppreleasedeviceRequest $request
-     * @param string[]                              $headers
-     * @param RuntimeOptions                        $runtime
-     *
-     * @return CancelIotbasicAppreleasedeviceResponse
-     */
-    public function cancelIotbasicAppreleasedeviceEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return CancelIotbasicAppreleasedeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appreleasedevice.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: iotbasic-重试设备升级
-     * Summary: iotbasic-重试设备升级.
-     *
-     * @param RetryIotbasicAppreleasedeviceRequest $request
-     *
-     * @return RetryIotbasicAppreleasedeviceResponse
-     */
-    public function retryIotbasicAppreleasedevice($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->retryIotbasicAppreleasedeviceEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: iotbasic-重试设备升级
-     * Summary: iotbasic-重试设备升级.
-     *
-     * @param RetryIotbasicAppreleasedeviceRequest $request
+     * @param CancelIotlinkAppreleasedeviceRequest $request
      * @param string[]                             $headers
      * @param RuntimeOptions                       $runtime
      *
-     * @return RetryIotbasicAppreleasedeviceResponse
+     * @return CancelIotlinkAppreleasedeviceResponse
      */
-    public function retryIotbasicAppreleasedeviceEx($request, $headers, $runtime)
+    public function cancelIotlinkAppreleasedeviceEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return RetryIotbasicAppreleasedeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appreleasedevice.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CancelIotlinkAppreleasedeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appreleasedevice.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-重试设备升级
+     * Summary: iotbasic-重试设备升级.
+     *
+     * @param RetryIotlinkAppreleasedeviceRequest $request
+     *
+     * @return RetryIotlinkAppreleasedeviceResponse
+     */
+    public function retryIotlinkAppreleasedevice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryIotlinkAppreleasedeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-重试设备升级
+     * Summary: iotbasic-重试设备升级.
+     *
+     * @param RetryIotlinkAppreleasedeviceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return RetryIotlinkAppreleasedeviceResponse
+     */
+    public function retryIotlinkAppreleasedeviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryIotlinkAppreleasedeviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.appreleasedevice.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: iotbasic-创建应用类型
      * Summary: iotbasic-创建应用类型.
      *
-     * @param CreateIotbasicAppmanagerotamoduleRequest $request
+     * @param CreateIotlinkOtamoduleRequest $request
      *
-     * @return CreateIotbasicAppmanagerotamoduleResponse
+     * @return CreateIotlinkOtamoduleResponse
      */
-    public function createIotbasicAppmanagerotamodule($request)
+    public function createIotlinkOtamodule($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->createIotbasicAppmanagerotamoduleEx($request, $headers, $runtime);
+        return $this->createIotlinkOtamoduleEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-创建应用类型
      * Summary: iotbasic-创建应用类型.
      *
-     * @param CreateIotbasicAppmanagerotamoduleRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
+     * @param CreateIotlinkOtamoduleRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
      *
-     * @return CreateIotbasicAppmanagerotamoduleResponse
+     * @return CreateIotlinkOtamoduleResponse
      */
-    public function createIotbasicAppmanagerotamoduleEx($request, $headers, $runtime)
+    public function createIotlinkOtamoduleEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return CreateIotbasicAppmanagerotamoduleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CreateIotlinkOtamoduleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.otamodule.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: iotbasic-修改应用类型
      * Summary: iotbasic-修改应用类型.
      *
-     * @param UpdateIotbasicAppmanagerotamoduleRequest $request
+     * @param UpdateIotlinkOtamoduleRequest $request
      *
-     * @return UpdateIotbasicAppmanagerotamoduleResponse
+     * @return UpdateIotlinkOtamoduleResponse
      */
-    public function updateIotbasicAppmanagerotamodule($request)
+    public function updateIotlinkOtamodule($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->updateIotbasicAppmanagerotamoduleEx($request, $headers, $runtime);
+        return $this->updateIotlinkOtamoduleEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-修改应用类型
      * Summary: iotbasic-修改应用类型.
      *
-     * @param UpdateIotbasicAppmanagerotamoduleRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
+     * @param UpdateIotlinkOtamoduleRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
      *
-     * @return UpdateIotbasicAppmanagerotamoduleResponse
+     * @return UpdateIotlinkOtamoduleResponse
      */
-    public function updateIotbasicAppmanagerotamoduleEx($request, $headers, $runtime)
+    public function updateIotlinkOtamoduleEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return UpdateIotbasicAppmanagerotamoduleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return UpdateIotlinkOtamoduleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.otamodule.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: iotbasic-删除应用类型
      * Summary: iotbasic-删除应用类型.
      *
-     * @param DeleteIotbasicAppmanagerotamoduleRequest $request
+     * @param DeleteIotlinkOtamoduleRequest $request
      *
-     * @return DeleteIotbasicAppmanagerotamoduleResponse
+     * @return DeleteIotlinkOtamoduleResponse
      */
-    public function deleteIotbasicAppmanagerotamodule($request)
+    public function deleteIotlinkOtamodule($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->deleteIotbasicAppmanagerotamoduleEx($request, $headers, $runtime);
+        return $this->deleteIotlinkOtamoduleEx($request, $headers, $runtime);
     }
 
     /**
      * Description: iotbasic-删除应用类型
      * Summary: iotbasic-删除应用类型.
      *
-     * @param DeleteIotbasicAppmanagerotamoduleRequest $request
-     * @param string[]                                 $headers
-     * @param RuntimeOptions                           $runtime
+     * @param DeleteIotlinkOtamoduleRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
      *
-     * @return DeleteIotbasicAppmanagerotamoduleResponse
+     * @return DeleteIotlinkOtamoduleResponse
      */
-    public function deleteIotbasicAppmanagerotamoduleEx($request, $headers, $runtime)
+    public function deleteIotlinkOtamoduleEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return DeleteIotbasicAppmanagerotamoduleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.appmanagerotamodule.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return DeleteIotlinkOtamoduleResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.otamodule.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-设备厂商导入物模型
+     * Summary: iotbasic-设备厂商导入物模型.
+     *
+     * @param ImportIotlinkThingmodeltslRequest $request
+     *
+     * @return ImportIotlinkThingmodeltslResponse
+     */
+    public function importIotlinkThingmodeltsl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importIotlinkThingmodeltslEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-设备厂商导入物模型
+     * Summary: iotbasic-设备厂商导入物模型.
+     *
+     * @param ImportIotlinkThingmodeltslRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return ImportIotlinkThingmodeltslResponse
+     */
+    public function importIotlinkThingmodeltslEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportIotlinkThingmodeltslResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotlink.thingmodeltsl.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

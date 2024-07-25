@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelIotbasicAppreleasedeviceResponse extends Model
+class CreateIotlinkAppmanagerResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -31,11 +31,18 @@ class CancelIotbasicAppreleasedeviceResponse extends Model
      * @var bool
      */
     public $success;
+
+    // 文件id
+    /**
+     * @var string
+     */
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'success'    => 'success',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class CancelIotbasicAppreleasedeviceResponse extends Model
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
+        }
 
         return $res;
     }
@@ -64,7 +74,7 @@ class CancelIotbasicAppreleasedeviceResponse extends Model
     /**
      * @param array $map
      *
-     * @return CancelIotbasicAppreleasedeviceResponse
+     * @return CreateIotlinkAppmanagerResponse
      */
     public static function fromMap($map = [])
     {
@@ -80,6 +90,9 @@ class CancelIotbasicAppreleasedeviceResponse extends Model
         }
         if (isset($map['success'])) {
             $model->success = $map['success'];
+        }
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
 
         return $model;

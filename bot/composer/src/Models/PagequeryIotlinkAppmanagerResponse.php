@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryIotbasicAppreleaseorderResponse extends Model
+class PagequeryIotlinkAppmanagerResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,7 +26,7 @@ class PagequeryIotbasicAppreleaseorderResponse extends Model
      */
     public $resultMsg;
 
-    // 接口调用结果
+    // 操作结果
     /**
      * @var bool
      */
@@ -44,15 +44,15 @@ class PagequeryIotbasicAppreleaseorderResponse extends Model
      */
     public $pageSize;
 
-    // 总记录
+    // 总数量
     /**
      * @var int
      */
     public $total;
 
-    // 分页查询结果列表
+    // 列表数据
     /**
-     * @var IotbasicReleaseOrderInfo[]
+     * @var IotbasicAppManagerPageInfo[]
      */
     public $data;
     protected $_name = [
@@ -110,7 +110,7 @@ class PagequeryIotbasicAppreleaseorderResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryIotbasicAppreleaseorderResponse
+     * @return PagequeryIotlinkAppmanagerResponse
      */
     public static function fromMap($map = [])
     {
@@ -141,7 +141,7 @@ class PagequeryIotbasicAppreleaseorderResponse extends Model
                 $model->data = [];
                 $n           = 0;
                 foreach ($map['data'] as $item) {
-                    $model->data[$n++] = null !== $item ? IotbasicReleaseOrderInfo::fromMap($item) : $item;
+                    $model->data[$n++] = null !== $item ? IotbasicAppManagerPageInfo::fromMap($item) : $item;
                 }
             }
         }

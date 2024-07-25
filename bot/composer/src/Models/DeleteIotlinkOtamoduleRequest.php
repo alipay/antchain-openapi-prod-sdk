@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RetryIotbasicAppreleasedeviceRequest extends Model
+class DeleteIotlinkOtamoduleRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,28 @@ class RetryIotbasicAppreleasedeviceRequest extends Model
      */
     public $productInstanceId;
 
-    // 设备升级任务唯一id列表
+    // 品类code
     /**
-     * @var string[]
+     * @var string
      */
-    public $orderDetailIdList;
+    public $categoryCode;
+
+    // 要删除的OTA模块名称。
+    /**
+     * @var string
+     */
+    public $moduleName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'orderDetailIdList' => 'order_detail_id_list',
+        'categoryCode'      => 'category_code',
+        'moduleName'        => 'module_name',
     ];
 
     public function validate()
     {
-        Model::validateRequired('orderDetailIdList', $this->orderDetailIdList, true);
+        Model::validateRequired('categoryCode', $this->categoryCode, true);
+        Model::validateRequired('moduleName', $this->moduleName, true);
     }
 
     public function toMap()
@@ -44,8 +52,11 @@ class RetryIotbasicAppreleasedeviceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->orderDetailIdList) {
-            $res['order_detail_id_list'] = $this->orderDetailIdList;
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
+        }
+        if (null !== $this->moduleName) {
+            $res['module_name'] = $this->moduleName;
         }
 
         return $res;
@@ -54,7 +65,7 @@ class RetryIotbasicAppreleasedeviceRequest extends Model
     /**
      * @param array $map
      *
-     * @return RetryIotbasicAppreleasedeviceRequest
+     * @return DeleteIotlinkOtamoduleRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,10 +76,11 @@ class RetryIotbasicAppreleasedeviceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['order_detail_id_list'])) {
-            if (!empty($map['order_detail_id_list'])) {
-                $model->orderDetailIdList = $map['order_detail_id_list'];
-            }
+        if (isset($map['category_code'])) {
+            $model->categoryCode = $map['category_code'];
+        }
+        if (isset($map['module_name'])) {
+            $model->moduleName = $map['module_name'];
         }
 
         return $model;
