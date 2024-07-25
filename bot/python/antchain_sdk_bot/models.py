@@ -24700,7 +24700,7 @@ class GetDigitalkeyDeviceinfoResponse(TeaModel):
         return self
 
 
-class CreateIotbasicAppmanagerRequest(TeaModel):
+class CreateIotlinkAppmanagerRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -24816,7 +24816,7 @@ class CreateIotbasicAppmanagerRequest(TeaModel):
         return self
 
 
-class CreateIotbasicAppmanagerResponse(TeaModel):
+class CreateIotlinkAppmanagerResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -24872,7 +24872,7 @@ class CreateIotbasicAppmanagerResponse(TeaModel):
         return self
 
 
-class ListIotbasicAppmanagerotamoduleRequest(TeaModel):
+class ListIotlinkOtamoduleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -24913,7 +24913,7 @@ class ListIotbasicAppmanagerotamoduleRequest(TeaModel):
         return self
 
 
-class ListIotbasicAppmanagerotamoduleResponse(TeaModel):
+class ListIotlinkOtamoduleResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -24977,7 +24977,7 @@ class ListIotbasicAppmanagerotamoduleResponse(TeaModel):
         return self
 
 
-class PagequeryIotbasicAppmanagerRequest(TeaModel):
+class PagequeryIotlinkAppmanagerRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -25064,7 +25064,7 @@ class PagequeryIotbasicAppmanagerRequest(TeaModel):
         return self
 
 
-class PagequeryIotbasicAppmanagerResponse(TeaModel):
+class PagequeryIotlinkAppmanagerResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -25149,7 +25149,7 @@ class PagequeryIotbasicAppmanagerResponse(TeaModel):
         return self
 
 
-class GetIotbasicAppmanagerfileurlRequest(TeaModel):
+class GetIotlinkAppmanagerfileurlRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -25190,7 +25190,7 @@ class GetIotbasicAppmanagerfileurlRequest(TeaModel):
         return self
 
 
-class GetIotbasicAppmanagerfileurlResponse(TeaModel):
+class GetIotlinkAppmanagerfileurlResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -25246,7 +25246,7 @@ class GetIotbasicAppmanagerfileurlResponse(TeaModel):
         return self
 
 
-class PagequeryIotbasicAppreleaseorderRequest(TeaModel):
+class PagequeryIotlinkAppreleaseorderRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -25339,7 +25339,7 @@ class PagequeryIotbasicAppreleaseorderRequest(TeaModel):
         return self
 
 
-class PagequeryIotbasicAppreleaseorderResponse(TeaModel):
+class PagequeryIotlinkAppreleaseorderResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -25424,7 +25424,7 @@ class PagequeryIotbasicAppreleaseorderResponse(TeaModel):
         return self
 
 
-class PagequeryIotbasicAppreleasedeviceRequest(TeaModel):
+class PagequeryIotlinkAppreleasedeviceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -25524,7 +25524,7 @@ class PagequeryIotbasicAppreleasedeviceRequest(TeaModel):
         return self
 
 
-class PagequeryIotbasicAppreleasedeviceResponse(TeaModel):
+class PagequeryIotlinkAppreleasedeviceResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -25609,7 +25609,7 @@ class PagequeryIotbasicAppreleasedeviceResponse(TeaModel):
         return self
 
 
-class PublishIotbasicAppreleaseorderRequest(TeaModel):
+class PublishIotlinkAppreleaseorderRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -25678,7 +25678,7 @@ class PublishIotbasicAppreleaseorderRequest(TeaModel):
         return self
 
 
-class PublishIotbasicAppreleaseorderResponse(TeaModel):
+class PublishIotlinkAppreleaseorderResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -25742,7 +25742,7 @@ class PublishIotbasicAppreleaseorderResponse(TeaModel):
         return self
 
 
-class CancelIotbasicAppreleaseorderRequest(TeaModel):
+class CancelIotlinkAppreleaseorderRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -25783,7 +25783,7 @@ class CancelIotbasicAppreleaseorderRequest(TeaModel):
         return self
 
 
-class CancelIotbasicAppreleaseorderResponse(TeaModel):
+class CancelIotlinkAppreleaseorderResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -25832,7 +25832,7 @@ class CancelIotbasicAppreleaseorderResponse(TeaModel):
         return self
 
 
-class CancelIotbasicAppreleasedeviceRequest(TeaModel):
+class CancelIotlinkAppreleasedeviceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -25873,7 +25873,7 @@ class CancelIotbasicAppreleasedeviceRequest(TeaModel):
         return self
 
 
-class CancelIotbasicAppreleasedeviceResponse(TeaModel):
+class CancelIotlinkAppreleasedeviceResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -25922,7 +25922,7 @@ class CancelIotbasicAppreleasedeviceResponse(TeaModel):
         return self
 
 
-class RetryIotbasicAppreleasedeviceRequest(TeaModel):
+class RetryIotlinkAppreleasedeviceRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -25963,7 +25963,7 @@ class RetryIotbasicAppreleasedeviceRequest(TeaModel):
         return self
 
 
-class RetryIotbasicAppreleasedeviceResponse(TeaModel):
+class RetryIotlinkAppreleasedeviceResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -26012,7 +26012,7 @@ class RetryIotbasicAppreleasedeviceResponse(TeaModel):
         return self
 
 
-class CreateIotbasicAppmanagerotamoduleRequest(TeaModel):
+class CreateIotlinkOtamoduleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -26084,7 +26084,7 @@ class CreateIotbasicAppmanagerotamoduleRequest(TeaModel):
         return self
 
 
-class CreateIotbasicAppmanagerotamoduleResponse(TeaModel):
+class CreateIotlinkOtamoduleResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -26133,7 +26133,7 @@ class CreateIotbasicAppmanagerotamoduleResponse(TeaModel):
         return self
 
 
-class UpdateIotbasicAppmanagerotamoduleRequest(TeaModel):
+class UpdateIotlinkOtamoduleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -26196,7 +26196,7 @@ class UpdateIotbasicAppmanagerotamoduleRequest(TeaModel):
         return self
 
 
-class UpdateIotbasicAppmanagerotamoduleResponse(TeaModel):
+class UpdateIotlinkOtamoduleResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -26245,7 +26245,7 @@ class UpdateIotbasicAppmanagerotamoduleResponse(TeaModel):
         return self
 
 
-class DeleteIotbasicAppmanagerotamoduleRequest(TeaModel):
+class DeleteIotlinkOtamoduleRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -26294,7 +26294,105 @@ class DeleteIotbasicAppmanagerotamoduleRequest(TeaModel):
         return self
 
 
-class DeleteIotbasicAppmanagerotamoduleResponse(TeaModel):
+class DeleteIotlinkOtamoduleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ImportIotlinkThingmodeltslRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        category_code: str = None,
+        tsl_str: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 品类code
+        self.category_code = category_code
+        # 您编辑的物模型（TSL）。JSON格式的字符串。产品的物模型（TSL）包含属性、服务和事件的定义。
+        self.tsl_str = tsl_str
+
+    def validate(self):
+        self.validate_required(self.category_code, 'category_code')
+        self.validate_required(self.tsl_str, 'tsl_str')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
+        if self.tsl_str is not None:
+            result['tsl_str'] = self.tsl_str
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
+        if m.get('tsl_str') is not None:
+            self.tsl_str = m.get('tsl_str')
+        return self
+
+
+class ImportIotlinkThingmodeltslResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
