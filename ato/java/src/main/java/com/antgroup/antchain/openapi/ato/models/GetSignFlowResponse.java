@@ -54,6 +54,10 @@ public class GetSignFlowResponse extends TeaModel {
     @NameInMap("sign_info")
     public String signInfo;
 
+    // 发起人账户id
+    @NameInMap("initiator_account_id")
+    public String initiatorAccountId;
+
     public static GetSignFlowResponse build(java.util.Map<String, ?> map) throws Exception {
         GetSignFlowResponse self = new GetSignFlowResponse();
         return TeaModel.build(map, self);
@@ -153,6 +157,14 @@ public class GetSignFlowResponse extends TeaModel {
     }
     public String getSignInfo() {
         return this.signInfo;
+    }
+
+    public GetSignFlowResponse setInitiatorAccountId(String initiatorAccountId) {
+        this.initiatorAccountId = initiatorAccountId;
+        return this;
+    }
+    public String getInitiatorAccountId() {
+        return this.initiatorAccountId;
     }
 
 }
