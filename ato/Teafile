@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ATO",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-ato:1.8.92",
+    "java": "com.antgroup.antchain.openapi:openapi-ato:1.8.96",
     "go": "github.com/antchain-openapi-sdk-go/ato/client:v1.8.96",
     "csharp": "AntChain.SDK.ATO:1.8.86",
     "ts": "@antchain/ato:1.8.96",
