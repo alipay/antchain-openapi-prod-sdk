@@ -21,7 +21,6 @@ public class CaSignTaskRequest extends TeaModel {
 
     // 待签署文件列表
     @NameInMap("sign_file_request_list")
-    @Validation(required = true)
     public java.util.List<CaSignFileRequest> signFileRequestList;
 
     public static CaSignTaskRequest build(java.util.Map<String, ?> map) throws Exception {

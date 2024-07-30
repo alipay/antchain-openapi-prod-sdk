@@ -6,7 +6,6 @@ import com.aliyun.tea.*;
 public class CaSystemSignFileRequest extends TeaModel {
     // 签署文件id,和签署文件列表fileId呼应
     @NameInMap("file_id")
-    @Validation(required = true)
     public String fileId;
 
     // 签署文件列表（包含印模和签署区域）

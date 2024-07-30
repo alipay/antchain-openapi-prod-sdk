@@ -45,7 +45,6 @@ public class SignAntsaasStaffingcContractCaRequest extends TeaModel {
     public String fileObjectName;
 
     @NameInMap("file_id")
-    @Validation(required = true)
     public String fileId;
 
     // 合同模板密钥:若为合同模板该值必填,否则不需要填写
