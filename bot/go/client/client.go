@@ -19709,8 +19709,6 @@ type CreateIotlinkAppmanagerRequest struct {
 	// 当前OTA升级包的版本号，仅支持英文字母、数字、半角句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。
 	// 最新模块版本好可通过查询应用类型列表接口获取
 	ApkVersion *string `json:"apk_version,omitempty" xml:"apk_version,omitempty" require:"true"`
-	// 项目编码
-	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
 	// 文件地址
 	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty"`
 }
@@ -19775,11 +19773,6 @@ func (s *CreateIotlinkAppmanagerRequest) SetRemark(v string) *CreateIotlinkAppma
 
 func (s *CreateIotlinkAppmanagerRequest) SetApkVersion(v string) *CreateIotlinkAppmanagerRequest {
 	s.ApkVersion = &v
-	return s
-}
-
-func (s *CreateIotlinkAppmanagerRequest) SetProjectCode(v string) *CreateIotlinkAppmanagerRequest {
-	s.ProjectCode = &v
 	return s
 }
 
@@ -19915,8 +19908,6 @@ type PagequeryIotlinkAppmanagerRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 所属项目空间
-	ProjectSpace *string `json:"project_space,omitempty" xml:"project_space,omitempty" require:"true"`
 	// 应用名称
 	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty"`
 	// 应用版本号
@@ -19948,11 +19939,6 @@ func (s *PagequeryIotlinkAppmanagerRequest) SetAuthToken(v string) *PagequeryIot
 
 func (s *PagequeryIotlinkAppmanagerRequest) SetProductInstanceId(v string) *PagequeryIotlinkAppmanagerRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *PagequeryIotlinkAppmanagerRequest) SetProjectSpace(v string) *PagequeryIotlinkAppmanagerRequest {
-	s.ProjectSpace = &v
 	return s
 }
 
@@ -20134,8 +20120,6 @@ type PagequeryIotlinkAppreleaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 所属项目空间
-	ProjectSpace *string `json:"project_space,omitempty" xml:"project_space,omitempty" require:"true"`
 	// 应用名称
 	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty"`
 	// 应用版本号
@@ -20156,6 +20140,8 @@ type PagequeryIotlinkAppreleaseorderRequest struct {
 	Current *int64 `json:"current,omitempty" xml:"current,omitempty" require:"true"`
 	// 每页数量
 	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 品类code
+	CategoryCode *string `json:"category_code,omitempty" xml:"category_code,omitempty"`
 }
 
 func (s PagequeryIotlinkAppreleaseorderRequest) String() string {
@@ -20173,11 +20159,6 @@ func (s *PagequeryIotlinkAppreleaseorderRequest) SetAuthToken(v string) *Pageque
 
 func (s *PagequeryIotlinkAppreleaseorderRequest) SetProductInstanceId(v string) *PagequeryIotlinkAppreleaseorderRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *PagequeryIotlinkAppreleaseorderRequest) SetProjectSpace(v string) *PagequeryIotlinkAppreleaseorderRequest {
-	s.ProjectSpace = &v
 	return s
 }
 
@@ -20208,6 +20189,11 @@ func (s *PagequeryIotlinkAppreleaseorderRequest) SetCurrent(v int64) *PagequeryI
 
 func (s *PagequeryIotlinkAppreleaseorderRequest) SetPageSize(v int64) *PagequeryIotlinkAppreleaseorderRequest {
 	s.PageSize = &v
+	return s
+}
+
+func (s *PagequeryIotlinkAppreleaseorderRequest) SetCategoryCode(v string) *PagequeryIotlinkAppreleaseorderRequest {
+	s.CategoryCode = &v
 	return s
 }
 
@@ -20282,8 +20268,6 @@ type PagequeryIotlinkAppreleasedeviceRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 所属项目空间
-	ProjectSpace *string `json:"project_space,omitempty" xml:"project_space,omitempty" require:"true"`
 	// 应用名称
 	ApkName *string `json:"apk_name,omitempty" xml:"apk_name,omitempty"`
 	// 应用版本号
@@ -20323,11 +20307,6 @@ func (s *PagequeryIotlinkAppreleasedeviceRequest) SetAuthToken(v string) *Pagequ
 
 func (s *PagequeryIotlinkAppreleasedeviceRequest) SetProductInstanceId(v string) *PagequeryIotlinkAppreleasedeviceRequest {
 	s.ProductInstanceId = &v
-	return s
-}
-
-func (s *PagequeryIotlinkAppreleasedeviceRequest) SetProjectSpace(v string) *PagequeryIotlinkAppreleasedeviceRequest {
-	s.ProjectSpace = &v
 	return s
 }
 
@@ -20758,8 +20737,6 @@ type CreateIotlinkOtamoduleRequest struct {
 	AliasName *string `json:"alias_name,omitempty" xml:"alias_name,omitempty"`
 	// OTA模块的描述信息，支持最多100个字符。
 	Desc *string `json:"desc,omitempty" xml:"desc,omitempty"`
-	// 项目编码
-	ProjectCode *string `json:"project_code,omitempty" xml:"project_code,omitempty" require:"true"`
 }
 
 func (s CreateIotlinkOtamoduleRequest) String() string {
@@ -20797,11 +20774,6 @@ func (s *CreateIotlinkOtamoduleRequest) SetAliasName(v string) *CreateIotlinkOta
 
 func (s *CreateIotlinkOtamoduleRequest) SetDesc(v string) *CreateIotlinkOtamoduleRequest {
 	s.Desc = &v
-	return s
-}
-
-func (s *CreateIotlinkOtamoduleRequest) SetProjectCode(v string) *CreateIotlinkOtamoduleRequest {
-	s.ProjectCode = &v
 	return s
 }
 
@@ -32133,6 +32105,8 @@ type ImportTechintegrationSkugrantwhitelistRequest struct {
 	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
 	// SN列表，单次最多100条
 	SnList []*string `json:"sn_list,omitempty" xml:"sn_list,omitempty" require:"true" type:"Repeated"`
+	// 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+	Features []*string `json:"features,omitempty" xml:"features,omitempty" type:"Repeated"`
 }
 
 func (s ImportTechintegrationSkugrantwhitelistRequest) String() string {
@@ -32170,6 +32144,11 @@ func (s *ImportTechintegrationSkugrantwhitelistRequest) SetScene(v string) *Impo
 
 func (s *ImportTechintegrationSkugrantwhitelistRequest) SetSnList(v []*string) *ImportTechintegrationSkugrantwhitelistRequest {
 	s.SnList = v
+	return s
+}
+
+func (s *ImportTechintegrationSkugrantwhitelistRequest) SetFeatures(v []*string) *ImportTechintegrationSkugrantwhitelistRequest {
+	s.Features = v
 	return s
 }
 
@@ -34161,7 +34140,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.39"),
+				"sdk_version":      tea.String("1.11.41"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
