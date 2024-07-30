@@ -143,7 +143,7 @@ export class CaSystemCrossPageRequest extends $tea.Model {
 // 签署区域信息（包括印模信息）
 export class CaSystemSignAreaRequest extends $tea.Model {
   // 印章id,联系签署中心获取
-  sealId: string;
+  sealId?: string;
   // 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
   locationType: string;
   // 签署位置类型，1-正文，2-骑缝
@@ -180,7 +180,7 @@ export class CaSystemSignAreaRequest extends $tea.Model {
 // 签署文件信息（包含印模和签署区域）
 export class CaSystemSignFileRequest extends $tea.Model {
   // 签署文件id,和签署文件列表fileId呼应
-  fileId: string;
+  fileId?: string;
   // 签署文件列表（包含印模和签署区域）
   systemSignAreaRequestList: CaSystemSignAreaRequest[];
   static names(): { [key: string]: string } {
@@ -759,7 +759,7 @@ export class CaSignTaskRequest extends $tea.Model {
   // 签署人信息
   signUserInfoRequestList: CaSignUserInfoRequest[];
   // 待签署文件列表
-  signFileRequestList: CaSignFileRequest[];
+  signFileRequestList?: CaSignFileRequest[];
   static names(): { [key: string]: string } {
     return {
       subBizNo: 'sub_biz_no',
@@ -1765,7 +1765,7 @@ export class SignAntsaasStaffingcContractCaRequest extends $tea.Model {
   // 通过文件API上传的文件的file_id
   fileObject?: Readable;
   fileObjectName?: string;
-  fileId: string;
+  fileId?: string;
   // 合同模板密钥:若为合同模板该值必填,否则不需要填写
   templateSecretKey?: string;
   // 模板填充字段集合
@@ -2127,7 +2127,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.0.1",
+          sdk_version: "2.0.2",
           _prod_code: "ak_320bc483f2434f39a3af9ec9f04d3cc0",
           _prod_channel: "saas",
         };
