@@ -225,7 +225,7 @@ func (s *CaSystemCrossPageRequest) SetPosY(v string) *CaSystemCrossPageRequest {
 // 签署区域信息（包括印模信息）
 type CaSystemSignAreaRequest struct {
 	// 印章id,联系签署中心获取
-	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty" require:"true"`
+	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
 	// 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
 	LocationType *string `json:"location_type,omitempty" xml:"location_type,omitempty" require:"true"`
 	// 签署位置类型，1-正文，2-骑缝
@@ -272,7 +272,7 @@ func (s *CaSystemSignAreaRequest) SetSystemMainBodyRequest(v *CaSystemMainBodyRe
 // 签署文件信息（包含印模和签署区域）
 type CaSystemSignFileRequest struct {
 	// 签署文件id,和签署文件列表fileId呼应
-	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 签署文件列表（包含印模和签署区域）
 	SystemSignAreaRequestList []*CaSystemSignAreaRequest `json:"system_sign_area_request_list,omitempty" xml:"system_sign_area_request_list,omitempty" require:"true" type:"Repeated"`
 }
@@ -1013,7 +1013,7 @@ type CaSignTaskRequest struct {
 	// 签署人信息
 	SignUserInfoRequestList []*CaSignUserInfoRequest `json:"sign_user_info_request_list,omitempty" xml:"sign_user_info_request_list,omitempty" require:"true" type:"Repeated"`
 	// 待签署文件列表
-	SignFileRequestList []*CaSignFileRequest `json:"sign_file_request_list,omitempty" xml:"sign_file_request_list,omitempty" require:"true" type:"Repeated"`
+	SignFileRequestList []*CaSignFileRequest `json:"sign_file_request_list,omitempty" xml:"sign_file_request_list,omitempty" type:"Repeated"`
 }
 
 func (s CaSignTaskRequest) String() string {
@@ -2332,7 +2332,7 @@ type SignAntsaasStaffingcContractCaRequest struct {
 	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
 	// 待上传文件名
 	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
-	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 合同模板密钥:若为合同模板该值必填,否则不需要填写
 	TemplateSecretKey *string `json:"template_secret_key,omitempty" xml:"template_secret_key,omitempty"`
 	// 模板填充字段集合
@@ -2802,7 +2802,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.0.1"),
+				"sdk_version":      tea.String("2.0.2"),
 				"_prod_code":       tea.String("ak_320bc483f2434f39a3af9ec9f04d3cc0"),
 				"_prod_channel":    tea.String("saas"),
 			}
