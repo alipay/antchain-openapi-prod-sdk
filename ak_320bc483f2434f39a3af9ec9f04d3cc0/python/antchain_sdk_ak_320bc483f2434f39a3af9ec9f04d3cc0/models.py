@@ -271,7 +271,6 @@ class CaSystemSignAreaRequest(TeaModel):
         self.system_main_body_request = system_main_body_request
 
     def validate(self):
-        self.validate_required(self.seal_id, 'seal_id')
         self.validate_required(self.location_type, 'location_type')
         self.validate_required(self.position_type, 'position_type')
         if self.system_cross_page_request:
@@ -326,7 +325,6 @@ class CaSystemSignFileRequest(TeaModel):
         self.system_sign_area_request_list = system_sign_area_request_list
 
     def validate(self):
-        self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.system_sign_area_request_list, 'system_sign_area_request_list')
         if self.system_sign_area_request_list:
             for k in self.system_sign_area_request_list:
@@ -1298,7 +1296,6 @@ class CaSignTaskRequest(TeaModel):
             for k in self.sign_user_info_request_list:
                 if k:
                     k.validate()
-        self.validate_required(self.sign_file_request_list, 'sign_file_request_list')
         if self.sign_file_request_list:
             for k in self.sign_file_request_list:
                 if k:
@@ -2996,7 +2993,6 @@ class SignAntsaasStaffingcContractCaRequest(TeaModel):
             for k in self.sign_task_request_list:
                 if k:
                     k.validate()
-        self.validate_required(self.file_id, 'file_id')
         if self.template_field_config_request_list:
             for k in self.template_field_config_request_list:
                 if k:
