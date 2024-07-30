@@ -24714,7 +24714,6 @@ class CreateIotlinkAppmanagerRequest(TeaModel):
         device_model_value: str = None,
         remark: str = None,
         apk_version: str = None,
-        project_code: str = None,
         file_url: str = None,
     ):
         # OAuth模式下的授权token
@@ -24740,8 +24739,6 @@ class CreateIotlinkAppmanagerRequest(TeaModel):
         # 当前OTA升级包的版本号，仅支持英文字母、数字、半角句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。
         # 最新模块版本好可通过查询应用类型列表接口获取
         self.apk_version = apk_version
-        # 项目编码
-        self.project_code = project_code
         # 文件地址
         self.file_url = file_url
 
@@ -24749,7 +24746,6 @@ class CreateIotlinkAppmanagerRequest(TeaModel):
         self.validate_required(self.apk_name, 'apk_name')
         self.validate_required(self.category_code, 'category_code')
         self.validate_required(self.apk_version, 'apk_version')
-        self.validate_required(self.project_code, 'project_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -24779,8 +24775,6 @@ class CreateIotlinkAppmanagerRequest(TeaModel):
             result['remark'] = self.remark
         if self.apk_version is not None:
             result['apk_version'] = self.apk_version
-        if self.project_code is not None:
-            result['project_code'] = self.project_code
         if self.file_url is not None:
             result['file_url'] = self.file_url
         return result
@@ -24809,8 +24803,6 @@ class CreateIotlinkAppmanagerRequest(TeaModel):
             self.remark = m.get('remark')
         if m.get('apk_version') is not None:
             self.apk_version = m.get('apk_version')
-        if m.get('project_code') is not None:
-            self.project_code = m.get('project_code')
         if m.get('file_url') is not None:
             self.file_url = m.get('file_url')
         return self
@@ -24982,7 +24974,6 @@ class PagequeryIotlinkAppmanagerRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        project_space: str = None,
         apk_name: str = None,
         apk_version: str = None,
         current: int = None,
@@ -24993,8 +24984,6 @@ class PagequeryIotlinkAppmanagerRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 所属项目空间
-        self.project_space = project_space
         # 应用名称
         self.apk_name = apk_name
         # 应用版本号
@@ -25011,7 +25000,6 @@ class PagequeryIotlinkAppmanagerRequest(TeaModel):
         self.module_name = module_name
 
     def validate(self):
-        self.validate_required(self.project_space, 'project_space')
         self.validate_required(self.current, 'current')
         self.validate_required(self.page_size, 'page_size')
 
@@ -25025,8 +25013,6 @@ class PagequeryIotlinkAppmanagerRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.project_space is not None:
-            result['project_space'] = self.project_space
         if self.apk_name is not None:
             result['apk_name'] = self.apk_name
         if self.apk_version is not None:
@@ -25047,8 +25033,6 @@ class PagequeryIotlinkAppmanagerRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('project_space') is not None:
-            self.project_space = m.get('project_space')
         if m.get('apk_name') is not None:
             self.apk_name = m.get('apk_name')
         if m.get('apk_version') is not None:
@@ -25251,19 +25235,17 @@ class PagequeryIotlinkAppreleaseorderRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        project_space: str = None,
         apk_name: str = None,
         apk_version: str = None,
         order_id: str = None,
         status: str = None,
         current: int = None,
         page_size: int = None,
+        category_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 所属项目空间
-        self.project_space = project_space
         # 应用名称
         self.apk_name = apk_name
         # 应用版本号
@@ -25284,9 +25266,10 @@ class PagequeryIotlinkAppreleaseorderRequest(TeaModel):
         self.current = current
         # 每页数量
         self.page_size = page_size
+        # 品类code
+        self.category_code = category_code
 
     def validate(self):
-        self.validate_required(self.project_space, 'project_space')
         self.validate_required(self.current, 'current')
         self.validate_required(self.page_size, 'page_size')
 
@@ -25300,8 +25283,6 @@ class PagequeryIotlinkAppreleaseorderRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.project_space is not None:
-            result['project_space'] = self.project_space
         if self.apk_name is not None:
             result['apk_name'] = self.apk_name
         if self.apk_version is not None:
@@ -25314,6 +25295,8 @@ class PagequeryIotlinkAppreleaseorderRequest(TeaModel):
             result['current'] = self.current
         if self.page_size is not None:
             result['page_size'] = self.page_size
+        if self.category_code is not None:
+            result['category_code'] = self.category_code
         return result
 
     def from_map(self, m: dict = None):
@@ -25322,8 +25305,6 @@ class PagequeryIotlinkAppreleaseorderRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('project_space') is not None:
-            self.project_space = m.get('project_space')
         if m.get('apk_name') is not None:
             self.apk_name = m.get('apk_name')
         if m.get('apk_version') is not None:
@@ -25336,6 +25317,8 @@ class PagequeryIotlinkAppreleaseorderRequest(TeaModel):
             self.current = m.get('current')
         if m.get('page_size') is not None:
             self.page_size = m.get('page_size')
+        if m.get('category_code') is not None:
+            self.category_code = m.get('category_code')
         return self
 
 
@@ -25429,7 +25412,6 @@ class PagequeryIotlinkAppreleasedeviceRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        project_space: str = None,
         apk_name: str = None,
         apk_version: str = None,
         order_id: str = None,
@@ -25441,8 +25423,6 @@ class PagequeryIotlinkAppreleasedeviceRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 所属项目空间
-        self.project_space = project_space
         # 应用名称
         self.apk_name = apk_name
         # 应用版本号
@@ -25467,7 +25447,6 @@ class PagequeryIotlinkAppreleasedeviceRequest(TeaModel):
         self.page_size = page_size
 
     def validate(self):
-        self.validate_required(self.project_space, 'project_space')
         self.validate_required(self.current, 'current')
         self.validate_required(self.page_size, 'page_size')
 
@@ -25481,8 +25460,6 @@ class PagequeryIotlinkAppreleasedeviceRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.project_space is not None:
-            result['project_space'] = self.project_space
         if self.apk_name is not None:
             result['apk_name'] = self.apk_name
         if self.apk_version is not None:
@@ -25505,8 +25482,6 @@ class PagequeryIotlinkAppreleasedeviceRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('project_space') is not None:
-            self.project_space = m.get('project_space')
         if m.get('apk_name') is not None:
             self.apk_name = m.get('apk_name')
         if m.get('apk_version') is not None:
@@ -26021,7 +25996,6 @@ class CreateIotlinkOtamoduleRequest(TeaModel):
         module_name: str = None,
         alias_name: str = None,
         desc: str = None,
-        project_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26035,13 +26009,10 @@ class CreateIotlinkOtamoduleRequest(TeaModel):
         self.alias_name = alias_name
         # OTA模块的描述信息，支持最多100个字符。
         self.desc = desc
-        # 项目编码
-        self.project_code = project_code
 
     def validate(self):
         self.validate_required(self.category_code, 'category_code')
         self.validate_required(self.module_name, 'module_name')
-        self.validate_required(self.project_code, 'project_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -26061,8 +26032,6 @@ class CreateIotlinkOtamoduleRequest(TeaModel):
             result['alias_name'] = self.alias_name
         if self.desc is not None:
             result['desc'] = self.desc
-        if self.project_code is not None:
-            result['project_code'] = self.project_code
         return result
 
     def from_map(self, m: dict = None):
@@ -26079,8 +26048,6 @@ class CreateIotlinkOtamoduleRequest(TeaModel):
             self.alias_name = m.get('alias_name')
         if m.get('desc') is not None:
             self.desc = m.get('desc')
-        if m.get('project_code') is not None:
-            self.project_code = m.get('project_code')
         return self
 
 
@@ -40340,6 +40307,7 @@ class ImportTechintegrationSkugrantwhitelistRequest(TeaModel):
         scheme_type: str = None,
         scene: str = None,
         sn_list: List[str] = None,
+        features: List[str] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -40352,6 +40320,8 @@ class ImportTechintegrationSkugrantwhitelistRequest(TeaModel):
         self.scene = scene
         # SN列表，单次最多100条
         self.sn_list = sn_list
+        # 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+        self.features = features
 
     def validate(self):
         self.validate_required(self.sku_model, 'sku_model')
@@ -40377,6 +40347,8 @@ class ImportTechintegrationSkugrantwhitelistRequest(TeaModel):
             result['scene'] = self.scene
         if self.sn_list is not None:
             result['sn_list'] = self.sn_list
+        if self.features is not None:
+            result['features'] = self.features
         return result
 
     def from_map(self, m: dict = None):
@@ -40393,6 +40365,8 @@ class ImportTechintegrationSkugrantwhitelistRequest(TeaModel):
             self.scene = m.get('scene')
         if m.get('sn_list') is not None:
             self.sn_list = m.get('sn_list')
+        if m.get('features') is not None:
+            self.features = m.get('features')
         return self
 
 
