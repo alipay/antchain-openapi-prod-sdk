@@ -39,11 +39,6 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Desc { get; set; }
 
-        // 项目编码
-        [NameInMap("project_code")]
-        [Validation(Required=true)]
-        public string ProjectCode { get; set; }
-
     }
 
 }

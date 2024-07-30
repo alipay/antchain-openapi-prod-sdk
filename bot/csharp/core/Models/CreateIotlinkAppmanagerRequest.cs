@@ -69,11 +69,6 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string ApkVersion { get; set; }
 
-        // 项目编码
-        [NameInMap("project_code")]
-        [Validation(Required=true)]
-        public string ProjectCode { get; set; }
-
         // 文件地址
         [NameInMap("file_url")]
         [Validation(Required=false)]

@@ -18,11 +18,6 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 所属项目空间
-        [NameInMap("project_space")]
-        [Validation(Required=true)]
-        public string ProjectSpace { get; set; }
-
         // 应用名称
         [NameInMap("apk_name")]
         [Validation(Required=false)]

@@ -38,6 +38,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public List<string> SnList { get; set; }
 
+        // 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+        [NameInMap("features")]
+        [Validation(Required=false)]
+        public List<string> Features { get; set; }
+
     }
 
 }
