@@ -12,7 +12,7 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
     public class CaSystemSignAreaRequest : TeaModel {
         // 印章id,联系签署中心获取
         [NameInMap("seal_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string SealId { get; set; }
 
         // 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")

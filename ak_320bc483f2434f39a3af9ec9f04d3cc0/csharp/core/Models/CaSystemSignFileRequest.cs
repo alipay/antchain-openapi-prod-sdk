@@ -12,7 +12,7 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
     public class CaSystemSignFileRequest : TeaModel {
         // 签署文件id,和签署文件列表fileId呼应
         [NameInMap("file_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FileId { get; set; }
 
         // 签署文件列表（包含印模和签署区域）

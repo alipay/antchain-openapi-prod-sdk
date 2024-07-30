@@ -54,7 +54,7 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
         public string FileObjectName { get; set; }
 
         [NameInMap("file_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string FileId { get; set; }
 
         // 合同模板密钥:若为合同模板该值必填,否则不需要填写

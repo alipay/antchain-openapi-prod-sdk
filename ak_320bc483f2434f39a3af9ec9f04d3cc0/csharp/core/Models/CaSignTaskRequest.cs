@@ -27,7 +27,7 @@ namespace AntChain.SDK.Ak_320bc483f2434f39a3af9ec9f04d3cc0.Models
 
         // 待签署文件列表
         [NameInMap("sign_file_request_list")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<CaSignFileRequest> SignFileRequestList { get; set; }
 
     }
