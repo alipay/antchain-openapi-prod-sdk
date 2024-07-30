@@ -57,7 +57,6 @@ class CaSystemSignAreaRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('sealId', $this->sealId, true);
         Model::validateRequired('locationType', $this->locationType, true);
         Model::validateRequired('positionType', $this->positionType, true);
     }

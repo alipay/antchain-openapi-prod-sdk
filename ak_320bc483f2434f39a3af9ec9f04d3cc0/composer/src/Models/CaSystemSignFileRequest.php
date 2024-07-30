@@ -30,7 +30,6 @@ class CaSystemSignFileRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('systemSignAreaRequestList', $this->systemSignAreaRequestList, true);
     }
 

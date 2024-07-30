@@ -51,7 +51,6 @@ class CaSignTaskRequest extends Model
         Model::validateRequired('subBizNo', $this->subBizNo, true);
         Model::validateRequired('description', $this->description, true);
         Model::validateRequired('signUserInfoRequestList', $this->signUserInfoRequestList, true);
-        Model::validateRequired('signFileRequestList', $this->signFileRequestList, true);
     }
 
     public function toMap()

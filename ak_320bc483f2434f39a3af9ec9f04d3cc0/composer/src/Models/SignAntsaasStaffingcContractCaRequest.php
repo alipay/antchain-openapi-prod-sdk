@@ -93,7 +93,6 @@ class SignAntsaasStaffingcContractCaRequest extends Model
         Model::validateRequired('bizNo', $this->bizNo, true);
         Model::validateRequired('signVersion', $this->signVersion, true);
         Model::validateRequired('signTaskRequestList', $this->signTaskRequestList, true);
-        Model::validateRequired('fileId', $this->fileId, true);
     }
 
     public function toMap()
