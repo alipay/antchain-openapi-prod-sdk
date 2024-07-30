@@ -42,6 +42,12 @@ class ImportTechintegrationSkugrantwhitelistRequest extends Model
      * @var string[]
      */
     public $snList;
+
+    // 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+    /**
+     * @var string[]
+     */
+    public $features;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class ImportTechintegrationSkugrantwhitelistRequest extends Model
         'schemeType'        => 'scheme_type',
         'scene'             => 'scene',
         'snList'            => 'sn_list',
+        'features'          => 'features',
     ];
 
     public function validate()
@@ -80,6 +87,9 @@ class ImportTechintegrationSkugrantwhitelistRequest extends Model
         if (null !== $this->snList) {
             $res['sn_list'] = $this->snList;
         }
+        if (null !== $this->features) {
+            $res['features'] = $this->features;
+        }
 
         return $res;
     }
@@ -110,6 +120,11 @@ class ImportTechintegrationSkugrantwhitelistRequest extends Model
         if (isset($map['sn_list'])) {
             if (!empty($map['sn_list'])) {
                 $model->snList = $map['sn_list'];
+            }
+        }
+        if (isset($map['features'])) {
+            if (!empty($map['features'])) {
+                $model->features = $map['features'];
             }
         }
 

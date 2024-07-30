@@ -43,12 +43,6 @@ class CreateIotlinkOtamoduleRequest extends Model
      * @var string
      */
     public $desc;
-
-    // 项目编码
-    /**
-     * @var string
-     */
-    public $projectCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,14 +50,12 @@ class CreateIotlinkOtamoduleRequest extends Model
         'moduleName'        => 'module_name',
         'aliasName'         => 'alias_name',
         'desc'              => 'desc',
-        'projectCode'       => 'project_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('categoryCode', $this->categoryCode, true);
         Model::validateRequired('moduleName', $this->moduleName, true);
-        Model::validateRequired('projectCode', $this->projectCode, true);
     }
 
     public function toMap()
@@ -86,9 +78,6 @@ class CreateIotlinkOtamoduleRequest extends Model
         }
         if (null !== $this->desc) {
             $res['desc'] = $this->desc;
-        }
-        if (null !== $this->projectCode) {
-            $res['project_code'] = $this->projectCode;
         }
 
         return $res;
@@ -119,9 +108,6 @@ class CreateIotlinkOtamoduleRequest extends Model
         }
         if (isset($map['desc'])) {
             $model->desc = $map['desc'];
-        }
-        if (isset($map['project_code'])) {
-            $model->projectCode = $map['project_code'];
         }
 
         return $model;

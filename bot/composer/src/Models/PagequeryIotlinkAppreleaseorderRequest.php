@@ -19,12 +19,6 @@ class PagequeryIotlinkAppreleaseorderRequest extends Model
      */
     public $productInstanceId;
 
-    // 所属项目空间
-    /**
-     * @var string
-     */
-    public $projectSpace;
-
     // 应用名称
     /**
      * @var string
@@ -68,21 +62,26 @@ class PagequeryIotlinkAppreleaseorderRequest extends Model
      * @var int
      */
     public $pageSize;
+
+    // 品类code
+    /**
+     * @var string
+     */
+    public $categoryCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'projectSpace'      => 'project_space',
         'apkName'           => 'apk_name',
         'apkVersion'        => 'apk_version',
         'orderId'           => 'order_id',
         'status'            => 'status',
         'current'           => 'current',
         'pageSize'          => 'page_size',
+        'categoryCode'      => 'category_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('projectSpace', $this->projectSpace, true);
         Model::validateRequired('current', $this->current, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
     }
@@ -95,9 +94,6 @@ class PagequeryIotlinkAppreleaseorderRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->projectSpace) {
-            $res['project_space'] = $this->projectSpace;
         }
         if (null !== $this->apkName) {
             $res['apk_name'] = $this->apkName;
@@ -117,6 +113,9 @@ class PagequeryIotlinkAppreleaseorderRequest extends Model
         if (null !== $this->pageSize) {
             $res['page_size'] = $this->pageSize;
         }
+        if (null !== $this->categoryCode) {
+            $res['category_code'] = $this->categoryCode;
+        }
 
         return $res;
     }
@@ -135,9 +134,6 @@ class PagequeryIotlinkAppreleaseorderRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['project_space'])) {
-            $model->projectSpace = $map['project_space'];
-        }
         if (isset($map['apk_name'])) {
             $model->apkName = $map['apk_name'];
         }
@@ -155,6 +151,9 @@ class PagequeryIotlinkAppreleaseorderRequest extends Model
         }
         if (isset($map['page_size'])) {
             $model->pageSize = $map['page_size'];
+        }
+        if (isset($map['category_code'])) {
+            $model->categoryCode = $map['category_code'];
         }
 
         return $model;

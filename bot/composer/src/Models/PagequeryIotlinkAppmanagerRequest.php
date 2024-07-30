@@ -19,12 +19,6 @@ class PagequeryIotlinkAppmanagerRequest extends Model
      */
     public $productInstanceId;
 
-    // 所属项目空间
-    /**
-     * @var string
-     */
-    public $projectSpace;
-
     // 应用名称
     /**
      * @var string
@@ -65,7 +59,6 @@ class PagequeryIotlinkAppmanagerRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'projectSpace'      => 'project_space',
         'apkName'           => 'apk_name',
         'apkVersion'        => 'apk_version',
         'current'           => 'current',
@@ -76,7 +69,6 @@ class PagequeryIotlinkAppmanagerRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('projectSpace', $this->projectSpace, true);
         Model::validateRequired('current', $this->current, true);
         Model::validateRequired('pageSize', $this->pageSize, true);
     }
@@ -89,9 +81,6 @@ class PagequeryIotlinkAppmanagerRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->projectSpace) {
-            $res['project_space'] = $this->projectSpace;
         }
         if (null !== $this->apkName) {
             $res['apk_name'] = $this->apkName;
@@ -128,9 +117,6 @@ class PagequeryIotlinkAppmanagerRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['project_space'])) {
-            $model->projectSpace = $map['project_space'];
         }
         if (isset($map['apk_name'])) {
             $model->apkName = $map['apk_name'];

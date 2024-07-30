@@ -78,12 +78,6 @@ class CreateIotlinkAppmanagerRequest extends Model
      */
     public $apkVersion;
 
-    // 项目编码
-    /**
-     * @var string
-     */
-    public $projectCode;
-
     // 文件地址
     /**
      * @var string
@@ -99,7 +93,6 @@ class CreateIotlinkAppmanagerRequest extends Model
         'deviceModelValue'  => 'device_model_value',
         'remark'            => 'remark',
         'apkVersion'        => 'apk_version',
-        'projectCode'       => 'project_code',
         'fileUrl'           => 'file_url',
     ];
 
@@ -108,7 +101,6 @@ class CreateIotlinkAppmanagerRequest extends Model
         Model::validateRequired('apkName', $this->apkName, true);
         Model::validateRequired('categoryCode', $this->categoryCode, true);
         Model::validateRequired('apkVersion', $this->apkVersion, true);
-        Model::validateRequired('projectCode', $this->projectCode, true);
     }
 
     public function toMap()
@@ -146,9 +138,6 @@ class CreateIotlinkAppmanagerRequest extends Model
         }
         if (null !== $this->apkVersion) {
             $res['apk_version'] = $this->apkVersion;
-        }
-        if (null !== $this->projectCode) {
-            $res['project_code'] = $this->projectCode;
         }
         if (null !== $this->fileUrl) {
             $res['file_url'] = $this->fileUrl;
@@ -197,9 +186,6 @@ class CreateIotlinkAppmanagerRequest extends Model
         }
         if (isset($map['apk_version'])) {
             $model->apkVersion = $map['apk_version'];
-        }
-        if (isset($map['project_code'])) {
-            $model->projectCode = $map['project_code'];
         }
         if (isset($map['file_url'])) {
             $model->fileUrl = $map['file_url'];
