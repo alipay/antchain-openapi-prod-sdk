@@ -15040,8 +15040,6 @@ export class CreateIotlinkAppmanagerRequest extends $tea.Model {
   // 当前OTA升级包的版本号，仅支持英文字母、数字、半角句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。
   // 最新模块版本好可通过查询应用类型列表接口获取
   apkVersion: string;
-  // 项目编码
-  projectCode: string;
   // 文件地址
   fileUrl?: string;
   static names(): { [key: string]: string } {
@@ -15057,7 +15055,6 @@ export class CreateIotlinkAppmanagerRequest extends $tea.Model {
       deviceModelValue: 'device_model_value',
       remark: 'remark',
       apkVersion: 'apk_version',
-      projectCode: 'project_code',
       fileUrl: 'file_url',
     };
   }
@@ -15075,7 +15072,6 @@ export class CreateIotlinkAppmanagerRequest extends $tea.Model {
       deviceModelValue: 'string',
       remark: 'string',
       apkVersion: 'string',
-      projectCode: 'string',
       fileUrl: 'string',
     };
   }
@@ -15188,8 +15184,6 @@ export class PagequeryIotlinkAppmanagerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 所属项目空间
-  projectSpace: string;
   // 应用名称
   apkName?: string;
   // 应用版本号
@@ -15208,7 +15202,6 @@ export class PagequeryIotlinkAppmanagerRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      projectSpace: 'project_space',
       apkName: 'apk_name',
       apkVersion: 'apk_version',
       current: 'current',
@@ -15222,7 +15215,6 @@ export class PagequeryIotlinkAppmanagerRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      projectSpace: 'string',
       apkName: 'string',
       apkVersion: 'string',
       current: 'number',
@@ -15352,8 +15344,6 @@ export class PagequeryIotlinkAppreleaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 所属项目空间
-  projectSpace: string;
   // 应用名称
   apkName?: string;
   // 应用版本号
@@ -15374,17 +15364,19 @@ export class PagequeryIotlinkAppreleaseorderRequest extends $tea.Model {
   current: number;
   // 每页数量
   pageSize: number;
+  // 品类code
+  categoryCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      projectSpace: 'project_space',
       apkName: 'apk_name',
       apkVersion: 'apk_version',
       orderId: 'order_id',
       status: 'status',
       current: 'current',
       pageSize: 'page_size',
+      categoryCode: 'category_code',
     };
   }
 
@@ -15392,13 +15384,13 @@ export class PagequeryIotlinkAppreleaseorderRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      projectSpace: 'string',
       apkName: 'string',
       apkVersion: 'string',
       orderId: 'string',
       status: 'string',
       current: 'number',
       pageSize: 'number',
+      categoryCode: 'string',
     };
   }
 
@@ -15459,8 +15451,6 @@ export class PagequeryIotlinkAppreleasedeviceRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 所属项目空间
-  projectSpace: string;
   // 应用名称
   apkName?: string;
   // 应用版本号
@@ -15487,7 +15477,6 @@ export class PagequeryIotlinkAppreleasedeviceRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      projectSpace: 'project_space',
       apkName: 'apk_name',
       apkVersion: 'apk_version',
       orderId: 'order_id',
@@ -15502,7 +15491,6 @@ export class PagequeryIotlinkAppreleasedeviceRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      projectSpace: 'string',
       apkName: 'string',
       apkVersion: 'string',
       orderId: 'string',
@@ -15835,8 +15823,6 @@ export class CreateIotlinkOtamoduleRequest extends $tea.Model {
   aliasName?: string;
   // OTA模块的描述信息，支持最多100个字符。
   desc?: string;
-  // 项目编码
-  projectCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -15845,7 +15831,6 @@ export class CreateIotlinkOtamoduleRequest extends $tea.Model {
       moduleName: 'module_name',
       aliasName: 'alias_name',
       desc: 'desc',
-      projectCode: 'project_code',
     };
   }
 
@@ -15857,7 +15842,6 @@ export class CreateIotlinkOtamoduleRequest extends $tea.Model {
       moduleName: 'string',
       aliasName: 'string',
       desc: 'string',
-      projectCode: 'string',
     };
   }
 
@@ -24684,6 +24668,8 @@ export class ImportTechintegrationSkugrantwhitelistRequest extends $tea.Model {
   scene: string;
   // SN列表，单次最多100条
   snList: string[];
+  // 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+  features?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -24692,6 +24678,7 @@ export class ImportTechintegrationSkugrantwhitelistRequest extends $tea.Model {
       schemeType: 'scheme_type',
       scene: 'scene',
       snList: 'sn_list',
+      features: 'features',
     };
   }
 
@@ -24703,6 +24690,7 @@ export class ImportTechintegrationSkugrantwhitelistRequest extends $tea.Model {
       schemeType: 'string',
       scene: 'string',
       snList: { 'type': 'array', 'itemType': 'string' },
+      features: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -26267,7 +26255,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.39",
+          sdk_version: "1.11.41",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
