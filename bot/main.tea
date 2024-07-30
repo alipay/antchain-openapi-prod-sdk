@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.39',
+    sdk_version = '1.11.41',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -8096,8 +8096,6 @@ model CreateIotlinkAppmanagerRequest = {
   // 当前OTA升级包的版本号，仅支持英文字母、数字、半角句号（.）、短划线（-）和下划线（_）。长度限制为1~64个字符。
   // 最新模块版本好可通过查询应用类型列表接口获取
   apkVersion: string(name='apk_version'),
-  // 项目编码
-  projectCode: string(name='project_code'),
   // 文件地址
   fileUrl?: string(name='file_url'),
 }
@@ -8197,8 +8195,6 @@ model PagequeryIotlinkAppmanagerRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 所属项目空间
-  projectSpace: string(name='project_space'),
   // 应用名称
   apkName?: string(name='apk_name'),
   // 应用版本号
@@ -8297,8 +8293,6 @@ model PagequeryIotlinkAppreleaseorderRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 所属项目空间
-  projectSpace: string(name='project_space'),
   // 应用名称
   apkName?: string(name='apk_name'),
   // 应用版本号
@@ -8319,6 +8313,8 @@ model PagequeryIotlinkAppreleaseorderRequest = {
   current: long(name='current'),
   // 每页数量
   pageSize: long(name='page_size'),
+  // 品类code
+  categoryCode?: string(name='category_code'),
 }
 
 model PagequeryIotlinkAppreleaseorderResponse = {
@@ -8363,8 +8359,6 @@ model PagequeryIotlinkAppreleasedeviceRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 所属项目空间
-  projectSpace: string(name='project_space'),
   // 应用名称
   apkName?: string(name='apk_name'),
   // 应用版本号
@@ -8604,8 +8598,6 @@ model CreateIotlinkOtamoduleRequest = {
   aliasName?: string(name='alias_name'),
   // OTA模块的描述信息，支持最多100个字符。
   desc?: string(name='desc'),
-  // 项目编码
-  projectCode: string(name='project_code'),
 }
 
 model CreateIotlinkOtamoduleResponse = {
@@ -14170,6 +14162,8 @@ model ImportTechintegrationSkugrantwhitelistRequest = {
   scene: string(name='scene'),
   // SN列表，单次最多100条
   snList: [ string ](name='sn_list'),
+  // 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+  features?: [ string ](name='features'),
 }
 
 model ImportTechintegrationSkugrantwhitelistResponse = {
