@@ -11,11 +11,6 @@ public class PagequeryIotlinkAppreleaseorderRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 所属项目空间
-    @NameInMap("project_space")
-    @Validation(required = true)
-    public String projectSpace;
-
     // 应用名称
     @NameInMap("apk_name")
     public String apkName;
@@ -50,6 +45,10 @@ public class PagequeryIotlinkAppreleaseorderRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
+    // 品类code
+    @NameInMap("category_code")
+    public String categoryCode;
+
     public static PagequeryIotlinkAppreleaseorderRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryIotlinkAppreleaseorderRequest self = new PagequeryIotlinkAppreleaseorderRequest();
         return TeaModel.build(map, self);
@@ -69,14 +68,6 @@ public class PagequeryIotlinkAppreleaseorderRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public PagequeryIotlinkAppreleaseorderRequest setProjectSpace(String projectSpace) {
-        this.projectSpace = projectSpace;
-        return this;
-    }
-    public String getProjectSpace() {
-        return this.projectSpace;
     }
 
     public PagequeryIotlinkAppreleaseorderRequest setApkName(String apkName) {
@@ -125,6 +116,14 @@ public class PagequeryIotlinkAppreleaseorderRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public PagequeryIotlinkAppreleaseorderRequest setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+        return this;
+    }
+    public String getCategoryCode() {
+        return this.categoryCode;
     }
 
 }

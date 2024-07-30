@@ -31,6 +31,10 @@ public class ImportTechintegrationSkugrantwhitelistRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> snList;
 
+    // 凭证种类列表，取值范围： ["PAYMENT"]：支付码， ["PAYMENT","TRANSIT"]：支付码+乘车码
+    @NameInMap("features")
+    public java.util.List<String> features;
+
     public static ImportTechintegrationSkugrantwhitelistRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportTechintegrationSkugrantwhitelistRequest self = new ImportTechintegrationSkugrantwhitelistRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class ImportTechintegrationSkugrantwhitelistRequest extends TeaModel {
     }
     public java.util.List<String> getSnList() {
         return this.snList;
+    }
+
+    public ImportTechintegrationSkugrantwhitelistRequest setFeatures(java.util.List<String> features) {
+        this.features = features;
+        return this;
+    }
+    public java.util.List<String> getFeatures() {
+        return this.features;
     }
 
 }

@@ -30,11 +30,6 @@ public class CreateIotlinkOtamoduleRequest extends TeaModel {
     @NameInMap("desc")
     public String desc;
 
-    // 项目编码
-    @NameInMap("project_code")
-    @Validation(required = true)
-    public String projectCode;
-
     public static CreateIotlinkOtamoduleRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIotlinkOtamoduleRequest self = new CreateIotlinkOtamoduleRequest();
         return TeaModel.build(map, self);
@@ -86,14 +81,6 @@ public class CreateIotlinkOtamoduleRequest extends TeaModel {
     }
     public String getDesc() {
         return this.desc;
-    }
-
-    public CreateIotlinkOtamoduleRequest setProjectCode(String projectCode) {
-        this.projectCode = projectCode;
-        return this;
-    }
-    public String getProjectCode() {
-        return this.projectCode;
     }
 
 }

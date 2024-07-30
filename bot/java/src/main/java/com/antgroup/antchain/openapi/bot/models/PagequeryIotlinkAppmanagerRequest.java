@@ -11,11 +11,6 @@ public class PagequeryIotlinkAppmanagerRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 所属项目空间
-    @NameInMap("project_space")
-    @Validation(required = true)
-    public String projectSpace;
-
     // 应用名称
     @NameInMap("apk_name")
     public String apkName;
@@ -63,14 +58,6 @@ public class PagequeryIotlinkAppmanagerRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public PagequeryIotlinkAppmanagerRequest setProjectSpace(String projectSpace) {
-        this.projectSpace = projectSpace;
-        return this;
-    }
-    public String getProjectSpace() {
-        return this.projectSpace;
     }
 
     public PagequeryIotlinkAppmanagerRequest setApkName(String apkName) {

@@ -56,11 +56,6 @@ public class CreateIotlinkAppmanagerRequest extends TeaModel {
     @Validation(required = true)
     public String apkVersion;
 
-    // 项目编码
-    @NameInMap("project_code")
-    @Validation(required = true)
-    public String projectCode;
-
     // 文件地址
     @NameInMap("file_url")
     public String fileUrl;
@@ -156,14 +151,6 @@ public class CreateIotlinkAppmanagerRequest extends TeaModel {
     }
     public String getApkVersion() {
         return this.apkVersion;
-    }
-
-    public CreateIotlinkAppmanagerRequest setProjectCode(String projectCode) {
-        this.projectCode = projectCode;
-        return this;
-    }
-    public String getProjectCode() {
-        return this.projectCode;
     }
 
     public CreateIotlinkAppmanagerRequest setFileUrl(String fileUrl) {
