@@ -11361,6 +11361,9 @@ class QueryDubbridgeRouterFundrouterRequest(TeaModel):
         order_no: str = None,
         risk_data: str = None,
         ext_info: str = None,
+        mobile_type: str = None,
+        card_no_type: str = None,
+        custom_name_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -11393,6 +11396,18 @@ class QueryDubbridgeRouterFundrouterRequest(TeaModel):
         self.risk_data = risk_data
         # 扩展字段
         self.ext_info = ext_info
+        # 默认：0
+        # 0：明文
+        # 1：md5
+        self.mobile_type = mobile_type
+        # 默认：0
+        # 0：明文
+        # 1：md5
+        self.card_no_type = card_no_type
+        # 默认：0
+        # 0：明文
+        # 1：md5
+        self.custom_name_type = custom_name_type
 
     def validate(self):
         self.validate_required(self.card_no, 'card_no')
@@ -11437,6 +11452,12 @@ class QueryDubbridgeRouterFundrouterRequest(TeaModel):
             result['risk_data'] = self.risk_data
         if self.ext_info is not None:
             result['ext_info'] = self.ext_info
+        if self.mobile_type is not None:
+            result['mobile_type'] = self.mobile_type
+        if self.card_no_type is not None:
+            result['card_no_type'] = self.card_no_type
+        if self.custom_name_type is not None:
+            result['custom_name_type'] = self.custom_name_type
         return result
 
     def from_map(self, m: dict = None):
@@ -11473,6 +11494,12 @@ class QueryDubbridgeRouterFundrouterRequest(TeaModel):
             self.risk_data = m.get('risk_data')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
+        if m.get('mobile_type') is not None:
+            self.mobile_type = m.get('mobile_type')
+        if m.get('card_no_type') is not None:
+            self.card_no_type = m.get('card_no_type')
+        if m.get('custom_name_type') is not None:
+            self.custom_name_type = m.get('custom_name_type')
         return self
 
 
@@ -20396,6 +20423,197 @@ class QueryQmpTextsmsTemplateResponse(TeaModel):
             for k in m.get('sms_templates'):
                 temp_model = SmsTemplate()
                 self.sms_templates.append(temp_model.from_map(k))
+        return self
+
+
+class PushQmpBackflowEventRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        event_id: int = None,
+        event_records: List[BackflowEventRecord] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 回流事件id，对应租户回流事件id
+        self.event_id = event_id
+        # 回流事件记录列表
+        self.event_records = event_records
+
+    def validate(self):
+        self.validate_required(self.event_id, 'event_id')
+        self.validate_required(self.event_records, 'event_records')
+        if self.event_records:
+            for k in self.event_records:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.event_id is not None:
+            result['event_id'] = self.event_id
+        result['event_records'] = []
+        if self.event_records is not None:
+            for k in self.event_records:
+                result['event_records'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('event_id') is not None:
+            self.event_id = m.get('event_id')
+        self.event_records = []
+        if m.get('event_records') is not None:
+            for k in m.get('event_records'):
+                temp_model = BackflowEventRecord()
+                self.event_records.append(temp_model.from_map(k))
+        return self
+
+
+class PushQmpBackflowEventResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class PushQmpBackflowJsondataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        event_id: int = None,
+        event_records: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 回流事件id，对应租户回流事件id
+        self.event_id = event_id
+        # 回流事件记录列表
+        self.event_records = event_records
+
+    def validate(self):
+        self.validate_required(self.event_id, 'event_id')
+        self.validate_required(self.event_records, 'event_records')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.event_id is not None:
+            result['event_id'] = self.event_id
+        if self.event_records is not None:
+            result['event_records'] = self.event_records
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('event_id') is not None:
+            self.event_id = m.get('event_id')
+        if m.get('event_records') is not None:
+            self.event_records = m.get('event_records')
+        return self
+
+
+class PushQmpBackflowJsondataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

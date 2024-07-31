@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.24',
+                    'sdk_version': '1.19.28',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.24',
+                    'sdk_version': '1.19.28',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -5527,6 +5527,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryQmpTextsmsTemplateResponse(),
             await self.do_request_async('1.0', 'riskplus.qmp.textsms.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_qmp_backflow_event(
+        self,
+        request: riskplus_models.PushQmpBackflowEventRequest,
+    ) -> riskplus_models.PushQmpBackflowEventResponse:
+        """
+        Description: 蚁盾业务回流事件推送
+        Summary: 蚁盾回流事件推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_qmp_backflow_event_ex(request, headers, runtime)
+
+    async def push_qmp_backflow_event_async(
+        self,
+        request: riskplus_models.PushQmpBackflowEventRequest,
+    ) -> riskplus_models.PushQmpBackflowEventResponse:
+        """
+        Description: 蚁盾业务回流事件推送
+        Summary: 蚁盾回流事件推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_qmp_backflow_event_ex_async(request, headers, runtime)
+
+    def push_qmp_backflow_event_ex(
+        self,
+        request: riskplus_models.PushQmpBackflowEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushQmpBackflowEventResponse:
+        """
+        Description: 蚁盾业务回流事件推送
+        Summary: 蚁盾回流事件推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushQmpBackflowEventResponse(),
+            self.do_request('1.0', 'riskplus.qmp.backflow.event.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_qmp_backflow_event_ex_async(
+        self,
+        request: riskplus_models.PushQmpBackflowEventRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushQmpBackflowEventResponse:
+        """
+        Description: 蚁盾业务回流事件推送
+        Summary: 蚁盾回流事件推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushQmpBackflowEventResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.backflow.event.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_qmp_backflow_jsondata(
+        self,
+        request: riskplus_models.PushQmpBackflowJsondataRequest,
+    ) -> riskplus_models.PushQmpBackflowJsondataResponse:
+        """
+        Description: 蚁盾数据回流推送，用于客户定制json数据
+        Summary: 蚁盾数据回流json格式推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_qmp_backflow_jsondata_ex(request, headers, runtime)
+
+    async def push_qmp_backflow_jsondata_async(
+        self,
+        request: riskplus_models.PushQmpBackflowJsondataRequest,
+    ) -> riskplus_models.PushQmpBackflowJsondataResponse:
+        """
+        Description: 蚁盾数据回流推送，用于客户定制json数据
+        Summary: 蚁盾数据回流json格式推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_qmp_backflow_jsondata_ex_async(request, headers, runtime)
+
+    def push_qmp_backflow_jsondata_ex(
+        self,
+        request: riskplus_models.PushQmpBackflowJsondataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushQmpBackflowJsondataResponse:
+        """
+        Description: 蚁盾数据回流推送，用于客户定制json数据
+        Summary: 蚁盾数据回流json格式推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushQmpBackflowJsondataResponse(),
+            self.do_request('1.0', 'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_qmp_backflow_jsondata_ex_async(
+        self,
+        request: riskplus_models.PushQmpBackflowJsondataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushQmpBackflowJsondataResponse:
+        """
+        Description: 蚁盾数据回流推送，用于客户定制json数据
+        Summary: 蚁盾数据回流json格式推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushQmpBackflowJsondataResponse(),
+            await self.do_request_async('1.0', 'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_rbb_generic_invoke(
