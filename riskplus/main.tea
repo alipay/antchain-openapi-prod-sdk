@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.24',
+    sdk_version = '1.19.28',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -3342,6 +3342,18 @@ model QueryDubbridgeRouterFundrouterRequest = {
   riskData?: string(name='risk_data'),
   // 扩展字段
   extInfo?: string(name='ext_info'),
+  // 默认：0
+  // 0：明文
+  // 1：md5
+  mobileType?: string(name='mobile_type'),
+  // 默认：0
+  // 0：明文
+  // 1：md5
+  cardNoType?: string(name='card_no_type'),
+  // 默认：0
+  // 0：明文
+  // 1：md5
+  customNameType?: string(name='custom_name_type'),
 }
 
 model QueryDubbridgeRouterFundrouterResponse = {
@@ -6633,6 +6645,82 @@ async function queryQmpTextsmsTemplate(request: QueryQmpTextsmsTemplateRequest):
 async function queryQmpTextsmsTemplateEx(request: QueryQmpTextsmsTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryQmpTextsmsTemplateResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.qmp.textsms.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushQmpBackflowEventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回流事件id，对应租户回流事件id
+  eventId: long(name='event_id'),
+  // 回流事件记录列表
+  eventRecords: [ BackflowEventRecord ](name='event_records'),
+}
+
+model PushQmpBackflowEventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾回流事件推送
+ */
+async function pushQmpBackflowEvent(request: PushQmpBackflowEventRequest): PushQmpBackflowEventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushQmpBackflowEventEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾回流事件推送
+ */
+async function pushQmpBackflowEventEx(request: PushQmpBackflowEventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushQmpBackflowEventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.backflow.event.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushQmpBackflowJsondataRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回流事件id，对应租户回流事件id
+  eventId: long(name='event_id'),
+  // 回流事件记录列表
+  eventRecords: string(name='event_records'),
+}
+
+model PushQmpBackflowJsondataResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 蚁盾数据回流推送，用于客户定制json数据
+ * Summary: 蚁盾数据回流json格式推送
+ */
+async function pushQmpBackflowJsondata(request: PushQmpBackflowJsondataRequest): PushQmpBackflowJsondataResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushQmpBackflowJsondataEx(request, headers, runtime);
+}
+
+/**
+ * Description: 蚁盾数据回流推送，用于客户定制json数据
+ * Summary: 蚁盾数据回流json格式推送
+ */
+async function pushQmpBackflowJsondataEx(request: PushQmpBackflowJsondataRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushQmpBackflowJsondataResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryRbbGenericInvokeRequest = {
