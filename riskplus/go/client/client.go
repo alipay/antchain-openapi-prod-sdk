@@ -9147,6 +9147,18 @@ type QueryDubbridgeRouterFundrouterRequest struct {
 	RiskData *string `json:"risk_data,omitempty" xml:"risk_data,omitempty"`
 	// 扩展字段
 	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+	// 默认：0
+	// 0：明文
+	// 1：md5
+	MobileType *string `json:"mobile_type,omitempty" xml:"mobile_type,omitempty"`
+	// 默认：0
+	// 0：明文
+	// 1：md5
+	CardNoType *string `json:"card_no_type,omitempty" xml:"card_no_type,omitempty"`
+	// 默认：0
+	// 0：明文
+	// 1：md5
+	CustomNameType *string `json:"custom_name_type,omitempty" xml:"custom_name_type,omitempty"`
 }
 
 func (s QueryDubbridgeRouterFundrouterRequest) String() string {
@@ -9234,6 +9246,21 @@ func (s *QueryDubbridgeRouterFundrouterRequest) SetRiskData(v string) *QueryDubb
 
 func (s *QueryDubbridgeRouterFundrouterRequest) SetExtInfo(v string) *QueryDubbridgeRouterFundrouterRequest {
 	s.ExtInfo = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetMobileType(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.MobileType = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetCardNoType(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.CardNoType = &v
+	return s
+}
+
+func (s *QueryDubbridgeRouterFundrouterRequest) SetCustomNameType(v string) *QueryDubbridgeRouterFundrouterRequest {
+	s.CustomNameType = &v
 	return s
 }
 
@@ -16499,6 +16526,146 @@ func (s *QueryQmpTextsmsTemplateResponse) SetExtInfo(v string) *QueryQmpTextsmsT
 
 func (s *QueryQmpTextsmsTemplateResponse) SetSmsTemplates(v []*SmsTemplate) *QueryQmpTextsmsTemplateResponse {
 	s.SmsTemplates = v
+	return s
+}
+
+type PushQmpBackflowEventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回流事件id，对应租户回流事件id
+	EventId *int64 `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 回流事件记录列表
+	EventRecords []*BackflowEventRecord `json:"event_records,omitempty" xml:"event_records,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s PushQmpBackflowEventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushQmpBackflowEventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushQmpBackflowEventRequest) SetAuthToken(v string) *PushQmpBackflowEventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushQmpBackflowEventRequest) SetProductInstanceId(v string) *PushQmpBackflowEventRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushQmpBackflowEventRequest) SetEventId(v int64) *PushQmpBackflowEventRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *PushQmpBackflowEventRequest) SetEventRecords(v []*BackflowEventRecord) *PushQmpBackflowEventRequest {
+	s.EventRecords = v
+	return s
+}
+
+type PushQmpBackflowEventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushQmpBackflowEventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushQmpBackflowEventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushQmpBackflowEventResponse) SetReqMsgId(v string) *PushQmpBackflowEventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushQmpBackflowEventResponse) SetResultCode(v string) *PushQmpBackflowEventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushQmpBackflowEventResponse) SetResultMsg(v string) *PushQmpBackflowEventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushQmpBackflowJsondataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回流事件id，对应租户回流事件id
+	EventId *int64 `json:"event_id,omitempty" xml:"event_id,omitempty" require:"true"`
+	// 回流事件记录列表
+	EventRecords *string `json:"event_records,omitempty" xml:"event_records,omitempty" require:"true"`
+}
+
+func (s PushQmpBackflowJsondataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushQmpBackflowJsondataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushQmpBackflowJsondataRequest) SetAuthToken(v string) *PushQmpBackflowJsondataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushQmpBackflowJsondataRequest) SetProductInstanceId(v string) *PushQmpBackflowJsondataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushQmpBackflowJsondataRequest) SetEventId(v int64) *PushQmpBackflowJsondataRequest {
+	s.EventId = &v
+	return s
+}
+
+func (s *PushQmpBackflowJsondataRequest) SetEventRecords(v string) *PushQmpBackflowJsondataRequest {
+	s.EventRecords = &v
+	return s
+}
+
+type PushQmpBackflowJsondataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushQmpBackflowJsondataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushQmpBackflowJsondataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushQmpBackflowJsondataResponse) SetReqMsgId(v string) *PushQmpBackflowJsondataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushQmpBackflowJsondataResponse) SetResultCode(v string) *PushQmpBackflowJsondataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushQmpBackflowJsondataResponse) SetResultMsg(v string) *PushQmpBackflowJsondataResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -26686,7 +26853,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.24"),
+				"sdk_version":      tea.String("1.19.28"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -29952,6 +30119,74 @@ func (client *Client) QueryQmpTextsmsTemplateEx(request *QueryQmpTextsmsTemplate
 	}
 	_result = &QueryQmpTextsmsTemplateResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.textsms.template.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾回流事件推送
+ */
+func (client *Client) PushQmpBackflowEvent(request *PushQmpBackflowEventRequest) (_result *PushQmpBackflowEventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushQmpBackflowEventResponse{}
+	_body, _err := client.PushQmpBackflowEventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾业务回流事件推送
+ * Summary: 蚁盾回流事件推送
+ */
+func (client *Client) PushQmpBackflowEventEx(request *PushQmpBackflowEventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushQmpBackflowEventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushQmpBackflowEventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.backflow.event.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾数据回流推送，用于客户定制json数据
+ * Summary: 蚁盾数据回流json格式推送
+ */
+func (client *Client) PushQmpBackflowJsondata(request *PushQmpBackflowJsondataRequest) (_result *PushQmpBackflowJsondataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushQmpBackflowJsondataResponse{}
+	_body, _err := client.PushQmpBackflowJsondataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 蚁盾数据回流推送，用于客户定制json数据
+ * Summary: 蚁盾数据回流json格式推送
+ */
+func (client *Client) PushQmpBackflowJsondataEx(request *PushQmpBackflowJsondataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushQmpBackflowJsondataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushQmpBackflowJsondataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.qmp.backflow.jsondata.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
