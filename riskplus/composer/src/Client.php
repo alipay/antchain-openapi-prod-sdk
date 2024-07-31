@@ -143,6 +143,10 @@ use AntChain\RISKPLUS\Models\OperateRbbCreditRequest;
 use AntChain\RISKPLUS\Models\OperateRbbCreditResponse;
 use AntChain\RISKPLUS\Models\PullRegtechNewsRequest;
 use AntChain\RISKPLUS\Models\PullRegtechNewsResponse;
+use AntChain\RISKPLUS\Models\PushQmpBackflowEventRequest;
+use AntChain\RISKPLUS\Models\PushQmpBackflowEventResponse;
+use AntChain\RISKPLUS\Models\PushQmpBackflowJsondataRequest;
+use AntChain\RISKPLUS\Models\PushQmpBackflowJsondataResponse;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoRequest;
 use AntChain\RISKPLUS\Models\PushRbbCustomerCompanyinfoResponse;
 use AntChain\RISKPLUS\Models\PushRbbCustomerInformationRequest;
@@ -536,7 +540,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.24',
+                    'sdk_version'      => '1.19.28',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3672,6 +3676,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryQmpTextsmsTemplateResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.textsms.template.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚁盾业务回流事件推送
+     * Summary: 蚁盾回流事件推送
+     *
+     * @param PushQmpBackflowEventRequest $request
+     *
+     * @return PushQmpBackflowEventResponse
+     */
+    public function pushQmpBackflowEvent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushQmpBackflowEventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚁盾业务回流事件推送
+     * Summary: 蚁盾回流事件推送
+     *
+     * @param PushQmpBackflowEventRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PushQmpBackflowEventResponse
+     */
+    public function pushQmpBackflowEventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushQmpBackflowEventResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.backflow.event.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 蚁盾数据回流推送，用于客户定制json数据
+     * Summary: 蚁盾数据回流json格式推送
+     *
+     * @param PushQmpBackflowJsondataRequest $request
+     *
+     * @return PushQmpBackflowJsondataResponse
+     */
+    public function pushQmpBackflowJsondata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushQmpBackflowJsondataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 蚁盾数据回流推送，用于客户定制json数据
+     * Summary: 蚁盾数据回流json格式推送
+     *
+     * @param PushQmpBackflowJsondataRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return PushQmpBackflowJsondataResponse
+     */
+    public function pushQmpBackflowJsondataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushQmpBackflowJsondataResponse::fromMap($this->doRequest('1.0', 'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

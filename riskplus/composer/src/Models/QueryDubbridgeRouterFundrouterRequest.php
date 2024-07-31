@@ -102,6 +102,30 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
      * @var string
      */
     public $extInfo;
+
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    /**
+     * @var string
+     */
+    public $mobileType;
+
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    /**
+     * @var string
+     */
+    public $cardNoType;
+
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    /**
+     * @var string
+     */
+    public $customNameType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -119,6 +143,9 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         'orderNo'           => 'order_no',
         'riskData'          => 'risk_data',
         'extInfo'           => 'ext_info',
+        'mobileType'        => 'mobile_type',
+        'cardNoType'        => 'card_no_type',
+        'customNameType'    => 'custom_name_type',
     ];
 
     public function validate()
@@ -179,6 +206,15 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         if (null !== $this->extInfo) {
             $res['ext_info'] = $this->extInfo;
         }
+        if (null !== $this->mobileType) {
+            $res['mobile_type'] = $this->mobileType;
+        }
+        if (null !== $this->cardNoType) {
+            $res['card_no_type'] = $this->cardNoType;
+        }
+        if (null !== $this->customNameType) {
+            $res['custom_name_type'] = $this->customNameType;
+        }
 
         return $res;
     }
@@ -238,6 +274,15 @@ class QueryDubbridgeRouterFundrouterRequest extends Model
         }
         if (isset($map['ext_info'])) {
             $model->extInfo = $map['ext_info'];
+        }
+        if (isset($map['mobile_type'])) {
+            $model->mobileType = $map['mobile_type'];
+        }
+        if (isset($map['card_no_type'])) {
+            $model->cardNoType = $map['card_no_type'];
+        }
+        if (isset($map['custom_name_type'])) {
+            $model->customNameType = $map['custom_name_type'];
         }
 
         return $model;
