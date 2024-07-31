@@ -6815,6 +6815,18 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
   riskData?: string;
   // 扩展字段
   extInfo?: string;
+  // 默认：0
+  // 0：明文
+  // 1：md5
+  mobileType?: string;
+  // 默认：0
+  // 0：明文
+  // 1：md5
+  cardNoType?: string;
+  // 默认：0
+  // 0：明文
+  // 1：md5
+  customNameType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6833,6 +6845,9 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
       orderNo: 'order_no',
       riskData: 'risk_data',
       extInfo: 'ext_info',
+      mobileType: 'mobile_type',
+      cardNoType: 'card_no_type',
+      customNameType: 'custom_name_type',
     };
   }
 
@@ -6854,6 +6869,9 @@ export class QueryDubbridgeRouterFundrouterRequest extends $tea.Model {
       orderNo: 'string',
       riskData: 'string',
       extInfo: 'string',
+      mobileType: 'string',
+      cardNoType: 'string',
+      customNameType: 'string',
     };
   }
 
@@ -12213,6 +12231,124 @@ export class QueryQmpTextsmsTemplateResponse extends $tea.Model {
       pageSize: 'number',
       extInfo: 'string',
       smsTemplates: { 'type': 'array', 'itemType': SmsTemplate },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushQmpBackflowEventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回流事件id，对应租户回流事件id
+  eventId: number;
+  // 回流事件记录列表
+  eventRecords: BackflowEventRecord[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventId: 'event_id',
+      eventRecords: 'event_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventId: 'number',
+      eventRecords: { 'type': 'array', 'itemType': BackflowEventRecord },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushQmpBackflowEventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushQmpBackflowJsondataRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回流事件id，对应租户回流事件id
+  eventId: number;
+  // 回流事件记录列表
+  eventRecords: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      eventId: 'event_id',
+      eventRecords: 'event_records',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      eventId: 'number',
+      eventRecords: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushQmpBackflowJsondataResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -19931,7 +20067,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.24",
+          sdk_version: "1.19.28",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -21788,6 +21924,44 @@ export default class Client {
   async queryQmpTextsmsTemplateEx(request: QueryQmpTextsmsTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryQmpTextsmsTemplateResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryQmpTextsmsTemplateResponse>(await this.doRequest("1.0", "riskplus.qmp.textsms.template.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryQmpTextsmsTemplateResponse({}));
+  }
+
+  /**
+   * Description: 蚁盾业务回流事件推送
+   * Summary: 蚁盾回流事件推送
+   */
+  async pushQmpBackflowEvent(request: PushQmpBackflowEventRequest): Promise<PushQmpBackflowEventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushQmpBackflowEventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 蚁盾业务回流事件推送
+   * Summary: 蚁盾回流事件推送
+   */
+  async pushQmpBackflowEventEx(request: PushQmpBackflowEventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushQmpBackflowEventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushQmpBackflowEventResponse>(await this.doRequest("1.0", "riskplus.qmp.backflow.event.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushQmpBackflowEventResponse({}));
+  }
+
+  /**
+   * Description: 蚁盾数据回流推送，用于客户定制json数据
+   * Summary: 蚁盾数据回流json格式推送
+   */
+  async pushQmpBackflowJsondata(request: PushQmpBackflowJsondataRequest): Promise<PushQmpBackflowJsondataResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushQmpBackflowJsondataEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 蚁盾数据回流推送，用于客户定制json数据
+   * Summary: 蚁盾数据回流json格式推送
+   */
+  async pushQmpBackflowJsondataEx(request: PushQmpBackflowJsondataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushQmpBackflowJsondataResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushQmpBackflowJsondataResponse>(await this.doRequest("1.0", "riskplus.qmp.backflow.jsondata.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushQmpBackflowJsondataResponse({}));
   }
 
   /**
