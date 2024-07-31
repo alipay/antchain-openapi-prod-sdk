@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.24"},
+                        {"sdk_version", "1.19.28"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.24"},
+                        {"sdk_version", "1.19.28"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4321,6 +4321,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryQmpTextsmsTemplateResponse>(await DoRequestAsync("1.0", "riskplus.qmp.textsms.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾业务回流事件推送
+         * Summary: 蚁盾回流事件推送
+         */
+        public PushQmpBackflowEventResponse PushQmpBackflowEvent(PushQmpBackflowEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushQmpBackflowEventEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾业务回流事件推送
+         * Summary: 蚁盾回流事件推送
+         */
+        public async Task<PushQmpBackflowEventResponse> PushQmpBackflowEventAsync(PushQmpBackflowEventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushQmpBackflowEventExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾业务回流事件推送
+         * Summary: 蚁盾回流事件推送
+         */
+        public PushQmpBackflowEventResponse PushQmpBackflowEventEx(PushQmpBackflowEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushQmpBackflowEventResponse>(DoRequest("1.0", "riskplus.qmp.backflow.event.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾业务回流事件推送
+         * Summary: 蚁盾回流事件推送
+         */
+        public async Task<PushQmpBackflowEventResponse> PushQmpBackflowEventExAsync(PushQmpBackflowEventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushQmpBackflowEventResponse>(await DoRequestAsync("1.0", "riskplus.qmp.backflow.event.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾数据回流推送，用于客户定制json数据
+         * Summary: 蚁盾数据回流json格式推送
+         */
+        public PushQmpBackflowJsondataResponse PushQmpBackflowJsondata(PushQmpBackflowJsondataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushQmpBackflowJsondataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾数据回流推送，用于客户定制json数据
+         * Summary: 蚁盾数据回流json格式推送
+         */
+        public async Task<PushQmpBackflowJsondataResponse> PushQmpBackflowJsondataAsync(PushQmpBackflowJsondataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushQmpBackflowJsondataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 蚁盾数据回流推送，用于客户定制json数据
+         * Summary: 蚁盾数据回流json格式推送
+         */
+        public PushQmpBackflowJsondataResponse PushQmpBackflowJsondataEx(PushQmpBackflowJsondataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushQmpBackflowJsondataResponse>(DoRequest("1.0", "riskplus.qmp.backflow.jsondata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 蚁盾数据回流推送，用于客户定制json数据
+         * Summary: 蚁盾数据回流json格式推送
+         */
+        public async Task<PushQmpBackflowJsondataResponse> PushQmpBackflowJsondataExAsync(PushQmpBackflowJsondataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushQmpBackflowJsondataResponse>(await DoRequestAsync("1.0", "riskplus.qmp.backflow.jsondata.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

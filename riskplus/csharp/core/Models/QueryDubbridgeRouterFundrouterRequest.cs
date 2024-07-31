@@ -88,6 +88,27 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ExtInfo { get; set; }
 
+        // 默认：0
+        // 0：明文
+        // 1：md5
+        [NameInMap("mobile_type")]
+        [Validation(Required=false)]
+        public string MobileType { get; set; }
+
+        // 默认：0
+        // 0：明文
+        // 1：md5
+        [NameInMap("card_no_type")]
+        [Validation(Required=false)]
+        public string CardNoType { get; set; }
+
+        // 默认：0
+        // 0：明文
+        // 1：md5
+        [NameInMap("custom_name_type")]
+        [Validation(Required=false)]
+        public string CustomNameType { get; set; }
+
     }
 
 }
