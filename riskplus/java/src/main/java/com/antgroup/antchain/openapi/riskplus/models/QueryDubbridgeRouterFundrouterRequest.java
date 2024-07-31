@@ -70,6 +70,24 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     @NameInMap("ext_info")
     public String extInfo;
 
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    @NameInMap("mobile_type")
+    public String mobileType;
+
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    @NameInMap("card_no_type")
+    public String cardNoType;
+
+    // 默认：0
+    // 0：明文
+    // 1：md5
+    @NameInMap("custom_name_type")
+    public String customNameType;
+
     public static QueryDubbridgeRouterFundrouterRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRouterFundrouterRequest self = new QueryDubbridgeRouterFundrouterRequest();
         return TeaModel.build(map, self);
@@ -201,6 +219,30 @@ public class QueryDubbridgeRouterFundrouterRequest extends TeaModel {
     }
     public String getExtInfo() {
         return this.extInfo;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setMobileType(String mobileType) {
+        this.mobileType = mobileType;
+        return this;
+    }
+    public String getMobileType() {
+        return this.mobileType;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setCardNoType(String cardNoType) {
+        this.cardNoType = cardNoType;
+        return this;
+    }
+    public String getCardNoType() {
+        return this.cardNoType;
+    }
+
+    public QueryDubbridgeRouterFundrouterRequest setCustomNameType(String customNameType) {
+        this.customNameType = customNameType;
+        return this;
+    }
+    public String getCustomNameType() {
+        return this.customNameType;
     }
 
 }

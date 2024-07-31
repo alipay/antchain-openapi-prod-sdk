@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.24"),
+                    new TeaPair("sdk_version", "1.19.28"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1993,6 +1993,44 @@ public class Client {
     public QueryQmpTextsmsTemplateResponse queryQmpTextsmsTemplateEx(QueryQmpTextsmsTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.textsms.template.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryQmpTextsmsTemplateResponse());
+    }
+
+    /**
+     * Description: 蚁盾业务回流事件推送
+     * Summary: 蚁盾回流事件推送
+     */
+    public PushQmpBackflowEventResponse pushQmpBackflowEvent(PushQmpBackflowEventRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushQmpBackflowEventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 蚁盾业务回流事件推送
+     * Summary: 蚁盾回流事件推送
+     */
+    public PushQmpBackflowEventResponse pushQmpBackflowEventEx(PushQmpBackflowEventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.backflow.event.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushQmpBackflowEventResponse());
+    }
+
+    /**
+     * Description: 蚁盾数据回流推送，用于客户定制json数据
+     * Summary: 蚁盾数据回流json格式推送
+     */
+    public PushQmpBackflowJsondataResponse pushQmpBackflowJsondata(PushQmpBackflowJsondataRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushQmpBackflowJsondataEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 蚁盾数据回流推送，用于客户定制json数据
+     * Summary: 蚁盾数据回流json格式推送
+     */
+    public PushQmpBackflowJsondataResponse pushQmpBackflowJsondataEx(PushQmpBackflowJsondataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.qmp.backflow.jsondata.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushQmpBackflowJsondataResponse());
     }
 
     /**
