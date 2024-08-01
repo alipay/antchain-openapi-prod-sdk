@@ -40,6 +40,10 @@ public class CompanyInfoUpdate extends TeaModel {
     @NameInMap("contact_mobile")
     public String contactMobile;
 
+    // 商户类型： 01：企业；07：个体工商户 默认不填为01
+    @NameInMap("merchant_type")
+    public String merchantType;
+
     public static CompanyInfoUpdate build(java.util.Map<String, ?> map) throws Exception {
         CompanyInfoUpdate self = new CompanyInfoUpdate();
         return TeaModel.build(map, self);
@@ -115,6 +119,14 @@ public class CompanyInfoUpdate extends TeaModel {
     }
     public String getContactMobile() {
         return this.contactMobile;
+    }
+
+    public CompanyInfoUpdate setMerchantType(String merchantType) {
+        this.merchantType = merchantType;
+        return this;
+    }
+    public String getMerchantType() {
+        return this.merchantType;
     }
 
 }
