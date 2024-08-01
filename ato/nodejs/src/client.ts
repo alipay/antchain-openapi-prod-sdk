@@ -363,6 +363,8 @@ export class CompanyInfoUpdate extends $tea.Model {
   contactName?: string;
   // 联系人手机号码
   contactMobile?: string;
+  // 商户类型： 01：企业；07：个体工商户 默认不填为01
+  merchantType?: string;
   static names(): { [key: string]: string } {
     return {
       businessLicenseFile: 'business_license_file',
@@ -374,6 +376,7 @@ export class CompanyInfoUpdate extends $tea.Model {
       companyAddress: 'company_address',
       contactName: 'contact_name',
       contactMobile: 'contact_mobile',
+      merchantType: 'merchant_type',
     };
   }
 
@@ -388,6 +391,7 @@ export class CompanyInfoUpdate extends $tea.Model {
       companyAddress: 'string',
       contactName: 'string',
       contactMobile: 'string',
+      merchantType: 'string',
     };
   }
 
@@ -7466,6 +7470,69 @@ export class SyncTradeIndirectorderResponse extends $tea.Model {
   }
 }
 
+export class UpdateTradeUserpromisebatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // json字符串
+  bizContent: string;
+  // order_id
+  orderId: string;
+  // 订单所属商户社会信用代码
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateTradeUserpromisebatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateWithholdSignRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -8548,7 +8615,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.96",
+          sdk_version: "1.8.98",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -10310,6 +10377,25 @@ export default class Client {
   async syncTradeIndirectorderEx(request: SyncTradeIndirectorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncTradeIndirectorderResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncTradeIndirectorderResponse>(await this.doRequest("1.0", "antchain.ato.trade.indirectorder.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncTradeIndirectorderResponse({}));
+  }
+
+  /**
+   * Description: 用户履约承诺替换更新
+   * Summary: 用户履约承诺替换更新
+   */
+  async updateTradeUserpromisebatch(request: UpdateTradeUserpromisebatchRequest): Promise<UpdateTradeUserpromisebatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateTradeUserpromisebatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户履约承诺替换更新
+   * Summary: 用户履约承诺替换更新
+   */
+  async updateTradeUserpromisebatchEx(request: UpdateTradeUserpromisebatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateTradeUserpromisebatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateTradeUserpromisebatchResponse>(await this.doRequest("1.0", "antchain.ato.trade.userpromisebatch.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateTradeUserpromisebatchResponse({}));
   }
 
   /**
