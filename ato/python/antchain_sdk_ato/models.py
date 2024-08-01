@@ -584,6 +584,7 @@ class CompanyInfoUpdate(TeaModel):
         company_address: str = None,
         contact_name: str = None,
         contact_mobile: str = None,
+        merchant_type: str = None,
     ):
         # 营业执照文件信息
         self.business_license_file = business_license_file
@@ -603,6 +604,8 @@ class CompanyInfoUpdate(TeaModel):
         self.contact_name = contact_name
         # 联系人手机号码
         self.contact_mobile = contact_mobile
+        # 商户类型： 01：企业；07：个体工商户 默认不填为01
+        self.merchant_type = merchant_type
 
     def validate(self):
         if self.business_license_file:
@@ -632,6 +635,8 @@ class CompanyInfoUpdate(TeaModel):
             result['contact_name'] = self.contact_name
         if self.contact_mobile is not None:
             result['contact_mobile'] = self.contact_mobile
+        if self.merchant_type is not None:
+            result['merchant_type'] = self.merchant_type
         return result
 
     def from_map(self, m: dict = None):
@@ -655,6 +660,8 @@ class CompanyInfoUpdate(TeaModel):
             self.contact_name = m.get('contact_name')
         if m.get('contact_mobile') is not None:
             self.contact_mobile = m.get('contact_mobile')
+        if m.get('merchant_type') is not None:
+            self.merchant_type = m.get('merchant_type')
         return self
 
 
@@ -12243,6 +12250,109 @@ class SyncTradeIndirectorderResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('response_data') is not None:
             self.response_data = m.get('response_data')
+        return self
+
+
+class UpdateTradeUserpromisebatchRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_content: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # json字符串
+        self.biz_content = biz_content
+        # order_id
+        self.order_id = order_id
+        # 订单所属商户社会信用代码
+        self.merchant_id = merchant_id
+
+    def validate(self):
+        self.validate_required(self.biz_content, 'biz_content')
+        self.validate_required(self.order_id, 'order_id')
+        if self.order_id is not None:
+            self.validate_max_length(self.order_id, 'order_id', 50)
+        self.validate_required(self.merchant_id, 'merchant_id')
+        if self.merchant_id is not None:
+            self.validate_max_length(self.merchant_id, 'merchant_id', 200)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        return self
+
+
+class UpdateTradeUserpromisebatchResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
