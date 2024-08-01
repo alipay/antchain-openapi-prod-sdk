@@ -490,6 +490,8 @@ type CompanyInfoUpdate struct {
 	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
 	// 联系人手机号码
 	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
+	// 商户类型： 01：企业；07：个体工商户 默认不填为01
+	MerchantType *string `json:"merchant_type,omitempty" xml:"merchant_type,omitempty"`
 }
 
 func (s CompanyInfoUpdate) String() string {
@@ -542,6 +544,11 @@ func (s *CompanyInfoUpdate) SetContactName(v string) *CompanyInfoUpdate {
 
 func (s *CompanyInfoUpdate) SetContactMobile(v string) *CompanyInfoUpdate {
 	s.ContactMobile = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetMerchantType(v string) *CompanyInfoUpdate {
+	s.MerchantType = &v
 	return s
 }
 
@@ -9690,6 +9697,83 @@ func (s *SyncTradeIndirectorderResponse) SetResponseData(v string) *SyncTradeInd
 	return s
 }
 
+type UpdateTradeUserpromisebatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// json字符串
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+	// order_id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"6"`
+	// 订单所属商户社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"200" minLength:"0"`
+}
+
+func (s UpdateTradeUserpromisebatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateTradeUserpromisebatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateTradeUserpromisebatchRequest) SetAuthToken(v string) *UpdateTradeUserpromisebatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateTradeUserpromisebatchRequest) SetProductInstanceId(v string) *UpdateTradeUserpromisebatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateTradeUserpromisebatchRequest) SetBizContent(v string) *UpdateTradeUserpromisebatchRequest {
+	s.BizContent = &v
+	return s
+}
+
+func (s *UpdateTradeUserpromisebatchRequest) SetOrderId(v string) *UpdateTradeUserpromisebatchRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *UpdateTradeUserpromisebatchRequest) SetMerchantId(v string) *UpdateTradeUserpromisebatchRequest {
+	s.MerchantId = &v
+	return s
+}
+
+type UpdateTradeUserpromisebatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateTradeUserpromisebatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateTradeUserpromisebatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateTradeUserpromisebatchResponse) SetReqMsgId(v string) *UpdateTradeUserpromisebatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateTradeUserpromisebatchResponse) SetResultCode(v string) *UpdateTradeUserpromisebatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateTradeUserpromisebatchResponse) SetResultMsg(v string) *UpdateTradeUserpromisebatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateWithholdSignRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -11056,7 +11140,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.96"),
+				"sdk_version":      tea.String("1.8.98"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -14152,6 +14236,40 @@ func (client *Client) SyncTradeIndirectorderEx(request *SyncTradeIndirectorderRe
 	}
 	_result = &SyncTradeIndirectorderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.indirectorder.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用户履约承诺替换更新
+ * Summary: 用户履约承诺替换更新
+ */
+func (client *Client) UpdateTradeUserpromisebatch(request *UpdateTradeUserpromisebatchRequest) (_result *UpdateTradeUserpromisebatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateTradeUserpromisebatchResponse{}
+	_body, _err := client.UpdateTradeUserpromisebatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用户履约承诺替换更新
+ * Summary: 用户履约承诺替换更新
+ */
+func (client *Client) UpdateTradeUserpromisebatchEx(request *UpdateTradeUserpromisebatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateTradeUserpromisebatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateTradeUserpromisebatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.userpromisebatch.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
