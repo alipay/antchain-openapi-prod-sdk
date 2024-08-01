@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.96"},
+                        {"sdk_version", "1.8.98"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.8.96"},
+                        {"sdk_version", "1.8.98"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4111,6 +4111,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncTradeIndirectorderResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.indirectorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户履约承诺替换更新
+         * Summary: 用户履约承诺替换更新
+         */
+        public UpdateTradeUserpromisebatchResponse UpdateTradeUserpromisebatch(UpdateTradeUserpromisebatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateTradeUserpromisebatchEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户履约承诺替换更新
+         * Summary: 用户履约承诺替换更新
+         */
+        public async Task<UpdateTradeUserpromisebatchResponse> UpdateTradeUserpromisebatchAsync(UpdateTradeUserpromisebatchRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateTradeUserpromisebatchExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户履约承诺替换更新
+         * Summary: 用户履约承诺替换更新
+         */
+        public UpdateTradeUserpromisebatchResponse UpdateTradeUserpromisebatchEx(UpdateTradeUserpromisebatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateTradeUserpromisebatchResponse>(DoRequest("1.0", "antchain.ato.trade.userpromisebatch.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户履约承诺替换更新
+         * Summary: 用户履约承诺替换更新
+         */
+        public async Task<UpdateTradeUserpromisebatchResponse> UpdateTradeUserpromisebatchExAsync(UpdateTradeUserpromisebatchRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateTradeUserpromisebatchResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.userpromisebatch.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

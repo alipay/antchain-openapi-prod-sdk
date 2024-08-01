@@ -55,6 +55,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ContactMobile { get; set; }
 
+        // 商户类型： 01：企业；07：个体工商户 默认不填为01
+        [NameInMap("merchant_type")]
+        [Validation(Required=false)]
+        public string MerchantType { get; set; }
+
     }
 
 }
