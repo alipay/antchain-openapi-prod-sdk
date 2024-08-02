@@ -11,8 +11,16 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SDS\Models\BatchqueryScenedataTaskresultRequest;
+use AntChain\SDS\Models\BatchqueryScenedataTaskresultResponse;
+use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\SDS\Models\JudgeCrowdPrefermentRequest;
 use AntChain\SDS\Models\JudgeCrowdPrefermentResponse;
+use AntChain\SDS\Models\SubmitScenedataTaskRequest;
+use AntChain\SDS\Models\SubmitScenedataTaskResponse;
+use AntChain\SDS\Models\UploadScenedataFileRequest;
+use AntChain\SDS\Models\UploadScenedataFileResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,6 +140,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 批处理结果
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.8',
+                    'sdk_version'      => '1.2.8',
                     '_prod_code'       => 'SDS',
                     '_prod_channel'    => 'default',
                 ];
@@ -238,5 +247,155 @@ class Client
         Utils::validateModel($request);
 
         return JudgeCrowdPrefermentResponse::fromMap($this->doRequest('1.0', 'antchain.sds.crowd.preferment.judge', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+     * Summary: 场景数据批处理任务提交.
+     *
+     * @param SubmitScenedataTaskRequest $request
+     *
+     * @return SubmitScenedataTaskResponse
+     */
+    public function submitScenedataTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitScenedataTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+     * Summary: 场景数据批处理任务提交.
+     *
+     * @param SubmitScenedataTaskRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return SubmitScenedataTaskResponse
+     */
+    public function submitScenedataTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitScenedataTaskResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.task.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批次数据文件上传
+     * Summary: 批次数据文件上传.
+     *
+     * @param UploadScenedataFileRequest $request
+     *
+     * @return UploadScenedataFileResponse
+     */
+    public function uploadScenedataFile($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadScenedataFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批次数据文件上传
+     * Summary: 批次数据文件上传.
+     *
+     * @param UploadScenedataFileRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadScenedataFileResponse
+     */
+    public function uploadScenedataFileEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'antchain.sds.scenedata.file.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadScenedataFileResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+        }
+        Utils::validateModel($request);
+
+        return UploadScenedataFileResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+     * Summary: 场景数据任务结果批量查询.
+     *
+     * @param BatchqueryScenedataTaskresultRequest $request
+     *
+     * @return BatchqueryScenedataTaskresultResponse
+     */
+    public function batchqueryScenedataTaskresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryScenedataTaskresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+     * Summary: 场景数据任务结果批量查询.
+     *
+     * @param BatchqueryScenedataTaskresultRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchqueryScenedataTaskresultResponse
+     */
+    public function batchqueryScenedataTaskresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryScenedataTaskresultResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createAntcloudGatewayxFileUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建HTTP PUT提交的文件上传
+     * Summary: 文件上传创建.
+     *
+     * @param CreateAntcloudGatewayxFileUploadRequest $request
+     * @param string[]                                $headers
+     * @param RuntimeOptions                          $runtime
+     *
+     * @return CreateAntcloudGatewayxFileUploadResponse
+     */
+    public function createAntcloudGatewayxFileUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateAntcloudGatewayxFileUploadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

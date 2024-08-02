@@ -19,7 +19,7 @@ class JudgeCrowdPrefermentRequest extends Model
      */
     public $productInstanceId;
 
-    // 业务号：可以标识用户的编码，例如手机号，身份证号等，通过业务号类型来控制，与biz_no_type和encrypt_type连用来确定编码形式。
+    // 业务号：可以标识用户的编码，例如手机号，身份证号等，通过业务号类型来控制，与biz_no_type和encrypt_type共同确定编码形式。
     /**
      * @var string
      */
@@ -37,7 +37,7 @@ class JudgeCrowdPrefermentRequest extends Model
      */
     public $encryptType;
 
-    // 拓展属性：自定义结构，里面可传地址等信息
+    // json结构，可以传递自定义参数
     /**
      * @var string
      */
@@ -56,6 +56,7 @@ class JudgeCrowdPrefermentRequest extends Model
         Model::validateRequired('bizNo', $this->bizNo, true);
         Model::validateRequired('bizNoType', $this->bizNoType, true);
         Model::validateRequired('encryptType', $this->encryptType, true);
+        Model::validateMaxLength('properties', $this->properties, 512);
     }
 
     public function toMap()
