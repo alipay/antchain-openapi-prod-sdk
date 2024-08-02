@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 批处理结果
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.8',
+                    'sdk_version': '1.2.8',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 批处理结果
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.8',
+                    'sdk_version': '1.2.8',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -327,4 +329,262 @@ class Client:
         return TeaCore.from_map(
             sds_models.JudgeCrowdPrefermentResponse(),
             await self.do_request_async('1.0', 'antchain.sds.crowd.preferment.judge', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_scenedata_task(
+        self,
+        request: sds_models.SubmitScenedataTaskRequest,
+    ) -> sds_models.SubmitScenedataTaskResponse:
+        """
+        Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+        Summary: 场景数据批处理任务提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_scenedata_task_ex(request, headers, runtime)
+
+    async def submit_scenedata_task_async(
+        self,
+        request: sds_models.SubmitScenedataTaskRequest,
+    ) -> sds_models.SubmitScenedataTaskResponse:
+        """
+        Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+        Summary: 场景数据批处理任务提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_scenedata_task_ex_async(request, headers, runtime)
+
+    def submit_scenedata_task_ex(
+        self,
+        request: sds_models.SubmitScenedataTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.SubmitScenedataTaskResponse:
+        """
+        Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+        Summary: 场景数据批处理任务提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.SubmitScenedataTaskResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.task.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_scenedata_task_ex_async(
+        self,
+        request: sds_models.SubmitScenedataTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.SubmitScenedataTaskResponse:
+        """
+        Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+        Summary: 场景数据批处理任务提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.SubmitScenedataTaskResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.task.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_scenedata_file(
+        self,
+        request: sds_models.UploadScenedataFileRequest,
+    ) -> sds_models.UploadScenedataFileResponse:
+        """
+        Description: 批次数据文件上传
+        Summary: 批次数据文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_scenedata_file_ex(request, headers, runtime)
+
+    async def upload_scenedata_file_async(
+        self,
+        request: sds_models.UploadScenedataFileRequest,
+    ) -> sds_models.UploadScenedataFileResponse:
+        """
+        Description: 批次数据文件上传
+        Summary: 批次数据文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_scenedata_file_ex_async(request, headers, runtime)
+
+    def upload_scenedata_file_ex(
+        self,
+        request: sds_models.UploadScenedataFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.UploadScenedataFileResponse:
+        """
+        Description: 批次数据文件上传
+        Summary: 批次数据文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = sds_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.sds.scenedata.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_scenedata_file_response = sds_models.UploadScenedataFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_scenedata_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.UploadScenedataFileResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_scenedata_file_ex_async(
+        self,
+        request: sds_models.UploadScenedataFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.UploadScenedataFileResponse:
+        """
+        Description: 批次数据文件上传
+        Summary: 批次数据文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = sds_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antchain.sds.scenedata.file.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_scenedata_file_response = sds_models.UploadScenedataFileResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_scenedata_file_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.UploadScenedataFileResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def batchquery_scenedata_taskresult(
+        self,
+        request: sds_models.BatchqueryScenedataTaskresultRequest,
+    ) -> sds_models.BatchqueryScenedataTaskresultResponse:
+        """
+        Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+        Summary: 场景数据任务结果批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_scenedata_taskresult_ex(request, headers, runtime)
+
+    async def batchquery_scenedata_taskresult_async(
+        self,
+        request: sds_models.BatchqueryScenedataTaskresultRequest,
+    ) -> sds_models.BatchqueryScenedataTaskresultResponse:
+        """
+        Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+        Summary: 场景数据任务结果批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_scenedata_taskresult_ex_async(request, headers, runtime)
+
+    def batchquery_scenedata_taskresult_ex(
+        self,
+        request: sds_models.BatchqueryScenedataTaskresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.BatchqueryScenedataTaskresultResponse:
+        """
+        Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+        Summary: 场景数据任务结果批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.BatchqueryScenedataTaskresultResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_scenedata_taskresult_ex_async(
+        self,
+        request: sds_models.BatchqueryScenedataTaskresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.BatchqueryScenedataTaskresultResponse:
+        """
+        Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+        Summary: 场景数据任务结果批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.BatchqueryScenedataTaskresultResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_antcloud_gatewayx_file_upload(
+        self,
+        request: sds_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> sds_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_antcloud_gatewayx_file_upload_ex(request, headers, runtime)
+
+    async def create_antcloud_gatewayx_file_upload_async(
+        self,
+        request: sds_models.CreateAntcloudGatewayxFileUploadRequest,
+    ) -> sds_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_antcloud_gatewayx_file_upload_ex_async(request, headers, runtime)
+
+    def create_antcloud_gatewayx_file_upload_ex(
+        self,
+        request: sds_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.CreateAntcloudGatewayxFileUploadResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_antcloud_gatewayx_file_upload_ex_async(
+        self,
+        request: sds_models.CreateAntcloudGatewayxFileUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.CreateAntcloudGatewayxFileUploadResponse:
+        """
+        Description: 创建HTTP PUT提交的文件上传
+        Summary: 文件上传创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.CreateAntcloudGatewayxFileUploadResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
