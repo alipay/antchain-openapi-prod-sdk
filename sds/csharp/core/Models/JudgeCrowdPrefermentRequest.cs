@@ -18,7 +18,7 @@ namespace AntChain.SDK.SDS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 业务号：可以标识用户的编码，例如手机号，身份证号等，通过业务号类型来控制，与biz_no_type和encrypt_type连用来确定编码形式。
+        // 业务号：可以标识用户的编码，例如手机号，身份证号等，通过业务号类型来控制，与biz_no_type和encrypt_type共同确定编码形式。
         [NameInMap("biz_no")]
         [Validation(Required=true)]
         public string BizNo { get; set; }
@@ -33,9 +33,9 @@ namespace AntChain.SDK.SDS.Models
         [Validation(Required=true)]
         public string EncryptType { get; set; }
 
-        // 拓展属性：自定义结构，里面可传地址等信息
+        // json结构，可以传递自定义参数
         [NameInMap("properties")]
-        [Validation(Required=false)]
+        [Validation(Required=false, MaxLength=512)]
         public string Properties { get; set; }
 
     }
