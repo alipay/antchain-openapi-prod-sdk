@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.8',
+    sdk_version = '1.2.8',
     _prod_code = 'SDS',
     _prod_channel = 'default'
   };
@@ -161,18 +161,58 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
+// 批处理结果
+model BatchResult {
+  // 业务号
+  bizNo: string(maxLength=64, name='biz_no', example='业务号'),
+  // 业务号类型
+  bizNoType: string(maxLength=32, name='biz_no_type', example='PHONE_SHA1'),
+  // 结果
+  result: string(name='result', example='Y'),
+}
+
+// 地址，包含省、市、区(县)
+model Address {
+  // 市级
+  city: string(maxLength=6, minLength=6, name='city', example='110100'),
+  // 区、县级
+  district?: string(maxLength=6, minLength=6, name='district', example='110101'),
+}
+
+// 业务号条件
+model BizNoCondition {
+  // 枚举
+  // CITY 城市
+  // BLOCK 区县
+  // AGE 年龄
+  dimension: string(name='dimension', example='100010'),
+  // 枚举范围，每个维度的值是或的关系,需要校验场景和取值范围是否匹配
+  // CITY:区划码
+  // BLOCK:区划码（底包暂不支持）
+  // AGE:30+、40+、50+（底包暂不支持
+  valueScope: [ string ](name='value_scope', example='["100010","100011","100020"]'),
+}
+
+// 键值对
+model XNameValuePair {
+  // 键名
+  name: string(name='name', example='key'),
+  // 键值
+  value: string(name='value', example='value'),
+}
+
 model JudgeCrowdPrefermentRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 业务号：可以标识用户的编码，例如手机号，身份证号等，通过业务号类型来控制，与biz_no_type和encrypt_type连用来确定编码形式。
+  // 业务号：可以标识用户的编码，例如手机号，身份证号等，通过业务号类型来控制，与biz_no_type和encrypt_type共同确定编码形式。
   bizNo: string(name='biz_no'),
   // 业务号类型：1-手机号，2-支付宝用户id
   bizNoType: string(name='biz_no_type'),
   // 加密方式：0-不加密，1-SHA1，2-MD5
   encryptType: string(name='encrypt_type'),
-  // 拓展属性：自定义结构，里面可传地址等信息
-  properties?: string(name='properties'),
+  // json结构，可以传递自定义参数
+  properties?: string(maxLength=512, name='properties'),
 }
 
 model JudgeCrowdPrefermentResponse = {
@@ -203,5 +243,214 @@ async function judgeCrowdPreferment(request: JudgeCrowdPrefermentRequest): Judge
 async function judgeCrowdPrefermentEx(request: JudgeCrowdPrefermentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): JudgeCrowdPrefermentResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.sds.crowd.preferment.judge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitScenedataTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 约定的场景枚举
+  scene: string(maxLength=32, name='scene'),
+  // 枚举
+  // PHONE_SHA1
+  // PHONE_MD5
+  bizNoType: string(maxLength=32, name='biz_no_type'),
+  // 适配客户的来源
+  // 可能是客户的任务/AK
+  sourceMark?: string(maxLength=32, name='source_mark'),
+  // 业务号预期条件
+  expectCondition?: [ BizNoCondition ](name='expect_condition'),
+}
+
+model SubmitScenedataTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 创建任务成功后，返回批次号
+  batchNo?: string(name='batch_no'),
+}
+
+/**
+ * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+ * Summary: 场景数据批处理任务提交
+ */
+async function submitScenedataTask(request: SubmitScenedataTaskRequest): SubmitScenedataTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitScenedataTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 客户上传文件以及参数，创建任务，获取批次号异步查询处理结果。
+ * Summary: 场景数据批处理任务提交
+ */
+async function submitScenedataTaskEx(request: SubmitScenedataTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitScenedataTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.task.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadScenedataFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次号
+  batchNo: string(maxLength=64, name='batch_no'),
+  // 文件参数
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+}
+
+model UploadScenedataFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // batchNo对应的任务状态，上传后，返回RECEIVED
+  status?: string(name='status'),
+}
+
+/**
+ * Description: 批次数据文件上传
+ * Summary: 批次数据文件上传
+ */
+async function uploadScenedataFile(request: UploadScenedataFileRequest): UploadScenedataFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadScenedataFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 批次数据文件上传
+ * Summary: 批次数据文件上传
+ */
+async function uploadScenedataFileEx(request: UploadScenedataFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadScenedataFileResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'antchain.sds.scenedata.file.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadScenedataFileResponse = new UploadScenedataFileResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadScenedataFileResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryScenedataTaskresultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 批次号
+  batchNo: string(maxLength=64, name='batch_no'),
+  // 游标，上一次的最后一条
+  cursor?: string(maxLength=256, name='cursor'),
+  // 本次同步数量
+  syncNum?: long(maximum=100, name='sync_num'),
+}
+
+model BatchqueryScenedataTaskresultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0-未开始
+  // 1-可继续
+  // 2-结束
+  syncStatus?: string(name='sync_status'),
+  // 本次的最后一个游标，保存起来下一次使用
+  lastCursor?: string(name='last_cursor'),
+  // 结果列表
+  resultList?: [ BatchResult ](name='result_list'),
+}
+
+/**
+ * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+ * Summary: 场景数据任务结果批量查询
+ */
+async function batchqueryScenedataTaskresult(request: BatchqueryScenedataTaskresultRequest): BatchqueryScenedataTaskresultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryScenedataTaskresultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 场景数据SaaS第一天预处理客户提交的文件处理任务，第二天客户调该接口批量查询任务结果
+ * Summary: 场景数据任务结果批量查询
+ */
+async function batchqueryScenedataTaskresultEx(request: BatchqueryScenedataTaskresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryScenedataTaskresultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateAntcloudGatewayxFileUploadRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 上传文件作用的openapi method
+  apiCode: string(name='api_code'),
+  // 文件标签，多个标签;分割
+  fileLabel?: string(maxLength=100, name='file_label'),
+  // 自定义的文件元数据
+  fileMetadata?: string(maxLength=1000, name='file_metadata'),
+  // 文件名，不传则随机生成文件名
+  fileName?: string(maxLength=100, name='file_name'),
+  // 文件的多媒体类型
+  mimeType?: string(name='mime_type'),
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string(name='api_cluster'),
+}
+
+model CreateAntcloudGatewayxFileUploadResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 上传有效期
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 32位文件唯一id
+  fileId?: string(name='file_id'),
+  // 放入http请求头里
+  uploadHeaders?: [ XNameValuePair ](name='upload_headers'),
+  // 文件上传地址
+  uploadUrl?: string(name='upload_url'),
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): CreateAntcloudGatewayxFileUploadResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建HTTP PUT提交的文件上传
+ * Summary: 文件上传创建
+ */
+async function createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateAntcloudGatewayxFileUploadResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.file.upload.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
