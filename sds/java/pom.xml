@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-sds</artifactId>
-  <version>1.0.8</version>
+  <version>1.2.8</version>
   <packaging>jar</packaging>
   <name>openapi-sds</name>
   <description>Ant Chain SDS SDK for Java

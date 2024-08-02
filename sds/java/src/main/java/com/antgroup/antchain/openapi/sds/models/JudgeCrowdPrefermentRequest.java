@@ -11,7 +11,7 @@ public class JudgeCrowdPrefermentRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 业务号：可以标识用户的编码，例如手机号，身份证号等，通过业务号类型来控制，与biz_no_type和encrypt_type连用来确定编码形式。
+    // 业务号：可以标识用户的编码，例如手机号，身份证号等，通过业务号类型来控制，与biz_no_type和encrypt_type共同确定编码形式。
     @NameInMap("biz_no")
     @Validation(required = true)
     public String bizNo;
@@ -26,8 +26,9 @@ public class JudgeCrowdPrefermentRequest extends TeaModel {
     @Validation(required = true)
     public String encryptType;
 
-    // 拓展属性：自定义结构，里面可传地址等信息
+    // json结构，可以传递自定义参数
     @NameInMap("properties")
+    @Validation(maxLength = 512)
     public String properties;
 
     public static JudgeCrowdPrefermentRequest build(java.util.Map<String, ?> map) throws Exception {
