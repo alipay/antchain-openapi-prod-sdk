@@ -920,6 +920,32 @@ func (s *RiskQueryData) SetRiskLabels(v []*string) *RiskQueryData {
 	return s
 }
 
+// KeyValue对属性
+type KeyValueMap struct {
+	// key-value中的key
+	Key *string `json:"key,omitempty" xml:"key,omitempty" maxLength:"100" minLength:"1"`
+	// key-value中的value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" maxLength:"1000" minLength:"1"`
+}
+
+func (s KeyValueMap) String() string {
+	return tea.Prettify(s)
+}
+
+func (s KeyValueMap) GoString() string {
+	return s.String()
+}
+
+func (s *KeyValueMap) SetKey(v string) *KeyValueMap {
+	s.Key = &v
+	return s
+}
+
+func (s *KeyValueMap) SetValue(v string) *KeyValueMap {
+	s.Value = &v
+	return s
+}
+
 // eKYT人脸核身初始化数据
 type FaceVerifyInitData struct {
 	// 请求唯一标识Id
@@ -4893,6 +4919,412 @@ func (s *QueryEkytFaceverifyResponse) SetData(v *FaceVerifyResultData) *QueryEky
 	return s
 }
 
+type ImportYhllRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// shopUuid
+	ShopUuid *string `json:"shop_uuid,omitempty" xml:"shop_uuid,omitempty" require:"true"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 任务类型
+	GoodType *string `json:"good_type,omitempty" xml:"good_type,omitempty" require:"true"`
+	// 模板名
+	TemplateName *string `json:"template_name,omitempty" xml:"template_name,omitempty" require:"true"`
+	// 行业
+	Industry *string `json:"industry,omitempty" xml:"industry,omitempty" require:"true"`
+	// 地址
+	Address *string `json:"address,omitempty" xml:"address,omitempty" require:"true"`
+	// 城市代码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// 经度
+	Longitude *string `json:"longitude,omitempty" xml:"longitude,omitempty"`
+	// 纬度
+	Latitude *string `json:"latitude,omitempty" xml:"latitude,omitempty"`
+	// 坐标范围
+	CoordinateRange *string `json:"coordinate_range,omitempty" xml:"coordinate_range,omitempty"`
+	// 总量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 模板替换符
+	PlaceHolder *string `json:"place_holder,omitempty" xml:"place_holder,omitempty"`
+	// 补充信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s ImportYhllRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportYhllRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportYhllRequest) SetAuthToken(v string) *ImportYhllRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetProductInstanceId(v string) *ImportYhllRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetShopUuid(v string) *ImportYhllRequest {
+	s.ShopUuid = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetName(v string) *ImportYhllRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetDescription(v string) *ImportYhllRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetGoodType(v string) *ImportYhllRequest {
+	s.GoodType = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetTemplateName(v string) *ImportYhllRequest {
+	s.TemplateName = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetIndustry(v string) *ImportYhllRequest {
+	s.Industry = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetAddress(v string) *ImportYhllRequest {
+	s.Address = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetCityCode(v string) *ImportYhllRequest {
+	s.CityCode = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetLongitude(v string) *ImportYhllRequest {
+	s.Longitude = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetLatitude(v string) *ImportYhllRequest {
+	s.Latitude = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetCoordinateRange(v string) *ImportYhllRequest {
+	s.CoordinateRange = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetTotal(v int64) *ImportYhllRequest {
+	s.Total = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetPlaceHolder(v string) *ImportYhllRequest {
+	s.PlaceHolder = &v
+	return s
+}
+
+func (s *ImportYhllRequest) SetExtInfo(v string) *ImportYhllRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type ImportYhllResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// uuid
+	Uuid *string `json:"uuid,omitempty" xml:"uuid,omitempty"`
+}
+
+func (s ImportYhllResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportYhllResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportYhllResponse) SetReqMsgId(v string) *ImportYhllResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportYhllResponse) SetResultCode(v string) *ImportYhllResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportYhllResponse) SetResultMsg(v string) *ImportYhllResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportYhllResponse) SetUuid(v string) *ImportYhllResponse {
+	s.Uuid = &v
+	return s
+}
+
+type QueryYhllRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 城市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty" require:"true"`
+	// uuid
+	Uuid *string `json:"uuid,omitempty" xml:"uuid,omitempty" require:"true"`
+	// page size
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// page number
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+}
+
+func (s QueryYhllRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryYhllRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryYhllRequest) SetAuthToken(v string) *QueryYhllRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryYhllRequest) SetProductInstanceId(v string) *QueryYhllRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryYhllRequest) SetCityCode(v string) *QueryYhllRequest {
+	s.CityCode = &v
+	return s
+}
+
+func (s *QueryYhllRequest) SetUuid(v string) *QueryYhllRequest {
+	s.Uuid = &v
+	return s
+}
+
+func (s *QueryYhllRequest) SetPageSize(v int64) *QueryYhllRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryYhllRequest) SetPageNum(v int64) *QueryYhllRequest {
+	s.PageNum = &v
+	return s
+}
+
+type QueryYhllResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// total
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// open_task_result_list
+	OpenTaskResultList *string `json:"open_task_result_list,omitempty" xml:"open_task_result_list,omitempty"`
+}
+
+func (s QueryYhllResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryYhllResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryYhllResponse) SetReqMsgId(v string) *QueryYhllResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryYhllResponse) SetResultCode(v string) *QueryYhllResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryYhllResponse) SetResultMsg(v string) *QueryYhllResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryYhllResponse) SetTotal(v int64) *QueryYhllResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *QueryYhllResponse) SetOpenTaskResultList(v string) *QueryYhllResponse {
+	s.OpenTaskResultList = &v
+	return s
+}
+
+type QueryGuardAskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 会话ID，用于匹配多轮对话上下文
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true" maxLength:"128" minLength:"0"`
+	// 数据唯一标识，能够根据该值定位到该条数据
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"64" minLength:"0"`
+	// 大模型提问护栏服务, 用于区分提供的服务类别，当前支持：TJ_QUESTION_BASIC、TJ_ANSWER_BASIC 两种
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true" maxLength:"128" minLength:"0"`
+	// 当前提问内容，最大长度10000个字符。
+	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true" maxLength:"10000" minLength:"0"`
+	// 用户ID，用于主体风险判断，如果是2088开头的阿里体系用户，请传入2088开头的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true" maxLength:"32" minLength:"0"`
+	// 提问内容类型，纯文本: PLAINTEXT，图片url: PICTURE_URL
+	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty" maxLength:"32" minLength:"0"`
+	// 大模型ID，表示大模型版本
+	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty" maxLength:"128" minLength:"0"`
+	// 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
+	BusinessProperties *KeyValueMap `json:"business_properties,omitempty" xml:"business_properties,omitempty"`
+}
+
+func (s QueryGuardAskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardAskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardAskRequest) SetAuthToken(v string) *QueryGuardAskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetProductInstanceId(v string) *QueryGuardAskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetSessionId(v string) *QueryGuardAskRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetRequestId(v string) *QueryGuardAskRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetServiceName(v string) *QueryGuardAskRequest {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetQuestion(v string) *QueryGuardAskRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetUserId(v string) *QueryGuardAskRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetQuestionFormat(v string) *QueryGuardAskRequest {
+	s.QuestionFormat = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetModelCode(v string) *QueryGuardAskRequest {
+	s.ModelCode = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetBusinessProperties(v *KeyValueMap) *QueryGuardAskRequest {
+	s.BusinessProperties = v
+	return s
+}
+
+type QueryGuardAskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 检测数据ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 是否安全无风险，true: 安全无风险，false: 有风险
+	Safe *bool `json:"safe,omitempty" xml:"safe,omitempty"`
+	// 安全动作，拦截: BLOCK，安全代答: SECURITY_ANSWER，红色GPT安全代答: REDGPT_ANSWER，安全提示增强: SECURITY_PROMPT
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 安全动作相关文案
+	ActionMsg *string `json:"action_msg,omitempty" xml:"action_msg,omitempty"`
+	// 会话动作，终止会话: END_SESSION，撤回提问: RECALL_QUERY
+	SessionAction *string `json:"session_action,omitempty" xml:"session_action,omitempty"`
+}
+
+func (s QueryGuardAskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardAskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardAskResponse) SetReqMsgId(v string) *QueryGuardAskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardAskResponse) SetResultCode(v string) *QueryGuardAskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardAskResponse) SetResultMsg(v string) *QueryGuardAskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardAskResponse) SetRequestId(v string) *QueryGuardAskResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryGuardAskResponse) SetSafe(v bool) *QueryGuardAskResponse {
+	s.Safe = &v
+	return s
+}
+
+func (s *QueryGuardAskResponse) SetActionCode(v string) *QueryGuardAskResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *QueryGuardAskResponse) SetActionMsg(v string) *QueryGuardAskResponse {
+	s.ActionMsg = &v
+	return s
+}
+
+func (s *QueryGuardAskResponse) SetSessionAction(v string) *QueryGuardAskResponse {
+	s.SessionAction = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -5015,7 +5447,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.19"),
+				"sdk_version":      tea.String("1.2.25"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6224,6 +6656,108 @@ func (client *Client) QueryEkytFaceverifyEx(request *QueryEkytFaceverifyRequest,
 	}
 	_result = &QueryEkytFaceverifyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.faceverify.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 友活来了创建任务api
+ * Summary: 友活来了创建任务api
+ */
+func (client *Client) ImportYhll(request *ImportYhllRequest) (_result *ImportYhllResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportYhllResponse{}
+	_body, _err := client.ImportYhllEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 友活来了创建任务api
+ * Summary: 友活来了创建任务api
+ */
+func (client *Client) ImportYhllEx(request *ImportYhllRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportYhllResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportYhllResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.yhll.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 友活来了任务查询api
+ * Summary: 友活来了任务查询api
+ */
+func (client *Client) QueryYhll(request *QueryYhllRequest) (_result *QueryYhllResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryYhllResponse{}
+	_body, _err := client.QueryYhllEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 友活来了任务查询api
+ * Summary: 友活来了任务查询api
+ */
+func (client *Client) QueryYhllEx(request *QueryYhllRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryYhllResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryYhllResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.yhll.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴ask接口
+ * Summary: 天鉴ask接口
+ */
+func (client *Client) QueryGuardAsk(request *QueryGuardAskRequest) (_result *QueryGuardAskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardAskResponse{}
+	_body, _err := client.QueryGuardAskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴ask接口
+ * Summary: 天鉴ask接口
+ */
+func (client *Client) QueryGuardAskEx(request *QueryGuardAskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardAskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardAskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.guard.ask.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
