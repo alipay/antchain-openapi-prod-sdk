@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.98',
+                    'sdk_version': '1.9.2',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.98',
+                    'sdk_version': '1.9.2',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -5249,60 +5249,60 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.trade.indirectorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def update_trade_userpromisebatch(
+    def replace_trade_userpromise(
         self,
-        request: ato_models.UpdateTradeUserpromisebatchRequest,
-    ) -> ato_models.UpdateTradeUserpromisebatchResponse:
+        request: ato_models.ReplaceTradeUserpromiseRequest,
+    ) -> ato_models.ReplaceTradeUserpromiseResponse:
         """
         Description: 用户履约承诺替换更新
         Summary: 用户履约承诺替换更新
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_trade_userpromisebatch_ex(request, headers, runtime)
+        return self.replace_trade_userpromise_ex(request, headers, runtime)
 
-    async def update_trade_userpromisebatch_async(
+    async def replace_trade_userpromise_async(
         self,
-        request: ato_models.UpdateTradeUserpromisebatchRequest,
-    ) -> ato_models.UpdateTradeUserpromisebatchResponse:
+        request: ato_models.ReplaceTradeUserpromiseRequest,
+    ) -> ato_models.ReplaceTradeUserpromiseResponse:
         """
         Description: 用户履约承诺替换更新
         Summary: 用户履约承诺替换更新
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.update_trade_userpromisebatch_ex_async(request, headers, runtime)
+        return await self.replace_trade_userpromise_ex_async(request, headers, runtime)
 
-    def update_trade_userpromisebatch_ex(
+    def replace_trade_userpromise_ex(
         self,
-        request: ato_models.UpdateTradeUserpromisebatchRequest,
+        request: ato_models.ReplaceTradeUserpromiseRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ato_models.UpdateTradeUserpromisebatchResponse:
+    ) -> ato_models.ReplaceTradeUserpromiseResponse:
         """
         Description: 用户履约承诺替换更新
         Summary: 用户履约承诺替换更新
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ato_models.UpdateTradeUserpromisebatchResponse(),
-            self.do_request('1.0', 'antchain.ato.trade.userpromisebatch.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ato_models.ReplaceTradeUserpromiseResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def update_trade_userpromisebatch_ex_async(
+    async def replace_trade_userpromise_ex_async(
         self,
-        request: ato_models.UpdateTradeUserpromisebatchRequest,
+        request: ato_models.ReplaceTradeUserpromiseRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> ato_models.UpdateTradeUserpromisebatchResponse:
+    ) -> ato_models.ReplaceTradeUserpromiseResponse:
         """
         Description: 用户履约承诺替换更新
         Summary: 用户履约承诺替换更新
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            ato_models.UpdateTradeUserpromisebatchResponse(),
-            await self.do_request_async('1.0', 'antchain.ato.trade.userpromisebatch.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            ato_models.ReplaceTradeUserpromiseResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_withhold_sign(

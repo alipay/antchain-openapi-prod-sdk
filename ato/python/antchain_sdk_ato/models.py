@@ -7098,6 +7098,7 @@ class CreateInnerMerchantpayexpandRequest(TeaModel):
         sub_tenant_id: str = None,
         user_name: str = None,
         pay_expand_id: str = None,
+        allow_duplicate: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7124,6 +7125,8 @@ class CreateInnerMerchantpayexpandRequest(TeaModel):
         self.user_name = user_name
         # 第一次暂存或保存可以不传，后端直接生成
         self.pay_expand_id = pay_expand_id
+        # true允许重复进件，false不允许重复进件
+        self.allow_duplicate = allow_duplicate
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
@@ -7168,6 +7171,8 @@ class CreateInnerMerchantpayexpandRequest(TeaModel):
             result['user_name'] = self.user_name
         if self.pay_expand_id is not None:
             result['pay_expand_id'] = self.pay_expand_id
+        if self.allow_duplicate is not None:
+            result['allow_duplicate'] = self.allow_duplicate
         return result
 
     def from_map(self, m: dict = None):
@@ -7197,6 +7202,8 @@ class CreateInnerMerchantpayexpandRequest(TeaModel):
             self.user_name = m.get('user_name')
         if m.get('pay_expand_id') is not None:
             self.pay_expand_id = m.get('pay_expand_id')
+        if m.get('allow_duplicate') is not None:
+            self.allow_duplicate = m.get('allow_duplicate')
         return self
 
 
@@ -11084,7 +11091,7 @@ class CancelSignFlowRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 签署合同单号
         self.sign_no = sign_no
-        # 默认:“撤销”
+        # 默认:“撤销”，最大长度50
         self.revoke_reason = revoke_reason
         # 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
         self.operator_id = operator_id
@@ -12253,7 +12260,7 @@ class SyncTradeIndirectorderResponse(TeaModel):
         return self
 
 
-class UpdateTradeUserpromisebatchRequest(TeaModel):
+class ReplaceTradeUserpromiseRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -12314,7 +12321,7 @@ class UpdateTradeUserpromisebatchRequest(TeaModel):
         return self
 
 
-class UpdateTradeUserpromisebatchResponse(TeaModel):
+class ReplaceTradeUserpromiseResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
