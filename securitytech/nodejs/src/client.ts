@@ -721,6 +721,31 @@ export class RiskQueryData extends $tea.Model {
   }
 }
 
+// KeyValue对属性
+export class KeyValueMap extends $tea.Model {
+  // key-value中的key
+  key?: string;
+  // key-value中的value
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // eKYT人脸核身初始化数据
 export class FaceVerifyInitData extends $tea.Model {
   // 请求唯一标识Id
@@ -3716,6 +3741,295 @@ export class QueryEkytFaceverifyResponse extends $tea.Model {
   }
 }
 
+export class ImportYhllRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // shopUuid
+  shopUuid: string;
+  // 名称
+  name: string;
+  // 描述
+  description: string;
+  // 任务类型
+  goodType: string;
+  // 模板名
+  templateName: string;
+  // 行业
+  industry: string;
+  // 地址
+  address: string;
+  // 城市代码
+  cityCode: string;
+  // 经度
+  longitude?: string;
+  // 纬度
+  latitude?: string;
+  // 坐标范围
+  coordinateRange?: string;
+  // 总量
+  total: number;
+  // 模板替换符
+  placeHolder?: string;
+  // 补充信息
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      shopUuid: 'shop_uuid',
+      name: 'name',
+      description: 'description',
+      goodType: 'good_type',
+      templateName: 'template_name',
+      industry: 'industry',
+      address: 'address',
+      cityCode: 'city_code',
+      longitude: 'longitude',
+      latitude: 'latitude',
+      coordinateRange: 'coordinate_range',
+      total: 'total',
+      placeHolder: 'place_holder',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      shopUuid: 'string',
+      name: 'string',
+      description: 'string',
+      goodType: 'string',
+      templateName: 'string',
+      industry: 'string',
+      address: 'string',
+      cityCode: 'string',
+      longitude: 'string',
+      latitude: 'string',
+      coordinateRange: 'string',
+      total: 'number',
+      placeHolder: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportYhllResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // uuid
+  uuid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      uuid: 'uuid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      uuid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryYhllRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 城市编码
+  cityCode: string;
+  // uuid
+  uuid: string;
+  // page size
+  pageSize?: number;
+  // page number
+  pageNum?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cityCode: 'city_code',
+      uuid: 'uuid',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cityCode: 'string',
+      uuid: 'string',
+      pageSize: 'number',
+      pageNum: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryYhllResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // total
+  total?: number;
+  // open_task_result_list
+  openTaskResultList?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      openTaskResultList: 'open_task_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      openTaskResultList: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGuardAskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId: string;
+  // 数据唯一标识，能够根据该值定位到该条数据
+  requestId: string;
+  // 大模型提问护栏服务, 用于区分提供的服务类别，当前支持：TJ_QUESTION_BASIC、TJ_ANSWER_BASIC 两种
+  serviceName: string;
+  // 当前提问内容，最大长度10000个字符。
+  question: string;
+  // 用户ID，用于主体风险判断，如果是2088开头的阿里体系用户，请传入2088开头的用户ID
+  userId: string;
+  // 提问内容类型，纯文本: PLAINTEXT，图片url: PICTURE_URL
+  questionFormat?: string;
+  // 大模型ID，表示大模型版本
+  modelCode?: string;
+  // 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
+  businessProperties?: KeyValueMap;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sessionId: 'session_id',
+      requestId: 'request_id',
+      serviceName: 'service_name',
+      question: 'question',
+      userId: 'user_id',
+      questionFormat: 'question_format',
+      modelCode: 'model_code',
+      businessProperties: 'business_properties',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sessionId: 'string',
+      requestId: 'string',
+      serviceName: 'string',
+      question: 'string',
+      userId: 'string',
+      questionFormat: 'string',
+      modelCode: 'string',
+      businessProperties: KeyValueMap,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGuardAskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 检测数据ID
+  requestId?: string;
+  // 是否安全无风险，true: 安全无风险，false: 有风险
+  safe?: boolean;
+  // 安全动作，拦截: BLOCK，安全代答: SECURITY_ANSWER，红色GPT安全代答: REDGPT_ANSWER，安全提示增强: SECURITY_PROMPT
+  actionCode?: string;
+  // 安全动作相关文案
+  actionMsg?: string;
+  // 会话动作，终止会话: END_SESSION，撤回提问: RECALL_QUERY
+  sessionAction?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      safe: 'safe',
+      actionCode: 'action_code',
+      actionMsg: 'action_msg',
+      sessionAction: 'session_action',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      safe: 'boolean',
+      actionCode: 'string',
+      actionMsg: 'string',
+      sessionAction: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3829,7 +4143,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.19",
+          sdk_version: "1.2.25",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -4523,6 +4837,63 @@ export default class Client {
   async queryEkytFaceverifyEx(request: QueryEkytFaceverifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEkytFaceverifyResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryEkytFaceverifyResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEkytFaceverifyResponse({}));
+  }
+
+  /**
+   * Description: 友活来了创建任务api
+   * Summary: 友活来了创建任务api
+   */
+  async importYhll(request: ImportYhllRequest): Promise<ImportYhllResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importYhllEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 友活来了创建任务api
+   * Summary: 友活来了创建任务api
+   */
+  async importYhllEx(request: ImportYhllRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportYhllResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportYhllResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.yhll.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportYhllResponse({}));
+  }
+
+  /**
+   * Description: 友活来了任务查询api
+   * Summary: 友活来了任务查询api
+   */
+  async queryYhll(request: QueryYhllRequest): Promise<QueryYhllResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryYhllEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 友活来了任务查询api
+   * Summary: 友活来了任务查询api
+   */
+  async queryYhllEx(request: QueryYhllRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryYhllResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryYhllResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.yhll.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryYhllResponse({}));
+  }
+
+  /**
+   * Description: 天鉴ask接口
+   * Summary: 天鉴ask接口
+   */
+  async queryGuardAsk(request: QueryGuardAskRequest): Promise<QueryGuardAskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGuardAskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天鉴ask接口
+   * Summary: 天鉴ask接口
+   */
+  async queryGuardAskEx(request: QueryGuardAskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGuardAskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGuardAskResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.guard.ask.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGuardAskResponse({}));
   }
 
 }
