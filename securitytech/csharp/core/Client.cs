@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.19"},
+                        {"sdk_version", "1.2.25"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.19"},
+                        {"sdk_version", "1.2.25"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1751,6 +1751,132 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryEkytFaceverifyResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.faceverify.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 友活来了创建任务api
+         * Summary: 友活来了创建任务api
+         */
+        public ImportYhllResponse ImportYhll(ImportYhllRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportYhllEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 友活来了创建任务api
+         * Summary: 友活来了创建任务api
+         */
+        public async Task<ImportYhllResponse> ImportYhllAsync(ImportYhllRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportYhllExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 友活来了创建任务api
+         * Summary: 友活来了创建任务api
+         */
+        public ImportYhllResponse ImportYhllEx(ImportYhllRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportYhllResponse>(DoRequest("1.0", "antsecuritytech.gateway.yhll.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 友活来了创建任务api
+         * Summary: 友活来了创建任务api
+         */
+        public async Task<ImportYhllResponse> ImportYhllExAsync(ImportYhllRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportYhllResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.yhll.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 友活来了任务查询api
+         * Summary: 友活来了任务查询api
+         */
+        public QueryYhllResponse QueryYhll(QueryYhllRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryYhllEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 友活来了任务查询api
+         * Summary: 友活来了任务查询api
+         */
+        public async Task<QueryYhllResponse> QueryYhllAsync(QueryYhllRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryYhllExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 友活来了任务查询api
+         * Summary: 友活来了任务查询api
+         */
+        public QueryYhllResponse QueryYhllEx(QueryYhllRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryYhllResponse>(DoRequest("1.0", "antsecuritytech.gateway.yhll.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 友活来了任务查询api
+         * Summary: 友活来了任务查询api
+         */
+        public async Task<QueryYhllResponse> QueryYhllExAsync(QueryYhllRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryYhllResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.yhll.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天鉴ask接口
+         * Summary: 天鉴ask接口
+         */
+        public QueryGuardAskResponse QueryGuardAsk(QueryGuardAskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryGuardAskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天鉴ask接口
+         * Summary: 天鉴ask接口
+         */
+        public async Task<QueryGuardAskResponse> QueryGuardAskAsync(QueryGuardAskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryGuardAskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 天鉴ask接口
+         * Summary: 天鉴ask接口
+         */
+        public QueryGuardAskResponse QueryGuardAskEx(QueryGuardAskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGuardAskResponse>(DoRequest("1.0", "antsecuritytech.gateway.guard.ask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 天鉴ask接口
+         * Summary: 天鉴ask接口
+         */
+        public async Task<QueryGuardAskResponse> QueryGuardAskExAsync(QueryGuardAskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryGuardAskResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.guard.ask.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
