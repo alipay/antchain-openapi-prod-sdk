@@ -1181,6 +1181,44 @@ class RiskQueryData(TeaModel):
         return self
 
 
+class KeyValueMap(TeaModel):
+    def __init__(
+        self,
+        key: str = None,
+        value: str = None,
+    ):
+        # key-value中的key
+        self.key = key
+        # key-value中的value
+        self.value = value
+
+    def validate(self):
+        if self.key is not None:
+            self.validate_max_length(self.key, 'key', 100)
+        if self.value is not None:
+            self.validate_max_length(self.value, 'value', 1000)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class FaceVerifyInitData(TeaModel):
     def __init__(
         self,
@@ -6096,6 +6134,502 @@ class QueryEkytFaceverifyResponse(TeaModel):
         if m.get('data') is not None:
             temp_model = FaceVerifyResultData()
             self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class ImportYhllRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        shop_uuid: str = None,
+        name: str = None,
+        description: str = None,
+        good_type: str = None,
+        template_name: str = None,
+        industry: str = None,
+        address: str = None,
+        city_code: str = None,
+        longitude: str = None,
+        latitude: str = None,
+        coordinate_range: str = None,
+        total: int = None,
+        place_holder: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # shopUuid
+        self.shop_uuid = shop_uuid
+        # 名称
+        self.name = name
+        # 描述
+        self.description = description
+        # 任务类型
+        self.good_type = good_type
+        # 模板名
+        self.template_name = template_name
+        # 行业
+        self.industry = industry
+        # 地址
+        self.address = address
+        # 城市代码
+        self.city_code = city_code
+        # 经度
+        self.longitude = longitude
+        # 纬度
+        self.latitude = latitude
+        # 坐标范围
+        self.coordinate_range = coordinate_range
+        # 总量
+        self.total = total
+        # 模板替换符
+        self.place_holder = place_holder
+        # 补充信息
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.shop_uuid, 'shop_uuid')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.description, 'description')
+        self.validate_required(self.good_type, 'good_type')
+        self.validate_required(self.template_name, 'template_name')
+        self.validate_required(self.industry, 'industry')
+        self.validate_required(self.address, 'address')
+        self.validate_required(self.city_code, 'city_code')
+        self.validate_required(self.total, 'total')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.shop_uuid is not None:
+            result['shop_uuid'] = self.shop_uuid
+        if self.name is not None:
+            result['name'] = self.name
+        if self.description is not None:
+            result['description'] = self.description
+        if self.good_type is not None:
+            result['good_type'] = self.good_type
+        if self.template_name is not None:
+            result['template_name'] = self.template_name
+        if self.industry is not None:
+            result['industry'] = self.industry
+        if self.address is not None:
+            result['address'] = self.address
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.longitude is not None:
+            result['longitude'] = self.longitude
+        if self.latitude is not None:
+            result['latitude'] = self.latitude
+        if self.coordinate_range is not None:
+            result['coordinate_range'] = self.coordinate_range
+        if self.total is not None:
+            result['total'] = self.total
+        if self.place_holder is not None:
+            result['place_holder'] = self.place_holder
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('shop_uuid') is not None:
+            self.shop_uuid = m.get('shop_uuid')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('good_type') is not None:
+            self.good_type = m.get('good_type')
+        if m.get('template_name') is not None:
+            self.template_name = m.get('template_name')
+        if m.get('industry') is not None:
+            self.industry = m.get('industry')
+        if m.get('address') is not None:
+            self.address = m.get('address')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('longitude') is not None:
+            self.longitude = m.get('longitude')
+        if m.get('latitude') is not None:
+            self.latitude = m.get('latitude')
+        if m.get('coordinate_range') is not None:
+            self.coordinate_range = m.get('coordinate_range')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('place_holder') is not None:
+            self.place_holder = m.get('place_holder')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class ImportYhllResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        uuid: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # uuid
+        self.uuid = uuid
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.uuid is not None:
+            result['uuid'] = self.uuid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('uuid') is not None:
+            self.uuid = m.get('uuid')
+        return self
+
+
+class QueryYhllRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        city_code: str = None,
+        uuid: str = None,
+        page_size: int = None,
+        page_num: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 城市编码
+        self.city_code = city_code
+        # uuid
+        self.uuid = uuid
+        # page size
+        self.page_size = page_size
+        # page number
+        self.page_num = page_num
+
+    def validate(self):
+        self.validate_required(self.city_code, 'city_code')
+        self.validate_required(self.uuid, 'uuid')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.uuid is not None:
+            result['uuid'] = self.uuid
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('uuid') is not None:
+            self.uuid = m.get('uuid')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        return self
+
+
+class QueryYhllResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total: int = None,
+        open_task_result_list: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # total
+        self.total = total
+        # open_task_result_list
+        self.open_task_result_list = open_task_result_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total is not None:
+            result['total'] = self.total
+        if self.open_task_result_list is not None:
+            result['open_task_result_list'] = self.open_task_result_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('open_task_result_list') is not None:
+            self.open_task_result_list = m.get('open_task_result_list')
+        return self
+
+
+class QueryGuardAskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        session_id: str = None,
+        request_id: str = None,
+        service_name: str = None,
+        question: str = None,
+        user_id: str = None,
+        question_format: str = None,
+        model_code: str = None,
+        business_properties: KeyValueMap = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 会话ID，用于匹配多轮对话上下文
+        self.session_id = session_id
+        # 数据唯一标识，能够根据该值定位到该条数据
+        self.request_id = request_id
+        # 大模型提问护栏服务, 用于区分提供的服务类别，当前支持：TJ_QUESTION_BASIC、TJ_ANSWER_BASIC 两种
+        self.service_name = service_name
+        # 当前提问内容，最大长度10000个字符。
+        self.question = question
+        # 用户ID，用于主体风险判断，如果是2088开头的阿里体系用户，请传入2088开头的用户ID
+        self.user_id = user_id
+        # 提问内容类型，纯文本: PLAINTEXT，图片url: PICTURE_URL
+        self.question_format = question_format
+        # 大模型ID，表示大模型版本
+        self.model_code = model_code
+        # 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
+        self.business_properties = business_properties
+
+    def validate(self):
+        self.validate_required(self.session_id, 'session_id')
+        if self.session_id is not None:
+            self.validate_max_length(self.session_id, 'session_id', 128)
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 64)
+        self.validate_required(self.service_name, 'service_name')
+        if self.service_name is not None:
+            self.validate_max_length(self.service_name, 'service_name', 128)
+        self.validate_required(self.question, 'question')
+        if self.question is not None:
+            self.validate_max_length(self.question, 'question', 10000)
+        self.validate_required(self.user_id, 'user_id')
+        if self.user_id is not None:
+            self.validate_max_length(self.user_id, 'user_id', 32)
+        if self.question_format is not None:
+            self.validate_max_length(self.question_format, 'question_format', 32)
+        if self.model_code is not None:
+            self.validate_max_length(self.model_code, 'model_code', 128)
+        if self.business_properties:
+            self.business_properties.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.service_name is not None:
+            result['service_name'] = self.service_name
+        if self.question is not None:
+            result['question'] = self.question
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.question_format is not None:
+            result['question_format'] = self.question_format
+        if self.model_code is not None:
+            result['model_code'] = self.model_code
+        if self.business_properties is not None:
+            result['business_properties'] = self.business_properties.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('service_name') is not None:
+            self.service_name = m.get('service_name')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('question_format') is not None:
+            self.question_format = m.get('question_format')
+        if m.get('model_code') is not None:
+            self.model_code = m.get('model_code')
+        if m.get('business_properties') is not None:
+            temp_model = KeyValueMap()
+            self.business_properties = temp_model.from_map(m['business_properties'])
+        return self
+
+
+class QueryGuardAskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+        safe: bool = None,
+        action_code: str = None,
+        action_msg: str = None,
+        session_action: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 检测数据ID
+        self.request_id = request_id
+        # 是否安全无风险，true: 安全无风险，false: 有风险
+        self.safe = safe
+        # 安全动作，拦截: BLOCK，安全代答: SECURITY_ANSWER，红色GPT安全代答: REDGPT_ANSWER，安全提示增强: SECURITY_PROMPT
+        self.action_code = action_code
+        # 安全动作相关文案
+        self.action_msg = action_msg
+        # 会话动作，终止会话: END_SESSION，撤回提问: RECALL_QUERY
+        self.session_action = session_action
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.safe is not None:
+            result['safe'] = self.safe
+        if self.action_code is not None:
+            result['action_code'] = self.action_code
+        if self.action_msg is not None:
+            result['action_msg'] = self.action_msg
+        if self.session_action is not None:
+            result['session_action'] = self.session_action
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('safe') is not None:
+            self.safe = m.get('safe')
+        if m.get('action_code') is not None:
+            self.action_code = m.get('action_code')
+        if m.get('action_msg') is not None:
+            self.action_msg = m.get('action_msg')
+        if m.get('session_action') is not None:
+            self.session_action = m.get('session_action')
         return self
 
 

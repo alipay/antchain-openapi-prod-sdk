@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.19',
+                    'sdk_version': '1.2.25',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.19',
+                    'sdk_version': '1.2.25',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -2181,4 +2181,172 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryEkytFaceverifyResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.faceverify.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_yhll(
+        self,
+        request: securitytech_models.ImportYhllRequest,
+    ) -> securitytech_models.ImportYhllResponse:
+        """
+        Description: 友活来了创建任务api
+        Summary: 友活来了创建任务api
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_yhll_ex(request, headers, runtime)
+
+    async def import_yhll_async(
+        self,
+        request: securitytech_models.ImportYhllRequest,
+    ) -> securitytech_models.ImportYhllResponse:
+        """
+        Description: 友活来了创建任务api
+        Summary: 友活来了创建任务api
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_yhll_ex_async(request, headers, runtime)
+
+    def import_yhll_ex(
+        self,
+        request: securitytech_models.ImportYhllRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ImportYhllResponse:
+        """
+        Description: 友活来了创建任务api
+        Summary: 友活来了创建任务api
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ImportYhllResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.yhll.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_yhll_ex_async(
+        self,
+        request: securitytech_models.ImportYhllRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ImportYhllResponse:
+        """
+        Description: 友活来了创建任务api
+        Summary: 友活来了创建任务api
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ImportYhllResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.yhll.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_yhll(
+        self,
+        request: securitytech_models.QueryYhllRequest,
+    ) -> securitytech_models.QueryYhllResponse:
+        """
+        Description: 友活来了任务查询api
+        Summary: 友活来了任务查询api
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_yhll_ex(request, headers, runtime)
+
+    async def query_yhll_async(
+        self,
+        request: securitytech_models.QueryYhllRequest,
+    ) -> securitytech_models.QueryYhllResponse:
+        """
+        Description: 友活来了任务查询api
+        Summary: 友活来了任务查询api
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_yhll_ex_async(request, headers, runtime)
+
+    def query_yhll_ex(
+        self,
+        request: securitytech_models.QueryYhllRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryYhllResponse:
+        """
+        Description: 友活来了任务查询api
+        Summary: 友活来了任务查询api
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryYhllResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.yhll.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_yhll_ex_async(
+        self,
+        request: securitytech_models.QueryYhllRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryYhllResponse:
+        """
+        Description: 友活来了任务查询api
+        Summary: 友活来了任务查询api
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryYhllResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.yhll.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_guard_ask(
+        self,
+        request: securitytech_models.QueryGuardAskRequest,
+    ) -> securitytech_models.QueryGuardAskResponse:
+        """
+        Description: 天鉴ask接口
+        Summary: 天鉴ask接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_guard_ask_ex(request, headers, runtime)
+
+    async def query_guard_ask_async(
+        self,
+        request: securitytech_models.QueryGuardAskRequest,
+    ) -> securitytech_models.QueryGuardAskResponse:
+        """
+        Description: 天鉴ask接口
+        Summary: 天鉴ask接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_guard_ask_ex_async(request, headers, runtime)
+
+    def query_guard_ask_ex(
+        self,
+        request: securitytech_models.QueryGuardAskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryGuardAskResponse:
+        """
+        Description: 天鉴ask接口
+        Summary: 天鉴ask接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryGuardAskResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.guard.ask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_guard_ask_ex_async(
+        self,
+        request: securitytech_models.QueryGuardAskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryGuardAskResponse:
+        """
+        Description: 天鉴ask接口
+        Summary: 天鉴ask接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryGuardAskResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.guard.ask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
