@@ -67,6 +67,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string PayExpandId { get; set; }
 
+        // true允许重复进件，false不允许重复进件
+        [NameInMap("allow_duplicate")]
+        [Validation(Required=false)]
+        public bool? AllowDuplicate { get; set; }
+
     }
 
 }

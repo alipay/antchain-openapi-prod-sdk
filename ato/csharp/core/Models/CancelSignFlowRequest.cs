@@ -23,7 +23,7 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string SignNo { get; set; }
 
-        // 默认:“撤销”
+        // 默认:“撤销”，最大长度50
         [NameInMap("revoke_reason")]
         [Validation(Required=false)]
         public string RevokeReason { get; set; }
