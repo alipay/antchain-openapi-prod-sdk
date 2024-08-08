@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class UpdateTradeUserpromisebatchRequest extends TeaModel {
+public class ReplaceTradeUserpromiseRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -26,12 +26,12 @@ public class UpdateTradeUserpromisebatchRequest extends TeaModel {
     @Validation(required = true, maxLength = 200)
     public String merchantId;
 
-    public static UpdateTradeUserpromisebatchRequest build(java.util.Map<String, ?> map) throws Exception {
-        UpdateTradeUserpromisebatchRequest self = new UpdateTradeUserpromisebatchRequest();
+    public static ReplaceTradeUserpromiseRequest build(java.util.Map<String, ?> map) throws Exception {
+        ReplaceTradeUserpromiseRequest self = new ReplaceTradeUserpromiseRequest();
         return TeaModel.build(map, self);
     }
 
-    public UpdateTradeUserpromisebatchRequest setAuthToken(String authToken) {
+    public ReplaceTradeUserpromiseRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +39,7 @@ public class UpdateTradeUserpromisebatchRequest extends TeaModel {
         return this.authToken;
     }
 
-    public UpdateTradeUserpromisebatchRequest setProductInstanceId(String productInstanceId) {
+    public ReplaceTradeUserpromiseRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +47,7 @@ public class UpdateTradeUserpromisebatchRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public UpdateTradeUserpromisebatchRequest setBizContent(String bizContent) {
+    public ReplaceTradeUserpromiseRequest setBizContent(String bizContent) {
         this.bizContent = bizContent;
         return this;
     }
@@ -55,7 +55,7 @@ public class UpdateTradeUserpromisebatchRequest extends TeaModel {
         return this.bizContent;
     }
 
-    public UpdateTradeUserpromisebatchRequest setOrderId(String orderId) {
+    public ReplaceTradeUserpromiseRequest setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }
@@ -63,7 +63,7 @@ public class UpdateTradeUserpromisebatchRequest extends TeaModel {
         return this.orderId;
     }
 
-    public UpdateTradeUserpromisebatchRequest setMerchantId(String merchantId) {
+    public ReplaceTradeUserpromiseRequest setMerchantId(String merchantId) {
         this.merchantId = merchantId;
         return this;
     }

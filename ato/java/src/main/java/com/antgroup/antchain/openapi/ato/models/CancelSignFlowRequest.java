@@ -16,7 +16,7 @@ public class CancelSignFlowRequest extends TeaModel {
     @Validation(required = true)
     public String signNo;
 
-    // 默认:“撤销”
+    // 默认:“撤销”，最大长度50
     @NameInMap("revoke_reason")
     public String revokeReason;
 

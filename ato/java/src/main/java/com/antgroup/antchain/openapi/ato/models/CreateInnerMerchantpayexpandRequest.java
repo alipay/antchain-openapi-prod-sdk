@@ -58,6 +58,10 @@ public class CreateInnerMerchantpayexpandRequest extends TeaModel {
     @NameInMap("pay_expand_id")
     public String payExpandId;
 
+    // true允许重复进件，false不允许重复进件
+    @NameInMap("allow_duplicate")
+    public Boolean allowDuplicate;
+
     public static CreateInnerMerchantpayexpandRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerMerchantpayexpandRequest self = new CreateInnerMerchantpayexpandRequest();
         return TeaModel.build(map, self);
@@ -149,6 +153,14 @@ public class CreateInnerMerchantpayexpandRequest extends TeaModel {
     }
     public String getPayExpandId() {
         return this.payExpandId;
+    }
+
+    public CreateInnerMerchantpayexpandRequest setAllowDuplicate(Boolean allowDuplicate) {
+        this.allowDuplicate = allowDuplicate;
+        return this;
+    }
+    public Boolean getAllowDuplicate() {
+        return this.allowDuplicate;
     }
 
 }

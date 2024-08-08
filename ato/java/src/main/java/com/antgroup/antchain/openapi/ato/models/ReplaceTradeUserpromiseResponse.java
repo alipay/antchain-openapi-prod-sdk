@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class UpdateTradeUserpromisebatchResponse extends TeaModel {
+public class ReplaceTradeUserpromiseResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,12 @@ public class UpdateTradeUserpromisebatchResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static UpdateTradeUserpromisebatchResponse build(java.util.Map<String, ?> map) throws Exception {
-        UpdateTradeUserpromisebatchResponse self = new UpdateTradeUserpromisebatchResponse();
+    public static ReplaceTradeUserpromiseResponse build(java.util.Map<String, ?> map) throws Exception {
+        ReplaceTradeUserpromiseResponse self = new ReplaceTradeUserpromiseResponse();
         return TeaModel.build(map, self);
     }
 
-    public UpdateTradeUserpromisebatchResponse setReqMsgId(String reqMsgId) {
+    public ReplaceTradeUserpromiseResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +29,7 @@ public class UpdateTradeUserpromisebatchResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public UpdateTradeUserpromisebatchResponse setResultCode(String resultCode) {
+    public ReplaceTradeUserpromiseResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,7 +37,7 @@ public class UpdateTradeUserpromisebatchResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public UpdateTradeUserpromisebatchResponse setResultMsg(String resultMsg) {
+    public ReplaceTradeUserpromiseResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
