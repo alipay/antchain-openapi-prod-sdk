@@ -5597,6 +5597,8 @@ type CreateInnerMerchantpayexpandRequest struct {
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 	// 第一次暂存或保存可以不传，后端直接生成
 	PayExpandId *string `json:"pay_expand_id,omitempty" xml:"pay_expand_id,omitempty"`
+	// true允许重复进件，false不允许重复进件
+	AllowDuplicate *bool `json:"allow_duplicate,omitempty" xml:"allow_duplicate,omitempty"`
 }
 
 func (s CreateInnerMerchantpayexpandRequest) String() string {
@@ -5659,6 +5661,11 @@ func (s *CreateInnerMerchantpayexpandRequest) SetUserName(v string) *CreateInner
 
 func (s *CreateInnerMerchantpayexpandRequest) SetPayExpandId(v string) *CreateInnerMerchantpayexpandRequest {
 	s.PayExpandId = &v
+	return s
+}
+
+func (s *CreateInnerMerchantpayexpandRequest) SetAllowDuplicate(v bool) *CreateInnerMerchantpayexpandRequest {
+	s.AllowDuplicate = &v
 	return s
 }
 
@@ -8780,7 +8787,7 @@ type CancelSignFlowRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 签署合同单号
 	SignNo *string `json:"sign_no,omitempty" xml:"sign_no,omitempty" require:"true"`
-	// 默认:“撤销”
+	// 默认:“撤销”，最大长度50
 	RevokeReason *string `json:"revoke_reason,omitempty" xml:"revoke_reason,omitempty"`
 	// 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
 	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
@@ -9697,7 +9704,7 @@ func (s *SyncTradeIndirectorderResponse) SetResponseData(v string) *SyncTradeInd
 	return s
 }
 
-type UpdateTradeUserpromisebatchRequest struct {
+type ReplaceTradeUserpromiseRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -9709,40 +9716,40 @@ type UpdateTradeUserpromisebatchRequest struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"200" minLength:"0"`
 }
 
-func (s UpdateTradeUserpromisebatchRequest) String() string {
+func (s ReplaceTradeUserpromiseRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateTradeUserpromisebatchRequest) GoString() string {
+func (s ReplaceTradeUserpromiseRequest) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateTradeUserpromisebatchRequest) SetAuthToken(v string) *UpdateTradeUserpromisebatchRequest {
+func (s *ReplaceTradeUserpromiseRequest) SetAuthToken(v string) *ReplaceTradeUserpromiseRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *UpdateTradeUserpromisebatchRequest) SetProductInstanceId(v string) *UpdateTradeUserpromisebatchRequest {
+func (s *ReplaceTradeUserpromiseRequest) SetProductInstanceId(v string) *ReplaceTradeUserpromiseRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *UpdateTradeUserpromisebatchRequest) SetBizContent(v string) *UpdateTradeUserpromisebatchRequest {
+func (s *ReplaceTradeUserpromiseRequest) SetBizContent(v string) *ReplaceTradeUserpromiseRequest {
 	s.BizContent = &v
 	return s
 }
 
-func (s *UpdateTradeUserpromisebatchRequest) SetOrderId(v string) *UpdateTradeUserpromisebatchRequest {
+func (s *ReplaceTradeUserpromiseRequest) SetOrderId(v string) *ReplaceTradeUserpromiseRequest {
 	s.OrderId = &v
 	return s
 }
 
-func (s *UpdateTradeUserpromisebatchRequest) SetMerchantId(v string) *UpdateTradeUserpromisebatchRequest {
+func (s *ReplaceTradeUserpromiseRequest) SetMerchantId(v string) *ReplaceTradeUserpromiseRequest {
 	s.MerchantId = &v
 	return s
 }
 
-type UpdateTradeUserpromisebatchResponse struct {
+type ReplaceTradeUserpromiseResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -9751,25 +9758,25 @@ type UpdateTradeUserpromisebatchResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 }
 
-func (s UpdateTradeUserpromisebatchResponse) String() string {
+func (s ReplaceTradeUserpromiseResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s UpdateTradeUserpromisebatchResponse) GoString() string {
+func (s ReplaceTradeUserpromiseResponse) GoString() string {
 	return s.String()
 }
 
-func (s *UpdateTradeUserpromisebatchResponse) SetReqMsgId(v string) *UpdateTradeUserpromisebatchResponse {
+func (s *ReplaceTradeUserpromiseResponse) SetReqMsgId(v string) *ReplaceTradeUserpromiseResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *UpdateTradeUserpromisebatchResponse) SetResultCode(v string) *UpdateTradeUserpromisebatchResponse {
+func (s *ReplaceTradeUserpromiseResponse) SetResultCode(v string) *ReplaceTradeUserpromiseResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *UpdateTradeUserpromisebatchResponse) SetResultMsg(v string) *UpdateTradeUserpromisebatchResponse {
+func (s *ReplaceTradeUserpromiseResponse) SetResultMsg(v string) *ReplaceTradeUserpromiseResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -11140,7 +11147,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.98"),
+				"sdk_version":      tea.String("1.9.2"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -14247,11 +14254,11 @@ func (client *Client) SyncTradeIndirectorderEx(request *SyncTradeIndirectorderRe
  * Description: 用户履约承诺替换更新
  * Summary: 用户履约承诺替换更新
  */
-func (client *Client) UpdateTradeUserpromisebatch(request *UpdateTradeUserpromisebatchRequest) (_result *UpdateTradeUserpromisebatchResponse, _err error) {
+func (client *Client) ReplaceTradeUserpromise(request *ReplaceTradeUserpromiseRequest) (_result *ReplaceTradeUserpromiseResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &UpdateTradeUserpromisebatchResponse{}
-	_body, _err := client.UpdateTradeUserpromisebatchEx(request, headers, runtime)
+	_result = &ReplaceTradeUserpromiseResponse{}
+	_body, _err := client.ReplaceTradeUserpromiseEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -14263,13 +14270,13 @@ func (client *Client) UpdateTradeUserpromisebatch(request *UpdateTradeUserpromis
  * Description: 用户履约承诺替换更新
  * Summary: 用户履约承诺替换更新
  */
-func (client *Client) UpdateTradeUserpromisebatchEx(request *UpdateTradeUserpromisebatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateTradeUserpromisebatchResponse, _err error) {
+func (client *Client) ReplaceTradeUserpromiseEx(request *ReplaceTradeUserpromiseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReplaceTradeUserpromiseResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &UpdateTradeUserpromisebatchResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.userpromisebatch.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &ReplaceTradeUserpromiseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.userpromise.replace"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
