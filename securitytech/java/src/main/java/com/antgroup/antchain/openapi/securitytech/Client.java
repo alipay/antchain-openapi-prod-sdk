@@ -2,13 +2,15 @@
 package com.antgroup.antchain.openapi.securitytech;
 
 import com.aliyun.tea.*;
+import com.aliyun.tea.interceptor.InterceptorChain;
+import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
+import com.aliyun.tea.interceptor.RequestInterceptor;
+import com.aliyun.tea.interceptor.ResponseInterceptor;
 import com.antgroup.antchain.openapi.securitytech.models.*;
-import com.antgroup.antchain.openapi.antchain.util.*;
-import com.aliyun.teautil.*;
-import com.aliyun.teautil.models.*;
-import com.aliyun.common.*;
 
 public class Client {
+
+    private final static InterceptorChain interceptorChain = InterceptorChain.create();
 
     public String _endpoint;
     public String _regionId;
@@ -34,7 +36,7 @@ public class Client {
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
-        if (com.aliyun.teautil.Common.isUnset(TeaModel.buildMap(config))) {
+        if (com.aliyun.teautil.Common.isUnset(config)) {
             throw new TeaException(TeaConverter.buildMap(
                 new TeaPair("code", "ParameterMissing"),
                 new TeaPair("message", "'config' can not be unset")
@@ -61,7 +63,17 @@ public class Client {
         this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
-    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    /**
+     * Encapsulate the request and invoke the network
+     * @param action api name
+     * @param protocol http or https
+     * @param method e.g. GET
+     * @param pathname pathname of every api
+     * @param request which contains request params
+     * @param runtime which controls some details of call api, such as retry times
+     * @return the response
+     */
+    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         java.util.Map<String, Object> runtime_ = TeaConverter.buildMap(
             new TeaPair("timeouted", "retry"),
             new TeaPair("readTimeout", com.aliyun.teautil.Common.defaultNumber(runtime.readTimeout, _readTimeout)),
@@ -110,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.19"),
+                    new TeaPair("sdk_version", "1.2.25"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -134,7 +146,7 @@ public class Client {
                 );
                 request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
-                TeaResponse response_ = Tea.doAction(request_, runtime_);
+                TeaResponse response_ = Tea.doAction(request_, runtime_, interceptorChain);
 
                 String raw = com.aliyun.teautil.Common.readAsString(response_.body);
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
@@ -157,8 +169,19 @@ public class Client {
                 throw e;
             }
         }
-
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    public void addRuntimeOptionsInterceptor(RuntimeOptionsInterceptor interceptor) {
+        interceptorChain.addRuntimeOptionsInterceptor(interceptor);
+    }
+
+    public void addRequestInterceptor(RequestInterceptor interceptor) {
+        interceptorChain.addRequestInterceptor(interceptor);
+    }
+
+    public void addResponseInterceptor(ResponseInterceptor interceptor) {
+        interceptorChain.addResponseInterceptor(interceptor);
     }
 
     /**
@@ -166,7 +189,7 @@ public class Client {
      * Summary: 安全科技网关通用运行接口
      */
     public RunGeneralResponse runGeneral(RunGeneralRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.runGeneralEx(request, headers, runtime);
     }
@@ -175,7 +198,7 @@ public class Client {
      * Description: 安全科技网关通用运行接口
      * Summary: 安全科技网关通用运行接口
      */
-    public RunGeneralResponse runGeneralEx(RunGeneralRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RunGeneralResponse runGeneralEx(RunGeneralRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.general.run", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RunGeneralResponse());
     }
@@ -186,7 +209,7 @@ public class Client {
      * Summary: 租赁住房保险产品，接口开放给租房平台
      */
     public ExecEkytInsureResponse execEkytInsure(ExecEkytInsureRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.execEkytInsureEx(request, headers, runtime);
     }
@@ -196,7 +219,7 @@ public class Client {
     调用方：上海远点网络科技有限公司
      * Summary: 租赁住房保险产品，接口开放给租房平台
      */
-    public ExecEkytInsureResponse execEkytInsureEx(ExecEkytInsureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ExecEkytInsureResponse execEkytInsureEx(ExecEkytInsureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.insure.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecEkytInsureResponse());
     }
@@ -206,7 +229,7 @@ public class Client {
      * Summary: 蓝盾安全图片生成
      */
     public CreateBssecpicResponse createBssecpic(CreateBssecpicRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createBssecpicEx(request, headers, runtime);
     }
@@ -215,7 +238,7 @@ public class Client {
      * Description: 蓝盾安全图片生成
      * Summary: 蓝盾安全图片生成
      */
-    public CreateBssecpicResponse createBssecpicEx(CreateBssecpicRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateBssecpicResponse createBssecpicEx(CreateBssecpicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.bssecpic.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBssecpicResponse());
     }
@@ -225,7 +248,7 @@ public class Client {
      * Summary: 蓝盾安全图片生成
      */
     public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypicture(CreateBlueshieldSecuritypictureRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createBlueshieldSecuritypictureEx(request, headers, runtime);
     }
@@ -234,7 +257,7 @@ public class Client {
      * Description: 蓝盾安全图片生成
      * Summary: 蓝盾安全图片生成
      */
-    public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypictureEx(CreateBlueshieldSecuritypictureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateBlueshieldSecuritypictureResponse createBlueshieldSecuritypictureEx(CreateBlueshieldSecuritypictureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.blueshield.securitypicture.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlueshieldSecuritypictureResponse());
     }
@@ -244,7 +267,7 @@ public class Client {
      * Summary: 人脸盾Native查询
      */
     public QueryFaceshieldNativeResponse queryFaceshieldNative(QueryFaceshieldNativeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFaceshieldNativeEx(request, headers, runtime);
     }
@@ -253,7 +276,7 @@ public class Client {
      * Description: 终端安全人脸盾Native查询
      * Summary: 人脸盾Native查询
      */
-    public QueryFaceshieldNativeResponse queryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFaceshieldNativeResponse queryFaceshieldNativeEx(QueryFaceshieldNativeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.faceshield.native.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldNativeResponse());
     }
@@ -263,7 +286,7 @@ public class Client {
      * Summary: 人脸盾Web查询
      */
     public QueryFaceshieldWebResponse queryFaceshieldWeb(QueryFaceshieldWebRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryFaceshieldWebEx(request, headers, runtime);
     }
@@ -272,7 +295,7 @@ public class Client {
      * Description: 终端安全人脸盾Web查询
      * Summary: 人脸盾Web查询
      */
-    public QueryFaceshieldWebResponse queryFaceshieldWebEx(QueryFaceshieldWebRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryFaceshieldWebResponse queryFaceshieldWebEx(QueryFaceshieldWebRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.faceshield.web.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFaceshieldWebResponse());
     }
@@ -282,7 +305,7 @@ public class Client {
      * Summary: 可信设备认证设备初始化，设备激活
      */
     public InitIifaaDeviceResponse initIifaaDevice(InitIifaaDeviceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initIifaaDeviceEx(request, headers, runtime);
     }
@@ -291,7 +314,7 @@ public class Client {
      * Description: 设备激活
      * Summary: 可信设备认证设备初始化，设备激活
      */
-    public InitIifaaDeviceResponse initIifaaDeviceEx(InitIifaaDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitIifaaDeviceResponse initIifaaDeviceEx(InitIifaaDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitIifaaDeviceResponse());
     }
@@ -301,7 +324,7 @@ public class Client {
      * Summary: 可信设备认证风险咨询，获取预认证数据
      */
     public RecognizeIifaaDeviceResponse recognizeIifaaDevice(RecognizeIifaaDeviceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.recognizeIifaaDeviceEx(request, headers, runtime);
     }
@@ -310,7 +333,7 @@ public class Client {
      * Description: 可信设备认证风险咨询，获取预认证数据
      * Summary: 可信设备认证风险咨询，获取预认证数据
      */
-    public RecognizeIifaaDeviceResponse recognizeIifaaDeviceEx(RecognizeIifaaDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RecognizeIifaaDeviceResponse recognizeIifaaDeviceEx(RecognizeIifaaDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeIifaaDeviceResponse());
     }
@@ -320,7 +343,7 @@ public class Client {
      * Summary: 可信设备认证，设备验证
      */
     public VerifyIifaaDeviceResponse verifyIifaaDevice(VerifyIifaaDeviceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.verifyIifaaDeviceEx(request, headers, runtime);
     }
@@ -329,7 +352,7 @@ public class Client {
      * Description: 可信设备认证，设备验证
      * Summary: 可信设备认证，设备验证
      */
-    public VerifyIifaaDeviceResponse verifyIifaaDeviceEx(VerifyIifaaDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public VerifyIifaaDeviceResponse verifyIifaaDeviceEx(VerifyIifaaDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyIifaaDeviceResponse());
     }
@@ -339,7 +362,7 @@ public class Client {
      * Summary: 可信设备认证，产商注册
      */
     public RegisterIifaaCorpResponse registerIifaaCorp(RegisterIifaaCorpRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.registerIifaaCorpEx(request, headers, runtime);
     }
@@ -348,7 +371,7 @@ public class Client {
      * Description: 可信设备认证，产商注册
      * Summary: 可信设备认证，产商注册
      */
-    public RegisterIifaaCorpResponse registerIifaaCorpEx(RegisterIifaaCorpRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RegisterIifaaCorpResponse registerIifaaCorpEx(RegisterIifaaCorpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.corp.register", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RegisterIifaaCorpResponse());
     }
@@ -358,7 +381,7 @@ public class Client {
      * Summary: 可信设备认证，擦除设备信息
      */
     public DeprecateIifaaDeviceResponse deprecateIifaaDevice(DeprecateIifaaDeviceRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.deprecateIifaaDeviceEx(request, headers, runtime);
     }
@@ -367,7 +390,7 @@ public class Client {
      * Description: 可信设备认证，擦除设备信息
      * Summary: 可信设备认证，擦除设备信息
      */
-    public DeprecateIifaaDeviceResponse deprecateIifaaDeviceEx(DeprecateIifaaDeviceRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public DeprecateIifaaDeviceResponse deprecateIifaaDeviceEx(DeprecateIifaaDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.device.deprecate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeprecateIifaaDeviceResponse());
     }
@@ -377,7 +400,7 @@ public class Client {
      * Summary: 巡检商业化
      */
     public RunXhunterSpiResponse runXhunterSpi(RunXhunterSpiRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.runXhunterSpiEx(request, headers, runtime);
     }
@@ -386,7 +409,7 @@ public class Client {
      * Description: 巡检商业化
      * Summary: 巡检商业化
      */
-    public RunXhunterSpiResponse runXhunterSpiEx(RunXhunterSpiRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RunXhunterSpiResponse runXhunterSpiEx(RunXhunterSpiRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.xhunter.spi.run", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RunXhunterSpiResponse());
     }
@@ -396,7 +419,7 @@ public class Client {
      * Summary: 租凭住房保险产品，接口开放给租房平台
      */
     public ExecIifaaInsureResponse execIifaaInsure(ExecIifaaInsureRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.execIifaaInsureEx(request, headers, runtime);
     }
@@ -405,7 +428,7 @@ public class Client {
      * Description: 租凭住房保险产品，接口开放给租房平台
      * Summary: 租凭住房保险产品，接口开放给租房平台
      */
-    public ExecIifaaInsureResponse execIifaaInsureEx(ExecIifaaInsureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ExecIifaaInsureResponse execIifaaInsureEx(ExecIifaaInsureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.insure.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecIifaaInsureResponse());
     }
@@ -415,7 +438,7 @@ public class Client {
      * Summary: 内容安全图片同步检测
      */
     public QueryCctPictureResponse queryCctPicture(QueryCctPictureRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryCctPictureEx(request, headers, runtime);
     }
@@ -424,7 +447,7 @@ public class Client {
      * Description: 内容安全图片同步检测
      * Summary: 内容安全图片同步检测
      */
-    public QueryCctPictureResponse queryCctPictureEx(QueryCctPictureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryCctPictureResponse queryCctPictureEx(QueryCctPictureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.cct.picture.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCctPictureResponse());
     }
@@ -434,7 +457,7 @@ public class Client {
      * Summary: 内容安全主站同步检测
      */
     public RecognizeCctAnalyzeResponse recognizeCctAnalyze(RecognizeCctAnalyzeRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.recognizeCctAnalyzeEx(request, headers, runtime);
     }
@@ -443,7 +466,7 @@ public class Client {
      * Description: 内容安全主站同步检测
      * Summary: 内容安全主站同步检测
      */
-    public RecognizeCctAnalyzeResponse recognizeCctAnalyzeEx(RecognizeCctAnalyzeRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RecognizeCctAnalyzeResponse recognizeCctAnalyzeEx(RecognizeCctAnalyzeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.cct.analyze.recognize", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RecognizeCctAnalyzeResponse());
     }
@@ -453,7 +476,7 @@ public class Client {
      * Summary: RAAS数据服务统一接口
      */
     public QueryRiskGeneralResponse queryRiskGeneral(QueryRiskGeneralRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryRiskGeneralEx(request, headers, runtime);
     }
@@ -462,7 +485,7 @@ public class Client {
      * Description: RAAS数据服务统一接口
      * Summary: RAAS数据服务统一接口
      */
-    public QueryRiskGeneralResponse queryRiskGeneralEx(QueryRiskGeneralRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryRiskGeneralResponse queryRiskGeneralEx(QueryRiskGeneralRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.risk.general.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRiskGeneralResponse());
     }
@@ -472,7 +495,7 @@ public class Client {
      * Summary: 设备指纹查询
      */
     public QueryDeviceriskFingerResponse queryDeviceriskFinger(QueryDeviceriskFingerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDeviceriskFingerEx(request, headers, runtime);
     }
@@ -481,7 +504,7 @@ public class Client {
      * Description: 设备指纹查询
      * Summary: 设备指纹查询
      */
-    public QueryDeviceriskFingerResponse queryDeviceriskFingerEx(QueryDeviceriskFingerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDeviceriskFingerResponse queryDeviceriskFingerEx(QueryDeviceriskFingerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.devicerisk.finger.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceriskFingerResponse());
     }
@@ -491,7 +514,7 @@ public class Client {
      * Summary: 风险标签查询
      */
     public QueryDeviceriskRisklabelResponse queryDeviceriskRisklabel(QueryDeviceriskRisklabelRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDeviceriskRisklabelEx(request, headers, runtime);
     }
@@ -500,7 +523,7 @@ public class Client {
      * Description: 风险标签查询
      * Summary: 风险标签查询
      */
-    public QueryDeviceriskRisklabelResponse queryDeviceriskRisklabelEx(QueryDeviceriskRisklabelRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDeviceriskRisklabelResponse queryDeviceriskRisklabelEx(QueryDeviceriskRisklabelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.devicerisk.risklabel.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceriskRisklabelResponse());
     }
@@ -510,7 +533,7 @@ public class Client {
      * Summary: 设备风险查询
      */
     public QueryDeviceriskDeviceriskResponse queryDeviceriskDevicerisk(QueryDeviceriskDeviceriskRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDeviceriskDeviceriskEx(request, headers, runtime);
     }
@@ -519,7 +542,7 @@ public class Client {
      * Description: 设备风险查询
      * Summary: 设备风险查询
      */
-    public QueryDeviceriskDeviceriskResponse queryDeviceriskDeviceriskEx(QueryDeviceriskDeviceriskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDeviceriskDeviceriskResponse queryDeviceriskDeviceriskEx(QueryDeviceriskDeviceriskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.devicerisk.devicerisk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceriskDeviceriskResponse());
     }
@@ -529,7 +552,7 @@ public class Client {
      * Summary: 设备信息上报
      */
     public SubmitDeviceriskReportResponse submitDeviceriskReport(SubmitDeviceriskReportRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.submitDeviceriskReportEx(request, headers, runtime);
     }
@@ -538,7 +561,7 @@ public class Client {
      * Description: 设备信息上报
      * Summary: 设备信息上报
      */
-    public SubmitDeviceriskReportResponse submitDeviceriskReportEx(SubmitDeviceriskReportRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SubmitDeviceriskReportResponse submitDeviceriskReportEx(SubmitDeviceriskReportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.devicerisk.report.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitDeviceriskReportResponse());
     }
@@ -548,7 +571,7 @@ public class Client {
      * Summary: eKYT风险评估服务-出行场景司机
      */
     public QueryEkytDriverResponse queryEkytDriver(QueryEkytDriverRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryEkytDriverEx(request, headers, runtime);
     }
@@ -557,7 +580,7 @@ public class Client {
      * Description: eKYT风险评估服务-出行场景司机
      * Summary: eKYT风险评估服务-出行场景司机
      */
-    public QueryEkytDriverResponse queryEkytDriverEx(QueryEkytDriverRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryEkytDriverResponse queryEkytDriverEx(QueryEkytDriverRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.driver.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEkytDriverResponse());
     }
@@ -567,7 +590,7 @@ public class Client {
      * Summary: 申请设备设备密钥
      */
     public ApplyIifaaDevicekeyResponse applyIifaaDevicekey(ApplyIifaaDevicekeyRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.applyIifaaDevicekeyEx(request, headers, runtime);
     }
@@ -576,7 +599,7 @@ public class Client {
      * Description: 申请设备设备密钥
      * Summary: 申请设备设备密钥
      */
-    public ApplyIifaaDevicekeyResponse applyIifaaDevicekeyEx(ApplyIifaaDevicekeyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ApplyIifaaDevicekeyResponse applyIifaaDevicekeyEx(ApplyIifaaDevicekeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.devicekey.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyIifaaDevicekeyResponse());
     }
@@ -586,7 +609,7 @@ public class Client {
      * Summary: 设备风险咨询
      */
     public QueryDeviceplusRiskqueryResponse queryDeviceplusRiskquery(QueryDeviceplusRiskqueryRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDeviceplusRiskqueryEx(request, headers, runtime);
     }
@@ -595,7 +618,7 @@ public class Client {
      * Description: 设备风险咨询
      * Summary: 设备风险咨询
      */
-    public QueryDeviceplusRiskqueryResponse queryDeviceplusRiskqueryEx(QueryDeviceplusRiskqueryRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDeviceplusRiskqueryResponse queryDeviceplusRiskqueryEx(QueryDeviceplusRiskqueryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.deviceplus.riskquery.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceplusRiskqueryResponse());
     }
@@ -605,7 +628,7 @@ public class Client {
      * Summary: 设备风险咨询mpaas
      */
     public QueryDeviceplusMpaasResponse queryDeviceplusMpaas(QueryDeviceplusMpaasRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryDeviceplusMpaasEx(request, headers, runtime);
     }
@@ -614,7 +637,7 @@ public class Client {
      * Description: 设备风险咨询mpaas
      * Summary: 设备风险咨询mpaas
      */
-    public QueryDeviceplusMpaasResponse queryDeviceplusMpaasEx(QueryDeviceplusMpaasRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryDeviceplusMpaasResponse queryDeviceplusMpaasEx(QueryDeviceplusMpaasRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.deviceplus.mpaas.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDeviceplusMpaasResponse());
     }
@@ -624,7 +647,7 @@ public class Client {
      * Summary: 启动加固任务(包月)
      */
     public SubmitAshieldPeriodhardeningtaskResponse submitAshieldPeriodhardeningtask(SubmitAshieldPeriodhardeningtaskRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.submitAshieldPeriodhardeningtaskEx(request, headers, runtime);
     }
@@ -633,7 +656,7 @@ public class Client {
      * Description: 终端安全-Android应用加固-启动加固任务(包月)
      * Summary: 启动加固任务(包月)
      */
-    public SubmitAshieldPeriodhardeningtaskResponse submitAshieldPeriodhardeningtaskEx(SubmitAshieldPeriodhardeningtaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SubmitAshieldPeriodhardeningtaskResponse submitAshieldPeriodhardeningtaskEx(SubmitAshieldPeriodhardeningtaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.periodhardeningtask.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAshieldPeriodhardeningtaskResponse());
     }
@@ -643,7 +666,7 @@ public class Client {
      * Summary: 获取上传文件的临时URL
      */
     public GetAshieldFiletokenResponse getAshieldFiletoken(GetAshieldFiletokenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getAshieldFiletokenEx(request, headers, runtime);
     }
@@ -652,7 +675,7 @@ public class Client {
      * Description: 终端安全-Android应用加固-获取上传文件的临时URL
      * Summary: 获取上传文件的临时URL
      */
-    public GetAshieldFiletokenResponse getAshieldFiletokenEx(GetAshieldFiletokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetAshieldFiletokenResponse getAshieldFiletokenEx(GetAshieldFiletokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.filetoken.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldFiletokenResponse());
     }
@@ -662,7 +685,7 @@ public class Client {
      * Summary: 启动加固任务(按次计费)
      */
     public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtask(SubmitAshieldHardeningtaskRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.submitAshieldHardeningtaskEx(request, headers, runtime);
     }
@@ -671,7 +694,7 @@ public class Client {
      * Description: 终端安全-Android应用加固-启动加固任务
      * Summary: 启动加固任务(按次计费)
      */
-    public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtaskEx(SubmitAshieldHardeningtaskRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SubmitAshieldHardeningtaskResponse submitAshieldHardeningtaskEx(SubmitAshieldHardeningtaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtask.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAshieldHardeningtaskResponse());
     }
@@ -681,7 +704,7 @@ public class Client {
      * Summary: 查询加固任务进度
      */
     public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocess(GetAshieldHardeningtaskprocessRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getAshieldHardeningtaskprocessEx(request, headers, runtime);
     }
@@ -690,7 +713,7 @@ public class Client {
      * Description: 终端安全-Android应用加固-查询加固任务进度
      * Summary: 查询加固任务进度
      */
-    public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocessEx(GetAshieldHardeningtaskprocessRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetAshieldHardeningtaskprocessResponse getAshieldHardeningtaskprocessEx(GetAshieldHardeningtaskprocessRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningtaskprocess.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeningtaskprocessResponse());
     }
@@ -700,7 +723,7 @@ public class Client {
      * Summary: 查询加固后的产物下载链接
      */
     public GetAshieldHardeningresultResponse getAshieldHardeningresult(GetAshieldHardeningresultRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getAshieldHardeningresultEx(request, headers, runtime);
     }
@@ -709,7 +732,7 @@ public class Client {
      * Description: 终端安全-Android应用加固-查询加固后的产物下载链接
      * Summary: 查询加固后的产物下载链接
      */
-    public GetAshieldHardeningresultResponse getAshieldHardeningresultEx(GetAshieldHardeningresultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetAshieldHardeningresultResponse getAshieldHardeningresultEx(GetAshieldHardeningresultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeningresult.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeningresultResponse());
     }
@@ -719,7 +742,7 @@ public class Client {
      * Summary: 查询加固后的日志下载链接
      */
     public GetAshieldHardeninglogResponse getAshieldHardeninglog(GetAshieldHardeninglogRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getAshieldHardeninglogEx(request, headers, runtime);
     }
@@ -728,7 +751,7 @@ public class Client {
      * Description: 终端安全-Android应用加固-查询加固后的日志下载链接
      * Summary: 查询加固后的日志下载链接
      */
-    public GetAshieldHardeninglogResponse getAshieldHardeninglogEx(GetAshieldHardeninglogRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetAshieldHardeninglogResponse getAshieldHardeninglogEx(GetAshieldHardeninglogRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ashield.hardeninglog.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAshieldHardeninglogResponse());
     }
@@ -738,7 +761,7 @@ public class Client {
      * Summary: eKYT可信签约-初始化
      */
     public InitEkytTrustsignResponse initEkytTrustsign(InitEkytTrustsignRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initEkytTrustsignEx(request, headers, runtime);
     }
@@ -747,7 +770,7 @@ public class Client {
      * Description: eKYT可信签约初始化
      * Summary: eKYT可信签约-初始化
      */
-    public InitEkytTrustsignResponse initEkytTrustsignEx(InitEkytTrustsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitEkytTrustsignResponse initEkytTrustsignEx(InitEkytTrustsignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitEkytTrustsignResponse());
     }
@@ -757,7 +780,7 @@ public class Client {
      * Summary: eKYT可信签约-签约单查询
      */
     public QueryEkytTrustsignResponse queryEkytTrustsign(QueryEkytTrustsignRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryEkytTrustsignEx(request, headers, runtime);
     }
@@ -766,7 +789,7 @@ public class Client {
      * Description: eKYT可信签约签约单查询
      * Summary: eKYT可信签约-签约单查询
      */
-    public QueryEkytTrustsignResponse queryEkytTrustsignEx(QueryEkytTrustsignRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryEkytTrustsignResponse queryEkytTrustsignEx(QueryEkytTrustsignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.trustsign.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEkytTrustsignResponse());
     }
@@ -776,7 +799,7 @@ public class Client {
      * Summary: eKYT人脸核身-初始化
      */
     public InitEkytFaceverifyResponse initEkytFaceverify(InitEkytFaceverifyRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.initEkytFaceverifyEx(request, headers, runtime);
     }
@@ -785,7 +808,7 @@ public class Client {
      * Description: eKYT人脸核身初始化
      * Summary: eKYT人脸核身-初始化
      */
-    public InitEkytFaceverifyResponse initEkytFaceverifyEx(InitEkytFaceverifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public InitEkytFaceverifyResponse initEkytFaceverifyEx(InitEkytFaceverifyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitEkytFaceverifyResponse());
     }
@@ -795,7 +818,7 @@ public class Client {
      * Summary: eKYT人脸核身-结果查询
      */
     public QueryEkytFaceverifyResponse queryEkytFaceverify(QueryEkytFaceverifyRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryEkytFaceverifyEx(request, headers, runtime);
     }
@@ -804,8 +827,65 @@ public class Client {
      * Description: eKYT人脸核身结果查询
      * Summary: eKYT人脸核身-结果查询
      */
-    public QueryEkytFaceverifyResponse queryEkytFaceverifyEx(QueryEkytFaceverifyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryEkytFaceverifyResponse queryEkytFaceverifyEx(QueryEkytFaceverifyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.ekyt.faceverify.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEkytFaceverifyResponse());
+    }
+
+    /**
+     * Description: 友活来了创建任务api
+     * Summary: 友活来了创建任务api
+     */
+    public ImportYhllResponse importYhll(ImportYhllRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importYhllEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 友活来了创建任务api
+     * Summary: 友活来了创建任务api
+     */
+    public ImportYhllResponse importYhllEx(ImportYhllRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.yhll.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportYhllResponse());
+    }
+
+    /**
+     * Description: 友活来了任务查询api
+     * Summary: 友活来了任务查询api
+     */
+    public QueryYhllResponse queryYhll(QueryYhllRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryYhllEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 友活来了任务查询api
+     * Summary: 友活来了任务查询api
+     */
+    public QueryYhllResponse queryYhllEx(QueryYhllRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.yhll.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryYhllResponse());
+    }
+
+    /**
+     * Description: 天鉴ask接口
+     * Summary: 天鉴ask接口
+     */
+    public QueryGuardAskResponse queryGuardAsk(QueryGuardAskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryGuardAskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天鉴ask接口
+     * Summary: 天鉴ask接口
+     */
+    public QueryGuardAskResponse queryGuardAskEx(QueryGuardAskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.guard.ask.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryGuardAskResponse());
     }
 }
