@@ -31,6 +31,8 @@ use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultRequest;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningresultResponse;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessRequest;
 use AntChain\SECURITYTECH\Models\GetAshieldHardeningtaskprocessResponse;
+use AntChain\SECURITYTECH\Models\ImportYhllRequest;
+use AntChain\SECURITYTECH\Models\ImportYhllResponse;
 use AntChain\SECURITYTECH\Models\InitEkytFaceverifyRequest;
 use AntChain\SECURITYTECH\Models\InitEkytFaceverifyResponse;
 use AntChain\SECURITYTECH\Models\InitEkytTrustsignRequest;
@@ -59,8 +61,12 @@ use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeRequest;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldWebRequest;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldWebResponse;
+use AntChain\SECURITYTECH\Models\QueryGuardAskRequest;
+use AntChain\SECURITYTECH\Models\QueryGuardAskResponse;
 use AntChain\SECURITYTECH\Models\QueryRiskGeneralRequest;
 use AntChain\SECURITYTECH\Models\QueryRiskGeneralResponse;
+use AntChain\SECURITYTECH\Models\QueryYhllRequest;
+use AntChain\SECURITYTECH\Models\QueryYhllResponse;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeRequest;
 use AntChain\SECURITYTECH\Models\RecognizeCctAnalyzeResponse;
 use AntChain\SECURITYTECH\Models\RecognizeIifaaDeviceRequest;
@@ -226,7 +232,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.19',
+                    'sdk_version'      => '1.2.25',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1396,5 +1402,104 @@ class Client
         Utils::validateModel($request);
 
         return QueryEkytFaceverifyResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.faceverify.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 友活来了创建任务api
+     * Summary: 友活来了创建任务api.
+     *
+     * @param ImportYhllRequest $request
+     *
+     * @return ImportYhllResponse
+     */
+    public function importYhll($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->importYhllEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 友活来了创建任务api
+     * Summary: 友活来了创建任务api.
+     *
+     * @param ImportYhllRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return ImportYhllResponse
+     */
+    public function importYhllEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ImportYhllResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.yhll.import', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 友活来了任务查询api
+     * Summary: 友活来了任务查询api.
+     *
+     * @param QueryYhllRequest $request
+     *
+     * @return QueryYhllResponse
+     */
+    public function queryYhll($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryYhllEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 友活来了任务查询api
+     * Summary: 友活来了任务查询api.
+     *
+     * @param QueryYhllRequest $request
+     * @param string[]         $headers
+     * @param RuntimeOptions   $runtime
+     *
+     * @return QueryYhllResponse
+     */
+    public function queryYhllEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryYhllResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.yhll.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天鉴ask接口
+     * Summary: 天鉴ask接口.
+     *
+     * @param QueryGuardAskRequest $request
+     *
+     * @return QueryGuardAskResponse
+     */
+    public function queryGuardAsk($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryGuardAskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天鉴ask接口
+     * Summary: 天鉴ask接口.
+     *
+     * @param QueryGuardAskRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryGuardAskResponse
+     */
+    public function queryGuardAskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryGuardAskResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.guard.ask.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
