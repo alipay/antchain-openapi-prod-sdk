@@ -4348,6 +4348,8 @@ export class CreateInnerMerchantpayexpandRequest extends $tea.Model {
   userName: string;
   // 第一次暂存或保存可以不传，后端直接生成
   payExpandId?: string;
+  // true允许重复进件，false不允许重复进件
+  allowDuplicate?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4361,6 +4363,7 @@ export class CreateInnerMerchantpayexpandRequest extends $tea.Model {
       subTenantId: 'sub_tenant_id',
       userName: 'user_name',
       payExpandId: 'pay_expand_id',
+      allowDuplicate: 'allow_duplicate',
     };
   }
 
@@ -4377,6 +4380,7 @@ export class CreateInnerMerchantpayexpandRequest extends $tea.Model {
       subTenantId: 'string',
       userName: 'string',
       payExpandId: 'string',
+      allowDuplicate: 'boolean',
     };
   }
 
@@ -6734,7 +6738,7 @@ export class CancelSignFlowRequest extends $tea.Model {
   productInstanceId?: string;
   // 签署合同单号
   signNo: string;
-  // 默认:“撤销”
+  // 默认:“撤销”，最大长度50
   revokeReason?: string;
   // 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
   operatorId?: string;
@@ -7470,7 +7474,7 @@ export class SyncTradeIndirectorderResponse extends $tea.Model {
   }
 }
 
-export class UpdateTradeUserpromisebatchRequest extends $tea.Model {
+export class ReplaceTradeUserpromiseRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -7505,7 +7509,7 @@ export class UpdateTradeUserpromisebatchRequest extends $tea.Model {
   }
 }
 
-export class UpdateTradeUserpromisebatchResponse extends $tea.Model {
+export class ReplaceTradeUserpromiseResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -8615,7 +8619,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.98",
+          sdk_version: "1.9.2",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -10383,19 +10387,19 @@ export default class Client {
    * Description: 用户履约承诺替换更新
    * Summary: 用户履约承诺替换更新
    */
-  async updateTradeUserpromisebatch(request: UpdateTradeUserpromisebatchRequest): Promise<UpdateTradeUserpromisebatchResponse> {
+  async replaceTradeUserpromise(request: ReplaceTradeUserpromiseRequest): Promise<ReplaceTradeUserpromiseResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.updateTradeUserpromisebatchEx(request, headers, runtime);
+    return await this.replaceTradeUserpromiseEx(request, headers, runtime);
   }
 
   /**
    * Description: 用户履约承诺替换更新
    * Summary: 用户履约承诺替换更新
    */
-  async updateTradeUserpromisebatchEx(request: UpdateTradeUserpromisebatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateTradeUserpromisebatchResponse> {
+  async replaceTradeUserpromiseEx(request: ReplaceTradeUserpromiseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReplaceTradeUserpromiseResponse> {
     Util.validateModel(request);
-    return $tea.cast<UpdateTradeUserpromisebatchResponse>(await this.doRequest("1.0", "antchain.ato.trade.userpromisebatch.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateTradeUserpromisebatchResponse({}));
+    return $tea.cast<ReplaceTradeUserpromiseResponse>(await this.doRequest("1.0", "antchain.ato.trade.userpromise.replace", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReplaceTradeUserpromiseResponse({}));
   }
 
   /**
