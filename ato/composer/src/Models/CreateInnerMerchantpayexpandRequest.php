@@ -76,6 +76,12 @@ class CreateInnerMerchantpayexpandRequest extends Model
      * @var string
      */
     public $payExpandId;
+
+    // true允许重复进件，false不允许重复进件
+    /**
+     * @var bool
+     */
+    public $allowDuplicate;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -88,6 +94,7 @@ class CreateInnerMerchantpayexpandRequest extends Model
         'subTenantId'       => 'sub_tenant_id',
         'userName'          => 'user_name',
         'payExpandId'       => 'pay_expand_id',
+        'allowDuplicate'    => 'allow_duplicate',
     ];
 
     public function validate()
@@ -137,6 +144,9 @@ class CreateInnerMerchantpayexpandRequest extends Model
         if (null !== $this->payExpandId) {
             $res['pay_expand_id'] = $this->payExpandId;
         }
+        if (null !== $this->allowDuplicate) {
+            $res['allow_duplicate'] = $this->allowDuplicate;
+        }
 
         return $res;
     }
@@ -181,6 +191,9 @@ class CreateInnerMerchantpayexpandRequest extends Model
         }
         if (isset($map['pay_expand_id'])) {
             $model->payExpandId = $map['pay_expand_id'];
+        }
+        if (isset($map['allow_duplicate'])) {
+            $model->allowDuplicate = $map['allow_duplicate'];
         }
 
         return $model;

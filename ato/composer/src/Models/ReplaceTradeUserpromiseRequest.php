@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdateTradeUserpromisebatchRequest extends Model
+class ReplaceTradeUserpromiseRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -80,7 +80,7 @@ class UpdateTradeUserpromisebatchRequest extends Model
     /**
      * @param array $map
      *
-     * @return UpdateTradeUserpromisebatchRequest
+     * @return ReplaceTradeUserpromiseRequest
      */
     public static function fromMap($map = [])
     {

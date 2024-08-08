@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdateTradeUserpromisebatchResponse extends Model
+class ReplaceTradeUserpromiseResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -54,7 +54,7 @@ class UpdateTradeUserpromisebatchResponse extends Model
     /**
      * @param array $map
      *
-     * @return UpdateTradeUserpromisebatchResponse
+     * @return ReplaceTradeUserpromiseResponse
      */
     public static function fromMap($map = [])
     {

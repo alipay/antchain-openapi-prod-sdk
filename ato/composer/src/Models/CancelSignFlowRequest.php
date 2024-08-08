@@ -25,7 +25,7 @@ class CancelSignFlowRequest extends Model
      */
     public $signNo;
 
-    // 默认:“撤销”
+    // 默认:“撤销”，最大长度50
     /**
      * @var string
      */

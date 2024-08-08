@@ -145,6 +145,8 @@ use AntChain\ATO\Models\RegisterMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\RegisterMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\RepayWithholdPlanRequest;
 use AntChain\ATO\Models\RepayWithholdPlanResponse;
+use AntChain\ATO\Models\ReplaceTradeUserpromiseRequest;
+use AntChain\ATO\Models\ReplaceTradeUserpromiseResponse;
 use AntChain\ATO\Models\RetryInnerOrdermsgRequest;
 use AntChain\ATO\Models\RetryInnerOrdermsgResponse;
 use AntChain\ATO\Models\RetryWithholdPlanRequest;
@@ -195,8 +197,6 @@ use AntChain\ATO\Models\UpdateInnerTemplateRequest;
 use AntChain\ATO\Models\UpdateInnerTemplateResponse;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantResponse;
-use AntChain\ATO\Models\UpdateTradeUserpromisebatchRequest;
-use AntChain\ATO\Models\UpdateTradeUserpromisebatchResponse;
 use AntChain\ATO\Models\UpdateTradeUserpromiseRequest;
 use AntChain\ATO\Models\UpdateTradeUserpromiseResponse;
 use AntChain\ATO\Models\UploadFundCreditRequest;
@@ -360,7 +360,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.8.98',
+                    'sdk_version'      => '1.9.2',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3337,33 +3337,33 @@ class Client
      * Description: 用户履约承诺替换更新
      * Summary: 用户履约承诺替换更新.
      *
-     * @param UpdateTradeUserpromisebatchRequest $request
+     * @param ReplaceTradeUserpromiseRequest $request
      *
-     * @return UpdateTradeUserpromisebatchResponse
+     * @return ReplaceTradeUserpromiseResponse
      */
-    public function updateTradeUserpromisebatch($request)
+    public function replaceTradeUserpromise($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->updateTradeUserpromisebatchEx($request, $headers, $runtime);
+        return $this->replaceTradeUserpromiseEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 用户履约承诺替换更新
      * Summary: 用户履约承诺替换更新.
      *
-     * @param UpdateTradeUserpromisebatchRequest $request
-     * @param string[]                           $headers
-     * @param RuntimeOptions                     $runtime
+     * @param ReplaceTradeUserpromiseRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
      *
-     * @return UpdateTradeUserpromisebatchResponse
+     * @return ReplaceTradeUserpromiseResponse
      */
-    public function updateTradeUserpromisebatchEx($request, $headers, $runtime)
+    public function replaceTradeUserpromiseEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return UpdateTradeUserpromisebatchResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromisebatch.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ReplaceTradeUserpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
