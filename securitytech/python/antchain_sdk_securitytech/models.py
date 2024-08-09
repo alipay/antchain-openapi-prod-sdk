@@ -6458,6 +6458,9 @@ class QueryGuardAskRequest(TeaModel):
         question_format: str = None,
         model_code: str = None,
         business_properties: KeyValueMap = None,
+        scene_code: str = None,
+        service_code: str = None,
+        app_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6478,6 +6481,12 @@ class QueryGuardAskRequest(TeaModel):
         self.model_code = model_code
         # 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
         self.business_properties = business_properties
+        # scene_code
+        self.scene_code = scene_code
+        # serviceCode
+        self.service_code = service_code
+        # app_code
+        self.app_code = app_code
 
     def validate(self):
         self.validate_required(self.session_id, 'session_id')
@@ -6528,6 +6537,12 @@ class QueryGuardAskRequest(TeaModel):
             result['model_code'] = self.model_code
         if self.business_properties is not None:
             result['business_properties'] = self.business_properties.to_map()
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.service_code is not None:
+            result['service_code'] = self.service_code
+        if self.app_code is not None:
+            result['app_code'] = self.app_code
         return result
 
     def from_map(self, m: dict = None):
@@ -6553,6 +6568,12 @@ class QueryGuardAskRequest(TeaModel):
         if m.get('business_properties') is not None:
             temp_model = KeyValueMap()
             self.business_properties = temp_model.from_map(m['business_properties'])
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('service_code') is not None:
+            self.service_code = m.get('service_code')
+        if m.get('app_code') is not None:
+            self.app_code = m.get('app_code')
         return self
 
 
