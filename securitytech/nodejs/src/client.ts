@@ -3935,22 +3935,14 @@ export class QueryGuardAskRequest extends $tea.Model {
   sessionId: string;
   // 数据唯一标识，能够根据该值定位到该条数据
   requestId: string;
-  // 大模型提问护栏服务, 用于区分提供的服务类别，当前支持：TJ_QUESTION_BASIC、TJ_ANSWER_BASIC 两种
-  serviceName: string;
+  // serviceCode
+  serviceCode: string;
   // 当前提问内容，最大长度10000个字符。
   question: string;
-  // 用户ID，用于主体风险判断，如果是2088开头的阿里体系用户，请传入2088开头的用户ID
-  userId: string;
   // 提问内容类型，纯文本: PLAINTEXT，图片url: PICTURE_URL
   questionFormat?: string;
-  // 大模型ID，表示大模型版本
-  modelCode?: string;
-  // 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
-  businessProperties?: KeyValueMap;
   // scene_code
   sceneCode?: string;
-  // serviceCode
-  serviceCode?: string;
   // app_code
   appCode?: string;
   // raas_products
@@ -3961,14 +3953,10 @@ export class QueryGuardAskRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       sessionId: 'session_id',
       requestId: 'request_id',
-      serviceName: 'service_name',
-      question: 'question',
-      userId: 'user_id',
-      questionFormat: 'question_format',
-      modelCode: 'model_code',
-      businessProperties: 'business_properties',
-      sceneCode: 'scene_code',
       serviceCode: 'service_code',
+      question: 'question',
+      questionFormat: 'question_format',
+      sceneCode: 'scene_code',
       appCode: 'app_code',
       raasProducts: 'raas_products',
     };
@@ -3980,14 +3968,10 @@ export class QueryGuardAskRequest extends $tea.Model {
       productInstanceId: 'string',
       sessionId: 'string',
       requestId: 'string',
-      serviceName: 'string',
-      question: 'string',
-      userId: 'string',
-      questionFormat: 'string',
-      modelCode: 'string',
-      businessProperties: KeyValueMap,
-      sceneCode: 'string',
       serviceCode: 'string',
+      question: 'string',
+      questionFormat: 'string',
+      sceneCode: 'string',
       appCode: 'string',
       raasProducts: 'string',
     };
@@ -4159,7 +4143,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.28",
+          sdk_version: "1.2.29",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
