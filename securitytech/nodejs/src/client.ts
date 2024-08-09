@@ -3953,6 +3953,8 @@ export class QueryGuardAskRequest extends $tea.Model {
   serviceCode?: string;
   // app_code
   appCode?: string;
+  // raas_products
+  raasProducts?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3968,6 +3970,7 @@ export class QueryGuardAskRequest extends $tea.Model {
       sceneCode: 'scene_code',
       serviceCode: 'service_code',
       appCode: 'app_code',
+      raasProducts: 'raas_products',
     };
   }
 
@@ -3986,6 +3989,7 @@ export class QueryGuardAskRequest extends $tea.Model {
       sceneCode: 'string',
       serviceCode: 'string',
       appCode: 'string',
+      raasProducts: 'string',
     };
   }
 
@@ -4155,7 +4159,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.27",
+          sdk_version: "1.2.28",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
