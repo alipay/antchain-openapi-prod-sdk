@@ -6623,3 +6623,208 @@ class QueryGuardAskResponse(TeaModel):
         return self
 
 
+class QueryGuardAnswerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        session_id: str = None,
+        request_id: str = None,
+        service_code: str = None,
+        answer: str = None,
+        question: str = None,
+        question_format: str = None,
+        answer_format: str = None,
+        scene_code: str = None,
+        app_code: str = None,
+        raas_products: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 会话ID，用于匹配多轮对话上下文
+        self.session_id = session_id
+        # 数据唯一标识，能够根据该值定位到该条数据
+        self.request_id = request_id
+        # service_code
+        self.service_code = service_code
+        # 作为一个人工智能语言模型，我还没有学习到相关信息，不过我觉得梦里啥都有，建议您保持充分的睡眠。
+        self.answer = answer
+        # 作为一个解梦者，你的任务是解释以下梦境:[上证30000点，没错，是三万不是三千]。根据梦中出现的符号和主题，请提供一份客观且基于事实的解释。
+        self.question = question
+        # 纯文本: PLAINTEXT，图片url: PICTURE_URL
+        self.question_format = question_format
+        # 纯文本: PLAINTEXT
+        # 图片url: PICTURE_URL
+        self.answer_format = answer_format
+        # scene_code
+        self.scene_code = scene_code
+        # app_code
+        self.app_code = app_code
+        # raas_products
+        self.raas_products = raas_products
+
+    def validate(self):
+        self.validate_required(self.session_id, 'session_id')
+        if self.session_id is not None:
+            self.validate_max_length(self.session_id, 'session_id', 128)
+        self.validate_required(self.request_id, 'request_id')
+        if self.request_id is not None:
+            self.validate_max_length(self.request_id, 'request_id', 64)
+        self.validate_required(self.service_code, 'service_code')
+        if self.service_code is not None:
+            self.validate_max_length(self.service_code, 'service_code', 128)
+        self.validate_required(self.answer, 'answer')
+        if self.answer is not None:
+            self.validate_max_length(self.answer, 'answer', 10000)
+        if self.question is not None:
+            self.validate_max_length(self.question, 'question', 800)
+        if self.question_format is not None:
+            self.validate_max_length(self.question_format, 'question_format', 32)
+        if self.answer_format is not None:
+            self.validate_max_length(self.answer_format, 'answer_format', 32)
+        if self.scene_code is not None:
+            self.validate_max_length(self.scene_code, 'scene_code', 128)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.service_code is not None:
+            result['service_code'] = self.service_code
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.question is not None:
+            result['question'] = self.question
+        if self.question_format is not None:
+            result['question_format'] = self.question_format
+        if self.answer_format is not None:
+            result['answer_format'] = self.answer_format
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.app_code is not None:
+            result['app_code'] = self.app_code
+        if self.raas_products is not None:
+            result['raas_products'] = self.raas_products
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('service_code') is not None:
+            self.service_code = m.get('service_code')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('question_format') is not None:
+            self.question_format = m.get('question_format')
+        if m.get('answer_format') is not None:
+            self.answer_format = m.get('answer_format')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('app_code') is not None:
+            self.app_code = m.get('app_code')
+        if m.get('raas_products') is not None:
+            self.raas_products = m.get('raas_products')
+        return self
+
+
+class QueryGuardAnswerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+        safe: bool = None,
+        action_code: str = None,
+        action_msg: str = None,
+        session_action: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 检测数据ID
+        self.request_id = request_id
+        # 是否安全无风险
+        self.safe = safe
+        # 拦截: BLOCK
+        # 安全代答: SECURITY_ANSWER
+        # 红色GPT安全代答: REDGPT_ANSWER
+        # 回答里补充安全提示: SECURITY_TIP
+        self.action_code = action_code
+        # 安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+        self.action_msg = action_msg
+        # 终止会话: END_SESSION
+        # 撤回提问: RECALL_QUERY
+        self.session_action = session_action
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.safe is not None:
+            result['safe'] = self.safe
+        if self.action_code is not None:
+            result['action_code'] = self.action_code
+        if self.action_msg is not None:
+            result['action_msg'] = self.action_msg
+        if self.session_action is not None:
+            result['session_action'] = self.session_action
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('safe') is not None:
+            self.safe = m.get('safe')
+        if m.get('action_code') is not None:
+            self.action_code = m.get('action_code')
+        if m.get('action_msg') is not None:
+            self.action_msg = m.get('action_msg')
+        if m.get('session_action') is not None:
+            self.session_action = m.get('session_action')
+        return self
+
+

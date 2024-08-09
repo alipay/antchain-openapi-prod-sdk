@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.29',
+                    'sdk_version': '1.2.30',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.29',
+                    'sdk_version': '1.2.30',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -2349,4 +2349,60 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryGuardAskResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.guard.ask.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_guard_answer(
+        self,
+        request: securitytech_models.QueryGuardAnswerRequest,
+    ) -> securitytech_models.QueryGuardAnswerResponse:
+        """
+        Description: 天鉴answer接口
+        Summary: 天鉴answer接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_guard_answer_ex(request, headers, runtime)
+
+    async def query_guard_answer_async(
+        self,
+        request: securitytech_models.QueryGuardAnswerRequest,
+    ) -> securitytech_models.QueryGuardAnswerResponse:
+        """
+        Description: 天鉴answer接口
+        Summary: 天鉴answer接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_guard_answer_ex_async(request, headers, runtime)
+
+    def query_guard_answer_ex(
+        self,
+        request: securitytech_models.QueryGuardAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryGuardAnswerResponse:
+        """
+        Description: 天鉴answer接口
+        Summary: 天鉴answer接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryGuardAnswerResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.guard.answer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_guard_answer_ex_async(
+        self,
+        request: securitytech_models.QueryGuardAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryGuardAnswerResponse:
+        """
+        Description: 天鉴answer接口
+        Summary: 天鉴answer接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryGuardAnswerResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.guard.answer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
