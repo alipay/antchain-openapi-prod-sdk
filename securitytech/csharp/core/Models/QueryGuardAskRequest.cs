@@ -58,6 +58,21 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public KeyValueMap BusinessProperties { get; set; }
 
+        // scene_code
+        [NameInMap("scene_code")]
+        [Validation(Required=false)]
+        public string SceneCode { get; set; }
+
+        // serviceCode
+        [NameInMap("service_code")]
+        [Validation(Required=false)]
+        public string ServiceCode { get; set; }
+
+        // app_code
+        [NameInMap("app_code")]
+        [Validation(Required=false)]
+        public string AppCode { get; set; }
+
     }
 
 }
