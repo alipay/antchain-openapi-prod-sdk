@@ -6452,14 +6452,10 @@ class QueryGuardAskRequest(TeaModel):
         product_instance_id: str = None,
         session_id: str = None,
         request_id: str = None,
-        service_name: str = None,
-        question: str = None,
-        user_id: str = None,
-        question_format: str = None,
-        model_code: str = None,
-        business_properties: KeyValueMap = None,
-        scene_code: str = None,
         service_code: str = None,
+        question: str = None,
+        question_format: str = None,
+        scene_code: str = None,
         app_code: str = None,
         raas_products: str = None,
     ):
@@ -6470,22 +6466,14 @@ class QueryGuardAskRequest(TeaModel):
         self.session_id = session_id
         # 数据唯一标识，能够根据该值定位到该条数据
         self.request_id = request_id
-        # 大模型提问护栏服务, 用于区分提供的服务类别，当前支持：TJ_QUESTION_BASIC、TJ_ANSWER_BASIC 两种
-        self.service_name = service_name
-        # 当前提问内容，最大长度10000个字符。
-        self.question = question
-        # 用户ID，用于主体风险判断，如果是2088开头的阿里体系用户，请传入2088开头的用户ID
-        self.user_id = user_id
-        # 提问内容类型，纯文本: PLAINTEXT，图片url: PICTURE_URL
-        self.question_format = question_format
-        # 大模型ID，表示大模型版本
-        self.model_code = model_code
-        # 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
-        self.business_properties = business_properties
-        # scene_code
-        self.scene_code = scene_code
         # serviceCode
         self.service_code = service_code
+        # 当前提问内容，最大长度10000个字符。
+        self.question = question
+        # 提问内容类型，纯文本: PLAINTEXT，图片url: PICTURE_URL
+        self.question_format = question_format
+        # scene_code
+        self.scene_code = scene_code
         # app_code
         self.app_code = app_code
         # raas_products
@@ -6498,21 +6486,12 @@ class QueryGuardAskRequest(TeaModel):
         self.validate_required(self.request_id, 'request_id')
         if self.request_id is not None:
             self.validate_max_length(self.request_id, 'request_id', 64)
-        self.validate_required(self.service_name, 'service_name')
-        if self.service_name is not None:
-            self.validate_max_length(self.service_name, 'service_name', 128)
+        self.validate_required(self.service_code, 'service_code')
         self.validate_required(self.question, 'question')
         if self.question is not None:
             self.validate_max_length(self.question, 'question', 10000)
-        self.validate_required(self.user_id, 'user_id')
-        if self.user_id is not None:
-            self.validate_max_length(self.user_id, 'user_id', 32)
         if self.question_format is not None:
             self.validate_max_length(self.question_format, 'question_format', 32)
-        if self.model_code is not None:
-            self.validate_max_length(self.model_code, 'model_code', 128)
-        if self.business_properties:
-            self.business_properties.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -6528,22 +6507,14 @@ class QueryGuardAskRequest(TeaModel):
             result['session_id'] = self.session_id
         if self.request_id is not None:
             result['request_id'] = self.request_id
-        if self.service_name is not None:
-            result['service_name'] = self.service_name
-        if self.question is not None:
-            result['question'] = self.question
-        if self.user_id is not None:
-            result['user_id'] = self.user_id
-        if self.question_format is not None:
-            result['question_format'] = self.question_format
-        if self.model_code is not None:
-            result['model_code'] = self.model_code
-        if self.business_properties is not None:
-            result['business_properties'] = self.business_properties.to_map()
-        if self.scene_code is not None:
-            result['scene_code'] = self.scene_code
         if self.service_code is not None:
             result['service_code'] = self.service_code
+        if self.question is not None:
+            result['question'] = self.question
+        if self.question_format is not None:
+            result['question_format'] = self.question_format
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
         if self.app_code is not None:
             result['app_code'] = self.app_code
         if self.raas_products is not None:
@@ -6560,23 +6531,14 @@ class QueryGuardAskRequest(TeaModel):
             self.session_id = m.get('session_id')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
-        if m.get('service_name') is not None:
-            self.service_name = m.get('service_name')
-        if m.get('question') is not None:
-            self.question = m.get('question')
-        if m.get('user_id') is not None:
-            self.user_id = m.get('user_id')
-        if m.get('question_format') is not None:
-            self.question_format = m.get('question_format')
-        if m.get('model_code') is not None:
-            self.model_code = m.get('model_code')
-        if m.get('business_properties') is not None:
-            temp_model = KeyValueMap()
-            self.business_properties = temp_model.from_map(m['business_properties'])
-        if m.get('scene_code') is not None:
-            self.scene_code = m.get('scene_code')
         if m.get('service_code') is not None:
             self.service_code = m.get('service_code')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('question_format') is not None:
+            self.question_format = m.get('question_format')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
         if m.get('app_code') is not None:
             self.app_code = m.get('app_code')
         if m.get('raas_products') is not None:
