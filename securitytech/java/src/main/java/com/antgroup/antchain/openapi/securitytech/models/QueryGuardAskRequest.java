@@ -62,6 +62,10 @@ public class QueryGuardAskRequest extends TeaModel {
     @NameInMap("app_code")
     public String appCode;
 
+    // raas_products
+    @NameInMap("raas_products")
+    public String raasProducts;
+
     public static QueryGuardAskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryGuardAskRequest self = new QueryGuardAskRequest();
         return TeaModel.build(map, self);
@@ -169,6 +173,14 @@ public class QueryGuardAskRequest extends TeaModel {
     }
     public String getAppCode() {
         return this.appCode;
+    }
+
+    public QueryGuardAskRequest setRaasProducts(String raasProducts) {
+        this.raasProducts = raasProducts;
+        return this;
+    }
+    public String getRaasProducts() {
+        return this.raasProducts;
     }
 
 }
