@@ -73,6 +73,11 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string AppCode { get; set; }
 
+        // raas_products
+        [NameInMap("raas_products")]
+        [Validation(Required=false)]
+        public string RaasProducts { get; set; }
+
     }
 
 }
