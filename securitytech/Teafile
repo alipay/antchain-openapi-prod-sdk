@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "SECURITYTECH",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-securitytech:1.2.27",
-    "go": "github.com/antchain-openapi-sdk-go/securitytech/client:v1.2.27",
+    "java": "com.antgroup.antchain.openapi:openapi-securitytech:1.2.28",
+    "go": "github.com/antchain-openapi-sdk-go/securitytech/client:v1.2.28",
     "csharp": "AntChain.SDK.SECURITYTECH:1.2.19",
-    "ts": "@antchain/securitytech:1.2.27",
-    "php": "antchain/securitytech:1.2.27",
-    "python": "antchain_sdk_securitytech:1.2.27"
+    "ts": "@antchain/securitytech:1.2.28",
+    "php": "antchain/securitytech:1.2.28",
+    "python": "antchain_sdk_securitytech:1.2.28"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

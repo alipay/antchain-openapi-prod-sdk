@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.27',
+    sdk_version = '1.2.28',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -2303,6 +2303,8 @@ model QueryGuardAskRequest = {
   serviceCode?: string(name='service_code'),
   // app_code
   appCode?: string(name='app_code'),
+  // raas_products
+  raasProducts?: string(name='raas_products'),
 }
 
 model QueryGuardAskResponse = {
