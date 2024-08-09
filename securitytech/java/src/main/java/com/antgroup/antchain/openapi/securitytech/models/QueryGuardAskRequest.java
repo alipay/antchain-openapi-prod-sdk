@@ -50,6 +50,18 @@ public class QueryGuardAskRequest extends TeaModel {
     @NameInMap("business_properties")
     public KeyValueMap businessProperties;
 
+    // scene_code
+    @NameInMap("scene_code")
+    public String sceneCode;
+
+    // serviceCode
+    @NameInMap("service_code")
+    public String serviceCode;
+
+    // app_code
+    @NameInMap("app_code")
+    public String appCode;
+
     public static QueryGuardAskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryGuardAskRequest self = new QueryGuardAskRequest();
         return TeaModel.build(map, self);
@@ -133,6 +145,30 @@ public class QueryGuardAskRequest extends TeaModel {
     }
     public KeyValueMap getBusinessProperties() {
         return this.businessProperties;
+    }
+
+    public QueryGuardAskRequest setSceneCode(String sceneCode) {
+        this.sceneCode = sceneCode;
+        return this;
+    }
+    public String getSceneCode() {
+        return this.sceneCode;
+    }
+
+    public QueryGuardAskRequest setServiceCode(String serviceCode) {
+        this.serviceCode = serviceCode;
+        return this;
+    }
+    public String getServiceCode() {
+        return this.serviceCode;
+    }
+
+    public QueryGuardAskRequest setAppCode(String appCode) {
+        this.appCode = appCode;
+        return this;
+    }
+    public String getAppCode() {
+        return this.appCode;
     }
 
 }
