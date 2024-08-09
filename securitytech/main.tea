@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.26',
+    sdk_version = '1.2.27',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -2297,6 +2297,12 @@ model QueryGuardAskRequest = {
   modelCode?: string(maxLength=128, minLength=0, name='model_code'),
   // 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
   businessProperties?: KeyValueMap(name='business_properties'),
+  // scene_code
+  sceneCode?: string(name='scene_code'),
+  // serviceCode
+  serviceCode?: string(name='service_code'),
+  // app_code
+  appCode?: string(name='app_code'),
 }
 
 model QueryGuardAskResponse = {
