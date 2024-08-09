@@ -6461,6 +6461,7 @@ class QueryGuardAskRequest(TeaModel):
         scene_code: str = None,
         service_code: str = None,
         app_code: str = None,
+        raas_products: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6487,6 +6488,8 @@ class QueryGuardAskRequest(TeaModel):
         self.service_code = service_code
         # app_code
         self.app_code = app_code
+        # raas_products
+        self.raas_products = raas_products
 
     def validate(self):
         self.validate_required(self.session_id, 'session_id')
@@ -6543,6 +6546,8 @@ class QueryGuardAskRequest(TeaModel):
             result['service_code'] = self.service_code
         if self.app_code is not None:
             result['app_code'] = self.app_code
+        if self.raas_products is not None:
+            result['raas_products'] = self.raas_products
         return result
 
     def from_map(self, m: dict = None):
@@ -6574,6 +6579,8 @@ class QueryGuardAskRequest(TeaModel):
             self.service_code = m.get('service_code')
         if m.get('app_code') is not None:
             self.app_code = m.get('app_code')
+        if m.get('raas_products') is not None:
+            self.raas_products = m.get('raas_products')
         return self
 
 
