@@ -5204,6 +5204,8 @@ type QueryGuardAskRequest struct {
 	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty"`
 	// app_code
 	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// raas_products
+	RaasProducts *string `json:"raas_products,omitempty" xml:"raas_products,omitempty"`
 }
 
 func (s QueryGuardAskRequest) String() string {
@@ -5276,6 +5278,11 @@ func (s *QueryGuardAskRequest) SetServiceCode(v string) *QueryGuardAskRequest {
 
 func (s *QueryGuardAskRequest) SetAppCode(v string) *QueryGuardAskRequest {
 	s.AppCode = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetRaasProducts(v string) *QueryGuardAskRequest {
+	s.RaasProducts = &v
 	return s
 }
 
@@ -5468,7 +5475,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.27"),
+				"sdk_version":      tea.String("1.2.28"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
