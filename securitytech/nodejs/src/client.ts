@@ -4030,6 +4030,122 @@ export class QueryGuardAskResponse extends $tea.Model {
   }
 }
 
+export class QueryGuardAnswerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId: string;
+  // 数据唯一标识，能够根据该值定位到该条数据
+  requestId: string;
+  // service_code
+  serviceCode: string;
+  // 作为一个人工智能语言模型，我还没有学习到相关信息，不过我觉得梦里啥都有，建议您保持充分的睡眠。
+  answer: string;
+  // 作为一个解梦者，你的任务是解释以下梦境:[上证30000点，没错，是三万不是三千]。根据梦中出现的符号和主题，请提供一份客观且基于事实的解释。
+  question?: string;
+  // 纯文本: PLAINTEXT，图片url: PICTURE_URL
+  questionFormat?: string;
+  // 纯文本: PLAINTEXT
+  // 图片url: PICTURE_URL
+  answerFormat?: string;
+  // scene_code
+  sceneCode?: string;
+  // app_code
+  appCode?: string;
+  // raas_products
+  raasProducts?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sessionId: 'session_id',
+      requestId: 'request_id',
+      serviceCode: 'service_code',
+      answer: 'answer',
+      question: 'question',
+      questionFormat: 'question_format',
+      answerFormat: 'answer_format',
+      sceneCode: 'scene_code',
+      appCode: 'app_code',
+      raasProducts: 'raas_products',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sessionId: 'string',
+      requestId: 'string',
+      serviceCode: 'string',
+      answer: 'string',
+      question: 'string',
+      questionFormat: 'string',
+      answerFormat: 'string',
+      sceneCode: 'string',
+      appCode: 'string',
+      raasProducts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryGuardAnswerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 检测数据ID
+  requestId?: string;
+  // 是否安全无风险
+  safe?: boolean;
+  // 拦截: BLOCK
+  // 安全代答: SECURITY_ANSWER
+  // 红色GPT安全代答: REDGPT_ANSWER
+  // 回答里补充安全提示: SECURITY_TIP
+  actionCode?: string;
+  // 安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+  actionMsg?: string;
+  // 终止会话: END_SESSION
+  // 撤回提问: RECALL_QUERY
+  sessionAction?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      safe: 'safe',
+      actionCode: 'action_code',
+      actionMsg: 'action_msg',
+      sessionAction: 'session_action',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      safe: 'boolean',
+      actionCode: 'string',
+      actionMsg: 'string',
+      sessionAction: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -4143,7 +4259,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.29",
+          sdk_version: "1.2.30",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -4894,6 +5010,25 @@ export default class Client {
   async queryGuardAskEx(request: QueryGuardAskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGuardAskResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryGuardAskResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.guard.ask.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGuardAskResponse({}));
+  }
+
+  /**
+   * Description: 天鉴answer接口
+   * Summary: 天鉴answer接口
+   */
+  async queryGuardAnswer(request: QueryGuardAnswerRequest): Promise<QueryGuardAnswerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryGuardAnswerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天鉴answer接口
+   * Summary: 天鉴answer接口
+   */
+  async queryGuardAnswerEx(request: QueryGuardAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGuardAnswerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryGuardAnswerResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.guard.answer.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGuardAnswerResponse({}));
   }
 
 }
