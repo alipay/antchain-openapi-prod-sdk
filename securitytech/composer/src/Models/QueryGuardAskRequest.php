@@ -84,6 +84,12 @@ class QueryGuardAskRequest extends Model
      * @var string
      */
     public $appCode;
+
+    // raas_products
+    /**
+     * @var string
+     */
+    public $raasProducts;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -98,6 +104,7 @@ class QueryGuardAskRequest extends Model
         'sceneCode'          => 'scene_code',
         'serviceCode'        => 'service_code',
         'appCode'            => 'app_code',
+        'raasProducts'       => 'raas_products',
     ];
 
     public function validate()
@@ -165,6 +172,9 @@ class QueryGuardAskRequest extends Model
         if (null !== $this->appCode) {
             $res['app_code'] = $this->appCode;
         }
+        if (null !== $this->raasProducts) {
+            $res['raas_products'] = $this->raasProducts;
+        }
 
         return $res;
     }
@@ -215,6 +225,9 @@ class QueryGuardAskRequest extends Model
         }
         if (isset($map['app_code'])) {
             $model->appCode = $map['app_code'];
+        }
+        if (isset($map['raas_products'])) {
+            $model->raasProducts = $map['raas_products'];
         }
 
         return $model;
