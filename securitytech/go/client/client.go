@@ -5186,22 +5186,14 @@ type QueryGuardAskRequest struct {
 	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true" maxLength:"128" minLength:"0"`
 	// 数据唯一标识，能够根据该值定位到该条数据
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"64" minLength:"0"`
-	// 大模型提问护栏服务, 用于区分提供的服务类别，当前支持：TJ_QUESTION_BASIC、TJ_ANSWER_BASIC 两种
-	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true" maxLength:"128" minLength:"0"`
+	// serviceCode
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true"`
 	// 当前提问内容，最大长度10000个字符。
 	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true" maxLength:"10000" minLength:"0"`
-	// 用户ID，用于主体风险判断，如果是2088开头的阿里体系用户，请传入2088开头的用户ID
-	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true" maxLength:"32" minLength:"0"`
 	// 提问内容类型，纯文本: PLAINTEXT，图片url: PICTURE_URL
 	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty" maxLength:"32" minLength:"0"`
-	// 大模型ID，表示大模型版本
-	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty" maxLength:"128" minLength:"0"`
-	// 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
-	BusinessProperties *KeyValueMap `json:"business_properties,omitempty" xml:"business_properties,omitempty"`
 	// scene_code
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty"`
-	// serviceCode
-	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty"`
 	// app_code
 	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
 	// raas_products
@@ -5236,8 +5228,8 @@ func (s *QueryGuardAskRequest) SetRequestId(v string) *QueryGuardAskRequest {
 	return s
 }
 
-func (s *QueryGuardAskRequest) SetServiceName(v string) *QueryGuardAskRequest {
-	s.ServiceName = &v
+func (s *QueryGuardAskRequest) SetServiceCode(v string) *QueryGuardAskRequest {
+	s.ServiceCode = &v
 	return s
 }
 
@@ -5246,33 +5238,13 @@ func (s *QueryGuardAskRequest) SetQuestion(v string) *QueryGuardAskRequest {
 	return s
 }
 
-func (s *QueryGuardAskRequest) SetUserId(v string) *QueryGuardAskRequest {
-	s.UserId = &v
-	return s
-}
-
 func (s *QueryGuardAskRequest) SetQuestionFormat(v string) *QueryGuardAskRequest {
 	s.QuestionFormat = &v
 	return s
 }
 
-func (s *QueryGuardAskRequest) SetModelCode(v string) *QueryGuardAskRequest {
-	s.ModelCode = &v
-	return s
-}
-
-func (s *QueryGuardAskRequest) SetBusinessProperties(v *KeyValueMap) *QueryGuardAskRequest {
-	s.BusinessProperties = v
-	return s
-}
-
 func (s *QueryGuardAskRequest) SetSceneCode(v string) *QueryGuardAskRequest {
 	s.SceneCode = &v
-	return s
-}
-
-func (s *QueryGuardAskRequest) SetServiceCode(v string) *QueryGuardAskRequest {
-	s.ServiceCode = &v
 	return s
 }
 
@@ -5475,7 +5447,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.28"),
+				"sdk_version":      tea.String("1.2.29"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
