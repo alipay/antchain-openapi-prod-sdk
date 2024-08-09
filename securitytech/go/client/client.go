@@ -5198,6 +5198,12 @@ type QueryGuardAskRequest struct {
 	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty" maxLength:"128" minLength:"0"`
 	// 扩展属性Map，key限定为：aigcType、serviceScene、triggerSource、bizOwner，对应的value取值为： aigcType： ● 文生文：text_text ● 文生图：text_pic ● 图生文：pic_text ● 图生图：pic_pic serviceScene: 根据业务使用的不同情况支持自定义入参做策略个性化配置，私域或者公域，以及不同的业务应用 比如领域： serviceScene = insurance 表示保险 serviceScene = medical 表示医疗 serviceScene = government 表示政务 比如业务活动应用： serviceScene = xiacu 表示夏促 serviceScene = qixi 表示七夕 triggerSource: 不同的来源，比如移动端、web端、API
 	BusinessProperties *KeyValueMap `json:"business_properties,omitempty" xml:"business_properties,omitempty"`
+	// scene_code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty"`
+	// serviceCode
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty"`
+	// app_code
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
 }
 
 func (s QueryGuardAskRequest) String() string {
@@ -5255,6 +5261,21 @@ func (s *QueryGuardAskRequest) SetModelCode(v string) *QueryGuardAskRequest {
 
 func (s *QueryGuardAskRequest) SetBusinessProperties(v *KeyValueMap) *QueryGuardAskRequest {
 	s.BusinessProperties = v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetSceneCode(v string) *QueryGuardAskRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetServiceCode(v string) *QueryGuardAskRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *QueryGuardAskRequest) SetAppCode(v string) *QueryGuardAskRequest {
+	s.AppCode = &v
 	return s
 }
 
@@ -5447,7 +5468,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.26"),
+				"sdk_version":      tea.String("1.2.27"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
