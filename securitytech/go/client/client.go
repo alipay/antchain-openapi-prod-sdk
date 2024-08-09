@@ -5325,6 +5325,172 @@ func (s *QueryGuardAskResponse) SetSessionAction(v string) *QueryGuardAskRespons
 	return s
 }
 
+type QueryGuardAnswerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 会话ID，用于匹配多轮对话上下文
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true" maxLength:"128" minLength:"0"`
+	// 数据唯一标识，能够根据该值定位到该条数据
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true" maxLength:"64" minLength:"0"`
+	// service_code
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true" maxLength:"128" minLength:"0"`
+	// 作为一个人工智能语言模型，我还没有学习到相关信息，不过我觉得梦里啥都有，建议您保持充分的睡眠。
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty" require:"true" maxLength:"10000" minLength:"1"`
+	// 作为一个解梦者，你的任务是解释以下梦境:[上证30000点，没错，是三万不是三千]。根据梦中出现的符号和主题，请提供一份客观且基于事实的解释。
+	Question *string `json:"question,omitempty" xml:"question,omitempty" maxLength:"800" minLength:"1"`
+	// 纯文本: PLAINTEXT，图片url: PICTURE_URL
+	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty" maxLength:"32" minLength:"0"`
+	// 纯文本: PLAINTEXT
+	// 图片url: PICTURE_URL
+	AnswerFormat *string `json:"answer_format,omitempty" xml:"answer_format,omitempty" maxLength:"32" minLength:"0"`
+	// scene_code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" maxLength:"128" minLength:"1"`
+	// app_code
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty"`
+	// raas_products
+	RaasProducts *string `json:"raas_products,omitempty" xml:"raas_products,omitempty"`
+}
+
+func (s QueryGuardAnswerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardAnswerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardAnswerRequest) SetAuthToken(v string) *QueryGuardAnswerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetProductInstanceId(v string) *QueryGuardAnswerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetSessionId(v string) *QueryGuardAnswerRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetRequestId(v string) *QueryGuardAnswerRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetServiceCode(v string) *QueryGuardAnswerRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetAnswer(v string) *QueryGuardAnswerRequest {
+	s.Answer = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetQuestion(v string) *QueryGuardAnswerRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetQuestionFormat(v string) *QueryGuardAnswerRequest {
+	s.QuestionFormat = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetAnswerFormat(v string) *QueryGuardAnswerRequest {
+	s.AnswerFormat = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetSceneCode(v string) *QueryGuardAnswerRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetAppCode(v string) *QueryGuardAnswerRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *QueryGuardAnswerRequest) SetRaasProducts(v string) *QueryGuardAnswerRequest {
+	s.RaasProducts = &v
+	return s
+}
+
+type QueryGuardAnswerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 检测数据ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 是否安全无风险
+	Safe *bool `json:"safe,omitempty" xml:"safe,omitempty"`
+	// 拦截: BLOCK
+	// 安全代答: SECURITY_ANSWER
+	// 红色GPT安全代答: REDGPT_ANSWER
+	// 回答里补充安全提示: SECURITY_TIP
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+	ActionMsg *string `json:"action_msg,omitempty" xml:"action_msg,omitempty"`
+	// 终止会话: END_SESSION
+	// 撤回提问: RECALL_QUERY
+	SessionAction *string `json:"session_action,omitempty" xml:"session_action,omitempty"`
+}
+
+func (s QueryGuardAnswerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryGuardAnswerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryGuardAnswerResponse) SetReqMsgId(v string) *QueryGuardAnswerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryGuardAnswerResponse) SetResultCode(v string) *QueryGuardAnswerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryGuardAnswerResponse) SetResultMsg(v string) *QueryGuardAnswerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryGuardAnswerResponse) SetRequestId(v string) *QueryGuardAnswerResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryGuardAnswerResponse) SetSafe(v bool) *QueryGuardAnswerResponse {
+	s.Safe = &v
+	return s
+}
+
+func (s *QueryGuardAnswerResponse) SetActionCode(v string) *QueryGuardAnswerResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *QueryGuardAnswerResponse) SetActionMsg(v string) *QueryGuardAnswerResponse {
+	s.ActionMsg = &v
+	return s
+}
+
+func (s *QueryGuardAnswerResponse) SetSessionAction(v string) *QueryGuardAnswerResponse {
+	s.SessionAction = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -5447,7 +5613,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.29"),
+				"sdk_version":      tea.String("1.2.30"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6758,6 +6924,40 @@ func (client *Client) QueryGuardAskEx(request *QueryGuardAskRequest, headers map
 	}
 	_result = &QueryGuardAskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.guard.ask.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴answer接口
+ * Summary: 天鉴answer接口
+ */
+func (client *Client) QueryGuardAnswer(request *QueryGuardAnswerRequest) (_result *QueryGuardAnswerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryGuardAnswerResponse{}
+	_body, _err := client.QueryGuardAnswerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天鉴answer接口
+ * Summary: 天鉴answer接口
+ */
+func (client *Client) QueryGuardAnswerEx(request *QueryGuardAnswerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryGuardAnswerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryGuardAnswerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.guard.answer.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
