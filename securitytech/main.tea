@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.29',
+    sdk_version = '1.2.30',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -2335,5 +2335,74 @@ async function queryGuardAsk(request: QueryGuardAskRequest): QueryGuardAskRespon
 async function queryGuardAskEx(request: QueryGuardAskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardAskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.guard.ask.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGuardAnswerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId: string(maxLength=128, minLength=0, name='session_id'),
+  // 数据唯一标识，能够根据该值定位到该条数据
+  requestId: string(maxLength=64, minLength=0, name='request_id'),
+  // service_code
+  serviceCode: string(maxLength=128, minLength=0, name='service_code'),
+  // 作为一个人工智能语言模型，我还没有学习到相关信息，不过我觉得梦里啥都有，建议您保持充分的睡眠。
+  answer: string(maxLength=10000, minLength=1, name='answer'),
+  // 作为一个解梦者，你的任务是解释以下梦境:[上证30000点，没错，是三万不是三千]。根据梦中出现的符号和主题，请提供一份客观且基于事实的解释。
+  question?: string(maxLength=800, minLength=1, name='question'),
+  // 纯文本: PLAINTEXT，图片url: PICTURE_URL
+  questionFormat?: string(maxLength=32, minLength=0, name='question_format'),
+  // 纯文本: PLAINTEXT
+  // 图片url: PICTURE_URL
+  answerFormat?: string(maxLength=32, minLength=0, name='answer_format'),
+  // scene_code
+  sceneCode?: string(maxLength=128, minLength=1, name='scene_code'),
+  // app_code
+  appCode?: string(name='app_code'),
+  // raas_products
+  raasProducts?: string(name='raas_products'),
+}
+
+model QueryGuardAnswerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 检测数据ID
+  requestId?: string(name='request_id'),
+  // 是否安全无风险
+  safe?: boolean(name='safe'),
+  // 拦截: BLOCK
+  // 安全代答: SECURITY_ANSWER
+  // 红色GPT安全代答: REDGPT_ANSWER
+  // 回答里补充安全提示: SECURITY_TIP
+  actionCode?: string(name='action_code'),
+  // 安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+  actionMsg?: string(name='action_msg'),
+  // 终止会话: END_SESSION
+  // 撤回提问: RECALL_QUERY
+  sessionAction?: string(name='session_action'),
+}
+
+/**
+ * Description: 天鉴answer接口
+ * Summary: 天鉴answer接口
+ */
+async function queryGuardAnswer(request: QueryGuardAnswerRequest): QueryGuardAnswerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGuardAnswerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天鉴answer接口
+ * Summary: 天鉴answer接口
+ */
+async function queryGuardAnswerEx(request: QueryGuardAnswerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardAnswerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.guard.answer.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
