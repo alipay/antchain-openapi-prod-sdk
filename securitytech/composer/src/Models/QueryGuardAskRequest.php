@@ -66,6 +66,24 @@ class QueryGuardAskRequest extends Model
      * @var KeyValueMap
      */
     public $businessProperties;
+
+    // scene_code
+    /**
+     * @var string
+     */
+    public $sceneCode;
+
+    // serviceCode
+    /**
+     * @var string
+     */
+    public $serviceCode;
+
+    // app_code
+    /**
+     * @var string
+     */
+    public $appCode;
     protected $_name = [
         'authToken'          => 'auth_token',
         'productInstanceId'  => 'product_instance_id',
@@ -77,6 +95,9 @@ class QueryGuardAskRequest extends Model
         'questionFormat'     => 'question_format',
         'modelCode'          => 'model_code',
         'businessProperties' => 'business_properties',
+        'sceneCode'          => 'scene_code',
+        'serviceCode'        => 'service_code',
+        'appCode'            => 'app_code',
     ];
 
     public function validate()
@@ -135,6 +156,15 @@ class QueryGuardAskRequest extends Model
         if (null !== $this->businessProperties) {
             $res['business_properties'] = null !== $this->businessProperties ? $this->businessProperties->toMap() : null;
         }
+        if (null !== $this->sceneCode) {
+            $res['scene_code'] = $this->sceneCode;
+        }
+        if (null !== $this->serviceCode) {
+            $res['service_code'] = $this->serviceCode;
+        }
+        if (null !== $this->appCode) {
+            $res['app_code'] = $this->appCode;
+        }
 
         return $res;
     }
@@ -176,6 +206,15 @@ class QueryGuardAskRequest extends Model
         }
         if (isset($map['business_properties'])) {
             $model->businessProperties = KeyValueMap::fromMap($map['business_properties']);
+        }
+        if (isset($map['scene_code'])) {
+            $model->sceneCode = $map['scene_code'];
+        }
+        if (isset($map['service_code'])) {
+            $model->serviceCode = $map['service_code'];
+        }
+        if (isset($map['app_code'])) {
+            $model->appCode = $map['app_code'];
         }
 
         return $model;
