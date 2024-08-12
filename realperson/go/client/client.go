@@ -3051,12 +3051,14 @@ type QueryThreemetaPhonereuseRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
 	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
-	// 手机号
+	// 手机号「支持加密」
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
 	// 日期
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
 	// 运营商类型
 	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
 	// 扩展参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
@@ -3099,6 +3101,11 @@ func (s *QueryThreemetaPhonereuseRequest) SetCarrier(v string) *QueryThreemetaPh
 	return s
 }
 
+func (s *QueryThreemetaPhonereuseRequest) SetEncryptType(v string) *QueryThreemetaPhonereuseRequest {
+	s.EncryptType = &v
+	return s
+}
+
 func (s *QueryThreemetaPhonereuseRequest) SetExternParam(v string) *QueryThreemetaPhonereuseRequest {
 	s.ExternParam = &v
 	return s
@@ -3113,6 +3120,10 @@ type QueryThreemetaPhonereuseResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 是否二次放号
 	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
+	// CHINA_TELECOM：中国电信
+	// CHINA_MOBILE：中国移动
+	// CHINA_UNICOM：中国联通
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
 	// 扩展参数
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
 }
@@ -3142,6 +3153,11 @@ func (s *QueryThreemetaPhonereuseResponse) SetResultMsg(v string) *QueryThreemet
 
 func (s *QueryThreemetaPhonereuseResponse) SetPhoneReuse(v string) *QueryThreemetaPhonereuseResponse {
 	s.PhoneReuse = &v
+	return s
+}
+
+func (s *QueryThreemetaPhonereuseResponse) SetCarrier(v string) *QueryThreemetaPhonereuseResponse {
+	s.Carrier = &v
 	return s
 }
 
@@ -4372,6 +4388,8 @@ type QueryZolozmetaThreemetamobilereuseRequest struct {
 	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
 	// 运营商类型
 	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty" require:"true"`
+	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
 	// 扩展参数
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
 }
@@ -4414,6 +4432,11 @@ func (s *QueryZolozmetaThreemetamobilereuseRequest) SetCarrier(v string) *QueryZ
 	return s
 }
 
+func (s *QueryZolozmetaThreemetamobilereuseRequest) SetEncryptType(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+	s.EncryptType = &v
+	return s
+}
+
 func (s *QueryZolozmetaThreemetamobilereuseRequest) SetExternParam(v string) *QueryZolozmetaThreemetamobilereuseRequest {
 	s.ExternParam = &v
 	return s
@@ -4430,6 +4453,8 @@ type QueryZolozmetaThreemetamobilereuseResponse struct {
 	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
 	// 扩展参数
 	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+	// 运营商
+	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
 }
 
 func (s QueryZolozmetaThreemetamobilereuseResponse) String() string {
@@ -4462,6 +4487,11 @@ func (s *QueryZolozmetaThreemetamobilereuseResponse) SetPhoneReuse(v string) *Qu
 
 func (s *QueryZolozmetaThreemetamobilereuseResponse) SetExternInfo(v string) *QueryZolozmetaThreemetamobilereuseResponse {
 	s.ExternInfo = &v
+	return s
+}
+
+func (s *QueryZolozmetaThreemetamobilereuseResponse) SetCarrier(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+	s.Carrier = &v
 	return s
 }
 
@@ -4707,7 +4737,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.18"),
+				"sdk_version":      tea.String("1.15.22"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
