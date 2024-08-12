@@ -25,7 +25,7 @@ class QueryThreemetaPhonereuseRequest extends Model
      */
     public $outerOrderNo;
 
-    // 手机号
+    // 手机号「支持加密」
     /**
      * @var string
      */
@@ -43,6 +43,12 @@ class QueryThreemetaPhonereuseRequest extends Model
      */
     public $carrier;
 
+    // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+    /**
+     * @var string
+     */
+    public $encryptType;
+
     // 扩展参数
     /**
      * @var string
@@ -55,6 +61,7 @@ class QueryThreemetaPhonereuseRequest extends Model
         'mobile'            => 'mobile',
         'date'              => 'date',
         'carrier'           => 'carrier',
+        'encryptType'       => 'encrypt_type',
         'externParam'       => 'extern_param',
     ];
 
@@ -85,6 +92,9 @@ class QueryThreemetaPhonereuseRequest extends Model
         }
         if (null !== $this->carrier) {
             $res['carrier'] = $this->carrier;
+        }
+        if (null !== $this->encryptType) {
+            $res['encrypt_type'] = $this->encryptType;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
@@ -118,6 +128,9 @@ class QueryThreemetaPhonereuseRequest extends Model
         }
         if (isset($map['carrier'])) {
             $model->carrier = $map['carrier'];
+        }
+        if (isset($map['encrypt_type'])) {
+            $model->encryptType = $map['encrypt_type'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];

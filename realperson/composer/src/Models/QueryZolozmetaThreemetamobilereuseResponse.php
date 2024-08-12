@@ -37,12 +37,19 @@ class QueryZolozmetaThreemetamobilereuseResponse extends Model
      * @var string
      */
     public $externInfo;
+
+    // 运营商
+    /**
+     * @var string
+     */
+    public $carrier;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'phoneReuse' => 'phone_reuse',
         'externInfo' => 'extern_info',
+        'carrier'    => 'carrier',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryZolozmetaThreemetamobilereuseResponse extends Model
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
+        }
+        if (null !== $this->carrier) {
+            $res['carrier'] = $this->carrier;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryZolozmetaThreemetamobilereuseResponse extends Model
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];
+        }
+        if (isset($map['carrier'])) {
+            $model->carrier = $map['carrier'];
         }
 
         return $model;

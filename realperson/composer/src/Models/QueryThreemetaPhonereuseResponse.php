@@ -32,6 +32,14 @@ class QueryThreemetaPhonereuseResponse extends Model
      */
     public $phoneReuse;
 
+    // CHINA_TELECOM：中国电信
+    // CHINA_MOBILE：中国移动
+    // CHINA_UNICOM：中国联通
+    /**
+     * @var string
+     */
+    public $carrier;
+
     // 扩展参数
     /**
      * @var string
@@ -42,6 +50,7 @@ class QueryThreemetaPhonereuseResponse extends Model
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'phoneReuse' => 'phone_reuse',
+        'carrier'    => 'carrier',
         'externInfo' => 'extern_info',
     ];
 
@@ -63,6 +72,9 @@ class QueryThreemetaPhonereuseResponse extends Model
         }
         if (null !== $this->phoneReuse) {
             $res['phone_reuse'] = $this->phoneReuse;
+        }
+        if (null !== $this->carrier) {
+            $res['carrier'] = $this->carrier;
         }
         if (null !== $this->externInfo) {
             $res['extern_info'] = $this->externInfo;
@@ -90,6 +102,9 @@ class QueryThreemetaPhonereuseResponse extends Model
         }
         if (isset($map['phone_reuse'])) {
             $model->phoneReuse = $map['phone_reuse'];
+        }
+        if (isset($map['carrier'])) {
+            $model->carrier = $map['carrier'];
         }
         if (isset($map['extern_info'])) {
             $model->externInfo = $map['extern_info'];
