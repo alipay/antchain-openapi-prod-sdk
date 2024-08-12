@@ -20,6 +20,12 @@ public class QueryThreemetaPhonereuseResponse extends TeaModel {
     @NameInMap("phone_reuse")
     public String phoneReuse;
 
+    // CHINA_TELECOM：中国电信
+    // CHINA_MOBILE：中国移动
+    // CHINA_UNICOM：中国联通
+    @NameInMap("carrier")
+    public String carrier;
+
     // 扩展参数
     @NameInMap("extern_info")
     public String externInfo;
@@ -59,6 +65,14 @@ public class QueryThreemetaPhonereuseResponse extends TeaModel {
     }
     public String getPhoneReuse() {
         return this.phoneReuse;
+    }
+
+    public QueryThreemetaPhonereuseResponse setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+    public String getCarrier() {
+        return this.carrier;
     }
 
     public QueryThreemetaPhonereuseResponse setExternInfo(String externInfo) {

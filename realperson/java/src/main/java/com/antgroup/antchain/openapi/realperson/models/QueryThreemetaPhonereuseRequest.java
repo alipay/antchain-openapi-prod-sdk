@@ -16,7 +16,7 @@ public class QueryThreemetaPhonereuseRequest extends TeaModel {
     @Validation(required = true)
     public String outerOrderNo;
 
-    // 手机号
+    // 手机号「支持加密」
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;
@@ -29,6 +29,10 @@ public class QueryThreemetaPhonereuseRequest extends TeaModel {
     // 运营商类型
     @NameInMap("carrier")
     public String carrier;
+
+    // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+    @NameInMap("encrypt_type")
+    public String encryptType;
 
     // 扩展参数
     @NameInMap("extern_param")
@@ -85,6 +89,14 @@ public class QueryThreemetaPhonereuseRequest extends TeaModel {
     }
     public String getCarrier() {
         return this.carrier;
+    }
+
+    public QueryThreemetaPhonereuseRequest setEncryptType(String encryptType) {
+        this.encryptType = encryptType;
+        return this;
+    }
+    public String getEncryptType() {
+        return this.encryptType;
     }
 
     public QueryThreemetaPhonereuseRequest setExternParam(String externParam) {

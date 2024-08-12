@@ -31,6 +31,10 @@ public class QueryZolozmetaThreemetamobilereuseRequest extends TeaModel {
     @Validation(required = true)
     public String carrier;
 
+    // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+    @NameInMap("encrypt_type")
+    public String encryptType;
+
     // 扩展参数
     @NameInMap("extern_param")
     @Validation(required = true)
@@ -87,6 +91,14 @@ public class QueryZolozmetaThreemetamobilereuseRequest extends TeaModel {
     }
     public String getCarrier() {
         return this.carrier;
+    }
+
+    public QueryZolozmetaThreemetamobilereuseRequest setEncryptType(String encryptType) {
+        this.encryptType = encryptType;
+        return this;
+    }
+    public String getEncryptType() {
+        return this.encryptType;
     }
 
     public QueryZolozmetaThreemetamobilereuseRequest setExternParam(String externParam) {

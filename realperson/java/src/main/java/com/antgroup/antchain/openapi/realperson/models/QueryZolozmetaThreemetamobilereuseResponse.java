@@ -24,6 +24,10 @@ public class QueryZolozmetaThreemetamobilereuseResponse extends TeaModel {
     @NameInMap("extern_info")
     public String externInfo;
 
+    // 运营商
+    @NameInMap("carrier")
+    public String carrier;
+
     public static QueryZolozmetaThreemetamobilereuseResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryZolozmetaThreemetamobilereuseResponse self = new QueryZolozmetaThreemetamobilereuseResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryZolozmetaThreemetamobilereuseResponse extends TeaModel {
     }
     public String getExternInfo() {
         return this.externInfo;
+    }
+
+    public QueryZolozmetaThreemetamobilereuseResponse setCarrier(String carrier) {
+        this.carrier = carrier;
+        return this;
+    }
+    public String getCarrier() {
+        return this.carrier;
     }
 
 }
