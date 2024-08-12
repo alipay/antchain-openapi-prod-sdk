@@ -2199,12 +2199,14 @@ export class QueryThreemetaPhonereuseRequest extends $tea.Model {
   productInstanceId?: string;
   // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
   outerOrderNo: string;
-  // 手机号
+  // 手机号「支持加密」
   mobile: string;
   // 日期
   date: string;
   // 运营商类型
   carrier?: string;
+  // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+  encryptType?: string;
   // 扩展参数
   externParam?: string;
   static names(): { [key: string]: string } {
@@ -2215,6 +2217,7 @@ export class QueryThreemetaPhonereuseRequest extends $tea.Model {
       mobile: 'mobile',
       date: 'date',
       carrier: 'carrier',
+      encryptType: 'encrypt_type',
       externParam: 'extern_param',
     };
   }
@@ -2227,6 +2230,7 @@ export class QueryThreemetaPhonereuseRequest extends $tea.Model {
       mobile: 'string',
       date: 'string',
       carrier: 'string',
+      encryptType: 'string',
       externParam: 'string',
     };
   }
@@ -2245,6 +2249,10 @@ export class QueryThreemetaPhonereuseResponse extends $tea.Model {
   resultMsg?: string;
   // 是否二次放号
   phoneReuse?: string;
+  // CHINA_TELECOM：中国电信
+  // CHINA_MOBILE：中国移动
+  // CHINA_UNICOM：中国联通
+  carrier?: string;
   // 扩展参数
   externInfo?: string;
   static names(): { [key: string]: string } {
@@ -2253,6 +2261,7 @@ export class QueryThreemetaPhonereuseResponse extends $tea.Model {
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       phoneReuse: 'phone_reuse',
+      carrier: 'carrier',
       externInfo: 'extern_info',
     };
   }
@@ -2263,6 +2272,7 @@ export class QueryThreemetaPhonereuseResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       phoneReuse: 'string',
+      carrier: 'string',
       externInfo: 'string',
     };
   }
@@ -3193,6 +3203,8 @@ export class QueryZolozmetaThreemetamobilereuseRequest extends $tea.Model {
   date: string;
   // 运营商类型
   carrier: string;
+  // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+  encryptType?: string;
   // 扩展参数
   externParam: string;
   static names(): { [key: string]: string } {
@@ -3203,6 +3215,7 @@ export class QueryZolozmetaThreemetamobilereuseRequest extends $tea.Model {
       mobile: 'mobile',
       date: 'date',
       carrier: 'carrier',
+      encryptType: 'encrypt_type',
       externParam: 'extern_param',
     };
   }
@@ -3215,6 +3228,7 @@ export class QueryZolozmetaThreemetamobilereuseRequest extends $tea.Model {
       mobile: 'string',
       date: 'string',
       carrier: 'string',
+      encryptType: 'string',
       externParam: 'string',
     };
   }
@@ -3235,6 +3249,8 @@ export class QueryZolozmetaThreemetamobilereuseResponse extends $tea.Model {
   phoneReuse?: string;
   // 扩展参数
   externInfo?: string;
+  // 运营商
+  carrier?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -3242,6 +3258,7 @@ export class QueryZolozmetaThreemetamobilereuseResponse extends $tea.Model {
       resultMsg: 'result_msg',
       phoneReuse: 'phone_reuse',
       externInfo: 'extern_info',
+      carrier: 'carrier',
     };
   }
 
@@ -3252,6 +3269,7 @@ export class QueryZolozmetaThreemetamobilereuseResponse extends $tea.Model {
       resultMsg: 'string',
       phoneReuse: 'string',
       externInfo: 'string',
+      carrier: 'string',
     };
   }
 
@@ -3461,7 +3479,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.18",
+          sdk_version: "1.15.22",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
