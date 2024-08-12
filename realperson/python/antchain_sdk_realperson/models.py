@@ -3598,6 +3598,7 @@ class QueryThreemetaPhonereuseRequest(TeaModel):
         mobile: str = None,
         date: str = None,
         carrier: str = None,
+        encrypt_type: str = None,
         extern_param: str = None,
     ):
         # OAuth模式下的授权token
@@ -3605,12 +3606,14 @@ class QueryThreemetaPhonereuseRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
         self.outer_order_no = outer_order_no
-        # 手机号
+        # 手机号「支持加密」
         self.mobile = mobile
         # 日期
         self.date = date
         # 运营商类型
         self.carrier = carrier
+        # 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+        self.encrypt_type = encrypt_type
         # 扩展参数
         self.extern_param = extern_param
 
@@ -3637,6 +3640,8 @@ class QueryThreemetaPhonereuseRequest(TeaModel):
             result['date'] = self.date
         if self.carrier is not None:
             result['carrier'] = self.carrier
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         return result
@@ -3655,6 +3660,8 @@ class QueryThreemetaPhonereuseRequest(TeaModel):
             self.date = m.get('date')
         if m.get('carrier') is not None:
             self.carrier = m.get('carrier')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         return self
@@ -3667,6 +3674,7 @@ class QueryThreemetaPhonereuseResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         phone_reuse: str = None,
+        carrier: str = None,
         extern_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -3677,6 +3685,10 @@ class QueryThreemetaPhonereuseResponse(TeaModel):
         self.result_msg = result_msg
         # 是否二次放号
         self.phone_reuse = phone_reuse
+        # CHINA_TELECOM：中国电信
+        # CHINA_MOBILE：中国移动
+        # CHINA_UNICOM：中国联通
+        self.carrier = carrier
         # 扩展参数
         self.extern_info = extern_info
 
@@ -3697,6 +3709,8 @@ class QueryThreemetaPhonereuseResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.phone_reuse is not None:
             result['phone_reuse'] = self.phone_reuse
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
         return result
@@ -3711,6 +3725,8 @@ class QueryThreemetaPhonereuseResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('phone_reuse') is not None:
             self.phone_reuse = m.get('phone_reuse')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
@@ -5177,6 +5193,7 @@ class QueryZolozmetaThreemetamobilereuseRequest(TeaModel):
         mobile: str = None,
         date: str = None,
         carrier: str = None,
+        encrypt_type: str = None,
         extern_param: str = None,
     ):
         # OAuth模式下的授权token
@@ -5190,6 +5207,8 @@ class QueryZolozmetaThreemetamobilereuseRequest(TeaModel):
         self.date = date
         # 运营商类型
         self.carrier = carrier
+        # 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+        self.encrypt_type = encrypt_type
         # 扩展参数
         self.extern_param = extern_param
 
@@ -5218,6 +5237,8 @@ class QueryZolozmetaThreemetamobilereuseRequest(TeaModel):
             result['date'] = self.date
         if self.carrier is not None:
             result['carrier'] = self.carrier
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
         return result
@@ -5236,6 +5257,8 @@ class QueryZolozmetaThreemetamobilereuseRequest(TeaModel):
             self.date = m.get('date')
         if m.get('carrier') is not None:
             self.carrier = m.get('carrier')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
         return self
@@ -5249,6 +5272,7 @@ class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
         result_msg: str = None,
         phone_reuse: str = None,
         extern_info: str = None,
+        carrier: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -5260,6 +5284,8 @@ class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
         self.phone_reuse = phone_reuse
         # 扩展参数
         self.extern_info = extern_info
+        # 运营商
+        self.carrier = carrier
 
     def validate(self):
         pass
@@ -5280,6 +5306,8 @@ class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
             result['phone_reuse'] = self.phone_reuse
         if self.extern_info is not None:
             result['extern_info'] = self.extern_info
+        if self.carrier is not None:
+            result['carrier'] = self.carrier
         return result
 
     def from_map(self, m: dict = None):
@@ -5294,6 +5322,8 @@ class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
             self.phone_reuse = m.get('phone_reuse')
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
+        if m.get('carrier') is not None:
+            self.carrier = m.get('carrier')
         return self
 
 
