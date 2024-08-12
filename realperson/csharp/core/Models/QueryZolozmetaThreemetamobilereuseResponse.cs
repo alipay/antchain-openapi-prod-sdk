@@ -34,6 +34,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ExternInfo { get; set; }
 
+        // 运营商
+        [NameInMap("carrier")]
+        [Validation(Required=false)]
+        public string Carrier { get; set; }
+
     }
 
 }

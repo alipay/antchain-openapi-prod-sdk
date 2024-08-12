@@ -23,7 +23,7 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string OuterOrderNo { get; set; }
 
-        // 手机号
+        // 手机号「支持加密」
         [NameInMap("mobile")]
         [Validation(Required=true)]
         public string Mobile { get; set; }
@@ -37,6 +37,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [NameInMap("carrier")]
         [Validation(Required=false)]
         public string Carrier { get; set; }
+
+        // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
+        [NameInMap("encrypt_type")]
+        [Validation(Required=false)]
+        public string EncryptType { get; set; }
 
         // 扩展参数
         [NameInMap("extern_param")]
