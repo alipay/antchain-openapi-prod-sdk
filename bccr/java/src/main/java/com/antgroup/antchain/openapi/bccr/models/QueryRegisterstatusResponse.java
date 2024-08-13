@@ -68,7 +68,7 @@ public class QueryRegisterstatusResponse extends TeaModel {
     @NameInMap("security")
     public SecurityData security;
 
-    // 补正说明函下载地址
+    // 保管函url
     @NameInMap("correction_url")
     public String correctionUrl;
 
