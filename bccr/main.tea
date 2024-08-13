@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.18.42',
+    sdk_version = '1.18.43',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -1634,7 +1634,7 @@ model QueryRegisterstatusResponse = {
   statementUrl?: string(name='statement_url'),
   // 安全信息
   security?: SecurityData(name='security'),
-  // 补正说明函下载地址
+  // 保管函url
   correctionUrl?: string(name='correction_url'),
 }
 
@@ -5025,6 +5025,48 @@ async function submitDciFeedback(request: SubmitDciFeedbackRequest): SubmitDciFe
 async function submitDciFeedbackEx(request: SubmitDciFeedbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitDciFeedbackResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.dci.feedback.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDciFeedbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 申诉ID
+  id: string(name='id'),
+}
+
+model QueryDciFeedbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 申诉状态
+  feedbackStatus?: string(name='feedback_status'),
+  // dciID
+  dciContentId?: string(name='dci_content_id'),
+  // 备注或失败原因
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 查询申诉结果
+ * Summary: 查询申诉结果
+ */
+async function queryDciFeedback(request: QueryDciFeedbackRequest): QueryDciFeedbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDciFeedbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询申诉结果
+ * Summary: 查询申诉结果
+ */
+async function queryDciFeedbackEx(request: QueryDciFeedbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciFeedbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.dci.feedback.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddContentRequest = {
