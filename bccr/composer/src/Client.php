@@ -89,6 +89,8 @@ use AntChain\BCCR\Models\QueryContentStatusRequest;
 use AntChain\BCCR\Models\QueryContentStatusResponse;
 use AntChain\BCCR\Models\QueryDciContentsecurityRequest;
 use AntChain\BCCR\Models\QueryDciContentsecurityResponse;
+use AntChain\BCCR\Models\QueryDciFeedbackRequest;
+use AntChain\BCCR\Models\QueryDciFeedbackResponse;
 use AntChain\BCCR\Models\QueryDciPayRequest;
 use AntChain\BCCR\Models\QueryDciPayResponse;
 use AntChain\BCCR\Models\QueryDciPreregistrationRequest;
@@ -312,7 +314,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.18.42',
+                    'sdk_version'      => '1.18.43',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2635,6 +2637,39 @@ class Client
         Utils::validateModel($request);
 
         return SubmitDciFeedbackResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.feedback.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询申诉结果
+     * Summary: 查询申诉结果.
+     *
+     * @param QueryDciFeedbackRequest $request
+     *
+     * @return QueryDciFeedbackResponse
+     */
+    public function queryDciFeedback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDciFeedbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询申诉结果
+     * Summary: 查询申诉结果.
+     *
+     * @param QueryDciFeedbackRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryDciFeedbackResponse
+     */
+    public function queryDciFeedbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDciFeedbackResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.feedback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

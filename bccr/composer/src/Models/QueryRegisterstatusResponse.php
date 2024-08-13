@@ -104,7 +104,7 @@ class QueryRegisterstatusResponse extends Model
      */
     public $security;
 
-    // 补正说明函下载地址
+    // 保管函url
     /**
      * @var string
      */
