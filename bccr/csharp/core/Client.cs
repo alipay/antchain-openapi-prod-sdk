@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.42"},
+                        {"sdk_version", "1.18.43"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.42"},
+                        {"sdk_version", "1.18.43"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3217,6 +3217,48 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitDciFeedbackResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.feedback.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询申诉结果
+         * Summary: 查询申诉结果
+         */
+        public QueryDciFeedbackResponse QueryDciFeedback(QueryDciFeedbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDciFeedbackEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询申诉结果
+         * Summary: 查询申诉结果
+         */
+        public async Task<QueryDciFeedbackResponse> QueryDciFeedbackAsync(QueryDciFeedbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDciFeedbackExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询申诉结果
+         * Summary: 查询申诉结果
+         */
+        public QueryDciFeedbackResponse QueryDciFeedbackEx(QueryDciFeedbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDciFeedbackResponse>(DoRequest("1.0", "blockchain.bccr.dci.feedback.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询申诉结果
+         * Summary: 查询申诉结果
+         */
+        public async Task<QueryDciFeedbackResponse> QueryDciFeedbackExAsync(QueryDciFeedbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDciFeedbackResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.feedback.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
