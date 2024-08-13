@@ -4742,7 +4742,7 @@ type QueryRegisterstatusResponse struct {
 	StatementUrl *string `json:"statement_url,omitempty" xml:"statement_url,omitempty"`
 	// 安全信息
 	Security *SecurityData `json:"security,omitempty" xml:"security,omitempty"`
-	// 补正说明函下载地址
+	// 保管函url
 	CorrectionUrl *string `json:"correction_url,omitempty" xml:"correction_url,omitempty"`
 }
 
@@ -12449,6 +12449,90 @@ func (s *SubmitDciFeedbackResponse) SetId(v string) *SubmitDciFeedbackResponse {
 	return s
 }
 
+type QueryDciFeedbackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 申诉ID
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s QueryDciFeedbackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDciFeedbackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDciFeedbackRequest) SetAuthToken(v string) *QueryDciFeedbackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDciFeedbackRequest) SetProductInstanceId(v string) *QueryDciFeedbackRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDciFeedbackRequest) SetId(v string) *QueryDciFeedbackRequest {
+	s.Id = &v
+	return s
+}
+
+type QueryDciFeedbackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 申诉状态
+	FeedbackStatus *string `json:"feedback_status,omitempty" xml:"feedback_status,omitempty"`
+	// dciID
+	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
+	// 备注或失败原因
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryDciFeedbackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDciFeedbackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDciFeedbackResponse) SetReqMsgId(v string) *QueryDciFeedbackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDciFeedbackResponse) SetResultCode(v string) *QueryDciFeedbackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDciFeedbackResponse) SetResultMsg(v string) *QueryDciFeedbackResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDciFeedbackResponse) SetFeedbackStatus(v string) *QueryDciFeedbackResponse {
+	s.FeedbackStatus = &v
+	return s
+}
+
+func (s *QueryDciFeedbackResponse) SetDciContentId(v string) *QueryDciFeedbackResponse {
+	s.DciContentId = &v
+	return s
+}
+
+func (s *QueryDciFeedbackResponse) SetMsg(v string) *QueryDciFeedbackResponse {
+	s.Msg = &v
+	return s
+}
+
 type AddContentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -13411,7 +13495,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.42"),
+				"sdk_version":      tea.String("1.18.43"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -15808,6 +15892,40 @@ func (client *Client) SubmitDciFeedbackEx(request *SubmitDciFeedbackRequest, hea
 	}
 	_result = &SubmitDciFeedbackResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.feedback.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询申诉结果
+ * Summary: 查询申诉结果
+ */
+func (client *Client) QueryDciFeedback(request *QueryDciFeedbackRequest) (_result *QueryDciFeedbackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDciFeedbackResponse{}
+	_body, _err := client.QueryDciFeedbackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询申诉结果
+ * Summary: 查询申诉结果
+ */
+func (client *Client) QueryDciFeedbackEx(request *QueryDciFeedbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDciFeedbackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDciFeedbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.feedback.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
