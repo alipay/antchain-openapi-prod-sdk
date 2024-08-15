@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.8',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.8',
+                    'sdk_version': '1.3.0',
                     '_prod_code': 'SDS',
                     '_prod_channel': 'default'
                 }
@@ -531,6 +531,62 @@ class Client:
         return TeaCore.from_map(
             sds_models.BatchqueryScenedataTaskresultResponse(),
             await self.do_request_async('1.0', 'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_scenedata_online(
+        self,
+        request: sds_models.QueryScenedataOnlineRequest,
+    ) -> sds_models.QueryScenedataOnlineResponse:
+        """
+        Description: 场景数据在线查询，仅支持单条匹配
+        Summary: 场景数据在线查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_scenedata_online_ex(request, headers, runtime)
+
+    async def query_scenedata_online_async(
+        self,
+        request: sds_models.QueryScenedataOnlineRequest,
+    ) -> sds_models.QueryScenedataOnlineResponse:
+        """
+        Description: 场景数据在线查询，仅支持单条匹配
+        Summary: 场景数据在线查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_scenedata_online_ex_async(request, headers, runtime)
+
+    def query_scenedata_online_ex(
+        self,
+        request: sds_models.QueryScenedataOnlineRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.QueryScenedataOnlineResponse:
+        """
+        Description: 场景数据在线查询，仅支持单条匹配
+        Summary: 场景数据在线查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.QueryScenedataOnlineResponse(),
+            self.do_request('1.0', 'antchain.sds.scenedata.online.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_scenedata_online_ex_async(
+        self,
+        request: sds_models.QueryScenedataOnlineRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sds_models.QueryScenedataOnlineResponse:
+        """
+        Description: 场景数据在线查询，仅支持单条匹配
+        Summary: 场景数据在线查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sds_models.QueryScenedataOnlineResponse(),
+            await self.do_request_async('1.0', 'antchain.sds.scenedata.online.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

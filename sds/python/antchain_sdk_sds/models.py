@@ -812,6 +812,137 @@ class BatchqueryScenedataTaskresultResponse(TeaModel):
         return self
 
 
+class QueryScenedataOnlineRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        biz_no: str = None,
+        biz_no_type: str = None,
+        scene: str = None,
+        source_mark: str = None,
+        condition: BizNoCondition = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 业务号，根据biz_no_type修改类型
+        self.biz_no = biz_no
+        # 业务号类型
+        self.biz_no_type = biz_no_type
+        # 场景，根据此参数路由适配到不同数据源
+        self.scene = scene
+        # 来源标识
+        self.source_mark = source_mark
+        # 条件，目前只支持IN的逻辑
+        self.condition = condition
+
+    def validate(self):
+        self.validate_required(self.biz_no, 'biz_no')
+        if self.biz_no is not None:
+            self.validate_max_length(self.biz_no, 'biz_no', 256)
+        self.validate_required(self.biz_no_type, 'biz_no_type')
+        if self.biz_no_type is not None:
+            self.validate_max_length(self.biz_no_type, 'biz_no_type', 64)
+        self.validate_required(self.scene, 'scene')
+        if self.scene is not None:
+            self.validate_max_length(self.scene, 'scene', 32)
+        if self.source_mark is not None:
+            self.validate_max_length(self.source_mark, 'source_mark', 32)
+        if self.condition:
+            self.condition.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.biz_no is not None:
+            result['biz_no'] = self.biz_no
+        if self.biz_no_type is not None:
+            result['biz_no_type'] = self.biz_no_type
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.source_mark is not None:
+            result['source_mark'] = self.source_mark
+        if self.condition is not None:
+            result['condition'] = self.condition.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('biz_no') is not None:
+            self.biz_no = m.get('biz_no')
+        if m.get('biz_no_type') is not None:
+            self.biz_no_type = m.get('biz_no_type')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('source_mark') is not None:
+            self.source_mark = m.get('source_mark')
+        if m.get('condition') is not None:
+            temp_model = BizNoCondition()
+            self.condition = temp_model.from_map(m['condition'])
+        return self
+
+
+class QueryScenedataOnlineResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果字段，可以是Y/程度值/自定义加密串
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
