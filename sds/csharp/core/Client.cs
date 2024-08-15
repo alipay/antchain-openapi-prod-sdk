@@ -137,7 +137,7 @@ namespace AntChain.SDK.SDS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.8"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "SDS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SDS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.8"},
+                        {"sdk_version", "1.3.0"},
                         {"_prod_code", "SDS"},
                         {"_prod_channel", "default"},
                     };
@@ -533,6 +533,48 @@ namespace AntChain.SDK.SDS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryScenedataTaskresultResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.taskresult.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 场景数据在线查询，仅支持单条匹配
+         * Summary: 场景数据在线查询
+         */
+        public QueryScenedataOnlineResponse QueryScenedataOnline(QueryScenedataOnlineRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryScenedataOnlineEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 场景数据在线查询，仅支持单条匹配
+         * Summary: 场景数据在线查询
+         */
+        public async Task<QueryScenedataOnlineResponse> QueryScenedataOnlineAsync(QueryScenedataOnlineRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryScenedataOnlineExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 场景数据在线查询，仅支持单条匹配
+         * Summary: 场景数据在线查询
+         */
+        public QueryScenedataOnlineResponse QueryScenedataOnlineEx(QueryScenedataOnlineRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScenedataOnlineResponse>(DoRequest("1.0", "antchain.sds.scenedata.online.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 场景数据在线查询，仅支持单条匹配
+         * Summary: 场景数据在线查询
+         */
+        public async Task<QueryScenedataOnlineResponse> QueryScenedataOnlineExAsync(QueryScenedataOnlineRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryScenedataOnlineResponse>(await DoRequestAsync("1.0", "antchain.sds.scenedata.online.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
