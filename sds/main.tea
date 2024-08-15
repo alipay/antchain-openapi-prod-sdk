@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.8',
+    sdk_version = '1.3.0',
     _prod_code = 'SDS',
     _prod_channel = 'default'
   };
@@ -399,6 +399,52 @@ async function batchqueryScenedataTaskresult(request: BatchqueryScenedataTaskres
 async function batchqueryScenedataTaskresultEx(request: BatchqueryScenedataTaskresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryScenedataTaskresultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryScenedataOnlineRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 业务号，根据biz_no_type修改类型
+  bizNo: string(maxLength=256, name='biz_no'),
+  // 业务号类型
+  bizNoType: string(maxLength=64, name='biz_no_type'),
+  // 场景，根据此参数路由适配到不同数据源
+  scene: string(maxLength=32, name='scene'),
+  // 来源标识
+  sourceMark?: string(maxLength=32, name='source_mark'),
+  // 条件，目前只支持IN的逻辑
+  condition?: BizNoCondition(name='condition'),
+}
+
+model QueryScenedataOnlineResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果字段，可以是Y/程度值/自定义加密串
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 场景数据在线查询，仅支持单条匹配
+ * Summary: 场景数据在线查询
+ */
+async function queryScenedataOnline(request: QueryScenedataOnlineRequest): QueryScenedataOnlineResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryScenedataOnlineEx(request, headers, runtime);
+}
+
+/**
+ * Description: 场景数据在线查询，仅支持单条匹配
+ * Summary: 场景数据在线查询
+ */
+async function queryScenedataOnlineEx(request: QueryScenedataOnlineRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryScenedataOnlineResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.sds.scenedata.online.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
