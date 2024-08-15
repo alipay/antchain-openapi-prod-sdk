@@ -479,6 +479,81 @@ export class BatchqueryScenedataTaskresultResponse extends $tea.Model {
   }
 }
 
+export class QueryScenedataOnlineRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 业务号，根据biz_no_type修改类型
+  bizNo: string;
+  // 业务号类型
+  bizNoType: string;
+  // 场景，根据此参数路由适配到不同数据源
+  scene: string;
+  // 来源标识
+  sourceMark?: string;
+  // 条件，目前只支持IN的逻辑
+  condition?: BizNoCondition;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizNo: 'biz_no',
+      bizNoType: 'biz_no_type',
+      scene: 'scene',
+      sourceMark: 'source_mark',
+      condition: 'condition',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizNo: 'string',
+      bizNoType: 'string',
+      scene: 'string',
+      sourceMark: 'string',
+      condition: BizNoCondition,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryScenedataOnlineResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果字段，可以是Y/程度值/自定义加密串
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -680,7 +755,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.8",
+          sdk_version: "1.3.0",
           _prod_code: "SDS",
           _prod_channel: "default",
         };
@@ -823,6 +898,25 @@ export default class Client {
   async batchqueryScenedataTaskresultEx(request: BatchqueryScenedataTaskresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryScenedataTaskresultResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryScenedataTaskresultResponse>(await this.doRequest("1.0", "antchain.sds.scenedata.taskresult.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryScenedataTaskresultResponse({}));
+  }
+
+  /**
+   * Description: 场景数据在线查询，仅支持单条匹配
+   * Summary: 场景数据在线查询
+   */
+  async queryScenedataOnline(request: QueryScenedataOnlineRequest): Promise<QueryScenedataOnlineResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryScenedataOnlineEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 场景数据在线查询，仅支持单条匹配
+   * Summary: 场景数据在线查询
+   */
+  async queryScenedataOnlineEx(request: QueryScenedataOnlineRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryScenedataOnlineResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryScenedataOnlineResponse>(await this.doRequest("1.0", "antchain.sds.scenedata.online.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryScenedataOnlineResponse({}));
   }
 
   /**
