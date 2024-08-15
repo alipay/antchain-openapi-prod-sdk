@@ -642,6 +642,104 @@ func (s *BatchqueryScenedataTaskresultResponse) SetResultList(v []*BatchResult) 
 	return s
 }
 
+type QueryScenedataOnlineRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 业务号，根据biz_no_type修改类型
+	BizNo *string `json:"biz_no,omitempty" xml:"biz_no,omitempty" require:"true" maxLength:"256"`
+	// 业务号类型
+	BizNoType *string `json:"biz_no_type,omitempty" xml:"biz_no_type,omitempty" require:"true" maxLength:"64"`
+	// 场景，根据此参数路由适配到不同数据源
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true" maxLength:"32"`
+	// 来源标识
+	SourceMark *string `json:"source_mark,omitempty" xml:"source_mark,omitempty" maxLength:"32"`
+	// 条件，目前只支持IN的逻辑
+	Condition *BizNoCondition `json:"condition,omitempty" xml:"condition,omitempty"`
+}
+
+func (s QueryScenedataOnlineRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScenedataOnlineRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScenedataOnlineRequest) SetAuthToken(v string) *QueryScenedataOnlineRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineRequest) SetProductInstanceId(v string) *QueryScenedataOnlineRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineRequest) SetBizNo(v string) *QueryScenedataOnlineRequest {
+	s.BizNo = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineRequest) SetBizNoType(v string) *QueryScenedataOnlineRequest {
+	s.BizNoType = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineRequest) SetScene(v string) *QueryScenedataOnlineRequest {
+	s.Scene = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineRequest) SetSourceMark(v string) *QueryScenedataOnlineRequest {
+	s.SourceMark = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineRequest) SetCondition(v *BizNoCondition) *QueryScenedataOnlineRequest {
+	s.Condition = v
+	return s
+}
+
+type QueryScenedataOnlineResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果字段，可以是Y/程度值/自定义加密串
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s QueryScenedataOnlineResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryScenedataOnlineResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryScenedataOnlineResponse) SetReqMsgId(v string) *QueryScenedataOnlineResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineResponse) SetResultCode(v string) *QueryScenedataOnlineResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineResponse) SetResultMsg(v string) *QueryScenedataOnlineResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryScenedataOnlineResponse) SetResult(v string) *QueryScenedataOnlineResponse {
+	s.Result = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -884,7 +982,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.8"),
+				"sdk_version":      tea.String("1.3.0"),
 				"_prod_code":       tea.String("SDS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1100,6 +1198,40 @@ func (client *Client) BatchqueryScenedataTaskresultEx(request *BatchquerySceneda
 	}
 	_result = &BatchqueryScenedataTaskresultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.scenedata.taskresult.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 场景数据在线查询，仅支持单条匹配
+ * Summary: 场景数据在线查询
+ */
+func (client *Client) QueryScenedataOnline(request *QueryScenedataOnlineRequest) (_result *QueryScenedataOnlineResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryScenedataOnlineResponse{}
+	_body, _err := client.QueryScenedataOnlineEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 场景数据在线查询，仅支持单条匹配
+ * Summary: 场景数据在线查询
+ */
+func (client *Client) QueryScenedataOnlineEx(request *QueryScenedataOnlineRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryScenedataOnlineResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryScenedataOnlineResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.sds.scenedata.online.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
