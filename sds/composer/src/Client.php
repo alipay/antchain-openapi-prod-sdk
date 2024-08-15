@@ -17,6 +17,8 @@ use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\SDS\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\SDS\Models\JudgeCrowdPrefermentRequest;
 use AntChain\SDS\Models\JudgeCrowdPrefermentResponse;
+use AntChain\SDS\Models\QueryScenedataOnlineRequest;
+use AntChain\SDS\Models\QueryScenedataOnlineResponse;
 use AntChain\SDS\Models\SubmitScenedataTaskRequest;
 use AntChain\SDS\Models\SubmitScenedataTaskResponse;
 use AntChain\SDS\Models\UploadScenedataFileRequest;
@@ -168,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.8',
+                    'sdk_version'      => '1.3.0',
                     '_prod_code'       => 'SDS',
                     '_prod_channel'    => 'default',
                 ];
@@ -364,6 +366,39 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryScenedataTaskresultResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.taskresult.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 场景数据在线查询，仅支持单条匹配
+     * Summary: 场景数据在线查询.
+     *
+     * @param QueryScenedataOnlineRequest $request
+     *
+     * @return QueryScenedataOnlineResponse
+     */
+    public function queryScenedataOnline($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryScenedataOnlineEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 场景数据在线查询，仅支持单条匹配
+     * Summary: 场景数据在线查询.
+     *
+     * @param QueryScenedataOnlineRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryScenedataOnlineResponse
+     */
+    public function queryScenedataOnlineEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryScenedataOnlineResponse::fromMap($this->doRequest('1.0', 'antchain.sds.scenedata.online.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
