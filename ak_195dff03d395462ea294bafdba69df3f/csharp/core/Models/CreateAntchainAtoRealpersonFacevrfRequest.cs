@@ -38,8 +38,6 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 
         // 身份信息来源类型
         // IDENTITY_CARD（身份证）
-        // RESIDENCE_HK_MC（港澳居民居住证）
-        // RESIDENCE_TAIWAN（台湾居民居住证）
         [NameInMap("cert_type")]
         [Validation(Required=true)]
         public string CertType { get; set; }

@@ -71,6 +71,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string SignInfo { get; set; }
 
+        // 发起人账户id
+        [NameInMap("initiator_account_id")]
+        [Validation(Required=false)]
+        public string InitiatorAccountId { get; set; }
+
     }
 
 }

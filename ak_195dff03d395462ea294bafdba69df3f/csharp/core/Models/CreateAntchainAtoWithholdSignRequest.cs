@@ -53,6 +53,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false, MaxLength=256)]
         public string ReturnUrl { get; set; }
 
+        // 支付宝用户 open_id，非必填
+        [NameInMap("alipay_open_id")]
+        [Validation(Required=false, MaxLength=128)]
+        public string AlipayOpenId { get; set; }
+
     }
 
 }

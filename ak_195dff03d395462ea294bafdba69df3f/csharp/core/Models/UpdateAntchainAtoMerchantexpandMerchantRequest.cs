@@ -26,27 +26,22 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         // 法人信息
         [NameInMap("legal_info")]
         [Validation(Required=true)]
-        public LegalInfo LegalInfo { get; set; }
+        public LegalInfoUpdate LegalInfo { get; set; }
 
         // 应用信息
         [NameInMap("application_info")]
         [Validation(Required=true)]
-        public ApplicationInfo ApplicationInfo { get; set; }
-
-        // 进件模式 DIRECT(直连进件) AGENT(代理进件)
-        [NameInMap("expand_mode")]
-        [Validation(Required=true)]
-        public string ExpandMode { get; set; }
-
-        // expand_mode=_AGENT_ 必填
-        [NameInMap("sub_tenant_id")]
-        [Validation(Required=false)]
-        public string SubTenantId { get; set; }
+        public ApplicationInfoUpdate ApplicationInfo { get; set; }
 
         // 进件流水号
         [NameInMap("pay_expand_id")]
         [Validation(Required=true)]
         public string PayExpandId { get; set; }
+
+        // 社会统一信用代码
+        [NameInMap("merchant_id")]
+        [Validation(Required=true)]
+        public string MerchantId { get; set; }
 
     }
 

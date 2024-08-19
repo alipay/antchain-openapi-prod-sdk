@@ -47,6 +47,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string InvalidTime { get; set; }
 
+        // 代扣协议号
+        [NameInMap("agreement_no")]
+        [Validation(Required=false)]
+        public string AgreementNo { get; set; }
+
     }
 
 }

@@ -40,6 +40,12 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true)]
         public string MerchantId { get; set; }
 
+        // 商户类型： 01：企业；07：个体工商户
+        // 默认不填为01
+        [NameInMap("merchant_type")]
+        [Validation(Required=false)]
+        public string MerchantType { get; set; }
+
         // 公司联系电话
         [NameInMap("company_mobile")]
         [Validation(Required=true)]

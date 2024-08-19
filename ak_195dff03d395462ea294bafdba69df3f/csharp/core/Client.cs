@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.4"},
+                        {"sdk_version", "1.3.5"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.4"},
+                        {"sdk_version", "1.3.5"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -2649,6 +2649,90 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UpdateAntchainAtoMerchantexpandMerchantResponse>(await DoRequestAsync("1.0", "antchain.ato.merchantexpand.merchant.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 撤销签署流程
+         * Summary: 撤销签署流程
+         */
+        public CancelAntchainAtoSignFlowResponse CancelAntchainAtoSignFlow(CancelAntchainAtoSignFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelAntchainAtoSignFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 撤销签署流程
+         * Summary: 撤销签署流程
+         */
+        public async Task<CancelAntchainAtoSignFlowResponse> CancelAntchainAtoSignFlowAsync(CancelAntchainAtoSignFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelAntchainAtoSignFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 撤销签署流程
+         * Summary: 撤销签署流程
+         */
+        public CancelAntchainAtoSignFlowResponse CancelAntchainAtoSignFlowEx(CancelAntchainAtoSignFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelAntchainAtoSignFlowResponse>(DoRequest("1.0", "antchain.ato.sign.flow.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 撤销签署流程
+         * Summary: 撤销签署流程
+         */
+        public async Task<CancelAntchainAtoSignFlowResponse> CancelAntchainAtoSignFlowExAsync(CancelAntchainAtoSignFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelAntchainAtoSignFlowResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.flow.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户履约承诺替换更新
+         * Summary: 用户履约承诺替换更新
+         */
+        public ReplaceAntchainAtoTradeUserpromiseResponse ReplaceAntchainAtoTradeUserpromise(ReplaceAntchainAtoTradeUserpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ReplaceAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户履约承诺替换更新
+         * Summary: 用户履约承诺替换更新
+         */
+        public async Task<ReplaceAntchainAtoTradeUserpromiseResponse> ReplaceAntchainAtoTradeUserpromiseAsync(ReplaceAntchainAtoTradeUserpromiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ReplaceAntchainAtoTradeUserpromiseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用户履约承诺替换更新
+         * Summary: 用户履约承诺替换更新
+         */
+        public ReplaceAntchainAtoTradeUserpromiseResponse ReplaceAntchainAtoTradeUserpromiseEx(ReplaceAntchainAtoTradeUserpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReplaceAntchainAtoTradeUserpromiseResponse>(DoRequest("1.0", "antchain.ato.trade.userpromise.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用户履约承诺替换更新
+         * Summary: 用户履约承诺替换更新
+         */
+        public async Task<ReplaceAntchainAtoTradeUserpromiseResponse> ReplaceAntchainAtoTradeUserpromiseExAsync(ReplaceAntchainAtoTradeUserpromiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ReplaceAntchainAtoTradeUserpromiseResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.userpromise.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
