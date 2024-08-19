@@ -52,6 +52,12 @@ class QueryAntchainAtoWithholdSignResponse extends Model
      * @var string
      */
     public $invalidTime;
+
+    // 代扣协议号
+    /**
+     * @var string
+     */
+    public $agreementNo;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
@@ -60,6 +66,7 @@ class QueryAntchainAtoWithholdSignResponse extends Model
         'signTime'    => 'sign_time',
         'validTime'   => 'valid_time',
         'invalidTime' => 'invalid_time',
+        'agreementNo' => 'agreement_no',
     ];
 
     public function validate()
@@ -93,6 +100,9 @@ class QueryAntchainAtoWithholdSignResponse extends Model
         if (null !== $this->invalidTime) {
             $res['invalid_time'] = $this->invalidTime;
         }
+        if (null !== $this->agreementNo) {
+            $res['agreement_no'] = $this->agreementNo;
+        }
 
         return $res;
     }
@@ -125,6 +135,9 @@ class QueryAntchainAtoWithholdSignResponse extends Model
         }
         if (isset($map['invalid_time'])) {
             $model->invalidTime = $map['invalid_time'];
+        }
+        if (isset($map['agreement_no'])) {
+            $model->agreementNo = $map['agreement_no'];
         }
 
         return $model;

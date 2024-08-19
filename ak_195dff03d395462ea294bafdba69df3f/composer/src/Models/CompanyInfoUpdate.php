@@ -79,6 +79,14 @@ class CompanyInfoUpdate extends Model
      * @var string
      */
     public $contactMobile;
+
+    // 商户类型： 01：企业；07：个体工商户 默认不填为01
+    /**
+     * @example 01
+     *
+     * @var string
+     */
+    public $merchantType;
     protected $_name = [
         'businessLicenseFile' => 'business_license_file',
         'productMainClass'    => 'product_main_class',
@@ -89,18 +97,11 @@ class CompanyInfoUpdate extends Model
         'companyAddress'      => 'company_address',
         'contactName'         => 'contact_name',
         'contactMobile'       => 'contact_mobile',
+        'merchantType'        => 'merchant_type',
     ];
 
     public function validate()
     {
-        Model::validateRequired('businessLicenseFile', $this->businessLicenseFile, true);
-        Model::validateRequired('productMainClass', $this->productMainClass, true);
-        Model::validateRequired('companyName', $this->companyName, true);
-        Model::validateRequired('companyAliasName', $this->companyAliasName, true);
-        Model::validateRequired('companyMobile', $this->companyMobile, true);
-        Model::validateRequired('companyAddress', $this->companyAddress, true);
-        Model::validateRequired('contactName', $this->contactName, true);
-        Model::validateRequired('contactMobile', $this->contactMobile, true);
     }
 
     public function toMap()
@@ -132,6 +133,9 @@ class CompanyInfoUpdate extends Model
         }
         if (null !== $this->contactMobile) {
             $res['contact_mobile'] = $this->contactMobile;
+        }
+        if (null !== $this->merchantType) {
+            $res['merchant_type'] = $this->merchantType;
         }
 
         return $res;
@@ -171,6 +175,9 @@ class CompanyInfoUpdate extends Model
         }
         if (isset($map['contact_mobile'])) {
             $model->contactMobile = $map['contact_mobile'];
+        }
+        if (isset($map['merchant_type'])) {
+            $model->merchantType = $map['merchant_type'];
         }
 
         return $model;

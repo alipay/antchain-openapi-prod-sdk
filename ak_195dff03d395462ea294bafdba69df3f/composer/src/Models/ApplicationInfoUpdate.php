@@ -6,12 +6,9 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ApplicationInfo extends Model
+class ApplicationInfoUpdate extends Model
 {
-    // 应用场景
-    // MINI_APP 小程序
-    // APP 自有app
-    // ALL 两种都有
+    // 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
     /**
      * @example ALL
      *
@@ -35,7 +32,7 @@ class ApplicationInfo extends Model
      */
     public $siteName;
 
-    // 网站地址
+    // http://asdasas.com
     /**
      * @example http://asdasas.com
      *
@@ -43,8 +40,7 @@ class ApplicationInfo extends Model
      */
     public $sitUrl;
 
-    // 商户名称。
-    // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+    // 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
     /**
      * @example xx商户
      *
@@ -52,8 +48,7 @@ class ApplicationInfo extends Model
      */
     public $merchantName;
 
-    // 商户服务名称。
-    // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+    // 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
     /**
      * @example xx商户服务
      *
@@ -61,8 +56,7 @@ class ApplicationInfo extends Model
      */
     public $merchantServiceName;
 
-    // 商户服务描述。
-    // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+    // 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
     /**
      * @example xx服务描述
      *
@@ -81,13 +75,6 @@ class ApplicationInfo extends Model
 
     public function validate()
     {
-        Model::validateRequired('applicationScene', $this->applicationScene, true);
-        Model::validateRequired('tinyAppId', $this->tinyAppId, true);
-        Model::validateRequired('siteName', $this->siteName, true);
-        Model::validateRequired('sitUrl', $this->sitUrl, true);
-        Model::validateRequired('merchantName', $this->merchantName, true);
-        Model::validateRequired('merchantServiceName', $this->merchantServiceName, true);
-        Model::validateRequired('merchantServiceDesc', $this->merchantServiceDesc, true);
     }
 
     public function toMap()
@@ -121,7 +108,7 @@ class ApplicationInfo extends Model
     /**
      * @param array $map
      *
-     * @return ApplicationInfo
+     * @return ApplicationInfoUpdate
      */
     public static function fromMap($map = [])
     {

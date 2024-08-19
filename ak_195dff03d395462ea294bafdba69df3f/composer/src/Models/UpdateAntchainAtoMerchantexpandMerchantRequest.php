@@ -27,42 +27,35 @@ class UpdateAntchainAtoMerchantexpandMerchantRequest extends Model
 
     // 法人信息
     /**
-     * @var LegalInfo
+     * @var LegalInfoUpdate
      */
     public $legalInfo;
 
     // 应用信息
     /**
-     * @var ApplicationInfo
+     * @var ApplicationInfoUpdate
      */
     public $applicationInfo;
-
-    // 进件模式 DIRECT(直连进件) AGENT(代理进件)
-    /**
-     * @var string
-     */
-    public $expandMode;
-
-    // expand_mode=_AGENT_ 必填
-    /**
-     * @var string
-     */
-    public $subTenantId;
 
     // 进件流水号
     /**
      * @var string
      */
     public $payExpandId;
+
+    // 社会统一信用代码
+    /**
+     * @var string
+     */
+    public $merchantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'companyInfo'       => 'company_info',
         'legalInfo'         => 'legal_info',
         'applicationInfo'   => 'application_info',
-        'expandMode'        => 'expand_mode',
-        'subTenantId'       => 'sub_tenant_id',
         'payExpandId'       => 'pay_expand_id',
+        'merchantId'        => 'merchant_id',
     ];
 
     public function validate()
@@ -70,8 +63,8 @@ class UpdateAntchainAtoMerchantexpandMerchantRequest extends Model
         Model::validateRequired('companyInfo', $this->companyInfo, true);
         Model::validateRequired('legalInfo', $this->legalInfo, true);
         Model::validateRequired('applicationInfo', $this->applicationInfo, true);
-        Model::validateRequired('expandMode', $this->expandMode, true);
         Model::validateRequired('payExpandId', $this->payExpandId, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
     }
 
     public function toMap()
@@ -92,14 +85,11 @@ class UpdateAntchainAtoMerchantexpandMerchantRequest extends Model
         if (null !== $this->applicationInfo) {
             $res['application_info'] = null !== $this->applicationInfo ? $this->applicationInfo->toMap() : null;
         }
-        if (null !== $this->expandMode) {
-            $res['expand_mode'] = $this->expandMode;
-        }
-        if (null !== $this->subTenantId) {
-            $res['sub_tenant_id'] = $this->subTenantId;
-        }
         if (null !== $this->payExpandId) {
             $res['pay_expand_id'] = $this->payExpandId;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
 
         return $res;
@@ -123,19 +113,16 @@ class UpdateAntchainAtoMerchantexpandMerchantRequest extends Model
             $model->companyInfo = CompanyInfoUpdate::fromMap($map['company_info']);
         }
         if (isset($map['legal_info'])) {
-            $model->legalInfo = LegalInfo::fromMap($map['legal_info']);
+            $model->legalInfo = LegalInfoUpdate::fromMap($map['legal_info']);
         }
         if (isset($map['application_info'])) {
-            $model->applicationInfo = ApplicationInfo::fromMap($map['application_info']);
-        }
-        if (isset($map['expand_mode'])) {
-            $model->expandMode = $map['expand_mode'];
-        }
-        if (isset($map['sub_tenant_id'])) {
-            $model->subTenantId = $map['sub_tenant_id'];
+            $model->applicationInfo = ApplicationInfoUpdate::fromMap($map['application_info']);
         }
         if (isset($map['pay_expand_id'])) {
             $model->payExpandId = $map['pay_expand_id'];
+        }
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
 
         return $model;

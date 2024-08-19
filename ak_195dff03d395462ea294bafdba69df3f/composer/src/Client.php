@@ -21,6 +21,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundN
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CallbackAntchainAtoFundNotifyResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoFundPlanResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoSignFlowRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoSignFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdActivepayRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdActivepayResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\CancelAntchainAtoWithholdPlanRequest;
@@ -79,6 +81,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RegisterAntchainAtoMerch
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RegisterAntchainAtoMerchantexpandMerchantResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RepayAntchainAtoWithholdPlanResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ReplaceAntchainAtoTradeUserpromiseRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ReplaceAntchainAtoTradeUserpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\RetryAntchainAtoWithholdPlanResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SubmitAntchainAtoFrontSignRequest;
@@ -264,7 +268,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.4',
+                    'sdk_version'      => '1.3.5',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -2084,6 +2088,72 @@ class Client
         Utils::validateModel($request);
 
         return UpdateAntchainAtoMerchantexpandMerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 撤销签署流程
+     * Summary: 撤销签署流程.
+     *
+     * @param CancelAntchainAtoSignFlowRequest $request
+     *
+     * @return CancelAntchainAtoSignFlowResponse
+     */
+    public function cancelAntchainAtoSignFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelAntchainAtoSignFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 撤销签署流程
+     * Summary: 撤销签署流程.
+     *
+     * @param CancelAntchainAtoSignFlowRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CancelAntchainAtoSignFlowResponse
+     */
+    public function cancelAntchainAtoSignFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelAntchainAtoSignFlowResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.flow.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用户履约承诺替换更新
+     * Summary: 用户履约承诺替换更新.
+     *
+     * @param ReplaceAntchainAtoTradeUserpromiseRequest $request
+     *
+     * @return ReplaceAntchainAtoTradeUserpromiseResponse
+     */
+    public function replaceAntchainAtoTradeUserpromise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->replaceAntchainAtoTradeUserpromiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用户履约承诺替换更新
+     * Summary: 用户履约承诺替换更新.
+     *
+     * @param ReplaceAntchainAtoTradeUserpromiseRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return ReplaceAntchainAtoTradeUserpromiseResponse
+     */
+    public function replaceAntchainAtoTradeUserpromiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ReplaceAntchainAtoTradeUserpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

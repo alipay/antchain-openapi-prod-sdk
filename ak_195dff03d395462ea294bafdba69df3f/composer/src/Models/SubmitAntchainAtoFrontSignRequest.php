@@ -157,6 +157,12 @@ class SubmitAntchainAtoFrontSignRequest extends Model
      * @var string
      */
     public $thirdSigner;
+
+    // 用户在支付宝开放平台下应用的 open_id
+    /**
+     * @var string
+     */
+    public $alipayOpenId;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -181,6 +187,7 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         'merchantLegalName'     => 'merchant_legal_name',
         'merchantLegalIdNumber' => 'merchant_legal_id_number',
         'thirdSigner'           => 'third_signer',
+        'alipayOpenId'          => 'alipay_open_id',
     ];
 
     public function validate()
@@ -200,12 +207,14 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         Model::validateMaxLength('alipayUserId', $this->alipayUserId, 24);
         Model::validateMaxLength('merchantTag', $this->merchantTag, 32);
         Model::validateMaxLength('merchantIdType', $this->merchantIdType, 32);
+        Model::validateMaxLength('alipayOpenId', $this->alipayOpenId, 64);
         Model::validateMinLength('orderId', $this->orderId, 4);
         Model::validateMinLength('userIdType', $this->userIdType, 4);
         Model::validateMinLength('businessScene', $this->businessScene, 2);
         Model::validateMinLength('alipayUserId', $this->alipayUserId, 4);
         Model::validateMinLength('merchantTag', $this->merchantTag, 2);
         Model::validateMinLength('merchantIdType', $this->merchantIdType, 4);
+        Model::validateMinLength('alipayOpenId', $this->alipayOpenId, 16);
     }
 
     public function toMap()
@@ -279,6 +288,9 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         }
         if (null !== $this->thirdSigner) {
             $res['third_signer'] = $this->thirdSigner;
+        }
+        if (null !== $this->alipayOpenId) {
+            $res['alipay_open_id'] = $this->alipayOpenId;
         }
 
         return $res;
@@ -360,6 +372,9 @@ class SubmitAntchainAtoFrontSignRequest extends Model
         }
         if (isset($map['third_signer'])) {
             $model->thirdSigner = $map['third_signer'];
+        }
+        if (isset($map['alipay_open_id'])) {
+            $model->alipayOpenId = $map['alipay_open_id'];
         }
 
         return $model;
