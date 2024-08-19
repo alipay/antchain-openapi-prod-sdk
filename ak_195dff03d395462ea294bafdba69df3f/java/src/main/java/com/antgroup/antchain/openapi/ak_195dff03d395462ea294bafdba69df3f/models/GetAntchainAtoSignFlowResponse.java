@@ -54,6 +54,10 @@ public class GetAntchainAtoSignFlowResponse extends TeaModel {
     @NameInMap("sign_info")
     public String signInfo;
 
+    // 发起人账户id
+    @NameInMap("initiator_account_id")
+    public String initiatorAccountId;
+
     public static GetAntchainAtoSignFlowResponse build(java.util.Map<String, ?> map) throws Exception {
         GetAntchainAtoSignFlowResponse self = new GetAntchainAtoSignFlowResponse();
         return TeaModel.build(map, self);
@@ -153,6 +157,14 @@ public class GetAntchainAtoSignFlowResponse extends TeaModel {
     }
     public String getSignInfo() {
         return this.signInfo;
+    }
+
+    public GetAntchainAtoSignFlowResponse setInitiatorAccountId(String initiatorAccountId) {
+        this.initiatorAccountId = initiatorAccountId;
+        return this;
+    }
+    public String getInitiatorAccountId() {
+        return this.initiatorAccountId;
     }
 
 }

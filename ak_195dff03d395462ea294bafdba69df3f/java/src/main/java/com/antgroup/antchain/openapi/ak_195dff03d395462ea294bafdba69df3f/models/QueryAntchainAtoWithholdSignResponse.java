@@ -38,6 +38,10 @@ public class QueryAntchainAtoWithholdSignResponse extends TeaModel {
     @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String invalidTime;
 
+    // 代扣协议号
+    @NameInMap("agreement_no")
+    public String agreementNo;
+
     public static QueryAntchainAtoWithholdSignResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoWithholdSignResponse self = new QueryAntchainAtoWithholdSignResponse();
         return TeaModel.build(map, self);
@@ -97,6 +101,14 @@ public class QueryAntchainAtoWithholdSignResponse extends TeaModel {
     }
     public String getInvalidTime() {
         return this.invalidTime;
+    }
+
+    public QueryAntchainAtoWithholdSignResponse setAgreementNo(String agreementNo) {
+        this.agreementNo = agreementNo;
+        return this;
+    }
+    public String getAgreementNo() {
+        return this.agreementNo;
     }
 
 }

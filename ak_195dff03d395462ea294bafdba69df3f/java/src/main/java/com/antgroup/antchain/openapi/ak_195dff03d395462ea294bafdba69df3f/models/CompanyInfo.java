@@ -33,6 +33,11 @@ public class CompanyInfo extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
+    // 商户类型： 01：企业；07：个体工商户
+    // 默认不填为01
+    @NameInMap("merchant_type")
+    public String merchantType;
+
     // 公司联系电话
     @NameInMap("company_mobile")
     @Validation(required = true)
@@ -119,6 +124,14 @@ public class CompanyInfo extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public CompanyInfo setMerchantType(String merchantType) {
+        this.merchantType = merchantType;
+        return this;
+    }
+    public String getMerchantType() {
+        return this.merchantType;
     }
 
     public CompanyInfo setCompanyMobile(String companyMobile) {

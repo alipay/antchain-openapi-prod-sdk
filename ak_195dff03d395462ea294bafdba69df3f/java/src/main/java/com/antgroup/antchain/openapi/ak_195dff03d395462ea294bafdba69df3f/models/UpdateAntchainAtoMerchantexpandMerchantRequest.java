@@ -19,26 +19,22 @@ public class UpdateAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     // 法人信息
     @NameInMap("legal_info")
     @Validation(required = true)
-    public LegalInfo legalInfo;
+    public LegalInfoUpdate legalInfo;
 
     // 应用信息
     @NameInMap("application_info")
     @Validation(required = true)
-    public ApplicationInfo applicationInfo;
-
-    // 进件模式 DIRECT(直连进件) AGENT(代理进件)
-    @NameInMap("expand_mode")
-    @Validation(required = true)
-    public String expandMode;
-
-    // expand_mode=_AGENT_ 必填
-    @NameInMap("sub_tenant_id")
-    public String subTenantId;
+    public ApplicationInfoUpdate applicationInfo;
 
     // 进件流水号
     @NameInMap("pay_expand_id")
     @Validation(required = true)
     public String payExpandId;
+
+    // 社会统一信用代码
+    @NameInMap("merchant_id")
+    @Validation(required = true)
+    public String merchantId;
 
     public static UpdateAntchainAtoMerchantexpandMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateAntchainAtoMerchantexpandMerchantRequest self = new UpdateAntchainAtoMerchantexpandMerchantRequest();
@@ -69,36 +65,20 @@ public class UpdateAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
         return this.companyInfo;
     }
 
-    public UpdateAntchainAtoMerchantexpandMerchantRequest setLegalInfo(LegalInfo legalInfo) {
+    public UpdateAntchainAtoMerchantexpandMerchantRequest setLegalInfo(LegalInfoUpdate legalInfo) {
         this.legalInfo = legalInfo;
         return this;
     }
-    public LegalInfo getLegalInfo() {
+    public LegalInfoUpdate getLegalInfo() {
         return this.legalInfo;
     }
 
-    public UpdateAntchainAtoMerchantexpandMerchantRequest setApplicationInfo(ApplicationInfo applicationInfo) {
+    public UpdateAntchainAtoMerchantexpandMerchantRequest setApplicationInfo(ApplicationInfoUpdate applicationInfo) {
         this.applicationInfo = applicationInfo;
         return this;
     }
-    public ApplicationInfo getApplicationInfo() {
+    public ApplicationInfoUpdate getApplicationInfo() {
         return this.applicationInfo;
-    }
-
-    public UpdateAntchainAtoMerchantexpandMerchantRequest setExpandMode(String expandMode) {
-        this.expandMode = expandMode;
-        return this;
-    }
-    public String getExpandMode() {
-        return this.expandMode;
-    }
-
-    public UpdateAntchainAtoMerchantexpandMerchantRequest setSubTenantId(String subTenantId) {
-        this.subTenantId = subTenantId;
-        return this;
-    }
-    public String getSubTenantId() {
-        return this.subTenantId;
     }
 
     public UpdateAntchainAtoMerchantexpandMerchantRequest setPayExpandId(String payExpandId) {
@@ -107,6 +87,14 @@ public class UpdateAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     }
     public String getPayExpandId() {
         return this.payExpandId;
+    }
+
+    public UpdateAntchainAtoMerchantexpandMerchantRequest setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+        return this;
+    }
+    public String getMerchantId() {
+        return this.merchantId;
     }
 
 }

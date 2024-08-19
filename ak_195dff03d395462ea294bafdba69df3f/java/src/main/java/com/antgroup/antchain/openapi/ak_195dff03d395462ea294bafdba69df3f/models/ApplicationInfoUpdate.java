@@ -3,54 +3,41 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class ApplicationInfo extends TeaModel {
-    // 应用场景
-    // MINI_APP 小程序
-    // APP 自有app
-    // ALL 两种都有
+public class ApplicationInfoUpdate extends TeaModel {
+    // 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
     @NameInMap("application_scene")
-    @Validation(required = true)
     public String applicationScene;
 
     // 小程序id
     @NameInMap("tiny_app_id")
-    @Validation(required = true)
     public String tinyAppId;
 
     // 小程序名称
     @NameInMap("site_name")
-    @Validation(required = true)
     public String siteName;
 
-    // 网站地址
+    // http://asdasas.com
     @NameInMap("sit_url")
-    @Validation(required = true)
     public String sitUrl;
 
-    // 商户名称。
-    // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+    // 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
     @NameInMap("merchant_name")
-    @Validation(required = true)
     public String merchantName;
 
-    // 商户服务名称。
-    // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+    // 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
     @NameInMap("merchant_service_name")
-    @Validation(required = true)
     public String merchantServiceName;
 
-    // 商户服务描述。
-    // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+    // 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
     @NameInMap("merchant_service_desc")
-    @Validation(required = true)
     public String merchantServiceDesc;
 
-    public static ApplicationInfo build(java.util.Map<String, ?> map) throws Exception {
-        ApplicationInfo self = new ApplicationInfo();
+    public static ApplicationInfoUpdate build(java.util.Map<String, ?> map) throws Exception {
+        ApplicationInfoUpdate self = new ApplicationInfoUpdate();
         return TeaModel.build(map, self);
     }
 
-    public ApplicationInfo setApplicationScene(String applicationScene) {
+    public ApplicationInfoUpdate setApplicationScene(String applicationScene) {
         this.applicationScene = applicationScene;
         return this;
     }
@@ -58,7 +45,7 @@ public class ApplicationInfo extends TeaModel {
         return this.applicationScene;
     }
 
-    public ApplicationInfo setTinyAppId(String tinyAppId) {
+    public ApplicationInfoUpdate setTinyAppId(String tinyAppId) {
         this.tinyAppId = tinyAppId;
         return this;
     }
@@ -66,7 +53,7 @@ public class ApplicationInfo extends TeaModel {
         return this.tinyAppId;
     }
 
-    public ApplicationInfo setSiteName(String siteName) {
+    public ApplicationInfoUpdate setSiteName(String siteName) {
         this.siteName = siteName;
         return this;
     }
@@ -74,7 +61,7 @@ public class ApplicationInfo extends TeaModel {
         return this.siteName;
     }
 
-    public ApplicationInfo setSitUrl(String sitUrl) {
+    public ApplicationInfoUpdate setSitUrl(String sitUrl) {
         this.sitUrl = sitUrl;
         return this;
     }
@@ -82,7 +69,7 @@ public class ApplicationInfo extends TeaModel {
         return this.sitUrl;
     }
 
-    public ApplicationInfo setMerchantName(String merchantName) {
+    public ApplicationInfoUpdate setMerchantName(String merchantName) {
         this.merchantName = merchantName;
         return this;
     }
@@ -90,7 +77,7 @@ public class ApplicationInfo extends TeaModel {
         return this.merchantName;
     }
 
-    public ApplicationInfo setMerchantServiceName(String merchantServiceName) {
+    public ApplicationInfoUpdate setMerchantServiceName(String merchantServiceName) {
         this.merchantServiceName = merchantServiceName;
         return this;
     }
@@ -98,7 +85,7 @@ public class ApplicationInfo extends TeaModel {
         return this.merchantServiceName;
     }
 
-    public ApplicationInfo setMerchantServiceDesc(String merchantServiceDesc) {
+    public ApplicationInfoUpdate setMerchantServiceDesc(String merchantServiceDesc) {
         this.merchantServiceDesc = merchantServiceDesc;
         return this;
     }

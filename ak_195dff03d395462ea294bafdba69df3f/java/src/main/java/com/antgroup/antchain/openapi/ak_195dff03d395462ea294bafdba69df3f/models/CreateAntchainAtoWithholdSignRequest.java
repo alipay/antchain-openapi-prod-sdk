@@ -46,6 +46,11 @@ public class CreateAntchainAtoWithholdSignRequest extends TeaModel {
     @Validation(maxLength = 256)
     public String returnUrl;
 
+    // 支付宝用户 open_id，非必填
+    @NameInMap("alipay_open_id")
+    @Validation(maxLength = 128, minLength = 16)
+    public String alipayOpenId;
+
     public static CreateAntchainAtoWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdSignRequest self = new CreateAntchainAtoWithholdSignRequest();
         return TeaModel.build(map, self);
@@ -121,6 +126,14 @@ public class CreateAntchainAtoWithholdSignRequest extends TeaModel {
     }
     public String getReturnUrl() {
         return this.returnUrl;
+    }
+
+    public CreateAntchainAtoWithholdSignRequest setAlipayOpenId(String alipayOpenId) {
+        this.alipayOpenId = alipayOpenId;
+        return this;
+    }
+    public String getAlipayOpenId() {
+        return this.alipayOpenId;
     }
 
 }

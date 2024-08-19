@@ -117,6 +117,11 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
     @NameInMap("third_signer")
     public String thirdSigner;
 
+    // 支付宝用户 open_id
+    @NameInMap("alipay_open_id")
+    @Validation(maxLength = 64, minLength = 16)
+    public String alipayOpenId;
+
     public static SubmitAntchainAtoSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAntchainAtoSignFlowRequest self = new SubmitAntchainAtoSignFlowRequest();
         return TeaModel.build(map, self);
@@ -304,6 +309,14 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
     }
     public String getThirdSigner() {
         return this.thirdSigner;
+    }
+
+    public SubmitAntchainAtoSignFlowRequest setAlipayOpenId(String alipayOpenId) {
+        this.alipayOpenId = alipayOpenId;
+        return this;
+    }
+    public String getAlipayOpenId() {
+        return this.alipayOpenId;
     }
 
 }
