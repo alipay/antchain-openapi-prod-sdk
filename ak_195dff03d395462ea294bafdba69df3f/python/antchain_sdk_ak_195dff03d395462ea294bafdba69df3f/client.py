@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.4',
+                    'sdk_version': '1.3.5',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.4',
+                    'sdk_version': '1.3.5',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -3295,6 +3295,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoMerchantexpandMerchantResponse(),
             await self.do_request_async('1.0', 'antchain.ato.merchantexpand.merchant.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_antchain_ato_sign_flow(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowResponse:
+        """
+        Description: 撤销签署流程
+        Summary: 撤销签署流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_antchain_ato_sign_flow_ex(request, headers, runtime)
+
+    async def cancel_antchain_ato_sign_flow_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowResponse:
+        """
+        Description: 撤销签署流程
+        Summary: 撤销签署流程
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_antchain_ato_sign_flow_ex_async(request, headers, runtime)
+
+    def cancel_antchain_ato_sign_flow_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowResponse:
+        """
+        Description: 撤销签署流程
+        Summary: 撤销签署流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_antchain_ato_sign_flow_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowResponse:
+        """
+        Description: 撤销签署流程
+        Summary: 撤销签署流程
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.CancelAntchainAtoSignFlowResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def replace_antchain_ato_trade_userpromise(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseResponse:
+        """
+        Description: 用户履约承诺替换更新
+        Summary: 用户履约承诺替换更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.replace_antchain_ato_trade_userpromise_ex(request, headers, runtime)
+
+    async def replace_antchain_ato_trade_userpromise_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseResponse:
+        """
+        Description: 用户履约承诺替换更新
+        Summary: 用户履约承诺替换更新
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.replace_antchain_ato_trade_userpromise_ex_async(request, headers, runtime)
+
+    def replace_antchain_ato_trade_userpromise_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseResponse:
+        """
+        Description: 用户履约承诺替换更新
+        Summary: 用户履约承诺替换更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def replace_antchain_ato_trade_userpromise_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseResponse:
+        """
+        Description: 用户履约承诺替换更新
+        Summary: 用户履约承诺替换更新
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
