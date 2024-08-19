@@ -117,6 +117,9 @@ export class CompanyInfo extends $tea.Model {
   tenantId?: string;
   // 统一社会信用代码
   merchantId: string;
+  // 商户类型： 01：企业；07：个体工商户
+  // 默认不填为01
+  merchantType?: string;
   // 公司联系电话
   companyMobile: string;
   // 公司联系地址
@@ -139,6 +142,7 @@ export class CompanyInfo extends $tea.Model {
       companyAliasName: 'company_alias_name',
       tenantId: 'tenant_id',
       merchantId: 'merchant_id',
+      merchantType: 'merchant_type',
       companyMobile: 'company_mobile',
       companyAddress: 'company_address',
       contactName: 'contact_name',
@@ -157,6 +161,7 @@ export class CompanyInfo extends $tea.Model {
       companyAliasName: 'string',
       tenantId: 'string',
       merchantId: 'string',
+      merchantType: 'string',
       companyMobile: 'string',
       companyAddress: 'string',
       contactName: 'string',
@@ -241,12 +246,60 @@ export class ApplicationInfo extends $tea.Model {
   siteName: string;
   // 网站地址
   sitUrl: string;
-  // 商户名称
+  // 商户名称。
+  // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
   merchantName: string;
-  // 商户服务名称
+  // 商户服务名称。
+  // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
   merchantServiceName: string;
-  // 商户服务描述
+  // 商户服务描述。
+  // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
   merchantServiceDesc: string;
+  static names(): { [key: string]: string } {
+    return {
+      applicationScene: 'application_scene',
+      tinyAppId: 'tiny_app_id',
+      siteName: 'site_name',
+      sitUrl: 'sit_url',
+      merchantName: 'merchant_name',
+      merchantServiceName: 'merchant_service_name',
+      merchantServiceDesc: 'merchant_service_desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      applicationScene: 'string',
+      tinyAppId: 'string',
+      siteName: 'string',
+      sitUrl: 'string',
+      merchantName: 'string',
+      merchantServiceName: 'string',
+      merchantServiceDesc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用信息修改
+export class ApplicationInfoUpdate extends $tea.Model {
+  // 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
+  applicationScene?: string;
+  // 小程序id
+  tinyAppId?: string;
+  // 小程序名称
+  siteName?: string;
+  // http://asdasas.com
+  sitUrl?: string;
+  // 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+  merchantName?: string;
+  // 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+  merchantServiceName?: string;
+  // 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+  merchantServiceDesc?: string;
   static names(): { [key: string]: string } {
     return {
       applicationScene: 'application_scene',
@@ -312,23 +365,25 @@ export class LegalInfo extends $tea.Model {
 //  公司信息修改
 export class CompanyInfoUpdate extends $tea.Model {
   // 营业执照文件信息
-  businessLicenseFile: FileInfo;
+  businessLicenseFile?: FileInfo;
   // 业务类型 枚举
-  productMainClass: string;
+  productMainClass?: string;
   // 公司名称
-  companyName: string;
+  companyName?: string;
   // 公司别名
-  companyAliasName: string;
+  companyAliasName?: string;
   // 公司数科租户id
   tenantId?: string;
   // 公司联系电话
-  companyMobile: string;
+  companyMobile?: string;
   // 公司联系地址
-  companyAddress: string;
+  companyAddress?: string;
   // 联系人姓名
-  contactName: string;
+  contactName?: string;
   // 联系人手机号码
-  contactMobile: string;
+  contactMobile?: string;
+  // 商户类型： 01：企业；07：个体工商户 默认不填为01
+  merchantType?: string;
   static names(): { [key: string]: string } {
     return {
       businessLicenseFile: 'business_license_file',
@@ -340,6 +395,7 @@ export class CompanyInfoUpdate extends $tea.Model {
       companyAddress: 'company_address',
       contactName: 'contact_name',
       contactMobile: 'contact_mobile',
+      merchantType: 'merchant_type',
     };
   }
 
@@ -354,6 +410,40 @@ export class CompanyInfoUpdate extends $tea.Model {
       companyAddress: 'string',
       contactName: 'string',
       contactMobile: 'string',
+      merchantType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 法人信息修改
+export class LegalInfoUpdate extends $tea.Model {
+  // 法人名称
+  legalName?: string;
+  // 法人证件号
+  legalCertNo?: string;
+  // 法人证件正面
+  legalCertFrontFile?: FileInfo;
+  // 法人证件反面
+  legalCertBackFile?: FileInfo;
+  static names(): { [key: string]: string } {
+    return {
+      legalName: 'legal_name',
+      legalCertNo: 'legal_cert_no',
+      legalCertFrontFile: 'legal_cert_front_file',
+      legalCertBackFile: 'legal_cert_back_file',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      legalName: 'string',
+      legalCertNo: 'string',
+      legalCertFrontFile: FileInfo,
+      legalCertBackFile: FileInfo,
     };
   }
 
@@ -530,8 +620,6 @@ export class CreateAntchainAtoRealpersonFacevrfRequest extends $tea.Model {
   certNo: string;
   // 身份信息来源类型
   // IDENTITY_CARD（身份证）
-  // RESIDENCE_HK_MC（港澳居民居住证）
-  // RESIDENCE_TAIWAN（台湾居民居住证）
   certType: string;
   // 【solution_type=ZFB使用】
   // reserve（保存活体人脸 默认值）
@@ -821,6 +909,8 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
   merchantLegalIdNumber?: string;
   // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
   thirdSigner?: string;
+  // 支付宝用户 open_id
+  alipayOpenId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -846,6 +936,7 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       merchantLegalName: 'merchant_legal_name',
       merchantLegalIdNumber: 'merchant_legal_id_number',
       thirdSigner: 'third_signer',
+      alipayOpenId: 'alipay_open_id',
     };
   }
 
@@ -874,6 +965,7 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       merchantLegalName: 'string',
       merchantLegalIdNumber: 'string',
       thirdSigner: 'string',
+      alipayOpenId: 'string',
     };
   }
 
@@ -980,6 +1072,8 @@ export class GetAntchainAtoSignFlowResponse extends $tea.Model {
   alipayUserId?: string;
   // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
   signInfo?: string;
+  // 发起人账户id
+  initiatorAccountId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -994,6 +1088,7 @@ export class GetAntchainAtoSignFlowResponse extends $tea.Model {
       businessScene: 'business_scene',
       alipayUserId: 'alipay_user_id',
       signInfo: 'sign_info',
+      initiatorAccountId: 'initiator_account_id',
     };
   }
 
@@ -1011,6 +1106,7 @@ export class GetAntchainAtoSignFlowResponse extends $tea.Model {
       businessScene: 'string',
       alipayUserId: 'string',
       signInfo: 'string',
+      initiatorAccountId: 'string',
     };
   }
 
@@ -1037,6 +1133,8 @@ export class CreateAntchainAtoWithholdSignRequest extends $tea.Model {
   alipayUserId?: string;
   // 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
   returnUrl?: string;
+  // 支付宝用户 open_id，非必填
+  alipayOpenId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1048,6 +1146,7 @@ export class CreateAntchainAtoWithholdSignRequest extends $tea.Model {
       alipayMerchantServiceDescription: 'alipay_merchant_service_description',
       alipayUserId: 'alipay_user_id',
       returnUrl: 'return_url',
+      alipayOpenId: 'alipay_open_id',
     };
   }
 
@@ -1062,6 +1161,7 @@ export class CreateAntchainAtoWithholdSignRequest extends $tea.Model {
       alipayMerchantServiceDescription: 'string',
       alipayUserId: 'string',
       returnUrl: 'string',
+      alipayOpenId: 'string',
     };
   }
 
@@ -1147,6 +1247,8 @@ export class QueryAntchainAtoWithholdSignResponse extends $tea.Model {
   validTime?: string;
   // 协议失效时间
   invalidTime?: string;
+  // 代扣协议号
+  agreementNo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1156,6 +1258,7 @@ export class QueryAntchainAtoWithholdSignResponse extends $tea.Model {
       signTime: 'sign_time',
       validTime: 'valid_time',
       invalidTime: 'invalid_time',
+      agreementNo: 'agreement_no',
     };
   }
 
@@ -1168,6 +1271,7 @@ export class QueryAntchainAtoWithholdSignResponse extends $tea.Model {
       signTime: 'string',
       validTime: 'string',
       invalidTime: 'string',
+      agreementNo: 'string',
     };
   }
 
@@ -1506,6 +1610,8 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
   merchantLegalIdNumber?: string;
   // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
   thirdSigner?: string;
+  // 用户在支付宝开放平台下应用的 open_id
+  alipayOpenId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1531,6 +1637,7 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
       merchantLegalName: 'merchant_legal_name',
       merchantLegalIdNumber: 'merchant_legal_id_number',
       thirdSigner: 'third_signer',
+      alipayOpenId: 'alipay_open_id',
     };
   }
 
@@ -1559,6 +1666,7 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
       merchantLegalName: 'string',
       merchantLegalIdNumber: 'string',
       thirdSigner: 'string',
+      alipayOpenId: 'string',
     };
   }
 
@@ -4309,15 +4417,13 @@ export class UpdateAntchainAtoMerchantexpandMerchantRequest extends $tea.Model {
   // 公司信息
   companyInfo: CompanyInfoUpdate;
   // 法人信息
-  legalInfo: LegalInfo;
+  legalInfo: LegalInfoUpdate;
   // 应用信息
-  applicationInfo: ApplicationInfo;
-  // 进件模式 DIRECT(直连进件) AGENT(代理进件)
-  expandMode: string;
-  // expand_mode=_AGENT_ 必填
-  subTenantId?: string;
+  applicationInfo: ApplicationInfoUpdate;
   // 进件流水号
   payExpandId: string;
+  // 社会统一信用代码
+  merchantId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4325,9 +4431,8 @@ export class UpdateAntchainAtoMerchantexpandMerchantRequest extends $tea.Model {
       companyInfo: 'company_info',
       legalInfo: 'legal_info',
       applicationInfo: 'application_info',
-      expandMode: 'expand_mode',
-      subTenantId: 'sub_tenant_id',
       payExpandId: 'pay_expand_id',
+      merchantId: 'merchant_id',
     };
   }
 
@@ -4336,11 +4441,10 @@ export class UpdateAntchainAtoMerchantexpandMerchantRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       companyInfo: CompanyInfoUpdate,
-      legalInfo: LegalInfo,
-      applicationInfo: ApplicationInfo,
-      expandMode: 'string',
-      subTenantId: 'string',
+      legalInfo: LegalInfoUpdate,
+      applicationInfo: ApplicationInfoUpdate,
       payExpandId: 'string',
+      merchantId: 'string',
     };
   }
 
@@ -4373,6 +4477,132 @@ export class UpdateAntchainAtoMerchantexpandMerchantResponse extends $tea.Model 
       resultCode: 'string',
       resultMsg: 'string',
       payExpandId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelAntchainAtoSignFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签署合同单号
+  signNo: string;
+  // 默认:“撤销”，最大长度50
+  revokeReason?: string;
+  // 发起人账户id，即发起本次签署的操作人个人账号id；如不传，默认由对接平台发起
+  operatorId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      signNo: 'sign_no',
+      revokeReason: 'revoke_reason',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      signNo: 'string',
+      revokeReason: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelAntchainAtoSignFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReplaceAntchainAtoTradeUserpromiseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // json字符串
+  bizContent: string;
+  // order_id
+  orderId: string;
+  // 订单所属商户社会信用代码
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      bizContent: 'biz_content',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      bizContent: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReplaceAntchainAtoTradeUserpromiseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -4582,7 +4812,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.4",
+          sdk_version: "1.3.5",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
@@ -5683,6 +5913,44 @@ export default class Client {
   async updateAntchainAtoMerchantexpandMerchantEx(request: UpdateAntchainAtoMerchantexpandMerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateAntchainAtoMerchantexpandMerchantResponse> {
     Util.validateModel(request);
     return $tea.cast<UpdateAntchainAtoMerchantexpandMerchantResponse>(await this.doRequest("1.0", "antchain.ato.merchantexpand.merchant.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateAntchainAtoMerchantexpandMerchantResponse({}));
+  }
+
+  /**
+   * Description: 撤销签署流程
+   * Summary: 撤销签署流程
+   */
+  async cancelAntchainAtoSignFlow(request: CancelAntchainAtoSignFlowRequest): Promise<CancelAntchainAtoSignFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelAntchainAtoSignFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 撤销签署流程
+   * Summary: 撤销签署流程
+   */
+  async cancelAntchainAtoSignFlowEx(request: CancelAntchainAtoSignFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelAntchainAtoSignFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelAntchainAtoSignFlowResponse>(await this.doRequest("1.0", "antchain.ato.sign.flow.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelAntchainAtoSignFlowResponse({}));
+  }
+
+  /**
+   * Description: 用户履约承诺替换更新
+   * Summary: 用户履约承诺替换更新
+   */
+  async replaceAntchainAtoTradeUserpromise(request: ReplaceAntchainAtoTradeUserpromiseRequest): Promise<ReplaceAntchainAtoTradeUserpromiseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.replaceAntchainAtoTradeUserpromiseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用户履约承诺替换更新
+   * Summary: 用户履约承诺替换更新
+   */
+  async replaceAntchainAtoTradeUserpromiseEx(request: ReplaceAntchainAtoTradeUserpromiseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReplaceAntchainAtoTradeUserpromiseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ReplaceAntchainAtoTradeUserpromiseResponse>(await this.doRequest("1.0", "antchain.ato.trade.userpromise.replace", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReplaceAntchainAtoTradeUserpromiseResponse({}));
   }
 
   /**
