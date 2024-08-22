@@ -31,6 +31,8 @@ use AntChain\CAASPLATFORM\Models\GetGeneralDepositRequest;
 use AntChain\CAASPLATFORM\Models\GetGeneralDepositResponse;
 use AntChain\CAASPLATFORM\Models\GetGeneralDivideRequest;
 use AntChain\CAASPLATFORM\Models\GetGeneralDivideResponse;
+use AntChain\CAASPLATFORM\Models\GetGeneralRightsbalanceRequest;
+use AntChain\CAASPLATFORM\Models\GetGeneralRightsbalanceResponse;
 use AntChain\CAASPLATFORM\Models\GetGeneralRightsRequest;
 use AntChain\CAASPLATFORM\Models\GetGeneralRightsResponse;
 use AntChain\CAASPLATFORM\Models\GetGeneralTicketsRequest;
@@ -222,7 +224,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.2',
+                    'sdk_version'      => '1.4.0',
                     '_prod_code'       => 'CAASPLATFORM',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1405,6 +1407,39 @@ class Client
         Utils::validateModel($request);
 
         return ListGeneralDivideResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.general.divide.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询某个账户下拥有的资产数量
+     * Summary: 权证资产合约资产查询.
+     *
+     * @param GetGeneralRightsbalanceRequest $request
+     *
+     * @return GetGeneralRightsbalanceResponse
+     */
+    public function getGeneralRightsbalance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getGeneralRightsbalanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询某个账户下拥有的资产数量
+     * Summary: 权证资产合约资产查询.
+     *
+     * @param GetGeneralRightsbalanceRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return GetGeneralRightsbalanceResponse
+     */
+    public function getGeneralRightsbalanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetGeneralRightsbalanceResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.general.rightsbalance.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
