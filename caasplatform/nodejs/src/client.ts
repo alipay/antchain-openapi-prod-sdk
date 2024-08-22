@@ -2695,6 +2695,85 @@ export class ListGeneralDivideResponse extends $tea.Model {
   }
 }
 
+export class GetGeneralRightsbalanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 合约服务实例id
+  serviceId: string;
+  // 账号的地址
+  account: string;
+  // 数据资产ID
+  id: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+      account: 'account',
+      id: 'id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+      account: 'string',
+      id: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetGeneralRightsbalanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易hash
+  txHash?: string;
+  // 区块高度
+  blockNumber?: number;
+  // 执行结果，0:成功
+  code?: number;
+  // 合约接口返回结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+      blockNumber: 'block_number',
+      code: 'code',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txHash: 'string',
+      blockNumber: 'number',
+      code: 'number',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2896,7 +2975,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.2",
+          sdk_version: "1.4.0",
           _prod_code: "CAASPLATFORM",
           _prod_channel: "undefined",
         };
@@ -3660,6 +3739,25 @@ export default class Client {
   async listGeneralDivideEx(request: ListGeneralDivideRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListGeneralDivideResponse> {
     Util.validateModel(request);
     return $tea.cast<ListGeneralDivideResponse>(await this.doRequest("1.0", "antchain.caasplatform.general.divide.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListGeneralDivideResponse({}));
+  }
+
+  /**
+   * Description: 查询某个账户下拥有的资产数量
+   * Summary: 权证资产合约资产查询
+   */
+  async getGeneralRightsbalance(request: GetGeneralRightsbalanceRequest): Promise<GetGeneralRightsbalanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getGeneralRightsbalanceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询某个账户下拥有的资产数量
+   * Summary: 权证资产合约资产查询
+   */
+  async getGeneralRightsbalanceEx(request: GetGeneralRightsbalanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetGeneralRightsbalanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetGeneralRightsbalanceResponse>(await this.doRequest("1.0", "antchain.caasplatform.general.rightsbalance.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetGeneralRightsbalanceResponse({}));
   }
 
   /**
