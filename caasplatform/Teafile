@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "CAASPLATFORM",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-caasplatform:1.3.2",
-    "go": "github.com/antchain-openapi-sdk-go/caasplatform/client:v1.3.2",
+    "java": "com.antgroup.antchain.openapi:openapi-caasplatform:1.4.0",
+    "go": "github.com/antchain-openapi-sdk-go/caasplatform/client:v1.4.0",
     "csharp": "AntChain.SDK.CAASPLATFORM:1.3.2",
-    "ts": "@antchain/caasplatform:1.3.2",
-    "php": "antchain/caasplatform:1.3.2",
-    "python": "antchain_sdk_caasplatform:1.3.2"
+    "ts": "@antchain/caasplatform:1.4.0",
+    "php": "antchain/caasplatform:1.4.0",
+    "python": "antchain_sdk_caasplatform:1.4.0"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
