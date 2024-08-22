@@ -3680,6 +3680,111 @@ func (s *ListGeneralDivideResponse) SetResult(v string) *ListGeneralDivideRespon
 	return s
 }
 
+type GetGeneralRightsbalanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 合约服务实例id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 账号的地址
+	Account *string `json:"account,omitempty" xml:"account,omitempty" require:"true"`
+	// 数据资产ID
+	Id *int64 `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+}
+
+func (s GetGeneralRightsbalanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetGeneralRightsbalanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetGeneralRightsbalanceRequest) SetAuthToken(v string) *GetGeneralRightsbalanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceRequest) SetProductInstanceId(v string) *GetGeneralRightsbalanceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceRequest) SetServiceId(v string) *GetGeneralRightsbalanceRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceRequest) SetAccount(v string) *GetGeneralRightsbalanceRequest {
+	s.Account = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceRequest) SetId(v int64) *GetGeneralRightsbalanceRequest {
+	s.Id = &v
+	return s
+}
+
+type GetGeneralRightsbalanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 交易hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 区块高度
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
+	// 执行结果，0:成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 合约接口返回结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s GetGeneralRightsbalanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetGeneralRightsbalanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetGeneralRightsbalanceResponse) SetReqMsgId(v string) *GetGeneralRightsbalanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceResponse) SetResultCode(v string) *GetGeneralRightsbalanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceResponse) SetResultMsg(v string) *GetGeneralRightsbalanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceResponse) SetTxHash(v string) *GetGeneralRightsbalanceResponse {
+	s.TxHash = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceResponse) SetBlockNumber(v int64) *GetGeneralRightsbalanceResponse {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceResponse) SetCode(v int64) *GetGeneralRightsbalanceResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *GetGeneralRightsbalanceResponse) SetResult(v string) *GetGeneralRightsbalanceResponse {
+	s.Result = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3922,7 +4027,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.2"),
+				"sdk_version":      tea.String("1.4.0"),
 				"_prod_code":       tea.String("CAASPLATFORM"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5196,6 +5301,40 @@ func (client *Client) ListGeneralDivideEx(request *ListGeneralDivideRequest, hea
 	}
 	_result = &ListGeneralDivideResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.general.divide.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询某个账户下拥有的资产数量
+ * Summary: 权证资产合约资产查询
+ */
+func (client *Client) GetGeneralRightsbalance(request *GetGeneralRightsbalanceRequest) (_result *GetGeneralRightsbalanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetGeneralRightsbalanceResponse{}
+	_body, _err := client.GetGeneralRightsbalanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询某个账户下拥有的资产数量
+ * Summary: 权证资产合约资产查询
+ */
+func (client *Client) GetGeneralRightsbalanceEx(request *GetGeneralRightsbalanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetGeneralRightsbalanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetGeneralRightsbalanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.general.rightsbalance.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
