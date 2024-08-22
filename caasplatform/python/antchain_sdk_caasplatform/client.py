@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.2',
+                    'sdk_version': '1.4.0',
                     '_prod_code': 'CAASPLATFORM',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.2',
+                    'sdk_version': '1.4.0',
                     '_prod_code': 'CAASPLATFORM',
                     '_prod_channel': 'undefined'
                 }
@@ -2227,6 +2227,62 @@ class Client:
         return TeaCore.from_map(
             caasplatform_models.ListGeneralDivideResponse(),
             await self.do_request_async('1.0', 'antchain.caasplatform.general.divide.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_general_rightsbalance(
+        self,
+        request: caasplatform_models.GetGeneralRightsbalanceRequest,
+    ) -> caasplatform_models.GetGeneralRightsbalanceResponse:
+        """
+        Description: 查询某个账户下拥有的资产数量
+        Summary: 权证资产合约资产查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_general_rightsbalance_ex(request, headers, runtime)
+
+    async def get_general_rightsbalance_async(
+        self,
+        request: caasplatform_models.GetGeneralRightsbalanceRequest,
+    ) -> caasplatform_models.GetGeneralRightsbalanceResponse:
+        """
+        Description: 查询某个账户下拥有的资产数量
+        Summary: 权证资产合约资产查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_general_rightsbalance_ex_async(request, headers, runtime)
+
+    def get_general_rightsbalance_ex(
+        self,
+        request: caasplatform_models.GetGeneralRightsbalanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.GetGeneralRightsbalanceResponse:
+        """
+        Description: 查询某个账户下拥有的资产数量
+        Summary: 权证资产合约资产查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.GetGeneralRightsbalanceResponse(),
+            self.do_request('1.0', 'antchain.caasplatform.general.rightsbalance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_general_rightsbalance_ex_async(
+        self,
+        request: caasplatform_models.GetGeneralRightsbalanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.GetGeneralRightsbalanceResponse:
+        """
+        Description: 查询某个账户下拥有的资产数量
+        Summary: 权证资产合约资产查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.GetGeneralRightsbalanceResponse(),
+            await self.do_request_async('1.0', 'antchain.caasplatform.general.rightsbalance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
