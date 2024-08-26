@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.42',
+                    'sdk_version': '1.11.47',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.42',
+                    'sdk_version': '1.11.47',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -7343,6 +7343,62 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.iotlink.thingmodeltsl.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def reset_iotbasic_deviceseckey(
+        self,
+        request: bot_models.ResetIotbasicDeviceseckeyRequest,
+    ) -> bot_models.ResetIotbasicDeviceseckeyResponse:
+        """
+        Description: iotbasic-重置设备认证秘钥
+        Summary: iotbasic-重置设备认证秘钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_iotbasic_deviceseckey_ex(request, headers, runtime)
+
+    async def reset_iotbasic_deviceseckey_async(
+        self,
+        request: bot_models.ResetIotbasicDeviceseckeyRequest,
+    ) -> bot_models.ResetIotbasicDeviceseckeyResponse:
+        """
+        Description: iotbasic-重置设备认证秘钥
+        Summary: iotbasic-重置设备认证秘钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_iotbasic_deviceseckey_ex_async(request, headers, runtime)
+
+    def reset_iotbasic_deviceseckey_ex(
+        self,
+        request: bot_models.ResetIotbasicDeviceseckeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ResetIotbasicDeviceseckeyResponse:
+        """
+        Description: iotbasic-重置设备认证秘钥
+        Summary: iotbasic-重置设备认证秘钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ResetIotbasicDeviceseckeyResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotbasic.deviceseckey.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_iotbasic_deviceseckey_ex_async(
+        self,
+        request: bot_models.ResetIotbasicDeviceseckeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ResetIotbasicDeviceseckeyResponse:
+        """
+        Description: iotbasic-重置设备认证秘钥
+        Summary: iotbasic-重置设备认证秘钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ResetIotbasicDeviceseckeyResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotbasic.deviceseckey.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_iotplatform_purchaseorder(
         self,
         request: bot_models.QueryIotplatformPurchaseorderRequest,
@@ -13837,6 +13893,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryTechintegrationSkugrantstockinfoResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.techintegration.skugrantstockinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_event_data(
+        self,
+        request: bot_models.SendEventDataRequest,
+    ) -> bot_models.SendEventDataResponse:
+        """
+        Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+        Summary: 事件数据上报整合接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_event_data_ex(request, headers, runtime)
+
+    async def send_event_data_async(
+        self,
+        request: bot_models.SendEventDataRequest,
+    ) -> bot_models.SendEventDataResponse:
+        """
+        Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+        Summary: 事件数据上报整合接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_event_data_ex_async(request, headers, runtime)
+
+    def send_event_data_ex(
+        self,
+        request: bot_models.SendEventDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendEventDataResponse:
+        """
+        Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+        Summary: 事件数据上报整合接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SendEventDataResponse(),
+            self.do_request('1.0', 'blockchain.bot.event.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_event_data_ex_async(
+        self,
+        request: bot_models.SendEventDataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SendEventDataResponse:
+        """
+        Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+        Summary: 事件数据上报整合接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SendEventDataResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.event.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(

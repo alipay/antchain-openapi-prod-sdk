@@ -1683,9 +1683,6 @@ class RegByDeviceIdParm(TeaModel):
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
-        self.validate_required(self.device_data_model_id, 'device_data_model_id')
-        self.validate_required(self.device_feature, 'device_feature')
-        self.validate_required(self.with_exist_device_id, 'with_exist_device_id')
         self.validate_required(self.device_type_code, 'device_type_code')
         if self.factory_time is not None:
             self.validate_pattern(self.factory_time, 'factory_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
@@ -5654,6 +5651,55 @@ class BaiGoodsPointCheckRespData(TeaModel):
         return self
 
 
+class EventSpecs(TeaModel):
+    def __init__(
+        self,
+        event_model_id: str = None,
+        return_hash: bool = None,
+        biz_type: str = None,
+        submit_date: str = None,
+    ):
+        # 物模型事件ID
+        self.event_model_id = event_model_id
+        # 是否返回上链HASH，缺省值按false处理
+        self.return_hash = return_hash
+        # 业务数据标识
+        self.biz_type = biz_type
+        # 提交日期
+        self.submit_date = submit_date
+
+    def validate(self):
+        self.validate_required(self.event_model_id, 'event_model_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_model_id is not None:
+            result['event_model_id'] = self.event_model_id
+        if self.return_hash is not None:
+            result['return_hash'] = self.return_hash
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.submit_date is not None:
+            result['submit_date'] = self.submit_date
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('event_model_id') is not None:
+            self.event_model_id = m.get('event_model_id')
+        if m.get('return_hash') is not None:
+            self.return_hash = m.get('return_hash')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('submit_date') is not None:
+            self.submit_date = m.get('submit_date')
+        return self
+
+
 class DataVerifyFailureDataPageResponse(TeaModel):
     def __init__(
         self,
@@ -5984,7 +6030,6 @@ class RegByDeviceParm(TeaModel):
 
     def validate(self):
         self.validate_required(self.device_id, 'device_id')
-        self.validate_required(self.device_data_model_id, 'device_data_model_id')
         self.validate_required(self.device_reg_content, 'device_reg_content')
         self.validate_required(self.device_reg_signature, 'device_reg_signature')
         self.validate_required(self.sdk_id, 'sdk_id')
@@ -6867,11 +6912,20 @@ class SendCollectorResult(TeaModel):
         self,
         tx_hash: str = None,
         original_index: int = None,
+        error_code: str = None,
+        error_msg: str = None,
+        extra_info: str = None,
     ):
-        # 数据内容content的上链交易哈希
+        # 数据的链上哈希
         self.tx_hash = tx_hash
         # 原入参的数组索引
         self.original_index = original_index
+        # 失败数据对应的异常码，成功时该字段为空
+        self.error_code = error_code
+        # 异常信息
+        self.error_msg = error_msg
+        # 返回的扩展信息
+        self.extra_info = extra_info
 
     def validate(self):
         self.validate_required(self.tx_hash, 'tx_hash')
@@ -6887,6 +6941,12 @@ class SendCollectorResult(TeaModel):
             result['tx_hash'] = self.tx_hash
         if self.original_index is not None:
             result['original_index'] = self.original_index
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
+        if self.extra_info is not None:
+            result['extra_info'] = self.extra_info
         return result
 
     def from_map(self, m: dict = None):
@@ -6895,6 +6955,12 @@ class SendCollectorResult(TeaModel):
             self.tx_hash = m.get('tx_hash')
         if m.get('original_index') is not None:
             self.original_index = m.get('original_index')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
+        if m.get('extra_info') is not None:
+            self.extra_info = m.get('extra_info')
         return self
 
 
@@ -8347,6 +8413,8 @@ class IotBasicDeviceRegisterResult(TeaModel):
         private_key: str = None,
         device_name: str = None,
         device_sn: str = None,
+        sec_key: str = None,
+        service_status: str = None,
     ):
         # 设备did
         self.device_did = device_did
@@ -8356,6 +8424,10 @@ class IotBasicDeviceRegisterResult(TeaModel):
         self.device_name = device_name
         # 设备sn
         self.device_sn = device_sn
+        # 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+        self.sec_key = sec_key
+        # 设备认证密钥状态
+        self.service_status = service_status
 
     def validate(self):
         self.validate_required(self.device_did, 'device_did')
@@ -8377,6 +8449,10 @@ class IotBasicDeviceRegisterResult(TeaModel):
             result['device_name'] = self.device_name
         if self.device_sn is not None:
             result['device_sn'] = self.device_sn
+        if self.sec_key is not None:
+            result['sec_key'] = self.sec_key
+        if self.service_status is not None:
+            result['service_status'] = self.service_status
         return result
 
     def from_map(self, m: dict = None):
@@ -8389,6 +8465,10 @@ class IotBasicDeviceRegisterResult(TeaModel):
             self.device_name = m.get('device_name')
         if m.get('device_sn') is not None:
             self.device_sn = m.get('device_sn')
+        if m.get('sec_key') is not None:
+            self.sec_key = m.get('sec_key')
+        if m.get('service_status') is not None:
+            self.service_status = m.get('service_status')
         return self
 
 
@@ -9634,6 +9714,62 @@ class DistributeDevice(TeaModel):
             self.chain_peripheral_id = m.get('chain_peripheral_id')
         if m.get('device_status') is not None:
             self.device_status = m.get('device_status')
+        return self
+
+
+class EventData(TeaModel):
+    def __init__(
+        self,
+        content: str = None,
+        trust_iot_device_id: int = None,
+        biz_id: str = None,
+        signature: str = None,
+        extra_data: str = None,
+    ):
+        # 数据内容
+        self.content = content
+        # 可信设备ID
+        self.trust_iot_device_id = trust_iot_device_id
+        # 业务ID
+        self.biz_id = biz_id
+        # 设备数据签名
+        self.signature = signature
+        # 设备数据间接上报时，服务端补充数据
+        self.extra_data = extra_data
+
+    def validate(self):
+        self.validate_required(self.content, 'content')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['content'] = self.content
+        if self.trust_iot_device_id is not None:
+            result['trust_iot_device_id'] = self.trust_iot_device_id
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.signature is not None:
+            result['signature'] = self.signature
+        if self.extra_data is not None:
+            result['extra_data'] = self.extra_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('content') is not None:
+            self.content = m.get('content')
+        if m.get('trust_iot_device_id') is not None:
+            self.trust_iot_device_id = m.get('trust_iot_device_id')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        if m.get('extra_data') is not None:
+            self.extra_data = m.get('extra_data')
         return self
 
 
@@ -16856,6 +16992,9 @@ class CreateIotbasicDeviceResponse(TeaModel):
         result_msg: str = None,
         device_did: str = None,
         private_key: str = None,
+        sec_key: str = None,
+        service_status: str = None,
+        success: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -16867,6 +17006,12 @@ class CreateIotbasicDeviceResponse(TeaModel):
         self.device_did = device_did
         # 设备私钥
         self.private_key = private_key
+        # 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+        self.sec_key = sec_key
+        # 设备认证密钥状态
+        self.service_status = service_status
+        # 接口操作结果
+        self.success = success
 
     def validate(self):
         pass
@@ -16887,6 +17032,12 @@ class CreateIotbasicDeviceResponse(TeaModel):
             result['device_did'] = self.device_did
         if self.private_key is not None:
             result['private_key'] = self.private_key
+        if self.sec_key is not None:
+            result['sec_key'] = self.sec_key
+        if self.service_status is not None:
+            result['service_status'] = self.service_status
+        if self.success is not None:
+            result['success'] = self.success
         return result
 
     def from_map(self, m: dict = None):
@@ -16901,6 +17052,12 @@ class CreateIotbasicDeviceResponse(TeaModel):
             self.device_did = m.get('device_did')
         if m.get('private_key') is not None:
             self.private_key = m.get('private_key')
+        if m.get('sec_key') is not None:
+            self.sec_key = m.get('sec_key')
+        if m.get('service_status') is not None:
+            self.service_status = m.get('service_status')
+        if m.get('success') is not None:
+            self.success = m.get('success')
         return self
 
 
@@ -19215,6 +19372,8 @@ class QueryDeviceRegisterresultResponse(TeaModel):
         device_did: str = None,
         private_key: str = None,
         device_sn: str = None,
+        sec_key: str = None,
+        service_status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -19230,6 +19389,10 @@ class QueryDeviceRegisterresultResponse(TeaModel):
         self.private_key = private_key
         # 设备sn
         self.device_sn = device_sn
+        # 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+        self.sec_key = sec_key
+        # 设备认证密钥状态
+        self.service_status = service_status
 
     def validate(self):
         pass
@@ -19254,6 +19417,10 @@ class QueryDeviceRegisterresultResponse(TeaModel):
             result['private_key'] = self.private_key
         if self.device_sn is not None:
             result['device_sn'] = self.device_sn
+        if self.sec_key is not None:
+            result['sec_key'] = self.sec_key
+        if self.service_status is not None:
+            result['service_status'] = self.service_status
         return result
 
     def from_map(self, m: dict = None):
@@ -19272,6 +19439,10 @@ class QueryDeviceRegisterresultResponse(TeaModel):
             self.private_key = m.get('private_key')
         if m.get('device_sn') is not None:
             self.device_sn = m.get('device_sn')
+        if m.get('sec_key') is not None:
+            self.sec_key = m.get('sec_key')
+        if m.get('service_status') is not None:
+            self.service_status = m.get('service_status')
         return self
 
 
@@ -21972,6 +22143,7 @@ class CreateDevicecorpDeviceRequest(TeaModel):
         device_name: str = None,
         device_sn: str = None,
         nick_name: str = None,
+        device_ext: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -21990,6 +22162,8 @@ class CreateDevicecorpDeviceRequest(TeaModel):
         self.device_sn = device_sn
         # 设备标签
         self.nick_name = nick_name
+        # 设备扩展信息（json字符串，车架号等信息）
+        self.device_ext = device_ext
 
     def validate(self):
         self.validate_required(self.project_code, 'project_code')
@@ -22023,6 +22197,8 @@ class CreateDevicecorpDeviceRequest(TeaModel):
             result['device_sn'] = self.device_sn
         if self.nick_name is not None:
             result['nick_name'] = self.nick_name
+        if self.device_ext is not None:
+            result['device_ext'] = self.device_ext
         return result
 
     def from_map(self, m: dict = None):
@@ -22045,6 +22221,8 @@ class CreateDevicecorpDeviceRequest(TeaModel):
             self.device_sn = m.get('device_sn')
         if m.get('nick_name') is not None:
             self.nick_name = m.get('nick_name')
+        if m.get('device_ext') is not None:
+            self.device_ext = m.get('device_ext')
         return self
 
 
@@ -22057,6 +22235,8 @@ class CreateDevicecorpDeviceResponse(TeaModel):
         device_did: str = None,
         private_key: str = None,
         success: bool = None,
+        sec_key: str = None,
+        service_status: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22070,6 +22250,10 @@ class CreateDevicecorpDeviceResponse(TeaModel):
         self.private_key = private_key
         # 操作结果
         self.success = success
+        # 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+        self.sec_key = sec_key
+        # 设备认证密钥状态
+        self.service_status = service_status
 
     def validate(self):
         pass
@@ -22092,6 +22276,10 @@ class CreateDevicecorpDeviceResponse(TeaModel):
             result['private_key'] = self.private_key
         if self.success is not None:
             result['success'] = self.success
+        if self.sec_key is not None:
+            result['sec_key'] = self.sec_key
+        if self.service_status is not None:
+            result['service_status'] = self.service_status
         return result
 
     def from_map(self, m: dict = None):
@@ -22108,6 +22296,10 @@ class CreateDevicecorpDeviceResponse(TeaModel):
             self.private_key = m.get('private_key')
         if m.get('success') is not None:
             self.success = m.get('success')
+        if m.get('sec_key') is not None:
+            self.sec_key = m.get('sec_key')
+        if m.get('service_status') is not None:
+            self.service_status = m.get('service_status')
         return self
 
 
@@ -26405,6 +26597,111 @@ class ImportIotlinkThingmodeltslResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('success') is not None:
             self.success = m.get('success')
+        return self
+
+
+class ResetIotbasicDeviceseckeyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_did: str = None,
+        signature: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备did
+        self.device_did = device_did
+        # 签名，使用设备密钥对设备did进行签名
+        self.signature = signature
+
+    def validate(self):
+        self.validate_required(self.device_did, 'device_did')
+        self.validate_required(self.signature, 'signature')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_did is not None:
+            result['device_did'] = self.device_did
+        if self.signature is not None:
+            result['signature'] = self.signature
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_did') is not None:
+            self.device_did = m.get('device_did')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        return self
+
+
+class ResetIotbasicDeviceseckeyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        cipher_text: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作结果
+        self.success = success
+        # 设备认证密钥密文，需要下发安全SDK
+        self.cipher_text = cipher_text
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.cipher_text is not None:
+            result['cipher_text'] = self.cipher_text
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('cipher_text') is not None:
+            self.cipher_text = m.get('cipher_text')
         return self
 
 
@@ -32650,6 +32947,8 @@ class QueryLabelTraceRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        page_index: int = None,
+        page_size: int = None,
         scene: str = None,
         label_id: str = None,
         label_status: str = None,
@@ -32664,6 +32963,10 @@ class QueryLabelTraceRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 第几页，默认值为1
+        self.page_index = page_index
+        # 单页记录数，默认为10
+        self.page_size = page_size
         # 场景码 , 使用asset_id 查询时，scene也必须传入
         self.scene = scene
         # 标签Id
@@ -32701,6 +33004,10 @@ class QueryLabelTraceRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
         if self.scene is not None:
             result['scene'] = self.scene
         if self.label_id is not None:
@@ -32729,6 +33036,10 @@ class QueryLabelTraceRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
         if m.get('scene') is not None:
             self.scene = m.get('scene')
         if m.get('label_id') is not None:
@@ -32759,6 +33070,10 @@ class QueryLabelTraceResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         label_trace_list: List[LabelTrace] = None,
+        page_index: int = None,
+        page_size: int = None,
+        total_size: int = None,
+        total_pages: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -32768,6 +33083,14 @@ class QueryLabelTraceResponse(TeaModel):
         self.result_msg = result_msg
         # 标签流转历史
         self.label_trace_list = label_trace_list
+        # 当前页码
+        self.page_index = page_index
+        # 单页记录数
+        self.page_size = page_size
+        # 总记录数
+        self.total_size = total_size
+        # 总页数
+        self.total_pages = total_pages
 
     def validate(self):
         if self.label_trace_list:
@@ -32791,6 +33114,14 @@ class QueryLabelTraceResponse(TeaModel):
         if self.label_trace_list is not None:
             for k in self.label_trace_list:
                 result['label_trace_list'].append(k.to_map() if k else None)
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.total_pages is not None:
+            result['total_pages'] = self.total_pages
         return result
 
     def from_map(self, m: dict = None):
@@ -32806,6 +33137,14 @@ class QueryLabelTraceResponse(TeaModel):
             for k in m.get('label_trace_list'):
                 temp_model = LabelTrace()
                 self.label_trace_list.append(temp_model.from_map(k))
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('total_pages') is not None:
+            self.total_pages = m.get('total_pages')
         return self
 
 
@@ -40645,6 +40984,132 @@ class QueryTechintegrationSkugrantstockinfoResponse(TeaModel):
             for k in m.get('grant_stock_info_list'):
                 temp_model = SkuGrantStockInfoResp()
                 self.grant_stock_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class SendEventDataRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        scene: str = None,
+        event_data_list: List[EventData] = None,
+        event_specs: EventSpecs = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 场景码
+        self.scene = scene
+        # 事件数据列表
+        self.event_data_list = event_data_list
+        # 事件数据领域参数
+        self.event_specs = event_specs
+
+    def validate(self):
+        self.validate_required(self.scene, 'scene')
+        self.validate_required(self.event_data_list, 'event_data_list')
+        if self.event_data_list:
+            for k in self.event_data_list:
+                if k:
+                    k.validate()
+        self.validate_required(self.event_specs, 'event_specs')
+        if self.event_specs:
+            self.event_specs.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.scene is not None:
+            result['scene'] = self.scene
+        result['event_data_list'] = []
+        if self.event_data_list is not None:
+            for k in self.event_data_list:
+                result['event_data_list'].append(k.to_map() if k else None)
+        if self.event_specs is not None:
+            result['event_specs'] = self.event_specs.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        self.event_data_list = []
+        if m.get('event_data_list') is not None:
+            for k in m.get('event_data_list'):
+                temp_model = EventData()
+                self.event_data_list.append(temp_model.from_map(k))
+        if m.get('event_specs') is not None:
+            temp_model = EventSpecs()
+            self.event_specs = temp_model.from_map(m['event_specs'])
+        return self
+
+
+class SendEventDataResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_list: List[SendCollectorResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上报数据返回的上链结果
+        self.result_list = result_list
+
+    def validate(self):
+        if self.result_list:
+            for k in self.result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['result_list'] = []
+        if self.result_list is not None:
+            for k in self.result_list:
+                result['result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.result_list = []
+        if m.get('result_list') is not None:
+            for k in m.get('result_list'):
+                temp_model = SendCollectorResult()
+                self.result_list.append(temp_model.from_map(k))
         return self
 
 
