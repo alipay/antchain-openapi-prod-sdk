@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.2',
+                    'sdk_version': '1.9.11',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.2',
+                    'sdk_version': '1.9.11',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -3667,6 +3667,398 @@ class Client:
         return TeaCore.from_map(
             ato_models.RetryInnerOrdermsgResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.ordermsg.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_authorization(
+        self,
+        request: ato_models.QueryInnerAuthorizationRequest,
+    ) -> ato_models.QueryInnerAuthorizationResponse:
+        """
+        Description: 法务协议授权-  签署合同代扣前置授权查询接口
+        Summary: 签署合同代扣前置授权查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_authorization_ex(request, headers, runtime)
+
+    async def query_inner_authorization_async(
+        self,
+        request: ato_models.QueryInnerAuthorizationRequest,
+    ) -> ato_models.QueryInnerAuthorizationResponse:
+        """
+        Description: 法务协议授权-  签署合同代扣前置授权查询接口
+        Summary: 签署合同代扣前置授权查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_authorization_ex_async(request, headers, runtime)
+
+    def query_inner_authorization_ex(
+        self,
+        request: ato_models.QueryInnerAuthorizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerAuthorizationResponse:
+        """
+        Description: 法务协议授权-  签署合同代扣前置授权查询接口
+        Summary: 签署合同代扣前置授权查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerAuthorizationResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.authorization.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_authorization_ex_async(
+        self,
+        request: ato_models.QueryInnerAuthorizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerAuthorizationResponse:
+        """
+        Description: 法务协议授权-  签署合同代扣前置授权查询接口
+        Summary: 签署合同代扣前置授权查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerAuthorizationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.authorization.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sign_inner_authorization(
+        self,
+        request: ato_models.SignInnerAuthorizationRequest,
+    ) -> ato_models.SignInnerAuthorizationResponse:
+        """
+        Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+        Summary: 签署合同代扣前置同意授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sign_inner_authorization_ex(request, headers, runtime)
+
+    async def sign_inner_authorization_async(
+        self,
+        request: ato_models.SignInnerAuthorizationRequest,
+    ) -> ato_models.SignInnerAuthorizationResponse:
+        """
+        Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+        Summary: 签署合同代扣前置同意授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sign_inner_authorization_ex_async(request, headers, runtime)
+
+    def sign_inner_authorization_ex(
+        self,
+        request: ato_models.SignInnerAuthorizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SignInnerAuthorizationResponse:
+        """
+        Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+        Summary: 签署合同代扣前置同意授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SignInnerAuthorizationResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.authorization.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sign_inner_authorization_ex_async(
+        self,
+        request: ato_models.SignInnerAuthorizationRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SignInnerAuthorizationResponse:
+        """
+        Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+        Summary: 签署合同代扣前置同意授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SignInnerAuthorizationResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.authorization.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_supplemental(
+        self,
+        request: ato_models.QueryInnerSupplementalRequest,
+    ) -> ato_models.QueryInnerSupplementalResponse:
+        """
+        Description: 小程序法务授权 - 商户补充协议状态查询接口
+        Summary: 商户补充协议状态查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_supplemental_ex(request, headers, runtime)
+
+    async def query_inner_supplemental_async(
+        self,
+        request: ato_models.QueryInnerSupplementalRequest,
+    ) -> ato_models.QueryInnerSupplementalResponse:
+        """
+        Description: 小程序法务授权 - 商户补充协议状态查询接口
+        Summary: 商户补充协议状态查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_supplemental_ex_async(request, headers, runtime)
+
+    def query_inner_supplemental_ex(
+        self,
+        request: ato_models.QueryInnerSupplementalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSupplementalResponse:
+        """
+        Description: 小程序法务授权 - 商户补充协议状态查询接口
+        Summary: 商户补充协议状态查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSupplementalResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.supplemental.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_supplemental_ex_async(
+        self,
+        request: ato_models.QueryInnerSupplementalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerSupplementalResponse:
+        """
+        Description: 小程序法务授权 - 商户补充协议状态查询接口
+        Summary: 商户补充协议状态查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerSupplementalResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.supplemental.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sign_inner_supplemental(
+        self,
+        request: ato_models.SignInnerSupplementalRequest,
+    ) -> ato_models.SignInnerSupplementalResponse:
+        """
+        Description: 法务协议授权 - 商户补充协议状态同意接口
+        Summary: 商户补充协议状态同意接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sign_inner_supplemental_ex(request, headers, runtime)
+
+    async def sign_inner_supplemental_async(
+        self,
+        request: ato_models.SignInnerSupplementalRequest,
+    ) -> ato_models.SignInnerSupplementalResponse:
+        """
+        Description: 法务协议授权 - 商户补充协议状态同意接口
+        Summary: 商户补充协议状态同意接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sign_inner_supplemental_ex_async(request, headers, runtime)
+
+    def sign_inner_supplemental_ex(
+        self,
+        request: ato_models.SignInnerSupplementalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SignInnerSupplementalResponse:
+        """
+        Description: 法务协议授权 - 商户补充协议状态同意接口
+        Summary: 商户补充协议状态同意接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SignInnerSupplementalResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.supplemental.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sign_inner_supplemental_ex_async(
+        self,
+        request: ato_models.SignInnerSupplementalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SignInnerSupplementalResponse:
+        """
+        Description: 法务协议授权 - 商户补充协议状态同意接口
+        Summary: 商户补充协议状态同意接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SignInnerSupplementalResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.supplemental.sign', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_withholdplan(
+        self,
+        request: ato_models.QueryInnerWithholdplanRequest,
+    ) -> ato_models.QueryInnerWithholdplanResponse:
+        """
+        Description: 查询代扣计划
+        Summary: 代扣计划查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_withholdplan_ex(request, headers, runtime)
+
+    async def query_inner_withholdplan_async(
+        self,
+        request: ato_models.QueryInnerWithholdplanRequest,
+    ) -> ato_models.QueryInnerWithholdplanResponse:
+        """
+        Description: 查询代扣计划
+        Summary: 代扣计划查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_withholdplan_ex_async(request, headers, runtime)
+
+    def query_inner_withholdplan_ex(
+        self,
+        request: ato_models.QueryInnerWithholdplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerWithholdplanResponse:
+        """
+        Description: 查询代扣计划
+        Summary: 代扣计划查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerWithholdplanResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.withholdplan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_withholdplan_ex_async(
+        self,
+        request: ato_models.QueryInnerWithholdplanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerWithholdplanResponse:
+        """
+        Description: 查询代扣计划
+        Summary: 代扣计划查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerWithholdplanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.withholdplan.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_inner_withholdsign(
+        self,
+        request: ato_models.CreateInnerWithholdsignRequest,
+    ) -> ato_models.CreateInnerWithholdsignResponse:
+        """
+        Description: 创建代扣协议
+        Summary: 创建代扣协议
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inner_withholdsign_ex(request, headers, runtime)
+
+    async def create_inner_withholdsign_async(
+        self,
+        request: ato_models.CreateInnerWithholdsignRequest,
+    ) -> ato_models.CreateInnerWithholdsignResponse:
+        """
+        Description: 创建代扣协议
+        Summary: 创建代扣协议
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_inner_withholdsign_ex_async(request, headers, runtime)
+
+    def create_inner_withholdsign_ex(
+        self,
+        request: ato_models.CreateInnerWithholdsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerWithholdsignResponse:
+        """
+        Description: 创建代扣协议
+        Summary: 创建代扣协议
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerWithholdsignResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.withholdsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_inner_withholdsign_ex_async(
+        self,
+        request: ato_models.CreateInnerWithholdsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerWithholdsignResponse:
+        """
+        Description: 创建代扣协议
+        Summary: 创建代扣协议
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerWithholdsignResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.withholdsign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_withholdsign(
+        self,
+        request: ato_models.QueryInnerWithholdsignRequest,
+    ) -> ato_models.QueryInnerWithholdsignResponse:
+        """
+        Description: 代扣签约查询
+        Summary: 代扣签约查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_withholdsign_ex(request, headers, runtime)
+
+    async def query_inner_withholdsign_async(
+        self,
+        request: ato_models.QueryInnerWithholdsignRequest,
+    ) -> ato_models.QueryInnerWithholdsignResponse:
+        """
+        Description: 代扣签约查询
+        Summary: 代扣签约查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_withholdsign_ex_async(request, headers, runtime)
+
+    def query_inner_withholdsign_ex(
+        self,
+        request: ato_models.QueryInnerWithholdsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerWithholdsignResponse:
+        """
+        Description: 代扣签约查询
+        Summary: 代扣签约查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerWithholdsignResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.withholdsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_withholdsign_ex_async(
+        self,
+        request: ato_models.QueryInnerWithholdsignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerWithholdsignResponse:
+        """
+        Description: 代扣签约查询
+        Summary: 代扣签约查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerWithholdsignResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.withholdsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def register_merchantexpand_merchant(
