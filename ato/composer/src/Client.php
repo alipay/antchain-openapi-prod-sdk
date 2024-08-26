@@ -47,6 +47,8 @@ use AntChain\ATO\Models\CreateInnerTemplateRequest;
 use AntChain\ATO\Models\CreateInnerTemplateResponse;
 use AntChain\ATO\Models\CreateInnerTemplatetextareaRequest;
 use AntChain\ATO\Models\CreateInnerTemplatetextareaResponse;
+use AntChain\ATO\Models\CreateInnerWithholdsignRequest;
+use AntChain\ATO\Models\CreateInnerWithholdsignResponse;
 use AntChain\ATO\Models\CreateRealpersonFacevrfRequest;
 use AntChain\ATO\Models\CreateRealpersonFacevrfResponse;
 use AntChain\ATO\Models\CreateWithholdActivepayRequest;
@@ -107,6 +109,8 @@ use AntChain\ATO\Models\PublishInnerTemplateRequest;
 use AntChain\ATO\Models\PublishInnerTemplateResponse;
 use AntChain\ATO\Models\QueryFundCreditRequest;
 use AntChain\ATO\Models\QueryFundCreditResponse;
+use AntChain\ATO\Models\QueryInnerAuthorizationRequest;
+use AntChain\ATO\Models\QueryInnerAuthorizationResponse;
 use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\QueryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\QueryInnerMerchantagreementRequest;
@@ -115,6 +119,8 @@ use AntChain\ATO\Models\QueryInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\QueryInnerMerchantpayexpandResponse;
 use AntChain\ATO\Models\QueryInnerSignfieldsRequest;
 use AntChain\ATO\Models\QueryInnerSignfieldsResponse;
+use AntChain\ATO\Models\QueryInnerSupplementalRequest;
+use AntChain\ATO\Models\QueryInnerSupplementalResponse;
 use AntChain\ATO\Models\QueryInnerTemplateelementlinkRequest;
 use AntChain\ATO\Models\QueryInnerTemplateelementlinkResponse;
 use AntChain\ATO\Models\QueryInnerTemplateimageRequest;
@@ -123,6 +129,10 @@ use AntChain\ATO\Models\QueryInnerTemplateRequest;
 use AntChain\ATO\Models\QueryInnerTemplateResponse;
 use AntChain\ATO\Models\QueryInnerTemplateversionRequest;
 use AntChain\ATO\Models\QueryInnerTemplateversionResponse;
+use AntChain\ATO\Models\QueryInnerWithholdplanRequest;
+use AntChain\ATO\Models\QueryInnerWithholdplanResponse;
+use AntChain\ATO\Models\QueryInnerWithholdsignRequest;
+use AntChain\ATO\Models\QueryInnerWithholdsignResponse;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\QueryRealpersonFacevrfRequest;
@@ -155,6 +165,10 @@ use AntChain\ATO\Models\SaveInnerSignfieldsRequest;
 use AntChain\ATO\Models\SaveInnerSignfieldsResponse;
 use AntChain\ATO\Models\SaveInnerTemplateRequest;
 use AntChain\ATO\Models\SaveInnerTemplateResponse;
+use AntChain\ATO\Models\SignInnerAuthorizationRequest;
+use AntChain\ATO\Models\SignInnerAuthorizationResponse;
+use AntChain\ATO\Models\SignInnerSupplementalRequest;
+use AntChain\ATO\Models\SignInnerSupplementalResponse;
 use AntChain\ATO\Models\SubmitFrontSignRequest;
 use AntChain\ATO\Models\SubmitFrontSignResponse;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationRequest;
@@ -360,7 +374,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.2',
+                    'sdk_version'      => '1.9.11',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2404,6 +2418,237 @@ class Client
         Utils::validateModel($request);
 
         return RetryInnerOrdermsgResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.ordermsg.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法务协议授权-  签署合同代扣前置授权查询接口
+     * Summary: 签署合同代扣前置授权查询接口.
+     *
+     * @param QueryInnerAuthorizationRequest $request
+     *
+     * @return QueryInnerAuthorizationResponse
+     */
+    public function queryInnerAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法务协议授权-  签署合同代扣前置授权查询接口
+     * Summary: 签署合同代扣前置授权查询接口.
+     *
+     * @param QueryInnerAuthorizationRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryInnerAuthorizationResponse
+     */
+    public function queryInnerAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerAuthorizationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.authorization.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+     * Summary: 签署合同代扣前置同意授权接口.
+     *
+     * @param SignInnerAuthorizationRequest $request
+     *
+     * @return SignInnerAuthorizationResponse
+     */
+    public function signInnerAuthorization($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signInnerAuthorizationEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+     * Summary: 签署合同代扣前置同意授权接口.
+     *
+     * @param SignInnerAuthorizationRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SignInnerAuthorizationResponse
+     */
+    public function signInnerAuthorizationEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignInnerAuthorizationResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.authorization.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 小程序法务授权 - 商户补充协议状态查询接口
+     * Summary: 商户补充协议状态查询接口.
+     *
+     * @param QueryInnerSupplementalRequest $request
+     *
+     * @return QueryInnerSupplementalResponse
+     */
+    public function queryInnerSupplemental($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerSupplementalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 小程序法务授权 - 商户补充协议状态查询接口
+     * Summary: 商户补充协议状态查询接口.
+     *
+     * @param QueryInnerSupplementalRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryInnerSupplementalResponse
+     */
+    public function queryInnerSupplementalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerSupplementalResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.supplemental.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 法务协议授权 - 商户补充协议状态同意接口
+     * Summary: 商户补充协议状态同意接口.
+     *
+     * @param SignInnerSupplementalRequest $request
+     *
+     * @return SignInnerSupplementalResponse
+     */
+    public function signInnerSupplemental($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->signInnerSupplementalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 法务协议授权 - 商户补充协议状态同意接口
+     * Summary: 商户补充协议状态同意接口.
+     *
+     * @param SignInnerSupplementalRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SignInnerSupplementalResponse
+     */
+    public function signInnerSupplementalEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SignInnerSupplementalResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.supplemental.sign', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询代扣计划
+     * Summary: 代扣计划查询.
+     *
+     * @param QueryInnerWithholdplanRequest $request
+     *
+     * @return QueryInnerWithholdplanResponse
+     */
+    public function queryInnerWithholdplan($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerWithholdplanEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询代扣计划
+     * Summary: 代扣计划查询.
+     *
+     * @param QueryInnerWithholdplanRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryInnerWithholdplanResponse
+     */
+    public function queryInnerWithholdplanEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerWithholdplanResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.withholdplan.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建代扣协议
+     * Summary: 创建代扣协议.
+     *
+     * @param CreateInnerWithholdsignRequest $request
+     *
+     * @return CreateInnerWithholdsignResponse
+     */
+    public function createInnerWithholdsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerWithholdsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建代扣协议
+     * Summary: 创建代扣协议.
+     *
+     * @param CreateInnerWithholdsignRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return CreateInnerWithholdsignResponse
+     */
+    public function createInnerWithholdsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerWithholdsignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.withholdsign.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣签约查询
+     * Summary: 代扣签约查询.
+     *
+     * @param QueryInnerWithholdsignRequest $request
+     *
+     * @return QueryInnerWithholdsignResponse
+     */
+    public function queryInnerWithholdsign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerWithholdsignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣签约查询
+     * Summary: 代扣签约查询.
+     *
+     * @param QueryInnerWithholdsignRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryInnerWithholdsignResponse
+     */
+    public function queryInnerWithholdsignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerWithholdsignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.withholdsign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRiskResponse extends Model
+class QueryInnerAuthorizationResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,17 @@ class QueryRiskResponse extends Model
      */
     public $resultMsg;
 
-    // 模型结果详情
+    // true代表需要进行授权询问
+    // false代表不需要进行授权询问
     /**
-     * @var RiskModel[]
+     * @var bool
      */
-    public $models;
+    public $isNeedAskAuth;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'models'     => 'models',
+        'reqMsgId'      => 'req_msg_id',
+        'resultCode'    => 'result_code',
+        'resultMsg'     => 'result_msg',
+        'isNeedAskAuth' => 'is_need_ask_auth',
     ];
 
     public function validate()
@@ -54,14 +55,8 @@ class QueryRiskResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->models) {
-            $res['models'] = [];
-            if (null !== $this->models && \is_array($this->models)) {
-                $n = 0;
-                foreach ($this->models as $item) {
-                    $res['models'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->isNeedAskAuth) {
+            $res['is_need_ask_auth'] = $this->isNeedAskAuth;
         }
 
         return $res;
@@ -70,7 +65,7 @@ class QueryRiskResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryRiskResponse
+     * @return QueryInnerAuthorizationResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +79,8 @@ class QueryRiskResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['models'])) {
-            if (!empty($map['models'])) {
-                $model->models = [];
-                $n             = 0;
-                foreach ($map['models'] as $item) {
-                    $model->models[$n++] = null !== $item ? RiskModel::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['is_need_ask_auth'])) {
+            $model->isNeedAskAuth = $map['is_need_ask_auth'];
         }
 
         return $model;

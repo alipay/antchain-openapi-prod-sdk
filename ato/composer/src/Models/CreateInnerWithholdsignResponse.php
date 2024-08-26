@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryRiskResponse extends Model
+class CreateInnerWithholdsignResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class QueryRiskResponse extends Model
      */
     public $resultMsg;
 
-    // 模型结果详情
+    // 代扣签约串
     /**
-     * @var RiskModel[]
+     * @var string
      */
-    public $models;
+    public $signStr;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'models'     => 'models',
+        'signStr'    => 'sign_str',
     ];
 
     public function validate()
@@ -54,14 +54,8 @@ class QueryRiskResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->models) {
-            $res['models'] = [];
-            if (null !== $this->models && \is_array($this->models)) {
-                $n = 0;
-                foreach ($this->models as $item) {
-                    $res['models'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
+        if (null !== $this->signStr) {
+            $res['sign_str'] = $this->signStr;
         }
 
         return $res;
@@ -70,7 +64,7 @@ class QueryRiskResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryRiskResponse
+     * @return CreateInnerWithholdsignResponse
      */
     public static function fromMap($map = [])
     {
@@ -84,14 +78,8 @@ class QueryRiskResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['models'])) {
-            if (!empty($map['models'])) {
-                $model->models = [];
-                $n             = 0;
-                foreach ($map['models'] as $item) {
-                    $model->models[$n++] = null !== $item ? RiskModel::fromMap($item) : $item;
-                }
-            }
+        if (isset($map['sign_str'])) {
+            $model->signStr = $map['sign_str'];
         }
 
         return $model;

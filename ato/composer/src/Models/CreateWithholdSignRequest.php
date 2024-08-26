@@ -60,6 +60,18 @@ class CreateWithholdSignRequest extends Model
      * @var string
      */
     public $returnUrl;
+
+    // 支付宝用户 open_id，非必填
+    /**
+     * @var string
+     */
+    public $userOpenId;
+
+    // 商户支付宝应用 id
+    /**
+     * @var string
+     */
+    public $merchantAppId;
     protected $_name = [
         'authToken'                        => 'auth_token',
         'productInstanceId'                => 'product_instance_id',
@@ -70,6 +82,8 @@ class CreateWithholdSignRequest extends Model
         'alipayMerchantServiceDescription' => 'alipay_merchant_service_description',
         'alipayUserId'                     => 'alipay_user_id',
         'returnUrl'                        => 'return_url',
+        'userOpenId'                       => 'user_open_id',
+        'merchantAppId'                    => 'merchant_app_id',
     ];
 
     public function validate()
@@ -82,6 +96,9 @@ class CreateWithholdSignRequest extends Model
         Model::validateMaxLength('alipayMerchantServiceDescription', $this->alipayMerchantServiceDescription, 150);
         Model::validateMaxLength('alipayUserId', $this->alipayUserId, 128);
         Model::validateMaxLength('returnUrl', $this->returnUrl, 256);
+        Model::validateMaxLength('userOpenId', $this->userOpenId, 128);
+        Model::validateMaxLength('merchantAppId', $this->merchantAppId, 32);
+        Model::validateMinLength('userOpenId', $this->userOpenId, 16);
     }
 
     public function toMap()
@@ -113,6 +130,12 @@ class CreateWithholdSignRequest extends Model
         }
         if (null !== $this->returnUrl) {
             $res['return_url'] = $this->returnUrl;
+        }
+        if (null !== $this->userOpenId) {
+            $res['user_open_id'] = $this->userOpenId;
+        }
+        if (null !== $this->merchantAppId) {
+            $res['merchant_app_id'] = $this->merchantAppId;
         }
 
         return $res;
@@ -152,6 +175,12 @@ class CreateWithholdSignRequest extends Model
         }
         if (isset($map['return_url'])) {
             $model->returnUrl = $map['return_url'];
+        }
+        if (isset($map['user_open_id'])) {
+            $model->userOpenId = $map['user_open_id'];
+        }
+        if (isset($map['merchant_app_id'])) {
+            $model->merchantAppId = $map['merchant_app_id'];
         }
 
         return $model;

@@ -19,11 +19,11 @@ class QueryRiskRequest extends Model
      */
     public $productInstanceId;
 
-    // 账户ID
+    // 枚举值：蚁盾版、智租版、旗舰版，蚁盾版代表仅调用蚁盾风控，智租版代表仅调用小程序云风控，旗舰版代表调用蚁盾+旗舰版风控接口
     /**
      * @var string
      */
-    public $userId;
+    public $productName;
 
     // 用户姓名
     /**
@@ -42,24 +42,18 @@ class QueryRiskRequest extends Model
      * @var string
      */
     public $mobile;
-
-    // 用户ip地址
-    /**
-     * @var string
-     */
-    public $ip;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'userId'            => 'user_id',
+        'productName'       => 'product_name',
         'userName'          => 'user_name',
         'certNo'            => 'cert_no',
         'mobile'            => 'mobile',
-        'ip'                => 'ip',
     ];
 
     public function validate()
     {
+        Model::validateRequired('productName', $this->productName, true);
         Model::validateRequired('userName', $this->userName, true);
         Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('mobile', $this->mobile, true);
@@ -74,8 +68,8 @@ class QueryRiskRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->userId) {
-            $res['user_id'] = $this->userId;
+        if (null !== $this->productName) {
+            $res['product_name'] = $this->productName;
         }
         if (null !== $this->userName) {
             $res['user_name'] = $this->userName;
@@ -85,9 +79,6 @@ class QueryRiskRequest extends Model
         }
         if (null !== $this->mobile) {
             $res['mobile'] = $this->mobile;
-        }
-        if (null !== $this->ip) {
-            $res['ip'] = $this->ip;
         }
 
         return $res;
@@ -107,8 +98,8 @@ class QueryRiskRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['user_id'])) {
-            $model->userId = $map['user_id'];
+        if (isset($map['product_name'])) {
+            $model->productName = $map['product_name'];
         }
         if (isset($map['user_name'])) {
             $model->userName = $map['user_name'];
@@ -118,9 +109,6 @@ class QueryRiskRequest extends Model
         }
         if (isset($map['mobile'])) {
             $model->mobile = $map['mobile'];
-        }
-        if (isset($map['ip'])) {
-            $model->ip = $map['ip'];
         }
 
         return $model;

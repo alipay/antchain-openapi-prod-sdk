@@ -23,9 +23,36 @@ class RiskModel extends Model
      * @var string
      */
     public $score;
+
+    // 逾期率
+    /**
+     * @example 2%
+     *
+     * @var string
+     */
+    public $delinquencyRate;
+
+    // 风险建议
+    /**
+     * @example 风险等级低，建议快速通过
+     *
+     * @var string
+     */
+    public $riskAdvice;
+
+    // 风险等级
+    /**
+     * @example rank1
+     *
+     * @var string
+     */
+    public $riskRank;
     protected $_name = [
-        'sceneCode' => 'scene_code',
-        'score'     => 'score',
+        'sceneCode'       => 'scene_code',
+        'score'           => 'score',
+        'delinquencyRate' => 'delinquency_rate',
+        'riskAdvice'      => 'risk_advice',
+        'riskRank'        => 'risk_rank',
     ];
 
     public function validate()
@@ -42,6 +69,15 @@ class RiskModel extends Model
         }
         if (null !== $this->score) {
             $res['score'] = $this->score;
+        }
+        if (null !== $this->delinquencyRate) {
+            $res['delinquency_rate'] = $this->delinquencyRate;
+        }
+        if (null !== $this->riskAdvice) {
+            $res['risk_advice'] = $this->riskAdvice;
+        }
+        if (null !== $this->riskRank) {
+            $res['risk_rank'] = $this->riskRank;
         }
 
         return $res;
@@ -60,6 +96,15 @@ class RiskModel extends Model
         }
         if (isset($map['score'])) {
             $model->score = $map['score'];
+        }
+        if (isset($map['delinquency_rate'])) {
+            $model->delinquencyRate = $map['delinquency_rate'];
+        }
+        if (isset($map['risk_advice'])) {
+            $model->riskAdvice = $map['risk_advice'];
+        }
+        if (isset($map['risk_rank'])) {
+            $model->riskRank = $map['risk_rank'];
         }
 
         return $model;
