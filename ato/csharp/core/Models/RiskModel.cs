@@ -20,6 +20,21 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string Score { get; set; }
 
+        // 逾期率
+        [NameInMap("delinquency_rate")]
+        [Validation(Required=false)]
+        public string DelinquencyRate { get; set; }
+
+        // 风险建议
+        [NameInMap("risk_advice")]
+        [Validation(Required=false)]
+        public string RiskAdvice { get; set; }
+
+        // 风险等级
+        [NameInMap("risk_rank")]
+        [Validation(Required=false)]
+        public string RiskRank { get; set; }
+
     }
 
 }

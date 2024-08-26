@@ -53,6 +53,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=256)]
         public string ReturnUrl { get; set; }
 
+        // 支付宝用户 open_id，非必填
+        [NameInMap("user_open_id")]
+        [Validation(Required=false, MaxLength=128)]
+        public string UserOpenId { get; set; }
+
+        // 商户支付宝应用 id
+        [NameInMap("merchant_app_id")]
+        [Validation(Required=false, MaxLength=32)]
+        public string MerchantAppId { get; set; }
+
     }
 
 }

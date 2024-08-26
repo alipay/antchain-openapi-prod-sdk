@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class QueryRiskResponse : TeaModel {
+    public class CreateInnerWithholdsignResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 模型结果详情
-        [NameInMap("models")]
+        // 代扣签约串
+        [NameInMap("sign_str")]
         [Validation(Required=false)]
-        public List<RiskModel> Models { get; set; }
+        public string SignStr { get; set; }
 
     }
 

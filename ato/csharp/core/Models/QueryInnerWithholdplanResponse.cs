@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class QueryRiskResponse : TeaModel {
+    public class QueryInnerWithholdplanResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 模型结果详情
-        [NameInMap("models")]
+        // 总金额，单位为分
+        [NameInMap("total_money")]
         [Validation(Required=false)]
-        public List<RiskModel> Models { get; set; }
+        public long? TotalMoney { get; set; }
+
+        // 总期数
+        [NameInMap("total_term")]
+        [Validation(Required=false)]
+        public long? TotalTerm { get; set; }
+
+        // 用户履约信息列表
+        [NameInMap("pay_info")]
+        [Validation(Required=false)]
+        public List<UserPerformanceInfo> PayInfo { get; set; }
 
     }
 

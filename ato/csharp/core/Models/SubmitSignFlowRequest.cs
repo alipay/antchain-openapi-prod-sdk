@@ -133,6 +133,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ThirdSigner { get; set; }
 
+        // 支付宝用户 open_id
+        [NameInMap("user_open_id")]
+        [Validation(Required=false, MaxLength=64)]
+        public string UserOpenId { get; set; }
+
+        // 商户支付宝应用 id
+        [NameInMap("merchant_app_id")]
+        [Validation(Required=false, MaxLength=32)]
+        public string MerchantAppId { get; set; }
+
     }
 
 }
