@@ -140,9 +140,6 @@ class RegByDeviceIdParm extends Model
     public function validate()
     {
         Model::validateRequired('deviceId', $this->deviceId, true);
-        Model::validateRequired('deviceDataModelId', $this->deviceDataModelId, true);
-        Model::validateRequired('deviceFeature', $this->deviceFeature, true);
-        Model::validateRequired('withExistDeviceId', $this->withExistDeviceId, true);
         Model::validateRequired('deviceTypeCode', $this->deviceTypeCode, true);
         Model::validatePattern('factoryTime', $this->factoryTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
         Model::validatePattern('releaseTime', $this->releaseTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');

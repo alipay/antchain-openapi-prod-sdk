@@ -19,6 +19,18 @@ class QueryLabelTraceRequest extends Model
      */
     public $productInstanceId;
 
+    // 第几页，默认值为1
+    /**
+     * @var int
+     */
+    public $pageIndex;
+
+    // 单页记录数，默认为10
+    /**
+     * @var int
+     */
+    public $pageSize;
+
     // 场景码 , 使用asset_id 查询时，scene也必须传入
     /**
      * @var string
@@ -81,6 +93,8 @@ class QueryLabelTraceRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'pageIndex'         => 'page_index',
+        'pageSize'          => 'page_size',
         'scene'             => 'scene',
         'labelId'           => 'label_id',
         'labelStatus'       => 'label_status',
@@ -107,6 +121,12 @@ class QueryLabelTraceRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->pageIndex) {
+            $res['page_index'] = $this->pageIndex;
+        }
+        if (null !== $this->pageSize) {
+            $res['page_size'] = $this->pageSize;
         }
         if (null !== $this->scene) {
             $res['scene'] = $this->scene;
@@ -155,6 +175,12 @@ class QueryLabelTraceRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['page_index'])) {
+            $model->pageIndex = $map['page_index'];
+        }
+        if (isset($map['page_size'])) {
+            $model->pageSize = $map['page_size'];
         }
         if (isset($map['scene'])) {
             $model->scene = $map['scene'];

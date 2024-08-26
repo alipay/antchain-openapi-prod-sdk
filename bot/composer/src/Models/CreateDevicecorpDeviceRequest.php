@@ -60,6 +60,12 @@ class CreateDevicecorpDeviceRequest extends Model
      * @var string
      */
     public $nickName;
+
+    // 设备扩展信息（json字符串，车架号等信息）
+    /**
+     * @var string
+     */
+    public $deviceExt;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class CreateDevicecorpDeviceRequest extends Model
         'deviceName'        => 'device_name',
         'deviceSn'          => 'device_sn',
         'nickName'          => 'nick_name',
+        'deviceExt'         => 'device_ext',
     ];
 
     public function validate()
@@ -112,6 +119,9 @@ class CreateDevicecorpDeviceRequest extends Model
         if (null !== $this->nickName) {
             $res['nick_name'] = $this->nickName;
         }
+        if (null !== $this->deviceExt) {
+            $res['device_ext'] = $this->deviceExt;
+        }
 
         return $res;
     }
@@ -150,6 +160,9 @@ class CreateDevicecorpDeviceRequest extends Model
         }
         if (isset($map['nick_name'])) {
             $model->nickName = $map['nick_name'];
+        }
+        if (isset($map['device_ext'])) {
+            $model->deviceExt = $map['device_ext'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateDevicecorpDeviceResponse extends Model
+class ResetIotbasicDeviceseckeyResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,44 +26,23 @@ class CreateDevicecorpDeviceResponse extends Model
      */
     public $resultMsg;
 
-    // did
-    /**
-     * @var string
-     */
-    public $deviceDid;
-
-    // 设备私钥
-    /**
-     * @var string
-     */
-    public $privateKey;
-
     // 操作结果
     /**
      * @var bool
      */
     public $success;
 
-    // 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+    // 设备认证密钥密文，需要下发安全SDK
     /**
      * @var string
      */
-    public $secKey;
-
-    // 设备认证密钥状态
-    /**
-     * @var string
-     */
-    public $serviceStatus;
+    public $cipherText;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'deviceDid'     => 'device_did',
-        'privateKey'    => 'private_key',
-        'success'       => 'success',
-        'secKey'        => 'sec_key',
-        'serviceStatus' => 'service_status',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'success'    => 'success',
+        'cipherText' => 'cipher_text',
     ];
 
     public function validate()
@@ -82,20 +61,11 @@ class CreateDevicecorpDeviceResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->deviceDid) {
-            $res['device_did'] = $this->deviceDid;
-        }
-        if (null !== $this->privateKey) {
-            $res['private_key'] = $this->privateKey;
-        }
         if (null !== $this->success) {
             $res['success'] = $this->success;
         }
-        if (null !== $this->secKey) {
-            $res['sec_key'] = $this->secKey;
-        }
-        if (null !== $this->serviceStatus) {
-            $res['service_status'] = $this->serviceStatus;
+        if (null !== $this->cipherText) {
+            $res['cipher_text'] = $this->cipherText;
         }
 
         return $res;
@@ -104,7 +74,7 @@ class CreateDevicecorpDeviceResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateDevicecorpDeviceResponse
+     * @return ResetIotbasicDeviceseckeyResponse
      */
     public static function fromMap($map = [])
     {
@@ -118,20 +88,11 @@ class CreateDevicecorpDeviceResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['device_did'])) {
-            $model->deviceDid = $map['device_did'];
-        }
-        if (isset($map['private_key'])) {
-            $model->privateKey = $map['private_key'];
-        }
         if (isset($map['success'])) {
             $model->success = $map['success'];
         }
-        if (isset($map['sec_key'])) {
-            $model->secKey = $map['sec_key'];
-        }
-        if (isset($map['service_status'])) {
-            $model->serviceStatus = $map['service_status'];
+        if (isset($map['cipher_text'])) {
+            $model->cipherText = $map['cipher_text'];
         }
 
         return $model;

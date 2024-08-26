@@ -427,6 +427,8 @@ use AntChain\BOT\Models\ReplaceDistributedeviceBychainidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainidResponse;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidRequest;
 use AntChain\BOT\Models\ReplaceDistributedeviceBychainperipheralidResponse;
+use AntChain\BOT\Models\ResetIotbasicDeviceseckeyRequest;
+use AntChain\BOT\Models\ResetIotbasicDeviceseckeyResponse;
 use AntChain\BOT\Models\ResumeAcecContractRequest;
 use AntChain\BOT\Models\ResumeAcecContractResponse;
 use AntChain\BOT\Models\ResumeIotplantformProductRequest;
@@ -445,6 +447,8 @@ use AntChain\BOT\Models\SendCollectorDevicebizdataRequest;
 use AntChain\BOT\Models\SendCollectorDevicebizdataResponse;
 use AntChain\BOT\Models\SendCollectorSummarydataRequest;
 use AntChain\BOT\Models\SendCollectorSummarydataResponse;
+use AntChain\BOT\Models\SendEventDataRequest;
+use AntChain\BOT\Models\SendEventDataResponse;
 use AntChain\BOT\Models\SendLabelTransferonasyncRequest;
 use AntChain\BOT\Models\SendLabelTransferonasyncResponse;
 use AntChain\BOT\Models\SendLabelTransferrawonasyncRequest;
@@ -674,7 +678,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.42',
+                    'sdk_version'      => '1.11.47',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4884,6 +4888,39 @@ class Client
     }
 
     /**
+     * Description: iotbasic-重置设备认证秘钥
+     * Summary: iotbasic-重置设备认证秘钥.
+     *
+     * @param ResetIotbasicDeviceseckeyRequest $request
+     *
+     * @return ResetIotbasicDeviceseckeyResponse
+     */
+    public function resetIotbasicDeviceseckey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->resetIotbasicDeviceseckeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-重置设备认证秘钥
+     * Summary: iotbasic-重置设备认证秘钥.
+     *
+     * @param ResetIotbasicDeviceseckeyRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ResetIotbasicDeviceseckeyResponse
+     */
+    public function resetIotbasicDeviceseckeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ResetIotbasicDeviceseckeyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.deviceseckey.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 根据设备串号查询采购设备
      * Summary: 根据设备串号查询采购设备.
      *
@@ -8709,6 +8746,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryTechintegrationSkugrantstockinfoResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.techintegration.skugrantstockinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+     * Summary: 事件数据上报整合接口.
+     *
+     * @param SendEventDataRequest $request
+     *
+     * @return SendEventDataResponse
+     */
+    public function sendEventData($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendEventDataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+     * Summary: 事件数据上报整合接口.
+     *
+     * @param SendEventDataRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return SendEventDataResponse
+     */
+    public function sendEventDataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendEventDataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.event.data.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

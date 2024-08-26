@@ -146,7 +146,6 @@ class RegByDeviceParm extends Model
     public function validate()
     {
         Model::validateRequired('deviceId', $this->deviceId, true);
-        Model::validateRequired('deviceDataModelId', $this->deviceDataModelId, true);
         Model::validateRequired('deviceRegContent', $this->deviceRegContent, true);
         Model::validateRequired('deviceRegSignature', $this->deviceRegSignature, true);
         Model::validateRequired('sdkId', $this->sdkId, true);
