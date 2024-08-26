@@ -46,6 +46,16 @@ public class CreateWithholdSignRequest extends TeaModel {
     @Validation(maxLength = 256)
     public String returnUrl;
 
+    // 支付宝用户 open_id，非必填
+    @NameInMap("user_open_id")
+    @Validation(maxLength = 128, minLength = 16)
+    public String userOpenId;
+
+    // 商户支付宝应用 id
+    @NameInMap("merchant_app_id")
+    @Validation(maxLength = 32)
+    public String merchantAppId;
+
     public static CreateWithholdSignRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateWithholdSignRequest self = new CreateWithholdSignRequest();
         return TeaModel.build(map, self);
@@ -121,6 +131,22 @@ public class CreateWithholdSignRequest extends TeaModel {
     }
     public String getReturnUrl() {
         return this.returnUrl;
+    }
+
+    public CreateWithholdSignRequest setUserOpenId(String userOpenId) {
+        this.userOpenId = userOpenId;
+        return this;
+    }
+    public String getUserOpenId() {
+        return this.userOpenId;
+    }
+
+    public CreateWithholdSignRequest setMerchantAppId(String merchantAppId) {
+        this.merchantAppId = merchantAppId;
+        return this;
+    }
+    public String getMerchantAppId() {
+        return this.merchantAppId;
     }
 
 }

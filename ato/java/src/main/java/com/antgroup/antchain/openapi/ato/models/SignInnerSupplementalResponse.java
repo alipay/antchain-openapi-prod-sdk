@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryRiskResponse extends TeaModel {
+public class SignInnerSupplementalResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,12 @@ public class QueryRiskResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 模型结果详情
-    @NameInMap("models")
-    public java.util.List<RiskModel> models;
-
-    public static QueryRiskResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryRiskResponse self = new QueryRiskResponse();
+    public static SignInnerSupplementalResponse build(java.util.Map<String, ?> map) throws Exception {
+        SignInnerSupplementalResponse self = new SignInnerSupplementalResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryRiskResponse setReqMsgId(String reqMsgId) {
+    public SignInnerSupplementalResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +29,7 @@ public class QueryRiskResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryRiskResponse setResultCode(String resultCode) {
+    public SignInnerSupplementalResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,20 +37,12 @@ public class QueryRiskResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryRiskResponse setResultMsg(String resultMsg) {
+    public SignInnerSupplementalResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryRiskResponse setModels(java.util.List<RiskModel> models) {
-        this.models = models;
-        return this;
-    }
-    public java.util.List<RiskModel> getModels() {
-        return this.models;
     }
 
 }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryRiskResponse extends TeaModel {
+public class QueryInnerAuthorizationResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,17 @@ public class QueryRiskResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 模型结果详情
-    @NameInMap("models")
-    public java.util.List<RiskModel> models;
+    // true代表需要进行授权询问
+    // false代表不需要进行授权询问
+    @NameInMap("is_need_ask_auth")
+    public Boolean isNeedAskAuth;
 
-    public static QueryRiskResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryRiskResponse self = new QueryRiskResponse();
+    public static QueryInnerAuthorizationResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryInnerAuthorizationResponse self = new QueryInnerAuthorizationResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryRiskResponse setReqMsgId(String reqMsgId) {
+    public QueryInnerAuthorizationResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +34,7 @@ public class QueryRiskResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryRiskResponse setResultCode(String resultCode) {
+    public QueryInnerAuthorizationResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +42,7 @@ public class QueryRiskResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryRiskResponse setResultMsg(String resultMsg) {
+    public QueryInnerAuthorizationResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +50,12 @@ public class QueryRiskResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryRiskResponse setModels(java.util.List<RiskModel> models) {
-        this.models = models;
+    public QueryInnerAuthorizationResponse setIsNeedAskAuth(Boolean isNeedAskAuth) {
+        this.isNeedAskAuth = isNeedAskAuth;
         return this;
     }
-    public java.util.List<RiskModel> getModels() {
-        return this.models;
+    public Boolean getIsNeedAskAuth() {
+        return this.isNeedAskAuth;
     }
 
 }

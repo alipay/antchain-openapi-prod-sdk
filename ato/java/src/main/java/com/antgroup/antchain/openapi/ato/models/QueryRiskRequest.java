@@ -11,9 +11,10 @@ public class QueryRiskRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 账户ID
-    @NameInMap("user_id")
-    public String userId;
+    // 枚举值：蚁盾版、智租版、旗舰版，蚁盾版代表仅调用蚁盾风控，智租版代表仅调用小程序云风控，旗舰版代表调用蚁盾+旗舰版风控接口
+    @NameInMap("product_name")
+    @Validation(required = true)
+    public String productName;
 
     // 用户姓名
     @NameInMap("user_name")
@@ -29,10 +30,6 @@ public class QueryRiskRequest extends TeaModel {
     @NameInMap("mobile")
     @Validation(required = true)
     public String mobile;
-
-    // 用户ip地址
-    @NameInMap("ip")
-    public String ip;
 
     public static QueryRiskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskRequest self = new QueryRiskRequest();
@@ -55,12 +52,12 @@ public class QueryRiskRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryRiskRequest setUserId(String userId) {
-        this.userId = userId;
+    public QueryRiskRequest setProductName(String productName) {
+        this.productName = productName;
         return this;
     }
-    public String getUserId() {
-        return this.userId;
+    public String getProductName() {
+        return this.productName;
     }
 
     public QueryRiskRequest setUserName(String userName) {
@@ -85,14 +82,6 @@ public class QueryRiskRequest extends TeaModel {
     }
     public String getMobile() {
         return this.mobile;
-    }
-
-    public QueryRiskRequest setIp(String ip) {
-        this.ip = ip;
-        return this;
-    }
-    public String getIp() {
-        return this.ip;
     }
 
 }

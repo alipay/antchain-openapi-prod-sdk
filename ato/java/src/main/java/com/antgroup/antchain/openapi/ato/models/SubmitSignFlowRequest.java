@@ -117,6 +117,16 @@ public class SubmitSignFlowRequest extends TeaModel {
     @NameInMap("third_signer")
     public String thirdSigner;
 
+    // 支付宝用户 open_id
+    @NameInMap("user_open_id")
+    @Validation(maxLength = 64, minLength = 16)
+    public String userOpenId;
+
+    // 商户支付宝应用 id
+    @NameInMap("merchant_app_id")
+    @Validation(maxLength = 32)
+    public String merchantAppId;
+
     public static SubmitSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitSignFlowRequest self = new SubmitSignFlowRequest();
         return TeaModel.build(map, self);
@@ -304,6 +314,22 @@ public class SubmitSignFlowRequest extends TeaModel {
     }
     public String getThirdSigner() {
         return this.thirdSigner;
+    }
+
+    public SubmitSignFlowRequest setUserOpenId(String userOpenId) {
+        this.userOpenId = userOpenId;
+        return this;
+    }
+    public String getUserOpenId() {
+        return this.userOpenId;
+    }
+
+    public SubmitSignFlowRequest setMerchantAppId(String merchantAppId) {
+        this.merchantAppId = merchantAppId;
+        return this;
+    }
+    public String getMerchantAppId() {
+        return this.merchantAppId;
     }
 
 }

@@ -119,6 +119,16 @@ public class SubmitFrontSignRequest extends TeaModel {
     @NameInMap("third_signer")
     public String thirdSigner;
 
+    // 用户在支付宝开放平台下应用的 open_id
+    @NameInMap("user_open_id")
+    @Validation(maxLength = 64, minLength = 16)
+    public String userOpenId;
+
+    // 商户支付宝应用 id
+    @NameInMap("merchant_app_id")
+    @Validation(maxLength = 32)
+    public String merchantAppId;
+
     public static SubmitFrontSignRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitFrontSignRequest self = new SubmitFrontSignRequest();
         return TeaModel.build(map, self);
@@ -306,6 +316,22 @@ public class SubmitFrontSignRequest extends TeaModel {
     }
     public String getThirdSigner() {
         return this.thirdSigner;
+    }
+
+    public SubmitFrontSignRequest setUserOpenId(String userOpenId) {
+        this.userOpenId = userOpenId;
+        return this;
+    }
+    public String getUserOpenId() {
+        return this.userOpenId;
+    }
+
+    public SubmitFrontSignRequest setMerchantAppId(String merchantAppId) {
+        this.merchantAppId = merchantAppId;
+        return this;
+    }
+    public String getMerchantAppId() {
+        return this.merchantAppId;
     }
 
 }

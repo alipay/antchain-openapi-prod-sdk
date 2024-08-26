@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.9.2"),
+                    new TeaPair("sdk_version", "1.9.11"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1343,6 +1343,139 @@ public class Client {
     public RetryInnerOrdermsgResponse retryInnerOrdermsgEx(RetryInnerOrdermsgRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.ordermsg.retry", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RetryInnerOrdermsgResponse());
+    }
+
+    /**
+     * Description: 法务协议授权-  签署合同代扣前置授权查询接口
+     * Summary: 签署合同代扣前置授权查询接口
+     */
+    public QueryInnerAuthorizationResponse queryInnerAuthorization(QueryInnerAuthorizationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerAuthorizationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 法务协议授权-  签署合同代扣前置授权查询接口
+     * Summary: 签署合同代扣前置授权查询接口
+     */
+    public QueryInnerAuthorizationResponse queryInnerAuthorizationEx(QueryInnerAuthorizationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.authorization.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerAuthorizationResponse());
+    }
+
+    /**
+     * Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+     * Summary: 签署合同代扣前置同意授权接口
+     */
+    public SignInnerAuthorizationResponse signInnerAuthorization(SignInnerAuthorizationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.signInnerAuthorizationEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+     * Summary: 签署合同代扣前置同意授权接口
+     */
+    public SignInnerAuthorizationResponse signInnerAuthorizationEx(SignInnerAuthorizationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.authorization.sign", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SignInnerAuthorizationResponse());
+    }
+
+    /**
+     * Description: 小程序法务授权 - 商户补充协议状态查询接口
+     * Summary: 商户补充协议状态查询接口
+     */
+    public QueryInnerSupplementalResponse queryInnerSupplemental(QueryInnerSupplementalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerSupplementalEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 小程序法务授权 - 商户补充协议状态查询接口
+     * Summary: 商户补充协议状态查询接口
+     */
+    public QueryInnerSupplementalResponse queryInnerSupplementalEx(QueryInnerSupplementalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.supplemental.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerSupplementalResponse());
+    }
+
+    /**
+     * Description: 法务协议授权 - 商户补充协议状态同意接口
+     * Summary: 商户补充协议状态同意接口
+     */
+    public SignInnerSupplementalResponse signInnerSupplemental(SignInnerSupplementalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.signInnerSupplementalEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 法务协议授权 - 商户补充协议状态同意接口
+     * Summary: 商户补充协议状态同意接口
+     */
+    public SignInnerSupplementalResponse signInnerSupplementalEx(SignInnerSupplementalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.supplemental.sign", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SignInnerSupplementalResponse());
+    }
+
+    /**
+     * Description: 查询代扣计划
+     * Summary: 代扣计划查询
+     */
+    public QueryInnerWithholdplanResponse queryInnerWithholdplan(QueryInnerWithholdplanRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerWithholdplanEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询代扣计划
+     * Summary: 代扣计划查询
+     */
+    public QueryInnerWithholdplanResponse queryInnerWithholdplanEx(QueryInnerWithholdplanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.withholdplan.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerWithholdplanResponse());
+    }
+
+    /**
+     * Description: 创建代扣协议
+     * Summary: 创建代扣协议
+     */
+    public CreateInnerWithholdsignResponse createInnerWithholdsign(CreateInnerWithholdsignRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createInnerWithholdsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建代扣协议
+     * Summary: 创建代扣协议
+     */
+    public CreateInnerWithholdsignResponse createInnerWithholdsignEx(CreateInnerWithholdsignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.withholdsign.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateInnerWithholdsignResponse());
+    }
+
+    /**
+     * Description: 代扣签约查询
+     * Summary: 代扣签约查询
+     */
+    public QueryInnerWithholdsignResponse queryInnerWithholdsign(QueryInnerWithholdsignRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryInnerWithholdsignEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣签约查询
+     * Summary: 代扣签约查询
+     */
+    public QueryInnerWithholdsignResponse queryInnerWithholdsignEx(QueryInnerWithholdsignRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.withholdsign.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryInnerWithholdsignResponse());
     }
 
     /**

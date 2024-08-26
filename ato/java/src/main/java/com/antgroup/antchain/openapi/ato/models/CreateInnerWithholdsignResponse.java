@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class QueryRiskResponse extends TeaModel {
+public class CreateInnerWithholdsignResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class QueryRiskResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 模型结果详情
-    @NameInMap("models")
-    public java.util.List<RiskModel> models;
+    // 代扣签约串
+    @NameInMap("sign_str")
+    public String signStr;
 
-    public static QueryRiskResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryRiskResponse self = new QueryRiskResponse();
+    public static CreateInnerWithholdsignResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateInnerWithholdsignResponse self = new CreateInnerWithholdsignResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryRiskResponse setReqMsgId(String reqMsgId) {
+    public CreateInnerWithholdsignResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class QueryRiskResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryRiskResponse setResultCode(String resultCode) {
+    public CreateInnerWithholdsignResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class QueryRiskResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryRiskResponse setResultMsg(String resultMsg) {
+    public CreateInnerWithholdsignResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class QueryRiskResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryRiskResponse setModels(java.util.List<RiskModel> models) {
-        this.models = models;
+    public CreateInnerWithholdsignResponse setSignStr(String signStr) {
+        this.signStr = signStr;
         return this;
     }
-    public java.util.List<RiskModel> getModels() {
-        return this.models;
+    public String getSignStr() {
+        return this.signStr;
     }
 
 }
