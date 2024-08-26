@@ -17,18 +17,18 @@ namespace AntChain.SDK.BOT.Models
 
         // 数据模型ID
         [NameInMap("device_data_model_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DeviceDataModelId { get; set; }
 
         // 固定填写RAW_DATA
         [NameInMap("device_feature")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string DeviceFeature { get; set; }
 
         // true : 设备ID已存在时返回存在的设备关联字段;
         // false : 设备ID已存在时直接抛出异常；
         [NameInMap("with_exist_device_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public bool? WithExistDeviceId { get; set; }
 
         // 设备类型编码，联系蚂蚁侧获取设备类型编码

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class CreateIotbasicDeviceResponse : TeaModel {
+    public class ResetIotbasicDeviceseckeyResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,30 +24,15 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // ddi
-        [NameInMap("device_did")]
-        [Validation(Required=false)]
-        public string DeviceDid { get; set; }
-
-        // 设备私钥
-        [NameInMap("private_key")]
-        [Validation(Required=false)]
-        public string PrivateKey { get; set; }
-
-        // 设备认证密钥密文，需要下发安全认证SDK完成设备激活
-        [NameInMap("sec_key")]
-        [Validation(Required=false)]
-        public string SecKey { get; set; }
-
-        // 设备认证密钥状态
-        [NameInMap("service_status")]
-        [Validation(Required=false)]
-        public string ServiceStatus { get; set; }
-
-        // 接口操作结果
+        // 操作结果
         [NameInMap("success")]
         [Validation(Required=false)]
         public bool? Success { get; set; }
+
+        // 设备认证密钥密文，需要下发安全SDK
+        [NameInMap("cipher_text")]
+        [Validation(Required=false)]
+        public string CipherText { get; set; }
 
     }
 

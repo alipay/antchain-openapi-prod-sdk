@@ -18,6 +18,16 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 第几页，默认值为1
+        [NameInMap("page_index")]
+        [Validation(Required=false)]
+        public long? PageIndex { get; set; }
+
+        // 单页记录数，默认为10
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
+
         // 场景码 , 使用asset_id 查询时，scene也必须传入
         [NameInMap("scene")]
         [Validation(Required=false)]

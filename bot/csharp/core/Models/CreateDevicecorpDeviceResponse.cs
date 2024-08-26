@@ -39,6 +39,16 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public bool? Success { get; set; }
 
+        // 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+        [NameInMap("sec_key")]
+        [Validation(Required=false)]
+        public string SecKey { get; set; }
+
+        // 设备认证密钥状态
+        [NameInMap("service_status")]
+        [Validation(Required=false)]
+        public string ServiceStatus { get; set; }
+
     }
 
 }

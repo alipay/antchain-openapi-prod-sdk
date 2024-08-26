@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.42"},
+                        {"sdk_version", "1.11.47"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.42"},
+                        {"sdk_version", "1.11.47"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5664,6 +5664,48 @@ namespace AntChain.SDK.BOT
         }
 
         /**
+         * Description: iotbasic-重置设备认证秘钥
+         * Summary: iotbasic-重置设备认证秘钥
+         */
+        public ResetIotbasicDeviceseckeyResponse ResetIotbasicDeviceseckey(ResetIotbasicDeviceseckeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResetIotbasicDeviceseckeyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-重置设备认证秘钥
+         * Summary: iotbasic-重置设备认证秘钥
+         */
+        public async Task<ResetIotbasicDeviceseckeyResponse> ResetIotbasicDeviceseckeyAsync(ResetIotbasicDeviceseckeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResetIotbasicDeviceseckeyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-重置设备认证秘钥
+         * Summary: iotbasic-重置设备认证秘钥
+         */
+        public ResetIotbasicDeviceseckeyResponse ResetIotbasicDeviceseckeyEx(ResetIotbasicDeviceseckeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetIotbasicDeviceseckeyResponse>(DoRequest("1.0", "blockchain.bot.iotbasic.deviceseckey.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-重置设备认证秘钥
+         * Summary: iotbasic-重置设备认证秘钥
+         */
+        public async Task<ResetIotbasicDeviceseckeyResponse> ResetIotbasicDeviceseckeyExAsync(ResetIotbasicDeviceseckeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetIotbasicDeviceseckeyResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.deviceseckey.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 根据设备串号查询采购设备
          * Summary: 根据设备串号查询采购设备
          */
@@ -10533,6 +10575,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryTechintegrationSkugrantstockinfoResponse>(await DoRequestAsync("1.0", "blockchain.bot.techintegration.skugrantstockinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+         * Summary: 事件数据上报整合接口
+         */
+        public SendEventDataResponse SendEventData(SendEventDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendEventDataEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+         * Summary: 事件数据上报整合接口
+         */
+        public async Task<SendEventDataResponse> SendEventDataAsync(SendEventDataRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendEventDataExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+         * Summary: 事件数据上报整合接口
+         */
+        public SendEventDataResponse SendEventDataEx(SendEventDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendEventDataResponse>(DoRequest("1.0", "blockchain.bot.event.data.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 整合目前的设备数据、汇总数据、业务数据、无主体数据、标签数据上报接口
+         * Summary: 事件数据上报整合接口
+         */
+        public async Task<SendEventDataResponse> SendEventDataExAsync(SendEventDataRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendEventDataResponse>(await DoRequestAsync("1.0", "blockchain.bot.event.data.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -53,6 +53,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string NickName { get; set; }
 
+        // 设备扩展信息（json字符串，车架号等信息）
+        [NameInMap("device_ext")]
+        [Validation(Required=false)]
+        public string DeviceExt { get; set; }
+
     }
 
 }

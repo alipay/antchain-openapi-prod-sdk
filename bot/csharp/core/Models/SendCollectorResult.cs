@@ -10,7 +10,7 @@ namespace AntChain.SDK.BOT.Models
 {
     // 收集数据返回的上链结果
     public class SendCollectorResult : TeaModel {
-        // 数据内容content的上链交易哈希
+        // 数据的链上哈希
         [NameInMap("tx_hash")]
         [Validation(Required=true)]
         public string TxHash { get; set; }
@@ -19,6 +19,21 @@ namespace AntChain.SDK.BOT.Models
         [NameInMap("original_index")]
         [Validation(Required=true)]
         public long? OriginalIndex { get; set; }
+
+        // 失败数据对应的异常码，成功时该字段为空
+        [NameInMap("error_code")]
+        [Validation(Required=false)]
+        public string ErrorCode { get; set; }
+
+        // 异常信息
+        [NameInMap("error_msg")]
+        [Validation(Required=false)]
+        public string ErrorMsg { get; set; }
+
+        // 返回的扩展信息
+        [NameInMap("extra_info")]
+        [Validation(Required=false)]
+        public string ExtraInfo { get; set; }
 
     }
 
