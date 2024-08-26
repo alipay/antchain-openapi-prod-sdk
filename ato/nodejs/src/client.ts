@@ -252,6 +252,36 @@ export class AgreementPage extends $tea.Model {
   }
 }
 
+// 用户履约信息
+export class UserPerformanceInfo extends $tea.Model {
+  // 履约期数
+  periodNum: number;
+  // 履约时间，格式 yyyy-MM-dd
+  // 针对签收日作为起租日模式,未签收时：以签收日开始计算
+  payDate: string;
+  // 履约金额，单位为分
+  payMoney: number;
+  static names(): { [key: string]: string } {
+    return {
+      periodNum: 'period_num',
+      payDate: 'pay_date',
+      payMoney: 'pay_money',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      periodNum: 'number',
+      payDate: 'string',
+      payMoney: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 风险场景的决策结果
 export class RiskScene extends $tea.Model {
   // 风险场景编码
@@ -783,10 +813,19 @@ export class RiskModel extends $tea.Model {
   sceneCode: string;
   // 该风险场景的风险分值
   score: string;
+  // 逾期率
+  delinquencyRate?: string;
+  // 风险建议
+  riskAdvice?: string;
+  // 风险等级
+  riskRank?: string;
   static names(): { [key: string]: string } {
     return {
       sceneCode: 'scene_code',
       score: 'score',
+      delinquencyRate: 'delinquency_rate',
+      riskAdvice: 'risk_advice',
+      riskRank: 'risk_rank',
     };
   }
 
@@ -794,6 +833,9 @@ export class RiskModel extends $tea.Model {
     return {
       sceneCode: 'string',
       score: 'string',
+      delinquencyRate: 'string',
+      riskAdvice: 'string',
+      riskRank: 'string',
     };
   }
 
@@ -5288,6 +5330,470 @@ export class RetryInnerOrdermsgResponse extends $tea.Model {
   }
 }
 
+export class QueryInnerAuthorizationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签署合同的流程id
+  flowId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerAuthorizationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // true代表需要进行授权询问
+  // false代表不需要进行授权询问
+  isNeedAskAuth?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      isNeedAskAuth: 'is_need_ask_auth',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      isNeedAskAuth: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignInnerAuthorizationRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签署合同的流程id
+  flowId: string;
+  // true代表用户同意授权，
+  // false代表不同意
+  authResult: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      authResult: 'auth_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      authResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignInnerAuthorizationResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerSupplementalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerSupplementalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // true代表需要进行授权询问
+  // false代表不需要进行授权询问
+  isNeedAskAuth?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      isNeedAskAuth: 'is_need_ask_auth',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      isNeedAskAuth: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignInnerSupplementalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户ID
+  tenantId: string;
+  // 同意接受用户补充接口，目前取值只能为true
+  authResult: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      authResult: 'auth_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      authResult: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SignInnerSupplementalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerWithholdplanRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户租户id
+  merchantTenantId: string;
+  // 订单id
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantTenantId: 'merchant_tenant_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantTenantId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerWithholdplanResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总金额，单位为分
+  totalMoney?: number;
+  // 总期数
+  totalTerm?: number;
+  // 用户履约信息列表
+  payInfo?: UserPerformanceInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalMoney: 'total_money',
+      totalTerm: 'total_term',
+      payInfo: 'pay_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalMoney: 'number',
+      totalTerm: 'number',
+      payInfo: { 'type': 'array', 'itemType': UserPerformanceInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateInnerWithholdsignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户租户id
+  merchantTenantId: string;
+  // 订单id
+  orderId: string;
+  // 用户支付宝2088uid
+  alipayUserId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantTenantId: 'merchant_tenant_id',
+      orderId: 'order_id',
+      alipayUserId: 'alipay_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantTenantId: 'string',
+      orderId: 'string',
+      alipayUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateInnerWithholdsignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代扣签约串
+  signStr?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signStr: 'sign_str',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signStr: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerWithholdsignRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户租户id
+  merchantTenantId: string;
+  // 订单id
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantTenantId: 'merchant_tenant_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantTenantId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerWithholdsignResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 协议当前状态
+  // 1. UNSIGNED：未签约
+  // 2. SIGNED：已签约；
+  // 3.APPLY_TERMINATE:申请解约
+  // 4. TERMINATED：已解约
+  // 5.TIMEOUT_CLOSE:超时关闭
+  status?: string;
+  // 支付宝代扣协议号
+  agreementNo?: string;
+  // 协议签署时间
+  // yyyy-MM-dd HH:mm:ss 格式
+  signTime?: string;
+  // 协议生效时间
+  // yyyy-MM-dd HH:mm:ss 格式
+  validTime?: string;
+  // 协议失效时间
+  // yyyy-MM-dd HH:mm:ss 格式
+  invalidTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      agreementNo: 'agreement_no',
+      signTime: 'sign_time',
+      validTime: 'valid_time',
+      invalidTime: 'invalid_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      agreementNo: 'string',
+      signTime: 'string',
+      validTime: 'string',
+      invalidTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RegisterMerchantexpandMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5739,25 +6245,22 @@ export class QueryRiskRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 账户ID
-  userId?: string;
+  // 枚举值：蚁盾版、智租版、旗舰版，蚁盾版代表仅调用蚁盾风控，智租版代表仅调用小程序云风控，旗舰版代表调用蚁盾+旗舰版风控接口
+  productName: string;
   // 用户姓名
   userName: string;
   // 用户证件号码
   certNo: string;
   // 用户手机号码
   mobile: string;
-  // 用户ip地址
-  ip?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      userId: 'user_id',
+      productName: 'product_name',
       userName: 'user_name',
       certNo: 'cert_no',
       mobile: 'mobile',
-      ip: 'ip',
     };
   }
 
@@ -5765,11 +6268,10 @@ export class QueryRiskRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      userId: 'string',
+      productName: 'string',
       userName: 'string',
       certNo: 'string',
       mobile: 'string',
-      ip: 'string',
     };
   }
 
@@ -5785,14 +6287,6 @@ export class QueryRiskResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 请求唯一ID标识，为空则是异常
-  securityId?: string;
-  // 总风险决策结果，枚举值为：reject[拒绝],validate[待定],accept[通过]。
-  decision?: string;
-  // 风险场景的决策结果
-  scenes?: RiskScene[];
-  // 策略结果详情
-  strategies?: RiskStrategy[];
   // 模型结果详情
   models?: RiskModel[];
   static names(): { [key: string]: string } {
@@ -5800,10 +6294,6 @@ export class QueryRiskResponse extends $tea.Model {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      securityId: 'security_id',
-      decision: 'decision',
-      scenes: 'scenes',
-      strategies: 'strategies',
       models: 'models',
     };
   }
@@ -5813,10 +6303,6 @@ export class QueryRiskResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      securityId: 'string',
-      decision: 'string',
-      scenes: { 'type': 'array', 'itemType': RiskScene },
-      strategies: { 'type': 'array', 'itemType': RiskStrategy },
       models: { 'type': 'array', 'itemType': RiskModel },
     };
   }
@@ -5966,6 +6452,10 @@ export class SubmitSignFlowRequest extends $tea.Model {
   merchantLegalIdNumber?: string;
   // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
   thirdSigner?: string;
+  // 支付宝用户 open_id
+  userOpenId?: string;
+  // 商户支付宝应用 id
+  merchantAppId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5991,6 +6481,8 @@ export class SubmitSignFlowRequest extends $tea.Model {
       merchantLegalName: 'merchant_legal_name',
       merchantLegalIdNumber: 'merchant_legal_id_number',
       thirdSigner: 'third_signer',
+      userOpenId: 'user_open_id',
+      merchantAppId: 'merchant_app_id',
     };
   }
 
@@ -6019,6 +6511,8 @@ export class SubmitSignFlowRequest extends $tea.Model {
       merchantLegalName: 'string',
       merchantLegalIdNumber: 'string',
       thirdSigner: 'string',
+      userOpenId: 'string',
+      merchantAppId: 'string',
     };
   }
 
@@ -6298,6 +6792,10 @@ export class SubmitFrontSignRequest extends $tea.Model {
   merchantLegalIdNumber?: string;
   // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
   thirdSigner?: string;
+  // 用户在支付宝开放平台下应用的 open_id
+  userOpenId?: string;
+  // 商户支付宝应用 id
+  merchantAppId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6323,6 +6821,8 @@ export class SubmitFrontSignRequest extends $tea.Model {
       merchantLegalName: 'merchant_legal_name',
       merchantLegalIdNumber: 'merchant_legal_id_number',
       thirdSigner: 'third_signer',
+      userOpenId: 'user_open_id',
+      merchantAppId: 'merchant_app_id',
     };
   }
 
@@ -6351,6 +6851,8 @@ export class SubmitFrontSignRequest extends $tea.Model {
       merchantLegalName: 'string',
       merchantLegalIdNumber: 'string',
       thirdSigner: 'string',
+      userOpenId: 'string',
+      merchantAppId: 'string',
     };
   }
 
@@ -7555,6 +8057,10 @@ export class CreateWithholdSignRequest extends $tea.Model {
   alipayUserId?: string;
   // 签约完成后的跳转地址，注意只有在h5跳转场景下才有意义其他场景通过方法回调处理业务；无需使用此字段。
   returnUrl?: string;
+  // 支付宝用户 open_id，非必填
+  userOpenId?: string;
+  // 商户支付宝应用 id
+  merchantAppId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7566,6 +8072,8 @@ export class CreateWithholdSignRequest extends $tea.Model {
       alipayMerchantServiceDescription: 'alipay_merchant_service_description',
       alipayUserId: 'alipay_user_id',
       returnUrl: 'return_url',
+      userOpenId: 'user_open_id',
+      merchantAppId: 'merchant_app_id',
     };
   }
 
@@ -7580,6 +8088,8 @@ export class CreateWithholdSignRequest extends $tea.Model {
       alipayMerchantServiceDescription: 'string',
       alipayUserId: 'string',
       returnUrl: 'string',
+      userOpenId: 'string',
+      merchantAppId: 'string',
     };
   }
 
@@ -8619,7 +9129,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.2",
+          sdk_version: "1.9.11",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -9826,6 +10336,139 @@ export default class Client {
   async retryInnerOrdermsgEx(request: RetryInnerOrdermsgRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RetryInnerOrdermsgResponse> {
     Util.validateModel(request);
     return $tea.cast<RetryInnerOrdermsgResponse>(await this.doRequest("1.0", "antchain.ato.inner.ordermsg.retry", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RetryInnerOrdermsgResponse({}));
+  }
+
+  /**
+   * Description: 法务协议授权-  签署合同代扣前置授权查询接口
+   * Summary: 签署合同代扣前置授权查询接口
+   */
+  async queryInnerAuthorization(request: QueryInnerAuthorizationRequest): Promise<QueryInnerAuthorizationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerAuthorizationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 法务协议授权-  签署合同代扣前置授权查询接口
+   * Summary: 签署合同代扣前置授权查询接口
+   */
+  async queryInnerAuthorizationEx(request: QueryInnerAuthorizationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerAuthorizationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerAuthorizationResponse>(await this.doRequest("1.0", "antchain.ato.inner.authorization.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerAuthorizationResponse({}));
+  }
+
+  /**
+   * Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+   * Summary: 签署合同代扣前置同意授权接口
+   */
+  async signInnerAuthorization(request: SignInnerAuthorizationRequest): Promise<SignInnerAuthorizationResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.signInnerAuthorizationEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 法务协议授权 - 签署合同代扣前置同意授权接口
+   * Summary: 签署合同代扣前置同意授权接口
+   */
+  async signInnerAuthorizationEx(request: SignInnerAuthorizationRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignInnerAuthorizationResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SignInnerAuthorizationResponse>(await this.doRequest("1.0", "antchain.ato.inner.authorization.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignInnerAuthorizationResponse({}));
+  }
+
+  /**
+   * Description: 小程序法务授权 - 商户补充协议状态查询接口
+   * Summary: 商户补充协议状态查询接口
+   */
+  async queryInnerSupplemental(request: QueryInnerSupplementalRequest): Promise<QueryInnerSupplementalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerSupplementalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 小程序法务授权 - 商户补充协议状态查询接口
+   * Summary: 商户补充协议状态查询接口
+   */
+  async queryInnerSupplementalEx(request: QueryInnerSupplementalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerSupplementalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerSupplementalResponse>(await this.doRequest("1.0", "antchain.ato.inner.supplemental.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerSupplementalResponse({}));
+  }
+
+  /**
+   * Description: 法务协议授权 - 商户补充协议状态同意接口
+   * Summary: 商户补充协议状态同意接口
+   */
+  async signInnerSupplemental(request: SignInnerSupplementalRequest): Promise<SignInnerSupplementalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.signInnerSupplementalEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 法务协议授权 - 商户补充协议状态同意接口
+   * Summary: 商户补充协议状态同意接口
+   */
+  async signInnerSupplementalEx(request: SignInnerSupplementalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SignInnerSupplementalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SignInnerSupplementalResponse>(await this.doRequest("1.0", "antchain.ato.inner.supplemental.sign", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SignInnerSupplementalResponse({}));
+  }
+
+  /**
+   * Description: 查询代扣计划
+   * Summary: 代扣计划查询
+   */
+  async queryInnerWithholdplan(request: QueryInnerWithholdplanRequest): Promise<QueryInnerWithholdplanResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerWithholdplanEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询代扣计划
+   * Summary: 代扣计划查询
+   */
+  async queryInnerWithholdplanEx(request: QueryInnerWithholdplanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerWithholdplanResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerWithholdplanResponse>(await this.doRequest("1.0", "antchain.ato.inner.withholdplan.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerWithholdplanResponse({}));
+  }
+
+  /**
+   * Description: 创建代扣协议
+   * Summary: 创建代扣协议
+   */
+  async createInnerWithholdsign(request: CreateInnerWithholdsignRequest): Promise<CreateInnerWithholdsignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createInnerWithholdsignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建代扣协议
+   * Summary: 创建代扣协议
+   */
+  async createInnerWithholdsignEx(request: CreateInnerWithholdsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateInnerWithholdsignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateInnerWithholdsignResponse>(await this.doRequest("1.0", "antchain.ato.inner.withholdsign.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateInnerWithholdsignResponse({}));
+  }
+
+  /**
+   * Description: 代扣签约查询
+   * Summary: 代扣签约查询
+   */
+  async queryInnerWithholdsign(request: QueryInnerWithholdsignRequest): Promise<QueryInnerWithholdsignResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerWithholdsignEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代扣签约查询
+   * Summary: 代扣签约查询
+   */
+  async queryInnerWithholdsignEx(request: QueryInnerWithholdsignRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerWithholdsignResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerWithholdsignResponse>(await this.doRequest("1.0", "antchain.ato.inner.withholdsign.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerWithholdsignResponse({}));
   }
 
   /**
