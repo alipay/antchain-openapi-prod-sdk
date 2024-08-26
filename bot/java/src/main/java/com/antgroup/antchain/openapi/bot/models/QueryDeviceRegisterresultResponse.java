@@ -32,6 +32,14 @@ public class QueryDeviceRegisterresultResponse extends TeaModel {
     @NameInMap("device_sn")
     public String deviceSn;
 
+    // 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+    @NameInMap("sec_key")
+    public String secKey;
+
+    // 设备认证密钥状态
+    @NameInMap("service_status")
+    public String serviceStatus;
+
     public static QueryDeviceRegisterresultResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDeviceRegisterresultResponse self = new QueryDeviceRegisterresultResponse();
         return TeaModel.build(map, self);
@@ -91,6 +99,22 @@ public class QueryDeviceRegisterresultResponse extends TeaModel {
     }
     public String getDeviceSn() {
         return this.deviceSn;
+    }
+
+    public QueryDeviceRegisterresultResponse setSecKey(String secKey) {
+        this.secKey = secKey;
+        return this;
+    }
+    public String getSecKey() {
+        return this.secKey;
+    }
+
+    public QueryDeviceRegisterresultResponse setServiceStatus(String serviceStatus) {
+        this.serviceStatus = serviceStatus;
+        return this;
+    }
+    public String getServiceStatus() {
+        return this.serviceStatus;
     }
 
 }

@@ -11,18 +11,15 @@ public class RegByDeviceIdParm extends TeaModel {
 
     // 数据模型ID
     @NameInMap("device_data_model_id")
-    @Validation(required = true)
     public String deviceDataModelId;
 
     // 固定填写RAW_DATA
     @NameInMap("device_feature")
-    @Validation(required = true)
     public String deviceFeature;
 
     // true : 设备ID已存在时返回存在的设备关联字段;
     // false : 设备ID已存在时直接抛出异常；
     @NameInMap("with_exist_device_id")
-    @Validation(required = true)
     public Boolean withExistDeviceId;
 
     // 设备类型编码，联系蚂蚁侧获取设备类型编码

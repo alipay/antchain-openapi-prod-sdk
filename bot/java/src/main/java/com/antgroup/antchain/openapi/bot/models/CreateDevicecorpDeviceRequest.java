@@ -45,6 +45,10 @@ public class CreateDevicecorpDeviceRequest extends TeaModel {
     @NameInMap("nick_name")
     public String nickName;
 
+    // 设备扩展信息（json字符串，车架号等信息）
+    @NameInMap("device_ext")
+    public String deviceExt;
+
     public static CreateDevicecorpDeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDevicecorpDeviceRequest self = new CreateDevicecorpDeviceRequest();
         return TeaModel.build(map, self);
@@ -120,6 +124,14 @@ public class CreateDevicecorpDeviceRequest extends TeaModel {
     }
     public String getNickName() {
         return this.nickName;
+    }
+
+    public CreateDevicecorpDeviceRequest setDeviceExt(String deviceExt) {
+        this.deviceExt = deviceExt;
+        return this;
+    }
+    public String getDeviceExt() {
+        return this.deviceExt;
     }
 
 }

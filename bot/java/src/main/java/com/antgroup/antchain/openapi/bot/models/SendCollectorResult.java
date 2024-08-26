@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.bot.models;
 import com.aliyun.tea.*;
 
 public class SendCollectorResult extends TeaModel {
-    // 数据内容content的上链交易哈希
+    // 数据的链上哈希
     @NameInMap("tx_hash")
     @Validation(required = true)
     public String txHash;
@@ -13,6 +13,18 @@ public class SendCollectorResult extends TeaModel {
     @NameInMap("original_index")
     @Validation(required = true)
     public Long originalIndex;
+
+    // 失败数据对应的异常码，成功时该字段为空
+    @NameInMap("error_code")
+    public String errorCode;
+
+    // 异常信息
+    @NameInMap("error_msg")
+    public String errorMsg;
+
+    // 返回的扩展信息
+    @NameInMap("extra_info")
+    public String extraInfo;
 
     public static SendCollectorResult build(java.util.Map<String, ?> map) throws Exception {
         SendCollectorResult self = new SendCollectorResult();
@@ -33,6 +45,30 @@ public class SendCollectorResult extends TeaModel {
     }
     public Long getOriginalIndex() {
         return this.originalIndex;
+    }
+
+    public SendCollectorResult setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+        return this;
+    }
+    public String getErrorCode() {
+        return this.errorCode;
+    }
+
+    public SendCollectorResult setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
+    }
+
+    public SendCollectorResult setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
+        return this;
+    }
+    public String getExtraInfo() {
+        return this.extraInfo;
     }
 
 }

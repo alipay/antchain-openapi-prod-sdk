@@ -11,6 +11,14 @@ public class QueryLabelTraceRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 第几页，默认值为1
+    @NameInMap("page_index")
+    public Long pageIndex;
+
+    // 单页记录数，默认为10
+    @NameInMap("page_size")
+    public Long pageSize;
+
     // 场景码 , 使用asset_id 查询时，scene也必须传入
     @NameInMap("scene")
     public String scene;
@@ -72,6 +80,22 @@ public class QueryLabelTraceRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public QueryLabelTraceRequest setPageIndex(Long pageIndex) {
+        this.pageIndex = pageIndex;
+        return this;
+    }
+    public Long getPageIndex() {
+        return this.pageIndex;
+    }
+
+    public QueryLabelTraceRequest setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
     }
 
     public QueryLabelTraceRequest setScene(String scene) {

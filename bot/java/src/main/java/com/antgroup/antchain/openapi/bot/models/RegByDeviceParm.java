@@ -12,7 +12,6 @@ public class RegByDeviceParm extends TeaModel {
 
     // 数据模型ID
     @NameInMap("device_data_model_id")
-    @Validation(required = true)
     public String deviceDataModelId;
 
     // 设备端经过蚂蚁SDK或模组初始化得到的注册信息

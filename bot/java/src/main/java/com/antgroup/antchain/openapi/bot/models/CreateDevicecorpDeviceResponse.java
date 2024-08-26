@@ -28,6 +28,14 @@ public class CreateDevicecorpDeviceResponse extends TeaModel {
     @NameInMap("success")
     public Boolean success;
 
+    // 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+    @NameInMap("sec_key")
+    public String secKey;
+
+    // 设备认证密钥状态
+    @NameInMap("service_status")
+    public String serviceStatus;
+
     public static CreateDevicecorpDeviceResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateDevicecorpDeviceResponse self = new CreateDevicecorpDeviceResponse();
         return TeaModel.build(map, self);
@@ -79,6 +87,22 @@ public class CreateDevicecorpDeviceResponse extends TeaModel {
     }
     public Boolean getSuccess() {
         return this.success;
+    }
+
+    public CreateDevicecorpDeviceResponse setSecKey(String secKey) {
+        this.secKey = secKey;
+        return this;
+    }
+    public String getSecKey() {
+        return this.secKey;
+    }
+
+    public CreateDevicecorpDeviceResponse setServiceStatus(String serviceStatus) {
+        this.serviceStatus = serviceStatus;
+        return this;
+    }
+    public String getServiceStatus() {
+        return this.serviceStatus;
     }
 
 }

@@ -24,6 +24,18 @@ public class CreateIotbasicDeviceResponse extends TeaModel {
     @NameInMap("private_key")
     public String privateKey;
 
+    // 设备认证密钥密文，需要下发安全认证SDK完成设备激活
+    @NameInMap("sec_key")
+    public String secKey;
+
+    // 设备认证密钥状态
+    @NameInMap("service_status")
+    public String serviceStatus;
+
+    // 接口操作结果
+    @NameInMap("success")
+    public Boolean success;
+
     public static CreateIotbasicDeviceResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateIotbasicDeviceResponse self = new CreateIotbasicDeviceResponse();
         return TeaModel.build(map, self);
@@ -67,6 +79,30 @@ public class CreateIotbasicDeviceResponse extends TeaModel {
     }
     public String getPrivateKey() {
         return this.privateKey;
+    }
+
+    public CreateIotbasicDeviceResponse setSecKey(String secKey) {
+        this.secKey = secKey;
+        return this;
+    }
+    public String getSecKey() {
+        return this.secKey;
+    }
+
+    public CreateIotbasicDeviceResponse setServiceStatus(String serviceStatus) {
+        this.serviceStatus = serviceStatus;
+        return this;
+    }
+    public String getServiceStatus() {
+        return this.serviceStatus;
+    }
+
+    public CreateIotbasicDeviceResponse setSuccess(Boolean success) {
+        this.success = success;
+        return this;
+    }
+    public Boolean getSuccess() {
+        return this.success;
     }
 
 }

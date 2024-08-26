@@ -20,6 +20,22 @@ public class QueryLabelTraceResponse extends TeaModel {
     @NameInMap("label_trace_list")
     public java.util.List<LabelTrace> labelTraceList;
 
+    // 当前页码
+    @NameInMap("page_index")
+    public Long pageIndex;
+
+    // 单页记录数
+    @NameInMap("page_size")
+    public Long pageSize;
+
+    // 总记录数
+    @NameInMap("total_size")
+    public Long totalSize;
+
+    // 总页数
+    @NameInMap("total_pages")
+    public Long totalPages;
+
     public static QueryLabelTraceResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryLabelTraceResponse self = new QueryLabelTraceResponse();
         return TeaModel.build(map, self);
@@ -55,6 +71,38 @@ public class QueryLabelTraceResponse extends TeaModel {
     }
     public java.util.List<LabelTrace> getLabelTraceList() {
         return this.labelTraceList;
+    }
+
+    public QueryLabelTraceResponse setPageIndex(Long pageIndex) {
+        this.pageIndex = pageIndex;
+        return this;
+    }
+    public Long getPageIndex() {
+        return this.pageIndex;
+    }
+
+    public QueryLabelTraceResponse setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
+    }
+
+    public QueryLabelTraceResponse setTotalSize(Long totalSize) {
+        this.totalSize = totalSize;
+        return this;
+    }
+    public Long getTotalSize() {
+        return this.totalSize;
+    }
+
+    public QueryLabelTraceResponse setTotalPages(Long totalPages) {
+        this.totalPages = totalPages;
+        return this;
+    }
+    public Long getTotalPages() {
+        return this.totalPages;
     }
 
 }
