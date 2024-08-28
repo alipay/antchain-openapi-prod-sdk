@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.47',
+                    'sdk_version': '1.11.48',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.47',
+                    'sdk_version': '1.11.48',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -7397,6 +7397,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.ResetIotbasicDeviceseckeyResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotbasic.deviceseckey.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_digitalkey_preauthpay(
+        self,
+        request: bot_models.CreateDigitalkeyPreauthpayRequest,
+    ) -> bot_models.CreateDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权支付订单创建
+        Summary: 预授权支付订单创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_digitalkey_preauthpay_ex(request, headers, runtime)
+
+    async def create_digitalkey_preauthpay_async(
+        self,
+        request: bot_models.CreateDigitalkeyPreauthpayRequest,
+    ) -> bot_models.CreateDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权支付订单创建
+        Summary: 预授权支付订单创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_digitalkey_preauthpay_ex_async(request, headers, runtime)
+
+    def create_digitalkey_preauthpay_ex(
+        self,
+        request: bot_models.CreateDigitalkeyPreauthpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权支付订单创建
+        Summary: 预授权支付订单创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateDigitalkeyPreauthpayResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.preauthpay.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_digitalkey_preauthpay_ex_async(
+        self,
+        request: bot_models.CreateDigitalkeyPreauthpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权支付订单创建
+        Summary: 预授权支付订单创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateDigitalkeyPreauthpayResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.preauthpay.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def cancel_digitalkey_preauthpay(
+        self,
+        request: bot_models.CancelDigitalkeyPreauthpayRequest,
+    ) -> bot_models.CancelDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权资金撤销
+        Summary: 预授权资金撤销
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_digitalkey_preauthpay_ex(request, headers, runtime)
+
+    async def cancel_digitalkey_preauthpay_async(
+        self,
+        request: bot_models.CancelDigitalkeyPreauthpayRequest,
+    ) -> bot_models.CancelDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权资金撤销
+        Summary: 预授权资金撤销
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_digitalkey_preauthpay_ex_async(request, headers, runtime)
+
+    def cancel_digitalkey_preauthpay_ex(
+        self,
+        request: bot_models.CancelDigitalkeyPreauthpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CancelDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权资金撤销
+        Summary: 预授权资金撤销
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CancelDigitalkeyPreauthpayResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.preauthpay.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_digitalkey_preauthpay_ex_async(
+        self,
+        request: bot_models.CancelDigitalkeyPreauthpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CancelDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权资金撤销
+        Summary: 预授权资金撤销
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CancelDigitalkeyPreauthpayResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.preauthpay.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
