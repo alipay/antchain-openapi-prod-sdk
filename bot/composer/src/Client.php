@@ -49,6 +49,8 @@ use AntChain\BOT\Models\BindEntityrelationRequest;
 use AntChain\BOT\Models\BindEntityrelationResponse;
 use AntChain\BOT\Models\CallbackThingServicebyeventRequest;
 use AntChain\BOT\Models\CallbackThingServicebyeventResponse;
+use AntChain\BOT\Models\CancelDigitalkeyPreauthpayRequest;
+use AntChain\BOT\Models\CancelDigitalkeyPreauthpayResponse;
 use AntChain\BOT\Models\CancelDigitalkeyWithholdpayRequest;
 use AntChain\BOT\Models\CancelDigitalkeyWithholdpayResponse;
 use AntChain\BOT\Models\CancelIotlinkAppreleasedeviceRequest;
@@ -89,6 +91,8 @@ use AntChain\BOT\Models\CreateDeviceModelRequest;
 use AntChain\BOT\Models\CreateDeviceModelResponse;
 use AntChain\BOT\Models\CreateDeviceRelationRequest;
 use AntChain\BOT\Models\CreateDeviceRelationResponse;
+use AntChain\BOT\Models\CreateDigitalkeyPreauthpayRequest;
+use AntChain\BOT\Models\CreateDigitalkeyPreauthpayResponse;
 use AntChain\BOT\Models\CreateDigitalkeyWithholdsignRequest;
 use AntChain\BOT\Models\CreateDigitalkeyWithholdsignResponse;
 use AntChain\BOT\Models\CreateDistributedeviceBychainidRequest;
@@ -678,7 +682,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.47',
+                    'sdk_version'      => '1.11.48',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4918,6 +4922,72 @@ class Client
         Utils::validateModel($request);
 
         return ResetIotbasicDeviceseckeyResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.iotbasic.deviceseckey.reset', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 预授权支付订单创建
+     * Summary: 预授权支付订单创建.
+     *
+     * @param CreateDigitalkeyPreauthpayRequest $request
+     *
+     * @return CreateDigitalkeyPreauthpayResponse
+     */
+    public function createDigitalkeyPreauthpay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createDigitalkeyPreauthpayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 预授权支付订单创建
+     * Summary: 预授权支付订单创建.
+     *
+     * @param CreateDigitalkeyPreauthpayRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateDigitalkeyPreauthpayResponse
+     */
+    public function createDigitalkeyPreauthpayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateDigitalkeyPreauthpayResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.preauthpay.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 预授权资金撤销
+     * Summary: 预授权资金撤销
+     *
+     * @param CancelDigitalkeyPreauthpayRequest $request
+     *
+     * @return CancelDigitalkeyPreauthpayResponse
+     */
+    public function cancelDigitalkeyPreauthpay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelDigitalkeyPreauthpayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 预授权资金撤销
+     * Summary: 预授权资金撤销
+     *
+     * @param CancelDigitalkeyPreauthpayRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CancelDigitalkeyPreauthpayResponse
+     */
+    public function cancelDigitalkeyPreauthpayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelDigitalkeyPreauthpayResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.preauthpay.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
