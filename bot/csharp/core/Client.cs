@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.47"},
+                        {"sdk_version", "1.11.48"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.47"},
+                        {"sdk_version", "1.11.48"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5703,6 +5703,90 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ResetIotbasicDeviceseckeyResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotbasic.deviceseckey.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 预授权支付订单创建
+         * Summary: 预授权支付订单创建
+         */
+        public CreateDigitalkeyPreauthpayResponse CreateDigitalkeyPreauthpay(CreateDigitalkeyPreauthpayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateDigitalkeyPreauthpayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 预授权支付订单创建
+         * Summary: 预授权支付订单创建
+         */
+        public async Task<CreateDigitalkeyPreauthpayResponse> CreateDigitalkeyPreauthpayAsync(CreateDigitalkeyPreauthpayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateDigitalkeyPreauthpayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 预授权支付订单创建
+         * Summary: 预授权支付订单创建
+         */
+        public CreateDigitalkeyPreauthpayResponse CreateDigitalkeyPreauthpayEx(CreateDigitalkeyPreauthpayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDigitalkeyPreauthpayResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.preauthpay.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 预授权支付订单创建
+         * Summary: 预授权支付订单创建
+         */
+        public async Task<CreateDigitalkeyPreauthpayResponse> CreateDigitalkeyPreauthpayExAsync(CreateDigitalkeyPreauthpayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateDigitalkeyPreauthpayResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.preauthpay.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 预授权资金撤销
+         * Summary: 预授权资金撤销
+         */
+        public CancelDigitalkeyPreauthpayResponse CancelDigitalkeyPreauthpay(CancelDigitalkeyPreauthpayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelDigitalkeyPreauthpayEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 预授权资金撤销
+         * Summary: 预授权资金撤销
+         */
+        public async Task<CancelDigitalkeyPreauthpayResponse> CancelDigitalkeyPreauthpayAsync(CancelDigitalkeyPreauthpayRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelDigitalkeyPreauthpayExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 预授权资金撤销
+         * Summary: 预授权资金撤销
+         */
+        public CancelDigitalkeyPreauthpayResponse CancelDigitalkeyPreauthpayEx(CancelDigitalkeyPreauthpayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDigitalkeyPreauthpayResponse>(DoRequest("1.0", "blockchain.bot.digitalkey.preauthpay.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 预授权资金撤销
+         * Summary: 预授权资金撤销
+         */
+        public async Task<CancelDigitalkeyPreauthpayResponse> CancelDigitalkeyPreauthpayExAsync(CancelDigitalkeyPreauthpayRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelDigitalkeyPreauthpayResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.preauthpay.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
