@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.47',
+    sdk_version = '1.11.48',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -8846,6 +8846,104 @@ async function resetIotbasicDeviceseckey(request: ResetIotbasicDeviceseckeyReque
 async function resetIotbasicDeviceseckeyEx(request: ResetIotbasicDeviceseckeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ResetIotbasicDeviceseckeyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotbasic.deviceseckey.reset', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDigitalkeyPreauthpayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求流水号，用于标示请求流水的唯一性。
+  outRequestNo: string(name='out_request_no'),
+  // 商户授权资金订单号。
+  // 商家自定义需保证在商户端不重复。仅支持字母、数字、下划线
+  outOrderNo: string(name='out_order_no'),
+  // 订单标题
+  orderTitle: string(name='order_title'),
+  // 需要冻结的金额，实际金额乘以100
+  amount: long(name='amount'),
+  // 收款账户的支付宝登录号（email或手机号）
+  payeeLogonId: string(name='payee_logon_id'),
+  // 无特殊需要请勿传入；商户可用该参数指定支付渠道。
+  // 传入后用户仅能使用列表中的渠道进行支付，目前支持三种渠道，余额宝（MONEY_FUND）、花呗（PCREDIT_PAY）以及芝麻信用（CREDITZHIMA）。
+  enablePayChannels?: string(name='enable_pay_channels'),
+}
+
+model CreateDigitalkeyPreauthpayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // xxx
+  subCode?: string(name='sub_code'),
+  // 子返回描述
+  subMsg?: string(name='sub_msg'),
+  // 返回内容，json格式
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 预授权支付订单创建
+ * Summary: 预授权支付订单创建
+ */
+async function createDigitalkeyPreauthpay(request: CreateDigitalkeyPreauthpayRequest): CreateDigitalkeyPreauthpayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDigitalkeyPreauthpayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 预授权支付订单创建
+ * Summary: 预授权支付订单创建
+ */
+async function createDigitalkeyPreauthpayEx(request: CreateDigitalkeyPreauthpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDigitalkeyPreauthpayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.preauthpay.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelDigitalkeyPreauthpayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对本次撤销操作的附言描述
+  remark: string(name='remark'),
+  // 商户的授权资金操作流水号
+  outRequestNo: string(name='out_request_no'),
+  // 商户的授权资金订单号
+  outOrderNo: string(name='out_order_no'),
+}
+
+model CancelDigitalkeyPreauthpayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子返回码
+  subCode?: string(name='sub_code'),
+  // 子返回描述
+  subMsg?: string(name='sub_msg'),
+}
+
+/**
+ * Description: 预授权资金撤销
+ * Summary: 预授权资金撤销
+ */
+async function cancelDigitalkeyPreauthpay(request: CancelDigitalkeyPreauthpayRequest): CancelDigitalkeyPreauthpayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelDigitalkeyPreauthpayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 预授权资金撤销
+ * Summary: 预授权资金撤销
+ */
+async function cancelDigitalkeyPreauthpayEx(request: CancelDigitalkeyPreauthpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelDigitalkeyPreauthpayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.preauthpay.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
