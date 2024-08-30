@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.20',
+                    'sdk_version': '1.28.23',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.20',
+                    'sdk_version': '1.28.23',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -4824,8 +4824,8 @@ class Client:
         request: blockchain_models.CreateChainMiniappCodeRequest,
     ) -> blockchain_models.CreateChainMiniappCodeResponse:
         """
-        Description: 阿里云区块链小程序二维码生成
-        Summary: 阿里云区块链小程序二维码生成
+        Description: 阿里云生成小程序二维码
+        Summary: 阿里云生成小程序二维码
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4836,8 +4836,8 @@ class Client:
         request: blockchain_models.CreateChainMiniappCodeRequest,
     ) -> blockchain_models.CreateChainMiniappCodeResponse:
         """
-        Description: 阿里云区块链小程序二维码生成
-        Summary: 阿里云区块链小程序二维码生成
+        Description: 阿里云生成小程序二维码
+        Summary: 阿里云生成小程序二维码
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4850,8 +4850,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> blockchain_models.CreateChainMiniappCodeResponse:
         """
-        Description: 阿里云区块链小程序二维码生成
-        Summary: 阿里云区块链小程序二维码生成
+        Description: 阿里云生成小程序二维码
+        Summary: 阿里云生成小程序二维码
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4866,8 +4866,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> blockchain_models.CreateChainMiniappCodeResponse:
         """
-        Description: 阿里云区块链小程序二维码生成
-        Summary: 阿里云区块链小程序二维码生成
+        Description: 阿里云生成小程序二维码
+        Summary: 阿里云生成小程序二维码
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -18103,7 +18103,7 @@ class Client:
     ) -> blockchain_models.GetBlockchainMiniprogramResponse:
         """
         Description: 生成蚂蚁区块链的交易二维码
-        Summary: 生成蚂蚁区块链的交易二维码
+        Summary: 数科生成蚂蚁区块链的交易二维码
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -18115,7 +18115,7 @@ class Client:
     ) -> blockchain_models.GetBlockchainMiniprogramResponse:
         """
         Description: 生成蚂蚁区块链的交易二维码
-        Summary: 生成蚂蚁区块链的交易二维码
+        Summary: 数科生成蚂蚁区块链的交易二维码
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -18129,7 +18129,7 @@ class Client:
     ) -> blockchain_models.GetBlockchainMiniprogramResponse:
         """
         Description: 生成蚂蚁区块链的交易二维码
-        Summary: 生成蚂蚁区块链的交易二维码
+        Summary: 数科生成蚂蚁区块链的交易二维码
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -18145,7 +18145,7 @@ class Client:
     ) -> blockchain_models.GetBlockchainMiniprogramResponse:
         """
         Description: 生成蚂蚁区块链的交易二维码
-        Summary: 生成蚂蚁区块链的交易二维码
+        Summary: 数科生成蚂蚁区块链的交易二维码
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -23565,6 +23565,62 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.QueryAuthVcTransactionResponse(),
             await self.do_request_async('1.0', 'baas.auth.vc.transaction.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def auth_auth_business_user(
+        self,
+        request: blockchain_models.AuthAuthBusinessUserRequest,
+    ) -> blockchain_models.AuthAuthBusinessUserResponse:
+        """
+        Description: 代运营场景用户确认授权接口
+        Summary: 代运营用户确认授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.auth_auth_business_user_ex(request, headers, runtime)
+
+    async def auth_auth_business_user_async(
+        self,
+        request: blockchain_models.AuthAuthBusinessUserRequest,
+    ) -> blockchain_models.AuthAuthBusinessUserResponse:
+        """
+        Description: 代运营场景用户确认授权接口
+        Summary: 代运营用户确认授权接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.auth_auth_business_user_ex_async(request, headers, runtime)
+
+    def auth_auth_business_user_ex(
+        self,
+        request: blockchain_models.AuthAuthBusinessUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AuthAuthBusinessUserResponse:
+        """
+        Description: 代运营场景用户确认授权接口
+        Summary: 代运营用户确认授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.AuthAuthBusinessUserResponse(),
+            self.do_request('1.0', 'baas.auth.business.user.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def auth_auth_business_user_ex_async(
+        self,
+        request: blockchain_models.AuthAuthBusinessUserRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.AuthAuthBusinessUserResponse:
+        """
+        Description: 代运营场景用户确认授权接口
+        Summary: 代运营用户确认授权接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.AuthAuthBusinessUserResponse(),
+            await self.do_request_async('1.0', 'baas.auth.business.user.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
