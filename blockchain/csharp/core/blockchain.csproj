@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.BLOCKCHAIN</AssemblyName>
-    <Version>1.28.20</Version>
+    <Version>1.28.23</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain BLOCKCHAIN SDK Library for .NET</Description>
@@ -37,7 +37,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="AntChain.AlipayUtil" Version="0.1.6"/>
-    <PackageReference Include="AlibabaCloud.TeaUtil" Version="0.1.18"/>
+    <PackageReference Include="AlibabaCloud.TeaUtil" Version="0.1.19"/>
     <PackageReference Include="AlibabaCloud.SDK.Common" Version="0.2.5"/>
     <PackageReference Include="Tea" Version="1.0.11"/>
   </ItemGroup>

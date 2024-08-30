@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.20"},
+                        {"sdk_version", "1.28.23"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.20"},
+                        {"sdk_version", "1.28.23"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3732,8 +3732,8 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 阿里云区块链小程序二维码生成
-         * Summary: 阿里云区块链小程序二维码生成
+         * Description: 阿里云生成小程序二维码
+         * Summary: 阿里云生成小程序二维码
          */
         public CreateChainMiniappCodeResponse CreateChainMiniappCode(CreateChainMiniappCodeRequest request)
         {
@@ -3743,8 +3743,8 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 阿里云区块链小程序二维码生成
-         * Summary: 阿里云区块链小程序二维码生成
+         * Description: 阿里云生成小程序二维码
+         * Summary: 阿里云生成小程序二维码
          */
         public async Task<CreateChainMiniappCodeResponse> CreateChainMiniappCodeAsync(CreateChainMiniappCodeRequest request)
         {
@@ -3754,8 +3754,8 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 阿里云区块链小程序二维码生成
-         * Summary: 阿里云区块链小程序二维码生成
+         * Description: 阿里云生成小程序二维码
+         * Summary: 阿里云生成小程序二维码
          */
         public CreateChainMiniappCodeResponse CreateChainMiniappCodeEx(CreateChainMiniappCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3764,8 +3764,8 @@ namespace AntChain.SDK.BLOCKCHAIN
         }
 
         /**
-         * Description: 阿里云区块链小程序二维码生成
-         * Summary: 阿里云区块链小程序二维码生成
+         * Description: 阿里云生成小程序二维码
+         * Summary: 阿里云生成小程序二维码
          */
         public async Task<CreateChainMiniappCodeResponse> CreateChainMiniappCodeExAsync(CreateChainMiniappCodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -13719,7 +13719,7 @@ namespace AntChain.SDK.BLOCKCHAIN
 
         /**
          * Description: 生成蚂蚁区块链的交易二维码
-         * Summary: 生成蚂蚁区块链的交易二维码
+         * Summary: 数科生成蚂蚁区块链的交易二维码
          */
         public GetBlockchainMiniprogramResponse GetBlockchainMiniprogram(GetBlockchainMiniprogramRequest request)
         {
@@ -13730,7 +13730,7 @@ namespace AntChain.SDK.BLOCKCHAIN
 
         /**
          * Description: 生成蚂蚁区块链的交易二维码
-         * Summary: 生成蚂蚁区块链的交易二维码
+         * Summary: 数科生成蚂蚁区块链的交易二维码
          */
         public async Task<GetBlockchainMiniprogramResponse> GetBlockchainMiniprogramAsync(GetBlockchainMiniprogramRequest request)
         {
@@ -13741,7 +13741,7 @@ namespace AntChain.SDK.BLOCKCHAIN
 
         /**
          * Description: 生成蚂蚁区块链的交易二维码
-         * Summary: 生成蚂蚁区块链的交易二维码
+         * Summary: 数科生成蚂蚁区块链的交易二维码
          */
         public GetBlockchainMiniprogramResponse GetBlockchainMiniprogramEx(GetBlockchainMiniprogramRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -13751,7 +13751,7 @@ namespace AntChain.SDK.BLOCKCHAIN
 
         /**
          * Description: 生成蚂蚁区块链的交易二维码
-         * Summary: 生成蚂蚁区块链的交易二维码
+         * Summary: 数科生成蚂蚁区块链的交易二维码
          */
         public async Task<GetBlockchainMiniprogramResponse> GetBlockchainMiniprogramExAsync(GetBlockchainMiniprogramRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -17839,6 +17839,48 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAuthVcTransactionResponse>(await DoRequestAsync("1.0", "baas.auth.vc.transaction.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代运营场景用户确认授权接口
+         * Summary: 代运营用户确认授权接口
+         */
+        public AuthAuthBusinessUserResponse AuthAuthBusinessUser(AuthAuthBusinessUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AuthAuthBusinessUserEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代运营场景用户确认授权接口
+         * Summary: 代运营用户确认授权接口
+         */
+        public async Task<AuthAuthBusinessUserResponse> AuthAuthBusinessUserAsync(AuthAuthBusinessUserRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AuthAuthBusinessUserExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代运营场景用户确认授权接口
+         * Summary: 代运营用户确认授权接口
+         */
+        public AuthAuthBusinessUserResponse AuthAuthBusinessUserEx(AuthAuthBusinessUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthAuthBusinessUserResponse>(DoRequest("1.0", "baas.auth.business.user.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代运营场景用户确认授权接口
+         * Summary: 代运营用户确认授权接口
+         */
+        public async Task<AuthAuthBusinessUserResponse> AuthAuthBusinessUserExAsync(AuthAuthBusinessUserRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AuthAuthBusinessUserResponse>(await DoRequestAsync("1.0", "baas.auth.business.user.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

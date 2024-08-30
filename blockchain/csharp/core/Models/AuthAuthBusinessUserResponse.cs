@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BLOCKCHAIN.Models
 {
-    public class VerifyAuthBusinessUserResponse : TeaModel {
+    public class AuthAuthBusinessUserResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,10 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 用户当前记录状态
-        [NameInMap("record_type")]
+        // 确认授权后生成的授权凭证
+        [NameInMap("auth_token")]
         [Validation(Required=false)]
-        public string RecordType { get; set; }
-
-        // 加密后的用户授权记录id
-        [NameInMap("encrypt_biz_id")]
-        [Validation(Required=false)]
-        public string EncryptBizId { get; set; }
-
-        // 授权协议信息列表
-        [NameInMap("agreement_config_info_list")]
-        [Validation(Required=false)]
-        public List<AgreementConfigInfoDTO> AgreementConfigInfoList { get; set; }
+        public string AuthToken { get; set; }
 
     }
 
