@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.20',
+    sdk_version = '1.28.23',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -1784,6 +1784,18 @@ model ALiYunChainDownload {
   privateKey?: string(name='private_key', example='private_key'),
   // download_path
   downloadPath?: ALiYunDownloadPath(name='download_path', example='download_path'),
+}
+
+// 授权协议信息
+model AgreementConfigInfoDTO {
+  // 协议名称
+  agreementName: string(name='agreement_name', example='testAgreementName'),
+  // 协议链接
+  agreementUrl: string(name='agreement_url', example='testAgreementUrl'),
+  // 协议描述
+  agreementDesc: string(name='agreement_desc', example='testAgreementDesc'),
+  // 协议版本
+  version?: long(name='version', example='1'),
 }
 
 // 阿里云链统计信息
@@ -6858,8 +6870,8 @@ model CreateChainMiniappCodeResponse = {
 }
 
 /**
- * Description: 阿里云区块链小程序二维码生成
- * Summary: 阿里云区块链小程序二维码生成
+ * Description: 阿里云生成小程序二维码
+ * Summary: 阿里云生成小程序二维码
  */
 async function createChainMiniappCode(request: CreateChainMiniappCodeRequest): CreateChainMiniappCodeResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -6868,8 +6880,8 @@ async function createChainMiniappCode(request: CreateChainMiniappCodeRequest): C
 }
 
 /**
- * Description: 阿里云区块链小程序二维码生成
- * Summary: 阿里云区块链小程序二维码生成
+ * Description: 阿里云生成小程序二维码
+ * Summary: 阿里云生成小程序二维码
  */
 async function createChainMiniappCodeEx(request: CreateChainMiniappCodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateChainMiniappCodeResponse {
   Util.validateModel(request);
@@ -17827,7 +17839,7 @@ model GetBlockchainMiniprogramResponse = {
 
 /**
  * Description: 生成蚂蚁区块链的交易二维码
- * Summary: 生成蚂蚁区块链的交易二维码
+ * Summary: 数科生成蚂蚁区块链的交易二维码
  */
 async function getBlockchainMiniprogram(request: GetBlockchainMiniprogramRequest): GetBlockchainMiniprogramResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -17837,7 +17849,7 @@ async function getBlockchainMiniprogram(request: GetBlockchainMiniprogramRequest
 
 /**
  * Description: 生成蚂蚁区块链的交易二维码
- * Summary: 生成蚂蚁区块链的交易二维码
+ * Summary: 数科生成蚂蚁区块链的交易二维码
  */
 async function getBlockchainMiniprogramEx(request: GetBlockchainMiniprogramRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetBlockchainMiniprogramResponse {
   Util.validateModel(request);
@@ -22216,6 +22228,8 @@ model VerifyAuthBusinessUserResponse = {
   recordType?: string(name='record_type'),
   // 加密后的用户授权记录id
   encryptBizId?: string(name='encrypt_biz_id'),
+  // 授权协议信息列表
+  agreementConfigInfoList?: [ AgreementConfigInfoDTO ](name='agreement_config_info_list'),
 }
 
 /**
@@ -22362,6 +22376,46 @@ async function queryAuthVcTransaction(request: QueryAuthVcTransactionRequest): Q
 async function queryAuthVcTransactionEx(request: QueryAuthVcTransactionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuthVcTransactionResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.vc.transaction.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AuthAuthBusinessUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 加密后的授权记录bizId
+  encryptBizId: string(name='encrypt_biz_id'),
+  // 唯一场景码
+  sceneCode: string(name='scene_code'),
+}
+
+model AuthAuthBusinessUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 确认授权后生成的授权凭证
+  authToken?: string(name='auth_token'),
+}
+
+/**
+ * Description: 代运营场景用户确认授权接口
+ * Summary: 代运营用户确认授权接口
+ */
+async function authAuthBusinessUser(request: AuthAuthBusinessUserRequest): AuthAuthBusinessUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return authAuthBusinessUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代运营场景用户确认授权接口
+ * Summary: 代运营用户确认授权接口
+ */
+async function authAuthBusinessUserEx(request: AuthAuthBusinessUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AuthAuthBusinessUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.business.user.auth', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
