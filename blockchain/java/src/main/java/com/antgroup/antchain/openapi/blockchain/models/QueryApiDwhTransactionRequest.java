@@ -34,6 +34,7 @@ public class QueryApiDwhTransactionRequest extends TeaModel {
 
     // pageSize
     @NameInMap("page_size")
+    @Validation(maximum = 100)
     public Long pageSize;
 
     // startTimestamp

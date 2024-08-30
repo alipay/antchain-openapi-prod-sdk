@@ -12,11 +12,15 @@ public class UploadAuthCertInstanceRequest extends TeaModel {
     public String productInstanceId;
 
     // 自动生成的唯一id，不需要传入
-    // 待上传文件
+    /**
+     * <p>待上传文件</p>
+     */
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
 
-    // 待上传文件名
+    /**
+     * <p>待上传文件名</p>
+     */
     @NameInMap("fileObjectName")
     public String fileObjectName;
 

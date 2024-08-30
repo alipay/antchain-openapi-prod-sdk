@@ -22,11 +22,15 @@ public class UploadDataFileBatchqueryRequest extends TeaModel {
     public String dataSetId;
 
     // 文件id
-    // 待上传文件
+    /**
+     * <p>待上传文件</p>
+     */
     @NameInMap("fileObject")
     public java.io.InputStream fileObject;
 
-    // 待上传文件名
+    /**
+     * <p>待上传文件名</p>
+     */
     @NameInMap("fileObjectName")
     public String fileObjectName;
 

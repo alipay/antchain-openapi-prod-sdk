@@ -24,6 +24,10 @@ public class VerifyAuthBusinessUserResponse extends TeaModel {
     @NameInMap("encrypt_biz_id")
     public String encryptBizId;
 
+    // 授权协议信息列表
+    @NameInMap("agreement_config_info_list")
+    public java.util.List<AgreementConfigInfoDTO> agreementConfigInfoList;
+
     public static VerifyAuthBusinessUserResponse build(java.util.Map<String, ?> map) throws Exception {
         VerifyAuthBusinessUserResponse self = new VerifyAuthBusinessUserResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class VerifyAuthBusinessUserResponse extends TeaModel {
     }
     public String getEncryptBizId() {
         return this.encryptBizId;
+    }
+
+    public VerifyAuthBusinessUserResponse setAgreementConfigInfoList(java.util.List<AgreementConfigInfoDTO> agreementConfigInfoList) {
+        this.agreementConfigInfoList = agreementConfigInfoList;
+        return this;
+    }
+    public java.util.List<AgreementConfigInfoDTO> getAgreementConfigInfoList() {
+        return this.agreementConfigInfoList;
     }
 
 }

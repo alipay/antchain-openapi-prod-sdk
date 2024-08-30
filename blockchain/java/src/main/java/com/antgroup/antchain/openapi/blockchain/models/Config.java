@@ -7,75 +7,111 @@ import com.aliyun.tea.*;
  * Model for initing client
  */
 public class Config extends TeaModel {
-    // accesskey id
+    /**
+     * <p>accesskey id</p>
+     */
     @NameInMap("accessKeyId")
     public String accessKeyId;
 
-    // accesskey secret
+    /**
+     * <p>accesskey secret</p>
+     */
     @NameInMap("accessKeySecret")
     public String accessKeySecret;
 
-    // security token
+    /**
+     * <p>security token</p>
+     */
     @NameInMap("securityToken")
     public String securityToken;
 
-    // http protocol
+    /**
+     * <p>http protocol</p>
+     */
     @NameInMap("protocol")
     public String protocol;
 
-    // read timeout
+    /**
+     * <p>read timeout</p>
+     */
     @NameInMap("readTimeout")
     public Number readTimeout;
 
-    // connect timeout
+    /**
+     * <p>connect timeout</p>
+     */
     @NameInMap("connectTimeout")
     public Number connectTimeout;
 
-    // http proxy
+    /**
+     * <p>http proxy</p>
+     */
     @NameInMap("httpProxy")
     public String httpProxy;
 
-    // https proxy
+    /**
+     * <p>https proxy</p>
+     */
     @NameInMap("httpsProxy")
     public String httpsProxy;
 
-    // endpoint
+    /**
+     * <p>endpoint</p>
+     */
     @NameInMap("endpoint")
     public String endpoint;
 
-    // proxy white list
+    /**
+     * <p>proxy white list</p>
+     */
     @NameInMap("noProxy")
     public String noProxy;
 
-    // max idle conns
+    /**
+     * <p>max idle conns</p>
+     */
     @NameInMap("maxIdleConns")
     public Number maxIdleConns;
 
-    // user agent
+    /**
+     * <p>user agent</p>
+     */
     @NameInMap("userAgent")
     public String userAgent;
 
-    // socks5 proxy
+    /**
+     * <p>socks5 proxy</p>
+     */
     @NameInMap("socks5Proxy")
     public String socks5Proxy;
 
-    // socks5 network
+    /**
+     * <p>socks5 network</p>
+     */
     @NameInMap("socks5NetWork")
     public String socks5NetWork;
 
-    // 长链接最大空闲时长
+    /**
+     * <p>长链接最大空闲时长</p>
+     */
     @NameInMap("maxIdleTimeMillis")
     public Number maxIdleTimeMillis;
 
-    // 长链接最大连接时长
+    /**
+     * <p>长链接最大连接时长</p>
+     */
     @NameInMap("keepAliveDurationMillis")
     public Number keepAliveDurationMillis;
 
-    // 最大连接数（长链接最大总数）
+    /**
+     * <p>最大连接数（长链接最大总数）</p>
+     */
     @NameInMap("maxRequests")
     public Number maxRequests;
 
-    // 每个目标主机的最大连接数（分主机域名的长链接最大总数
+    /**
+     * <p>每个目标主机的最大连接数（分主机域名的长链接最大总数</p>
+     */
     @NameInMap("maxRequestsPerHost")
     public Number maxRequestsPerHost;
 

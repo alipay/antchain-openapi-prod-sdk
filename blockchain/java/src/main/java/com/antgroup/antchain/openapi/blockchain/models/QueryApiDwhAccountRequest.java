@@ -30,6 +30,7 @@ public class QueryApiDwhAccountRequest extends TeaModel {
 
     // 分页大小，取值不能超过100，默认100
     @NameInMap("page_size")
+    @Validation(maximum = 100)
     public Long pageSize;
 
     // 开始时间，如果查询时间段创建的账户，可以填写该字段
