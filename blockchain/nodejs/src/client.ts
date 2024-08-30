@@ -4228,6 +4228,39 @@ export class ALiYunChainDownload extends $tea.Model {
   }
 }
 
+// 授权协议信息
+export class AgreementConfigInfoDTO extends $tea.Model {
+  // 协议名称
+  agreementName: string;
+  // 协议链接
+  agreementUrl: string;
+  // 协议描述
+  agreementDesc: string;
+  // 协议版本
+  version?: number;
+  static names(): { [key: string]: string } {
+    return {
+      agreementName: 'agreement_name',
+      agreementUrl: 'agreement_url',
+      agreementDesc: 'agreement_desc',
+      version: 'version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      agreementName: 'string',
+      agreementUrl: 'string',
+      agreementDesc: 'string',
+      version: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 阿里云链统计信息
 export class ALiYunChainStatics extends $tea.Model {
   // alias
@@ -38823,6 +38856,8 @@ export class VerifyAuthBusinessUserResponse extends $tea.Model {
   recordType?: string;
   // 加密后的用户授权记录id
   encryptBizId?: string;
+  // 授权协议信息列表
+  agreementConfigInfoList?: AgreementConfigInfoDTO[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -38830,6 +38865,7 @@ export class VerifyAuthBusinessUserResponse extends $tea.Model {
       resultMsg: 'result_msg',
       recordType: 'record_type',
       encryptBizId: 'encrypt_biz_id',
+      agreementConfigInfoList: 'agreement_config_info_list',
     };
   }
 
@@ -38840,6 +38876,7 @@ export class VerifyAuthBusinessUserResponse extends $tea.Model {
       resultMsg: 'string',
       recordType: 'string',
       encryptBizId: 'string',
+      agreementConfigInfoList: { 'type': 'array', 'itemType': AgreementConfigInfoDTO },
     };
   }
 
@@ -39042,6 +39079,69 @@ export class QueryAuthVcTransactionResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       txInfo: TxInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthAuthBusinessUserRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 加密后的授权记录bizId
+  encryptBizId: string;
+  // 唯一场景码
+  sceneCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      encryptBizId: 'encrypt_biz_id',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      encryptBizId: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AuthAuthBusinessUserResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 确认授权后生成的授权凭证
+  authToken?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      authToken: 'auth_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      authToken: 'string',
     };
   }
 
@@ -53928,7 +54028,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.20",
+          sdk_version: "1.28.23",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -55520,8 +55620,8 @@ export default class Client {
   }
 
   /**
-   * Description: 阿里云区块链小程序二维码生成
-   * Summary: 阿里云区块链小程序二维码生成
+   * Description: 阿里云生成小程序二维码
+   * Summary: 阿里云生成小程序二维码
    */
   async createChainMiniappCode(request: CreateChainMiniappCodeRequest): Promise<CreateChainMiniappCodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -55530,8 +55630,8 @@ export default class Client {
   }
 
   /**
-   * Description: 阿里云区块链小程序二维码生成
-   * Summary: 阿里云区块链小程序二维码生成
+   * Description: 阿里云生成小程序二维码
+   * Summary: 阿里云生成小程序二维码
    */
   async createChainMiniappCodeEx(request: CreateChainMiniappCodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateChainMiniappCodeResponse> {
     Util.validateModel(request);
@@ -60040,7 +60140,7 @@ export default class Client {
 
   /**
    * Description: 生成蚂蚁区块链的交易二维码
-   * Summary: 生成蚂蚁区块链的交易二维码
+   * Summary: 数科生成蚂蚁区块链的交易二维码
    */
   async getBlockchainMiniprogram(request: GetBlockchainMiniprogramRequest): Promise<GetBlockchainMiniprogramResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -60050,7 +60150,7 @@ export default class Client {
 
   /**
    * Description: 生成蚂蚁区块链的交易二维码
-   * Summary: 生成蚂蚁区块链的交易二维码
+   * Summary: 数科生成蚂蚁区块链的交易二维码
    */
   async getBlockchainMiniprogramEx(request: GetBlockchainMiniprogramRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetBlockchainMiniprogramResponse> {
     Util.validateModel(request);
@@ -61902,6 +62002,25 @@ export default class Client {
   async queryAuthVcTransactionEx(request: QueryAuthVcTransactionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthVcTransactionResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAuthVcTransactionResponse>(await this.doRequest("1.0", "baas.auth.vc.transaction.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthVcTransactionResponse({}));
+  }
+
+  /**
+   * Description: 代运营场景用户确认授权接口
+   * Summary: 代运营用户确认授权接口
+   */
+  async authAuthBusinessUser(request: AuthAuthBusinessUserRequest): Promise<AuthAuthBusinessUserResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.authAuthBusinessUserEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代运营场景用户确认授权接口
+   * Summary: 代运营用户确认授权接口
+   */
+  async authAuthBusinessUserEx(request: AuthAuthBusinessUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthAuthBusinessUserResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AuthAuthBusinessUserResponse>(await this.doRequest("1.0", "baas.auth.business.user.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthAuthBusinessUserResponse({}));
   }
 
   /**
