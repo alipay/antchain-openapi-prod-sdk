@@ -5612,6 +5612,46 @@ func (s *ALiYunChainDownload) SetDownloadPath(v *ALiYunDownloadPath) *ALiYunChai
 	return s
 }
 
+// 授权协议信息
+type AgreementConfigInfoDTO struct {
+	// 协议名称
+	AgreementName *string `json:"agreement_name,omitempty" xml:"agreement_name,omitempty" require:"true"`
+	// 协议链接
+	AgreementUrl *string `json:"agreement_url,omitempty" xml:"agreement_url,omitempty" require:"true"`
+	// 协议描述
+	AgreementDesc *string `json:"agreement_desc,omitempty" xml:"agreement_desc,omitempty" require:"true"`
+	// 协议版本
+	Version *int64 `json:"version,omitempty" xml:"version,omitempty"`
+}
+
+func (s AgreementConfigInfoDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AgreementConfigInfoDTO) GoString() string {
+	return s.String()
+}
+
+func (s *AgreementConfigInfoDTO) SetAgreementName(v string) *AgreementConfigInfoDTO {
+	s.AgreementName = &v
+	return s
+}
+
+func (s *AgreementConfigInfoDTO) SetAgreementUrl(v string) *AgreementConfigInfoDTO {
+	s.AgreementUrl = &v
+	return s
+}
+
+func (s *AgreementConfigInfoDTO) SetAgreementDesc(v string) *AgreementConfigInfoDTO {
+	s.AgreementDesc = &v
+	return s
+}
+
+func (s *AgreementConfigInfoDTO) SetVersion(v int64) *AgreementConfigInfoDTO {
+	s.Version = &v
+	return s
+}
+
 // 阿里云链统计信息
 type ALiYunChainStatics struct {
 	// alias
@@ -50470,6 +50510,8 @@ type VerifyAuthBusinessUserResponse struct {
 	RecordType *string `json:"record_type,omitempty" xml:"record_type,omitempty"`
 	// 加密后的用户授权记录id
 	EncryptBizId *string `json:"encrypt_biz_id,omitempty" xml:"encrypt_biz_id,omitempty"`
+	// 授权协议信息列表
+	AgreementConfigInfoList []*AgreementConfigInfoDTO `json:"agreement_config_info_list,omitempty" xml:"agreement_config_info_list,omitempty" type:"Repeated"`
 }
 
 func (s VerifyAuthBusinessUserResponse) String() string {
@@ -50502,6 +50544,11 @@ func (s *VerifyAuthBusinessUserResponse) SetRecordType(v string) *VerifyAuthBusi
 
 func (s *VerifyAuthBusinessUserResponse) SetEncryptBizId(v string) *VerifyAuthBusinessUserResponse {
 	s.EncryptBizId = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserResponse) SetAgreementConfigInfoList(v []*AgreementConfigInfoDTO) *VerifyAuthBusinessUserResponse {
+	s.AgreementConfigInfoList = v
 	return s
 }
 
@@ -50755,6 +50802,83 @@ func (s *QueryAuthVcTransactionResponse) SetResultMsg(v string) *QueryAuthVcTran
 
 func (s *QueryAuthVcTransactionResponse) SetTxInfo(v *TxInfo) *QueryAuthVcTransactionResponse {
 	s.TxInfo = v
+	return s
+}
+
+type AuthAuthBusinessUserRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 加密后的授权记录bizId
+	EncryptBizId *string `json:"encrypt_biz_id,omitempty" xml:"encrypt_biz_id,omitempty" require:"true"`
+	// 唯一场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+}
+
+func (s AuthAuthBusinessUserRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthAuthBusinessUserRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AuthAuthBusinessUserRequest) SetAuthToken(v string) *AuthAuthBusinessUserRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AuthAuthBusinessUserRequest) SetProductInstanceId(v string) *AuthAuthBusinessUserRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AuthAuthBusinessUserRequest) SetEncryptBizId(v string) *AuthAuthBusinessUserRequest {
+	s.EncryptBizId = &v
+	return s
+}
+
+func (s *AuthAuthBusinessUserRequest) SetSceneCode(v string) *AuthAuthBusinessUserRequest {
+	s.SceneCode = &v
+	return s
+}
+
+type AuthAuthBusinessUserResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 确认授权后生成的授权凭证
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+}
+
+func (s AuthAuthBusinessUserResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuthAuthBusinessUserResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AuthAuthBusinessUserResponse) SetReqMsgId(v string) *AuthAuthBusinessUserResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AuthAuthBusinessUserResponse) SetResultCode(v string) *AuthAuthBusinessUserResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AuthAuthBusinessUserResponse) SetResultMsg(v string) *AuthAuthBusinessUserResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AuthAuthBusinessUserResponse) SetAuthToken(v string) *AuthAuthBusinessUserResponse {
+	s.AuthToken = &v
 	return s
 }
 
@@ -70056,7 +70180,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.20"),
+				"sdk_version":      tea.String("1.28.23"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -72873,8 +72997,8 @@ func (client *Client) QueryChainMiniappLogEx(request *QueryChainMiniappLogReques
 }
 
 /**
- * Description: 阿里云区块链小程序二维码生成
- * Summary: 阿里云区块链小程序二维码生成
+ * Description: 阿里云生成小程序二维码
+ * Summary: 阿里云生成小程序二维码
  */
 func (client *Client) CreateChainMiniappCode(request *CreateChainMiniappCodeRequest) (_result *CreateChainMiniappCodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -72889,8 +73013,8 @@ func (client *Client) CreateChainMiniappCode(request *CreateChainMiniappCodeRequ
 }
 
 /**
- * Description: 阿里云区块链小程序二维码生成
- * Summary: 阿里云区块链小程序二维码生成
+ * Description: 阿里云生成小程序二维码
+ * Summary: 阿里云生成小程序二维码
  */
 func (client *Client) CreateChainMiniappCodeEx(request *CreateChainMiniappCodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateChainMiniappCodeResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -80941,7 +81065,7 @@ func (client *Client) DeleteBlockchainBrowserPrivilegeEx(request *DeleteBlockcha
 
 /**
  * Description: 生成蚂蚁区块链的交易二维码
- * Summary: 生成蚂蚁区块链的交易二维码
+ * Summary: 数科生成蚂蚁区块链的交易二维码
  */
 func (client *Client) GetBlockchainMiniprogram(request *GetBlockchainMiniprogramRequest) (_result *GetBlockchainMiniprogramResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -80957,7 +81081,7 @@ func (client *Client) GetBlockchainMiniprogram(request *GetBlockchainMiniprogram
 
 /**
  * Description: 生成蚂蚁区块链的交易二维码
- * Summary: 生成蚂蚁区块链的交易二维码
+ * Summary: 数科生成蚂蚁区块链的交易二维码
  */
 func (client *Client) GetBlockchainMiniprogramEx(request *GetBlockchainMiniprogramRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetBlockchainMiniprogramResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -84261,6 +84385,40 @@ func (client *Client) QueryAuthVcTransactionEx(request *QueryAuthVcTransactionRe
 	}
 	_result = &QueryAuthVcTransactionResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.vc.transaction.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代运营场景用户确认授权接口
+ * Summary: 代运营用户确认授权接口
+ */
+func (client *Client) AuthAuthBusinessUser(request *AuthAuthBusinessUserRequest) (_result *AuthAuthBusinessUserResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AuthAuthBusinessUserResponse{}
+	_body, _err := client.AuthAuthBusinessUserEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代运营场景用户确认授权接口
+ * Summary: 代运营用户确认授权接口
+ */
+func (client *Client) AuthAuthBusinessUserEx(request *AuthAuthBusinessUserRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AuthAuthBusinessUserResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AuthAuthBusinessUserResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.business.user.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
