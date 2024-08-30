@@ -55,6 +55,8 @@ use AntChain\BLOCKCHAIN\Models\ApplyMydidcommunTaskServicetypeRequest;
 use AntChain\BLOCKCHAIN\Models\ApplyMydidcommunTaskServicetypeResponse;
 use AntChain\BLOCKCHAIN\Models\ApplyUnionMemberRequest;
 use AntChain\BLOCKCHAIN\Models\ApplyUnionMemberResponse;
+use AntChain\BLOCKCHAIN\Models\AuthAuthBusinessUserRequest;
+use AntChain\BLOCKCHAIN\Models\AuthAuthBusinessUserResponse;
 use AntChain\BLOCKCHAIN\Models\AuthBusinessDepositdataCorpRequest;
 use AntChain\BLOCKCHAIN\Models\AuthBusinessDepositdataCorpResponse;
 use AntChain\BLOCKCHAIN\Models\AuthBusinessDepositdataRequest;
@@ -1380,7 +1382,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.20',
+                    'sdk_version'      => '1.28.23',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4106,8 +4108,8 @@ class Client
     }
 
     /**
-     * Description: 阿里云区块链小程序二维码生成
-     * Summary: 阿里云区块链小程序二维码生成.
+     * Description: 阿里云生成小程序二维码
+     * Summary: 阿里云生成小程序二维码
      *
      * @param CreateChainMiniappCodeRequest $request
      *
@@ -4122,8 +4124,8 @@ class Client
     }
 
     /**
-     * Description: 阿里云区块链小程序二维码生成
-     * Summary: 阿里云区块链小程序二维码生成.
+     * Description: 阿里云生成小程序二维码
+     * Summary: 阿里云生成小程序二维码
      *
      * @param CreateChainMiniappCodeRequest $request
      * @param string[]                      $headers
@@ -11927,7 +11929,7 @@ class Client
 
     /**
      * Description: 生成蚂蚁区块链的交易二维码
-     * Summary: 生成蚂蚁区块链的交易二维码
+     * Summary: 数科生成蚂蚁区块链的交易二维码
      *
      * @param GetBlockchainMiniprogramRequest $request
      *
@@ -11943,7 +11945,7 @@ class Client
 
     /**
      * Description: 生成蚂蚁区块链的交易二维码
-     * Summary: 生成蚂蚁区块链的交易二维码
+     * Summary: 数科生成蚂蚁区块链的交易二维码
      *
      * @param GetBlockchainMiniprogramRequest $request
      * @param string[]                        $headers
@@ -15144,6 +15146,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryAuthVcTransactionResponse::fromMap($this->doRequest('1.0', 'baas.auth.vc.transaction.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代运营场景用户确认授权接口
+     * Summary: 代运营用户确认授权接口.
+     *
+     * @param AuthAuthBusinessUserRequest $request
+     *
+     * @return AuthAuthBusinessUserResponse
+     */
+    public function authAuthBusinessUser($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->authAuthBusinessUserEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代运营场景用户确认授权接口
+     * Summary: 代运营用户确认授权接口.
+     *
+     * @param AuthAuthBusinessUserRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return AuthAuthBusinessUserResponse
+     */
+    public function authAuthBusinessUserEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AuthAuthBusinessUserResponse::fromMap($this->doRequest('1.0', 'baas.auth.business.user.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

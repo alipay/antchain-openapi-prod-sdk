@@ -37,12 +37,19 @@ class VerifyAuthBusinessUserResponse extends Model
      * @var string
      */
     public $encryptBizId;
+
+    // 授权协议信息列表
+    /**
+     * @var AgreementConfigInfoDTO[]
+     */
+    public $agreementConfigInfoList;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'recordType'   => 'record_type',
-        'encryptBizId' => 'encrypt_biz_id',
+        'reqMsgId'                => 'req_msg_id',
+        'resultCode'              => 'result_code',
+        'resultMsg'               => 'result_msg',
+        'recordType'              => 'record_type',
+        'encryptBizId'            => 'encrypt_biz_id',
+        'agreementConfigInfoList' => 'agreement_config_info_list',
     ];
 
     public function validate()
@@ -66,6 +73,15 @@ class VerifyAuthBusinessUserResponse extends Model
         }
         if (null !== $this->encryptBizId) {
             $res['encrypt_biz_id'] = $this->encryptBizId;
+        }
+        if (null !== $this->agreementConfigInfoList) {
+            $res['agreement_config_info_list'] = [];
+            if (null !== $this->agreementConfigInfoList && \is_array($this->agreementConfigInfoList)) {
+                $n = 0;
+                foreach ($this->agreementConfigInfoList as $item) {
+                    $res['agreement_config_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -93,6 +109,15 @@ class VerifyAuthBusinessUserResponse extends Model
         }
         if (isset($map['encrypt_biz_id'])) {
             $model->encryptBizId = $map['encrypt_biz_id'];
+        }
+        if (isset($map['agreement_config_info_list'])) {
+            if (!empty($map['agreement_config_info_list'])) {
+                $model->agreementConfigInfoList = [];
+                $n                              = 0;
+                foreach ($map['agreement_config_info_list'] as $item) {
+                    $model->agreementConfigInfoList[$n++] = null !== $item ? AgreementConfigInfoDTO::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
