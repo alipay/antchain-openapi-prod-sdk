@@ -149,6 +149,32 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 静态数据模块详情
+type StaticDataModuleDetail struct {
+	// 描述
+	PropertyText *string `json:"property_text,omitempty" xml:"property_text,omitempty" require:"true"`
+	// 商户类型
+	PropertyValue *string `json:"property_value,omitempty" xml:"property_value,omitempty" require:"true"`
+}
+
+func (s StaticDataModuleDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StaticDataModuleDetail) GoString() string {
+	return s.String()
+}
+
+func (s *StaticDataModuleDetail) SetPropertyText(v string) *StaticDataModuleDetail {
+	s.PropertyText = &v
+	return s
+}
+
+func (s *StaticDataModuleDetail) SetPropertyValue(v string) *StaticDataModuleDetail {
+	s.PropertyValue = &v
+	return s
+}
+
 // 文件信息
 type FileInfo struct {
 	// 文件名称
@@ -173,18 +199,6 @@ func (s *FileInfo) SetFileName(v string) *FileInfo {
 func (s *FileInfo) SetFileKey(v string) *FileInfo {
 	s.FileKey = &v
 	return s
-}
-
-// 订单还款计划
-type PromiseInfo struct {
-}
-
-func (s PromiseInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s PromiseInfo) GoString() string {
-	return s.String()
 }
 
 // 同步订单中的下单人信息
@@ -310,60 +324,6 @@ func (s *CompanyInfo) SetBindAlipayUid(v string) *CompanyInfo {
 	return s
 }
 
-// 租户协议分页对象
-type AgreementPage struct {
-	// 协议id
-	AgreementId *string `json:"agreement_id,omitempty" xml:"agreement_id,omitempty" require:"true"`
-	// 代理企业名称
-	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
-	// 租户8位id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
-	// 业务类型 枚举
-	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty" require:"true"`
-	// 协议类型 枚举
-	AgreementType *string `json:"agreement_type,omitempty" xml:"agreement_type,omitempty" require:"true"`
-	// 租户签约状态 枚举
-	SignStatus *string `json:"sign_status,omitempty" xml:"sign_status,omitempty" require:"true"`
-}
-
-func (s AgreementPage) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AgreementPage) GoString() string {
-	return s.String()
-}
-
-func (s *AgreementPage) SetAgreementId(v string) *AgreementPage {
-	s.AgreementId = &v
-	return s
-}
-
-func (s *AgreementPage) SetMerchantName(v string) *AgreementPage {
-	s.MerchantName = &v
-	return s
-}
-
-func (s *AgreementPage) SetTenantId(v string) *AgreementPage {
-	s.TenantId = &v
-	return s
-}
-
-func (s *AgreementPage) SetProductMainClass(v string) *AgreementPage {
-	s.ProductMainClass = &v
-	return s
-}
-
-func (s *AgreementPage) SetAgreementType(v string) *AgreementPage {
-	s.AgreementType = &v
-	return s
-}
-
-func (s *AgreementPage) SetSignStatus(v string) *AgreementPage {
-	s.SignStatus = &v
-	return s
-}
-
 // 用户履约信息
 type UserPerformanceInfo struct {
 	// 履约期数
@@ -395,32 +355,6 @@ func (s *UserPerformanceInfo) SetPayDate(v string) *UserPerformanceInfo {
 
 func (s *UserPerformanceInfo) SetPayMoney(v int64) *UserPerformanceInfo {
 	s.PayMoney = &v
-	return s
-}
-
-// 风险场景的决策结果
-type RiskScene struct {
-	// 风险场景编码
-	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
-	// 该场景的风险决策结果
-	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
-}
-
-func (s RiskScene) String() string {
-	return tea.Prettify(s)
-}
-
-func (s RiskScene) GoString() string {
-	return s.String()
-}
-
-func (s *RiskScene) SetSceneCode(v string) *RiskScene {
-	s.SceneCode = &v
-	return s
-}
-
-func (s *RiskScene) SetDecision(v string) *RiskScene {
-	s.Decision = &v
 	return s
 }
 
@@ -464,125 +398,29 @@ func (s *RiskStrategy) SetSceneCode(v string) *RiskStrategy {
 	return s
 }
 
-// 分账关系页对象
-type RelationPage struct {
-	// 分账关系id
-	RelationId *string `json:"relation_id,omitempty" xml:"relation_id,omitempty" require:"true"`
-	// 分账公司名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
-	// 分账公司名称统一社会信用代码
-	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
-	// 审核状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+// 静态数据
+type StaticData struct {
+	// 商户类型
+	ModuleName *string `json:"module_name,omitempty" xml:"module_name,omitempty" require:"true"`
+	// 静态数据详情
+	ModuleDetailList []*StaticDataModuleDetail `json:"module_detail_list,omitempty" xml:"module_detail_list,omitempty" require:"true" type:"Repeated"`
 }
 
-func (s RelationPage) String() string {
+func (s StaticData) String() string {
 	return tea.Prettify(s)
 }
 
-func (s RelationPage) GoString() string {
+func (s StaticData) GoString() string {
 	return s.String()
 }
 
-func (s *RelationPage) SetRelationId(v string) *RelationPage {
-	s.RelationId = &v
+func (s *StaticData) SetModuleName(v string) *StaticData {
+	s.ModuleName = &v
 	return s
 }
 
-func (s *RelationPage) SetCompanyName(v string) *RelationPage {
-	s.CompanyName = &v
-	return s
-}
-
-func (s *RelationPage) SetMerchantId(v string) *RelationPage {
-	s.MerchantId = &v
-	return s
-}
-
-func (s *RelationPage) SetStatus(v string) *RelationPage {
-	s.Status = &v
-	return s
-}
-
-//  公司信息修改
-type CompanyInfoUpdate struct {
-	// 营业执照文件信息
-	BusinessLicenseFile *FileInfo `json:"business_license_file,omitempty" xml:"business_license_file,omitempty"`
-	// 业务类型 枚举
-	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty"`
-	// 公司名称
-	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
-	// 公司别名
-	CompanyAliasName *string `json:"company_alias_name,omitempty" xml:"company_alias_name,omitempty"`
-	// 公司数科租户id
-	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
-	// 公司联系电话
-	CompanyMobile *string `json:"company_mobile,omitempty" xml:"company_mobile,omitempty"`
-	// 公司联系地址
-	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty"`
-	// 联系人姓名
-	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
-	// 联系人手机号码
-	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
-	// 商户类型： 01：企业；07：个体工商户 默认不填为01
-	MerchantType *string `json:"merchant_type,omitempty" xml:"merchant_type,omitempty"`
-}
-
-func (s CompanyInfoUpdate) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CompanyInfoUpdate) GoString() string {
-	return s.String()
-}
-
-func (s *CompanyInfoUpdate) SetBusinessLicenseFile(v *FileInfo) *CompanyInfoUpdate {
-	s.BusinessLicenseFile = v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetProductMainClass(v string) *CompanyInfoUpdate {
-	s.ProductMainClass = &v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetCompanyName(v string) *CompanyInfoUpdate {
-	s.CompanyName = &v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetCompanyAliasName(v string) *CompanyInfoUpdate {
-	s.CompanyAliasName = &v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetTenantId(v string) *CompanyInfoUpdate {
-	s.TenantId = &v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetCompanyMobile(v string) *CompanyInfoUpdate {
-	s.CompanyMobile = &v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetCompanyAddress(v string) *CompanyInfoUpdate {
-	s.CompanyAddress = &v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetContactName(v string) *CompanyInfoUpdate {
-	s.ContactName = &v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetContactMobile(v string) *CompanyInfoUpdate {
-	s.ContactMobile = &v
-	return s
-}
-
-func (s *CompanyInfoUpdate) SetMerchantType(v string) *CompanyInfoUpdate {
-	s.MerchantType = &v
+func (s *StaticData) SetModuleDetailList(v []*StaticDataModuleDetail) *StaticData {
+	s.ModuleDetailList = v
 	return s
 }
 
@@ -724,6 +562,380 @@ func (s OrderInfo) String() string {
 
 func (s OrderInfo) GoString() string {
 	return s.String()
+}
+
+// 应用信息修改
+type ApplicationInfoUpdate struct {
+	// 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
+	ApplicationScene *string `json:"application_scene,omitempty" xml:"application_scene,omitempty"`
+	// 小程序id
+	TinyAppId *string `json:"tiny_app_id,omitempty" xml:"tiny_app_id,omitempty"`
+	// 小程序名称
+	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty"`
+	// http://asdasas.com
+	SitUrl *string `json:"sit_url,omitempty" xml:"sit_url,omitempty"`
+	// 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+	MerchantServiceName *string `json:"merchant_service_name,omitempty" xml:"merchant_service_name,omitempty"`
+	// 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+	MerchantServiceDesc *string `json:"merchant_service_desc,omitempty" xml:"merchant_service_desc,omitempty"`
+}
+
+func (s ApplicationInfoUpdate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplicationInfoUpdate) GoString() string {
+	return s.String()
+}
+
+func (s *ApplicationInfoUpdate) SetApplicationScene(v string) *ApplicationInfoUpdate {
+	s.ApplicationScene = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetTinyAppId(v string) *ApplicationInfoUpdate {
+	s.TinyAppId = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetSiteName(v string) *ApplicationInfoUpdate {
+	s.SiteName = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetSitUrl(v string) *ApplicationInfoUpdate {
+	s.SitUrl = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetMerchantName(v string) *ApplicationInfoUpdate {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetMerchantServiceName(v string) *ApplicationInfoUpdate {
+	s.MerchantServiceName = &v
+	return s
+}
+
+func (s *ApplicationInfoUpdate) SetMerchantServiceDesc(v string) *ApplicationInfoUpdate {
+	s.MerchantServiceDesc = &v
+	return s
+}
+
+// 审核信息
+type AuditInfo struct {
+	// 审核步骤
+	Stage *string `json:"stage,omitempty" xml:"stage,omitempty" require:"true"`
+	// 审核主体
+	AuditSubject *string `json:"audit_subject,omitempty" xml:"audit_subject,omitempty" require:"true"`
+	// 审核状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 审核时间
+	ApplyDateStr *string `json:"apply_date_str,omitempty" xml:"apply_date_str,omitempty" require:"true"`
+	// 审核失败描述
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty" require:"true"`
+}
+
+func (s AuditInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AuditInfo) GoString() string {
+	return s.String()
+}
+
+func (s *AuditInfo) SetStage(v string) *AuditInfo {
+	s.Stage = &v
+	return s
+}
+
+func (s *AuditInfo) SetAuditSubject(v string) *AuditInfo {
+	s.AuditSubject = &v
+	return s
+}
+
+func (s *AuditInfo) SetStatus(v string) *AuditInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *AuditInfo) SetApplyDateStr(v string) *AuditInfo {
+	s.ApplyDateStr = &v
+	return s
+}
+
+func (s *AuditInfo) SetFailReason(v string) *AuditInfo {
+	s.FailReason = &v
+	return s
+}
+
+// 订单包含的单个商品模型
+type OrderGoodsModel struct {
+}
+
+func (s OrderGoodsModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderGoodsModel) GoString() string {
+	return s.String()
+}
+
+// 法人信息修改
+type LegalInfoUpdate struct {
+	// 法人名称
+	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty"`
+	// 法人证件号
+	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty"`
+	// 法人证件正面
+	LegalCertFrontFile *FileInfo `json:"legal_cert_front_file,omitempty" xml:"legal_cert_front_file,omitempty"`
+	// 法人证件反面
+	LegalCertBackFile *FileInfo `json:"legal_cert_back_file,omitempty" xml:"legal_cert_back_file,omitempty"`
+}
+
+func (s LegalInfoUpdate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s LegalInfoUpdate) GoString() string {
+	return s.String()
+}
+
+func (s *LegalInfoUpdate) SetLegalName(v string) *LegalInfoUpdate {
+	s.LegalName = &v
+	return s
+}
+
+func (s *LegalInfoUpdate) SetLegalCertNo(v string) *LegalInfoUpdate {
+	s.LegalCertNo = &v
+	return s
+}
+
+func (s *LegalInfoUpdate) SetLegalCertFrontFile(v *FileInfo) *LegalInfoUpdate {
+	s.LegalCertFrontFile = v
+	return s
+}
+
+func (s *LegalInfoUpdate) SetLegalCertBackFile(v *FileInfo) *LegalInfoUpdate {
+	s.LegalCertBackFile = v
+	return s
+}
+
+// 订单还款计划
+type PromiseInfo struct {
+}
+
+func (s PromiseInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PromiseInfo) GoString() string {
+	return s.String()
+}
+
+// 租户协议分页对象
+type AgreementPage struct {
+	// 协议id
+	AgreementId *string `json:"agreement_id,omitempty" xml:"agreement_id,omitempty" require:"true"`
+	// 代理企业名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
+	// 租户8位id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 业务类型 枚举
+	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty" require:"true"`
+	// 协议类型 枚举
+	AgreementType *string `json:"agreement_type,omitempty" xml:"agreement_type,omitempty" require:"true"`
+	// 租户签约状态 枚举
+	SignStatus *string `json:"sign_status,omitempty" xml:"sign_status,omitempty" require:"true"`
+}
+
+func (s AgreementPage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AgreementPage) GoString() string {
+	return s.String()
+}
+
+func (s *AgreementPage) SetAgreementId(v string) *AgreementPage {
+	s.AgreementId = &v
+	return s
+}
+
+func (s *AgreementPage) SetMerchantName(v string) *AgreementPage {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *AgreementPage) SetTenantId(v string) *AgreementPage {
+	s.TenantId = &v
+	return s
+}
+
+func (s *AgreementPage) SetProductMainClass(v string) *AgreementPage {
+	s.ProductMainClass = &v
+	return s
+}
+
+func (s *AgreementPage) SetAgreementType(v string) *AgreementPage {
+	s.AgreementType = &v
+	return s
+}
+
+func (s *AgreementPage) SetSignStatus(v string) *AgreementPage {
+	s.SignStatus = &v
+	return s
+}
+
+// 风险场景的决策结果
+type RiskScene struct {
+	// 风险场景编码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 该场景的风险决策结果
+	Decision *string `json:"decision,omitempty" xml:"decision,omitempty" require:"true"`
+}
+
+func (s RiskScene) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RiskScene) GoString() string {
+	return s.String()
+}
+
+func (s *RiskScene) SetSceneCode(v string) *RiskScene {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *RiskScene) SetDecision(v string) *RiskScene {
+	s.Decision = &v
+	return s
+}
+
+// 分账关系页对象
+type RelationPage struct {
+	// 分账关系id
+	RelationId *string `json:"relation_id,omitempty" xml:"relation_id,omitempty" require:"true"`
+	// 分账公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty" require:"true"`
+	// 分账公司名称统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 审核状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s RelationPage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RelationPage) GoString() string {
+	return s.String()
+}
+
+func (s *RelationPage) SetRelationId(v string) *RelationPage {
+	s.RelationId = &v
+	return s
+}
+
+func (s *RelationPage) SetCompanyName(v string) *RelationPage {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *RelationPage) SetMerchantId(v string) *RelationPage {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *RelationPage) SetStatus(v string) *RelationPage {
+	s.Status = &v
+	return s
+}
+
+//  公司信息修改
+type CompanyInfoUpdate struct {
+	// 营业执照文件信息
+	BusinessLicenseFile *FileInfo `json:"business_license_file,omitempty" xml:"business_license_file,omitempty"`
+	// 业务类型 枚举
+	ProductMainClass *string `json:"product_main_class,omitempty" xml:"product_main_class,omitempty"`
+	// 公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
+	// 公司别名
+	CompanyAliasName *string `json:"company_alias_name,omitempty" xml:"company_alias_name,omitempty"`
+	// 公司数科租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 公司联系电话
+	CompanyMobile *string `json:"company_mobile,omitempty" xml:"company_mobile,omitempty"`
+	// 公司联系地址
+	CompanyAddress *string `json:"company_address,omitempty" xml:"company_address,omitempty"`
+	// 联系人姓名
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty"`
+	// 联系人手机号码
+	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty"`
+	// 商户类型： 01：企业；07：个体工商户 默认不填为01
+	MerchantType *string `json:"merchant_type,omitempty" xml:"merchant_type,omitempty"`
+}
+
+func (s CompanyInfoUpdate) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CompanyInfoUpdate) GoString() string {
+	return s.String()
+}
+
+func (s *CompanyInfoUpdate) SetBusinessLicenseFile(v *FileInfo) *CompanyInfoUpdate {
+	s.BusinessLicenseFile = v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetProductMainClass(v string) *CompanyInfoUpdate {
+	s.ProductMainClass = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetCompanyName(v string) *CompanyInfoUpdate {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetCompanyAliasName(v string) *CompanyInfoUpdate {
+	s.CompanyAliasName = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetTenantId(v string) *CompanyInfoUpdate {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetCompanyMobile(v string) *CompanyInfoUpdate {
+	s.CompanyMobile = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetCompanyAddress(v string) *CompanyInfoUpdate {
+	s.CompanyAddress = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetContactName(v string) *CompanyInfoUpdate {
+	s.ContactName = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetContactMobile(v string) *CompanyInfoUpdate {
+	s.ContactMobile = &v
+	return s
+}
+
+func (s *CompanyInfoUpdate) SetMerchantType(v string) *CompanyInfoUpdate {
+	s.MerchantType = &v
+	return s
 }
 
 // 主动支付单据
@@ -906,67 +1118,6 @@ func (s *PageQuery) SetPageIndex(v int64) *PageQuery {
 	return s
 }
 
-// 应用信息修改
-type ApplicationInfoUpdate struct {
-	// 应用场景 MINI_APP 小程序 APP 自有app ALL 两种都有
-	ApplicationScene *string `json:"application_scene,omitempty" xml:"application_scene,omitempty"`
-	// 小程序id
-	TinyAppId *string `json:"tiny_app_id,omitempty" xml:"tiny_app_id,omitempty"`
-	// 小程序名称
-	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty"`
-	// http://asdasas.com
-	SitUrl *string `json:"sit_url,omitempty" xml:"sit_url,omitempty"`
-	// 商户名称。 修改后的商户名称，将同步支付宝代扣签约页面字段展示
-	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
-	// 商户服务名称。 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
-	MerchantServiceName *string `json:"merchant_service_name,omitempty" xml:"merchant_service_name,omitempty"`
-	// 商户服务描述。 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
-	MerchantServiceDesc *string `json:"merchant_service_desc,omitempty" xml:"merchant_service_desc,omitempty"`
-}
-
-func (s ApplicationInfoUpdate) String() string {
-	return tea.Prettify(s)
-}
-
-func (s ApplicationInfoUpdate) GoString() string {
-	return s.String()
-}
-
-func (s *ApplicationInfoUpdate) SetApplicationScene(v string) *ApplicationInfoUpdate {
-	s.ApplicationScene = &v
-	return s
-}
-
-func (s *ApplicationInfoUpdate) SetTinyAppId(v string) *ApplicationInfoUpdate {
-	s.TinyAppId = &v
-	return s
-}
-
-func (s *ApplicationInfoUpdate) SetSiteName(v string) *ApplicationInfoUpdate {
-	s.SiteName = &v
-	return s
-}
-
-func (s *ApplicationInfoUpdate) SetSitUrl(v string) *ApplicationInfoUpdate {
-	s.SitUrl = &v
-	return s
-}
-
-func (s *ApplicationInfoUpdate) SetMerchantName(v string) *ApplicationInfoUpdate {
-	s.MerchantName = &v
-	return s
-}
-
-func (s *ApplicationInfoUpdate) SetMerchantServiceName(v string) *ApplicationInfoUpdate {
-	s.MerchantServiceName = &v
-	return s
-}
-
-func (s *ApplicationInfoUpdate) SetMerchantServiceDesc(v string) *ApplicationInfoUpdate {
-	s.MerchantServiceDesc = &v
-	return s
-}
-
 // 法人信息
 type LegalInfo struct {
 	// 法人名称
@@ -1004,53 +1155,6 @@ func (s *LegalInfo) SetLegalCertFrontFile(v *FileInfo) *LegalInfo {
 
 func (s *LegalInfo) SetLegalCertBackFile(v *FileInfo) *LegalInfo {
 	s.LegalCertBackFile = v
-	return s
-}
-
-// 审核信息
-type AuditInfo struct {
-	// 审核步骤
-	Stage *string `json:"stage,omitempty" xml:"stage,omitempty" require:"true"`
-	// 审核主体
-	AuditSubject *string `json:"audit_subject,omitempty" xml:"audit_subject,omitempty" require:"true"`
-	// 审核状态
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 审核时间
-	ApplyDateStr *string `json:"apply_date_str,omitempty" xml:"apply_date_str,omitempty" require:"true"`
-	// 审核失败描述
-	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty" require:"true"`
-}
-
-func (s AuditInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AuditInfo) GoString() string {
-	return s.String()
-}
-
-func (s *AuditInfo) SetStage(v string) *AuditInfo {
-	s.Stage = &v
-	return s
-}
-
-func (s *AuditInfo) SetAuditSubject(v string) *AuditInfo {
-	s.AuditSubject = &v
-	return s
-}
-
-func (s *AuditInfo) SetStatus(v string) *AuditInfo {
-	s.Status = &v
-	return s
-}
-
-func (s *AuditInfo) SetApplyDateStr(v string) *AuditInfo {
-	s.ApplyDateStr = &v
-	return s
-}
-
-func (s *AuditInfo) SetFailReason(v string) *AuditInfo {
-	s.FailReason = &v
 	return s
 }
 
@@ -1098,58 +1202,6 @@ func (s *RiskModel) SetRiskAdvice(v string) *RiskModel {
 
 func (s *RiskModel) SetRiskRank(v string) *RiskModel {
 	s.RiskRank = &v
-	return s
-}
-
-// 订单包含的单个商品模型
-type OrderGoodsModel struct {
-}
-
-func (s OrderGoodsModel) String() string {
-	return tea.Prettify(s)
-}
-
-func (s OrderGoodsModel) GoString() string {
-	return s.String()
-}
-
-// 法人信息修改
-type LegalInfoUpdate struct {
-	// 法人名称
-	LegalName *string `json:"legal_name,omitempty" xml:"legal_name,omitempty"`
-	// 法人证件号
-	LegalCertNo *string `json:"legal_cert_no,omitempty" xml:"legal_cert_no,omitempty"`
-	// 法人证件正面
-	LegalCertFrontFile *FileInfo `json:"legal_cert_front_file,omitempty" xml:"legal_cert_front_file,omitempty"`
-	// 法人证件反面
-	LegalCertBackFile *FileInfo `json:"legal_cert_back_file,omitempty" xml:"legal_cert_back_file,omitempty"`
-}
-
-func (s LegalInfoUpdate) String() string {
-	return tea.Prettify(s)
-}
-
-func (s LegalInfoUpdate) GoString() string {
-	return s.String()
-}
-
-func (s *LegalInfoUpdate) SetLegalName(v string) *LegalInfoUpdate {
-	s.LegalName = &v
-	return s
-}
-
-func (s *LegalInfoUpdate) SetLegalCertNo(v string) *LegalInfoUpdate {
-	s.LegalCertNo = &v
-	return s
-}
-
-func (s *LegalInfoUpdate) SetLegalCertFrontFile(v *FileInfo) *LegalInfoUpdate {
-	s.LegalCertFrontFile = v
-	return s
-}
-
-func (s *LegalInfoUpdate) SetLegalCertBackFile(v *FileInfo) *LegalInfoUpdate {
-	s.LegalCertBackFile = v
 	return s
 }
 
@@ -3157,6 +3209,99 @@ func (s *QueryFundCreditResponse) SetContentInfo(v string) *QueryFundCreditRespo
 	return s
 }
 
+type SyncFundFinanceprecheckresultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" minLength:"6"`
+	// 订单所属商户的社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" minLength:"1"`
+	// 资方的社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" minLength:"1"`
+	// 预审结果
+	// ● APPROVAL ： 通过
+	// ● REFUSE ：拒绝
+	Result *string `json:"result,omitempty" xml:"result,omitempty" require:"true" minLength:"1"`
+	// 拒绝原因
+	RefuseReason *string `json:"refuse_reason,omitempty" xml:"refuse_reason,omitempty" maxLength:"100"`
+}
+
+func (s SyncFundFinanceprecheckresultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncFundFinanceprecheckresultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncFundFinanceprecheckresultRequest) SetAuthToken(v string) *SyncFundFinanceprecheckresultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncFundFinanceprecheckresultRequest) SetProductInstanceId(v string) *SyncFundFinanceprecheckresultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncFundFinanceprecheckresultRequest) SetOrderId(v string) *SyncFundFinanceprecheckresultRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *SyncFundFinanceprecheckresultRequest) SetMerchantId(v string) *SyncFundFinanceprecheckresultRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *SyncFundFinanceprecheckresultRequest) SetFundId(v string) *SyncFundFinanceprecheckresultRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *SyncFundFinanceprecheckresultRequest) SetResult(v string) *SyncFundFinanceprecheckresultRequest {
+	s.Result = &v
+	return s
+}
+
+func (s *SyncFundFinanceprecheckresultRequest) SetRefuseReason(v string) *SyncFundFinanceprecheckresultRequest {
+	s.RefuseReason = &v
+	return s
+}
+
+type SyncFundFinanceprecheckresultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncFundFinanceprecheckresultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncFundFinanceprecheckresultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncFundFinanceprecheckresultResponse) SetReqMsgId(v string) *SyncFundFinanceprecheckresultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncFundFinanceprecheckresultResponse) SetResultCode(v string) *SyncFundFinanceprecheckresultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncFundFinanceprecheckresultResponse) SetResultMsg(v string) *SyncFundFinanceprecheckresultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type GetInnerProductRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4086,6 +4231,8 @@ type PublishInnerTemplateRequest struct {
 	TemplateCode *string `json:"template_code,omitempty" xml:"template_code,omitempty" require:"true"`
 	// 魔法库版本id
 	TemplateVersionId *string `json:"template_version_id,omitempty" xml:"template_version_id,omitempty" require:"true"`
+	// 合同模板制作版本id
+	TemplateVersion *string `json:"template_version,omitempty" xml:"template_version,omitempty"`
 }
 
 func (s PublishInnerTemplateRequest) String() string {
@@ -4118,6 +4265,11 @@ func (s *PublishInnerTemplateRequest) SetTemplateCode(v string) *PublishInnerTem
 
 func (s *PublishInnerTemplateRequest) SetTemplateVersionId(v string) *PublishInnerTemplateRequest {
 	s.TemplateVersionId = &v
+	return s
+}
+
+func (s *PublishInnerTemplateRequest) SetTemplateVersion(v string) *PublishInnerTemplateRequest {
+	s.TemplateVersion = &v
 	return s
 }
 
@@ -7450,6 +7602,76 @@ func (s *QueryInnerWithholdsignResponse) SetInvalidTime(v string) *QueryInnerWit
 	return s
 }
 
+type GetInnerMerchantstaticdataRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s GetInnerMerchantstaticdataRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerMerchantstaticdataRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerMerchantstaticdataRequest) SetAuthToken(v string) *GetInnerMerchantstaticdataRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInnerMerchantstaticdataRequest) SetProductInstanceId(v string) *GetInnerMerchantstaticdataRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetInnerMerchantstaticdataRequest) SetTenantId(v string) *GetInnerMerchantstaticdataRequest {
+	s.TenantId = &v
+	return s
+}
+
+type GetInnerMerchantstaticdataResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 商户入驻静态数据
+	StaticDataList []*StaticData `json:"static_data_list,omitempty" xml:"static_data_list,omitempty" type:"Repeated"`
+}
+
+func (s GetInnerMerchantstaticdataResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerMerchantstaticdataResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerMerchantstaticdataResponse) SetReqMsgId(v string) *GetInnerMerchantstaticdataResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInnerMerchantstaticdataResponse) SetResultCode(v string) *GetInnerMerchantstaticdataResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInnerMerchantstaticdataResponse) SetResultMsg(v string) *GetInnerMerchantstaticdataResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInnerMerchantstaticdataResponse) SetStaticDataList(v []*StaticData) *GetInnerMerchantstaticdataResponse {
+	s.StaticDataList = v
+	return s
+}
+
 type RegisterMerchantexpandMerchantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -10400,6 +10622,112 @@ func (s *ReplaceTradeUserpromiseResponse) SetResultMsg(v string) *ReplaceTradeUs
 	return s
 }
 
+type ApplyTradeFinanceprecheckRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id 长度大于6，小于50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" minLength:"6"`
+	// 订单所属商户的社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" minLength:"1"`
+	// 提交预审的资方的社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" minLength:"1"`
+	// 透传到资方，不做格式限制
+	TransparentInfo *string `json:"transparent_info,omitempty" xml:"transparent_info,omitempty" maxLength:"1000"`
+}
+
+func (s ApplyTradeFinanceprecheckRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTradeFinanceprecheckRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTradeFinanceprecheckRequest) SetAuthToken(v string) *ApplyTradeFinanceprecheckRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckRequest) SetProductInstanceId(v string) *ApplyTradeFinanceprecheckRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckRequest) SetOrderId(v string) *ApplyTradeFinanceprecheckRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckRequest) SetMerchantId(v string) *ApplyTradeFinanceprecheckRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckRequest) SetFundId(v string) *ApplyTradeFinanceprecheckRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckRequest) SetTransparentInfo(v string) *ApplyTradeFinanceprecheckRequest {
+	s.TransparentInfo = &v
+	return s
+}
+
+type ApplyTradeFinanceprecheckResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// ● EXEMPTION ： 资方免预审
+	// ● SUBMIT_SUCCESS: 异步预审提交成功
+	ResponseData *string `json:"response_data,omitempty" xml:"response_data,omitempty"`
+	// order_id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// merchant_id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+}
+
+func (s ApplyTradeFinanceprecheckResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyTradeFinanceprecheckResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyTradeFinanceprecheckResponse) SetReqMsgId(v string) *ApplyTradeFinanceprecheckResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckResponse) SetResultCode(v string) *ApplyTradeFinanceprecheckResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckResponse) SetResultMsg(v string) *ApplyTradeFinanceprecheckResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckResponse) SetResponseData(v string) *ApplyTradeFinanceprecheckResponse {
+	s.ResponseData = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckResponse) SetOrderId(v string) *ApplyTradeFinanceprecheckResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ApplyTradeFinanceprecheckResponse) SetMerchantId(v string) *ApplyTradeFinanceprecheckResponse {
+	s.MerchantId = &v
+	return s
+}
+
 type CreateWithholdSignRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -11780,7 +12108,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.11"),
+				"sdk_version":      tea.String("1.9.19"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -12540,6 +12868,40 @@ func (client *Client) QueryFundCreditEx(request *QueryFundCreditRequest, headers
 	}
 	_result = &QueryFundCreditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.credit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 融资预审结果同步
+ * Summary: 融资预审结果同步
+ */
+func (client *Client) SyncFundFinanceprecheckresult(request *SyncFundFinanceprecheckresultRequest) (_result *SyncFundFinanceprecheckresultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncFundFinanceprecheckresultResponse{}
+	_body, _err := client.SyncFundFinanceprecheckresultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 融资预审结果同步
+ * Summary: 融资预审结果同步
+ */
+func (client *Client) SyncFundFinanceprecheckresultEx(request *SyncFundFinanceprecheckresultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncFundFinanceprecheckresultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncFundFinanceprecheckresultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.financeprecheckresult.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -14146,6 +14508,40 @@ func (client *Client) QueryInnerWithholdsignEx(request *QueryInnerWithholdsignRe
 }
 
 /**
+ * Description: 获取商户进件静态枚举数据
+ * Summary: 获取商户进件静态枚举数据
+ */
+func (client *Client) GetInnerMerchantstaticdata(request *GetInnerMerchantstaticdataRequest) (_result *GetInnerMerchantstaticdataResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInnerMerchantstaticdataResponse{}
+	_body, _err := client.GetInnerMerchantstaticdataEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取商户进件静态枚举数据
+ * Summary: 获取商户进件静态枚举数据
+ */
+func (client *Client) GetInnerMerchantstaticdataEx(request *GetInnerMerchantstaticdataRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInnerMerchantstaticdataResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInnerMerchantstaticdataResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.merchantstaticdata.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 商户入驻
  * Summary: 商户入驻
  */
@@ -15148,6 +15544,40 @@ func (client *Client) ReplaceTradeUserpromiseEx(request *ReplaceTradeUserpromise
 	}
 	_result = &ReplaceTradeUserpromiseResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.userpromise.replace"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 订单融资预审申请接口
+ * Summary: 订单融资预审申请接口
+ */
+func (client *Client) ApplyTradeFinanceprecheck(request *ApplyTradeFinanceprecheckRequest) (_result *ApplyTradeFinanceprecheckResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyTradeFinanceprecheckResponse{}
+	_body, _err := client.ApplyTradeFinanceprecheckEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 订单融资预审申请接口
+ * Summary: 订单融资预审申请接口
+ */
+func (client *Client) ApplyTradeFinanceprecheckEx(request *ApplyTradeFinanceprecheckRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyTradeFinanceprecheckResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyTradeFinanceprecheckResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.financeprecheck.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
