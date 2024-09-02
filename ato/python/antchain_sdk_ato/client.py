@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 文件信息
+            # 静态数据模块详情
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.11',
+                    'sdk_version': '1.9.19',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 文件信息
+            # 静态数据模块详情
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.11',
+                    'sdk_version': '1.9.19',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -1427,6 +1427,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryFundCreditResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.credit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_fund_financeprecheckresult(
+        self,
+        request: ato_models.SyncFundFinanceprecheckresultRequest,
+    ) -> ato_models.SyncFundFinanceprecheckresultResponse:
+        """
+        Description: 融资预审结果同步
+        Summary: 融资预审结果同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_fund_financeprecheckresult_ex(request, headers, runtime)
+
+    async def sync_fund_financeprecheckresult_async(
+        self,
+        request: ato_models.SyncFundFinanceprecheckresultRequest,
+    ) -> ato_models.SyncFundFinanceprecheckresultResponse:
+        """
+        Description: 融资预审结果同步
+        Summary: 融资预审结果同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_fund_financeprecheckresult_ex_async(request, headers, runtime)
+
+    def sync_fund_financeprecheckresult_ex(
+        self,
+        request: ato_models.SyncFundFinanceprecheckresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncFundFinanceprecheckresultResponse:
+        """
+        Description: 融资预审结果同步
+        Summary: 融资预审结果同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncFundFinanceprecheckresultResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_fund_financeprecheckresult_ex_async(
+        self,
+        request: ato_models.SyncFundFinanceprecheckresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SyncFundFinanceprecheckresultResponse:
+        """
+        Description: 融资预审结果同步
+        Summary: 融资预审结果同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SyncFundFinanceprecheckresultResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
@@ -4061,6 +4117,62 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.inner.withholdsign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def get_inner_merchantstaticdata(
+        self,
+        request: ato_models.GetInnerMerchantstaticdataRequest,
+    ) -> ato_models.GetInnerMerchantstaticdataResponse:
+        """
+        Description: 获取商户进件静态枚举数据
+        Summary: 获取商户进件静态枚举数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_inner_merchantstaticdata_ex(request, headers, runtime)
+
+    async def get_inner_merchantstaticdata_async(
+        self,
+        request: ato_models.GetInnerMerchantstaticdataRequest,
+    ) -> ato_models.GetInnerMerchantstaticdataResponse:
+        """
+        Description: 获取商户进件静态枚举数据
+        Summary: 获取商户进件静态枚举数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_inner_merchantstaticdata_ex_async(request, headers, runtime)
+
+    def get_inner_merchantstaticdata_ex(
+        self,
+        request: ato_models.GetInnerMerchantstaticdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerMerchantstaticdataResponse:
+        """
+        Description: 获取商户进件静态枚举数据
+        Summary: 获取商户进件静态枚举数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerMerchantstaticdataResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.merchantstaticdata.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_inner_merchantstaticdata_ex_async(
+        self,
+        request: ato_models.GetInnerMerchantstaticdataRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerMerchantstaticdataResponse:
+        """
+        Description: 获取商户进件静态枚举数据
+        Summary: 获取商户进件静态枚举数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerMerchantstaticdataResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.merchantstaticdata.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def register_merchantexpand_merchant(
         self,
         request: ato_models.RegisterMerchantexpandMerchantRequest,
@@ -5695,6 +5807,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.ReplaceTradeUserpromiseResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_trade_financeprecheck(
+        self,
+        request: ato_models.ApplyTradeFinanceprecheckRequest,
+    ) -> ato_models.ApplyTradeFinanceprecheckResponse:
+        """
+        Description: 订单融资预审申请接口
+        Summary: 订单融资预审申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_trade_financeprecheck_ex(request, headers, runtime)
+
+    async def apply_trade_financeprecheck_async(
+        self,
+        request: ato_models.ApplyTradeFinanceprecheckRequest,
+    ) -> ato_models.ApplyTradeFinanceprecheckResponse:
+        """
+        Description: 订单融资预审申请接口
+        Summary: 订单融资预审申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_trade_financeprecheck_ex_async(request, headers, runtime)
+
+    def apply_trade_financeprecheck_ex(
+        self,
+        request: ato_models.ApplyTradeFinanceprecheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ApplyTradeFinanceprecheckResponse:
+        """
+        Description: 订单融资预审申请接口
+        Summary: 订单融资预审申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ApplyTradeFinanceprecheckResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.financeprecheck.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_trade_financeprecheck_ex_async(
+        self,
+        request: ato_models.ApplyTradeFinanceprecheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.ApplyTradeFinanceprecheckResponse:
+        """
+        Description: 订单融资预审申请接口
+        Summary: 订单融资预审申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.ApplyTradeFinanceprecheckResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.financeprecheck.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_withhold_sign(
