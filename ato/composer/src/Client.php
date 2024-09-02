@@ -15,6 +15,8 @@ use AntChain\ATO\Models\AllInnerTemplateRequest;
 use AntChain\ATO\Models\AllInnerTemplateResponse;
 use AntChain\ATO\Models\AllSignTemplateRequest;
 use AntChain\ATO\Models\AllSignTemplateResponse;
+use AntChain\ATO\Models\ApplyTradeFinanceprecheckRequest;
+use AntChain\ATO\Models\ApplyTradeFinanceprecheckResponse;
 use AntChain\ATO\Models\AuthFundFlowRequest;
 use AntChain\ATO\Models\AuthFundFlowResponse;
 use AntChain\ATO\Models\AuthSignFlowRequest;
@@ -75,6 +77,8 @@ use AntChain\ATO\Models\GetFundUserperformanceRequest;
 use AntChain\ATO\Models\GetFundUserperformanceResponse;
 use AntChain\ATO\Models\GetFundUserpromiseRequest;
 use AntChain\ATO\Models\GetFundUserpromiseResponse;
+use AntChain\ATO\Models\GetInnerMerchantstaticdataRequest;
+use AntChain\ATO\Models\GetInnerMerchantstaticdataResponse;
 use AntChain\ATO\Models\GetInnerProductRequest;
 use AntChain\ATO\Models\GetInnerProductResponse;
 use AntChain\ATO\Models\GetInnerTemplateofficeurlRequest;
@@ -183,6 +187,8 @@ use AntChain\ATO\Models\SyncFrontTradeRequest;
 use AntChain\ATO\Models\SyncFrontTradeResponse;
 use AntChain\ATO\Models\SyncFundFinanceloanresultsRequest;
 use AntChain\ATO\Models\SyncFundFinanceloanresultsResponse;
+use AntChain\ATO\Models\SyncFundFinanceprecheckresultRequest;
+use AntChain\ATO\Models\SyncFundFinanceprecheckresultResponse;
 use AntChain\ATO\Models\SyncFundMerchantpromiseRequest;
 use AntChain\ATO\Models\SyncFundMerchantpromiseResponse;
 use AntChain\ATO\Models\SyncFundOrderfinancialRequest;
@@ -346,7 +352,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 文件信息
+            // 静态数据模块详情
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -374,7 +380,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.11',
+                    'sdk_version'      => '1.9.19',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1098,6 +1104,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryFundCreditResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.credit.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资预审结果同步
+     * Summary: 融资预审结果同步.
+     *
+     * @param SyncFundFinanceprecheckresultRequest $request
+     *
+     * @return SyncFundFinanceprecheckresultResponse
+     */
+    public function syncFundFinanceprecheckresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncFundFinanceprecheckresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资预审结果同步
+     * Summary: 融资预审结果同步.
+     *
+     * @param SyncFundFinanceprecheckresultRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return SyncFundFinanceprecheckresultResponse
+     */
+    public function syncFundFinanceprecheckresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncFundFinanceprecheckresultResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2652,6 +2691,39 @@ class Client
     }
 
     /**
+     * Description: 获取商户进件静态枚举数据
+     * Summary: 获取商户进件静态枚举数据.
+     *
+     * @param GetInnerMerchantstaticdataRequest $request
+     *
+     * @return GetInnerMerchantstaticdataResponse
+     */
+    public function getInnerMerchantstaticdata($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerMerchantstaticdataEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取商户进件静态枚举数据
+     * Summary: 获取商户进件静态枚举数据.
+     *
+     * @param GetInnerMerchantstaticdataRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return GetInnerMerchantstaticdataResponse
+     */
+    public function getInnerMerchantstaticdataEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerMerchantstaticdataResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.merchantstaticdata.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 商户入驻
      * Summary: 商户入驻.
      *
@@ -3609,6 +3681,39 @@ class Client
         Utils::validateModel($request);
 
         return ReplaceTradeUserpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单融资预审申请接口
+     * Summary: 订单融资预审申请接口.
+     *
+     * @param ApplyTradeFinanceprecheckRequest $request
+     *
+     * @return ApplyTradeFinanceprecheckResponse
+     */
+    public function applyTradeFinanceprecheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyTradeFinanceprecheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单融资预审申请接口
+     * Summary: 订单融资预审申请接口.
+     *
+     * @param ApplyTradeFinanceprecheckRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return ApplyTradeFinanceprecheckResponse
+     */
+    public function applyTradeFinanceprecheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyTradeFinanceprecheckResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.financeprecheck.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

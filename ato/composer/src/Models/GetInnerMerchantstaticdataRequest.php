@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PublishInnerTemplateRequest extends Model
+class GetInnerMerchantstaticdataRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,43 +19,20 @@ class PublishInnerTemplateRequest extends Model
      */
     public $productInstanceId;
 
-    // 商户对应租户ID
+    // 租户id
     /**
      * @var string
      */
     public $tenantId;
-
-    // 魔法库模板code
-    /**
-     * @var string
-     */
-    public $templateCode;
-
-    // 魔法库版本id
-    /**
-     * @var string
-     */
-    public $templateVersionId;
-
-    // 合同模板制作版本id
-    /**
-     * @var string
-     */
-    public $templateVersion;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
-        'templateCode'      => 'template_code',
-        'templateVersionId' => 'template_version_id',
-        'templateVersion'   => 'template_version',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('templateCode', $this->templateCode, true);
-        Model::validateRequired('templateVersionId', $this->templateVersionId, true);
     }
 
     public function toMap()
@@ -70,15 +47,6 @@ class PublishInnerTemplateRequest extends Model
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->templateCode) {
-            $res['template_code'] = $this->templateCode;
-        }
-        if (null !== $this->templateVersionId) {
-            $res['template_version_id'] = $this->templateVersionId;
-        }
-        if (null !== $this->templateVersion) {
-            $res['template_version'] = $this->templateVersion;
-        }
 
         return $res;
     }
@@ -86,7 +54,7 @@ class PublishInnerTemplateRequest extends Model
     /**
      * @param array $map
      *
-     * @return PublishInnerTemplateRequest
+     * @return GetInnerMerchantstaticdataRequest
      */
     public static function fromMap($map = [])
     {
@@ -99,15 +67,6 @@ class PublishInnerTemplateRequest extends Model
         }
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
-        }
-        if (isset($map['template_code'])) {
-            $model->templateCode = $map['template_code'];
-        }
-        if (isset($map['template_version_id'])) {
-            $model->templateVersionId = $map['template_version_id'];
-        }
-        if (isset($map['template_version'])) {
-            $model->templateVersion = $map['template_version'];
         }
 
         return $model;
