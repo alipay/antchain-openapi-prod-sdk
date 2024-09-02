@@ -50,12 +50,6 @@ class CheckAicoguardrailsAskRequest extends Model
      */
     public $questionFormat;
 
-    // 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-    /**
-     * @var int
-     */
-    public $type;
-
     // 加密的uid，仅用于唯一标示调用方
     /**
      * @var string
@@ -69,7 +63,6 @@ class CheckAicoguardrailsAskRequest extends Model
         'sceneCode'      => 'scene_code',
         'question'       => 'question',
         'questionFormat' => 'question_format',
-        'type'           => 'type',
         'userId'         => 'user_id',
     ];
 
@@ -81,7 +74,6 @@ class CheckAicoguardrailsAskRequest extends Model
         Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('question', $this->question, true);
         Model::validateRequired('questionFormat', $this->questionFormat, true);
-        Model::validateRequired('type', $this->type, true);
     }
 
     public function toMap()
@@ -107,9 +99,6 @@ class CheckAicoguardrailsAskRequest extends Model
         }
         if (null !== $this->questionFormat) {
             $res['question_format'] = $this->questionFormat;
-        }
-        if (null !== $this->type) {
-            $res['type'] = $this->type;
         }
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
@@ -146,9 +135,6 @@ class CheckAicoguardrailsAskRequest extends Model
         }
         if (isset($map['question_format'])) {
             $model->questionFormat = $map['question_format'];
-        }
-        if (isset($map['type'])) {
-            $model->type = $map['type'];
         }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
