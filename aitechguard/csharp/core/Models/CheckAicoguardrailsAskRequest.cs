@@ -44,11 +44,6 @@ namespace AntChain.SDK.AITECHGUARD.Models
         [Validation(Required=true)]
         public string QuestionFormat { get; set; }
 
-        // 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-        [NameInMap("type")]
-        [Validation(Required=true)]
-        public long? Type { get; set; }
-
         // 加密的uid，仅用于唯一标示调用方
         [NameInMap("user_id")]
         [Validation(Required=false)]
