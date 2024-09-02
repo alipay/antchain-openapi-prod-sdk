@@ -201,8 +201,6 @@ type CheckAicoguardrailsAskRequest struct {
 	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
 	// 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
 	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty" require:"true"`
-	// 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 加密的uid，仅用于唯一标示调用方
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 }
@@ -247,11 +245,6 @@ func (s *CheckAicoguardrailsAskRequest) SetQuestion(v string) *CheckAicoguardrai
 
 func (s *CheckAicoguardrailsAskRequest) SetQuestionFormat(v string) *CheckAicoguardrailsAskRequest {
 	s.QuestionFormat = &v
-	return s
-}
-
-func (s *CheckAicoguardrailsAskRequest) SetType(v int64) *CheckAicoguardrailsAskRequest {
-	s.Type = &v
 	return s
 }
 
@@ -476,7 +469,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.7"),
+				"sdk_version":      tea.String("1.0.8"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
