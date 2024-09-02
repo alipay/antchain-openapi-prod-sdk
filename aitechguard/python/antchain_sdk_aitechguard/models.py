@@ -218,7 +218,6 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         scene_code: str = None,
         question: str = None,
         question_format: str = None,
-        type: int = None,
         user_id: str = None,
     ):
         # OAuth模式下的授权token
@@ -235,8 +234,6 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         self.question = question
         # 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
         self.question_format = question_format
-        # 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-        self.type = type
         # 加密的uid，仅用于唯一标示调用方
         self.user_id = user_id
 
@@ -247,7 +244,6 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         self.validate_required(self.scene_code, 'scene_code')
         self.validate_required(self.question, 'question')
         self.validate_required(self.question_format, 'question_format')
-        self.validate_required(self.type, 'type')
 
     def to_map(self):
         _map = super().to_map()
@@ -269,8 +265,6 @@ class CheckAicoguardrailsAskRequest(TeaModel):
             result['question'] = self.question
         if self.question_format is not None:
             result['question_format'] = self.question_format
-        if self.type is not None:
-            result['type'] = self.type
         if self.user_id is not None:
             result['user_id'] = self.user_id
         return result
@@ -291,8 +285,6 @@ class CheckAicoguardrailsAskRequest(TeaModel):
             self.question = m.get('question')
         if m.get('question_format') is not None:
             self.question_format = m.get('question_format')
-        if m.get('type') is not None:
-            self.type = m.get('type')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         return self
