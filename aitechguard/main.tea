@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.7',
+    sdk_version = '1.0.8',
     _prod_code = 'AITECHGUARD',
     _prod_channel = 'default'
   };
@@ -188,8 +188,6 @@ model CheckAicoguardrailsAskRequest = {
   question: string(name='question'),
   // 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
   questionFormat: string(name='question_format'),
-  // 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-  type: long(name='type'),
   // 加密的uid，仅用于唯一标示调用方
   userId?: string(name='user_id'),
 }
