@@ -26,6 +26,10 @@ public class PublishInnerTemplateRequest extends TeaModel {
     @Validation(required = true)
     public String templateVersionId;
 
+    // 合同模板制作版本id
+    @NameInMap("template_version")
+    public String templateVersion;
+
     public static PublishInnerTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
         PublishInnerTemplateRequest self = new PublishInnerTemplateRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class PublishInnerTemplateRequest extends TeaModel {
     }
     public String getTemplateVersionId() {
         return this.templateVersionId;
+    }
+
+    public PublishInnerTemplateRequest setTemplateVersion(String templateVersion) {
+        this.templateVersion = templateVersion;
+        return this;
+    }
+    public String getTemplateVersion() {
+        return this.templateVersion;
     }
 
 }
