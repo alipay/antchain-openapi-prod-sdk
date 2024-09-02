@@ -134,8 +134,6 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
   question: string;
   // 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
   questionFormat: string;
-  // 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-  type: number;
   // 加密的uid，仅用于唯一标示调用方
   userId?: string;
   static names(): { [key: string]: string } {
@@ -147,7 +145,6 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
       sceneCode: 'scene_code',
       question: 'question',
       questionFormat: 'question_format',
-      type: 'type',
       userId: 'user_id',
     };
   }
@@ -161,7 +158,6 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
       sceneCode: 'string',
       question: 'string',
       questionFormat: 'string',
-      type: 'number',
       userId: 'string',
     };
   }
@@ -350,7 +346,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.7",
+          sdk_version: "1.0.8",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
