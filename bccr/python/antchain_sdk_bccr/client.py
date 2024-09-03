@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.43',
+                    'sdk_version': '1.18.46',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.43',
+                    'sdk_version': '1.18.46',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -3808,8 +3808,8 @@ class Client:
         request: bccr_models.CreateEvidenceLiveRequest,
     ) -> bccr_models.CreateEvidenceLiveResponse:
         """
-        Description: 发起指定url的直播取证
-        Summary: 发起直播取证
+        Description: 录屏取证
+        Summary: 录屏
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3820,8 +3820,8 @@ class Client:
         request: bccr_models.CreateEvidenceLiveRequest,
     ) -> bccr_models.CreateEvidenceLiveResponse:
         """
-        Description: 发起指定url的直播取证
-        Summary: 发起直播取证
+        Description: 录屏取证
+        Summary: 录屏
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3834,8 +3834,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.CreateEvidenceLiveResponse:
         """
-        Description: 发起指定url的直播取证
-        Summary: 发起直播取证
+        Description: 录屏取证
+        Summary: 录屏
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3850,8 +3850,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.CreateEvidenceLiveResponse:
         """
-        Description: 发起指定url的直播取证
-        Summary: 发起直播取证
+        Description: 录屏取证
+        Summary: 录屏
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4193,6 +4193,62 @@ class Client:
         return TeaCore.from_map(
             bccr_models.QueryDciFeedbackResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.dci.feedback.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_trade_cover(
+        self,
+        request: bccr_models.ExecTradeCoverRequest,
+    ) -> bccr_models.ExecTradeCoverResponse:
+        """
+        Description: 交易商品抽取封面
+        Summary: 交易商品抽取封面
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_trade_cover_ex(request, headers, runtime)
+
+    async def exec_trade_cover_async(
+        self,
+        request: bccr_models.ExecTradeCoverRequest,
+    ) -> bccr_models.ExecTradeCoverResponse:
+        """
+        Description: 交易商品抽取封面
+        Summary: 交易商品抽取封面
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_trade_cover_ex_async(request, headers, runtime)
+
+    def exec_trade_cover_ex(
+        self,
+        request: bccr_models.ExecTradeCoverRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ExecTradeCoverResponse:
+        """
+        Description: 交易商品抽取封面
+        Summary: 交易商品抽取封面
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.ExecTradeCoverResponse(),
+            self.do_request('1.0', 'blockchain.bccr.trade.cover.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_trade_cover_ex_async(
+        self,
+        request: bccr_models.ExecTradeCoverRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.ExecTradeCoverResponse:
+        """
+        Description: 交易商品抽取封面
+        Summary: 交易商品抽取封面
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.ExecTradeCoverResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.trade.cover.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(

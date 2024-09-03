@@ -4488,6 +4488,42 @@ class ScreenCancelInfo(TeaModel):
         return self
 
 
+class ContactInfo(TeaModel):
+    def __init__(
+        self,
+        contact_name: str = None,
+        contact_phone: str = None,
+    ):
+        # 联系人
+        self.contact_name = contact_name
+        # 联系电话
+        self.contact_phone = contact_phone
+
+    def validate(self):
+        self.validate_required(self.contact_name, 'contact_name')
+        self.validate_required(self.contact_phone, 'contact_phone')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        return self
+
+
 class CertificateData(TeaModel):
     def __init__(
         self,
@@ -10102,6 +10138,9 @@ class CreateDciRegistrationRequest(TeaModel):
         client_token: str = None,
         creation_statement: str = None,
         ancillary_evidence_path_list: List[str] = None,
+        applyer_contact_info: ContactInfo = None,
+        platform_contact_info: ContactInfo = None,
+        right_scope_desc: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10120,6 +10159,12 @@ class CreateDciRegistrationRequest(TeaModel):
         self.creation_statement = creation_statement
         # 废弃待删除
         self.ancillary_evidence_path_list = ancillary_evidence_path_list
+        # 申领人联系信息
+        self.applyer_contact_info = applyer_contact_info
+        # 代理人联系信息
+        self.platform_contact_info = platform_contact_info
+        # 权利描述
+        self.right_scope_desc = right_scope_desc
 
     def validate(self):
         self.validate_required(self.dci_content_id, 'dci_content_id')
@@ -10128,10 +10173,13 @@ class CreateDciRegistrationRequest(TeaModel):
             self.explanation_info.validate()
         if self.additional_file_info:
             self.additional_file_info.validate()
-        self.validate_required(self.invoice_info, 'invoice_info')
         if self.invoice_info:
             self.invoice_info.validate()
         self.validate_required(self.client_token, 'client_token')
+        if self.applyer_contact_info:
+            self.applyer_contact_info.validate()
+        if self.platform_contact_info:
+            self.platform_contact_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -10157,6 +10205,12 @@ class CreateDciRegistrationRequest(TeaModel):
             result['creation_statement'] = self.creation_statement
         if self.ancillary_evidence_path_list is not None:
             result['ancillary_evidence_path_list'] = self.ancillary_evidence_path_list
+        if self.applyer_contact_info is not None:
+            result['applyer_contact_info'] = self.applyer_contact_info.to_map()
+        if self.platform_contact_info is not None:
+            result['platform_contact_info'] = self.platform_contact_info.to_map()
+        if self.right_scope_desc is not None:
+            result['right_scope_desc'] = self.right_scope_desc
         return result
 
     def from_map(self, m: dict = None):
@@ -10182,6 +10236,14 @@ class CreateDciRegistrationRequest(TeaModel):
             self.creation_statement = m.get('creation_statement')
         if m.get('ancillary_evidence_path_list') is not None:
             self.ancillary_evidence_path_list = m.get('ancillary_evidence_path_list')
+        if m.get('applyer_contact_info') is not None:
+            temp_model = ContactInfo()
+            self.applyer_contact_info = temp_model.from_map(m['applyer_contact_info'])
+        if m.get('platform_contact_info') is not None:
+            temp_model = ContactInfo()
+            self.platform_contact_info = temp_model.from_map(m['platform_contact_info'])
+        if m.get('right_scope_desc') is not None:
+            self.right_scope_desc = m.get('right_scope_desc')
         return self
 
 
@@ -12811,6 +12873,9 @@ class RetryDciRegistrationRequest(TeaModel):
         explanation_info: DciExplanationInfo = None,
         additional_file_info: AdditionalFileInfo = None,
         client_token: str = None,
+        right_scope_desc: str = None,
+        applyer_contact_info: ContactInfo = None,
+        platform_contact_info: ContactInfo = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -12825,6 +12890,12 @@ class RetryDciRegistrationRequest(TeaModel):
         self.additional_file_info = additional_file_info
         # 幂等字段
         self.client_token = client_token
+        # 权利描述
+        self.right_scope_desc = right_scope_desc
+        # 申领人联系信息
+        self.applyer_contact_info = applyer_contact_info
+        # 代理人联系信息
+        self.platform_contact_info = platform_contact_info
 
     def validate(self):
         self.validate_required(self.digital_register_id, 'digital_register_id')
@@ -12834,6 +12905,10 @@ class RetryDciRegistrationRequest(TeaModel):
         if self.additional_file_info:
             self.additional_file_info.validate()
         self.validate_required(self.client_token, 'client_token')
+        if self.applyer_contact_info:
+            self.applyer_contact_info.validate()
+        if self.platform_contact_info:
+            self.platform_contact_info.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -12855,6 +12930,12 @@ class RetryDciRegistrationRequest(TeaModel):
             result['additional_file_info'] = self.additional_file_info.to_map()
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.right_scope_desc is not None:
+            result['right_scope_desc'] = self.right_scope_desc
+        if self.applyer_contact_info is not None:
+            result['applyer_contact_info'] = self.applyer_contact_info.to_map()
+        if self.platform_contact_info is not None:
+            result['platform_contact_info'] = self.platform_contact_info.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -12875,6 +12956,14 @@ class RetryDciRegistrationRequest(TeaModel):
             self.additional_file_info = temp_model.from_map(m['additional_file_info'])
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('right_scope_desc') is not None:
+            self.right_scope_desc = m.get('right_scope_desc')
+        if m.get('applyer_contact_info') is not None:
+            temp_model = ContactInfo()
+            self.applyer_contact_info = temp_model.from_map(m['applyer_contact_info'])
+        if m.get('platform_contact_info') is not None:
+            temp_model = ContactInfo()
+            self.platform_contact_info = temp_model.from_map(m['platform_contact_info'])
         return self
 
 
@@ -15459,6 +15548,111 @@ class QueryDciFeedbackResponse(TeaModel):
             self.dci_content_id = m.get('dci_content_id')
         if m.get('msg') is not None:
             self.msg = m.get('msg')
+        return self
+
+
+class ExecTradeCoverRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_biz_no: int = None,
+        file_url: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 调用方唯一业务标识
+        self.out_biz_no = out_biz_no
+        # 需要抽取封面的文件url
+        self.file_url = file_url
+
+    def validate(self):
+        self.validate_required(self.out_biz_no, 'out_biz_no')
+        self.validate_required(self.file_url, 'file_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        return self
+
+
+class ExecTradeCoverResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        out_biz_no: int = None,
+        ext_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 调用方唯一业务标识
+        self.out_biz_no = out_biz_no
+        # 扩展信息
+        self.ext_info = ext_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.out_biz_no is not None:
+            result['out_biz_no'] = self.out_biz_no
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('out_biz_no') is not None:
+            self.out_biz_no = m.get('out_biz_no')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
