@@ -27,7 +27,6 @@ public class CreateDciRegistrationRequest extends TeaModel {
 
     // 发票信息--当前支持普票
     @NameInMap("invoice_info")
-    @Validation(required = true)
     public InvoiceInfo invoiceInfo;
 
     // 幂等字段
@@ -42,6 +41,18 @@ public class CreateDciRegistrationRequest extends TeaModel {
     // 废弃待删除
     @NameInMap("ancillary_evidence_path_list")
     public java.util.List<String> ancillaryEvidencePathList;
+
+    // 申领人联系信息
+    @NameInMap("applyer_contact_info")
+    public ContactInfo applyerContactInfo;
+
+    // 代理人联系信息
+    @NameInMap("platform_contact_info")
+    public ContactInfo platformContactInfo;
+
+    // 权利描述
+    @NameInMap("right_scope_desc")
+    public String rightScopeDesc;
 
     public static CreateDciRegistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciRegistrationRequest self = new CreateDciRegistrationRequest();
@@ -118,6 +129,30 @@ public class CreateDciRegistrationRequest extends TeaModel {
     }
     public java.util.List<String> getAncillaryEvidencePathList() {
         return this.ancillaryEvidencePathList;
+    }
+
+    public CreateDciRegistrationRequest setApplyerContactInfo(ContactInfo applyerContactInfo) {
+        this.applyerContactInfo = applyerContactInfo;
+        return this;
+    }
+    public ContactInfo getApplyerContactInfo() {
+        return this.applyerContactInfo;
+    }
+
+    public CreateDciRegistrationRequest setPlatformContactInfo(ContactInfo platformContactInfo) {
+        this.platformContactInfo = platformContactInfo;
+        return this;
+    }
+    public ContactInfo getPlatformContactInfo() {
+        return this.platformContactInfo;
+    }
+
+    public CreateDciRegistrationRequest setRightScopeDesc(String rightScopeDesc) {
+        this.rightScopeDesc = rightScopeDesc;
+        return this;
+    }
+    public String getRightScopeDesc() {
+        return this.rightScopeDesc;
     }
 
 }

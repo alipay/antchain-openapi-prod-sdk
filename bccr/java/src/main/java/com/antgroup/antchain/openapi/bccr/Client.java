@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.18.43"),
+                    new TeaPair("sdk_version", "1.18.46"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1382,8 +1382,8 @@ public class Client {
     }
 
     /**
-     * Description: 发起指定url的直播取证
-     * Summary: 发起直播取证
+     * Description: 录屏取证
+     * Summary: 录屏
      */
     public CreateEvidenceLiveResponse createEvidenceLive(CreateEvidenceLiveRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1392,8 +1392,8 @@ public class Client {
     }
 
     /**
-     * Description: 发起指定url的直播取证
-     * Summary: 发起直播取证
+     * Description: 录屏取证
+     * Summary: 录屏
      */
     public CreateEvidenceLiveResponse createEvidenceLiveEx(CreateEvidenceLiveRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1512,6 +1512,25 @@ public class Client {
     public QueryDciFeedbackResponse queryDciFeedbackEx(QueryDciFeedbackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.dci.feedback.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDciFeedbackResponse());
+    }
+
+    /**
+     * Description: 交易商品抽取封面
+     * Summary: 交易商品抽取封面
+     */
+    public ExecTradeCoverResponse execTradeCover(ExecTradeCoverRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execTradeCoverEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 交易商品抽取封面
+     * Summary: 交易商品抽取封面
+     */
+    public ExecTradeCoverResponse execTradeCoverEx(ExecTradeCoverRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.trade.cover.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecTradeCoverResponse());
     }
 
     /**

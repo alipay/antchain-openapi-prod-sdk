@@ -34,6 +34,18 @@ public class RetryDciRegistrationRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
+    // 权利描述
+    @NameInMap("right_scope_desc")
+    public String rightScopeDesc;
+
+    // 申领人联系信息
+    @NameInMap("applyer_contact_info")
+    public ContactInfo applyerContactInfo;
+
+    // 代理人联系信息
+    @NameInMap("platform_contact_info")
+    public ContactInfo platformContactInfo;
+
     public static RetryDciRegistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         RetryDciRegistrationRequest self = new RetryDciRegistrationRequest();
         return TeaModel.build(map, self);
@@ -93,6 +105,30 @@ public class RetryDciRegistrationRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public RetryDciRegistrationRequest setRightScopeDesc(String rightScopeDesc) {
+        this.rightScopeDesc = rightScopeDesc;
+        return this;
+    }
+    public String getRightScopeDesc() {
+        return this.rightScopeDesc;
+    }
+
+    public RetryDciRegistrationRequest setApplyerContactInfo(ContactInfo applyerContactInfo) {
+        this.applyerContactInfo = applyerContactInfo;
+        return this;
+    }
+    public ContactInfo getApplyerContactInfo() {
+        return this.applyerContactInfo;
+    }
+
+    public RetryDciRegistrationRequest setPlatformContactInfo(ContactInfo platformContactInfo) {
+        this.platformContactInfo = platformContactInfo;
+        return this;
+    }
+    public ContactInfo getPlatformContactInfo() {
+        return this.platformContactInfo;
     }
 
 }
