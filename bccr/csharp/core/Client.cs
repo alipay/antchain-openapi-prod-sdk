@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.43"},
+                        {"sdk_version", "1.18.46"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.43"},
+                        {"sdk_version", "1.18.46"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2968,8 +2968,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 发起指定url的直播取证
-         * Summary: 发起直播取证
+         * Description: 录屏取证
+         * Summary: 录屏
          */
         public CreateEvidenceLiveResponse CreateEvidenceLive(CreateEvidenceLiveRequest request)
         {
@@ -2979,8 +2979,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 发起指定url的直播取证
-         * Summary: 发起直播取证
+         * Description: 录屏取证
+         * Summary: 录屏
          */
         public async Task<CreateEvidenceLiveResponse> CreateEvidenceLiveAsync(CreateEvidenceLiveRequest request)
         {
@@ -2990,8 +2990,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 发起指定url的直播取证
-         * Summary: 发起直播取证
+         * Description: 录屏取证
+         * Summary: 录屏
          */
         public CreateEvidenceLiveResponse CreateEvidenceLiveEx(CreateEvidenceLiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3000,8 +3000,8 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 发起指定url的直播取证
-         * Summary: 发起直播取证
+         * Description: 录屏取证
+         * Summary: 录屏
          */
         public async Task<CreateEvidenceLiveResponse> CreateEvidenceLiveExAsync(CreateEvidenceLiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -3259,6 +3259,48 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDciFeedbackResponse>(await DoRequestAsync("1.0", "blockchain.bccr.dci.feedback.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 交易商品抽取封面
+         * Summary: 交易商品抽取封面
+         */
+        public ExecTradeCoverResponse ExecTradeCover(ExecTradeCoverRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecTradeCoverEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 交易商品抽取封面
+         * Summary: 交易商品抽取封面
+         */
+        public async Task<ExecTradeCoverResponse> ExecTradeCoverAsync(ExecTradeCoverRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecTradeCoverExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 交易商品抽取封面
+         * Summary: 交易商品抽取封面
+         */
+        public ExecTradeCoverResponse ExecTradeCoverEx(ExecTradeCoverRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecTradeCoverResponse>(DoRequest("1.0", "blockchain.bccr.trade.cover.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 交易商品抽取封面
+         * Summary: 交易商品抽取封面
+         */
+        public async Task<ExecTradeCoverResponse> ExecTradeCoverExAsync(ExecTradeCoverRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecTradeCoverResponse>(await DoRequestAsync("1.0", "blockchain.bccr.trade.cover.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

@@ -35,7 +35,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 发票信息--当前支持普票
         [NameInMap("invoice_info")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public InvoiceInfo InvoiceInfo { get; set; }
 
         // 幂等字段
@@ -52,6 +52,21 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("ancillary_evidence_path_list")]
         [Validation(Required=false)]
         public List<string> AncillaryEvidencePathList { get; set; }
+
+        // 申领人联系信息
+        [NameInMap("applyer_contact_info")]
+        [Validation(Required=false)]
+        public ContactInfo ApplyerContactInfo { get; set; }
+
+        // 代理人联系信息
+        [NameInMap("platform_contact_info")]
+        [Validation(Required=false)]
+        public ContactInfo PlatformContactInfo { get; set; }
+
+        // 权利描述
+        [NameInMap("right_scope_desc")]
+        [Validation(Required=false)]
+        public string RightScopeDesc { get; set; }
 
     }
 

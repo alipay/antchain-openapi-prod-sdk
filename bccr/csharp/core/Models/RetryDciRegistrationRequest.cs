@@ -43,6 +43,21 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ClientToken { get; set; }
 
+        // 权利描述
+        [NameInMap("right_scope_desc")]
+        [Validation(Required=false)]
+        public string RightScopeDesc { get; set; }
+
+        // 申领人联系信息
+        [NameInMap("applyer_contact_info")]
+        [Validation(Required=false)]
+        public ContactInfo ApplyerContactInfo { get; set; }
+
+        // 代理人联系信息
+        [NameInMap("platform_contact_info")]
+        [Validation(Required=false)]
+        public ContactInfo PlatformContactInfo { get; set; }
+
     }
 
 }
