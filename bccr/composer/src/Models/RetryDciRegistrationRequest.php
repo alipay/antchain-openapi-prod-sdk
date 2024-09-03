@@ -48,14 +48,35 @@ class RetryDciRegistrationRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 权利描述
+    /**
+     * @var string
+     */
+    public $rightScopeDesc;
+
+    // 申领人联系信息
+    /**
+     * @var ContactInfo
+     */
+    public $applyerContactInfo;
+
+    // 代理人联系信息
+    /**
+     * @var ContactInfo
+     */
+    public $platformContactInfo;
     protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'digitalRegisterId'  => 'digital_register_id',
-        'dciContentId'       => 'dci_content_id',
-        'explanationInfo'    => 'explanation_info',
-        'additionalFileInfo' => 'additional_file_info',
-        'clientToken'        => 'client_token',
+        'authToken'           => 'auth_token',
+        'productInstanceId'   => 'product_instance_id',
+        'digitalRegisterId'   => 'digital_register_id',
+        'dciContentId'        => 'dci_content_id',
+        'explanationInfo'     => 'explanation_info',
+        'additionalFileInfo'  => 'additional_file_info',
+        'clientToken'         => 'client_token',
+        'rightScopeDesc'      => 'right_scope_desc',
+        'applyerContactInfo'  => 'applyer_contact_info',
+        'platformContactInfo' => 'platform_contact_info',
     ];
 
     public function validate()
@@ -89,6 +110,15 @@ class RetryDciRegistrationRequest extends Model
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
         }
+        if (null !== $this->rightScopeDesc) {
+            $res['right_scope_desc'] = $this->rightScopeDesc;
+        }
+        if (null !== $this->applyerContactInfo) {
+            $res['applyer_contact_info'] = null !== $this->applyerContactInfo ? $this->applyerContactInfo->toMap() : null;
+        }
+        if (null !== $this->platformContactInfo) {
+            $res['platform_contact_info'] = null !== $this->platformContactInfo ? $this->platformContactInfo->toMap() : null;
+        }
 
         return $res;
     }
@@ -121,6 +151,15 @@ class RetryDciRegistrationRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['right_scope_desc'])) {
+            $model->rightScopeDesc = $map['right_scope_desc'];
+        }
+        if (isset($map['applyer_contact_info'])) {
+            $model->applyerContactInfo = ContactInfo::fromMap($map['applyer_contact_info']);
+        }
+        if (isset($map['platform_contact_info'])) {
+            $model->platformContactInfo = ContactInfo::fromMap($map['platform_contact_info']);
         }
 
         return $model;

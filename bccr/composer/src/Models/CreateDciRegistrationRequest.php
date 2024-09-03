@@ -60,6 +60,24 @@ class CreateDciRegistrationRequest extends Model
      * @var string[]
      */
     public $ancillaryEvidencePathList;
+
+    // 申领人联系信息
+    /**
+     * @var ContactInfo
+     */
+    public $applyerContactInfo;
+
+    // 代理人联系信息
+    /**
+     * @var ContactInfo
+     */
+    public $platformContactInfo;
+
+    // 权利描述
+    /**
+     * @var string
+     */
+    public $rightScopeDesc;
     protected $_name = [
         'authToken'                 => 'auth_token',
         'productInstanceId'         => 'product_instance_id',
@@ -70,13 +88,15 @@ class CreateDciRegistrationRequest extends Model
         'clientToken'               => 'client_token',
         'creationStatement'         => 'creation_statement',
         'ancillaryEvidencePathList' => 'ancillary_evidence_path_list',
+        'applyerContactInfo'        => 'applyer_contact_info',
+        'platformContactInfo'       => 'platform_contact_info',
+        'rightScopeDesc'            => 'right_scope_desc',
     ];
 
     public function validate()
     {
         Model::validateRequired('dciContentId', $this->dciContentId, true);
         Model::validateRequired('explanationInfo', $this->explanationInfo, true);
-        Model::validateRequired('invoiceInfo', $this->invoiceInfo, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
@@ -109,6 +129,15 @@ class CreateDciRegistrationRequest extends Model
         }
         if (null !== $this->ancillaryEvidencePathList) {
             $res['ancillary_evidence_path_list'] = $this->ancillaryEvidencePathList;
+        }
+        if (null !== $this->applyerContactInfo) {
+            $res['applyer_contact_info'] = null !== $this->applyerContactInfo ? $this->applyerContactInfo->toMap() : null;
+        }
+        if (null !== $this->platformContactInfo) {
+            $res['platform_contact_info'] = null !== $this->platformContactInfo ? $this->platformContactInfo->toMap() : null;
+        }
+        if (null !== $this->rightScopeDesc) {
+            $res['right_scope_desc'] = $this->rightScopeDesc;
         }
 
         return $res;
@@ -150,6 +179,15 @@ class CreateDciRegistrationRequest extends Model
             if (!empty($map['ancillary_evidence_path_list'])) {
                 $model->ancillaryEvidencePathList = $map['ancillary_evidence_path_list'];
             }
+        }
+        if (isset($map['applyer_contact_info'])) {
+            $model->applyerContactInfo = ContactInfo::fromMap($map['applyer_contact_info']);
+        }
+        if (isset($map['platform_contact_info'])) {
+            $model->platformContactInfo = ContactInfo::fromMap($map['platform_contact_info']);
+        }
+        if (isset($map['right_scope_desc'])) {
+            $model->rightScopeDesc = $map['right_scope_desc'];
         }
 
         return $model;

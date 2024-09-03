@@ -61,6 +61,8 @@ use AntChain\BCCR\Models\CreateRecordscreenRequest;
 use AntChain\BCCR\Models\CreateRecordscreenResponse;
 use AntChain\BCCR\Models\CreateScreenshotRequest;
 use AntChain\BCCR\Models\CreateScreenshotResponse;
+use AntChain\BCCR\Models\ExecTradeCoverRequest;
+use AntChain\BCCR\Models\ExecTradeCoverResponse;
 use AntChain\BCCR\Models\GetCertificateRequest;
 use AntChain\BCCR\Models\GetCertificateResponse;
 use AntChain\BCCR\Models\GetDciPayurlRequest;
@@ -314,7 +316,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.18.43',
+                    'sdk_version'      => '1.18.46',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2442,8 +2444,8 @@ class Client
     }
 
     /**
-     * Description: 发起指定url的直播取证
-     * Summary: 发起直播取证
+     * Description: 录屏取证
+     * Summary: 录屏.
      *
      * @param CreateEvidenceLiveRequest $request
      *
@@ -2458,8 +2460,8 @@ class Client
     }
 
     /**
-     * Description: 发起指定url的直播取证
-     * Summary: 发起直播取证
+     * Description: 录屏取证
+     * Summary: 录屏.
      *
      * @param CreateEvidenceLiveRequest $request
      * @param string[]                  $headers
@@ -2670,6 +2672,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDciFeedbackResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.dci.feedback.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 交易商品抽取封面
+     * Summary: 交易商品抽取封面.
+     *
+     * @param ExecTradeCoverRequest $request
+     *
+     * @return ExecTradeCoverResponse
+     */
+    public function execTradeCover($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execTradeCoverEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 交易商品抽取封面
+     * Summary: 交易商品抽取封面.
+     *
+     * @param ExecTradeCoverRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return ExecTradeCoverResponse
+     */
+    public function execTradeCoverEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecTradeCoverResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.trade.cover.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
