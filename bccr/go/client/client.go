@@ -3662,6 +3662,32 @@ func (s *ScreenCancelInfo) SetCancelAttemptLeft(v int64) *ScreenCancelInfo {
 	return s
 }
 
+// 联系人信息
+type ContactInfo struct {
+	// 联系人
+	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true"`
+	// 联系电话
+	ContactPhone *string `json:"contact_phone,omitempty" xml:"contact_phone,omitempty" require:"true"`
+}
+
+func (s ContactInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContactInfo) GoString() string {
+	return s.String()
+}
+
+func (s *ContactInfo) SetContactName(v string) *ContactInfo {
+	s.ContactName = &v
+	return s
+}
+
+func (s *ContactInfo) SetContactPhone(v string) *ContactInfo {
+	s.ContactPhone = &v
+	return s
+}
+
 // 证书信息
 type CertificateData struct {
 	// 任务ID
@@ -8224,13 +8250,19 @@ type CreateDciRegistrationRequest struct {
 	// 补充文件相关信息
 	AdditionalFileInfo *AdditionalFileInfo `json:"additional_file_info,omitempty" xml:"additional_file_info,omitempty"`
 	// 发票信息--当前支持普票
-	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty" require:"true"`
+	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 	// 废弃待删除
 	CreationStatement *string `json:"creation_statement,omitempty" xml:"creation_statement,omitempty"`
 	// 废弃待删除
 	AncillaryEvidencePathList []*string `json:"ancillary_evidence_path_list,omitempty" xml:"ancillary_evidence_path_list,omitempty" type:"Repeated"`
+	// 申领人联系信息
+	ApplyerContactInfo *ContactInfo `json:"applyer_contact_info,omitempty" xml:"applyer_contact_info,omitempty"`
+	// 代理人联系信息
+	PlatformContactInfo *ContactInfo `json:"platform_contact_info,omitempty" xml:"platform_contact_info,omitempty"`
+	// 权利描述
+	RightScopeDesc *string `json:"right_scope_desc,omitempty" xml:"right_scope_desc,omitempty"`
 }
 
 func (s CreateDciRegistrationRequest) String() string {
@@ -8283,6 +8315,21 @@ func (s *CreateDciRegistrationRequest) SetCreationStatement(v string) *CreateDci
 
 func (s *CreateDciRegistrationRequest) SetAncillaryEvidencePathList(v []*string) *CreateDciRegistrationRequest {
 	s.AncillaryEvidencePathList = v
+	return s
+}
+
+func (s *CreateDciRegistrationRequest) SetApplyerContactInfo(v *ContactInfo) *CreateDciRegistrationRequest {
+	s.ApplyerContactInfo = v
+	return s
+}
+
+func (s *CreateDciRegistrationRequest) SetPlatformContactInfo(v *ContactInfo) *CreateDciRegistrationRequest {
+	s.PlatformContactInfo = v
+	return s
+}
+
+func (s *CreateDciRegistrationRequest) SetRightScopeDesc(v string) *CreateDciRegistrationRequest {
+	s.RightScopeDesc = &v
 	return s
 }
 
@@ -10398,6 +10445,12 @@ type RetryDciRegistrationRequest struct {
 	AdditionalFileInfo *AdditionalFileInfo `json:"additional_file_info,omitempty" xml:"additional_file_info,omitempty"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 权利描述
+	RightScopeDesc *string `json:"right_scope_desc,omitempty" xml:"right_scope_desc,omitempty"`
+	// 申领人联系信息
+	ApplyerContactInfo *ContactInfo `json:"applyer_contact_info,omitempty" xml:"applyer_contact_info,omitempty"`
+	// 代理人联系信息
+	PlatformContactInfo *ContactInfo `json:"platform_contact_info,omitempty" xml:"platform_contact_info,omitempty"`
 }
 
 func (s RetryDciRegistrationRequest) String() string {
@@ -10440,6 +10493,21 @@ func (s *RetryDciRegistrationRequest) SetAdditionalFileInfo(v *AdditionalFileInf
 
 func (s *RetryDciRegistrationRequest) SetClientToken(v string) *RetryDciRegistrationRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetRightScopeDesc(v string) *RetryDciRegistrationRequest {
+	s.RightScopeDesc = &v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetApplyerContactInfo(v *ContactInfo) *RetryDciRegistrationRequest {
+	s.ApplyerContactInfo = v
+	return s
+}
+
+func (s *RetryDciRegistrationRequest) SetPlatformContactInfo(v *ContactInfo) *RetryDciRegistrationRequest {
+	s.PlatformContactInfo = v
 	return s
 }
 
@@ -12533,6 +12601,90 @@ func (s *QueryDciFeedbackResponse) SetMsg(v string) *QueryDciFeedbackResponse {
 	return s
 }
 
+type ExecTradeCoverRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 调用方唯一业务标识
+	OutBizNo *int64 `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 需要抽取封面的文件url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+}
+
+func (s ExecTradeCoverRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecTradeCoverRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecTradeCoverRequest) SetAuthToken(v string) *ExecTradeCoverRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecTradeCoverRequest) SetProductInstanceId(v string) *ExecTradeCoverRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecTradeCoverRequest) SetOutBizNo(v int64) *ExecTradeCoverRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *ExecTradeCoverRequest) SetFileUrl(v string) *ExecTradeCoverRequest {
+	s.FileUrl = &v
+	return s
+}
+
+type ExecTradeCoverResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 调用方唯一业务标识
+	OutBizNo *int64 `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s ExecTradeCoverResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecTradeCoverResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecTradeCoverResponse) SetReqMsgId(v string) *ExecTradeCoverResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecTradeCoverResponse) SetResultCode(v string) *ExecTradeCoverResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecTradeCoverResponse) SetResultMsg(v string) *ExecTradeCoverResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecTradeCoverResponse) SetOutBizNo(v int64) *ExecTradeCoverResponse {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *ExecTradeCoverResponse) SetExtInfo(v string) *ExecTradeCoverResponse {
+	s.ExtInfo = &v
+	return s
+}
+
 type AddContentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -13495,7 +13647,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.18.43"),
+				"sdk_version":      tea.String("1.18.46"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -15696,8 +15848,8 @@ func (client *Client) CancelTradeUsageEx(request *CancelTradeUsageRequest, heade
 }
 
 /**
- * Description: 发起指定url的直播取证
- * Summary: 发起直播取证
+ * Description: 录屏取证
+ * Summary: 录屏
  */
 func (client *Client) CreateEvidenceLive(request *CreateEvidenceLiveRequest) (_result *CreateEvidenceLiveResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -15712,8 +15864,8 @@ func (client *Client) CreateEvidenceLive(request *CreateEvidenceLiveRequest) (_r
 }
 
 /**
- * Description: 发起指定url的直播取证
- * Summary: 发起直播取证
+ * Description: 录屏取证
+ * Summary: 录屏
  */
 func (client *Client) CreateEvidenceLiveEx(request *CreateEvidenceLiveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceLiveResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -15926,6 +16078,40 @@ func (client *Client) QueryDciFeedbackEx(request *QueryDciFeedbackRequest, heade
 	}
 	_result = &QueryDciFeedbackResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.dci.feedback.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 交易商品抽取封面
+ * Summary: 交易商品抽取封面
+ */
+func (client *Client) ExecTradeCover(request *ExecTradeCoverRequest) (_result *ExecTradeCoverResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecTradeCoverResponse{}
+	_body, _err := client.ExecTradeCoverEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 交易商品抽取封面
+ * Summary: 交易商品抽取封面
+ */
+func (client *Client) ExecTradeCoverEx(request *ExecTradeCoverRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecTradeCoverResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecTradeCoverResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.trade.cover.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
