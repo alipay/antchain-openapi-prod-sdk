@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.18.43',
+    sdk_version = '1.18.46',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -1239,6 +1239,14 @@ model ScreenCancelInfo {
   cancelInMin: long(name='cancel_in_min', example='10'),
   // 可用放弃次数
   cancelAttemptLeft: long(name='cancel_attempt_left', example='1'),
+}
+
+// 联系人信息
+model ContactInfo {
+  // 联系人
+  contactName: string(name='contact_name', example='张三'),
+  // 联系电话
+  contactPhone: string(name='contact_phone', example='17688887777'),
 }
 
 // 证书信息
@@ -3120,13 +3128,19 @@ model CreateDciRegistrationRequest = {
   // 补充文件相关信息
   additionalFileInfo?: AdditionalFileInfo(name='additional_file_info'),
   // 发票信息--当前支持普票
-  invoiceInfo: InvoiceInfo(name='invoice_info'),
+  invoiceInfo?: InvoiceInfo(name='invoice_info'),
   // 幂等字段
   clientToken: string(name='client_token'),
   // 废弃待删除
   creationStatement?: string(name='creation_statement'),
   // 废弃待删除
   ancillaryEvidencePathList?: [ string ](name='ancillary_evidence_path_list'),
+  // 申领人联系信息
+  applyerContactInfo?: ContactInfo(name='applyer_contact_info'),
+  // 代理人联系信息
+  platformContactInfo?: ContactInfo(name='platform_contact_info'),
+  // 权利描述
+  rightScopeDesc?: string(name='right_scope_desc'),
 }
 
 model CreateDciRegistrationResponse = {
@@ -4104,6 +4118,12 @@ model RetryDciRegistrationRequest = {
   additionalFileInfo?: AdditionalFileInfo(name='additional_file_info'),
   // 幂等字段
   clientToken: string(name='client_token'),
+  // 权利描述
+  rightScopeDesc?: string(name='right_scope_desc'),
+  // 申领人联系信息
+  applyerContactInfo?: ContactInfo(name='applyer_contact_info'),
+  // 代理人联系信息
+  platformContactInfo?: ContactInfo(name='platform_contact_info'),
 }
 
 model RetryDciRegistrationResponse = {
@@ -4749,8 +4769,8 @@ model CreateEvidenceLiveResponse = {
 }
 
 /**
- * Description: 发起指定url的直播取证
- * Summary: 发起直播取证
+ * Description: 录屏取证
+ * Summary: 录屏
  */
 async function createEvidenceLive(request: CreateEvidenceLiveRequest): CreateEvidenceLiveResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4759,8 +4779,8 @@ async function createEvidenceLive(request: CreateEvidenceLiveRequest): CreateEvi
 }
 
 /**
- * Description: 发起指定url的直播取证
- * Summary: 发起直播取证
+ * Description: 录屏取证
+ * Summary: 录屏
  */
 async function createEvidenceLiveEx(request: CreateEvidenceLiveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEvidenceLiveResponse {
   Util.validateModel(request);
@@ -5067,6 +5087,48 @@ async function queryDciFeedback(request: QueryDciFeedbackRequest): QueryDciFeedb
 async function queryDciFeedbackEx(request: QueryDciFeedbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDciFeedbackResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.dci.feedback.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecTradeCoverRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方唯一业务标识
+  outBizNo: long(name='out_biz_no'),
+  // 需要抽取封面的文件url
+  fileUrl: string(name='file_url'),
+}
+
+model ExecTradeCoverResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 调用方唯一业务标识	
+  outBizNo?: long(name='out_biz_no'),
+  // 扩展信息	
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 交易商品抽取封面
+ * Summary: 交易商品抽取封面
+ */
+async function execTradeCover(request: ExecTradeCoverRequest): ExecTradeCoverResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execTradeCoverEx(request, headers, runtime);
+}
+
+/**
+ * Description: 交易商品抽取封面
+ * Summary: 交易商品抽取封面
+ */
+async function execTradeCoverEx(request: ExecTradeCoverRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecTradeCoverResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.trade.cover.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddContentRequest = {
