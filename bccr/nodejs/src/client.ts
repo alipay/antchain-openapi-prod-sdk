@@ -9416,7 +9416,7 @@ export class ExecTradeCoverResponse extends $tea.Model {
   }
 }
 
-export class GetOrderCreateorderRequest extends $tea.Model {
+export class CreateOrderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -9455,7 +9455,7 @@ export class GetOrderCreateorderRequest extends $tea.Model {
   }
 }
 
-export class GetOrderCreateorderResponse extends $tea.Model {
+export class CreateOrderResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -9487,7 +9487,7 @@ export class GetOrderCreateorderResponse extends $tea.Model {
   }
 }
 
-export class GetOrderQuerypayurlRequest extends $tea.Model {
+export class QueryOrderPayurlRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
@@ -9514,7 +9514,7 @@ export class GetOrderQuerypayurlRequest extends $tea.Model {
   }
 }
 
-export class GetOrderQuerypayurlResponse extends $tea.Model {
+export class QueryOrderPayurlResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -10291,7 +10291,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.0",
+          sdk_version: "1.19.2",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -11692,38 +11692,38 @@ export default class Client {
    * Description: 创建订单
    * Summary: 创建订单
    */
-  async getOrderCreateorder(request: GetOrderCreateorderRequest): Promise<GetOrderCreateorderResponse> {
+  async createOrder(request: CreateOrderRequest): Promise<CreateOrderResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getOrderCreateorderEx(request, headers, runtime);
+    return await this.createOrderEx(request, headers, runtime);
   }
 
   /**
    * Description: 创建订单
    * Summary: 创建订单
    */
-  async getOrderCreateorderEx(request: GetOrderCreateorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetOrderCreateorderResponse> {
+  async createOrderEx(request: CreateOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateOrderResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetOrderCreateorderResponse>(await this.doRequest("1.0", "blockchain.bccr.order.createorder.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetOrderCreateorderResponse({}));
+    return $tea.cast<CreateOrderResponse>(await this.doRequest("1.0", "blockchain.bccr.order.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateOrderResponse({}));
   }
 
   /**
    * Description: 查询订单支付链接
    * Summary: 查询订单支付链接
    */
-  async getOrderQuerypayurl(request: GetOrderQuerypayurlRequest): Promise<GetOrderQuerypayurlResponse> {
+  async queryOrderPayurl(request: QueryOrderPayurlRequest): Promise<QueryOrderPayurlResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.getOrderQuerypayurlEx(request, headers, runtime);
+    return await this.queryOrderPayurlEx(request, headers, runtime);
   }
 
   /**
    * Description: 查询订单支付链接
    * Summary: 查询订单支付链接
    */
-  async getOrderQuerypayurlEx(request: GetOrderQuerypayurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetOrderQuerypayurlResponse> {
+  async queryOrderPayurlEx(request: QueryOrderPayurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOrderPayurlResponse> {
     Util.validateModel(request);
-    return $tea.cast<GetOrderQuerypayurlResponse>(await this.doRequest("1.0", "blockchain.bccr.order.querypayurl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetOrderQuerypayurlResponse({}));
+    return $tea.cast<QueryOrderPayurlResponse>(await this.doRequest("1.0", "blockchain.bccr.order.payurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOrderPayurlResponse({}));
   }
 
   /**
