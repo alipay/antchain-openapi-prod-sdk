@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.46"},
+                        {"sdk_version", "1.19.0"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.18.46"},
+                        {"sdk_version", "1.19.0"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3301,6 +3301,90 @@ namespace AntChain.SDK.BCCR
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecTradeCoverResponse>(await DoRequestAsync("1.0", "blockchain.bccr.trade.cover.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建订单
+         * Summary: 创建订单
+         */
+        public GetOrderCreateorderResponse GetOrderCreateorder(GetOrderCreateorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetOrderCreateorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建订单
+         * Summary: 创建订单
+         */
+        public async Task<GetOrderCreateorderResponse> GetOrderCreateorderAsync(GetOrderCreateorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetOrderCreateorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建订单
+         * Summary: 创建订单
+         */
+        public GetOrderCreateorderResponse GetOrderCreateorderEx(GetOrderCreateorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetOrderCreateorderResponse>(DoRequest("1.0", "blockchain.bccr.order.createorder.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建订单
+         * Summary: 创建订单
+         */
+        public async Task<GetOrderCreateorderResponse> GetOrderCreateorderExAsync(GetOrderCreateorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetOrderCreateorderResponse>(await DoRequestAsync("1.0", "blockchain.bccr.order.createorder.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询订单支付链接
+         * Summary: 查询订单支付链接
+         */
+        public GetOrderQuerypayurlResponse GetOrderQuerypayurl(GetOrderQuerypayurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetOrderQuerypayurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询订单支付链接
+         * Summary: 查询订单支付链接
+         */
+        public async Task<GetOrderQuerypayurlResponse> GetOrderQuerypayurlAsync(GetOrderQuerypayurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetOrderQuerypayurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询订单支付链接
+         * Summary: 查询订单支付链接
+         */
+        public GetOrderQuerypayurlResponse GetOrderQuerypayurlEx(GetOrderQuerypayurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetOrderQuerypayurlResponse>(DoRequest("1.0", "blockchain.bccr.order.querypayurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询订单支付链接
+         * Summary: 查询订单支付链接
+         */
+        public async Task<GetOrderQuerypayurlResponse> GetOrderQuerypayurlExAsync(GetOrderQuerypayurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetOrderQuerypayurlResponse>(await DoRequestAsync("1.0", "blockchain.bccr.order.querypayurl.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
