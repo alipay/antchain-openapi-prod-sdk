@@ -65,7 +65,13 @@ class CreateAntchainAtoWithholdSignRequest extends Model
     /**
      * @var string
      */
-    public $alipayOpenId;
+    public $userOpenId;
+
+    // 商户支付宝应用 id
+    /**
+     * @var string
+     */
+    public $merchantAppId;
     protected $_name = [
         'authToken'                        => 'auth_token',
         'productInstanceId'                => 'product_instance_id',
@@ -76,7 +82,8 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         'alipayMerchantServiceDescription' => 'alipay_merchant_service_description',
         'alipayUserId'                     => 'alipay_user_id',
         'returnUrl'                        => 'return_url',
-        'alipayOpenId'                     => 'alipay_open_id',
+        'userOpenId'                       => 'user_open_id',
+        'merchantAppId'                    => 'merchant_app_id',
     ];
 
     public function validate()
@@ -89,8 +96,9 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         Model::validateMaxLength('alipayMerchantServiceDescription', $this->alipayMerchantServiceDescription, 150);
         Model::validateMaxLength('alipayUserId', $this->alipayUserId, 128);
         Model::validateMaxLength('returnUrl', $this->returnUrl, 256);
-        Model::validateMaxLength('alipayOpenId', $this->alipayOpenId, 128);
-        Model::validateMinLength('alipayOpenId', $this->alipayOpenId, 16);
+        Model::validateMaxLength('userOpenId', $this->userOpenId, 128);
+        Model::validateMaxLength('merchantAppId', $this->merchantAppId, 32);
+        Model::validateMinLength('userOpenId', $this->userOpenId, 16);
     }
 
     public function toMap()
@@ -123,8 +131,11 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         if (null !== $this->returnUrl) {
             $res['return_url'] = $this->returnUrl;
         }
-        if (null !== $this->alipayOpenId) {
-            $res['alipay_open_id'] = $this->alipayOpenId;
+        if (null !== $this->userOpenId) {
+            $res['user_open_id'] = $this->userOpenId;
+        }
+        if (null !== $this->merchantAppId) {
+            $res['merchant_app_id'] = $this->merchantAppId;
         }
 
         return $res;
@@ -165,8 +176,11 @@ class CreateAntchainAtoWithholdSignRequest extends Model
         if (isset($map['return_url'])) {
             $model->returnUrl = $map['return_url'];
         }
-        if (isset($map['alipay_open_id'])) {
-            $model->alipayOpenId = $map['alipay_open_id'];
+        if (isset($map['user_open_id'])) {
+            $model->userOpenId = $map['user_open_id'];
+        }
+        if (isset($map['merchant_app_id'])) {
+            $model->merchantAppId = $map['merchant_app_id'];
         }
 
         return $model;

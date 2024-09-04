@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeFinanceprecheckRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeFinanceprecheckResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AuthAntchainAtoSignFlowRequest;
@@ -95,6 +97,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTrad
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFrontTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceloanresultsResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceprecheckresultRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundFinanceprecheckresultResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoFundMerchantpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeFinanceloanapplyRequest;
@@ -268,7 +272,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.5',
+                    'sdk_version'      => '1.3.6',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -2154,6 +2158,72 @@ class Client
         Utils::validateModel($request);
 
         return ReplaceAntchainAtoTradeUserpromiseResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单融资预审申请接口
+     * Summary: 订单融资预审申请接口.
+     *
+     * @param ApplyAntchainAtoTradeFinanceprecheckRequest $request
+     *
+     * @return ApplyAntchainAtoTradeFinanceprecheckResponse
+     */
+    public function applyAntchainAtoTradeFinanceprecheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyAntchainAtoTradeFinanceprecheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单融资预审申请接口
+     * Summary: 订单融资预审申请接口.
+     *
+     * @param ApplyAntchainAtoTradeFinanceprecheckRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return ApplyAntchainAtoTradeFinanceprecheckResponse
+     */
+    public function applyAntchainAtoTradeFinanceprecheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyAntchainAtoTradeFinanceprecheckResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.financeprecheck.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资预审结果同步
+     * Summary: 融资预审结果同步.
+     *
+     * @param SyncAntchainAtoFundFinanceprecheckresultRequest $request
+     *
+     * @return SyncAntchainAtoFundFinanceprecheckresultResponse
+     */
+    public function syncAntchainAtoFundFinanceprecheckresult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAntchainAtoFundFinanceprecheckresultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资预审结果同步
+     * Summary: 融资预审结果同步.
+     *
+     * @param SyncAntchainAtoFundFinanceprecheckresultRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return SyncAntchainAtoFundFinanceprecheckresultResponse
+     */
+    public function syncAntchainAtoFundFinanceprecheckresultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAntchainAtoFundFinanceprecheckresultResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
