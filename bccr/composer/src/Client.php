@@ -71,6 +71,10 @@ use AntChain\BCCR\Models\GetDciRegistrationcertRequest;
 use AntChain\BCCR\Models\GetDciRegistrationcertResponse;
 use AntChain\BCCR\Models\GetEvidenceInfoRequest;
 use AntChain\BCCR\Models\GetEvidenceInfoResponse;
+use AntChain\BCCR\Models\GetOrderCreateorderRequest;
+use AntChain\BCCR\Models\GetOrderCreateorderResponse;
+use AntChain\BCCR\Models\GetOrderQuerypayurlRequest;
+use AntChain\BCCR\Models\GetOrderQuerypayurlResponse;
 use AntChain\BCCR\Models\GetTradeUsageRequest;
 use AntChain\BCCR\Models\GetTradeUsageResponse;
 use AntChain\BCCR\Models\GetUploadurlRequest;
@@ -316,7 +320,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.18.46',
+                    'sdk_version'      => '1.19.0',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2705,6 +2709,72 @@ class Client
         Utils::validateModel($request);
 
         return ExecTradeCoverResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.trade.cover.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建订单
+     * Summary: 创建订单.
+     *
+     * @param GetOrderCreateorderRequest $request
+     *
+     * @return GetOrderCreateorderResponse
+     */
+    public function getOrderCreateorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getOrderCreateorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建订单
+     * Summary: 创建订单.
+     *
+     * @param GetOrderCreateorderRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return GetOrderCreateorderResponse
+     */
+    public function getOrderCreateorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetOrderCreateorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.order.createorder.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询订单支付链接
+     * Summary: 查询订单支付链接.
+     *
+     * @param GetOrderQuerypayurlRequest $request
+     *
+     * @return GetOrderQuerypayurlResponse
+     */
+    public function getOrderQuerypayurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getOrderQuerypayurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询订单支付链接
+     * Summary: 查询订单支付链接.
+     *
+     * @param GetOrderQuerypayurlRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return GetOrderQuerypayurlResponse
+     */
+    public function getOrderQuerypayurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetOrderQuerypayurlResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.order.querypayurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
