@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.5',
+                    'sdk_version': '1.3.6',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.5',
+                    'sdk_version': '1.3.6',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -3407,6 +3407,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ReplaceAntchainAtoTradeUserpromiseResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.userpromise.replace', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_antchain_ato_trade_financeprecheck(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckResponse:
+        """
+        Description: 订单融资预审申请接口
+        Summary: 订单融资预审申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_antchain_ato_trade_financeprecheck_ex(request, headers, runtime)
+
+    async def apply_antchain_ato_trade_financeprecheck_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckResponse:
+        """
+        Description: 订单融资预审申请接口
+        Summary: 订单融资预审申请接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_antchain_ato_trade_financeprecheck_ex_async(request, headers, runtime)
+
+    def apply_antchain_ato_trade_financeprecheck_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckResponse:
+        """
+        Description: 订单融资预审申请接口
+        Summary: 订单融资预审申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.financeprecheck.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_antchain_ato_trade_financeprecheck_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckResponse:
+        """
+        Description: 订单融资预审申请接口
+        Summary: 订单融资预审申请接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ApplyAntchainAtoTradeFinanceprecheckResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.financeprecheck.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_antchain_ato_fund_financeprecheckresult(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultResponse:
+        """
+        Description: 融资预审结果同步
+        Summary: 融资预审结果同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_antchain_ato_fund_financeprecheckresult_ex(request, headers, runtime)
+
+    async def sync_antchain_ato_fund_financeprecheckresult_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultResponse:
+        """
+        Description: 融资预审结果同步
+        Summary: 融资预审结果同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_antchain_ato_fund_financeprecheckresult_ex_async(request, headers, runtime)
+
+    def sync_antchain_ato_fund_financeprecheckresult_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultResponse:
+        """
+        Description: 融资预审结果同步
+        Summary: 融资预审结果同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_antchain_ato_fund_financeprecheckresult_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultResponse:
+        """
+        Description: 融资预审结果同步
+        Summary: 融资预审结果同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
