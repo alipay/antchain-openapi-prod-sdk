@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetOrderQuerypayurlRequest extends Model
+class QueryOrderPayurlRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -54,7 +54,7 @@ class GetOrderQuerypayurlRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetOrderQuerypayurlRequest
+     * @return QueryOrderPayurlRequest
      */
     public static function fromMap($map = [])
     {

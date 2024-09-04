@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetOrderCreateorderRequest extends Model
+class CreateOrderRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -91,7 +91,7 @@ class GetOrderCreateorderRequest extends Model
     /**
      * @param array $map
      *
-     * @return GetOrderCreateorderRequest
+     * @return CreateOrderRequest
      */
     public static function fromMap($map = [])
     {

@@ -55,6 +55,8 @@ use AntChain\BCCR\Models\CreateEvidenceVodRequest;
 use AntChain\BCCR\Models\CreateEvidenceVodResponse;
 use AntChain\BCCR\Models\CreateMonitorTaskRequest;
 use AntChain\BCCR\Models\CreateMonitorTaskResponse;
+use AntChain\BCCR\Models\CreateOrderRequest;
+use AntChain\BCCR\Models\CreateOrderResponse;
 use AntChain\BCCR\Models\CreateRecodescreenRequest;
 use AntChain\BCCR\Models\CreateRecodescreenResponse;
 use AntChain\BCCR\Models\CreateRecordscreenRequest;
@@ -71,10 +73,6 @@ use AntChain\BCCR\Models\GetDciRegistrationcertRequest;
 use AntChain\BCCR\Models\GetDciRegistrationcertResponse;
 use AntChain\BCCR\Models\GetEvidenceInfoRequest;
 use AntChain\BCCR\Models\GetEvidenceInfoResponse;
-use AntChain\BCCR\Models\GetOrderCreateorderRequest;
-use AntChain\BCCR\Models\GetOrderCreateorderResponse;
-use AntChain\BCCR\Models\GetOrderQuerypayurlRequest;
-use AntChain\BCCR\Models\GetOrderQuerypayurlResponse;
 use AntChain\BCCR\Models\GetTradeUsageRequest;
 use AntChain\BCCR\Models\GetTradeUsageResponse;
 use AntChain\BCCR\Models\GetUploadurlRequest;
@@ -137,6 +135,8 @@ use AntChain\BCCR\Models\QueryNotaryOrderRequest;
 use AntChain\BCCR\Models\QueryNotaryOrderResponse;
 use AntChain\BCCR\Models\QueryNotaryPayurlRequest;
 use AntChain\BCCR\Models\QueryNotaryPayurlResponse;
+use AntChain\BCCR\Models\QueryOrderPayurlRequest;
+use AntChain\BCCR\Models\QueryOrderPayurlResponse;
 use AntChain\BCCR\Models\QueryRecodescreenRequest;
 use AntChain\BCCR\Models\QueryRecodescreenResponse;
 use AntChain\BCCR\Models\QueryRecordscreenRequest;
@@ -320,7 +320,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.0',
+                    'sdk_version'      => '1.19.2',
                     '_prod_code'       => 'BCCR',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2715,66 +2715,66 @@ class Client
      * Description: 创建订单
      * Summary: 创建订单.
      *
-     * @param GetOrderCreateorderRequest $request
+     * @param CreateOrderRequest $request
      *
-     * @return GetOrderCreateorderResponse
+     * @return CreateOrderResponse
      */
-    public function getOrderCreateorder($request)
+    public function createOrder($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->getOrderCreateorderEx($request, $headers, $runtime);
+        return $this->createOrderEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 创建订单
      * Summary: 创建订单.
      *
-     * @param GetOrderCreateorderRequest $request
-     * @param string[]                   $headers
-     * @param RuntimeOptions             $runtime
+     * @param CreateOrderRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
      *
-     * @return GetOrderCreateorderResponse
+     * @return CreateOrderResponse
      */
-    public function getOrderCreateorderEx($request, $headers, $runtime)
+    public function createOrderEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return GetOrderCreateorderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.order.createorder.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return CreateOrderResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.order.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
      * Description: 查询订单支付链接
      * Summary: 查询订单支付链接.
      *
-     * @param GetOrderQuerypayurlRequest $request
+     * @param QueryOrderPayurlRequest $request
      *
-     * @return GetOrderQuerypayurlResponse
+     * @return QueryOrderPayurlResponse
      */
-    public function getOrderQuerypayurl($request)
+    public function queryOrderPayurl($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->getOrderQuerypayurlEx($request, $headers, $runtime);
+        return $this->queryOrderPayurlEx($request, $headers, $runtime);
     }
 
     /**
      * Description: 查询订单支付链接
      * Summary: 查询订单支付链接.
      *
-     * @param GetOrderQuerypayurlRequest $request
-     * @param string[]                   $headers
-     * @param RuntimeOptions             $runtime
+     * @param QueryOrderPayurlRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
      *
-     * @return GetOrderQuerypayurlResponse
+     * @return QueryOrderPayurlResponse
      */
-    public function getOrderQuerypayurlEx($request, $headers, $runtime)
+    public function queryOrderPayurlEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return GetOrderQuerypayurlResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.order.querypayurl.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryOrderPayurlResponse::fromMap($this->doRequest('1.0', 'blockchain.bccr.order.payurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

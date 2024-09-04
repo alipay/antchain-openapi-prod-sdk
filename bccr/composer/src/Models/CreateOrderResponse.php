@@ -6,7 +6,7 @@ namespace AntChain\BCCR\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetOrderCreateorderResponse extends Model
+class CreateOrderResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -64,7 +64,7 @@ class GetOrderCreateorderResponse extends Model
     /**
      * @param array $map
      *
-     * @return GetOrderCreateorderResponse
+     * @return CreateOrderResponse
      */
     public static function fromMap($map = [])
     {
