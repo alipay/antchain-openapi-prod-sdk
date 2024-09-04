@@ -120,9 +120,14 @@ public class SubmitAntchainAtoFrontSignRequest extends TeaModel {
     public String thirdSigner;
 
     // 用户在支付宝开放平台下应用的 open_id
-    @NameInMap("alipay_open_id")
+    @NameInMap("user_open_id")
     @Validation(maxLength = 64, minLength = 16)
-    public String alipayOpenId;
+    public String userOpenId;
+
+    // 商户支付宝应用 id
+    @NameInMap("merchant_app_id")
+    @Validation(maxLength = 32)
+    public String merchantAppId;
 
     public static SubmitAntchainAtoFrontSignRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAntchainAtoFrontSignRequest self = new SubmitAntchainAtoFrontSignRequest();
@@ -313,12 +318,20 @@ public class SubmitAntchainAtoFrontSignRequest extends TeaModel {
         return this.thirdSigner;
     }
 
-    public SubmitAntchainAtoFrontSignRequest setAlipayOpenId(String alipayOpenId) {
-        this.alipayOpenId = alipayOpenId;
+    public SubmitAntchainAtoFrontSignRequest setUserOpenId(String userOpenId) {
+        this.userOpenId = userOpenId;
         return this;
     }
-    public String getAlipayOpenId() {
-        return this.alipayOpenId;
+    public String getUserOpenId() {
+        return this.userOpenId;
+    }
+
+    public SubmitAntchainAtoFrontSignRequest setMerchantAppId(String merchantAppId) {
+        this.merchantAppId = merchantAppId;
+        return this;
+    }
+    public String getMerchantAppId() {
+        return this.merchantAppId;
     }
 
 }
