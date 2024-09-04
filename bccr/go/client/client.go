@@ -12711,7 +12711,7 @@ func (s *ExecTradeCoverResponse) SetExtInfo(v string) *ExecTradeCoverResponse {
 	return s
 }
 
-type GetOrderCreateorderRequest struct {
+type CreateOrderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -12725,45 +12725,45 @@ type GetOrderCreateorderRequest struct {
 	OrderItem []*OrderItem `json:"order_item,omitempty" xml:"order_item,omitempty" type:"Repeated"`
 }
 
-func (s GetOrderCreateorderRequest) String() string {
+func (s CreateOrderRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetOrderCreateorderRequest) GoString() string {
+func (s CreateOrderRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetOrderCreateorderRequest) SetAuthToken(v string) *GetOrderCreateorderRequest {
+func (s *CreateOrderRequest) SetAuthToken(v string) *CreateOrderRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetOrderCreateorderRequest) SetProductInstanceId(v string) *GetOrderCreateorderRequest {
+func (s *CreateOrderRequest) SetProductInstanceId(v string) *CreateOrderRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *GetOrderCreateorderRequest) SetClientToken(v string) *GetOrderCreateorderRequest {
+func (s *CreateOrderRequest) SetClientToken(v string) *CreateOrderRequest {
 	s.ClientToken = &v
 	return s
 }
 
-func (s *GetOrderCreateorderRequest) SetRequestId(v string) *GetOrderCreateorderRequest {
+func (s *CreateOrderRequest) SetRequestId(v string) *CreateOrderRequest {
 	s.RequestId = &v
 	return s
 }
 
-func (s *GetOrderCreateorderRequest) SetInvoiceInfo(v *InvoiceInfo) *GetOrderCreateorderRequest {
+func (s *CreateOrderRequest) SetInvoiceInfo(v *InvoiceInfo) *CreateOrderRequest {
 	s.InvoiceInfo = v
 	return s
 }
 
-func (s *GetOrderCreateorderRequest) SetOrderItem(v []*OrderItem) *GetOrderCreateorderRequest {
+func (s *CreateOrderRequest) SetOrderItem(v []*OrderItem) *CreateOrderRequest {
 	s.OrderItem = v
 	return s
 }
 
-type GetOrderCreateorderResponse struct {
+type CreateOrderResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -12774,35 +12774,35 @@ type GetOrderCreateorderResponse struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
 }
 
-func (s GetOrderCreateorderResponse) String() string {
+func (s CreateOrderResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetOrderCreateorderResponse) GoString() string {
+func (s CreateOrderResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetOrderCreateorderResponse) SetReqMsgId(v string) *GetOrderCreateorderResponse {
+func (s *CreateOrderResponse) SetReqMsgId(v string) *CreateOrderResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetOrderCreateorderResponse) SetResultCode(v string) *GetOrderCreateorderResponse {
+func (s *CreateOrderResponse) SetResultCode(v string) *CreateOrderResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetOrderCreateorderResponse) SetResultMsg(v string) *GetOrderCreateorderResponse {
+func (s *CreateOrderResponse) SetResultMsg(v string) *CreateOrderResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetOrderCreateorderResponse) SetOrderId(v string) *GetOrderCreateorderResponse {
+func (s *CreateOrderResponse) SetOrderId(v string) *CreateOrderResponse {
 	s.OrderId = &v
 	return s
 }
 
-type GetOrderQuerypayurlRequest struct {
+type QueryOrderPayurlRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
@@ -12810,30 +12810,30 @@ type GetOrderQuerypayurlRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
 }
 
-func (s GetOrderQuerypayurlRequest) String() string {
+func (s QueryOrderPayurlRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetOrderQuerypayurlRequest) GoString() string {
+func (s QueryOrderPayurlRequest) GoString() string {
 	return s.String()
 }
 
-func (s *GetOrderQuerypayurlRequest) SetAuthToken(v string) *GetOrderQuerypayurlRequest {
+func (s *QueryOrderPayurlRequest) SetAuthToken(v string) *QueryOrderPayurlRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *GetOrderQuerypayurlRequest) SetProductInstanceId(v string) *GetOrderQuerypayurlRequest {
+func (s *QueryOrderPayurlRequest) SetProductInstanceId(v string) *QueryOrderPayurlRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *GetOrderQuerypayurlRequest) SetOrderId(v string) *GetOrderQuerypayurlRequest {
+func (s *QueryOrderPayurlRequest) SetOrderId(v string) *QueryOrderPayurlRequest {
 	s.OrderId = &v
 	return s
 }
 
-type GetOrderQuerypayurlResponse struct {
+type QueryOrderPayurlResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
@@ -12844,30 +12844,30 @@ type GetOrderQuerypayurlResponse struct {
 	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty"`
 }
 
-func (s GetOrderQuerypayurlResponse) String() string {
+func (s QueryOrderPayurlResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s GetOrderQuerypayurlResponse) GoString() string {
+func (s QueryOrderPayurlResponse) GoString() string {
 	return s.String()
 }
 
-func (s *GetOrderQuerypayurlResponse) SetReqMsgId(v string) *GetOrderQuerypayurlResponse {
+func (s *QueryOrderPayurlResponse) SetReqMsgId(v string) *QueryOrderPayurlResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *GetOrderQuerypayurlResponse) SetResultCode(v string) *GetOrderQuerypayurlResponse {
+func (s *QueryOrderPayurlResponse) SetResultCode(v string) *QueryOrderPayurlResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *GetOrderQuerypayurlResponse) SetResultMsg(v string) *GetOrderQuerypayurlResponse {
+func (s *QueryOrderPayurlResponse) SetResultMsg(v string) *QueryOrderPayurlResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *GetOrderQuerypayurlResponse) SetPayUrl(v string) *GetOrderQuerypayurlResponse {
+func (s *QueryOrderPayurlResponse) SetPayUrl(v string) *QueryOrderPayurlResponse {
 	s.PayUrl = &v
 	return s
 }
@@ -13834,7 +13834,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.0"),
+				"sdk_version":      tea.String("1.19.2"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -16310,11 +16310,11 @@ func (client *Client) ExecTradeCoverEx(request *ExecTradeCoverRequest, headers m
  * Description: 创建订单
  * Summary: 创建订单
  */
-func (client *Client) GetOrderCreateorder(request *GetOrderCreateorderRequest) (_result *GetOrderCreateorderResponse, _err error) {
+func (client *Client) CreateOrder(request *CreateOrderRequest) (_result *CreateOrderResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetOrderCreateorderResponse{}
-	_body, _err := client.GetOrderCreateorderEx(request, headers, runtime)
+	_result = &CreateOrderResponse{}
+	_body, _err := client.CreateOrderEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -16326,13 +16326,13 @@ func (client *Client) GetOrderCreateorder(request *GetOrderCreateorderRequest) (
  * Description: 创建订单
  * Summary: 创建订单
  */
-func (client *Client) GetOrderCreateorderEx(request *GetOrderCreateorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetOrderCreateorderResponse, _err error) {
+func (client *Client) CreateOrderEx(request *CreateOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateOrderResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetOrderCreateorderResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.order.createorder.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &CreateOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.order.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -16344,11 +16344,11 @@ func (client *Client) GetOrderCreateorderEx(request *GetOrderCreateorderRequest,
  * Description: 查询订单支付链接
  * Summary: 查询订单支付链接
  */
-func (client *Client) GetOrderQuerypayurl(request *GetOrderQuerypayurlRequest) (_result *GetOrderQuerypayurlResponse, _err error) {
+func (client *Client) QueryOrderPayurl(request *QueryOrderPayurlRequest) (_result *QueryOrderPayurlResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &GetOrderQuerypayurlResponse{}
-	_body, _err := client.GetOrderQuerypayurlEx(request, headers, runtime)
+	_result = &QueryOrderPayurlResponse{}
+	_body, _err := client.QueryOrderPayurlEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -16360,13 +16360,13 @@ func (client *Client) GetOrderQuerypayurl(request *GetOrderQuerypayurlRequest) (
  * Description: 查询订单支付链接
  * Summary: 查询订单支付链接
  */
-func (client *Client) GetOrderQuerypayurlEx(request *GetOrderQuerypayurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetOrderQuerypayurlResponse, _err error) {
+func (client *Client) QueryOrderPayurlEx(request *QueryOrderPayurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOrderPayurlResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &GetOrderQuerypayurlResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.order.querypayurl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &QueryOrderPayurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bccr.order.payurl.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
