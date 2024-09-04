@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bccr.models;
 
 import com.aliyun.tea.*;
 
-public class GetOrderCreateorderResponse extends TeaModel {
+public class CreateOrderResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class GetOrderCreateorderResponse extends TeaModel {
     @NameInMap("order_id")
     public String orderId;
 
-    public static GetOrderCreateorderResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetOrderCreateorderResponse self = new GetOrderCreateorderResponse();
+    public static CreateOrderResponse build(java.util.Map<String, ?> map) throws Exception {
+        CreateOrderResponse self = new CreateOrderResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetOrderCreateorderResponse setReqMsgId(String reqMsgId) {
+    public CreateOrderResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class GetOrderCreateorderResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetOrderCreateorderResponse setResultCode(String resultCode) {
+    public CreateOrderResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class GetOrderCreateorderResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetOrderCreateorderResponse setResultMsg(String resultMsg) {
+    public CreateOrderResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class GetOrderCreateorderResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetOrderCreateorderResponse setOrderId(String orderId) {
+    public CreateOrderResponse setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }

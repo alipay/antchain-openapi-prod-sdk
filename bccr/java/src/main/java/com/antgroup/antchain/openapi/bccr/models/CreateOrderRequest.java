@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bccr.models;
 
 import com.aliyun.tea.*;
 
-public class GetOrderCreateorderRequest extends TeaModel {
+public class CreateOrderRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -29,12 +29,12 @@ public class GetOrderCreateorderRequest extends TeaModel {
     @NameInMap("order_item")
     public java.util.List<OrderItem> orderItem;
 
-    public static GetOrderCreateorderRequest build(java.util.Map<String, ?> map) throws Exception {
-        GetOrderCreateorderRequest self = new GetOrderCreateorderRequest();
+    public static CreateOrderRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateOrderRequest self = new CreateOrderRequest();
         return TeaModel.build(map, self);
     }
 
-    public GetOrderCreateorderRequest setAuthToken(String authToken) {
+    public CreateOrderRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -42,7 +42,7 @@ public class GetOrderCreateorderRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetOrderCreateorderRequest setProductInstanceId(String productInstanceId) {
+    public CreateOrderRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -50,7 +50,7 @@ public class GetOrderCreateorderRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetOrderCreateorderRequest setClientToken(String clientToken) {
+    public CreateOrderRequest setClientToken(String clientToken) {
         this.clientToken = clientToken;
         return this;
     }
@@ -58,7 +58,7 @@ public class GetOrderCreateorderRequest extends TeaModel {
         return this.clientToken;
     }
 
-    public GetOrderCreateorderRequest setRequestId(String requestId) {
+    public CreateOrderRequest setRequestId(String requestId) {
         this.requestId = requestId;
         return this;
     }
@@ -66,7 +66,7 @@ public class GetOrderCreateorderRequest extends TeaModel {
         return this.requestId;
     }
 
-    public GetOrderCreateorderRequest setInvoiceInfo(InvoiceInfo invoiceInfo) {
+    public CreateOrderRequest setInvoiceInfo(InvoiceInfo invoiceInfo) {
         this.invoiceInfo = invoiceInfo;
         return this;
     }
@@ -74,7 +74,7 @@ public class GetOrderCreateorderRequest extends TeaModel {
         return this.invoiceInfo;
     }
 
-    public GetOrderCreateorderRequest setOrderItem(java.util.List<OrderItem> orderItem) {
+    public CreateOrderRequest setOrderItem(java.util.List<OrderItem> orderItem) {
         this.orderItem = orderItem;
         return this;
     }

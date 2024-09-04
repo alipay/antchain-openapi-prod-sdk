@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.0"),
+                    new TeaPair("sdk_version", "1.19.2"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1537,38 +1537,38 @@ public class Client {
      * Description: 创建订单
      * Summary: 创建订单
      */
-    public GetOrderCreateorderResponse getOrderCreateorder(GetOrderCreateorderRequest request) throws Exception {
+    public CreateOrderResponse createOrder(CreateOrderRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getOrderCreateorderEx(request, headers, runtime);
+        return this.createOrderEx(request, headers, runtime);
     }
 
     /**
      * Description: 创建订单
      * Summary: 创建订单
      */
-    public GetOrderCreateorderResponse getOrderCreateorderEx(GetOrderCreateorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public CreateOrderResponse createOrderEx(CreateOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.order.createorder.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetOrderCreateorderResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.order.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOrderResponse());
     }
 
     /**
      * Description: 查询订单支付链接
      * Summary: 查询订单支付链接
      */
-    public GetOrderQuerypayurlResponse getOrderQuerypayurl(GetOrderQuerypayurlRequest request) throws Exception {
+    public QueryOrderPayurlResponse queryOrderPayurl(QueryOrderPayurlRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.getOrderQuerypayurlEx(request, headers, runtime);
+        return this.queryOrderPayurlEx(request, headers, runtime);
     }
 
     /**
      * Description: 查询订单支付链接
      * Summary: 查询订单支付链接
      */
-    public GetOrderQuerypayurlResponse getOrderQuerypayurlEx(GetOrderQuerypayurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryOrderPayurlResponse queryOrderPayurlEx(QueryOrderPayurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.order.querypayurl.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetOrderQuerypayurlResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bccr.order.payurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOrderPayurlResponse());
     }
 
     /**

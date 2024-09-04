@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bccr.models;
 
 import com.aliyun.tea.*;
 
-public class GetOrderQuerypayurlResponse extends TeaModel {
+public class QueryOrderPayurlResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -20,12 +20,12 @@ public class GetOrderQuerypayurlResponse extends TeaModel {
     @NameInMap("pay_url")
     public String payUrl;
 
-    public static GetOrderQuerypayurlResponse build(java.util.Map<String, ?> map) throws Exception {
-        GetOrderQuerypayurlResponse self = new GetOrderQuerypayurlResponse();
+    public static QueryOrderPayurlResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryOrderPayurlResponse self = new QueryOrderPayurlResponse();
         return TeaModel.build(map, self);
     }
 
-    public GetOrderQuerypayurlResponse setReqMsgId(String reqMsgId) {
+    public QueryOrderPayurlResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class GetOrderQuerypayurlResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public GetOrderQuerypayurlResponse setResultCode(String resultCode) {
+    public QueryOrderPayurlResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class GetOrderQuerypayurlResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public GetOrderQuerypayurlResponse setResultMsg(String resultMsg) {
+    public QueryOrderPayurlResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,7 +49,7 @@ public class GetOrderQuerypayurlResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GetOrderQuerypayurlResponse setPayUrl(String payUrl) {
+    public QueryOrderPayurlResponse setPayUrl(String payUrl) {
         this.payUrl = payUrl;
         return this;
     }

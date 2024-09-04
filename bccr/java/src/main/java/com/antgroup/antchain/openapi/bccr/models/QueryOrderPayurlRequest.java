@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bccr.models;
 
 import com.aliyun.tea.*;
 
-public class GetOrderQuerypayurlRequest extends TeaModel {
+public class QueryOrderPayurlRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,12 +16,12 @@ public class GetOrderQuerypayurlRequest extends TeaModel {
     @Validation(required = true)
     public String orderId;
 
-    public static GetOrderQuerypayurlRequest build(java.util.Map<String, ?> map) throws Exception {
-        GetOrderQuerypayurlRequest self = new GetOrderQuerypayurlRequest();
+    public static QueryOrderPayurlRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryOrderPayurlRequest self = new QueryOrderPayurlRequest();
         return TeaModel.build(map, self);
     }
 
-    public GetOrderQuerypayurlRequest setAuthToken(String authToken) {
+    public QueryOrderPayurlRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -29,7 +29,7 @@ public class GetOrderQuerypayurlRequest extends TeaModel {
         return this.authToken;
     }
 
-    public GetOrderQuerypayurlRequest setProductInstanceId(String productInstanceId) {
+    public QueryOrderPayurlRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -37,7 +37,7 @@ public class GetOrderQuerypayurlRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetOrderQuerypayurlRequest setOrderId(String orderId) {
+    public QueryOrderPayurlRequest setOrderId(String orderId) {
         this.orderId = orderId;
         return this;
     }
