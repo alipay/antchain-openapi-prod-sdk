@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.18.46',
+    sdk_version = '1.19.0',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -513,6 +513,14 @@ model GoodSkuInfo {
   skuNum: string(name='sku_num', example='001'),
   // 授权规格价格(单位：分)
   price: long(name='price', example='10'),
+}
+
+// 订单明细
+model OrderItem {
+  // 项目ID
+  itemId: string(name='item_id', example='11111'),
+  // 项目类型（数登申请）
+  itemType: string(name='item_type', example='数登申请'),
 }
 
 // 网页截图存证结果
@@ -5129,6 +5137,88 @@ async function execTradeCover(request: ExecTradeCoverRequest): ExecTradeCoverRes
 async function execTradeCoverEx(request: ExecTradeCoverRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecTradeCoverResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bccr.trade.cover.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetOrderCreateorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 幂等字段
+  clientToken: string(name='client_token'),
+  // 幂等id
+  requestId: string(name='request_id'),
+  // 发票信息
+  invoiceInfo?: InvoiceInfo(name='invoice_info'),
+  // 订单明细列表
+  orderItem?: [ OrderItem ](name='order_item'),
+}
+
+model GetOrderCreateorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用于查询支付链接
+  orderId?: string(name='order_id'),
+}
+
+/**
+ * Description: 创建订单
+ * Summary: 创建订单
+ */
+async function getOrderCreateorder(request: GetOrderCreateorderRequest): GetOrderCreateorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getOrderCreateorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建订单
+ * Summary: 创建订单
+ */
+async function getOrderCreateorderEx(request: GetOrderCreateorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetOrderCreateorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.order.createorder.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetOrderQuerypayurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+}
+
+model GetOrderQuerypayurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 支付链接
+  payUrl?: string(name='pay_url'),
+}
+
+/**
+ * Description: 查询订单支付链接
+ * Summary: 查询订单支付链接
+ */
+async function getOrderQuerypayurl(request: GetOrderQuerypayurlRequest): GetOrderQuerypayurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getOrderQuerypayurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询订单支付链接
+ * Summary: 查询订单支付链接
+ */
+async function getOrderQuerypayurlEx(request: GetOrderQuerypayurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetOrderQuerypayurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bccr.order.querypayurl.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model AddContentRequest = {
