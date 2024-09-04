@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.5"},
+                        {"sdk_version", "1.3.6"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.5"},
+                        {"sdk_version", "1.3.6"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -2733,6 +2733,90 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReplaceAntchainAtoTradeUserpromiseResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.userpromise.replace", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单融资预审申请接口
+         * Summary: 订单融资预审申请接口
+         */
+        public ApplyAntchainAtoTradeFinanceprecheckResponse ApplyAntchainAtoTradeFinanceprecheck(ApplyAntchainAtoTradeFinanceprecheckRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyAntchainAtoTradeFinanceprecheckEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单融资预审申请接口
+         * Summary: 订单融资预审申请接口
+         */
+        public async Task<ApplyAntchainAtoTradeFinanceprecheckResponse> ApplyAntchainAtoTradeFinanceprecheckAsync(ApplyAntchainAtoTradeFinanceprecheckRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyAntchainAtoTradeFinanceprecheckExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单融资预审申请接口
+         * Summary: 订单融资预审申请接口
+         */
+        public ApplyAntchainAtoTradeFinanceprecheckResponse ApplyAntchainAtoTradeFinanceprecheckEx(ApplyAntchainAtoTradeFinanceprecheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAntchainAtoTradeFinanceprecheckResponse>(DoRequest("1.0", "antchain.ato.trade.financeprecheck.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单融资预审申请接口
+         * Summary: 订单融资预审申请接口
+         */
+        public async Task<ApplyAntchainAtoTradeFinanceprecheckResponse> ApplyAntchainAtoTradeFinanceprecheckExAsync(ApplyAntchainAtoTradeFinanceprecheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAntchainAtoTradeFinanceprecheckResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.financeprecheck.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资预审结果同步
+         * Summary: 融资预审结果同步
+         */
+        public SyncAntchainAtoFundFinanceprecheckresultResponse SyncAntchainAtoFundFinanceprecheckresult(SyncAntchainAtoFundFinanceprecheckresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAntchainAtoFundFinanceprecheckresultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资预审结果同步
+         * Summary: 融资预审结果同步
+         */
+        public async Task<SyncAntchainAtoFundFinanceprecheckresultResponse> SyncAntchainAtoFundFinanceprecheckresultAsync(SyncAntchainAtoFundFinanceprecheckresultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAntchainAtoFundFinanceprecheckresultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资预审结果同步
+         * Summary: 融资预审结果同步
+         */
+        public SyncAntchainAtoFundFinanceprecheckresultResponse SyncAntchainAtoFundFinanceprecheckresultEx(SyncAntchainAtoFundFinanceprecheckresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoFundFinanceprecheckresultResponse>(DoRequest("1.0", "antchain.ato.fund.financeprecheckresult.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资预审结果同步
+         * Summary: 融资预审结果同步
+         */
+        public async Task<SyncAntchainAtoFundFinanceprecheckresultResponse> SyncAntchainAtoFundFinanceprecheckresultExAsync(SyncAntchainAtoFundFinanceprecheckresultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAntchainAtoFundFinanceprecheckresultResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.financeprecheckresult.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
