@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.46',
+                    'sdk_version': '1.19.0',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.18.46',
+                    'sdk_version': '1.19.0',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -4249,6 +4249,118 @@ class Client:
         return TeaCore.from_map(
             bccr_models.ExecTradeCoverResponse(),
             await self.do_request_async('1.0', 'blockchain.bccr.trade.cover.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_order_createorder(
+        self,
+        request: bccr_models.GetOrderCreateorderRequest,
+    ) -> bccr_models.GetOrderCreateorderResponse:
+        """
+        Description: 创建订单
+        Summary: 创建订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_order_createorder_ex(request, headers, runtime)
+
+    async def get_order_createorder_async(
+        self,
+        request: bccr_models.GetOrderCreateorderRequest,
+    ) -> bccr_models.GetOrderCreateorderResponse:
+        """
+        Description: 创建订单
+        Summary: 创建订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_order_createorder_ex_async(request, headers, runtime)
+
+    def get_order_createorder_ex(
+        self,
+        request: bccr_models.GetOrderCreateorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.GetOrderCreateorderResponse:
+        """
+        Description: 创建订单
+        Summary: 创建订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.GetOrderCreateorderResponse(),
+            self.do_request('1.0', 'blockchain.bccr.order.createorder.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_order_createorder_ex_async(
+        self,
+        request: bccr_models.GetOrderCreateorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.GetOrderCreateorderResponse:
+        """
+        Description: 创建订单
+        Summary: 创建订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.GetOrderCreateorderResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.order.createorder.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_order_querypayurl(
+        self,
+        request: bccr_models.GetOrderQuerypayurlRequest,
+    ) -> bccr_models.GetOrderQuerypayurlResponse:
+        """
+        Description: 查询订单支付链接
+        Summary: 查询订单支付链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_order_querypayurl_ex(request, headers, runtime)
+
+    async def get_order_querypayurl_async(
+        self,
+        request: bccr_models.GetOrderQuerypayurlRequest,
+    ) -> bccr_models.GetOrderQuerypayurlResponse:
+        """
+        Description: 查询订单支付链接
+        Summary: 查询订单支付链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_order_querypayurl_ex_async(request, headers, runtime)
+
+    def get_order_querypayurl_ex(
+        self,
+        request: bccr_models.GetOrderQuerypayurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.GetOrderQuerypayurlResponse:
+        """
+        Description: 查询订单支付链接
+        Summary: 查询订单支付链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.GetOrderQuerypayurlResponse(),
+            self.do_request('1.0', 'blockchain.bccr.order.querypayurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_order_querypayurl_ex_async(
+        self,
+        request: bccr_models.GetOrderQuerypayurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bccr_models.GetOrderQuerypayurlResponse:
+        """
+        Description: 查询订单支付链接
+        Summary: 查询订单支付链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bccr_models.GetOrderQuerypayurlResponse(),
+            await self.do_request_async('1.0', 'blockchain.bccr.order.querypayurl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def add_content(

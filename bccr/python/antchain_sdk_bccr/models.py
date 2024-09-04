@@ -1655,6 +1655,42 @@ class GoodSkuInfo(TeaModel):
         return self
 
 
+class OrderItem(TeaModel):
+    def __init__(
+        self,
+        item_id: str = None,
+        item_type: str = None,
+    ):
+        # 项目ID
+        self.item_id = item_id
+        # 项目类型（数登申请）
+        self.item_type = item_type
+
+    def validate(self):
+        self.validate_required(self.item_id, 'item_id')
+        self.validate_required(self.item_type, 'item_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_id is not None:
+            result['item_id'] = self.item_id
+        if self.item_type is not None:
+            result['item_type'] = self.item_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('item_id') is not None:
+            self.item_id = m.get('item_id')
+        if m.get('item_type') is not None:
+            self.item_type = m.get('item_type')
+        return self
+
+
 class ScreenshotCertificateResult(TeaModel):
     def __init__(
         self,
@@ -15653,6 +15689,220 @@ class ExecTradeCoverResponse(TeaModel):
             self.out_biz_no = m.get('out_biz_no')
         if m.get('ext_info') is not None:
             self.ext_info = m.get('ext_info')
+        return self
+
+
+class GetOrderCreateorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        client_token: str = None,
+        request_id: str = None,
+        invoice_info: InvoiceInfo = None,
+        order_item: List[OrderItem] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 幂等字段
+        self.client_token = client_token
+        # 幂等id
+        self.request_id = request_id
+        # 发票信息
+        self.invoice_info = invoice_info
+        # 订单明细列表
+        self.order_item = order_item
+
+    def validate(self):
+        self.validate_required(self.client_token, 'client_token')
+        self.validate_required(self.request_id, 'request_id')
+        if self.invoice_info:
+            self.invoice_info.validate()
+        if self.order_item:
+            for k in self.order_item:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.invoice_info is not None:
+            result['invoice_info'] = self.invoice_info.to_map()
+        result['order_item'] = []
+        if self.order_item is not None:
+            for k in self.order_item:
+                result['order_item'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('invoice_info') is not None:
+            temp_model = InvoiceInfo()
+            self.invoice_info = temp_model.from_map(m['invoice_info'])
+        self.order_item = []
+        if m.get('order_item') is not None:
+            for k in m.get('order_item'):
+                temp_model = OrderItem()
+                self.order_item.append(temp_model.from_map(k))
+        return self
+
+
+class GetOrderCreateorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 用于查询支付链接
+        self.order_id = order_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class GetOrderQuerypayurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class GetOrderQuerypayurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        pay_url: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 支付链接
+        self.pay_url = pay_url
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.pay_url is not None:
+            result['pay_url'] = self.pay_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('pay_url') is not None:
+            self.pay_url = m.get('pay_url')
         return self
 
 
