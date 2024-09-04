@@ -15692,7 +15692,7 @@ class ExecTradeCoverResponse(TeaModel):
         return self
 
 
-class GetOrderCreateorderRequest(TeaModel):
+class CreateOrderRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -15767,7 +15767,7 @@ class GetOrderCreateorderRequest(TeaModel):
         return self
 
 
-class GetOrderCreateorderResponse(TeaModel):
+class CreateOrderResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -15816,7 +15816,7 @@ class GetOrderCreateorderResponse(TeaModel):
         return self
 
 
-class GetOrderQuerypayurlRequest(TeaModel):
+class QueryOrderPayurlRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
@@ -15857,7 +15857,7 @@ class GetOrderQuerypayurlRequest(TeaModel):
         return self
 
 
-class GetOrderQuerypayurlResponse(TeaModel):
+class QueryOrderPayurlResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
