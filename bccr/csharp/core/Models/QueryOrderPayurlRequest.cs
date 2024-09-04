@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BCCR.Models
 {
-    public class GetOrderQuerypayurlRequest : TeaModel {
+    public class QueryOrderPayurlRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
