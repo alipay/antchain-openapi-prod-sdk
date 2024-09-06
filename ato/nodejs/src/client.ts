@@ -78,6 +78,35 @@ export class Config extends $tea.Model {
   }
 }
 
+// 智租风控-子风险项
+export class SubRentRiskItem extends $tea.Model {
+  // 风险名称。枚举值：BASE_PERFORMANCE - 基础履约风险；OVERDUE - 逾期风险；MULTI_RENT - 共租风险。
+  riskName: string;
+  // 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险。 
+  riskRank: string;
+  // 风险描述
+  riskDesc: string;
+  static names(): { [key: string]: string } {
+    return {
+      riskName: 'risk_name',
+      riskRank: 'risk_rank',
+      riskDesc: 'risk_desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskName: 'string',
+      riskRank: 'string',
+      riskDesc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 静态数据模块详情
 export class StaticDataModuleDetail extends $tea.Model {
   // 描述
@@ -120,6 +149,43 @@ export class FileInfo extends $tea.Model {
     return {
       fileName: 'string',
       fileKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 智租风控模型结构体
+export class AppletRiskModel extends $tea.Model {
+  // 风险咨询事件ID
+  recordId: string;
+  // 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险
+  riskRank: string;
+  // 风险名称
+  riskName: string;
+  // 风险等级中文描述
+  riskDesc: string;
+  // 子风险结果列表
+  subRiskResultList: SubRentRiskItem[];
+  static names(): { [key: string]: string } {
+    return {
+      recordId: 'record_id',
+      riskRank: 'risk_rank',
+      riskName: 'risk_name',
+      riskDesc: 'risk_desc',
+      subRiskResultList: 'sub_risk_result_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      recordId: 'string',
+      riskRank: 'string',
+      riskName: 'string',
+      riskDesc: 'string',
+      subRiskResultList: { 'type': 'array', 'itemType': SubRentRiskItem },
     };
   }
 
@@ -337,6 +403,39 @@ export class MerchantAgentPage extends $tea.Model {
       tenantId: 'string',
       bizType: 'string',
       payExpandStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 智租风控-商品价格
+export class PriceDetail extends $tea.Model {
+  // 商品租赁期数
+  periodNum: number;
+  // 押金，单位：元。精度：分。
+  depositPrice: string;
+  // 买断价格，单位：元，精度：分
+  buyoutPrice: string;
+  // 首期租金，单位：元，精度：分
+  initialRentPrice: string;
+  static names(): { [key: string]: string } {
+    return {
+      periodNum: 'period_num',
+      depositPrice: 'deposit_price',
+      buyoutPrice: 'buyout_price',
+      initialRentPrice: 'initial_rent_price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      periodNum: 'number',
+      depositPrice: 'string',
+      buyoutPrice: 'string',
+      initialRentPrice: 'string',
     };
   }
 
@@ -866,6 +965,35 @@ export class PageQuery extends $tea.Model {
     return {
       pageSize: 'number',
       pageIndex: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 智租风控-商品详情
+export class ItemDetail extends $tea.Model {
+  // 租赁商品类目，可选项见 https://opendocs.alipay.com/open/10719
+  goodsCategory: string;
+  // 租赁商品名称
+  itemName: string;
+  // 租赁商品数量
+  quantity: number;
+  static names(): { [key: string]: string } {
+    return {
+      goodsCategory: 'goods_category',
+      itemName: 'item_name',
+      quantity: 'quantity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsCategory: 'string',
+      itemName: 'string',
+      quantity: 'number',
     };
   }
 
@@ -6439,6 +6567,16 @@ export class QueryRiskRequest extends $tea.Model {
   certNo: string;
   // 用户手机号码
   mobile: string;
+  // 支付宝账户 UserId，智租版可选
+  alipayUserId?: string;
+  // 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+  source?: string;
+  // 收件人地址，智租版必选
+  receiverAddress?: string;
+  // 商品详情，智租版可选
+  itemDetail?: ItemDetail;
+  // 价格详情，智租版可选
+  priceDetail?: PriceDetail;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6447,6 +6585,11 @@ export class QueryRiskRequest extends $tea.Model {
       userName: 'user_name',
       certNo: 'cert_no',
       mobile: 'mobile',
+      alipayUserId: 'alipay_user_id',
+      source: 'source',
+      receiverAddress: 'receiver_address',
+      itemDetail: 'item_detail',
+      priceDetail: 'price_detail',
     };
   }
 
@@ -6458,6 +6601,11 @@ export class QueryRiskRequest extends $tea.Model {
       userName: 'string',
       certNo: 'string',
       mobile: 'string',
+      alipayUserId: 'string',
+      source: 'string',
+      receiverAddress: 'string',
+      itemDetail: ItemDetail,
+      priceDetail: PriceDetail,
     };
   }
 
@@ -6475,12 +6623,15 @@ export class QueryRiskResponse extends $tea.Model {
   resultMsg?: string;
   // 模型结果详情
   models?: RiskModel[];
+  // 智租风控-风控模型结果
+  appletModel?: AppletRiskModel;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       models: 'models',
+      appletModel: 'applet_model',
     };
   }
 
@@ -6490,6 +6641,7 @@ export class QueryRiskResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       models: { 'type': 'array', 'itemType': RiskModel },
+      appletModel: AppletRiskModel,
     };
   }
 
@@ -9395,7 +9547,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.19",
+          sdk_version: "1.9.20",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
