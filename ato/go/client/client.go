@@ -149,6 +149,39 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 智租风控-子风险项
+type SubRentRiskItem struct {
+	// 风险名称。枚举值：BASE_PERFORMANCE - 基础履约风险；OVERDUE - 逾期风险；MULTI_RENT - 共租风险。
+	RiskName *string `json:"risk_name,omitempty" xml:"risk_name,omitempty" require:"true"`
+	// 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险。
+	RiskRank *string `json:"risk_rank,omitempty" xml:"risk_rank,omitempty" require:"true"`
+	// 风险描述
+	RiskDesc *string `json:"risk_desc,omitempty" xml:"risk_desc,omitempty" require:"true"`
+}
+
+func (s SubRentRiskItem) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubRentRiskItem) GoString() string {
+	return s.String()
+}
+
+func (s *SubRentRiskItem) SetRiskName(v string) *SubRentRiskItem {
+	s.RiskName = &v
+	return s
+}
+
+func (s *SubRentRiskItem) SetRiskRank(v string) *SubRentRiskItem {
+	s.RiskRank = &v
+	return s
+}
+
+func (s *SubRentRiskItem) SetRiskDesc(v string) *SubRentRiskItem {
+	s.RiskDesc = &v
+	return s
+}
+
 // 静态数据模块详情
 type StaticDataModuleDetail struct {
 	// 描述
@@ -198,6 +231,53 @@ func (s *FileInfo) SetFileName(v string) *FileInfo {
 
 func (s *FileInfo) SetFileKey(v string) *FileInfo {
 	s.FileKey = &v
+	return s
+}
+
+// 智租风控模型结构体
+type AppletRiskModel struct {
+	// 风险咨询事件ID
+	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
+	// 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险
+	RiskRank *string `json:"risk_rank,omitempty" xml:"risk_rank,omitempty" require:"true"`
+	// 风险名称
+	RiskName *string `json:"risk_name,omitempty" xml:"risk_name,omitempty" require:"true"`
+	// 风险等级中文描述
+	RiskDesc *string `json:"risk_desc,omitempty" xml:"risk_desc,omitempty" require:"true"`
+	// 子风险结果列表
+	SubRiskResultList []*SubRentRiskItem `json:"sub_risk_result_list,omitempty" xml:"sub_risk_result_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AppletRiskModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AppletRiskModel) GoString() string {
+	return s.String()
+}
+
+func (s *AppletRiskModel) SetRecordId(v string) *AppletRiskModel {
+	s.RecordId = &v
+	return s
+}
+
+func (s *AppletRiskModel) SetRiskRank(v string) *AppletRiskModel {
+	s.RiskRank = &v
+	return s
+}
+
+func (s *AppletRiskModel) SetRiskName(v string) *AppletRiskModel {
+	s.RiskName = &v
+	return s
+}
+
+func (s *AppletRiskModel) SetRiskDesc(v string) *AppletRiskModel {
+	s.RiskDesc = &v
+	return s
+}
+
+func (s *AppletRiskModel) SetSubRiskResultList(v []*SubRentRiskItem) *AppletRiskModel {
+	s.SubRiskResultList = v
 	return s
 }
 
@@ -469,6 +549,46 @@ func (s *MerchantAgentPage) SetBizType(v string) *MerchantAgentPage {
 
 func (s *MerchantAgentPage) SetPayExpandStatus(v string) *MerchantAgentPage {
 	s.PayExpandStatus = &v
+	return s
+}
+
+// 智租风控-商品价格
+type PriceDetail struct {
+	// 商品租赁期数
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" maximum:"1000"`
+	// 押金，单位：元。精度：分。
+	DepositPrice *string `json:"deposit_price,omitempty" xml:"deposit_price,omitempty" require:"true" maxLength:"10"`
+	// 买断价格，单位：元，精度：分
+	BuyoutPrice *string `json:"buyout_price,omitempty" xml:"buyout_price,omitempty" require:"true" maxLength:"10"`
+	// 首期租金，单位：元，精度：分
+	InitialRentPrice *string `json:"initial_rent_price,omitempty" xml:"initial_rent_price,omitempty" require:"true" maxLength:"10"`
+}
+
+func (s PriceDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PriceDetail) GoString() string {
+	return s.String()
+}
+
+func (s *PriceDetail) SetPeriodNum(v int64) *PriceDetail {
+	s.PeriodNum = &v
+	return s
+}
+
+func (s *PriceDetail) SetDepositPrice(v string) *PriceDetail {
+	s.DepositPrice = &v
+	return s
+}
+
+func (s *PriceDetail) SetBuyoutPrice(v string) *PriceDetail {
+	s.BuyoutPrice = &v
+	return s
+}
+
+func (s *PriceDetail) SetInitialRentPrice(v string) *PriceDetail {
+	s.InitialRentPrice = &v
 	return s
 }
 
@@ -1115,6 +1235,39 @@ func (s *PageQuery) SetPageSize(v int64) *PageQuery {
 
 func (s *PageQuery) SetPageIndex(v int64) *PageQuery {
 	s.PageIndex = &v
+	return s
+}
+
+// 智租风控-商品详情
+type ItemDetail struct {
+	// 租赁商品类目，可选项见 https://opendocs.alipay.com/open/10719
+	GoodsCategory *string `json:"goods_category,omitempty" xml:"goods_category,omitempty" require:"true" maxLength:"30"`
+	// 租赁商品名称
+	ItemName *string `json:"item_name,omitempty" xml:"item_name,omitempty" require:"true" maxLength:"64"`
+	// 租赁商品数量
+	Quantity *int64 `json:"quantity,omitempty" xml:"quantity,omitempty" require:"true" maximum:"10000"`
+}
+
+func (s ItemDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ItemDetail) GoString() string {
+	return s.String()
+}
+
+func (s *ItemDetail) SetGoodsCategory(v string) *ItemDetail {
+	s.GoodsCategory = &v
+	return s
+}
+
+func (s *ItemDetail) SetItemName(v string) *ItemDetail {
+	s.ItemName = &v
+	return s
+}
+
+func (s *ItemDetail) SetQuantity(v int64) *ItemDetail {
+	s.Quantity = &v
 	return s
 }
 
@@ -8254,6 +8407,16 @@ type QueryRiskRequest struct {
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
 	// 用户手机号码
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
+	// 支付宝账户 UserId，智租版可选
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" maxLength:"20"`
+	// 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+	Source *string `json:"source,omitempty" xml:"source,omitempty" maxLength:"10"`
+	// 收件人地址，智租版必选
+	ReceiverAddress *string `json:"receiver_address,omitempty" xml:"receiver_address,omitempty" maxLength:"128"`
+	// 商品详情，智租版可选
+	ItemDetail *ItemDetail `json:"item_detail,omitempty" xml:"item_detail,omitempty"`
+	// 价格详情，智租版可选
+	PriceDetail *PriceDetail `json:"price_detail,omitempty" xml:"price_detail,omitempty"`
 }
 
 func (s QueryRiskRequest) String() string {
@@ -8294,6 +8457,31 @@ func (s *QueryRiskRequest) SetMobile(v string) *QueryRiskRequest {
 	return s
 }
 
+func (s *QueryRiskRequest) SetAlipayUserId(v string) *QueryRiskRequest {
+	s.AlipayUserId = &v
+	return s
+}
+
+func (s *QueryRiskRequest) SetSource(v string) *QueryRiskRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *QueryRiskRequest) SetReceiverAddress(v string) *QueryRiskRequest {
+	s.ReceiverAddress = &v
+	return s
+}
+
+func (s *QueryRiskRequest) SetItemDetail(v *ItemDetail) *QueryRiskRequest {
+	s.ItemDetail = v
+	return s
+}
+
+func (s *QueryRiskRequest) SetPriceDetail(v *PriceDetail) *QueryRiskRequest {
+	s.PriceDetail = v
+	return s
+}
+
 type QueryRiskResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -8303,6 +8491,8 @@ type QueryRiskResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 模型结果详情
 	Models []*RiskModel `json:"models,omitempty" xml:"models,omitempty" type:"Repeated"`
+	// 智租风控-风控模型结果
+	AppletModel *AppletRiskModel `json:"applet_model,omitempty" xml:"applet_model,omitempty"`
 }
 
 func (s QueryRiskResponse) String() string {
@@ -8330,6 +8520,11 @@ func (s *QueryRiskResponse) SetResultMsg(v string) *QueryRiskResponse {
 
 func (s *QueryRiskResponse) SetModels(v []*RiskModel) *QueryRiskResponse {
 	s.Models = v
+	return s
+}
+
+func (s *QueryRiskResponse) SetAppletModel(v *AppletRiskModel) *QueryRiskResponse {
+	s.AppletModel = v
 	return s
 }
 
@@ -12108,7 +12303,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.19"),
+				"sdk_version":      tea.String("1.9.20"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
