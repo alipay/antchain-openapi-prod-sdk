@@ -154,6 +154,50 @@ class Config(TeaModel):
         return self
 
 
+class SubRentRiskItem(TeaModel):
+    def __init__(
+        self,
+        risk_name: str = None,
+        risk_rank: str = None,
+        risk_desc: str = None,
+    ):
+        # 风险名称。枚举值：BASE_PERFORMANCE - 基础履约风险；OVERDUE - 逾期风险；MULTI_RENT - 共租风险。
+        self.risk_name = risk_name
+        # 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险。
+        self.risk_rank = risk_rank
+        # 风险描述
+        self.risk_desc = risk_desc
+
+    def validate(self):
+        self.validate_required(self.risk_name, 'risk_name')
+        self.validate_required(self.risk_rank, 'risk_rank')
+        self.validate_required(self.risk_desc, 'risk_desc')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.risk_name is not None:
+            result['risk_name'] = self.risk_name
+        if self.risk_rank is not None:
+            result['risk_rank'] = self.risk_rank
+        if self.risk_desc is not None:
+            result['risk_desc'] = self.risk_desc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('risk_name') is not None:
+            self.risk_name = m.get('risk_name')
+        if m.get('risk_rank') is not None:
+            self.risk_rank = m.get('risk_rank')
+        if m.get('risk_desc') is not None:
+            self.risk_desc = m.get('risk_desc')
+        return self
+
+
 class StaticDataModuleDetail(TeaModel):
     def __init__(
         self,
@@ -223,6 +267,75 @@ class FileInfo(TeaModel):
             self.file_name = m.get('file_name')
         if m.get('file_key') is not None:
             self.file_key = m.get('file_key')
+        return self
+
+
+class AppletRiskModel(TeaModel):
+    def __init__(
+        self,
+        record_id: str = None,
+        risk_rank: str = None,
+        risk_name: str = None,
+        risk_desc: str = None,
+        sub_risk_result_list: List[SubRentRiskItem] = None,
+    ):
+        # 风险咨询事件ID
+        self.record_id = record_id
+        # 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险
+        self.risk_rank = risk_rank
+        # 风险名称
+        self.risk_name = risk_name
+        # 风险等级中文描述
+        self.risk_desc = risk_desc
+        # 子风险结果列表
+        self.sub_risk_result_list = sub_risk_result_list
+
+    def validate(self):
+        self.validate_required(self.record_id, 'record_id')
+        self.validate_required(self.risk_rank, 'risk_rank')
+        self.validate_required(self.risk_name, 'risk_name')
+        self.validate_required(self.risk_desc, 'risk_desc')
+        self.validate_required(self.sub_risk_result_list, 'sub_risk_result_list')
+        if self.sub_risk_result_list:
+            for k in self.sub_risk_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.record_id is not None:
+            result['record_id'] = self.record_id
+        if self.risk_rank is not None:
+            result['risk_rank'] = self.risk_rank
+        if self.risk_name is not None:
+            result['risk_name'] = self.risk_name
+        if self.risk_desc is not None:
+            result['risk_desc'] = self.risk_desc
+        result['sub_risk_result_list'] = []
+        if self.sub_risk_result_list is not None:
+            for k in self.sub_risk_result_list:
+                result['sub_risk_result_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('record_id') is not None:
+            self.record_id = m.get('record_id')
+        if m.get('risk_rank') is not None:
+            self.risk_rank = m.get('risk_rank')
+        if m.get('risk_name') is not None:
+            self.risk_name = m.get('risk_name')
+        if m.get('risk_desc') is not None:
+            self.risk_desc = m.get('risk_desc')
+        self.sub_risk_result_list = []
+        if m.get('sub_risk_result_list') is not None:
+            for k in m.get('sub_risk_result_list'):
+                temp_model = SubRentRiskItem()
+                self.sub_risk_result_list.append(temp_model.from_map(k))
         return self
 
 
@@ -580,6 +693,66 @@ class MerchantAgentPage(TeaModel):
             self.biz_type = m.get('biz_type')
         if m.get('pay_expand_status') is not None:
             self.pay_expand_status = m.get('pay_expand_status')
+        return self
+
+
+class PriceDetail(TeaModel):
+    def __init__(
+        self,
+        period_num: int = None,
+        deposit_price: str = None,
+        buyout_price: str = None,
+        initial_rent_price: str = None,
+    ):
+        # 商品租赁期数
+        self.period_num = period_num
+        # 押金，单位：元。精度：分。
+        self.deposit_price = deposit_price
+        # 买断价格，单位：元，精度：分
+        self.buyout_price = buyout_price
+        # 首期租金，单位：元，精度：分
+        self.initial_rent_price = initial_rent_price
+
+    def validate(self):
+        self.validate_required(self.period_num, 'period_num')
+        if self.period_num is not None:
+            self.validate_maximum(self.period_num, 'period_num', 1000)
+        self.validate_required(self.deposit_price, 'deposit_price')
+        if self.deposit_price is not None:
+            self.validate_max_length(self.deposit_price, 'deposit_price', 10)
+        self.validate_required(self.buyout_price, 'buyout_price')
+        if self.buyout_price is not None:
+            self.validate_max_length(self.buyout_price, 'buyout_price', 10)
+        self.validate_required(self.initial_rent_price, 'initial_rent_price')
+        if self.initial_rent_price is not None:
+            self.validate_max_length(self.initial_rent_price, 'initial_rent_price', 10)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.period_num is not None:
+            result['period_num'] = self.period_num
+        if self.deposit_price is not None:
+            result['deposit_price'] = self.deposit_price
+        if self.buyout_price is not None:
+            result['buyout_price'] = self.buyout_price
+        if self.initial_rent_price is not None:
+            result['initial_rent_price'] = self.initial_rent_price
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('period_num') is not None:
+            self.period_num = m.get('period_num')
+        if m.get('deposit_price') is not None:
+            self.deposit_price = m.get('deposit_price')
+        if m.get('buyout_price') is not None:
+            self.buyout_price = m.get('buyout_price')
+        if m.get('initial_rent_price') is not None:
+            self.initial_rent_price = m.get('initial_rent_price')
         return self
 
 
@@ -1407,6 +1580,56 @@ class PageQuery(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('page_index') is not None:
             self.page_index = m.get('page_index')
+        return self
+
+
+class ItemDetail(TeaModel):
+    def __init__(
+        self,
+        goods_category: str = None,
+        item_name: str = None,
+        quantity: int = None,
+    ):
+        # 租赁商品类目，可选项见 https://opendocs.alipay.com/open/10719
+        self.goods_category = goods_category
+        # 租赁商品名称
+        self.item_name = item_name
+        # 租赁商品数量
+        self.quantity = quantity
+
+    def validate(self):
+        self.validate_required(self.goods_category, 'goods_category')
+        if self.goods_category is not None:
+            self.validate_max_length(self.goods_category, 'goods_category', 30)
+        self.validate_required(self.item_name, 'item_name')
+        if self.item_name is not None:
+            self.validate_max_length(self.item_name, 'item_name', 64)
+        self.validate_required(self.quantity, 'quantity')
+        if self.quantity is not None:
+            self.validate_maximum(self.quantity, 'quantity', 10000)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.goods_category is not None:
+            result['goods_category'] = self.goods_category
+        if self.item_name is not None:
+            result['item_name'] = self.item_name
+        if self.quantity is not None:
+            result['quantity'] = self.quantity
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('goods_category') is not None:
+            self.goods_category = m.get('goods_category')
+        if m.get('item_name') is not None:
+            self.item_name = m.get('item_name')
+        if m.get('quantity') is not None:
+            self.quantity = m.get('quantity')
         return self
 
 
@@ -10524,6 +10747,11 @@ class QueryRiskRequest(TeaModel):
         user_name: str = None,
         cert_no: str = None,
         mobile: str = None,
+        alipay_user_id: str = None,
+        source: str = None,
+        receiver_address: str = None,
+        item_detail: ItemDetail = None,
+        price_detail: PriceDetail = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10536,12 +10764,32 @@ class QueryRiskRequest(TeaModel):
         self.cert_no = cert_no
         # 用户手机号码
         self.mobile = mobile
+        # 支付宝账户 UserId，智租版可选
+        self.alipay_user_id = alipay_user_id
+        # 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+        self.source = source
+        # 收件人地址，智租版必选
+        self.receiver_address = receiver_address
+        # 商品详情，智租版可选
+        self.item_detail = item_detail
+        # 价格详情，智租版可选
+        self.price_detail = price_detail
 
     def validate(self):
         self.validate_required(self.product_name, 'product_name')
         self.validate_required(self.user_name, 'user_name')
         self.validate_required(self.cert_no, 'cert_no')
         self.validate_required(self.mobile, 'mobile')
+        if self.alipay_user_id is not None:
+            self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 20)
+        if self.source is not None:
+            self.validate_max_length(self.source, 'source', 10)
+        if self.receiver_address is not None:
+            self.validate_max_length(self.receiver_address, 'receiver_address', 128)
+        if self.item_detail:
+            self.item_detail.validate()
+        if self.price_detail:
+            self.price_detail.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -10561,6 +10809,16 @@ class QueryRiskRequest(TeaModel):
             result['cert_no'] = self.cert_no
         if self.mobile is not None:
             result['mobile'] = self.mobile
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        if self.source is not None:
+            result['source'] = self.source
+        if self.receiver_address is not None:
+            result['receiver_address'] = self.receiver_address
+        if self.item_detail is not None:
+            result['item_detail'] = self.item_detail.to_map()
+        if self.price_detail is not None:
+            result['price_detail'] = self.price_detail.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -10577,6 +10835,18 @@ class QueryRiskRequest(TeaModel):
             self.cert_no = m.get('cert_no')
         if m.get('mobile') is not None:
             self.mobile = m.get('mobile')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('receiver_address') is not None:
+            self.receiver_address = m.get('receiver_address')
+        if m.get('item_detail') is not None:
+            temp_model = ItemDetail()
+            self.item_detail = temp_model.from_map(m['item_detail'])
+        if m.get('price_detail') is not None:
+            temp_model = PriceDetail()
+            self.price_detail = temp_model.from_map(m['price_detail'])
         return self
 
 
@@ -10587,6 +10857,7 @@ class QueryRiskResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         models: List[RiskModel] = None,
+        applet_model: AppletRiskModel = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -10596,12 +10867,16 @@ class QueryRiskResponse(TeaModel):
         self.result_msg = result_msg
         # 模型结果详情
         self.models = models
+        # 智租风控-风控模型结果
+        self.applet_model = applet_model
 
     def validate(self):
         if self.models:
             for k in self.models:
                 if k:
                     k.validate()
+        if self.applet_model:
+            self.applet_model.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -10619,6 +10894,8 @@ class QueryRiskResponse(TeaModel):
         if self.models is not None:
             for k in self.models:
                 result['models'].append(k.to_map() if k else None)
+        if self.applet_model is not None:
+            result['applet_model'] = self.applet_model.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -10634,6 +10911,9 @@ class QueryRiskResponse(TeaModel):
             for k in m.get('models'):
                 temp_model = RiskModel()
                 self.models.append(temp_model.from_map(k))
+        if m.get('applet_model') is not None:
+            temp_model = AppletRiskModel()
+            self.applet_model = temp_model.from_map(m['applet_model'])
         return self
 
 
