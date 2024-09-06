@@ -38,6 +38,31 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string Mobile { get; set; }
 
+        // 支付宝账户 UserId，智租版可选
+        [NameInMap("alipay_user_id")]
+        [Validation(Required=false, MaxLength=20)]
+        public string AlipayUserId { get; set; }
+
+        // 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+        [NameInMap("source")]
+        [Validation(Required=false, MaxLength=10)]
+        public string Source { get; set; }
+
+        // 收件人地址，智租版必选
+        [NameInMap("receiver_address")]
+        [Validation(Required=false, MaxLength=128)]
+        public string ReceiverAddress { get; set; }
+
+        // 商品详情，智租版可选
+        [NameInMap("item_detail")]
+        [Validation(Required=false)]
+        public ItemDetail ItemDetail { get; set; }
+
+        // 价格详情，智租版可选
+        [NameInMap("price_detail")]
+        [Validation(Required=false)]
+        public PriceDetail PriceDetail { get; set; }
+
     }
 
 }

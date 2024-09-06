@@ -29,6 +29,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public List<RiskModel> Models { get; set; }
 
+        // 智租风控-风控模型结果
+        [NameInMap("applet_model")]
+        [Validation(Required=false)]
+        public AppletRiskModel AppletModel { get; set; }
+
     }
 
 }
