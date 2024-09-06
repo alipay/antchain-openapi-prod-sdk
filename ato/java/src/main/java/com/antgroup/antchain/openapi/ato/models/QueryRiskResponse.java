@@ -20,6 +20,10 @@ public class QueryRiskResponse extends TeaModel {
     @NameInMap("models")
     public java.util.List<RiskModel> models;
 
+    // 智租风控-风控模型结果
+    @NameInMap("applet_model")
+    public AppletRiskModel appletModel;
+
     public static QueryRiskResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskResponse self = new QueryRiskResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryRiskResponse extends TeaModel {
     }
     public java.util.List<RiskModel> getModels() {
         return this.models;
+    }
+
+    public QueryRiskResponse setAppletModel(AppletRiskModel appletModel) {
+        this.appletModel = appletModel;
+        return this;
+    }
+    public AppletRiskModel getAppletModel() {
+        return this.appletModel;
     }
 
 }

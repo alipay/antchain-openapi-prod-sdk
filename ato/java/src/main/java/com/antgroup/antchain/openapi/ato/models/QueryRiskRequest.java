@@ -31,6 +31,29 @@ public class QueryRiskRequest extends TeaModel {
     @Validation(required = true)
     public String mobile;
 
+    // 支付宝账户 UserId，智租版可选
+    @NameInMap("alipay_user_id")
+    @Validation(maxLength = 20)
+    public String alipayUserId;
+
+    // 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+    @NameInMap("source")
+    @Validation(maxLength = 10)
+    public String source;
+
+    // 收件人地址，智租版必选
+    @NameInMap("receiver_address")
+    @Validation(maxLength = 128)
+    public String receiverAddress;
+
+    // 商品详情，智租版可选
+    @NameInMap("item_detail")
+    public ItemDetail itemDetail;
+
+    // 价格详情，智租版可选
+    @NameInMap("price_detail")
+    public PriceDetail priceDetail;
+
     public static QueryRiskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskRequest self = new QueryRiskRequest();
         return TeaModel.build(map, self);
@@ -82,6 +105,46 @@ public class QueryRiskRequest extends TeaModel {
     }
     public String getMobile() {
         return this.mobile;
+    }
+
+    public QueryRiskRequest setAlipayUserId(String alipayUserId) {
+        this.alipayUserId = alipayUserId;
+        return this;
+    }
+    public String getAlipayUserId() {
+        return this.alipayUserId;
+    }
+
+    public QueryRiskRequest setSource(String source) {
+        this.source = source;
+        return this;
+    }
+    public String getSource() {
+        return this.source;
+    }
+
+    public QueryRiskRequest setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress;
+        return this;
+    }
+    public String getReceiverAddress() {
+        return this.receiverAddress;
+    }
+
+    public QueryRiskRequest setItemDetail(ItemDetail itemDetail) {
+        this.itemDetail = itemDetail;
+        return this;
+    }
+    public ItemDetail getItemDetail() {
+        return this.itemDetail;
+    }
+
+    public QueryRiskRequest setPriceDetail(PriceDetail priceDetail) {
+        this.priceDetail = priceDetail;
+        return this;
+    }
+    public PriceDetail getPriceDetail() {
+        return this.priceDetail;
     }
 
 }
