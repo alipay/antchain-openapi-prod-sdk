@@ -31,11 +31,18 @@ class QueryRiskResponse extends Model
      * @var RiskModel[]
      */
     public $models;
+
+    // 智租风控-风控模型结果
+    /**
+     * @var AppletRiskModel
+     */
+    public $appletModel;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'models'     => 'models',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'models'      => 'models',
+        'appletModel' => 'applet_model',
     ];
 
     public function validate()
@@ -62,6 +69,9 @@ class QueryRiskResponse extends Model
                     $res['models'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->appletModel) {
+            $res['applet_model'] = null !== $this->appletModel ? $this->appletModel->toMap() : null;
         }
 
         return $res;
@@ -92,6 +102,9 @@ class QueryRiskResponse extends Model
                     $model->models[$n++] = null !== $item ? RiskModel::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['applet_model'])) {
+            $model->appletModel = AppletRiskModel::fromMap($map['applet_model']);
         }
 
         return $model;

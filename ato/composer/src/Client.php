@@ -352,7 +352,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 静态数据模块详情
+            // 智租风控-子风险项
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -380,7 +380,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.19',
+                    'sdk_version'      => '1.9.20',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
