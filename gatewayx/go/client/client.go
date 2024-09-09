@@ -567,6 +567,147 @@ func (s *GetFileDownloadResponse) SetUploadInvoker(v *XInvokerInfo) *GetFileDown
 	return s
 }
 
+type QueryMessageFailedRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 消息事件编码
+	MsgKey *string `json:"msg_key,omitempty" xml:"msg_key,omitempty" require:"true"`
+	// 消费方id，例如appId，tenantId 只支持单个传入
+	ConsumerId *string `json:"consumer_id,omitempty" xml:"consumer_id,omitempty"`
+	// 消费者类型，例如TENANT, APP
+	ConsumerType *string `json:"consumer_type,omitempty" xml:"consumer_type,omitempty"`
+	// 每页条数，最大支持100条
+	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty" require:"true"`
+	// 第几页
+	PageNum *string `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+}
+
+func (s QueryMessageFailedRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMessageFailedRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMessageFailedRequest) SetAuthToken(v string) *QueryMessageFailedRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMessageFailedRequest) SetMsgKey(v string) *QueryMessageFailedRequest {
+	s.MsgKey = &v
+	return s
+}
+
+func (s *QueryMessageFailedRequest) SetConsumerId(v string) *QueryMessageFailedRequest {
+	s.ConsumerId = &v
+	return s
+}
+
+func (s *QueryMessageFailedRequest) SetConsumerType(v string) *QueryMessageFailedRequest {
+	s.ConsumerType = &v
+	return s
+}
+
+func (s *QueryMessageFailedRequest) SetPageSize(v string) *QueryMessageFailedRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryMessageFailedRequest) SetPageNum(v string) *QueryMessageFailedRequest {
+	s.PageNum = &v
+	return s
+}
+
+type QueryMessageFailedResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 消息事件编码
+	MsgKey *string `json:"msg_key,omitempty" xml:"msg_key,omitempty"`
+	// 消费方id，例如appId，tenantId
+	ConsumerId *string `json:"consumer_id,omitempty" xml:"consumer_id,omitempty"`
+	// 消费者类型，例如TENANT, APP
+	ConsumerType *string `json:"consumer_type,omitempty" xml:"consumer_type,omitempty"`
+	// 业务消息内容，json格式
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	// 消息发送过程中的唯一ID
+	MsgId *string `json:"msg_id,omitempty" xml:"msg_id,omitempty"`
+	// 每页条数
+	PageSize *string `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 第几页
+	PageNum *string `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 总条数
+	TotalNum *string `json:"total_num,omitempty" xml:"total_num,omitempty"`
+}
+
+func (s QueryMessageFailedResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMessageFailedResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMessageFailedResponse) SetReqMsgId(v string) *QueryMessageFailedResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetResultCode(v string) *QueryMessageFailedResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetResultMsg(v string) *QueryMessageFailedResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetMsgKey(v string) *QueryMessageFailedResponse {
+	s.MsgKey = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetConsumerId(v string) *QueryMessageFailedResponse {
+	s.ConsumerId = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetConsumerType(v string) *QueryMessageFailedResponse {
+	s.ConsumerType = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetBizContent(v string) *QueryMessageFailedResponse {
+	s.BizContent = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetMsgId(v string) *QueryMessageFailedResponse {
+	s.MsgId = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetPageSize(v string) *QueryMessageFailedResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetPageNum(v string) *QueryMessageFailedResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryMessageFailedResponse) SetTotalNum(v string) *QueryMessageFailedResponse {
+	s.TotalNum = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -689,7 +830,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.9"),
+				"sdk_version":      tea.String("1.0.10"),
 				"_prod_code":       tea.String("GATEWAYX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -842,6 +983,40 @@ func (client *Client) GetFileDownloadEx(request *GetFileDownloadRequest, headers
 	}
 	_result = &GetFileDownloadResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.download.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+ * Summary: 查询最后一次发送仍然失败的消息
+ */
+func (client *Client) QueryMessageFailed(request *QueryMessageFailedRequest) (_result *QueryMessageFailedResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMessageFailedResponse{}
+	_body, _err := client.QueryMessageFailedEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+ * Summary: 查询最后一次发送仍然失败的消息
+ */
+func (client *Client) QueryMessageFailedEx(request *QueryMessageFailedRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMessageFailedResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMessageFailedResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.message.failed.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
