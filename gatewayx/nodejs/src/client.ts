@@ -154,6 +154,8 @@ export class CreateBizeventMessageRequest extends $tea.Model {
   tags?: string;
   // 消息类型，1：点对点，2: 广播消息
   msgType: string;
+  // 上下文透传的自定义header
+  header?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -165,6 +167,7 @@ export class CreateBizeventMessageRequest extends $tea.Model {
       consumerType: 'consumer_type',
       tags: 'tags',
       msgType: 'msg_type',
+      header: 'header',
     };
   }
 
@@ -179,6 +182,7 @@ export class CreateBizeventMessageRequest extends $tea.Model {
       consumerType: 'string',
       tags: 'string',
       msgType: 'string',
+      header: 'string',
     };
   }
 
@@ -391,6 +395,106 @@ export class GetFileDownloadResponse extends $tea.Model {
   }
 }
 
+export class QueryMessageFailedRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 消息事件编码
+  msgKey: string;
+  // 消费方id，例如appId，tenantId 只支持单个传入
+  consumerId?: string;
+  // 消费者类型，例如TENANT, APP
+  consumerType?: string;
+  // 每页条数，最大支持100条
+  pageSize: string;
+  // 第几页
+  pageNum: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      msgKey: 'msg_key',
+      consumerId: 'consumer_id',
+      consumerType: 'consumer_type',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      msgKey: 'string',
+      consumerId: 'string',
+      consumerType: 'string',
+      pageSize: 'string',
+      pageNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMessageFailedResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 消息事件编码
+  msgKey?: string;
+  // 消费方id，例如appId，tenantId
+  consumerId?: string;
+  // 消费者类型，例如TENANT, APP
+  consumerType?: string;
+  // 业务消息内容，json格式
+  bizContent?: string;
+  // 消息发送过程中的唯一ID
+  msgId?: string;
+  // 每页条数
+  pageSize?: string;
+  // 第几页
+  pageNum?: string;
+  // 总条数
+  totalNum?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      msgKey: 'msg_key',
+      consumerId: 'consumer_id',
+      consumerType: 'consumer_type',
+      bizContent: 'biz_content',
+      msgId: 'msg_id',
+      pageSize: 'page_size',
+      pageNum: 'page_num',
+      totalNum: 'total_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      msgKey: 'string',
+      consumerId: 'string',
+      consumerType: 'string',
+      bizContent: 'string',
+      msgId: 'string',
+      pageSize: 'string',
+      pageNum: 'string',
+      totalNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -418,7 +522,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -465,7 +569,7 @@ export default class Client {
       noProxy: Util.defaultString(runtime.noProxy, this._noProxy),
       maxIdleConns: Util.defaultNumber(runtime.maxIdleConns, this._maxIdleConns),
       maxIdleTimeMillis: this._maxIdleTimeMillis,
-      keepAliveDurationMillis: this._keepAliveDurationMillis,
+      keepAliveDuration: this._keepAliveDurationMillis,
       maxRequests: this._maxRequests,
       maxRequestsPerHost: this._maxRequestsPerHost,
       retry: {
@@ -504,7 +608,9 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.8",
+          sdk_version: "1.0.10",
+          _prod_code: "GATEWAYX",
+          _prod_channel: "undefined",
         };
         if (!Util.empty(this._securityToken)) {
           request_.query["security_token"] = this._securityToken;
@@ -605,6 +711,25 @@ export default class Client {
   async getFileDownloadEx(request: GetFileDownloadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetFileDownloadResponse> {
     Util.validateModel(request);
     return $tea.cast<GetFileDownloadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.download.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetFileDownloadResponse({}));
+  }
+
+  /**
+   * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+   * Summary: 查询最后一次发送仍然失败的消息
+   */
+  async queryMessageFailed(request: QueryMessageFailedRequest): Promise<QueryMessageFailedResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMessageFailedEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+   * Summary: 查询最后一次发送仍然失败的消息
+   */
+  async queryMessageFailedEx(request: QueryMessageFailedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMessageFailedResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMessageFailedResponse>(await this.doRequest("1.0", "antcloud.gatewayx.message.failed.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMessageFailedResponse({}));
   }
 
 }
