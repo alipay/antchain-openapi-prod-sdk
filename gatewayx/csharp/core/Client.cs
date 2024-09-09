@@ -137,7 +137,7 @@ namespace AntChain.SDK.GATEWAYX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.10"},
                         {"_prod_code", "GATEWAYX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.GATEWAYX
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.10"},
                         {"_prod_code", "GATEWAYX"},
                         {"_prod_channel", "undefined"},
                     };
@@ -445,6 +445,48 @@ namespace AntChain.SDK.GATEWAYX
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetFileDownloadResponse>(await DoRequestAsync("1.0", "antcloud.gatewayx.file.download.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+         * Summary: 查询最后一次发送仍然失败的消息
+         */
+        public QueryMessageFailedResponse QueryMessageFailed(QueryMessageFailedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMessageFailedEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+         * Summary: 查询最后一次发送仍然失败的消息
+         */
+        public async Task<QueryMessageFailedResponse> QueryMessageFailedAsync(QueryMessageFailedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMessageFailedExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+         * Summary: 查询最后一次发送仍然失败的消息
+         */
+        public QueryMessageFailedResponse QueryMessageFailedEx(QueryMessageFailedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMessageFailedResponse>(DoRequest("1.0", "antcloud.gatewayx.message.failed.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+         * Summary: 查询最后一次发送仍然失败的消息
+         */
+        public async Task<QueryMessageFailedResponse> QueryMessageFailedExAsync(QueryMessageFailedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMessageFailedResponse>(await DoRequestAsync("1.0", "antcloud.gatewayx.message.failed.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
