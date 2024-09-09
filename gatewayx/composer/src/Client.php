@@ -17,6 +17,8 @@ use AntChain\GATEWAYX\Models\CreateFileUploadRequest;
 use AntChain\GATEWAYX\Models\CreateFileUploadResponse;
 use AntChain\GATEWAYX\Models\GetFileDownloadRequest;
 use AntChain\GATEWAYX\Models\GetFileDownloadResponse;
+use AntChain\GATEWAYX\Models\QueryMessageFailedRequest;
+use AntChain\GATEWAYX\Models\QueryMessageFailedResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -164,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.9',
+                    'sdk_version'      => '1.0.10',
                     '_prod_code'       => 'GATEWAYX',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -309,5 +311,38 @@ class Client
         Utils::validateModel($request);
 
         return GetFileDownloadResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.file.download.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+     * Summary: 查询最后一次发送仍然失败的消息.
+     *
+     * @param QueryMessageFailedRequest $request
+     *
+     * @return QueryMessageFailedResponse
+     */
+    public function queryMessageFailed($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMessageFailedEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+     * Summary: 查询最后一次发送仍然失败的消息.
+     *
+     * @param QueryMessageFailedRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return QueryMessageFailedResponse
+     */
+    public function queryMessageFailedEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMessageFailedResponse::fromMap($this->doRequest('1.0', 'antcloud.gatewayx.message.failed.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
