@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.10',
                     '_prod_code': 'GATEWAYX',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.10',
                     '_prod_code': 'GATEWAYX',
                     '_prod_channel': 'undefined'
                 }
@@ -441,4 +441,60 @@ class Client:
         return TeaCore.from_map(
             gatewayx_models.GetFileDownloadResponse(),
             await self.do_request_async('1.0', 'antcloud.gatewayx.file.download.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_message_failed(
+        self,
+        request: gatewayx_models.QueryMessageFailedRequest,
+    ) -> gatewayx_models.QueryMessageFailedResponse:
+        """
+        Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+        Summary: 查询最后一次发送仍然失败的消息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_message_failed_ex(request, headers, runtime)
+
+    async def query_message_failed_async(
+        self,
+        request: gatewayx_models.QueryMessageFailedRequest,
+    ) -> gatewayx_models.QueryMessageFailedResponse:
+        """
+        Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+        Summary: 查询最后一次发送仍然失败的消息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_message_failed_ex_async(request, headers, runtime)
+
+    def query_message_failed_ex(
+        self,
+        request: gatewayx_models.QueryMessageFailedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gatewayx_models.QueryMessageFailedResponse:
+        """
+        Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+        Summary: 查询最后一次发送仍然失败的消息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gatewayx_models.QueryMessageFailedResponse(),
+            self.do_request('1.0', 'antcloud.gatewayx.message.failed.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_message_failed_ex_async(
+        self,
+        request: gatewayx_models.QueryMessageFailedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gatewayx_models.QueryMessageFailedResponse:
+        """
+        Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+        Summary: 查询最后一次发送仍然失败的消息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gatewayx_models.QueryMessageFailedResponse(),
+            await self.do_request_async('1.0', 'antcloud.gatewayx.message.failed.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

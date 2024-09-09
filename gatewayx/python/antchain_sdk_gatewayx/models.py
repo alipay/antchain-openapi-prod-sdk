@@ -681,3 +681,166 @@ class GetFileDownloadResponse(TeaModel):
         return self
 
 
+class QueryMessageFailedRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        msg_key: str = None,
+        consumer_id: str = None,
+        consumer_type: str = None,
+        page_size: str = None,
+        page_num: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 消息事件编码
+        self.msg_key = msg_key
+        # 消费方id，例如appId，tenantId 只支持单个传入
+        self.consumer_id = consumer_id
+        # 消费者类型，例如TENANT, APP
+        self.consumer_type = consumer_type
+        # 每页条数，最大支持100条
+        self.page_size = page_size
+        # 第几页
+        self.page_num = page_num
+
+    def validate(self):
+        self.validate_required(self.msg_key, 'msg_key')
+        self.validate_required(self.page_size, 'page_size')
+        self.validate_required(self.page_num, 'page_num')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.msg_key is not None:
+            result['msg_key'] = self.msg_key
+        if self.consumer_id is not None:
+            result['consumer_id'] = self.consumer_id
+        if self.consumer_type is not None:
+            result['consumer_type'] = self.consumer_type
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('msg_key') is not None:
+            self.msg_key = m.get('msg_key')
+        if m.get('consumer_id') is not None:
+            self.consumer_id = m.get('consumer_id')
+        if m.get('consumer_type') is not None:
+            self.consumer_type = m.get('consumer_type')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        return self
+
+
+class QueryMessageFailedResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        msg_key: str = None,
+        consumer_id: str = None,
+        consumer_type: str = None,
+        biz_content: str = None,
+        msg_id: str = None,
+        page_size: str = None,
+        page_num: str = None,
+        total_num: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 消息事件编码
+        self.msg_key = msg_key
+        # 消费方id，例如appId，tenantId
+        self.consumer_id = consumer_id
+        # 消费者类型，例如TENANT, APP
+        self.consumer_type = consumer_type
+        # 业务消息内容，json格式
+        self.biz_content = biz_content
+        # 消息发送过程中的唯一ID
+        self.msg_id = msg_id
+        # 每页条数
+        self.page_size = page_size
+        # 第几页
+        self.page_num = page_num
+        # 总条数
+        self.total_num = total_num
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.msg_key is not None:
+            result['msg_key'] = self.msg_key
+        if self.consumer_id is not None:
+            result['consumer_id'] = self.consumer_id
+        if self.consumer_type is not None:
+            result['consumer_type'] = self.consumer_type
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.msg_id is not None:
+            result['msg_id'] = self.msg_id
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.total_num is not None:
+            result['total_num'] = self.total_num
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('msg_key') is not None:
+            self.msg_key = m.get('msg_key')
+        if m.get('consumer_id') is not None:
+            self.consumer_id = m.get('consumer_id')
+        if m.get('consumer_type') is not None:
+            self.consumer_type = m.get('consumer_type')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('msg_id') is not None:
+            self.msg_id = m.get('msg_id')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('total_num') is not None:
+            self.total_num = m.get('total_num')
+        return self
+
+
