@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.9',
+    sdk_version = '1.0.10',
     _prod_code = 'GATEWAYX',
     _prod_channel = 'undefined'
   };
@@ -336,5 +336,64 @@ async function getFileDownload(request: GetFileDownloadRequest): GetFileDownload
 async function getFileDownloadEx(request: GetFileDownloadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetFileDownloadResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.gatewayx.file.download.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMessageFailedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 消息事件编码
+  msgKey: string(name='msg_key'),
+  // 消费方id，例如appId，tenantId 只支持单个传入
+  consumerId?: string(name='consumer_id'),
+  // 消费者类型，例如TENANT, APP
+  consumerType?: string(name='consumer_type'),
+  // 每页条数，最大支持100条
+  pageSize: string(name='page_size'),
+  // 第几页
+  pageNum: string(name='page_num'),
+}
+
+model QueryMessageFailedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 消息事件编码
+  msgKey?: string(name='msg_key'),
+  // 消费方id，例如appId，tenantId
+  consumerId?: string(name='consumer_id'),
+  // 消费者类型，例如TENANT, APP
+  consumerType?: string(name='consumer_type'),
+  // 业务消息内容，json格式
+  bizContent?: string(name='biz_content'),
+  // 消息发送过程中的唯一ID
+  msgId?: string(name='msg_id'),
+  // 每页条数
+  pageSize?: string(name='page_size'),
+  // 第几页
+  pageNum?: string(name='page_num'),
+  // 总条数
+  totalNum?: string(name='total_num'),
+}
+
+/**
+ * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+ * Summary: 查询最后一次发送仍然失败的消息
+ */
+async function queryMessageFailed(request: QueryMessageFailedRequest): QueryMessageFailedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMessageFailedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询最后一次发送仍然失败的消息，重试成功的消息不回在列表中展示
+ * Summary: 查询最后一次发送仍然失败的消息
+ */
+async function queryMessageFailedEx(request: QueryMessageFailedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMessageFailedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.gatewayx.message.failed.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
