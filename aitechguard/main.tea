@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.8',
+    sdk_version = '1.0.16',
     _prod_code = 'AITECHGUARD',
     _prod_channel = 'default'
   };
@@ -240,5 +240,70 @@ async function checkAicoguardrailsAsk(request: CheckAicoguardrailsAskRequest): C
 async function checkAicoguardrailsAskEx(request: CheckAicoguardrailsAskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAicoguardrailsAskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.aitechguard.aicoguardrails.ask.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckAicoguardrailsAnswerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId: string(name='session_id'),
+  // 数据唯一标识，能够根据该值定位到该条数据
+  requestId: string(name='request_id'),
+  // 应用名，蚂蚁侧提供
+  appCode: string(name='app_code'),
+  // 场景code，走SOP流程申请
+  sceneCode: string(name='scene_code'),
+  // 当前提问内容，最大长度800个字符。
+  question: string(name='question'),
+  // 当前提问内容格式, 默认值:PLAINTEXT
+  questionFormat?: string(name='question_format'),
+  // 当前回答内容，最大长度800个字符。
+  answer: string(name='answer'),
+  // 当前回答内容格式, 默认取PLAINTEXT
+  answerFormat?: string(name='answer_format'),
+  // 用户ID，用于主体风险判断
+  userId?: string(name='user_id'),
+}
+
+model CheckAicoguardrailsAnswerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId?: string(name='session_id'),
+  // 唯一定位一个问答对
+  requestId?: string(name='request_id'),
+  // 是否安全无风险
+  safe?: boolean(name='safe'),
+  // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+  actionCode?: string(name='action_code'),
+  // 会话动作
+  // END_SESSION：终止会话
+  // RECALL_QUERY：撤回提问
+  sessionAction?: string(name='session_action'),
+  // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+  actionMsg?: string(name='action_msg'),
+}
+
+/**
+ * Description: aicoguardcore对接天鉴回答检测服务接口
+ * Summary: 天鉴回答检测服务接口
+ */
+async function checkAicoguardrailsAnswer(request: CheckAicoguardrailsAnswerRequest): CheckAicoguardrailsAnswerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkAicoguardrailsAnswerEx(request, headers, runtime);
+}
+
+/**
+ * Description: aicoguardcore对接天鉴回答检测服务接口
+ * Summary: 天鉴回答检测服务接口
+ */
+async function checkAicoguardrailsAnswerEx(request: CheckAicoguardrailsAnswerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAicoguardrailsAnswerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
