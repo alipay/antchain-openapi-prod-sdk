@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\AITECHGUARD\Models\CheckAicoguardrailsAnswerRequest;
+use AntChain\AITECHGUARD\Models\CheckAicoguardrailsAnswerResponse;
 use AntChain\AITECHGUARD\Models\CheckAicoguardrailsAskRequest;
 use AntChain\AITECHGUARD\Models\CheckAicoguardrailsAskResponse;
 use AntChain\Util\UtilClient;
@@ -160,7 +162,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.8',
+                    'sdk_version'      => '1.0.16',
                     '_prod_code'       => 'AITECHGUARD',
                     '_prod_channel'    => 'default',
                 ];
@@ -239,5 +241,38 @@ class Client
         Utils::validateModel($request);
 
         return CheckAicoguardrailsAskResponse::fromMap($this->doRequest('1.0', 'antcloud.aitechguard.aicoguardrails.ask.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aicoguardcore对接天鉴回答检测服务接口
+     * Summary: 天鉴回答检测服务接口.
+     *
+     * @param CheckAicoguardrailsAnswerRequest $request
+     *
+     * @return CheckAicoguardrailsAnswerResponse
+     */
+    public function checkAicoguardrailsAnswer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAicoguardrailsAnswerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aicoguardcore对接天鉴回答检测服务接口
+     * Summary: 天鉴回答检测服务接口.
+     *
+     * @param CheckAicoguardrailsAnswerRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return CheckAicoguardrailsAnswerResponse
+     */
+    public function checkAicoguardrailsAnswerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAicoguardrailsAnswerResponse::fromMap($this->doRequest('1.0', 'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
