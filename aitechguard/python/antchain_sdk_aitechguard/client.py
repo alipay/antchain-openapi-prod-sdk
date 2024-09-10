@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.8',
+                    'sdk_version': '1.0.16',
                     '_prod_code': 'AITECHGUARD',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.8',
+                    'sdk_version': '1.0.16',
                     '_prod_code': 'AITECHGUARD',
                     '_prod_channel': 'default'
                 }
@@ -329,4 +329,60 @@ class Client:
         return TeaCore.from_map(
             aitechguard_models.CheckAicoguardrailsAskResponse(),
             await self.do_request_async('1.0', 'antcloud.aitechguard.aicoguardrails.ask.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_aicoguardrails_answer(
+        self,
+        request: aitechguard_models.CheckAicoguardrailsAnswerRequest,
+    ) -> aitechguard_models.CheckAicoguardrailsAnswerResponse:
+        """
+        Description: aicoguardcore对接天鉴回答检测服务接口
+        Summary: 天鉴回答检测服务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_aicoguardrails_answer_ex(request, headers, runtime)
+
+    async def check_aicoguardrails_answer_async(
+        self,
+        request: aitechguard_models.CheckAicoguardrailsAnswerRequest,
+    ) -> aitechguard_models.CheckAicoguardrailsAnswerResponse:
+        """
+        Description: aicoguardcore对接天鉴回答检测服务接口
+        Summary: 天鉴回答检测服务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_aicoguardrails_answer_ex_async(request, headers, runtime)
+
+    def check_aicoguardrails_answer_ex(
+        self,
+        request: aitechguard_models.CheckAicoguardrailsAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitechguard_models.CheckAicoguardrailsAnswerResponse:
+        """
+        Description: aicoguardcore对接天鉴回答检测服务接口
+        Summary: 天鉴回答检测服务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitechguard_models.CheckAicoguardrailsAnswerResponse(),
+            self.do_request('1.0', 'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_aicoguardrails_answer_ex_async(
+        self,
+        request: aitechguard_models.CheckAicoguardrailsAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitechguard_models.CheckAicoguardrailsAnswerResponse:
+        """
+        Description: aicoguardcore对接天鉴回答检测服务接口
+        Summary: 天鉴回答检测服务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitechguard_models.CheckAicoguardrailsAnswerResponse(),
+            await self.do_request_async('1.0', 'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

@@ -394,3 +394,185 @@ class CheckAicoguardrailsAskResponse(TeaModel):
         return self
 
 
+class CheckAicoguardrailsAnswerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        session_id: str = None,
+        request_id: str = None,
+        app_code: str = None,
+        scene_code: str = None,
+        question: str = None,
+        question_format: str = None,
+        answer: str = None,
+        answer_format: str = None,
+        user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 会话ID，用于匹配多轮对话上下文
+        self.session_id = session_id
+        # 数据唯一标识，能够根据该值定位到该条数据
+        self.request_id = request_id
+        # 应用名，蚂蚁侧提供
+        self.app_code = app_code
+        # 场景code，走SOP流程申请
+        self.scene_code = scene_code
+        # 当前提问内容，最大长度800个字符。
+        self.question = question
+        # 当前提问内容格式, 默认值:PLAINTEXT
+        self.question_format = question_format
+        # 当前回答内容，最大长度800个字符。
+        self.answer = answer
+        # 当前回答内容格式, 默认取PLAINTEXT
+        self.answer_format = answer_format
+        # 用户ID，用于主体风险判断
+        self.user_id = user_id
+
+    def validate(self):
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.app_code, 'app_code')
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.question, 'question')
+        self.validate_required(self.answer, 'answer')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.app_code is not None:
+            result['app_code'] = self.app_code
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.question is not None:
+            result['question'] = self.question
+        if self.question_format is not None:
+            result['question_format'] = self.question_format
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.answer_format is not None:
+            result['answer_format'] = self.answer_format
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('app_code') is not None:
+            self.app_code = m.get('app_code')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('question_format') is not None:
+            self.question_format = m.get('question_format')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('answer_format') is not None:
+            self.answer_format = m.get('answer_format')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class CheckAicoguardrailsAnswerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        session_id: str = None,
+        request_id: str = None,
+        safe: bool = None,
+        action_code: str = None,
+        session_action: str = None,
+        action_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 会话ID，用于匹配多轮对话上下文
+        self.session_id = session_id
+        # 唯一定位一个问答对
+        self.request_id = request_id
+        # 是否安全无风险
+        self.safe = safe
+        # 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+        self.action_code = action_code
+        # 会话动作
+        # END_SESSION：终止会话
+        # RECALL_QUERY：撤回提问
+        self.session_action = session_action
+        # 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+        self.action_msg = action_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.safe is not None:
+            result['safe'] = self.safe
+        if self.action_code is not None:
+            result['action_code'] = self.action_code
+        if self.session_action is not None:
+            result['session_action'] = self.session_action
+        if self.action_msg is not None:
+            result['action_msg'] = self.action_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('safe') is not None:
+            self.safe = m.get('safe')
+        if m.get('action_code') is not None:
+            self.action_code = m.get('action_code')
+        if m.get('session_action') is not None:
+            self.session_action = m.get('session_action')
+        if m.get('action_msg') is not None:
+            self.action_msg = m.get('action_msg')
+        return self
+
+
