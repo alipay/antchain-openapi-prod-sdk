@@ -233,6 +233,116 @@ export class CheckAicoguardrailsAskResponse extends $tea.Model {
   }
 }
 
+export class CheckAicoguardrailsAnswerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId: string;
+  // 数据唯一标识，能够根据该值定位到该条数据
+  requestId: string;
+  // 应用名，蚂蚁侧提供
+  appCode: string;
+  // 场景code，走SOP流程申请
+  sceneCode: string;
+  // 当前提问内容，最大长度800个字符。
+  question: string;
+  // 当前提问内容格式, 默认值:PLAINTEXT
+  questionFormat?: string;
+  // 当前回答内容，最大长度800个字符。
+  answer: string;
+  // 当前回答内容格式, 默认取PLAINTEXT
+  answerFormat?: string;
+  // 用户ID，用于主体风险判断
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      sessionId: 'session_id',
+      requestId: 'request_id',
+      appCode: 'app_code',
+      sceneCode: 'scene_code',
+      question: 'question',
+      questionFormat: 'question_format',
+      answer: 'answer',
+      answerFormat: 'answer_format',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      sessionId: 'string',
+      requestId: 'string',
+      appCode: 'string',
+      sceneCode: 'string',
+      question: 'string',
+      questionFormat: 'string',
+      answer: 'string',
+      answerFormat: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAicoguardrailsAnswerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId?: string;
+  // 唯一定位一个问答对
+  requestId?: string;
+  // 是否安全无风险
+  safe?: boolean;
+  // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+  actionCode?: string;
+  // 会话动作
+  // END_SESSION：终止会话
+  // RECALL_QUERY：撤回提问
+  sessionAction?: string;
+  // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+  actionMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sessionId: 'session_id',
+      requestId: 'request_id',
+      safe: 'safe',
+      actionCode: 'action_code',
+      sessionAction: 'session_action',
+      actionMsg: 'action_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sessionId: 'string',
+      requestId: 'string',
+      safe: 'boolean',
+      actionCode: 'string',
+      sessionAction: 'string',
+      actionMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -346,7 +456,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.8",
+          sdk_version: "1.0.16",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
@@ -411,6 +521,25 @@ export default class Client {
   async checkAicoguardrailsAskEx(request: CheckAicoguardrailsAskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAicoguardrailsAskResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckAicoguardrailsAskResponse>(await this.doRequest("1.0", "antcloud.aitechguard.aicoguardrails.ask.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAicoguardrailsAskResponse({}));
+  }
+
+  /**
+   * Description: aicoguardcore对接天鉴回答检测服务接口
+   * Summary: 天鉴回答检测服务接口
+   */
+  async checkAicoguardrailsAnswer(request: CheckAicoguardrailsAnswerRequest): Promise<CheckAicoguardrailsAnswerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkAicoguardrailsAnswerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aicoguardcore对接天鉴回答检测服务接口
+   * Summary: 天鉴回答检测服务接口
+   */
+  async checkAicoguardrailsAnswerEx(request: CheckAicoguardrailsAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAicoguardrailsAnswerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckAicoguardrailsAnswerResponse>(await this.doRequest("1.0", "antcloud.aitechguard.aicoguardrails.answer.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAicoguardrailsAnswerResponse({}));
   }
 
 }
