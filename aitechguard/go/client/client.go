@@ -347,6 +347,163 @@ func (s *CheckAicoguardrailsAskResponse) SetSessionAction(v string) *CheckAicogu
 	return s
 }
 
+type CheckAicoguardrailsAnswerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 会话ID，用于匹配多轮对话上下文
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 数据唯一标识，能够根据该值定位到该条数据
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 应用名，蚂蚁侧提供
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty" require:"true"`
+	// 场景code，走SOP流程申请
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 当前提问内容，最大长度800个字符。
+	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
+	// 当前提问内容格式, 默认值:PLAINTEXT
+	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty"`
+	// 当前回答内容，最大长度800个字符。
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty" require:"true"`
+	// 当前回答内容格式, 默认取PLAINTEXT
+	AnswerFormat *string `json:"answer_format,omitempty" xml:"answer_format,omitempty"`
+	// 用户ID，用于主体风险判断
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s CheckAicoguardrailsAnswerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAicoguardrailsAnswerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetAuthToken(v string) *CheckAicoguardrailsAnswerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetSessionId(v string) *CheckAicoguardrailsAnswerRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetRequestId(v string) *CheckAicoguardrailsAnswerRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetAppCode(v string) *CheckAicoguardrailsAnswerRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetSceneCode(v string) *CheckAicoguardrailsAnswerRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetQuestion(v string) *CheckAicoguardrailsAnswerRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetQuestionFormat(v string) *CheckAicoguardrailsAnswerRequest {
+	s.QuestionFormat = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetAnswer(v string) *CheckAicoguardrailsAnswerRequest {
+	s.Answer = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetAnswerFormat(v string) *CheckAicoguardrailsAnswerRequest {
+	s.AnswerFormat = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerRequest) SetUserId(v string) *CheckAicoguardrailsAnswerRequest {
+	s.UserId = &v
+	return s
+}
+
+type CheckAicoguardrailsAnswerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话ID，用于匹配多轮对话上下文
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 唯一定位一个问答对
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 是否安全无风险
+	Safe *bool `json:"safe,omitempty" xml:"safe,omitempty"`
+	// 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 会话动作
+	// END_SESSION：终止会话
+	// RECALL_QUERY：撤回提问
+	SessionAction *string `json:"session_action,omitempty" xml:"session_action,omitempty"`
+	// 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+	ActionMsg *string `json:"action_msg,omitempty" xml:"action_msg,omitempty"`
+}
+
+func (s CheckAicoguardrailsAnswerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAicoguardrailsAnswerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetReqMsgId(v string) *CheckAicoguardrailsAnswerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetResultCode(v string) *CheckAicoguardrailsAnswerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetResultMsg(v string) *CheckAicoguardrailsAnswerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetSessionId(v string) *CheckAicoguardrailsAnswerResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetRequestId(v string) *CheckAicoguardrailsAnswerResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetSafe(v bool) *CheckAicoguardrailsAnswerResponse {
+	s.Safe = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetActionCode(v string) *CheckAicoguardrailsAnswerResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetSessionAction(v string) *CheckAicoguardrailsAnswerResponse {
+	s.SessionAction = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetActionMsg(v string) *CheckAicoguardrailsAnswerResponse {
+	s.ActionMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -469,7 +626,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.8"),
+				"sdk_version":      tea.String("1.0.16"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -554,6 +711,40 @@ func (client *Client) CheckAicoguardrailsAskEx(request *CheckAicoguardrailsAskRe
 	}
 	_result = &CheckAicoguardrailsAskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.aitechguard.aicoguardrails.ask.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aicoguardcore对接天鉴回答检测服务接口
+ * Summary: 天鉴回答检测服务接口
+ */
+func (client *Client) CheckAicoguardrailsAnswer(request *CheckAicoguardrailsAnswerRequest) (_result *CheckAicoguardrailsAnswerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckAicoguardrailsAnswerResponse{}
+	_body, _err := client.CheckAicoguardrailsAnswerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aicoguardcore对接天鉴回答检测服务接口
+ * Summary: 天鉴回答检测服务接口
+ */
+func (client *Client) CheckAicoguardrailsAnswerEx(request *CheckAicoguardrailsAnswerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAicoguardrailsAnswerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckAicoguardrailsAnswerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.aitechguard.aicoguardrails.answer.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
