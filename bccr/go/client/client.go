@@ -12786,6 +12786,8 @@ type CreateOrderResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 用于查询支付链接
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 创建订单失败
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s CreateOrderResponse) String() string {
@@ -12813,6 +12815,11 @@ func (s *CreateOrderResponse) SetResultMsg(v string) *CreateOrderResponse {
 
 func (s *CreateOrderResponse) SetOrderId(v string) *CreateOrderResponse {
 	s.OrderId = &v
+	return s
+}
+
+func (s *CreateOrderResponse) SetErrorMsg(v string) *CreateOrderResponse {
+	s.ErrorMsg = &v
 	return s
 }
 
@@ -12856,6 +12863,8 @@ type QueryOrderPayurlResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 支付链接
 	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty"`
+	// 查询支付链接失败
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s QueryOrderPayurlResponse) String() string {
@@ -12883,6 +12892,11 @@ func (s *QueryOrderPayurlResponse) SetResultMsg(v string) *QueryOrderPayurlRespo
 
 func (s *QueryOrderPayurlResponse) SetPayUrl(v string) *QueryOrderPayurlResponse {
 	s.PayUrl = &v
+	return s
+}
+
+func (s *QueryOrderPayurlResponse) SetErrorMsg(v string) *QueryOrderPayurlResponse {
+	s.ErrorMsg = &v
 	return s
 }
 
@@ -13848,7 +13862,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.4"),
+				"sdk_version":      tea.String("1.19.5"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
