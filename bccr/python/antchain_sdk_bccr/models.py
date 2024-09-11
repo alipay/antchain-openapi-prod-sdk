@@ -15788,6 +15788,7 @@ class CreateOrderResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         order_id: str = None,
+        error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15797,6 +15798,8 @@ class CreateOrderResponse(TeaModel):
         self.result_msg = result_msg
         # 用于查询支付链接
         self.order_id = order_id
+        # 创建订单失败
+        self.error_msg = error_msg
 
     def validate(self):
         pass
@@ -15815,6 +15818,8 @@ class CreateOrderResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.order_id is not None:
             result['order_id'] = self.order_id
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -15827,6 +15832,8 @@ class CreateOrderResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('order_id') is not None:
             self.order_id = m.get('order_id')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
@@ -15878,6 +15885,7 @@ class QueryOrderPayurlResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         pay_url: str = None,
+        error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15887,6 +15895,8 @@ class QueryOrderPayurlResponse(TeaModel):
         self.result_msg = result_msg
         # 支付链接
         self.pay_url = pay_url
+        # 查询支付链接失败
+        self.error_msg = error_msg
 
     def validate(self):
         pass
@@ -15905,6 +15915,8 @@ class QueryOrderPayurlResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.pay_url is not None:
             result['pay_url'] = self.pay_url
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -15917,6 +15929,8 @@ class QueryOrderPayurlResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('pay_url') is not None:
             self.pay_url = m.get('pay_url')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
