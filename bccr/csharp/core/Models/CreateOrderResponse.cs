@@ -29,6 +29,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string OrderId { get; set; }
 
+        // 创建订单失败
+        [NameInMap("error_msg")]
+        [Validation(Required=false)]
+        public string ErrorMsg { get; set; }
+
     }
 
 }

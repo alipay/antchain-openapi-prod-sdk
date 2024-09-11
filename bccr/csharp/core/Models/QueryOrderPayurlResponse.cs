@@ -29,6 +29,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string PayUrl { get; set; }
 
+        // 查询支付链接失败
+        [NameInMap("error_msg")]
+        [Validation(Required=false)]
+        public string ErrorMsg { get; set; }
+
     }
 
 }
