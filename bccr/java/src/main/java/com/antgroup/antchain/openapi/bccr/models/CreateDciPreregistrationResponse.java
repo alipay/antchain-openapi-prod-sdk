@@ -20,6 +20,10 @@ public class CreateDciPreregistrationResponse extends TeaModel {
     @NameInMap("dci_content_id")
     public String dciContentId;
 
+    // 错误信息
+    @NameInMap("error_msg")
+    public String errorMsg;
+
     public static CreateDciPreregistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateDciPreregistrationResponse self = new CreateDciPreregistrationResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateDciPreregistrationResponse extends TeaModel {
     }
     public String getDciContentId() {
         return this.dciContentId;
+    }
+
+    public CreateDciPreregistrationResponse setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }
