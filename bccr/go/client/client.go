@@ -7276,6 +7276,8 @@ type CreateDciPreregistrationResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// dci内容id
 	DciContentId *string `json:"dci_content_id,omitempty" xml:"dci_content_id,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s CreateDciPreregistrationResponse) String() string {
@@ -7303,6 +7305,11 @@ func (s *CreateDciPreregistrationResponse) SetResultMsg(v string) *CreateDciPrer
 
 func (s *CreateDciPreregistrationResponse) SetDciContentId(v string) *CreateDciPreregistrationResponse {
 	s.DciContentId = &v
+	return s
+}
+
+func (s *CreateDciPreregistrationResponse) SetErrorMsg(v string) *CreateDciPreregistrationResponse {
+	s.ErrorMsg = &v
 	return s
 }
 
@@ -12399,6 +12406,8 @@ type ReplaceDciResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s ReplaceDciResponse) String() string {
@@ -12421,6 +12430,11 @@ func (s *ReplaceDciResponse) SetResultCode(v string) *ReplaceDciResponse {
 
 func (s *ReplaceDciResponse) SetResultMsg(v string) *ReplaceDciResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *ReplaceDciResponse) SetErrorMsg(v string) *ReplaceDciResponse {
+	s.ErrorMsg = &v
 	return s
 }
 
@@ -13834,7 +13848,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.2"),
+				"sdk_version":      tea.String("1.19.4"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
