@@ -31,11 +31,18 @@ class CreateOrderResponse extends Model
      * @var string
      */
     public $orderId;
+
+    // 创建订单失败
+    /**
+     * @var string
+     */
+    public $errorMsg;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'orderId'    => 'order_id',
+        'errorMsg'   => 'error_msg',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class CreateOrderResponse extends Model
         }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class CreateOrderResponse extends Model
         }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;
