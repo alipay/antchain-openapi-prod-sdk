@@ -20,6 +20,10 @@ public class CreateOrderResponse extends TeaModel {
     @NameInMap("order_id")
     public String orderId;
 
+    // 创建订单失败
+    @NameInMap("error_msg")
+    public String errorMsg;
+
     public static CreateOrderResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateOrderResponse self = new CreateOrderResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateOrderResponse extends TeaModel {
     }
     public String getOrderId() {
         return this.orderId;
+    }
+
+    public CreateOrderResponse setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }

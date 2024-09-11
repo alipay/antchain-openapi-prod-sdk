@@ -20,6 +20,10 @@ public class QueryOrderPayurlResponse extends TeaModel {
     @NameInMap("pay_url")
     public String payUrl;
 
+    // 查询支付链接失败
+    @NameInMap("error_msg")
+    public String errorMsg;
+
     public static QueryOrderPayurlResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryOrderPayurlResponse self = new QueryOrderPayurlResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class QueryOrderPayurlResponse extends TeaModel {
     }
     public String getPayUrl() {
         return this.payUrl;
+    }
+
+    public QueryOrderPayurlResponse setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }
