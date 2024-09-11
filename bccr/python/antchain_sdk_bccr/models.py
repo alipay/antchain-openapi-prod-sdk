@@ -9009,6 +9009,7 @@ class CreateDciPreregistrationResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         dci_content_id: str = None,
+        error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9018,6 +9019,8 @@ class CreateDciPreregistrationResponse(TeaModel):
         self.result_msg = result_msg
         # dci内容id
         self.dci_content_id = dci_content_id
+        # 错误信息
+        self.error_msg = error_msg
 
     def validate(self):
         pass
@@ -9036,6 +9039,8 @@ class CreateDciPreregistrationResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.dci_content_id is not None:
             result['dci_content_id'] = self.dci_content_id
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -9048,6 +9053,8 @@ class CreateDciPreregistrationResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('dci_content_id') is not None:
             self.dci_content_id = m.get('dci_content_id')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
@@ -15300,6 +15307,7 @@ class ReplaceDciResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15307,6 +15315,8 @@ class ReplaceDciResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 错误信息
+        self.error_msg = error_msg
 
     def validate(self):
         pass
@@ -15323,6 +15333,8 @@ class ReplaceDciResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -15333,6 +15345,8 @@ class ReplaceDciResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
