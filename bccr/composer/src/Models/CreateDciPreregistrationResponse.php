@@ -31,11 +31,18 @@ class CreateDciPreregistrationResponse extends Model
      * @var string
      */
     public $dciContentId;
+
+    // 错误信息
+    /**
+     * @var string
+     */
+    public $errorMsg;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
         'dciContentId' => 'dci_content_id',
+        'errorMsg'     => 'error_msg',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class CreateDciPreregistrationResponse extends Model
         }
         if (null !== $this->dciContentId) {
             $res['dci_content_id'] = $this->dciContentId;
+        }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class CreateDciPreregistrationResponse extends Model
         }
         if (isset($map['dci_content_id'])) {
             $model->dciContentId = $map['dci_content_id'];
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;

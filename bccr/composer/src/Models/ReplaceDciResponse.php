@@ -25,10 +25,17 @@ class ReplaceDciResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 错误信息
+    /**
+     * @var string
+     */
+    public $errorMsg;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'errorMsg'   => 'error_msg',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class ReplaceDciResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class ReplaceDciResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;
