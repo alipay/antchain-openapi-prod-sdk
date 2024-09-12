@@ -1,0 +1,782 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.3.3',
+    _prod_code = 'ACS_USER',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 功能点信息
+model AuthAction {
+  // 权限点编码
+  actionCode: string(name='action_code', example='NODE_MANAGE'),
+  // 权限点名称
+  actionName: string(name='action_name', example='节点管理'),
+  // 归属产品码
+  productCode: string(name='product_code', example='BAAS'),
+  // 权限点级别
+  actionLevel: long(name='action_level', example='1'),
+  // 是否展示
+  isShow: boolean(name='is_show', example='true, false'),
+  // 权限点描述信息
+  actionDescription?: string(name='action_description', example='权限点描述信息'),
+  // 父权限点编码
+  parentActionCode?: string(name='parent_action_code', example='NODE_MANAGE'),
+}
+
+// AntChain Stack 用户角色
+model ACSUserRole {
+  // 角色归属产品
+  productCode: string(name='product_code', example='BAAS'),
+  // 角色编码
+  productRole: string(name='product_role', example='ROLE_ADMIN'),
+  // 角色类型，SYSTEM：系统角色；USER_DEFINE：用户自定义角色
+  roleType: string(name='role_type', example='SYSTEM'),
+  // 角色名称
+  roleName?: string(name='role_name', example='链管理角色'),
+  // 角色描述信息
+  roleDescription?: string(name='role_description', example='角色描述'),
+  // 权限点信息
+  authActions?: [ AuthAction ](name='auth_actions', example=''),
+  // 角色code
+  roleCode?: string(name='role_code', example='ROLE_ADMIN'),
+  // 登陆用户名
+  userid?: string(name='userid', example='略'),
+}
+
+// AntChain Stack 用户信息
+model ACSUserInfo {
+  // 用户ID
+  userId?: string(name='user_id', example='acs'),
+  // 用户名称
+  userName?: string(name='user_name', example='服务账号'),
+  // 用户类型，OPERATOR：登录用户；SERVICE：服务用户
+  userType?: string(name='user_type', example='OPERATOR'),
+  // 是否已失效
+  expired?: boolean(name='expired', example='true, false'),
+  // 是否被禁用
+  disabled?: boolean(name='disabled', example='true, false'),
+  // 邮箱
+  email?: string(name='email', example='test@alitest.com'),
+  // 手机号码
+  phone?: string(name='phone', example='13888888888'),
+  // 失效时间
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time', example='2028-10-10T10:10:00Z'),
+  // 创建时间
+  createTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='create_time', example='2018-10-10T10:10:00Z'),
+  // 更新时间
+  updateTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='update_time', example='2021-10-10T10:10:00Z'),
+  // 用户角色
+  userRoles?: [ ACSUserRole ](name='user_roles', example=''),
+  // 账户密码
+  password?: string(name='password', example='略'),
+}
+
+// 角色信息
+model ACSRole {
+  // 角色归属产品
+  productCode: string(name='product_code', example='BAAS'),
+  // 角色编码
+  productRole: string(name='product_role', example='ROLE_ADMIN'),
+  // 角色编码
+  roleCode: string(name='role_code', example='ROLE_ADMIN'),
+  // 角色名称
+  roleName: string(name='role_name', example='链管理角色'),
+  // 角色描述信息
+  roleDescription?: string(name='role_description', example='角色描述'),
+  // 角色类型，SYSTEM：系统角色；USER_DEFINE：用户自定义角色
+  roleType?: string(name='role_type', example='SYSTEM'),
+}
+
+model QueryAccessorRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 网关调用的服务access key
+  userAccessKey: string(name='user_access_key'),
+}
+
+model QueryAccessorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户ID
+  userId?: string(name='user_id'),
+  // 用户名称
+  userName?: string(name='user_name'),
+  // SERVICE:服务账号
+  // MASTER:登录账号
+  userType?: string(name='user_type'),
+  // 服务账号
+  accessKey?: string(name='access_key'),
+  // 服务账号对应的密钥
+  accessSecret?: string(name='access_secret'),
+}
+
+/**
+ * Description: acsgw来根据ak查询accessor的信息
+ * Summary: 根据ak查询accessor信息
+ */
+async function queryAccessor(request: QueryAccessorRequest): QueryAccessorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAccessorEx(request, headers, runtime);
+}
+
+/**
+ * Description: acsgw来根据ak查询accessor的信息
+ * Summary: 根据ak查询accessor信息
+ */
+async function queryAccessorEx(request: QueryAccessorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAccessorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.accessor.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListUserwithroleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品CODE
+  prodCode?: string(name='prod_code'),
+  // 产品内的角色信息
+  productRole?: string(name='product_role'),
+  // 分页开始序号，默认第一个开始
+  currentPage?: long(name='current_page'),
+  // 分页大小，未传默认是100
+  pageSize?: long(name='page_size'),
+}
+
+model ListUserwithroleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前页码
+  currentPage?: long(name='current_page'),
+  // 页面大小
+  pageSize?: long(name='page_size'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 用户信息列表
+  userInfos?: [ ACSUserInfo ](name='user_infos'),
+}
+
+/**
+ * Description: 查询所有的用户与权限关系列表
+ * Summary: 获取用户角色信息列表
+ */
+async function listUserwithrole(request: ListUserwithroleRequest): ListUserwithroleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listUserwithroleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询所有的用户与权限关系列表
+ * Summary: 获取用户角色信息列表
+ */
+async function listUserwithroleEx(request: ListUserwithroleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListUserwithroleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.userwithrole.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model VerifySessionTokenRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户登录态信息
+  token: string(name='token'),
+}
+
+model VerifySessionTokenResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户ID
+  userId?: string(name='user_id'),
+  // 用户名称
+  userName?: string(name='user_name'),
+  // 私有化中的租户ID（0表示适用所有租户）
+  tenantId?: long(name='tenant_id'),
+  // 用户类型，OPERATOR：登录账号；SERVICE：服务账号
+  userType?: string(name='user_type'),
+  // 是否已失效
+  expired?: boolean(name='expired'),
+  // 是否已冻结
+  disabled?: boolean(name='disabled'),
+  // 邮箱地址
+  email?: string(name='email'),
+  // 电话号码
+  phone?: string(name='phone'),
+  // 失效时间
+  expiredTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='expired_time'),
+  // 是否需要修改密码
+  changeRequired?: boolean(name='change_required'),
+}
+
+/**
+ * Description: 私有化场景用户登录态验证
+ * Summary: 私有化场景用户登录态验证
+ */
+async function verifySessionToken(request: VerifySessionTokenRequest): VerifySessionTokenResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return verifySessionTokenEx(request, headers, runtime);
+}
+
+/**
+ * Description: 私有化场景用户登录态验证
+ * Summary: 私有化场景用户登录态验证
+ */
+async function verifySessionTokenEx(request: VerifySessionTokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): VerifySessionTokenResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.session.token.verify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model JudgeAuthorityRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id，和参数token二者必须有一个不能为空
+  userId?: string(name='user_id'),
+  // 用户登录token，和user_id二者必须有一个不能为空，当token不为空时，会先判断token 是否有效，然后进行权限判断
+  token?: string(name='token'),
+  // 产品编码
+  productCode: string(name='product_code'),
+  // 对应的权限码或者是角色编码
+  actionCode: string(name='action_code'),
+  // 鉴权类型，ROLE：角色鉴权；ACTION：权限点鉴权
+  actionType: string(name='action_type'),
+}
+
+model JudgeAuthorityResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // true：有权限；false：无权限
+  judgeResult?: boolean(name='judge_result'),
+}
+
+/**
+ * Description: 用户权限校验
+ * Summary: 用户权限校验
+ */
+async function judgeAuthority(request: JudgeAuthorityRequest): JudgeAuthorityResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return judgeAuthorityEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户权限校验
+ * Summary: 用户权限校验
+ */
+async function judgeAuthorityEx(request: JudgeAuthorityRequest, headers: map[string]string, runtime: Util.RuntimeOptions): JudgeAuthorityResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.authority.judge', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListPolicyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id，和token二者其中一个必须输入
+  userId?: string(name='user_id'),
+  // 用户登录token，和user_id二者其中一个必须，如果token不为空，则会先进行登录态的检查，没有查到，则返回失败，否则返回用户的权限信息
+  token?: string(name='token'),
+  // 产品编码，不传入，返回用户拥有的所有权限，传入则返回用户当前产品的权限信息
+  productCode?: string(name='product_code'),
+}
+
+model ListPolicyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户的权限角色信息
+  authRoles?: [ ACSUserRole ](name='auth_roles'),
+}
+
+/**
+ * Description: 查询某个用户的权限
+ * Summary: 用户权限查询
+ */
+async function listPolicy(request: ListPolicyRequest): ListPolicyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listPolicyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询某个用户的权限
+ * Summary: 用户权限查询
+ */
+async function listPolicyEx(request: ListPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListPolicyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.policy.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户名称，模糊查询
+  userName?: string(name='user_name'),
+  // 产品编码，表示查询拥有该产品权限的用户列表，为空查询所有有效用户
+  productCode?: string(name='product_code'),
+  // 分页查询页数，默认第一页
+  pageNum?: long(name='page_num'),
+  // 分页大小，默认20
+  pageSize?: long(name='page_size'),
+}
+
+model QueryUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户列表
+  userInfos?: [ ACSUserInfo ](name='user_infos'),
+  // 传入的页码，没有传入，则取默认值1
+  pageNum?: long(name='page_num'),
+  // 传入的页大小，如果没有传入，则取默认值20
+  pageSize?: long(name='page_size'),
+  // 查询结果的总条目数量
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 用户信息查询
+ * Summary: 用户信息查询
+ */
+async function queryUser(request: QueryUserRequest): QueryUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用户信息查询
+ * Summary: 用户信息查询
+ */
+async function queryUserEx(request: QueryUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.user.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTenantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 租户名称
+  tenantName?: string(name='tenant_name'),
+}
+
+model CreateTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 租户ID
+  tenantId?: long(name='tenant_id'),
+  // 租户编码
+  tenantCode?: string(name='tenant_code'),
+  // 租户名称
+  tenantName?: string(name='tenant_name'),
+}
+
+/**
+ * Description: 租户创建
+ * Summary: 租户创建
+ */
+async function createTenant(request: CreateTenantRequest): CreateTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租户创建
+ * Summary: 租户创建
+ */
+async function createTenantEx(request: CreateTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.tenant.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListAuthActionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 产品CODE
+  productCode: string(name='product_code'),
+}
+
+model ListAuthActionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 权限点列表
+  actionList?: [ AuthAction ](name='action_list'),
+}
+
+/**
+ * Description: 获取归属某个产品的有效权限点列表
+ * Summary: 获取归属某个产品的有效权限点列表
+ */
+async function listAuthAction(request: ListAuthActionRequest): ListAuthActionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listAuthActionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取归属某个产品的有效权限点列表
+ * Summary: 获取归属某个产品的有效权限点列表
+ */
+async function listAuthActionEx(request: ListAuthActionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListAuthActionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.auth.action.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListRoleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 分页查询页数，默认第一页
+  pageNum?: long(name='page_num'),
+  // 分页大小，默认500
+  pageSize?: long(name='page_size'),
+}
+
+model ListRoleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分页查询，当前页
+  currentPage?: long(name='current_page'),
+  // 每页包含条数
+  pageSize?: long(name='page_size'),
+  // 共10页
+  totalPage?: long(name='total_page'),
+  // 角色列表
+  roles?: [ ACSRole ](name='roles'),
+}
+
+/**
+ * Description: 查询角色列表
+ * Summary: 角色列表
+ */
+async function listRole(request: ListRoleRequest): ListRoleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listRoleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询角色列表
+ * Summary: 角色列表
+ */
+async function listRoleEx(request: ListRoleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListRoleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.role.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户信息
+  user: ACSUserInfo(name='user'),
+  // 用户登陆名
+  userid?: string(name='userid'),
+}
+
+model CreateUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户信息
+  user?: ACSUserInfo(name='user'),
+}
+
+/**
+ * Description: 添加用户
+ * Summary: 添加用户
+ */
+async function createUser(request: CreateUserRequest): CreateUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加用户
+ * Summary: 添加用户
+ */
+async function createUserEx(request: CreateUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.user.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户信息
+  user: ACSUserInfo(name='user'),
+  // 用户登陆名
+  userid?: string(name='userid'),
+}
+
+model UpdateUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户信息
+  user?: ACSUserInfo(name='user'),
+}
+
+/**
+ * Description: 更新用户角色
+ * Summary: 更新用户角色
+ */
+async function updateUser(request: UpdateUserRequest): UpdateUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新用户角色
+ * Summary: 更新用户角色
+ */
+async function updateUserEx(request: UpdateUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.user.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteUserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户登陆账号
+  userid: string(name='userid'),
+}
+
+model DeleteUserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 删除的结果
+  result?: boolean(name='result'),
+}
+
+/**
+ * Description: 删除用户
+ * Summary: 删除用户
+ */
+async function deleteUser(request: DeleteUserRequest): DeleteUserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteUserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除用户
+ * Summary: 删除用户
+ */
+async function deleteUserEx(request: DeleteUserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteUserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'acs.user.user.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
