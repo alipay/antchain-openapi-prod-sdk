@@ -144,6 +144,8 @@ export class CaSystemCrossPageRequest extends $tea.Model {
 export class CaSystemSignAreaRequest extends $tea.Model {
   // 印章id,联系签署中心获取
   sealId?: string;
+  // 印章的url，如果印章url和印章id都不传，则自动生成默认印章加盖（自动签署）
+  sealUrl?: string;
   // 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
   locationType: string;
   // 签署位置类型，1-正文，2-骑缝
@@ -155,6 +157,7 @@ export class CaSystemSignAreaRequest extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
       sealId: 'seal_id',
+      sealUrl: 'seal_url',
       locationType: 'location_type',
       positionType: 'position_type',
       systemCrossPageRequest: 'system_cross_page_request',
@@ -165,6 +168,7 @@ export class CaSystemSignAreaRequest extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       sealId: 'string',
+      sealUrl: 'string',
       locationType: 'string',
       positionType: 'string',
       systemCrossPageRequest: CaSystemCrossPageRequest,
@@ -2127,7 +2131,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.1.1",
+          sdk_version: "2.2.0",
           _prod_code: "ak_320bc483f2434f39a3af9ec9f04d3cc0",
           _prod_channel: "saas",
         };
