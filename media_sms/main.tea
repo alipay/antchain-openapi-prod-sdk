@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.15',
     _prod_code = 'MEDIA_SMS',
     _prod_channel = 'default'
   };
@@ -161,7 +161,119 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-model DeleteSmsTemplateRequest = {
+// 消息发送状态
+model SmsSendStatus {
+  // 手机号
+  phoneNo: string(name='phone_no', example='132XXXXXXXX'),
+  // 发送状态
+  status: string(name='status', example='WAITING SENDING SUCCESS FAILED'),
+  // 发送状态描述
+  detailMsg: string(name='detail_msg', example='暂无'),
+}
+
+// 短信模板状态查询结果
+model QueryTemplateStatusRes {
+  // 短信模板id
+  templateId: string(name='template_id', example='202409050005000000019020'),
+  // 短信标题
+  smsTitle: string(name='sms_title', example=' XX活动'),
+  // 模板状态
+  templateStatus: string(name='template_status', example=' CENSOR_ING、 CENSOR_PASS、 CENSOR_FAILED'),
+  // 审核结果描述
+  censorResult: string(name='censor_result', example=' '),
+}
+
+// 短信模版创建返回体
+model SmsTempCreateData {
+  // 模版id
+  templateId: string(name='template_id', example='202408150005000000019020'),
+}
+
+// 批量发送任务结果
+model BatchSendTaskData {
+  // 批量发送任务id
+  batchTaskId: string(name='batch_task_id', example='202409050005000000019020'),
+}
+
+// 素材
+model SmsMaterial {
+  // 素材名称，当素材类型
+  // 为"text/plain"时可不传，其他情况必传
+  materialName?: string(name='material_name', example='图片1'),
+  // 素材类型
+  // 本期最多只⽀持⼀张图⽚和⼀段⽂本信息；变量占位符只能是按顺序的数字{1}-{9},最多⽀持9个变量；链接中的变量只能放在尾部，如：http://aabbcc/{1}
+  materialType: string(name='material_type', example='1、图⽚ "image/png" "image/jpg" "image/gif" "image/jpeg" 2、视频 "video/mp4" "video/3gp" 3、⾳频 "audio/mp3" "audio/amr" "audio/aac" 4、⽂本 "text/plain"'),
+  // 素材内容
+  materialContent: string(name='material_content', example=' 1、⽂本：原内容 2、图⽚/视频/⾳ 频：base64编码之 后的字符串'),
+}
+
+// 发送内容
+model ContentSend {
+  // 单条手机号
+  mobile: string(name='mobile', example='暂无'),
+  // 变量⻓度限制：
+  // “纯中⽂ 不超过 10 个字”；“数字 字⺟ 英⽂符号 不超过20 位”； “纯数字 不超过20 位” ；
+  // 有序的变量值列表，按顺序替换报备的模板短信⽂本帧中的变量，列表⻓度和变量个数不⼀致会导致替换变量错误
+  templateParamList?: [ string ](name='template_param_list', example=''),
+}
+
+// 上行内容
+model ContentReply {
+  // 手机号
+  phone: string(name='phone', example='132XXXXXXXX'),
+  // 用户是否已经退订过
+  reject: boolean(name='reject', example='true, false'),
+  // 用户最新回复内容
+  content: string(name='content', example='R'),
+  // 用户回复时间
+  replyTime: string(name='reply_time', example='2024-08-23 00:00:00'),
+  // 拓展字段
+  extInfo?: string(name='ext_info', example='暂无'),
+}
+
+model QueryReplyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 手机号列表
+  phoneNoList: [ string ](name='phone_no_list'),
+  // 拓展字段
+  extInfo?: string(name='ext_info'),
+}
+
+model QueryReplyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户回复结果
+  data?: [ ContentReply ](name='data'),
+}
+
+/**
+ * Description: 上行内容查询
+ * Summary: 上行内容查询
+ */
+async function queryReply(request: QueryReplyRequest): QueryReplyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryReplyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上行内容查询
+ * Summary: 上行内容查询
+ */
+async function queryReplyEx(request: QueryReplyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryReplyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.mediasms.reply.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateTemplateRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
@@ -169,39 +281,182 @@ model DeleteSmsTemplateRequest = {
   tenantId: string(name='tenant_id'),
   // 请求唯一id
   requestUniqueId: string(name='request_unique_id'),
-  // 模版id
-  mmsId: string(name='mms_id'),
+  // 是否为变量类型模版，默认true
+  variableTemplate?: boolean(name='variable_template'),
+  // 短信标题，不超过50个长度，收件人可感知
+  smsTitle: string(name='sms_title'),
+  // 签名名称
+  signName: string(name='sign_name'),
+  // 扩展字段
+  extInfo?: string(name='ext_info'),
+  // 素材内容
+  material: [ SmsMaterial ](name='material'),
 }
 
-model DeleteSmsTemplateResponse = {
+model CreateTemplateResponse = {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string(name='req_msg_id'),
   // 结果码，一般OK表示调用成功
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // 状态码
-  code?: string(name='code'),
-  // 状态描述
-  msg?: string(name='msg'),
+  // 模版创建响应体
+  data?: SmsTempCreateData(name='data'),
 }
 
 /**
- * Description: 模版删除API
- * Summary: 模版删除API
+ * Description: 短信模版创建
+ * Summary: 短信模版创建
  */
-async function deleteSmsTemplate(request: DeleteSmsTemplateRequest): DeleteSmsTemplateResponse {
+async function createTemplate(request: CreateTemplateRequest): CreateTemplateResponse {
   var runtime = new Util.RuntimeOptions{};
   var headers : map[string]string= {};
-  return deleteSmsTemplateEx(request, headers, runtime);
+  return createTemplateEx(request, headers, runtime);
 }
 
 /**
- * Description: 模版删除API
- * Summary: 模版删除API
+ * Description: 短信模版创建
+ * Summary: 短信模版创建
  */
-async function deleteSmsTemplateEx(request: DeleteSmsTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteSmsTemplateResponse {
+async function createTemplateEx(request: CreateTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateTemplateResponse {
   Util.validateModel(request);
-  return doRequest('1.0' ,'antdigital.mediasms.sms.template.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+  return doRequest('1.0' ,'antdigital.mediasms.template.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTemplateStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 彩信模版id
+  templateId: string(name='template_id'),
+}
+
+model QueryTemplateStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 彩信模版状态查询结果
+  data?: QueryTemplateStatusRes(name='data'),
+}
+
+/**
+ * Description: 短信模板审核结果查询
+ * Summary: 短信模板审核结果查询
+ */
+async function queryTemplateStatus(request: QueryTemplateStatusRequest): QueryTemplateStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTemplateStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 短信模板审核结果查询
+ * Summary: 短信模板审核结果查询
+ */
+async function queryTemplateStatusEx(request: QueryTemplateStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTemplateStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.mediasms.template.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBatchSendRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 调用方群发任务id，不超过70个长度，用于幂等
+  massTaskId: string(name='mass_task_id'),
+  // 模板id
+  templateId: string(name='template_id'),
+  // 变量值需要按模板定义时的变量顺序传递且个数需要对应上
+  // 最⼤1000个组包
+  contentList: [ ContentSend ](name='content_list'),
+  // 是否立即发送
+  sendNow: boolean(name='send_now'),
+  // 立即发送时，该字段不消费
+  sendTime: string(name='send_time'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 拓展字段
+  extInfo?: string(name='ext_info'),
+}
+
+model CreateBatchSendResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 批量任务id
+  data?: BatchSendTaskData(name='data'),
+}
+
+/**
+ * Description: 短信批量发送任务创建
+ * Summary: 短信批量发送任务创建
+ */
+async function createBatchSend(request: CreateBatchSendRequest): CreateBatchSendResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBatchSendEx(request, headers, runtime);
+}
+
+/**
+ * Description: 短信批量发送任务创建
+ * Summary: 短信批量发送任务创建
+ */
+async function createBatchSendEx(request: CreateBatchSendRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBatchSendResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.mediasms.batch.send.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMsgStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 创建批量发送任务
+  // 时返回的批量发送
+  // 任务id
+  batchTaskId: string(name='batch_task_id'),
+  // 手机号列表
+  phoneNoList: [ string ](name='phone_no_list'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 拓展信息
+  extInfo?: string(name='ext_info'),
+}
+
+model QueryMsgStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 信息发送状态
+  data?: [ SmsSendStatus ](name='data'),
+}
+
+/**
+ * Description: 短信发送状态查询
+ * Summary: 短信发送状态查询
+ */
+async function queryMsgStatus(request: QueryMsgStatusRequest): QueryMsgStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMsgStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 短信发送状态查询
+ * Summary: 短信发送状态查询
+ */
+async function queryMsgStatusEx(request: QueryMsgStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMsgStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.mediasms.msg.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
