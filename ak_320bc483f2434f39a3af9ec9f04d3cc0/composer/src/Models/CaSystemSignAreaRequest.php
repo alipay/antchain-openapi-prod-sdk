@@ -16,6 +16,14 @@ class CaSystemSignAreaRequest extends Model
      */
     public $sealId;
 
+    // 印章的url，如果印章url和印章id都不传，则自动生成默认印章加盖（自动签署）
+    /**
+     * @example www.xxx.com
+     *
+     * @var string
+     */
+    public $sealUrl;
+
     // 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
     /**
      * @example CENTER
@@ -49,6 +57,7 @@ class CaSystemSignAreaRequest extends Model
     public $systemMainBodyRequest;
     protected $_name = [
         'sealId'                 => 'seal_id',
+        'sealUrl'                => 'seal_url',
         'locationType'           => 'location_type',
         'positionType'           => 'position_type',
         'systemCrossPageRequest' => 'system_cross_page_request',
@@ -66,6 +75,9 @@ class CaSystemSignAreaRequest extends Model
         $res = [];
         if (null !== $this->sealId) {
             $res['seal_id'] = $this->sealId;
+        }
+        if (null !== $this->sealUrl) {
+            $res['seal_url'] = $this->sealUrl;
         }
         if (null !== $this->locationType) {
             $res['location_type'] = $this->locationType;
@@ -93,6 +105,9 @@ class CaSystemSignAreaRequest extends Model
         $model = new self();
         if (isset($map['seal_id'])) {
             $model->sealId = $map['seal_id'];
+        }
+        if (isset($map['seal_url'])) {
+            $model->sealUrl = $map['seal_url'];
         }
         if (isset($map['location_type'])) {
             $model->locationType = $map['location_type'];
