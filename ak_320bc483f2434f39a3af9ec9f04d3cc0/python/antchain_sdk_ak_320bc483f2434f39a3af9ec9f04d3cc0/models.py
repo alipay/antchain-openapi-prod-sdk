@@ -254,6 +254,7 @@ class CaSystemSignAreaRequest(TeaModel):
     def __init__(
         self,
         seal_id: str = None,
+        seal_url: str = None,
         location_type: str = None,
         position_type: str = None,
         system_cross_page_request: CaSystemCrossPageRequest = None,
@@ -261,6 +262,8 @@ class CaSystemSignAreaRequest(TeaModel):
     ):
         # 印章id,联系签署中心获取
         self.seal_id = seal_id
+        # 印章的url，如果印章url和印章id都不传，则自动生成默认印章加盖（自动签署）
+        self.seal_url = seal_url
         # 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
         self.location_type = location_type
         # 签署位置类型，1-正文，2-骑缝
@@ -286,6 +289,8 @@ class CaSystemSignAreaRequest(TeaModel):
         result = dict()
         if self.seal_id is not None:
             result['seal_id'] = self.seal_id
+        if self.seal_url is not None:
+            result['seal_url'] = self.seal_url
         if self.location_type is not None:
             result['location_type'] = self.location_type
         if self.position_type is not None:
@@ -300,6 +305,8 @@ class CaSystemSignAreaRequest(TeaModel):
         m = m or dict()
         if m.get('seal_id') is not None:
             self.seal_id = m.get('seal_id')
+        if m.get('seal_url') is not None:
+            self.seal_url = m.get('seal_url')
         if m.get('location_type') is not None:
             self.location_type = m.get('location_type')
         if m.get('position_type') is not None:
