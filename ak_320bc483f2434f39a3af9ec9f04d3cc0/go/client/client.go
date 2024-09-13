@@ -226,6 +226,8 @@ func (s *CaSystemCrossPageRequest) SetPosY(v string) *CaSystemCrossPageRequest {
 type CaSystemSignAreaRequest struct {
 	// 印章id,联系签署中心获取
 	SealId *string `json:"seal_id,omitempty" xml:"seal_id,omitempty"`
+	// 印章的url，如果印章url和印章id都不传，则自动生成默认印章加盖（自动签署）
+	SealUrl *string `json:"seal_url,omitempty" xml:"seal_url,omitempty"`
 	// 用印对齐类型,TOP_LEFT("TOP_LEFT", "左上角对齐"), BOTTOM_LEFT("BOTTOM_LEFT", "左下角对齐"), CENTER("CENTER", "xy值是印章的中心"), TOP_RIGHT("TOP_RIGHT", "xy值是印章右上角"), BOTTOM_RIGHT("BOTTOM_RIGHT", "xy值是印章右下角")
 	LocationType *string `json:"location_type,omitempty" xml:"location_type,omitempty" require:"true"`
 	// 签署位置类型，1-正文，2-骑缝
@@ -246,6 +248,11 @@ func (s CaSystemSignAreaRequest) GoString() string {
 
 func (s *CaSystemSignAreaRequest) SetSealId(v string) *CaSystemSignAreaRequest {
 	s.SealId = &v
+	return s
+}
+
+func (s *CaSystemSignAreaRequest) SetSealUrl(v string) *CaSystemSignAreaRequest {
+	s.SealUrl = &v
 	return s
 }
 
@@ -2802,7 +2809,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.1.1"),
+				"sdk_version":      tea.String("2.2.0"),
 				"_prod_code":       tea.String("ak_320bc483f2434f39a3af9ec9f04d3cc0"),
 				"_prod_channel":    tea.String("saas"),
 			}
