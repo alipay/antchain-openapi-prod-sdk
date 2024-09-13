@@ -11,8 +11,16 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
-use AntChain\MEDIA_SMS\Models\DeleteSmsTemplateRequest;
-use AntChain\MEDIA_SMS\Models\DeleteSmsTemplateResponse;
+use AntChain\MEDIA_SMS\Models\CreateBatchSendRequest;
+use AntChain\MEDIA_SMS\Models\CreateBatchSendResponse;
+use AntChain\MEDIA_SMS\Models\CreateTemplateRequest;
+use AntChain\MEDIA_SMS\Models\CreateTemplateResponse;
+use AntChain\MEDIA_SMS\Models\QueryMsgStatusRequest;
+use AntChain\MEDIA_SMS\Models\QueryMsgStatusResponse;
+use AntChain\MEDIA_SMS\Models\QueryReplyRequest;
+use AntChain\MEDIA_SMS\Models\QueryReplyResponse;
+use AntChain\MEDIA_SMS\Models\QueryTemplateStatusRequest;
+use AntChain\MEDIA_SMS\Models\QueryTemplateStatusResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -132,6 +140,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
+            // 消息发送状态
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -159,7 +168,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.15',
                     '_prod_code'       => 'MEDIA_SMS',
                     '_prod_channel'    => 'default',
                 ];
@@ -208,35 +217,167 @@ class Client
     }
 
     /**
-     * Description: 模版删除API
-     * Summary: 模版删除API.
+     * Description: 上行内容查询
+     * Summary: 上行内容查询.
      *
-     * @param DeleteSmsTemplateRequest $request
+     * @param QueryReplyRequest $request
      *
-     * @return DeleteSmsTemplateResponse
+     * @return QueryReplyResponse
      */
-    public function deleteSmsTemplate($request)
+    public function queryReply($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->deleteSmsTemplateEx($request, $headers, $runtime);
+        return $this->queryReplyEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 模版删除API
-     * Summary: 模版删除API.
+     * Description: 上行内容查询
+     * Summary: 上行内容查询.
      *
-     * @param DeleteSmsTemplateRequest $request
-     * @param string[]                 $headers
-     * @param RuntimeOptions           $runtime
+     * @param QueryReplyRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
      *
-     * @return DeleteSmsTemplateResponse
+     * @return QueryReplyResponse
      */
-    public function deleteSmsTemplateEx($request, $headers, $runtime)
+    public function queryReplyEx($request, $headers, $runtime)
     {
         Utils::validateModel($request);
 
-        return DeleteSmsTemplateResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.sms.template.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return QueryReplyResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.reply.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短信模版创建
+     * Summary: 短信模版创建.
+     *
+     * @param CreateTemplateRequest $request
+     *
+     * @return CreateTemplateResponse
+     */
+    public function createTemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短信模版创建
+     * Summary: 短信模版创建.
+     *
+     * @param CreateTemplateRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return CreateTemplateResponse
+     */
+    public function createTemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateTemplateResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.template.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短信模板审核结果查询
+     * Summary: 短信模板审核结果查询.
+     *
+     * @param QueryTemplateStatusRequest $request
+     *
+     * @return QueryTemplateStatusResponse
+     */
+    public function queryTemplateStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryTemplateStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短信模板审核结果查询
+     * Summary: 短信模板审核结果查询.
+     *
+     * @param QueryTemplateStatusRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryTemplateStatusResponse
+     */
+    public function queryTemplateStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryTemplateStatusResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.template.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短信批量发送任务创建
+     * Summary: 短信批量发送任务创建.
+     *
+     * @param CreateBatchSendRequest $request
+     *
+     * @return CreateBatchSendResponse
+     */
+    public function createBatchSend($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createBatchSendEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短信批量发送任务创建
+     * Summary: 短信批量发送任务创建.
+     *
+     * @param CreateBatchSendRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return CreateBatchSendResponse
+     */
+    public function createBatchSendEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateBatchSendResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.batch.send.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短信发送状态查询
+     * Summary: 短信发送状态查询.
+     *
+     * @param QueryMsgStatusRequest $request
+     *
+     * @return QueryMsgStatusResponse
+     */
+    public function queryMsgStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMsgStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短信发送状态查询
+     * Summary: 短信发送状态查询.
+     *
+     * @param QueryMsgStatusRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return QueryMsgStatusResponse
+     */
+    public function queryMsgStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMsgStatusResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.msg.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }

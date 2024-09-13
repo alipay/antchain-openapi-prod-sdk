@@ -6,7 +6,7 @@ namespace AntChain\MEDIA_SMS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DeleteSmsTemplateRequest extends Model
+class QueryReplyRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,30 +25,29 @@ class DeleteSmsTemplateRequest extends Model
      */
     public $tenantId;
 
-    // 请求唯一id
+    // 手机号列表
     /**
-     * @var string
+     * @var string[]
      */
-    public $requestUniqueId;
+    public $phoneNoList;
 
-    // 模版id
+    // 拓展字段
     /**
      * @var string
      */
-    public $mmsId;
+    public $extInfo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
-        'requestUniqueId'   => 'request_unique_id',
-        'mmsId'             => 'mms_id',
+        'phoneNoList'       => 'phone_no_list',
+        'extInfo'           => 'ext_info',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('requestUniqueId', $this->requestUniqueId, true);
-        Model::validateRequired('mmsId', $this->mmsId, true);
+        Model::validateRequired('phoneNoList', $this->phoneNoList, true);
     }
 
     public function toMap()
@@ -63,11 +62,11 @@ class DeleteSmsTemplateRequest extends Model
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->requestUniqueId) {
-            $res['request_unique_id'] = $this->requestUniqueId;
+        if (null !== $this->phoneNoList) {
+            $res['phone_no_list'] = $this->phoneNoList;
         }
-        if (null !== $this->mmsId) {
-            $res['mms_id'] = $this->mmsId;
+        if (null !== $this->extInfo) {
+            $res['ext_info'] = $this->extInfo;
         }
 
         return $res;
@@ -76,7 +75,7 @@ class DeleteSmsTemplateRequest extends Model
     /**
      * @param array $map
      *
-     * @return DeleteSmsTemplateRequest
+     * @return QueryReplyRequest
      */
     public static function fromMap($map = [])
     {
@@ -90,11 +89,13 @@ class DeleteSmsTemplateRequest extends Model
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['request_unique_id'])) {
-            $model->requestUniqueId = $map['request_unique_id'];
+        if (isset($map['phone_no_list'])) {
+            if (!empty($map['phone_no_list'])) {
+                $model->phoneNoList = $map['phone_no_list'];
+            }
         }
-        if (isset($map['mms_id'])) {
-            $model->mmsId = $map['mms_id'];
+        if (isset($map['ext_info'])) {
+            $model->extInfo = $map['ext_info'];
         }
 
         return $model;
