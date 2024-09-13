@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.MEDIA_SMS.Models
 {
-    public class DeleteSmsTemplateResponse : TeaModel {
+    public class QueryTemplateStatusResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,10 @@ namespace AntChain.SDK.MEDIA_SMS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 状态码
-        [NameInMap("code")]
+        // 彩信模版状态查询结果
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public string Code { get; set; }
-
-        // 状态描述
-        [NameInMap("msg")]
-        [Validation(Required=false)]
-        public string Msg { get; set; }
+        public QueryTemplateStatusRes Data { get; set; }
 
     }
 

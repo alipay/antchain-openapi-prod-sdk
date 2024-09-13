@@ -137,7 +137,7 @@ namespace AntChain.SDK.MEDIA_SMS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.15"},
                         {"_prod_code", "MEDIA_SMS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MEDIA_SMS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.15"},
                         {"_prod_code", "MEDIA_SMS"},
                         {"_prod_channel", "default"},
                     };
@@ -322,45 +322,213 @@ namespace AntChain.SDK.MEDIA_SMS
         }
 
         /**
-         * Description: 模版删除API
-         * Summary: 模版删除API
+         * Description: 上行内容查询
+         * Summary: 上行内容查询
          */
-        public DeleteSmsTemplateResponse DeleteSmsTemplate(DeleteSmsTemplateRequest request)
+        public QueryReplyResponse QueryReply(QueryReplyRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return DeleteSmsTemplateEx(request, headers, runtime);
+            return QueryReplyEx(request, headers, runtime);
         }
 
         /**
-         * Description: 模版删除API
-         * Summary: 模版删除API
+         * Description: 上行内容查询
+         * Summary: 上行内容查询
          */
-        public async Task<DeleteSmsTemplateResponse> DeleteSmsTemplateAsync(DeleteSmsTemplateRequest request)
+        public async Task<QueryReplyResponse> QueryReplyAsync(QueryReplyRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await DeleteSmsTemplateExAsync(request, headers, runtime);
+            return await QueryReplyExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 模版删除API
-         * Summary: 模版删除API
+         * Description: 上行内容查询
+         * Summary: 上行内容查询
          */
-        public DeleteSmsTemplateResponse DeleteSmsTemplateEx(DeleteSmsTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public QueryReplyResponse QueryReplyEx(QueryReplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DeleteSmsTemplateResponse>(DoRequest("1.0", "antdigital.mediasms.sms.template.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryReplyResponse>(DoRequest("1.0", "antdigital.mediasms.reply.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 模版删除API
-         * Summary: 模版删除API
+         * Description: 上行内容查询
+         * Summary: 上行内容查询
          */
-        public async Task<DeleteSmsTemplateResponse> DeleteSmsTemplateExAsync(DeleteSmsTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<QueryReplyResponse> QueryReplyExAsync(QueryReplyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DeleteSmsTemplateResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.sms.template.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<QueryReplyResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.reply.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信模版创建
+         * Summary: 短信模版创建
+         */
+        public CreateTemplateResponse CreateTemplate(CreateTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateTemplateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信模版创建
+         * Summary: 短信模版创建
+         */
+        public async Task<CreateTemplateResponse> CreateTemplateAsync(CreateTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateTemplateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信模版创建
+         * Summary: 短信模版创建
+         */
+        public CreateTemplateResponse CreateTemplateEx(CreateTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateTemplateResponse>(DoRequest("1.0", "antdigital.mediasms.template.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信模版创建
+         * Summary: 短信模版创建
+         */
+        public async Task<CreateTemplateResponse> CreateTemplateExAsync(CreateTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateTemplateResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.template.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信模板审核结果查询
+         * Summary: 短信模板审核结果查询
+         */
+        public QueryTemplateStatusResponse QueryTemplateStatus(QueryTemplateStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryTemplateStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信模板审核结果查询
+         * Summary: 短信模板审核结果查询
+         */
+        public async Task<QueryTemplateStatusResponse> QueryTemplateStatusAsync(QueryTemplateStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryTemplateStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信模板审核结果查询
+         * Summary: 短信模板审核结果查询
+         */
+        public QueryTemplateStatusResponse QueryTemplateStatusEx(QueryTemplateStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTemplateStatusResponse>(DoRequest("1.0", "antdigital.mediasms.template.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信模板审核结果查询
+         * Summary: 短信模板审核结果查询
+         */
+        public async Task<QueryTemplateStatusResponse> QueryTemplateStatusExAsync(QueryTemplateStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryTemplateStatusResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.template.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信批量发送任务创建
+         * Summary: 短信批量发送任务创建
+         */
+        public CreateBatchSendResponse CreateBatchSend(CreateBatchSendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateBatchSendEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信批量发送任务创建
+         * Summary: 短信批量发送任务创建
+         */
+        public async Task<CreateBatchSendResponse> CreateBatchSendAsync(CreateBatchSendRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateBatchSendExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信批量发送任务创建
+         * Summary: 短信批量发送任务创建
+         */
+        public CreateBatchSendResponse CreateBatchSendEx(CreateBatchSendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBatchSendResponse>(DoRequest("1.0", "antdigital.mediasms.batch.send.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信批量发送任务创建
+         * Summary: 短信批量发送任务创建
+         */
+        public async Task<CreateBatchSendResponse> CreateBatchSendExAsync(CreateBatchSendRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateBatchSendResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.batch.send.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信发送状态查询
+         * Summary: 短信发送状态查询
+         */
+        public QueryMsgStatusResponse QueryMsgStatus(QueryMsgStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMsgStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信发送状态查询
+         * Summary: 短信发送状态查询
+         */
+        public async Task<QueryMsgStatusResponse> QueryMsgStatusAsync(QueryMsgStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMsgStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信发送状态查询
+         * Summary: 短信发送状态查询
+         */
+        public QueryMsgStatusResponse QueryMsgStatusEx(QueryMsgStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMsgStatusResponse>(DoRequest("1.0", "antdigital.mediasms.msg.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信发送状态查询
+         * Summary: 短信发送状态查询
+         */
+        public async Task<QueryMsgStatusResponse> QueryMsgStatusExAsync(QueryMsgStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMsgStatusResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.msg.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
