@@ -109,7 +109,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 消息发送状态
         }
         _last_request = None
         _last_exception = None
@@ -134,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.15',
                     '_prod_code': 'MEDIA_SMS',
                     '_prod_channel': 'default'
                 }
@@ -212,7 +213,8 @@ class Client:
                 'policy': UtilClient.default_string(runtime.backoff_policy, 'no'),
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
-            'ignoreSSL': runtime.ignore_ssl
+            'ignoreSSL': runtime.ignore_ssl,
+            # 消息发送状态
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.15',
                     '_prod_code': 'MEDIA_SMS',
                     '_prod_channel': 'default'
                 }
@@ -273,58 +275,282 @@ class Client:
                 raise e
         raise UnretryableException(_last_request, _last_exception)
 
-    def delete_sms_template(
+    def query_reply(
         self,
-        request: media__sms_models.DeleteSmsTemplateRequest,
-    ) -> media__sms_models.DeleteSmsTemplateResponse:
+        request: media__sms_models.QueryReplyRequest,
+    ) -> media__sms_models.QueryReplyResponse:
         """
-        Description: 模版删除API
-        Summary: 模版删除API
+        Description: 上行内容查询
+        Summary: 上行内容查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_sms_template_ex(request, headers, runtime)
+        return self.query_reply_ex(request, headers, runtime)
 
-    async def delete_sms_template_async(
+    async def query_reply_async(
         self,
-        request: media__sms_models.DeleteSmsTemplateRequest,
-    ) -> media__sms_models.DeleteSmsTemplateResponse:
+        request: media__sms_models.QueryReplyRequest,
+    ) -> media__sms_models.QueryReplyResponse:
         """
-        Description: 模版删除API
-        Summary: 模版删除API
+        Description: 上行内容查询
+        Summary: 上行内容查询
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.delete_sms_template_ex_async(request, headers, runtime)
+        return await self.query_reply_ex_async(request, headers, runtime)
 
-    def delete_sms_template_ex(
+    def query_reply_ex(
         self,
-        request: media__sms_models.DeleteSmsTemplateRequest,
+        request: media__sms_models.QueryReplyRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> media__sms_models.DeleteSmsTemplateResponse:
+    ) -> media__sms_models.QueryReplyResponse:
         """
-        Description: 模版删除API
-        Summary: 模版删除API
+        Description: 上行内容查询
+        Summary: 上行内容查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            media__sms_models.DeleteSmsTemplateResponse(),
-            self.do_request('1.0', 'antdigital.mediasms.sms.template.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            media__sms_models.QueryReplyResponse(),
+            self.do_request('1.0', 'antdigital.mediasms.reply.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def delete_sms_template_ex_async(
+    async def query_reply_ex_async(
         self,
-        request: media__sms_models.DeleteSmsTemplateRequest,
+        request: media__sms_models.QueryReplyRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> media__sms_models.DeleteSmsTemplateResponse:
+    ) -> media__sms_models.QueryReplyResponse:
         """
-        Description: 模版删除API
-        Summary: 模版删除API
+        Description: 上行内容查询
+        Summary: 上行内容查询
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            media__sms_models.DeleteSmsTemplateResponse(),
-            await self.do_request_async('1.0', 'antdigital.mediasms.sms.template.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            media__sms_models.QueryReplyResponse(),
+            await self.do_request_async('1.0', 'antdigital.mediasms.reply.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_template(
+        self,
+        request: media__sms_models.CreateTemplateRequest,
+    ) -> media__sms_models.CreateTemplateResponse:
+        """
+        Description: 短信模版创建
+        Summary: 短信模版创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_template_ex(request, headers, runtime)
+
+    async def create_template_async(
+        self,
+        request: media__sms_models.CreateTemplateRequest,
+    ) -> media__sms_models.CreateTemplateResponse:
+        """
+        Description: 短信模版创建
+        Summary: 短信模版创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_template_ex_async(request, headers, runtime)
+
+    def create_template_ex(
+        self,
+        request: media__sms_models.CreateTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.CreateTemplateResponse:
+        """
+        Description: 短信模版创建
+        Summary: 短信模版创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.CreateTemplateResponse(),
+            self.do_request('1.0', 'antdigital.mediasms.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_template_ex_async(
+        self,
+        request: media__sms_models.CreateTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.CreateTemplateResponse:
+        """
+        Description: 短信模版创建
+        Summary: 短信模版创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.CreateTemplateResponse(),
+            await self.do_request_async('1.0', 'antdigital.mediasms.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_template_status(
+        self,
+        request: media__sms_models.QueryTemplateStatusRequest,
+    ) -> media__sms_models.QueryTemplateStatusResponse:
+        """
+        Description: 短信模板审核结果查询
+        Summary: 短信模板审核结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_template_status_ex(request, headers, runtime)
+
+    async def query_template_status_async(
+        self,
+        request: media__sms_models.QueryTemplateStatusRequest,
+    ) -> media__sms_models.QueryTemplateStatusResponse:
+        """
+        Description: 短信模板审核结果查询
+        Summary: 短信模板审核结果查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_template_status_ex_async(request, headers, runtime)
+
+    def query_template_status_ex(
+        self,
+        request: media__sms_models.QueryTemplateStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.QueryTemplateStatusResponse:
+        """
+        Description: 短信模板审核结果查询
+        Summary: 短信模板审核结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.QueryTemplateStatusResponse(),
+            self.do_request('1.0', 'antdigital.mediasms.template.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_template_status_ex_async(
+        self,
+        request: media__sms_models.QueryTemplateStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.QueryTemplateStatusResponse:
+        """
+        Description: 短信模板审核结果查询
+        Summary: 短信模板审核结果查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.QueryTemplateStatusResponse(),
+            await self.do_request_async('1.0', 'antdigital.mediasms.template.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_batch_send(
+        self,
+        request: media__sms_models.CreateBatchSendRequest,
+    ) -> media__sms_models.CreateBatchSendResponse:
+        """
+        Description: 短信批量发送任务创建
+        Summary: 短信批量发送任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_batch_send_ex(request, headers, runtime)
+
+    async def create_batch_send_async(
+        self,
+        request: media__sms_models.CreateBatchSendRequest,
+    ) -> media__sms_models.CreateBatchSendResponse:
+        """
+        Description: 短信批量发送任务创建
+        Summary: 短信批量发送任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_batch_send_ex_async(request, headers, runtime)
+
+    def create_batch_send_ex(
+        self,
+        request: media__sms_models.CreateBatchSendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.CreateBatchSendResponse:
+        """
+        Description: 短信批量发送任务创建
+        Summary: 短信批量发送任务创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.CreateBatchSendResponse(),
+            self.do_request('1.0', 'antdigital.mediasms.batch.send.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_batch_send_ex_async(
+        self,
+        request: media__sms_models.CreateBatchSendRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.CreateBatchSendResponse:
+        """
+        Description: 短信批量发送任务创建
+        Summary: 短信批量发送任务创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.CreateBatchSendResponse(),
+            await self.do_request_async('1.0', 'antdigital.mediasms.batch.send.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_msg_status(
+        self,
+        request: media__sms_models.QueryMsgStatusRequest,
+    ) -> media__sms_models.QueryMsgStatusResponse:
+        """
+        Description: 短信发送状态查询
+        Summary: 短信发送状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_msg_status_ex(request, headers, runtime)
+
+    async def query_msg_status_async(
+        self,
+        request: media__sms_models.QueryMsgStatusRequest,
+    ) -> media__sms_models.QueryMsgStatusResponse:
+        """
+        Description: 短信发送状态查询
+        Summary: 短信发送状态查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_msg_status_ex_async(request, headers, runtime)
+
+    def query_msg_status_ex(
+        self,
+        request: media__sms_models.QueryMsgStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.QueryMsgStatusResponse:
+        """
+        Description: 短信发送状态查询
+        Summary: 短信发送状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.QueryMsgStatusResponse(),
+            self.do_request('1.0', 'antdigital.mediasms.msg.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_msg_status_ex_async(
+        self,
+        request: media__sms_models.QueryMsgStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.QueryMsgStatusResponse:
+        """
+        Description: 短信发送状态查询
+        Summary: 短信发送状态查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.QueryMsgStatusResponse(),
+            await self.do_request_async('1.0', 'antdigital.mediasms.msg.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
