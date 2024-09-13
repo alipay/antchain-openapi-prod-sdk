@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.media_sms.models;
 
 import com.aliyun.tea.*;
 
-public class DeleteSmsTemplateRequest extends TeaModel {
+public class QueryReplyRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,22 +16,21 @@ public class DeleteSmsTemplateRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
-    // 请求唯一id
-    @NameInMap("request_unique_id")
+    // 手机号列表
+    @NameInMap("phone_no_list")
     @Validation(required = true)
-    public String requestUniqueId;
+    public java.util.List<String> phoneNoList;
 
-    // 模版id
-    @NameInMap("mms_id")
-    @Validation(required = true)
-    public String mmsId;
+    // 拓展字段
+    @NameInMap("ext_info")
+    public String extInfo;
 
-    public static DeleteSmsTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
-        DeleteSmsTemplateRequest self = new DeleteSmsTemplateRequest();
+    public static QueryReplyRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryReplyRequest self = new QueryReplyRequest();
         return TeaModel.build(map, self);
     }
 
-    public DeleteSmsTemplateRequest setAuthToken(String authToken) {
+    public QueryReplyRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -39,7 +38,7 @@ public class DeleteSmsTemplateRequest extends TeaModel {
         return this.authToken;
     }
 
-    public DeleteSmsTemplateRequest setProductInstanceId(String productInstanceId) {
+    public QueryReplyRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -47,7 +46,7 @@ public class DeleteSmsTemplateRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public DeleteSmsTemplateRequest setTenantId(String tenantId) {
+    public QueryReplyRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -55,20 +54,20 @@ public class DeleteSmsTemplateRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public DeleteSmsTemplateRequest setRequestUniqueId(String requestUniqueId) {
-        this.requestUniqueId = requestUniqueId;
+    public QueryReplyRequest setPhoneNoList(java.util.List<String> phoneNoList) {
+        this.phoneNoList = phoneNoList;
         return this;
     }
-    public String getRequestUniqueId() {
-        return this.requestUniqueId;
+    public java.util.List<String> getPhoneNoList() {
+        return this.phoneNoList;
     }
 
-    public DeleteSmsTemplateRequest setMmsId(String mmsId) {
-        this.mmsId = mmsId;
+    public QueryReplyRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
         return this;
     }
-    public String getMmsId() {
-        return this.mmsId;
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }

@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.15"),
                     new TeaPair("_prod_code", "MEDIA_SMS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -185,21 +185,97 @@ public class Client {
     }
 
     /**
-     * Description: 模版删除API
-     * Summary: 模版删除API
+     * Description: 上行内容查询
+     * Summary: 上行内容查询
      */
-    public DeleteSmsTemplateResponse deleteSmsTemplate(DeleteSmsTemplateRequest request) throws Exception {
+    public QueryReplyResponse queryReply(QueryReplyRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.deleteSmsTemplateEx(request, headers, runtime);
+        return this.queryReplyEx(request, headers, runtime);
     }
 
     /**
-     * Description: 模版删除API
-     * Summary: 模版删除API
+     * Description: 上行内容查询
+     * Summary: 上行内容查询
      */
-    public DeleteSmsTemplateResponse deleteSmsTemplateEx(DeleteSmsTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public QueryReplyResponse queryReplyEx(QueryReplyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.sms.template.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteSmsTemplateResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.reply.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryReplyResponse());
+    }
+
+    /**
+     * Description: 短信模版创建
+     * Summary: 短信模版创建
+     */
+    public CreateTemplateResponse createTemplate(CreateTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 短信模版创建
+     * Summary: 短信模版创建
+     */
+    public CreateTemplateResponse createTemplateEx(CreateTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.template.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateTemplateResponse());
+    }
+
+    /**
+     * Description: 短信模板审核结果查询
+     * Summary: 短信模板审核结果查询
+     */
+    public QueryTemplateStatusResponse queryTemplateStatus(QueryTemplateStatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTemplateStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 短信模板审核结果查询
+     * Summary: 短信模板审核结果查询
+     */
+    public QueryTemplateStatusResponse queryTemplateStatusEx(QueryTemplateStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.template.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTemplateStatusResponse());
+    }
+
+    /**
+     * Description: 短信批量发送任务创建
+     * Summary: 短信批量发送任务创建
+     */
+    public CreateBatchSendResponse createBatchSend(CreateBatchSendRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBatchSendEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 短信批量发送任务创建
+     * Summary: 短信批量发送任务创建
+     */
+    public CreateBatchSendResponse createBatchSendEx(CreateBatchSendRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.batch.send.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBatchSendResponse());
+    }
+
+    /**
+     * Description: 短信发送状态查询
+     * Summary: 短信发送状态查询
+     */
+    public QueryMsgStatusResponse queryMsgStatus(QueryMsgStatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMsgStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 短信发送状态查询
+     * Summary: 短信发送状态查询
+     */
+    public QueryMsgStatusResponse queryMsgStatusEx(QueryMsgStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.msg.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMsgStatusResponse());
     }
 }

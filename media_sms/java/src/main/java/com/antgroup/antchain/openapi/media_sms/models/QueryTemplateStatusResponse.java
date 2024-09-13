@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.media_sms.models;
 
 import com.aliyun.tea.*;
 
-public class DeleteSmsTemplateResponse extends TeaModel {
+public class QueryTemplateStatusResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,16 @@ public class DeleteSmsTemplateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 状态码
-    @NameInMap("code")
-    public String code;
+    // 彩信模版状态查询结果
+    @NameInMap("data")
+    public QueryTemplateStatusRes data;
 
-    // 状态描述
-    @NameInMap("msg")
-    public String msg;
-
-    public static DeleteSmsTemplateResponse build(java.util.Map<String, ?> map) throws Exception {
-        DeleteSmsTemplateResponse self = new DeleteSmsTemplateResponse();
+    public static QueryTemplateStatusResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryTemplateStatusResponse self = new QueryTemplateStatusResponse();
         return TeaModel.build(map, self);
     }
 
-    public DeleteSmsTemplateResponse setReqMsgId(String reqMsgId) {
+    public QueryTemplateStatusResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +33,7 @@ public class DeleteSmsTemplateResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public DeleteSmsTemplateResponse setResultCode(String resultCode) {
+    public QueryTemplateStatusResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +41,7 @@ public class DeleteSmsTemplateResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public DeleteSmsTemplateResponse setResultMsg(String resultMsg) {
+    public QueryTemplateStatusResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,20 +49,12 @@ public class DeleteSmsTemplateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public DeleteSmsTemplateResponse setCode(String code) {
-        this.code = code;
+    public QueryTemplateStatusResponse setData(QueryTemplateStatusRes data) {
+        this.data = data;
         return this;
     }
-    public String getCode() {
-        return this.code;
-    }
-
-    public DeleteSmsTemplateResponse setMsg(String msg) {
-        this.msg = msg;
-        return this;
-    }
-    public String getMsg() {
-        return this.msg;
+    public QueryTemplateStatusRes getData() {
+        return this.data;
     }
 
 }
