@@ -639,6 +639,31 @@ export class RequestHead extends $tea.Model {
   }
 }
 
+// 车队信息结构体
+export class DcpInfo extends $tea.Model {
+  // 企业入驻租户ID
+  dcpTenantId: string;
+  // 企业名称
+  dcpName: string;
+  static names(): { [key: string]: string } {
+    return {
+      dcpTenantId: 'dcp_tenant_id',
+      dcpName: 'dcp_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      dcpTenantId: 'string',
+      dcpName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 保单信息
 export class InsureInfo extends $tea.Model {
   // 保单时间
@@ -833,6 +858,53 @@ export class CctDataMap extends $tea.Model {
     return {
       text: { 'type': 'array', 'itemType': 'string' },
       picture: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 司机签约信息列表
+export class SignInfo extends $tea.Model {
+  // 司机证件号
+  employeeCertNo: string;
+  // 灵工卡号
+  employeeCardNo: string;
+  // 借贷专户ID，用于后续资金相关操作
+  accountBookId: string;
+  // 签约状态，枚举值
+  // ● SIGNED：已签约【灵工卡状态正常，可入金出金】
+  // ● TERMINATED：已解约【不可入金出金】
+  status: string;
+  // 签约时间 "yyyy-MM-dd HH:mm:ss"
+  signTime?: string;
+  // 解约时间 "yyyy-MM-dd HH:mm:ss"
+  terminateTime?: string;
+  // 月租金额：单位为元
+  paymentAmount: string;
+  static names(): { [key: string]: string } {
+    return {
+      employeeCertNo: 'employee_cert_no',
+      employeeCardNo: 'employee_card_no',
+      accountBookId: 'account_book_id',
+      status: 'status',
+      signTime: 'sign_time',
+      terminateTime: 'terminate_time',
+      paymentAmount: 'payment_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      employeeCertNo: 'string',
+      employeeCardNo: 'string',
+      accountBookId: 'string',
+      status: 'string',
+      signTime: 'string',
+      terminateTime: 'string',
+      paymentAmount: 'string',
     };
   }
 
@@ -1079,6 +1151,144 @@ export class ExecEkytInsureResponse extends $tea.Model {
       resultMsg: 'string',
       success: 'boolean',
       data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDcpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDcpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求方租户所关联的所有入驻的车队企业信息列表
+  dcpInfoList?: DcpInfo[];
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      dcpInfoList: 'dcp_info_list',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      dcpInfoList: { 'type': 'array', 'itemType': DcpInfo },
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDcpAccountbookRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 企业入驻租户ID
+  dcpTenantId: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      dcpTenantId: 'dcp_tenant_id',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      dcpTenantId: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListDcpAccountbookResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求车队企业关联的所有司机签约信息列表
+  signInfoList?: SignInfo[];
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      signInfoList: 'sign_info_list',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      signInfoList: { 'type': 'array', 'itemType': SignInfo },
+      externInfo: 'string',
     };
   }
 
@@ -4146,6 +4356,69 @@ export class QueryGuardAnswerResponse extends $tea.Model {
   }
 }
 
+export class DeleteIifaaDigitalkeyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求头
+  head: RequestHead;
+  // 业务参数
+  request: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      head: 'head',
+      request: 'request',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      head: RequestHead,
+      request: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteIifaaDigitalkeyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回值
+  data?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -4259,7 +4532,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.30",
+          sdk_version: "1.2.33",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -4345,6 +4618,44 @@ export default class Client {
   async execEkytInsureEx(request: ExecEkytInsureRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecEkytInsureResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecEkytInsureResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.ekyt.insure.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecEkytInsureResponse({}));
+  }
+
+  /**
+   * Description: 获取EKYT平台入驻的车队信息列表
+   * Summary: 获取EKYT平台入驻的车队信息列表
+   */
+  async listDcp(request: ListDcpRequest): Promise<ListDcpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listDcpEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取EKYT平台入驻的车队信息列表
+   * Summary: 获取EKYT平台入驻的车队信息列表
+   */
+  async listDcpEx(request: ListDcpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDcpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListDcpResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.dcp.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDcpResponse({}));
+  }
+
+  /**
+   * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+   * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+   */
+  async listDcpAccountbook(request: ListDcpAccountbookRequest): Promise<ListDcpAccountbookResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listDcpAccountbookEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+   * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+   */
+  async listDcpAccountbookEx(request: ListDcpAccountbookRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDcpAccountbookResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListDcpAccountbookResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.dcp.accountbook.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDcpAccountbookResponse({}));
   }
 
   /**
@@ -5029,6 +5340,25 @@ export default class Client {
   async queryGuardAnswerEx(request: QueryGuardAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryGuardAnswerResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryGuardAnswerResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.guard.answer.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryGuardAnswerResponse({}));
+  }
+
+  /**
+   * Description: 开放给设备产商，删除数字钥匙
+   * Summary: 删除数字钥匙
+   */
+  async deleteIifaaDigitalkey(request: DeleteIifaaDigitalkeyRequest): Promise<DeleteIifaaDigitalkeyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteIifaaDigitalkeyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 开放给设备产商，删除数字钥匙
+   * Summary: 删除数字钥匙
+   */
+  async deleteIifaaDigitalkeyEx(request: DeleteIifaaDigitalkeyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteIifaaDigitalkeyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteIifaaDigitalkeyResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.digitalkey.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteIifaaDigitalkeyResponse({}));
   }
 
 }
