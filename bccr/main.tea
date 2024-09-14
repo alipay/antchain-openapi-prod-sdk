@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.10',
+    sdk_version = '1.19.11',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -3162,6 +3162,8 @@ model CreateDciRegistrationResponse = {
   resultMsg?: string(name='result_msg'),
   // 数登申请id
   digitalRegisterId?: string(name='digital_register_id'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
 }
 
 /**
@@ -4143,6 +4145,8 @@ model RetryDciRegistrationResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
 }
 
 /**
