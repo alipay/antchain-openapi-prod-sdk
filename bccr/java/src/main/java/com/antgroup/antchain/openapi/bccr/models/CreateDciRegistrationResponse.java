@@ -20,6 +20,10 @@ public class CreateDciRegistrationResponse extends TeaModel {
     @NameInMap("digital_register_id")
     public String digitalRegisterId;
 
+    // 错误信息
+    @NameInMap("error_msg")
+    public String errorMsg;
+
     public static CreateDciRegistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateDciRegistrationResponse self = new CreateDciRegistrationResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateDciRegistrationResponse extends TeaModel {
     }
     public String getDigitalRegisterId() {
         return this.digitalRegisterId;
+    }
+
+    public CreateDciRegistrationResponse setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }

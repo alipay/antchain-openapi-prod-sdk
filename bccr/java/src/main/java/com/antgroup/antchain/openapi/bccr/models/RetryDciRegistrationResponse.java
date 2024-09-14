@@ -16,6 +16,10 @@ public class RetryDciRegistrationResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 错误信息
+    @NameInMap("error_msg")
+    public String errorMsg;
+
     public static RetryDciRegistrationResponse build(java.util.Map<String, ?> map) throws Exception {
         RetryDciRegistrationResponse self = new RetryDciRegistrationResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class RetryDciRegistrationResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public RetryDciRegistrationResponse setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }
