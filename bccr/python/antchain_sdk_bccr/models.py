@@ -10297,6 +10297,7 @@ class CreateDciRegistrationResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         digital_register_id: str = None,
+        error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -10306,6 +10307,8 @@ class CreateDciRegistrationResponse(TeaModel):
         self.result_msg = result_msg
         # 数登申请id
         self.digital_register_id = digital_register_id
+        # 错误信息
+        self.error_msg = error_msg
 
     def validate(self):
         pass
@@ -10324,6 +10327,8 @@ class CreateDciRegistrationResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.digital_register_id is not None:
             result['digital_register_id'] = self.digital_register_id
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -10336,6 +10341,8 @@ class CreateDciRegistrationResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('digital_register_id') is not None:
             self.digital_register_id = m.get('digital_register_id')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
@@ -13016,6 +13023,7 @@ class RetryDciRegistrationResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -13023,6 +13031,8 @@ class RetryDciRegistrationResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 错误信息
+        self.error_msg = error_msg
 
     def validate(self):
         pass
@@ -13039,6 +13049,8 @@ class RetryDciRegistrationResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -13049,6 +13061,8 @@ class RetryDciRegistrationResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
