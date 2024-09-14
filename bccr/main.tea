@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.8',
+    sdk_version = '1.19.9',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -4765,6 +4765,8 @@ model CreateEvidenceLiveRequest = {
   clientToken: string(name='client_token'),
   // 主播 ID
   profileId?: string(name='profile_id'),
+  // 预定时间：分钟，建议传值范围5-20分钟
+  expectedDuration: long(name='expected_duration'),
 }
 
 model CreateEvidenceLiveResponse = {
@@ -4780,7 +4782,7 @@ model CreateEvidenceLiveResponse = {
 
 /**
  * Description: 录屏取证
- * Summary: 录屏
+ * Summary: 创建自动化直播取证
  */
 async function createEvidenceLive(request: CreateEvidenceLiveRequest): CreateEvidenceLiveResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -4790,7 +4792,7 @@ async function createEvidenceLive(request: CreateEvidenceLiveRequest): CreateEvi
 
 /**
  * Description: 录屏取证
- * Summary: 录屏
+ * Summary: 创建自动化直播取证
  */
 async function createEvidenceLiveEx(request: CreateEvidenceLiveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateEvidenceLiveResponse {
   Util.validateModel(request);
