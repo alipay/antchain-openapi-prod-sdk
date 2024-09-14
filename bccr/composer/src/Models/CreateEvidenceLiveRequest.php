@@ -54,6 +54,12 @@ class CreateEvidenceLiveRequest extends Model
      * @var string
      */
     public $profileId;
+
+    // 预定时间：分钟，建议传值范围5-20分钟
+    /**
+     * @var int
+     */
+    public $expectedDuration;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +69,7 @@ class CreateEvidenceLiveRequest extends Model
         'webUrl'            => 'web_url',
         'clientToken'       => 'client_token',
         'profileId'         => 'profile_id',
+        'expectedDuration'  => 'expected_duration',
     ];
 
     public function validate()
@@ -72,6 +79,7 @@ class CreateEvidenceLiveRequest extends Model
         Model::validateRequired('type', $this->type, true);
         Model::validateRequired('webUrl', $this->webUrl, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
+        Model::validateRequired('expectedDuration', $this->expectedDuration, true);
     }
 
     public function toMap()
@@ -100,6 +108,9 @@ class CreateEvidenceLiveRequest extends Model
         }
         if (null !== $this->profileId) {
             $res['profile_id'] = $this->profileId;
+        }
+        if (null !== $this->expectedDuration) {
+            $res['expected_duration'] = $this->expectedDuration;
         }
 
         return $res;
@@ -136,6 +147,9 @@ class CreateEvidenceLiveRequest extends Model
         }
         if (isset($map['profile_id'])) {
             $model->profileId = $map['profile_id'];
+        }
+        if (isset($map['expected_duration'])) {
+            $model->expectedDuration = $map['expected_duration'];
         }
 
         return $model;
