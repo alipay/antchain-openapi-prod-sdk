@@ -14668,7 +14668,6 @@ class CreateEvidenceLiveRequest(TeaModel):
         if self.web_url:
             self.web_url.validate()
         self.validate_required(self.client_token, 'client_token')
-        self.validate_required(self.expected_duration, 'expected_duration')
 
     def to_map(self):
         _map = super().to_map()
