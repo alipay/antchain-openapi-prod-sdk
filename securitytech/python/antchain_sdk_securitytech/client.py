@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.30',
+                    'sdk_version': '1.2.33',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.30',
+                    'sdk_version': '1.2.33',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -389,6 +389,118 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.ExecEkytInsureResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.ekyt.insure.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_dcp(
+        self,
+        request: securitytech_models.ListDcpRequest,
+    ) -> securitytech_models.ListDcpResponse:
+        """
+        Description: 获取EKYT平台入驻的车队信息列表
+        Summary: 获取EKYT平台入驻的车队信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_dcp_ex(request, headers, runtime)
+
+    async def list_dcp_async(
+        self,
+        request: securitytech_models.ListDcpRequest,
+    ) -> securitytech_models.ListDcpResponse:
+        """
+        Description: 获取EKYT平台入驻的车队信息列表
+        Summary: 获取EKYT平台入驻的车队信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_dcp_ex_async(request, headers, runtime)
+
+    def list_dcp_ex(
+        self,
+        request: securitytech_models.ListDcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListDcpResponse:
+        """
+        Description: 获取EKYT平台入驻的车队信息列表
+        Summary: 获取EKYT平台入驻的车队信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListDcpResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.dcp.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_dcp_ex_async(
+        self,
+        request: securitytech_models.ListDcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListDcpResponse:
+        """
+        Description: 获取EKYT平台入驻的车队信息列表
+        Summary: 获取EKYT平台入驻的车队信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListDcpResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.dcp.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_dcp_accountbook(
+        self,
+        request: securitytech_models.ListDcpAccountbookRequest,
+    ) -> securitytech_models.ListDcpAccountbookResponse:
+        """
+        Description: 获取EKYT平台入驻的司机灵工卡信息列表
+        Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_dcp_accountbook_ex(request, headers, runtime)
+
+    async def list_dcp_accountbook_async(
+        self,
+        request: securitytech_models.ListDcpAccountbookRequest,
+    ) -> securitytech_models.ListDcpAccountbookResponse:
+        """
+        Description: 获取EKYT平台入驻的司机灵工卡信息列表
+        Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_dcp_accountbook_ex_async(request, headers, runtime)
+
+    def list_dcp_accountbook_ex(
+        self,
+        request: securitytech_models.ListDcpAccountbookRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListDcpAccountbookResponse:
+        """
+        Description: 获取EKYT平台入驻的司机灵工卡信息列表
+        Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListDcpAccountbookResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.dcp.accountbook.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_dcp_accountbook_ex_async(
+        self,
+        request: securitytech_models.ListDcpAccountbookRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.ListDcpAccountbookResponse:
+        """
+        Description: 获取EKYT平台入驻的司机灵工卡信息列表
+        Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.ListDcpAccountbookResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.dcp.accountbook.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
@@ -2405,4 +2517,60 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.QueryGuardAnswerResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.guard.answer.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_iifaa_digitalkey(
+        self,
+        request: securitytech_models.DeleteIifaaDigitalkeyRequest,
+    ) -> securitytech_models.DeleteIifaaDigitalkeyResponse:
+        """
+        Description: 开放给设备产商，删除数字钥匙
+        Summary: 删除数字钥匙
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_iifaa_digitalkey_ex(request, headers, runtime)
+
+    async def delete_iifaa_digitalkey_async(
+        self,
+        request: securitytech_models.DeleteIifaaDigitalkeyRequest,
+    ) -> securitytech_models.DeleteIifaaDigitalkeyResponse:
+        """
+        Description: 开放给设备产商，删除数字钥匙
+        Summary: 删除数字钥匙
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_iifaa_digitalkey_ex_async(request, headers, runtime)
+
+    def delete_iifaa_digitalkey_ex(
+        self,
+        request: securitytech_models.DeleteIifaaDigitalkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeleteIifaaDigitalkeyResponse:
+        """
+        Description: 开放给设备产商，删除数字钥匙
+        Summary: 删除数字钥匙
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeleteIifaaDigitalkeyResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.iifaa.digitalkey.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_iifaa_digitalkey_ex_async(
+        self,
+        request: securitytech_models.DeleteIifaaDigitalkeyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.DeleteIifaaDigitalkeyResponse:
+        """
+        Description: 开放给设备产商，删除数字钥匙
+        Summary: 删除数字钥匙
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.DeleteIifaaDigitalkeyResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.iifaa.digitalkey.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
