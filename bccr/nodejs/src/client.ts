@@ -8789,7 +8789,7 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
   // 主播 ID
   profileId?: string;
   // 预定时间：分钟，建议传值范围5-20分钟
-  expectedDuration: number;
+  expectedDuration?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10311,7 +10311,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.9",
+          sdk_version: "1.19.10",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
