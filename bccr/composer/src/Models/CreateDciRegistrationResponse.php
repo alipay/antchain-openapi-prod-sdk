@@ -31,11 +31,18 @@ class CreateDciRegistrationResponse extends Model
      * @var string
      */
     public $digitalRegisterId;
+
+    // 错误信息
+    /**
+     * @var string
+     */
+    public $errorMsg;
     protected $_name = [
         'reqMsgId'          => 'req_msg_id',
         'resultCode'        => 'result_code',
         'resultMsg'         => 'result_msg',
         'digitalRegisterId' => 'digital_register_id',
+        'errorMsg'          => 'error_msg',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class CreateDciRegistrationResponse extends Model
         }
         if (null !== $this->digitalRegisterId) {
             $res['digital_register_id'] = $this->digitalRegisterId;
+        }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class CreateDciRegistrationResponse extends Model
         }
         if (isset($map['digital_register_id'])) {
             $model->digitalRegisterId = $map['digital_register_id'];
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;
