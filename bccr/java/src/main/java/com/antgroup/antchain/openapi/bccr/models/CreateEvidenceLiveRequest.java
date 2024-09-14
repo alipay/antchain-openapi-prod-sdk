@@ -40,6 +40,11 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     @NameInMap("profile_id")
     public String profileId;
 
+    // 预定时间：分钟，建议传值范围5-20分钟
+    @NameInMap("expected_duration")
+    @Validation(required = true)
+    public Long expectedDuration;
+
     public static CreateEvidenceLiveRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateEvidenceLiveRequest self = new CreateEvidenceLiveRequest();
         return TeaModel.build(map, self);
@@ -107,6 +112,14 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     }
     public String getProfileId() {
         return this.profileId;
+    }
+
+    public CreateEvidenceLiveRequest setExpectedDuration(Long expectedDuration) {
+        this.expectedDuration = expectedDuration;
+        return this;
+    }
+    public Long getExpectedDuration() {
+        return this.expectedDuration;
     }
 
 }
