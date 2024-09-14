@@ -11866,6 +11866,8 @@ type CreateEvidenceLiveRequest struct {
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 	// 主播 ID
 	ProfileId *string `json:"profile_id,omitempty" xml:"profile_id,omitempty"`
+	// 预定时间：分钟，建议传值范围5-20分钟
+	ExpectedDuration *int64 `json:"expected_duration,omitempty" xml:"expected_duration,omitempty" require:"true"`
 }
 
 func (s CreateEvidenceLiveRequest) String() string {
@@ -11913,6 +11915,11 @@ func (s *CreateEvidenceLiveRequest) SetClientToken(v string) *CreateEvidenceLive
 
 func (s *CreateEvidenceLiveRequest) SetProfileId(v string) *CreateEvidenceLiveRequest {
 	s.ProfileId = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetExpectedDuration(v int64) *CreateEvidenceLiveRequest {
+	s.ExpectedDuration = &v
 	return s
 }
 
@@ -13862,7 +13869,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.8"),
+				"sdk_version":      tea.String("1.19.9"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -16064,7 +16071,7 @@ func (client *Client) CancelTradeUsageEx(request *CancelTradeUsageRequest, heade
 
 /**
  * Description: 录屏取证
- * Summary: 录屏
+ * Summary: 创建自动化直播取证
  */
 func (client *Client) CreateEvidenceLive(request *CreateEvidenceLiveRequest) (_result *CreateEvidenceLiveResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -16080,7 +16087,7 @@ func (client *Client) CreateEvidenceLive(request *CreateEvidenceLiveRequest) (_r
 
 /**
  * Description: 录屏取证
- * Summary: 录屏
+ * Summary: 创建自动化直播取证
  */
 func (client *Client) CreateEvidenceLiveEx(request *CreateEvidenceLiveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceLiveResponse, _err error) {
 	_err = util.ValidateModel(request)
