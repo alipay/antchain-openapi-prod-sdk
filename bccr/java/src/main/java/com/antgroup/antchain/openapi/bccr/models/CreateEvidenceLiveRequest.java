@@ -42,7 +42,6 @@ public class CreateEvidenceLiveRequest extends TeaModel {
 
     // 预定时间：分钟，建议传值范围5-20分钟
     @NameInMap("expected_duration")
-    @Validation(required = true)
     public Long expectedDuration;
 
     public static CreateEvidenceLiveRequest build(java.util.Map<String, ?> map) throws Exception {
