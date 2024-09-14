@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.30"},
+                        {"sdk_version", "1.2.33"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.30"},
+                        {"sdk_version", "1.2.33"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -407,6 +407,90 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecEkytInsureResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.ekyt.insure.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取EKYT平台入驻的车队信息列表
+         * Summary: 获取EKYT平台入驻的车队信息列表
+         */
+        public ListDcpResponse ListDcp(ListDcpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListDcpEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取EKYT平台入驻的车队信息列表
+         * Summary: 获取EKYT平台入驻的车队信息列表
+         */
+        public async Task<ListDcpResponse> ListDcpAsync(ListDcpRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListDcpExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取EKYT平台入驻的车队信息列表
+         * Summary: 获取EKYT平台入驻的车队信息列表
+         */
+        public ListDcpResponse ListDcpEx(ListDcpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDcpResponse>(DoRequest("1.0", "antsecuritytech.gateway.dcp.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取EKYT平台入驻的车队信息列表
+         * Summary: 获取EKYT平台入驻的车队信息列表
+         */
+        public async Task<ListDcpResponse> ListDcpExAsync(ListDcpRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDcpResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.dcp.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+         * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+         */
+        public ListDcpAccountbookResponse ListDcpAccountbook(ListDcpAccountbookRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListDcpAccountbookEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+         * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+         */
+        public async Task<ListDcpAccountbookResponse> ListDcpAccountbookAsync(ListDcpAccountbookRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListDcpAccountbookExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+         * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+         */
+        public ListDcpAccountbookResponse ListDcpAccountbookEx(ListDcpAccountbookRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDcpAccountbookResponse>(DoRequest("1.0", "antsecuritytech.gateway.dcp.accountbook.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+         * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+         */
+        public async Task<ListDcpAccountbookResponse> ListDcpAccountbookExAsync(ListDcpAccountbookRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListDcpAccountbookResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.dcp.accountbook.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -1919,6 +2003,48 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryGuardAnswerResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.guard.answer.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开放给设备产商，删除数字钥匙
+         * Summary: 删除数字钥匙
+         */
+        public DeleteIifaaDigitalkeyResponse DeleteIifaaDigitalkey(DeleteIifaaDigitalkeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteIifaaDigitalkeyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开放给设备产商，删除数字钥匙
+         * Summary: 删除数字钥匙
+         */
+        public async Task<DeleteIifaaDigitalkeyResponse> DeleteIifaaDigitalkeyAsync(DeleteIifaaDigitalkeyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteIifaaDigitalkeyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开放给设备产商，删除数字钥匙
+         * Summary: 删除数字钥匙
+         */
+        public DeleteIifaaDigitalkeyResponse DeleteIifaaDigitalkeyEx(DeleteIifaaDigitalkeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteIifaaDigitalkeyResponse>(DoRequest("1.0", "antsecuritytech.gateway.iifaa.digitalkey.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开放给设备产商，删除数字钥匙
+         * Summary: 删除数字钥匙
+         */
+        public async Task<DeleteIifaaDigitalkeyResponse> DeleteIifaaDigitalkeyExAsync(DeleteIifaaDigitalkeyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteIifaaDigitalkeyResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.iifaa.digitalkey.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
