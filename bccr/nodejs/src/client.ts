@@ -6169,12 +6169,15 @@ export class CreateDciRegistrationResponse extends $tea.Model {
   resultMsg?: string;
   // 数登申请id
   digitalRegisterId?: string;
+  // 错误信息
+  errorMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       digitalRegisterId: 'digital_register_id',
+      errorMsg: 'error_msg',
     };
   }
 
@@ -6184,6 +6187,7 @@ export class CreateDciRegistrationResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       digitalRegisterId: 'string',
+      errorMsg: 'string',
     };
   }
 
@@ -7792,11 +7796,14 @@ export class RetryDciRegistrationResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 错误信息
+  errorMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      errorMsg: 'error_msg',
     };
   }
 
@@ -7805,6 +7812,7 @@ export class RetryDciRegistrationResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      errorMsg: 'string',
     };
   }
 
@@ -10311,7 +10319,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.10",
+          sdk_version: "1.19.11",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
