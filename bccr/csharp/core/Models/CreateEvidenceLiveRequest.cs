@@ -50,7 +50,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 预定时间：分钟，建议传值范围5-20分钟
         [NameInMap("expected_duration")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? ExpectedDuration { get; set; }
 
     }
