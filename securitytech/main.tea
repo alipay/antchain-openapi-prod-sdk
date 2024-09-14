@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.30',
+    sdk_version = '1.2.33',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -361,6 +361,14 @@ model RequestHead {
   onlineFlag?: boolean(name='online_flag', example='true, false'),
 }
 
+// 车队信息结构体
+model DcpInfo {
+  // 企业入驻租户ID
+  dcpTenantId: string(name='dcp_tenant_id', example='LKPFALCN'),
+  // 企业名称
+  dcpName: string(name='dcp_name', example='曹操出行'),
+}
+
 // 保单信息
 model InsureInfo {
   // 保单时间
@@ -433,6 +441,26 @@ model CctDataMap {
   text?: [ string ](name='text', example='text'),
   // PICTURE
   picture?: [ string ](name='picture', example='PICTURE'),
+}
+
+// 司机签约信息列表
+model SignInfo {
+  // 司机证件号
+  employeeCertNo: string(name='employee_cert_no', example='310681200001017789'),
+  // 灵工卡号
+  employeeCardNo: string(name='employee_card_no', example='111222190002309999'),
+  // 借贷专户ID，用于后续资金相关操作
+  accountBookId: string(name='account_book_id', example='111222190002309999'),
+  // 签约状态，枚举值
+  // ● SIGNED：已签约【灵工卡状态正常，可入金出金】
+  // ● TERMINATED：已解约【不可入金出金】
+  status: string(name='status', example='SIGNED'),
+  // 签约时间 "yyyy-MM-dd HH:mm:ss"
+  signTime?: string(name='sign_time', example='2000-10-10 00:00:00'),
+  // 解约时间 "yyyy-MM-dd HH:mm:ss"
+  terminateTime?: string(name='terminate_time', example='2000-10-10 00:00:00'),
+  // 月租金额：单位为元
+  paymentAmount: string(name='payment_amount', example='100'),
 }
 
 // 风险评估结果
@@ -557,6 +585,92 @@ async function execEkytInsure(request: ExecEkytInsureRequest): ExecEkytInsureRes
 async function execEkytInsureEx(request: ExecEkytInsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecEkytInsureResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.ekyt.insure.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDcpRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 扩展信息，预留字段
+  externParam?: string(name='extern_param'),
+}
+
+model ListDcpResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求方租户所关联的所有入驻的车队企业信息列表
+  dcpInfoList?: [ DcpInfo ](name='dcp_info_list'),
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 获取EKYT平台入驻的车队信息列表
+ * Summary: 获取EKYT平台入驻的车队信息列表
+ */
+async function listDcp(request: ListDcpRequest): ListDcpResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDcpEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取EKYT平台入驻的车队信息列表
+ * Summary: 获取EKYT平台入驻的车队信息列表
+ */
+async function listDcpEx(request: ListDcpRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDcpResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.dcp.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDcpAccountbookRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 企业入驻租户ID
+  dcpTenantId: string(name='dcp_tenant_id'),
+  // 扩展信息，预留字段
+  externParam?: string(name='extern_param'),
+}
+
+model ListDcpAccountbookResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求车队企业关联的所有司机签约信息列表
+  signInfoList?: [ SignInfo ](name='sign_info_list'),
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+ * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+ */
+async function listDcpAccountbook(request: ListDcpAccountbookRequest): ListDcpAccountbookResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDcpAccountbookEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+ * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+ */
+async function listDcpAccountbookEx(request: ListDcpAccountbookRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDcpAccountbookResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.dcp.accountbook.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
@@ -2404,5 +2518,45 @@ async function queryGuardAnswer(request: QueryGuardAnswerRequest): QueryGuardAns
 async function queryGuardAnswerEx(request: QueryGuardAnswerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardAnswerResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.guard.answer.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteIifaaDigitalkeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求头
+  head: RequestHead(name='head'),
+  // 业务参数
+  request: string(name='request'),
+}
+
+model DeleteIifaaDigitalkeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回值
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 开放给设备产商，删除数字钥匙
+ * Summary: 删除数字钥匙
+ */
+async function deleteIifaaDigitalkey(request: DeleteIifaaDigitalkeyRequest): DeleteIifaaDigitalkeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteIifaaDigitalkeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开放给设备产商，删除数字钥匙
+ * Summary: 删除数字钥匙
+ */
+async function deleteIifaaDigitalkeyEx(request: DeleteIifaaDigitalkeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteIifaaDigitalkeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.digitalkey.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
