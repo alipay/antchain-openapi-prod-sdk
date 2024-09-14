@@ -11867,7 +11867,7 @@ type CreateEvidenceLiveRequest struct {
 	// 主播 ID
 	ProfileId *string `json:"profile_id,omitempty" xml:"profile_id,omitempty"`
 	// 预定时间：分钟，建议传值范围5-20分钟
-	ExpectedDuration *int64 `json:"expected_duration,omitempty" xml:"expected_duration,omitempty" require:"true"`
+	ExpectedDuration *int64 `json:"expected_duration,omitempty" xml:"expected_duration,omitempty"`
 }
 
 func (s CreateEvidenceLiveRequest) String() string {
@@ -13869,7 +13869,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.9"),
+				"sdk_version":      tea.String("1.19.10"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
