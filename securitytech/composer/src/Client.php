@@ -17,6 +17,8 @@ use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
 use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
 use AntChain\SECURITYTECH\Models\CreateBssecpicResponse;
+use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyRequest;
+use AntChain\SECURITYTECH\Models\DeleteIifaaDigitalkeyResponse;
 use AntChain\SECURITYTECH\Models\DeprecateIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\DeprecateIifaaDeviceResponse;
 use AntChain\SECURITYTECH\Models\ExecEkytInsureRequest;
@@ -39,6 +41,10 @@ use AntChain\SECURITYTECH\Models\InitEkytTrustsignRequest;
 use AntChain\SECURITYTECH\Models\InitEkytTrustsignResponse;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\InitIifaaDeviceResponse;
+use AntChain\SECURITYTECH\Models\ListDcpAccountbookRequest;
+use AntChain\SECURITYTECH\Models\ListDcpAccountbookResponse;
+use AntChain\SECURITYTECH\Models\ListDcpRequest;
+use AntChain\SECURITYTECH\Models\ListDcpResponse;
 use AntChain\SECURITYTECH\Models\QueryCctPictureRequest;
 use AntChain\SECURITYTECH\Models\QueryCctPictureResponse;
 use AntChain\SECURITYTECH\Models\QueryDeviceplusMpaasRequest;
@@ -234,7 +240,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.30',
+                    'sdk_version'      => '1.2.33',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -348,6 +354,72 @@ class Client
         Utils::validateModel($request);
 
         return ExecEkytInsureResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.ekyt.insure.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取EKYT平台入驻的车队信息列表
+     * Summary: 获取EKYT平台入驻的车队信息列表.
+     *
+     * @param ListDcpRequest $request
+     *
+     * @return ListDcpResponse
+     */
+    public function listDcp($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取EKYT平台入驻的车队信息列表
+     * Summary: 获取EKYT平台入驻的车队信息列表.
+     *
+     * @param ListDcpRequest $request
+     * @param string[]       $headers
+     * @param RuntimeOptions $runtime
+     *
+     * @return ListDcpResponse
+     */
+    public function listDcpEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDcpResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.dcp.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+     * Summary: 获取EKYT平台入驻的司机灵工卡信息列表.
+     *
+     * @param ListDcpAccountbookRequest $request
+     *
+     * @return ListDcpAccountbookResponse
+     */
+    public function listDcpAccountbook($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listDcpAccountbookEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+     * Summary: 获取EKYT平台入驻的司机灵工卡信息列表.
+     *
+     * @param ListDcpAccountbookRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return ListDcpAccountbookResponse
+     */
+    public function listDcpAccountbookEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListDcpAccountbookResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.dcp.accountbook.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1536,5 +1608,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryGuardAnswerResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.guard.answer.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开放给设备产商，删除数字钥匙
+     * Summary: 删除数字钥匙.
+     *
+     * @param DeleteIifaaDigitalkeyRequest $request
+     *
+     * @return DeleteIifaaDigitalkeyResponse
+     */
+    public function deleteIifaaDigitalkey($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->deleteIifaaDigitalkeyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开放给设备产商，删除数字钥匙
+     * Summary: 删除数字钥匙.
+     *
+     * @param DeleteIifaaDigitalkeyRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return DeleteIifaaDigitalkeyResponse
+     */
+    public function deleteIifaaDigitalkeyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DeleteIifaaDigitalkeyResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.digitalkey.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
