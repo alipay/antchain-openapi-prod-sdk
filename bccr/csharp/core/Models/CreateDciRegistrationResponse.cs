@@ -29,6 +29,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string DigitalRegisterId { get; set; }
 
+        // 错误信息
+        [NameInMap("error_msg")]
+        [Validation(Required=false)]
+        public string ErrorMsg { get; set; }
+
     }
 
 }
