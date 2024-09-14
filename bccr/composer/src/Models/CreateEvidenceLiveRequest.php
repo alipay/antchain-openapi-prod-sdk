@@ -79,7 +79,6 @@ class CreateEvidenceLiveRequest extends Model
         Model::validateRequired('type', $this->type, true);
         Model::validateRequired('webUrl', $this->webUrl, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
-        Model::validateRequired('expectedDuration', $this->expectedDuration, true);
     }
 
     public function toMap()
