@@ -812,6 +812,32 @@ func (s *RequestHead) SetOnlineFlag(v bool) *RequestHead {
 	return s
 }
 
+// 车队信息结构体
+type DcpInfo struct {
+	// 企业入驻租户ID
+	DcpTenantId *string `json:"dcp_tenant_id,omitempty" xml:"dcp_tenant_id,omitempty" require:"true"`
+	// 企业名称
+	DcpName *string `json:"dcp_name,omitempty" xml:"dcp_name,omitempty" require:"true"`
+}
+
+func (s DcpInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DcpInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DcpInfo) SetDcpTenantId(v string) *DcpInfo {
+	s.DcpTenantId = &v
+	return s
+}
+
+func (s *DcpInfo) SetDcpName(v string) *DcpInfo {
+	s.DcpName = &v
+	return s
+}
+
 // 保单信息
 type InsureInfo struct {
 	// 保单时间
@@ -1056,6 +1082,69 @@ func (s *CctDataMap) SetText(v []*string) *CctDataMap {
 
 func (s *CctDataMap) SetPicture(v []*string) *CctDataMap {
 	s.Picture = v
+	return s
+}
+
+// 司机签约信息列表
+type SignInfo struct {
+	// 司机证件号
+	EmployeeCertNo *string `json:"employee_cert_no,omitempty" xml:"employee_cert_no,omitempty" require:"true"`
+	// 灵工卡号
+	EmployeeCardNo *string `json:"employee_card_no,omitempty" xml:"employee_card_no,omitempty" require:"true"`
+	// 借贷专户ID，用于后续资金相关操作
+	AccountBookId *string `json:"account_book_id,omitempty" xml:"account_book_id,omitempty" require:"true"`
+	// 签约状态，枚举值
+	// ● SIGNED：已签约【灵工卡状态正常，可入金出金】
+	// ● TERMINATED：已解约【不可入金出金】
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 签约时间 "yyyy-MM-dd HH:mm:ss"
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty"`
+	// 解约时间 "yyyy-MM-dd HH:mm:ss"
+	TerminateTime *string `json:"terminate_time,omitempty" xml:"terminate_time,omitempty"`
+	// 月租金额：单位为元
+	PaymentAmount *string `json:"payment_amount,omitempty" xml:"payment_amount,omitempty" require:"true"`
+}
+
+func (s SignInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SignInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SignInfo) SetEmployeeCertNo(v string) *SignInfo {
+	s.EmployeeCertNo = &v
+	return s
+}
+
+func (s *SignInfo) SetEmployeeCardNo(v string) *SignInfo {
+	s.EmployeeCardNo = &v
+	return s
+}
+
+func (s *SignInfo) SetAccountBookId(v string) *SignInfo {
+	s.AccountBookId = &v
+	return s
+}
+
+func (s *SignInfo) SetStatus(v string) *SignInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *SignInfo) SetSignTime(v string) *SignInfo {
+	s.SignTime = &v
+	return s
+}
+
+func (s *SignInfo) SetTerminateTime(v string) *SignInfo {
+	s.TerminateTime = &v
+	return s
+}
+
+func (s *SignInfo) SetPaymentAmount(v string) *SignInfo {
+	s.PaymentAmount = &v
 	return s
 }
 
@@ -1349,6 +1438,181 @@ func (s *ExecEkytInsureResponse) SetSuccess(v bool) *ExecEkytInsureResponse {
 
 func (s *ExecEkytInsureResponse) SetData(v string) *ExecEkytInsureResponse {
 	s.Data = &v
+	return s
+}
+
+type ListDcpRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s ListDcpRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDcpRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListDcpRequest) SetAuthToken(v string) *ListDcpRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListDcpRequest) SetProductInstanceId(v string) *ListDcpRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListDcpRequest) SetOuterOrderNo(v string) *ListDcpRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ListDcpRequest) SetExternParam(v string) *ListDcpRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type ListDcpResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求方租户所关联的所有入驻的车队企业信息列表
+	DcpInfoList []*DcpInfo `json:"dcp_info_list,omitempty" xml:"dcp_info_list,omitempty" type:"Repeated"`
+	// json格式字符串扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s ListDcpResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDcpResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListDcpResponse) SetReqMsgId(v string) *ListDcpResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListDcpResponse) SetResultCode(v string) *ListDcpResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListDcpResponse) SetResultMsg(v string) *ListDcpResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListDcpResponse) SetDcpInfoList(v []*DcpInfo) *ListDcpResponse {
+	s.DcpInfoList = v
+	return s
+}
+
+func (s *ListDcpResponse) SetExternInfo(v string) *ListDcpResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type ListDcpAccountbookRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 企业入驻租户ID
+	DcpTenantId *string `json:"dcp_tenant_id,omitempty" xml:"dcp_tenant_id,omitempty" require:"true"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s ListDcpAccountbookRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDcpAccountbookRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListDcpAccountbookRequest) SetAuthToken(v string) *ListDcpAccountbookRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListDcpAccountbookRequest) SetProductInstanceId(v string) *ListDcpAccountbookRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListDcpAccountbookRequest) SetOuterOrderNo(v string) *ListDcpAccountbookRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ListDcpAccountbookRequest) SetDcpTenantId(v string) *ListDcpAccountbookRequest {
+	s.DcpTenantId = &v
+	return s
+}
+
+func (s *ListDcpAccountbookRequest) SetExternParam(v string) *ListDcpAccountbookRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type ListDcpAccountbookResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求车队企业关联的所有司机签约信息列表
+	SignInfoList []*SignInfo `json:"sign_info_list,omitempty" xml:"sign_info_list,omitempty" type:"Repeated"`
+	// json格式字符串扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s ListDcpAccountbookResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListDcpAccountbookResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListDcpAccountbookResponse) SetReqMsgId(v string) *ListDcpAccountbookResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListDcpAccountbookResponse) SetResultCode(v string) *ListDcpAccountbookResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListDcpAccountbookResponse) SetResultMsg(v string) *ListDcpAccountbookResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListDcpAccountbookResponse) SetSignInfoList(v []*SignInfo) *ListDcpAccountbookResponse {
+	s.SignInfoList = v
+	return s
+}
+
+func (s *ListDcpAccountbookResponse) SetExternInfo(v string) *ListDcpAccountbookResponse {
+	s.ExternInfo = &v
 	return s
 }
 
@@ -5491,6 +5755,83 @@ func (s *QueryGuardAnswerResponse) SetSessionAction(v string) *QueryGuardAnswerR
 	return s
 }
 
+type DeleteIifaaDigitalkeyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求头
+	Head *RequestHead `json:"head,omitempty" xml:"head,omitempty" require:"true"`
+	// 业务参数
+	Request *string `json:"request,omitempty" xml:"request,omitempty" require:"true"`
+}
+
+func (s DeleteIifaaDigitalkeyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteIifaaDigitalkeyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteIifaaDigitalkeyRequest) SetAuthToken(v string) *DeleteIifaaDigitalkeyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteIifaaDigitalkeyRequest) SetProductInstanceId(v string) *DeleteIifaaDigitalkeyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteIifaaDigitalkeyRequest) SetHead(v *RequestHead) *DeleteIifaaDigitalkeyRequest {
+	s.Head = v
+	return s
+}
+
+func (s *DeleteIifaaDigitalkeyRequest) SetRequest(v string) *DeleteIifaaDigitalkeyRequest {
+	s.Request = &v
+	return s
+}
+
+type DeleteIifaaDigitalkeyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回值
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s DeleteIifaaDigitalkeyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteIifaaDigitalkeyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteIifaaDigitalkeyResponse) SetReqMsgId(v string) *DeleteIifaaDigitalkeyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteIifaaDigitalkeyResponse) SetResultCode(v string) *DeleteIifaaDigitalkeyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteIifaaDigitalkeyResponse) SetResultMsg(v string) *DeleteIifaaDigitalkeyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteIifaaDigitalkeyResponse) SetData(v bool) *DeleteIifaaDigitalkeyResponse {
+	s.Data = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -5613,7 +5954,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.30"),
+				"sdk_version":      tea.String("1.2.33"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5734,6 +6075,74 @@ func (client *Client) ExecEkytInsureEx(request *ExecEkytInsureRequest, headers m
 	}
 	_result = &ExecEkytInsureResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.ekyt.insure.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取EKYT平台入驻的车队信息列表
+ * Summary: 获取EKYT平台入驻的车队信息列表
+ */
+func (client *Client) ListDcp(request *ListDcpRequest) (_result *ListDcpResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListDcpResponse{}
+	_body, _err := client.ListDcpEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取EKYT平台入驻的车队信息列表
+ * Summary: 获取EKYT平台入驻的车队信息列表
+ */
+func (client *Client) ListDcpEx(request *ListDcpRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListDcpResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListDcpResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.dcp.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+ * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+ */
+func (client *Client) ListDcpAccountbook(request *ListDcpAccountbookRequest) (_result *ListDcpAccountbookResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListDcpAccountbookResponse{}
+	_body, _err := client.ListDcpAccountbookEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取EKYT平台入驻的司机灵工卡信息列表
+ * Summary: 获取EKYT平台入驻的司机灵工卡信息列表
+ */
+func (client *Client) ListDcpAccountbookEx(request *ListDcpAccountbookRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListDcpAccountbookResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListDcpAccountbookResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.dcp.accountbook.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -6958,6 +7367,40 @@ func (client *Client) QueryGuardAnswerEx(request *QueryGuardAnswerRequest, heade
 	}
 	_result = &QueryGuardAnswerResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.guard.answer.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 开放给设备产商，删除数字钥匙
+ * Summary: 删除数字钥匙
+ */
+func (client *Client) DeleteIifaaDigitalkey(request *DeleteIifaaDigitalkeyRequest) (_result *DeleteIifaaDigitalkeyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteIifaaDigitalkeyResponse{}
+	_body, _err := client.DeleteIifaaDigitalkeyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开放给设备产商，删除数字钥匙
+ * Summary: 删除数字钥匙
+ */
+func (client *Client) DeleteIifaaDigitalkeyEx(request *DeleteIifaaDigitalkeyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteIifaaDigitalkeyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteIifaaDigitalkeyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.iifaa.digitalkey.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
