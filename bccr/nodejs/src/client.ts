@@ -6794,12 +6794,15 @@ export class GetDciPayurlResponse extends $tea.Model {
   resultMsg?: string;
   // 支付链接
   payUrl?: string;
+  // 错误信息
+  errorMsg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       payUrl: 'pay_url',
+      errorMsg: 'error_msg',
     };
   }
 
@@ -6809,6 +6812,7 @@ export class GetDciPayurlResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       payUrl: 'string',
+      errorMsg: 'string',
     };
   }
 
@@ -10319,7 +10323,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.11",
+          sdk_version: "1.19.12",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
