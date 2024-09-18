@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.11',
+    sdk_version = '1.19.12',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -3534,6 +3534,8 @@ model GetDciPayurlResponse = {
   resultMsg?: string(name='result_msg'),
   // 支付链接
   payUrl?: string(name='pay_url'),
+  // 错误信息
+  errorMsg?: string(name='error_msg'),
 }
 
 /**
