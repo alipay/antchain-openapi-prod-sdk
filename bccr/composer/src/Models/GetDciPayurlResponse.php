@@ -31,11 +31,18 @@ class GetDciPayurlResponse extends Model
      * @var string
      */
     public $payUrl;
+
+    // 错误信息
+    /**
+     * @var string
+     */
+    public $errorMsg;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
         'payUrl'     => 'pay_url',
+        'errorMsg'   => 'error_msg',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class GetDciPayurlResponse extends Model
         }
         if (null !== $this->payUrl) {
             $res['pay_url'] = $this->payUrl;
+        }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class GetDciPayurlResponse extends Model
         }
         if (isset($map['pay_url'])) {
             $model->payUrl = $map['pay_url'];
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;
