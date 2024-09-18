@@ -9236,6 +9236,8 @@ type GetDciPayurlResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 支付链接
 	PayUrl *string `json:"pay_url,omitempty" xml:"pay_url,omitempty"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s GetDciPayurlResponse) String() string {
@@ -9263,6 +9265,11 @@ func (s *GetDciPayurlResponse) SetResultMsg(v string) *GetDciPayurlResponse {
 
 func (s *GetDciPayurlResponse) SetPayUrl(v string) *GetDciPayurlResponse {
 	s.PayUrl = &v
+	return s
+}
+
+func (s *GetDciPayurlResponse) SetErrorMsg(v string) *GetDciPayurlResponse {
+	s.ErrorMsg = &v
 	return s
 }
 
@@ -13883,7 +13890,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.11"),
+				"sdk_version":      tea.String("1.19.12"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
