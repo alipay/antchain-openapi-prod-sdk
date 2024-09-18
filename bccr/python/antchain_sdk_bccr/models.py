@@ -11316,6 +11316,7 @@ class GetDciPayurlResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         pay_url: str = None,
+        error_msg: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -11325,6 +11326,8 @@ class GetDciPayurlResponse(TeaModel):
         self.result_msg = result_msg
         # 支付链接
         self.pay_url = pay_url
+        # 错误信息
+        self.error_msg = error_msg
 
     def validate(self):
         pass
@@ -11343,6 +11346,8 @@ class GetDciPayurlResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.pay_url is not None:
             result['pay_url'] = self.pay_url
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
@@ -11355,6 +11360,8 @@ class GetDciPayurlResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('pay_url') is not None:
             self.pay_url = m.get('pay_url')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
