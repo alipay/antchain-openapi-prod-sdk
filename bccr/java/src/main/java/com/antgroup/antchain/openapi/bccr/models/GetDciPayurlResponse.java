@@ -20,6 +20,10 @@ public class GetDciPayurlResponse extends TeaModel {
     @NameInMap("pay_url")
     public String payUrl;
 
+    // 错误信息
+    @NameInMap("error_msg")
+    public String errorMsg;
+
     public static GetDciPayurlResponse build(java.util.Map<String, ?> map) throws Exception {
         GetDciPayurlResponse self = new GetDciPayurlResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class GetDciPayurlResponse extends TeaModel {
     }
     public String getPayUrl() {
         return this.payUrl;
+    }
+
+    public GetDciPayurlResponse setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }
