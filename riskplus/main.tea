@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.28',
+    sdk_version = '1.20.2',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -272,6 +272,80 @@ model DecisionFlow {
   decision: string(name='decision', example='reject'),
   // infocodes
   infoCodes?: InfoCodes(name='info_codes', example='infocodes'),
+}
+
+// 优惠券信息
+model CouponInfo {
+  // 优惠券Id
+  couponId: string(name='coupon_id', example='123'),
+  // 优惠券名称
+  couponName: string(name='coupon_name', example='折扣券'),
+  // 优惠券状态
+  // 0-未使用
+  // 2-已使用
+  // 3-已失效
+  couponStatus: string(name='coupon_status', example='0'),
+  // 使用场景
+  // 01-提款使用
+  // 02-还款使用
+  useScene: string(name='use_scene', example='01'),
+  // 优惠码
+  couponCode?: string(name='coupon_code', example='123'),
+  // 优惠券类型
+  // 01-金额优惠
+  // 02-天数优惠
+  // 03-折扣优惠
+  // 04-期数优惠
+  // 05-固定利率
+  couponType?: string(name='coupon_type', example='03'),
+  // 优惠券面额
+  // coupon_type=01 时为优惠金额
+  // coupon_type=02 时为减免天数
+  // coupon_type=03 时为折扣值（如6 折）
+  // coupon_type=04 时为减免期数
+  // coupon_type=05 时为折扣值（如 8.88 为利率8.88%）
+  couponValue?: string(name='coupon_value', example='01'),
+  // 当 coupon_type=01 时，才会有优惠金额
+  couponAmount?: string(name='coupon_amount', example='1'),
+  // 过期时间yyyy-MM-dd HH:mm:ss
+  expiredTime?: string(name='expired_time', example='yyyy-MM-dd HH:mm:ss'),
+  // 生效时间yyyy-MM-dd HH:mm:ss
+  effectiveTime?: string(name='effective_time', example='yyyy-MM-dd HH:mm:ss'),
+  // 使用规则
+  useDetail?: string(name='use_detail', example='使用规则'),
+  // 贷款最低金额
+  minAmount?: string(name='min_amount', example='10'),
+  // 贷款最高金额
+  maxAmount?: string(name='max_amount', example='100'),
+  // 最低贷款期数
+  minPeriod?: string(name='min_period', example='1'),
+  // 最高贷款期数
+  maxPeriod?: string(name='max_period', example='12'),
+  // 贷款最低期限天数
+  minDay?: string(name='min_day', example='30'),
+  // 还款方式
+  // 1-等额本息
+  // 2-等额本金
+  // 3-等本等费
+  // 4-按期付息到期还本
+  // 5-到期一次性还本付息
+  // 6-等本等费-总费率
+  // 7-等额本息(长期)
+  repaymentMethod?: string(name='repayment_method', example='1'),
+  // 是否有贷款期数要求
+  // 0：否
+  // 1：是
+  isPeriodLimit?: string(name='is_period_limit', example='0'),
+  // 贷款期限要求还款条件
+  // 01：可提前还款
+  // 02：不可提前还款
+  // isPeriodLimit=1 && repayCondition=01 代表：有可提前还款锁期
+  // isPeriodLimit=1 && repayCondition=02 代表：有不可提前还款锁期
+  repayCondition?: string(name='repay_condition', example='01'),
+  // 还款场景
+  // 01-到期还款
+  // 02-即期还款
+  repayWays?: string(name='repay_ways', example='01'),
 }
 
 // 用户的混合策略圈客结果
@@ -521,6 +595,38 @@ model SecurityDataQueryStruct {
   version: string(name='version', example='1.0'),
 }
 
+// 天枢用户聚合状态信息
+model UserAggregationInfo {
+  // 状态
+  // 0: 未授信
+  // 1: 授信中
+  // 2: 已授信未支用
+  // 3: 支用中
+  // 4: 已支用
+  // 5: 借据逾期
+  // 6: 授信过期
+  // 7: 授信冻结
+  // 8: 可重新授信
+  // 9: 授信拒绝
+  status: string(name='status', example='0'),
+  // 总额度
+  creditAmount?: long(name='credit_amount', example='100'),
+  // 可用额度
+  availableAmount?: long(name='available_amount', example='100'),
+  // 待还总金额
+  shouldPayAmount?: long(name='should_pay_amount', example='100'),
+  // 逾期总金额
+  overdueAmount?: long(name='overdue_amount', example=''),
+  // 下一期应还金额
+  nextPeriodAmount?: long(name='next_period_amount', example=''),
+  // 下一期还款时间yyyy-MM-dd
+  nextPeriodRepayTime?: string(name='next_period_repay_time', example='yyyy-MM-dd'),
+  // 下次可授信时间yyyy-MM-dd
+  nextApplyTime?: string(name='next_apply_time', example='yyyy-MM-dd'),
+  // 优惠券列表
+  couponList?: [ CouponInfo ](name='coupon_list', example=''),
+}
+
 // 场景决策列表
 model SceneInfos {
   // 决策结果
@@ -694,6 +800,14 @@ model RtopRiskStormCompanyAnnualReport {
   annualReportTotalTax?: string(name='annual_report_total_tax', example='1000'),
   // 年报报送年度
   annualReportYear?: string(name='annual_report_year', example='2018'),
+}
+
+// 信护盾产品查询信息
+model QueryInfo {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
 }
 
 // 营销盾场景策略上传结果
@@ -1109,6 +1223,14 @@ model ModelDetails {
   score: string(name='score', example='90'),
 }
 
+// 资金方信息
+model GwFundRouterResult {
+  // 资金方代码
+  fundCode: string(name='fund_code', example='D2024082100001'),
+  // 资金方简称
+  abbreFundName: string(name='abbre_fund_name', example='杭银消金'),
+}
+
 // 标签过滤配置
 model RiskLabelFilterConfigInfo {
   // 创建时间
@@ -1475,6 +1597,14 @@ model CustomerBankCardInfo {
   acctBankCard?: string(name='acct_bank_card', example='Y/N'),
 }
 
+// 查询结果
+model QueryResult {
+  // key
+  key?: string(name='key', example='key'),
+  // value
+  value?: string(name='value', example='value'),
+}
+
 // 逾期信息查询响应
 model OverdueInfoResponse {
   // 逾期标识
@@ -1834,6 +1964,14 @@ model RtopCrowdRiskFeatureResp {
   featureName: string(name='feature_name', example='工商风险维度'),
   // 特征​分数
   score: integer(name='score', example='10'),
+}
+
+// 离线圈客计划详细
+model OfflineDecisionPlanDetail {
+  // 圈客计划ID
+  decisionPlanId: string(name='decision_plan_id', example='1032'),
+  // 离线圈客执行任务状态
+  decisionResultStatus: string(name='decision_result_status', example='ECN'),
 }
 
 // 用户分层信息
@@ -2364,6 +2502,95 @@ async function queryBatchSecurityPolicy(request: QueryBatchSecurityPolicyRequest
 async function queryBatchSecurityPolicyEx(request: QueryBatchSecurityPolicyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBatchSecurityPolicyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.batch.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryFhtestFhRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 名称
+  name: string(name='name'),
+  // 年龄
+  age: long(name='age'),
+  // 判断字段
+  judge?: boolean(name='judge'),
+}
+
+model QueryFhtestFhResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+  // 字符串数组
+  queryResults?: [ string ](name='query_results'),
+}
+
+/**
+ * Description: 峰禾API测试
+ * Summary: 峰禾API测试
+ */
+async function queryFhtestFh(request: QueryFhtestFhRequest): QueryFhtestFhResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryFhtestFhEx(request, headers, runtime);
+}
+
+/**
+ * Description: 峰禾API测试
+ * Summary: 峰禾API测试
+ */
+async function queryFhtestFhEx(request: QueryFhtestFhRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFhtestFhResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.fhtest.fh.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCreditshieldProductBatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询类型：
+  // 1.还款概率评估
+  // 2.经济波动检测
+  // 3.触达前筛
+  queryType: long(name='query_type'),
+  // 查询信息集合
+  queryInfos: [ QueryInfo ](name='query_infos'),
+}
+
+model QueryCreditshieldProductBatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果是否成功
+  success?: boolean(name='success'),
+  // 查询结果
+  queryResults?: [ QueryResult ](name='query_results'),
+}
+
+/**
+ * Description: 信护盾产品批量查询
+ * Summary: 信护盾产品批量查询
+ */
+async function queryCreditshieldProductBatch(request: QueryCreditshieldProductBatchRequest): QueryCreditshieldProductBatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCreditshieldProductBatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 信护盾产品批量查询
+ * Summary: 信护盾产品批量查询
+ */
+async function queryCreditshieldProductBatchEx(request: QueryCreditshieldProductBatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCreditshieldProductBatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.creditshield.product.batch.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryDubheTestRequest = {
@@ -3369,6 +3596,8 @@ model QueryDubbridgeRouterFundrouterResponse = {
   abbreFundName?: string(name='abbre_fund_name'),
   // 客户编号
   customerNo?: string(name='customer_no'),
+  // 资金方列表
+  fundList?: [ GwFundRouterResult ](name='fund_list'),
 }
 
 /**
@@ -3426,6 +3655,8 @@ model ApplyDubbridgeCreditRequest = {
   channelType?: string(name='channel_type'),
   // 客户类型
   customType?: string(name='custom_type'),
+  // 资金方代码
+  fundCode?: string(name='fund_code'),
 }
 
 model ApplyDubbridgeCreditResponse = {
@@ -3520,6 +3751,7 @@ async function uploadDubbridgeFileEx(request: UploadDubbridgeFileRequest, header
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.dubbridge.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -3545,6 +3777,8 @@ model BindDubbridgeCustomerBankcardRequest = {
   cardNo?: string(name='card_no'),
   // 手机号
   mobile?: string(name='mobile'),
+  // 银行名称
+  bankName?: string(name='bank_name'),
 }
 
 model BindDubbridgeCustomerBankcardResponse = {
@@ -5388,6 +5622,48 @@ async function queryDubbridgeAccountUsecreditEx(request: QueryDubbridgeAccountUs
   return doRequest('1.0' ,'riskplus.dubbridge.account.usecredit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryDubbridgeUserAggregationinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 资产方用户唯一标识
+  openId?: string(name='open_id'),
+  // 客户编码
+  customNo?: string(name='custom_no'),
+}
+
+model QueryDubbridgeUserAggregationinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户聚合状态信息
+  userAggregationInfo?: UserAggregationInfo(name='user_aggregation_info'),
+}
+
+/**
+ * Description: 天枢用户聚合状态查询接口
+ * Summary: 天枢用户聚合状态查询接口
+ */
+async function queryDubbridgeUserAggregationinfo(request: QueryDubbridgeUserAggregationinfoRequest): QueryDubbridgeUserAggregationinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeUserAggregationinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢用户聚合状态查询接口
+ * Summary: 天枢用户聚合状态查询接口
+ */
+async function queryDubbridgeUserAggregationinfoEx(request: QueryDubbridgeUserAggregationinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeUserAggregationinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.user.aggregationinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model VerifyFinserviceZhimaIdentifyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -5562,6 +5838,7 @@ async function receiveMdipParamsFileEx(request: ReceiveMdipParamsFileRequest, he
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.mdip.params.file.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -5623,6 +5900,7 @@ async function receiveMdipParamsRbbfileEx(request: ReceiveMdipParamsRbbfileReque
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -7493,6 +7771,7 @@ async function uploadRbbFileAmapEx(request: UploadRbbFileAmapRequest, headers: m
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.file.amap.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -9497,6 +9776,7 @@ async function uploadUmktParamsFileEx(request: UploadUmktParamsFileRequest, head
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.params.file.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -11272,6 +11552,7 @@ async function uploadUmktOfflinedecisionEx(request: UploadUmktOfflinedecisionReq
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.offlinedecision.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -11361,6 +11642,48 @@ async function downloadUmktOfflinedecisionResult(request: DownloadUmktOfflinedec
 async function downloadUmktOfflinedecisionResultEx(request: DownloadUmktOfflinedecisionResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadUmktOfflinedecisionResultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.offlinedecision.result.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUmktOfflinedecisionPlandetailsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 离线圈客配置的ID
+  offlineDecisionPlanId: long(name='offline_decision_plan_id'),
+  // 执行日期
+  resultDate: string(name='result_date'),
+}
+
+model QueryUmktOfflinedecisionPlandetailsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 离线圈客关联计划的个数
+  offlineDecisionPlanCount?: long(name='offline_decision_plan_count'),
+  // 离线圈客计划详细
+  planDetailList?: [ OfflineDecisionPlanDetail ](name='plan_detail_list'),
+}
+
+/**
+ * Description: 包含离线圈客关联计划和任务状态详情
+ * Summary: 营销盾离线圈客计划执行详情
+ */
+async function queryUmktOfflinedecisionPlandetails(request: QueryUmktOfflinedecisionPlandetailsRequest): QueryUmktOfflinedecisionPlandetailsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUmktOfflinedecisionPlandetailsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 包含离线圈客关联计划和任务状态详情
+ * Summary: 营销盾离线圈客计划执行详情
+ */
+async function queryUmktOfflinedecisionPlandetailsEx(request: QueryUmktOfflinedecisionPlandetailsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktOfflinedecisionPlandetailsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.offlinedecision.plandetails.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
