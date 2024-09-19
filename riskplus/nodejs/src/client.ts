@@ -405,6 +405,133 @@ export class DecisionFlow extends $tea.Model {
   }
 }
 
+// 优惠券信息
+export class CouponInfo extends $tea.Model {
+  // 优惠券Id
+  couponId: string;
+  // 优惠券名称
+  couponName: string;
+  // 优惠券状态
+  // 0-未使用
+  // 2-已使用
+  // 3-已失效
+  couponStatus: string;
+  // 使用场景
+  // 01-提款使用
+  // 02-还款使用
+  useScene: string;
+  // 优惠码
+  couponCode?: string;
+  // 优惠券类型
+  // 01-金额优惠
+  // 02-天数优惠
+  // 03-折扣优惠
+  // 04-期数优惠
+  // 05-固定利率
+  couponType?: string;
+  // 优惠券面额
+  // coupon_type=01 时为优惠金额
+  // coupon_type=02 时为减免天数
+  // coupon_type=03 时为折扣值（如6 折）
+  // coupon_type=04 时为减免期数
+  // coupon_type=05 时为折扣值（如 8.88 为利率8.88%）
+  couponValue?: string;
+  // 当 coupon_type=01 时，才会有优惠金额
+  couponAmount?: string;
+  // 过期时间yyyy-MM-dd HH:mm:ss
+  expiredTime?: string;
+  // 生效时间yyyy-MM-dd HH:mm:ss
+  effectiveTime?: string;
+  // 使用规则
+  useDetail?: string;
+  // 贷款最低金额
+  minAmount?: string;
+  // 贷款最高金额
+  maxAmount?: string;
+  // 最低贷款期数
+  minPeriod?: string;
+  // 最高贷款期数
+  maxPeriod?: string;
+  // 贷款最低期限天数
+  minDay?: string;
+  // 还款方式
+  // 1-等额本息
+  // 2-等额本金
+  // 3-等本等费
+  // 4-按期付息到期还本
+  // 5-到期一次性还本付息
+  // 6-等本等费-总费率
+  // 7-等额本息(长期)
+  repaymentMethod?: string;
+  // 是否有贷款期数要求
+  // 0：否
+  // 1：是
+  isPeriodLimit?: string;
+  // 贷款期限要求还款条件
+  // 01：可提前还款
+  // 02：不可提前还款
+  // isPeriodLimit=1 && repayCondition=01 代表：有可提前还款锁期
+  // isPeriodLimit=1 && repayCondition=02 代表：有不可提前还款锁期
+  repayCondition?: string;
+  // 还款场景
+  // 01-到期还款
+  // 02-即期还款
+  repayWays?: string;
+  static names(): { [key: string]: string } {
+    return {
+      couponId: 'coupon_id',
+      couponName: 'coupon_name',
+      couponStatus: 'coupon_status',
+      useScene: 'use_scene',
+      couponCode: 'coupon_code',
+      couponType: 'coupon_type',
+      couponValue: 'coupon_value',
+      couponAmount: 'coupon_amount',
+      expiredTime: 'expired_time',
+      effectiveTime: 'effective_time',
+      useDetail: 'use_detail',
+      minAmount: 'min_amount',
+      maxAmount: 'max_amount',
+      minPeriod: 'min_period',
+      maxPeriod: 'max_period',
+      minDay: 'min_day',
+      repaymentMethod: 'repayment_method',
+      isPeriodLimit: 'is_period_limit',
+      repayCondition: 'repay_condition',
+      repayWays: 'repay_ways',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      couponId: 'string',
+      couponName: 'string',
+      couponStatus: 'string',
+      useScene: 'string',
+      couponCode: 'string',
+      couponType: 'string',
+      couponValue: 'string',
+      couponAmount: 'string',
+      expiredTime: 'string',
+      effectiveTime: 'string',
+      useDetail: 'string',
+      minAmount: 'string',
+      maxAmount: 'string',
+      minPeriod: 'string',
+      maxPeriod: 'string',
+      minDay: 'string',
+      repaymentMethod: 'string',
+      isPeriodLimit: 'string',
+      repayCondition: 'string',
+      repayWays: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 用户的混合策略圈客结果
 export class UmktInfoModel extends $tea.Model {
   // 场景策略id
@@ -1042,6 +1169,69 @@ export class SecurityDataQueryStruct extends $tea.Model {
   }
 }
 
+// 天枢用户聚合状态信息
+export class UserAggregationInfo extends $tea.Model {
+  // 状态
+  // 0: 未授信
+  // 1: 授信中
+  // 2: 已授信未支用
+  // 3: 支用中
+  // 4: 已支用
+  // 5: 借据逾期
+  // 6: 授信过期
+  // 7: 授信冻结
+  // 8: 可重新授信
+  // 9: 授信拒绝
+  status: string;
+  // 总额度
+  creditAmount?: number;
+  // 可用额度
+  availableAmount?: number;
+  // 待还总金额
+  shouldPayAmount?: number;
+  // 逾期总金额
+  overdueAmount?: number;
+  // 下一期应还金额
+  nextPeriodAmount?: number;
+  // 下一期还款时间yyyy-MM-dd
+  nextPeriodRepayTime?: string;
+  // 下次可授信时间yyyy-MM-dd
+  nextApplyTime?: string;
+  // 优惠券列表
+  couponList?: CouponInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      status: 'status',
+      creditAmount: 'credit_amount',
+      availableAmount: 'available_amount',
+      shouldPayAmount: 'should_pay_amount',
+      overdueAmount: 'overdue_amount',
+      nextPeriodAmount: 'next_period_amount',
+      nextPeriodRepayTime: 'next_period_repay_time',
+      nextApplyTime: 'next_apply_time',
+      couponList: 'coupon_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      status: 'string',
+      creditAmount: 'number',
+      availableAmount: 'number',
+      shouldPayAmount: 'number',
+      overdueAmount: 'number',
+      nextPeriodAmount: 'number',
+      nextPeriodRepayTime: 'string',
+      nextApplyTime: 'string',
+      couponList: { 'type': 'array', 'itemType': CouponInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 场景决策列表
 export class SceneInfos extends $tea.Model {
   // 决策结果
@@ -1453,6 +1643,31 @@ export class RtopRiskStormCompanyAnnualReport extends $tea.Model {
       annualReportTotalProfit: 'string',
       annualReportTotalTax: 'string',
       annualReportYear: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 信护盾产品查询信息
+export class QueryInfo extends $tea.Model {
+  // key
+  key?: string;
+  // value
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
     };
   }
 
@@ -2462,6 +2677,31 @@ export class ModelDetails extends $tea.Model {
   }
 }
 
+// 资金方信息
+export class GwFundRouterResult extends $tea.Model {
+  // 资金方代码
+  fundCode: string;
+  // 资金方简称
+  abbreFundName: string;
+  static names(): { [key: string]: string } {
+    return {
+      fundCode: 'fund_code',
+      abbreFundName: 'abbre_fund_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fundCode: 'string',
+      abbreFundName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 标签过滤配置
 export class RiskLabelFilterConfigInfo extends $tea.Model {
   // 创建时间
@@ -3363,6 +3603,31 @@ export class CustomerBankCardInfo extends $tea.Model {
   }
 }
 
+// 查询结果
+export class QueryResult extends $tea.Model {
+  // key
+  key?: string;
+  // value
+  value?: string;
+  static names(): { [key: string]: string } {
+    return {
+      key: 'key',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      key: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 逾期信息查询响应
 export class OverdueInfoResponse extends $tea.Model {
   // 逾期标识
@@ -4241,6 +4506,31 @@ export class RtopCrowdRiskFeatureResp extends $tea.Model {
       clueTags: { 'type': 'array', 'itemType': RtopCrowdRiskFeatureTag },
       featureName: 'string',
       score: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 离线圈客计划详细
+export class OfflineDecisionPlanDetail extends $tea.Model {
+  // 圈客计划ID
+  decisionPlanId: string;
+  // 离线圈客执行任务状态
+  decisionResultStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      decisionPlanId: 'decision_plan_id',
+      decisionResultStatus: 'decision_result_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      decisionPlanId: 'string',
+      decisionResultStatus: 'string',
     };
   }
 
@@ -5218,6 +5508,147 @@ export class QueryBatchSecurityPolicyResponse extends $tea.Model {
       resultMsg: 'string',
       success: 'boolean',
       queryResults: { 'type': 'array', 'itemType': BatchQueryResult },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFhtestFhRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 名称
+  name: string;
+  // 年龄
+  age: number;
+  // 判断字段
+  judge?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      name: 'name',
+      age: 'age',
+      judge: 'judge',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      name: 'string',
+      age: 'number',
+      judge: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFhtestFhResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功
+  success?: boolean;
+  // 字符串数组
+  queryResults?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      queryResults: 'query_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      queryResults: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCreditshieldProductBatchRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询类型：
+  // 1.还款概率评估
+  // 2.经济波动检测
+  // 3.触达前筛
+  queryType: number;
+  // 查询信息集合
+  queryInfos: QueryInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      queryType: 'query_type',
+      queryInfos: 'query_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      queryType: 'number',
+      queryInfos: { 'type': 'array', 'itemType': QueryInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCreditshieldProductBatchResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果是否成功
+  success?: boolean;
+  // 查询结果
+  queryResults?: QueryResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      queryResults: 'query_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      queryResults: { 'type': 'array', 'itemType': QueryResult },
     };
   }
 
@@ -6893,6 +7324,8 @@ export class QueryDubbridgeRouterFundrouterResponse extends $tea.Model {
   abbreFundName?: string;
   // 客户编号
   customerNo?: string;
+  // 资金方列表
+  fundList?: GwFundRouterResult[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6901,6 +7334,7 @@ export class QueryDubbridgeRouterFundrouterResponse extends $tea.Model {
       fundCode: 'fund_code',
       abbreFundName: 'abbre_fund_name',
       customerNo: 'customer_no',
+      fundList: 'fund_list',
     };
   }
 
@@ -6912,6 +7346,7 @@ export class QueryDubbridgeRouterFundrouterResponse extends $tea.Model {
       fundCode: 'string',
       abbreFundName: 'string',
       customerNo: 'string',
+      fundList: { 'type': 'array', 'itemType': GwFundRouterResult },
     };
   }
 
@@ -6956,6 +7391,8 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
   channelType?: string;
   // 客户类型
   customType?: string;
+  // 资金方代码
+  fundCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6976,6 +7413,7 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       clickId: 'click_id',
       channelType: 'channel_type',
       customType: 'custom_type',
+      fundCode: 'fund_code',
     };
   }
 
@@ -6999,6 +7437,7 @@ export class ApplyDubbridgeCreditRequest extends $tea.Model {
       clickId: 'string',
       channelType: 'string',
       customType: 'string',
+      fundCode: 'string',
     };
   }
 
@@ -7140,6 +7579,8 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
   cardNo?: string;
   // 手机号
   mobile?: string;
+  // 银行名称
+  bankName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -7152,6 +7593,7 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       openId: 'open_id',
       cardNo: 'card_no',
       mobile: 'mobile',
+      bankName: 'bank_name',
     };
   }
 
@@ -7167,6 +7609,7 @@ export class BindDubbridgeCustomerBankcardRequest extends $tea.Model {
       openId: 'string',
       cardNo: 'string',
       mobile: 'string',
+      bankName: 'string',
     };
   }
 
@@ -10194,6 +10637,73 @@ export class QueryDubbridgeAccountUsecreditResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: CustomReceiptStatus,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeUserAggregationinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单号
+  orderNo: string;
+  // 资产方用户唯一标识
+  openId?: string;
+  // 客户编码
+  customNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderNo: 'order_no',
+      openId: 'open_id',
+      customNo: 'custom_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderNo: 'string',
+      openId: 'string',
+      customNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeUserAggregationinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 用户聚合状态信息
+  userAggregationInfo?: UserAggregationInfo;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      userAggregationInfo: 'user_aggregation_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      userAggregationInfo: UserAggregationInfo,
     };
   }
 
@@ -19866,6 +20376,73 @@ export class DownloadUmktOfflinedecisionResultResponse extends $tea.Model {
   }
 }
 
+export class QueryUmktOfflinedecisionPlandetailsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 离线圈客配置的ID
+  offlineDecisionPlanId: number;
+  // 执行日期
+  resultDate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      offlineDecisionPlanId: 'offline_decision_plan_id',
+      resultDate: 'result_date',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      offlineDecisionPlanId: 'number',
+      resultDate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUmktOfflinedecisionPlandetailsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 离线圈客关联计划的个数
+  offlineDecisionPlanCount?: number;
+  // 离线圈客计划详细
+  planDetailList?: OfflineDecisionPlanDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      offlineDecisionPlanCount: 'offline_decision_plan_count',
+      planDetailList: 'plan_detail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      offlineDecisionPlanCount: 'number',
+      planDetailList: { 'type': 'array', 'itemType': OfflineDecisionPlanDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -20067,7 +20644,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.28",
+          sdk_version: "1.20.2",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -20284,6 +20861,44 @@ export default class Client {
   async queryBatchSecurityPolicyEx(request: QueryBatchSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBatchSecurityPolicyResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBatchSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.batch.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBatchSecurityPolicyResponse({}));
+  }
+
+  /**
+   * Description: 峰禾API测试
+   * Summary: 峰禾API测试
+   */
+  async queryFhtestFh(request: QueryFhtestFhRequest): Promise<QueryFhtestFhResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFhtestFhEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 峰禾API测试
+   * Summary: 峰禾API测试
+   */
+  async queryFhtestFhEx(request: QueryFhtestFhRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFhtestFhResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFhtestFhResponse>(await this.doRequest("1.0", "riskplus.fhtest.fh.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFhtestFhResponse({}));
+  }
+
+  /**
+   * Description: 信护盾产品批量查询
+   * Summary: 信护盾产品批量查询
+   */
+  async queryCreditshieldProductBatch(request: QueryCreditshieldProductBatchRequest): Promise<QueryCreditshieldProductBatchResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCreditshieldProductBatchEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 信护盾产品批量查询
+   * Summary: 信护盾产品批量查询
+   */
+  async queryCreditshieldProductBatchEx(request: QueryCreditshieldProductBatchRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCreditshieldProductBatchResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCreditshieldProductBatchResponse>(await this.doRequest("1.0", "riskplus.creditshield.product.batch.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCreditshieldProductBatchResponse({}));
   }
 
   /**
@@ -20719,6 +21334,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -21429,6 +22045,25 @@ export default class Client {
   }
 
   /**
+   * Description: 天枢用户聚合状态查询接口
+   * Summary: 天枢用户聚合状态查询接口
+   */
+  async queryDubbridgeUserAggregationinfo(request: QueryDubbridgeUserAggregationinfoRequest): Promise<QueryDubbridgeUserAggregationinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeUserAggregationinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢用户聚合状态查询接口
+   * Summary: 天枢用户聚合状态查询接口
+   */
+  async queryDubbridgeUserAggregationinfoEx(request: QueryDubbridgeUserAggregationinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeUserAggregationinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeUserAggregationinfoResponse>(await this.doRequest("1.0", "riskplus.dubbridge.user.aggregationinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeUserAggregationinfoResponse({}));
+  }
+
+  /**
    * Description: 四要素认证首先调用此接口
    * Summary: 芝麻四要素接口
    */
@@ -21519,6 +22154,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -21559,6 +22195,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -22321,6 +22958,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -23104,6 +23742,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -23811,6 +24450,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -23853,6 +24493,25 @@ export default class Client {
   async downloadUmktOfflinedecisionResultEx(request: DownloadUmktOfflinedecisionResultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DownloadUmktOfflinedecisionResultResponse> {
     Util.validateModel(request);
     return $tea.cast<DownloadUmktOfflinedecisionResultResponse>(await this.doRequest("1.0", "riskplus.umkt.offlinedecision.result.download", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DownloadUmktOfflinedecisionResultResponse({}));
+  }
+
+  /**
+   * Description: 包含离线圈客关联计划和任务状态详情
+   * Summary: 营销盾离线圈客计划执行详情
+   */
+  async queryUmktOfflinedecisionPlandetails(request: QueryUmktOfflinedecisionPlandetailsRequest): Promise<QueryUmktOfflinedecisionPlandetailsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUmktOfflinedecisionPlandetailsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 包含离线圈客关联计划和任务状态详情
+   * Summary: 营销盾离线圈客计划执行详情
+   */
+  async queryUmktOfflinedecisionPlandetailsEx(request: QueryUmktOfflinedecisionPlandetailsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktOfflinedecisionPlandetailsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUmktOfflinedecisionPlandetailsResponse>(await this.doRequest("1.0", "riskplus.umkt.offlinedecision.plandetails.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktOfflinedecisionPlandetailsResponse({}));
   }
 
   /**
