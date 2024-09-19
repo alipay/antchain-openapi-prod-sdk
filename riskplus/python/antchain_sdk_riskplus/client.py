@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.28',
+                    'sdk_version': '1.20.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.28',
+                    'sdk_version': '1.20.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -777,6 +777,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryBatchSecurityPolicyResponse(),
             await self.do_request_async('1.0', 'riskplus.batch.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_fhtest_fh(
+        self,
+        request: riskplus_models.QueryFhtestFhRequest,
+    ) -> riskplus_models.QueryFhtestFhResponse:
+        """
+        Description: 峰禾API测试
+        Summary: 峰禾API测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_fhtest_fh_ex(request, headers, runtime)
+
+    async def query_fhtest_fh_async(
+        self,
+        request: riskplus_models.QueryFhtestFhRequest,
+    ) -> riskplus_models.QueryFhtestFhResponse:
+        """
+        Description: 峰禾API测试
+        Summary: 峰禾API测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_fhtest_fh_ex_async(request, headers, runtime)
+
+    def query_fhtest_fh_ex(
+        self,
+        request: riskplus_models.QueryFhtestFhRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryFhtestFhResponse:
+        """
+        Description: 峰禾API测试
+        Summary: 峰禾API测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryFhtestFhResponse(),
+            self.do_request('1.0', 'riskplus.fhtest.fh.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_fhtest_fh_ex_async(
+        self,
+        request: riskplus_models.QueryFhtestFhRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryFhtestFhResponse:
+        """
+        Description: 峰禾API测试
+        Summary: 峰禾API测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryFhtestFhResponse(),
+            await self.do_request_async('1.0', 'riskplus.fhtest.fh.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_creditshield_product_batch(
+        self,
+        request: riskplus_models.QueryCreditshieldProductBatchRequest,
+    ) -> riskplus_models.QueryCreditshieldProductBatchResponse:
+        """
+        Description: 信护盾产品批量查询
+        Summary: 信护盾产品批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_creditshield_product_batch_ex(request, headers, runtime)
+
+    async def query_creditshield_product_batch_async(
+        self,
+        request: riskplus_models.QueryCreditshieldProductBatchRequest,
+    ) -> riskplus_models.QueryCreditshieldProductBatchResponse:
+        """
+        Description: 信护盾产品批量查询
+        Summary: 信护盾产品批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_creditshield_product_batch_ex_async(request, headers, runtime)
+
+    def query_creditshield_product_batch_ex(
+        self,
+        request: riskplus_models.QueryCreditshieldProductBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryCreditshieldProductBatchResponse:
+        """
+        Description: 信护盾产品批量查询
+        Summary: 信护盾产品批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryCreditshieldProductBatchResponse(),
+            self.do_request('1.0', 'riskplus.creditshield.product.batch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_creditshield_product_batch_ex_async(
+        self,
+        request: riskplus_models.QueryCreditshieldProductBatchRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryCreditshieldProductBatchResponse:
+        """
+        Description: 信护盾产品批量查询
+        Summary: 信护盾产品批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryCreditshieldProductBatchResponse(),
+            await self.do_request_async('1.0', 'riskplus.creditshield.product.batch.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_dubhe_test(
@@ -2006,6 +2118,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.UploadDubbridgeFileResponse(),
@@ -2039,6 +2152,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.UploadDubbridgeFileResponse(),
@@ -4117,6 +4231,62 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.account.usecredit.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubbridge_user_aggregationinfo(
+        self,
+        request: riskplus_models.QueryDubbridgeUserAggregationinfoRequest,
+    ) -> riskplus_models.QueryDubbridgeUserAggregationinfoResponse:
+        """
+        Description: 天枢用户聚合状态查询接口
+        Summary: 天枢用户聚合状态查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_user_aggregationinfo_ex(request, headers, runtime)
+
+    async def query_dubbridge_user_aggregationinfo_async(
+        self,
+        request: riskplus_models.QueryDubbridgeUserAggregationinfoRequest,
+    ) -> riskplus_models.QueryDubbridgeUserAggregationinfoResponse:
+        """
+        Description: 天枢用户聚合状态查询接口
+        Summary: 天枢用户聚合状态查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_user_aggregationinfo_ex_async(request, headers, runtime)
+
+    def query_dubbridge_user_aggregationinfo_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeUserAggregationinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeUserAggregationinfoResponse:
+        """
+        Description: 天枢用户聚合状态查询接口
+        Summary: 天枢用户聚合状态查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeUserAggregationinfoResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.user.aggregationinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_user_aggregationinfo_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeUserAggregationinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeUserAggregationinfoResponse:
+        """
+        Description: 天枢用户聚合状态查询接口
+        Summary: 天枢用户聚合状态查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeUserAggregationinfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.user.aggregationinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -4336,6 +4506,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.ReceiveMdipParamsFileResponse(),
@@ -4369,6 +4540,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.ReceiveMdipParamsFileResponse(),
@@ -4426,6 +4598,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.ReceiveMdipParamsRbbfileResponse(),
@@ -4459,6 +4632,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.ReceiveMdipParamsRbbfileResponse(),
@@ -6644,6 +6818,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.UploadRbbFileAmapResponse(),
@@ -6677,6 +6852,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.UploadRbbFileAmapResponse(),
@@ -8922,6 +9098,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.UploadUmktParamsFileResponse(),
@@ -8955,6 +9132,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.UploadUmktParamsFileResponse(),
@@ -10976,6 +11154,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.UploadUmktOfflinedecisionResponse(),
@@ -11009,6 +11188,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             riskplus_models.UploadUmktOfflinedecisionResponse(),
@@ -11125,6 +11305,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.DownloadUmktOfflinedecisionResultResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.offlinedecision.result.download', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_umkt_offlinedecision_plandetails(
+        self,
+        request: riskplus_models.QueryUmktOfflinedecisionPlandetailsRequest,
+    ) -> riskplus_models.QueryUmktOfflinedecisionPlandetailsResponse:
+        """
+        Description: 包含离线圈客关联计划和任务状态详情
+        Summary: 营销盾离线圈客计划执行详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_umkt_offlinedecision_plandetails_ex(request, headers, runtime)
+
+    async def query_umkt_offlinedecision_plandetails_async(
+        self,
+        request: riskplus_models.QueryUmktOfflinedecisionPlandetailsRequest,
+    ) -> riskplus_models.QueryUmktOfflinedecisionPlandetailsResponse:
+        """
+        Description: 包含离线圈客关联计划和任务状态详情
+        Summary: 营销盾离线圈客计划执行详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_umkt_offlinedecision_plandetails_ex_async(request, headers, runtime)
+
+    def query_umkt_offlinedecision_plandetails_ex(
+        self,
+        request: riskplus_models.QueryUmktOfflinedecisionPlandetailsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktOfflinedecisionPlandetailsResponse:
+        """
+        Description: 包含离线圈客关联计划和任务状态详情
+        Summary: 营销盾离线圈客计划执行详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktOfflinedecisionPlandetailsResponse(),
+            self.do_request('1.0', 'riskplus.umkt.offlinedecision.plandetails.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_umkt_offlinedecision_plandetails_ex_async(
+        self,
+        request: riskplus_models.QueryUmktOfflinedecisionPlandetailsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryUmktOfflinedecisionPlandetailsResponse:
+        """
+        Description: 包含离线圈客关联计划和任务状态详情
+        Summary: 营销盾离线圈客计划执行详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryUmktOfflinedecisionPlandetailsResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.offlinedecision.plandetails.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
