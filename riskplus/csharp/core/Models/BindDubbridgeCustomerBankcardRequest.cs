@@ -58,6 +58,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string Mobile { get; set; }
 
+        // 银行名称
+        [NameInMap("bank_name")]
+        [Validation(Required=false)]
+        public string BankName { get; set; }
+
     }
 
 }

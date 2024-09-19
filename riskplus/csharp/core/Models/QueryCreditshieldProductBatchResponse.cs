@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryDubbridgeRouterFundrouterResponse : TeaModel {
+    public class QueryCreditshieldProductBatchResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 资金方代码
-        [NameInMap("fund_code")]
+        // 查询结果是否成功
+        [NameInMap("success")]
         [Validation(Required=false)]
-        public string FundCode { get; set; }
+        public bool? Success { get; set; }
 
-        // 资金方简称
-        [NameInMap("abbre_fund_name")]
+        // 查询结果
+        [NameInMap("query_results")]
         [Validation(Required=false)]
-        public string AbbreFundName { get; set; }
-
-        // 客户编号
-        [NameInMap("customer_no")]
-        [Validation(Required=false)]
-        public string CustomerNo { get; set; }
-
-        // 资金方列表
-        [NameInMap("fund_list")]
-        [Validation(Required=false)]
-        public List<GwFundRouterResult> FundList { get; set; }
+        public List<QueryResult> QueryResults { get; set; }
 
     }
 

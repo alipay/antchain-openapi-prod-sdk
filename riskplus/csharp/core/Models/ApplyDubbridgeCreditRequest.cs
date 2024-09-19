@@ -98,6 +98,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string CustomType { get; set; }
 
+        // 资金方代码
+        [NameInMap("fund_code")]
+        [Validation(Required=false)]
+        public string FundCode { get; set; }
+
     }
 
 }

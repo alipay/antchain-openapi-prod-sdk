@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryDubbridgeRouterFundrouterResponse : TeaModel {
+    public class QueryUmktOfflinedecisionPlandetailsResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 资金方代码
-        [NameInMap("fund_code")]
+        // 离线圈客关联计划的个数
+        [NameInMap("offline_decision_plan_count")]
         [Validation(Required=false)]
-        public string FundCode { get; set; }
+        public long? OfflineDecisionPlanCount { get; set; }
 
-        // 资金方简称
-        [NameInMap("abbre_fund_name")]
+        // 离线圈客计划详细
+        [NameInMap("plan_detail_list")]
         [Validation(Required=false)]
-        public string AbbreFundName { get; set; }
-
-        // 客户编号
-        [NameInMap("customer_no")]
-        [Validation(Required=false)]
-        public string CustomerNo { get; set; }
-
-        // 资金方列表
-        [NameInMap("fund_list")]
-        [Validation(Required=false)]
-        public List<GwFundRouterResult> FundList { get; set; }
+        public List<OfflineDecisionPlanDetail> PlanDetailList { get; set; }
 
     }
 
