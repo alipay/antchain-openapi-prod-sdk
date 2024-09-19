@@ -503,6 +503,188 @@ func (s *DecisionFlow) SetInfoCodes(v *InfoCodes) *DecisionFlow {
 	return s
 }
 
+// 优惠券信息
+type CouponInfo struct {
+	// 优惠券Id
+	CouponId *string `json:"coupon_id,omitempty" xml:"coupon_id,omitempty" require:"true"`
+	// 优惠券名称
+	CouponName *string `json:"coupon_name,omitempty" xml:"coupon_name,omitempty" require:"true"`
+	// 优惠券状态
+	// 0-未使用
+	// 2-已使用
+	// 3-已失效
+	CouponStatus *string `json:"coupon_status,omitempty" xml:"coupon_status,omitempty" require:"true"`
+	// 使用场景
+	// 01-提款使用
+	// 02-还款使用
+	UseScene *string `json:"use_scene,omitempty" xml:"use_scene,omitempty" require:"true"`
+	// 优惠码
+	CouponCode *string `json:"coupon_code,omitempty" xml:"coupon_code,omitempty"`
+	// 优惠券类型
+	// 01-金额优惠
+	// 02-天数优惠
+	// 03-折扣优惠
+	// 04-期数优惠
+	// 05-固定利率
+	CouponType *string `json:"coupon_type,omitempty" xml:"coupon_type,omitempty"`
+	// 优惠券面额
+	// coupon_type=01 时为优惠金额
+	// coupon_type=02 时为减免天数
+	// coupon_type=03 时为折扣值（如6 折）
+	// coupon_type=04 时为减免期数
+	// coupon_type=05 时为折扣值（如 8.88 为利率8.88%）
+	CouponValue *string `json:"coupon_value,omitempty" xml:"coupon_value,omitempty"`
+	// 当 coupon_type=01 时，才会有优惠金额
+	CouponAmount *string `json:"coupon_amount,omitempty" xml:"coupon_amount,omitempty"`
+	// 过期时间yyyy-MM-dd HH:mm:ss
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty"`
+	// 生效时间yyyy-MM-dd HH:mm:ss
+	EffectiveTime *string `json:"effective_time,omitempty" xml:"effective_time,omitempty"`
+	// 使用规则
+	UseDetail *string `json:"use_detail,omitempty" xml:"use_detail,omitempty"`
+	// 贷款最低金额
+	MinAmount *string `json:"min_amount,omitempty" xml:"min_amount,omitempty"`
+	// 贷款最高金额
+	MaxAmount *string `json:"max_amount,omitempty" xml:"max_amount,omitempty"`
+	// 最低贷款期数
+	MinPeriod *string `json:"min_period,omitempty" xml:"min_period,omitempty"`
+	// 最高贷款期数
+	MaxPeriod *string `json:"max_period,omitempty" xml:"max_period,omitempty"`
+	// 贷款最低期限天数
+	MinDay *string `json:"min_day,omitempty" xml:"min_day,omitempty"`
+	// 还款方式
+	// 1-等额本息
+	// 2-等额本金
+	// 3-等本等费
+	// 4-按期付息到期还本
+	// 5-到期一次性还本付息
+	// 6-等本等费-总费率
+	// 7-等额本息(长期)
+	RepaymentMethod *string `json:"repayment_method,omitempty" xml:"repayment_method,omitempty"`
+	// 是否有贷款期数要求
+	// 0：否
+	// 1：是
+	IsPeriodLimit *string `json:"is_period_limit,omitempty" xml:"is_period_limit,omitempty"`
+	// 贷款期限要求还款条件
+	// 01：可提前还款
+	// 02：不可提前还款
+	// isPeriodLimit=1 && repayCondition=01 代表：有可提前还款锁期
+	// isPeriodLimit=1 && repayCondition=02 代表：有不可提前还款锁期
+	RepayCondition *string `json:"repay_condition,omitempty" xml:"repay_condition,omitempty"`
+	// 还款场景
+	// 01-到期还款
+	// 02-即期还款
+	RepayWays *string `json:"repay_ways,omitempty" xml:"repay_ways,omitempty"`
+}
+
+func (s CouponInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CouponInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CouponInfo) SetCouponId(v string) *CouponInfo {
+	s.CouponId = &v
+	return s
+}
+
+func (s *CouponInfo) SetCouponName(v string) *CouponInfo {
+	s.CouponName = &v
+	return s
+}
+
+func (s *CouponInfo) SetCouponStatus(v string) *CouponInfo {
+	s.CouponStatus = &v
+	return s
+}
+
+func (s *CouponInfo) SetUseScene(v string) *CouponInfo {
+	s.UseScene = &v
+	return s
+}
+
+func (s *CouponInfo) SetCouponCode(v string) *CouponInfo {
+	s.CouponCode = &v
+	return s
+}
+
+func (s *CouponInfo) SetCouponType(v string) *CouponInfo {
+	s.CouponType = &v
+	return s
+}
+
+func (s *CouponInfo) SetCouponValue(v string) *CouponInfo {
+	s.CouponValue = &v
+	return s
+}
+
+func (s *CouponInfo) SetCouponAmount(v string) *CouponInfo {
+	s.CouponAmount = &v
+	return s
+}
+
+func (s *CouponInfo) SetExpiredTime(v string) *CouponInfo {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CouponInfo) SetEffectiveTime(v string) *CouponInfo {
+	s.EffectiveTime = &v
+	return s
+}
+
+func (s *CouponInfo) SetUseDetail(v string) *CouponInfo {
+	s.UseDetail = &v
+	return s
+}
+
+func (s *CouponInfo) SetMinAmount(v string) *CouponInfo {
+	s.MinAmount = &v
+	return s
+}
+
+func (s *CouponInfo) SetMaxAmount(v string) *CouponInfo {
+	s.MaxAmount = &v
+	return s
+}
+
+func (s *CouponInfo) SetMinPeriod(v string) *CouponInfo {
+	s.MinPeriod = &v
+	return s
+}
+
+func (s *CouponInfo) SetMaxPeriod(v string) *CouponInfo {
+	s.MaxPeriod = &v
+	return s
+}
+
+func (s *CouponInfo) SetMinDay(v string) *CouponInfo {
+	s.MinDay = &v
+	return s
+}
+
+func (s *CouponInfo) SetRepaymentMethod(v string) *CouponInfo {
+	s.RepaymentMethod = &v
+	return s
+}
+
+func (s *CouponInfo) SetIsPeriodLimit(v string) *CouponInfo {
+	s.IsPeriodLimit = &v
+	return s
+}
+
+func (s *CouponInfo) SetRepayCondition(v string) *CouponInfo {
+	s.RepayCondition = &v
+	return s
+}
+
+func (s *CouponInfo) SetRepayWays(v string) *CouponInfo {
+	s.RepayWays = &v
+	return s
+}
+
 // 用户的混合策略圈客结果
 type UmktInfoModel struct {
 	// 场景策略id
@@ -1333,6 +1515,91 @@ func (s *SecurityDataQueryStruct) SetVersion(v string) *SecurityDataQueryStruct 
 	return s
 }
 
+// 天枢用户聚合状态信息
+type UserAggregationInfo struct {
+	// 状态
+	// 0: 未授信
+	// 1: 授信中
+	// 2: 已授信未支用
+	// 3: 支用中
+	// 4: 已支用
+	// 5: 借据逾期
+	// 6: 授信过期
+	// 7: 授信冻结
+	// 8: 可重新授信
+	// 9: 授信拒绝
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 总额度
+	CreditAmount *int64 `json:"credit_amount,omitempty" xml:"credit_amount,omitempty"`
+	// 可用额度
+	AvailableAmount *int64 `json:"available_amount,omitempty" xml:"available_amount,omitempty"`
+	// 待还总金额
+	ShouldPayAmount *int64 `json:"should_pay_amount,omitempty" xml:"should_pay_amount,omitempty"`
+	// 逾期总金额
+	OverdueAmount *int64 `json:"overdue_amount,omitempty" xml:"overdue_amount,omitempty"`
+	// 下一期应还金额
+	NextPeriodAmount *int64 `json:"next_period_amount,omitempty" xml:"next_period_amount,omitempty"`
+	// 下一期还款时间yyyy-MM-dd
+	NextPeriodRepayTime *string `json:"next_period_repay_time,omitempty" xml:"next_period_repay_time,omitempty"`
+	// 下次可授信时间yyyy-MM-dd
+	NextApplyTime *string `json:"next_apply_time,omitempty" xml:"next_apply_time,omitempty"`
+	// 优惠券列表
+	CouponList []*CouponInfo `json:"coupon_list,omitempty" xml:"coupon_list,omitempty" type:"Repeated"`
+}
+
+func (s UserAggregationInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UserAggregationInfo) GoString() string {
+	return s.String()
+}
+
+func (s *UserAggregationInfo) SetStatus(v string) *UserAggregationInfo {
+	s.Status = &v
+	return s
+}
+
+func (s *UserAggregationInfo) SetCreditAmount(v int64) *UserAggregationInfo {
+	s.CreditAmount = &v
+	return s
+}
+
+func (s *UserAggregationInfo) SetAvailableAmount(v int64) *UserAggregationInfo {
+	s.AvailableAmount = &v
+	return s
+}
+
+func (s *UserAggregationInfo) SetShouldPayAmount(v int64) *UserAggregationInfo {
+	s.ShouldPayAmount = &v
+	return s
+}
+
+func (s *UserAggregationInfo) SetOverdueAmount(v int64) *UserAggregationInfo {
+	s.OverdueAmount = &v
+	return s
+}
+
+func (s *UserAggregationInfo) SetNextPeriodAmount(v int64) *UserAggregationInfo {
+	s.NextPeriodAmount = &v
+	return s
+}
+
+func (s *UserAggregationInfo) SetNextPeriodRepayTime(v string) *UserAggregationInfo {
+	s.NextPeriodRepayTime = &v
+	return s
+}
+
+func (s *UserAggregationInfo) SetNextApplyTime(v string) *UserAggregationInfo {
+	s.NextApplyTime = &v
+	return s
+}
+
+func (s *UserAggregationInfo) SetCouponList(v []*CouponInfo) *UserAggregationInfo {
+	s.CouponList = v
+	return s
+}
+
 // 场景决策列表
 type SceneInfos struct {
 	// 决策结果
@@ -1919,6 +2186,32 @@ func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportTotalTax(v string) *Rt
 
 func (s *RtopRiskStormCompanyAnnualReport) SetAnnualReportYear(v string) *RtopRiskStormCompanyAnnualReport {
 	s.AnnualReportYear = &v
+	return s
+}
+
+// 信护盾产品查询信息
+type QueryInfo struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s QueryInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryInfo) GoString() string {
+	return s.String()
+}
+
+func (s *QueryInfo) SetKey(v string) *QueryInfo {
+	s.Key = &v
+	return s
+}
+
+func (s *QueryInfo) SetValue(v string) *QueryInfo {
+	s.Value = &v
 	return s
 }
 
@@ -3315,6 +3608,32 @@ func (s *ModelDetails) SetScore(v string) *ModelDetails {
 	return s
 }
 
+// 资金方信息
+type GwFundRouterResult struct {
+	// 资金方代码
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty" require:"true"`
+	// 资金方简称
+	AbbreFundName *string `json:"abbre_fund_name,omitempty" xml:"abbre_fund_name,omitempty" require:"true"`
+}
+
+func (s GwFundRouterResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GwFundRouterResult) GoString() string {
+	return s.String()
+}
+
+func (s *GwFundRouterResult) SetFundCode(v string) *GwFundRouterResult {
+	s.FundCode = &v
+	return s
+}
+
+func (s *GwFundRouterResult) SetAbbreFundName(v string) *GwFundRouterResult {
+	s.AbbreFundName = &v
+	return s
+}
+
 // 标签过滤配置
 type RiskLabelFilterConfigInfo struct {
 	// 创建时间
@@ -4553,6 +4872,32 @@ func (s *CustomerBankCardInfo) SetAcctBankCard(v string) *CustomerBankCardInfo {
 	return s
 }
 
+// 查询结果
+type QueryResult struct {
+	// key
+	Key *string `json:"key,omitempty" xml:"key,omitempty"`
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty"`
+}
+
+func (s QueryResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryResult) GoString() string {
+	return s.String()
+}
+
+func (s *QueryResult) SetKey(v string) *QueryResult {
+	s.Key = &v
+	return s
+}
+
+func (s *QueryResult) SetValue(v string) *QueryResult {
+	s.Value = &v
+	return s
+}
+
 // 逾期信息查询响应
 type OverdueInfoResponse struct {
 	// 逾期标识
@@ -5758,6 +6103,32 @@ func (s *RtopCrowdRiskFeatureResp) SetFeatureName(v string) *RtopCrowdRiskFeatur
 
 func (s *RtopCrowdRiskFeatureResp) SetScore(v int) *RtopCrowdRiskFeatureResp {
 	s.Score = &v
+	return s
+}
+
+// 离线圈客计划详细
+type OfflineDecisionPlanDetail struct {
+	// 圈客计划ID
+	DecisionPlanId *string `json:"decision_plan_id,omitempty" xml:"decision_plan_id,omitempty" require:"true"`
+	// 离线圈客执行任务状态
+	DecisionResultStatus *string `json:"decision_result_status,omitempty" xml:"decision_result_status,omitempty" require:"true"`
+}
+
+func (s OfflineDecisionPlanDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OfflineDecisionPlanDetail) GoString() string {
+	return s.String()
+}
+
+func (s *OfflineDecisionPlanDetail) SetDecisionPlanId(v string) *OfflineDecisionPlanDetail {
+	s.DecisionPlanId = &v
+	return s
+}
+
+func (s *OfflineDecisionPlanDetail) SetDecisionResultStatus(v string) *OfflineDecisionPlanDetail {
+	s.DecisionResultStatus = &v
 	return s
 }
 
@@ -7024,6 +7395,184 @@ func (s *QueryBatchSecurityPolicyResponse) SetSuccess(v bool) *QueryBatchSecurit
 }
 
 func (s *QueryBatchSecurityPolicyResponse) SetQueryResults(v []*BatchQueryResult) *QueryBatchSecurityPolicyResponse {
+	s.QueryResults = v
+	return s
+}
+
+type QueryFhtestFhRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 年龄
+	Age *int64 `json:"age,omitempty" xml:"age,omitempty" require:"true"`
+	// 判断字段
+	Judge *bool `json:"judge,omitempty" xml:"judge,omitempty"`
+}
+
+func (s QueryFhtestFhRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFhtestFhRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFhtestFhRequest) SetAuthToken(v string) *QueryFhtestFhRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryFhtestFhRequest) SetProductInstanceId(v string) *QueryFhtestFhRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryFhtestFhRequest) SetName(v string) *QueryFhtestFhRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *QueryFhtestFhRequest) SetAge(v int64) *QueryFhtestFhRequest {
+	s.Age = &v
+	return s
+}
+
+func (s *QueryFhtestFhRequest) SetJudge(v bool) *QueryFhtestFhRequest {
+	s.Judge = &v
+	return s
+}
+
+type QueryFhtestFhResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 字符串数组
+	QueryResults []*string `json:"query_results,omitempty" xml:"query_results,omitempty" type:"Repeated"`
+}
+
+func (s QueryFhtestFhResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryFhtestFhResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryFhtestFhResponse) SetReqMsgId(v string) *QueryFhtestFhResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryFhtestFhResponse) SetResultCode(v string) *QueryFhtestFhResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryFhtestFhResponse) SetResultMsg(v string) *QueryFhtestFhResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryFhtestFhResponse) SetSuccess(v bool) *QueryFhtestFhResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryFhtestFhResponse) SetQueryResults(v []*string) *QueryFhtestFhResponse {
+	s.QueryResults = v
+	return s
+}
+
+type QueryCreditshieldProductBatchRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询类型：
+	// 1.还款概率评估
+	// 2.经济波动检测
+	// 3.触达前筛
+	QueryType *int64 `json:"query_type,omitempty" xml:"query_type,omitempty" require:"true"`
+	// 查询信息集合
+	QueryInfos []*QueryInfo `json:"query_infos,omitempty" xml:"query_infos,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s QueryCreditshieldProductBatchRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCreditshieldProductBatchRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCreditshieldProductBatchRequest) SetAuthToken(v string) *QueryCreditshieldProductBatchRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductBatchRequest) SetProductInstanceId(v string) *QueryCreditshieldProductBatchRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductBatchRequest) SetQueryType(v int64) *QueryCreditshieldProductBatchRequest {
+	s.QueryType = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductBatchRequest) SetQueryInfos(v []*QueryInfo) *QueryCreditshieldProductBatchRequest {
+	s.QueryInfos = v
+	return s
+}
+
+type QueryCreditshieldProductBatchResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询结果是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 查询结果
+	QueryResults []*QueryResult `json:"query_results,omitempty" xml:"query_results,omitempty" type:"Repeated"`
+}
+
+func (s QueryCreditshieldProductBatchResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCreditshieldProductBatchResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCreditshieldProductBatchResponse) SetReqMsgId(v string) *QueryCreditshieldProductBatchResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductBatchResponse) SetResultCode(v string) *QueryCreditshieldProductBatchResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductBatchResponse) SetResultMsg(v string) *QueryCreditshieldProductBatchResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductBatchResponse) SetSuccess(v bool) *QueryCreditshieldProductBatchResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *QueryCreditshieldProductBatchResponse) SetQueryResults(v []*QueryResult) *QueryCreditshieldProductBatchResponse {
 	s.QueryResults = v
 	return s
 }
@@ -9277,6 +9826,8 @@ type QueryDubbridgeRouterFundrouterResponse struct {
 	AbbreFundName *string `json:"abbre_fund_name,omitempty" xml:"abbre_fund_name,omitempty"`
 	// 客户编号
 	CustomerNo *string `json:"customer_no,omitempty" xml:"customer_no,omitempty"`
+	// 资金方列表
+	FundList []*GwFundRouterResult `json:"fund_list,omitempty" xml:"fund_list,omitempty" type:"Repeated"`
 }
 
 func (s QueryDubbridgeRouterFundrouterResponse) String() string {
@@ -9317,6 +9868,11 @@ func (s *QueryDubbridgeRouterFundrouterResponse) SetCustomerNo(v string) *QueryD
 	return s
 }
 
+func (s *QueryDubbridgeRouterFundrouterResponse) SetFundList(v []*GwFundRouterResult) *QueryDubbridgeRouterFundrouterResponse {
+	s.FundList = v
+	return s
+}
+
 type ApplyDubbridgeCreditRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -9353,6 +9909,8 @@ type ApplyDubbridgeCreditRequest struct {
 	ChannelType *string `json:"channel_type,omitempty" xml:"channel_type,omitempty"`
 	// 客户类型
 	CustomType *string `json:"custom_type,omitempty" xml:"custom_type,omitempty"`
+	// 资金方代码
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
 }
 
 func (s ApplyDubbridgeCreditRequest) String() string {
@@ -9450,6 +10008,11 @@ func (s *ApplyDubbridgeCreditRequest) SetChannelType(v string) *ApplyDubbridgeCr
 
 func (s *ApplyDubbridgeCreditRequest) SetCustomType(v string) *ApplyDubbridgeCreditRequest {
 	s.CustomType = &v
+	return s
+}
+
+func (s *ApplyDubbridgeCreditRequest) SetFundCode(v string) *ApplyDubbridgeCreditRequest {
+	s.FundCode = &v
 	return s
 }
 
@@ -9624,6 +10187,8 @@ type BindDubbridgeCustomerBankcardRequest struct {
 	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
 	// 手机号
 	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 银行名称
+	BankName *string `json:"bank_name,omitempty" xml:"bank_name,omitempty"`
 }
 
 func (s BindDubbridgeCustomerBankcardRequest) String() string {
@@ -9681,6 +10246,11 @@ func (s *BindDubbridgeCustomerBankcardRequest) SetCardNo(v string) *BindDubbridg
 
 func (s *BindDubbridgeCustomerBankcardRequest) SetMobile(v string) *BindDubbridgeCustomerBankcardRequest {
 	s.Mobile = &v
+	return s
+}
+
+func (s *BindDubbridgeCustomerBankcardRequest) SetBankName(v string) *BindDubbridgeCustomerBankcardRequest {
+	s.BankName = &v
 	return s
 }
 
@@ -13753,6 +14323,90 @@ func (s *QueryDubbridgeAccountUsecreditResponse) SetResultMsg(v string) *QueryDu
 
 func (s *QueryDubbridgeAccountUsecreditResponse) SetData(v *CustomReceiptStatus) *QueryDubbridgeAccountUsecreditResponse {
 	s.Data = v
+	return s
+}
+
+type QueryDubbridgeUserAggregationinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 资产方用户唯一标识
+	OpenId *string `json:"open_id,omitempty" xml:"open_id,omitempty"`
+	// 客户编码
+	CustomNo *string `json:"custom_no,omitempty" xml:"custom_no,omitempty"`
+}
+
+func (s QueryDubbridgeUserAggregationinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeUserAggregationinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeUserAggregationinfoRequest) SetAuthToken(v string) *QueryDubbridgeUserAggregationinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserAggregationinfoRequest) SetProductInstanceId(v string) *QueryDubbridgeUserAggregationinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserAggregationinfoRequest) SetOrderNo(v string) *QueryDubbridgeUserAggregationinfoRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserAggregationinfoRequest) SetOpenId(v string) *QueryDubbridgeUserAggregationinfoRequest {
+	s.OpenId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserAggregationinfoRequest) SetCustomNo(v string) *QueryDubbridgeUserAggregationinfoRequest {
+	s.CustomNo = &v
+	return s
+}
+
+type QueryDubbridgeUserAggregationinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 用户聚合状态信息
+	UserAggregationInfo *UserAggregationInfo `json:"user_aggregation_info,omitempty" xml:"user_aggregation_info,omitempty"`
+}
+
+func (s QueryDubbridgeUserAggregationinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDubbridgeUserAggregationinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDubbridgeUserAggregationinfoResponse) SetReqMsgId(v string) *QueryDubbridgeUserAggregationinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserAggregationinfoResponse) SetResultCode(v string) *QueryDubbridgeUserAggregationinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserAggregationinfoResponse) SetResultMsg(v string) *QueryDubbridgeUserAggregationinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDubbridgeUserAggregationinfoResponse) SetUserAggregationInfo(v *UserAggregationInfo) *QueryDubbridgeUserAggregationinfoResponse {
+	s.UserAggregationInfo = v
 	return s
 }
 
@@ -26611,6 +27265,90 @@ func (s *DownloadUmktOfflinedecisionResultResponse) SetFileUrl(v string) *Downlo
 	return s
 }
 
+type QueryUmktOfflinedecisionPlandetailsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 离线圈客配置的ID
+	OfflineDecisionPlanId *int64 `json:"offline_decision_plan_id,omitempty" xml:"offline_decision_plan_id,omitempty" require:"true"`
+	// 执行日期
+	ResultDate *string `json:"result_date,omitempty" xml:"result_date,omitempty" require:"true"`
+}
+
+func (s QueryUmktOfflinedecisionPlandetailsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktOfflinedecisionPlandetailsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsRequest) SetAuthToken(v string) *QueryUmktOfflinedecisionPlandetailsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsRequest) SetProductInstanceId(v string) *QueryUmktOfflinedecisionPlandetailsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsRequest) SetOfflineDecisionPlanId(v int64) *QueryUmktOfflinedecisionPlandetailsRequest {
+	s.OfflineDecisionPlanId = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsRequest) SetResultDate(v string) *QueryUmktOfflinedecisionPlandetailsRequest {
+	s.ResultDate = &v
+	return s
+}
+
+type QueryUmktOfflinedecisionPlandetailsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 离线圈客关联计划的个数
+	OfflineDecisionPlanCount *int64 `json:"offline_decision_plan_count,omitempty" xml:"offline_decision_plan_count,omitempty"`
+	// 离线圈客计划详细
+	PlanDetailList []*OfflineDecisionPlanDetail `json:"plan_detail_list,omitempty" xml:"plan_detail_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryUmktOfflinedecisionPlandetailsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUmktOfflinedecisionPlandetailsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetReqMsgId(v string) *QueryUmktOfflinedecisionPlandetailsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetResultCode(v string) *QueryUmktOfflinedecisionPlandetailsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetResultMsg(v string) *QueryUmktOfflinedecisionPlandetailsResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetOfflineDecisionPlanCount(v int64) *QueryUmktOfflinedecisionPlandetailsResponse {
+	s.OfflineDecisionPlanCount = &v
+	return s
+}
+
+func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetPlanDetailList(v []*OfflineDecisionPlanDetail) *QueryUmktOfflinedecisionPlandetailsResponse {
+	s.PlanDetailList = v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -26853,7 +27591,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.28"),
+				"sdk_version":      tea.String("1.20.2"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -27210,6 +27948,74 @@ func (client *Client) QueryBatchSecurityPolicyEx(request *QueryBatchSecurityPoli
 	}
 	_result = &QueryBatchSecurityPolicyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.batch.security.policy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 峰禾API测试
+ * Summary: 峰禾API测试
+ */
+func (client *Client) QueryFhtestFh(request *QueryFhtestFhRequest) (_result *QueryFhtestFhResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryFhtestFhResponse{}
+	_body, _err := client.QueryFhtestFhEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 峰禾API测试
+ * Summary: 峰禾API测试
+ */
+func (client *Client) QueryFhtestFhEx(request *QueryFhtestFhRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryFhtestFhResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryFhtestFhResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.fhtest.fh.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 信护盾产品批量查询
+ * Summary: 信护盾产品批量查询
+ */
+func (client *Client) QueryCreditshieldProductBatch(request *QueryCreditshieldProductBatchRequest) (_result *QueryCreditshieldProductBatchResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCreditshieldProductBatchResponse{}
+	_body, _err := client.QueryCreditshieldProductBatchEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 信护盾产品批量查询
+ * Summary: 信护盾产品批量查询
+ */
+func (client *Client) QueryCreditshieldProductBatchEx(request *QueryCreditshieldProductBatchRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCreditshieldProductBatchResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCreditshieldProductBatchResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.creditshield.product.batch.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -27979,6 +28785,7 @@ func (client *Client) UploadDubbridgeFileEx(request *UploadDubbridgeFileRequest,
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -29253,6 +30060,40 @@ func (client *Client) QueryDubbridgeAccountUsecreditEx(request *QueryDubbridgeAc
 }
 
 /**
+ * Description: 天枢用户聚合状态查询接口
+ * Summary: 天枢用户聚合状态查询接口
+ */
+func (client *Client) QueryDubbridgeUserAggregationinfo(request *QueryDubbridgeUserAggregationinfoRequest) (_result *QueryDubbridgeUserAggregationinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDubbridgeUserAggregationinfoResponse{}
+	_body, _err := client.QueryDubbridgeUserAggregationinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 天枢用户聚合状态查询接口
+ * Summary: 天枢用户聚合状态查询接口
+ */
+func (client *Client) QueryDubbridgeUserAggregationinfoEx(request *QueryDubbridgeUserAggregationinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDubbridgeUserAggregationinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDubbridgeUserAggregationinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.dubbridge.user.aggregationinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 四要素认证首先调用此接口
  * Summary: 芝麻四要素接口
  */
@@ -29402,6 +30243,7 @@ func (client *Client) ReceiveMdipParamsFileEx(request *ReceiveMdipParamsFileRequ
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -29465,6 +30307,7 @@ func (client *Client) ReceiveMdipParamsRbbfileEx(request *ReceiveMdipParamsRbbfi
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -30820,6 +31663,7 @@ func (client *Client) UploadRbbFileAmapEx(request *UploadRbbFileAmapRequest, hea
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -32211,6 +33055,7 @@ func (client *Client) UploadUmktParamsFileEx(request *UploadUmktParamsFileReques
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -33466,6 +34311,7 @@ func (client *Client) UploadUmktOfflinedecisionEx(request *UploadUmktOfflinedeci
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -33542,6 +34388,40 @@ func (client *Client) DownloadUmktOfflinedecisionResultEx(request *DownloadUmktO
 	}
 	_result = &DownloadUmktOfflinedecisionResultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offlinedecision.result.download"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 包含离线圈客关联计划和任务状态详情
+ * Summary: 营销盾离线圈客计划执行详情
+ */
+func (client *Client) QueryUmktOfflinedecisionPlandetails(request *QueryUmktOfflinedecisionPlandetailsRequest) (_result *QueryUmktOfflinedecisionPlandetailsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUmktOfflinedecisionPlandetailsResponse{}
+	_body, _err := client.QueryUmktOfflinedecisionPlandetailsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 包含离线圈客关联计划和任务状态详情
+ * Summary: 营销盾离线圈客计划执行详情
+ */
+func (client *Client) QueryUmktOfflinedecisionPlandetailsEx(request *QueryUmktOfflinedecisionPlandetailsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUmktOfflinedecisionPlandetailsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUmktOfflinedecisionPlandetailsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offlinedecision.plandetails.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
