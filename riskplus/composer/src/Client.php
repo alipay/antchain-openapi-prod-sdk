@@ -167,6 +167,8 @@ use AntChain\RISKPLUS\Models\PushUmktCustomerGroupRequest;
 use AntChain\RISKPLUS\Models\PushUmktCustomerGroupResponse;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyRequest;
 use AntChain\RISKPLUS\Models\QueryBatchSecurityPolicyResponse;
+use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchRequest;
+use AntChain\RISKPLUS\Models\QueryCreditshieldProductBatchResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountCustomResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeAccountStatusRequest;
@@ -213,6 +215,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeSettlementCertificateRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeSettlementCertificateResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUsecreditStatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeUserAggregationinfoRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeUserAggregationinfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUserUpgradestatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeUserUpgradestatusResponse;
 use AntChain\RISKPLUS\Models\QueryDubheCreditStatusRequest;
@@ -233,6 +237,8 @@ use AntChain\RISKPLUS\Models\QueryDubheTestRequest;
 use AntChain\RISKPLUS\Models\QueryDubheTestResponse;
 use AntChain\RISKPLUS\Models\QueryDubheUsecreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubheUsecreditStatusResponse;
+use AntChain\RISKPLUS\Models\QueryFhtestFhRequest;
+use AntChain\RISKPLUS\Models\QueryFhtestFhResponse;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyRequest;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyResponse;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
@@ -319,6 +325,8 @@ use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateRequest;
 use AntChain\RISKPLUS\Models\QueryUmktCpaassmsTemplateResponse;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticRequest;
 use AntChain\RISKPLUS\Models\QueryUmktDataaccessStatisticResponse;
+use AntChain\RISKPLUS\Models\QueryUmktOfflinedecisionPlandetailsRequest;
+use AntChain\RISKPLUS\Models\QueryUmktOfflinedecisionPlandetailsResponse;
 use AntChain\RISKPLUS\Models\QueryUmktOfflinedecisionResultRequest;
 use AntChain\RISKPLUS\Models\QueryUmktOfflinedecisionResultResponse;
 use AntChain\RISKPLUS\Models\QueryUmktRobotcallDetailRequest;
@@ -540,7 +548,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.19.28',
+                    'sdk_version'      => '1.20.2',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -883,6 +891,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryBatchSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.batch.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 峰禾API测试
+     * Summary: 峰禾API测试.
+     *
+     * @param QueryFhtestFhRequest $request
+     *
+     * @return QueryFhtestFhResponse
+     */
+    public function queryFhtestFh($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFhtestFhEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 峰禾API测试
+     * Summary: 峰禾API测试.
+     *
+     * @param QueryFhtestFhRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryFhtestFhResponse
+     */
+    public function queryFhtestFhEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFhtestFhResponse::fromMap($this->doRequest('1.0', 'riskplus.fhtest.fh.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 信护盾产品批量查询
+     * Summary: 信护盾产品批量查询.
+     *
+     * @param QueryCreditshieldProductBatchRequest $request
+     *
+     * @return QueryCreditshieldProductBatchResponse
+     */
+    public function queryCreditshieldProductBatch($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryCreditshieldProductBatchEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 信护盾产品批量查询
+     * Summary: 信护盾产品批量查询.
+     *
+     * @param QueryCreditshieldProductBatchRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return QueryCreditshieldProductBatchResponse
+     */
+    public function queryCreditshieldProductBatchEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryCreditshieldProductBatchResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.product.batch.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1622,7 +1696,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -2851,6 +2926,39 @@ class Client
     }
 
     /**
+     * Description: 天枢用户聚合状态查询接口
+     * Summary: 天枢用户聚合状态查询接口.
+     *
+     * @param QueryDubbridgeUserAggregationinfoRequest $request
+     *
+     * @return QueryDubbridgeUserAggregationinfoResponse
+     */
+    public function queryDubbridgeUserAggregationinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeUserAggregationinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢用户聚合状态查询接口
+     * Summary: 天枢用户聚合状态查询接口.
+     *
+     * @param QueryDubbridgeUserAggregationinfoRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryDubbridgeUserAggregationinfoResponse
+     */
+    public function queryDubbridgeUserAggregationinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeUserAggregationinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.user.aggregationinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -2993,7 +3101,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -3044,7 +3153,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -4349,7 +4459,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -5689,7 +5800,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -6897,7 +7009,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -6968,6 +7081,39 @@ class Client
         Utils::validateModel($request);
 
         return DownloadUmktOfflinedecisionResultResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offlinedecision.result.download', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 包含离线圈客关联计划和任务状态详情
+     * Summary: 营销盾离线圈客计划执行详情.
+     *
+     * @param QueryUmktOfflinedecisionPlandetailsRequest $request
+     *
+     * @return QueryUmktOfflinedecisionPlandetailsResponse
+     */
+    public function queryUmktOfflinedecisionPlandetails($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUmktOfflinedecisionPlandetailsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 包含离线圈客关联计划和任务状态详情
+     * Summary: 营销盾离线圈客计划执行详情.
+     *
+     * @param QueryUmktOfflinedecisionPlandetailsRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return QueryUmktOfflinedecisionPlandetailsResponse
+     */
+    public function queryUmktOfflinedecisionPlandetailsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUmktOfflinedecisionPlandetailsResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offlinedecision.plandetails.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

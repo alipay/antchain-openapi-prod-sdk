@@ -66,6 +66,12 @@ class BindDubbridgeCustomerBankcardRequest extends Model
      * @var string
      */
     public $mobile;
+
+    // 银行名称
+    /**
+     * @var string
+     */
+    public $bankName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         'openId'            => 'open_id',
         'cardNo'            => 'card_no',
         'mobile'            => 'mobile',
+        'bankName'          => 'bank_name',
     ];
 
     public function validate()
@@ -120,6 +127,9 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         if (null !== $this->mobile) {
             $res['mobile'] = $this->mobile;
         }
+        if (null !== $this->bankName) {
+            $res['bank_name'] = $this->bankName;
+        }
 
         return $res;
     }
@@ -161,6 +171,9 @@ class BindDubbridgeCustomerBankcardRequest extends Model
         }
         if (isset($map['mobile'])) {
             $model->mobile = $map['mobile'];
+        }
+        if (isset($map['bank_name'])) {
+            $model->bankName = $map['bank_name'];
         }
 
         return $model;

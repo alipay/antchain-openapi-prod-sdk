@@ -114,6 +114,12 @@ class ApplyDubbridgeCreditRequest extends Model
      * @var string
      */
     public $customType;
+
+    // 资金方代码
+    /**
+     * @var string
+     */
+    public $fundCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -133,6 +139,7 @@ class ApplyDubbridgeCreditRequest extends Model
         'clickId'           => 'click_id',
         'channelType'       => 'channel_type',
         'customType'        => 'custom_type',
+        'fundCode'          => 'fund_code',
     ];
 
     public function validate()
@@ -206,6 +213,9 @@ class ApplyDubbridgeCreditRequest extends Model
         if (null !== $this->customType) {
             $res['custom_type'] = $this->customType;
         }
+        if (null !== $this->fundCode) {
+            $res['fund_code'] = $this->fundCode;
+        }
 
         return $res;
     }
@@ -277,6 +287,9 @@ class ApplyDubbridgeCreditRequest extends Model
         }
         if (isset($map['custom_type'])) {
             $model->customType = $map['custom_type'];
+        }
+        if (isset($map['fund_code'])) {
+            $model->fundCode = $map['fund_code'];
         }
 
         return $model;

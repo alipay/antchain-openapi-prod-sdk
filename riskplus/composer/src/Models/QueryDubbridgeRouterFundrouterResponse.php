@@ -43,6 +43,12 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
      * @var string
      */
     public $customerNo;
+
+    // 资金方列表
+    /**
+     * @var GwFundRouterResult[]
+     */
+    public $fundList;
     protected $_name = [
         'reqMsgId'      => 'req_msg_id',
         'resultCode'    => 'result_code',
@@ -50,6 +56,7 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
         'fundCode'      => 'fund_code',
         'abbreFundName' => 'abbre_fund_name',
         'customerNo'    => 'customer_no',
+        'fundList'      => 'fund_list',
     ];
 
     public function validate()
@@ -76,6 +83,15 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
         }
         if (null !== $this->customerNo) {
             $res['customer_no'] = $this->customerNo;
+        }
+        if (null !== $this->fundList) {
+            $res['fund_list'] = [];
+            if (null !== $this->fundList && \is_array($this->fundList)) {
+                $n = 0;
+                foreach ($this->fundList as $item) {
+                    $res['fund_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -106,6 +122,15 @@ class QueryDubbridgeRouterFundrouterResponse extends Model
         }
         if (isset($map['customer_no'])) {
             $model->customerNo = $map['customer_no'];
+        }
+        if (isset($map['fund_list'])) {
+            if (!empty($map['fund_list'])) {
+                $model->fundList = [];
+                $n               = 0;
+                foreach ($map['fund_list'] as $item) {
+                    $model->fundList[$n++] = null !== $item ? GwFundRouterResult::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
