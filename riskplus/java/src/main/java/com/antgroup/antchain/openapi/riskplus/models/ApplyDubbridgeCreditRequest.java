@@ -79,6 +79,10 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     @NameInMap("custom_type")
     public String customType;
 
+    // 资金方代码
+    @NameInMap("fund_code")
+    public String fundCode;
+
     public static ApplyDubbridgeCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeCreditRequest self = new ApplyDubbridgeCreditRequest();
         return TeaModel.build(map, self);
@@ -226,6 +230,14 @@ public class ApplyDubbridgeCreditRequest extends TeaModel {
     }
     public String getCustomType() {
         return this.customType;
+    }
+
+    public ApplyDubbridgeCreditRequest setFundCode(String fundCode) {
+        this.fundCode = fundCode;
+        return this;
+    }
+    public String getFundCode() {
+        return this.fundCode;
     }
 
 }

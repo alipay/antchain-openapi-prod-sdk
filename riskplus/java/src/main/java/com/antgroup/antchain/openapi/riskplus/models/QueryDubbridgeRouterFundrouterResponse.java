@@ -28,6 +28,10 @@ public class QueryDubbridgeRouterFundrouterResponse extends TeaModel {
     @NameInMap("customer_no")
     public String customerNo;
 
+    // 资金方列表
+    @NameInMap("fund_list")
+    public java.util.List<GwFundRouterResult> fundList;
+
     public static QueryDubbridgeRouterFundrouterResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRouterFundrouterResponse self = new QueryDubbridgeRouterFundrouterResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class QueryDubbridgeRouterFundrouterResponse extends TeaModel {
     }
     public String getCustomerNo() {
         return this.customerNo;
+    }
+
+    public QueryDubbridgeRouterFundrouterResponse setFundList(java.util.List<GwFundRouterResult> fundList) {
+        this.fundList = fundList;
+        return this;
+    }
+    public java.util.List<GwFundRouterResult> getFundList() {
+        return this.fundList;
     }
 
 }

@@ -47,6 +47,10 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
     @NameInMap("mobile")
     public String mobile;
 
+    // 银行名称
+    @NameInMap("bank_name")
+    public String bankName;
+
     public static BindDubbridgeCustomerBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         BindDubbridgeCustomerBankcardRequest self = new BindDubbridgeCustomerBankcardRequest();
         return TeaModel.build(map, self);
@@ -130,6 +134,14 @@ public class BindDubbridgeCustomerBankcardRequest extends TeaModel {
     }
     public String getMobile() {
         return this.mobile;
+    }
+
+    public BindDubbridgeCustomerBankcardRequest setBankName(String bankName) {
+        this.bankName = bankName;
+        return this;
+    }
+    public String getBankName() {
+        return this.bankName;
     }
 
 }
