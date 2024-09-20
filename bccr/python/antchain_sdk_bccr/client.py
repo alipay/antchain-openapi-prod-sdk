@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.12',
+                    'sdk_version': '1.19.13',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.19.12',
+                    'sdk_version': '1.19.13',
                     '_prod_code': 'BCCR',
                     '_prod_channel': 'undefined'
                 }
@@ -3808,7 +3808,7 @@ class Client:
         request: bccr_models.CreateEvidenceLiveRequest,
     ) -> bccr_models.CreateEvidenceLiveResponse:
         """
-        Description: 录屏取证
+        Description: 创建自动化直播录屏取证
         Summary: 创建自动化直播取证
         """
         runtime = util_models.RuntimeOptions()
@@ -3820,7 +3820,7 @@ class Client:
         request: bccr_models.CreateEvidenceLiveRequest,
     ) -> bccr_models.CreateEvidenceLiveResponse:
         """
-        Description: 录屏取证
+        Description: 创建自动化直播录屏取证
         Summary: 创建自动化直播取证
         """
         runtime = util_models.RuntimeOptions()
@@ -3834,7 +3834,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.CreateEvidenceLiveResponse:
         """
-        Description: 录屏取证
+        Description: 创建自动化直播录屏取证
         Summary: 创建自动化直播取证
         """
         UtilClient.validate_model(request)
@@ -3850,7 +3850,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bccr_models.CreateEvidenceLiveResponse:
         """
-        Description: 录屏取证
+        Description: 创建自动化直播录屏取证
         Summary: 创建自动化直播取证
         """
         UtilClient.validate_model(request)
