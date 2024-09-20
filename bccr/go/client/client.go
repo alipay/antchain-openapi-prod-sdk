@@ -13890,7 +13890,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.12"),
+				"sdk_version":      tea.String("1.19.13"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -16091,7 +16091,7 @@ func (client *Client) CancelTradeUsageEx(request *CancelTradeUsageRequest, heade
 }
 
 /**
- * Description: 录屏取证
+ * Description: 创建自动化直播录屏取证
  * Summary: 创建自动化直播取证
  */
 func (client *Client) CreateEvidenceLive(request *CreateEvidenceLiveRequest) (_result *CreateEvidenceLiveResponse, _err error) {
@@ -16107,7 +16107,7 @@ func (client *Client) CreateEvidenceLive(request *CreateEvidenceLiveRequest) (_r
 }
 
 /**
- * Description: 录屏取证
+ * Description: 创建自动化直播录屏取证
  * Summary: 创建自动化直播取证
  */
 func (client *Client) CreateEvidenceLiveEx(request *CreateEvidenceLiveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateEvidenceLiveResponse, _err error) {
