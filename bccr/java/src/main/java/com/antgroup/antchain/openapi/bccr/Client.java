@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.19.12"),
+                    new TeaPair("sdk_version", "1.19.13"),
                     new TeaPair("_prod_code", "BCCR"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1382,7 +1382,7 @@ public class Client {
     }
 
     /**
-     * Description: 录屏取证
+     * Description: 创建自动化直播录屏取证
      * Summary: 创建自动化直播取证
      */
     public CreateEvidenceLiveResponse createEvidenceLive(CreateEvidenceLiveRequest request) throws Exception {
@@ -1392,7 +1392,7 @@ public class Client {
     }
 
     /**
-     * Description: 录屏取证
+     * Description: 创建自动化直播录屏取证
      * Summary: 创建自动化直播取证
      */
     public CreateEvidenceLiveResponse createEvidenceLiveEx(CreateEvidenceLiveRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
