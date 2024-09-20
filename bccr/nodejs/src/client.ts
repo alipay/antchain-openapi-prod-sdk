@@ -10323,7 +10323,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.12",
+          sdk_version: "1.19.13",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
@@ -11569,7 +11569,7 @@ export default class Client {
   }
 
   /**
-   * Description: 录屏取证
+   * Description: 创建自动化直播录屏取证
    * Summary: 创建自动化直播取证
    */
   async createEvidenceLive(request: CreateEvidenceLiveRequest): Promise<CreateEvidenceLiveResponse> {
@@ -11579,7 +11579,7 @@ export default class Client {
   }
 
   /**
-   * Description: 录屏取证
+   * Description: 创建自动化直播录屏取证
    * Summary: 创建自动化直播取证
    */
   async createEvidenceLiveEx(request: CreateEvidenceLiveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateEvidenceLiveResponse> {
