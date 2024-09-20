@@ -137,7 +137,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.12"},
+                        {"sdk_version", "1.19.13"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BCCR
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.19.12"},
+                        {"sdk_version", "1.19.13"},
                         {"_prod_code", "BCCR"},
                         {"_prod_channel", "undefined"},
                     };
@@ -2968,7 +2968,7 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 录屏取证
+         * Description: 创建自动化直播录屏取证
          * Summary: 创建自动化直播取证
          */
         public CreateEvidenceLiveResponse CreateEvidenceLive(CreateEvidenceLiveRequest request)
@@ -2979,7 +2979,7 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 录屏取证
+         * Description: 创建自动化直播录屏取证
          * Summary: 创建自动化直播取证
          */
         public async Task<CreateEvidenceLiveResponse> CreateEvidenceLiveAsync(CreateEvidenceLiveRequest request)
@@ -2990,7 +2990,7 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 录屏取证
+         * Description: 创建自动化直播录屏取证
          * Summary: 创建自动化直播取证
          */
         public CreateEvidenceLiveResponse CreateEvidenceLiveEx(CreateEvidenceLiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -3000,7 +3000,7 @@ namespace AntChain.SDK.BCCR
         }
 
         /**
-         * Description: 录屏取证
+         * Description: 创建自动化直播录屏取证
          * Summary: 创建自动化直播取证
          */
         public async Task<CreateEvidenceLiveResponse> CreateEvidenceLiveExAsync(CreateEvidenceLiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
