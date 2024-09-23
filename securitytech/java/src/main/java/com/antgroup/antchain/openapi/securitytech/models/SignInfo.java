@@ -34,6 +34,16 @@ public class SignInfo extends TeaModel {
     @NameInMap("terminate_time")
     public String terminateTime;
 
+    // 签约协议生效时间
+    @NameInMap("effect_time")
+    @Validation(required = true)
+    public String effectTime;
+
+    // 签约协议解约时间
+    @NameInMap("expire_time")
+    @Validation(required = true)
+    public String expireTime;
+
     // 月租金额：单位为元
     @NameInMap("payment_amount")
     @Validation(required = true)
@@ -90,6 +100,22 @@ public class SignInfo extends TeaModel {
     }
     public String getTerminateTime() {
         return this.terminateTime;
+    }
+
+    public SignInfo setEffectTime(String effectTime) {
+        this.effectTime = effectTime;
+        return this;
+    }
+    public String getEffectTime() {
+        return this.effectTime;
+    }
+
+    public SignInfo setExpireTime(String expireTime) {
+        this.expireTime = expireTime;
+        return this;
+    }
+    public String getExpireTime() {
+        return this.expireTime;
     }
 
     public SignInfo setPaymentAmount(String paymentAmount) {
