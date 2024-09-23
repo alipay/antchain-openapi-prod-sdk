@@ -1101,6 +1101,10 @@ type SignInfo struct {
 	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty"`
 	// 解约时间 "yyyy-MM-dd HH:mm:ss"
 	TerminateTime *string `json:"terminate_time,omitempty" xml:"terminate_time,omitempty"`
+	// 签约协议生效时间
+	EffectTime *string `json:"effect_time,omitempty" xml:"effect_time,omitempty" require:"true"`
+	// 签约协议解约时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty" require:"true"`
 	// 月租金额：单位为元
 	PaymentAmount *string `json:"payment_amount,omitempty" xml:"payment_amount,omitempty" require:"true"`
 }
@@ -1140,6 +1144,16 @@ func (s *SignInfo) SetSignTime(v string) *SignInfo {
 
 func (s *SignInfo) SetTerminateTime(v string) *SignInfo {
 	s.TerminateTime = &v
+	return s
+}
+
+func (s *SignInfo) SetEffectTime(v string) *SignInfo {
+	s.EffectTime = &v
+	return s
+}
+
+func (s *SignInfo) SetExpireTime(v string) *SignInfo {
+	s.ExpireTime = &v
 	return s
 }
 
@@ -5954,7 +5968,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.33"),
+				"sdk_version":      tea.String("1.3.0"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
