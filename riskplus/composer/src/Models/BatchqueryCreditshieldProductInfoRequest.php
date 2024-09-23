@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryCreditshieldProductBatchRequest extends Model
+class BatchqueryCreditshieldProductInfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,10 +19,7 @@ class QueryCreditshieldProductBatchRequest extends Model
      */
     public $productInstanceId;
 
-    // 查询编码：
-    // 1.还款概率评估
-    // 2.经济波动检测
-    // 3.触达前筛
+    // 查询编码： 1.还款概率评估 2.经济波动检测 3.触达前筛等
     /**
      * @var string
      */
@@ -73,7 +70,7 @@ class QueryCreditshieldProductBatchRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryCreditshieldProductBatchRequest
+     * @return BatchqueryCreditshieldProductInfoRequest
      */
     public static function fromMap($map = [])
     {

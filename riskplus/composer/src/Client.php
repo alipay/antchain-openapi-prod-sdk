@@ -41,6 +41,8 @@ use AntChain\RISKPLUS\Models\ApplyUmktRobotcallRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRobotcallResponse;
 use AntChain\RISKPLUS\Models\ApplyUmktRtBatchmarketingRequest;
 use AntChain\RISKPLUS\Models\ApplyUmktRtBatchmarketingResponse;
+use AntChain\RISKPLUS\Models\BatchqueryCreditshieldProductInfoRequest;
+use AntChain\RISKPLUS\Models\BatchqueryCreditshieldProductInfoResponse;
 use AntChain\RISKPLUS\Models\BatchqueryQmpActionplanDetailRequest;
 use AntChain\RISKPLUS\Models\BatchqueryQmpActionplanDetailResponse;
 use AntChain\RISKPLUS\Models\BatchqueryQmpTaskDetailRequest;
@@ -65,6 +67,8 @@ use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoRequest;
 use AntChain\RISKPLUS\Models\BatchqueryUmktTenantActionplaninfoResponse;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
+use AntChain\RISKPLUS\Models\CallbackMdipAuditRequest;
+use AntChain\RISKPLUS\Models\CallbackMdipAuditResponse;
 use AntChain\RISKPLUS\Models\CallbackQmpRobotcallRequest;
 use AntChain\RISKPLUS\Models\CallbackQmpRobotcallResponse;
 use AntChain\RISKPLUS\Models\CallbackQmpSmsReportRequest;
@@ -189,6 +193,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeCustomerCommonagreementsignResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeLoanUpgradestatusResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeMarketingCouponlistRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeMarketingCouponlistResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptOverdueResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeReceiptStatusRequest;
@@ -199,6 +205,8 @@ use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayListResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayResultRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRepayResultResponse;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepaytypeInfoRequest;
+use AntChain\RISKPLUS\Models\QueryDubbridgeRepaytypeInfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoRequest;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoBusinessinfoResponse;
 use AntChain\RISKPLUS\Models\QueryDubbridgeRiskinfoCommonRequest;
@@ -237,8 +245,6 @@ use AntChain\RISKPLUS\Models\QueryDubheTestRequest;
 use AntChain\RISKPLUS\Models\QueryDubheTestResponse;
 use AntChain\RISKPLUS\Models\QueryDubheUsecreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubheUsecreditStatusResponse;
-use AntChain\RISKPLUS\Models\QueryFhtestFhRequest;
-use AntChain\RISKPLUS\Models\QueryFhtestFhResponse;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyRequest;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyResponse;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
@@ -548,7 +554,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.20.2',
+                    'sdk_version'      => '1.20.7',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -594,6 +600,39 @@ class Client
         }
 
         throw new TeaUnableRetryError($_lastRequest, $_lastException);
+    }
+
+    /**
+     * Description: 信护盾产品批量查询
+     * Summary: 信护盾产品批量查询.
+     *
+     * @param BatchqueryCreditshieldProductInfoRequest $request
+     *
+     * @return BatchqueryCreditshieldProductInfoResponse
+     */
+    public function batchqueryCreditshieldProductInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryCreditshieldProductInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 信护盾产品批量查询
+     * Summary: 信护盾产品批量查询.
+     *
+     * @param BatchqueryCreditshieldProductInfoRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return BatchqueryCreditshieldProductInfoResponse
+     */
+    public function batchqueryCreditshieldProductInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryCreditshieldProductInfoResponse::fromMap($this->doRequest('1.0', 'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -891,39 +930,6 @@ class Client
         Utils::validateModel($request);
 
         return QueryBatchSecurityPolicyResponse::fromMap($this->doRequest('1.0', 'riskplus.batch.security.policy.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 峰禾API测试
-     * Summary: 峰禾API测试.
-     *
-     * @param QueryFhtestFhRequest $request
-     *
-     * @return QueryFhtestFhResponse
-     */
-    public function queryFhtestFh($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryFhtestFhEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 峰禾API测试
-     * Summary: 峰禾API测试.
-     *
-     * @param QueryFhtestFhRequest $request
-     * @param string[]             $headers
-     * @param RuntimeOptions       $runtime
-     *
-     * @return QueryFhtestFhResponse
-     */
-    public function queryFhtestFhEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryFhtestFhResponse::fromMap($this->doRequest('1.0', 'riskplus.fhtest.fh.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2959,6 +2965,72 @@ class Client
     }
 
     /**
+     * Description: 天枢系统优惠券列表查询接口
+     * Summary: 天枢系统优惠券列表查询接口.
+     *
+     * @param QueryDubbridgeMarketingCouponlistRequest $request
+     *
+     * @return QueryDubbridgeMarketingCouponlistResponse
+     */
+    public function queryDubbridgeMarketingCouponlist($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeMarketingCouponlistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统优惠券列表查询接口
+     * Summary: 天枢系统优惠券列表查询接口.
+     *
+     * @param QueryDubbridgeMarketingCouponlistRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryDubbridgeMarketingCouponlistResponse
+     */
+    public function queryDubbridgeMarketingCouponlistEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeMarketingCouponlistResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.marketing.couponlist.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 天枢系统还款方式查询
+     * Summary: 天枢系统还款方式查询.
+     *
+     * @param QueryDubbridgeRepaytypeInfoRequest $request
+     *
+     * @return QueryDubbridgeRepaytypeInfoResponse
+     */
+    public function queryDubbridgeRepaytypeInfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDubbridgeRepaytypeInfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 天枢系统还款方式查询
+     * Summary: 天枢系统还款方式查询.
+     *
+     * @param QueryDubbridgeRepaytypeInfoRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return QueryDubbridgeRepaytypeInfoResponse
+     */
+    public function queryDubbridgeRepaytypeInfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDubbridgeRepaytypeInfoResponse::fromMap($this->doRequest('1.0', 'riskplus.dubbridge.repaytype.info.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口.
      *
@@ -3159,6 +3231,39 @@ class Client
         Utils::validateModel($request);
 
         return ReceiveMdipParamsRbbfileResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 多源平台审批回调接口
+     * Summary: 多源平台审批回调接口.
+     *
+     * @param CallbackMdipAuditRequest $request
+     *
+     * @return CallbackMdipAuditResponse
+     */
+    public function callbackMdipAudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackMdipAuditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 多源平台审批回调接口
+     * Summary: 多源平台审批回调接口.
+     *
+     * @param CallbackMdipAuditRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return CallbackMdipAuditResponse
+     */
+    public function callbackMdipAuditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackMdipAuditResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

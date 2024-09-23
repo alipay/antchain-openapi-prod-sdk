@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFhtestFhRequest extends Model
+class CallbackMdipAuditRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,35 +19,35 @@ class QueryFhtestFhRequest extends Model
      */
     public $productInstanceId;
 
-    // 名称
+    // 审批结果
     /**
      * @var string
      */
-    public $name;
+    public $auditResult;
 
-    // 年龄
+    // 工单流水号
     /**
-     * @var int
+     * @var string
      */
-    public $age;
+    public $bizCode;
 
-    // 判断字段
+    // 额外信息
     /**
-     * @var bool
+     * @var string
      */
-    public $judge;
+    public $extend;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'name'              => 'name',
-        'age'               => 'age',
-        'judge'             => 'judge',
+        'auditResult'       => 'audit_result',
+        'bizCode'           => 'biz_code',
+        'extend'            => 'extend',
     ];
 
     public function validate()
     {
-        Model::validateRequired('name', $this->name, true);
-        Model::validateRequired('age', $this->age, true);
+        Model::validateRequired('auditResult', $this->auditResult, true);
+        Model::validateRequired('bizCode', $this->bizCode, true);
     }
 
     public function toMap()
@@ -59,14 +59,14 @@ class QueryFhtestFhRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->name) {
-            $res['name'] = $this->name;
+        if (null !== $this->auditResult) {
+            $res['audit_result'] = $this->auditResult;
         }
-        if (null !== $this->age) {
-            $res['age'] = $this->age;
+        if (null !== $this->bizCode) {
+            $res['biz_code'] = $this->bizCode;
         }
-        if (null !== $this->judge) {
-            $res['judge'] = $this->judge;
+        if (null !== $this->extend) {
+            $res['extend'] = $this->extend;
         }
 
         return $res;
@@ -75,7 +75,7 @@ class QueryFhtestFhRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryFhtestFhRequest
+     * @return CallbackMdipAuditRequest
      */
     public static function fromMap($map = [])
     {
@@ -86,14 +86,14 @@ class QueryFhtestFhRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['name'])) {
-            $model->name = $map['name'];
+        if (isset($map['audit_result'])) {
+            $model->auditResult = $map['audit_result'];
         }
-        if (isset($map['age'])) {
-            $model->age = $map['age'];
+        if (isset($map['biz_code'])) {
+            $model->bizCode = $map['biz_code'];
         }
-        if (isset($map['judge'])) {
-            $model->judge = $map['judge'];
+        if (isset($map['extend'])) {
+            $model->extend = $map['extend'];
         }
 
         return $model;

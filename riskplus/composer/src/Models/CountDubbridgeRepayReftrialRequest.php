@@ -60,6 +60,12 @@ class CountDubbridgeRepayReftrialRequest extends Model
      * @var string
      */
     public $repayDate;
+
+    // 优惠券id
+    /**
+     * @var string
+     */
+    public $couponId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -70,6 +76,7 @@ class CountDubbridgeRepayReftrialRequest extends Model
         'applyPeriod'       => 'apply_period',
         'repayType'         => 'repay_type',
         'repayDate'         => 'repay_date',
+        'couponId'          => 'coupon_id',
     ];
 
     public function validate()
@@ -111,6 +118,9 @@ class CountDubbridgeRepayReftrialRequest extends Model
         if (null !== $this->repayDate) {
             $res['repay_date'] = $this->repayDate;
         }
+        if (null !== $this->couponId) {
+            $res['coupon_id'] = $this->couponId;
+        }
 
         return $res;
     }
@@ -149,6 +159,9 @@ class CountDubbridgeRepayReftrialRequest extends Model
         }
         if (isset($map['repay_date'])) {
             $model->repayDate = $map['repay_date'];
+        }
+        if (isset($map['coupon_id'])) {
+            $model->couponId = $map['coupon_id'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryUmktOfflinedecisionPlandetailsRequest extends Model
+class QueryDubbridgeRepaytypeInfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,28 @@ class QueryUmktOfflinedecisionPlandetailsRequest extends Model
      */
     public $productInstanceId;
 
-    // 离线圈客配置的ID
-    /**
-     * @var int
-     */
-    public $offlineDecisionPlanId;
-
-    // 执行日期
+    // 客户号
     /**
      * @var string
      */
-    public $resultDate;
+    public $customerNo;
+
+    // 资金方编号
+    /**
+     * @var string
+     */
+    public $fundCode;
     protected $_name = [
-        'authToken'             => 'auth_token',
-        'productInstanceId'     => 'product_instance_id',
-        'offlineDecisionPlanId' => 'offline_decision_plan_id',
-        'resultDate'            => 'result_date',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'customerNo'        => 'customer_no',
+        'fundCode'          => 'fund_code',
     ];
 
     public function validate()
     {
-        Model::validateRequired('offlineDecisionPlanId', $this->offlineDecisionPlanId, true);
+        Model::validateRequired('customerNo', $this->customerNo, true);
+        Model::validateRequired('fundCode', $this->fundCode, true);
     }
 
     public function toMap()
@@ -51,11 +52,11 @@ class QueryUmktOfflinedecisionPlandetailsRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->offlineDecisionPlanId) {
-            $res['offline_decision_plan_id'] = $this->offlineDecisionPlanId;
+        if (null !== $this->customerNo) {
+            $res['customer_no'] = $this->customerNo;
         }
-        if (null !== $this->resultDate) {
-            $res['result_date'] = $this->resultDate;
+        if (null !== $this->fundCode) {
+            $res['fund_code'] = $this->fundCode;
         }
 
         return $res;
@@ -64,7 +65,7 @@ class QueryUmktOfflinedecisionPlandetailsRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryUmktOfflinedecisionPlandetailsRequest
+     * @return QueryDubbridgeRepaytypeInfoRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +76,11 @@ class QueryUmktOfflinedecisionPlandetailsRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['offline_decision_plan_id'])) {
-            $model->offlineDecisionPlanId = $map['offline_decision_plan_id'];
+        if (isset($map['customer_no'])) {
+            $model->customerNo = $map['customer_no'];
         }
-        if (isset($map['result_date'])) {
-            $model->resultDate = $map['result_date'];
+        if (isset($map['fund_code'])) {
+            $model->fundCode = $map['fund_code'];
         }
 
         return $model;

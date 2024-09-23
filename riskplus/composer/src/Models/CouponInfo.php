@@ -25,15 +25,15 @@ class CouponInfo extends Model
     public $couponName;
 
     // 优惠券状态
-    // 0-未使用
-    // 2-已使用
-    // 3-已失效
+    // unUsed-未使用
+    // Used-已使用
+    // Expired-过期
     /**
      * @example 0
      *
      * @var string
      */
-    public $couponStatus;
+    public $status;
 
     // 使用场景
     // 01-提款使用
@@ -43,7 +43,7 @@ class CouponInfo extends Model
      *
      * @var string
      */
-    public $useScene;
+    public $useCondition;
 
     // 优惠码
     /**
@@ -197,11 +197,29 @@ class CouponInfo extends Model
      * @var string
      */
     public $repayWays;
+
+    // 优惠模板Id
+    /**
+     * @example 123
+     *
+     * @var string
+     */
+    public $couponModelNo;
+
+    // 至到期:X年X月X日
+    // 0：不是至到期券
+    // 1：是至到期券
+    /**
+     * @example X年X月X日
+     *
+     * @var string
+     */
+    public $toMaturity;
     protected $_name = [
         'couponId'        => 'coupon_id',
         'couponName'      => 'coupon_name',
-        'couponStatus'    => 'coupon_status',
-        'useScene'        => 'use_scene',
+        'status'          => 'status',
+        'useCondition'    => 'use_condition',
         'couponCode'      => 'coupon_code',
         'couponType'      => 'coupon_type',
         'couponValue'     => 'coupon_value',
@@ -218,14 +236,16 @@ class CouponInfo extends Model
         'isPeriodLimit'   => 'is_period_limit',
         'repayCondition'  => 'repay_condition',
         'repayWays'       => 'repay_ways',
+        'couponModelNo'   => 'coupon_model_no',
+        'toMaturity'      => 'to_maturity',
     ];
 
     public function validate()
     {
         Model::validateRequired('couponId', $this->couponId, true);
         Model::validateRequired('couponName', $this->couponName, true);
-        Model::validateRequired('couponStatus', $this->couponStatus, true);
-        Model::validateRequired('useScene', $this->useScene, true);
+        Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('useCondition', $this->useCondition, true);
     }
 
     public function toMap()
@@ -237,11 +257,11 @@ class CouponInfo extends Model
         if (null !== $this->couponName) {
             $res['coupon_name'] = $this->couponName;
         }
-        if (null !== $this->couponStatus) {
-            $res['coupon_status'] = $this->couponStatus;
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
-        if (null !== $this->useScene) {
-            $res['use_scene'] = $this->useScene;
+        if (null !== $this->useCondition) {
+            $res['use_condition'] = $this->useCondition;
         }
         if (null !== $this->couponCode) {
             $res['coupon_code'] = $this->couponCode;
@@ -291,6 +311,12 @@ class CouponInfo extends Model
         if (null !== $this->repayWays) {
             $res['repay_ways'] = $this->repayWays;
         }
+        if (null !== $this->couponModelNo) {
+            $res['coupon_model_no'] = $this->couponModelNo;
+        }
+        if (null !== $this->toMaturity) {
+            $res['to_maturity'] = $this->toMaturity;
+        }
 
         return $res;
     }
@@ -309,11 +335,11 @@ class CouponInfo extends Model
         if (isset($map['coupon_name'])) {
             $model->couponName = $map['coupon_name'];
         }
-        if (isset($map['coupon_status'])) {
-            $model->couponStatus = $map['coupon_status'];
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
-        if (isset($map['use_scene'])) {
-            $model->useScene = $map['use_scene'];
+        if (isset($map['use_condition'])) {
+            $model->useCondition = $map['use_condition'];
         }
         if (isset($map['coupon_code'])) {
             $model->couponCode = $map['coupon_code'];
@@ -362,6 +388,12 @@ class CouponInfo extends Model
         }
         if (isset($map['repay_ways'])) {
             $model->repayWays = $map['repay_ways'];
+        }
+        if (isset($map['coupon_model_no'])) {
+            $model->couponModelNo = $map['coupon_model_no'];
+        }
+        if (isset($map['to_maturity'])) {
+            $model->toMaturity = $map['to_maturity'];
         }
 
         return $model;

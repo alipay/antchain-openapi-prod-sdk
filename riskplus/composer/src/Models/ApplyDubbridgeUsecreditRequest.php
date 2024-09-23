@@ -102,6 +102,12 @@ class ApplyDubbridgeUsecreditRequest extends Model
      * @var Material[]
      */
     public $materials;
+
+    // 优惠券id
+    /**
+     * @var string
+     */
+    public $couponId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -119,6 +125,7 @@ class ApplyDubbridgeUsecreditRequest extends Model
         'loanInstCode'      => 'loan_inst_code',
         'bankCardNo'        => 'bank_card_no',
         'materials'         => 'materials',
+        'couponId'          => 'coupon_id',
     ];
 
     public function validate()
@@ -189,6 +196,9 @@ class ApplyDubbridgeUsecreditRequest extends Model
                 }
             }
         }
+        if (null !== $this->couponId) {
+            $res['coupon_id'] = $this->couponId;
+        }
 
         return $res;
     }
@@ -254,6 +264,9 @@ class ApplyDubbridgeUsecreditRequest extends Model
                     $model->materials[$n++] = null !== $item ? Material::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['coupon_id'])) {
+            $model->couponId = $map['coupon_id'];
         }
 
         return $model;

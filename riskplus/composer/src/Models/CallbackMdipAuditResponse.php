@@ -6,7 +6,7 @@ namespace AntChain\RISKPLUS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryFhtestFhResponse extends Model
+class CallbackMdipAuditResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,24 +25,10 @@ class QueryFhtestFhResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 是否成功
-    /**
-     * @var bool
-     */
-    public $success;
-
-    // 字符串数组
-    /**
-     * @var string[]
-     */
-    public $queryResults;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'success'      => 'success',
-        'queryResults' => 'query_results',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -61,12 +47,6 @@ class QueryFhtestFhResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->success) {
-            $res['success'] = $this->success;
-        }
-        if (null !== $this->queryResults) {
-            $res['query_results'] = $this->queryResults;
-        }
 
         return $res;
     }
@@ -74,7 +54,7 @@ class QueryFhtestFhResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryFhtestFhResponse
+     * @return CallbackMdipAuditResponse
      */
     public static function fromMap($map = [])
     {
@@ -87,14 +67,6 @@ class QueryFhtestFhResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['success'])) {
-            $model->success = $map['success'];
-        }
-        if (isset($map['query_results'])) {
-            if (!empty($map['query_results'])) {
-                $model->queryResults = $map['query_results'];
-            }
         }
 
         return $model;

@@ -95,18 +95,45 @@ class RepayTrail extends Model
      * @var string
      */
     public $trialNo;
+
+    // 优惠后应还金额
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $discountAfterNeedAmt;
+
+    // 优惠后应还利息
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $discountAfterInterest;
+
+    // 优惠利息
+    /**
+     * @example
+     *
+     * @var int
+     */
+    public $discountInterest;
     protected $_name = [
-        'period'          => 'period',
-        'needAmt'         => 'need_amt',
-        'alreadyAmt'      => 'already_amt',
-        'transPrincipal'  => 'trans_principal',
-        'transInterest'   => 'trans_interest',
-        'transFee'        => 'trans_fee',
-        'remainPrincipal' => 'remain_principal',
-        'repayTime'       => 'repay_time',
-        'startTime'       => 'start_time',
-        'endTime'         => 'end_time',
-        'trialNo'         => 'trial_no',
+        'period'                => 'period',
+        'needAmt'               => 'need_amt',
+        'alreadyAmt'            => 'already_amt',
+        'transPrincipal'        => 'trans_principal',
+        'transInterest'         => 'trans_interest',
+        'transFee'              => 'trans_fee',
+        'remainPrincipal'       => 'remain_principal',
+        'repayTime'             => 'repay_time',
+        'startTime'             => 'start_time',
+        'endTime'               => 'end_time',
+        'trialNo'               => 'trial_no',
+        'discountAfterNeedAmt'  => 'discount_after_need_amt',
+        'discountAfterInterest' => 'discount_after_interest',
+        'discountInterest'      => 'discount_interest',
     ];
 
     public function validate()
@@ -163,6 +190,15 @@ class RepayTrail extends Model
         if (null !== $this->trialNo) {
             $res['trial_no'] = $this->trialNo;
         }
+        if (null !== $this->discountAfterNeedAmt) {
+            $res['discount_after_need_amt'] = $this->discountAfterNeedAmt;
+        }
+        if (null !== $this->discountAfterInterest) {
+            $res['discount_after_interest'] = $this->discountAfterInterest;
+        }
+        if (null !== $this->discountInterest) {
+            $res['discount_interest'] = $this->discountInterest;
+        }
 
         return $res;
     }
@@ -207,6 +243,15 @@ class RepayTrail extends Model
         }
         if (isset($map['trial_no'])) {
             $model->trialNo = $map['trial_no'];
+        }
+        if (isset($map['discount_after_need_amt'])) {
+            $model->discountAfterNeedAmt = $map['discount_after_need_amt'];
+        }
+        if (isset($map['discount_after_interest'])) {
+            $model->discountAfterInterest = $map['discount_after_interest'];
+        }
+        if (isset($map['discount_interest'])) {
+            $model->discountInterest = $map['discount_interest'];
         }
 
         return $model;
