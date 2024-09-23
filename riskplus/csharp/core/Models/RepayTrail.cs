@@ -65,6 +65,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true)]
         public string TrialNo { get; set; }
 
+        // 优惠后应还金额
+        [NameInMap("discount_after_need_amt")]
+        [Validation(Required=false)]
+        public long? DiscountAfterNeedAmt { get; set; }
+
+        // 优惠后应还利息
+        [NameInMap("discount_after_interest")]
+        [Validation(Required=false)]
+        public long? DiscountAfterInterest { get; set; }
+
+        // 优惠利息
+        [NameInMap("discount_interest")]
+        [Validation(Required=false)]
+        public long? DiscountInterest { get; set; }
+
     }
 
 }

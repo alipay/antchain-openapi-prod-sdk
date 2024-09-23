@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryUmktOfflinedecisionPlandetailsRequest : TeaModel {
+    public class QueryDubbridgeRepaytypeInfoRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 离线圈客配置的ID
-        [NameInMap("offline_decision_plan_id")]
+        // 客户号
+        [NameInMap("customer_no")]
         [Validation(Required=true)]
-        public long? OfflineDecisionPlanId { get; set; }
+        public string CustomerNo { get; set; }
 
-        // 执行日期
-        [NameInMap("result_date")]
-        [Validation(Required=false)]
-        public string ResultDate { get; set; }
+        // 资金方编号
+        [NameInMap("fund_code")]
+        [Validation(Required=true)]
+        public string FundCode { get; set; }
 
     }
 

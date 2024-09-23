@@ -21,19 +21,19 @@ namespace AntChain.SDK.RISKPLUS.Models
         public string CouponName { get; set; }
 
         // 优惠券状态
-        // 0-未使用
-        // 2-已使用
-        // 3-已失效
-        [NameInMap("coupon_status")]
+        // unUsed-未使用
+        // Used-已使用
+        // Expired-过期
+        [NameInMap("status")]
         [Validation(Required=true)]
-        public string CouponStatus { get; set; }
+        public string Status { get; set; }
 
         // 使用场景
         // 01-提款使用
         // 02-还款使用
-        [NameInMap("use_scene")]
+        [NameInMap("use_condition")]
         [Validation(Required=true)]
-        public string UseScene { get; set; }
+        public string UseCondition { get; set; }
 
         // 优惠码
         [NameInMap("coupon_code")]
@@ -139,6 +139,18 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("repay_ways")]
         [Validation(Required=false)]
         public string RepayWays { get; set; }
+
+        // 优惠模板Id
+        [NameInMap("coupon_model_no")]
+        [Validation(Required=false)]
+        public string CouponModelNo { get; set; }
+
+        // 至到期:X年X月X日
+        // 0：不是至到期券 
+        // 1：是至到期券
+        [NameInMap("to_maturity")]
+        [Validation(Required=false)]
+        public string ToMaturity { get; set; }
 
     }
 

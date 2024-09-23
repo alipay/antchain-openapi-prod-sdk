@@ -53,6 +53,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string RepayDate { get; set; }
 
+        // 优惠券id
+        [NameInMap("coupon_id")]
+        [Validation(Required=false)]
+        public string CouponId { get; set; }
+
     }
 
 }

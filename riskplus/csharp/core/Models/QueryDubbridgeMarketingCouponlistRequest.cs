@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryFhtestFhRequest : TeaModel {
+    public class QueryDubbridgeMarketingCouponlistRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,25 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 名称
-        [NameInMap("name")]
+        // 客户号
+        [NameInMap("customer_no")]
         [Validation(Required=true)]
-        public string Name { get; set; }
+        public string CustomerNo { get; set; }
 
-        // 年龄
-        [NameInMap("age")]
-        [Validation(Required=true)]
-        public long? Age { get; set; }
-
-        // 判断字段
-        [NameInMap("judge")]
+        // 优惠券状态
+        [NameInMap("status")]
         [Validation(Required=false)]
-        public bool? Judge { get; set; }
+        public string Status { get; set; }
+
+        // 页码
+        [NameInMap("page")]
+        [Validation(Required=false)]
+        public long? Page { get; set; }
+
+        // 每页数量
+        [NameInMap("page_size")]
+        [Validation(Required=false)]
+        public long? PageSize { get; set; }
 
     }
 

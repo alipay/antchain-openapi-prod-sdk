@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryUmktOfflinedecisionPlandetailsRequest : TeaModel {
+    public class CallbackMdipAuditRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,20 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 离线圈客配置的ID
-        [NameInMap("offline_decision_plan_id")]
+        // 审批结果
+        [NameInMap("audit_result")]
         [Validation(Required=true)]
-        public long? OfflineDecisionPlanId { get; set; }
+        public string AuditResult { get; set; }
 
-        // 执行日期
-        [NameInMap("result_date")]
+        // 工单流水号
+        [NameInMap("biz_code")]
+        [Validation(Required=true)]
+        public string BizCode { get; set; }
+
+        // 额外信息
+        [NameInMap("extend")]
         [Validation(Required=false)]
-        public string ResultDate { get; set; }
+        public string Extend { get; set; }
 
     }
 

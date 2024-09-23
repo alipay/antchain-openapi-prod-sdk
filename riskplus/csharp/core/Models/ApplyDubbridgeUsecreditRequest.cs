@@ -88,6 +88,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public List<Material> Materials { get; set; }
 
+        // 优惠券id
+        [NameInMap("coupon_id")]
+        [Validation(Required=false)]
+        public string CouponId { get; set; }
+
     }
 
 }

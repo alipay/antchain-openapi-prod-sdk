@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryUmktOfflinedecisionPlandetailsRequest : TeaModel {
+    public class BatchqueryCreditshieldProductInfoRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 离线圈客配置的ID
-        [NameInMap("offline_decision_plan_id")]
+        // 查询编码： 1.还款概率评估 2.经济波动检测 3.触达前筛等
+        [NameInMap("query_code")]
         [Validation(Required=true)]
-        public long? OfflineDecisionPlanId { get; set; }
+        public string QueryCode { get; set; }
 
-        // 执行日期
-        [NameInMap("result_date")]
+        // 查询信息集合
+        [NameInMap("query_infos")]
         [Validation(Required=false)]
-        public string ResultDate { get; set; }
+        public List<QueryInfo> QueryInfos { get; set; }
 
     }
 

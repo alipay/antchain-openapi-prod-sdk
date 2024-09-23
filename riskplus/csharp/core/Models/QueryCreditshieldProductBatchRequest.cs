@@ -18,17 +18,17 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 查询类型：
+        // 查询编码：
         // 1.还款概率评估
         // 2.经济波动检测
         // 3.触达前筛
-        [NameInMap("query_type")]
+        [NameInMap("query_code")]
         [Validation(Required=true)]
-        public long? QueryType { get; set; }
+        public string QueryCode { get; set; }
 
         // 查询信息集合
         [NameInMap("query_infos")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<QueryInfo> QueryInfos { get; set; }
 
     }

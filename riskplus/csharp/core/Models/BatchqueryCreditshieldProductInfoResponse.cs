@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.RISKPLUS.Models
 {
-    public class QueryFhtestFhResponse : TeaModel {
+    public class BatchqueryCreditshieldProductInfoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,15 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否成功
+        // 查询结果是否成功
         [NameInMap("success")]
         [Validation(Required=false)]
         public bool? Success { get; set; }
 
-        // 字符串数组
+        // 查询结果
         [NameInMap("query_results")]
         [Validation(Required=false)]
-        public List<string> QueryResults { get; set; }
+        public List<QueryResult> QueryResults { get; set; }
 
     }
 
