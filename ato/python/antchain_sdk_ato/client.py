@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.20',
+                    'sdk_version': '1.9.29',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.20',
+                    'sdk_version': '1.9.29',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -606,6 +606,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.UploadFundFlowResponse(),
@@ -639,6 +640,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.UploadFundFlowResponse(),
@@ -4173,6 +4175,66 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.inner.merchantstaticdata.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def get_inner_funddividemerchant(
+        self,
+        request: ato_models.GetInnerFunddividemerchantRequest,
+    ) -> ato_models.GetInnerFunddividemerchantResponse:
+        """
+        Description: 查询已有绑定关系分账方数据
+        包括分账方名称，社会统一信用代码
+        Summary: 间连查询已有绑定关系分账方数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_inner_funddividemerchant_ex(request, headers, runtime)
+
+    async def get_inner_funddividemerchant_async(
+        self,
+        request: ato_models.GetInnerFunddividemerchantRequest,
+    ) -> ato_models.GetInnerFunddividemerchantResponse:
+        """
+        Description: 查询已有绑定关系分账方数据
+        包括分账方名称，社会统一信用代码
+        Summary: 间连查询已有绑定关系分账方数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_inner_funddividemerchant_ex_async(request, headers, runtime)
+
+    def get_inner_funddividemerchant_ex(
+        self,
+        request: ato_models.GetInnerFunddividemerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerFunddividemerchantResponse:
+        """
+        Description: 查询已有绑定关系分账方数据
+        包括分账方名称，社会统一信用代码
+        Summary: 间连查询已有绑定关系分账方数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerFunddividemerchantResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.funddividemerchant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_inner_funddividemerchant_ex_async(
+        self,
+        request: ato_models.GetInnerFunddividemerchantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerFunddividemerchantResponse:
+        """
+        Description: 查询已有绑定关系分账方数据
+        包括分账方名称，社会统一信用代码
+        Summary: 间连查询已有绑定关系分账方数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerFunddividemerchantResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.funddividemerchant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def register_merchantexpand_merchant(
         self,
         request: ato_models.RegisterMerchantexpandMerchantRequest,
@@ -4896,6 +4958,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.UploadSignFlowResponse(),
@@ -4929,6 +4992,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.UploadSignFlowResponse(),
@@ -4986,6 +5050,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.UploadSignTemplateResponse(),
@@ -5019,6 +5084,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ato_models.UploadSignTemplateResponse(),

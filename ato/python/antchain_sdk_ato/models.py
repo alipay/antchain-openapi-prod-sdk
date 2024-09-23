@@ -273,12 +273,16 @@ class FileInfo(TeaModel):
 class AppletRiskModel(TeaModel):
     def __init__(
         self,
+        code: str = None,
         record_id: str = None,
         risk_rank: str = None,
         risk_name: str = None,
         risk_desc: str = None,
         sub_risk_result_list: List[SubRentRiskItem] = None,
+        error_msg: str = None,
     ):
+        # 智租风控调用结果码，10000 表示调用成功。
+        self.code = code
         # 风险咨询事件ID
         self.record_id = record_id
         # 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险
@@ -289,13 +293,15 @@ class AppletRiskModel(TeaModel):
         self.risk_desc = risk_desc
         # 子风险结果列表
         self.sub_risk_result_list = sub_risk_result_list
+        # 调用失败错误提示信息，仅调用失败时返回该字段信息。
+        self.error_msg = error_msg
 
     def validate(self):
+        self.validate_required(self.code, 'code')
         self.validate_required(self.record_id, 'record_id')
         self.validate_required(self.risk_rank, 'risk_rank')
         self.validate_required(self.risk_name, 'risk_name')
         self.validate_required(self.risk_desc, 'risk_desc')
-        self.validate_required(self.sub_risk_result_list, 'sub_risk_result_list')
         if self.sub_risk_result_list:
             for k in self.sub_risk_result_list:
                 if k:
@@ -307,6 +313,8 @@ class AppletRiskModel(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['code'] = self.code
         if self.record_id is not None:
             result['record_id'] = self.record_id
         if self.risk_rank is not None:
@@ -319,10 +327,14 @@ class AppletRiskModel(TeaModel):
         if self.sub_risk_result_list is not None:
             for k in self.sub_risk_result_list:
                 result['sub_risk_result_list'].append(k.to_map() if k else None)
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
         if m.get('record_id') is not None:
             self.record_id = m.get('record_id')
         if m.get('risk_rank') is not None:
@@ -336,6 +348,8 @@ class AppletRiskModel(TeaModel):
             for k in m.get('sub_risk_result_list'):
                 temp_model = SubRentRiskItem()
                 self.sub_risk_result_list.append(temp_model.from_map(k))
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
         return self
 
 
@@ -700,17 +714,17 @@ class PriceDetail(TeaModel):
     def __init__(
         self,
         period_num: int = None,
-        deposit_price: str = None,
-        buyout_price: str = None,
-        initial_rent_price: str = None,
+        deposit_price: int = None,
+        buyout_price: int = None,
+        initial_rent_price: int = None,
     ):
         # 商品租赁期数
         self.period_num = period_num
-        # 押金，单位：元。精度：分。
+        # 押金，单位：分。
         self.deposit_price = deposit_price
-        # 买断价格，单位：元，精度：分
+        # 买断价格，单位：分
         self.buyout_price = buyout_price
-        # 首期租金，单位：元，精度：分
+        # 首期租金，单位：分
         self.initial_rent_price = initial_rent_price
 
     def validate(self):
@@ -719,13 +733,13 @@ class PriceDetail(TeaModel):
             self.validate_maximum(self.period_num, 'period_num', 1000)
         self.validate_required(self.deposit_price, 'deposit_price')
         if self.deposit_price is not None:
-            self.validate_max_length(self.deposit_price, 'deposit_price', 10)
+            self.validate_maximum(self.deposit_price, 'deposit_price', 10000000)
         self.validate_required(self.buyout_price, 'buyout_price')
         if self.buyout_price is not None:
-            self.validate_max_length(self.buyout_price, 'buyout_price', 10)
+            self.validate_maximum(self.buyout_price, 'buyout_price', 10000000)
         self.validate_required(self.initial_rent_price, 'initial_rent_price')
         if self.initial_rent_price is not None:
-            self.validate_max_length(self.initial_rent_price, 'initial_rent_price', 10)
+            self.validate_maximum(self.initial_rent_price, 'initial_rent_price', 10000000)
 
     def to_map(self):
         _map = super().to_map()
@@ -1099,6 +1113,53 @@ class PromiseInfo(TeaModel):
         return self
 
 
+class DeliveryDetail(TeaModel):
+    def __init__(
+        self,
+        receiver_name: str = None,
+        receiver_mobile: str = None,
+        receiver_address: str = None,
+    ):
+        # 收件人姓名
+        self.receiver_name = receiver_name
+        # 收件人手机号
+        self.receiver_mobile = receiver_mobile
+        # 收件人地址
+        self.receiver_address = receiver_address
+
+    def validate(self):
+        if self.receiver_name is not None:
+            self.validate_max_length(self.receiver_name, 'receiver_name', 32)
+        if self.receiver_mobile is not None:
+            self.validate_max_length(self.receiver_mobile, 'receiver_mobile', 32)
+        if self.receiver_address is not None:
+            self.validate_max_length(self.receiver_address, 'receiver_address', 256)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.receiver_name is not None:
+            result['receiver_name'] = self.receiver_name
+        if self.receiver_mobile is not None:
+            result['receiver_mobile'] = self.receiver_mobile
+        if self.receiver_address is not None:
+            result['receiver_address'] = self.receiver_address
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('receiver_name') is not None:
+            self.receiver_name = m.get('receiver_name')
+        if m.get('receiver_mobile') is not None:
+            self.receiver_mobile = m.get('receiver_mobile')
+        if m.get('receiver_address') is not None:
+            self.receiver_address = m.get('receiver_address')
+        return self
+
+
 class AgreementPage(TeaModel):
     def __init__(
         self,
@@ -1210,6 +1271,8 @@ class RelationPage(TeaModel):
         company_name: str = None,
         merchant_id: str = None,
         status: str = None,
+        subject_merchant_id: str = None,
+        subject_company_name: str = None,
     ):
         # 分账关系id
         self.relation_id = relation_id
@@ -1219,12 +1282,18 @@ class RelationPage(TeaModel):
         self.merchant_id = merchant_id
         # 审核状态
         self.status = status
+        # 商户公司统一社会信用代码
+        self.subject_merchant_id = subject_merchant_id
+        # 商户公司名称
+        self.subject_company_name = subject_company_name
 
     def validate(self):
         self.validate_required(self.relation_id, 'relation_id')
         self.validate_required(self.company_name, 'company_name')
         self.validate_required(self.merchant_id, 'merchant_id')
         self.validate_required(self.status, 'status')
+        self.validate_required(self.subject_merchant_id, 'subject_merchant_id')
+        self.validate_required(self.subject_company_name, 'subject_company_name')
 
     def to_map(self):
         _map = super().to_map()
@@ -1240,6 +1309,10 @@ class RelationPage(TeaModel):
             result['merchant_id'] = self.merchant_id
         if self.status is not None:
             result['status'] = self.status
+        if self.subject_merchant_id is not None:
+            result['subject_merchant_id'] = self.subject_merchant_id
+        if self.subject_company_name is not None:
+            result['subject_company_name'] = self.subject_company_name
         return result
 
     def from_map(self, m: dict = None):
@@ -1252,6 +1325,10 @@ class RelationPage(TeaModel):
             self.merchant_id = m.get('merchant_id')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('subject_merchant_id') is not None:
+            self.subject_merchant_id = m.get('subject_merchant_id')
+        if m.get('subject_company_name') is not None:
+            self.subject_company_name = m.get('subject_company_name')
         return self
 
 
@@ -1590,7 +1667,8 @@ class ItemDetail(TeaModel):
         item_name: str = None,
         quantity: int = None,
     ):
-        # 租赁商品类目，可选项见 https://opendocs.alipay.com/open/10719
+        # 租赁商品类目，可选类型：
+        # RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
         self.goods_category = goods_category
         # 租赁商品名称
         self.item_name = item_name
@@ -1598,13 +1676,10 @@ class ItemDetail(TeaModel):
         self.quantity = quantity
 
     def validate(self):
-        self.validate_required(self.goods_category, 'goods_category')
         if self.goods_category is not None:
             self.validate_max_length(self.goods_category, 'goods_category', 30)
-        self.validate_required(self.item_name, 'item_name')
         if self.item_name is not None:
-            self.validate_max_length(self.item_name, 'item_name', 64)
-        self.validate_required(self.quantity, 'quantity')
+            self.validate_max_length(self.item_name, 'item_name', 128)
         if self.quantity is not None:
             self.validate_maximum(self.quantity, 'quantity', 10000)
 
@@ -6697,6 +6772,8 @@ class CreateInnerFunddividerelationRequest(TeaModel):
         alipay_account: str = None,
         submit: str = None,
         user_name: str = None,
+        subject_merchant_id: str = None,
+        expand_mode: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -6723,6 +6800,12 @@ class CreateInnerFunddividerelationRequest(TeaModel):
         self.submit = submit
         # 操作人名称
         self.user_name = user_name
+        # 商户公司社会统一信用代码,
+        # 如果expandMode=AGENT, 非空，长度不超过32位
+        self.subject_merchant_id = subject_merchant_id
+        # 进件模式	:DIRECT(直连进件) ,AGENT(代理进件)
+        # 默认值：DIRECT
+        self.expand_mode = expand_mode
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
@@ -6765,6 +6848,10 @@ class CreateInnerFunddividerelationRequest(TeaModel):
             result['submit'] = self.submit
         if self.user_name is not None:
             result['user_name'] = self.user_name
+        if self.subject_merchant_id is not None:
+            result['subject_merchant_id'] = self.subject_merchant_id
+        if self.expand_mode is not None:
+            result['expand_mode'] = self.expand_mode
         return result
 
     def from_map(self, m: dict = None):
@@ -6796,6 +6883,10 @@ class CreateInnerFunddividerelationRequest(TeaModel):
             self.submit = m.get('submit')
         if m.get('user_name') is not None:
             self.user_name = m.get('user_name')
+        if m.get('subject_merchant_id') is not None:
+            self.subject_merchant_id = m.get('subject_merchant_id')
+        if m.get('expand_mode') is not None:
+            self.expand_mode = m.get('expand_mode')
         return self
 
 
@@ -7004,6 +7095,7 @@ class QueryInnerFunddividerelationResponse(TeaModel):
         result_msg: str = None,
         company_name: str = None,
         subject_merchant_id: str = None,
+        subject_company_name: str = None,
         merchant_id: str = None,
         contract_files: List[FileInfo] = None,
         desc: str = None,
@@ -7023,6 +7115,8 @@ class QueryInnerFunddividerelationResponse(TeaModel):
         self.company_name = company_name
         # 分账主体企业统一社会信用代码
         self.subject_merchant_id = subject_merchant_id
+        # 分账主体公司名称
+        self.subject_company_name = subject_company_name
         # 分账对象统一社会信用代码
         self.merchant_id = merchant_id
         # 分账合同或协议
@@ -7066,6 +7160,8 @@ class QueryInnerFunddividerelationResponse(TeaModel):
             result['company_name'] = self.company_name
         if self.subject_merchant_id is not None:
             result['subject_merchant_id'] = self.subject_merchant_id
+        if self.subject_company_name is not None:
+            result['subject_company_name'] = self.subject_company_name
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
         result['contract_files'] = []
@@ -7100,6 +7196,8 @@ class QueryInnerFunddividerelationResponse(TeaModel):
             self.company_name = m.get('company_name')
         if m.get('subject_merchant_id') is not None:
             self.subject_merchant_id = m.get('subject_merchant_id')
+        if m.get('subject_company_name') is not None:
+            self.subject_company_name = m.get('subject_company_name')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
         self.contract_files = []
@@ -7132,6 +7230,9 @@ class PagequeryInnerFunddividerelationRequest(TeaModel):
         product_instance_id: str = None,
         tenant_id: str = None,
         page_info: PageQuery = None,
+        subject_merchant_id: str = None,
+        subject_company_name: str = None,
+        status: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -7140,6 +7241,15 @@ class PagequeryInnerFunddividerelationRequest(TeaModel):
         self.tenant_id = tenant_id
         # 分页查询对象
         self.page_info = page_info
+        # 商户公司社会统一信用代码
+        self.subject_merchant_id = subject_merchant_id
+        # 商户公司名称
+        self.subject_company_name = subject_company_name
+        # 状态
+        # NIT:待提交
+        # AUDIT:审批中 AUDIT_PASSED:审批通过
+        # AUDIT_NOT_PASSED:审批不通过
+        self.status = status
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
@@ -7161,6 +7271,12 @@ class PagequeryInnerFunddividerelationRequest(TeaModel):
             result['tenant_id'] = self.tenant_id
         if self.page_info is not None:
             result['page_info'] = self.page_info.to_map()
+        if self.subject_merchant_id is not None:
+            result['subject_merchant_id'] = self.subject_merchant_id
+        if self.subject_company_name is not None:
+            result['subject_company_name'] = self.subject_company_name
+        if self.status is not None:
+            result['status'] = self.status
         return result
 
     def from_map(self, m: dict = None):
@@ -7174,6 +7290,12 @@ class PagequeryInnerFunddividerelationRequest(TeaModel):
         if m.get('page_info') is not None:
             temp_model = PageQuery()
             self.page_info = temp_model.from_map(m['page_info'])
+        if m.get('subject_merchant_id') is not None:
+            self.subject_merchant_id = m.get('subject_merchant_id')
+        if m.get('subject_company_name') is not None:
+            self.subject_company_name = m.get('subject_company_name')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
@@ -10019,6 +10141,103 @@ class GetInnerMerchantstaticdataResponse(TeaModel):
         return self
 
 
+class GetInnerFunddividemerchantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class GetInnerFunddividemerchantResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        company_name: str = None,
+        merchant_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 分账方公司名称
+        self.company_name = company_name
+        # 分账方公司统一社会信用代码
+        self.merchant_id = merchant_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        return self
+
+
 class RegisterMerchantexpandMerchantRequest(TeaModel):
     def __init__(
         self,
@@ -10749,9 +10968,9 @@ class QueryRiskRequest(TeaModel):
         mobile: str = None,
         alipay_user_id: str = None,
         source: str = None,
-        receiver_address: str = None,
         item_detail: ItemDetail = None,
         price_detail: PriceDetail = None,
+        delivery_detail: DeliveryDetail = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10768,12 +10987,12 @@ class QueryRiskRequest(TeaModel):
         self.alipay_user_id = alipay_user_id
         # 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
         self.source = source
-        # 收件人地址，智租版必选
-        self.receiver_address = receiver_address
         # 商品详情，智租版可选
         self.item_detail = item_detail
         # 价格详情，智租版可选
         self.price_detail = price_detail
+        # 物流信息，智租版可选
+        self.delivery_detail = delivery_detail
 
     def validate(self):
         self.validate_required(self.product_name, 'product_name')
@@ -10784,12 +11003,12 @@ class QueryRiskRequest(TeaModel):
             self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 20)
         if self.source is not None:
             self.validate_max_length(self.source, 'source', 10)
-        if self.receiver_address is not None:
-            self.validate_max_length(self.receiver_address, 'receiver_address', 128)
         if self.item_detail:
             self.item_detail.validate()
         if self.price_detail:
             self.price_detail.validate()
+        if self.delivery_detail:
+            self.delivery_detail.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -10813,12 +11032,12 @@ class QueryRiskRequest(TeaModel):
             result['alipay_user_id'] = self.alipay_user_id
         if self.source is not None:
             result['source'] = self.source
-        if self.receiver_address is not None:
-            result['receiver_address'] = self.receiver_address
         if self.item_detail is not None:
             result['item_detail'] = self.item_detail.to_map()
         if self.price_detail is not None:
             result['price_detail'] = self.price_detail.to_map()
+        if self.delivery_detail is not None:
+            result['delivery_detail'] = self.delivery_detail.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -10839,14 +11058,15 @@ class QueryRiskRequest(TeaModel):
             self.alipay_user_id = m.get('alipay_user_id')
         if m.get('source') is not None:
             self.source = m.get('source')
-        if m.get('receiver_address') is not None:
-            self.receiver_address = m.get('receiver_address')
         if m.get('item_detail') is not None:
             temp_model = ItemDetail()
             self.item_detail = temp_model.from_map(m['item_detail'])
         if m.get('price_detail') is not None:
             temp_model = PriceDetail()
             self.price_detail = temp_model.from_map(m['price_detail'])
+        if m.get('delivery_detail') is not None:
+            temp_model = DeliveryDetail()
+            self.delivery_detail = temp_model.from_map(m['delivery_detail'])
         return self
 
 
