@@ -30,11 +30,35 @@ class PagequeryInnerFunddividerelationRequest extends Model
      * @var PageQuery
      */
     public $pageInfo;
+
+    // 商户公司社会统一信用代码
+    /**
+     * @var string
+     */
+    public $subjectMerchantId;
+
+    // 商户公司名称
+    /**
+     * @var string
+     */
+    public $subjectCompanyName;
+
+    // 状态
+    // NIT:待提交
+    // AUDIT:审批中 AUDIT_PASSED:审批通过
+    // AUDIT_NOT_PASSED:审批不通过
+    /**
+     * @var string
+     */
+    public $status;
     protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'tenantId'          => 'tenant_id',
-        'pageInfo'          => 'page_info',
+        'authToken'          => 'auth_token',
+        'productInstanceId'  => 'product_instance_id',
+        'tenantId'           => 'tenant_id',
+        'pageInfo'           => 'page_info',
+        'subjectMerchantId'  => 'subject_merchant_id',
+        'subjectCompanyName' => 'subject_company_name',
+        'status'             => 'status',
     ];
 
     public function validate()
@@ -57,6 +81,15 @@ class PagequeryInnerFunddividerelationRequest extends Model
         }
         if (null !== $this->pageInfo) {
             $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
+        }
+        if (null !== $this->subjectMerchantId) {
+            $res['subject_merchant_id'] = $this->subjectMerchantId;
+        }
+        if (null !== $this->subjectCompanyName) {
+            $res['subject_company_name'] = $this->subjectCompanyName;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
         }
 
         return $res;
@@ -81,6 +114,15 @@ class PagequeryInnerFunddividerelationRequest extends Model
         }
         if (isset($map['page_info'])) {
             $model->pageInfo = PageQuery::fromMap($map['page_info']);
+        }
+        if (isset($map['subject_merchant_id'])) {
+            $model->subjectMerchantId = $map['subject_merchant_id'];
+        }
+        if (isset($map['subject_company_name'])) {
+            $model->subjectCompanyName = $map['subject_company_name'];
+        }
+        if (isset($map['status'])) {
+            $model->status = $map['status'];
         }
 
         return $model;

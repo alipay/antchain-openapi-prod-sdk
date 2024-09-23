@@ -39,11 +39,29 @@ class RelationPage extends Model
      * @var string
      */
     public $status;
+
+    // 商户公司统一社会信用代码
+    /**
+     * @example 123123122134wexx
+     *
+     * @var string
+     */
+    public $subjectMerchantId;
+
+    // 商户公司名称
+    /**
+     * @example xx公司
+     *
+     * @var string
+     */
+    public $subjectCompanyName;
     protected $_name = [
-        'relationId'  => 'relation_id',
-        'companyName' => 'company_name',
-        'merchantId'  => 'merchant_id',
-        'status'      => 'status',
+        'relationId'         => 'relation_id',
+        'companyName'        => 'company_name',
+        'merchantId'         => 'merchant_id',
+        'status'             => 'status',
+        'subjectMerchantId'  => 'subject_merchant_id',
+        'subjectCompanyName' => 'subject_company_name',
     ];
 
     public function validate()
@@ -52,6 +70,8 @@ class RelationPage extends Model
         Model::validateRequired('companyName', $this->companyName, true);
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('subjectMerchantId', $this->subjectMerchantId, true);
+        Model::validateRequired('subjectCompanyName', $this->subjectCompanyName, true);
     }
 
     public function toMap()
@@ -68,6 +88,12 @@ class RelationPage extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->subjectMerchantId) {
+            $res['subject_merchant_id'] = $this->subjectMerchantId;
+        }
+        if (null !== $this->subjectCompanyName) {
+            $res['subject_company_name'] = $this->subjectCompanyName;
         }
 
         return $res;
@@ -92,6 +118,12 @@ class RelationPage extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['subject_merchant_id'])) {
+            $model->subjectMerchantId = $map['subject_merchant_id'];
+        }
+        if (isset($map['subject_company_name'])) {
+            $model->subjectCompanyName = $map['subject_company_name'];
         }
 
         return $model;

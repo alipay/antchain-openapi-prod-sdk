@@ -55,12 +55,6 @@ class QueryRiskRequest extends Model
      */
     public $source;
 
-    // 收件人地址，智租版必选
-    /**
-     * @var string
-     */
-    public $receiverAddress;
-
     // 商品详情，智租版可选
     /**
      * @var ItemDetail
@@ -72,6 +66,12 @@ class QueryRiskRequest extends Model
      * @var PriceDetail
      */
     public $priceDetail;
+
+    // 物流信息，智租版可选
+    /**
+     * @var DeliveryDetail
+     */
+    public $deliveryDetail;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -81,9 +81,9 @@ class QueryRiskRequest extends Model
         'mobile'            => 'mobile',
         'alipayUserId'      => 'alipay_user_id',
         'source'            => 'source',
-        'receiverAddress'   => 'receiver_address',
         'itemDetail'        => 'item_detail',
         'priceDetail'       => 'price_detail',
+        'deliveryDetail'    => 'delivery_detail',
     ];
 
     public function validate()
@@ -94,7 +94,6 @@ class QueryRiskRequest extends Model
         Model::validateRequired('mobile', $this->mobile, true);
         Model::validateMaxLength('alipayUserId', $this->alipayUserId, 20);
         Model::validateMaxLength('source', $this->source, 10);
-        Model::validateMaxLength('receiverAddress', $this->receiverAddress, 128);
     }
 
     public function toMap()
@@ -124,14 +123,14 @@ class QueryRiskRequest extends Model
         if (null !== $this->source) {
             $res['source'] = $this->source;
         }
-        if (null !== $this->receiverAddress) {
-            $res['receiver_address'] = $this->receiverAddress;
-        }
         if (null !== $this->itemDetail) {
             $res['item_detail'] = null !== $this->itemDetail ? $this->itemDetail->toMap() : null;
         }
         if (null !== $this->priceDetail) {
             $res['price_detail'] = null !== $this->priceDetail ? $this->priceDetail->toMap() : null;
+        }
+        if (null !== $this->deliveryDetail) {
+            $res['delivery_detail'] = null !== $this->deliveryDetail ? $this->deliveryDetail->toMap() : null;
         }
 
         return $res;
@@ -169,14 +168,14 @@ class QueryRiskRequest extends Model
         if (isset($map['source'])) {
             $model->source = $map['source'];
         }
-        if (isset($map['receiver_address'])) {
-            $model->receiverAddress = $map['receiver_address'];
-        }
         if (isset($map['item_detail'])) {
             $model->itemDetail = ItemDetail::fromMap($map['item_detail']);
         }
         if (isset($map['price_detail'])) {
             $model->priceDetail = PriceDetail::fromMap($map['price_detail']);
+        }
+        if (isset($map['delivery_detail'])) {
+            $model->deliveryDetail = DeliveryDetail::fromMap($map['delivery_detail']);
         }
 
         return $model;

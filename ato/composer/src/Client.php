@@ -77,6 +77,8 @@ use AntChain\ATO\Models\GetFundUserperformanceRequest;
 use AntChain\ATO\Models\GetFundUserperformanceResponse;
 use AntChain\ATO\Models\GetFundUserpromiseRequest;
 use AntChain\ATO\Models\GetFundUserpromiseResponse;
+use AntChain\ATO\Models\GetInnerFunddividemerchantRequest;
+use AntChain\ATO\Models\GetInnerFunddividemerchantResponse;
 use AntChain\ATO\Models\GetInnerMerchantstaticdataRequest;
 use AntChain\ATO\Models\GetInnerMerchantstaticdataResponse;
 use AntChain\ATO\Models\GetInnerProductRequest;
@@ -380,7 +382,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.20',
+                    'sdk_version'      => '1.9.29',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -637,7 +639,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -2724,6 +2727,41 @@ class Client
     }
 
     /**
+     * Description: 查询已有绑定关系分账方数据
+     * 包括分账方名称，社会统一信用代码
+     * Summary: 间连查询已有绑定关系分账方数据.
+     *
+     * @param GetInnerFunddividemerchantRequest $request
+     *
+     * @return GetInnerFunddividemerchantResponse
+     */
+    public function getInnerFunddividemerchant($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerFunddividemerchantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询已有绑定关系分账方数据
+     * 包括分账方名称，社会统一信用代码
+     * Summary: 间连查询已有绑定关系分账方数据.
+     *
+     * @param GetInnerFunddividemerchantRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return GetInnerFunddividemerchantResponse
+     */
+    public function getInnerFunddividemerchantEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerFunddividemerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.funddividemerchant.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 商户入驻
      * Summary: 商户入驻.
      *
@@ -3163,7 +3201,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -3214,7 +3253,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 

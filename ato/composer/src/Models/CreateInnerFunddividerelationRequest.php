@@ -80,6 +80,20 @@ class CreateInnerFunddividerelationRequest extends Model
      * @var string
      */
     public $userName;
+
+    // 商户公司社会统一信用代码,
+    // 如果expandMode=AGENT, 非空，长度不超过32位
+    /**
+     * @var string
+     */
+    public $subjectMerchantId;
+
+    // 进件模式	:DIRECT(直连进件) ,AGENT(代理进件)
+    // 默认值：DIRECT
+    /**
+     * @var string
+     */
+    public $expandMode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -93,6 +107,8 @@ class CreateInnerFunddividerelationRequest extends Model
         'alipayAccount'     => 'alipay_account',
         'submit'            => 'submit',
         'userName'          => 'user_name',
+        'subjectMerchantId' => 'subject_merchant_id',
+        'expandMode'        => 'expand_mode',
     ];
 
     public function validate()
@@ -147,6 +163,12 @@ class CreateInnerFunddividerelationRequest extends Model
         if (null !== $this->userName) {
             $res['user_name'] = $this->userName;
         }
+        if (null !== $this->subjectMerchantId) {
+            $res['subject_merchant_id'] = $this->subjectMerchantId;
+        }
+        if (null !== $this->expandMode) {
+            $res['expand_mode'] = $this->expandMode;
+        }
 
         return $res;
     }
@@ -200,6 +222,12 @@ class CreateInnerFunddividerelationRequest extends Model
         }
         if (isset($map['user_name'])) {
             $model->userName = $map['user_name'];
+        }
+        if (isset($map['subject_merchant_id'])) {
+            $model->subjectMerchantId = $map['subject_merchant_id'];
+        }
+        if (isset($map['expand_mode'])) {
+            $model->expandMode = $map['expand_mode'];
         }
 
         return $model;

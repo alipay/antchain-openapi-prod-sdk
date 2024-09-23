@@ -8,6 +8,14 @@ use AlibabaCloud\Tea\Model;
 
 class AppletRiskModel extends Model
 {
+    // 智租风控调用结果码，10000 表示调用成功。
+    /**
+     * @example 10000
+     *
+     * @var string
+     */
+    public $code;
+
     // 风险咨询事件ID
     /**
      * @example 202403220000000000008833
@@ -47,26 +55,39 @@ class AppletRiskModel extends Model
      * @var SubRentRiskItem[]
      */
     public $subRiskResultList;
+
+    // 调用失败错误提示信息，仅调用失败时返回该字段信息。
+    /**
+     * @example 参数有误身份证号不合法
+     *
+     * @var string
+     */
+    public $errorMsg;
     protected $_name = [
+        'code'              => 'code',
         'recordId'          => 'record_id',
         'riskRank'          => 'risk_rank',
         'riskName'          => 'risk_name',
         'riskDesc'          => 'risk_desc',
         'subRiskResultList' => 'sub_risk_result_list',
+        'errorMsg'          => 'error_msg',
     ];
 
     public function validate()
     {
+        Model::validateRequired('code', $this->code, true);
         Model::validateRequired('recordId', $this->recordId, true);
         Model::validateRequired('riskRank', $this->riskRank, true);
         Model::validateRequired('riskName', $this->riskName, true);
         Model::validateRequired('riskDesc', $this->riskDesc, true);
-        Model::validateRequired('subRiskResultList', $this->subRiskResultList, true);
     }
 
     public function toMap()
     {
         $res = [];
+        if (null !== $this->code) {
+            $res['code'] = $this->code;
+        }
         if (null !== $this->recordId) {
             $res['record_id'] = $this->recordId;
         }
@@ -88,6 +109,9 @@ class AppletRiskModel extends Model
                 }
             }
         }
+        if (null !== $this->errorMsg) {
+            $res['error_msg'] = $this->errorMsg;
+        }
 
         return $res;
     }
@@ -100,6 +124,9 @@ class AppletRiskModel extends Model
     public static function fromMap($map = [])
     {
         $model = new self();
+        if (isset($map['code'])) {
+            $model->code = $map['code'];
+        }
         if (isset($map['record_id'])) {
             $model->recordId = $map['record_id'];
         }
@@ -120,6 +147,9 @@ class AppletRiskModel extends Model
                     $model->subRiskResultList[$n++] = null !== $item ? SubRentRiskItem::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['error_msg'])) {
+            $model->errorMsg = $map['error_msg'];
         }
 
         return $model;

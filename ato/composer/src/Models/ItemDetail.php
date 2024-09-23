@@ -8,7 +8,8 @@ use AlibabaCloud\Tea\Model;
 
 class ItemDetail extends Model
 {
-    // 租赁商品类目，可选项见 https://opendocs.alipay.com/open/10719
+    // 租赁商品类目，可选类型：
+    // RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
     /**
      * @example RENT_PHONE
      *
@@ -39,11 +40,8 @@ class ItemDetail extends Model
 
     public function validate()
     {
-        Model::validateRequired('goodsCategory', $this->goodsCategory, true);
-        Model::validateRequired('itemName', $this->itemName, true);
-        Model::validateRequired('quantity', $this->quantity, true);
         Model::validateMaxLength('goodsCategory', $this->goodsCategory, 30);
-        Model::validateMaxLength('itemName', $this->itemName, 64);
+        Model::validateMaxLength('itemName', $this->itemName, 128);
         Model::validateMaximum('quantity', $this->quantity, 10000);
     }
 

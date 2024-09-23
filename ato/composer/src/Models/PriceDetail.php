@@ -16,27 +16,27 @@ class PriceDetail extends Model
      */
     public $periodNum;
 
-    // 押金，单位：元。精度：分。
+    // 押金，单位：分。
     /**
-     * @example 1000.00
+     * @example 100000
      *
-     * @var string
+     * @var int
      */
     public $depositPrice;
 
-    // 买断价格，单位：元，精度：分
+    // 买断价格，单位：分
     /**
-     * @example 1000.00
+     * @example 100000
      *
-     * @var string
+     * @var int
      */
     public $buyoutPrice;
 
-    // 首期租金，单位：元，精度：分
+    // 首期租金，单位：分
     /**
-     * @example 1000.00
+     * @example 100000
      *
-     * @var string
+     * @var int
      */
     public $initialRentPrice;
     protected $_name = [
@@ -53,9 +53,9 @@ class PriceDetail extends Model
         Model::validateRequired('buyoutPrice', $this->buyoutPrice, true);
         Model::validateRequired('initialRentPrice', $this->initialRentPrice, true);
         Model::validateMaximum('periodNum', $this->periodNum, 1000);
-        Model::validateMaxLength('depositPrice', $this->depositPrice, 10);
-        Model::validateMaxLength('buyoutPrice', $this->buyoutPrice, 10);
-        Model::validateMaxLength('initialRentPrice', $this->initialRentPrice, 10);
+        Model::validateMaximum('depositPrice', $this->depositPrice, 10000000);
+        Model::validateMaximum('buyoutPrice', $this->buyoutPrice, 10000000);
+        Model::validateMaximum('initialRentPrice', $this->initialRentPrice, 10000000);
     }
 
     public function toMap()

@@ -38,6 +38,12 @@ class QueryInnerFunddividerelationResponse extends Model
      */
     public $subjectMerchantId;
 
+    // 分账主体公司名称
+    /**
+     * @var string
+     */
+    public $subjectCompanyName;
+
     // 分账对象统一社会信用代码
     /**
      * @var string
@@ -91,6 +97,7 @@ class QueryInnerFunddividerelationResponse extends Model
         'resultMsg'          => 'result_msg',
         'companyName'        => 'company_name',
         'subjectMerchantId'  => 'subject_merchant_id',
+        'subjectCompanyName' => 'subject_company_name',
         'merchantId'         => 'merchant_id',
         'contractFiles'      => 'contract_files',
         'desc'               => 'desc',
@@ -122,6 +129,9 @@ class QueryInnerFunddividerelationResponse extends Model
         }
         if (null !== $this->subjectMerchantId) {
             $res['subject_merchant_id'] = $this->subjectMerchantId;
+        }
+        if (null !== $this->subjectCompanyName) {
+            $res['subject_company_name'] = $this->subjectCompanyName;
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
@@ -185,6 +195,9 @@ class QueryInnerFunddividerelationResponse extends Model
         }
         if (isset($map['subject_merchant_id'])) {
             $model->subjectMerchantId = $map['subject_merchant_id'];
+        }
+        if (isset($map['subject_company_name'])) {
+            $model->subjectCompanyName = $map['subject_company_name'];
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
