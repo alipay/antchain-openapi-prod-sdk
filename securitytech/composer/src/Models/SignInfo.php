@@ -58,6 +58,22 @@ class SignInfo extends Model
      */
     public $terminateTime;
 
+    // 签约协议生效时间
+    /**
+     * @example 2000-10-10 00:00:00
+     *
+     * @var string
+     */
+    public $effectTime;
+
+    // 签约协议解约时间
+    /**
+     * @example 2000-10-10 00:00:00
+     *
+     * @var string
+     */
+    public $expireTime;
+
     // 月租金额：单位为元
     /**
      * @example 100
@@ -72,6 +88,8 @@ class SignInfo extends Model
         'status'         => 'status',
         'signTime'       => 'sign_time',
         'terminateTime'  => 'terminate_time',
+        'effectTime'     => 'effect_time',
+        'expireTime'     => 'expire_time',
         'paymentAmount'  => 'payment_amount',
     ];
 
@@ -81,6 +99,8 @@ class SignInfo extends Model
         Model::validateRequired('employeeCardNo', $this->employeeCardNo, true);
         Model::validateRequired('accountBookId', $this->accountBookId, true);
         Model::validateRequired('status', $this->status, true);
+        Model::validateRequired('effectTime', $this->effectTime, true);
+        Model::validateRequired('expireTime', $this->expireTime, true);
         Model::validateRequired('paymentAmount', $this->paymentAmount, true);
     }
 
@@ -104,6 +124,12 @@ class SignInfo extends Model
         }
         if (null !== $this->terminateTime) {
             $res['terminate_time'] = $this->terminateTime;
+        }
+        if (null !== $this->effectTime) {
+            $res['effect_time'] = $this->effectTime;
+        }
+        if (null !== $this->expireTime) {
+            $res['expire_time'] = $this->expireTime;
         }
         if (null !== $this->paymentAmount) {
             $res['payment_amount'] = $this->paymentAmount;
@@ -137,6 +163,12 @@ class SignInfo extends Model
         }
         if (isset($map['terminate_time'])) {
             $model->terminateTime = $map['terminate_time'];
+        }
+        if (isset($map['effect_time'])) {
+            $model->effectTime = $map['effect_time'];
+        }
+        if (isset($map['expire_time'])) {
+            $model->expireTime = $map['expire_time'];
         }
         if (isset($map['payment_amount'])) {
             $model->paymentAmount = $map['payment_amount'];
