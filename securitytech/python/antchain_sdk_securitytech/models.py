@@ -1411,6 +1411,8 @@ class SignInfo(TeaModel):
         status: str = None,
         sign_time: str = None,
         terminate_time: str = None,
+        effect_time: str = None,
+        expire_time: str = None,
         payment_amount: str = None,
     ):
         # 司机证件号
@@ -1427,6 +1429,10 @@ class SignInfo(TeaModel):
         self.sign_time = sign_time
         # 解约时间 "yyyy-MM-dd HH:mm:ss"
         self.terminate_time = terminate_time
+        # 签约协议生效时间
+        self.effect_time = effect_time
+        # 签约协议解约时间
+        self.expire_time = expire_time
         # 月租金额：单位为元
         self.payment_amount = payment_amount
 
@@ -1435,6 +1441,8 @@ class SignInfo(TeaModel):
         self.validate_required(self.employee_card_no, 'employee_card_no')
         self.validate_required(self.account_book_id, 'account_book_id')
         self.validate_required(self.status, 'status')
+        self.validate_required(self.effect_time, 'effect_time')
+        self.validate_required(self.expire_time, 'expire_time')
         self.validate_required(self.payment_amount, 'payment_amount')
 
     def to_map(self):
@@ -1455,6 +1463,10 @@ class SignInfo(TeaModel):
             result['sign_time'] = self.sign_time
         if self.terminate_time is not None:
             result['terminate_time'] = self.terminate_time
+        if self.effect_time is not None:
+            result['effect_time'] = self.effect_time
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
         if self.payment_amount is not None:
             result['payment_amount'] = self.payment_amount
         return result
@@ -1473,6 +1485,10 @@ class SignInfo(TeaModel):
             self.sign_time = m.get('sign_time')
         if m.get('terminate_time') is not None:
             self.terminate_time = m.get('terminate_time')
+        if m.get('effect_time') is not None:
+            self.effect_time = m.get('effect_time')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
         if m.get('payment_amount') is not None:
             self.payment_amount = m.get('payment_amount')
         return self
