@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.9.20"),
+                    new TeaPair("sdk_version", "1.9.29"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -313,6 +313,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -1517,6 +1518,27 @@ public class Client {
     }
 
     /**
+     * Description: 查询已有绑定关系分账方数据
+    包括分账方名称，社会统一信用代码
+     * Summary: 间连查询已有绑定关系分账方数据
+     */
+    public GetInnerFunddividemerchantResponse getInnerFunddividemerchant(GetInnerFunddividemerchantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getInnerFunddividemerchantEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询已有绑定关系分账方数据
+    包括分账方名称，社会统一信用代码
+     * Summary: 间连查询已有绑定关系分账方数据
+     */
+    public GetInnerFunddividemerchantResponse getInnerFunddividemerchantEx(GetInnerFunddividemerchantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.funddividemerchant.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInnerFunddividemerchantResponse());
+    }
+
+    /**
      * Description: 商户入驻
      * Summary: 商户入驻
      */
@@ -1778,6 +1800,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -1818,6 +1841,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);

@@ -41,11 +41,6 @@ public class QueryRiskRequest extends TeaModel {
     @Validation(maxLength = 10)
     public String source;
 
-    // 收件人地址，智租版必选
-    @NameInMap("receiver_address")
-    @Validation(maxLength = 128)
-    public String receiverAddress;
-
     // 商品详情，智租版可选
     @NameInMap("item_detail")
     public ItemDetail itemDetail;
@@ -53,6 +48,10 @@ public class QueryRiskRequest extends TeaModel {
     // 价格详情，智租版可选
     @NameInMap("price_detail")
     public PriceDetail priceDetail;
+
+    // 物流信息，智租版可选
+    @NameInMap("delivery_detail")
+    public DeliveryDetail deliveryDetail;
 
     public static QueryRiskRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryRiskRequest self = new QueryRiskRequest();
@@ -123,14 +122,6 @@ public class QueryRiskRequest extends TeaModel {
         return this.source;
     }
 
-    public QueryRiskRequest setReceiverAddress(String receiverAddress) {
-        this.receiverAddress = receiverAddress;
-        return this;
-    }
-    public String getReceiverAddress() {
-        return this.receiverAddress;
-    }
-
     public QueryRiskRequest setItemDetail(ItemDetail itemDetail) {
         this.itemDetail = itemDetail;
         return this;
@@ -145,6 +136,14 @@ public class QueryRiskRequest extends TeaModel {
     }
     public PriceDetail getPriceDetail() {
         return this.priceDetail;
+    }
+
+    public QueryRiskRequest setDeliveryDetail(DeliveryDetail deliveryDetail) {
+        this.deliveryDetail = deliveryDetail;
+        return this;
+    }
+    public DeliveryDetail getDeliveryDetail() {
+        return this.deliveryDetail;
     }
 
 }

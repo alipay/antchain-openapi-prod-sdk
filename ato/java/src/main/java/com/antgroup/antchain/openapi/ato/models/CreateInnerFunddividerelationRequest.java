@@ -56,6 +56,16 @@ public class CreateInnerFunddividerelationRequest extends TeaModel {
     @Validation(required = true)
     public String userName;
 
+    // 商户公司社会统一信用代码, 
+    // 如果expandMode=AGENT, 非空，长度不超过32位
+    @NameInMap("subject_merchant_id")
+    public String subjectMerchantId;
+
+    // 进件模式	:DIRECT(直连进件) ,AGENT(代理进件)
+    // 默认值：DIRECT
+    @NameInMap("expand_mode")
+    public String expandMode;
+
     public static CreateInnerFunddividerelationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerFunddividerelationRequest self = new CreateInnerFunddividerelationRequest();
         return TeaModel.build(map, self);
@@ -155,6 +165,22 @@ public class CreateInnerFunddividerelationRequest extends TeaModel {
     }
     public String getUserName() {
         return this.userName;
+    }
+
+    public CreateInnerFunddividerelationRequest setSubjectMerchantId(String subjectMerchantId) {
+        this.subjectMerchantId = subjectMerchantId;
+        return this;
+    }
+    public String getSubjectMerchantId() {
+        return this.subjectMerchantId;
+    }
+
+    public CreateInnerFunddividerelationRequest setExpandMode(String expandMode) {
+        this.expandMode = expandMode;
+        return this;
+    }
+    public String getExpandMode() {
+        return this.expandMode;
     }
 
 }

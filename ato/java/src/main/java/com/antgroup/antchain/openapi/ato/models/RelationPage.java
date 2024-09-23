@@ -24,6 +24,16 @@ public class RelationPage extends TeaModel {
     @Validation(required = true)
     public String status;
 
+    // 商户公司统一社会信用代码
+    @NameInMap("subject_merchant_id")
+    @Validation(required = true)
+    public String subjectMerchantId;
+
+    // 商户公司名称
+    @NameInMap("subject_company_name")
+    @Validation(required = true)
+    public String subjectCompanyName;
+
     public static RelationPage build(java.util.Map<String, ?> map) throws Exception {
         RelationPage self = new RelationPage();
         return TeaModel.build(map, self);
@@ -59,6 +69,22 @@ public class RelationPage extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public RelationPage setSubjectMerchantId(String subjectMerchantId) {
+        this.subjectMerchantId = subjectMerchantId;
+        return this;
+    }
+    public String getSubjectMerchantId() {
+        return this.subjectMerchantId;
+    }
+
+    public RelationPage setSubjectCompanyName(String subjectCompanyName) {
+        this.subjectCompanyName = subjectCompanyName;
+        return this;
+    }
+    public String getSubjectCompanyName() {
+        return this.subjectCompanyName;
     }
 
 }

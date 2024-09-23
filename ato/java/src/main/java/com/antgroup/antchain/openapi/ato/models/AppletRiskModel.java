@@ -4,6 +4,11 @@ package com.antgroup.antchain.openapi.ato.models;
 import com.aliyun.tea.*;
 
 public class AppletRiskModel extends TeaModel {
+    // 智租风控调用结果码，10000 表示调用成功。
+    @NameInMap("code")
+    @Validation(required = true)
+    public String code;
+
     // 风险咨询事件ID
     @NameInMap("record_id")
     @Validation(required = true)
@@ -26,12 +31,23 @@ public class AppletRiskModel extends TeaModel {
 
     // 子风险结果列表
     @NameInMap("sub_risk_result_list")
-    @Validation(required = true)
     public java.util.List<SubRentRiskItem> subRiskResultList;
+
+    // 调用失败错误提示信息，仅调用失败时返回该字段信息。
+    @NameInMap("error_msg")
+    public String errorMsg;
 
     public static AppletRiskModel build(java.util.Map<String, ?> map) throws Exception {
         AppletRiskModel self = new AppletRiskModel();
         return TeaModel.build(map, self);
+    }
+
+    public AppletRiskModel setCode(String code) {
+        this.code = code;
+        return this;
+    }
+    public String getCode() {
+        return this.code;
     }
 
     public AppletRiskModel setRecordId(String recordId) {
@@ -72,6 +88,14 @@ public class AppletRiskModel extends TeaModel {
     }
     public java.util.List<SubRentRiskItem> getSubRiskResultList() {
         return this.subRiskResultList;
+    }
+
+    public AppletRiskModel setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+        return this;
+    }
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
 }
