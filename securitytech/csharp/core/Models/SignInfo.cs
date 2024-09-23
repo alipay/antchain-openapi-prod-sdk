@@ -42,6 +42,16 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string TerminateTime { get; set; }
 
+        // 签约协议生效时间
+        [NameInMap("effect_time")]
+        [Validation(Required=true)]
+        public string EffectTime { get; set; }
+
+        // 签约协议解约时间
+        [NameInMap("expire_time")]
+        [Validation(Required=true)]
+        public string ExpireTime { get; set; }
+
         // 月租金额：单位为元
         [NameInMap("payment_amount")]
         [Validation(Required=true)]
