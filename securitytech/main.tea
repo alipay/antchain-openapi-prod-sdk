@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.33',
+    sdk_version = '1.3.0',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -459,6 +459,10 @@ model SignInfo {
   signTime?: string(name='sign_time', example='2000-10-10 00:00:00'),
   // 解约时间 "yyyy-MM-dd HH:mm:ss"
   terminateTime?: string(name='terminate_time', example='2000-10-10 00:00:00'),
+  // 签约协议生效时间
+  effectTime: string(name='effect_time', example='2000-10-10 00:00:00'),
+  // 签约协议解约时间
+  expireTime: string(name='expire_time', example='2000-10-10 00:00:00'),
   // 月租金额：单位为元
   paymentAmount: string(name='payment_amount', example='100'),
 }
