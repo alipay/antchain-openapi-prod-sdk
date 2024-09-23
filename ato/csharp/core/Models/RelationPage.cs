@@ -30,6 +30,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string Status { get; set; }
 
+        // 商户公司统一社会信用代码
+        [NameInMap("subject_merchant_id")]
+        [Validation(Required=true)]
+        public string SubjectMerchantId { get; set; }
+
+        // 商户公司名称
+        [NameInMap("subject_company_name")]
+        [Validation(Required=true)]
+        public string SubjectCompanyName { get; set; }
+
     }
 
 }

@@ -48,11 +48,6 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=10)]
         public string Source { get; set; }
 
-        // 收件人地址，智租版必选
-        [NameInMap("receiver_address")]
-        [Validation(Required=false, MaxLength=128)]
-        public string ReceiverAddress { get; set; }
-
         // 商品详情，智租版可选
         [NameInMap("item_detail")]
         [Validation(Required=false)]
@@ -62,6 +57,11 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("price_detail")]
         [Validation(Required=false)]
         public PriceDetail PriceDetail { get; set; }
+
+        // 物流信息，智租版可选
+        [NameInMap("delivery_detail")]
+        [Validation(Required=false)]
+        public DeliveryDetail DeliveryDetail { get; set; }
 
     }
 

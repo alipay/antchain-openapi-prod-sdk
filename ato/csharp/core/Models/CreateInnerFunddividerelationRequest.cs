@@ -70,6 +70,18 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string UserName { get; set; }
 
+        // 商户公司社会统一信用代码, 
+        // 如果expandMode=AGENT, 非空，长度不超过32位
+        [NameInMap("subject_merchant_id")]
+        [Validation(Required=false)]
+        public string SubjectMerchantId { get; set; }
+
+        // 进件模式	:DIRECT(直连进件) ,AGENT(代理进件)
+        // 默认值：DIRECT
+        [NameInMap("expand_mode")]
+        [Validation(Required=false)]
+        public string ExpandMode { get; set; }
+
     }
 
 }

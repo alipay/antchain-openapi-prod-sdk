@@ -15,20 +15,20 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public long? PeriodNum { get; set; }
 
-        // 押金，单位：元。精度：分。
+        // 押金，单位：分。
         [NameInMap("deposit_price")]
-        [Validation(Required=true, MaxLength=10)]
-        public string DepositPrice { get; set; }
+        [Validation(Required=true)]
+        public long? DepositPrice { get; set; }
 
-        // 买断价格，单位：元，精度：分
+        // 买断价格，单位：分
         [NameInMap("buyout_price")]
-        [Validation(Required=true, MaxLength=10)]
-        public string BuyoutPrice { get; set; }
+        [Validation(Required=true)]
+        public long? BuyoutPrice { get; set; }
 
-        // 首期租金，单位：元，精度：分
+        // 首期租金，单位：分
         [NameInMap("initial_rent_price")]
-        [Validation(Required=true, MaxLength=10)]
-        public string InitialRentPrice { get; set; }
+        [Validation(Required=true)]
+        public long? InitialRentPrice { get; set; }
 
     }
 

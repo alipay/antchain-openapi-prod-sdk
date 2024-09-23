@@ -10,6 +10,11 @@ namespace AntChain.SDK.ATO.Models
 {
     // 智租风控模型结构体
     public class AppletRiskModel : TeaModel {
+        // 智租风控调用结果码，10000 表示调用成功。
+        [NameInMap("code")]
+        [Validation(Required=true)]
+        public string Code { get; set; }
+
         // 风险咨询事件ID
         [NameInMap("record_id")]
         [Validation(Required=true)]
@@ -32,8 +37,13 @@ namespace AntChain.SDK.ATO.Models
 
         // 子风险结果列表
         [NameInMap("sub_risk_result_list")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<SubRentRiskItem> SubRiskResultList { get; set; }
+
+        // 调用失败错误提示信息，仅调用失败时返回该字段信息。
+        [NameInMap("error_msg")]
+        [Validation(Required=false)]
+        public string ErrorMsg { get; set; }
 
     }
 

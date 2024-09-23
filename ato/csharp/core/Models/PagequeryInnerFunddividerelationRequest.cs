@@ -28,6 +28,24 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public PageQuery PageInfo { get; set; }
 
+        // 商户公司社会统一信用代码
+        [NameInMap("subject_merchant_id")]
+        [Validation(Required=false)]
+        public string SubjectMerchantId { get; set; }
+
+        // 商户公司名称
+        [NameInMap("subject_company_name")]
+        [Validation(Required=false)]
+        public string SubjectCompanyName { get; set; }
+
+        // 状态
+        // NIT:待提交 
+        // AUDIT:审批中 AUDIT_PASSED:审批通过
+        // AUDIT_NOT_PASSED:审批不通过
+        [NameInMap("status")]
+        [Validation(Required=false)]
+        public string Status { get; set; }
+
     }
 
 }
