@@ -882,6 +882,10 @@ export class SignInfo extends $tea.Model {
   signTime?: string;
   // 解约时间 "yyyy-MM-dd HH:mm:ss"
   terminateTime?: string;
+  // 签约协议生效时间
+  effectTime: string;
+  // 签约协议解约时间
+  expireTime: string;
   // 月租金额：单位为元
   paymentAmount: string;
   static names(): { [key: string]: string } {
@@ -892,6 +896,8 @@ export class SignInfo extends $tea.Model {
       status: 'status',
       signTime: 'sign_time',
       terminateTime: 'terminate_time',
+      effectTime: 'effect_time',
+      expireTime: 'expire_time',
       paymentAmount: 'payment_amount',
     };
   }
@@ -904,6 +910,8 @@ export class SignInfo extends $tea.Model {
       status: 'string',
       signTime: 'string',
       terminateTime: 'string',
+      effectTime: 'string',
+      expireTime: 'string',
       paymentAmount: 'string',
     };
   }
@@ -4532,7 +4540,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.33",
+          sdk_version: "1.3.0",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
