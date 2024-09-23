@@ -412,14 +412,14 @@ export class CouponInfo extends $tea.Model {
   // 优惠券名称
   couponName: string;
   // 优惠券状态
-  // 0-未使用
-  // 2-已使用
-  // 3-已失效
-  couponStatus: string;
+  // unUsed-未使用
+  // Used-已使用
+  // Expired-过期
+  status: string;
   // 使用场景
   // 01-提款使用
   // 02-还款使用
-  useScene: string;
+  useCondition: string;
   // 优惠码
   couponCode?: string;
   // 优惠券类型
@@ -477,12 +477,18 @@ export class CouponInfo extends $tea.Model {
   // 01-到期还款
   // 02-即期还款
   repayWays?: string;
+  // 优惠模板Id
+  couponModelNo?: string;
+  // 至到期:X年X月X日
+  // 0：不是至到期券 
+  // 1：是至到期券
+  toMaturity?: string;
   static names(): { [key: string]: string } {
     return {
       couponId: 'coupon_id',
       couponName: 'coupon_name',
-      couponStatus: 'coupon_status',
-      useScene: 'use_scene',
+      status: 'status',
+      useCondition: 'use_condition',
       couponCode: 'coupon_code',
       couponType: 'coupon_type',
       couponValue: 'coupon_value',
@@ -499,6 +505,8 @@ export class CouponInfo extends $tea.Model {
       isPeriodLimit: 'is_period_limit',
       repayCondition: 'repay_condition',
       repayWays: 'repay_ways',
+      couponModelNo: 'coupon_model_no',
+      toMaturity: 'to_maturity',
     };
   }
 
@@ -506,8 +514,8 @@ export class CouponInfo extends $tea.Model {
     return {
       couponId: 'string',
       couponName: 'string',
-      couponStatus: 'string',
-      useScene: 'string',
+      status: 'string',
+      useCondition: 'string',
       couponCode: 'string',
       couponType: 'string',
       couponValue: 'string',
@@ -524,6 +532,8 @@ export class CouponInfo extends $tea.Model {
       isPeriodLimit: 'string',
       repayCondition: 'string',
       repayWays: 'string',
+      couponModelNo: 'string',
+      toMaturity: 'string',
     };
   }
 
@@ -3404,6 +3414,33 @@ export class RtopStarCompanyInfo extends $tea.Model {
   }
 }
 
+// 还款方式/借款期数信息
+export class PlatformRepayTypeInfo extends $tea.Model {
+  // 1：等额本息
+  // 2：等额本金
+  // 3：按期付息到期还本（先息后本）
+  repayType: string;
+  // {”1“，”2“}
+  periods: string[];
+  static names(): { [key: string]: string } {
+    return {
+      repayType: 'repay_type',
+      periods: 'periods',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      repayType: 'string',
+      periods: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 企业日期趋势统计
 export class RtopDateDistribution extends $tea.Model {
   // 统计值
@@ -4738,6 +4775,12 @@ export class RepayTrail extends $tea.Model {
   endTime: string;
   // 试算编号
   trialNo: string;
+  // 优惠后应还金额
+  discountAfterNeedAmt?: number;
+  // 优惠后应还利息
+  discountAfterInterest?: number;
+  // 优惠利息
+  discountInterest?: number;
   static names(): { [key: string]: string } {
     return {
       period: 'period',
@@ -4751,6 +4794,9 @@ export class RepayTrail extends $tea.Model {
       startTime: 'start_time',
       endTime: 'end_time',
       trialNo: 'trial_no',
+      discountAfterNeedAmt: 'discount_after_need_amt',
+      discountAfterInterest: 'discount_after_interest',
+      discountInterest: 'discount_interest',
     };
   }
 
@@ -4767,6 +4813,9 @@ export class RepayTrail extends $tea.Model {
       startTime: 'string',
       endTime: 'string',
       trialNo: 'string',
+      discountAfterNeedAmt: 'number',
+      discountAfterInterest: 'number',
+      discountInterest: 'number',
     };
   }
 
@@ -4866,6 +4915,73 @@ export class XNameValuePair extends $tea.Model {
     return {
       name: 'string',
       value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryCreditshieldProductInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询编码： 1.还款概率评估 2.经济波动检测 3.触达前筛等
+  queryCode: string;
+  // 查询信息集合
+  queryInfos?: QueryInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      queryCode: 'query_code',
+      queryInfos: 'query_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      queryCode: 'string',
+      queryInfos: { 'type': 'array', 'itemType': QueryInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryCreditshieldProductInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果是否成功
+  success?: boolean;
+  // 查询结果
+  queryResults?: QueryResult[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      queryResults: 'query_results',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      queryResults: { 'type': 'array', 'itemType': QueryResult },
     };
   }
 
@@ -5516,93 +5632,22 @@ export class QueryBatchSecurityPolicyResponse extends $tea.Model {
   }
 }
 
-export class QueryFhtestFhRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 名称
-  name: string;
-  // 年龄
-  age: number;
-  // 判断字段
-  judge?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      name: 'name',
-      age: 'age',
-      judge: 'judge',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      name: 'string',
-      age: 'number',
-      judge: 'boolean',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class QueryFhtestFhResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 是否成功
-  success?: boolean;
-  // 字符串数组
-  queryResults?: string[];
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      success: 'success',
-      queryResults: 'query_results',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      success: 'boolean',
-      queryResults: { 'type': 'array', 'itemType': 'string' },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class QueryCreditshieldProductBatchRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 查询类型：
+  // 查询编码：
   // 1.还款概率评估
   // 2.经济波动检测
   // 3.触达前筛
-  queryType: number;
+  queryCode: string;
   // 查询信息集合
-  queryInfos: QueryInfo[];
+  queryInfos?: QueryInfo[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      queryType: 'query_type',
+      queryCode: 'query_code',
       queryInfos: 'query_infos',
     };
   }
@@ -5611,7 +5656,7 @@ export class QueryCreditshieldProductBatchRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      queryType: 'number',
+      queryCode: 'string',
       queryInfos: { 'type': 'array', 'itemType': QueryInfo },
     };
   }
@@ -9099,6 +9144,8 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
   repayType: string;
   // 还款日
   repayDate?: string;
+  // 优惠券id
+  couponId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9110,6 +9157,7 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
       applyPeriod: 'apply_period',
       repayType: 'repay_type',
       repayDate: 'repay_date',
+      couponId: 'coupon_id',
     };
   }
 
@@ -9124,6 +9172,7 @@ export class CountDubbridgeRepayReftrialRequest extends $tea.Model {
       applyPeriod: 'number',
       repayType: 'string',
       repayDate: 'string',
+      couponId: 'string',
     };
   }
 
@@ -9437,6 +9486,8 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
   bankCardNo?: string;
   // 影像件信息
   materials?: Material[];
+  // 优惠券id
+  couponId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9455,6 +9506,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       loanInstCode: 'loan_inst_code',
       bankCardNo: 'bank_card_no',
       materials: 'materials',
+      couponId: 'coupon_id',
     };
   }
 
@@ -9476,6 +9528,7 @@ export class ApplyDubbridgeUsecreditRequest extends $tea.Model {
       loanInstCode: 'string',
       bankCardNo: 'string',
       materials: { 'type': 'array', 'itemType': Material },
+      couponId: 'string',
     };
   }
 
@@ -10712,6 +10765,140 @@ export class QueryDubbridgeUserAggregationinfoResponse extends $tea.Model {
   }
 }
 
+export class QueryDubbridgeMarketingCouponlistRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户号
+  customerNo: string;
+  // 优惠券状态
+  status?: string;
+  // 页码
+  page?: number;
+  // 每页数量
+  pageSize?: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerNo: 'customer_no',
+      status: 'status',
+      page: 'page',
+      pageSize: 'page_size',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerNo: 'string',
+      status: 'string',
+      page: 'number',
+      pageSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeMarketingCouponlistResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 优惠券列表
+  couponList?: CouponInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      couponList: 'coupon_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      couponList: { 'type': 'array', 'itemType': CouponInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepaytypeInfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户号
+  customerNo: string;
+  // 资金方编号
+  fundCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerNo: 'customer_no',
+      fundCode: 'fund_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerNo: 'string',
+      fundCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDubbridgeRepaytypeInfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 还款方式/借款期数集合
+  repayTypeInfoList?: PlatformRepayTypeInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      repayTypeInfoList: 'repay_type_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      repayTypeInfoList: { 'type': 'array', 'itemType': PlatformRepayTypeInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyFinserviceZhimaIdentifyRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -11008,6 +11195,69 @@ export class ReceiveMdipParamsRbbfileRequest extends $tea.Model {
 }
 
 export class ReceiveMdipParamsRbbfileResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMdipAuditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 审批结果
+  auditResult: string;
+  // 工单流水号
+  bizCode: string;
+  // 额外信息
+  extend?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      auditResult: 'audit_result',
+      bizCode: 'biz_code',
+      extend: 'extend',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      auditResult: 'string',
+      bizCode: 'string',
+      extend: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMdipAuditResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -20383,7 +20633,7 @@ export class QueryUmktOfflinedecisionPlandetailsRequest extends $tea.Model {
   // 离线圈客配置的ID
   offlineDecisionPlanId: number;
   // 执行日期
-  resultDate: string;
+  resultDate?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -20644,7 +20894,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.20.2",
+          sdk_version: "1.20.7",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -20690,6 +20940,25 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: 信护盾产品批量查询
+   * Summary: 信护盾产品批量查询
+   */
+  async batchqueryCreditshieldProductInfo(request: BatchqueryCreditshieldProductInfoRequest): Promise<BatchqueryCreditshieldProductInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryCreditshieldProductInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 信护盾产品批量查询
+   * Summary: 信护盾产品批量查询
+   */
+  async batchqueryCreditshieldProductInfoEx(request: BatchqueryCreditshieldProductInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryCreditshieldProductInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryCreditshieldProductInfoResponse>(await this.doRequest("1.0", "riskplus.creditshield.product.info.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryCreditshieldProductInfoResponse({}));
   }
 
   /**
@@ -20861,25 +21130,6 @@ export default class Client {
   async queryBatchSecurityPolicyEx(request: QueryBatchSecurityPolicyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBatchSecurityPolicyResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBatchSecurityPolicyResponse>(await this.doRequest("1.0", "riskplus.batch.security.policy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBatchSecurityPolicyResponse({}));
-  }
-
-  /**
-   * Description: 峰禾API测试
-   * Summary: 峰禾API测试
-   */
-  async queryFhtestFh(request: QueryFhtestFhRequest): Promise<QueryFhtestFhResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.queryFhtestFhEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 峰禾API测试
-   * Summary: 峰禾API测试
-   */
-  async queryFhtestFhEx(request: QueryFhtestFhRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFhtestFhResponse> {
-    Util.validateModel(request);
-    return $tea.cast<QueryFhtestFhResponse>(await this.doRequest("1.0", "riskplus.fhtest.fh.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFhtestFhResponse({}));
   }
 
   /**
@@ -22064,6 +22314,44 @@ export default class Client {
   }
 
   /**
+   * Description: 天枢系统优惠券列表查询接口
+   * Summary: 天枢系统优惠券列表查询接口
+   */
+  async queryDubbridgeMarketingCouponlist(request: QueryDubbridgeMarketingCouponlistRequest): Promise<QueryDubbridgeMarketingCouponlistResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeMarketingCouponlistEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统优惠券列表查询接口
+   * Summary: 天枢系统优惠券列表查询接口
+   */
+  async queryDubbridgeMarketingCouponlistEx(request: QueryDubbridgeMarketingCouponlistRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeMarketingCouponlistResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeMarketingCouponlistResponse>(await this.doRequest("1.0", "riskplus.dubbridge.marketing.couponlist.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeMarketingCouponlistResponse({}));
+  }
+
+  /**
+   * Description: 天枢系统还款方式查询
+   * Summary: 天枢系统还款方式查询
+   */
+  async queryDubbridgeRepaytypeInfo(request: QueryDubbridgeRepaytypeInfoRequest): Promise<QueryDubbridgeRepaytypeInfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDubbridgeRepaytypeInfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 天枢系统还款方式查询
+   * Summary: 天枢系统还款方式查询
+   */
+  async queryDubbridgeRepaytypeInfoEx(request: QueryDubbridgeRepaytypeInfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDubbridgeRepaytypeInfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDubbridgeRepaytypeInfoResponse>(await this.doRequest("1.0", "riskplus.dubbridge.repaytype.info.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDubbridgeRepaytypeInfoResponse({}));
+  }
+
+  /**
    * Description: 四要素认证首先调用此接口
    * Summary: 芝麻四要素接口
    */
@@ -22200,6 +22488,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ReceiveMdipParamsRbbfileResponse>(await this.doRequest("1.0", "riskplus.mdip.params.rbbfile.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveMdipParamsRbbfileResponse({}));
+  }
+
+  /**
+   * Description: 多源平台审批回调接口
+   * Summary: 多源平台审批回调接口
+   */
+  async callbackMdipAudit(request: CallbackMdipAuditRequest): Promise<CallbackMdipAuditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMdipAuditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 多源平台审批回调接口
+   * Summary: 多源平台审批回调接口
+   */
+  async callbackMdipAuditEx(request: CallbackMdipAuditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMdipAuditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMdipAuditResponse>(await this.doRequest("1.0", "riskplus.mdip.audit.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMdipAuditResponse({}));
   }
 
   /**
