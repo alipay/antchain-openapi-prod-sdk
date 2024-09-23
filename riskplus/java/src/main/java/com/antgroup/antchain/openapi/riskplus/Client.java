@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.20.2"),
+                    new TeaPair("sdk_version", "1.20.7"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -182,6 +182,25 @@ public class Client {
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
         interceptorChain.addResponseInterceptor(interceptor);
+    }
+
+    /**
+     * Description: 信护盾产品批量查询
+     * Summary: 信护盾产品批量查询
+     */
+    public BatchqueryCreditshieldProductInfoResponse batchqueryCreditshieldProductInfo(BatchqueryCreditshieldProductInfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.batchqueryCreditshieldProductInfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 信护盾产品批量查询
+     * Summary: 信护盾产品批量查询
+     */
+    public BatchqueryCreditshieldProductInfoResponse batchqueryCreditshieldProductInfoEx(BatchqueryCreditshieldProductInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.creditshield.product.info.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryCreditshieldProductInfoResponse());
     }
 
     /**
@@ -353,25 +372,6 @@ public class Client {
     public QueryBatchSecurityPolicyResponse queryBatchSecurityPolicyEx(QueryBatchSecurityPolicyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.batch.security.policy.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBatchSecurityPolicyResponse());
-    }
-
-    /**
-     * Description: 峰禾API测试
-     * Summary: 峰禾API测试
-     */
-    public QueryFhtestFhResponse queryFhtestFh(QueryFhtestFhRequest request) throws Exception {
-        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
-        java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryFhtestFhEx(request, headers, runtime);
-    }
-
-    /**
-     * Description: 峰禾API测试
-     * Summary: 峰禾API测试
-     */
-    public QueryFhtestFhResponse queryFhtestFhEx(QueryFhtestFhRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
-        com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "riskplus.fhtest.fh.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryFhtestFhResponse());
     }
 
     /**
@@ -1556,6 +1556,44 @@ public class Client {
     }
 
     /**
+     * Description: 天枢系统优惠券列表查询接口
+     * Summary: 天枢系统优惠券列表查询接口
+     */
+    public QueryDubbridgeMarketingCouponlistResponse queryDubbridgeMarketingCouponlist(QueryDubbridgeMarketingCouponlistRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeMarketingCouponlistEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢系统优惠券列表查询接口
+     * Summary: 天枢系统优惠券列表查询接口
+     */
+    public QueryDubbridgeMarketingCouponlistResponse queryDubbridgeMarketingCouponlistEx(QueryDubbridgeMarketingCouponlistRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.marketing.couponlist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeMarketingCouponlistResponse());
+    }
+
+    /**
+     * Description: 天枢系统还款方式查询
+     * Summary: 天枢系统还款方式查询
+     */
+    public QueryDubbridgeRepaytypeInfoResponse queryDubbridgeRepaytypeInfo(QueryDubbridgeRepaytypeInfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDubbridgeRepaytypeInfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 天枢系统还款方式查询
+     * Summary: 天枢系统还款方式查询
+     */
+    public QueryDubbridgeRepaytypeInfoResponse queryDubbridgeRepaytypeInfoEx(QueryDubbridgeRepaytypeInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.dubbridge.repaytype.info.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDubbridgeRepaytypeInfoResponse());
+    }
+
+    /**
      * Description: 四要素认证首先调用此接口
      * Summary: 芝麻四要素接口
      */
@@ -1692,6 +1730,25 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.params.rbbfile.receive", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReceiveMdipParamsRbbfileResponse());
+    }
+
+    /**
+     * Description: 多源平台审批回调接口
+     * Summary: 多源平台审批回调接口
+     */
+    public CallbackMdipAuditResponse callbackMdipAudit(CallbackMdipAuditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackMdipAuditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 多源平台审批回调接口
+     * Summary: 多源平台审批回调接口
+     */
+    public CallbackMdipAuditResponse callbackMdipAuditEx(CallbackMdipAuditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.audit.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMdipAuditResponse());
     }
 
     /**

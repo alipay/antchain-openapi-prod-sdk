@@ -18,7 +18,6 @@ public class QueryUmktOfflinedecisionPlandetailsRequest extends TeaModel {
 
     // 执行日期
     @NameInMap("result_date")
-    @Validation(required = true)
     public String resultDate;
 
     public static QueryUmktOfflinedecisionPlandetailsRequest build(java.util.Map<String, ?> map) throws Exception {

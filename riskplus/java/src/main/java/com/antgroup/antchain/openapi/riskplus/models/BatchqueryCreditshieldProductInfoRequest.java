@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryCreditshieldProductBatchRequest extends TeaModel {
+public class BatchqueryCreditshieldProductInfoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,10 +11,7 @@ public class QueryCreditshieldProductBatchRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 查询编码：
-    // 1.还款概率评估
-    // 2.经济波动检测
-    // 3.触达前筛
+    // 查询编码： 1.还款概率评估 2.经济波动检测 3.触达前筛等
     @NameInMap("query_code")
     @Validation(required = true)
     public String queryCode;
@@ -23,12 +20,12 @@ public class QueryCreditshieldProductBatchRequest extends TeaModel {
     @NameInMap("query_infos")
     public java.util.List<QueryInfo> queryInfos;
 
-    public static QueryCreditshieldProductBatchRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryCreditshieldProductBatchRequest self = new QueryCreditshieldProductBatchRequest();
+    public static BatchqueryCreditshieldProductInfoRequest build(java.util.Map<String, ?> map) throws Exception {
+        BatchqueryCreditshieldProductInfoRequest self = new BatchqueryCreditshieldProductInfoRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryCreditshieldProductBatchRequest setAuthToken(String authToken) {
+    public BatchqueryCreditshieldProductInfoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -36,7 +33,7 @@ public class QueryCreditshieldProductBatchRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryCreditshieldProductBatchRequest setProductInstanceId(String productInstanceId) {
+    public BatchqueryCreditshieldProductInfoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -44,7 +41,7 @@ public class QueryCreditshieldProductBatchRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryCreditshieldProductBatchRequest setQueryCode(String queryCode) {
+    public BatchqueryCreditshieldProductInfoRequest setQueryCode(String queryCode) {
         this.queryCode = queryCode;
         return this;
     }
@@ -52,7 +49,7 @@ public class QueryCreditshieldProductBatchRequest extends TeaModel {
         return this.queryCode;
     }
 
-    public QueryCreditshieldProductBatchRequest setQueryInfos(java.util.List<QueryInfo> queryInfos) {
+    public BatchqueryCreditshieldProductInfoRequest setQueryInfos(java.util.List<QueryInfo> queryInfos) {
         this.queryInfos = queryInfos;
         return this;
     }

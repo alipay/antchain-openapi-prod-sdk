@@ -15,19 +15,19 @@ public class CouponInfo extends TeaModel {
     public String couponName;
 
     // 优惠券状态
-    // 0-未使用
-    // 2-已使用
-    // 3-已失效
-    @NameInMap("coupon_status")
+    // unUsed-未使用
+    // Used-已使用
+    // Expired-过期
+    @NameInMap("status")
     @Validation(required = true)
-    public String couponStatus;
+    public String status;
 
     // 使用场景
     // 01-提款使用
     // 02-还款使用
-    @NameInMap("use_scene")
+    @NameInMap("use_condition")
     @Validation(required = true)
-    public String useScene;
+    public String useCondition;
 
     // 优惠码
     @NameInMap("coupon_code")
@@ -118,6 +118,16 @@ public class CouponInfo extends TeaModel {
     @NameInMap("repay_ways")
     public String repayWays;
 
+    // 优惠模板Id
+    @NameInMap("coupon_model_no")
+    public String couponModelNo;
+
+    // 至到期:X年X月X日
+    // 0：不是至到期券 
+    // 1：是至到期券
+    @NameInMap("to_maturity")
+    public String toMaturity;
+
     public static CouponInfo build(java.util.Map<String, ?> map) throws Exception {
         CouponInfo self = new CouponInfo();
         return TeaModel.build(map, self);
@@ -139,20 +149,20 @@ public class CouponInfo extends TeaModel {
         return this.couponName;
     }
 
-    public CouponInfo setCouponStatus(String couponStatus) {
-        this.couponStatus = couponStatus;
+    public CouponInfo setStatus(String status) {
+        this.status = status;
         return this;
     }
-    public String getCouponStatus() {
-        return this.couponStatus;
+    public String getStatus() {
+        return this.status;
     }
 
-    public CouponInfo setUseScene(String useScene) {
-        this.useScene = useScene;
+    public CouponInfo setUseCondition(String useCondition) {
+        this.useCondition = useCondition;
         return this;
     }
-    public String getUseScene() {
-        return this.useScene;
+    public String getUseCondition() {
+        return this.useCondition;
     }
 
     public CouponInfo setCouponCode(String couponCode) {
@@ -281,6 +291,22 @@ public class CouponInfo extends TeaModel {
     }
     public String getRepayWays() {
         return this.repayWays;
+    }
+
+    public CouponInfo setCouponModelNo(String couponModelNo) {
+        this.couponModelNo = couponModelNo;
+        return this;
+    }
+    public String getCouponModelNo() {
+        return this.couponModelNo;
+    }
+
+    public CouponInfo setToMaturity(String toMaturity) {
+        this.toMaturity = toMaturity;
+        return this;
+    }
+    public String getToMaturity() {
+        return this.toMaturity;
     }
 
 }

@@ -74,6 +74,10 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     @NameInMap("materials")
     public java.util.List<Material> materials;
 
+    // 优惠券id
+    @NameInMap("coupon_id")
+    public String couponId;
+
     public static ApplyDubbridgeUsecreditRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyDubbridgeUsecreditRequest self = new ApplyDubbridgeUsecreditRequest();
         return TeaModel.build(map, self);
@@ -205,6 +209,14 @@ public class ApplyDubbridgeUsecreditRequest extends TeaModel {
     }
     public java.util.List<Material> getMaterials() {
         return this.materials;
+    }
+
+    public ApplyDubbridgeUsecreditRequest setCouponId(String couponId) {
+        this.couponId = couponId;
+        return this;
+    }
+    public String getCouponId() {
+        return this.couponId;
     }
 
 }

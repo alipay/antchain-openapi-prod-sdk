@@ -59,6 +59,18 @@ public class RepayTrail extends TeaModel {
     @Validation(required = true)
     public String trialNo;
 
+    // 优惠后应还金额
+    @NameInMap("discount_after_need_amt")
+    public Long discountAfterNeedAmt;
+
+    // 优惠后应还利息
+    @NameInMap("discount_after_interest")
+    public Long discountAfterInterest;
+
+    // 优惠利息
+    @NameInMap("discount_interest")
+    public Long discountInterest;
+
     public static RepayTrail build(java.util.Map<String, ?> map) throws Exception {
         RepayTrail self = new RepayTrail();
         return TeaModel.build(map, self);
@@ -150,6 +162,30 @@ public class RepayTrail extends TeaModel {
     }
     public String getTrialNo() {
         return this.trialNo;
+    }
+
+    public RepayTrail setDiscountAfterNeedAmt(Long discountAfterNeedAmt) {
+        this.discountAfterNeedAmt = discountAfterNeedAmt;
+        return this;
+    }
+    public Long getDiscountAfterNeedAmt() {
+        return this.discountAfterNeedAmt;
+    }
+
+    public RepayTrail setDiscountAfterInterest(Long discountAfterInterest) {
+        this.discountAfterInterest = discountAfterInterest;
+        return this;
+    }
+    public Long getDiscountAfterInterest() {
+        return this.discountAfterInterest;
+    }
+
+    public RepayTrail setDiscountInterest(Long discountInterest) {
+        this.discountInterest = discountInterest;
+        return this;
+    }
+    public Long getDiscountInterest() {
+        return this.discountInterest;
     }
 
 }

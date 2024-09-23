@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.riskplus.models;
 
 import com.aliyun.tea.*;
 
-public class QueryFhtestFhResponse extends TeaModel {
+public class BatchqueryCreditshieldProductInfoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,20 +16,20 @@ public class QueryFhtestFhResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 是否成功
+    // 查询结果是否成功
     @NameInMap("success")
     public Boolean success;
 
-    // 字符串数组
+    // 查询结果
     @NameInMap("query_results")
-    public java.util.List<String> queryResults;
+    public java.util.List<QueryResult> queryResults;
 
-    public static QueryFhtestFhResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryFhtestFhResponse self = new QueryFhtestFhResponse();
+    public static BatchqueryCreditshieldProductInfoResponse build(java.util.Map<String, ?> map) throws Exception {
+        BatchqueryCreditshieldProductInfoResponse self = new BatchqueryCreditshieldProductInfoResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryFhtestFhResponse setReqMsgId(String reqMsgId) {
+    public BatchqueryCreditshieldProductInfoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -37,7 +37,7 @@ public class QueryFhtestFhResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryFhtestFhResponse setResultCode(String resultCode) {
+    public BatchqueryCreditshieldProductInfoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -45,7 +45,7 @@ public class QueryFhtestFhResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryFhtestFhResponse setResultMsg(String resultMsg) {
+    public BatchqueryCreditshieldProductInfoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -53,7 +53,7 @@ public class QueryFhtestFhResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryFhtestFhResponse setSuccess(Boolean success) {
+    public BatchqueryCreditshieldProductInfoResponse setSuccess(Boolean success) {
         this.success = success;
         return this;
     }
@@ -61,11 +61,11 @@ public class QueryFhtestFhResponse extends TeaModel {
         return this.success;
     }
 
-    public QueryFhtestFhResponse setQueryResults(java.util.List<String> queryResults) {
+    public BatchqueryCreditshieldProductInfoResponse setQueryResults(java.util.List<QueryResult> queryResults) {
         this.queryResults = queryResults;
         return this;
     }
-    public java.util.List<String> getQueryResults() {
+    public java.util.List<QueryResult> getQueryResults() {
         return this.queryResults;
     }
 

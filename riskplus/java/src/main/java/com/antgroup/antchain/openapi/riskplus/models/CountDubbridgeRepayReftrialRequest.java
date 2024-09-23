@@ -44,6 +44,10 @@ public class CountDubbridgeRepayReftrialRequest extends TeaModel {
     @NameInMap("repay_date")
     public String repayDate;
 
+    // 优惠券id
+    @NameInMap("coupon_id")
+    public String couponId;
+
     public static CountDubbridgeRepayReftrialRequest build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayReftrialRequest self = new CountDubbridgeRepayReftrialRequest();
         return TeaModel.build(map, self);
@@ -119,6 +123,14 @@ public class CountDubbridgeRepayReftrialRequest extends TeaModel {
     }
     public String getRepayDate() {
         return this.repayDate;
+    }
+
+    public CountDubbridgeRepayReftrialRequest setCouponId(String couponId) {
+        this.couponId = couponId;
+        return this;
+    }
+    public String getCouponId() {
+        return this.couponId;
     }
 
 }
