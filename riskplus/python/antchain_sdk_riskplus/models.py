@@ -649,8 +649,8 @@ class CouponInfo(TeaModel):
         self,
         coupon_id: str = None,
         coupon_name: str = None,
-        coupon_status: str = None,
-        use_scene: str = None,
+        status: str = None,
+        use_condition: str = None,
         coupon_code: str = None,
         coupon_type: str = None,
         coupon_value: str = None,
@@ -667,20 +667,22 @@ class CouponInfo(TeaModel):
         is_period_limit: str = None,
         repay_condition: str = None,
         repay_ways: str = None,
+        coupon_model_no: str = None,
+        to_maturity: str = None,
     ):
         # 优惠券Id
         self.coupon_id = coupon_id
         # 优惠券名称
         self.coupon_name = coupon_name
         # 优惠券状态
-        # 0-未使用
-        # 2-已使用
-        # 3-已失效
-        self.coupon_status = coupon_status
+        # unUsed-未使用
+        # Used-已使用
+        # Expired-过期
+        self.status = status
         # 使用场景
         # 01-提款使用
         # 02-还款使用
-        self.use_scene = use_scene
+        self.use_condition = use_condition
         # 优惠码
         self.coupon_code = coupon_code
         # 优惠券类型
@@ -738,12 +740,18 @@ class CouponInfo(TeaModel):
         # 01-到期还款
         # 02-即期还款
         self.repay_ways = repay_ways
+        # 优惠模板Id
+        self.coupon_model_no = coupon_model_no
+        # 至到期:X年X月X日
+        # 0：不是至到期券
+        # 1：是至到期券
+        self.to_maturity = to_maturity
 
     def validate(self):
         self.validate_required(self.coupon_id, 'coupon_id')
         self.validate_required(self.coupon_name, 'coupon_name')
-        self.validate_required(self.coupon_status, 'coupon_status')
-        self.validate_required(self.use_scene, 'use_scene')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.use_condition, 'use_condition')
 
     def to_map(self):
         _map = super().to_map()
@@ -755,10 +763,10 @@ class CouponInfo(TeaModel):
             result['coupon_id'] = self.coupon_id
         if self.coupon_name is not None:
             result['coupon_name'] = self.coupon_name
-        if self.coupon_status is not None:
-            result['coupon_status'] = self.coupon_status
-        if self.use_scene is not None:
-            result['use_scene'] = self.use_scene
+        if self.status is not None:
+            result['status'] = self.status
+        if self.use_condition is not None:
+            result['use_condition'] = self.use_condition
         if self.coupon_code is not None:
             result['coupon_code'] = self.coupon_code
         if self.coupon_type is not None:
@@ -791,6 +799,10 @@ class CouponInfo(TeaModel):
             result['repay_condition'] = self.repay_condition
         if self.repay_ways is not None:
             result['repay_ways'] = self.repay_ways
+        if self.coupon_model_no is not None:
+            result['coupon_model_no'] = self.coupon_model_no
+        if self.to_maturity is not None:
+            result['to_maturity'] = self.to_maturity
         return result
 
     def from_map(self, m: dict = None):
@@ -799,10 +811,10 @@ class CouponInfo(TeaModel):
             self.coupon_id = m.get('coupon_id')
         if m.get('coupon_name') is not None:
             self.coupon_name = m.get('coupon_name')
-        if m.get('coupon_status') is not None:
-            self.coupon_status = m.get('coupon_status')
-        if m.get('use_scene') is not None:
-            self.use_scene = m.get('use_scene')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('use_condition') is not None:
+            self.use_condition = m.get('use_condition')
         if m.get('coupon_code') is not None:
             self.coupon_code = m.get('coupon_code')
         if m.get('coupon_type') is not None:
@@ -835,6 +847,10 @@ class CouponInfo(TeaModel):
             self.repay_condition = m.get('repay_condition')
         if m.get('repay_ways') is not None:
             self.repay_ways = m.get('repay_ways')
+        if m.get('coupon_model_no') is not None:
+            self.coupon_model_no = m.get('coupon_model_no')
+        if m.get('to_maturity') is not None:
+            self.to_maturity = m.get('to_maturity')
         return self
 
 
@@ -5666,6 +5682,44 @@ class RtopStarCompanyInfo(TeaModel):
         return self
 
 
+class PlatformRepayTypeInfo(TeaModel):
+    def __init__(
+        self,
+        repay_type: str = None,
+        periods: List[str] = None,
+    ):
+        # 1：等额本息
+        # 2：等额本金
+        # 3：按期付息到期还本（先息后本）
+        self.repay_type = repay_type
+        # {”1“，”2“}
+        self.periods = periods
+
+    def validate(self):
+        self.validate_required(self.repay_type, 'repay_type')
+        self.validate_required(self.periods, 'periods')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.repay_type is not None:
+            result['repay_type'] = self.repay_type
+        if self.periods is not None:
+            result['periods'] = self.periods
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('repay_type') is not None:
+            self.repay_type = m.get('repay_type')
+        if m.get('periods') is not None:
+            self.periods = m.get('periods')
+        return self
+
+
 class RtopDateDistribution(TeaModel):
     def __init__(
         self,
@@ -7863,6 +7917,9 @@ class RepayTrail(TeaModel):
         start_time: str = None,
         end_time: str = None,
         trial_no: str = None,
+        discount_after_need_amt: int = None,
+        discount_after_interest: int = None,
+        discount_interest: int = None,
     ):
         # 期数
         self.period = period
@@ -7886,6 +7943,12 @@ class RepayTrail(TeaModel):
         self.end_time = end_time
         # 试算编号
         self.trial_no = trial_no
+        # 优惠后应还金额
+        self.discount_after_need_amt = discount_after_need_amt
+        # 优惠后应还利息
+        self.discount_after_interest = discount_after_interest
+        # 优惠利息
+        self.discount_interest = discount_interest
 
     def validate(self):
         self.validate_required(self.period, 'period')
@@ -7934,6 +7997,12 @@ class RepayTrail(TeaModel):
             result['end_time'] = self.end_time
         if self.trial_no is not None:
             result['trial_no'] = self.trial_no
+        if self.discount_after_need_amt is not None:
+            result['discount_after_need_amt'] = self.discount_after_need_amt
+        if self.discount_after_interest is not None:
+            result['discount_after_interest'] = self.discount_after_interest
+        if self.discount_interest is not None:
+            result['discount_interest'] = self.discount_interest
         return result
 
     def from_map(self, m: dict = None):
@@ -7960,6 +8029,12 @@ class RepayTrail(TeaModel):
             self.end_time = m.get('end_time')
         if m.get('trial_no') is not None:
             self.trial_no = m.get('trial_no')
+        if m.get('discount_after_need_amt') is not None:
+            self.discount_after_need_amt = m.get('discount_after_need_amt')
+        if m.get('discount_after_interest') is not None:
+            self.discount_after_interest = m.get('discount_after_interest')
+        if m.get('discount_interest') is not None:
+            self.discount_interest = m.get('discount_interest')
         return self
 
 
@@ -8118,6 +8193,127 @@ class XNameValuePair(TeaModel):
             self.name = m.get('name')
         if m.get('value') is not None:
             self.value = m.get('value')
+        return self
+
+
+class BatchqueryCreditshieldProductInfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        query_code: str = None,
+        query_infos: List[QueryInfo] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 查询编码： 1.还款概率评估 2.经济波动检测 3.触达前筛等
+        self.query_code = query_code
+        # 查询信息集合
+        self.query_infos = query_infos
+
+    def validate(self):
+        self.validate_required(self.query_code, 'query_code')
+        if self.query_infos:
+            for k in self.query_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.query_code is not None:
+            result['query_code'] = self.query_code
+        result['query_infos'] = []
+        if self.query_infos is not None:
+            for k in self.query_infos:
+                result['query_infos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('query_code') is not None:
+            self.query_code = m.get('query_code')
+        self.query_infos = []
+        if m.get('query_infos') is not None:
+            for k in m.get('query_infos'):
+                temp_model = QueryInfo()
+                self.query_infos.append(temp_model.from_map(k))
+        return self
+
+
+class BatchqueryCreditshieldProductInfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        query_results: List[QueryResult] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 查询结果是否成功
+        self.success = success
+        # 查询结果
+        self.query_results = query_results
+
+    def validate(self):
+        if self.query_results:
+            for k in self.query_results:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        result['query_results'] = []
+        if self.query_results is not None:
+            for k in self.query_results:
+                result['query_results'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.query_results = []
+        if m.get('query_results') is not None:
+            for k in m.get('query_results'):
+                temp_model = QueryResult()
+                self.query_results.append(temp_model.from_map(k))
         return self
 
 
@@ -9216,140 +9412,27 @@ class QueryBatchSecurityPolicyResponse(TeaModel):
         return self
 
 
-class QueryFhtestFhRequest(TeaModel):
-    def __init__(
-        self,
-        auth_token: str = None,
-        product_instance_id: str = None,
-        name: str = None,
-        age: int = None,
-        judge: bool = None,
-    ):
-        # OAuth模式下的授权token
-        self.auth_token = auth_token
-        self.product_instance_id = product_instance_id
-        # 名称
-        self.name = name
-        # 年龄
-        self.age = age
-        # 判断字段
-        self.judge = judge
-
-    def validate(self):
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.age, 'age')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.auth_token is not None:
-            result['auth_token'] = self.auth_token
-        if self.product_instance_id is not None:
-            result['product_instance_id'] = self.product_instance_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.age is not None:
-            result['age'] = self.age
-        if self.judge is not None:
-            result['judge'] = self.judge
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('auth_token') is not None:
-            self.auth_token = m.get('auth_token')
-        if m.get('product_instance_id') is not None:
-            self.product_instance_id = m.get('product_instance_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('age') is not None:
-            self.age = m.get('age')
-        if m.get('judge') is not None:
-            self.judge = m.get('judge')
-        return self
-
-
-class QueryFhtestFhResponse(TeaModel):
-    def __init__(
-        self,
-        req_msg_id: str = None,
-        result_code: str = None,
-        result_msg: str = None,
-        success: bool = None,
-        query_results: List[str] = None,
-    ):
-        # 请求唯一ID，用于链路跟踪和问题排查
-        self.req_msg_id = req_msg_id
-        # 结果码，一般OK表示调用成功
-        self.result_code = result_code
-        # 异常信息的文本描述
-        self.result_msg = result_msg
-        # 是否成功
-        self.success = success
-        # 字符串数组
-        self.query_results = query_results
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.req_msg_id is not None:
-            result['req_msg_id'] = self.req_msg_id
-        if self.result_code is not None:
-            result['result_code'] = self.result_code
-        if self.result_msg is not None:
-            result['result_msg'] = self.result_msg
-        if self.success is not None:
-            result['success'] = self.success
-        if self.query_results is not None:
-            result['query_results'] = self.query_results
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('req_msg_id') is not None:
-            self.req_msg_id = m.get('req_msg_id')
-        if m.get('result_code') is not None:
-            self.result_code = m.get('result_code')
-        if m.get('result_msg') is not None:
-            self.result_msg = m.get('result_msg')
-        if m.get('success') is not None:
-            self.success = m.get('success')
-        if m.get('query_results') is not None:
-            self.query_results = m.get('query_results')
-        return self
-
-
 class QueryCreditshieldProductBatchRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        query_type: int = None,
+        query_code: str = None,
         query_infos: List[QueryInfo] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 查询类型：
+        # 查询编码：
         # 1.还款概率评估
         # 2.经济波动检测
         # 3.触达前筛
-        self.query_type = query_type
+        self.query_code = query_code
         # 查询信息集合
         self.query_infos = query_infos
 
     def validate(self):
-        self.validate_required(self.query_type, 'query_type')
-        self.validate_required(self.query_infos, 'query_infos')
+        self.validate_required(self.query_code, 'query_code')
         if self.query_infos:
             for k in self.query_infos:
                 if k:
@@ -9365,8 +9448,8 @@ class QueryCreditshieldProductBatchRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.query_type is not None:
-            result['query_type'] = self.query_type
+        if self.query_code is not None:
+            result['query_code'] = self.query_code
         result['query_infos'] = []
         if self.query_infos is not None:
             for k in self.query_infos:
@@ -9379,8 +9462,8 @@ class QueryCreditshieldProductBatchRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('query_type') is not None:
-            self.query_type = m.get('query_type')
+        if m.get('query_code') is not None:
+            self.query_code = m.get('query_code')
         self.query_infos = []
         if m.get('query_infos') is not None:
             for k in m.get('query_infos'):
@@ -15131,6 +15214,7 @@ class CountDubbridgeRepayReftrialRequest(TeaModel):
         apply_period: int = None,
         repay_type: str = None,
         repay_date: str = None,
+        coupon_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -15149,6 +15233,8 @@ class CountDubbridgeRepayReftrialRequest(TeaModel):
         self.repay_type = repay_type
         # 还款日
         self.repay_date = repay_date
+        # 优惠券id
+        self.coupon_id = coupon_id
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
@@ -15181,6 +15267,8 @@ class CountDubbridgeRepayReftrialRequest(TeaModel):
             result['repay_type'] = self.repay_type
         if self.repay_date is not None:
             result['repay_date'] = self.repay_date
+        if self.coupon_id is not None:
+            result['coupon_id'] = self.coupon_id
         return result
 
     def from_map(self, m: dict = None):
@@ -15203,6 +15291,8 @@ class CountDubbridgeRepayReftrialRequest(TeaModel):
             self.repay_type = m.get('repay_type')
         if m.get('repay_date') is not None:
             self.repay_date = m.get('repay_date')
+        if m.get('coupon_id') is not None:
+            self.coupon_id = m.get('coupon_id')
         return self
 
 
@@ -15680,6 +15770,7 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         loan_inst_code: str = None,
         bank_card_no: str = None,
         materials: List[Material] = None,
+        coupon_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -15712,6 +15803,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         self.bank_card_no = bank_card_no
         # 影像件信息
         self.materials = materials
+        # 优惠券id
+        self.coupon_id = coupon_id
 
     def validate(self):
         self.validate_required(self.original_order_no, 'original_order_no')
@@ -15766,6 +15859,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
         if self.materials is not None:
             for k in self.materials:
                 result['materials'].append(k.to_map() if k else None)
+        if self.coupon_id is not None:
+            result['coupon_id'] = self.coupon_id
         return result
 
     def from_map(self, m: dict = None):
@@ -15805,6 +15900,8 @@ class ApplyDubbridgeUsecreditRequest(TeaModel):
             for k in m.get('materials'):
                 temp_model = Material()
                 self.materials.append(temp_model.from_map(k))
+        if m.get('coupon_id') is not None:
+            self.coupon_id = m.get('coupon_id')
         return self
 
 
@@ -17823,6 +17920,231 @@ class QueryDubbridgeUserAggregationinfoResponse(TeaModel):
         return self
 
 
+class QueryDubbridgeMarketingCouponlistRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_no: str = None,
+        status: str = None,
+        page: int = None,
+        page_size: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 客户号
+        self.customer_no = customer_no
+        # 优惠券状态
+        self.status = status
+        # 页码
+        self.page = page
+        # 每页数量
+        self.page_size = page_size
+
+    def validate(self):
+        self.validate_required(self.customer_no, 'customer_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
+        if self.status is not None:
+            result['status'] = self.status
+        if self.page is not None:
+            result['page'] = self.page
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        return self
+
+
+class QueryDubbridgeMarketingCouponlistResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        coupon_list: List[CouponInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 优惠券列表
+        self.coupon_list = coupon_list
+
+    def validate(self):
+        if self.coupon_list:
+            for k in self.coupon_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['coupon_list'] = []
+        if self.coupon_list is not None:
+            for k in self.coupon_list:
+                result['coupon_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.coupon_list = []
+        if m.get('coupon_list') is not None:
+            for k in m.get('coupon_list'):
+                temp_model = CouponInfo()
+                self.coupon_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryDubbridgeRepaytypeInfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        customer_no: str = None,
+        fund_code: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 客户号
+        self.customer_no = customer_no
+        # 资金方编号
+        self.fund_code = fund_code
+
+    def validate(self):
+        self.validate_required(self.customer_no, 'customer_no')
+        self.validate_required(self.fund_code, 'fund_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.customer_no is not None:
+            result['customer_no'] = self.customer_no
+        if self.fund_code is not None:
+            result['fund_code'] = self.fund_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('customer_no') is not None:
+            self.customer_no = m.get('customer_no')
+        if m.get('fund_code') is not None:
+            self.fund_code = m.get('fund_code')
+        return self
+
+
+class QueryDubbridgeRepaytypeInfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        repay_type_info_list: List[PlatformRepayTypeInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 还款方式/借款期数集合
+        self.repay_type_info_list = repay_type_info_list
+
+    def validate(self):
+        if self.repay_type_info_list:
+            for k in self.repay_type_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['repay_type_info_list'] = []
+        if self.repay_type_info_list is not None:
+            for k in self.repay_type_info_list:
+                result['repay_type_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.repay_type_info_list = []
+        if m.get('repay_type_info_list') is not None:
+            for k in m.get('repay_type_info_list'):
+                temp_model = PlatformRepayTypeInfo()
+                self.repay_type_info_list.append(temp_model.from_map(k))
+        return self
+
+
 class VerifyFinserviceZhimaIdentifyRequest(TeaModel):
     def __init__(
         self,
@@ -18299,6 +18621,104 @@ class ReceiveMdipParamsRbbfileRequest(TeaModel):
 
 
 class ReceiveMdipParamsRbbfileResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class CallbackMdipAuditRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        audit_result: str = None,
+        biz_code: str = None,
+        extend: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 审批结果
+        self.audit_result = audit_result
+        # 工单流水号
+        self.biz_code = biz_code
+        # 额外信息
+        self.extend = extend
+
+    def validate(self):
+        self.validate_required(self.audit_result, 'audit_result')
+        self.validate_required(self.biz_code, 'biz_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.audit_result is not None:
+            result['audit_result'] = self.audit_result
+        if self.biz_code is not None:
+            result['biz_code'] = self.biz_code
+        if self.extend is not None:
+            result['extend'] = self.extend
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('audit_result') is not None:
+            self.audit_result = m.get('audit_result')
+        if m.get('biz_code') is not None:
+            self.biz_code = m.get('biz_code')
+        if m.get('extend') is not None:
+            self.extend = m.get('extend')
+        return self
+
+
+class CallbackMdipAuditResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
@@ -34009,7 +34429,6 @@ class QueryUmktOfflinedecisionPlandetailsRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.offline_decision_plan_id, 'offline_decision_plan_id')
-        self.validate_required(self.result_date, 'result_date')
 
     def to_map(self):
         _map = super().to_map()

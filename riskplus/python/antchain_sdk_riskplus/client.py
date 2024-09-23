@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.20.2',
+                    'sdk_version': '1.20.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.20.2',
+                    'sdk_version': '1.20.7',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,62 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def batchquery_creditshield_product_info(
+        self,
+        request: riskplus_models.BatchqueryCreditshieldProductInfoRequest,
+    ) -> riskplus_models.BatchqueryCreditshieldProductInfoResponse:
+        """
+        Description: 信护盾产品批量查询
+        Summary: 信护盾产品批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.batchquery_creditshield_product_info_ex(request, headers, runtime)
+
+    async def batchquery_creditshield_product_info_async(
+        self,
+        request: riskplus_models.BatchqueryCreditshieldProductInfoRequest,
+    ) -> riskplus_models.BatchqueryCreditshieldProductInfoResponse:
+        """
+        Description: 信护盾产品批量查询
+        Summary: 信护盾产品批量查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.batchquery_creditshield_product_info_ex_async(request, headers, runtime)
+
+    def batchquery_creditshield_product_info_ex(
+        self,
+        request: riskplus_models.BatchqueryCreditshieldProductInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryCreditshieldProductInfoResponse:
+        """
+        Description: 信护盾产品批量查询
+        Summary: 信护盾产品批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryCreditshieldProductInfoResponse(),
+            self.do_request('1.0', 'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def batchquery_creditshield_product_info_ex_async(
+        self,
+        request: riskplus_models.BatchqueryCreditshieldProductInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.BatchqueryCreditshieldProductInfoResponse:
+        """
+        Description: 信护盾产品批量查询
+        Summary: 信护盾产品批量查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.BatchqueryCreditshieldProductInfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_security_policy(
         self,
@@ -777,62 +833,6 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryBatchSecurityPolicyResponse(),
             await self.do_request_async('1.0', 'riskplus.batch.security.policy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    def query_fhtest_fh(
-        self,
-        request: riskplus_models.QueryFhtestFhRequest,
-    ) -> riskplus_models.QueryFhtestFhResponse:
-        """
-        Description: 峰禾API测试
-        Summary: 峰禾API测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_fhtest_fh_ex(request, headers, runtime)
-
-    async def query_fhtest_fh_async(
-        self,
-        request: riskplus_models.QueryFhtestFhRequest,
-    ) -> riskplus_models.QueryFhtestFhResponse:
-        """
-        Description: 峰禾API测试
-        Summary: 峰禾API测试
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return await self.query_fhtest_fh_ex_async(request, headers, runtime)
-
-    def query_fhtest_fh_ex(
-        self,
-        request: riskplus_models.QueryFhtestFhRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryFhtestFhResponse:
-        """
-        Description: 峰禾API测试
-        Summary: 峰禾API测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryFhtestFhResponse(),
-            self.do_request('1.0', 'riskplus.fhtest.fh.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
-        )
-
-    async def query_fhtest_fh_ex_async(
-        self,
-        request: riskplus_models.QueryFhtestFhRequest,
-        headers: Dict[str, str],
-        runtime: util_models.RuntimeOptions,
-    ) -> riskplus_models.QueryFhtestFhResponse:
-        """
-        Description: 峰禾API测试
-        Summary: 峰禾API测试
-        """
-        UtilClient.validate_model(request)
-        return TeaCore.from_map(
-            riskplus_models.QueryFhtestFhResponse(),
-            await self.do_request_async('1.0', 'riskplus.fhtest.fh.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_creditshield_product_batch(
@@ -4287,6 +4287,118 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.dubbridge.user.aggregationinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_dubbridge_marketing_couponlist(
+        self,
+        request: riskplus_models.QueryDubbridgeMarketingCouponlistRequest,
+    ) -> riskplus_models.QueryDubbridgeMarketingCouponlistResponse:
+        """
+        Description: 天枢系统优惠券列表查询接口
+        Summary: 天枢系统优惠券列表查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_marketing_couponlist_ex(request, headers, runtime)
+
+    async def query_dubbridge_marketing_couponlist_async(
+        self,
+        request: riskplus_models.QueryDubbridgeMarketingCouponlistRequest,
+    ) -> riskplus_models.QueryDubbridgeMarketingCouponlistResponse:
+        """
+        Description: 天枢系统优惠券列表查询接口
+        Summary: 天枢系统优惠券列表查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_marketing_couponlist_ex_async(request, headers, runtime)
+
+    def query_dubbridge_marketing_couponlist_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeMarketingCouponlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeMarketingCouponlistResponse:
+        """
+        Description: 天枢系统优惠券列表查询接口
+        Summary: 天枢系统优惠券列表查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeMarketingCouponlistResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.marketing.couponlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_marketing_couponlist_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeMarketingCouponlistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeMarketingCouponlistResponse:
+        """
+        Description: 天枢系统优惠券列表查询接口
+        Summary: 天枢系统优惠券列表查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeMarketingCouponlistResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.marketing.couponlist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_dubbridge_repaytype_info(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaytypeInfoRequest,
+    ) -> riskplus_models.QueryDubbridgeRepaytypeInfoResponse:
+        """
+        Description: 天枢系统还款方式查询
+        Summary: 天枢系统还款方式查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_dubbridge_repaytype_info_ex(request, headers, runtime)
+
+    async def query_dubbridge_repaytype_info_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaytypeInfoRequest,
+    ) -> riskplus_models.QueryDubbridgeRepaytypeInfoResponse:
+        """
+        Description: 天枢系统还款方式查询
+        Summary: 天枢系统还款方式查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_dubbridge_repaytype_info_ex_async(request, headers, runtime)
+
+    def query_dubbridge_repaytype_info_ex(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaytypeInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepaytypeInfoResponse:
+        """
+        Description: 天枢系统还款方式查询
+        Summary: 天枢系统还款方式查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepaytypeInfoResponse(),
+            self.do_request('1.0', 'riskplus.dubbridge.repaytype.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_dubbridge_repaytype_info_ex_async(
+        self,
+        request: riskplus_models.QueryDubbridgeRepaytypeInfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryDubbridgeRepaytypeInfoResponse:
+        """
+        Description: 天枢系统还款方式查询
+        Summary: 天枢系统还款方式查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryDubbridgeRepaytypeInfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.dubbridge.repaytype.info.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def verify_finservice_zhima_identify(
         self,
         request: riskplus_models.VerifyFinserviceZhimaIdentifyRequest,
@@ -4637,6 +4749,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.ReceiveMdipParamsRbbfileResponse(),
             await self.do_request_async('1.0', 'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_mdip_audit(
+        self,
+        request: riskplus_models.CallbackMdipAuditRequest,
+    ) -> riskplus_models.CallbackMdipAuditResponse:
+        """
+        Description: 多源平台审批回调接口
+        Summary: 多源平台审批回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_mdip_audit_ex(request, headers, runtime)
+
+    async def callback_mdip_audit_async(
+        self,
+        request: riskplus_models.CallbackMdipAuditRequest,
+    ) -> riskplus_models.CallbackMdipAuditResponse:
+        """
+        Description: 多源平台审批回调接口
+        Summary: 多源平台审批回调接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_mdip_audit_ex_async(request, headers, runtime)
+
+    def callback_mdip_audit_ex(
+        self,
+        request: riskplus_models.CallbackMdipAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackMdipAuditResponse:
+        """
+        Description: 多源平台审批回调接口
+        Summary: 多源平台审批回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackMdipAuditResponse(),
+            self.do_request('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_mdip_audit_ex_async(
+        self,
+        request: riskplus_models.CallbackMdipAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackMdipAuditResponse:
+        """
+        Description: 多源平台审批回调接口
+        Summary: 多源平台审批回调接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackMdipAuditResponse(),
+            await self.do_request_async('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_qmp_rt_batchmarketing(
