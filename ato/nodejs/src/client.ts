@@ -159,6 +159,8 @@ export class FileInfo extends $tea.Model {
 
 // 智租风控模型结构体
 export class AppletRiskModel extends $tea.Model {
+  // 智租风控调用结果码，10000 表示调用成功。
+  code: string;
   // 风险咨询事件ID
   recordId: string;
   // 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险
@@ -168,24 +170,30 @@ export class AppletRiskModel extends $tea.Model {
   // 风险等级中文描述
   riskDesc: string;
   // 子风险结果列表
-  subRiskResultList: SubRentRiskItem[];
+  subRiskResultList?: SubRentRiskItem[];
+  // 调用失败错误提示信息，仅调用失败时返回该字段信息。
+  errorMsg?: string;
   static names(): { [key: string]: string } {
     return {
+      code: 'code',
       recordId: 'record_id',
       riskRank: 'risk_rank',
       riskName: 'risk_name',
       riskDesc: 'risk_desc',
       subRiskResultList: 'sub_risk_result_list',
+      errorMsg: 'error_msg',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      code: 'string',
       recordId: 'string',
       riskRank: 'string',
       riskName: 'string',
       riskDesc: 'string',
       subRiskResultList: { 'type': 'array', 'itemType': SubRentRiskItem },
+      errorMsg: 'string',
     };
   }
 
@@ -415,12 +423,12 @@ export class MerchantAgentPage extends $tea.Model {
 export class PriceDetail extends $tea.Model {
   // 商品租赁期数
   periodNum: number;
-  // 押金，单位：元。精度：分。
-  depositPrice: string;
-  // 买断价格，单位：元，精度：分
-  buyoutPrice: string;
-  // 首期租金，单位：元，精度：分
-  initialRentPrice: string;
+  // 押金，单位：分。
+  depositPrice: number;
+  // 买断价格，单位：分
+  buyoutPrice: number;
+  // 首期租金，单位：分
+  initialRentPrice: number;
   static names(): { [key: string]: string } {
     return {
       periodNum: 'period_num',
@@ -433,9 +441,9 @@ export class PriceDetail extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       periodNum: 'number',
-      depositPrice: 'string',
-      buyoutPrice: 'string',
-      initialRentPrice: 'string',
+      depositPrice: 'number',
+      buyoutPrice: 'number',
+      initialRentPrice: 'number',
     };
   }
 
@@ -668,6 +676,35 @@ export class PromiseInfo extends $tea.Model {
   }
 }
 
+// 智租风控-物流信息
+export class DeliveryDetail extends $tea.Model {
+  // 收件人姓名
+  receiverName?: string;
+  // 收件人手机号
+  receiverMobile?: string;
+  // 收件人地址
+  receiverAddress?: string;
+  static names(): { [key: string]: string } {
+    return {
+      receiverName: 'receiver_name',
+      receiverMobile: 'receiver_mobile',
+      receiverAddress: 'receiver_address',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      receiverName: 'string',
+      receiverMobile: 'string',
+      receiverAddress: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 租户协议分页对象
 export class AgreementPage extends $tea.Model {
   // 协议id
@@ -744,12 +781,18 @@ export class RelationPage extends $tea.Model {
   merchantId: string;
   // 审核状态
   status: string;
+  // 商户公司统一社会信用代码
+  subjectMerchantId: string;
+  // 商户公司名称
+  subjectCompanyName: string;
   static names(): { [key: string]: string } {
     return {
       relationId: 'relation_id',
       companyName: 'company_name',
       merchantId: 'merchant_id',
       status: 'status',
+      subjectMerchantId: 'subject_merchant_id',
+      subjectCompanyName: 'subject_company_name',
     };
   }
 
@@ -759,6 +802,8 @@ export class RelationPage extends $tea.Model {
       companyName: 'string',
       merchantId: 'string',
       status: 'string',
+      subjectMerchantId: 'string',
+      subjectCompanyName: 'string',
     };
   }
 
@@ -975,12 +1020,13 @@ export class PageQuery extends $tea.Model {
 
 // 智租风控-商品详情
 export class ItemDetail extends $tea.Model {
-  // 租赁商品类目，可选项见 https://opendocs.alipay.com/open/10719
-  goodsCategory: string;
+  // 租赁商品类目，可选类型：
+  // RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
+  goodsCategory?: string;
   // 租赁商品名称
-  itemName: string;
+  itemName?: string;
   // 租赁商品数量
-  quantity: number;
+  quantity?: number;
   static names(): { [key: string]: string } {
     return {
       goodsCategory: 'goods_category',
@@ -4111,6 +4157,12 @@ export class CreateInnerFunddividerelationRequest extends $tea.Model {
   submit: string;
   // 操作人名称
   userName: string;
+  // 商户公司社会统一信用代码, 
+  // 如果expandMode=AGENT, 非空，长度不超过32位
+  subjectMerchantId?: string;
+  // 进件模式	:DIRECT(直连进件) ,AGENT(代理进件)
+  // 默认值：DIRECT
+  expandMode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -4125,6 +4177,8 @@ export class CreateInnerFunddividerelationRequest extends $tea.Model {
       alipayAccount: 'alipay_account',
       submit: 'submit',
       userName: 'user_name',
+      subjectMerchantId: 'subject_merchant_id',
+      expandMode: 'expand_mode',
     };
   }
 
@@ -4142,6 +4196,8 @@ export class CreateInnerFunddividerelationRequest extends $tea.Model {
       alipayAccount: 'string',
       submit: 'string',
       userName: 'string',
+      subjectMerchantId: 'string',
+      expandMode: 'string',
     };
   }
 
@@ -4287,6 +4343,8 @@ export class QueryInnerFunddividerelationResponse extends $tea.Model {
   companyName?: string;
   // 分账主体企业统一社会信用代码
   subjectMerchantId?: string;
+  // 分账主体公司名称
+  subjectCompanyName?: string;
   // 分账对象统一社会信用代码
   merchantId?: string;
   // 分账合同或协议
@@ -4310,6 +4368,7 @@ export class QueryInnerFunddividerelationResponse extends $tea.Model {
       resultMsg: 'result_msg',
       companyName: 'company_name',
       subjectMerchantId: 'subject_merchant_id',
+      subjectCompanyName: 'subject_company_name',
       merchantId: 'merchant_id',
       contractFiles: 'contract_files',
       desc: 'desc',
@@ -4328,6 +4387,7 @@ export class QueryInnerFunddividerelationResponse extends $tea.Model {
       resultMsg: 'string',
       companyName: 'string',
       subjectMerchantId: 'string',
+      subjectCompanyName: 'string',
       merchantId: 'string',
       contractFiles: { 'type': 'array', 'itemType': FileInfo },
       desc: 'string',
@@ -4352,12 +4412,24 @@ export class PagequeryInnerFunddividerelationRequest extends $tea.Model {
   tenantId: string;
   // 分页查询对象
   pageInfo: PageQuery;
+  // 商户公司社会统一信用代码
+  subjectMerchantId?: string;
+  // 商户公司名称
+  subjectCompanyName?: string;
+  // 状态
+  // NIT:待提交 
+  // AUDIT:审批中 AUDIT_PASSED:审批通过
+  // AUDIT_NOT_PASSED:审批不通过
+  status?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       tenantId: 'tenant_id',
       pageInfo: 'page_info',
+      subjectMerchantId: 'subject_merchant_id',
+      subjectCompanyName: 'subject_company_name',
+      status: 'status',
     };
   }
 
@@ -4367,6 +4439,9 @@ export class PagequeryInnerFunddividerelationRequest extends $tea.Model {
       productInstanceId: 'string',
       tenantId: 'string',
       pageInfo: PageQuery,
+      subjectMerchantId: 'string',
+      subjectCompanyName: 'string',
+      status: 'string',
     };
   }
 
@@ -6108,6 +6183,69 @@ export class GetInnerMerchantstaticdataResponse extends $tea.Model {
   }
 }
 
+export class GetInnerFunddividemerchantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInnerFunddividemerchantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 分账方公司名称
+  companyName?: string;
+  // 分账方公司统一社会信用代码
+  merchantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      companyName: 'company_name',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      companyName: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RegisterMerchantexpandMerchantRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -6571,12 +6709,12 @@ export class QueryRiskRequest extends $tea.Model {
   alipayUserId?: string;
   // 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
   source?: string;
-  // 收件人地址，智租版必选
-  receiverAddress?: string;
   // 商品详情，智租版可选
   itemDetail?: ItemDetail;
   // 价格详情，智租版可选
   priceDetail?: PriceDetail;
+  // 物流信息，智租版可选
+  deliveryDetail?: DeliveryDetail;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -6587,9 +6725,9 @@ export class QueryRiskRequest extends $tea.Model {
       mobile: 'mobile',
       alipayUserId: 'alipay_user_id',
       source: 'source',
-      receiverAddress: 'receiver_address',
       itemDetail: 'item_detail',
       priceDetail: 'price_detail',
+      deliveryDetail: 'delivery_detail',
     };
   }
 
@@ -6603,9 +6741,9 @@ export class QueryRiskRequest extends $tea.Model {
       mobile: 'string',
       alipayUserId: 'string',
       source: 'string',
-      receiverAddress: 'string',
       itemDetail: ItemDetail,
       priceDetail: PriceDetail,
+      deliveryDetail: DeliveryDetail,
     };
   }
 
@@ -9547,7 +9685,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.20",
+          sdk_version: "1.9.29",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -9724,6 +9862,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -10928,6 +11067,27 @@ export default class Client {
   }
 
   /**
+   * Description: 查询已有绑定关系分账方数据
+  包括分账方名称，社会统一信用代码
+   * Summary: 间连查询已有绑定关系分账方数据
+   */
+  async getInnerFunddividemerchant(request: GetInnerFunddividemerchantRequest): Promise<GetInnerFunddividemerchantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getInnerFunddividemerchantEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询已有绑定关系分账方数据
+  包括分账方名称，社会统一信用代码
+   * Summary: 间连查询已有绑定关系分账方数据
+   */
+  async getInnerFunddividemerchantEx(request: GetInnerFunddividemerchantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInnerFunddividemerchantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetInnerFunddividemerchantResponse>(await this.doRequest("1.0", "antchain.ato.inner.funddividemerchant.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInnerFunddividemerchantResponse({}));
+  }
+
+  /**
    * Description: 商户入驻
    * Summary: 商户入驻
    */
@@ -11189,6 +11349,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -11229,6 +11390,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
