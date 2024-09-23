@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.20.2',
+    sdk_version = '1.20.7',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -281,14 +281,14 @@ model CouponInfo {
   // 优惠券名称
   couponName: string(name='coupon_name', example='折扣券'),
   // 优惠券状态
-  // 0-未使用
-  // 2-已使用
-  // 3-已失效
-  couponStatus: string(name='coupon_status', example='0'),
+  // unUsed-未使用
+  // Used-已使用
+  // Expired-过期
+  status: string(name='status', example='0'),
   // 使用场景
   // 01-提款使用
   // 02-还款使用
-  useScene: string(name='use_scene', example='01'),
+  useCondition: string(name='use_condition', example='01'),
   // 优惠码
   couponCode?: string(name='coupon_code', example='123'),
   // 优惠券类型
@@ -346,6 +346,12 @@ model CouponInfo {
   // 01-到期还款
   // 02-即期还款
   repayWays?: string(name='repay_ways', example='01'),
+  // 优惠模板Id
+  couponModelNo?: string(name='coupon_model_no', example='123'),
+  // 至到期:X年X月X日
+  // 0：不是至到期券 
+  // 1：是至到期券
+  toMaturity?: string(name='to_maturity', example='X年X月X日'),
 }
 
 // 用户的混合策略圈客结果
@@ -1519,6 +1525,16 @@ model RtopStarCompanyInfo {
   ucCode?: string(name='uc_code', example='91440400192548256N'),
 }
 
+// 还款方式/借款期数信息
+model PlatformRepayTypeInfo {
+  // 1：等额本息
+  // 2：等额本金
+  // 3：按期付息到期还本（先息后本）
+  repayType: string(name='repay_type', example='1'),
+  // {”1“，”2“}
+  periods: [ string ](name='periods', example=''),
+}
+
 // 企业日期趋势统计
 model RtopDateDistribution {
   // 统计值
@@ -2069,6 +2085,12 @@ model RepayTrail {
   endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
   // 试算编号
   trialNo: string(name='trial_no', example='ss'),
+  // 优惠后应还金额
+  discountAfterNeedAmt?: long(name='discount_after_need_amt', example=''),
+  // 优惠后应还利息
+  discountAfterInterest?: long(name='discount_after_interest', example=''),
+  // 优惠利息
+  discountInterest?: long(name='discount_interest', example=''),
 }
 
 // 授信状态
@@ -2105,6 +2127,48 @@ model XNameValuePair {
   name: string(name='name', example='key'),
   // 键值
   value: string(name='value', example='value'),
+}
+
+model BatchqueryCreditshieldProductInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询编码： 1.还款概率评估 2.经济波动检测 3.触达前筛等
+  queryCode: string(name='query_code'),
+  // 查询信息集合
+  queryInfos?: [ QueryInfo ](name='query_infos'),
+}
+
+model BatchqueryCreditshieldProductInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询结果是否成功
+  success?: boolean(name='success'),
+  // 查询结果
+  queryResults?: [ QueryResult ](name='query_results'),
+}
+
+/**
+ * Description: 信护盾产品批量查询
+ * Summary: 信护盾产品批量查询
+ */
+async function batchqueryCreditshieldProductInfo(request: BatchqueryCreditshieldProductInfoRequest): BatchqueryCreditshieldProductInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryCreditshieldProductInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 信护盾产品批量查询
+ * Summary: 信护盾产品批量查询
+ */
+async function batchqueryCreditshieldProductInfoEx(request: BatchqueryCreditshieldProductInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryCreditshieldProductInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.creditshield.product.info.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QuerySecurityPolicyRequest = {
@@ -2504,61 +2568,17 @@ async function queryBatchSecurityPolicyEx(request: QueryBatchSecurityPolicyReque
   return doRequest('1.0' ,'riskplus.batch.security.policy.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
-model QueryFhtestFhRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 名称
-  name: string(name='name'),
-  // 年龄
-  age: long(name='age'),
-  // 判断字段
-  judge?: boolean(name='judge'),
-}
-
-model QueryFhtestFhResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 是否成功
-  success?: boolean(name='success'),
-  // 字符串数组
-  queryResults?: [ string ](name='query_results'),
-}
-
-/**
- * Description: 峰禾API测试
- * Summary: 峰禾API测试
- */
-async function queryFhtestFh(request: QueryFhtestFhRequest): QueryFhtestFhResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryFhtestFhEx(request, headers, runtime);
-}
-
-/**
- * Description: 峰禾API测试
- * Summary: 峰禾API测试
- */
-async function queryFhtestFhEx(request: QueryFhtestFhRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryFhtestFhResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'riskplus.fhtest.fh.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
 model QueryCreditshieldProductBatchRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 查询类型：
+  // 查询编码：
   // 1.还款概率评估
   // 2.经济波动检测
   // 3.触达前筛
-  queryType: long(name='query_type'),
+  queryCode: string(name='query_code'),
   // 查询信息集合
-  queryInfos: [ QueryInfo ](name='query_infos'),
+  queryInfos?: [ QueryInfo ](name='query_infos'),
 }
 
 model QueryCreditshieldProductBatchResponse = {
@@ -4689,6 +4709,8 @@ model CountDubbridgeRepayReftrialRequest = {
   repayType: string(name='repay_type'),
   // 还款日
   repayDate?: string(name='repay_date'),
+  // 优惠券id
+  couponId?: string(name='coupon_id'),
 }
 
 model CountDubbridgeRepayReftrialResponse = {
@@ -4899,6 +4921,8 @@ model ApplyDubbridgeUsecreditRequest = {
   bankCardNo?: string(name='bank_card_no'),
   // 影像件信息
   materials?: [ Material ](name='materials'),
+  // 优惠券id
+  couponId?: string(name='coupon_id'),
 }
 
 model ApplyDubbridgeUsecreditResponse = {
@@ -5664,6 +5688,90 @@ async function queryDubbridgeUserAggregationinfoEx(request: QueryDubbridgeUserAg
   return doRequest('1.0' ,'riskplus.dubbridge.user.aggregationinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryDubbridgeMarketingCouponlistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户号
+  customerNo: string(name='customer_no'),
+  // 优惠券状态
+  status?: string(name='status'),
+  // 页码
+  page?: long(name='page'),
+  // 每页数量
+  pageSize?: long(name='page_size'),
+}
+
+model QueryDubbridgeMarketingCouponlistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券列表
+  couponList?: [ CouponInfo ](name='coupon_list'),
+}
+
+/**
+ * Description: 天枢系统优惠券列表查询接口
+ * Summary: 天枢系统优惠券列表查询接口
+ */
+async function queryDubbridgeMarketingCouponlist(request: QueryDubbridgeMarketingCouponlistRequest): QueryDubbridgeMarketingCouponlistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeMarketingCouponlistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统优惠券列表查询接口
+ * Summary: 天枢系统优惠券列表查询接口
+ */
+async function queryDubbridgeMarketingCouponlistEx(request: QueryDubbridgeMarketingCouponlistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeMarketingCouponlistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.marketing.couponlist.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDubbridgeRepaytypeInfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 客户号
+  customerNo: string(name='customer_no'),
+  // 资金方编号
+  fundCode: string(name='fund_code'),
+}
+
+model QueryDubbridgeRepaytypeInfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 还款方式/借款期数集合
+  repayTypeInfoList?: [ PlatformRepayTypeInfo ](name='repay_type_info_list'),
+}
+
+/**
+ * Description: 天枢系统还款方式查询
+ * Summary: 天枢系统还款方式查询
+ */
+async function queryDubbridgeRepaytypeInfo(request: QueryDubbridgeRepaytypeInfoRequest): QueryDubbridgeRepaytypeInfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDubbridgeRepaytypeInfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 天枢系统还款方式查询
+ * Summary: 天枢系统还款方式查询
+ */
+async function queryDubbridgeRepaytypeInfoEx(request: QueryDubbridgeRepaytypeInfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDubbridgeRepaytypeInfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.dubbridge.repaytype.info.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model VerifyFinserviceZhimaIdentifyRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -5904,6 +6012,46 @@ async function receiveMdipParamsRbbfileEx(request: ReceiveMdipParamsRbbfileReque
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.mdip.params.rbbfile.receive', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackMdipAuditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 审批结果
+  auditResult: string(name='audit_result'),
+  // 工单流水号
+  bizCode: string(name='biz_code'),
+  // 额外信息
+  extend?: string(name='extend'),
+}
+
+model CallbackMdipAuditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 多源平台审批回调接口
+ * Summary: 多源平台审批回调接口
+ */
+async function callbackMdipAudit(request: CallbackMdipAuditRequest): CallbackMdipAuditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackMdipAuditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 多源平台审批回调接口
+ * Summary: 多源平台审批回调接口
+ */
+async function callbackMdipAuditEx(request: CallbackMdipAuditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMdipAuditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.mdip.audit.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model ApplyQmpRtBatchmarketingRequest = {
@@ -11651,7 +11799,7 @@ model QueryUmktOfflinedecisionPlandetailsRequest = {
   // 离线圈客配置的ID
   offlineDecisionPlanId: long(name='offline_decision_plan_id'),
   // 执行日期
-  resultDate: string(name='result_date'),
+  resultDate?: string(name='result_date'),
 }
 
 model QueryUmktOfflinedecisionPlandetailsResponse = {
