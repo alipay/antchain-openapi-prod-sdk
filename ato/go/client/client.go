@@ -236,6 +236,8 @@ func (s *FileInfo) SetFileKey(v string) *FileInfo {
 
 // 智租风控模型结构体
 type AppletRiskModel struct {
+	// 智租风控调用结果码，10000 表示调用成功。
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
 	// 风险咨询事件ID
 	RecordId *string `json:"record_id,omitempty" xml:"record_id,omitempty" require:"true"`
 	// 风险等级。枚举值：RANK0-无法判断；RANK1-极低风险；RANK2-低风险；RANK3-中风险；RANK4-高风险；RANK5-极高风险
@@ -245,7 +247,9 @@ type AppletRiskModel struct {
 	// 风险等级中文描述
 	RiskDesc *string `json:"risk_desc,omitempty" xml:"risk_desc,omitempty" require:"true"`
 	// 子风险结果列表
-	SubRiskResultList []*SubRentRiskItem `json:"sub_risk_result_list,omitempty" xml:"sub_risk_result_list,omitempty" require:"true" type:"Repeated"`
+	SubRiskResultList []*SubRentRiskItem `json:"sub_risk_result_list,omitempty" xml:"sub_risk_result_list,omitempty" type:"Repeated"`
+	// 调用失败错误提示信息，仅调用失败时返回该字段信息。
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 }
 
 func (s AppletRiskModel) String() string {
@@ -254,6 +258,11 @@ func (s AppletRiskModel) String() string {
 
 func (s AppletRiskModel) GoString() string {
 	return s.String()
+}
+
+func (s *AppletRiskModel) SetCode(v string) *AppletRiskModel {
+	s.Code = &v
+	return s
 }
 
 func (s *AppletRiskModel) SetRecordId(v string) *AppletRiskModel {
@@ -278,6 +287,11 @@ func (s *AppletRiskModel) SetRiskDesc(v string) *AppletRiskModel {
 
 func (s *AppletRiskModel) SetSubRiskResultList(v []*SubRentRiskItem) *AppletRiskModel {
 	s.SubRiskResultList = v
+	return s
+}
+
+func (s *AppletRiskModel) SetErrorMsg(v string) *AppletRiskModel {
+	s.ErrorMsg = &v
 	return s
 }
 
@@ -556,12 +570,12 @@ func (s *MerchantAgentPage) SetPayExpandStatus(v string) *MerchantAgentPage {
 type PriceDetail struct {
 	// 商品租赁期数
 	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" maximum:"1000"`
-	// 押金，单位：元。精度：分。
-	DepositPrice *string `json:"deposit_price,omitempty" xml:"deposit_price,omitempty" require:"true" maxLength:"10"`
-	// 买断价格，单位：元，精度：分
-	BuyoutPrice *string `json:"buyout_price,omitempty" xml:"buyout_price,omitempty" require:"true" maxLength:"10"`
-	// 首期租金，单位：元，精度：分
-	InitialRentPrice *string `json:"initial_rent_price,omitempty" xml:"initial_rent_price,omitempty" require:"true" maxLength:"10"`
+	// 押金，单位：分。
+	DepositPrice *int64 `json:"deposit_price,omitempty" xml:"deposit_price,omitempty" require:"true" maximum:"10000000"`
+	// 买断价格，单位：分
+	BuyoutPrice *int64 `json:"buyout_price,omitempty" xml:"buyout_price,omitempty" require:"true" maximum:"10000000"`
+	// 首期租金，单位：分
+	InitialRentPrice *int64 `json:"initial_rent_price,omitempty" xml:"initial_rent_price,omitempty" require:"true" maximum:"10000000"`
 }
 
 func (s PriceDetail) String() string {
@@ -577,17 +591,17 @@ func (s *PriceDetail) SetPeriodNum(v int64) *PriceDetail {
 	return s
 }
 
-func (s *PriceDetail) SetDepositPrice(v string) *PriceDetail {
+func (s *PriceDetail) SetDepositPrice(v int64) *PriceDetail {
 	s.DepositPrice = &v
 	return s
 }
 
-func (s *PriceDetail) SetBuyoutPrice(v string) *PriceDetail {
+func (s *PriceDetail) SetBuyoutPrice(v int64) *PriceDetail {
 	s.BuyoutPrice = &v
 	return s
 }
 
-func (s *PriceDetail) SetInitialRentPrice(v string) *PriceDetail {
+func (s *PriceDetail) SetInitialRentPrice(v int64) *PriceDetail {
 	s.InitialRentPrice = &v
 	return s
 }
@@ -856,6 +870,39 @@ func (s PromiseInfo) GoString() string {
 	return s.String()
 }
 
+// 智租风控-物流信息
+type DeliveryDetail struct {
+	// 收件人姓名
+	ReceiverName *string `json:"receiver_name,omitempty" xml:"receiver_name,omitempty" maxLength:"32"`
+	// 收件人手机号
+	ReceiverMobile *string `json:"receiver_mobile,omitempty" xml:"receiver_mobile,omitempty" maxLength:"32"`
+	// 收件人地址
+	ReceiverAddress *string `json:"receiver_address,omitempty" xml:"receiver_address,omitempty" maxLength:"256"`
+}
+
+func (s DeliveryDetail) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeliveryDetail) GoString() string {
+	return s.String()
+}
+
+func (s *DeliveryDetail) SetReceiverName(v string) *DeliveryDetail {
+	s.ReceiverName = &v
+	return s
+}
+
+func (s *DeliveryDetail) SetReceiverMobile(v string) *DeliveryDetail {
+	s.ReceiverMobile = &v
+	return s
+}
+
+func (s *DeliveryDetail) SetReceiverAddress(v string) *DeliveryDetail {
+	s.ReceiverAddress = &v
+	return s
+}
+
 // 租户协议分页对象
 type AgreementPage struct {
 	// 协议id
@@ -946,6 +993,10 @@ type RelationPage struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
 	// 审核状态
 	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 商户公司统一社会信用代码
+	SubjectMerchantId *string `json:"subject_merchant_id,omitempty" xml:"subject_merchant_id,omitempty" require:"true"`
+	// 商户公司名称
+	SubjectCompanyName *string `json:"subject_company_name,omitempty" xml:"subject_company_name,omitempty" require:"true"`
 }
 
 func (s RelationPage) String() string {
@@ -973,6 +1024,16 @@ func (s *RelationPage) SetMerchantId(v string) *RelationPage {
 
 func (s *RelationPage) SetStatus(v string) *RelationPage {
 	s.Status = &v
+	return s
+}
+
+func (s *RelationPage) SetSubjectMerchantId(v string) *RelationPage {
+	s.SubjectMerchantId = &v
+	return s
+}
+
+func (s *RelationPage) SetSubjectCompanyName(v string) *RelationPage {
+	s.SubjectCompanyName = &v
 	return s
 }
 
@@ -1240,12 +1301,13 @@ func (s *PageQuery) SetPageIndex(v int64) *PageQuery {
 
 // 智租风控-商品详情
 type ItemDetail struct {
-	// 租赁商品类目，可选项见 https://opendocs.alipay.com/open/10719
-	GoodsCategory *string `json:"goods_category,omitempty" xml:"goods_category,omitempty" require:"true" maxLength:"30"`
+	// 租赁商品类目，可选类型：
+	// RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
+	GoodsCategory *string `json:"goods_category,omitempty" xml:"goods_category,omitempty" maxLength:"30"`
 	// 租赁商品名称
-	ItemName *string `json:"item_name,omitempty" xml:"item_name,omitempty" require:"true" maxLength:"64"`
+	ItemName *string `json:"item_name,omitempty" xml:"item_name,omitempty" maxLength:"128"`
 	// 租赁商品数量
-	Quantity *int64 `json:"quantity,omitempty" xml:"quantity,omitempty" require:"true" maximum:"10000"`
+	Quantity *int64 `json:"quantity,omitempty" xml:"quantity,omitempty" maximum:"10000"`
 }
 
 func (s ItemDetail) String() string {
@@ -5259,6 +5321,12 @@ type CreateInnerFunddividerelationRequest struct {
 	Submit *string `json:"submit,omitempty" xml:"submit,omitempty" require:"true"`
 	// 操作人名称
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
+	// 商户公司社会统一信用代码,
+	// 如果expandMode=AGENT, 非空，长度不超过32位
+	SubjectMerchantId *string `json:"subject_merchant_id,omitempty" xml:"subject_merchant_id,omitempty"`
+	// 进件模式	:DIRECT(直连进件) ,AGENT(代理进件)
+	// 默认值：DIRECT
+	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty"`
 }
 
 func (s CreateInnerFunddividerelationRequest) String() string {
@@ -5326,6 +5394,16 @@ func (s *CreateInnerFunddividerelationRequest) SetSubmit(v string) *CreateInnerF
 
 func (s *CreateInnerFunddividerelationRequest) SetUserName(v string) *CreateInnerFunddividerelationRequest {
 	s.UserName = &v
+	return s
+}
+
+func (s *CreateInnerFunddividerelationRequest) SetSubjectMerchantId(v string) *CreateInnerFunddividerelationRequest {
+	s.SubjectMerchantId = &v
+	return s
+}
+
+func (s *CreateInnerFunddividerelationRequest) SetExpandMode(v string) *CreateInnerFunddividerelationRequest {
+	s.ExpandMode = &v
 	return s
 }
 
@@ -5494,6 +5572,8 @@ type QueryInnerFunddividerelationResponse struct {
 	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
 	// 分账主体企业统一社会信用代码
 	SubjectMerchantId *string `json:"subject_merchant_id,omitempty" xml:"subject_merchant_id,omitempty"`
+	// 分账主体公司名称
+	SubjectCompanyName *string `json:"subject_company_name,omitempty" xml:"subject_company_name,omitempty"`
 	// 分账对象统一社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 	// 分账合同或协议
@@ -5545,6 +5625,11 @@ func (s *QueryInnerFunddividerelationResponse) SetSubjectMerchantId(v string) *Q
 	return s
 }
 
+func (s *QueryInnerFunddividerelationResponse) SetSubjectCompanyName(v string) *QueryInnerFunddividerelationResponse {
+	s.SubjectCompanyName = &v
+	return s
+}
+
 func (s *QueryInnerFunddividerelationResponse) SetMerchantId(v string) *QueryInnerFunddividerelationResponse {
 	s.MerchantId = &v
 	return s
@@ -5593,6 +5678,15 @@ type PagequeryInnerFunddividerelationRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 分页查询对象
 	PageInfo *PageQuery `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+	// 商户公司社会统一信用代码
+	SubjectMerchantId *string `json:"subject_merchant_id,omitempty" xml:"subject_merchant_id,omitempty"`
+	// 商户公司名称
+	SubjectCompanyName *string `json:"subject_company_name,omitempty" xml:"subject_company_name,omitempty"`
+	// 状态
+	// NIT:待提交
+	// AUDIT:审批中 AUDIT_PASSED:审批通过
+	// AUDIT_NOT_PASSED:审批不通过
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
 }
 
 func (s PagequeryInnerFunddividerelationRequest) String() string {
@@ -5620,6 +5714,21 @@ func (s *PagequeryInnerFunddividerelationRequest) SetTenantId(v string) *Pageque
 
 func (s *PagequeryInnerFunddividerelationRequest) SetPageInfo(v *PageQuery) *PagequeryInnerFunddividerelationRequest {
 	s.PageInfo = v
+	return s
+}
+
+func (s *PagequeryInnerFunddividerelationRequest) SetSubjectMerchantId(v string) *PagequeryInnerFunddividerelationRequest {
+	s.SubjectMerchantId = &v
+	return s
+}
+
+func (s *PagequeryInnerFunddividerelationRequest) SetSubjectCompanyName(v string) *PagequeryInnerFunddividerelationRequest {
+	s.SubjectCompanyName = &v
+	return s
+}
+
+func (s *PagequeryInnerFunddividerelationRequest) SetStatus(v string) *PagequeryInnerFunddividerelationRequest {
+	s.Status = &v
 	return s
 }
 
@@ -7825,6 +7934,83 @@ func (s *GetInnerMerchantstaticdataResponse) SetStaticDataList(v []*StaticData) 
 	return s
 }
 
+type GetInnerFunddividemerchantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s GetInnerFunddividemerchantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerFunddividemerchantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerFunddividemerchantRequest) SetAuthToken(v string) *GetInnerFunddividemerchantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInnerFunddividemerchantRequest) SetProductInstanceId(v string) *GetInnerFunddividemerchantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetInnerFunddividemerchantRequest) SetTenantId(v string) *GetInnerFunddividemerchantRequest {
+	s.TenantId = &v
+	return s
+}
+
+type GetInnerFunddividemerchantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 分账方公司名称
+	CompanyName *string `json:"company_name,omitempty" xml:"company_name,omitempty"`
+	// 分账方公司统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+}
+
+func (s GetInnerFunddividemerchantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerFunddividemerchantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerFunddividemerchantResponse) SetReqMsgId(v string) *GetInnerFunddividemerchantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInnerFunddividemerchantResponse) SetResultCode(v string) *GetInnerFunddividemerchantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInnerFunddividemerchantResponse) SetResultMsg(v string) *GetInnerFunddividemerchantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInnerFunddividemerchantResponse) SetCompanyName(v string) *GetInnerFunddividemerchantResponse {
+	s.CompanyName = &v
+	return s
+}
+
+func (s *GetInnerFunddividemerchantResponse) SetMerchantId(v string) *GetInnerFunddividemerchantResponse {
+	s.MerchantId = &v
+	return s
+}
+
 type RegisterMerchantexpandMerchantRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -8411,12 +8597,12 @@ type QueryRiskRequest struct {
 	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" maxLength:"20"`
 	// 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
 	Source *string `json:"source,omitempty" xml:"source,omitempty" maxLength:"10"`
-	// 收件人地址，智租版必选
-	ReceiverAddress *string `json:"receiver_address,omitempty" xml:"receiver_address,omitempty" maxLength:"128"`
 	// 商品详情，智租版可选
 	ItemDetail *ItemDetail `json:"item_detail,omitempty" xml:"item_detail,omitempty"`
 	// 价格详情，智租版可选
 	PriceDetail *PriceDetail `json:"price_detail,omitempty" xml:"price_detail,omitempty"`
+	// 物流信息，智租版可选
+	DeliveryDetail *DeliveryDetail `json:"delivery_detail,omitempty" xml:"delivery_detail,omitempty"`
 }
 
 func (s QueryRiskRequest) String() string {
@@ -8467,11 +8653,6 @@ func (s *QueryRiskRequest) SetSource(v string) *QueryRiskRequest {
 	return s
 }
 
-func (s *QueryRiskRequest) SetReceiverAddress(v string) *QueryRiskRequest {
-	s.ReceiverAddress = &v
-	return s
-}
-
 func (s *QueryRiskRequest) SetItemDetail(v *ItemDetail) *QueryRiskRequest {
 	s.ItemDetail = v
 	return s
@@ -8479,6 +8660,11 @@ func (s *QueryRiskRequest) SetItemDetail(v *ItemDetail) *QueryRiskRequest {
 
 func (s *QueryRiskRequest) SetPriceDetail(v *PriceDetail) *QueryRiskRequest {
 	s.PriceDetail = v
+	return s
+}
+
+func (s *QueryRiskRequest) SetDeliveryDetail(v *DeliveryDetail) *QueryRiskRequest {
+	s.DeliveryDetail = v
 	return s
 }
 
@@ -12303,7 +12489,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.20"),
+				"sdk_version":      tea.String("1.9.29"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -12579,6 +12765,7 @@ func (client *Client) UploadFundFlowEx(request *UploadFundFlowRequest, headers m
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -14737,6 +14924,42 @@ func (client *Client) GetInnerMerchantstaticdataEx(request *GetInnerMerchantstat
 }
 
 /**
+ * Description: 查询已有绑定关系分账方数据
+包括分账方名称，社会统一信用代码
+ * Summary: 间连查询已有绑定关系分账方数据
+*/
+func (client *Client) GetInnerFunddividemerchant(request *GetInnerFunddividemerchantRequest) (_result *GetInnerFunddividemerchantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInnerFunddividemerchantResponse{}
+	_body, _err := client.GetInnerFunddividemerchantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询已有绑定关系分账方数据
+包括分账方名称，社会统一信用代码
+ * Summary: 间连查询已有绑定关系分账方数据
+*/
+func (client *Client) GetInnerFunddividemerchantEx(request *GetInnerFunddividemerchantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInnerFunddividemerchantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInnerFunddividemerchantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.funddividemerchant.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 商户入驻
  * Summary: 商户入驻
  */
@@ -15192,6 +15415,7 @@ func (client *Client) UploadSignFlowEx(request *UploadSignFlowRequest, headers m
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -15255,6 +15479,7 @@ func (client *Client) UploadSignTemplateEx(request *UploadSignTemplateRequest, h
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
