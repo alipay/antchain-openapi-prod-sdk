@@ -52,6 +52,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string AgreementNo { get; set; }
 
+        // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+        [NameInMap("sign_str_type")]
+        [Validation(Required=false)]
+        public string SignStrType { get; set; }
+
     }
 
 }
