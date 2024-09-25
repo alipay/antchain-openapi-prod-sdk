@@ -14215,6 +14215,7 @@ class CreateWithholdSignResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         sign_str: str = None,
+        sign_str_type: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -14224,6 +14225,8 @@ class CreateWithholdSignResponse(TeaModel):
         self.result_msg = result_msg
         # 签约字符串
         self.sign_str = sign_str
+        # 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+        self.sign_str_type = sign_str_type
 
     def validate(self):
         pass
@@ -14242,6 +14245,8 @@ class CreateWithholdSignResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.sign_str is not None:
             result['sign_str'] = self.sign_str
+        if self.sign_str_type is not None:
+            result['sign_str_type'] = self.sign_str_type
         return result
 
     def from_map(self, m: dict = None):
@@ -14254,6 +14259,8 @@ class CreateWithholdSignResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('sign_str') is not None:
             self.sign_str = m.get('sign_str')
+        if m.get('sign_str_type') is not None:
+            self.sign_str_type = m.get('sign_str_type')
         return self
 
 
@@ -14311,6 +14318,7 @@ class QueryWithholdSignResponse(TeaModel):
         valid_time: str = None,
         invalid_time: str = None,
         agreement_no: str = None,
+        sign_str_type: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -14331,6 +14339,8 @@ class QueryWithholdSignResponse(TeaModel):
         self.invalid_time = invalid_time
         # 代扣协议号
         self.agreement_no = agreement_no
+        # 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+        self.sign_str_type = sign_str_type
 
     def validate(self):
         if self.sign_time is not None:
@@ -14362,6 +14372,8 @@ class QueryWithholdSignResponse(TeaModel):
             result['invalid_time'] = self.invalid_time
         if self.agreement_no is not None:
             result['agreement_no'] = self.agreement_no
+        if self.sign_str_type is not None:
+            result['sign_str_type'] = self.sign_str_type
         return result
 
     def from_map(self, m: dict = None):
@@ -14382,6 +14394,8 @@ class QueryWithholdSignResponse(TeaModel):
             self.invalid_time = m.get('invalid_time')
         if m.get('agreement_no') is not None:
             self.agreement_no = m.get('agreement_no')
+        if m.get('sign_str_type') is not None:
+            self.sign_str_type = m.get('sign_str_type')
         return self
 
 
