@@ -20,6 +20,10 @@ public class CreateWithholdSignResponse extends TeaModel {
     @NameInMap("sign_str")
     public String signStr;
 
+    // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+    @NameInMap("sign_str_type")
+    public String signStrType;
+
     public static CreateWithholdSignResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateWithholdSignResponse self = new CreateWithholdSignResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateWithholdSignResponse extends TeaModel {
     }
     public String getSignStr() {
         return this.signStr;
+    }
+
+    public CreateWithholdSignResponse setSignStrType(String signStrType) {
+        this.signStrType = signStrType;
+        return this;
+    }
+    public String getSignStrType() {
+        return this.signStrType;
     }
 
 }
