@@ -11205,6 +11205,8 @@ type CreateWithholdSignResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 签约字符串
 	SignStr *string `json:"sign_str,omitempty" xml:"sign_str,omitempty"`
+	// 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+	SignStrType *string `json:"sign_str_type,omitempty" xml:"sign_str_type,omitempty"`
 }
 
 func (s CreateWithholdSignResponse) String() string {
@@ -11232,6 +11234,11 @@ func (s *CreateWithholdSignResponse) SetResultMsg(v string) *CreateWithholdSignR
 
 func (s *CreateWithholdSignResponse) SetSignStr(v string) *CreateWithholdSignResponse {
 	s.SignStr = &v
+	return s
+}
+
+func (s *CreateWithholdSignResponse) SetSignStrType(v string) *CreateWithholdSignResponse {
+	s.SignStrType = &v
 	return s
 }
 
@@ -11286,6 +11293,8 @@ type QueryWithholdSignResponse struct {
 	InvalidTime *string `json:"invalid_time,omitempty" xml:"invalid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 代扣协议号
 	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty"`
+	// 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+	SignStrType *string `json:"sign_str_type,omitempty" xml:"sign_str_type,omitempty"`
 }
 
 func (s QueryWithholdSignResponse) String() string {
@@ -11333,6 +11342,11 @@ func (s *QueryWithholdSignResponse) SetInvalidTime(v string) *QueryWithholdSignR
 
 func (s *QueryWithholdSignResponse) SetAgreementNo(v string) *QueryWithholdSignResponse {
 	s.AgreementNo = &v
+	return s
+}
+
+func (s *QueryWithholdSignResponse) SetSignStrType(v string) *QueryWithholdSignResponse {
+	s.SignStrType = &v
 	return s
 }
 
@@ -12489,7 +12503,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.29"),
+				"sdk_version":      tea.String("1.9.30"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
