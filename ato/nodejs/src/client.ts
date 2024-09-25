@@ -8663,12 +8663,15 @@ export class CreateWithholdSignResponse extends $tea.Model {
   resultMsg?: string;
   // 签约字符串
   signStr?: string;
+  // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+  signStrType?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       signStr: 'sign_str',
+      signStrType: 'sign_str_type',
     };
   }
 
@@ -8678,6 +8681,7 @@ export class CreateWithholdSignResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       signStr: 'string',
+      signStrType: 'string',
     };
   }
 
@@ -8733,6 +8737,8 @@ export class QueryWithholdSignResponse extends $tea.Model {
   invalidTime?: string;
   // 代扣协议号
   agreementNo?: string;
+  // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+  signStrType?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -8743,6 +8749,7 @@ export class QueryWithholdSignResponse extends $tea.Model {
       validTime: 'valid_time',
       invalidTime: 'invalid_time',
       agreementNo: 'agreement_no',
+      signStrType: 'sign_str_type',
     };
   }
 
@@ -8756,6 +8763,7 @@ export class QueryWithholdSignResponse extends $tea.Model {
       validTime: 'string',
       invalidTime: 'string',
       agreementNo: 'string',
+      signStrType: 'string',
     };
   }
 
@@ -9685,7 +9693,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.29",
+          sdk_version: "1.9.30",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
