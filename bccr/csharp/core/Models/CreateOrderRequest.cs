@@ -30,12 +30,12 @@ namespace AntChain.SDK.BCCR.Models
 
         // 发票信息
         [NameInMap("invoice_info")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public InvoiceInfo InvoiceInfo { get; set; }
 
         // 订单明细列表
         [NameInMap("order_item")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public List<OrderItem> OrderItem { get; set; }
 
     }
