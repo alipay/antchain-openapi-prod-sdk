@@ -23,10 +23,12 @@ public class CreateOrderRequest extends TeaModel {
 
     // 发票信息
     @NameInMap("invoice_info")
+    @Validation(required = true)
     public InvoiceInfo invoiceInfo;
 
     // 订单明细列表
     @NameInMap("order_item")
+    @Validation(required = true)
     public java.util.List<OrderItem> orderItem;
 
     public static CreateOrderRequest build(java.util.Map<String, ?> map) throws Exception {
