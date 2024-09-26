@@ -9449,9 +9449,9 @@ export class CreateOrderRequest extends $tea.Model {
   // 幂等id
   requestId: string;
   // 发票信息
-  invoiceInfo?: InvoiceInfo;
+  invoiceInfo: InvoiceInfo;
   // 订单明细列表
-  orderItem?: OrderItem[];
+  orderItem: OrderItem[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10323,7 +10323,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.13",
+          sdk_version: "1.19.14",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
