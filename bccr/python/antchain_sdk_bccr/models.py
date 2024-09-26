@@ -15759,8 +15759,10 @@ class CreateOrderRequest(TeaModel):
     def validate(self):
         self.validate_required(self.client_token, 'client_token')
         self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.invoice_info, 'invoice_info')
         if self.invoice_info:
             self.invoice_info.validate()
+        self.validate_required(self.order_item, 'order_item')
         if self.order_item:
             for k in self.order_item:
                 if k:
