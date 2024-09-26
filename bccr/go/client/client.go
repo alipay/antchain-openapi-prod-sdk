@@ -12762,9 +12762,9 @@ type CreateOrderRequest struct {
 	// 幂等id
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 发票信息
-	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty"`
+	InvoiceInfo *InvoiceInfo `json:"invoice_info,omitempty" xml:"invoice_info,omitempty" require:"true"`
 	// 订单明细列表
-	OrderItem []*OrderItem `json:"order_item,omitempty" xml:"order_item,omitempty" type:"Repeated"`
+	OrderItem []*OrderItem `json:"order_item,omitempty" xml:"order_item,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s CreateOrderRequest) String() string {
@@ -13890,7 +13890,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.13"),
+				"sdk_version":      tea.String("1.19.14"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
