@@ -55,6 +55,8 @@ class CreateOrderRequest extends Model
     {
         Model::validateRequired('clientToken', $this->clientToken, true);
         Model::validateRequired('requestId', $this->requestId, true);
+        Model::validateRequired('invoiceInfo', $this->invoiceInfo, true);
+        Model::validateRequired('orderItem', $this->orderItem, true);
     }
 
     public function toMap()
