@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BCCR",
-  "version": "1.0.57",
+  "version": "1.0.58",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-bccr:1.19.13",
+    "java": "com.antgroup.antchain.openapi:openapi-bccr:1.19.14",
     "go": "github.com/antchain-openapi-sdk-go/bccr/client:v1.19.14",
     "csharp": "AntChain.SDK.BCCR:1.19.14",
     "ts": "@antchain/bccr:1.19.14",
