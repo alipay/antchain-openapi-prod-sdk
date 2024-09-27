@@ -247,6 +247,8 @@ use AntChain\RISKPLUS\Models\QueryDubheUsecreditStatusRequest;
 use AntChain\RISKPLUS\Models\QueryDubheUsecreditStatusResponse;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyRequest;
 use AntChain\RISKPLUS\Models\QueryFinserviceZhimaIdentifyResponse;
+use AntChain\RISKPLUS\Models\QueryMdipDataservicePocRequest;
+use AntChain\RISKPLUS\Models\QueryMdipDataservicePocResponse;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceRequest;
 use AntChain\RISKPLUS\Models\QueryMdipDataserviceResponse;
 use AntChain\RISKPLUS\Models\QueryQmpCardsmsSupportRequest;
@@ -554,7 +556,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.20.7',
+                    'sdk_version'      => '1.21.0',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3264,6 +3266,39 @@ class Client
         Utils::validateModel($request);
 
         return CallbackMdipAuditResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+     * Summary: 多源融合平台的POC数据服务查询接口.
+     *
+     * @param QueryMdipDataservicePocRequest $request
+     *
+     * @return QueryMdipDataservicePocResponse
+     */
+    public function queryMdipDataservicePoc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMdipDataservicePocEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+     * Summary: 多源融合平台的POC数据服务查询接口.
+     *
+     * @param QueryMdipDataservicePocRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryMdipDataservicePocResponse
+     */
+    public function queryMdipDataservicePocEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMdipDataservicePocResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.dataservice.poc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
