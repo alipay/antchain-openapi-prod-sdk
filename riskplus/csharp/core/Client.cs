@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.20.7"},
+                        {"sdk_version", "1.21.0"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.20.7"},
+                        {"sdk_version", "1.21.0"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3781,6 +3781,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CallbackMdipAuditResponse>(await DoRequestAsync("1.0", "riskplus.mdip.audit.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+         * Summary: 多源融合平台的POC数据服务查询接口
+         */
+        public QueryMdipDataservicePocResponse QueryMdipDataservicePoc(QueryMdipDataservicePocRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMdipDataservicePocEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+         * Summary: 多源融合平台的POC数据服务查询接口
+         */
+        public async Task<QueryMdipDataservicePocResponse> QueryMdipDataservicePocAsync(QueryMdipDataservicePocRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMdipDataservicePocExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+         * Summary: 多源融合平台的POC数据服务查询接口
+         */
+        public QueryMdipDataservicePocResponse QueryMdipDataservicePocEx(QueryMdipDataservicePocRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMdipDataservicePocResponse>(DoRequest("1.0", "riskplus.mdip.dataservice.poc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+         * Summary: 多源融合平台的POC数据服务查询接口
+         */
+        public async Task<QueryMdipDataservicePocResponse> QueryMdipDataservicePocExAsync(QueryMdipDataservicePocRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMdipDataservicePocResponse>(await DoRequestAsync("1.0", "riskplus.mdip.dataservice.poc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
