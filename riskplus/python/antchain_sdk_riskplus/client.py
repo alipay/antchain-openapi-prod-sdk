@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.20.7',
+                    'sdk_version': '1.21.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.20.7',
+                    'sdk_version': '1.21.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4805,6 +4805,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.CallbackMdipAuditResponse(),
             await self.do_request_async('1.0', 'riskplus.mdip.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mdip_dataservice_poc(
+        self,
+        request: riskplus_models.QueryMdipDataservicePocRequest,
+    ) -> riskplus_models.QueryMdipDataservicePocResponse:
+        """
+        Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+        Summary: 多源融合平台的POC数据服务查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mdip_dataservice_poc_ex(request, headers, runtime)
+
+    async def query_mdip_dataservice_poc_async(
+        self,
+        request: riskplus_models.QueryMdipDataservicePocRequest,
+    ) -> riskplus_models.QueryMdipDataservicePocResponse:
+        """
+        Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+        Summary: 多源融合平台的POC数据服务查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mdip_dataservice_poc_ex_async(request, headers, runtime)
+
+    def query_mdip_dataservice_poc_ex(
+        self,
+        request: riskplus_models.QueryMdipDataservicePocRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryMdipDataservicePocResponse:
+        """
+        Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+        Summary: 多源融合平台的POC数据服务查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryMdipDataservicePocResponse(),
+            self.do_request('1.0', 'riskplus.mdip.dataservice.poc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mdip_dataservice_poc_ex_async(
+        self,
+        request: riskplus_models.QueryMdipDataservicePocRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryMdipDataservicePocResponse:
+        """
+        Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+        Summary: 多源融合平台的POC数据服务查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryMdipDataservicePocResponse(),
+            await self.do_request_async('1.0', 'riskplus.mdip.dataservice.poc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_qmp_rt_batchmarketing(
