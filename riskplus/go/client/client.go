@@ -15133,6 +15133,85 @@ func (s *CallbackMdipAuditResponse) SetResultMsg(v string) *CallbackMdipAuditRes
 	return s
 }
 
+type QueryMdipDataservicePocRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 服务编码
+	//
+	ServiceCode *string `json:"service_code,omitempty" xml:"service_code,omitempty" require:"true"`
+	// 服务参数
+	ServiceParam *string `json:"service_param,omitempty" xml:"service_param,omitempty" require:"true"`
+}
+
+func (s QueryMdipDataservicePocRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMdipDataservicePocRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMdipDataservicePocRequest) SetAuthToken(v string) *QueryMdipDataservicePocRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMdipDataservicePocRequest) SetProductInstanceId(v string) *QueryMdipDataservicePocRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMdipDataservicePocRequest) SetServiceCode(v string) *QueryMdipDataservicePocRequest {
+	s.ServiceCode = &v
+	return s
+}
+
+func (s *QueryMdipDataservicePocRequest) SetServiceParam(v string) *QueryMdipDataservicePocRequest {
+	s.ServiceParam = &v
+	return s
+}
+
+type QueryMdipDataservicePocResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	// 多源查询结果值
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryMdipDataservicePocResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMdipDataservicePocResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMdipDataservicePocResponse) SetReqMsgId(v string) *QueryMdipDataservicePocResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMdipDataservicePocResponse) SetResultCode(v string) *QueryMdipDataservicePocResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMdipDataservicePocResponse) SetResultMsg(v string) *QueryMdipDataservicePocResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMdipDataservicePocResponse) SetData(v string) *QueryMdipDataservicePocResponse {
+	s.Data = &v
+	return s
+}
+
 type ApplyQmpRtBatchmarketingRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -27908,7 +27987,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.20.7"),
+				"sdk_version":      tea.String("1.21.0"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -30735,6 +30814,40 @@ func (client *Client) CallbackMdipAuditEx(request *CallbackMdipAuditRequest, hea
 	}
 	_result = &CallbackMdipAuditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.audit.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+ * Summary: 多源融合平台的POC数据服务查询接口
+ */
+func (client *Client) QueryMdipDataservicePoc(request *QueryMdipDataservicePocRequest) (_result *QueryMdipDataservicePocResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMdipDataservicePocResponse{}
+	_body, _err := client.QueryMdipDataservicePocEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 该接口仅限于POC场景下使用， 关键时期会执行限流操作，并且不会通知到上游依赖服务。
+ * Summary: 多源融合平台的POC数据服务查询接口
+ */
+func (client *Client) QueryMdipDataservicePocEx(request *QueryMdipDataservicePocRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMdipDataservicePocResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMdipDataservicePocResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.dataservice.poc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
