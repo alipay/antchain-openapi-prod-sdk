@@ -153,6 +153,137 @@ class Config(TeaModel):
         return self
 
 
+class MayaRedGptResponseDTO(TeaModel):
+    def __init__(
+        self,
+        message_id: str = None,
+        request_id: str = None,
+        session_id: str = None,
+        answer: str = None,
+        answer_format: str = None,
+        answer_end: bool = None,
+        safe: bool = None,
+    ):
+        # 消息的ID
+        self.message_id = message_id
+        # 请求ID
+        self.request_id = request_id
+        # 会话ID
+        self.session_id = session_id
+        # 应答内容
+        self.answer = answer
+        # 应答内容格式
+        self.answer_format = answer_format
+        # 是否回答结束
+        self.answer_end = answer_end
+        # 是否问题有风险
+        self.safe = safe
+
+    def validate(self):
+        self.validate_required(self.message_id, 'message_id')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.answer, 'answer')
+        self.validate_required(self.answer_format, 'answer_format')
+        self.validate_required(self.answer_end, 'answer_end')
+        self.validate_required(self.safe, 'safe')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.answer_format is not None:
+            result['answer_format'] = self.answer_format
+        if self.answer_end is not None:
+            result['answer_end'] = self.answer_end
+        if self.safe is not None:
+            result['safe'] = self.safe
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('answer_format') is not None:
+            self.answer_format = m.get('answer_format')
+        if m.get('answer_end') is not None:
+            self.answer_end = m.get('answer_end')
+        if m.get('safe') is not None:
+            self.safe = m.get('safe')
+        return self
+
+
+class MayaStreamResult(TeaModel):
+    def __init__(
+        self,
+        data: MayaRedGptResponseDTO = None,
+        success: bool = None,
+        error_code: str = None,
+        error_msg: str = None,
+    ):
+        # maya响应数据
+        self.data = data
+        # 是否成功
+        self.success = success
+        # 错误码
+        self.error_code = error_code
+        # 错误信息
+        self.error_msg = error_msg
+
+    def validate(self):
+        self.validate_required(self.data, 'data')
+        if self.data:
+            self.data.validate()
+        self.validate_required(self.success, 'success')
+        self.validate_required(self.error_code, 'error_code')
+        self.validate_required(self.error_msg, 'error_msg')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_msg is not None:
+            result['error_msg'] = self.error_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('data') is not None:
+            temp_model = MayaRedGptResponseDTO()
+            self.data = temp_model.from_map(m['data'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_msg') is not None:
+            self.error_msg = m.get('error_msg')
+        return self
+
+
 class Map(TeaModel):
     def __init__(
         self,
@@ -388,7 +519,6 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
         scene_code: str = None,
         question: str = None,
         question_format: str = None,
-        type: int = None,
         user_id: str = None,
     ):
         # OAuth模式下的授权token
@@ -405,8 +535,6 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
         self.question = question
         # 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
         self.question_format = question_format
-        # 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-        self.type = type
         # 加密的uid，仅用于唯一标示调用方
         self.user_id = user_id
 
@@ -417,7 +545,6 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
         self.validate_required(self.scene_code, 'scene_code')
         self.validate_required(self.question, 'question')
         self.validate_required(self.question_format, 'question_format')
-        self.validate_required(self.type, 'type')
 
     def to_map(self):
         _map = super().to_map()
@@ -439,8 +566,6 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
             result['question'] = self.question
         if self.question_format is not None:
             result['question_format'] = self.question_format
-        if self.type is not None:
-            result['type'] = self.type
         if self.user_id is not None:
             result['user_id'] = self.user_id
         return result
@@ -461,8 +586,6 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest(TeaModel):
             self.question = m.get('question')
         if m.get('question_format') is not None:
             self.question_format = m.get('question_format')
-        if m.get('type') is not None:
-            self.type = m.get('type')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         return self
@@ -569,6 +692,336 @@ class CheckAntcloudAitechguardAicoguardrailsAskResponse(TeaModel):
             self.risk_label = m.get('risk_label')
         if m.get('session_action') is not None:
             self.session_action = m.get('session_action')
+        return self
+
+
+class CheckAntcloudAitechguardAicoguardrailsAnswerRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        session_id: str = None,
+        request_id: str = None,
+        app_code: str = None,
+        scene_code: str = None,
+        question: str = None,
+        question_format: str = None,
+        answer: str = None,
+        answer_format: str = None,
+        user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 会话ID，用于匹配多轮对话上下文
+        self.session_id = session_id
+        # 数据唯一标识，能够根据该值定位到该条数据
+        self.request_id = request_id
+        # 应用名，蚂蚁侧提供
+        self.app_code = app_code
+        # 场景code，走SOP流程申请
+        self.scene_code = scene_code
+        # 当前提问内容，最大长度800个字符。
+        self.question = question
+        # 当前提问内容格式, 默认值:PLAINTEXT
+        self.question_format = question_format
+        # 当前回答内容，最大长度800个字符。
+        self.answer = answer
+        # 当前回答内容格式, 默认取PLAINTEXT
+        self.answer_format = answer_format
+        # 用户ID，用于主体风险判断
+        self.user_id = user_id
+
+    def validate(self):
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.app_code, 'app_code')
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.question, 'question')
+        self.validate_required(self.answer, 'answer')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.app_code is not None:
+            result['app_code'] = self.app_code
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.question is not None:
+            result['question'] = self.question
+        if self.question_format is not None:
+            result['question_format'] = self.question_format
+        if self.answer is not None:
+            result['answer'] = self.answer
+        if self.answer_format is not None:
+            result['answer_format'] = self.answer_format
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('app_code') is not None:
+            self.app_code = m.get('app_code')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('question_format') is not None:
+            self.question_format = m.get('question_format')
+        if m.get('answer') is not None:
+            self.answer = m.get('answer')
+        if m.get('answer_format') is not None:
+            self.answer_format = m.get('answer_format')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        return self
+
+
+class CheckAntcloudAitechguardAicoguardrailsAnswerResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        session_id: str = None,
+        request_id: str = None,
+        safe: bool = None,
+        action_code: str = None,
+        session_action: str = None,
+        action_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 会话ID，用于匹配多轮对话上下文
+        self.session_id = session_id
+        # 唯一定位一个问答对
+        self.request_id = request_id
+        # 是否安全无风险
+        self.safe = safe
+        # 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+        self.action_code = action_code
+        # 会话动作
+        # END_SESSION：终止会话
+        # RECALL_QUERY：撤回提问
+        self.session_action = session_action
+        # 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+        self.action_msg = action_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.safe is not None:
+            result['safe'] = self.safe
+        if self.action_code is not None:
+            result['action_code'] = self.action_code
+        if self.session_action is not None:
+            result['session_action'] = self.session_action
+        if self.action_msg is not None:
+            result['action_msg'] = self.action_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('safe') is not None:
+            self.safe = m.get('safe')
+        if m.get('action_code') is not None:
+            self.action_code = m.get('action_code')
+        if m.get('session_action') is not None:
+            self.session_action = m.get('session_action')
+        if m.get('action_msg') is not None:
+            self.action_msg = m.get('action_msg')
+        return self
+
+
+class QueryAitechCommGuardcoreRedgptRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        request_id: str = None,
+        session_id: str = None,
+        scene_code: str = None,
+        app_code: str = None,
+        question: str = None,
+        question_format: str = None,
+        user_id: str = None,
+        stream: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 唯一请求ID
+        self.request_id = request_id
+        # 多轮对话会话ID
+        self.session_id = session_id
+        # 场景code
+        self.scene_code = scene_code
+        # 调用方AppCode
+        self.app_code = app_code
+        # 提问内容
+        self.question = question
+        # 提问内容格式,当前仅支持PLAINTEXT
+        self.question_format = question_format
+        # 加密的调用方业务UserId
+        self.user_id = user_id
+        # 是否流式输出
+        self.stream = stream
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.app_code, 'app_code')
+        self.validate_required(self.question, 'question')
+        self.validate_required(self.question_format, 'question_format')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.stream, 'stream')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.app_code is not None:
+            result['app_code'] = self.app_code
+        if self.question is not None:
+            result['question'] = self.question
+        if self.question_format is not None:
+            result['question_format'] = self.question_format
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.stream is not None:
+            result['stream'] = self.stream
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('app_code') is not None:
+            self.app_code = m.get('app_code')
+        if m.get('question') is not None:
+            self.question = m.get('question')
+        if m.get('question_format') is not None:
+            self.question_format = m.get('question_format')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('stream') is not None:
+            self.stream = m.get('stream')
+        return self
+
+
+class QueryAitechCommGuardcoreRedgptResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: MayaStreamResult = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # maya流式调用结果集
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = MayaStreamResult()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 

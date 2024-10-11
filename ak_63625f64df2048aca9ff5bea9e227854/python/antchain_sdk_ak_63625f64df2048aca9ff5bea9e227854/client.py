@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对
+            # maya响应体
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_63625f64df2048aca9ff5bea9e227854',
                     '_prod_channel': 'saas'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 键值对
+            # maya响应体
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '1.0.2',
                     '_prod_code': 'ak_63625f64df2048aca9ff5bea9e227854',
                     '_prod_channel': 'saas'
                 }
@@ -385,4 +385,116 @@ class Client:
         return TeaCore.from_map(
             ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAskResponse(),
             await self.do_request_async('1.0', 'antcloud.aitechguard.aicoguardrails.ask.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_antcloud_aitechguard_aicoguardrails_answer(
+        self,
+        request: ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerRequest,
+    ) -> ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerResponse:
+        """
+        Description: aicoguardcore对接天鉴回答检测服务接口
+        Summary: 天鉴回答检测服务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_antcloud_aitechguard_aicoguardrails_answer_ex(request, headers, runtime)
+
+    async def check_antcloud_aitechguard_aicoguardrails_answer_async(
+        self,
+        request: ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerRequest,
+    ) -> ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerResponse:
+        """
+        Description: aicoguardcore对接天鉴回答检测服务接口
+        Summary: 天鉴回答检测服务接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_antcloud_aitechguard_aicoguardrails_answer_ex_async(request, headers, runtime)
+
+    def check_antcloud_aitechguard_aicoguardrails_answer_ex(
+        self,
+        request: ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerResponse:
+        """
+        Description: aicoguardcore对接天鉴回答检测服务接口
+        Summary: 天鉴回答检测服务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerResponse(),
+            self.do_request('1.0', 'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_antcloud_aitechguard_aicoguardrails_answer_ex_async(
+        self,
+        request: ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerResponse:
+        """
+        Description: aicoguardcore对接天鉴回答检测服务接口
+        Summary: 天鉴回答检测服务接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.CheckAntcloudAitechguardAicoguardrailsAnswerResponse(),
+            await self.do_request_async('1.0', 'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_aitech_comm_guardcore_redgpt(
+        self,
+        request: ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptRequest,
+    ) -> ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptResponse:
+        """
+        Description: 红色GPT流式调用网关接口
+        Summary: 红色GPT网关方式调用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aitech_comm_guardcore_redgpt_ex(request, headers, runtime)
+
+    async def query_aitech_comm_guardcore_redgpt_async(
+        self,
+        request: ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptRequest,
+    ) -> ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptResponse:
+        """
+        Description: 红色GPT流式调用网关接口
+        Summary: 红色GPT网关方式调用接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aitech_comm_guardcore_redgpt_ex_async(request, headers, runtime)
+
+    def query_aitech_comm_guardcore_redgpt_ex(
+        self,
+        request: ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptResponse:
+        """
+        Description: 红色GPT流式调用网关接口
+        Summary: 红色GPT网关方式调用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptResponse(),
+            self.do_request('1.0', 'aitech.comm.guardcore.redgpt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aitech_comm_guardcore_redgpt_ex_async(
+        self,
+        request: ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptResponse:
+        """
+        Description: 红色GPT流式调用网关接口
+        Summary: 红色GPT网关方式调用接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__63625f_64df_2048aca_9ff_5bea_9e_227854_models.QueryAitechCommGuardcoreRedgptResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.guardcore.redgpt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
