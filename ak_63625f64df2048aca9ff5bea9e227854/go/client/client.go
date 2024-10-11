@@ -148,6 +148,107 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// maya响应体
+type MayaRedGptResponseDTO struct {
+	// 消息的ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty" require:"true"`
+	// 请求ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 应答内容
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty" require:"true"`
+	// 应答内容格式
+	AnswerFormat *string `json:"answer_format,omitempty" xml:"answer_format,omitempty" require:"true"`
+	// 是否回答结束
+	AnswerEnd *bool `json:"answer_end,omitempty" xml:"answer_end,omitempty" require:"true"`
+	// 是否问题有风险
+	Safe *bool `json:"safe,omitempty" xml:"safe,omitempty" require:"true"`
+}
+
+func (s MayaRedGptResponseDTO) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MayaRedGptResponseDTO) GoString() string {
+	return s.String()
+}
+
+func (s *MayaRedGptResponseDTO) SetMessageId(v string) *MayaRedGptResponseDTO {
+	s.MessageId = &v
+	return s
+}
+
+func (s *MayaRedGptResponseDTO) SetRequestId(v string) *MayaRedGptResponseDTO {
+	s.RequestId = &v
+	return s
+}
+
+func (s *MayaRedGptResponseDTO) SetSessionId(v string) *MayaRedGptResponseDTO {
+	s.SessionId = &v
+	return s
+}
+
+func (s *MayaRedGptResponseDTO) SetAnswer(v string) *MayaRedGptResponseDTO {
+	s.Answer = &v
+	return s
+}
+
+func (s *MayaRedGptResponseDTO) SetAnswerFormat(v string) *MayaRedGptResponseDTO {
+	s.AnswerFormat = &v
+	return s
+}
+
+func (s *MayaRedGptResponseDTO) SetAnswerEnd(v bool) *MayaRedGptResponseDTO {
+	s.AnswerEnd = &v
+	return s
+}
+
+func (s *MayaRedGptResponseDTO) SetSafe(v bool) *MayaRedGptResponseDTO {
+	s.Safe = &v
+	return s
+}
+
+// maya流式响应结果
+type MayaStreamResult struct {
+	// maya响应数据
+	Data *MayaRedGptResponseDTO `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+	// 是否成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+	// 错误码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty" require:"true"`
+	// 错误信息
+	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty" require:"true"`
+}
+
+func (s MayaStreamResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s MayaStreamResult) GoString() string {
+	return s.String()
+}
+
+func (s *MayaStreamResult) SetData(v *MayaRedGptResponseDTO) *MayaStreamResult {
+	s.Data = v
+	return s
+}
+
+func (s *MayaStreamResult) SetSuccess(v bool) *MayaStreamResult {
+	s.Success = &v
+	return s
+}
+
+func (s *MayaStreamResult) SetErrorCode(v string) *MayaStreamResult {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *MayaStreamResult) SetErrorMsg(v string) *MayaStreamResult {
+	s.ErrorMsg = &v
+	return s
+}
+
 // 键值对
 type Map struct {
 	// 键
@@ -350,8 +451,6 @@ type CheckAntcloudAitechguardAicoguardrailsAskRequest struct {
 	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
 	// 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
 	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty" require:"true"`
-	// 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-	Type *int64 `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 加密的uid，仅用于唯一标示调用方
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 }
@@ -396,11 +495,6 @@ func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetQuestion(v string)
 
 func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetQuestionFormat(v string) *CheckAntcloudAitechguardAicoguardrailsAskRequest {
 	s.QuestionFormat = &v
-	return s
-}
-
-func (s *CheckAntcloudAitechguardAicoguardrailsAskRequest) SetType(v int64) *CheckAntcloudAitechguardAicoguardrailsAskRequest {
-	s.Type = &v
 	return s
 }
 
@@ -500,6 +594,282 @@ func (s *CheckAntcloudAitechguardAicoguardrailsAskResponse) SetRiskLabel(v strin
 
 func (s *CheckAntcloudAitechguardAicoguardrailsAskResponse) SetSessionAction(v string) *CheckAntcloudAitechguardAicoguardrailsAskResponse {
 	s.SessionAction = &v
+	return s
+}
+
+type CheckAntcloudAitechguardAicoguardrailsAnswerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 会话ID，用于匹配多轮对话上下文
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 数据唯一标识，能够根据该值定位到该条数据
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 应用名，蚂蚁侧提供
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty" require:"true"`
+	// 场景code，走SOP流程申请
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 当前提问内容，最大长度800个字符。
+	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
+	// 当前提问内容格式, 默认值:PLAINTEXT
+	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty"`
+	// 当前回答内容，最大长度800个字符。
+	Answer *string `json:"answer,omitempty" xml:"answer,omitempty" require:"true"`
+	// 当前回答内容格式, 默认取PLAINTEXT
+	AnswerFormat *string `json:"answer_format,omitempty" xml:"answer_format,omitempty"`
+	// 用户ID，用于主体风险判断
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s CheckAntcloudAitechguardAicoguardrailsAnswerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAntcloudAitechguardAicoguardrailsAnswerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetAuthToken(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetSessionId(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetRequestId(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetAppCode(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetSceneCode(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetQuestion(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetQuestionFormat(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.QuestionFormat = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetAnswer(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.Answer = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetAnswerFormat(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.AnswerFormat = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) SetUserId(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerRequest {
+	s.UserId = &v
+	return s
+}
+
+type CheckAntcloudAitechguardAicoguardrailsAnswerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 会话ID，用于匹配多轮对话上下文
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// 唯一定位一个问答对
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 是否安全无风险
+	Safe *bool `json:"safe,omitempty" xml:"safe,omitempty"`
+	// 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
+	// 会话动作
+	// END_SESSION：终止会话
+	// RECALL_QUERY：撤回提问
+	SessionAction *string `json:"session_action,omitempty" xml:"session_action,omitempty"`
+	// 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+	ActionMsg *string `json:"action_msg,omitempty" xml:"action_msg,omitempty"`
+}
+
+func (s CheckAntcloudAitechguardAicoguardrailsAnswerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckAntcloudAitechguardAicoguardrailsAnswerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetReqMsgId(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetResultCode(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetResultMsg(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetSessionId(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetRequestId(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetSafe(v bool) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.Safe = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetActionCode(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.ActionCode = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetSessionAction(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.SessionAction = &v
+	return s
+}
+
+func (s *CheckAntcloudAitechguardAicoguardrailsAnswerResponse) SetActionMsg(v string) *CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+	s.ActionMsg = &v
+	return s
+}
+
+type QueryAitechCommGuardcoreRedgptRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 唯一请求ID
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 多轮对话会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 场景code
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 调用方AppCode
+	AppCode *string `json:"app_code,omitempty" xml:"app_code,omitempty" require:"true"`
+	// 提问内容
+	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
+	// 提问内容格式,当前仅支持PLAINTEXT
+	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty" require:"true"`
+	// 加密的调用方业务UserId
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 是否流式输出
+	Stream *bool `json:"stream,omitempty" xml:"stream,omitempty" require:"true"`
+}
+
+func (s QueryAitechCommGuardcoreRedgptRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAitechCommGuardcoreRedgptRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetAuthToken(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetProductInstanceId(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetRequestId(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetSessionId(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetSceneCode(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetAppCode(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.AppCode = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetQuestion(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.Question = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetQuestionFormat(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.QuestionFormat = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetUserId(v string) *QueryAitechCommGuardcoreRedgptRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptRequest) SetStream(v bool) *QueryAitechCommGuardcoreRedgptRequest {
+	s.Stream = &v
+	return s
+}
+
+type QueryAitechCommGuardcoreRedgptResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// maya流式调用结果集
+	Data *MayaStreamResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryAitechCommGuardcoreRedgptResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAitechCommGuardcoreRedgptResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAitechCommGuardcoreRedgptResponse) SetReqMsgId(v string) *QueryAitechCommGuardcoreRedgptResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptResponse) SetResultCode(v string) *QueryAitechCommGuardcoreRedgptResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptResponse) SetResultMsg(v string) *QueryAitechCommGuardcoreRedgptResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAitechCommGuardcoreRedgptResponse) SetData(v *MayaStreamResult) *QueryAitechCommGuardcoreRedgptResponse {
+	s.Data = v
 	return s
 }
 
@@ -625,7 +995,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ak_63625f64df2048aca9ff5bea9e227854"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -744,6 +1114,74 @@ func (client *Client) CheckAntcloudAitechguardAicoguardrailsAskEx(request *Check
 	}
 	_result = &CheckAntcloudAitechguardAicoguardrailsAskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.aitechguard.aicoguardrails.ask.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: aicoguardcore对接天鉴回答检测服务接口
+ * Summary: 天鉴回答检测服务接口
+ */
+func (client *Client) CheckAntcloudAitechguardAicoguardrailsAnswer(request *CheckAntcloudAitechguardAicoguardrailsAnswerRequest) (_result *CheckAntcloudAitechguardAicoguardrailsAnswerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckAntcloudAitechguardAicoguardrailsAnswerResponse{}
+	_body, _err := client.CheckAntcloudAitechguardAicoguardrailsAnswerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: aicoguardcore对接天鉴回答检测服务接口
+ * Summary: 天鉴回答检测服务接口
+ */
+func (client *Client) CheckAntcloudAitechguardAicoguardrailsAnswerEx(request *CheckAntcloudAitechguardAicoguardrailsAnswerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckAntcloudAitechguardAicoguardrailsAnswerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckAntcloudAitechguardAicoguardrailsAnswerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.aitechguard.aicoguardrails.answer.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 红色GPT流式调用网关接口
+ * Summary: 红色GPT网关方式调用接口
+ */
+func (client *Client) QueryAitechCommGuardcoreRedgpt(request *QueryAitechCommGuardcoreRedgptRequest) (_result *QueryAitechCommGuardcoreRedgptResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAitechCommGuardcoreRedgptResponse{}
+	_body, _err := client.QueryAitechCommGuardcoreRedgptEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 红色GPT流式调用网关接口
+ * Summary: 红色GPT网关方式调用接口
+ */
+func (client *Client) QueryAitechCommGuardcoreRedgptEx(request *QueryAitechCommGuardcoreRedgptRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAitechCommGuardcoreRedgptResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAitechCommGuardcoreRedgptResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("aitech.comm.guardcore.redgpt.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
