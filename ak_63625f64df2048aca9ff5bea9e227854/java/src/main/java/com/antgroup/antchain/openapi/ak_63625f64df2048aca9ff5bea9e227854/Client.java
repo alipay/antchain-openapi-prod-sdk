@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.1"),
+                    new TeaPair("sdk_version", "1.0.2"),
                     new TeaPair("_prod_code", "ak_63625f64df2048aca9ff5bea9e227854"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -220,5 +220,43 @@ public class Client {
     public CheckAntcloudAitechguardAicoguardrailsAskResponse checkAntcloudAitechguardAicoguardrailsAskEx(CheckAntcloudAitechguardAicoguardrailsAskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.aitechguard.aicoguardrails.ask.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAntcloudAitechguardAicoguardrailsAskResponse());
+    }
+
+    /**
+     * Description: aicoguardcore对接天鉴回答检测服务接口
+     * Summary: 天鉴回答检测服务接口
+     */
+    public CheckAntcloudAitechguardAicoguardrailsAnswerResponse checkAntcloudAitechguardAicoguardrailsAnswer(CheckAntcloudAitechguardAicoguardrailsAnswerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkAntcloudAitechguardAicoguardrailsAnswerEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: aicoguardcore对接天鉴回答检测服务接口
+     * Summary: 天鉴回答检测服务接口
+     */
+    public CheckAntcloudAitechguardAicoguardrailsAnswerResponse checkAntcloudAitechguardAicoguardrailsAnswerEx(CheckAntcloudAitechguardAicoguardrailsAnswerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.aitechguard.aicoguardrails.answer.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAntcloudAitechguardAicoguardrailsAnswerResponse());
+    }
+
+    /**
+     * Description: 红色GPT流式调用网关接口
+     * Summary: 红色GPT网关方式调用接口
+     */
+    public QueryAitechCommGuardcoreRedgptResponse queryAitechCommGuardcoreRedgpt(QueryAitechCommGuardcoreRedgptRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAitechCommGuardcoreRedgptEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 红色GPT流式调用网关接口
+     * Summary: 红色GPT网关方式调用接口
+     */
+    public QueryAitechCommGuardcoreRedgptResponse queryAitechCommGuardcoreRedgptEx(QueryAitechCommGuardcoreRedgptRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.guardcore.redgpt.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAitechCommGuardcoreRedgptResponse());
     }
 }

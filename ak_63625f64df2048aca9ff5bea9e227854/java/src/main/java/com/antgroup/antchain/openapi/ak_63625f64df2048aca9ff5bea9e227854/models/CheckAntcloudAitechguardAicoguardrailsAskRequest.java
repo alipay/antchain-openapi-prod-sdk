@@ -38,11 +38,6 @@ public class CheckAntcloudAitechguardAicoguardrailsAskRequest extends TeaModel {
     @Validation(required = true)
     public String questionFormat;
 
-    // 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-    @NameInMap("type")
-    @Validation(required = true)
-    public Long type;
-
     // 加密的uid，仅用于唯一标示调用方
     @NameInMap("user_id")
     public String userId;
@@ -106,14 +101,6 @@ public class CheckAntcloudAitechguardAicoguardrailsAskRequest extends TeaModel {
     }
     public String getQuestionFormat() {
         return this.questionFormat;
-    }
-
-    public CheckAntcloudAitechguardAicoguardrailsAskRequest setType(Long type) {
-        this.type = type;
-        return this;
-    }
-    public Long getType() {
-        return this.type;
     }
 
     public CheckAntcloudAitechguardAicoguardrailsAskRequest setUserId(String userId) {
