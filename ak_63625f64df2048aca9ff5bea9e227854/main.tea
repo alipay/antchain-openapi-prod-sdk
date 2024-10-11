@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.1',
+    sdk_version = '1.0.2',
     _prod_code = 'ak_63625f64df2048aca9ff5bea9e227854',
     _prod_channel = 'saas'
   };
@@ -159,6 +159,36 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     period = Util.defaultNumber(runtime.backoffPeriod, 1)
   },
   ignoreSSL = runtime.ignoreSSL
+}
+
+// maya响应体
+model MayaRedGptResponseDTO {
+  // 消息的ID
+  messageId: string(name='message_id', example='123123'),
+  // 请求ID
+  requestId: string(name='request_id', example='4564546'),
+  // 会话ID
+  sessionId: string(name='session_id', example='312414124'),
+  // 应答内容
+  answer: string(name='answer', example='你可以问我信息安全的问题'),
+  // 应答内容格式
+  answerFormat: string(name='answer_format', example='PLAINTEXT'),
+  // 是否回答结束
+  answerEnd: boolean(name='answer_end', example='true, false'),
+  // 是否问题有风险
+  safe: boolean(name='safe', example='true, false'),
+}
+
+// maya流式响应结果
+model MayaStreamResult {
+  // maya响应数据
+  data: MayaRedGptResponseDTO(name='data', example=''),
+  // 是否成功
+  success: boolean(name='success', example='true, false'),
+  // 错误码
+  errorCode: string(name='error_code', example='10002'),
+  // 错误信息
+  errorMsg: string(name='error_msg', example='maya平台调用失败'),
 }
 
 // 键值对
@@ -248,8 +278,6 @@ model CheckAntcloudAitechguardAicoguardrailsAskRequest = {
   question: string(name='question'),
   // 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
   questionFormat: string(name='question_format'),
-  // 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-  type: long(name='type'),
   // 加密的uid，仅用于唯一标示调用方
   userId?: string(name='user_id'),
 }
@@ -302,5 +330,122 @@ async function checkAntcloudAitechguardAicoguardrailsAsk(request: CheckAntcloudA
 async function checkAntcloudAitechguardAicoguardrailsAskEx(request: CheckAntcloudAitechguardAicoguardrailsAskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAntcloudAitechguardAicoguardrailsAskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloud.aitechguard.aicoguardrails.ask.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckAntcloudAitechguardAicoguardrailsAnswerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId: string(name='session_id'),
+  // 数据唯一标识，能够根据该值定位到该条数据
+  requestId: string(name='request_id'),
+  // 应用名，蚂蚁侧提供
+  appCode: string(name='app_code'),
+  // 场景code，走SOP流程申请
+  sceneCode: string(name='scene_code'),
+  // 当前提问内容，最大长度800个字符。
+  question: string(name='question'),
+  // 当前提问内容格式, 默认值:PLAINTEXT
+  questionFormat?: string(name='question_format'),
+  // 当前回答内容，最大长度800个字符。
+  answer: string(name='answer'),
+  // 当前回答内容格式, 默认取PLAINTEXT
+  answerFormat?: string(name='answer_format'),
+  // 用户ID，用于主体风险判断
+  userId?: string(name='user_id'),
+}
+
+model CheckAntcloudAitechguardAicoguardrailsAnswerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId?: string(name='session_id'),
+  // 唯一定位一个问答对
+  requestId?: string(name='request_id'),
+  // 是否安全无风险
+  safe?: boolean(name='safe'),
+  // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+  actionCode?: string(name='action_code'),
+  // 会话动作
+  // END_SESSION：终止会话
+  // RECALL_QUERY：撤回提问
+  sessionAction?: string(name='session_action'),
+  // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+  actionMsg?: string(name='action_msg'),
+}
+
+/**
+ * Description: aicoguardcore对接天鉴回答检测服务接口
+ * Summary: 天鉴回答检测服务接口
+ */
+async function checkAntcloudAitechguardAicoguardrailsAnswer(request: CheckAntcloudAitechguardAicoguardrailsAnswerRequest): CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkAntcloudAitechguardAicoguardrailsAnswerEx(request, headers, runtime);
+}
+
+/**
+ * Description: aicoguardcore对接天鉴回答检测服务接口
+ * Summary: 天鉴回答检测服务接口
+ */
+async function checkAntcloudAitechguardAicoguardrailsAnswerEx(request: CheckAntcloudAitechguardAicoguardrailsAnswerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckAntcloudAitechguardAicoguardrailsAnswerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAitechCommGuardcoreRedgptRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一请求ID
+  requestId: string(name='request_id'),
+  // 多轮对话会话ID
+  sessionId: string(name='session_id'),
+  // 场景code
+  sceneCode: string(name='scene_code'),
+  // 调用方AppCode
+  appCode: string(name='app_code'),
+  // 提问内容
+  question: string(name='question'),
+  // 提问内容格式,当前仅支持PLAINTEXT
+  questionFormat: string(name='question_format'),
+  // 加密的调用方业务UserId
+  userId: string(name='user_id'),
+  // 是否流式输出
+  stream: boolean(name='stream'),
+}
+
+model QueryAitechCommGuardcoreRedgptResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // maya流式调用结果集
+  data?: MayaStreamResult(name='data'),
+}
+
+/**
+ * Description: 红色GPT流式调用网关接口
+ * Summary: 红色GPT网关方式调用接口
+ */
+async function queryAitechCommGuardcoreRedgpt(request: QueryAitechCommGuardcoreRedgptRequest): QueryAitechCommGuardcoreRedgptResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAitechCommGuardcoreRedgptEx(request, headers, runtime);
+}
+
+/**
+ * Description: 红色GPT流式调用网关接口
+ * Summary: 红色GPT网关方式调用接口
+ */
+async function queryAitechCommGuardcoreRedgptEx(request: QueryAitechCommGuardcoreRedgptRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAitechCommGuardcoreRedgptResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guardcore.redgpt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
