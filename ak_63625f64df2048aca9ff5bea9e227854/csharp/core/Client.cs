@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_63625f64df2048aca9ff5bea9e227854
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                         {"_prod_code", "ak_63625f64df2048aca9ff5bea9e227854"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_63625f64df2048aca9ff5bea9e227854
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "1.0.2"},
                         {"_prod_code", "ak_63625f64df2048aca9ff5bea9e227854"},
                         {"_prod_channel", "saas"},
                     };
@@ -403,6 +403,90 @@ namespace AntChain.SDK.Ak_63625f64df2048aca9ff5bea9e227854
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CheckAntcloudAitechguardAicoguardrailsAskResponse>(await DoRequestAsync("1.0", "antcloud.aitechguard.aicoguardrails.ask.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aicoguardcore对接天鉴回答检测服务接口
+         * Summary: 天鉴回答检测服务接口
+         */
+        public CheckAntcloudAitechguardAicoguardrailsAnswerResponse CheckAntcloudAitechguardAicoguardrailsAnswer(CheckAntcloudAitechguardAicoguardrailsAnswerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckAntcloudAitechguardAicoguardrailsAnswerEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: aicoguardcore对接天鉴回答检测服务接口
+         * Summary: 天鉴回答检测服务接口
+         */
+        public async Task<CheckAntcloudAitechguardAicoguardrailsAnswerResponse> CheckAntcloudAitechguardAicoguardrailsAnswerAsync(CheckAntcloudAitechguardAicoguardrailsAnswerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckAntcloudAitechguardAicoguardrailsAnswerExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: aicoguardcore对接天鉴回答检测服务接口
+         * Summary: 天鉴回答检测服务接口
+         */
+        public CheckAntcloudAitechguardAicoguardrailsAnswerResponse CheckAntcloudAitechguardAicoguardrailsAnswerEx(CheckAntcloudAitechguardAicoguardrailsAnswerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAntcloudAitechguardAicoguardrailsAnswerResponse>(DoRequest("1.0", "antcloud.aitechguard.aicoguardrails.answer.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: aicoguardcore对接天鉴回答检测服务接口
+         * Summary: 天鉴回答检测服务接口
+         */
+        public async Task<CheckAntcloudAitechguardAicoguardrailsAnswerResponse> CheckAntcloudAitechguardAicoguardrailsAnswerExAsync(CheckAntcloudAitechguardAicoguardrailsAnswerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckAntcloudAitechguardAicoguardrailsAnswerResponse>(await DoRequestAsync("1.0", "antcloud.aitechguard.aicoguardrails.answer.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 红色GPT流式调用网关接口
+         * Summary: 红色GPT网关方式调用接口
+         */
+        public QueryAitechCommGuardcoreRedgptResponse QueryAitechCommGuardcoreRedgpt(QueryAitechCommGuardcoreRedgptRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAitechCommGuardcoreRedgptEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 红色GPT流式调用网关接口
+         * Summary: 红色GPT网关方式调用接口
+         */
+        public async Task<QueryAitechCommGuardcoreRedgptResponse> QueryAitechCommGuardcoreRedgptAsync(QueryAitechCommGuardcoreRedgptRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAitechCommGuardcoreRedgptExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 红色GPT流式调用网关接口
+         * Summary: 红色GPT网关方式调用接口
+         */
+        public QueryAitechCommGuardcoreRedgptResponse QueryAitechCommGuardcoreRedgptEx(QueryAitechCommGuardcoreRedgptRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAitechCommGuardcoreRedgptResponse>(DoRequest("1.0", "aitech.comm.guardcore.redgpt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 红色GPT流式调用网关接口
+         * Summary: 红色GPT网关方式调用接口
+         */
+        public async Task<QueryAitechCommGuardcoreRedgptResponse> QueryAitechCommGuardcoreRedgptExAsync(QueryAitechCommGuardcoreRedgptRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAitechCommGuardcoreRedgptResponse>(await DoRequestAsync("1.0", "aitech.comm.guardcore.redgpt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
