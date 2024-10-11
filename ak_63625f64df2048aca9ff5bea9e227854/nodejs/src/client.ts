@@ -77,6 +77,84 @@ export class Config extends $tea.Model {
   }
 }
 
+// maya响应体
+export class MayaRedGptResponseDTO extends $tea.Model {
+  // 消息的ID
+  messageId: string;
+  // 请求ID
+  requestId: string;
+  // 会话ID
+  sessionId: string;
+  // 应答内容
+  answer: string;
+  // 应答内容格式
+  answerFormat: string;
+  // 是否回答结束
+  answerEnd: boolean;
+  // 是否问题有风险
+  safe: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      messageId: 'message_id',
+      requestId: 'request_id',
+      sessionId: 'session_id',
+      answer: 'answer',
+      answerFormat: 'answer_format',
+      answerEnd: 'answer_end',
+      safe: 'safe',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      messageId: 'string',
+      requestId: 'string',
+      sessionId: 'string',
+      answer: 'string',
+      answerFormat: 'string',
+      answerEnd: 'boolean',
+      safe: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// maya流式响应结果
+export class MayaStreamResult extends $tea.Model {
+  // maya响应数据
+  data: MayaRedGptResponseDTO;
+  // 是否成功
+  success: boolean;
+  // 错误码
+  errorCode: string;
+  // 错误信息
+  errorMsg: string;
+  static names(): { [key: string]: string } {
+    return {
+      data: 'data',
+      success: 'success',
+      errorCode: 'error_code',
+      errorMsg: 'error_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      data: MayaRedGptResponseDTO,
+      success: 'boolean',
+      errorCode: 'string',
+      errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class Map extends $tea.Model {
   // 键
@@ -228,8 +306,6 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
   question: string;
   // 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
   questionFormat: string;
-  // 安全能力类型，0-知识库+天鉴兜底，1-纯知识库
-  type: number;
   // 加密的uid，仅用于唯一标示调用方
   userId?: string;
   static names(): { [key: string]: string } {
@@ -241,7 +317,6 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
       sceneCode: 'scene_code',
       question: 'question',
       questionFormat: 'question_format',
-      type: 'type',
       userId: 'user_id',
     };
   }
@@ -255,7 +330,6 @@ export class CheckAntcloudAitechguardAicoguardrailsAskRequest extends $tea.Model
       sceneCode: 'string',
       question: 'string',
       questionFormat: 'string',
-      type: 'number',
       userId: 'string',
     };
   }
@@ -323,6 +397,203 @@ export class CheckAntcloudAitechguardAicoguardrailsAskResponse extends $tea.Mode
       securityPrompt: 'string',
       riskLabel: 'string',
       sessionAction: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAntcloudAitechguardAicoguardrailsAnswerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId: string;
+  // 数据唯一标识，能够根据该值定位到该条数据
+  requestId: string;
+  // 应用名，蚂蚁侧提供
+  appCode: string;
+  // 场景code，走SOP流程申请
+  sceneCode: string;
+  // 当前提问内容，最大长度800个字符。
+  question: string;
+  // 当前提问内容格式, 默认值:PLAINTEXT
+  questionFormat?: string;
+  // 当前回答内容，最大长度800个字符。
+  answer: string;
+  // 当前回答内容格式, 默认取PLAINTEXT
+  answerFormat?: string;
+  // 用户ID，用于主体风险判断
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      sessionId: 'session_id',
+      requestId: 'request_id',
+      appCode: 'app_code',
+      sceneCode: 'scene_code',
+      question: 'question',
+      questionFormat: 'question_format',
+      answer: 'answer',
+      answerFormat: 'answer_format',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      sessionId: 'string',
+      requestId: 'string',
+      appCode: 'string',
+      sceneCode: 'string',
+      question: 'string',
+      questionFormat: 'string',
+      answer: 'string',
+      answerFormat: 'string',
+      userId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckAntcloudAitechguardAicoguardrailsAnswerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 会话ID，用于匹配多轮对话上下文
+  sessionId?: string;
+  // 唯一定位一个问答对
+  requestId?: string;
+  // 是否安全无风险
+  safe?: boolean;
+  // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+  actionCode?: string;
+  // 会话动作
+  // END_SESSION：终止会话
+  // RECALL_QUERY：撤回提问
+  sessionAction?: string;
+  // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+  actionMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sessionId: 'session_id',
+      requestId: 'request_id',
+      safe: 'safe',
+      actionCode: 'action_code',
+      sessionAction: 'session_action',
+      actionMsg: 'action_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sessionId: 'string',
+      requestId: 'string',
+      safe: 'boolean',
+      actionCode: 'string',
+      sessionAction: 'string',
+      actionMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAitechCommGuardcoreRedgptRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 唯一请求ID
+  requestId: string;
+  // 多轮对话会话ID
+  sessionId: string;
+  // 场景code
+  sceneCode: string;
+  // 调用方AppCode
+  appCode: string;
+  // 提问内容
+  question: string;
+  // 提问内容格式,当前仅支持PLAINTEXT
+  questionFormat: string;
+  // 加密的调用方业务UserId
+  userId: string;
+  // 是否流式输出
+  stream: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      sessionId: 'session_id',
+      sceneCode: 'scene_code',
+      appCode: 'app_code',
+      question: 'question',
+      questionFormat: 'question_format',
+      userId: 'user_id',
+      stream: 'stream',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      sessionId: 'string',
+      sceneCode: 'string',
+      appCode: 'string',
+      question: 'string',
+      questionFormat: 'string',
+      userId: 'string',
+      stream: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAitechCommGuardcoreRedgptResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // maya流式调用结果集
+  data?: MayaStreamResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: MayaStreamResult,
     };
   }
 
@@ -444,7 +715,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "1.0.2",
           _prod_code: "ak_63625f64df2048aca9ff5bea9e227854",
           _prod_channel: "saas",
         };
@@ -528,6 +799,44 @@ export default class Client {
   async checkAntcloudAitechguardAicoguardrailsAskEx(request: CheckAntcloudAitechguardAicoguardrailsAskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAntcloudAitechguardAicoguardrailsAskResponse> {
     Util.validateModel(request);
     return $tea.cast<CheckAntcloudAitechguardAicoguardrailsAskResponse>(await this.doRequest("1.0", "antcloud.aitechguard.aicoguardrails.ask.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAntcloudAitechguardAicoguardrailsAskResponse({}));
+  }
+
+  /**
+   * Description: aicoguardcore对接天鉴回答检测服务接口
+   * Summary: 天鉴回答检测服务接口
+   */
+  async checkAntcloudAitechguardAicoguardrailsAnswer(request: CheckAntcloudAitechguardAicoguardrailsAnswerRequest): Promise<CheckAntcloudAitechguardAicoguardrailsAnswerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkAntcloudAitechguardAicoguardrailsAnswerEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: aicoguardcore对接天鉴回答检测服务接口
+   * Summary: 天鉴回答检测服务接口
+   */
+  async checkAntcloudAitechguardAicoguardrailsAnswerEx(request: CheckAntcloudAitechguardAicoguardrailsAnswerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckAntcloudAitechguardAicoguardrailsAnswerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckAntcloudAitechguardAicoguardrailsAnswerResponse>(await this.doRequest("1.0", "antcloud.aitechguard.aicoguardrails.answer.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckAntcloudAitechguardAicoguardrailsAnswerResponse({}));
+  }
+
+  /**
+   * Description: 红色GPT流式调用网关接口
+   * Summary: 红色GPT网关方式调用接口
+   */
+  async queryAitechCommGuardcoreRedgpt(request: QueryAitechCommGuardcoreRedgptRequest): Promise<QueryAitechCommGuardcoreRedgptResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAitechCommGuardcoreRedgptEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 红色GPT流式调用网关接口
+   * Summary: 红色GPT网关方式调用接口
+   */
+  async queryAitechCommGuardcoreRedgptEx(request: QueryAitechCommGuardcoreRedgptRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAitechCommGuardcoreRedgptResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAitechCommGuardcoreRedgptResponse>(await this.doRequest("1.0", "aitech.comm.guardcore.redgpt.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAitechCommGuardcoreRedgptResponse({}));
   }
 
 }
