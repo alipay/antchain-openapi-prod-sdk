@@ -6,7 +6,7 @@ namespace AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CheckAntcloudAitechguardAicoguardrailsAskRequest extends Model
+class QueryAitechCommGuardcoreRedgptRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -14,66 +14,81 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest extends Model
      */
     public $authToken;
 
-    // 数据唯一标识，能够根据该值定位到该条数据
+    /**
+     * @var string
+     */
+    public $productInstanceId;
+
+    // 唯一请求ID
     /**
      * @var string
      */
     public $requestId;
 
-    // 会话ID，用于匹配多轮对话上下文
+    // 多轮对话会话ID
     /**
      * @var string
      */
     public $sessionId;
 
-    // 应用名，蚂蚁侧提供
-    /**
-     * @var string
-     */
-    public $appCode;
-
-    // 场景code，走SOP流程申请
+    // 场景code
     /**
      * @var string
      */
     public $sceneCode;
 
-    // 当前提问内容
+    // 调用方AppCode
+    /**
+     * @var string
+     */
+    public $appCode;
+
+    // 提问内容
     /**
      * @var string
      */
     public $question;
 
-    // 当前提问格式，默认PLAINTEXT，详见3.2 questionFormat&answerFormat说明
+    // 提问内容格式,当前仅支持PLAINTEXT
     /**
      * @var string
      */
     public $questionFormat;
 
-    // 加密的uid，仅用于唯一标示调用方
+    // 加密的调用方业务UserId
     /**
      * @var string
      */
     public $userId;
+
+    // 是否流式输出
+    /**
+     * @var bool
+     */
+    public $stream;
     protected $_name = [
-        'authToken'      => 'auth_token',
-        'requestId'      => 'request_id',
-        'sessionId'      => 'session_id',
-        'appCode'        => 'app_code',
-        'sceneCode'      => 'scene_code',
-        'question'       => 'question',
-        'questionFormat' => 'question_format',
-        'userId'         => 'user_id',
+        'authToken'         => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'requestId'         => 'request_id',
+        'sessionId'         => 'session_id',
+        'sceneCode'         => 'scene_code',
+        'appCode'           => 'app_code',
+        'question'          => 'question',
+        'questionFormat'    => 'question_format',
+        'userId'            => 'user_id',
+        'stream'            => 'stream',
     ];
 
     public function validate()
     {
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('sessionId', $this->sessionId, true);
-        Model::validateRequired('appCode', $this->appCode, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
+        Model::validateRequired('appCode', $this->appCode, true);
         Model::validateRequired('question', $this->question, true);
         Model::validateRequired('questionFormat', $this->questionFormat, true);
+        Model::validateRequired('userId', $this->userId, true);
+        Model::validateRequired('stream', $this->stream, true);
     }
 
     public function toMap()
@@ -82,17 +97,20 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest extends Model
         if (null !== $this->authToken) {
             $res['auth_token'] = $this->authToken;
         }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
         if (null !== $this->requestId) {
             $res['request_id'] = $this->requestId;
         }
         if (null !== $this->sessionId) {
             $res['session_id'] = $this->sessionId;
         }
-        if (null !== $this->appCode) {
-            $res['app_code'] = $this->appCode;
-        }
         if (null !== $this->sceneCode) {
             $res['scene_code'] = $this->sceneCode;
+        }
+        if (null !== $this->appCode) {
+            $res['app_code'] = $this->appCode;
         }
         if (null !== $this->question) {
             $res['question'] = $this->question;
@@ -103,6 +121,9 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest extends Model
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
         }
+        if (null !== $this->stream) {
+            $res['stream'] = $this->stream;
+        }
 
         return $res;
     }
@@ -110,7 +131,7 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest extends Model
     /**
      * @param array $map
      *
-     * @return CheckAntcloudAitechguardAicoguardrailsAskRequest
+     * @return QueryAitechCommGuardcoreRedgptRequest
      */
     public static function fromMap($map = [])
     {
@@ -118,17 +139,20 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest extends Model
         if (isset($map['auth_token'])) {
             $model->authToken = $map['auth_token'];
         }
+        if (isset($map['product_instance_id'])) {
+            $model->productInstanceId = $map['product_instance_id'];
+        }
         if (isset($map['request_id'])) {
             $model->requestId = $map['request_id'];
         }
         if (isset($map['session_id'])) {
             $model->sessionId = $map['session_id'];
         }
-        if (isset($map['app_code'])) {
-            $model->appCode = $map['app_code'];
-        }
         if (isset($map['scene_code'])) {
             $model->sceneCode = $map['scene_code'];
+        }
+        if (isset($map['app_code'])) {
+            $model->appCode = $map['app_code'];
         }
         if (isset($map['question'])) {
             $model->question = $map['question'];
@@ -138,6 +162,9 @@ class CheckAntcloudAitechguardAicoguardrailsAskRequest extends Model
         }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
+        }
+        if (isset($map['stream'])) {
+            $model->stream = $map['stream'];
         }
 
         return $model;

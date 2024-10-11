@@ -11,10 +11,14 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models\CheckAntcloudAitechguardAicoguardrailsAnswerRequest;
+use AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models\CheckAntcloudAitechguardAicoguardrailsAnswerResponse;
 use AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models\CheckAntcloudAitechguardAicoguardrailsAskRequest;
 use AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models\CheckAntcloudAitechguardAicoguardrailsAskResponse;
 use AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models\CheckDemoAicoguardcoreAicoguardrailsQuestionRequest;
 use AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models\CheckDemoAicoguardcoreAicoguardrailsQuestionResponse;
+use AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models\QueryAitechCommGuardcoreRedgptRequest;
+use AntChain\Ak_63625f64df2048aca9ff5bea9e227854\Models\QueryAitechCommGuardcoreRedgptResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -134,7 +138,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 键值对
+            // maya响应体
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -162,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.1',
+                    'sdk_version'      => '1.0.2',
                     '_prod_code'       => 'ak_63625f64df2048aca9ff5bea9e227854',
                     '_prod_channel'    => 'saas',
                 ];
@@ -274,5 +278,71 @@ class Client
         Utils::validateModel($request);
 
         return CheckAntcloudAitechguardAicoguardrailsAskResponse::fromMap($this->doRequest('1.0', 'antcloud.aitechguard.aicoguardrails.ask.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: aicoguardcore对接天鉴回答检测服务接口
+     * Summary: 天鉴回答检测服务接口.
+     *
+     * @param CheckAntcloudAitechguardAicoguardrailsAnswerRequest $request
+     *
+     * @return CheckAntcloudAitechguardAicoguardrailsAnswerResponse
+     */
+    public function checkAntcloudAitechguardAicoguardrailsAnswer($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkAntcloudAitechguardAicoguardrailsAnswerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: aicoguardcore对接天鉴回答检测服务接口
+     * Summary: 天鉴回答检测服务接口.
+     *
+     * @param CheckAntcloudAitechguardAicoguardrailsAnswerRequest $request
+     * @param string[]                                            $headers
+     * @param RuntimeOptions                                      $runtime
+     *
+     * @return CheckAntcloudAitechguardAicoguardrailsAnswerResponse
+     */
+    public function checkAntcloudAitechguardAicoguardrailsAnswerEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckAntcloudAitechguardAicoguardrailsAnswerResponse::fromMap($this->doRequest('1.0', 'antcloud.aitechguard.aicoguardrails.answer.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 红色GPT流式调用网关接口
+     * Summary: 红色GPT网关方式调用接口.
+     *
+     * @param QueryAitechCommGuardcoreRedgptRequest $request
+     *
+     * @return QueryAitechCommGuardcoreRedgptResponse
+     */
+    public function queryAitechCommGuardcoreRedgpt($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAitechCommGuardcoreRedgptEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 红色GPT流式调用网关接口
+     * Summary: 红色GPT网关方式调用接口.
+     *
+     * @param QueryAitechCommGuardcoreRedgptRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryAitechCommGuardcoreRedgptResponse
+     */
+    public function queryAitechCommGuardcoreRedgptEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAitechCommGuardcoreRedgptResponse::fromMap($this->doRequest('1.0', 'aitech.comm.guardcore.redgpt.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
