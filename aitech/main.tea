@@ -1,0 +1,850 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.1.8',
+    _prod_code = 'AITECH',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 二维码详情
+model QRCodeDetail {
+  // 位置，Top、Left、Width、Height
+  location: [ long ](name='location', example=''),
+  // 二维码类型
+  type: string(name='type', example='二维码类型'),
+  // 二维码内容
+  content: string(name='content', example='二维码内容'),
+  // 置信度
+  probability: string(name='probability', example='置信度'),
+}
+
+// Logo详情
+model LogoDetail {
+  // 位置，Top、Left、Width、Height
+  location: [ long ](name='location', example=''),
+  // 类型
+  type: string(name='type', example='LOGO类型'),
+  // 置信度
+  probability: string(name='probability', example='置信度'),
+}
+
+// maya响应体
+model MayaRedGptResponseDTO {
+  // 消息的ID
+  messageId: string(name='message_id', example='123123'),
+  // 请求ID
+  requestId: string(name='request_id', example='4564546'),
+  // 会话ID
+  sessionId: string(name='session_id', example='312414124'),
+  // 应答内容
+  answer: string(name='answer', example='你可以问我信息安全的问题'),
+  // 应答内容格式
+  answerFormat: string(name='answer_format', example='PLAINTEXT'),
+  // 是否回答结束
+  answerEnd: boolean(name='answer_end', example='true, false'),
+  // 是否问题有风险
+  safe: boolean(name='safe', example='true, false'),
+}
+
+// maya流式响应结果
+model MayaStreamResult {
+  // maya响应数据
+  data: MayaRedGptResponseDTO(name='data', example=''),
+  // 是否成功
+  success: boolean(name='success', example='true, false'),
+  // 错误码
+  errorCode: string(name='error_code', example='10002'),
+  // 错误信息
+  errorMsg: string(name='error_msg', example='maya平台调用失败'),
+}
+
+// 审核同步标签列表
+model AuditSyncLabel {
+  // 标签名：sex-色情
+  label: string(name='label', example='sex'),
+  // 检测到单个风险标签的置信度：66.25
+  probability: long(name='probability', example='66.25'),
+  // 风险标签说明
+  description?: string(name='description', example='疑似色情内容'),
+  // 检测到的敏感词，多个词用逗号分隔，部分标签不会返回敏感词：AA,BB,CC
+  riskWords: string(name='risk_words', example='AA,BB,CC'),
+}
+
+// QRCode审核结果
+model QRCodeAuditResult {
+  // 检测到二维码个数
+  detectNum: long(name='detect_num', example=''),
+  // 二维码详情
+  details: [ QRCodeDetail ](name='details', example=''),
+}
+
+// logo审核结果
+model LogoAuditResult {
+  // 检测到LOGO个数
+  detectNum: long(name='detect_num', example=''),
+  // LOGO详情
+  details: [ LogoDetail ](name='details', example=''),
+}
+
+// 网关响应模型
+model AntCloudProdProviderHttpResponse {
+  // maya返回结果
+  response: MayaStreamResult(name='response', example=''),
+  // 签名
+  sign: string(name='sign', example='5Okl4F2SNc9L2zrWCF8xZ+QPUyA='),
+}
+
+// 图片审核结果
+model ImageAuditResult {
+  // 任务ID
+  taskId: string(name='task_id', example='任务ID'),
+  // 数据ID
+  dataId: string(name='data_id', example='数据ID'),
+  // LOGO审核结果
+  logoAuditResult: LogoAuditResult(name='logo_audit_result', example=''),
+  // QRCode审核结果
+  qrCodeAuditResult: QRCodeAuditResult(name='qr_code_audit_result', example=''),
+}
+
+// 文本同步审核结果
+model TextSyncAuditResult {
+  // 任务id
+  taskId: string(name='task_id', example='123'),
+  // 数据Id
+  dataId: string(name='data_id', example='123'),
+  // 业务Id - 调用方透传
+  businessId: string(name='business_id', example='123'),
+  // 风险等级，根据设置的高低风险分返回，返回值包括： - high：高风险（若命中自定义词库，风险等级默认为高风险） - medium：中风险 - low：低风险 - none：未检测到风险
+  riskLevel: string(name='risk_level', example='high'),
+  // 审核标签列表
+  labels: [ AuditSyncLabel ](name='labels', example='[{"label":"sex", "probability":66.5, "description":"疑似色情内容", "riskWords":"AA,BB,CC"}]'),
+}
+
+model ApplyAuditImageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 审核内容链接
+  url: string(name='url'),
+  // 审核类型列表
+  secTypes: [ string ](name='sec_types'),
+  // 场景信息
+  scene: string(name='scene'),
+  // 数据Id,客户传入，唯一标识
+  dataId: string(name='data_id'),
+}
+
+model ApplyAuditImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求ID，必须唯一
+  requestId?: string(name='request_id'),
+  // 任务ID，必须唯一
+  taskId?: string(name='task_id'),
+  // 数据ID，必须唯一
+  dataId?: string(name='data_id'),
+  // 审核内容类型
+  contentType?: string(name='content_type'),
+  // 审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: LOGO/二维码审核
+ * Summary: LOGO/二维码审核
+ */
+async function applyAuditImage(request: ApplyAuditImageRequest): ApplyAuditImageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyAuditImageEx(request, headers, runtime);
+}
+
+/**
+ * Description: LOGO/二维码审核
+ * Summary: LOGO/二维码审核
+ */
+async function applyAuditImageEx(request: ApplyAuditImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyAuditImageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.image.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackSofaAuditRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 回执原文
+  payload: string(name='payload'),
+  // 回执场景
+  bizScene: string(name='biz_scene'),
+}
+
+model CallbackSofaAuditResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 错误码
+  errorCode?: string(name='error_code'),
+  // 错误原因
+  errorMessage?: string(name='error_message'),
+}
+
+/**
+ * Description: 主站审核能力回调
+ * Summary: 主站审核能力回调
+ */
+async function callbackSofaAudit(request: CallbackSofaAuditRequest): CallbackSofaAuditResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackSofaAuditEx(request, headers, runtime);
+}
+
+/**
+ * Description: 主站审核能力回调
+ * Summary: 主站审核能力回调
+ */
+async function callbackSofaAuditEx(request: CallbackSofaAuditRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackSofaAuditResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.sofa.audit.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAuditTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待人工审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
+  content: string(name='content'),
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId: string(name='business_id'),
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+  // 审核场景码，该接口固定输入BASE_TEXT_AUDIT，其他值无效
+  scene: string(name='scene'),
+}
+
+model SubmitAuditTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 文本审核入审
+ * Summary: 文本审核入审
+ */
+async function submitAuditText(request: SubmitAuditTextRequest): SubmitAuditTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAuditTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本审核入审
+ * Summary: 文本审核入审
+ */
+async function submitAuditTextEx(request: SubmitAuditTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuditTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.text.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuditTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryAuditTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 文本审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 文本审核查询
+ * Summary: 文本审核查询
+ */
+async function queryAuditText(request: QueryAuditTextRequest): QueryAuditTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuditTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本审核查询
+ * Summary: 文本审核查询
+ */
+async function queryAuditTextEx(request: QueryAuditTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuditTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.text.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAuditImageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符
+  // URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  url: string(name='url'),
+  // 审核场景码，该接口固定输入BASE_IMAGE_AUDIT，其他值无效
+  scene: string(name='scene'),
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId: string(name='business_id'),
+  // 检测对象对应的数据ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitAuditImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。
+  // 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 图片审核入审
+ * Summary: 图片审核入审
+ */
+async function submitAuditImage(request: SubmitAuditImageRequest): SubmitAuditImageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAuditImageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 图片审核入审
+ * Summary: 图片审核入审
+ */
+async function submitAuditImageEx(request: SubmitAuditImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuditImageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.image.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuditImageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryAuditImageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 图片审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 图片审核查询
+ * Summary: 图片审核查询
+ */
+async function queryAuditImage(request: QueryAuditImageRequest): QueryAuditImageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuditImageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 图片审核查询
+ * Summary: 图片审核查询
+ */
+async function queryAuditImageEx(request: QueryAuditImageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuditImageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.image.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAuditAudioRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符
+  // 说明 ：
+  // URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  url: string(name='url'),
+  // 审核场景码，该接口固定输入BASE_AUDIO_AUDIT，其他值无效
+  scene: string(name='scene'),
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId: string(name='business_id'),
+  // 检测对象对应的数据ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitAuditAudioResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。
+  // 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 音频审核入审
+ * Summary: 音频审核入审
+ */
+async function submitAuditAudio(request: SubmitAuditAudioRequest): SubmitAuditAudioResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAuditAudioEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音频审核入审
+ * Summary: 音频审核入审
+ */
+async function submitAuditAudioEx(request: SubmitAuditAudioRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuditAudioResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.audio.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuditAudioRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryAuditAudioResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 音频审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 音频审核查询
+ * Summary: 音频审核查询
+ */
+async function queryAuditAudio(request: QueryAuditAudioRequest): QueryAuditAudioResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuditAudioEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音频审核查询
+ * Summary: 音频审核查询
+ */
+async function queryAuditAudioEx(request: QueryAuditAudioRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuditAudioResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.audio.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitAuditVideoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符
+  // URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  url: string(name='url'),
+  // 审核场景码，该接口固定输入BASE_VIDEO_AUDIT，其他值无效
+  scene: string(name='scene'),
+  // 客户业务ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId: string(name='business_id'),
+  // 检测对象对应的数据ID。
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string(name='callback'),
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string(name='seed'),
+}
+
+model SubmitAuditVideoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 任务ID
+  taskId?: string(name='task_id'),
+  // 检测对象对应的数据ID。
+  // 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string(name='data_id'),
+}
+
+/**
+ * Description: 视频审核入审
+ * Summary: 视频审核入审
+ */
+async function submitAuditVideo(request: SubmitAuditVideoRequest): SubmitAuditVideoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitAuditVideoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 视频审核入审
+ * Summary: 视频审核入审
+ */
+async function submitAuditVideoEx(request: SubmitAuditVideoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuditVideoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.video.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAuditVideoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryAuditVideoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 视频审核结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 视频审核查询
+ * Summary: 视频审核查询
+ */
+async function queryAuditVideo(request: QueryAuditVideoRequest): QueryAuditVideoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAuditVideoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 视频审核查询
+ * Summary: 视频审核查询
+ */
+async function queryAuditVideoEx(request: QueryAuditVideoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAuditVideoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.video.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyAuditTextRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 待人工审核的文本内容，最长不超过10000个字符（包含中文、英文和标点符号）
+  content: string(name='content'),
+  // 审核场景码，建议BASE_TEXT_SEC代指阿里云，文本审核增强版PLUS服务的某一个Service
+  scene: string(name='scene'),
+  // 客户业务ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId: string(name='business_id'),
+  // 检测对象对应的数据ID，由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string(name='data_id'),
+}
+
+model ApplyAuditTextResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string(name='request_id'),
+  // 文本同步审核结果，字段含义见：TextSyncAuditResult
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 文本同步审核接口，调用阿里云内容安全审核增强版
+ * Summary: 文本同步审核
+ */
+async function applyAuditText(request: ApplyAuditTextRequest): ApplyAuditTextResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyAuditTextEx(request, headers, runtime);
+}
+
+/**
+ * Description: 文本同步审核接口，调用阿里云内容安全审核增强版
+ * Summary: 文本同步审核
+ */
+async function applyAuditTextEx(request: ApplyAuditTextRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyAuditTextResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.audit.text.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryGuardcoreRedgptRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 唯一请求ID
+  requestId: string(name='request_id'),
+  // 多轮对话会话ID
+  sessionId: string(name='session_id'),
+  // 场景code
+  sceneCode: string(name='scene_code'),
+  // 调用方AppCode
+  appCode: string(name='app_code'),
+  // 提问内容
+  question: string(name='question'),
+  // 提问内容格式,当前仅支持PLAINTEXT
+  questionFormat: string(name='question_format'),
+  // 加密的调用方业务UserId
+  userId: string(name='user_id'),
+  // 是否流式输出
+  stream: boolean(name='stream'),
+}
+
+model QueryGuardcoreRedgptResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // maya流式调用结果集
+  data?: MayaStreamResult(name='data'),
+}
+
+/**
+ * Description: 红色GPT流式调用网关接口
+ * Summary: 红色GPT网关方式调用接口
+ */
+async function queryGuardcoreRedgpt(request: QueryGuardcoreRedgptRequest): QueryGuardcoreRedgptResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryGuardcoreRedgptEx(request, headers, runtime);
+}
+
+/**
+ * Description: 红色GPT流式调用网关接口
+ * Summary: 红色GPT网关方式调用接口
+ */
+async function queryGuardcoreRedgptEx(request: QueryGuardcoreRedgptRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryGuardcoreRedgptResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'aitech.comm.guardcore.redgpt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
