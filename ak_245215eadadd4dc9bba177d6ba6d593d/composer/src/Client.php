@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CloneUniversalsaasDigitalhumanAvatarRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CloneUniversalsaasDigitalhumanAvatarResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CloneUniversalsaasDigitalhumanAvatarVoiceRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CloneUniversalsaasDigitalhumanAvatarVoiceResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVideoTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVideoTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVoiceRequest;
@@ -19,6 +23,8 @@ use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigital
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoProfileResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoVoiceRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoVoiceResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanCloneTaskRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanCloneTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVideoTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVideoTaskResponse;
 use AntChain\Util\UtilClient;
@@ -168,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.0',
+                    'sdk_version'      => '1.1.1',
                     '_prod_code'       => 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel'    => 'saas',
                 ];
@@ -379,5 +385,104 @@ class Client
         Utils::validateModel($request);
 
         return CreateUniversalsaasDigitalhumanVoiceResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 极速训练数字人分身，返回modelId
+     * Summary: 训练数字人分身.
+     *
+     * @param CloneUniversalsaasDigitalhumanAvatarRequest $request
+     *
+     * @return CloneUniversalsaasDigitalhumanAvatarResponse
+     */
+    public function cloneUniversalsaasDigitalhumanAvatar($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cloneUniversalsaasDigitalhumanAvatarEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 极速训练数字人分身，返回modelId
+     * Summary: 训练数字人分身.
+     *
+     * @param CloneUniversalsaasDigitalhumanAvatarRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return CloneUniversalsaasDigitalhumanAvatarResponse
+     */
+    public function cloneUniversalsaasDigitalhumanAvatarEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloneUniversalsaasDigitalhumanAvatarResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.avatar.clone', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音色克隆
+     * Summary: 音色克隆.
+     *
+     * @param CloneUniversalsaasDigitalhumanAvatarVoiceRequest $request
+     *
+     * @return CloneUniversalsaasDigitalhumanAvatarVoiceResponse
+     */
+    public function cloneUniversalsaasDigitalhumanAvatarVoice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cloneUniversalsaasDigitalhumanAvatarVoiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音色克隆
+     * Summary: 音色克隆.
+     *
+     * @param CloneUniversalsaasDigitalhumanAvatarVoiceRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return CloneUniversalsaasDigitalhumanAvatarVoiceResponse
+     */
+    public function cloneUniversalsaasDigitalhumanAvatarVoiceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CloneUniversalsaasDigitalhumanAvatarVoiceResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.avatar.voice.clone', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 训练数字人分身任务查询
+     * Summary: 训练数字人分身任务查询.
+     *
+     * @param QueryUniversalsaasDigitalhumanCloneTaskRequest $request
+     *
+     * @return QueryUniversalsaasDigitalhumanCloneTaskResponse
+     */
+    public function queryUniversalsaasDigitalhumanCloneTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUniversalsaasDigitalhumanCloneTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 训练数字人分身任务查询
+     * Summary: 训练数字人分身任务查询.
+     *
+     * @param QueryUniversalsaasDigitalhumanCloneTaskRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return QueryUniversalsaasDigitalhumanCloneTaskResponse
+     */
+    public function queryUniversalsaasDigitalhumanCloneTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUniversalsaasDigitalhumanCloneTaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.clone.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
