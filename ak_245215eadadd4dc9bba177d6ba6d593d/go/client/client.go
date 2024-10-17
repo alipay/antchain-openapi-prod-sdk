@@ -508,6 +508,65 @@ func (s *ProfileInfo) SetScale(v string) *ProfileInfo {
 	return s
 }
 
+// 数字人训练结果
+type TrainingResult struct {
+	// 数字人id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty"`
+	// 音色id
+	VoiceId *string `json:"voice_id,omitempty" xml:"voice_id,omitempty"`
+}
+
+func (s TrainingResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TrainingResult) GoString() string {
+	return s.String()
+}
+
+func (s *TrainingResult) SetModelId(v string) *TrainingResult {
+	s.ModelId = &v
+	return s
+}
+
+func (s *TrainingResult) SetVoiceId(v string) *TrainingResult {
+	s.VoiceId = &v
+	return s
+}
+
+// 数字人克隆任务结果
+type CloneTask struct {
+	// 数字人id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty"`
+	// 音色id
+	VoiceId *string `json:"voice_id,omitempty" xml:"voice_id,omitempty"`
+	// 初始化/训练队列中/声音克隆中/声音克隆完成/形象克隆中/形象克隆完成
+	AvatarStatus *string `json:"avatar_status,omitempty" xml:"avatar_status,omitempty"`
+}
+
+func (s CloneTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloneTask) GoString() string {
+	return s.String()
+}
+
+func (s *CloneTask) SetModelId(v string) *CloneTask {
+	s.ModelId = &v
+	return s
+}
+
+func (s *CloneTask) SetVoiceId(v string) *CloneTask {
+	s.VoiceId = &v
+	return s
+}
+
+func (s *CloneTask) SetAvatarStatus(v string) *CloneTask {
+	s.AvatarStatus = &v
+	return s
+}
+
 // 合成任务
 type VideoTask struct {
 	// RUNNING, COMPLETE,FAIL
@@ -1063,6 +1122,259 @@ func (s *CreateUniversalsaasDigitalhumanVoiceResponse) SetStatus(v bool) *Create
 	return s
 }
 
+type CloneUniversalsaasDigitalhumanAvatarRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数字人训练视频url
+	FileUrl *string `json:"file_url,omitempty" xml:"file_url,omitempty" require:"true"`
+	// 数字人名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 是否克隆声音，默认为false
+	CloneVoice *string `json:"clone_voice,omitempty" xml:"clone_voice,omitempty"`
+}
+
+func (s CloneUniversalsaasDigitalhumanAvatarRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloneUniversalsaasDigitalhumanAvatarRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarRequest) SetAuthToken(v string) *CloneUniversalsaasDigitalhumanAvatarRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarRequest) SetProductInstanceId(v string) *CloneUniversalsaasDigitalhumanAvatarRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarRequest) SetFileUrl(v string) *CloneUniversalsaasDigitalhumanAvatarRequest {
+	s.FileUrl = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarRequest) SetName(v string) *CloneUniversalsaasDigitalhumanAvatarRequest {
+	s.Name = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarRequest) SetCloneVoice(v string) *CloneUniversalsaasDigitalhumanAvatarRequest {
+	s.CloneVoice = &v
+	return s
+}
+
+type CloneUniversalsaasDigitalhumanAvatarResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// 训练结果，包含数字人id与音色id
+	Result *TrainingResult `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s CloneUniversalsaasDigitalhumanAvatarResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloneUniversalsaasDigitalhumanAvatarResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarResponse) SetReqMsgId(v string) *CloneUniversalsaasDigitalhumanAvatarResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarResponse) SetResultCode(v string) *CloneUniversalsaasDigitalhumanAvatarResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarResponse) SetResultMsg(v string) *CloneUniversalsaasDigitalhumanAvatarResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarResponse) SetStatus(v bool) *CloneUniversalsaasDigitalhumanAvatarResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarResponse) SetResult(v *TrainingResult) *CloneUniversalsaasDigitalhumanAvatarResponse {
+	s.Result = v
+	return s
+}
+
+type CloneUniversalsaasDigitalhumanAvatarVoiceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 训练音频url
+	VoiceUrl *string `json:"voice_url,omitempty" xml:"voice_url,omitempty" require:"true"`
+	// 音频名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+}
+
+func (s CloneUniversalsaasDigitalhumanAvatarVoiceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloneUniversalsaasDigitalhumanAvatarVoiceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceRequest) SetAuthToken(v string) *CloneUniversalsaasDigitalhumanAvatarVoiceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceRequest) SetProductInstanceId(v string) *CloneUniversalsaasDigitalhumanAvatarVoiceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceRequest) SetVoiceUrl(v string) *CloneUniversalsaasDigitalhumanAvatarVoiceRequest {
+	s.VoiceUrl = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceRequest) SetName(v string) *CloneUniversalsaasDigitalhumanAvatarVoiceRequest {
+	s.Name = &v
+	return s
+}
+
+type CloneUniversalsaasDigitalhumanAvatarVoiceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果状态
+	//
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// 音色id
+	VoiceId *string `json:"voice_id,omitempty" xml:"voice_id,omitempty"`
+}
+
+func (s CloneUniversalsaasDigitalhumanAvatarVoiceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CloneUniversalsaasDigitalhumanAvatarVoiceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceResponse) SetReqMsgId(v string) *CloneUniversalsaasDigitalhumanAvatarVoiceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceResponse) SetResultCode(v string) *CloneUniversalsaasDigitalhumanAvatarVoiceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceResponse) SetResultMsg(v string) *CloneUniversalsaasDigitalhumanAvatarVoiceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceResponse) SetStatus(v bool) *CloneUniversalsaasDigitalhumanAvatarVoiceResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *CloneUniversalsaasDigitalhumanAvatarVoiceResponse) SetVoiceId(v string) *CloneUniversalsaasDigitalhumanAvatarVoiceResponse {
+	s.VoiceId = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanCloneTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数字人id
+	ModelId *string `json:"model_id,omitempty" xml:"model_id,omitempty" require:"true"`
+}
+
+func (s QueryUniversalsaasDigitalhumanCloneTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanCloneTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanCloneTaskRequest) SetAuthToken(v string) *QueryUniversalsaasDigitalhumanCloneTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanCloneTaskRequest) SetProductInstanceId(v string) *QueryUniversalsaasDigitalhumanCloneTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanCloneTaskRequest) SetModelId(v string) *QueryUniversalsaasDigitalhumanCloneTaskRequest {
+	s.ModelId = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanCloneTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// 数字人克隆任务结果
+	Data *CloneTask `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryUniversalsaasDigitalhumanCloneTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanCloneTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanCloneTaskResponse) SetReqMsgId(v string) *QueryUniversalsaasDigitalhumanCloneTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanCloneTaskResponse) SetResultCode(v string) *QueryUniversalsaasDigitalhumanCloneTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanCloneTaskResponse) SetResultMsg(v string) *QueryUniversalsaasDigitalhumanCloneTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanCloneTaskResponse) SetStatus(v bool) *QueryUniversalsaasDigitalhumanCloneTaskResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanCloneTaskResponse) SetData(v *CloneTask) *QueryUniversalsaasDigitalhumanCloneTaskResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1185,7 +1497,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.0"),
+				"sdk_version":      tea.String("1.1.1"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1406,6 +1718,108 @@ func (client *Client) CreateUniversalsaasDigitalhumanVoiceEx(request *CreateUniv
 	}
 	_result = &CreateUniversalsaasDigitalhumanVoiceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 极速训练数字人分身，返回modelId
+ * Summary: 训练数字人分身
+ */
+func (client *Client) CloneUniversalsaasDigitalhumanAvatar(request *CloneUniversalsaasDigitalhumanAvatarRequest) (_result *CloneUniversalsaasDigitalhumanAvatarResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CloneUniversalsaasDigitalhumanAvatarResponse{}
+	_body, _err := client.CloneUniversalsaasDigitalhumanAvatarEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 极速训练数字人分身，返回modelId
+ * Summary: 训练数字人分身
+ */
+func (client *Client) CloneUniversalsaasDigitalhumanAvatarEx(request *CloneUniversalsaasDigitalhumanAvatarRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CloneUniversalsaasDigitalhumanAvatarResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CloneUniversalsaasDigitalhumanAvatarResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.avatar.clone"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音色克隆
+ * Summary: 音色克隆
+ */
+func (client *Client) CloneUniversalsaasDigitalhumanAvatarVoice(request *CloneUniversalsaasDigitalhumanAvatarVoiceRequest) (_result *CloneUniversalsaasDigitalhumanAvatarVoiceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CloneUniversalsaasDigitalhumanAvatarVoiceResponse{}
+	_body, _err := client.CloneUniversalsaasDigitalhumanAvatarVoiceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音色克隆
+ * Summary: 音色克隆
+ */
+func (client *Client) CloneUniversalsaasDigitalhumanAvatarVoiceEx(request *CloneUniversalsaasDigitalhumanAvatarVoiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CloneUniversalsaasDigitalhumanAvatarVoiceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CloneUniversalsaasDigitalhumanAvatarVoiceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.avatar.voice.clone"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 训练数字人分身任务查询
+ * Summary: 训练数字人分身任务查询
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanCloneTask(request *QueryUniversalsaasDigitalhumanCloneTaskRequest) (_result *QueryUniversalsaasDigitalhumanCloneTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUniversalsaasDigitalhumanCloneTaskResponse{}
+	_body, _err := client.QueryUniversalsaasDigitalhumanCloneTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 训练数字人分身任务查询
+ * Summary: 训练数字人分身任务查询
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanCloneTaskEx(request *QueryUniversalsaasDigitalhumanCloneTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUniversalsaasDigitalhumanCloneTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUniversalsaasDigitalhumanCloneTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.clone.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
