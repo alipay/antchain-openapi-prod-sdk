@@ -624,6 +624,83 @@ class ProfileInfo(TeaModel):
         return self
 
 
+class TrainingResult(TeaModel):
+    def __init__(
+        self,
+        model_id: str = None,
+        voice_id: str = None,
+    ):
+        # 数字人id
+        self.model_id = model_id
+        # 音色id
+        self.voice_id = voice_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        if self.voice_id is not None:
+            result['voice_id'] = self.voice_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        if m.get('voice_id') is not None:
+            self.voice_id = m.get('voice_id')
+        return self
+
+
+class CloneTask(TeaModel):
+    def __init__(
+        self,
+        model_id: str = None,
+        voice_id: str = None,
+        avatar_status: str = None,
+    ):
+        # 数字人id
+        self.model_id = model_id
+        # 音色id
+        self.voice_id = voice_id
+        # 初始化/训练队列中/声音克隆中/声音克隆完成/形象克隆中/形象克隆完成
+        self.avatar_status = avatar_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        if self.voice_id is not None:
+            result['voice_id'] = self.voice_id
+        if self.avatar_status is not None:
+            result['avatar_status'] = self.avatar_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        if m.get('voice_id') is not None:
+            self.voice_id = m.get('voice_id')
+        if m.get('avatar_status') is not None:
+            self.avatar_status = m.get('avatar_status')
+        return self
+
+
 class VideoTask(TeaModel):
     def __init__(
         self,
@@ -1333,6 +1410,325 @@ class CreateUniversalsaasDigitalhumanVoiceResponse(TeaModel):
             self.data = m.get('data')
         if m.get('status') is not None:
             self.status = m.get('status')
+        return self
+
+
+class CloneUniversalsaasDigitalhumanAvatarRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_url: str = None,
+        name: str = None,
+        clone_voice: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数字人训练视频url
+        self.file_url = file_url
+        # 数字人名称
+        self.name = name
+        # 是否克隆声音，默认为false
+        self.clone_voice = clone_voice
+
+    def validate(self):
+        self.validate_required(self.file_url, 'file_url')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_url is not None:
+            result['file_url'] = self.file_url
+        if self.name is not None:
+            result['name'] = self.name
+        if self.clone_voice is not None:
+            result['clone_voice'] = self.clone_voice
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_url') is not None:
+            self.file_url = m.get('file_url')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('clone_voice') is not None:
+            self.clone_voice = m.get('clone_voice')
+        return self
+
+
+class CloneUniversalsaasDigitalhumanAvatarResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: bool = None,
+        result: TrainingResult = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果状态
+        self.status = status
+        # 训练结果，包含数字人id与音色id
+        self.result = result
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('result') is not None:
+            temp_model = TrainingResult()
+            self.result = temp_model.from_map(m['result'])
+        return self
+
+
+class CloneUniversalsaasDigitalhumanAvatarVoiceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        voice_url: str = None,
+        name: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 训练音频url
+        self.voice_url = voice_url
+        # 音频名称
+        self.name = name
+
+    def validate(self):
+        self.validate_required(self.voice_url, 'voice_url')
+        self.validate_required(self.name, 'name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.voice_url is not None:
+            result['voice_url'] = self.voice_url
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('voice_url') is not None:
+            self.voice_url = m.get('voice_url')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class CloneUniversalsaasDigitalhumanAvatarVoiceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: bool = None,
+        voice_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果状态
+        # 
+        self.status = status
+        # 音色id
+        self.voice_id = voice_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.voice_id is not None:
+            result['voice_id'] = self.voice_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('voice_id') is not None:
+            self.voice_id = m.get('voice_id')
+        return self
+
+
+class QueryUniversalsaasDigitalhumanCloneTaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        model_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数字人id
+        self.model_id = model_id
+
+    def validate(self):
+        self.validate_required(self.model_id, 'model_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.model_id is not None:
+            result['model_id'] = self.model_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('model_id') is not None:
+            self.model_id = m.get('model_id')
+        return self
+
+
+class QueryUniversalsaasDigitalhumanCloneTaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: bool = None,
+        data: CloneTask = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果状态
+        self.status = status
+        # 数字人克隆任务结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('data') is not None:
+            temp_model = CloneTask()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 

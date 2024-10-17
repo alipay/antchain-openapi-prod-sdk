@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.1',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.0',
+                    'sdk_version': '1.1.1',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -553,4 +553,172 @@ class Client:
         return TeaCore.from_map(
             ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.voice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def clone_universalsaas_digitalhuman_avatar(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarResponse:
+        """
+        Description: 极速训练数字人分身，返回modelId
+        Summary: 训练数字人分身
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.clone_universalsaas_digitalhuman_avatar_ex(request, headers, runtime)
+
+    async def clone_universalsaas_digitalhuman_avatar_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarResponse:
+        """
+        Description: 极速训练数字人分身，返回modelId
+        Summary: 训练数字人分身
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.clone_universalsaas_digitalhuman_avatar_ex_async(request, headers, runtime)
+
+    def clone_universalsaas_digitalhuman_avatar_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarResponse:
+        """
+        Description: 极速训练数字人分身，返回modelId
+        Summary: 训练数字人分身
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.avatar.clone', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def clone_universalsaas_digitalhuman_avatar_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarResponse:
+        """
+        Description: 极速训练数字人分身，返回modelId
+        Summary: 训练数字人分身
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.avatar.clone', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def clone_universalsaas_digitalhuman_avatar_voice(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceResponse:
+        """
+        Description: 音色克隆
+        Summary: 音色克隆
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.clone_universalsaas_digitalhuman_avatar_voice_ex(request, headers, runtime)
+
+    async def clone_universalsaas_digitalhuman_avatar_voice_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceResponse:
+        """
+        Description: 音色克隆
+        Summary: 音色克隆
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.clone_universalsaas_digitalhuman_avatar_voice_ex_async(request, headers, runtime)
+
+    def clone_universalsaas_digitalhuman_avatar_voice_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceResponse:
+        """
+        Description: 音色克隆
+        Summary: 音色克隆
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.avatar.voice.clone', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def clone_universalsaas_digitalhuman_avatar_voice_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceResponse:
+        """
+        Description: 音色克隆
+        Summary: 音色克隆
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CloneUniversalsaasDigitalhumanAvatarVoiceResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.avatar.voice.clone', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_universalsaas_digitalhuman_clone_task(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskResponse:
+        """
+        Description: 训练数字人分身任务查询
+        Summary: 训练数字人分身任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_universalsaas_digitalhuman_clone_task_ex(request, headers, runtime)
+
+    async def query_universalsaas_digitalhuman_clone_task_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskResponse:
+        """
+        Description: 训练数字人分身任务查询
+        Summary: 训练数字人分身任务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_universalsaas_digitalhuman_clone_task_ex_async(request, headers, runtime)
+
+    def query_universalsaas_digitalhuman_clone_task_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskResponse:
+        """
+        Description: 训练数字人分身任务查询
+        Summary: 训练数字人分身任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.clone.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_universalsaas_digitalhuman_clone_task_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskResponse:
+        """
+        Description: 训练数字人分身任务查询
+        Summary: 训练数字人分身任务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanCloneTaskResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.clone.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
