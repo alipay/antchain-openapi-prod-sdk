@@ -366,6 +366,60 @@ export class ProfileInfo extends $tea.Model {
   }
 }
 
+// 数字人训练结果
+export class TrainingResult extends $tea.Model {
+  // 数字人id
+  modelId?: string;
+  // 音色id
+  voiceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      modelId: 'model_id',
+      voiceId: 'voice_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelId: 'string',
+      voiceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字人克隆任务结果
+export class CloneTask extends $tea.Model {
+  // 数字人id
+  modelId?: string;
+  // 音色id
+  voiceId?: string;
+  // 初始化/训练队列中/声音克隆中/声音克隆完成/形象克隆中/形象克隆完成
+  avatarStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      modelId: 'model_id',
+      voiceId: 'voice_id',
+      avatarStatus: 'avatar_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      modelId: 'string',
+      voiceId: 'string',
+      avatarStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 合成任务
 export class VideoTask extends $tea.Model {
   // RUNNING, COMPLETE,FAIL
@@ -801,6 +855,208 @@ export class CreateUniversalsaasDigitalhumanVoiceResponse extends $tea.Model {
   }
 }
 
+export class CloneUniversalsaasDigitalhumanAvatarRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数字人训练视频url
+  fileUrl: string;
+  // 数字人名称
+  name: string;
+  // 是否克隆声音，默认为false
+  cloneVoice?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileUrl: 'file_url',
+      name: 'name',
+      cloneVoice: 'clone_voice',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileUrl: 'string',
+      name: 'string',
+      cloneVoice: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CloneUniversalsaasDigitalhumanAvatarResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果状态
+  status?: boolean;
+  // 训练结果，包含数字人id与音色id
+  result?: TrainingResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'boolean',
+      result: TrainingResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CloneUniversalsaasDigitalhumanAvatarVoiceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 训练音频url
+  voiceUrl: string;
+  // 音频名称
+  name: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      voiceUrl: 'voice_url',
+      name: 'name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      voiceUrl: 'string',
+      name: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CloneUniversalsaasDigitalhumanAvatarVoiceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果状态
+  // 
+  status?: boolean;
+  // 音色id
+  voiceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      voiceId: 'voice_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'boolean',
+      voiceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUniversalsaasDigitalhumanCloneTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数字人id
+  modelId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      modelId: 'model_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      modelId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUniversalsaasDigitalhumanCloneTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果状态
+  status?: boolean;
+  // 数字人克隆任务结果
+  data?: CloneTask;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'boolean',
+      data: CloneTask,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -914,7 +1170,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.0",
+          sdk_version: "1.1.1",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
@@ -1055,6 +1311,63 @@ export default class Client {
   async createUniversalsaasDigitalhumanVoiceEx(request: CreateUniversalsaasDigitalhumanVoiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateUniversalsaasDigitalhumanVoiceResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateUniversalsaasDigitalhumanVoiceResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.voice.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateUniversalsaasDigitalhumanVoiceResponse({}));
+  }
+
+  /**
+   * Description: 极速训练数字人分身，返回modelId
+   * Summary: 训练数字人分身
+   */
+  async cloneUniversalsaasDigitalhumanAvatar(request: CloneUniversalsaasDigitalhumanAvatarRequest): Promise<CloneUniversalsaasDigitalhumanAvatarResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cloneUniversalsaasDigitalhumanAvatarEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 极速训练数字人分身，返回modelId
+   * Summary: 训练数字人分身
+   */
+  async cloneUniversalsaasDigitalhumanAvatarEx(request: CloneUniversalsaasDigitalhumanAvatarRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CloneUniversalsaasDigitalhumanAvatarResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CloneUniversalsaasDigitalhumanAvatarResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.avatar.clone", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CloneUniversalsaasDigitalhumanAvatarResponse({}));
+  }
+
+  /**
+   * Description: 音色克隆
+   * Summary: 音色克隆
+   */
+  async cloneUniversalsaasDigitalhumanAvatarVoice(request: CloneUniversalsaasDigitalhumanAvatarVoiceRequest): Promise<CloneUniversalsaasDigitalhumanAvatarVoiceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cloneUniversalsaasDigitalhumanAvatarVoiceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 音色克隆
+   * Summary: 音色克隆
+   */
+  async cloneUniversalsaasDigitalhumanAvatarVoiceEx(request: CloneUniversalsaasDigitalhumanAvatarVoiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CloneUniversalsaasDigitalhumanAvatarVoiceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CloneUniversalsaasDigitalhumanAvatarVoiceResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.avatar.voice.clone", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CloneUniversalsaasDigitalhumanAvatarVoiceResponse({}));
+  }
+
+  /**
+   * Description: 训练数字人分身任务查询
+   * Summary: 训练数字人分身任务查询
+   */
+  async queryUniversalsaasDigitalhumanCloneTask(request: QueryUniversalsaasDigitalhumanCloneTaskRequest): Promise<QueryUniversalsaasDigitalhumanCloneTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUniversalsaasDigitalhumanCloneTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 训练数字人分身任务查询
+   * Summary: 训练数字人分身任务查询
+   */
+  async queryUniversalsaasDigitalhumanCloneTaskEx(request: QueryUniversalsaasDigitalhumanCloneTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanCloneTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUniversalsaasDigitalhumanCloneTaskResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.clone.task.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanCloneTaskResponse({}));
   }
 
 }
