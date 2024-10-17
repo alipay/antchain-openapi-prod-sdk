@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.0"},
+                        {"sdk_version", "1.1.1"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -529,6 +529,132 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateUniversalsaasDigitalhumanVoiceResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.voice.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极速训练数字人分身，返回modelId
+         * Summary: 训练数字人分身
+         */
+        public CloneUniversalsaasDigitalhumanAvatarResponse CloneUniversalsaasDigitalhumanAvatar(CloneUniversalsaasDigitalhumanAvatarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CloneUniversalsaasDigitalhumanAvatarEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极速训练数字人分身，返回modelId
+         * Summary: 训练数字人分身
+         */
+        public async Task<CloneUniversalsaasDigitalhumanAvatarResponse> CloneUniversalsaasDigitalhumanAvatarAsync(CloneUniversalsaasDigitalhumanAvatarRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CloneUniversalsaasDigitalhumanAvatarExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 极速训练数字人分身，返回modelId
+         * Summary: 训练数字人分身
+         */
+        public CloneUniversalsaasDigitalhumanAvatarResponse CloneUniversalsaasDigitalhumanAvatarEx(CloneUniversalsaasDigitalhumanAvatarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloneUniversalsaasDigitalhumanAvatarResponse>(DoRequest("1.0", "universalsaas.digitalhuman.avatar.clone", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 极速训练数字人分身，返回modelId
+         * Summary: 训练数字人分身
+         */
+        public async Task<CloneUniversalsaasDigitalhumanAvatarResponse> CloneUniversalsaasDigitalhumanAvatarExAsync(CloneUniversalsaasDigitalhumanAvatarRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloneUniversalsaasDigitalhumanAvatarResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.avatar.clone", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音色克隆
+         * Summary: 音色克隆
+         */
+        public CloneUniversalsaasDigitalhumanAvatarVoiceResponse CloneUniversalsaasDigitalhumanAvatarVoice(CloneUniversalsaasDigitalhumanAvatarVoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CloneUniversalsaasDigitalhumanAvatarVoiceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音色克隆
+         * Summary: 音色克隆
+         */
+        public async Task<CloneUniversalsaasDigitalhumanAvatarVoiceResponse> CloneUniversalsaasDigitalhumanAvatarVoiceAsync(CloneUniversalsaasDigitalhumanAvatarVoiceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CloneUniversalsaasDigitalhumanAvatarVoiceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音色克隆
+         * Summary: 音色克隆
+         */
+        public CloneUniversalsaasDigitalhumanAvatarVoiceResponse CloneUniversalsaasDigitalhumanAvatarVoiceEx(CloneUniversalsaasDigitalhumanAvatarVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloneUniversalsaasDigitalhumanAvatarVoiceResponse>(DoRequest("1.0", "universalsaas.digitalhuman.avatar.voice.clone", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音色克隆
+         * Summary: 音色克隆
+         */
+        public async Task<CloneUniversalsaasDigitalhumanAvatarVoiceResponse> CloneUniversalsaasDigitalhumanAvatarVoiceExAsync(CloneUniversalsaasDigitalhumanAvatarVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CloneUniversalsaasDigitalhumanAvatarVoiceResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.avatar.voice.clone", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 训练数字人分身任务查询
+         * Summary: 训练数字人分身任务查询
+         */
+        public QueryUniversalsaasDigitalhumanCloneTaskResponse QueryUniversalsaasDigitalhumanCloneTask(QueryUniversalsaasDigitalhumanCloneTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUniversalsaasDigitalhumanCloneTaskEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 训练数字人分身任务查询
+         * Summary: 训练数字人分身任务查询
+         */
+        public async Task<QueryUniversalsaasDigitalhumanCloneTaskResponse> QueryUniversalsaasDigitalhumanCloneTaskAsync(QueryUniversalsaasDigitalhumanCloneTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUniversalsaasDigitalhumanCloneTaskExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 训练数字人分身任务查询
+         * Summary: 训练数字人分身任务查询
+         */
+        public QueryUniversalsaasDigitalhumanCloneTaskResponse QueryUniversalsaasDigitalhumanCloneTaskEx(QueryUniversalsaasDigitalhumanCloneTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanCloneTaskResponse>(DoRequest("1.0", "universalsaas.digitalhuman.clone.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 训练数字人分身任务查询
+         * Summary: 训练数字人分身任务查询
+         */
+        public async Task<QueryUniversalsaasDigitalhumanCloneTaskResponse> QueryUniversalsaasDigitalhumanCloneTaskExAsync(QueryUniversalsaasDigitalhumanCloneTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanCloneTaskResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.clone.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
