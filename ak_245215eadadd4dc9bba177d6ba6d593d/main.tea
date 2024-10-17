@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.0',
+    sdk_version = '1.1.1',
     _prod_code = 'ak_245215eadadd4dc9bba177d6ba6d593d',
     _prod_channel = 'saas'
   };
@@ -270,6 +270,24 @@ model ProfileInfo {
   h: long(name='h', example='100'),
   // 数字人视频大小缩放,实际大小为  scale*w   scale*h 
   scale?: string(name='scale', example='1.2'),
+}
+
+// 数字人训练结果
+model TrainingResult {
+  // 数字人id
+  modelId?: string(name='model_id', example='1298'),
+  // 音色id
+  voiceId?: string(name='voice_id', example='269'),
+}
+
+// 数字人克隆任务结果
+model CloneTask {
+  // 数字人id
+  modelId?: string(name='model_id', example='model_lhc8ml'),
+  // 音色id
+  voiceId?: string(name='voice_id', example='238'),
+  // 初始化/训练队列中/声音克隆中/声音克隆完成/形象克隆中/形象克隆完成
+  avatarStatus?: string(name='avatar_status', example='init/wait_training/tone_training/audio_clone_completed/avatar_cloning/avatar_clone_completed'),
 }
 
 // 合成任务
@@ -524,5 +542,132 @@ async function createUniversalsaasDigitalhumanVoice(request: CreateUniversalsaas
 async function createUniversalsaasDigitalhumanVoiceEx(request: CreateUniversalsaasDigitalhumanVoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUniversalsaasDigitalhumanVoiceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.digitalhuman.voice.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloneUniversalsaasDigitalhumanAvatarRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数字人训练视频url
+  fileUrl: string(name='file_url'),
+  // 数字人名称
+  name: string(name='name'),
+  // 是否克隆声音，默认为false
+  cloneVoice?: string(name='clone_voice'),
+}
+
+model CloneUniversalsaasDigitalhumanAvatarResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果状态
+  status?: boolean(name='status'),
+  // 训练结果，包含数字人id与音色id
+  result?: TrainingResult(name='result'),
+}
+
+/**
+ * Description: 极速训练数字人分身，返回modelId
+ * Summary: 训练数字人分身
+ */
+async function cloneUniversalsaasDigitalhumanAvatar(request: CloneUniversalsaasDigitalhumanAvatarRequest): CloneUniversalsaasDigitalhumanAvatarResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cloneUniversalsaasDigitalhumanAvatarEx(request, headers, runtime);
+}
+
+/**
+ * Description: 极速训练数字人分身，返回modelId
+ * Summary: 训练数字人分身
+ */
+async function cloneUniversalsaasDigitalhumanAvatarEx(request: CloneUniversalsaasDigitalhumanAvatarRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloneUniversalsaasDigitalhumanAvatarResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.avatar.clone', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CloneUniversalsaasDigitalhumanAvatarVoiceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 训练音频url
+  voiceUrl: string(name='voice_url'),
+  // 音频名称
+  name: string(name='name'),
+}
+
+model CloneUniversalsaasDigitalhumanAvatarVoiceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果状态
+  // 
+  status?: boolean(name='status'),
+  // 音色id
+  voiceId?: string(name='voice_id'),
+}
+
+/**
+ * Description: 音色克隆
+ * Summary: 音色克隆
+ */
+async function cloneUniversalsaasDigitalhumanAvatarVoice(request: CloneUniversalsaasDigitalhumanAvatarVoiceRequest): CloneUniversalsaasDigitalhumanAvatarVoiceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cloneUniversalsaasDigitalhumanAvatarVoiceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音色克隆
+ * Summary: 音色克隆
+ */
+async function cloneUniversalsaasDigitalhumanAvatarVoiceEx(request: CloneUniversalsaasDigitalhumanAvatarVoiceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CloneUniversalsaasDigitalhumanAvatarVoiceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.avatar.voice.clone', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUniversalsaasDigitalhumanCloneTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数字人id
+  modelId: string(name='model_id'),
+}
+
+model QueryUniversalsaasDigitalhumanCloneTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果状态
+  status?: boolean(name='status'),
+  // 数字人克隆任务结果
+  data?: CloneTask(name='data'),
+}
+
+/**
+ * Description: 训练数字人分身任务查询
+ * Summary: 训练数字人分身任务查询
+ */
+async function queryUniversalsaasDigitalhumanCloneTask(request: QueryUniversalsaasDigitalhumanCloneTaskRequest): QueryUniversalsaasDigitalhumanCloneTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUniversalsaasDigitalhumanCloneTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 训练数字人分身任务查询
+ * Summary: 训练数字人分身任务查询
+ */
+async function queryUniversalsaasDigitalhumanCloneTaskEx(request: QueryUniversalsaasDigitalhumanCloneTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUniversalsaasDigitalhumanCloneTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.clone.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
