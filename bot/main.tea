@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.48',
+    sdk_version = '1.11.55',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -3963,6 +3963,7 @@ async function queryAiidentificationQrcodeEx(request: QueryAiidentificationQrcod
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.aiidentification.qrcode.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -7566,25 +7567,30 @@ model PayDigitalkeyWithholdRequest = {
   // 订单标题
   subject: string(name='subject'),
   // 签约时支付宝返回的用户ID
-  alipayUserId: string(name='alipay_user_id'),
-  // 销售产品码，商户代扣场景固定为GENERAL_WITHHOLDING
+  alipayUserId?: string(name='alipay_user_id'),
+  // 销售产品码，商户代扣场景为GENERAL_WITHHOLDING；预授权支付场景为PRE_AUTH_ONLINE
   productCode: string(name='product_code'),
   // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
   totalAmount: long(name='total_amount'),
   // 商户代扣扣款许可
   deductPermission?: string(name='deduct_permission'),
   // 代扣协议号, 对应于签约时外部商户传入的协议号
-  externalAgreementNo: string(name='external_agreement_no'),
+  externalAgreementNo?: string(name='external_agreement_no'),
   // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
   timeoutExpress?: string(name='timeout_express'),
   // 异步支付类型
   asyncType: string(name='async_type'),
-  // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+  // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围：[1,10000000000]
+  // 传值为实际金额的100倍，例如传值为8000，实际金额为80.00 
+  // 如果订单金额全部参与优惠计算，则【可打折金额】无需传入。
   discountableAmount?: long(name='discountable_amount'),
   // 二级商户信息
   subMerchant?: SubMerchantParams(name='sub_merchant'),
   // 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
   body?: string(name='body'),
+  // 资金授权冻结时的商户授权资金订单号
+  // 支付宝预授权场景下必填。
+  outAuthNo?: string(name='out_auth_no'),
 }
 
 model PayDigitalkeyWithholdResponse = {
@@ -8198,6 +8204,7 @@ async function createIotlinkAppmanagerEx(request: CreateIotlinkAppmanagerRequest
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.iotlink.appmanager.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -8866,6 +8873,8 @@ model CreateDigitalkeyPreauthpayRequest = {
   // 无特殊需要请勿传入；商户可用该参数指定支付渠道。
   // 传入后用户仅能使用列表中的渠道进行支付，目前支持三种渠道，余额宝（MONEY_FUND）、花呗（PCREDIT_PAY）以及芝麻信用（CREDITZHIMA）。
   enablePayChannels?: string(name='enable_pay_channels'),
+  // 支付宝二级商户编号
+  subMerchantId?: string(name='sub_merchant_id'),
 }
 
 model CreateDigitalkeyPreauthpayResponse = {
@@ -8875,7 +8884,7 @@ model CreateDigitalkeyPreauthpayResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // xxx
+  // 子返回码
   subCode?: string(name='sub_code'),
   // 子返回描述
   subMsg?: string(name='sub_msg'),
@@ -8908,8 +8917,6 @@ model CancelDigitalkeyPreauthpayRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 商户对本次撤销操作的附言描述
   remark: string(name='remark'),
-  // 商户的授权资金操作流水号
-  outRequestNo: string(name='out_request_no'),
   // 商户的授权资金订单号
   outOrderNo: string(name='out_order_no'),
 }
@@ -8925,6 +8932,8 @@ model CancelDigitalkeyPreauthpayResponse = {
   subCode?: string(name='sub_code'),
   // 子返回描述
   subMsg?: string(name='sub_msg'),
+  // 返回内容，json格式
+  data?: string(name='data'),
 }
 
 /**
@@ -8944,6 +8953,94 @@ async function cancelDigitalkeyPreauthpay(request: CancelDigitalkeyPreauthpayReq
 async function cancelDigitalkeyPreauthpayEx(request: CancelDigitalkeyPreauthpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelDigitalkeyPreauthpayResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.digitalkey.preauthpay.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UnfreezeDigitalkeyPreauthpayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户对本次解冻操作的附言描述
+  remark: string(name='remark'),
+  // 商户的授权资金订单号
+  outOrderNo: string(name='out_order_no'),
+  // 解冻请求流水号。
+  outRequestNo: string(name='out_request_no'),
+}
+
+model UnfreezeDigitalkeyPreauthpayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子返回码
+  subCode?: string(name='sub_code'),
+  // 子返回描述
+  subMsg?: string(name='sub_msg'),
+  // 返回内容，json格式
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 预授权资金解冻
+ * Summary: 预授权资金解冻
+ */
+async function unfreezeDigitalkeyPreauthpay(request: UnfreezeDigitalkeyPreauthpayRequest): UnfreezeDigitalkeyPreauthpayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return unfreezeDigitalkeyPreauthpayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 预授权资金解冻
+ * Summary: 预授权资金解冻
+ */
+async function unfreezeDigitalkeyPreauthpayEx(request: UnfreezeDigitalkeyPreauthpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UnfreezeDigitalkeyPreauthpayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.preauthpay.unfreeze', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDigitalkeyPreauthpayRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户的授权资金订单号。 
+  outOrderNo: string(name='out_order_no'),
+}
+
+model QueryDigitalkeyPreauthpayResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 子返回码
+  subCode?: string(name='sub_code'),
+  // 子返回描述
+  subMsg?: string(name='sub_msg'),
+  // 返回内容，json格式
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 预授权支付订单查询
+ * Summary: 预授权支付订单查询
+ */
+async function queryDigitalkeyPreauthpay(request: QueryDigitalkeyPreauthpayRequest): QueryDigitalkeyPreauthpayResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDigitalkeyPreauthpayEx(request, headers, runtime);
+}
+
+/**
+ * Description: 预授权支付订单查询
+ * Summary: 预授权支付订单查询
+ */
+async function queryDigitalkeyPreauthpayEx(request: QueryDigitalkeyPreauthpayRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDigitalkeyPreauthpayResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.digitalkey.preauthpay.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
