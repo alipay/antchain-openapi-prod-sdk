@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.48',
+                    'sdk_version': '1.11.55',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.48',
+                    'sdk_version': '1.11.55',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -1670,6 +1670,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             bot_models.QueryAiidentificationQrcodeResponse(),
@@ -1703,6 +1704,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             bot_models.QueryAiidentificationQrcodeResponse(),
@@ -6576,6 +6578,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             bot_models.CreateIotlinkAppmanagerResponse(),
@@ -6609,6 +6612,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             bot_models.CreateIotlinkAppmanagerResponse(),
@@ -7509,6 +7513,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.CancelDigitalkeyPreauthpayResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.digitalkey.preauthpay.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unfreeze_digitalkey_preauthpay(
+        self,
+        request: bot_models.UnfreezeDigitalkeyPreauthpayRequest,
+    ) -> bot_models.UnfreezeDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权资金解冻
+        Summary: 预授权资金解冻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unfreeze_digitalkey_preauthpay_ex(request, headers, runtime)
+
+    async def unfreeze_digitalkey_preauthpay_async(
+        self,
+        request: bot_models.UnfreezeDigitalkeyPreauthpayRequest,
+    ) -> bot_models.UnfreezeDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权资金解冻
+        Summary: 预授权资金解冻
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unfreeze_digitalkey_preauthpay_ex_async(request, headers, runtime)
+
+    def unfreeze_digitalkey_preauthpay_ex(
+        self,
+        request: bot_models.UnfreezeDigitalkeyPreauthpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UnfreezeDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权资金解冻
+        Summary: 预授权资金解冻
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UnfreezeDigitalkeyPreauthpayResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.preauthpay.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unfreeze_digitalkey_preauthpay_ex_async(
+        self,
+        request: bot_models.UnfreezeDigitalkeyPreauthpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UnfreezeDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权资金解冻
+        Summary: 预授权资金解冻
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UnfreezeDigitalkeyPreauthpayResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.preauthpay.unfreeze', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_digitalkey_preauthpay(
+        self,
+        request: bot_models.QueryDigitalkeyPreauthpayRequest,
+    ) -> bot_models.QueryDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权支付订单查询
+        Summary: 预授权支付订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_digitalkey_preauthpay_ex(request, headers, runtime)
+
+    async def query_digitalkey_preauthpay_async(
+        self,
+        request: bot_models.QueryDigitalkeyPreauthpayRequest,
+    ) -> bot_models.QueryDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权支付订单查询
+        Summary: 预授权支付订单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_digitalkey_preauthpay_ex_async(request, headers, runtime)
+
+    def query_digitalkey_preauthpay_ex(
+        self,
+        request: bot_models.QueryDigitalkeyPreauthpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权支付订单查询
+        Summary: 预授权支付订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDigitalkeyPreauthpayResponse(),
+            self.do_request('1.0', 'blockchain.bot.digitalkey.preauthpay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_digitalkey_preauthpay_ex_async(
+        self,
+        request: bot_models.QueryDigitalkeyPreauthpayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryDigitalkeyPreauthpayResponse:
+        """
+        Description: 预授权支付订单查询
+        Summary: 预授权支付订单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryDigitalkeyPreauthpayResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.digitalkey.preauthpay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(

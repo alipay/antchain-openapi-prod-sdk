@@ -23399,6 +23399,7 @@ class PayDigitalkeyWithholdRequest(TeaModel):
         discountable_amount: int = None,
         sub_merchant: SubMerchantParams = None,
         body: str = None,
+        out_auth_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -23409,7 +23410,7 @@ class PayDigitalkeyWithholdRequest(TeaModel):
         self.subject = subject
         # 签约时支付宝返回的用户ID
         self.alipay_user_id = alipay_user_id
-        # 销售产品码，商户代扣场景固定为GENERAL_WITHHOLDING
+        # 销售产品码，商户代扣场景为GENERAL_WITHHOLDING；预授权支付场景为PRE_AUTH_ONLINE
         self.product_code = product_code
         # 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
         self.total_amount = total_amount
@@ -23421,20 +23422,23 @@ class PayDigitalkeyWithholdRequest(TeaModel):
         self.timeout_express = timeout_express
         # 异步支付类型
         self.async_type = async_type
-        # 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+        # 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围：[1,10000000000]
+        # 传值为实际金额的100倍，例如传值为8000，实际金额为80.00
+        # 如果订单金额全部参与优惠计算，则【可打折金额】无需传入。
         self.discountable_amount = discountable_amount
         # 二级商户信息
         self.sub_merchant = sub_merchant
         # 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
         self.body = body
+        # 资金授权冻结时的商户授权资金订单号
+        # 支付宝预授权场景下必填。
+        self.out_auth_no = out_auth_no
 
     def validate(self):
         self.validate_required(self.out_trade_no, 'out_trade_no')
         self.validate_required(self.subject, 'subject')
-        self.validate_required(self.alipay_user_id, 'alipay_user_id')
         self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.total_amount, 'total_amount')
-        self.validate_required(self.external_agreement_no, 'external_agreement_no')
         self.validate_required(self.async_type, 'async_type')
         if self.sub_merchant:
             self.sub_merchant.validate()
@@ -23473,6 +23477,8 @@ class PayDigitalkeyWithholdRequest(TeaModel):
             result['sub_merchant'] = self.sub_merchant.to_map()
         if self.body is not None:
             result['body'] = self.body
+        if self.out_auth_no is not None:
+            result['out_auth_no'] = self.out_auth_no
         return result
 
     def from_map(self, m: dict = None):
@@ -23506,6 +23512,8 @@ class PayDigitalkeyWithholdRequest(TeaModel):
             self.sub_merchant = temp_model.from_map(m['sub_merchant'])
         if m.get('body') is not None:
             self.body = m.get('body')
+        if m.get('out_auth_no') is not None:
+            self.out_auth_no = m.get('out_auth_no')
         return self
 
 
@@ -26716,6 +26724,7 @@ class CreateDigitalkeyPreauthpayRequest(TeaModel):
         amount: int = None,
         payee_logon_id: str = None,
         enable_pay_channels: str = None,
+        sub_merchant_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -26734,6 +26743,8 @@ class CreateDigitalkeyPreauthpayRequest(TeaModel):
         # 无特殊需要请勿传入；商户可用该参数指定支付渠道。
         # 传入后用户仅能使用列表中的渠道进行支付，目前支持三种渠道，余额宝（MONEY_FUND）、花呗（PCREDIT_PAY）以及芝麻信用（CREDITZHIMA）。
         self.enable_pay_channels = enable_pay_channels
+        # 支付宝二级商户编号
+        self.sub_merchant_id = sub_merchant_id
 
     def validate(self):
         self.validate_required(self.out_request_no, 'out_request_no')
@@ -26764,6 +26775,8 @@ class CreateDigitalkeyPreauthpayRequest(TeaModel):
             result['payee_logon_id'] = self.payee_logon_id
         if self.enable_pay_channels is not None:
             result['enable_pay_channels'] = self.enable_pay_channels
+        if self.sub_merchant_id is not None:
+            result['sub_merchant_id'] = self.sub_merchant_id
         return result
 
     def from_map(self, m: dict = None):
@@ -26784,6 +26797,8 @@ class CreateDigitalkeyPreauthpayRequest(TeaModel):
             self.payee_logon_id = m.get('payee_logon_id')
         if m.get('enable_pay_channels') is not None:
             self.enable_pay_channels = m.get('enable_pay_channels')
+        if m.get('sub_merchant_id') is not None:
+            self.sub_merchant_id = m.get('sub_merchant_id')
         return self
 
 
@@ -26803,7 +26818,7 @@ class CreateDigitalkeyPreauthpayResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # xxx
+        # 子返回码
         self.sub_code = sub_code
         # 子返回描述
         self.sub_msg = sub_msg
@@ -26856,7 +26871,6 @@ class CancelDigitalkeyPreauthpayRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         remark: str = None,
-        out_request_no: str = None,
         out_order_no: str = None,
     ):
         # OAuth模式下的授权token
@@ -26864,14 +26878,11 @@ class CancelDigitalkeyPreauthpayRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 商户对本次撤销操作的附言描述
         self.remark = remark
-        # 商户的授权资金操作流水号
-        self.out_request_no = out_request_no
         # 商户的授权资金订单号
         self.out_order_no = out_order_no
 
     def validate(self):
         self.validate_required(self.remark, 'remark')
-        self.validate_required(self.out_request_no, 'out_request_no')
         self.validate_required(self.out_order_no, 'out_order_no')
 
     def to_map(self):
@@ -26886,8 +26897,6 @@ class CancelDigitalkeyPreauthpayRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.remark is not None:
             result['remark'] = self.remark
-        if self.out_request_no is not None:
-            result['out_request_no'] = self.out_request_no
         if self.out_order_no is not None:
             result['out_order_no'] = self.out_order_no
         return result
@@ -26900,8 +26909,6 @@ class CancelDigitalkeyPreauthpayRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
-        if m.get('out_request_no') is not None:
-            self.out_request_no = m.get('out_request_no')
         if m.get('out_order_no') is not None:
             self.out_order_no = m.get('out_order_no')
         return self
@@ -26915,6 +26922,7 @@ class CancelDigitalkeyPreauthpayResponse(TeaModel):
         result_msg: str = None,
         sub_code: str = None,
         sub_msg: str = None,
+        data: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -26926,6 +26934,8 @@ class CancelDigitalkeyPreauthpayResponse(TeaModel):
         self.sub_code = sub_code
         # 子返回描述
         self.sub_msg = sub_msg
+        # 返回内容，json格式
+        self.data = data
 
     def validate(self):
         pass
@@ -26946,6 +26956,8 @@ class CancelDigitalkeyPreauthpayResponse(TeaModel):
             result['sub_code'] = self.sub_code
         if self.sub_msg is not None:
             result['sub_msg'] = self.sub_msg
+        if self.data is not None:
+            result['data'] = self.data
         return result
 
     def from_map(self, m: dict = None):
@@ -26960,6 +26972,232 @@ class CancelDigitalkeyPreauthpayResponse(TeaModel):
             self.sub_code = m.get('sub_code')
         if m.get('sub_msg') is not None:
             self.sub_msg = m.get('sub_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class UnfreezeDigitalkeyPreauthpayRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        remark: str = None,
+        out_order_no: str = None,
+        out_request_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对本次解冻操作的附言描述
+        self.remark = remark
+        # 商户的授权资金订单号
+        self.out_order_no = out_order_no
+        # 解冻请求流水号。
+        self.out_request_no = out_request_no
+
+    def validate(self):
+        self.validate_required(self.remark, 'remark')
+        self.validate_required(self.out_order_no, 'out_order_no')
+        self.validate_required(self.out_request_no, 'out_request_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        if self.out_request_no is not None:
+            result['out_request_no'] = self.out_request_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        if m.get('out_request_no') is not None:
+            self.out_request_no = m.get('out_request_no')
+        return self
+
+
+class UnfreezeDigitalkeyPreauthpayResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sub_code: str = None,
+        sub_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 子返回码
+        self.sub_code = sub_code
+        # 子返回描述
+        self.sub_msg = sub_msg
+        # 返回内容，json格式
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class QueryDigitalkeyPreauthpayRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_order_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户的授权资金订单号。
+        self.out_order_no = out_order_no
+
+    def validate(self):
+        self.validate_required(self.out_order_no, 'out_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        return self
+
+
+class QueryDigitalkeyPreauthpayResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        sub_code: str = None,
+        sub_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 子返回码
+        self.sub_code = sub_code
+        # 子返回描述
+        self.sub_msg = sub_msg
+        # 返回内容，json格式
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.sub_code is not None:
+            result['sub_code'] = self.sub_code
+        if self.sub_msg is not None:
+            result['sub_msg'] = self.sub_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('sub_code') is not None:
+            self.sub_code = m.get('sub_code')
+        if m.get('sub_msg') is not None:
+            self.sub_msg = m.get('sub_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 
