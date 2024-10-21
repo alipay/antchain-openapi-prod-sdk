@@ -98,7 +98,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 订单执行结果描述
+            # 支出配置单对象结果详情
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '4.1.4'
+                    'sdk_version': '4.9.0',
+                    '_prod_code': 'SP',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -200,7 +202,7 @@ class Client:
             'noProxy': UtilClient.default_string(runtime.no_proxy, self._no_proxy),
             'maxIdleConns': UtilClient.default_number(runtime.max_idle_conns, self._max_idle_conns),
             'maxIdleTimeMillis': self._max_idle_time_millis,
-            'keepAliveDurationMillis': self._keep_alive_duration_millis,
+            'keepAliveDuration': self._keep_alive_duration_millis,
             'maxRequests': self._max_requests,
             'maxRequestsPerHost': self._max_requests_per_host,
             'retry': {
@@ -212,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 订单执行结果描述
+            # 支出配置单对象结果详情
         }
         _last_request = None
         _last_exception = None
@@ -237,7 +239,9 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '4.1.4'
+                    'sdk_version': '4.9.0',
+                    '_prod_code': 'SP',
+                    '_prod_channel': 'undefined'
                 }
                 if not UtilClient.empty(self._security_token):
                     _request.query['security_token'] = self._security_token
@@ -306,7 +310,8 @@ class Client:
         Summary: 更新链上账户余额
         """
         UtilClient.validate_model(request)
-        return sp_models.UpdateAbilityChainAccountResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.UpdateAbilityChainAccountResponse(),
             self.do_request('1.0', 'antcloudspi.ability.chain.account.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -321,7 +326,8 @@ class Client:
         Summary: 更新链上账户余额
         """
         UtilClient.validate_model(request)
-        return sp_models.UpdateAbilityChainAccountResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.UpdateAbilityChainAccountResponse(),
             await self.do_request_async('1.0', 'antcloudspi.ability.chain.account.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -360,7 +366,8 @@ class Client:
         Summary: 链上资产核销确认
         """
         UtilClient.validate_model(request)
-        return sp_models.UpdateAbilityChainAssetResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.UpdateAbilityChainAssetResponse(),
             self.do_request('1.0', 'antcloudspi.ability.chain.asset.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -375,7 +382,8 @@ class Client:
         Summary: 链上资产核销确认
         """
         UtilClient.validate_model(request)
-        return sp_models.UpdateAbilityChainAssetResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.UpdateAbilityChainAssetResponse(),
             await self.do_request_async('1.0', 'antcloudspi.ability.chain.asset.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -420,7 +428,8 @@ class Client:
         Summary: SPI-停止服务
         """
         UtilClient.validate_model(request)
-        return sp_models.StopSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.StopSpProductResponse(),
             self.do_request('1.0', 'antcloudspi.sp.product.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -437,7 +446,8 @@ class Client:
         Summary: SPI-停止服务
         """
         UtilClient.validate_model(request)
-        return sp_models.StopSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.StopSpProductResponse(),
             await self.do_request_async('1.0', 'antcloudspi.sp.product.stop', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -482,7 +492,8 @@ class Client:
         Summary: SPI-恢复服务
         """
         UtilClient.validate_model(request)
-        return sp_models.ResumeSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.ResumeSpProductResponse(),
             self.do_request('1.0', 'antcloudspi.sp.product.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -499,7 +510,8 @@ class Client:
         Summary: SPI-恢复服务
         """
         UtilClient.validate_model(request)
-        return sp_models.ResumeSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.ResumeSpProductResponse(),
             await self.do_request_async('1.0', 'antcloudspi.sp.product.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -508,9 +520,10 @@ class Client:
         request: sp_models.ProvisionSpProductRequest,
     ) -> sp_models.ProvisionSpProductResponse:
         """
-        Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+        Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
         创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+        异步接口，也支持通过参数指定同步返回。
+        能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
         注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
         Summary: SPI-创建产品实例
         """
@@ -523,9 +536,10 @@ class Client:
         request: sp_models.ProvisionSpProductRequest,
     ) -> sp_models.ProvisionSpProductResponse:
         """
-        Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+        Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
         创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+        异步接口，也支持通过参数指定同步返回。
+        能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
         注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
         Summary: SPI-创建产品实例
         """
@@ -540,14 +554,16 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> sp_models.ProvisionSpProductResponse:
         """
-        Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+        Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
         创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+        异步接口，也支持通过参数指定同步返回。
+        能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
         注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
         Summary: SPI-创建产品实例
         """
         UtilClient.validate_model(request)
-        return sp_models.ProvisionSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.ProvisionSpProductResponse(),
             self.do_request('1.0', 'antcloudspi.sp.product.provision', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -558,14 +574,16 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> sp_models.ProvisionSpProductResponse:
         """
-        Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+        Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
         创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+        异步接口，也支持通过参数指定同步返回。
+        能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
         注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
         Summary: SPI-创建产品实例
         """
         UtilClient.validate_model(request)
-        return sp_models.ProvisionSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.ProvisionSpProductResponse(),
             await self.do_request_async('1.0', 'antcloudspi.sp.product.provision', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -575,8 +593,10 @@ class Client:
     ) -> sp_models.ModifySpProductResponse:
         """
         Description: 对已有的实例进行规格变更操作。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-        注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+        支持同步、异步返回结果
+        1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+        2.如果变更过程立即生效，则通过sync=true进行返回
+        中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
         Summary: SPI-变更产品实例配置
         """
         runtime = util_models.RuntimeOptions()
@@ -589,8 +609,10 @@ class Client:
     ) -> sp_models.ModifySpProductResponse:
         """
         Description: 对已有的实例进行规格变更操作。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-        注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+        支持同步、异步返回结果
+        1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+        2.如果变更过程立即生效，则通过sync=true进行返回
+        中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
         Summary: SPI-变更产品实例配置
         """
         runtime = util_models.RuntimeOptions()
@@ -605,12 +627,15 @@ class Client:
     ) -> sp_models.ModifySpProductResponse:
         """
         Description: 对已有的实例进行规格变更操作。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-        注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+        支持同步、异步返回结果
+        1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+        2.如果变更过程立即生效，则通过sync=true进行返回
+        中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
         Summary: SPI-变更产品实例配置
         """
         UtilClient.validate_model(request)
-        return sp_models.ModifySpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.ModifySpProductResponse(),
             self.do_request('1.0', 'antcloudspi.sp.product.modify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -622,12 +647,15 @@ class Client:
     ) -> sp_models.ModifySpProductResponse:
         """
         Description: 对已有的实例进行规格变更操作。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-        注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+        支持同步、异步返回结果
+        1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+        2.如果变更过程立即生效，则通过sync=true进行返回
+        中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
         Summary: SPI-变更产品实例配置
         """
         UtilClient.validate_model(request)
-        return sp_models.ModifySpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.ModifySpProductResponse(),
             await self.do_request_async('1.0', 'antcloudspi.sp.product.modify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -672,7 +700,8 @@ class Client:
         Summary: SPI-释放产品实例
         """
         UtilClient.validate_model(request)
-        return sp_models.ReleaseSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.ReleaseSpProductResponse(),
             self.do_request('1.0', 'antcloudspi.sp.product.release', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -689,7 +718,8 @@ class Client:
         Summary: SPI-释放产品实例
         """
         UtilClient.validate_model(request)
-        return sp_models.ReleaseSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.ReleaseSpProductResponse(),
             await self.do_request_async('1.0', 'antcloudspi.sp.product.release', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -734,7 +764,8 @@ class Client:
         Summary: SPI-获取产品订单结果
         """
         UtilClient.validate_model(request)
-        return sp_models.GetSpProductOrderResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.GetSpProductOrderResponse(),
             self.do_request('1.0', 'antcloudspi.sp.product.order.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -751,7 +782,8 @@ class Client:
         Summary: SPI-获取产品订单结果
         """
         UtilClient.validate_model(request)
-        return sp_models.GetSpProductOrderResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.GetSpProductOrderResponse(),
             await self.do_request_async('1.0', 'antcloudspi.sp.product.order.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -790,7 +822,8 @@ class Client:
         Summary: 从产品方加载购买页参数
         """
         UtilClient.validate_model(request)
-        return sp_models.LoadSpProductOrderparameterResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.LoadSpProductOrderparameterResponse(),
             self.do_request('1.0', 'antcloudspi.sp.product.orderparameter.load', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -805,7 +838,8 @@ class Client:
         Summary: 从产品方加载购买页参数
         """
         UtilClient.validate_model(request)
-        return sp_models.LoadSpProductOrderparameterResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.LoadSpProductOrderparameterResponse(),
             await self.do_request_async('1.0', 'antcloudspi.sp.product.orderparameter.load', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -844,7 +878,8 @@ class Client:
         Summary: 交易结果通知
         """
         UtilClient.validate_model(request)
-        return sp_models.SyncIndustryTradeResultResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.SyncIndustryTradeResultResponse(),
             self.do_request('1.0', 'antcloudspi.industry.trade.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -859,7 +894,8 @@ class Client:
         Summary: 交易结果通知
         """
         UtilClient.validate_model(request)
-        return sp_models.SyncIndustryTradeResultResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.SyncIndustryTradeResultResponse(),
             await self.do_request_async('1.0', 'antcloudspi.industry.trade.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -898,7 +934,8 @@ class Client:
         Summary: 商家注册结果通知
         """
         UtilClient.validate_model(request)
-        return sp_models.SyncMerchantSignResultResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.SyncMerchantSignResultResponse(),
             self.do_request('1.0', 'antcloudspi.merchant.sign.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -913,8 +950,625 @@ class Client:
         Summary: 商家注册结果通知
         """
         UtilClient.validate_model(request)
-        return sp_models.SyncMerchantSignResultResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.SyncMerchantSignResultResponse(),
             await self.do_request_async('1.0', 'antcloudspi.merchant.sign.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_merchant_agreement_result(
+        self,
+        request: sp_models.SyncMerchantAgreementResultRequest,
+    ) -> sp_models.SyncMerchantAgreementResultResponse:
+        """
+        Description: 签约状态变更通知
+        Summary: 签约状态变更通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_merchant_agreement_result_ex(request, headers, runtime)
+
+    async def sync_merchant_agreement_result_async(
+        self,
+        request: sp_models.SyncMerchantAgreementResultRequest,
+    ) -> sp_models.SyncMerchantAgreementResultResponse:
+        """
+        Description: 签约状态变更通知
+        Summary: 签约状态变更通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_merchant_agreement_result_ex_async(request, headers, runtime)
+
+    def sync_merchant_agreement_result_ex(
+        self,
+        request: sp_models.SyncMerchantAgreementResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncMerchantAgreementResultResponse:
+        """
+        Description: 签约状态变更通知
+        Summary: 签约状态变更通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncMerchantAgreementResultResponse(),
+            self.do_request('1.0', 'antcloudspi.merchant.agreement.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_merchant_agreement_result_ex_async(
+        self,
+        request: sp_models.SyncMerchantAgreementResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncMerchantAgreementResultResponse:
+        """
+        Description: 签约状态变更通知
+        Summary: 签约状态变更通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncMerchantAgreementResultResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.merchant.agreement.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_ccc_ccc(
+        self,
+        request: sp_models.QueryDemoCccCccRequest,
+    ) -> sp_models.QueryDemoCccCccResponse:
+        """
+        Description: pdf
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_ccc_ccc_ex(request, headers, runtime)
+
+    async def query_demo_ccc_ccc_async(
+        self,
+        request: sp_models.QueryDemoCccCccRequest,
+    ) -> sp_models.QueryDemoCccCccResponse:
+        """
+        Description: pdf
+        Summary: test
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_ccc_ccc_ex_async(request, headers, runtime)
+
+    def query_demo_ccc_ccc_ex(
+        self,
+        request: sp_models.QueryDemoCccCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.QueryDemoCccCccResponse:
+        """
+        Description: pdf
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.QueryDemoCccCccResponse(),
+            self.do_request('1.0', 'antcloudspi.demo.ccc.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_ccc_ccc_ex_async(
+        self,
+        request: sp_models.QueryDemoCccCccRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.QueryDemoCccCccResponse:
+        """
+        Description: pdf
+        Summary: test
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.QueryDemoCccCccResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.demo.ccc.ccc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_acpartner_project_result(
+        self,
+        request: sp_models.SyncAcpartnerProjectResultRequest,
+    ) -> sp_models.SyncAcpartnerProjectResultResponse:
+        """
+        Description: 合作方（伙伴、商家等）项目签约结果通知
+        Summary: 合作方（伙伴、商家等）项目签约结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_acpartner_project_result_ex(request, headers, runtime)
+
+    async def sync_acpartner_project_result_async(
+        self,
+        request: sp_models.SyncAcpartnerProjectResultRequest,
+    ) -> sp_models.SyncAcpartnerProjectResultResponse:
+        """
+        Description: 合作方（伙伴、商家等）项目签约结果通知
+        Summary: 合作方（伙伴、商家等）项目签约结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_acpartner_project_result_ex_async(request, headers, runtime)
+
+    def sync_acpartner_project_result_ex(
+        self,
+        request: sp_models.SyncAcpartnerProjectResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncAcpartnerProjectResultResponse:
+        """
+        Description: 合作方（伙伴、商家等）项目签约结果通知
+        Summary: 合作方（伙伴、商家等）项目签约结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncAcpartnerProjectResultResponse(),
+            self.do_request('1.0', 'antcloudspi.acpartner.project.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_acpartner_project_result_ex_async(
+        self,
+        request: sp_models.SyncAcpartnerProjectResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncAcpartnerProjectResultResponse:
+        """
+        Description: 合作方（伙伴、商家等）项目签约结果通知
+        Summary: 合作方（伙伴、商家等）项目签约结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncAcpartnerProjectResultResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.acpartner.project.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_acpartner_settlein_result(
+        self,
+        request: sp_models.SyncAcpartnerSettleinResultRequest,
+    ) -> sp_models.SyncAcpartnerSettleinResultResponse:
+        """
+        Description: 合作方（伙伴、商家等）入驻结果通知
+        Summary: 合作方（伙伴、商家等）入驻结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_acpartner_settlein_result_ex(request, headers, runtime)
+
+    async def sync_acpartner_settlein_result_async(
+        self,
+        request: sp_models.SyncAcpartnerSettleinResultRequest,
+    ) -> sp_models.SyncAcpartnerSettleinResultResponse:
+        """
+        Description: 合作方（伙伴、商家等）入驻结果通知
+        Summary: 合作方（伙伴、商家等）入驻结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_acpartner_settlein_result_ex_async(request, headers, runtime)
+
+    def sync_acpartner_settlein_result_ex(
+        self,
+        request: sp_models.SyncAcpartnerSettleinResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncAcpartnerSettleinResultResponse:
+        """
+        Description: 合作方（伙伴、商家等）入驻结果通知
+        Summary: 合作方（伙伴、商家等）入驻结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncAcpartnerSettleinResultResponse(),
+            self.do_request('1.0', 'antcloudspi.acpartner.settlein.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_acpartner_settlein_result_ex_async(
+        self,
+        request: sp_models.SyncAcpartnerSettleinResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncAcpartnerSettleinResultResponse:
+        """
+        Description: 合作方（伙伴、商家等）入驻结果通知
+        Summary: 合作方（伙伴、商家等）入驻结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncAcpartnerSettleinResultResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.acpartner.settlein.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_trade_fulfill_result(
+        self,
+        request: sp_models.SyncTradeFulfillResultRequest,
+    ) -> sp_models.SyncTradeFulfillResultResponse:
+        """
+        Description: 交易平台履约结果通知
+        Summary: 交易平台履约结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_trade_fulfill_result_ex(request, headers, runtime)
+
+    async def sync_trade_fulfill_result_async(
+        self,
+        request: sp_models.SyncTradeFulfillResultRequest,
+    ) -> sp_models.SyncTradeFulfillResultResponse:
+        """
+        Description: 交易平台履约结果通知
+        Summary: 交易平台履约结果通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_trade_fulfill_result_ex_async(request, headers, runtime)
+
+    def sync_trade_fulfill_result_ex(
+        self,
+        request: sp_models.SyncTradeFulfillResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncTradeFulfillResultResponse:
+        """
+        Description: 交易平台履约结果通知
+        Summary: 交易平台履约结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncTradeFulfillResultResponse(),
+            self.do_request('1.0', 'antcloudspi.trade.fulfill.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_trade_fulfill_result_ex_async(
+        self,
+        request: sp_models.SyncTradeFulfillResultRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncTradeFulfillResultResponse:
+        """
+        Description: 交易平台履约结果通知
+        Summary: 交易平台履约结果通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncTradeFulfillResultResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.trade.fulfill.result.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_pcc_commodity_status(
+        self,
+        request: sp_models.SyncPccCommodityStatusRequest,
+    ) -> sp_models.SyncPccCommodityStatusResponse:
+        """
+        Description: 目前仅通知商品上架状态变更事件
+        Summary: 商品状态变更通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_pcc_commodity_status_ex(request, headers, runtime)
+
+    async def sync_pcc_commodity_status_async(
+        self,
+        request: sp_models.SyncPccCommodityStatusRequest,
+    ) -> sp_models.SyncPccCommodityStatusResponse:
+        """
+        Description: 目前仅通知商品上架状态变更事件
+        Summary: 商品状态变更通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_pcc_commodity_status_ex_async(request, headers, runtime)
+
+    def sync_pcc_commodity_status_ex(
+        self,
+        request: sp_models.SyncPccCommodityStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncPccCommodityStatusResponse:
+        """
+        Description: 目前仅通知商品上架状态变更事件
+        Summary: 商品状态变更通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncPccCommodityStatusResponse(),
+            self.do_request('1.0', 'antcloudspi.pcc.commodity.status.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_pcc_commodity_status_ex_async(
+        self,
+        request: sp_models.SyncPccCommodityStatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.SyncPccCommodityStatusResponse:
+        """
+        Description: 目前仅通知商品上架状态变更事件
+        Summary: 商品状态变更通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.SyncPccCommodityStatusResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.pcc.commodity.status.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_demo_echo(
+        self,
+        request: sp_models.QueryDemoEchoRequest,
+    ) -> sp_models.QueryDemoEchoResponse:
+        """
+        Description: spi测试
+        Summary: spi测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_demo_echo_ex(request, headers, runtime)
+
+    async def query_demo_echo_async(
+        self,
+        request: sp_models.QueryDemoEchoRequest,
+    ) -> sp_models.QueryDemoEchoResponse:
+        """
+        Description: spi测试
+        Summary: spi测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_demo_echo_ex_async(request, headers, runtime)
+
+    def query_demo_echo_ex(
+        self,
+        request: sp_models.QueryDemoEchoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.QueryDemoEchoResponse:
+        """
+        Description: spi测试
+        Summary: spi测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.QueryDemoEchoResponse(),
+            self.do_request('1.0', 'antcloudspi.demo.echo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_demo_echo_ex_async(
+        self,
+        request: sp_models.QueryDemoEchoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.QueryDemoEchoResponse:
+        """
+        Description: spi测试
+        Summary: spi测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.QueryDemoEchoResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.demo.echo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_sp_product_logicinstance(
+        self,
+        request: sp_models.CreateSpProductLogicinstanceRequest,
+    ) -> sp_models.CreateSpProductLogicinstanceResponse:
+        """
+        Description: 逻辑实例创建成功后回调
+        Summary: 逻辑实例创建成功后回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_sp_product_logicinstance_ex(request, headers, runtime)
+
+    async def create_sp_product_logicinstance_async(
+        self,
+        request: sp_models.CreateSpProductLogicinstanceRequest,
+    ) -> sp_models.CreateSpProductLogicinstanceResponse:
+        """
+        Description: 逻辑实例创建成功后回调
+        Summary: 逻辑实例创建成功后回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_sp_product_logicinstance_ex_async(request, headers, runtime)
+
+    def create_sp_product_logicinstance_ex(
+        self,
+        request: sp_models.CreateSpProductLogicinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.CreateSpProductLogicinstanceResponse:
+        """
+        Description: 逻辑实例创建成功后回调
+        Summary: 逻辑实例创建成功后回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.CreateSpProductLogicinstanceResponse(),
+            self.do_request('1.0', 'antcloudspi.sp.product.logicinstance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_sp_product_logicinstance_ex_async(
+        self,
+        request: sp_models.CreateSpProductLogicinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.CreateSpProductLogicinstanceResponse:
+        """
+        Description: 逻辑实例创建成功后回调
+        Summary: 逻辑实例创建成功后回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.CreateSpProductLogicinstanceResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.sp.product.logicinstance.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def renew_sp_product(
+        self,
+        request: sp_models.RenewSpProductRequest,
+    ) -> sp_models.RenewSpProductResponse:
+        """
+        Description: 商品实例续费，支持已经创建的商品，延长生效时间
+        Summary: SPI-商品实例续费
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.renew_sp_product_ex(request, headers, runtime)
+
+    async def renew_sp_product_async(
+        self,
+        request: sp_models.RenewSpProductRequest,
+    ) -> sp_models.RenewSpProductResponse:
+        """
+        Description: 商品实例续费，支持已经创建的商品，延长生效时间
+        Summary: SPI-商品实例续费
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.renew_sp_product_ex_async(request, headers, runtime)
+
+    def renew_sp_product_ex(
+        self,
+        request: sp_models.RenewSpProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.RenewSpProductResponse:
+        """
+        Description: 商品实例续费，支持已经创建的商品，延长生效时间
+        Summary: SPI-商品实例续费
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.RenewSpProductResponse(),
+            self.do_request('1.0', 'antcloudspi.sp.product.renew', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def renew_sp_product_ex_async(
+        self,
+        request: sp_models.RenewSpProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.RenewSpProductResponse:
+        """
+        Description: 商品实例续费，支持已经创建的商品，延长生效时间
+        Summary: SPI-商品实例续费
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.RenewSpProductResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.sp.product.renew', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_sp_product_orderparameter(
+        self,
+        request: sp_models.CheckSpProductOrderparameterRequest,
+    ) -> sp_models.CheckSpProductOrderparameterResponse:
+        """
+        Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+        Summary: 购买页参数传递给产品方校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_sp_product_orderparameter_ex(request, headers, runtime)
+
+    async def check_sp_product_orderparameter_async(
+        self,
+        request: sp_models.CheckSpProductOrderparameterRequest,
+    ) -> sp_models.CheckSpProductOrderparameterResponse:
+        """
+        Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+        Summary: 购买页参数传递给产品方校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_sp_product_orderparameter_ex_async(request, headers, runtime)
+
+    def check_sp_product_orderparameter_ex(
+        self,
+        request: sp_models.CheckSpProductOrderparameterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.CheckSpProductOrderparameterResponse:
+        """
+        Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+        Summary: 购买页参数传递给产品方校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.CheckSpProductOrderparameterResponse(),
+            self.do_request('1.0', 'antcloudspi.sp.product.orderparameter.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_sp_product_orderparameter_ex_async(
+        self,
+        request: sp_models.CheckSpProductOrderparameterRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.CheckSpProductOrderparameterResponse:
+        """
+        Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+        Summary: 购买页参数传递给产品方校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.CheckSpProductOrderparameterResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.sp.product.orderparameter.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def preopen_sp_product(
+        self,
+        request: sp_models.PreopenSpProductRequest,
+    ) -> sp_models.PreopenSpProductResponse:
+        """
+        Description: 开通前通知
+        Summary: 开通前通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.preopen_sp_product_ex(request, headers, runtime)
+
+    async def preopen_sp_product_async(
+        self,
+        request: sp_models.PreopenSpProductRequest,
+    ) -> sp_models.PreopenSpProductResponse:
+        """
+        Description: 开通前通知
+        Summary: 开通前通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.preopen_sp_product_ex_async(request, headers, runtime)
+
+    def preopen_sp_product_ex(
+        self,
+        request: sp_models.PreopenSpProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.PreopenSpProductResponse:
+        """
+        Description: 开通前通知
+        Summary: 开通前通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.PreopenSpProductResponse(),
+            self.do_request('1.0', 'antcloudspi.sp.product.preopen', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def preopen_sp_product_ex_async(
+        self,
+        request: sp_models.PreopenSpProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> sp_models.PreopenSpProductResponse:
+        """
+        Description: 开通前通知
+        Summary: 开通前通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            sp_models.PreopenSpProductResponse(),
+            await self.do_request_async('1.0', 'antcloudspi.sp.product.preopen', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def open_sp_product(
@@ -961,7 +1615,8 @@ class Client:
         Summary: SPI-开通产品
         """
         UtilClient.validate_model(request)
-        return sp_models.OpenSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.OpenSpProductResponse(),
             self.do_request('1.0', 'antcloudspi.sp.product.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
@@ -979,6 +1634,7 @@ class Client:
         Summary: SPI-开通产品
         """
         UtilClient.validate_model(request)
-        return sp_models.OpenSpProductResponse().from_map(
+        return TeaCore.from_map(
+            sp_models.OpenSpProductResponse(),
             await self.do_request_async('1.0', 'antcloudspi.sp.product.open', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
