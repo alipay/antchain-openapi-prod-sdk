@@ -18674,25 +18674,30 @@ type PayDigitalkeyWithholdRequest struct {
 	// 订单标题
 	Subject *string `json:"subject,omitempty" xml:"subject,omitempty" require:"true"`
 	// 签约时支付宝返回的用户ID
-	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true"`
-	// 销售产品码，商户代扣场景固定为GENERAL_WITHHOLDING
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty"`
+	// 销售产品码，商户代扣场景为GENERAL_WITHHOLDING；预授权支付场景为PRE_AUTH_ONLINE
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
 	TotalAmount *int64 `json:"total_amount,omitempty" xml:"total_amount,omitempty" require:"true"`
 	// 商户代扣扣款许可
 	DeductPermission *string `json:"deduct_permission,omitempty" xml:"deduct_permission,omitempty"`
 	// 代扣协议号, 对应于签约时外部商户传入的协议号
-	ExternalAgreementNo *string `json:"external_agreement_no,omitempty" xml:"external_agreement_no,omitempty" require:"true"`
+	ExternalAgreementNo *string `json:"external_agreement_no,omitempty" xml:"external_agreement_no,omitempty"`
 	// 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
 	TimeoutExpress *string `json:"timeout_express,omitempty" xml:"timeout_express,omitempty"`
 	// 异步支付类型
 	AsyncType *string `json:"async_type,omitempty" xml:"async_type,omitempty" require:"true"`
-	// 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+	// 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围：[1,10000000000]
+	// 传值为实际金额的100倍，例如传值为8000，实际金额为80.00
+	// 如果订单金额全部参与优惠计算，则【可打折金额】无需传入。
 	DiscountableAmount *int64 `json:"discountable_amount,omitempty" xml:"discountable_amount,omitempty"`
 	// 二级商户信息
 	SubMerchant *SubMerchantParams `json:"sub_merchant,omitempty" xml:"sub_merchant,omitempty"`
 	// 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
 	Body *string `json:"body,omitempty" xml:"body,omitempty"`
+	// 资金授权冻结时的商户授权资金订单号
+	// 支付宝预授权场景下必填。
+	OutAuthNo *string `json:"out_auth_no,omitempty" xml:"out_auth_no,omitempty"`
 }
 
 func (s PayDigitalkeyWithholdRequest) String() string {
@@ -18770,6 +18775,11 @@ func (s *PayDigitalkeyWithholdRequest) SetSubMerchant(v *SubMerchantParams) *Pay
 
 func (s *PayDigitalkeyWithholdRequest) SetBody(v string) *PayDigitalkeyWithholdRequest {
 	s.Body = &v
+	return s
+}
+
+func (s *PayDigitalkeyWithholdRequest) SetOutAuthNo(v string) *PayDigitalkeyWithholdRequest {
+	s.OutAuthNo = &v
 	return s
 }
 
@@ -21341,6 +21351,8 @@ type CreateDigitalkeyPreauthpayRequest struct {
 	// 无特殊需要请勿传入；商户可用该参数指定支付渠道。
 	// 传入后用户仅能使用列表中的渠道进行支付，目前支持三种渠道，余额宝（MONEY_FUND）、花呗（PCREDIT_PAY）以及芝麻信用（CREDITZHIMA）。
 	EnablePayChannels *string `json:"enable_pay_channels,omitempty" xml:"enable_pay_channels,omitempty"`
+	// 支付宝二级商户编号
+	SubMerchantId *string `json:"sub_merchant_id,omitempty" xml:"sub_merchant_id,omitempty"`
 }
 
 func (s CreateDigitalkeyPreauthpayRequest) String() string {
@@ -21391,6 +21403,11 @@ func (s *CreateDigitalkeyPreauthpayRequest) SetEnablePayChannels(v string) *Crea
 	return s
 }
 
+func (s *CreateDigitalkeyPreauthpayRequest) SetSubMerchantId(v string) *CreateDigitalkeyPreauthpayRequest {
+	s.SubMerchantId = &v
+	return s
+}
+
 type CreateDigitalkeyPreauthpayResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -21398,7 +21415,7 @@ type CreateDigitalkeyPreauthpayResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// xxx
+	// 子返回码
 	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
 	// 子返回描述
 	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
@@ -21450,8 +21467,6 @@ type CancelDigitalkeyPreauthpayRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 商户对本次撤销操作的附言描述
 	Remark *string `json:"remark,omitempty" xml:"remark,omitempty" require:"true"`
-	// 商户的授权资金操作流水号
-	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty" require:"true"`
 	// 商户的授权资金订单号
 	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
 }
@@ -21479,11 +21494,6 @@ func (s *CancelDigitalkeyPreauthpayRequest) SetRemark(v string) *CancelDigitalke
 	return s
 }
 
-func (s *CancelDigitalkeyPreauthpayRequest) SetOutRequestNo(v string) *CancelDigitalkeyPreauthpayRequest {
-	s.OutRequestNo = &v
-	return s
-}
-
 func (s *CancelDigitalkeyPreauthpayRequest) SetOutOrderNo(v string) *CancelDigitalkeyPreauthpayRequest {
 	s.OutOrderNo = &v
 	return s
@@ -21500,6 +21510,8 @@ type CancelDigitalkeyPreauthpayResponse struct {
 	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
 	// 子返回描述
 	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+	// 返回内容，json格式
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
 }
 
 func (s CancelDigitalkeyPreauthpayResponse) String() string {
@@ -21532,6 +21544,193 @@ func (s *CancelDigitalkeyPreauthpayResponse) SetSubCode(v string) *CancelDigital
 
 func (s *CancelDigitalkeyPreauthpayResponse) SetSubMsg(v string) *CancelDigitalkeyPreauthpayResponse {
 	s.SubMsg = &v
+	return s
+}
+
+func (s *CancelDigitalkeyPreauthpayResponse) SetData(v string) *CancelDigitalkeyPreauthpayResponse {
+	s.Data = &v
+	return s
+}
+
+type UnfreezeDigitalkeyPreauthpayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户对本次解冻操作的附言描述
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty" require:"true"`
+	// 商户的授权资金订单号
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+	// 解冻请求流水号。
+	OutRequestNo *string `json:"out_request_no,omitempty" xml:"out_request_no,omitempty" require:"true"`
+}
+
+func (s UnfreezeDigitalkeyPreauthpayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnfreezeDigitalkeyPreauthpayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayRequest) SetAuthToken(v string) *UnfreezeDigitalkeyPreauthpayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayRequest) SetProductInstanceId(v string) *UnfreezeDigitalkeyPreauthpayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayRequest) SetRemark(v string) *UnfreezeDigitalkeyPreauthpayRequest {
+	s.Remark = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayRequest) SetOutOrderNo(v string) *UnfreezeDigitalkeyPreauthpayRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayRequest) SetOutRequestNo(v string) *UnfreezeDigitalkeyPreauthpayRequest {
+	s.OutRequestNo = &v
+	return s
+}
+
+type UnfreezeDigitalkeyPreauthpayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 子返回码
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 子返回描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+	// 返回内容，json格式
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s UnfreezeDigitalkeyPreauthpayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UnfreezeDigitalkeyPreauthpayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayResponse) SetReqMsgId(v string) *UnfreezeDigitalkeyPreauthpayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayResponse) SetResultCode(v string) *UnfreezeDigitalkeyPreauthpayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayResponse) SetResultMsg(v string) *UnfreezeDigitalkeyPreauthpayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayResponse) SetSubCode(v string) *UnfreezeDigitalkeyPreauthpayResponse {
+	s.SubCode = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayResponse) SetSubMsg(v string) *UnfreezeDigitalkeyPreauthpayResponse {
+	s.SubMsg = &v
+	return s
+}
+
+func (s *UnfreezeDigitalkeyPreauthpayResponse) SetData(v string) *UnfreezeDigitalkeyPreauthpayResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryDigitalkeyPreauthpayRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户的授权资金订单号。
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+}
+
+func (s QueryDigitalkeyPreauthpayRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyPreauthpayRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyPreauthpayRequest) SetAuthToken(v string) *QueryDigitalkeyPreauthpayRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDigitalkeyPreauthpayRequest) SetProductInstanceId(v string) *QueryDigitalkeyPreauthpayRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyPreauthpayRequest) SetOutOrderNo(v string) *QueryDigitalkeyPreauthpayRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+type QueryDigitalkeyPreauthpayResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 子返回码
+	SubCode *string `json:"sub_code,omitempty" xml:"sub_code,omitempty"`
+	// 子返回描述
+	SubMsg *string `json:"sub_msg,omitempty" xml:"sub_msg,omitempty"`
+	// 返回内容，json格式
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryDigitalkeyPreauthpayResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDigitalkeyPreauthpayResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDigitalkeyPreauthpayResponse) SetReqMsgId(v string) *QueryDigitalkeyPreauthpayResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDigitalkeyPreauthpayResponse) SetResultCode(v string) *QueryDigitalkeyPreauthpayResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyPreauthpayResponse) SetResultMsg(v string) *QueryDigitalkeyPreauthpayResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryDigitalkeyPreauthpayResponse) SetSubCode(v string) *QueryDigitalkeyPreauthpayResponse {
+	s.SubCode = &v
+	return s
+}
+
+func (s *QueryDigitalkeyPreauthpayResponse) SetSubMsg(v string) *QueryDigitalkeyPreauthpayResponse {
+	s.SubMsg = &v
+	return s
+}
+
+func (s *QueryDigitalkeyPreauthpayResponse) SetData(v string) *QueryDigitalkeyPreauthpayResponse {
+	s.Data = &v
 	return s
 }
 
@@ -34740,7 +34939,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.48"),
+				"sdk_version":      tea.String("1.11.55"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -35662,6 +35861,7 @@ func (client *Client) QueryAiidentificationQrcodeEx(request *QueryAiidentificati
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -38649,6 +38849,7 @@ func (client *Client) CreateIotlinkAppmanagerEx(request *CreateIotlinkAppmanager
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -39201,6 +39402,74 @@ func (client *Client) CancelDigitalkeyPreauthpayEx(request *CancelDigitalkeyPrea
 	}
 	_result = &CancelDigitalkeyPreauthpayResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.preauthpay.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 预授权资金解冻
+ * Summary: 预授权资金解冻
+ */
+func (client *Client) UnfreezeDigitalkeyPreauthpay(request *UnfreezeDigitalkeyPreauthpayRequest) (_result *UnfreezeDigitalkeyPreauthpayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UnfreezeDigitalkeyPreauthpayResponse{}
+	_body, _err := client.UnfreezeDigitalkeyPreauthpayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 预授权资金解冻
+ * Summary: 预授权资金解冻
+ */
+func (client *Client) UnfreezeDigitalkeyPreauthpayEx(request *UnfreezeDigitalkeyPreauthpayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UnfreezeDigitalkeyPreauthpayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UnfreezeDigitalkeyPreauthpayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.preauthpay.unfreeze"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 预授权支付订单查询
+ * Summary: 预授权支付订单查询
+ */
+func (client *Client) QueryDigitalkeyPreauthpay(request *QueryDigitalkeyPreauthpayRequest) (_result *QueryDigitalkeyPreauthpayResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDigitalkeyPreauthpayResponse{}
+	_body, _err := client.QueryDigitalkeyPreauthpayEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 预授权支付订单查询
+ * Summary: 预授权支付订单查询
+ */
+func (client *Client) QueryDigitalkeyPreauthpayEx(request *QueryDigitalkeyPreauthpayRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDigitalkeyPreauthpayResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDigitalkeyPreauthpayResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.preauthpay.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
