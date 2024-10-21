@@ -3,7 +3,7 @@ package client
 
 import (
 	rpcutil "github.com/alibabacloud-go/tea-rpc-utils/service"
-	util "github.com/alibabacloud-go/tea-utils/service"
+	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
 )
@@ -148,29 +148,77 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
-// 订单执行结果描述
-type OrderResult struct {
-	// 实例Id
-	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true" maxLength:"10"`
-	// 是否生成成功
-	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+// 支出配置单对象结果详情
+type ExpenditureQuotationItemResult struct {
+	// 支出配置单商品维度的外部唯一id
+	OutUniqueId *string `json:"out_unique_id,omitempty" xml:"out_unique_id,omitempty" require:"true"`
+	// 支出配置单商品合约号
+	ArrangementNo *string `json:"arrangement_no,omitempty" xml:"arrangement_no,omitempty" require:"true"`
 }
 
-func (s OrderResult) String() string {
+func (s ExpenditureQuotationItemResult) String() string {
 	return tea.Prettify(s)
 }
 
-func (s OrderResult) GoString() string {
+func (s ExpenditureQuotationItemResult) GoString() string {
 	return s.String()
 }
 
-func (s *OrderResult) SetInstanceId(v string) *OrderResult {
-	s.InstanceId = &v
+func (s *ExpenditureQuotationItemResult) SetOutUniqueId(v string) *ExpenditureQuotationItemResult {
+	s.OutUniqueId = &v
 	return s
 }
 
-func (s *OrderResult) SetSuccess(v bool) *OrderResult {
-	s.Success = &v
+func (s *ExpenditureQuotationItemResult) SetArrangementNo(v string) *ExpenditureQuotationItemResult {
+	s.ArrangementNo = &v
+	return s
+}
+
+// 交易履约结果消息结构
+type TradeFulfillResult struct {
+	// 履约单据号，可用于作为幂等依据
+	FulfillOrderNo *string `json:"fulfill_order_no,omitempty" xml:"fulfill_order_no,omitempty" require:"true"`
+	// 履约枚举，生产-PROVISION，停服-STOP，释放-RELEASE，恢复/RESUME
+	//
+	FulfillType *string `json:"fulfill_type,omitempty" xml:"fulfill_type,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 主商品编码
+	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
+	// 履约实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s TradeFulfillResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TradeFulfillResult) GoString() string {
+	return s.String()
+}
+
+func (s *TradeFulfillResult) SetFulfillOrderNo(v string) *TradeFulfillResult {
+	s.FulfillOrderNo = &v
+	return s
+}
+
+func (s *TradeFulfillResult) SetFulfillType(v string) *TradeFulfillResult {
+	s.FulfillType = &v
+	return s
+}
+
+func (s *TradeFulfillResult) SetTenantId(v string) *TradeFulfillResult {
+	s.TenantId = &v
+	return s
+}
+
+func (s *TradeFulfillResult) SetCommodityCode(v string) *TradeFulfillResult {
+	s.CommodityCode = &v
+	return s
+}
+
+func (s *TradeFulfillResult) SetInstanceId(v string) *TradeFulfillResult {
+	s.InstanceId = &v
 	return s
 }
 
@@ -218,6 +266,98 @@ func (s *DiscreteValue) SetTips(v string) *DiscreteValue {
 
 func (s *DiscreteValue) SetSortId(v int64) *DiscreteValue {
 	s.SortId = &v
+	return s
+}
+
+// 订单执行结果描述
+type OrderResult struct {
+	// 实例Id
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true" maxLength:"10"`
+	// 是否生成成功
+	Success *bool `json:"success,omitempty" xml:"success,omitempty" require:"true"`
+}
+
+func (s OrderResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderResult) GoString() string {
+	return s.String()
+}
+
+func (s *OrderResult) SetInstanceId(v string) *OrderResult {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *OrderResult) SetSuccess(v bool) *OrderResult {
+	s.Success = &v
+	return s
+}
+
+// 干系人
+type RelUser struct {
+	// 工号
+	EmpId *string `json:"emp_id,omitempty" xml:"emp_id,omitempty" require:"true"`
+	// 域账号
+	LoginName *string `json:"login_name,omitempty" xml:"login_name,omitempty" require:"true"`
+	// 花名
+	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty" require:"true"`
+	// 角色，PD-产品经理，DEV-研发
+	Role *string `json:"role,omitempty" xml:"role,omitempty" require:"true"`
+}
+
+func (s RelUser) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RelUser) GoString() string {
+	return s.String()
+}
+
+func (s *RelUser) SetEmpId(v string) *RelUser {
+	s.EmpId = &v
+	return s
+}
+
+func (s *RelUser) SetLoginName(v string) *RelUser {
+	s.LoginName = &v
+	return s
+}
+
+func (s *RelUser) SetNickName(v string) *RelUser {
+	s.NickName = &v
+	return s
+}
+
+func (s *RelUser) SetRole(v string) *RelUser {
+	s.Role = &v
+	return s
+}
+
+// API变更结构
+type ApiChange struct {
+	// 变更类型，ADD-新增，DELETE-删除
+	ChangeType *string `json:"change_type,omitempty" xml:"change_type,omitempty" require:"true"`
+	// API名称列表
+	ApiNames []*string `json:"api_names,omitempty" xml:"api_names,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ApiChange) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApiChange) GoString() string {
+	return s.String()
+}
+
+func (s *ApiChange) SetChangeType(v string) *ApiChange {
+	s.ChangeType = &v
+	return s
+}
+
+func (s *ApiChange) SetApiNames(v []*string) *ApiChange {
+	s.ApiNames = v
 	return s
 }
 
@@ -664,6 +804,8 @@ type ProvisionSpProductRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true" maxLength:"16" minLength:"16"`
 	// 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
 	AccessCode *string `json:"access_code,omitempty" xml:"access_code,omitempty" require:"true" maxLength:"24" minLength:"3"`
+	// 商业业务信息，如签约的项目ID、合同ID、合作伙伴ID等信息
+	BusinessData *string `json:"business_data,omitempty" xml:"business_data,omitempty"`
 }
 
 func (s ProvisionSpProductRequest) String() string {
@@ -744,6 +886,11 @@ func (s *ProvisionSpProductRequest) SetAccessCode(v string) *ProvisionSpProductR
 	return s
 }
 
+func (s *ProvisionSpProductRequest) SetBusinessData(v string) *ProvisionSpProductRequest {
+	s.BusinessData = &v
+	return s
+}
+
 type ProvisionSpProductResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -751,6 +898,8 @@ type ProvisionSpProductResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 标识是否同步返回生产结果
+	Sync *bool `json:"sync,omitempty" xml:"sync,omitempty"`
 }
 
 func (s ProvisionSpProductResponse) String() string {
@@ -776,6 +925,11 @@ func (s *ProvisionSpProductResponse) SetResultMsg(v string) *ProvisionSpProductR
 	return s
 }
 
+func (s *ProvisionSpProductResponse) SetSync(v bool) *ProvisionSpProductResponse {
+	s.Sync = &v
+	return s
+}
+
 type ModifySpProductRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -791,6 +945,24 @@ type ModifySpProductRequest struct {
 	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
 	// 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
 	AccessCode *string `json:"access_code,omitempty" xml:"access_code,omitempty" require:"true" maxLength:"24" minLength:"3"`
+	// 变配类型：
+	// ONLY_SPECIFICATION只规格变配,
+	// SPECIFICATION_AND_TIME 规格和时间同时变配
+	ModifyType *string `json:"modify_type,omitempty" xml:"modify_type,omitempty" require:"true" maxLength:"32" minLength:"4"`
+	// 变配新的开始时间。格式为UTC时间。
+	// modify_type是SPECIFICATION_AND_TIME时，必填
+	NewStartTime *string `json:"new_start_time,omitempty" xml:"new_start_time,omitempty"`
+	// 变配新的结束时间。格式为UTC时间.
+	//  modify_type是SPECIFICATION_AND_TIME时，必填
+	NewEndTime *string `json:"new_end_time,omitempty" xml:"new_end_time,omitempty"`
+	// 商业业务信息，如签约的项目ID、合同ID、合作伙伴ID等
+	BusinessData *string `json:"business_data,omitempty" xml:"business_data,omitempty"`
+	// 具体规格配置信息（JSON格式）会按照key进行排序。
+	// 此字段传入的是变配前的老规格信息。
+	OldSpecification *string `json:"old_specification,omitempty" xml:"old_specification,omitempty"`
+	// 具体规格配置信息（JSON格式）会按照key进行排序.
+	// 传入新的规格信息，包括在新的规格中不存在，但是老的规格中有的kv。
+	NewSpecification *string `json:"new_specification,omitempty" xml:"new_specification,omitempty"`
 }
 
 func (s ModifySpProductRequest) String() string {
@@ -841,6 +1013,36 @@ func (s *ModifySpProductRequest) SetAccessCode(v string) *ModifySpProductRequest
 	return s
 }
 
+func (s *ModifySpProductRequest) SetModifyType(v string) *ModifySpProductRequest {
+	s.ModifyType = &v
+	return s
+}
+
+func (s *ModifySpProductRequest) SetNewStartTime(v string) *ModifySpProductRequest {
+	s.NewStartTime = &v
+	return s
+}
+
+func (s *ModifySpProductRequest) SetNewEndTime(v string) *ModifySpProductRequest {
+	s.NewEndTime = &v
+	return s
+}
+
+func (s *ModifySpProductRequest) SetBusinessData(v string) *ModifySpProductRequest {
+	s.BusinessData = &v
+	return s
+}
+
+func (s *ModifySpProductRequest) SetOldSpecification(v string) *ModifySpProductRequest {
+	s.OldSpecification = &v
+	return s
+}
+
+func (s *ModifySpProductRequest) SetNewSpecification(v string) *ModifySpProductRequest {
+	s.NewSpecification = &v
+	return s
+}
+
 type ModifySpProductResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -848,6 +1050,8 @@ type ModifySpProductResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 标识是否同步返回变更结果
+	Sync *bool `json:"sync,omitempty" xml:"sync,omitempty"`
 }
 
 func (s ModifySpProductResponse) String() string {
@@ -870,6 +1074,11 @@ func (s *ModifySpProductResponse) SetResultCode(v string) *ModifySpProductRespon
 
 func (s *ModifySpProductResponse) SetResultMsg(v string) *ModifySpProductResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *ModifySpProductResponse) SetSync(v bool) *ModifySpProductResponse {
+	s.Sync = &v
 	return s
 }
 
@@ -1179,6 +1388,16 @@ type SyncIndustryTradeResultRequest struct {
 	ErrorMsg *string `json:"error_msg,omitempty" xml:"error_msg,omitempty"`
 	// 渠道 自营平台、第三方平台等
 	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
+	// 交易金额，单位元，支持到分
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty"`
+	// 币种
+	CurrencyValue *string `json:"currency_value,omitempty" xml:"currency_value,omitempty"`
+	// 交易付款成功时间
+	GmtTrade *string `json:"gmt_trade,omitempty" xml:"gmt_trade,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 来源编码
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty"`
 }
 
 func (s SyncIndustryTradeResultRequest) String() string {
@@ -1236,6 +1455,31 @@ func (s *SyncIndustryTradeResultRequest) SetErrorMsg(v string) *SyncIndustryTrad
 
 func (s *SyncIndustryTradeResultRequest) SetChannel(v string) *SyncIndustryTradeResultRequest {
 	s.Channel = &v
+	return s
+}
+
+func (s *SyncIndustryTradeResultRequest) SetTotalAmount(v string) *SyncIndustryTradeResultRequest {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *SyncIndustryTradeResultRequest) SetCurrencyValue(v string) *SyncIndustryTradeResultRequest {
+	s.CurrencyValue = &v
+	return s
+}
+
+func (s *SyncIndustryTradeResultRequest) SetGmtTrade(v string) *SyncIndustryTradeResultRequest {
+	s.GmtTrade = &v
+	return s
+}
+
+func (s *SyncIndustryTradeResultRequest) SetSource(v string) *SyncIndustryTradeResultRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *SyncIndustryTradeResultRequest) SetProperties(v string) *SyncIndustryTradeResultRequest {
+	s.Properties = &v
 	return s
 }
 
@@ -1378,6 +1622,1138 @@ func (s *SyncMerchantSignResultResponse) SetResultCode(v string) *SyncMerchantSi
 }
 
 func (s *SyncMerchantSignResultResponse) SetResultMsg(v string) *SyncMerchantSignResultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SyncMerchantAgreementResultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 签约请求单据号
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 代扣产品码
+	// 代扣：GENERAL_WITHHOLDING_P
+	PersonalProductCode *string `json:"personal_product_code,omitempty" xml:"personal_product_code,omitempty" require:"true"`
+	// 代扣签约主体2088号(即代扣收款方)
+	MerchantUserId *string `json:"merchant_user_id,omitempty" xml:"merchant_user_id,omitempty" require:"true"`
+	// 签约客户支付宝uid
+	CustomerAlipayUserId *string `json:"customer_alipay_user_id,omitempty" xml:"customer_alipay_user_id,omitempty" require:"true"`
+	// 实际生效时间
+	ValidTime *string `json:"valid_time,omitempty" xml:"valid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 失效时间
+	InvalidTime *string `json:"invalid_time,omitempty" xml:"invalid_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 签约时间
+	SignTime *string `json:"sign_time,omitempty" xml:"sign_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 签约状态
+	// TEMP-暂存
+	// NORMAL-正常
+	// STOP-暂停
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+}
+
+func (s SyncMerchantAgreementResultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncMerchantAgreementResultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetAuthToken(v string) *SyncMerchantAgreementResultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetProductInstanceId(v string) *SyncMerchantAgreementResultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetProductAccessCode(v string) *SyncMerchantAgreementResultRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetRequestId(v string) *SyncMerchantAgreementResultRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetPersonalProductCode(v string) *SyncMerchantAgreementResultRequest {
+	s.PersonalProductCode = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetMerchantUserId(v string) *SyncMerchantAgreementResultRequest {
+	s.MerchantUserId = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetCustomerAlipayUserId(v string) *SyncMerchantAgreementResultRequest {
+	s.CustomerAlipayUserId = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetValidTime(v string) *SyncMerchantAgreementResultRequest {
+	s.ValidTime = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetInvalidTime(v string) *SyncMerchantAgreementResultRequest {
+	s.InvalidTime = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetSignTime(v string) *SyncMerchantAgreementResultRequest {
+	s.SignTime = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultRequest) SetStatus(v string) *SyncMerchantAgreementResultRequest {
+	s.Status = &v
+	return s
+}
+
+type SyncMerchantAgreementResultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncMerchantAgreementResultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncMerchantAgreementResultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncMerchantAgreementResultResponse) SetReqMsgId(v string) *SyncMerchantAgreementResultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultResponse) SetResultCode(v string) *SyncMerchantAgreementResultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncMerchantAgreementResultResponse) SetResultMsg(v string) *SyncMerchantAgreementResultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDemoCccCccRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+}
+
+func (s QueryDemoCccCccRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoCccCccRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoCccCccRequest) SetAuthToken(v string) *QueryDemoCccCccRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoCccCccRequest) SetProductInstanceId(v string) *QueryDemoCccCccRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDemoCccCccRequest) SetProductAccessCode(v string) *QueryDemoCccCccRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+type QueryDemoCccCccResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoCccCccResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoCccCccResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoCccCccResponse) SetReqMsgId(v string) *QueryDemoCccCccResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoCccCccResponse) SetResultCode(v string) *QueryDemoCccCccResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoCccCccResponse) SetResultMsg(v string) *QueryDemoCccCccResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SyncAcpartnerProjectResultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 租户code：用于数据和功能隔离
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 项目id
+	ProjectId *int64 `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 外部业务单据号
+	OutBusinessNo *string `json:"out_business_no,omitempty" xml:"out_business_no,omitempty" require:"true"`
+	// 支出配置单结果列表
+	ExpenditureQuotationItems []*ExpenditureQuotationItemResult `json:"expenditure_quotation_items,omitempty" xml:"expenditure_quotation_items,omitempty" require:"true" type:"Repeated"`
+	// 结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+}
+
+func (s SyncAcpartnerProjectResultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAcpartnerProjectResultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAcpartnerProjectResultRequest) SetAuthToken(v string) *SyncAcpartnerProjectResultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultRequest) SetProductInstanceId(v string) *SyncAcpartnerProjectResultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultRequest) SetProductAccessCode(v string) *SyncAcpartnerProjectResultRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultRequest) SetSource(v string) *SyncAcpartnerProjectResultRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultRequest) SetProjectId(v int64) *SyncAcpartnerProjectResultRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultRequest) SetOutBusinessNo(v string) *SyncAcpartnerProjectResultRequest {
+	s.OutBusinessNo = &v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultRequest) SetExpenditureQuotationItems(v []*ExpenditureQuotationItemResult) *SyncAcpartnerProjectResultRequest {
+	s.ExpenditureQuotationItems = v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultRequest) SetCode(v string) *SyncAcpartnerProjectResultRequest {
+	s.Code = &v
+	return s
+}
+
+type SyncAcpartnerProjectResultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncAcpartnerProjectResultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAcpartnerProjectResultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAcpartnerProjectResultResponse) SetReqMsgId(v string) *SyncAcpartnerProjectResultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultResponse) SetResultCode(v string) *SyncAcpartnerProjectResultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncAcpartnerProjectResultResponse) SetResultMsg(v string) *SyncAcpartnerProjectResultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SyncAcpartnerSettleinResultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 租户code
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 入驻申请id
+	ApplyId *int64 `json:"apply_id,omitempty" xml:"apply_id,omitempty" require:"true"`
+	// 外部的业务单据号
+	OutBusinessNo *string `json:"out_business_no,omitempty" xml:"out_business_no,omitempty" require:"true"`
+	// 结果码
+	Code *string `json:"code,omitempty" xml:"code,omitempty" require:"true"`
+}
+
+func (s SyncAcpartnerSettleinResultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAcpartnerSettleinResultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAcpartnerSettleinResultRequest) SetAuthToken(v string) *SyncAcpartnerSettleinResultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncAcpartnerSettleinResultRequest) SetProductInstanceId(v string) *SyncAcpartnerSettleinResultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncAcpartnerSettleinResultRequest) SetProductAccessCode(v string) *SyncAcpartnerSettleinResultRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *SyncAcpartnerSettleinResultRequest) SetSource(v string) *SyncAcpartnerSettleinResultRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *SyncAcpartnerSettleinResultRequest) SetApplyId(v int64) *SyncAcpartnerSettleinResultRequest {
+	s.ApplyId = &v
+	return s
+}
+
+func (s *SyncAcpartnerSettleinResultRequest) SetOutBusinessNo(v string) *SyncAcpartnerSettleinResultRequest {
+	s.OutBusinessNo = &v
+	return s
+}
+
+func (s *SyncAcpartnerSettleinResultRequest) SetCode(v string) *SyncAcpartnerSettleinResultRequest {
+	s.Code = &v
+	return s
+}
+
+type SyncAcpartnerSettleinResultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncAcpartnerSettleinResultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncAcpartnerSettleinResultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncAcpartnerSettleinResultResponse) SetReqMsgId(v string) *SyncAcpartnerSettleinResultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncAcpartnerSettleinResultResponse) SetResultCode(v string) *SyncAcpartnerSettleinResultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncAcpartnerSettleinResultResponse) SetResultMsg(v string) *SyncAcpartnerSettleinResultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SyncTradeFulfillResultRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 履约单据号，可用于作为幂等依据
+	FulfillOrderNo *string `json:"fulfill_order_no,omitempty" xml:"fulfill_order_no,omitempty" require:"true"`
+	// 履约枚举，新购-NEW
+	FulfillType *string `json:"fulfill_type,omitempty" xml:"fulfill_type,omitempty" require:"true"`
+	// 租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 租户8位英文名
+	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty" require:"true"`
+	// 主商品编码
+	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
+	// 履约实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+}
+
+func (s SyncTradeFulfillResultRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncTradeFulfillResultRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncTradeFulfillResultRequest) SetAuthToken(v string) *SyncTradeFulfillResultRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultRequest) SetProductInstanceId(v string) *SyncTradeFulfillResultRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultRequest) SetProductAccessCode(v string) *SyncTradeFulfillResultRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultRequest) SetFulfillOrderNo(v string) *SyncTradeFulfillResultRequest {
+	s.FulfillOrderNo = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultRequest) SetFulfillType(v string) *SyncTradeFulfillResultRequest {
+	s.FulfillType = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultRequest) SetTenantId(v string) *SyncTradeFulfillResultRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultRequest) SetTenantName(v string) *SyncTradeFulfillResultRequest {
+	s.TenantName = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultRequest) SetCommodityCode(v string) *SyncTradeFulfillResultRequest {
+	s.CommodityCode = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultRequest) SetInstanceId(v string) *SyncTradeFulfillResultRequest {
+	s.InstanceId = &v
+	return s
+}
+
+type SyncTradeFulfillResultResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncTradeFulfillResultResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncTradeFulfillResultResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncTradeFulfillResultResponse) SetReqMsgId(v string) *SyncTradeFulfillResultResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultResponse) SetResultCode(v string) *SyncTradeFulfillResultResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncTradeFulfillResultResponse) SetResultMsg(v string) *SyncTradeFulfillResultResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SyncPccCommodityStatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 主商品编码
+	CommodityCode *string `json:"commodity_code,omitempty" xml:"commodity_code,omitempty" require:"true"`
+	// 商品名称
+	CommodityName *string `json:"commodity_name,omitempty" xml:"commodity_name,omitempty" require:"true"`
+	// 商品服务模式，PLATFORM-平台型
+	CommodityServiceMode *string `json:"commodity_service_mode,omitempty" xml:"commodity_service_mode,omitempty" require:"true"`
+	// 商品计费模式，PREPAY_BY_MONTH-包年包月 AFTER_PAY_BY_HOUR-按量付费
+	CommodityChargeType *string `json:"commodity_charge_type,omitempty" xml:"commodity_charge_type,omitempty" require:"true"`
+	// 商品状态，ONLINE-上架，OFFLINE-下架
+	CommodityStatus *string `json:"commodity_status,omitempty" xml:"commodity_status,omitempty" require:"true"`
+	// 产品干系人
+	ProductRelUses []*RelUser `json:"product_rel_uses,omitempty" xml:"product_rel_uses,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SyncPccCommodityStatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncPccCommodityStatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncPccCommodityStatusRequest) SetAuthToken(v string) *SyncPccCommodityStatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusRequest) SetProductInstanceId(v string) *SyncPccCommodityStatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusRequest) SetProductAccessCode(v string) *SyncPccCommodityStatusRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusRequest) SetCommodityCode(v string) *SyncPccCommodityStatusRequest {
+	s.CommodityCode = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusRequest) SetCommodityName(v string) *SyncPccCommodityStatusRequest {
+	s.CommodityName = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusRequest) SetCommodityServiceMode(v string) *SyncPccCommodityStatusRequest {
+	s.CommodityServiceMode = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusRequest) SetCommodityChargeType(v string) *SyncPccCommodityStatusRequest {
+	s.CommodityChargeType = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusRequest) SetCommodityStatus(v string) *SyncPccCommodityStatusRequest {
+	s.CommodityStatus = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusRequest) SetProductRelUses(v []*RelUser) *SyncPccCommodityStatusRequest {
+	s.ProductRelUses = v
+	return s
+}
+
+type SyncPccCommodityStatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncPccCommodityStatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncPccCommodityStatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncPccCommodityStatusResponse) SetReqMsgId(v string) *SyncPccCommodityStatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusResponse) SetResultCode(v string) *SyncPccCommodityStatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncPccCommodityStatusResponse) SetResultMsg(v string) *SyncPccCommodityStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type QueryDemoEchoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 123
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryDemoEchoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoEchoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoEchoRequest) SetAuthToken(v string) *QueryDemoEchoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryDemoEchoRequest) SetProductInstanceId(v string) *QueryDemoEchoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryDemoEchoRequest) SetProductAccessCode(v string) *QueryDemoEchoRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *QueryDemoEchoRequest) SetData(v string) *QueryDemoEchoRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryDemoEchoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s QueryDemoEchoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryDemoEchoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryDemoEchoResponse) SetReqMsgId(v string) *QueryDemoEchoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryDemoEchoResponse) SetResultCode(v string) *QueryDemoEchoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryDemoEchoResponse) SetResultMsg(v string) *QueryDemoEchoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CreateSpProductLogicinstanceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 主产品实例唯一id
+	ProductInstanceUniqueId *string `json:"product_instance_unique_id,omitempty" xml:"product_instance_unique_id,omitempty" require:"true"`
+	// 逻辑实例唯一id
+	UniqueId *string `json:"unique_id,omitempty" xml:"unique_id,omitempty" require:"true"`
+	// 幂等号
+	OutBizNo *string `json:"out_biz_no,omitempty" xml:"out_biz_no,omitempty" require:"true"`
+	// 账号Id
+	ProviderId *string `json:"provider_id,omitempty" xml:"provider_id,omitempty" require:"true"`
+	// ACTIVE
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 逻辑实例描述
+	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
+	// 扩展属性
+	Properties *string `json:"properties,omitempty" xml:"properties,omitempty" require:"true"`
+}
+
+func (s CreateSpProductLogicinstanceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateSpProductLogicinstanceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetAuthToken(v string) *CreateSpProductLogicinstanceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetProductInstanceId(v string) *CreateSpProductLogicinstanceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetProductAccessCode(v string) *CreateSpProductLogicinstanceRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetProductInstanceUniqueId(v string) *CreateSpProductLogicinstanceRequest {
+	s.ProductInstanceUniqueId = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetUniqueId(v string) *CreateSpProductLogicinstanceRequest {
+	s.UniqueId = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetOutBizNo(v string) *CreateSpProductLogicinstanceRequest {
+	s.OutBizNo = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetProviderId(v string) *CreateSpProductLogicinstanceRequest {
+	s.ProviderId = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetStatus(v string) *CreateSpProductLogicinstanceRequest {
+	s.Status = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetDescription(v string) *CreateSpProductLogicinstanceRequest {
+	s.Description = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceRequest) SetProperties(v string) *CreateSpProductLogicinstanceRequest {
+	s.Properties = &v
+	return s
+}
+
+type CreateSpProductLogicinstanceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateSpProductLogicinstanceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateSpProductLogicinstanceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateSpProductLogicinstanceResponse) SetReqMsgId(v string) *CreateSpProductLogicinstanceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceResponse) SetResultCode(v string) *CreateSpProductLogicinstanceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateSpProductLogicinstanceResponse) SetResultMsg(v string) *CreateSpProductLogicinstanceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type RenewSpProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true" maxLength:"64" minLength:"32"`
+	// 产品码 全局唯一
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true" maxLength:"20" minLength:"3"`
+	// 产品实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true" maxLength:"50" minLength:"20"`
+	// 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+	AccessCode *string `json:"access_code,omitempty" xml:"access_code,omitempty" require:"true" maxLength:"24" minLength:"3"`
+	// 续签后，新的实例开始时间。时间使用UTC时间
+	RenewStartTime *string `json:"renew_start_time,omitempty" xml:"renew_start_time,omitempty"`
+	// 续签后，新的实例结束时间。时间使用UTC时间
+	RenewEndTime *string `json:"renew_end_time,omitempty" xml:"renew_end_time,omitempty" require:"true"`
+}
+
+func (s RenewSpProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RenewSpProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *RenewSpProductRequest) SetAuthToken(v string) *RenewSpProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *RenewSpProductRequest) SetProductInstanceId(v string) *RenewSpProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *RenewSpProductRequest) SetProductAccessCode(v string) *RenewSpProductRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *RenewSpProductRequest) SetOrderNo(v string) *RenewSpProductRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *RenewSpProductRequest) SetProductCode(v string) *RenewSpProductRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *RenewSpProductRequest) SetInstanceId(v string) *RenewSpProductRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *RenewSpProductRequest) SetAccessCode(v string) *RenewSpProductRequest {
+	s.AccessCode = &v
+	return s
+}
+
+func (s *RenewSpProductRequest) SetRenewStartTime(v string) *RenewSpProductRequest {
+	s.RenewStartTime = &v
+	return s
+}
+
+func (s *RenewSpProductRequest) SetRenewEndTime(v string) *RenewSpProductRequest {
+	s.RenewEndTime = &v
+	return s
+}
+
+type RenewSpProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s RenewSpProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RenewSpProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *RenewSpProductResponse) SetReqMsgId(v string) *RenewSpProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *RenewSpProductResponse) SetResultCode(v string) *RenewSpProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *RenewSpProductResponse) SetResultMsg(v string) *RenewSpProductResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type CheckSpProductOrderparameterRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 加载业务的场景。具体内容同产品方定义，但产品下需保证唯一。
+	BusinessAction *string `json:"business_action,omitempty" xml:"business_action,omitempty" require:"true"`
+	// 用于加载对应场景数据的上下文（JSON格式具体同产品方定义）
+	BusinessContext *string `json:"business_context,omitempty" xml:"business_context,omitempty" require:"true"`
+	// 业务流水号。
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 商品的渠道产品码
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 地域。支持不同地域显示不同内容。
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 需要校验的数据
+	Input *string `json:"input,omitempty" xml:"input,omitempty" require:"true"`
+}
+
+func (s CheckSpProductOrderparameterRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckSpProductOrderparameterRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetAuthToken(v string) *CheckSpProductOrderparameterRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetProductInstanceId(v string) *CheckSpProductOrderparameterRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetProductAccessCode(v string) *CheckSpProductOrderparameterRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetBusinessAction(v string) *CheckSpProductOrderparameterRequest {
+	s.BusinessAction = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetBusinessContext(v string) *CheckSpProductOrderparameterRequest {
+	s.BusinessContext = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetOrderNo(v string) *CheckSpProductOrderparameterRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetProductCode(v string) *CheckSpProductOrderparameterRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetRegion(v string) *CheckSpProductOrderparameterRequest {
+	s.Region = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetTenantId(v string) *CheckSpProductOrderparameterRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterRequest) SetInput(v string) *CheckSpProductOrderparameterRequest {
+	s.Input = &v
+	return s
+}
+
+type CheckSpProductOrderparameterResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 参数校验结果，PASS 通过，UNPASS 不通过
+	CheckStatus *string `json:"check_status,omitempty" xml:"check_status,omitempty"`
+	// 参数校验不通过的提示信息
+	CheckMsg *string `json:"check_msg,omitempty" xml:"check_msg,omitempty"`
+}
+
+func (s CheckSpProductOrderparameterResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckSpProductOrderparameterResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckSpProductOrderparameterResponse) SetReqMsgId(v string) *CheckSpProductOrderparameterResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterResponse) SetResultCode(v string) *CheckSpProductOrderparameterResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterResponse) SetResultMsg(v string) *CheckSpProductOrderparameterResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterResponse) SetCheckStatus(v string) *CheckSpProductOrderparameterResponse {
+	s.CheckStatus = &v
+	return s
+}
+
+func (s *CheckSpProductOrderparameterResponse) SetCheckMsg(v string) *CheckSpProductOrderparameterResponse {
+	s.CheckMsg = &v
+	return s
+}
+
+type PreopenSpProductRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	ProductAccessCode *string `json:"product_access_code,omitempty" xml:"product_access_code,omitempty"`
+	// 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 产品码 全局唯一
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	//
+	// 产品实例Id
+	InstanceIds []*string `json:"instance_ids,omitempty" xml:"instance_ids,omitempty" require:"true" type:"Repeated"`
+	//
+	// 具体规格配置信息（JSON格式）会按照key进行排序
+	Specification *string `json:"specification,omitempty" xml:"specification,omitempty" require:"true"`
+	// 部分产品创建时需要非生产规格的数据（JSON格式） 比如：ECS生产需要账号、密码等 会按照key进行排序
+	CustomData *string `json:"custom_data,omitempty" xml:"custom_data,omitempty"`
+	// 实例需要创建到租户的环境信息
+	Workspace *string `json:"workspace,omitempty" xml:"workspace,omitempty"`
+	//
+	// 实例需要创建到租户的地域
+	Region *string `json:"region,omitempty" xml:"region,omitempty"`
+	//
+	// 实例需要创建到租户的机房，可以有多个（冗灾场景）
+	Zones []*string `json:"zones,omitempty" xml:"zones,omitempty" type:"Repeated"`
+	//
+	// 购买产品的租户ID，格式为2088XXXXXXXXXXXX
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址
+	AccessCode *string `json:"access_code,omitempty" xml:"access_code,omitempty" require:"true"`
+	// 商业业务信息，如签约的项目ID、合同ID、合作伙伴ID等信息
+	BusinessData *string `json:"business_data,omitempty" xml:"business_data,omitempty"`
+}
+
+func (s PreopenSpProductRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PreopenSpProductRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PreopenSpProductRequest) SetAuthToken(v string) *PreopenSpProductRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetProductInstanceId(v string) *PreopenSpProductRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetProductAccessCode(v string) *PreopenSpProductRequest {
+	s.ProductAccessCode = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetOrderNo(v string) *PreopenSpProductRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetProductCode(v string) *PreopenSpProductRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetInstanceIds(v []*string) *PreopenSpProductRequest {
+	s.InstanceIds = v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetSpecification(v string) *PreopenSpProductRequest {
+	s.Specification = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetCustomData(v string) *PreopenSpProductRequest {
+	s.CustomData = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetWorkspace(v string) *PreopenSpProductRequest {
+	s.Workspace = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetRegion(v string) *PreopenSpProductRequest {
+	s.Region = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetZones(v []*string) *PreopenSpProductRequest {
+	s.Zones = v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetTenantId(v string) *PreopenSpProductRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetAccessCode(v string) *PreopenSpProductRequest {
+	s.AccessCode = &v
+	return s
+}
+
+func (s *PreopenSpProductRequest) SetBusinessData(v string) *PreopenSpProductRequest {
+	s.BusinessData = &v
+	return s
+}
+
+type PreopenSpProductResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PreopenSpProductResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PreopenSpProductResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PreopenSpProductResponse) SetReqMsgId(v string) *PreopenSpProductResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PreopenSpProductResponse) SetResultCode(v string) *PreopenSpProductResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PreopenSpProductResponse) SetResultMsg(v string) *PreopenSpProductResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -1571,17 +2947,17 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 		return _result, _err
 	}
 	_runtime := map[string]interface{}{
-		"timeouted":               "retry",
-		"readTimeout":             tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
-		"connectTimeout":          tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
-		"httpProxy":               tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
-		"httpsProxy":              tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
-		"noProxy":                 tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
-		"maxIdleConns":            tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
-		"maxIdleTimeMillis":       tea.IntValue(client.MaxIdleTimeMillis),
-		"keepAliveDurationMillis": tea.IntValue(client.KeepAliveDurationMillis),
-		"maxRequests":             tea.IntValue(client.MaxRequests),
-		"maxRequestsPerHost":      tea.IntValue(client.MaxRequestsPerHost),
+		"timeouted":          "retry",
+		"readTimeout":        tea.IntValue(util.DefaultNumber(runtime.ReadTimeout, client.ReadTimeout)),
+		"connectTimeout":     tea.IntValue(util.DefaultNumber(runtime.ConnectTimeout, client.ConnectTimeout)),
+		"httpProxy":          tea.StringValue(util.DefaultString(runtime.HttpProxy, client.HttpProxy)),
+		"httpsProxy":         tea.StringValue(util.DefaultString(runtime.HttpsProxy, client.HttpsProxy)),
+		"noProxy":            tea.StringValue(util.DefaultString(runtime.NoProxy, client.NoProxy)),
+		"maxIdleConns":       tea.IntValue(util.DefaultNumber(runtime.MaxIdleConns, client.MaxIdleConns)),
+		"maxIdleTimeMillis":  tea.IntValue(client.MaxIdleTimeMillis),
+		"keepAliveDuration":  tea.IntValue(client.KeepAliveDurationMillis),
+		"maxRequests":        tea.IntValue(client.MaxRequests),
+		"maxRequestsPerHost": tea.IntValue(client.MaxRequestsPerHost),
 		"retry": map[string]interface{}{
 			"retryable":   tea.BoolValue(runtime.Autoretry),
 			"maxAttempts": tea.IntValue(util.DefaultNumber(runtime.MaxAttempts, tea.Int(3))),
@@ -1615,7 +2991,9 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("4.1.4"),
+				"sdk_version":      tea.String("4.9.0"),
+				"_prod_code":       tea.String("SP"),
+				"_prod_channel":    tea.String("undefined"),
 			}
 			if !tea.BoolValue(util.Empty(client.SecurityToken)) {
 				request_.Query["security_token"] = client.SecurityToken
@@ -1641,8 +3019,16 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 			}
 
 			obj := util.ParseJSON(raw)
-			res := util.AssertAsMap(obj)
-			resp := util.AssertAsMap(res["response"])
+			res, _err := util.AssertAsMap(obj)
+			if _err != nil {
+				return _result, _err
+			}
+
+			resp, _err := util.AssertAsMap(res["response"])
+			if _err != nil {
+				return _result, _err
+			}
+
 			if tea.BoolValue(antchainutil.HasError(raw, client.AccessKeySecret)) {
 				_err = tea.NewSDKError(map[string]interface{}{
 					"message": resp["result_msg"],
@@ -1808,9 +3194,10 @@ func (client *Client) ResumeSpProductEx(request *ResumeSpProductRequest, headers
 }
 
 /**
- * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+ * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
 创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+异步接口，也支持通过参数指定同步返回。
+能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
 注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
  * Summary: SPI-创建产品实例
 */
@@ -1827,9 +3214,10 @@ func (client *Client) ProvisionSpProduct(request *ProvisionSpProductRequest) (_r
 }
 
 /**
- * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+ * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
 创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+异步接口，也支持通过参数指定同步返回。
+能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
 注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
  * Summary: SPI-创建产品实例
 */
@@ -1849,8 +3237,10 @@ func (client *Client) ProvisionSpProductEx(request *ProvisionSpProductRequest, h
 
 /**
  * Description: 对已有的实例进行规格变更操作。
-异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+支持同步、异步返回结果
+1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+2.如果变更过程立即生效，则通过sync=true进行返回
+中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
  * Summary: SPI-变更产品实例配置
 */
 func (client *Client) ModifySpProduct(request *ModifySpProductRequest) (_result *ModifySpProductResponse, _err error) {
@@ -1867,8 +3257,10 @@ func (client *Client) ModifySpProduct(request *ModifySpProductRequest) (_result 
 
 /**
  * Description: 对已有的实例进行规格变更操作。
-异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+支持同步、异步返回结果
+1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+2.如果变更过程立即生效，则通过sync=true进行返回
+中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
  * Summary: SPI-变更产品实例配置
 */
 func (client *Client) ModifySpProductEx(request *ModifySpProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ModifySpProductResponse, _err error) {
@@ -2056,6 +3448,380 @@ func (client *Client) SyncMerchantSignResultEx(request *SyncMerchantSignResultRe
 	}
 	_result = &SyncMerchantSignResultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.merchant.sign.result.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 签约状态变更通知
+ * Summary: 签约状态变更通知
+ */
+func (client *Client) SyncMerchantAgreementResult(request *SyncMerchantAgreementResultRequest) (_result *SyncMerchantAgreementResultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncMerchantAgreementResultResponse{}
+	_body, _err := client.SyncMerchantAgreementResultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 签约状态变更通知
+ * Summary: 签约状态变更通知
+ */
+func (client *Client) SyncMerchantAgreementResultEx(request *SyncMerchantAgreementResultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncMerchantAgreementResultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncMerchantAgreementResultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.merchant.agreement.result.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: pdf
+ * Summary: test
+ */
+func (client *Client) QueryDemoCccCcc(request *QueryDemoCccCccRequest) (_result *QueryDemoCccCccResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoCccCccResponse{}
+	_body, _err := client.QueryDemoCccCccEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: pdf
+ * Summary: test
+ */
+func (client *Client) QueryDemoCccCccEx(request *QueryDemoCccCccRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoCccCccResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoCccCccResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.demo.ccc.ccc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）项目签约结果通知
+ * Summary: 合作方（伙伴、商家等）项目签约结果通知
+ */
+func (client *Client) SyncAcpartnerProjectResult(request *SyncAcpartnerProjectResultRequest) (_result *SyncAcpartnerProjectResultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncAcpartnerProjectResultResponse{}
+	_body, _err := client.SyncAcpartnerProjectResultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）项目签约结果通知
+ * Summary: 合作方（伙伴、商家等）项目签约结果通知
+ */
+func (client *Client) SyncAcpartnerProjectResultEx(request *SyncAcpartnerProjectResultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAcpartnerProjectResultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncAcpartnerProjectResultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.acpartner.project.result.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻结果通知
+ * Summary: 合作方（伙伴、商家等）入驻结果通知
+ */
+func (client *Client) SyncAcpartnerSettleinResult(request *SyncAcpartnerSettleinResultRequest) (_result *SyncAcpartnerSettleinResultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncAcpartnerSettleinResultResponse{}
+	_body, _err := client.SyncAcpartnerSettleinResultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻结果通知
+ * Summary: 合作方（伙伴、商家等）入驻结果通知
+ */
+func (client *Client) SyncAcpartnerSettleinResultEx(request *SyncAcpartnerSettleinResultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncAcpartnerSettleinResultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncAcpartnerSettleinResultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.acpartner.settlein.result.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 交易平台履约结果通知
+ * Summary: 交易平台履约结果通知
+ */
+func (client *Client) SyncTradeFulfillResult(request *SyncTradeFulfillResultRequest) (_result *SyncTradeFulfillResultResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncTradeFulfillResultResponse{}
+	_body, _err := client.SyncTradeFulfillResultEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 交易平台履约结果通知
+ * Summary: 交易平台履约结果通知
+ */
+func (client *Client) SyncTradeFulfillResultEx(request *SyncTradeFulfillResultRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncTradeFulfillResultResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncTradeFulfillResultResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.trade.fulfill.result.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 目前仅通知商品上架状态变更事件
+ * Summary: 商品状态变更通知
+ */
+func (client *Client) SyncPccCommodityStatus(request *SyncPccCommodityStatusRequest) (_result *SyncPccCommodityStatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncPccCommodityStatusResponse{}
+	_body, _err := client.SyncPccCommodityStatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 目前仅通知商品上架状态变更事件
+ * Summary: 商品状态变更通知
+ */
+func (client *Client) SyncPccCommodityStatusEx(request *SyncPccCommodityStatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncPccCommodityStatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncPccCommodityStatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.pcc.commodity.status.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: spi测试
+ * Summary: spi测试
+ */
+func (client *Client) QueryDemoEcho(request *QueryDemoEchoRequest) (_result *QueryDemoEchoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryDemoEchoResponse{}
+	_body, _err := client.QueryDemoEchoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: spi测试
+ * Summary: spi测试
+ */
+func (client *Client) QueryDemoEchoEx(request *QueryDemoEchoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryDemoEchoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryDemoEchoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.demo.echo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 逻辑实例创建成功后回调
+ * Summary: 逻辑实例创建成功后回调
+ */
+func (client *Client) CreateSpProductLogicinstance(request *CreateSpProductLogicinstanceRequest) (_result *CreateSpProductLogicinstanceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateSpProductLogicinstanceResponse{}
+	_body, _err := client.CreateSpProductLogicinstanceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 逻辑实例创建成功后回调
+ * Summary: 逻辑实例创建成功后回调
+ */
+func (client *Client) CreateSpProductLogicinstanceEx(request *CreateSpProductLogicinstanceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateSpProductLogicinstanceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateSpProductLogicinstanceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.sp.product.logicinstance.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+ * Summary: SPI-商品实例续费
+ */
+func (client *Client) RenewSpProduct(request *RenewSpProductRequest) (_result *RenewSpProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &RenewSpProductResponse{}
+	_body, _err := client.RenewSpProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+ * Summary: SPI-商品实例续费
+ */
+func (client *Client) RenewSpProductEx(request *RenewSpProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RenewSpProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &RenewSpProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.sp.product.renew"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+ * Summary: 购买页参数传递给产品方校验
+ */
+func (client *Client) CheckSpProductOrderparameter(request *CheckSpProductOrderparameterRequest) (_result *CheckSpProductOrderparameterResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckSpProductOrderparameterResponse{}
+	_body, _err := client.CheckSpProductOrderparameterEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+ * Summary: 购买页参数传递给产品方校验
+ */
+func (client *Client) CheckSpProductOrderparameterEx(request *CheckSpProductOrderparameterRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckSpProductOrderparameterResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckSpProductOrderparameterResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.sp.product.orderparameter.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 开通前通知
+ * Summary: 开通前通知
+ */
+func (client *Client) PreopenSpProduct(request *PreopenSpProductRequest) (_result *PreopenSpProductResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PreopenSpProductResponse{}
+	_body, _err := client.PreopenSpProductEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 开通前通知
+ * Summary: 开通前通知
+ */
+func (client *Client) PreopenSpProductEx(request *PreopenSpProductRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PreopenSpProductResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PreopenSpProductResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloudspi.sp.product.preopen"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
