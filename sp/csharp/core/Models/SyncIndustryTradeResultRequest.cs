@@ -60,6 +60,31 @@ namespace AntChain.SDK.SP.Models
         [Validation(Required=true)]
         public string Channel { get; set; }
 
+        // 交易金额，单位元，支持到分
+        [NameInMap("total_amount")]
+        [Validation(Required=false)]
+        public string TotalAmount { get; set; }
+
+        // 币种
+        [NameInMap("currency_value")]
+        [Validation(Required=false)]
+        public string CurrencyValue { get; set; }
+
+        // 交易付款成功时间
+        [NameInMap("gmt_trade")]
+        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        public string GmtTrade { get; set; }
+
+        // 来源编码
+        [NameInMap("source")]
+        [Validation(Required=false)]
+        public string Source { get; set; }
+
+        // 扩展属性
+        [NameInMap("properties")]
+        [Validation(Required=false)]
+        public string Properties { get; set; }
+
     }
 
 }

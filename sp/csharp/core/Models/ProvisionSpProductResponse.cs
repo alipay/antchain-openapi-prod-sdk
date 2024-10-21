@@ -24,6 +24,11 @@ namespace AntChain.SDK.SP.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
+        // 标识是否同步返回生产结果
+        [NameInMap("sync")]
+        [Validation(Required=false)]
+        public bool? Sync { get; set; }
+
     }
 
 }

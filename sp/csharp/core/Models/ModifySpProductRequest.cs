@@ -47,6 +47,42 @@ namespace AntChain.SDK.SP.Models
         [Validation(Required=true, MaxLength=24)]
         public string AccessCode { get; set; }
 
+        // 变配类型：
+        // ONLY_SPECIFICATION只规格变配,
+        // SPECIFICATION_AND_TIME 规格和时间同时变配
+        [NameInMap("modify_type")]
+        [Validation(Required=true, MaxLength=32)]
+        public string ModifyType { get; set; }
+
+        // 变配新的开始时间。格式为UTC时间。
+        // modify_type是SPECIFICATION_AND_TIME时，必填
+        [NameInMap("new_start_time")]
+        [Validation(Required=false)]
+        public string NewStartTime { get; set; }
+
+        // 变配新的结束时间。格式为UTC时间.
+        //  modify_type是SPECIFICATION_AND_TIME时，必填
+        [NameInMap("new_end_time")]
+        [Validation(Required=false)]
+        public string NewEndTime { get; set; }
+
+        // 商业业务信息，如签约的项目ID、合同ID、合作伙伴ID等
+        [NameInMap("business_data")]
+        [Validation(Required=false)]
+        public string BusinessData { get; set; }
+
+        // 具体规格配置信息（JSON格式）会按照key进行排序。
+        // 此字段传入的是变配前的老规格信息。
+        [NameInMap("old_specification")]
+        [Validation(Required=false)]
+        public string OldSpecification { get; set; }
+
+        // 具体规格配置信息（JSON格式）会按照key进行排序.
+        // 传入新的规格信息，包括在新的规格中不存在，但是老的规格中有的kv。
+        [NameInMap("new_specification")]
+        [Validation(Required=false)]
+        public string NewSpecification { get; set; }
+
     }
 
 }

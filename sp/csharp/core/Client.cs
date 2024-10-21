@@ -91,7 +91,7 @@ namespace AntChain.SDK.SP
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -137,7 +137,9 @@ namespace AntChain.SDK.SP
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "4.1.4"},
+                        {"sdk_version", "4.9.0"},
+                        {"_prod_code", "SP"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -215,7 +217,7 @@ namespace AntChain.SDK.SP
                 {"noProxy", AlibabaCloud.TeaUtil.Common.DefaultString(runtime.NoProxy, _noProxy)},
                 {"maxIdleConns", AlibabaCloud.TeaUtil.Common.DefaultNumber(runtime.MaxIdleConns, _maxIdleConns)},
                 {"maxIdleTimeMillis", _maxIdleTimeMillis},
-                {"keepAliveDurationMillis", _keepAliveDurationMillis},
+                {"keepAliveDuration", _keepAliveDurationMillis},
                 {"maxRequests", _maxRequests},
                 {"maxRequestsPerHost", _maxRequestsPerHost},
                 {"retry", new Dictionary<string, object>
@@ -261,7 +263,9 @@ namespace AntChain.SDK.SP
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "4.1.4"},
+                        {"sdk_version", "4.9.0"},
+                        {"_prod_code", "SP"},
+                        {"_prod_channel", "undefined"},
                     };
                     if (!AlibabaCloud.TeaUtil.Common.Empty(_securityToken))
                     {
@@ -502,9 +506,10 @@ namespace AntChain.SDK.SP
         }
 
         /**
-         * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+         * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
         创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+        异步接口，也支持通过参数指定同步返回。
+        能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
         注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
          * Summary: SPI-创建产品实例
          */
@@ -516,9 +521,10 @@ namespace AntChain.SDK.SP
         }
 
         /**
-         * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+         * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
         创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+        异步接口，也支持通过参数指定同步返回。
+        能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
         注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
          * Summary: SPI-创建产品实例
          */
@@ -530,9 +536,10 @@ namespace AntChain.SDK.SP
         }
 
         /**
-         * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+         * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
         创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+        异步接口，也支持通过参数指定同步返回。
+        能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
         注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
          * Summary: SPI-创建产品实例
          */
@@ -543,9 +550,10 @@ namespace AntChain.SDK.SP
         }
 
         /**
-         * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+         * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
         创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+        异步接口，也支持通过参数指定同步返回。
+        能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
         注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
          * Summary: SPI-创建产品实例
          */
@@ -557,8 +565,10 @@ namespace AntChain.SDK.SP
 
         /**
          * Description: 对已有的实例进行规格变更操作。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-        注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+        支持同步、异步返回结果
+        1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+        2.如果变更过程立即生效，则通过sync=true进行返回
+        中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
          * Summary: SPI-变更产品实例配置
          */
         public ModifySpProductResponse ModifySpProduct(ModifySpProductRequest request)
@@ -570,8 +580,10 @@ namespace AntChain.SDK.SP
 
         /**
          * Description: 对已有的实例进行规格变更操作。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-        注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+        支持同步、异步返回结果
+        1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+        2.如果变更过程立即生效，则通过sync=true进行返回
+        中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
          * Summary: SPI-变更产品实例配置
          */
         public async Task<ModifySpProductResponse> ModifySpProductAsync(ModifySpProductRequest request)
@@ -583,8 +595,10 @@ namespace AntChain.SDK.SP
 
         /**
          * Description: 对已有的实例进行规格变更操作。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-        注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+        支持同步、异步返回结果
+        1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+        2.如果变更过程立即生效，则通过sync=true进行返回
+        中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
          * Summary: SPI-变更产品实例配置
          */
         public ModifySpProductResponse ModifySpProductEx(ModifySpProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -595,8 +609,10 @@ namespace AntChain.SDK.SP
 
         /**
          * Description: 对已有的实例进行规格变更操作。
-        异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-        注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+        支持同步、异步返回结果
+        1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+        2.如果变更过程立即生效，则通过sync=true进行返回
+        中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
          * Summary: SPI-变更产品实例配置
          */
         public async Task<ModifySpProductResponse> ModifySpProductExAsync(ModifySpProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -829,6 +845,468 @@ namespace AntChain.SDK.SP
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncMerchantSignResultResponse>(await DoRequestAsync("1.0", "antcloudspi.merchant.sign.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 签约状态变更通知
+         * Summary: 签约状态变更通知
+         */
+        public SyncMerchantAgreementResultResponse SyncMerchantAgreementResult(SyncMerchantAgreementResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncMerchantAgreementResultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 签约状态变更通知
+         * Summary: 签约状态变更通知
+         */
+        public async Task<SyncMerchantAgreementResultResponse> SyncMerchantAgreementResultAsync(SyncMerchantAgreementResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncMerchantAgreementResultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 签约状态变更通知
+         * Summary: 签约状态变更通知
+         */
+        public SyncMerchantAgreementResultResponse SyncMerchantAgreementResultEx(SyncMerchantAgreementResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncMerchantAgreementResultResponse>(DoRequest("1.0", "antcloudspi.merchant.agreement.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 签约状态变更通知
+         * Summary: 签约状态变更通知
+         */
+        public async Task<SyncMerchantAgreementResultResponse> SyncMerchantAgreementResultExAsync(SyncMerchantAgreementResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncMerchantAgreementResultResponse>(await DoRequestAsync("1.0", "antcloudspi.merchant.agreement.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: pdf
+         * Summary: test
+         */
+        public QueryDemoCccCccResponse QueryDemoCccCcc(QueryDemoCccCccRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDemoCccCccEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: pdf
+         * Summary: test
+         */
+        public async Task<QueryDemoCccCccResponse> QueryDemoCccCccAsync(QueryDemoCccCccRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDemoCccCccExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: pdf
+         * Summary: test
+         */
+        public QueryDemoCccCccResponse QueryDemoCccCccEx(QueryDemoCccCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoCccCccResponse>(DoRequest("1.0", "antcloudspi.demo.ccc.ccc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: pdf
+         * Summary: test
+         */
+        public async Task<QueryDemoCccCccResponse> QueryDemoCccCccExAsync(QueryDemoCccCccRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoCccCccResponse>(await DoRequestAsync("1.0", "antcloudspi.demo.ccc.ccc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合作方（伙伴、商家等）项目签约结果通知
+         * Summary: 合作方（伙伴、商家等）项目签约结果通知
+         */
+        public SyncAcpartnerProjectResultResponse SyncAcpartnerProjectResult(SyncAcpartnerProjectResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAcpartnerProjectResultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合作方（伙伴、商家等）项目签约结果通知
+         * Summary: 合作方（伙伴、商家等）项目签约结果通知
+         */
+        public async Task<SyncAcpartnerProjectResultResponse> SyncAcpartnerProjectResultAsync(SyncAcpartnerProjectResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAcpartnerProjectResultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合作方（伙伴、商家等）项目签约结果通知
+         * Summary: 合作方（伙伴、商家等）项目签约结果通知
+         */
+        public SyncAcpartnerProjectResultResponse SyncAcpartnerProjectResultEx(SyncAcpartnerProjectResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAcpartnerProjectResultResponse>(DoRequest("1.0", "antcloudspi.acpartner.project.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合作方（伙伴、商家等）项目签约结果通知
+         * Summary: 合作方（伙伴、商家等）项目签约结果通知
+         */
+        public async Task<SyncAcpartnerProjectResultResponse> SyncAcpartnerProjectResultExAsync(SyncAcpartnerProjectResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAcpartnerProjectResultResponse>(await DoRequestAsync("1.0", "antcloudspi.acpartner.project.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合作方（伙伴、商家等）入驻结果通知
+         * Summary: 合作方（伙伴、商家等）入驻结果通知
+         */
+        public SyncAcpartnerSettleinResultResponse SyncAcpartnerSettleinResult(SyncAcpartnerSettleinResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncAcpartnerSettleinResultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合作方（伙伴、商家等）入驻结果通知
+         * Summary: 合作方（伙伴、商家等）入驻结果通知
+         */
+        public async Task<SyncAcpartnerSettleinResultResponse> SyncAcpartnerSettleinResultAsync(SyncAcpartnerSettleinResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncAcpartnerSettleinResultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合作方（伙伴、商家等）入驻结果通知
+         * Summary: 合作方（伙伴、商家等）入驻结果通知
+         */
+        public SyncAcpartnerSettleinResultResponse SyncAcpartnerSettleinResultEx(SyncAcpartnerSettleinResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAcpartnerSettleinResultResponse>(DoRequest("1.0", "antcloudspi.acpartner.settlein.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合作方（伙伴、商家等）入驻结果通知
+         * Summary: 合作方（伙伴、商家等）入驻结果通知
+         */
+        public async Task<SyncAcpartnerSettleinResultResponse> SyncAcpartnerSettleinResultExAsync(SyncAcpartnerSettleinResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncAcpartnerSettleinResultResponse>(await DoRequestAsync("1.0", "antcloudspi.acpartner.settlein.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 交易平台履约结果通知
+         * Summary: 交易平台履约结果通知
+         */
+        public SyncTradeFulfillResultResponse SyncTradeFulfillResult(SyncTradeFulfillResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncTradeFulfillResultEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 交易平台履约结果通知
+         * Summary: 交易平台履约结果通知
+         */
+        public async Task<SyncTradeFulfillResultResponse> SyncTradeFulfillResultAsync(SyncTradeFulfillResultRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncTradeFulfillResultExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 交易平台履约结果通知
+         * Summary: 交易平台履约结果通知
+         */
+        public SyncTradeFulfillResultResponse SyncTradeFulfillResultEx(SyncTradeFulfillResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncTradeFulfillResultResponse>(DoRequest("1.0", "antcloudspi.trade.fulfill.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 交易平台履约结果通知
+         * Summary: 交易平台履约结果通知
+         */
+        public async Task<SyncTradeFulfillResultResponse> SyncTradeFulfillResultExAsync(SyncTradeFulfillResultRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncTradeFulfillResultResponse>(await DoRequestAsync("1.0", "antcloudspi.trade.fulfill.result.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 目前仅通知商品上架状态变更事件
+         * Summary: 商品状态变更通知
+         */
+        public SyncPccCommodityStatusResponse SyncPccCommodityStatus(SyncPccCommodityStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncPccCommodityStatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 目前仅通知商品上架状态变更事件
+         * Summary: 商品状态变更通知
+         */
+        public async Task<SyncPccCommodityStatusResponse> SyncPccCommodityStatusAsync(SyncPccCommodityStatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncPccCommodityStatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 目前仅通知商品上架状态变更事件
+         * Summary: 商品状态变更通知
+         */
+        public SyncPccCommodityStatusResponse SyncPccCommodityStatusEx(SyncPccCommodityStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncPccCommodityStatusResponse>(DoRequest("1.0", "antcloudspi.pcc.commodity.status.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 目前仅通知商品上架状态变更事件
+         * Summary: 商品状态变更通知
+         */
+        public async Task<SyncPccCommodityStatusResponse> SyncPccCommodityStatusExAsync(SyncPccCommodityStatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncPccCommodityStatusResponse>(await DoRequestAsync("1.0", "antcloudspi.pcc.commodity.status.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: spi测试
+         * Summary: spi测试
+         */
+        public QueryDemoEchoResponse QueryDemoEcho(QueryDemoEchoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryDemoEchoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: spi测试
+         * Summary: spi测试
+         */
+        public async Task<QueryDemoEchoResponse> QueryDemoEchoAsync(QueryDemoEchoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryDemoEchoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: spi测试
+         * Summary: spi测试
+         */
+        public QueryDemoEchoResponse QueryDemoEchoEx(QueryDemoEchoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoEchoResponse>(DoRequest("1.0", "antcloudspi.demo.echo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: spi测试
+         * Summary: spi测试
+         */
+        public async Task<QueryDemoEchoResponse> QueryDemoEchoExAsync(QueryDemoEchoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryDemoEchoResponse>(await DoRequestAsync("1.0", "antcloudspi.demo.echo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 逻辑实例创建成功后回调
+         * Summary: 逻辑实例创建成功后回调
+         */
+        public CreateSpProductLogicinstanceResponse CreateSpProductLogicinstance(CreateSpProductLogicinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateSpProductLogicinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 逻辑实例创建成功后回调
+         * Summary: 逻辑实例创建成功后回调
+         */
+        public async Task<CreateSpProductLogicinstanceResponse> CreateSpProductLogicinstanceAsync(CreateSpProductLogicinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateSpProductLogicinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 逻辑实例创建成功后回调
+         * Summary: 逻辑实例创建成功后回调
+         */
+        public CreateSpProductLogicinstanceResponse CreateSpProductLogicinstanceEx(CreateSpProductLogicinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateSpProductLogicinstanceResponse>(DoRequest("1.0", "antcloudspi.sp.product.logicinstance.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 逻辑实例创建成功后回调
+         * Summary: 逻辑实例创建成功后回调
+         */
+        public async Task<CreateSpProductLogicinstanceResponse> CreateSpProductLogicinstanceExAsync(CreateSpProductLogicinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateSpProductLogicinstanceResponse>(await DoRequestAsync("1.0", "antcloudspi.sp.product.logicinstance.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+         * Summary: SPI-商品实例续费
+         */
+        public RenewSpProductResponse RenewSpProduct(RenewSpProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RenewSpProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+         * Summary: SPI-商品实例续费
+         */
+        public async Task<RenewSpProductResponse> RenewSpProductAsync(RenewSpProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RenewSpProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+         * Summary: SPI-商品实例续费
+         */
+        public RenewSpProductResponse RenewSpProductEx(RenewSpProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RenewSpProductResponse>(DoRequest("1.0", "antcloudspi.sp.product.renew", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+         * Summary: SPI-商品实例续费
+         */
+        public async Task<RenewSpProductResponse> RenewSpProductExAsync(RenewSpProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RenewSpProductResponse>(await DoRequestAsync("1.0", "antcloudspi.sp.product.renew", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+         * Summary: 购买页参数传递给产品方校验
+         */
+        public CheckSpProductOrderparameterResponse CheckSpProductOrderparameter(CheckSpProductOrderparameterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckSpProductOrderparameterEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+         * Summary: 购买页参数传递给产品方校验
+         */
+        public async Task<CheckSpProductOrderparameterResponse> CheckSpProductOrderparameterAsync(CheckSpProductOrderparameterRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckSpProductOrderparameterExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+         * Summary: 购买页参数传递给产品方校验
+         */
+        public CheckSpProductOrderparameterResponse CheckSpProductOrderparameterEx(CheckSpProductOrderparameterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckSpProductOrderparameterResponse>(DoRequest("1.0", "antcloudspi.sp.product.orderparameter.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+         * Summary: 购买页参数传递给产品方校验
+         */
+        public async Task<CheckSpProductOrderparameterResponse> CheckSpProductOrderparameterExAsync(CheckSpProductOrderparameterRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckSpProductOrderparameterResponse>(await DoRequestAsync("1.0", "antcloudspi.sp.product.orderparameter.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开通前通知
+         * Summary: 开通前通知
+         */
+        public PreopenSpProductResponse PreopenSpProduct(PreopenSpProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PreopenSpProductEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开通前通知
+         * Summary: 开通前通知
+         */
+        public async Task<PreopenSpProductResponse> PreopenSpProductAsync(PreopenSpProductRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PreopenSpProductExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 开通前通知
+         * Summary: 开通前通知
+         */
+        public PreopenSpProductResponse PreopenSpProductEx(PreopenSpProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PreopenSpProductResponse>(DoRequest("1.0", "antcloudspi.sp.product.preopen", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 开通前通知
+         * Summary: 开通前通知
+         */
+        public async Task<PreopenSpProductResponse> PreopenSpProductExAsync(PreopenSpProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PreopenSpProductResponse>(await DoRequestAsync("1.0", "antcloudspi.sp.product.preopen", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
