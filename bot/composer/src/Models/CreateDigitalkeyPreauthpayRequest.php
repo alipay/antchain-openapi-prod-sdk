@@ -56,6 +56,12 @@ class CreateDigitalkeyPreauthpayRequest extends Model
      * @var string
      */
     public $enablePayChannels;
+
+    // 支付宝二级商户编号
+    /**
+     * @var string
+     */
+    public $subMerchantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -65,6 +71,7 @@ class CreateDigitalkeyPreauthpayRequest extends Model
         'amount'            => 'amount',
         'payeeLogonId'      => 'payee_logon_id',
         'enablePayChannels' => 'enable_pay_channels',
+        'subMerchantId'     => 'sub_merchant_id',
     ];
 
     public function validate()
@@ -103,6 +110,9 @@ class CreateDigitalkeyPreauthpayRequest extends Model
         if (null !== $this->enablePayChannels) {
             $res['enable_pay_channels'] = $this->enablePayChannels;
         }
+        if (null !== $this->subMerchantId) {
+            $res['sub_merchant_id'] = $this->subMerchantId;
+        }
 
         return $res;
     }
@@ -138,6 +148,9 @@ class CreateDigitalkeyPreauthpayRequest extends Model
         }
         if (isset($map['enable_pay_channels'])) {
             $model->enablePayChannels = $map['enable_pay_channels'];
+        }
+        if (isset($map['sub_merchant_id'])) {
+            $model->subMerchantId = $map['sub_merchant_id'];
         }
 
         return $model;

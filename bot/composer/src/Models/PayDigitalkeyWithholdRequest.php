@@ -37,7 +37,7 @@ class PayDigitalkeyWithholdRequest extends Model
      */
     public $alipayUserId;
 
-    // 销售产品码，商户代扣场景固定为GENERAL_WITHHOLDING
+    // 销售产品码，商户代扣场景为GENERAL_WITHHOLDING；预授权支付场景为PRE_AUTH_ONLINE
     /**
      * @var string
      */
@@ -73,7 +73,9 @@ class PayDigitalkeyWithholdRequest extends Model
      */
     public $asyncType;
 
-    // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+    // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围：[1,10000000000]
+    // 传值为实际金额的100倍，例如传值为8000，实际金额为80.00
+    // 如果订单金额全部参与优惠计算，则【可打折金额】无需传入。
     /**
      * @var int
      */
@@ -90,6 +92,13 @@ class PayDigitalkeyWithholdRequest extends Model
      * @var string
      */
     public $body;
+
+    // 资金授权冻结时的商户授权资金订单号
+    // 支付宝预授权场景下必填。
+    /**
+     * @var string
+     */
+    public $outAuthNo;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -105,16 +114,15 @@ class PayDigitalkeyWithholdRequest extends Model
         'discountableAmount'  => 'discountable_amount',
         'subMerchant'         => 'sub_merchant',
         'body'                => 'body',
+        'outAuthNo'           => 'out_auth_no',
     ];
 
     public function validate()
     {
         Model::validateRequired('outTradeNo', $this->outTradeNo, true);
         Model::validateRequired('subject', $this->subject, true);
-        Model::validateRequired('alipayUserId', $this->alipayUserId, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('totalAmount', $this->totalAmount, true);
-        Model::validateRequired('externalAgreementNo', $this->externalAgreementNo, true);
         Model::validateRequired('asyncType', $this->asyncType, true);
     }
 
@@ -162,6 +170,9 @@ class PayDigitalkeyWithholdRequest extends Model
         }
         if (null !== $this->body) {
             $res['body'] = $this->body;
+        }
+        if (null !== $this->outAuthNo) {
+            $res['out_auth_no'] = $this->outAuthNo;
         }
 
         return $res;
@@ -216,6 +227,9 @@ class PayDigitalkeyWithholdRequest extends Model
         }
         if (isset($map['body'])) {
             $model->body = $map['body'];
+        }
+        if (isset($map['out_auth_no'])) {
+            $model->outAuthNo = $map['out_auth_no'];
         }
 
         return $model;

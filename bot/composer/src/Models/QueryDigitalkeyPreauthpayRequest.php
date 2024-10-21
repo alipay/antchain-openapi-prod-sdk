@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelDigitalkeyPreauthpayRequest extends Model
+class QueryDigitalkeyPreauthpayRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,13 +19,7 @@ class CancelDigitalkeyPreauthpayRequest extends Model
      */
     public $productInstanceId;
 
-    // 商户对本次撤销操作的附言描述
-    /**
-     * @var string
-     */
-    public $remark;
-
-    // 商户的授权资金订单号
+    // 商户的授权资金订单号。
     /**
      * @var string
      */
@@ -33,13 +27,11 @@ class CancelDigitalkeyPreauthpayRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'remark'            => 'remark',
         'outOrderNo'        => 'out_order_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('remark', $this->remark, true);
         Model::validateRequired('outOrderNo', $this->outOrderNo, true);
     }
 
@@ -52,9 +44,6 @@ class CancelDigitalkeyPreauthpayRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->remark) {
-            $res['remark'] = $this->remark;
-        }
         if (null !== $this->outOrderNo) {
             $res['out_order_no'] = $this->outOrderNo;
         }
@@ -65,7 +54,7 @@ class CancelDigitalkeyPreauthpayRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelDigitalkeyPreauthpayRequest
+     * @return QueryDigitalkeyPreauthpayRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,9 +64,6 @@ class CancelDigitalkeyPreauthpayRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['remark'])) {
-            $model->remark = $map['remark'];
         }
         if (isset($map['out_order_no'])) {
             $model->outOrderNo = $map['out_order_no'];

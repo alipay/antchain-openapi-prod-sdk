@@ -361,6 +361,8 @@ use AntChain\BOT\Models\QueryDeviceStatusRequest;
 use AntChain\BOT\Models\QueryDeviceStatusResponse;
 use AntChain\BOT\Models\QueryDeviceThingmodelRequest;
 use AntChain\BOT\Models\QueryDeviceThingmodelResponse;
+use AntChain\BOT\Models\QueryDigitalkeyPreauthpayRequest;
+use AntChain\BOT\Models\QueryDigitalkeyPreauthpayResponse;
 use AntChain\BOT\Models\QueryDigitalkeyTradepayRequest;
 use AntChain\BOT\Models\QueryDigitalkeyTradepayResponse;
 use AntChain\BOT\Models\QueryDigitalkeyWithholdpayRequest;
@@ -497,6 +499,8 @@ use AntChain\BOT\Models\UnbindDigitalkeyWithholdsignRequest;
 use AntChain\BOT\Models\UnbindDigitalkeyWithholdsignResponse;
 use AntChain\BOT\Models\UnbindEntityrelationRequest;
 use AntChain\BOT\Models\UnbindEntityrelationResponse;
+use AntChain\BOT\Models\UnfreezeDigitalkeyPreauthpayRequest;
+use AntChain\BOT\Models\UnfreezeDigitalkeyPreauthpayResponse;
 use AntChain\BOT\Models\UpdateAlertStrategyRequest;
 use AntChain\BOT\Models\UpdateAlertStrategyResponse;
 use AntChain\BOT\Models\UpdateCustomerEntityRequest;
@@ -682,7 +686,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.48',
+                    'sdk_version'      => '1.11.55',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1566,7 +1570,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -4455,7 +4460,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -4988,6 +4994,72 @@ class Client
         Utils::validateModel($request);
 
         return CancelDigitalkeyPreauthpayResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.preauthpay.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 预授权资金解冻
+     * Summary: 预授权资金解冻.
+     *
+     * @param UnfreezeDigitalkeyPreauthpayRequest $request
+     *
+     * @return UnfreezeDigitalkeyPreauthpayResponse
+     */
+    public function unfreezeDigitalkeyPreauthpay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->unfreezeDigitalkeyPreauthpayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 预授权资金解冻
+     * Summary: 预授权资金解冻.
+     *
+     * @param UnfreezeDigitalkeyPreauthpayRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return UnfreezeDigitalkeyPreauthpayResponse
+     */
+    public function unfreezeDigitalkeyPreauthpayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UnfreezeDigitalkeyPreauthpayResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.preauthpay.unfreeze', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 预授权支付订单查询
+     * Summary: 预授权支付订单查询.
+     *
+     * @param QueryDigitalkeyPreauthpayRequest $request
+     *
+     * @return QueryDigitalkeyPreauthpayResponse
+     */
+    public function queryDigitalkeyPreauthpay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDigitalkeyPreauthpayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 预授权支付订单查询
+     * Summary: 预授权支付订单查询.
+     *
+     * @param QueryDigitalkeyPreauthpayRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryDigitalkeyPreauthpayResponse
+     */
+    public function queryDigitalkeyPreauthpayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDigitalkeyPreauthpayResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.preauthpay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

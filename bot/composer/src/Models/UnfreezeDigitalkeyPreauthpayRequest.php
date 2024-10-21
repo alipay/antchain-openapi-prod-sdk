@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelDigitalkeyPreauthpayRequest extends Model
+class UnfreezeDigitalkeyPreauthpayRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class CancelDigitalkeyPreauthpayRequest extends Model
      */
     public $productInstanceId;
 
-    // 商户对本次撤销操作的附言描述
+    // 商户对本次解冻操作的附言描述
     /**
      * @var string
      */
@@ -30,17 +30,25 @@ class CancelDigitalkeyPreauthpayRequest extends Model
      * @var string
      */
     public $outOrderNo;
+
+    // 解冻请求流水号。
+    /**
+     * @var string
+     */
+    public $outRequestNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'remark'            => 'remark',
         'outOrderNo'        => 'out_order_no',
+        'outRequestNo'      => 'out_request_no',
     ];
 
     public function validate()
     {
         Model::validateRequired('remark', $this->remark, true);
         Model::validateRequired('outOrderNo', $this->outOrderNo, true);
+        Model::validateRequired('outRequestNo', $this->outRequestNo, true);
     }
 
     public function toMap()
@@ -58,6 +66,9 @@ class CancelDigitalkeyPreauthpayRequest extends Model
         if (null !== $this->outOrderNo) {
             $res['out_order_no'] = $this->outOrderNo;
         }
+        if (null !== $this->outRequestNo) {
+            $res['out_request_no'] = $this->outRequestNo;
+        }
 
         return $res;
     }
@@ -65,7 +76,7 @@ class CancelDigitalkeyPreauthpayRequest extends Model
     /**
      * @param array $map
      *
-     * @return CancelDigitalkeyPreauthpayRequest
+     * @return UnfreezeDigitalkeyPreauthpayRequest
      */
     public static function fromMap($map = [])
     {
@@ -81,6 +92,9 @@ class CancelDigitalkeyPreauthpayRequest extends Model
         }
         if (isset($map['out_order_no'])) {
             $model->outOrderNo = $map['out_order_no'];
+        }
+        if (isset($map['out_request_no'])) {
+            $model->outRequestNo = $map['out_request_no'];
         }
 
         return $model;

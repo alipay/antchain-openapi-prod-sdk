@@ -26,7 +26,7 @@ class CreateDigitalkeyPreauthpayResponse extends Model
      */
     public $resultMsg;
 
-    // xxx
+    // 子返回码
     /**
      * @var string
      */

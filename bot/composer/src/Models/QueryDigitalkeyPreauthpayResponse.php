@@ -6,7 +6,7 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelDigitalkeyPreauthpayResponse extends Model
+class QueryDigitalkeyPreauthpayResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -84,7 +84,7 @@ class CancelDigitalkeyPreauthpayResponse extends Model
     /**
      * @param array $map
      *
-     * @return CancelDigitalkeyPreauthpayResponse
+     * @return QueryDigitalkeyPreauthpayResponse
      */
     public static function fromMap($map = [])
     {
