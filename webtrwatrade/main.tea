@@ -1,0 +1,2257 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.10',
+    _prod_code = 'WEBTRWATRADE',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 机构联系人信息
+model InstitutionContactInfo {
+  // 联系人
+  contactPerson: string(name='contact_person', example='张三'),
+  // 联系人邮箱
+  contactEmail: string(name='contact_email', example='12345@gmail.com'),
+}
+
+// 密钥管理项目信息
+model KeyProjectInfo {
+  // 项目名称
+  name: string(name='name', example='name'),
+  // key使用类型
+  // MINT：发行密钥
+  // BURN：赎回密钥
+  // TRANSFER：转账密钥
+  // MANAGER：管理密钥
+  keyType: string(name='key_type', example='MINT'),
+  // 创建时间
+  gmtCreated: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_created', example='2018-10-10T10:10:00Z'),
+}
+
+// 机构类型
+model InstitutionType {
+  // 机构类型编码
+  // ISSUER/PLATFORM/DISTRIBUTOR
+  code: string(name='code', example='ISSUER'),
+  // 机构类型名称
+  //  ISSUER/PLATFORM/DISTRIBUTOR
+  name?: string(name='name', example='ISSUER'),
+}
+
+// 用户信息
+model UserInfo {
+  // 钱包地址
+  address: string(name='address', example='0x111111111'),
+}
+
+// 多币种金额
+model MultiCurrencyMoney {
+  // 金额，以分为单位
+  cent: string(name='cent', example='100'),
+  // 币种编码
+  currency: string(name='currency', example='HKD'),
+  // 金额，以元为单位，保留6位小数
+  amount: string(name='amount', example='1.000000'),
+}
+
+// 净值信息
+model NetValueInfo {
+  // 净值
+  netValue: string(name='net_value', example='3.14'),
+  // 币种（目前支持USD、HKD）
+  currency: string(name='currency', example='HKD'),
+  // 更新时间戳
+  updateTime: long(name='update_time', example='1726292715000'),
+}
+
+// 密钥详情
+model KeyVO {
+  // 密钥id
+  keyId: string(name='key_id', example='1'),
+  // 密钥名称
+  name: string(name='name', example='name'),
+  // 创建类型
+  // KEY_FILE：上传密钥文件
+  // CREATE_NEW_KEY：系统创建密钥
+  type: string(name='type', example='KEY_FILE'),
+  // 钱包地址
+  address: string(name='address', example='0x11111'),
+  // 关联项目数量
+  quantity: string(name='quantity', example='1'),
+  // 创建时间
+  gmtCreated: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_created', example='2018-10-10T10:10:00Z'),
+  // 是否支持删除
+  deleteEnable: boolean(name='delete_enable', example='true, false'),
+  // 资产项目信息
+  assetProjectInfo: KeyProjectInfo(name='asset_project_info', example=''),
+}
+
+// 机构详情
+model InstitutionVO {
+  // 机构id
+  id: string(name='id', example='1'),
+  // 机构名称
+  name: string(name='name', example='ISSUER'),
+  // 简介
+  about?: string(name='about', example='about'),
+  // 主页
+  homePage?: string(name='home_page', example='home_page'),
+  // 联系人信息
+  contacts?: [ InstitutionContactInfo ](name='contacts', example=''),
+  // 机构类型
+  types: [ InstitutionType ](name='types', example=''),
+  // 机构用户信息
+  users?: [ UserInfo ](name='users', example=''),
+  // 是否支持删除
+  deleteEnable?: boolean(name='delete_enable', example='true, false'),
+}
+
+// 资产项目密钥
+model AssetProjectKey {
+  // 项目ID
+  projectId: string(name='project_id', example='f9146ccccf684db792a8fa10d876e22c'),
+  // 项目名称
+  projectName: string(name='project_name', example='充电桩'),
+  // 密钥类型(MINT:发行密钥；BURN：赎回密钥；TRANSFER：转账密钥；MANAGER：管理密钥)
+  keyType: string(name='key_type', example='MANAGER'),
+  // 密钥ID
+  keyId: string(name='key_id', example='1826615104029319169'),
+  // 密钥名称
+  keyName: string(name='key_name', example='管理密钥'),
+  // 密钥地址
+  keyAddress: string(name='key_address', example='0x74d6c42ad822cfb8de858ce60f3c6dab1e553698'),
+  // 关联时间戳
+  correlationTime: long(name='correlation_time', example='1726024364000'),
+}
+
+// 二级用户
+model SubUserAccountVO {
+  // 用户账户id
+  userAccountId: string(name='user_account_id', example='userAccountId'),
+  // 用户id
+  userId: string(name='user_id', example='userId'),
+  // 用户地址
+  userAddress: string(name='user_address', example='userAddress'),
+  // 用户资产配额
+  userTarget: string(name='user_target', example='userTarget'),
+  // 用户资产
+  userBalance: string(name='user_balance', example='userBalance'),
+  // 项目id
+  assetProjectId: string(name='asset_project_id', example='assetProjectId'),
+  // 项目名称
+  assetProjectName: string(name='asset_project_name', example='assetProjectName'),
+  // 用户所属机构id
+  institutionId: string(name='institution_id', example='institutionId'),
+  // 用户所属机构名称
+  institutionName: string(name='institution_name', example='institutionName'),
+}
+
+// 密钥信息
+model KeyInfo {
+  // 密钥ID
+  keyId: string(name='key_id', example='1826615104029319169'),
+  // 密钥名称
+  keyName: string(name='key_name', example='manager_key'),
+  // 密钥地址
+  keyAddress: string(name='key_address', example='0x9168f016a64df83d7de267fa5588674377a15be7'),
+  // 密钥类型(MINT：发行密钥；BURN：赎回密钥；TRANSFER：转账密钥；MANAGER：管理密钥)
+  keyType: string(name='key_type', example='MINT'),
+}
+
+// 项目参与者信息
+model ParticipantInfo {
+  // 机构id
+  id: string(name='id', example='80aee17181634daa9f1c37d787f0ec02'),
+  // 二级机构类型
+  type: string(name='type', example='CHANNEL'),
+  // 机构名称
+  name?: string(name='name', example='代销机构'),
+}
+
+// 资产项目信息
+model AssetProject {
+  // 项目ID
+  projectId: string(name='project_id', example='f9146ccccf684db792a8fa10d876e22c'),
+  // 项目名称
+  name: string(name='name', example='充电桩'),
+  // 项目代币名称
+  tokenName: string(name='token_name', example='ETH'),
+  // 项目介绍
+  info: string(name='info', example='新能源充电桩项目'),
+  // 当前供应量
+  supply: string(name='supply', example='5000'),
+  // 最大供应量
+  capacity: string(name='capacity', example='10000'),
+  // 供应量比例(supply/capacity * 100，保留2位小数)
+  radio: long(name='radio', example='50.00'),
+  // 持有人数量
+  userNumber: long(name='user_number', example='10'),
+  // 资产token合约地址
+  assetTokenAddress: string(name='asset_token_address', example='0xef10b8f625964d868cbb08b1ce687c04982d8964'),
+  // 资产规则引擎合约地址
+  ruleEngineAddress: string(name='rule_engine_address', example='0xbd2d20d6a8a189ec83f42c476e30e49305d45c69'),
+  // 资产白名单合约地址
+  memberListRuleAddress: string(name='member_list_rule_address', example='0xd8cd3a0cdf071abfe0cb09f73224de268c10a4e7'),
+  // 项目状态(ACTIVE：激活；PAUSED：暂停)
+  status: string(name='status', example='ACTIVE'),
+  // 项目净值
+  netValue: string(name='net_value', example='3.14'),
+  // 项目币种(目前支持USD、HKD)
+  currency: string(name='currency', example='HKD'),
+  // 项目创建时间戳
+  gmtCreated: long(name='gmt_created', example='1726024364000'),
+  // 项目修改时间戳
+  gmtModified: long(name='gmt_modified', example='1726024364000'),
+}
+
+// 项目报告
+model ReportInfo {
+  // 项目报告ID
+  reportId: string(name='report_id', example='3ddd08df30f143afad0aa49d96dc81c8'),
+  // 项目报告名
+  reportName: string(name='report_name', example='香港债券市场代币化'),
+  // 报告文件ID
+  fileId: string(name='file_id', example='1cce12eea6c34ed79944f5d11a846a3e'),
+  // 项目报告创建时间戳
+  gmtCreated: long(name='gmt_created', example='1726292715000'),
+}
+
+// 错误信息
+model ErrorMessage {
+  // 错误码
+  displayedCode?: string(name='displayed_code', example='W3S-000-5-O001'),
+  // 错误描述
+  displayedMessage?: string(name='displayed_message', example='param error [id is null]'),
+}
+
+// 项目资源
+model ProjectResource {
+  // 资源ID
+  id: string(name='id', example='36519d8bd56e40ddaef399ba267662c2'),
+  // 项目ID
+  projectId: string(name='project_id', example='cbc8b820bbc7492b8fec0f0228428e6f'),
+  // 资源类型（目前只有PROJECT_REPORT）
+  resourceType: string(name='resource_type', example='PROJECT_REPORT'),
+  // 资源名称
+  resourceName: string(name='resource_name', example='投资报告'),
+  // 文件ID
+  fileId: string(name='file_id', example='8c044f0c56564d418c0b49993605f9d4'),
+  // 创建时间戳
+  gmtCreated: long(name='gmt_created', example='1726024364000'),
+}
+
+// 机构分页信息
+model InstitutionPageData {
+  // 总记录
+  total: long(name='total', example='1'),
+  // 总页数
+  pageCount: long(name='page_count', example='10'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 机构列表
+  records: [ InstitutionVO ](name='records', example=''),
+}
+
+// 总览历史数据统计项
+model DataSummaryStatisticsItem {
+  // 日期
+  date: string(name='date', example='2024-01-01'),
+  // 原始币种资产价值
+  totalValueList: [ MultiCurrencyMoney ](name='total_value_list', example=''),
+}
+
+// 密钥分页列表
+model KeyPageData {
+  // 总记录
+  total: long(name='total', example='10'),
+  // 总页数
+  pageCount: long(name='page_count', example='10'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 密钥列表
+  records: [ KeyVO ](name='records', example=''),
+}
+
+// 总览统计数据
+model DataSummaryTotal {
+  // 原始币种资产价值列表
+  totalValueList: [ MultiCurrencyMoney ](name='total_value_list', example=''),
+  // 总项目数
+  totalProjects: long(name='total_projects', example='10'),
+  // 总用户数
+  totalHolders: long(name='total_holders', example='1000'),
+  // 最后更新时间戳
+  lastUpdatedTime: long(name='last_updated_time', example='1726024364000'),
+}
+
+// 资产项目详情
+model AssetProjectDetail {
+  // 项目参与的代销机构列表
+  participantInfos: [ ParticipantInfo ](name='participant_infos', example=''),
+  // 发行密钥列表
+  mintKeys: [ KeyInfo ](name='mint_keys', example=''),
+  // 赎回密钥列表
+  burnKeys: [ KeyInfo ](name='burn_keys', example=''),
+  // 转账密钥列表
+  transferKeys: [ KeyInfo ](name='transfer_keys', example=''),
+  // 管理密钥列表
+  managerKeys: [ KeyInfo ](name='manager_keys', example=''),
+  // 历史净值列表
+  historyNetValueList: [ NetValueInfo ](name='history_net_value_list', example=''),
+  // 项目报告列表
+  reportList: [ ReportInfo ](name='report_list', example=''),
+  // 项目ID
+  projectId: string(name='project_id', example='f9146ccccf684db792a8fa10d876e22c'),
+  // 项目名称
+  name: string(name='name', example='充电桩'),
+  // 项目代币名称
+  tokenName: string(name='token_name', example='ETH'),
+  // 项目介绍
+  info: string(name='info', example='新能源充电桩项目'),
+  // 当前供应量
+  supply: string(name='supply', example='5000'),
+  // 最大供应量
+  capacity: string(name='capacity', example='10000'),
+  // 供应量比例(supply/capacity * 100，保留2位小数）
+  radio: long(name='radio', example='50.00'),
+  // 持有人数量
+  userNumber: long(name='user_number', example='10'),
+  // 资产token合约地址
+  assetTokenAddress: string(name='asset_token_address', example='0xef10b8f625964d868cbb08b1ce687c04982d8964'),
+  // 资产规则引擎合约地址
+  ruleEngineAddress: string(name='rule_engine_address', example='0xbd2d20d6a8a189ec83f42c476e30e49305d45c69'),
+  // 资产白名单合约地址
+  memberListRuleAddress: string(name='member_list_rule_address', example='0xd8cd3a0cdf071abfe0cb09f73224de268c10a4e7'),
+  // 项目状态(ACTIVE：激活；PAUSED：暂停)
+  status: string(name='status', example='ACTIVE'),
+  // 项目净值
+  netValue: string(name='net_value', example='3.14'),
+  // 项目币种(目前支持USD、HKD)
+  currency: string(name='currency', example='HKD'),
+  // 项目创建时间戳
+  gmtCreated: string(name='gmt_created', example='1726024364000'),
+  // 项目修改时间戳
+  gmtModified: string(name='gmt_modified', example='1726024364000'),
+}
+
+// 资产项目净值
+model ProjectPerformance {
+  // 项目ID
+  projectId: string(name='project_id', example='7757b03c0ed947409bdf142e572df93f'),
+  // 项目净值
+  netValue: string(name='net_value', example='3.14'),
+  // 币种(目前支持USD、HKD)
+  currency: string(name='currency', example='HKD'),
+  // 净值更新时间戳
+  updateTime: long(name='update_time', example='1726024364000'),
+}
+
+// 项目分页信息
+model ProjectPageData {
+  // 总记录数
+  total: long(name='total', example='10'),
+  // 总页数
+  pageCount: long(name='page_count', example='1'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 项目列表
+  records: [ AssetProject ](name='records', example=''),
+}
+
+// 二级用户列表
+model SubUserAccountPageData {
+  // 总记录
+  total: long(name='total', example='10'),
+  // 总页数
+  pageCount: long(name='page_count', example='10'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 二级用户列表
+  records: [ SubUserAccountVO ](name='records', example=''),
+}
+
+// APIKEY试图对象
+model ApiKey {
+  // 主键
+  id: string(name='id', example='c7ac992c8c4041c3ab35c60105ed0440'),
+  // AK
+  token: string(name='token', example='eyJhbGciOiJIUzI1NiJ9.eyJpbnN0aXR1dGlvblR5cGUiOiIyIiwidXNlclR5cGUiOiJJTlNUSVRVVElPTiIsInB1cnBvc2UiOiJBQ0NFU1MiLCJub25jZSI6NDIsInN1YiI6IjkiLCJpYXQiOjE3MjYyMDkyMTYsImV4cCI6MTcyNjIxNjQxM30.oF95cFuz3D_rXAcUNieJbk2uxd75O0AznIFbXiITz7A'),
+  // SK(或公钥)
+  secret: string(name='secret', example='YU8jNHr9Qn5ROGVrFQ54JER8gkVsX05bG4PKxcdLB5eWZGIGgKSbZyeWTvHZ0fKxYFW2Je8ezk0LG3/WKOlRFGiFLVjpEYfhxffhAqj5xwk4DdBgaZEa71O0qjlAbEteQb+nJi2qK/AQJrAj3Wg=='),
+  // 创建日期
+  gmtCreated: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_created', example='2018-10-10T10:10:00Z'),
+}
+
+// 项目密钥分页数据
+model ProjectKeyPageData {
+  // 总记录数
+  total: long(name='total', example='10'),
+  // 总页数
+  pageCount: long(name='page_count', example='1'),
+  // 当前页码
+  pageNum: long(name='page_num', example='1'),
+  // 每页数量
+  pageSize: long(name='page_size', example='10'),
+  // 项目密钥列表
+  records: [ AssetProjectKey ](name='records', example=''),
+}
+
+model CreateIssuerProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目名称
+  name: string(name='name'),
+  // 项目名称
+  info: string(name='info'),
+  // 代币名称
+  tokenName: string(name='token_name'),
+  // 最大供应量
+  capacity: string(name='capacity'),
+  // 净值
+  netValue?: string(name='net_value'),
+  // 币种(目前支持USD、HKD、CNY)
+  currency: string(name='currency'),
+  // 项目参与者列表(代销机构，最多3个)
+  participants: [ ParticipantInfo ](name='participants'),
+  // 发行密钥ID列表(最多3个)
+  mintKeys: [ string ](name='mint_keys'),
+  // 赎回密钥ID列表(最多3个)
+  burnKeys: [ string ](name='burn_keys'),
+  // 转账密钥ID列表(最多3个)
+  transferKeys: [ string ](name='transfer_keys'),
+  // 管理密钥ID列表(最多3个)
+  managerKeys: [ string ](name='manager_keys'),
+}
+
+model CreateIssuerProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目ID
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 发行机构创建资产项目
+ * Summary: 发行机构创建资产项目
+ */
+async function createIssuerProject(request: CreateIssuerProjectRequest): CreateIssuerProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createIssuerProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构创建资产项目
+ * Summary: 发行机构创建资产项目
+ */
+async function createIssuerProjectEx(request: CreateIssuerProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIssuerProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.project.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIssuerProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目名称模糊查询条件
+  name?: string(name='name'),
+  // 项目状态(ACTIVE：激活；PAUSED：暂停)
+  status?: string(name='status'),
+  // 当前页码(默认为第一页)
+  pageNum?: long(minimum=1, name='page_num'),
+  // 页面显示条数(默认10，最小为5)
+  pageSize: long(maximum=100, minimum=5, name='page_size'),
+}
+
+model PagequeryIssuerProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目分页信息
+  data?: ProjectPageData(name='data'),
+}
+
+/**
+ * Description: 分页查询发行机构持有的资产项目信息
+ * Summary: 分页查询发行机构项目信息
+ */
+async function pagequeryIssuerProject(request: PagequeryIssuerProjectRequest): PagequeryIssuerProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIssuerProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询发行机构持有的资产项目信息
+ * Summary: 分页查询发行机构项目信息
+ */
+async function pagequeryIssuerProjectEx(request: PagequeryIssuerProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIssuerProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.project.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryDistributorProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目名称
+  name?: string(name='name'),
+  // 项目状态（ACTIVE：激活；PAUSED：暂停）
+  status?: string(name='status'),
+  // 当前页码(默认为第一页)
+  pageNum: long(minimum=1, name='page_num'),
+  // 页面显示条数(默认10，最小为5)
+  pageSize: long(maximum=100, minimum=5, name='page_size'),
+}
+
+model PagequeryDistributorProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目分页信息
+  data?: ProjectPageData(name='data'),
+}
+
+/**
+ * Description: 分页查询代销机构代销的资产项目信息
+ * Summary: 分页查询代销机构项目信息
+ */
+async function pagequeryDistributorProject(request: PagequeryDistributorProjectRequest): PagequeryDistributorProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryDistributorProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询代销机构代销的资产项目信息
+ * Summary: 分页查询代销机构项目信息
+ */
+async function pagequeryDistributorProjectEx(request: PagequeryDistributorProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryDistributorProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.project.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PauseIssuerProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+}
+
+model PauseIssuerProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发行机构暂停项目
+ * Summary: 发行机构暂停项目
+ */
+async function pauseIssuerProject(request: PauseIssuerProjectRequest): PauseIssuerProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pauseIssuerProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构暂停项目
+ * Summary: 发行机构暂停项目
+ */
+async function pauseIssuerProjectEx(request: PauseIssuerProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PauseIssuerProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.project.pause', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model EnableIssuerProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+}
+
+model EnableIssuerProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发行机构激活项目(使项目生效)
+ * Summary: 发行机构激活项目
+ */
+async function enableIssuerProject(request: EnableIssuerProjectRequest): EnableIssuerProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return enableIssuerProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构激活项目(使项目生效)
+ * Summary: 发行机构激活项目
+ */
+async function enableIssuerProjectEx(request: EnableIssuerProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EnableIssuerProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.project.enable', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailIssuerProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+}
+
+model DetailIssuerProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资产项目详情
+  data?: AssetProjectDetail(name='data'),
+}
+
+/**
+ * Description: 发行机构查询项目详情
+ * Summary: 发行机构查询项目详情
+ */
+async function detailIssuerProject(request: DetailIssuerProjectRequest): DetailIssuerProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailIssuerProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构查询项目详情
+ * Summary: 发行机构查询项目详情
+ */
+async function detailIssuerProjectEx(request: DetailIssuerProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailIssuerProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.project.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailDistributorProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+}
+
+model DetailDistributorProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资产项目详情
+  data?: AssetProject(name='data'),
+}
+
+/**
+ * Description: 代销机构查询项目详情
+ * Summary: 代销机构查询项目详情
+ */
+async function detailDistributorProject(request: DetailDistributorProjectRequest): DetailDistributorProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailDistributorProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代销机构查询项目详情
+ * Summary: 代销机构查询项目详情
+ */
+async function detailDistributorProjectEx(request: DetailDistributorProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailDistributorProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.project.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryPlatformProjectRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目名称
+  name?: string(name='name'),
+  // 项目状态（ACTIVE：激活；PAUSED：暂停）
+  status?: string(name='status'),
+  // 当前页码(默认为第一页)
+  pageNum: long(name='page_num'),
+  // 页面显示条数(默认10，最小为5)
+  pageSize: long(name='page_size'),
+}
+
+model PagequeryPlatformProjectResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目分页信息
+  data?: ProjectPageData(name='data'),
+}
+
+/**
+ * Description: 平台管理员分页查询所有项目
+ * Summary: 平台管理分页查询项目
+ */
+async function pagequeryPlatformProject(request: PagequeryPlatformProjectRequest): PagequeryPlatformProjectResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryPlatformProjectEx(request, headers, runtime);
+}
+
+/**
+ * Description: 平台管理员分页查询所有项目
+ * Summary: 平台管理分页查询项目
+ */
+async function pagequeryPlatformProjectEx(request: PagequeryPlatformProjectRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryPlatformProjectResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.platform.project.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountIssuerDatasummaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 币种（目前支持USD、HKD）
+  currency?: string(name='currency'),
+}
+
+model CountIssuerDatasummaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总览统计数据项
+  data?: DataSummaryTotal(name='data'),
+}
+
+/**
+ * Description: 发行机构获取总览统计数据项
+ * Summary: 发行机构获取总览统计数据项
+ */
+async function countIssuerDatasummary(request: CountIssuerDatasummaryRequest): CountIssuerDatasummaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countIssuerDatasummaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构获取总览统计数据项
+ * Summary: 发行机构获取总览统计数据项
+ */
+async function countIssuerDatasummaryEx(request: CountIssuerDatasummaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountIssuerDatasummaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.datasummary.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountDistributorDatasummaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 币种（目前支持USD、HKD）
+  currency?: string(name='currency'),
+}
+
+model CountDistributorDatasummaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总览统计数据项
+  data?: DataSummaryTotal(name='data'),
+}
+
+/**
+ * Description: 代销机构获取总览统计数据项
+ * Summary: 代销机构获取总览统计数据项
+ */
+async function countDistributorDatasummary(request: CountDistributorDatasummaryRequest): CountDistributorDatasummaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countDistributorDatasummaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代销机构获取总览统计数据项
+ * Summary: 代销机构获取总览统计数据项
+ */
+async function countDistributorDatasummaryEx(request: CountDistributorDatasummaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountDistributorDatasummaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.datasummary.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListIssuerDatasummaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 币种（目前支持USD、HKD）
+  currency?: string(name='currency'),
+  // 开始时间(格式：YYYY-MM-DD)
+  beginDate?: string(name='begin_date'),
+  // 截止时间(格式：YYYY-MM-DD)
+  endDate?: string(name='end_date'),
+}
+
+model ListIssuerDatasummaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 历史资产统计列表
+  data?: [ DataSummaryStatisticsItem ](name='data'),
+}
+
+/**
+ * Description: 发行机构获取历史资产价值
+ * Summary: 发行机构获取历史资产价值
+ */
+async function listIssuerDatasummary(request: ListIssuerDatasummaryRequest): ListIssuerDatasummaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIssuerDatasummaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构获取历史资产价值
+ * Summary: 发行机构获取历史资产价值
+ */
+async function listIssuerDatasummaryEx(request: ListIssuerDatasummaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIssuerDatasummaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.datasummary.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDistributorDatasummaryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 币种（目前支持USD、HKD）
+  currency?: string(name='currency'),
+  // 开始时间
+  beginDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='begin_date'),
+  // 截止时间
+  endDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_date'),
+}
+
+model ListDistributorDatasummaryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 历史资产统计列表
+  data?: [ DataSummaryStatisticsItem ](name='data'),
+}
+
+/**
+ * Description: 代销机构获取历史资产价值
+ * Summary: 代销机构获取历史资产价值
+ */
+async function listDistributorDatasummary(request: ListDistributorDatasummaryRequest): ListDistributorDatasummaryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDistributorDatasummaryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代销机构获取历史资产价值
+ * Summary: 代销机构获取历史资产价值
+ */
+async function listDistributorDatasummaryEx(request: ListDistributorDatasummaryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDistributorDatasummaryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.datasummary.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListIssuerInstitutionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+}
+
+model ListIssuerInstitutionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 机构列表
+  data?: [ InstitutionVO ](name='data'),
+}
+
+/**
+ * Description: 查询代销机构列表
+ * Summary: 查询代销机构列表
+ */
+async function listIssuerInstitution(request: ListIssuerInstitutionRequest): ListIssuerInstitutionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIssuerInstitutionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询代销机构列表
+ * Summary: 查询代销机构列表
+ */
+async function listIssuerInstitutionEx(request: ListIssuerInstitutionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIssuerInstitutionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.institution.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIssuerKeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页码(默认为第一页)
+  pageNum: long(minimum=1, name='page_num'),
+  // 页面显示条数(默认10，最小为5)
+  pageSize: long(minimum=5, name='page_size'),
+  // 排序字段
+  sortField?: string(name='sort_field'),
+  // 密钥名称
+  keyName?: string(name='key_name'),
+}
+
+model PagequeryIssuerKeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 密钥分页列表
+  data?: KeyPageData(name='data'),
+}
+
+/**
+ * Description: 分页查询密钥
+ * Summary: 分页查询密钥
+ */
+async function pagequeryIssuerKey(request: PagequeryIssuerKeyRequest): PagequeryIssuerKeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIssuerKeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询密钥
+ * Summary: 分页查询密钥
+ */
+async function pagequeryIssuerKeyEx(request: PagequeryIssuerKeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIssuerKeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.key.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DetailIssuerKeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 密钥id
+  keyId: string(name='key_id'),
+}
+
+model DetailIssuerKeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 密钥详情
+  data?: KeyVO(name='data'),
+}
+
+/**
+ * Description: 查询密钥详情
+ * Summary: 查询密钥详情
+ */
+async function detailIssuerKey(request: DetailIssuerKeyRequest): DetailIssuerKeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return detailIssuerKeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询密钥详情
+ * Summary: 查询密钥详情
+ */
+async function detailIssuerKeyEx(request: DetailIssuerKeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DetailIssuerKeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.key.detail', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateIssuerKeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 密钥名称
+  name: string(name='name'),
+  // 创建类型
+  // KEY_FILE：上传密钥文件"
+  // CREATE_NEW_KEY：系统创建密钥"
+  type: string(name='type'),
+  // 文件流
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId?: string(name='file_id'),
+  // 文件解密密码
+  password?: string(name='password'),
+}
+
+model CreateIssuerKeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建密钥
+ * Summary: 创建密钥
+ */
+async function createIssuerKey(request: CreateIssuerKeyRequest): CreateIssuerKeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createIssuerKeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建密钥
+ * Summary: 创建密钥
+ */
+async function createIssuerKeyEx(request: CreateIssuerKeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateIssuerKeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.key.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteIssuerKeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 密钥id
+  keyId: string(name='key_id'),
+}
+
+model DeleteIssuerKeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除密钥
+ * Summary: 删除密钥
+ */
+async function deleteIssuerKey(request: DeleteIssuerKeyRequest): DeleteIssuerKeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteIssuerKeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除密钥
+ * Summary: 删除密钥
+ */
+async function deleteIssuerKeyEx(request: DeleteIssuerKeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteIssuerKeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.key.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddIssuerProjectkeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 密钥ID
+  keyId: string(name='key_id'),
+  // 密钥类型(MINT:发行密钥；BURN：赎回密钥；TRANSFER：转账密钥；MANAGER：管理密钥)
+  keyType: string(name='key_type'),
+}
+
+model AddIssuerProjectkeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发行机构添加项目密钥
+ * Summary: 发行机构添加项目密钥
+ */
+async function addIssuerProjectkey(request: AddIssuerProjectkeyRequest): AddIssuerProjectkeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addIssuerProjectkeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构添加项目密钥
+ * Summary: 发行机构添加项目密钥
+ */
+async function addIssuerProjectkeyEx(request: AddIssuerProjectkeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddIssuerProjectkeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.projectkey.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteIssuerProjectkeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目密钥ID
+  id: string(name='id'),
+}
+
+model DeleteIssuerProjectkeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发行机构删除项目密钥
+ * Summary: 发行机构删除项目密钥
+ */
+async function deleteIssuerProjectkey(request: DeleteIssuerProjectkeyRequest): DeleteIssuerProjectkeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteIssuerProjectkeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构删除项目密钥
+ * Summary: 发行机构删除项目密钥
+ */
+async function deleteIssuerProjectkeyEx(request: DeleteIssuerProjectkeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteIssuerProjectkeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.projectkey.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListIssuerProjectkeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 密钥类型(MINT:发行密钥；BURN：赎回密钥；TRANSFER：转账密钥；MANAGER：管理密钥)
+  keyType?: string(name='key_type'),
+}
+
+model ListIssuerProjectkeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目密钥列表
+  data?: [ AssetProjectKey ](name='data'),
+}
+
+/**
+ * Description: 发行机构获取项目密钥列表
+ * Summary: 发行机构获取项目密钥列表
+ */
+async function listIssuerProjectkey(request: ListIssuerProjectkeyRequest): ListIssuerProjectkeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIssuerProjectkeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构获取项目密钥列表
+ * Summary: 发行机构获取项目密钥列表
+ */
+async function listIssuerProjectkeyEx(request: ListIssuerProjectkeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIssuerProjectkeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.projectkey.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIssuerProjectkeyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 密钥ID
+  keyId: string(name='key_id'),
+  // 当前页码(默认为第一页)
+  pageNum: long(minimum=1, name='page_num'),
+  // 页面显示条数(默认10，最小为5)
+  pageSize: long(maximum=100, minimum=5, name='page_size'),
+}
+
+model PagequeryIssuerProjectkeyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目密钥分页信息
+  data?: ProjectKeyPageData(name='data'),
+}
+
+/**
+ * Description: 发行机构分页查询密钥关联的项目
+ * Summary: 发行机构分页查询密钥关联的项目
+ */
+async function pagequeryIssuerProjectkey(request: PagequeryIssuerProjectkeyRequest): PagequeryIssuerProjectkeyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIssuerProjectkeyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构分页查询密钥关联的项目
+ * Summary: 发行机构分页查询密钥关联的项目
+ */
+async function pagequeryIssuerProjectkeyEx(request: PagequeryIssuerProjectkeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIssuerProjectkeyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.projectkey.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateIssuerNetvalueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 项目净值
+  netValue: string(name='net_value'),
+}
+
+model UpdateIssuerNetvalueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 更新项目净值
+ * Summary: 更新项目净值
+ */
+async function updateIssuerNetvalue(request: UpdateIssuerNetvalueRequest): UpdateIssuerNetvalueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateIssuerNetvalueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新项目净值
+ * Summary: 更新项目净值
+ */
+async function updateIssuerNetvalueEx(request: UpdateIssuerNetvalueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateIssuerNetvalueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.netvalue.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListIssuerNetvalueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+}
+
+model ListIssuerNetvalueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 资产历史净值列表
+  data?: [ ProjectPerformance ](name='data'),
+}
+
+/**
+ * Description: 获取净值列表
+ * Summary: 获取净值列表
+ */
+async function listIssuerNetvalue(request: ListIssuerNetvalueRequest): ListIssuerNetvalueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIssuerNetvalueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取净值列表
+ * Summary: 获取净值列表
+ */
+async function listIssuerNetvalueEx(request: ListIssuerNetvalueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIssuerNetvalueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.netvalue.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadIssuerReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+  // 文件名
+  fileName: string(name='file_name'),
+  // 文件内容(base64)
+  fileContent: string(name='file_content'),
+}
+
+model UploadIssuerReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 上传项目报告
+ * Summary: 上传项目报告
+ */
+async function uploadIssuerReport(request: UploadIssuerReportRequest): UploadIssuerReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadIssuerReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传项目报告
+ * Summary: 上传项目报告
+ */
+async function uploadIssuerReportEx(request: UploadIssuerReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadIssuerReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.report.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListIssuerReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+}
+
+model ListIssuerReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目报告资源列表
+  data?: [ ProjectResource ](name='data'),
+}
+
+/**
+ * Description: 发行机构获取历史报告列表
+ * Summary: 发行机构获取历史报告列表
+ */
+async function listIssuerReport(request: ListIssuerReportRequest): ListIssuerReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listIssuerReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构获取历史报告列表
+ * Summary: 发行机构获取历史报告列表
+ */
+async function listIssuerReportEx(request: ListIssuerReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListIssuerReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.report.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListDistributorReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目ID
+  projectId: string(name='project_id'),
+}
+
+model ListDistributorReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 项目报告资源列表
+  data?: [ ProjectResource ](name='data'),
+}
+
+/**
+ * Description: 代销机构获取历史项目报告
+ * Summary: 代销机构获取历史项目报告
+ */
+async function listDistributorReport(request: ListDistributorReportRequest): ListDistributorReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listDistributorReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代销机构获取历史项目报告
+ * Summary: 代销机构获取历史项目报告
+ */
+async function listDistributorReportEx(request: ListDistributorReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDistributorReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.report.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadIssuerReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资源ID
+  resourceId: string(name='resource_id'),
+}
+
+model DownloadIssuerReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报告文件下载地址
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 发行机构获取报告文件下载URL
+ * Summary: 发行机构获取报告文件下载URL
+ */
+async function downloadIssuerReport(request: DownloadIssuerReportRequest): DownloadIssuerReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadIssuerReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构获取报告文件下载URL
+ * Summary: 发行机构获取报告文件下载URL
+ */
+async function downloadIssuerReportEx(request: DownloadIssuerReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadIssuerReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.report.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PreviewIssuerReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资源ID
+  resourceId: string(name='resource_id'),
+}
+
+model PreviewIssuerReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报告文件预览地址
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 发行机构获取报告文件预览URL
+ * Summary: 发行机构获取报告文件预览URL
+ */
+async function previewIssuerReport(request: PreviewIssuerReportRequest): PreviewIssuerReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return previewIssuerReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行机构获取报告文件预览URL
+ * Summary: 发行机构获取报告文件预览URL
+ */
+async function previewIssuerReportEx(request: PreviewIssuerReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreviewIssuerReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.report.preview', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DownloadDistributorReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资源ID
+  resourceId: string(name='resource_id'),
+}
+
+model DownloadDistributorReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报告文件下载地址
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代销机构获取报告文件下载URL
+ * Summary: 代销机构获取报告文件下载URL
+ */
+async function downloadDistributorReport(request: DownloadDistributorReportRequest): DownloadDistributorReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return downloadDistributorReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代销机构获取报告文件下载URL
+ * Summary: 代销机构获取报告文件下载URL
+ */
+async function downloadDistributorReportEx(request: DownloadDistributorReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DownloadDistributorReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.report.download', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PreviewDistributorReportRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资源ID
+  resourceId: string(name='resource_id'),
+}
+
+model PreviewDistributorReportResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报告文件预览地址
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 代销机构获取报告文件预览URL
+ * Summary: 代销机构获取报告文件预览URL
+ */
+async function previewDistributorReport(request: PreviewDistributorReportRequest): PreviewDistributorReportResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return previewDistributorReportEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代销机构获取报告文件预览URL
+ * Summary: 代销机构获取报告文件预览URL
+ */
+async function previewDistributorReportEx(request: PreviewDistributorReportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreviewDistributorReportResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.report.preview', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryIssuerSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页码(默认为第一页)
+  pageNum: long(name='page_num'),
+  // 页面显示条数(默认10，最小为5)
+  pageSize: long(name='page_size'),
+  // 钱包地址
+  walletAddress?: string(name='wallet_address'),
+  // 项目合约地址
+  assetProjectAddress?: string(name='asset_project_address'),
+  // 项目名称
+  projectName?: string(name='project_name'),
+  // 项目id
+  projectId?: string(name='project_id'),
+  // 数据类型 
+  // REDEEM
+  // ISSUE
+  // 不传为全部
+  transactionType?: string(name='transaction_type'),
+}
+
+model PagequeryIssuerSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 二级用户列表
+  data?: SubUserAccountPageData(name='data'),
+}
+
+/**
+ * Description: 分页查询二级用户列表
+ * Summary: 分页查询二级用户列表
+ */
+async function pagequeryIssuerSubuser(request: PagequeryIssuerSubuserRequest): PagequeryIssuerSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryIssuerSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询二级用户列表
+ * Summary: 分页查询二级用户列表
+ */
+async function pagequeryIssuerSubuserEx(request: PagequeryIssuerSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryIssuerSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.subuser.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PagequeryDistributorSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 当前页码(默认为第一页)
+  pageNum: long(name='page_num'),
+  // 页面显示条数(默认10，最小为5)
+  pageSize: long(name='page_size'),
+  // 钱包地址
+  walletAddress?: string(name='wallet_address'),
+  // 项目合约地址
+  assetProjectAddress?: string(name='asset_project_address'),
+  // 项目名称
+  projectName?: string(name='project_name'),
+  // 项目id
+  projectId?: string(name='project_id'),
+  // 数据类型 
+  // REDEEM 
+  // ISSUE 
+  // 不传为全部
+  transactionType?: string(name='transaction_type'),
+}
+
+model PagequeryDistributorSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 二级用户列表
+  data?: SubUserAccountPageData(name='data'),
+}
+
+/**
+ * Description: 分页查询二级用户列表
+ * Summary: 分页查询二级用户列表
+ */
+async function pagequeryDistributorSubuser(request: PagequeryDistributorSubuserRequest): PagequeryDistributorSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pagequeryDistributorSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 分页查询二级用户列表
+ * Summary: 分页查询二级用户列表
+ */
+async function pagequeryDistributorSubuserEx(request: PagequeryDistributorSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PagequeryDistributorSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.subuser.pagequery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIssuerSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 项目id
+  projectId: string(name='project_id'),
+  // 机构id
+  institutionId: string(name='institution_id'),
+}
+
+model QueryIssuerSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 二级用户信息
+  data?: SubUserAccountVO(name='data'),
+}
+
+/**
+ * Description: 查询单个二级用户
+ * Summary: 查询单个二级用户
+ */
+async function queryIssuerSubuser(request: QueryIssuerSubuserRequest): QueryIssuerSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIssuerSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询单个二级用户
+ * Summary: 查询单个二级用户
+ */
+async function queryIssuerSubuserEx(request: QueryIssuerSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIssuerSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.subuser.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDistributorSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户id
+  userId: string(name='user_id'),
+  // 机构id
+  institutionId: string(name='institution_id'),
+  // 项目id
+  projectId: string(name='project_id'),
+}
+
+model QueryDistributorSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 二级用户信息
+  data?: SubUserAccountVO(name='data'),
+}
+
+/**
+ * Description: 查询单个二级用户
+ * Summary: 查询单个二级用户
+ */
+async function queryDistributorSubuser(request: QueryDistributorSubuserRequest): QueryDistributorSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDistributorSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询单个二级用户
+ * Summary: 查询单个二级用户
+ */
+async function queryDistributorSubuserEx(request: QueryDistributorSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDistributorSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.subuser.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateDistributorSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 二级用户账号
+  subUserAccountId: string(name='sub_user_account_id'),
+  // 用户id
+  subUserId?: string(name='sub_user_id'),
+  // 二级用户钱包地址
+  subUserAddress?: string(name='sub_user_address'),
+  // assetProjectId
+  assetProjectId: string(name='asset_project_id'),
+  // userTarget
+  userTarget: string(name='user_target'),
+}
+
+model UpdateDistributorSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 更新二级用户
+ * Summary: 更新二级用户
+ */
+async function updateDistributorSubuser(request: UpdateDistributorSubuserRequest): UpdateDistributorSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateDistributorSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新二级用户
+ * Summary: 更新二级用户
+ */
+async function updateDistributorSubuserEx(request: UpdateDistributorSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateDistributorSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.subuser.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateDistributorSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 钱包地址
+  walletAddress: string(name='wallet_address'),
+  // 项目名称
+  projectName?: string(name='project_name'),
+  // 项目id
+  projectId: string(name='project_id'),
+  // 用户资产配额
+  userTarget: string(name='user_target'),
+}
+
+model CreateDistributorSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 添加二级用户
+ * Summary: 添加二级用户
+ */
+async function createDistributorSubuser(request: CreateDistributorSubuserRequest): CreateDistributorSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createDistributorSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 添加二级用户
+ * Summary: 添加二级用户
+ */
+async function createDistributorSubuserEx(request: CreateDistributorSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDistributorSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.subuser.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteDistributorSubuserRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 二级用户账号
+  subUserAccountId: string(name='sub_user_account_id'),
+  // 用户id
+  subUserId?: string(name='sub_user_id'),
+  // 二级用户钱包地址
+  subUserAddress?: string(name='sub_user_address'),
+}
+
+model DeleteDistributorSubuserResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否删除成功
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 删除二级用户
+ * Summary: 删除二级用户
+ */
+async function deleteDistributorSubuser(request: DeleteDistributorSubuserRequest): DeleteDistributorSubuserResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteDistributorSubuserEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除二级用户
+ * Summary: 删除二级用户
+ */
+async function deleteDistributorSubuserEx(request: DeleteDistributorSubuserRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteDistributorSubuserResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.subuser.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountDistributorSubusertargetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 项目id
+  projectId: string(name='project_id'),
+}
+
+model CountDistributorSubusertargetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 用户配额
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 获取二级用户配额
+ * Summary: 获取二级用户配额
+ */
+async function countDistributorSubusertarget(request: CountDistributorSubusertargetRequest): CountDistributorSubusertargetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countDistributorSubusertargetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取二级用户配额
+ * Summary: 获取二级用户配额
+ */
+async function countDistributorSubusertargetEx(request: CountDistributorSubusertargetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountDistributorSubusertargetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.distributor.subusertarget.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model IssueIssuerSubusertradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 二级用户地址
+  subUserAddress: string(name='sub_user_address'),
+  // 二级用户账户ID
+  subUserAccountId: string(name='sub_user_account_id'),
+  // 发行数量
+  issueAmount: string(name='issue_amount'),
+  // 资产项目ID
+  assetProjectId: string(name='asset_project_id'),
+  // 资产项目链上合约地址
+  assetProjectAddress?: string(name='asset_project_address'),
+}
+
+model IssueIssuerSubusertradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 发行token
+ * Summary: 发行token
+ */
+async function issueIssuerSubusertrade(request: IssueIssuerSubusertradeRequest): IssueIssuerSubusertradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return issueIssuerSubusertradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发行token
+ * Summary: 发行token
+ */
+async function issueIssuerSubusertradeEx(request: IssueIssuerSubusertradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): IssueIssuerSubusertradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.subusertrade.issue', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RedeemIssuerSubusertradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 二级用户地址
+  subUserAddress: string(name='sub_user_address'),
+  // 二级用户账户ID
+  subUserAccountId: string(name='sub_user_account_id'),
+  // 赎回数量
+  redeemAmount: string(name='redeem_amount'),
+  // 资产项目ID
+  assetProjectId: string(name='asset_project_id'),
+  // 资产项目链上合约地址
+  assetProjectAddress?: string(name='asset_project_address'),
+}
+
+model RedeemIssuerSubusertradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 赎回token
+ * Summary: 赎回token
+ */
+async function redeemIssuerSubusertrade(request: RedeemIssuerSubusertradeRequest): RedeemIssuerSubusertradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return redeemIssuerSubusertradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 赎回token
+ * Summary: 赎回token
+ */
+async function redeemIssuerSubusertradeEx(request: RedeemIssuerSubusertradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RedeemIssuerSubusertradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.subusertrade.redeem', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model TransferIssuerSubusertradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // from二级用户地址
+  fromSubUserAddress: string(name='from_sub_user_address'),
+  // from二级用户账户ID
+  fromSubUserAccountId: string(name='from_sub_user_account_id'),
+  // to二级用户地址
+  toSubUserAddress: string(name='to_sub_user_address'),
+  // to二级用户账户ID
+  toSubUserAccountId?: string(name='to_sub_user_account_id'),
+  // 转移数量
+  transferAmount: string(name='transfer_amount'),
+  // 资产项目ID
+  assetProjectId: string(name='asset_project_id'),
+  // 资产项目链上合约地址
+  assetProjectAddress?: string(name='asset_project_address'),
+}
+
+model TransferIssuerSubusertradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 转移token
+ * Summary: 转移token
+ */
+async function transferIssuerSubusertrade(request: TransferIssuerSubusertradeRequest): TransferIssuerSubusertradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return transferIssuerSubusertradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转移token
+ * Summary: 转移token
+ */
+async function transferIssuerSubusertradeEx(request: TransferIssuerSubusertradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TransferIssuerSubusertradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.webtrwatrade.issuer.subusertrade.transfer', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
