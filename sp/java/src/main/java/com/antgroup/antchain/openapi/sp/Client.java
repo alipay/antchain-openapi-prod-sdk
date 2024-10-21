@@ -2,13 +2,15 @@
 package com.antgroup.antchain.openapi.sp;
 
 import com.aliyun.tea.*;
+import com.aliyun.tea.interceptor.InterceptorChain;
+import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
+import com.aliyun.tea.interceptor.RequestInterceptor;
+import com.aliyun.tea.interceptor.ResponseInterceptor;
 import com.antgroup.antchain.openapi.sp.models.*;
-import com.antgroup.antchain.openapi.antchain.util.*;
-import com.aliyun.teautil.*;
-import com.aliyun.teautil.models.*;
-import com.aliyun.common.*;
 
 public class Client {
+
+    private final static InterceptorChain interceptorChain = InterceptorChain.create();
 
     public String _endpoint;
     public String _regionId;
@@ -34,7 +36,7 @@ public class Client {
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
-        if (com.aliyun.teautil.Common.isUnset(TeaModel.buildMap(config))) {
+        if (com.aliyun.teautil.Common.isUnset(config)) {
             throw new TeaException(TeaConverter.buildMap(
                 new TeaPair("code", "ParameterMissing"),
                 new TeaPair("message", "'config' can not be unset")
@@ -61,7 +63,17 @@ public class Client {
         this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
-    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    /**
+     * Encapsulate the request and invoke the network
+     * @param action api name
+     * @param protocol http or https
+     * @param method e.g. GET
+     * @param pathname pathname of every api
+     * @param request which contains request params
+     * @param runtime which controls some details of call api, such as retry times
+     * @return the response
+     */
+    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         java.util.Map<String, Object> runtime_ = TeaConverter.buildMap(
             new TeaPair("timeouted", "retry"),
             new TeaPair("readTimeout", com.aliyun.teautil.Common.defaultNumber(runtime.readTimeout, _readTimeout)),
@@ -71,7 +83,7 @@ public class Client {
             new TeaPair("noProxy", com.aliyun.teautil.Common.defaultString(runtime.noProxy, _noProxy)),
             new TeaPair("maxIdleConns", com.aliyun.teautil.Common.defaultNumber(runtime.maxIdleConns, _maxIdleConns)),
             new TeaPair("maxIdleTimeMillis", _maxIdleTimeMillis),
-            new TeaPair("keepAliveDurationMillis", _keepAliveDurationMillis),
+            new TeaPair("keepAliveDuration", _keepAliveDurationMillis),
             new TeaPair("maxRequests", _maxRequests),
             new TeaPair("maxRequestsPerHost", _maxRequestsPerHost),
             new TeaPair("retry", TeaConverter.buildMap(
@@ -110,7 +122,9 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "4.1.4")
+                    new TeaPair("sdk_version", "4.9.0"),
+                    new TeaPair("_prod_code", "SP"),
+                    new TeaPair("_prod_channel", "undefined")
                 );
                 if (!com.aliyun.teautil.Common.empty(_securityToken)) {
                     request_.query.put("security_token", _securityToken);
@@ -132,7 +146,7 @@ public class Client {
                 );
                 request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
-                TeaResponse response_ = Tea.doAction(request_, runtime_);
+                TeaResponse response_ = Tea.doAction(request_, runtime_, interceptorChain);
 
                 String raw = com.aliyun.teautil.Common.readAsString(response_.body);
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
@@ -155,8 +169,19 @@ public class Client {
                 throw e;
             }
         }
-
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    public void addRuntimeOptionsInterceptor(RuntimeOptionsInterceptor interceptor) {
+        interceptorChain.addRuntimeOptionsInterceptor(interceptor);
+    }
+
+    public void addRequestInterceptor(RequestInterceptor interceptor) {
+        interceptorChain.addRequestInterceptor(interceptor);
+    }
+
+    public void addResponseInterceptor(ResponseInterceptor interceptor) {
+        interceptorChain.addResponseInterceptor(interceptor);
     }
 
     /**
@@ -164,7 +189,7 @@ public class Client {
      * Summary: 更新链上账户余额
      */
     public UpdateAbilityChainAccountResponse updateAbilityChainAccount(UpdateAbilityChainAccountRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.updateAbilityChainAccountEx(request, headers, runtime);
     }
@@ -173,7 +198,7 @@ public class Client {
      * Description: 更新链上账户余额
      * Summary: 更新链上账户余额
      */
-    public UpdateAbilityChainAccountResponse updateAbilityChainAccountEx(UpdateAbilityChainAccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public UpdateAbilityChainAccountResponse updateAbilityChainAccountEx(UpdateAbilityChainAccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.ability.chain.account.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAbilityChainAccountResponse());
     }
@@ -183,7 +208,7 @@ public class Client {
      * Summary: 链上资产核销确认
      */
     public UpdateAbilityChainAssetResponse updateAbilityChainAsset(UpdateAbilityChainAssetRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.updateAbilityChainAssetEx(request, headers, runtime);
     }
@@ -192,7 +217,7 @@ public class Client {
      * Description: 链上资产核销、确认核销成功
      * Summary: 链上资产核销确认
      */
-    public UpdateAbilityChainAssetResponse updateAbilityChainAssetEx(UpdateAbilityChainAssetRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public UpdateAbilityChainAssetResponse updateAbilityChainAssetEx(UpdateAbilityChainAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.ability.chain.asset.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateAbilityChainAssetResponse());
     }
@@ -204,7 +229,7 @@ public class Client {
      * Summary: SPI-停止服务
      */
     public StopSpProductResponse stopSpProduct(StopSpProductRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.stopSpProductEx(request, headers, runtime);
     }
@@ -215,7 +240,7 @@ public class Client {
     注意：如果产品的停服为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间10s）。
      * Summary: SPI-停止服务
      */
-    public StopSpProductResponse stopSpProductEx(StopSpProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public StopSpProductResponse stopSpProductEx(StopSpProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.stop", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StopSpProductResponse());
     }
@@ -227,7 +252,7 @@ public class Client {
      * Summary: SPI-恢复服务
      */
     public ResumeSpProductResponse resumeSpProduct(ResumeSpProductRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.resumeSpProductEx(request, headers, runtime);
     }
@@ -238,55 +263,61 @@ public class Client {
     注意：如果产品的恢复为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间10s）。
      * Summary: SPI-恢复服务
      */
-    public ResumeSpProductResponse resumeSpProductEx(ResumeSpProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ResumeSpProductResponse resumeSpProductEx(ResumeSpProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.resume", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResumeSpProductResponse());
     }
 
     /**
-     * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+     * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
     创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-    异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+    异步接口，也支持通过参数指定同步返回。
+    能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
     注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
      * Summary: SPI-创建产品实例
      */
     public ProvisionSpProductResponse provisionSpProduct(ProvisionSpProductRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.provisionSpProductEx(request, headers, runtime);
     }
 
     /**
-     * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+     * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
     创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-    异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+    异步接口，也支持通过参数指定同步返回。
+    能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
     注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
      * Summary: SPI-创建产品实例
      */
-    public ProvisionSpProductResponse provisionSpProductEx(ProvisionSpProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ProvisionSpProductResponse provisionSpProductEx(ProvisionSpProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.provision", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ProvisionSpProductResponse());
     }
 
     /**
      * Description: 对已有的实例进行规格变更操作。
-    异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-    注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+    支持同步、异步返回结果
+    1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+    2.如果变更过程立即生效，则通过sync=true进行返回
+    中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
      * Summary: SPI-变更产品实例配置
      */
     public ModifySpProductResponse modifySpProduct(ModifySpProductRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.modifySpProductEx(request, headers, runtime);
     }
 
     /**
      * Description: 对已有的实例进行规格变更操作。
-    异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-    注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+    支持同步、异步返回结果
+    1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+    2.如果变更过程立即生效，则通过sync=true进行返回
+    中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
      * Summary: SPI-变更产品实例配置
      */
-    public ModifySpProductResponse modifySpProductEx(ModifySpProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ModifySpProductResponse modifySpProductEx(ModifySpProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.modify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ModifySpProductResponse());
     }
@@ -298,7 +329,7 @@ public class Client {
      * Summary: SPI-释放产品实例
      */
     public ReleaseSpProductResponse releaseSpProduct(ReleaseSpProductRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.releaseSpProductEx(request, headers, runtime);
     }
@@ -309,7 +340,7 @@ public class Client {
     注意：如果产品的释放为耗时操作，在收到通知后需要自行存储消息异步处理，不能阻塞通知请求导致网络超时（超时时间5s)
      * Summary: SPI-释放产品实例
      */
-    public ReleaseSpProductResponse releaseSpProductEx(ReleaseSpProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ReleaseSpProductResponse releaseSpProductEx(ReleaseSpProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.release", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReleaseSpProductResponse());
     }
@@ -321,7 +352,7 @@ public class Client {
      * Summary: SPI-获取产品订单结果
      */
     public GetSpProductOrderResponse getSpProductOrder(GetSpProductOrderRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getSpProductOrderEx(request, headers, runtime);
     }
@@ -332,7 +363,7 @@ public class Client {
     接口为同步，最大超时时间5s，失败尝试3次（间隔2s）。
      * Summary: SPI-获取产品订单结果
      */
-    public GetSpProductOrderResponse getSpProductOrderEx(GetSpProductOrderRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetSpProductOrderResponse getSpProductOrderEx(GetSpProductOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.order.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetSpProductOrderResponse());
     }
@@ -342,7 +373,7 @@ public class Client {
      * Summary: 从产品方加载购买页参数
      */
     public LoadSpProductOrderparameterResponse loadSpProductOrderparameter(LoadSpProductOrderparameterRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.loadSpProductOrderparameterEx(request, headers, runtime);
     }
@@ -351,7 +382,7 @@ public class Client {
      * Description: 提供订单系统渲染购买页，从产品方加载部分个性化的展示内容。
      * Summary: 从产品方加载购买页参数
      */
-    public LoadSpProductOrderparameterResponse loadSpProductOrderparameterEx(LoadSpProductOrderparameterRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public LoadSpProductOrderparameterResponse loadSpProductOrderparameterEx(LoadSpProductOrderparameterRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.orderparameter.load", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new LoadSpProductOrderparameterResponse());
     }
@@ -361,7 +392,7 @@ public class Client {
      * Summary: 交易结果通知
      */
     public SyncIndustryTradeResultResponse syncIndustryTradeResult(SyncIndustryTradeResultRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.syncIndustryTradeResultEx(request, headers, runtime);
     }
@@ -370,7 +401,7 @@ public class Client {
      * Description: 交易结果通知
      * Summary: 交易结果通知
      */
-    public SyncIndustryTradeResultResponse syncIndustryTradeResultEx(SyncIndustryTradeResultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SyncIndustryTradeResultResponse syncIndustryTradeResultEx(SyncIndustryTradeResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.industry.trade.result.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncIndustryTradeResultResponse());
     }
@@ -380,7 +411,7 @@ public class Client {
      * Summary: 商家注册结果通知
      */
     public SyncMerchantSignResultResponse syncMerchantSignResult(SyncMerchantSignResultRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.syncMerchantSignResultEx(request, headers, runtime);
     }
@@ -389,9 +420,218 @@ public class Client {
      * Description: 商家注册结果通知
      * Summary: 商家注册结果通知
      */
-    public SyncMerchantSignResultResponse syncMerchantSignResultEx(SyncMerchantSignResultRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SyncMerchantSignResultResponse syncMerchantSignResultEx(SyncMerchantSignResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.merchant.sign.result.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncMerchantSignResultResponse());
+    }
+
+    /**
+     * Description: 签约状态变更通知
+     * Summary: 签约状态变更通知
+     */
+    public SyncMerchantAgreementResultResponse syncMerchantAgreementResult(SyncMerchantAgreementResultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncMerchantAgreementResultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 签约状态变更通知
+     * Summary: 签约状态变更通知
+     */
+    public SyncMerchantAgreementResultResponse syncMerchantAgreementResultEx(SyncMerchantAgreementResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.merchant.agreement.result.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncMerchantAgreementResultResponse());
+    }
+
+    /**
+     * Description: pdf
+     * Summary: test
+     */
+    public QueryDemoCccCccResponse queryDemoCccCcc(QueryDemoCccCccRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoCccCccEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: pdf
+     * Summary: test
+     */
+    public QueryDemoCccCccResponse queryDemoCccCccEx(QueryDemoCccCccRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.demo.ccc.ccc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoCccCccResponse());
+    }
+
+    /**
+     * Description: 合作方（伙伴、商家等）项目签约结果通知
+     * Summary: 合作方（伙伴、商家等）项目签约结果通知
+     */
+    public SyncAcpartnerProjectResultResponse syncAcpartnerProjectResult(SyncAcpartnerProjectResultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAcpartnerProjectResultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合作方（伙伴、商家等）项目签约结果通知
+     * Summary: 合作方（伙伴、商家等）项目签约结果通知
+     */
+    public SyncAcpartnerProjectResultResponse syncAcpartnerProjectResultEx(SyncAcpartnerProjectResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.acpartner.project.result.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAcpartnerProjectResultResponse());
+    }
+
+    /**
+     * Description: 合作方（伙伴、商家等）入驻结果通知
+     * Summary: 合作方（伙伴、商家等）入驻结果通知
+     */
+    public SyncAcpartnerSettleinResultResponse syncAcpartnerSettleinResult(SyncAcpartnerSettleinResultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncAcpartnerSettleinResultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 合作方（伙伴、商家等）入驻结果通知
+     * Summary: 合作方（伙伴、商家等）入驻结果通知
+     */
+    public SyncAcpartnerSettleinResultResponse syncAcpartnerSettleinResultEx(SyncAcpartnerSettleinResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.acpartner.settlein.result.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAcpartnerSettleinResultResponse());
+    }
+
+    /**
+     * Description: 交易平台履约结果通知
+     * Summary: 交易平台履约结果通知
+     */
+    public SyncTradeFulfillResultResponse syncTradeFulfillResult(SyncTradeFulfillResultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncTradeFulfillResultEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 交易平台履约结果通知
+     * Summary: 交易平台履约结果通知
+     */
+    public SyncTradeFulfillResultResponse syncTradeFulfillResultEx(SyncTradeFulfillResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.trade.fulfill.result.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncTradeFulfillResultResponse());
+    }
+
+    /**
+     * Description: 目前仅通知商品上架状态变更事件
+     * Summary: 商品状态变更通知
+     */
+    public SyncPccCommodityStatusResponse syncPccCommodityStatus(SyncPccCommodityStatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncPccCommodityStatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 目前仅通知商品上架状态变更事件
+     * Summary: 商品状态变更通知
+     */
+    public SyncPccCommodityStatusResponse syncPccCommodityStatusEx(SyncPccCommodityStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.pcc.commodity.status.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncPccCommodityStatusResponse());
+    }
+
+    /**
+     * Description: spi测试
+     * Summary: spi测试
+     */
+    public QueryDemoEchoResponse queryDemoEcho(QueryDemoEchoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryDemoEchoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: spi测试
+     * Summary: spi测试
+     */
+    public QueryDemoEchoResponse queryDemoEchoEx(QueryDemoEchoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.demo.echo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryDemoEchoResponse());
+    }
+
+    /**
+     * Description: 逻辑实例创建成功后回调
+     * Summary: 逻辑实例创建成功后回调
+     */
+    public CreateSpProductLogicinstanceResponse createSpProductLogicinstance(CreateSpProductLogicinstanceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createSpProductLogicinstanceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 逻辑实例创建成功后回调
+     * Summary: 逻辑实例创建成功后回调
+     */
+    public CreateSpProductLogicinstanceResponse createSpProductLogicinstanceEx(CreateSpProductLogicinstanceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.logicinstance.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateSpProductLogicinstanceResponse());
+    }
+
+    /**
+     * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+     * Summary: SPI-商品实例续费
+     */
+    public RenewSpProductResponse renewSpProduct(RenewSpProductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.renewSpProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+     * Summary: SPI-商品实例续费
+     */
+    public RenewSpProductResponse renewSpProductEx(RenewSpProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.renew", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RenewSpProductResponse());
+    }
+
+    /**
+     * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+     * Summary: 购买页参数传递给产品方校验
+     */
+    public CheckSpProductOrderparameterResponse checkSpProductOrderparameter(CheckSpProductOrderparameterRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkSpProductOrderparameterEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+     * Summary: 购买页参数传递给产品方校验
+     */
+    public CheckSpProductOrderparameterResponse checkSpProductOrderparameterEx(CheckSpProductOrderparameterRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.orderparameter.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckSpProductOrderparameterResponse());
+    }
+
+    /**
+     * Description: 开通前通知
+     * Summary: 开通前通知
+     */
+    public PreopenSpProductResponse preopenSpProduct(PreopenSpProductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.preopenSpProductEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 开通前通知
+     * Summary: 开通前通知
+     */
+    public PreopenSpProductResponse preopenSpProductEx(PreopenSpProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.preopen", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PreopenSpProductResponse());
     }
 
     /**
@@ -402,7 +642,7 @@ public class Client {
      * Summary: SPI-开通产品
      */
     public OpenSpProductResponse openSpProduct(OpenSpProductRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.openSpProductEx(request, headers, runtime);
     }
@@ -414,7 +654,7 @@ public class Client {
     注意：开通操作中台会通知能力产品所有集群，如果其中一个集群失败，用户可以重试开通-触发中台重复通知（集群）。需要根据订单号order_no做好幂等判断。
      * Summary: SPI-开通产品
      */
-    public OpenSpProductResponse openSpProductEx(OpenSpProductRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public OpenSpProductResponse openSpProductEx(OpenSpProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloudspi.sp.product.open", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OpenSpProductResponse());
     }

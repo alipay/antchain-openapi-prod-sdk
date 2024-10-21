@@ -16,6 +16,10 @@ public class ModifySpProductResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 标识是否同步返回变更结果
+    @NameInMap("sync")
+    public Boolean sync;
+
     public static ModifySpProductResponse build(java.util.Map<String, ?> map) throws Exception {
         ModifySpProductResponse self = new ModifySpProductResponse();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class ModifySpProductResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public ModifySpProductResponse setSync(Boolean sync) {
+        this.sync = sync;
+        return this;
+    }
+    public Boolean getSync() {
+        return this.sync;
     }
 
 }

@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.sp.models;
 
 import com.aliyun.tea.*;
 
-public class ProvisionSpProductRequest extends TeaModel {
+public class PreopenSpProductRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -16,24 +16,21 @@ public class ProvisionSpProductRequest extends TeaModel {
 
     // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
     @NameInMap("order_no")
-    @Validation(required = true, maxLength = 64, minLength = 32)
+    @Validation(required = true)
     public String orderNo;
 
     // 产品码 全局唯一
     @NameInMap("product_code")
-    @Validation(required = true, maxLength = 20, minLength = 3)
+    @Validation(required = true)
     public String productCode;
 
-    // 购买产品的租户
-    @NameInMap("tenant")
-    @Validation(required = true, maxLength = 8, minLength = 8)
-    public String tenant;
-
+    // 	
     // 产品实例Id
     @NameInMap("instance_ids")
     @Validation(required = true)
     public java.util.List<String> instanceIds;
 
+    // 	
     // 具体规格配置信息（JSON格式）会按照key进行排序
     @NameInMap("specification")
     @Validation(required = true)
@@ -47,34 +44,37 @@ public class ProvisionSpProductRequest extends TeaModel {
     @NameInMap("workspace")
     public String workspace;
 
+    // 	
     // 实例需要创建到租户的地域
     @NameInMap("region")
     public String region;
 
+    // 	
     // 实例需要创建到租户的机房，可以有多个（冗灾场景）
     @NameInMap("zones")
     public java.util.List<String> zones;
 
-    // 购买产品的租户ID，格式为2088XXXXXXXXXXXX	
+    // 	
+    // 购买产品的租户ID，格式为2088XXXXXXXXXXXX
     @NameInMap("tenant_id")
-    @Validation(required = true, maxLength = 16, minLength = 16)
+    @Validation(required = true)
     public String tenantId;
 
-    // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+    // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址
     @NameInMap("access_code")
-    @Validation(required = true, maxLength = 24, minLength = 3)
+    @Validation(required = true)
     public String accessCode;
 
     // 商业业务信息，如签约的项目ID、合同ID、合作伙伴ID等信息
     @NameInMap("business_data")
     public String businessData;
 
-    public static ProvisionSpProductRequest build(java.util.Map<String, ?> map) throws Exception {
-        ProvisionSpProductRequest self = new ProvisionSpProductRequest();
+    public static PreopenSpProductRequest build(java.util.Map<String, ?> map) throws Exception {
+        PreopenSpProductRequest self = new PreopenSpProductRequest();
         return TeaModel.build(map, self);
     }
 
-    public ProvisionSpProductRequest setAuthToken(String authToken) {
+    public PreopenSpProductRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -82,7 +82,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.authToken;
     }
 
-    public ProvisionSpProductRequest setProductInstanceId(String productInstanceId) {
+    public PreopenSpProductRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -90,7 +90,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public ProvisionSpProductRequest setProductAccessCode(String productAccessCode) {
+    public PreopenSpProductRequest setProductAccessCode(String productAccessCode) {
         this.productAccessCode = productAccessCode;
         return this;
     }
@@ -98,7 +98,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.productAccessCode;
     }
 
-    public ProvisionSpProductRequest setOrderNo(String orderNo) {
+    public PreopenSpProductRequest setOrderNo(String orderNo) {
         this.orderNo = orderNo;
         return this;
     }
@@ -106,7 +106,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.orderNo;
     }
 
-    public ProvisionSpProductRequest setProductCode(String productCode) {
+    public PreopenSpProductRequest setProductCode(String productCode) {
         this.productCode = productCode;
         return this;
     }
@@ -114,15 +114,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.productCode;
     }
 
-    public ProvisionSpProductRequest setTenant(String tenant) {
-        this.tenant = tenant;
-        return this;
-    }
-    public String getTenant() {
-        return this.tenant;
-    }
-
-    public ProvisionSpProductRequest setInstanceIds(java.util.List<String> instanceIds) {
+    public PreopenSpProductRequest setInstanceIds(java.util.List<String> instanceIds) {
         this.instanceIds = instanceIds;
         return this;
     }
@@ -130,7 +122,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.instanceIds;
     }
 
-    public ProvisionSpProductRequest setSpecification(String specification) {
+    public PreopenSpProductRequest setSpecification(String specification) {
         this.specification = specification;
         return this;
     }
@@ -138,7 +130,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.specification;
     }
 
-    public ProvisionSpProductRequest setCustomData(String customData) {
+    public PreopenSpProductRequest setCustomData(String customData) {
         this.customData = customData;
         return this;
     }
@@ -146,7 +138,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.customData;
     }
 
-    public ProvisionSpProductRequest setWorkspace(String workspace) {
+    public PreopenSpProductRequest setWorkspace(String workspace) {
         this.workspace = workspace;
         return this;
     }
@@ -154,7 +146,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.workspace;
     }
 
-    public ProvisionSpProductRequest setRegion(String region) {
+    public PreopenSpProductRequest setRegion(String region) {
         this.region = region;
         return this;
     }
@@ -162,7 +154,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.region;
     }
 
-    public ProvisionSpProductRequest setZones(java.util.List<String> zones) {
+    public PreopenSpProductRequest setZones(java.util.List<String> zones) {
         this.zones = zones;
         return this;
     }
@@ -170,7 +162,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.zones;
     }
 
-    public ProvisionSpProductRequest setTenantId(String tenantId) {
+    public PreopenSpProductRequest setTenantId(String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -178,7 +170,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public ProvisionSpProductRequest setAccessCode(String accessCode) {
+    public PreopenSpProductRequest setAccessCode(String accessCode) {
         this.accessCode = accessCode;
         return this;
     }
@@ -186,7 +178,7 @@ public class ProvisionSpProductRequest extends TeaModel {
         return this.accessCode;
     }
 
-    public ProvisionSpProductRequest setBusinessData(String businessData) {
+    public PreopenSpProductRequest setBusinessData(String businessData) {
         this.businessData = businessData;
         return this;
     }

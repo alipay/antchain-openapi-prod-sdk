@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-sp</artifactId>
-  <version>4.1.4</version>
+  <version>4.9.0</version>
   <packaging>jar</packaging>
   <name>openapi-sp</name>
   <description>Ant Chain SP SDK for Java
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.aliyun</groupId>
       <artifactId>tea-util</artifactId>
-      <version>0.2.13</version>
+      <version>0.2.23</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>

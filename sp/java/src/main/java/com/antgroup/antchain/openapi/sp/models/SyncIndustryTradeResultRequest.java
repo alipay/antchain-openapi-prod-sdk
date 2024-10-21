@@ -50,6 +50,27 @@ public class SyncIndustryTradeResultRequest extends TeaModel {
     @Validation(required = true)
     public String channel;
 
+    // 交易金额，单位元，支持到分
+    @NameInMap("total_amount")
+    public String totalAmount;
+
+    // 币种
+    @NameInMap("currency_value")
+    public String currencyValue;
+
+    // 交易付款成功时间
+    @NameInMap("gmt_trade")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    public String gmtTrade;
+
+    // 来源编码
+    @NameInMap("source")
+    public String source;
+
+    // 扩展属性
+    @NameInMap("properties")
+    public String properties;
+
     public static SyncIndustryTradeResultRequest build(java.util.Map<String, ?> map) throws Exception {
         SyncIndustryTradeResultRequest self = new SyncIndustryTradeResultRequest();
         return TeaModel.build(map, self);
@@ -133,6 +154,46 @@ public class SyncIndustryTradeResultRequest extends TeaModel {
     }
     public String getChannel() {
         return this.channel;
+    }
+
+    public SyncIndustryTradeResultRequest setTotalAmount(String totalAmount) {
+        this.totalAmount = totalAmount;
+        return this;
+    }
+    public String getTotalAmount() {
+        return this.totalAmount;
+    }
+
+    public SyncIndustryTradeResultRequest setCurrencyValue(String currencyValue) {
+        this.currencyValue = currencyValue;
+        return this;
+    }
+    public String getCurrencyValue() {
+        return this.currencyValue;
+    }
+
+    public SyncIndustryTradeResultRequest setGmtTrade(String gmtTrade) {
+        this.gmtTrade = gmtTrade;
+        return this;
+    }
+    public String getGmtTrade() {
+        return this.gmtTrade;
+    }
+
+    public SyncIndustryTradeResultRequest setSource(String source) {
+        this.source = source;
+        return this;
+    }
+    public String getSource() {
+        return this.source;
+    }
+
+    public SyncIndustryTradeResultRequest setProperties(String properties) {
+        this.properties = properties;
+        return this;
+    }
+    public String getProperties() {
+        return this.properties;
     }
 
 }
