@@ -6,7 +6,7 @@ namespace AntChain\SP\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ProvisionSpProductRequest extends Model
+class PreopenSpProductRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -36,18 +36,14 @@ class ProvisionSpProductRequest extends Model
      */
     public $productCode;
 
-    // 购买产品的租户
-    /**
-     * @var string
-     */
-    public $tenant;
-
+    //
     // 产品实例Id
     /**
      * @var string[]
      */
     public $instanceIds;
 
+    //
     // 具体规格配置信息（JSON格式）会按照key进行排序
     /**
      * @var string
@@ -66,25 +62,28 @@ class ProvisionSpProductRequest extends Model
      */
     public $workspace;
 
+    //
     // 实例需要创建到租户的地域
     /**
      * @var string
      */
     public $region;
 
+    //
     // 实例需要创建到租户的机房，可以有多个（冗灾场景）
     /**
      * @var string[]
      */
     public $zones;
 
+    //
     // 购买产品的租户ID，格式为2088XXXXXXXXXXXX
     /**
      * @var string
      */
     public $tenantId;
 
-    // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+    // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址
     /**
      * @var string
      */
@@ -101,7 +100,6 @@ class ProvisionSpProductRequest extends Model
         'productAccessCode' => 'product_access_code',
         'orderNo'           => 'order_no',
         'productCode'       => 'product_code',
-        'tenant'            => 'tenant',
         'instanceIds'       => 'instance_ids',
         'specification'     => 'specification',
         'customData'        => 'custom_data',
@@ -117,21 +115,10 @@ class ProvisionSpProductRequest extends Model
     {
         Model::validateRequired('orderNo', $this->orderNo, true);
         Model::validateRequired('productCode', $this->productCode, true);
-        Model::validateRequired('tenant', $this->tenant, true);
         Model::validateRequired('instanceIds', $this->instanceIds, true);
         Model::validateRequired('specification', $this->specification, true);
         Model::validateRequired('tenantId', $this->tenantId, true);
         Model::validateRequired('accessCode', $this->accessCode, true);
-        Model::validateMaxLength('orderNo', $this->orderNo, 64);
-        Model::validateMaxLength('productCode', $this->productCode, 20);
-        Model::validateMaxLength('tenant', $this->tenant, 8);
-        Model::validateMaxLength('tenantId', $this->tenantId, 16);
-        Model::validateMaxLength('accessCode', $this->accessCode, 24);
-        Model::validateMinLength('orderNo', $this->orderNo, 32);
-        Model::validateMinLength('productCode', $this->productCode, 3);
-        Model::validateMinLength('tenant', $this->tenant, 8);
-        Model::validateMinLength('tenantId', $this->tenantId, 16);
-        Model::validateMinLength('accessCode', $this->accessCode, 3);
     }
 
     public function toMap()
@@ -151,9 +138,6 @@ class ProvisionSpProductRequest extends Model
         }
         if (null !== $this->productCode) {
             $res['product_code'] = $this->productCode;
-        }
-        if (null !== $this->tenant) {
-            $res['tenant'] = $this->tenant;
         }
         if (null !== $this->instanceIds) {
             $res['instance_ids'] = $this->instanceIds;
@@ -189,7 +173,7 @@ class ProvisionSpProductRequest extends Model
     /**
      * @param array $map
      *
-     * @return ProvisionSpProductRequest
+     * @return PreopenSpProductRequest
      */
     public static function fromMap($map = [])
     {
@@ -208,9 +192,6 @@ class ProvisionSpProductRequest extends Model
         }
         if (isset($map['product_code'])) {
             $model->productCode = $map['product_code'];
-        }
-        if (isset($map['tenant'])) {
-            $model->tenant = $map['tenant'];
         }
         if (isset($map['instance_ids'])) {
             if (!empty($map['instance_ids'])) {

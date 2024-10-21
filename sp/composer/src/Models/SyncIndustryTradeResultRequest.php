@@ -68,6 +68,36 @@ class SyncIndustryTradeResultRequest extends Model
      * @var string
      */
     public $channel;
+
+    // 交易金额，单位元，支持到分
+    /**
+     * @var string
+     */
+    public $totalAmount;
+
+    // 币种
+    /**
+     * @var string
+     */
+    public $currencyValue;
+
+    // 交易付款成功时间
+    /**
+     * @var string
+     */
+    public $gmtTrade;
+
+    // 来源编码
+    /**
+     * @var string
+     */
+    public $source;
+
+    // 扩展属性
+    /**
+     * @var string
+     */
+    public $properties;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -79,6 +109,11 @@ class SyncIndustryTradeResultRequest extends Model
         'errorCode'         => 'error_code',
         'errorMsg'          => 'error_msg',
         'channel'           => 'channel',
+        'totalAmount'       => 'total_amount',
+        'currencyValue'     => 'currency_value',
+        'gmtTrade'          => 'gmt_trade',
+        'source'            => 'source',
+        'properties'        => 'properties',
     ];
 
     public function validate()
@@ -88,6 +123,7 @@ class SyncIndustryTradeResultRequest extends Model
         Model::validateRequired('tradeNo', $this->tradeNo, true);
         Model::validateRequired('tradeStatus', $this->tradeStatus, true);
         Model::validateRequired('channel', $this->channel, true);
+        Model::validatePattern('gmtTrade', $this->gmtTrade, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()
@@ -122,6 +158,21 @@ class SyncIndustryTradeResultRequest extends Model
         }
         if (null !== $this->channel) {
             $res['channel'] = $this->channel;
+        }
+        if (null !== $this->totalAmount) {
+            $res['total_amount'] = $this->totalAmount;
+        }
+        if (null !== $this->currencyValue) {
+            $res['currency_value'] = $this->currencyValue;
+        }
+        if (null !== $this->gmtTrade) {
+            $res['gmt_trade'] = $this->gmtTrade;
+        }
+        if (null !== $this->source) {
+            $res['source'] = $this->source;
+        }
+        if (null !== $this->properties) {
+            $res['properties'] = $this->properties;
         }
 
         return $res;
@@ -164,6 +215,21 @@ class SyncIndustryTradeResultRequest extends Model
         }
         if (isset($map['channel'])) {
             $model->channel = $map['channel'];
+        }
+        if (isset($map['total_amount'])) {
+            $model->totalAmount = $map['total_amount'];
+        }
+        if (isset($map['currency_value'])) {
+            $model->currencyValue = $map['currency_value'];
+        }
+        if (isset($map['gmt_trade'])) {
+            $model->gmtTrade = $map['gmt_trade'];
+        }
+        if (isset($map['source'])) {
+            $model->source = $map['source'];
+        }
+        if (isset($map['properties'])) {
+            $model->properties = $map['properties'];
         }
 
         return $model;

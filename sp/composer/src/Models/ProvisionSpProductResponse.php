@@ -25,10 +25,17 @@ class ProvisionSpProductResponse extends Model
      * @var string
      */
     public $resultMsg;
+
+    // 标识是否同步返回生产结果
+    /**
+     * @var bool
+     */
+    public $sync;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
+        'sync'       => 'sync',
     ];
 
     public function validate()
@@ -46,6 +53,9 @@ class ProvisionSpProductResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->sync) {
+            $res['sync'] = $this->sync;
         }
 
         return $res;
@@ -67,6 +77,9 @@ class ProvisionSpProductResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
+        }
+        if (isset($map['sync'])) {
+            $model->sync = $map['sync'];
         }
 
         return $model;

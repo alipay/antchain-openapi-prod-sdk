@@ -6,7 +6,7 @@ namespace AntChain\SP\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class ModifySpProductResponse extends Model
+class CheckSpProductOrderparameterResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,23 @@ class ModifySpProductResponse extends Model
      */
     public $resultMsg;
 
-    // 标识是否同步返回变更结果
+    // 参数校验结果，PASS 通过，UNPASS 不通过
     /**
-     * @var bool
+     * @var string
      */
-    public $sync;
+    public $checkStatus;
+
+    // 参数校验不通过的提示信息
+    /**
+     * @var string
+     */
+    public $checkMsg;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'sync'       => 'sync',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'checkStatus' => 'check_status',
+        'checkMsg'    => 'check_msg',
     ];
 
     public function validate()
@@ -54,8 +61,11 @@ class ModifySpProductResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->sync) {
-            $res['sync'] = $this->sync;
+        if (null !== $this->checkStatus) {
+            $res['check_status'] = $this->checkStatus;
+        }
+        if (null !== $this->checkMsg) {
+            $res['check_msg'] = $this->checkMsg;
         }
 
         return $res;
@@ -64,7 +74,7 @@ class ModifySpProductResponse extends Model
     /**
      * @param array $map
      *
-     * @return ModifySpProductResponse
+     * @return CheckSpProductOrderparameterResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +88,11 @@ class ModifySpProductResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['sync'])) {
-            $model->sync = $map['sync'];
+        if (isset($map['check_status'])) {
+            $model->checkStatus = $map['check_status'];
+        }
+        if (isset($map['check_msg'])) {
+            $model->checkMsg = $map['check_msg'];
         }
 
         return $model;

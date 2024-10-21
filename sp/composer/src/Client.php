@@ -11,6 +11,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\SP\Models\CheckSpProductOrderparameterRequest;
+use AntChain\SP\Models\CheckSpProductOrderparameterResponse;
+use AntChain\SP\Models\CreateSpProductLogicinstanceRequest;
+use AntChain\SP\Models\CreateSpProductLogicinstanceResponse;
 use AntChain\SP\Models\GetSpProductOrderRequest;
 use AntChain\SP\Models\GetSpProductOrderResponse;
 use AntChain\SP\Models\LoadSpProductOrderparameterRequest;
@@ -19,18 +23,36 @@ use AntChain\SP\Models\ModifySpProductRequest;
 use AntChain\SP\Models\ModifySpProductResponse;
 use AntChain\SP\Models\OpenSpProductRequest;
 use AntChain\SP\Models\OpenSpProductResponse;
+use AntChain\SP\Models\PreopenSpProductRequest;
+use AntChain\SP\Models\PreopenSpProductResponse;
 use AntChain\SP\Models\ProvisionSpProductRequest;
 use AntChain\SP\Models\ProvisionSpProductResponse;
+use AntChain\SP\Models\QueryDemoCccCccRequest;
+use AntChain\SP\Models\QueryDemoCccCccResponse;
+use AntChain\SP\Models\QueryDemoEchoRequest;
+use AntChain\SP\Models\QueryDemoEchoResponse;
 use AntChain\SP\Models\ReleaseSpProductRequest;
 use AntChain\SP\Models\ReleaseSpProductResponse;
+use AntChain\SP\Models\RenewSpProductRequest;
+use AntChain\SP\Models\RenewSpProductResponse;
 use AntChain\SP\Models\ResumeSpProductRequest;
 use AntChain\SP\Models\ResumeSpProductResponse;
 use AntChain\SP\Models\StopSpProductRequest;
 use AntChain\SP\Models\StopSpProductResponse;
+use AntChain\SP\Models\SyncAcpartnerProjectResultRequest;
+use AntChain\SP\Models\SyncAcpartnerProjectResultResponse;
+use AntChain\SP\Models\SyncAcpartnerSettleinResultRequest;
+use AntChain\SP\Models\SyncAcpartnerSettleinResultResponse;
 use AntChain\SP\Models\SyncIndustryTradeResultRequest;
 use AntChain\SP\Models\SyncIndustryTradeResultResponse;
+use AntChain\SP\Models\SyncMerchantAgreementResultRequest;
+use AntChain\SP\Models\SyncMerchantAgreementResultResponse;
 use AntChain\SP\Models\SyncMerchantSignResultRequest;
 use AntChain\SP\Models\SyncMerchantSignResultResponse;
+use AntChain\SP\Models\SyncPccCommodityStatusRequest;
+use AntChain\SP\Models\SyncPccCommodityStatusResponse;
+use AntChain\SP\Models\SyncTradeFulfillResultRequest;
+use AntChain\SP\Models\SyncTradeFulfillResultResponse;
 use AntChain\SP\Models\UpdateAbilityChainAccountRequest;
 use AntChain\SP\Models\UpdateAbilityChainAccountResponse;
 use AntChain\SP\Models\UpdateAbilityChainAssetRequest;
@@ -134,18 +156,18 @@ class Client
     {
         $runtime->validate();
         $_runtime = [
-            'timeouted'               => 'retry',
-            'readTimeout'             => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
-            'connectTimeout'          => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
-            'httpProxy'               => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
-            'httpsProxy'              => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
-            'noProxy'                 => Utils::defaultString($runtime->noProxy, $this->_noProxy),
-            'maxIdleConns'            => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
-            'maxIdleTimeMillis'       => $this->_maxIdleTimeMillis,
-            'keepAliveDurationMillis' => $this->_keepAliveDurationMillis,
-            'maxRequests'             => $this->_maxRequests,
-            'maxRequestsPerHost'      => $this->_maxRequestsPerHost,
-            'retry'                   => [
+            'timeouted'          => 'retry',
+            'readTimeout'        => Utils::defaultNumber($runtime->readTimeout, $this->_readTimeout),
+            'connectTimeout'     => Utils::defaultNumber($runtime->connectTimeout, $this->_connectTimeout),
+            'httpProxy'          => Utils::defaultString($runtime->httpProxy, $this->_httpProxy),
+            'httpsProxy'         => Utils::defaultString($runtime->httpsProxy, $this->_httpsProxy),
+            'noProxy'            => Utils::defaultString($runtime->noProxy, $this->_noProxy),
+            'maxIdleConns'       => Utils::defaultNumber($runtime->maxIdleConns, $this->_maxIdleConns),
+            'maxIdleTimeMillis'  => $this->_maxIdleTimeMillis,
+            'keepAliveDuration'  => $this->_keepAliveDurationMillis,
+            'maxRequests'        => $this->_maxRequests,
+            'maxRequestsPerHost' => $this->_maxRequestsPerHost,
+            'retry'              => [
                 'retryable'   => $runtime->autoretry,
                 'maxAttempts' => Utils::defaultNumber($runtime->maxAttempts, 3),
             ],
@@ -154,7 +176,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 订单执行结果描述
+            // 支出配置单对象结果详情
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -182,7 +204,9 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '4.1.4',
+                    'sdk_version'      => '4.9.0',
+                    '_prod_code'       => 'SP',
+                    '_prod_channel'    => 'undefined',
                 ];
                 if (!Utils::empty_($this->_securityToken)) {
                     $_request->query['security_token'] = $this->_securityToken;
@@ -369,9 +393,10 @@ class Client
     }
 
     /**
-     * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+     * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
      * 创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-     * 异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+     * 异步接口，也支持通过参数指定同步返回。
+     * 能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
      * 注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
      * Summary: SPI-创建产品实例.
      *
@@ -388,9 +413,10 @@ class Client
     }
 
     /**
-     * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+     * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
      * 创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-     * 异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+     * 异步接口，也支持通过参数指定同步返回。
+     * 能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
      * 注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
      * Summary: SPI-创建产品实例.
      *
@@ -409,8 +435,10 @@ class Client
 
     /**
      * Description: 对已有的实例进行规格变更操作。
-     * 异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-     * 注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+     * 支持同步、异步返回结果
+     * 1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+     * 2.如果变更过程立即生效，则通过sync=true进行返回
+     * 中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
      * Summary: SPI-变更产品实例配置.
      *
      * @param ModifySpProductRequest $request
@@ -427,8 +455,10 @@ class Client
 
     /**
      * Description: 对已有的实例进行规格变更操作。
-     * 异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-     * 注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+     * 支持同步、异步返回结果
+     * 1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+     * 2.如果变更过程立即生效，则通过sync=true进行返回
+     * 中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
      * Summary: SPI-变更产品实例配置.
      *
      * @param ModifySpProductRequest $request
@@ -615,6 +645,369 @@ class Client
         Utils::validateModel($request);
 
         return SyncMerchantSignResultResponse::fromMap($this->doRequest('1.0', 'antcloudspi.merchant.sign.result.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 签约状态变更通知
+     * Summary: 签约状态变更通知.
+     *
+     * @param SyncMerchantAgreementResultRequest $request
+     *
+     * @return SyncMerchantAgreementResultResponse
+     */
+    public function syncMerchantAgreementResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncMerchantAgreementResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 签约状态变更通知
+     * Summary: 签约状态变更通知.
+     *
+     * @param SyncMerchantAgreementResultRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return SyncMerchantAgreementResultResponse
+     */
+    public function syncMerchantAgreementResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncMerchantAgreementResultResponse::fromMap($this->doRequest('1.0', 'antcloudspi.merchant.agreement.result.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: pdf
+     * Summary: test.
+     *
+     * @param QueryDemoCccCccRequest $request
+     *
+     * @return QueryDemoCccCccResponse
+     */
+    public function queryDemoCccCcc($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoCccCccEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: pdf
+     * Summary: test.
+     *
+     * @param QueryDemoCccCccRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryDemoCccCccResponse
+     */
+    public function queryDemoCccCccEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoCccCccResponse::fromMap($this->doRequest('1.0', 'antcloudspi.demo.ccc.ccc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合作方（伙伴、商家等）项目签约结果通知
+     * Summary: 合作方（伙伴、商家等）项目签约结果通知.
+     *
+     * @param SyncAcpartnerProjectResultRequest $request
+     *
+     * @return SyncAcpartnerProjectResultResponse
+     */
+    public function syncAcpartnerProjectResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAcpartnerProjectResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合作方（伙伴、商家等）项目签约结果通知
+     * Summary: 合作方（伙伴、商家等）项目签约结果通知.
+     *
+     * @param SyncAcpartnerProjectResultRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return SyncAcpartnerProjectResultResponse
+     */
+    public function syncAcpartnerProjectResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAcpartnerProjectResultResponse::fromMap($this->doRequest('1.0', 'antcloudspi.acpartner.project.result.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合作方（伙伴、商家等）入驻结果通知
+     * Summary: 合作方（伙伴、商家等）入驻结果通知.
+     *
+     * @param SyncAcpartnerSettleinResultRequest $request
+     *
+     * @return SyncAcpartnerSettleinResultResponse
+     */
+    public function syncAcpartnerSettleinResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncAcpartnerSettleinResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合作方（伙伴、商家等）入驻结果通知
+     * Summary: 合作方（伙伴、商家等）入驻结果通知.
+     *
+     * @param SyncAcpartnerSettleinResultRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return SyncAcpartnerSettleinResultResponse
+     */
+    public function syncAcpartnerSettleinResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncAcpartnerSettleinResultResponse::fromMap($this->doRequest('1.0', 'antcloudspi.acpartner.settlein.result.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 交易平台履约结果通知
+     * Summary: 交易平台履约结果通知.
+     *
+     * @param SyncTradeFulfillResultRequest $request
+     *
+     * @return SyncTradeFulfillResultResponse
+     */
+    public function syncTradeFulfillResult($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncTradeFulfillResultEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 交易平台履约结果通知
+     * Summary: 交易平台履约结果通知.
+     *
+     * @param SyncTradeFulfillResultRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SyncTradeFulfillResultResponse
+     */
+    public function syncTradeFulfillResultEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncTradeFulfillResultResponse::fromMap($this->doRequest('1.0', 'antcloudspi.trade.fulfill.result.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 目前仅通知商品上架状态变更事件
+     * Summary: 商品状态变更通知.
+     *
+     * @param SyncPccCommodityStatusRequest $request
+     *
+     * @return SyncPccCommodityStatusResponse
+     */
+    public function syncPccCommodityStatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncPccCommodityStatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 目前仅通知商品上架状态变更事件
+     * Summary: 商品状态变更通知.
+     *
+     * @param SyncPccCommodityStatusRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return SyncPccCommodityStatusResponse
+     */
+    public function syncPccCommodityStatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncPccCommodityStatusResponse::fromMap($this->doRequest('1.0', 'antcloudspi.pcc.commodity.status.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: spi测试
+     * Summary: spi测试.
+     *
+     * @param QueryDemoEchoRequest $request
+     *
+     * @return QueryDemoEchoResponse
+     */
+    public function queryDemoEcho($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryDemoEchoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: spi测试
+     * Summary: spi测试.
+     *
+     * @param QueryDemoEchoRequest $request
+     * @param string[]             $headers
+     * @param RuntimeOptions       $runtime
+     *
+     * @return QueryDemoEchoResponse
+     */
+    public function queryDemoEchoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryDemoEchoResponse::fromMap($this->doRequest('1.0', 'antcloudspi.demo.echo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 逻辑实例创建成功后回调
+     * Summary: 逻辑实例创建成功后回调.
+     *
+     * @param CreateSpProductLogicinstanceRequest $request
+     *
+     * @return CreateSpProductLogicinstanceResponse
+     */
+    public function createSpProductLogicinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createSpProductLogicinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 逻辑实例创建成功后回调
+     * Summary: 逻辑实例创建成功后回调.
+     *
+     * @param CreateSpProductLogicinstanceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CreateSpProductLogicinstanceResponse
+     */
+    public function createSpProductLogicinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateSpProductLogicinstanceResponse::fromMap($this->doRequest('1.0', 'antcloudspi.sp.product.logicinstance.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+     * Summary: SPI-商品实例续费.
+     *
+     * @param RenewSpProductRequest $request
+     *
+     * @return RenewSpProductResponse
+     */
+    public function renewSpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->renewSpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+     * Summary: SPI-商品实例续费.
+     *
+     * @param RenewSpProductRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return RenewSpProductResponse
+     */
+    public function renewSpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RenewSpProductResponse::fromMap($this->doRequest('1.0', 'antcloudspi.sp.product.renew', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+     * Summary: 购买页参数传递给产品方校验.
+     *
+     * @param CheckSpProductOrderparameterRequest $request
+     *
+     * @return CheckSpProductOrderparameterResponse
+     */
+    public function checkSpProductOrderparameter($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkSpProductOrderparameterEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+     * Summary: 购买页参数传递给产品方校验.
+     *
+     * @param CheckSpProductOrderparameterRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CheckSpProductOrderparameterResponse
+     */
+    public function checkSpProductOrderparameterEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckSpProductOrderparameterResponse::fromMap($this->doRequest('1.0', 'antcloudspi.sp.product.orderparameter.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 开通前通知
+     * Summary: 开通前通知.
+     *
+     * @param PreopenSpProductRequest $request
+     *
+     * @return PreopenSpProductResponse
+     */
+    public function preopenSpProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->preopenSpProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 开通前通知
+     * Summary: 开通前通知.
+     *
+     * @param PreopenSpProductRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return PreopenSpProductResponse
+     */
+    public function preopenSpProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PreopenSpProductResponse::fromMap($this->doRequest('1.0', 'antcloudspi.sp.product.preopen', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
