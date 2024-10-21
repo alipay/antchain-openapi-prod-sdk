@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CancelDigitalkeyPreauthpayResponse extends TeaModel {
+public class UnfreezeDigitalkeyPreauthpayResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -28,12 +28,12 @@ public class CancelDigitalkeyPreauthpayResponse extends TeaModel {
     @NameInMap("data")
     public String data;
 
-    public static CancelDigitalkeyPreauthpayResponse build(java.util.Map<String, ?> map) throws Exception {
-        CancelDigitalkeyPreauthpayResponse self = new CancelDigitalkeyPreauthpayResponse();
+    public static UnfreezeDigitalkeyPreauthpayResponse build(java.util.Map<String, ?> map) throws Exception {
+        UnfreezeDigitalkeyPreauthpayResponse self = new UnfreezeDigitalkeyPreauthpayResponse();
         return TeaModel.build(map, self);
     }
 
-    public CancelDigitalkeyPreauthpayResponse setReqMsgId(String reqMsgId) {
+    public UnfreezeDigitalkeyPreauthpayResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -41,7 +41,7 @@ public class CancelDigitalkeyPreauthpayResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public CancelDigitalkeyPreauthpayResponse setResultCode(String resultCode) {
+    public UnfreezeDigitalkeyPreauthpayResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -49,7 +49,7 @@ public class CancelDigitalkeyPreauthpayResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public CancelDigitalkeyPreauthpayResponse setResultMsg(String resultMsg) {
+    public UnfreezeDigitalkeyPreauthpayResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -57,7 +57,7 @@ public class CancelDigitalkeyPreauthpayResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public CancelDigitalkeyPreauthpayResponse setSubCode(String subCode) {
+    public UnfreezeDigitalkeyPreauthpayResponse setSubCode(String subCode) {
         this.subCode = subCode;
         return this;
     }
@@ -65,7 +65,7 @@ public class CancelDigitalkeyPreauthpayResponse extends TeaModel {
         return this.subCode;
     }
 
-    public CancelDigitalkeyPreauthpayResponse setSubMsg(String subMsg) {
+    public UnfreezeDigitalkeyPreauthpayResponse setSubMsg(String subMsg) {
         this.subMsg = subMsg;
         return this;
     }
@@ -73,7 +73,7 @@ public class CancelDigitalkeyPreauthpayResponse extends TeaModel {
         return this.subMsg;
     }
 
-    public CancelDigitalkeyPreauthpayResponse setData(String data) {
+    public UnfreezeDigitalkeyPreauthpayResponse setData(String data) {
         this.data = data;
         return this;
     }

@@ -42,6 +42,10 @@ public class CreateDigitalkeyPreauthpayRequest extends TeaModel {
     @NameInMap("enable_pay_channels")
     public String enablePayChannels;
 
+    // 支付宝二级商户编号
+    @NameInMap("sub_merchant_id")
+    public String subMerchantId;
+
     public static CreateDigitalkeyPreauthpayRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDigitalkeyPreauthpayRequest self = new CreateDigitalkeyPreauthpayRequest();
         return TeaModel.build(map, self);
@@ -109,6 +113,14 @@ public class CreateDigitalkeyPreauthpayRequest extends TeaModel {
     }
     public String getEnablePayChannels() {
         return this.enablePayChannels;
+    }
+
+    public CreateDigitalkeyPreauthpayRequest setSubMerchantId(String subMerchantId) {
+        this.subMerchantId = subMerchantId;
+        return this;
+    }
+    public String getSubMerchantId() {
+        return this.subMerchantId;
     }
 
 }

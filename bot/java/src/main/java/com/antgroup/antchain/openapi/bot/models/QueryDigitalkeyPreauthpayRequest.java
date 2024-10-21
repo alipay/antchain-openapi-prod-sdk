@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
+public class QueryDigitalkeyPreauthpayRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,22 +11,17 @@ public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 商户对本次撤销操作的附言描述
-    @NameInMap("remark")
-    @Validation(required = true)
-    public String remark;
-
-    // 商户的授权资金订单号
+    // 商户的授权资金订单号。 
     @NameInMap("out_order_no")
     @Validation(required = true)
     public String outOrderNo;
 
-    public static CancelDigitalkeyPreauthpayRequest build(java.util.Map<String, ?> map) throws Exception {
-        CancelDigitalkeyPreauthpayRequest self = new CancelDigitalkeyPreauthpayRequest();
+    public static QueryDigitalkeyPreauthpayRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryDigitalkeyPreauthpayRequest self = new QueryDigitalkeyPreauthpayRequest();
         return TeaModel.build(map, self);
     }
 
-    public CancelDigitalkeyPreauthpayRequest setAuthToken(String authToken) {
+    public QueryDigitalkeyPreauthpayRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +29,7 @@ public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CancelDigitalkeyPreauthpayRequest setProductInstanceId(String productInstanceId) {
+    public QueryDigitalkeyPreauthpayRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,15 +37,7 @@ public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CancelDigitalkeyPreauthpayRequest setRemark(String remark) {
-        this.remark = remark;
-        return this;
-    }
-    public String getRemark() {
-        return this.remark;
-    }
-
-    public CancelDigitalkeyPreauthpayRequest setOutOrderNo(String outOrderNo) {
+    public QueryDigitalkeyPreauthpayRequest setOutOrderNo(String outOrderNo) {
         this.outOrderNo = outOrderNo;
         return this;
     }

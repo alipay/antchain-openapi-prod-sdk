@@ -16,7 +16,7 @@ public class CreateDigitalkeyPreauthpayResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // xxx
+    // 子返回码
     @NameInMap("sub_code")
     public String subCode;
 

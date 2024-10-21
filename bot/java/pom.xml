@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-bot</artifactId>
-  <version>1.11.48</version>
+  <version>1.11.55</version>
   <packaging>jar</packaging>
   <name>openapi-bot</name>
   <description>Ant Chain BOT SDK for Java

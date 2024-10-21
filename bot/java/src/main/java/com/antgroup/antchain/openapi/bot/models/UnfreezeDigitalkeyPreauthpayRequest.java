@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.bot.models;
 
 import com.aliyun.tea.*;
 
-public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
+public class UnfreezeDigitalkeyPreauthpayRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,7 +11,7 @@ public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 商户对本次撤销操作的附言描述
+    // 商户对本次解冻操作的附言描述
     @NameInMap("remark")
     @Validation(required = true)
     public String remark;
@@ -21,12 +21,17 @@ public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
     @Validation(required = true)
     public String outOrderNo;
 
-    public static CancelDigitalkeyPreauthpayRequest build(java.util.Map<String, ?> map) throws Exception {
-        CancelDigitalkeyPreauthpayRequest self = new CancelDigitalkeyPreauthpayRequest();
+    // 解冻请求流水号。
+    @NameInMap("out_request_no")
+    @Validation(required = true)
+    public String outRequestNo;
+
+    public static UnfreezeDigitalkeyPreauthpayRequest build(java.util.Map<String, ?> map) throws Exception {
+        UnfreezeDigitalkeyPreauthpayRequest self = new UnfreezeDigitalkeyPreauthpayRequest();
         return TeaModel.build(map, self);
     }
 
-    public CancelDigitalkeyPreauthpayRequest setAuthToken(String authToken) {
+    public UnfreezeDigitalkeyPreauthpayRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -34,7 +39,7 @@ public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
         return this.authToken;
     }
 
-    public CancelDigitalkeyPreauthpayRequest setProductInstanceId(String productInstanceId) {
+    public UnfreezeDigitalkeyPreauthpayRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -42,7 +47,7 @@ public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public CancelDigitalkeyPreauthpayRequest setRemark(String remark) {
+    public UnfreezeDigitalkeyPreauthpayRequest setRemark(String remark) {
         this.remark = remark;
         return this;
     }
@@ -50,12 +55,20 @@ public class CancelDigitalkeyPreauthpayRequest extends TeaModel {
         return this.remark;
     }
 
-    public CancelDigitalkeyPreauthpayRequest setOutOrderNo(String outOrderNo) {
+    public UnfreezeDigitalkeyPreauthpayRequest setOutOrderNo(String outOrderNo) {
         this.outOrderNo = outOrderNo;
         return this;
     }
     public String getOutOrderNo() {
         return this.outOrderNo;
+    }
+
+    public UnfreezeDigitalkeyPreauthpayRequest setOutRequestNo(String outRequestNo) {
+        this.outRequestNo = outRequestNo;
+        return this;
+    }
+    public String getOutRequestNo() {
+        return this.outRequestNo;
     }
 
 }

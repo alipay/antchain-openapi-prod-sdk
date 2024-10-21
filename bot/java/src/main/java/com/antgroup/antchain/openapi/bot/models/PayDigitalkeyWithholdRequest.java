@@ -23,10 +23,9 @@ public class PayDigitalkeyWithholdRequest extends TeaModel {
 
     // 签约时支付宝返回的用户ID
     @NameInMap("alipay_user_id")
-    @Validation(required = true)
     public String alipayUserId;
 
-    // 销售产品码，商户代扣场景固定为GENERAL_WITHHOLDING
+    // 销售产品码，商户代扣场景为GENERAL_WITHHOLDING；预授权支付场景为PRE_AUTH_ONLINE
     @NameInMap("product_code")
     @Validation(required = true)
     public String productCode;
@@ -42,7 +41,6 @@ public class PayDigitalkeyWithholdRequest extends TeaModel {
 
     // 代扣协议号, 对应于签约时外部商户传入的协议号
     @NameInMap("external_agreement_no")
-    @Validation(required = true)
     public String externalAgreementNo;
 
     // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
@@ -54,7 +52,9 @@ public class PayDigitalkeyWithholdRequest extends TeaModel {
     @Validation(required = true)
     public String asyncType;
 
-    // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+    // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围：[1,10000000000]
+    // 传值为实际金额的100倍，例如传值为8000，实际金额为80.00 
+    // 如果订单金额全部参与优惠计算，则【可打折金额】无需传入。
     @NameInMap("discountable_amount")
     public Long discountableAmount;
 
@@ -65,6 +65,11 @@ public class PayDigitalkeyWithholdRequest extends TeaModel {
     // 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
     @NameInMap("body")
     public String body;
+
+    // 资金授权冻结时的商户授权资金订单号
+    // 支付宝预授权场景下必填。
+    @NameInMap("out_auth_no")
+    public String outAuthNo;
 
     public static PayDigitalkeyWithholdRequest build(java.util.Map<String, ?> map) throws Exception {
         PayDigitalkeyWithholdRequest self = new PayDigitalkeyWithholdRequest();
@@ -181,6 +186,14 @@ public class PayDigitalkeyWithholdRequest extends TeaModel {
     }
     public String getBody() {
         return this.body;
+    }
+
+    public PayDigitalkeyWithholdRequest setOutAuthNo(String outAuthNo) {
+        this.outAuthNo = outAuthNo;
+        return this;
+    }
+    public String getOutAuthNo() {
+        return this.outAuthNo;
     }
 
 }
