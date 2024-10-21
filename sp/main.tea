@@ -100,7 +100,9 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '4.1.4',
+    sdk_version = '4.9.0',
+    _prod_code = 'SP',
+    _prod_channel = 'undefined'
   };
 
   if (!Util.empty(@securityToken)) {
@@ -145,7 +147,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   noProxy = Util.defaultString(runtime.noProxy, @noProxy),
   maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
   maxIdleTimeMillis = @maxIdleTimeMillis,
-  keepAliveDurationMillis = @keepAliveDurationMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
   maxRequests = @maxRequests,
   maxRequestsPerHost = @maxRequestsPerHost,
   retry = {
@@ -159,12 +161,27 @@ api doRequest(version: string, action: string, protocol: string, method: string,
   ignoreSSL = runtime.ignoreSSL
 }
 
-// 订单执行结果描述
-model OrderResult {
-  // 实例Id
-  instanceId: string(maxLength=10, name='instance_id', example='A0CSCMAYIBANKPWBATNA4F'),
-  // 是否生成成功
-  success: boolean(name='success', example=''),
+// 支出配置单对象结果详情
+model ExpenditureQuotationItemResult {
+  // 支出配置单商品维度的外部唯一id
+  outUniqueId: string(name='out_unique_id', example='支出配置单商品维度的外部唯一id'),
+  // 支出配置单商品合约号
+  arrangementNo: string(name='arrangement_no', example='支出配置单商品合约号'),
+}
+
+// 交易履约结果消息结构
+model TradeFulfillResult {
+  // 履约单据号，可用于作为幂等依据
+  fulfillOrderNo: string(name='fulfill_order_no', example='20220429174600FL00240000000003#1000'),
+  // 履约枚举，生产-PROVISION，停服-STOP，释放-RELEASE，恢复/RESUME
+  // 
+  fulfillType: string(name='fulfill_type', example='PROVISION'),
+  // 租户ID
+  tenantId: string(name='tenant_id', example='2088241332274240'),
+  // 主商品编码
+  commodityCode: string(name='commodity_code', example='ZLPTFM00013689'),
+  // 履约实例ID
+  instanceId: string(name='instance_id', example='A0BQBHFM00034877FVDJWUXR1ZXEMOD1U4G'),
 }
 
 // 从产品动态加载返回结果集
@@ -179,6 +196,34 @@ model DiscreteValue {
   tips?: string(name='tips', example='容量'),
   // 多个组件展示的顺序
   sortId: long(name='sort_id', example='1'),
+}
+
+// 订单执行结果描述
+model OrderResult {
+  // 实例Id
+  instanceId: string(maxLength=10, name='instance_id', example='A0CSCMAYIBANKPWBATNA4F'),
+  // 是否生成成功
+  success: boolean(name='success', example=''),
+}
+
+// 干系人
+model RelUser {
+  // 工号
+  empId: string(name='emp_id', example='000001'),
+  // 域账号
+  loginName: string(name='login_name', example='zhangsan.abc'),
+  // 花名
+  nickName: string(name='nick_name', example='nick_name'),
+  // 角色，PD-产品经理，DEV-研发
+  role: string(name='role', example='PD'),
+}
+
+// API变更结构
+model ApiChange {
+  // 变更类型，ADD-新增，DELETE-删除
+  changeType: string(name='change_type', example='ADD'),
+  // API名称列表
+  apiNames: [ string ](name='api_names', example=''),
 }
 
 model UpdateAbilityChainAccountRequest = {
@@ -404,6 +449,8 @@ model ProvisionSpProductRequest = {
   tenantId: string(maxLength=16, minLength=16, name='tenant_id'),
   // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
   accessCode: string(maxLength=24, minLength=3, name='access_code'),
+  // 商业业务信息，如签约的项目ID、合同ID、合作伙伴ID等信息
+  businessData?: string(name='business_data'),
 }
 
 model ProvisionSpProductResponse = {
@@ -413,12 +460,15 @@ model ProvisionSpProductResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 标识是否同步返回生产结果
+  sync?: boolean(name='sync'),
 }
 
 /**
- * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+ * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
 创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+异步接口，也支持通过参数指定同步返回。
+能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
 注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
  * Summary: SPI-创建产品实例
  */
@@ -429,9 +479,10 @@ async function provisionSpProduct(request: ProvisionSpProductRequest): Provision
 }
 
 /**
- * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一台ECS，就是创建一个ECS实例。
+ * Description: 创建产品实例（带配置）支持相同配置一次创建多个实例（最大10个）。比如：用户购买一个BAAS链，就是创建一个BAAS链实例。
 创建产品会生成产品实例Id，后续变配、释放、停服、恢复服务操作都是通过实例Id作为标识。
-异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
+异步接口，也支持通过参数指定同步返回。
+能力产品收到指令后需要自行落库，并记录执行结果。如果是异步行为，则创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
 注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
  * Summary: SPI-创建产品实例
  */
@@ -455,6 +506,24 @@ model ModifySpProductRequest = {
   specification: string(name='specification'),
   // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
   accessCode: string(maxLength=24, minLength=3, name='access_code'),
+  // 变配类型：
+  // ONLY_SPECIFICATION只规格变配,
+  // SPECIFICATION_AND_TIME 规格和时间同时变配
+  modifyType: string(maxLength=32, minLength=4, name='modify_type'),
+  // 变配新的开始时间。格式为UTC时间。
+  // modify_type是SPECIFICATION_AND_TIME时，必填
+  newStartTime?: string(name='new_start_time'),
+  // 变配新的结束时间。格式为UTC时间.
+  //  modify_type是SPECIFICATION_AND_TIME时，必填
+  newEndTime?: string(name='new_end_time'),
+  // 商业业务信息，如签约的项目ID、合同ID、合作伙伴ID等
+  businessData?: string(name='business_data'),
+  // 具体规格配置信息（JSON格式）会按照key进行排序。
+  // 此字段传入的是变配前的老规格信息。
+  oldSpecification?: string(name='old_specification'),
+  // 具体规格配置信息（JSON格式）会按照key进行排序.
+  // 传入新的规格信息，包括在新的规格中不存在，但是老的规格中有的kv。
+  newSpecification?: string(name='new_specification'),
 }
 
 model ModifySpProductResponse = {
@@ -464,12 +533,16 @@ model ModifySpProductResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 标识是否同步返回变更结果
+  sync?: boolean(name='sync'),
 }
 
 /**
  * Description: 对已有的实例进行规格变更操作。
-异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+支持同步、异步返回结果
+1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+2.如果变更过程立即生效，则通过sync=true进行返回
+中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
  * Summary: SPI-变更产品实例配置
  */
 async function modifySpProduct(request: ModifySpProductRequest): ModifySpProductResponse {
@@ -480,8 +553,10 @@ async function modifySpProduct(request: ModifySpProductRequest): ModifySpProduct
 
 /**
  * Description: 对已有的实例进行规格变更操作。
-异步接口 能力产品收到指令后需要自行落库（如果创建过程比较耗时），并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI。
-注意：中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
+支持同步、异步返回结果
+1.如果变更过程比较耗时，能力产品收到指令后需要自行落库并记录执行结果。创建完成后结果通过openAPI通知平台，超时未收到结果平台将主动查询SPI
+2.如果变更过程立即生效，则通过sync=true进行返回
+中台会通知能力产品指定集群，如果同步返回结果失败平台会重试调用（最多3次），需要根据订单号order_no做好幂等判断。
  * Summary: SPI-变更产品实例配置
  */
 async function modifySpProductEx(request: ModifySpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ModifySpProductResponse {
@@ -652,6 +727,16 @@ model SyncIndustryTradeResultRequest = {
   errorMsg?: string(name='error_msg'),
   // 渠道 自营平台、第三方平台等
   channel: string(name='channel'),
+  // 交易金额，单位元，支持到分
+  totalAmount?: string(name='total_amount'),
+  // 币种
+  currencyValue?: string(name='currency_value'),
+  // 交易付款成功时间
+  gmtTrade?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_trade'),
+  // 来源编码
+  source?: string(name='source'),
+  // 扩展属性
+  properties?: string(name='properties'),
 }
 
 model SyncIndustryTradeResultResponse = {
@@ -729,6 +814,526 @@ async function syncMerchantSignResult(request: SyncMerchantSignResultRequest): S
 async function syncMerchantSignResultEx(request: SyncMerchantSignResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncMerchantSignResultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antcloudspi.merchant.sign.result.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncMerchantAgreementResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 签约请求单据号
+  requestId: string(name='request_id'),
+  // 代扣产品码
+  // 代扣：GENERAL_WITHHOLDING_P
+  personalProductCode: string(name='personal_product_code'),
+  // 代扣签约主体2088号(即代扣收款方)
+  merchantUserId: string(name='merchant_user_id'),
+  // 签约客户支付宝uid
+  customerAlipayUserId: string(name='customer_alipay_user_id'),
+  // 实际生效时间
+  validTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time'),
+  // 失效时间
+  invalidTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='invalid_time'),
+  // 签约时间
+  signTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sign_time'),
+  // 签约状态
+  // TEMP-暂存
+  // NORMAL-正常
+  // STOP-暂停
+  status: string(name='status'),
+}
+
+model SyncMerchantAgreementResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 签约状态变更通知
+ * Summary: 签约状态变更通知
+ */
+async function syncMerchantAgreementResult(request: SyncMerchantAgreementResultRequest): SyncMerchantAgreementResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncMerchantAgreementResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 签约状态变更通知
+ * Summary: 签约状态变更通知
+ */
+async function syncMerchantAgreementResultEx(request: SyncMerchantAgreementResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncMerchantAgreementResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.merchant.agreement.result.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoCccCccRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+}
+
+model QueryDemoCccCccResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: pdf
+ * Summary: test
+ */
+async function queryDemoCccCcc(request: QueryDemoCccCccRequest): QueryDemoCccCccResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoCccCccEx(request, headers, runtime);
+}
+
+/**
+ * Description: pdf
+ * Summary: test
+ */
+async function queryDemoCccCccEx(request: QueryDemoCccCccRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoCccCccResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.demo.ccc.ccc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncAcpartnerProjectResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 租户code：用于数据和功能隔离
+  source: string(name='source'),
+  // 项目id
+  projectId: long(name='project_id'),
+  // 外部业务单据号
+  outBusinessNo: string(name='out_business_no'),
+  // 支出配置单结果列表
+  expenditureQuotationItems: [ ExpenditureQuotationItemResult ](name='expenditure_quotation_items'),
+  // 结果码
+  code: string(name='code'),
+}
+
+model SyncAcpartnerProjectResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）项目签约结果通知
+ * Summary: 合作方（伙伴、商家等）项目签约结果通知
+ */
+async function syncAcpartnerProjectResult(request: SyncAcpartnerProjectResultRequest): SyncAcpartnerProjectResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncAcpartnerProjectResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）项目签约结果通知
+ * Summary: 合作方（伙伴、商家等）项目签约结果通知
+ */
+async function syncAcpartnerProjectResultEx(request: SyncAcpartnerProjectResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAcpartnerProjectResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.acpartner.project.result.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncAcpartnerSettleinResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 租户code
+  source: string(name='source'),
+  // 入驻申请id
+  applyId: long(name='apply_id'),
+  // 外部的业务单据号
+  outBusinessNo: string(name='out_business_no'),
+  // 结果码
+  code: string(name='code'),
+}
+
+model SyncAcpartnerSettleinResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻结果通知
+ * Summary: 合作方（伙伴、商家等）入驻结果通知
+ */
+async function syncAcpartnerSettleinResult(request: SyncAcpartnerSettleinResultRequest): SyncAcpartnerSettleinResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncAcpartnerSettleinResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 合作方（伙伴、商家等）入驻结果通知
+ * Summary: 合作方（伙伴、商家等）入驻结果通知
+ */
+async function syncAcpartnerSettleinResultEx(request: SyncAcpartnerSettleinResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAcpartnerSettleinResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.acpartner.settlein.result.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncTradeFulfillResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 履约单据号，可用于作为幂等依据
+  fulfillOrderNo: string(name='fulfill_order_no'),
+  // 履约枚举，新购-NEW
+  fulfillType: string(name='fulfill_type'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 租户8位英文名
+  tenantName: string(name='tenant_name'),
+  // 主商品编码
+  commodityCode: string(name='commodity_code'),
+  // 履约实例ID
+  instanceId: string(name='instance_id'),
+}
+
+model SyncTradeFulfillResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 交易平台履约结果通知
+ * Summary: 交易平台履约结果通知
+ */
+async function syncTradeFulfillResult(request: SyncTradeFulfillResultRequest): SyncTradeFulfillResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncTradeFulfillResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 交易平台履约结果通知
+ * Summary: 交易平台履约结果通知
+ */
+async function syncTradeFulfillResultEx(request: SyncTradeFulfillResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncTradeFulfillResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.trade.fulfill.result.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncPccCommodityStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 主商品编码
+  commodityCode: string(name='commodity_code'),
+  // 商品名称
+  commodityName: string(name='commodity_name'),
+  // 商品服务模式，PLATFORM-平台型
+  commodityServiceMode: string(name='commodity_service_mode'),
+  // 商品计费模式，PREPAY_BY_MONTH-包年包月 AFTER_PAY_BY_HOUR-按量付费
+  commodityChargeType: string(name='commodity_charge_type'),
+  // 商品状态，ONLINE-上架，OFFLINE-下架
+  commodityStatus: string(name='commodity_status'),
+  // 产品干系人
+  productRelUses: [ RelUser ](name='product_rel_uses'),
+}
+
+model SyncPccCommodityStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 目前仅通知商品上架状态变更事件
+ * Summary: 商品状态变更通知
+ */
+async function syncPccCommodityStatus(request: SyncPccCommodityStatusRequest): SyncPccCommodityStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncPccCommodityStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 目前仅通知商品上架状态变更事件
+ * Summary: 商品状态变更通知
+ */
+async function syncPccCommodityStatusEx(request: SyncPccCommodityStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncPccCommodityStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.pcc.commodity.status.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDemoEchoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 123
+  data: string(name='data'),
+}
+
+model QueryDemoEchoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: spi测试
+ * Summary: spi测试
+ */
+async function queryDemoEcho(request: QueryDemoEchoRequest): QueryDemoEchoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDemoEchoEx(request, headers, runtime);
+}
+
+/**
+ * Description: spi测试
+ * Summary: spi测试
+ */
+async function queryDemoEchoEx(request: QueryDemoEchoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoEchoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.demo.echo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateSpProductLogicinstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 主产品实例唯一id
+  productInstanceUniqueId: string(name='product_instance_unique_id'),
+  // 逻辑实例唯一id
+  uniqueId: string(name='unique_id'),
+  // 幂等号
+  outBizNo: string(name='out_biz_no'),
+  // 账号Id
+  providerId: string(name='provider_id'),
+  // ACTIVE
+  status: string(name='status'),
+  // 逻辑实例描述
+  description: string(name='description'),
+  // 扩展属性
+  properties: string(name='properties'),
+}
+
+model CreateSpProductLogicinstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 逻辑实例创建成功后回调
+ * Summary: 逻辑实例创建成功后回调
+ */
+async function createSpProductLogicinstance(request: CreateSpProductLogicinstanceRequest): CreateSpProductLogicinstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createSpProductLogicinstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 逻辑实例创建成功后回调
+ * Summary: 逻辑实例创建成功后回调
+ */
+async function createSpProductLogicinstanceEx(request: CreateSpProductLogicinstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateSpProductLogicinstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.logicinstance.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RenewSpProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(maxLength=64, minLength=32, name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(maxLength=20, minLength=3, name='product_code'),
+  // 产品实例ID
+  instanceId: string(maxLength=50, minLength=20, name='instance_id'),
+  // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址。
+  accessCode: string(maxLength=24, minLength=3, name='access_code'),
+  // 续签后，新的实例开始时间。时间使用UTC时间
+  renewStartTime?: string(name='renew_start_time'),
+  // 续签后，新的实例结束时间。时间使用UTC时间
+  renewEndTime: string(name='renew_end_time'),
+}
+
+model RenewSpProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+ * Summary: SPI-商品实例续费
+ */
+async function renewSpProduct(request: RenewSpProductRequest): RenewSpProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return renewSpProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商品实例续费，支持已经创建的商品，延长生效时间
+ * Summary: SPI-商品实例续费
+ */
+async function renewSpProductEx(request: RenewSpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RenewSpProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.renew', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckSpProductOrderparameterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 加载业务的场景。具体内容同产品方定义，但产品下需保证唯一。
+  businessAction: string(name='business_action'),
+  // 用于加载对应场景数据的上下文（JSON格式具体同产品方定义）
+  businessContext: string(name='business_context'),
+  // 业务流水号。
+  orderNo?: string(name='order_no'),
+  // 商品的渠道产品码
+  productCode: string(name='product_code'),
+  // 地域。支持不同地域显示不同内容。
+  region?: string(name='region'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 需要校验的数据
+  input: string(name='input'),
+}
+
+model CheckSpProductOrderparameterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 参数校验结果，PASS 通过，UNPASS 不通过
+  checkStatus?: string(name='check_status'),
+  // 参数校验不通过的提示信息
+  checkMsg?: string(name='check_msg'),
+}
+
+/**
+ * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+ * Summary: 购买页参数传递给产品方校验
+ */
+async function checkSpProductOrderparameter(request: CheckSpProductOrderparameterRequest): CheckSpProductOrderparameterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkSpProductOrderparameterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 官网下单购买页面，用户输入的数据，提供给产品方校验是否符合要求
+ * Summary: 购买页参数传递给产品方校验
+ */
+async function checkSpProductOrderparameterEx(request: CheckSpProductOrderparameterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckSpProductOrderparameterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.orderparameter.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PreopenSpProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  productAccessCode?: string(name='product_access_code'),
+  // 订单号用于业务串联，以及幂等。目前为纯数字。保留使用大小写英文字符可能。
+  orderNo: string(name='order_no'),
+  // 产品码 全局唯一
+  productCode: string(name='product_code'),
+  // 	
+  // 产品实例Id
+  instanceIds: [ string ](name='instance_ids'),
+  // 	
+  // 具体规格配置信息（JSON格式）会按照key进行排序
+  specification: string(name='specification'),
+  // 部分产品创建时需要非生产规格的数据（JSON格式） 比如：ECS生产需要账号、密码等 会按照key进行排序
+  customData?: string(name='custom_data'),
+  // 实例需要创建到租户的环境信息
+  workspace?: string(name='workspace'),
+  // 	
+  // 实例需要创建到租户的地域
+  region?: string(name='region'),
+  // 	
+  // 实例需要创建到租户的机房，可以有多个（冗灾场景）
+  zones?: [ string ](name='zones'),
+  // 	
+  // 购买产品的租户ID，格式为2088XXXXXXXXXXXX
+  tenantId: string(name='tenant_id'),
+  // 服务接入码，商品对接开通时关联的接入码，由产品方研发定义，并对应一个回调地址
+  accessCode: string(name='access_code'),
+  // 商业业务信息，如签约的项目ID、合同ID、合作伙伴ID等信息
+  businessData?: string(name='business_data'),
+}
+
+model PreopenSpProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 开通前通知
+ * Summary: 开通前通知
+ */
+async function preopenSpProduct(request: PreopenSpProductRequest): PreopenSpProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return preopenSpProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 开通前通知
+ * Summary: 开通前通知
+ */
+async function preopenSpProductEx(request: PreopenSpProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PreopenSpProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloudspi.sp.product.preopen', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model OpenSpProductRequest = {

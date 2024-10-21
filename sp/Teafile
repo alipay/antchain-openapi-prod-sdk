@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "SP",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-sp:4.1.4",
-    "go": "github.com/antchain-openapi-sdk-go/sp/v4/client:v4.1.4",
-    "csharp": "AntChain.SDK.SP:4.1.4",
-    "ts": "@antchain/sp:4.1.4",
-    "php": "antchain/sp:4.1.4",
-    "python": "antchain_sdk_sp:4.1.4"
+    "java": "com.antgroup.antchain.openapi:openapi-sp:4.9.0",
+    "go": "github.com/antchain-openapi-sdk-go/sp/v4/client:v4.9.0",
+    "csharp": "AntChain.SDK.SP:4.9.0",
+    "ts": "@antchain/sp:4.9.0",
+    "php": "antchain/sp:4.9.0",
+    "python": "antchain_sdk_sp:4.9.0"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
