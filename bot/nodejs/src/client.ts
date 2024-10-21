@@ -14230,25 +14230,30 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
   // 订单标题
   subject: string;
   // 签约时支付宝返回的用户ID
-  alipayUserId: string;
-  // 销售产品码，商户代扣场景固定为GENERAL_WITHHOLDING
+  alipayUserId?: string;
+  // 销售产品码，商户代扣场景为GENERAL_WITHHOLDING；预授权支付场景为PRE_AUTH_ONLINE
   productCode: string;
   // 订单总金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]
   totalAmount: number;
   // 商户代扣扣款许可
   deductPermission?: string;
   // 代扣协议号, 对应于签约时外部商户传入的协议号
-  externalAgreementNo: string;
+  externalAgreementNo?: string;
   // 该笔订单允许的最晚付款时间，逾期将关闭交易，超时关闭交易无法继续付款。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天 该参数数值不接受小数点， 如：1.5 h，可转换为 90m。
   timeoutExpress?: string;
   // 异步支付类型
   asyncType: string;
-  // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围[0.01,100000000]。 如果同时传入了【可打折金额】、【不可打折金额】和【订单总金额】，则必须满足如下条件：【订单总金额】=【可打折金额】+【不可打折金额】。 如果订单金额全部参与优惠计算，则【可打折金额】和【不可打折金额】都无需传入。
+  // 可打折金额。 参与优惠计算的金额，单位为元，精确到小数点后两位，取值范围：[1,10000000000]
+  // 传值为实际金额的100倍，例如传值为8000，实际金额为80.00 
+  // 如果订单金额全部参与优惠计算，则【可打折金额】无需传入。
   discountableAmount?: number;
   // 二级商户信息
   subMerchant?: SubMerchantParams;
   // 订单附加信息。 如果请求时传递了该参数，将在异步通知、对账单中原样返回，同时会在商户和用户的pc账单详情中作为交易描述展示
   body?: string;
+  // 资金授权冻结时的商户授权资金订单号
+  // 支付宝预授权场景下必填。
+  outAuthNo?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14265,6 +14270,7 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
       discountableAmount: 'discountable_amount',
       subMerchant: 'sub_merchant',
       body: 'body',
+      outAuthNo: 'out_auth_no',
     };
   }
 
@@ -14284,6 +14290,7 @@ export class PayDigitalkeyWithholdRequest extends $tea.Model {
       discountableAmount: 'number',
       subMerchant: SubMerchantParams,
       body: 'string',
+      outAuthNo: 'string',
     };
   }
 
@@ -16286,6 +16293,8 @@ export class CreateDigitalkeyPreauthpayRequest extends $tea.Model {
   // 无特殊需要请勿传入；商户可用该参数指定支付渠道。
   // 传入后用户仅能使用列表中的渠道进行支付，目前支持三种渠道，余额宝（MONEY_FUND）、花呗（PCREDIT_PAY）以及芝麻信用（CREDITZHIMA）。
   enablePayChannels?: string;
+  // 支付宝二级商户编号
+  subMerchantId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -16296,6 +16305,7 @@ export class CreateDigitalkeyPreauthpayRequest extends $tea.Model {
       amount: 'amount',
       payeeLogonId: 'payee_logon_id',
       enablePayChannels: 'enable_pay_channels',
+      subMerchantId: 'sub_merchant_id',
     };
   }
 
@@ -16309,6 +16319,7 @@ export class CreateDigitalkeyPreauthpayRequest extends $tea.Model {
       amount: 'number',
       payeeLogonId: 'string',
       enablePayChannels: 'string',
+      subMerchantId: 'string',
     };
   }
 
@@ -16324,7 +16335,7 @@ export class CreateDigitalkeyPreauthpayResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // xxx
+  // 子返回码
   subCode?: string;
   // 子返回描述
   subMsg?: string;
@@ -16363,8 +16374,6 @@ export class CancelDigitalkeyPreauthpayRequest extends $tea.Model {
   productInstanceId?: string;
   // 商户对本次撤销操作的附言描述
   remark: string;
-  // 商户的授权资金操作流水号
-  outRequestNo: string;
   // 商户的授权资金订单号
   outOrderNo: string;
   static names(): { [key: string]: string } {
@@ -16372,7 +16381,6 @@ export class CancelDigitalkeyPreauthpayRequest extends $tea.Model {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       remark: 'remark',
-      outRequestNo: 'out_request_no',
       outOrderNo: 'out_order_no',
     };
   }
@@ -16382,7 +16390,6 @@ export class CancelDigitalkeyPreauthpayRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       remark: 'string',
-      outRequestNo: 'string',
       outOrderNo: 'string',
     };
   }
@@ -16403,6 +16410,8 @@ export class CancelDigitalkeyPreauthpayResponse extends $tea.Model {
   subCode?: string;
   // 子返回描述
   subMsg?: string;
+  // 返回内容，json格式
+  data?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -16410,6 +16419,7 @@ export class CancelDigitalkeyPreauthpayResponse extends $tea.Model {
       resultMsg: 'result_msg',
       subCode: 'sub_code',
       subMsg: 'sub_msg',
+      data: 'data',
     };
   }
 
@@ -16420,6 +16430,149 @@ export class CancelDigitalkeyPreauthpayResponse extends $tea.Model {
       resultMsg: 'string',
       subCode: 'string',
       subMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnfreezeDigitalkeyPreauthpayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户对本次解冻操作的附言描述
+  remark: string;
+  // 商户的授权资金订单号
+  outOrderNo: string;
+  // 解冻请求流水号。
+  outRequestNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      remark: 'remark',
+      outOrderNo: 'out_order_no',
+      outRequestNo: 'out_request_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      remark: 'string',
+      outOrderNo: 'string',
+      outRequestNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UnfreezeDigitalkeyPreauthpayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 子返回码
+  subCode?: string;
+  // 子返回描述
+  subMsg?: string;
+  // 返回内容，json格式
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyPreauthpayRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户的授权资金订单号。 
+  outOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outOrderNo: 'out_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryDigitalkeyPreauthpayResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 子返回码
+  subCode?: string;
+  // 子返回描述
+  subMsg?: string;
+  // 返回内容，json格式
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      subCode: 'sub_code',
+      subMsg: 'sub_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      subCode: 'string',
+      subMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -26695,7 +26848,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.48",
+          sdk_version: "1.11.55",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -27233,6 +27386,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -28907,6 +29061,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -29215,6 +29370,44 @@ export default class Client {
   async cancelDigitalkeyPreauthpayEx(request: CancelDigitalkeyPreauthpayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelDigitalkeyPreauthpayResponse> {
     Util.validateModel(request);
     return $tea.cast<CancelDigitalkeyPreauthpayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.preauthpay.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelDigitalkeyPreauthpayResponse({}));
+  }
+
+  /**
+   * Description: 预授权资金解冻
+   * Summary: 预授权资金解冻
+   */
+  async unfreezeDigitalkeyPreauthpay(request: UnfreezeDigitalkeyPreauthpayRequest): Promise<UnfreezeDigitalkeyPreauthpayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.unfreezeDigitalkeyPreauthpayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 预授权资金解冻
+   * Summary: 预授权资金解冻
+   */
+  async unfreezeDigitalkeyPreauthpayEx(request: UnfreezeDigitalkeyPreauthpayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UnfreezeDigitalkeyPreauthpayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UnfreezeDigitalkeyPreauthpayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.preauthpay.unfreeze", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UnfreezeDigitalkeyPreauthpayResponse({}));
+  }
+
+  /**
+   * Description: 预授权支付订单查询
+   * Summary: 预授权支付订单查询
+   */
+  async queryDigitalkeyPreauthpay(request: QueryDigitalkeyPreauthpayRequest): Promise<QueryDigitalkeyPreauthpayResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryDigitalkeyPreauthpayEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 预授权支付订单查询
+   * Summary: 预授权支付订单查询
+   */
+  async queryDigitalkeyPreauthpayEx(request: QueryDigitalkeyPreauthpayRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryDigitalkeyPreauthpayResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryDigitalkeyPreauthpayResponse>(await this.doRequest("1.0", "blockchain.bot.digitalkey.preauthpay.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryDigitalkeyPreauthpayResponse({}));
   }
 
   /**
