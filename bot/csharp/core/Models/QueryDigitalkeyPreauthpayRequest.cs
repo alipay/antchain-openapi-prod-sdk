@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.BOT.Models
 {
-    public class CancelDigitalkeyPreauthpayRequest : TeaModel {
+    public class QueryDigitalkeyPreauthpayRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,12 +18,7 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 商户对本次撤销操作的附言描述
-        [NameInMap("remark")]
-        [Validation(Required=true)]
-        public string Remark { get; set; }
-
-        // 商户的授权资金订单号
+        // 商户的授权资金订单号。 
         [NameInMap("out_order_no")]
         [Validation(Required=true)]
         public string OutOrderNo { get; set; }

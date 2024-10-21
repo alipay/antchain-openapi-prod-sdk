@@ -50,6 +50,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string EnablePayChannels { get; set; }
 
+        // 支付宝二级商户编号
+        [NameInMap("sub_merchant_id")]
+        [Validation(Required=false)]
+        public string SubMerchantId { get; set; }
+
     }
 
 }

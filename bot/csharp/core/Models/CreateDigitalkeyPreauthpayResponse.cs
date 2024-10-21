@@ -24,7 +24,7 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // xxx
+        // 子返回码
         [NameInMap("sub_code")]
         [Validation(Required=false)]
         public string SubCode { get; set; }
