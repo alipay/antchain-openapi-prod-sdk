@@ -128,6 +128,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string CustomizeCertId { get; set; }
 
+        // 租户名称
+        [NameInMap("tenant_name")]
+        [Validation(Required=false)]
+        public string TenantName { get; set; }
+
     }
 
 }
