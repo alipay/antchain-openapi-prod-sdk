@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-bccr</artifactId>
-  <version>1.19.14</version>
+  <version>1.19.15</version>
   <packaging>jar</packaging>
   <name>openapi-bccr</name>
   <description>Ant Chain BCCR SDK for Java
