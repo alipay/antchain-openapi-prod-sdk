@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.23',
+                    'sdk_version': '1.13.1',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.23',
+                    'sdk_version': '1.13.1',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -8067,6 +8067,174 @@ class Client:
             await self.do_request_async('1.0', 'twc.notary.contract.complaineventids.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def cancel_contract_flow(
+        self,
+        request: twc_models.CancelContractFlowRequest,
+    ) -> twc_models.CancelContractFlowResponse:
+        """
+        Description: 对ato等系统提供区块链合同签署流程撤销能力
+        Summary: 区块链合同签署流程撤销
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.cancel_contract_flow_ex(request, headers, runtime)
+
+    async def cancel_contract_flow_async(
+        self,
+        request: twc_models.CancelContractFlowRequest,
+    ) -> twc_models.CancelContractFlowResponse:
+        """
+        Description: 对ato等系统提供区块链合同签署流程撤销能力
+        Summary: 区块链合同签署流程撤销
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.cancel_contract_flow_ex_async(request, headers, runtime)
+
+    def cancel_contract_flow_ex(
+        self,
+        request: twc_models.CancelContractFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelContractFlowResponse:
+        """
+        Description: 对ato等系统提供区块链合同签署流程撤销能力
+        Summary: 区块链合同签署流程撤销
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelContractFlowResponse(),
+            self.do_request('1.0', 'twc.notary.contract.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def cancel_contract_flow_ex_async(
+        self,
+        request: twc_models.CancelContractFlowRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.CancelContractFlowResponse:
+        """
+        Description: 对ato等系统提供区块链合同签署流程撤销能力
+        Summary: 区块链合同签署流程撤销
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.CancelContractFlowResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.flow.cancel', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def transfer_general_shortenurl(
+        self,
+        request: twc_models.TransferGeneralShortenurlRequest,
+    ) -> twc_models.TransferGeneralShortenurlResponse:
+        """
+        Description: 转化短链接
+        Summary: 转化短链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.transfer_general_shortenurl_ex(request, headers, runtime)
+
+    async def transfer_general_shortenurl_async(
+        self,
+        request: twc_models.TransferGeneralShortenurlRequest,
+    ) -> twc_models.TransferGeneralShortenurlResponse:
+        """
+        Description: 转化短链接
+        Summary: 转化短链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.transfer_general_shortenurl_ex_async(request, headers, runtime)
+
+    def transfer_general_shortenurl_ex(
+        self,
+        request: twc_models.TransferGeneralShortenurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.TransferGeneralShortenurlResponse:
+        """
+        Description: 转化短链接
+        Summary: 转化短链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.TransferGeneralShortenurlResponse(),
+            self.do_request('1.0', 'twc.notary.general.shortenurl.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def transfer_general_shortenurl_ex_async(
+        self,
+        request: twc_models.TransferGeneralShortenurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.TransferGeneralShortenurlResponse:
+        """
+        Description: 转化短链接
+        Summary: 转化短链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.TransferGeneralShortenurlResponse(),
+            await self.do_request_async('1.0', 'twc.notary.general.shortenurl.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_contract_archive(
+        self,
+        request: twc_models.SubmitContractArchiveRequest,
+    ) -> twc_models.SubmitContractArchiveResponse:
+        """
+        Description: 触发合同提交归档
+        Summary: 合同提交归档
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_contract_archive_ex(request, headers, runtime)
+
+    async def submit_contract_archive_async(
+        self,
+        request: twc_models.SubmitContractArchiveRequest,
+    ) -> twc_models.SubmitContractArchiveResponse:
+        """
+        Description: 触发合同提交归档
+        Summary: 合同提交归档
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_contract_archive_ex_async(request, headers, runtime)
+
+    def submit_contract_archive_ex(
+        self,
+        request: twc_models.SubmitContractArchiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitContractArchiveResponse:
+        """
+        Description: 触发合同提交归档
+        Summary: 合同提交归档
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitContractArchiveResponse(),
+            self.do_request('1.0', 'twc.notary.contract.archive.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_contract_archive_ex_async(
+        self,
+        request: twc_models.SubmitContractArchiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.SubmitContractArchiveResponse:
+        """
+        Description: 触发合同提交归档
+        Summary: 合同提交归档
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.SubmitContractArchiveResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.archive.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def push_digitalcontent_usage(
         self,
         request: twc_models.PushDigitalcontentUsageRequest,
@@ -8513,6 +8681,62 @@ class Client:
         return TeaCore.from_map(
             twc_models.SyncInnerTsrResponse(),
             await self.do_request_async('1.0', 'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def transfer_inner_shorturl(
+        self,
+        request: twc_models.TransferInnerShorturlRequest,
+    ) -> twc_models.TransferInnerShorturlResponse:
+        """
+        Description: 转化短链接(废弃)
+        Summary: 转化短链接(废弃)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.transfer_inner_shorturl_ex(request, headers, runtime)
+
+    async def transfer_inner_shorturl_async(
+        self,
+        request: twc_models.TransferInnerShorturlRequest,
+    ) -> twc_models.TransferInnerShorturlResponse:
+        """
+        Description: 转化短链接(废弃)
+        Summary: 转化短链接(废弃)
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.transfer_inner_shorturl_ex_async(request, headers, runtime)
+
+    def transfer_inner_shorturl_ex(
+        self,
+        request: twc_models.TransferInnerShorturlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.TransferInnerShorturlResponse:
+        """
+        Description: 转化短链接(废弃)
+        Summary: 转化短链接(废弃)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.TransferInnerShorturlResponse(),
+            self.do_request('1.0', 'twc.notary.inner.shorturl.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def transfer_inner_shorturl_ex_async(
+        self,
+        request: twc_models.TransferInnerShorturlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.TransferInnerShorturlResponse:
+        """
+        Description: 转化短链接(废弃)
+        Summary: 转化短链接(废弃)
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.TransferInnerShorturlResponse(),
+            await self.do_request_async('1.0', 'twc.notary.inner.shorturl.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def check_epidentity_twometa(
