@@ -5336,8 +5336,6 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
   recommendCategoryList?: RecommendCategoryDetail[];
   // 证书样式ID
   customizeCertId?: string;
-  // 租户名称
-  tenantName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -5364,7 +5362,6 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       channelTerminal: 'channel_terminal',
       recommendCategoryList: 'recommend_category_list',
       customizeCertId: 'customize_cert_id',
-      tenantName: 'tenant_name',
     };
   }
 
@@ -5394,7 +5391,6 @@ export class CreateDciPreregistrationRequest extends $tea.Model {
       channelTerminal: 'string',
       recommendCategoryList: { 'type': 'array', 'itemType': RecommendCategoryDetail },
       customizeCertId: 'string',
-      tenantName: 'string',
     };
   }
 
@@ -10327,7 +10323,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.15",
+          sdk_version: "1.19.16",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
