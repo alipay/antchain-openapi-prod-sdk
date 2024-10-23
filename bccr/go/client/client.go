@@ -7137,8 +7137,6 @@ type CreateDciPreregistrationRequest struct {
 	RecommendCategoryList []*RecommendCategoryDetail `json:"recommend_category_list,omitempty" xml:"recommend_category_list,omitempty" type:"Repeated"`
 	// 证书样式ID
 	CustomizeCertId *string `json:"customize_cert_id,omitempty" xml:"customize_cert_id,omitempty"`
-	// 租户名称
-	TenantName *string `json:"tenant_name,omitempty" xml:"tenant_name,omitempty"`
 }
 
 func (s CreateDciPreregistrationRequest) String() string {
@@ -7266,11 +7264,6 @@ func (s *CreateDciPreregistrationRequest) SetRecommendCategoryList(v []*Recommen
 
 func (s *CreateDciPreregistrationRequest) SetCustomizeCertId(v string) *CreateDciPreregistrationRequest {
 	s.CustomizeCertId = &v
-	return s
-}
-
-func (s *CreateDciPreregistrationRequest) SetTenantName(v string) *CreateDciPreregistrationRequest {
-	s.TenantName = &v
 	return s
 }
 
@@ -13897,7 +13890,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.15"),
+				"sdk_version":      tea.String("1.19.16"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
