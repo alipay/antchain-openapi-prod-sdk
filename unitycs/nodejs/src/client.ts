@@ -240,6 +240,85 @@ export class CreateDepositResponse extends $tea.Model {
   }
 }
 
+export class GetDepositRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 元数据编码
+  metadataCode: string;
+  // 交易hash，与identify两者必须至少传入一个，两者都输入时，以tx_hash为准
+  txHash?: string;
+  // 数据标识，与交易hash（tx_hash）两者必须至少传入一个，两者都输入时，以tx_hash为准
+  identify?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      metadataCode: 'metadata_code',
+      txHash: 'tx_hash',
+      identify: 'identify',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      metadataCode: 'string',
+      txHash: 'string',
+      identify: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetDepositResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 交易Hash
+  txHash?: string;
+  // 块高
+  blockNumber?: number;
+  // 交易时间戳
+  txTime?: number;
+  // 上链的基础信息json
+  baseInfoJson?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+      blockNumber: 'block_number',
+      txTime: 'tx_time',
+      baseInfoJson: 'base_info_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      txHash: 'string',
+      blockNumber: 'number',
+      txTime: 'number',
+      baseInfoJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class VerifyDataRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -432,7 +511,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.1",
+          sdk_version: "1.3.2",
           _prod_code: "UNITYCS",
           _prod_channel: "default",
         };
@@ -516,6 +595,25 @@ export default class Client {
   async createDepositEx(request: CreateDepositRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDepositResponse> {
     Util.validateModel(request);
     return $tea.cast<CreateDepositResponse>(await this.doRequest("1.0", "antchain.unitycs.deposit.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateDepositResponse({}));
+  }
+
+  /**
+   * Description: 根据上链Hash，查询上链数据
+   * Summary: 根据上链Hash，查询上链数据
+   */
+  async getDeposit(request: GetDepositRequest): Promise<GetDepositResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getDepositEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据上链Hash，查询上链数据
+   * Summary: 根据上链Hash，查询上链数据
+   */
+  async getDepositEx(request: GetDepositRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetDepositResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetDepositResponse>(await this.doRequest("1.0", "antchain.unitycs.deposit.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetDepositResponse({}));
   }
 
   /**
