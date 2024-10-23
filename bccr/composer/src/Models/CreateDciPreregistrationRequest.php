@@ -150,12 +150,6 @@ class CreateDciPreregistrationRequest extends Model
      * @var string
      */
     public $customizeCertId;
-
-    // 租户名称
-    /**
-     * @var string
-     */
-    public $tenantName;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -181,7 +175,6 @@ class CreateDciPreregistrationRequest extends Model
         'channelTerminal'         => 'channel_terminal',
         'recommendCategoryList'   => 'recommend_category_list',
         'customizeCertId'         => 'customize_cert_id',
-        'tenantName'              => 'tenant_name',
     ];
 
     public function validate()
@@ -281,9 +274,6 @@ class CreateDciPreregistrationRequest extends Model
         if (null !== $this->customizeCertId) {
             $res['customize_cert_id'] = $this->customizeCertId;
         }
-        if (null !== $this->tenantName) {
-            $res['tenant_name'] = $this->tenantName;
-        }
 
         return $res;
     }
@@ -375,9 +365,6 @@ class CreateDciPreregistrationRequest extends Model
         }
         if (isset($map['customize_cert_id'])) {
             $model->customizeCertId = $map['customize_cert_id'];
-        }
-        if (isset($map['tenant_name'])) {
-            $model->tenantName = $map['tenant_name'];
         }
 
         return $model;
