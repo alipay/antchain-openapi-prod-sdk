@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\UNITYCS\Models\CreateDepositRequest;
 use AntChain\UNITYCS\Models\CreateDepositResponse;
+use AntChain\UNITYCS\Models\GetDepositRequest;
+use AntChain\UNITYCS\Models\GetDepositResponse;
 use AntChain\UNITYCS\Models\VerifyAuthorityRequest;
 use AntChain\UNITYCS\Models\VerifyAuthorityResponse;
 use AntChain\UNITYCS\Models\VerifyDataRequest;
@@ -164,7 +166,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.1',
+                    'sdk_version'      => '1.3.2',
                     '_prod_code'       => 'UNITYCS',
                     '_prod_channel'    => 'default',
                 ];
@@ -276,6 +278,39 @@ class Client
         Utils::validateModel($request);
 
         return CreateDepositResponse::fromMap($this->doRequest('1.0', 'antchain.unitycs.deposit.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据上链Hash，查询上链数据
+     * Summary: 根据上链Hash，查询上链数据.
+     *
+     * @param GetDepositRequest $request
+     *
+     * @return GetDepositResponse
+     */
+    public function getDeposit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getDepositEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据上链Hash，查询上链数据
+     * Summary: 根据上链Hash，查询上链数据.
+     *
+     * @param GetDepositRequest $request
+     * @param string[]          $headers
+     * @param RuntimeOptions    $runtime
+     *
+     * @return GetDepositResponse
+     */
+    public function getDepositEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetDepositResponse::fromMap($this->doRequest('1.0', 'antchain.unitycs.deposit.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
