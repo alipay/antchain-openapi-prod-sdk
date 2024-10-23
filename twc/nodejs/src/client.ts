@@ -17752,6 +17752,211 @@ export class QueryContractComplaineventidsResponse extends $tea.Model {
   }
 }
 
+export class CancelContractFlowRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 撤销合同的流程id
+  flowId: string;
+  // 区块链合同撤销理由
+  revokeReason?: string;
+  // 用户ID
+  accountId: string;
+  // 发起人账户id，如不传默认由对接平台发起
+  operatorId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      revokeReason: 'revoke_reason',
+      accountId: 'account_id',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      revokeReason: 'string',
+      accountId: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CancelContractFlowResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 区块链合同返回的code, 0为成功
+  code?: number;
+  // 区块链合同返回的 message,业务描述信息;
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferGeneralShortenurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 对接雨燕（basement）短网址服务
+  sourceUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sourceUrl: 'source_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sourceUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferGeneralShortenurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 短链接
+  targetUrl?: string;
+  // 原网址
+  sourceUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      targetUrl: 'target_url',
+      sourceUrl: 'source_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      targetUrl: 'string',
+      sourceUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitContractArchiveRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  flowId: string;
+  // 参与人account_id
+  accountId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      flowId: 'flow_id',
+      accountId: 'account_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      flowId: 'string',
+      accountId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitContractArchiveResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 0代表成功
+  code?: number;
+  // 返回结果
+  message?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      code: 'code',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      code: 'number',
+      message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class PushDigitalcontentUsageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -18388,6 +18593,69 @@ export class SyncInnerTsrResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferInnerShorturlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 对接雨燕（basement）短网址服务
+  sourceUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      sourceUrl: 'source_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      sourceUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferInnerShorturlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 短链接
+  targetUrl?: string;
+  // 原网址
+  sourceUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      targetUrl: 'target_url',
+      sourceUrl: 'source_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      targetUrl: 'string',
+      sourceUrl: 'string',
     };
   }
 
@@ -35726,7 +35994,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.23",
+          sdk_version: "1.13.1",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -38420,6 +38688,63 @@ export default class Client {
   }
 
   /**
+   * Description: 对ato等系统提供区块链合同签署流程撤销能力
+   * Summary: 区块链合同签署流程撤销
+   */
+  async cancelContractFlow(request: CancelContractFlowRequest): Promise<CancelContractFlowResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.cancelContractFlowEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 对ato等系统提供区块链合同签署流程撤销能力
+   * Summary: 区块链合同签署流程撤销
+   */
+  async cancelContractFlowEx(request: CancelContractFlowRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CancelContractFlowResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CancelContractFlowResponse>(await this.doRequest("1.0", "twc.notary.contract.flow.cancel", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CancelContractFlowResponse({}));
+  }
+
+  /**
+   * Description: 转化短链接
+   * Summary: 转化短链接
+   */
+  async transferGeneralShortenurl(request: TransferGeneralShortenurlRequest): Promise<TransferGeneralShortenurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.transferGeneralShortenurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 转化短链接
+   * Summary: 转化短链接
+   */
+  async transferGeneralShortenurlEx(request: TransferGeneralShortenurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TransferGeneralShortenurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<TransferGeneralShortenurlResponse>(await this.doRequest("1.0", "twc.notary.general.shortenurl.transfer", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TransferGeneralShortenurlResponse({}));
+  }
+
+  /**
+   * Description: 触发合同提交归档
+   * Summary: 合同提交归档
+   */
+  async submitContractArchive(request: SubmitContractArchiveRequest): Promise<SubmitContractArchiveResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitContractArchiveEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 触发合同提交归档
+   * Summary: 合同提交归档
+   */
+  async submitContractArchiveEx(request: SubmitContractArchiveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitContractArchiveResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitContractArchiveResponse>(await this.doRequest("1.0", "twc.notary.contract.archive.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitContractArchiveResponse({}));
+  }
+
+  /**
    * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
    * Summary: 集成方通过该接口进行使用mp4上报
    */
@@ -38569,6 +38894,25 @@ export default class Client {
   async syncInnerTsrEx(request: SyncInnerTsrRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncInnerTsrResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncInnerTsrResponse>(await this.doRequest("1.0", "twc.notary.inner.tsr.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncInnerTsrResponse({}));
+  }
+
+  /**
+   * Description: 转化短链接(废弃)
+   * Summary: 转化短链接(废弃)
+   */
+  async transferInnerShorturl(request: TransferInnerShorturlRequest): Promise<TransferInnerShorturlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.transferInnerShorturlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 转化短链接(废弃)
+   * Summary: 转化短链接(废弃)
+   */
+  async transferInnerShorturlEx(request: TransferInnerShorturlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TransferInnerShorturlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<TransferInnerShorturlResponse>(await this.doRequest("1.0", "twc.notary.inner.shorturl.transfer", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TransferInnerShorturlResponse({}));
   }
 
   /**
