@@ -23628,6 +23628,265 @@ func (s *QueryContractComplaineventidsResponse) SetComplainEventIds(v []*string)
 	return s
 }
 
+type CancelContractFlowRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 撤销合同的流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 区块链合同撤销理由
+	RevokeReason *string `json:"revoke_reason,omitempty" xml:"revoke_reason,omitempty"`
+	// 用户ID
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+	// 发起人账户id，如不传默认由对接平台发起
+	OperatorId *string `json:"operator_id,omitempty" xml:"operator_id,omitempty"`
+}
+
+func (s CancelContractFlowRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelContractFlowRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CancelContractFlowRequest) SetAuthToken(v string) *CancelContractFlowRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CancelContractFlowRequest) SetProductInstanceId(v string) *CancelContractFlowRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CancelContractFlowRequest) SetFlowId(v string) *CancelContractFlowRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *CancelContractFlowRequest) SetRevokeReason(v string) *CancelContractFlowRequest {
+	s.RevokeReason = &v
+	return s
+}
+
+func (s *CancelContractFlowRequest) SetAccountId(v string) *CancelContractFlowRequest {
+	s.AccountId = &v
+	return s
+}
+
+func (s *CancelContractFlowRequest) SetOperatorId(v string) *CancelContractFlowRequest {
+	s.OperatorId = &v
+	return s
+}
+
+type CancelContractFlowResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 区块链合同返回的code, 0为成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 区块链合同返回的 message,业务描述信息;
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s CancelContractFlowResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CancelContractFlowResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CancelContractFlowResponse) SetReqMsgId(v string) *CancelContractFlowResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CancelContractFlowResponse) SetResultCode(v string) *CancelContractFlowResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CancelContractFlowResponse) SetResultMsg(v string) *CancelContractFlowResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CancelContractFlowResponse) SetCode(v int64) *CancelContractFlowResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *CancelContractFlowResponse) SetMessage(v string) *CancelContractFlowResponse {
+	s.Message = &v
+	return s
+}
+
+type TransferGeneralShortenurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 对接雨燕（basement）短网址服务
+	SourceUrl *string `json:"source_url,omitempty" xml:"source_url,omitempty" require:"true"`
+}
+
+func (s TransferGeneralShortenurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferGeneralShortenurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TransferGeneralShortenurlRequest) SetAuthToken(v string) *TransferGeneralShortenurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TransferGeneralShortenurlRequest) SetProductInstanceId(v string) *TransferGeneralShortenurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TransferGeneralShortenurlRequest) SetSourceUrl(v string) *TransferGeneralShortenurlRequest {
+	s.SourceUrl = &v
+	return s
+}
+
+type TransferGeneralShortenurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 短链接
+	TargetUrl *string `json:"target_url,omitempty" xml:"target_url,omitempty"`
+	// 原网址
+	SourceUrl *string `json:"source_url,omitempty" xml:"source_url,omitempty"`
+}
+
+func (s TransferGeneralShortenurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferGeneralShortenurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TransferGeneralShortenurlResponse) SetReqMsgId(v string) *TransferGeneralShortenurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TransferGeneralShortenurlResponse) SetResultCode(v string) *TransferGeneralShortenurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TransferGeneralShortenurlResponse) SetResultMsg(v string) *TransferGeneralShortenurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TransferGeneralShortenurlResponse) SetTargetUrl(v string) *TransferGeneralShortenurlResponse {
+	s.TargetUrl = &v
+	return s
+}
+
+func (s *TransferGeneralShortenurlResponse) SetSourceUrl(v string) *TransferGeneralShortenurlResponse {
+	s.SourceUrl = &v
+	return s
+}
+
+type SubmitContractArchiveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+	// 参与人account_id
+	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty" require:"true"`
+}
+
+func (s SubmitContractArchiveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitContractArchiveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitContractArchiveRequest) SetAuthToken(v string) *SubmitContractArchiveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitContractArchiveRequest) SetProductInstanceId(v string) *SubmitContractArchiveRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitContractArchiveRequest) SetFlowId(v string) *SubmitContractArchiveRequest {
+	s.FlowId = &v
+	return s
+}
+
+func (s *SubmitContractArchiveRequest) SetAccountId(v string) *SubmitContractArchiveRequest {
+	s.AccountId = &v
+	return s
+}
+
+type SubmitContractArchiveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 0代表成功
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 返回结果
+	Message *string `json:"message,omitempty" xml:"message,omitempty"`
+}
+
+func (s SubmitContractArchiveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitContractArchiveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitContractArchiveResponse) SetReqMsgId(v string) *SubmitContractArchiveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitContractArchiveResponse) SetResultCode(v string) *SubmitContractArchiveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitContractArchiveResponse) SetResultMsg(v string) *SubmitContractArchiveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitContractArchiveResponse) SetCode(v int64) *SubmitContractArchiveResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *SubmitContractArchiveResponse) SetMessage(v string) *SubmitContractArchiveResponse {
+	s.Message = &v
+	return s
+}
+
 type PushDigitalcontentUsageRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -24483,6 +24742,83 @@ func (s *SyncInnerTsrResponse) SetResultCode(v string) *SyncInnerTsrResponse {
 
 func (s *SyncInnerTsrResponse) SetResultMsg(v string) *SyncInnerTsrResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type TransferInnerShorturlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 对接雨燕（basement）短网址服务
+	SourceUrl *string `json:"source_url,omitempty" xml:"source_url,omitempty" require:"true"`
+}
+
+func (s TransferInnerShorturlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferInnerShorturlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TransferInnerShorturlRequest) SetAuthToken(v string) *TransferInnerShorturlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TransferInnerShorturlRequest) SetProductInstanceId(v string) *TransferInnerShorturlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TransferInnerShorturlRequest) SetSourceUrl(v string) *TransferInnerShorturlRequest {
+	s.SourceUrl = &v
+	return s
+}
+
+type TransferInnerShorturlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 短链接
+	TargetUrl *string `json:"target_url,omitempty" xml:"target_url,omitempty"`
+	// 原网址
+	SourceUrl *string `json:"source_url,omitempty" xml:"source_url,omitempty"`
+}
+
+func (s TransferInnerShorturlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TransferInnerShorturlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TransferInnerShorturlResponse) SetReqMsgId(v string) *TransferInnerShorturlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TransferInnerShorturlResponse) SetResultCode(v string) *TransferInnerShorturlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TransferInnerShorturlResponse) SetResultMsg(v string) *TransferInnerShorturlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TransferInnerShorturlResponse) SetTargetUrl(v string) *TransferInnerShorturlResponse {
+	s.TargetUrl = &v
+	return s
+}
+
+func (s *TransferInnerShorturlResponse) SetSourceUrl(v string) *TransferInnerShorturlResponse {
+	s.SourceUrl = &v
 	return s
 }
 
@@ -47980,7 +48316,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.23"),
+				"sdk_version":      tea.String("1.13.1"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -52769,6 +53105,108 @@ func (client *Client) QueryContractComplaineventidsEx(request *QueryContractComp
 }
 
 /**
+ * Description: 对ato等系统提供区块链合同签署流程撤销能力
+ * Summary: 区块链合同签署流程撤销
+ */
+func (client *Client) CancelContractFlow(request *CancelContractFlowRequest) (_result *CancelContractFlowResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CancelContractFlowResponse{}
+	_body, _err := client.CancelContractFlowEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 对ato等系统提供区块链合同签署流程撤销能力
+ * Summary: 区块链合同签署流程撤销
+ */
+func (client *Client) CancelContractFlowEx(request *CancelContractFlowRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CancelContractFlowResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CancelContractFlowResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.flow.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 转化短链接
+ * Summary: 转化短链接
+ */
+func (client *Client) TransferGeneralShortenurl(request *TransferGeneralShortenurlRequest) (_result *TransferGeneralShortenurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TransferGeneralShortenurlResponse{}
+	_body, _err := client.TransferGeneralShortenurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 转化短链接
+ * Summary: 转化短链接
+ */
+func (client *Client) TransferGeneralShortenurlEx(request *TransferGeneralShortenurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TransferGeneralShortenurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TransferGeneralShortenurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.general.shortenurl.transfer"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 触发合同提交归档
+ * Summary: 合同提交归档
+ */
+func (client *Client) SubmitContractArchive(request *SubmitContractArchiveRequest) (_result *SubmitContractArchiveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitContractArchiveResponse{}
+	_body, _err := client.SubmitContractArchiveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 触发合同提交归档
+ * Summary: 合同提交归档
+ */
+func (client *Client) SubmitContractArchiveEx(request *SubmitContractArchiveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitContractArchiveResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitContractArchiveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.archive.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
  * Summary: 集成方通过该接口进行使用mp4上报
  */
@@ -53033,6 +53471,40 @@ func (client *Client) SyncInnerTsrEx(request *SyncInnerTsrRequest, headers map[s
 	}
 	_result = &SyncInnerTsrResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.inner.tsr.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 转化短链接(废弃)
+ * Summary: 转化短链接(废弃)
+ */
+func (client *Client) TransferInnerShorturl(request *TransferInnerShorturlRequest) (_result *TransferInnerShorturlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TransferInnerShorturlResponse{}
+	_body, _err := client.TransferInnerShorturlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 转化短链接(废弃)
+ * Summary: 转化短链接(废弃)
+ */
+func (client *Client) TransferInnerShorturlEx(request *TransferInnerShorturlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TransferInnerShorturlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TransferInnerShorturlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.inner.shorturl.transfer"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
