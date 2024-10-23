@@ -43,6 +43,7 @@ public class BclSignField extends TeaModel {
     // 商家签署区不支持；
     // 当add_sign_date为true时,该字段必填；为false是该字段不能传值，必须为空；
     @NameInMap("sign_date_font_size")
+    @Validation(maximum = 20, minimum = 10)
     public Long signDateFontSize;
 
     // 签章日期格式
