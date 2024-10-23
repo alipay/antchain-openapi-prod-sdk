@@ -35,6 +35,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string RiskRank { get; set; }
 
+        // 流程id
+        [NameInMap("flow_id")]
+        [Validation(Required=true)]
+        public string FlowId { get; set; }
+
     }
 
 }
