@@ -29,6 +29,11 @@ public class AppletRiskModel extends TeaModel {
     @Validation(required = true)
     public String riskDesc;
 
+    // 流程id
+    @NameInMap("flow_id")
+    @Validation(required = true)
+    public String flowId;
+
     // 子风险结果列表
     @NameInMap("sub_risk_result_list")
     public java.util.List<SubRentRiskItem> subRiskResultList;
@@ -80,6 +85,14 @@ public class AppletRiskModel extends TeaModel {
     }
     public String getRiskDesc() {
         return this.riskDesc;
+    }
+
+    public AppletRiskModel setFlowId(String flowId) {
+        this.flowId = flowId;
+        return this;
+    }
+    public String getFlowId() {
+        return this.flowId;
     }
 
     public AppletRiskModel setSubRiskResultList(java.util.List<SubRentRiskItem> subRiskResultList) {

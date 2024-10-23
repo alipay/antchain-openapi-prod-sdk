@@ -26,6 +26,11 @@ public class RiskModel extends TeaModel {
     @NameInMap("risk_rank")
     public String riskRank;
 
+    // 流程id
+    @NameInMap("flow_id")
+    @Validation(required = true)
+    public String flowId;
+
     public static RiskModel build(java.util.Map<String, ?> map) throws Exception {
         RiskModel self = new RiskModel();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class RiskModel extends TeaModel {
     }
     public String getRiskRank() {
         return this.riskRank;
+    }
+
+    public RiskModel setFlowId(String flowId) {
+        this.flowId = flowId;
+        return this;
+    }
+    public String getFlowId() {
+        return this.flowId;
     }
 
 }

@@ -42,10 +42,6 @@ public class QueryWithholdSignResponse extends TeaModel {
     @NameInMap("agreement_no")
     public String agreementNo;
 
-    // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
-    @NameInMap("sign_str_type")
-    public String signStrType;
-
     public static QueryWithholdSignResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryWithholdSignResponse self = new QueryWithholdSignResponse();
         return TeaModel.build(map, self);
@@ -113,14 +109,6 @@ public class QueryWithholdSignResponse extends TeaModel {
     }
     public String getAgreementNo() {
         return this.agreementNo;
-    }
-
-    public QueryWithholdSignResponse setSignStrType(String signStrType) {
-        this.signStrType = signStrType;
-        return this;
-    }
-    public String getSignStrType() {
-        return this.signStrType;
     }
 
 }
