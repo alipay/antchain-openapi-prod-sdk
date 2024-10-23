@@ -137,7 +137,7 @@ namespace AntChain.SDK.UNITYCS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.3.2"},
                         {"_prod_code", "UNITYCS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.UNITYCS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.3.2"},
                         {"_prod_code", "UNITYCS"},
                         {"_prod_channel", "default"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.UNITYCS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositResponse>(await DoRequestAsync("1.0", "antchain.unitycs.deposit.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据上链Hash，查询上链数据
+         * Summary: 根据上链Hash，查询上链数据
+         */
+        public GetDepositResponse GetDeposit(GetDepositRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetDepositEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据上链Hash，查询上链数据
+         * Summary: 根据上链Hash，查询上链数据
+         */
+        public async Task<GetDepositResponse> GetDepositAsync(GetDepositRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetDepositExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据上链Hash，查询上链数据
+         * Summary: 根据上链Hash，查询上链数据
+         */
+        public GetDepositResponse GetDepositEx(GetDepositRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDepositResponse>(DoRequest("1.0", "antchain.unitycs.deposit.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据上链Hash，查询上链数据
+         * Summary: 根据上链Hash，查询上链数据
+         */
+        public async Task<GetDepositResponse> GetDepositExAsync(GetDepositRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetDepositResponse>(await DoRequestAsync("1.0", "antchain.unitycs.deposit.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
