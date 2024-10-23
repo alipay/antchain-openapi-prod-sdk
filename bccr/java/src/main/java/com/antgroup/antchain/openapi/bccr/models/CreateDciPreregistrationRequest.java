@@ -111,10 +111,6 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     @NameInMap("customize_cert_id")
     public String customizeCertId;
 
-    // 租户名称
-    @NameInMap("tenant_name")
-    public String tenantName;
-
     public static CreateDciPreregistrationRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDciPreregistrationRequest self = new CreateDciPreregistrationRequest();
         return TeaModel.build(map, self);
@@ -310,14 +306,6 @@ public class CreateDciPreregistrationRequest extends TeaModel {
     }
     public String getCustomizeCertId() {
         return this.customizeCertId;
-    }
-
-    public CreateDciPreregistrationRequest setTenantName(String tenantName) {
-        this.tenantName = tenantName;
-        return this;
-    }
-    public String getTenantName() {
-        return this.tenantName;
     }
 
 }
