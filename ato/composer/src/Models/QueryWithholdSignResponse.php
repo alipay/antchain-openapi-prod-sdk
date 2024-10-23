@@ -58,12 +58,6 @@ class QueryWithholdSignResponse extends Model
      * @var string
      */
     public $agreementNo;
-
-    // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
-    /**
-     * @var string
-     */
-    public $signStrType;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
@@ -73,7 +67,6 @@ class QueryWithholdSignResponse extends Model
         'validTime'   => 'valid_time',
         'invalidTime' => 'invalid_time',
         'agreementNo' => 'agreement_no',
-        'signStrType' => 'sign_str_type',
     ];
 
     public function validate()
@@ -110,9 +103,6 @@ class QueryWithholdSignResponse extends Model
         if (null !== $this->agreementNo) {
             $res['agreement_no'] = $this->agreementNo;
         }
-        if (null !== $this->signStrType) {
-            $res['sign_str_type'] = $this->signStrType;
-        }
 
         return $res;
     }
@@ -148,9 +138,6 @@ class QueryWithholdSignResponse extends Model
         }
         if (isset($map['agreement_no'])) {
             $model->agreementNo = $map['agreement_no'];
-        }
-        if (isset($map['sign_str_type'])) {
-            $model->signStrType = $map['sign_str_type'];
         }
 
         return $model;

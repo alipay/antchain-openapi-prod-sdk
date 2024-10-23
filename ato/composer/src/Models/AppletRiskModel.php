@@ -48,6 +48,14 @@ class AppletRiskModel extends Model
      */
     public $riskDesc;
 
+    // 流程id
+    /**
+     * @example 10000009000001804441658067824640
+     *
+     * @var string
+     */
+    public $flowId;
+
     // 子风险结果列表
     /**
      * @example
@@ -69,6 +77,7 @@ class AppletRiskModel extends Model
         'riskRank'          => 'risk_rank',
         'riskName'          => 'risk_name',
         'riskDesc'          => 'risk_desc',
+        'flowId'            => 'flow_id',
         'subRiskResultList' => 'sub_risk_result_list',
         'errorMsg'          => 'error_msg',
     ];
@@ -80,6 +89,7 @@ class AppletRiskModel extends Model
         Model::validateRequired('riskRank', $this->riskRank, true);
         Model::validateRequired('riskName', $this->riskName, true);
         Model::validateRequired('riskDesc', $this->riskDesc, true);
+        Model::validateRequired('flowId', $this->flowId, true);
     }
 
     public function toMap()
@@ -99,6 +109,9 @@ class AppletRiskModel extends Model
         }
         if (null !== $this->riskDesc) {
             $res['risk_desc'] = $this->riskDesc;
+        }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
         }
         if (null !== $this->subRiskResultList) {
             $res['sub_risk_result_list'] = [];
@@ -138,6 +151,9 @@ class AppletRiskModel extends Model
         }
         if (isset($map['risk_desc'])) {
             $model->riskDesc = $map['risk_desc'];
+        }
+        if (isset($map['flow_id'])) {
+            $model->flowId = $map['flow_id'];
         }
         if (isset($map['sub_risk_result_list'])) {
             if (!empty($map['sub_risk_result_list'])) {

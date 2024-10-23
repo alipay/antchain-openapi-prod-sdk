@@ -41,6 +41,8 @@ use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadResponse;
 use AntChain\ATO\Models\CreateInnerFunddividerelationRequest;
 use AntChain\ATO\Models\CreateInnerFunddividerelationResponse;
+use AntChain\ATO\Models\CreateInnerInsuresignRequest;
+use AntChain\ATO\Models\CreateInnerInsuresignResponse;
 use AntChain\ATO\Models\CreateInnerMerchantagreementRequest;
 use AntChain\ATO\Models\CreateInnerMerchantagreementResponse;
 use AntChain\ATO\Models\CreateInnerMerchantpayexpandRequest;
@@ -51,6 +53,8 @@ use AntChain\ATO\Models\CreateInnerTemplatetextareaRequest;
 use AntChain\ATO\Models\CreateInnerTemplatetextareaResponse;
 use AntChain\ATO\Models\CreateInnerWithholdsignRequest;
 use AntChain\ATO\Models\CreateInnerWithholdsignResponse;
+use AntChain\ATO\Models\CreateInsureRequest;
+use AntChain\ATO\Models\CreateInsureResponse;
 use AntChain\ATO\Models\CreateRealpersonFacevrfRequest;
 use AntChain\ATO\Models\CreateRealpersonFacevrfResponse;
 use AntChain\ATO\Models\CreateWithholdActivepayRequest;
@@ -61,6 +65,10 @@ use AntChain\ATO\Models\CreateWithholdSignRequest;
 use AntChain\ATO\Models\CreateWithholdSignResponse;
 use AntChain\ATO\Models\DeleteInnerTemplateRequest;
 use AntChain\ATO\Models\DeleteInnerTemplateResponse;
+use AntChain\ATO\Models\DetailInnerNoticeRequest;
+use AntChain\ATO\Models\DetailInnerNoticeResponse;
+use AntChain\ATO\Models\DetailInnerProductRequest;
+use AntChain\ATO\Models\DetailInnerProductResponse;
 use AntChain\ATO\Models\DetailInnerTemplateRequest;
 use AntChain\ATO\Models\DetailInnerTemplateResponse;
 use AntChain\ATO\Models\DownloadInnerFileRequest;
@@ -79,6 +87,8 @@ use AntChain\ATO\Models\GetFundUserpromiseRequest;
 use AntChain\ATO\Models\GetFundUserpromiseResponse;
 use AntChain\ATO\Models\GetInnerFunddividemerchantRequest;
 use AntChain\ATO\Models\GetInnerFunddividemerchantResponse;
+use AntChain\ATO\Models\GetInnerHomepagenoticeRequest;
+use AntChain\ATO\Models\GetInnerHomepagenoticeResponse;
 use AntChain\ATO\Models\GetInnerMerchantstaticdataRequest;
 use AntChain\ATO\Models\GetInnerMerchantstaticdataResponse;
 use AntChain\ATO\Models\GetInnerProductRequest;
@@ -103,12 +113,20 @@ use AntChain\ATO\Models\NotifyFundFlowRequest;
 use AntChain\ATO\Models\NotifyFundFlowResponse;
 use AntChain\ATO\Models\PagequeryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\PagequeryInnerFunddividerelationResponse;
+use AntChain\ATO\Models\PagequeryInnerInsureorderRequest;
+use AntChain\ATO\Models\PagequeryInnerInsureorderResponse;
 use AntChain\ATO\Models\PagequeryInnerMerchantagentRequest;
 use AntChain\ATO\Models\PagequeryInnerMerchantagentResponse;
 use AntChain\ATO\Models\PagequeryInnerMerchantagreementRequest;
 use AntChain\ATO\Models\PagequeryInnerMerchantagreementResponse;
+use AntChain\ATO\Models\PagequeryInnerNoticeRequest;
+use AntChain\ATO\Models\PagequeryInnerNoticeResponse;
 use AntChain\ATO\Models\PagequeryInnerOrdermsgRequest;
 use AntChain\ATO\Models\PagequeryInnerOrdermsgResponse;
+use AntChain\ATO\Models\PagequeryInnerOrderRequest;
+use AntChain\ATO\Models\PagequeryInnerOrderResponse;
+use AntChain\ATO\Models\PagequeryInnerProductRequest;
+use AntChain\ATO\Models\PagequeryInnerProductResponse;
 use AntChain\ATO\Models\PreviewInnerTemplateRequest;
 use AntChain\ATO\Models\PreviewInnerTemplateResponse;
 use AntChain\ATO\Models\PublishInnerTemplateRequest;
@@ -119,6 +137,8 @@ use AntChain\ATO\Models\QueryInnerAuthorizationRequest;
 use AntChain\ATO\Models\QueryInnerAuthorizationResponse;
 use AntChain\ATO\Models\QueryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\QueryInnerFunddividerelationResponse;
+use AntChain\ATO\Models\QueryInnerInsuresignRequest;
+use AntChain\ATO\Models\QueryInnerInsuresignResponse;
 use AntChain\ATO\Models\QueryInnerMerchantagreementRequest;
 use AntChain\ATO\Models\QueryInnerMerchantagreementResponse;
 use AntChain\ATO\Models\QueryInnerMerchantpayexpandRequest;
@@ -139,6 +159,8 @@ use AntChain\ATO\Models\QueryInnerWithholdplanRequest;
 use AntChain\ATO\Models\QueryInnerWithholdplanResponse;
 use AntChain\ATO\Models\QueryInnerWithholdsignRequest;
 use AntChain\ATO\Models\QueryInnerWithholdsignResponse;
+use AntChain\ATO\Models\QueryInsureRequest;
+use AntChain\ATO\Models\QueryInsureResponse;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\QueryRealpersonFacevrfRequest;
@@ -165,6 +187,8 @@ use AntChain\ATO\Models\ReplaceTradeUserpromiseRequest;
 use AntChain\ATO\Models\ReplaceTradeUserpromiseResponse;
 use AntChain\ATO\Models\RetryInnerOrdermsgRequest;
 use AntChain\ATO\Models\RetryInnerOrdermsgResponse;
+use AntChain\ATO\Models\RetryInsurePayRequest;
+use AntChain\ATO\Models\RetryInsurePayResponse;
 use AntChain\ATO\Models\RetryWithholdPlanRequest;
 use AntChain\ATO\Models\RetryWithholdPlanResponse;
 use AntChain\ATO\Models\SaveInnerSignfieldsRequest;
@@ -382,7 +406,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.30',
+                    'sdk_version'      => '1.9.64',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -2759,6 +2783,402 @@ class Client
         Utils::validateModel($request);
 
         return GetInnerFunddividemerchantResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.funddividemerchant.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询商户和保司协议签署信息
+     * Summary: 查询商户和保司协议签署信息.
+     *
+     * @param QueryInnerInsuresignRequest $request
+     *
+     * @return QueryInnerInsuresignResponse
+     */
+    public function queryInnerInsuresign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerInsuresignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询商户和保司协议签署信息
+     * Summary: 查询商户和保司协议签署信息.
+     *
+     * @param QueryInnerInsuresignRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryInnerInsuresignResponse
+     */
+    public function queryInnerInsuresignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerInsuresignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.insuresign.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 生成商户和保司签约链接
+     * Summary: 生成商户和保司签约链接.
+     *
+     * @param CreateInnerInsuresignRequest $request
+     *
+     * @return CreateInnerInsuresignResponse
+     */
+    public function createInnerInsuresign($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerInsuresignEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 生成商户和保司签约链接
+     * Summary: 生成商户和保司签约链接.
+     *
+     * @param CreateInnerInsuresignRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return CreateInnerInsuresignResponse
+     */
+    public function createInnerInsuresignEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerInsuresignResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.insuresign.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询保单信息
+     * Summary: 查询保单信息.
+     *
+     * @param PagequeryInnerInsureorderRequest $request
+     *
+     * @return PagequeryInnerInsureorderResponse
+     */
+    public function pagequeryInnerInsureorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerInsureorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询保单信息
+     * Summary: 查询保单信息.
+     *
+     * @param PagequeryInnerInsureorderRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return PagequeryInnerInsureorderResponse
+     */
+    public function pagequeryInnerInsureorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerInsureorderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.insureorder.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户控制台商品列表
+     * Summary: 商品列表.
+     *
+     * @param PagequeryInnerProductRequest $request
+     *
+     * @return PagequeryInnerProductResponse
+     */
+    public function pagequeryInnerProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户控制台商品列表
+     * Summary: 商品列表.
+     *
+     * @param PagequeryInnerProductRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return PagequeryInnerProductResponse
+     */
+    public function pagequeryInnerProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerProductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.product.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户控制台商品详情
+     * Summary: 商品详情.
+     *
+     * @param DetailInnerProductRequest $request
+     *
+     * @return DetailInnerProductResponse
+     */
+    public function detailInnerProduct($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailInnerProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户控制台商品详情
+     * Summary: 商品详情.
+     *
+     * @param DetailInnerProductRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return DetailInnerProductResponse
+     */
+    public function detailInnerProductEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailInnerProductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.product.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户控制台首页通知栏
+     * Summary: 首页通知栏.
+     *
+     * @param GetInnerHomepagenoticeRequest $request
+     *
+     * @return GetInnerHomepagenoticeResponse
+     */
+    public function getInnerHomepagenotice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerHomepagenoticeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户控制台首页通知栏
+     * Summary: 首页通知栏.
+     *
+     * @param GetInnerHomepagenoticeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return GetInnerHomepagenoticeResponse
+     */
+    public function getInnerHomepagenoticeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerHomepagenoticeResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.homepagenotice.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户控制台通知列表
+     * Summary: 通知列表.
+     *
+     * @param PagequeryInnerNoticeRequest $request
+     *
+     * @return PagequeryInnerNoticeResponse
+     */
+    public function pagequeryInnerNotice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerNoticeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户控制台通知列表
+     * Summary: 通知列表.
+     *
+     * @param PagequeryInnerNoticeRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PagequeryInnerNoticeResponse
+     */
+    public function pagequeryInnerNoticeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerNoticeResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.notice.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户控制台通知详情
+     * Summary: 通知详情.
+     *
+     * @param DetailInnerNoticeRequest $request
+     *
+     * @return DetailInnerNoticeResponse
+     */
+    public function detailInnerNotice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailInnerNoticeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户控制台通知详情
+     * Summary: 通知详情.
+     *
+     * @param DetailInnerNoticeRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return DetailInnerNoticeResponse
+     */
+    public function detailInnerNoticeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailInnerNoticeResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.notice.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商户控制台订单列表
+     * Summary: 订单列表.
+     *
+     * @param PagequeryInnerOrderRequest $request
+     *
+     * @return PagequeryInnerOrderResponse
+     */
+    public function pagequeryInnerOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商户控制台订单列表
+     * Summary: 订单列表.
+     *
+     * @param PagequeryInnerOrderRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return PagequeryInnerOrderResponse
+     */
+    public function pagequeryInnerOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerOrderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.order.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 一键投保
+     * Summary: 投保.
+     *
+     * @param CreateInsureRequest $request
+     *
+     * @return CreateInsureResponse
+     */
+    public function createInsure($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInsureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 一键投保
+     * Summary: 投保.
+     *
+     * @param CreateInsureRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return CreateInsureResponse
+     */
+    public function createInsureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInsureResponse::fromMap($this->doRequest('1.0', 'antchain.ato.insure.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保单查询
+     * Summary: 保单查询.
+     *
+     * @param QueryInsureRequest $request
+     *
+     * @return QueryInsureResponse
+     */
+    public function queryInsure($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInsureEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保单查询
+     * Summary: 保单查询.
+     *
+     * @param QueryInsureRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryInsureResponse
+     */
+    public function queryInsureEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInsureResponse::fromMap($this->doRequest('1.0', 'antchain.ato.insure.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保险代扣重试
+     * Summary: 保险代扣重试.
+     *
+     * @param RetryInsurePayRequest $request
+     *
+     * @return RetryInsurePayResponse
+     */
+    public function retryInsurePay($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->retryInsurePayEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保险代扣重试
+     * Summary: 保险代扣重试.
+     *
+     * @param RetryInsurePayRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return RetryInsurePayResponse
+     */
+    public function retryInsurePayEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RetryInsurePayResponse::fromMap($this->doRequest('1.0', 'antchain.ato.insure.pay.retry', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

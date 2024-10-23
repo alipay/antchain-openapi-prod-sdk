@@ -47,18 +47,28 @@ class RiskModel extends Model
      * @var string
      */
     public $riskRank;
+
+    // 流程id
+    /**
+     * @example 10000009000001804441658067824640
+     *
+     * @var string
+     */
+    public $flowId;
     protected $_name = [
         'sceneCode'       => 'scene_code',
         'score'           => 'score',
         'delinquencyRate' => 'delinquency_rate',
         'riskAdvice'      => 'risk_advice',
         'riskRank'        => 'risk_rank',
+        'flowId'          => 'flow_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('sceneCode', $this->sceneCode, true);
         Model::validateRequired('score', $this->score, true);
+        Model::validateRequired('flowId', $this->flowId, true);
     }
 
     public function toMap()
@@ -78,6 +88,9 @@ class RiskModel extends Model
         }
         if (null !== $this->riskRank) {
             $res['risk_rank'] = $this->riskRank;
+        }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
         }
 
         return $res;
@@ -105,6 +118,9 @@ class RiskModel extends Model
         }
         if (isset($map['risk_rank'])) {
             $model->riskRank = $map['risk_rank'];
+        }
+        if (isset($map['flow_id'])) {
+            $model->flowId = $map['flow_id'];
         }
 
         return $model;
