@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.1',
+    sdk_version = '1.3.2',
     _prod_code = 'UNITYCS',
     _prod_channel = 'default'
   };
@@ -253,6 +253,54 @@ async function createDeposit(request: CreateDepositRequest): CreateDepositRespon
 async function createDepositEx(request: CreateDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateDepositResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.unitycs.deposit.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetDepositRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 元数据编码
+  metadataCode: string(name='metadata_code'),
+  // 交易hash，与identify两者必须至少传入一个，两者都输入时，以tx_hash为准
+  txHash?: string(name='tx_hash'),
+  // 数据标识，与交易hash（tx_hash）两者必须至少传入一个，两者都输入时，以tx_hash为准
+  identify?: string(name='identify'),
+}
+
+model GetDepositResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易Hash
+  txHash?: string(name='tx_hash'),
+  // 块高
+  blockNumber?: long(name='block_number'),
+  // 交易时间戳
+  txTime?: long(name='tx_time'),
+  // 上链的基础信息json
+  baseInfoJson?: string(name='base_info_json'),
+}
+
+/**
+ * Description: 根据上链Hash，查询上链数据
+ * Summary: 根据上链Hash，查询上链数据
+ */
+async function getDeposit(request: GetDepositRequest): GetDepositResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getDepositEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据上链Hash，查询上链数据
+ * Summary: 根据上链Hash，查询上链数据
+ */
+async function getDepositEx(request: GetDepositRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetDepositResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.unitycs.deposit.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model VerifyDataRequest = {
