@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.23"},
+                        {"sdk_version", "1.13.1"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.23"},
+                        {"sdk_version", "1.13.1"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6168,6 +6168,132 @@ namespace AntChain.SDK.TWC
         }
 
         /**
+         * Description: 对ato等系统提供区块链合同签署流程撤销能力
+         * Summary: 区块链合同签署流程撤销
+         */
+        public CancelContractFlowResponse CancelContractFlow(CancelContractFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CancelContractFlowEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对ato等系统提供区块链合同签署流程撤销能力
+         * Summary: 区块链合同签署流程撤销
+         */
+        public async Task<CancelContractFlowResponse> CancelContractFlowAsync(CancelContractFlowRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CancelContractFlowExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 对ato等系统提供区块链合同签署流程撤销能力
+         * Summary: 区块链合同签署流程撤销
+         */
+        public CancelContractFlowResponse CancelContractFlowEx(CancelContractFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelContractFlowResponse>(DoRequest("1.0", "twc.notary.contract.flow.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 对ato等系统提供区块链合同签署流程撤销能力
+         * Summary: 区块链合同签署流程撤销
+         */
+        public async Task<CancelContractFlowResponse> CancelContractFlowExAsync(CancelContractFlowRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CancelContractFlowResponse>(await DoRequestAsync("1.0", "twc.notary.contract.flow.cancel", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 转化短链接
+         * Summary: 转化短链接
+         */
+        public TransferGeneralShortenurlResponse TransferGeneralShortenurl(TransferGeneralShortenurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return TransferGeneralShortenurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 转化短链接
+         * Summary: 转化短链接
+         */
+        public async Task<TransferGeneralShortenurlResponse> TransferGeneralShortenurlAsync(TransferGeneralShortenurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await TransferGeneralShortenurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 转化短链接
+         * Summary: 转化短链接
+         */
+        public TransferGeneralShortenurlResponse TransferGeneralShortenurlEx(TransferGeneralShortenurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferGeneralShortenurlResponse>(DoRequest("1.0", "twc.notary.general.shortenurl.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 转化短链接
+         * Summary: 转化短链接
+         */
+        public async Task<TransferGeneralShortenurlResponse> TransferGeneralShortenurlExAsync(TransferGeneralShortenurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferGeneralShortenurlResponse>(await DoRequestAsync("1.0", "twc.notary.general.shortenurl.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 触发合同提交归档
+         * Summary: 合同提交归档
+         */
+        public SubmitContractArchiveResponse SubmitContractArchive(SubmitContractArchiveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitContractArchiveEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 触发合同提交归档
+         * Summary: 合同提交归档
+         */
+        public async Task<SubmitContractArchiveResponse> SubmitContractArchiveAsync(SubmitContractArchiveRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitContractArchiveExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 触发合同提交归档
+         * Summary: 合同提交归档
+         */
+        public SubmitContractArchiveResponse SubmitContractArchiveEx(SubmitContractArchiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitContractArchiveResponse>(DoRequest("1.0", "twc.notary.contract.archive.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 触发合同提交归档
+         * Summary: 合同提交归档
+         */
+        public async Task<SubmitContractArchiveResponse> SubmitContractArchiveExAsync(SubmitContractArchiveRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitContractArchiveResponse>(await DoRequestAsync("1.0", "twc.notary.contract.archive.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
          * Summary: 集成方通过该接口进行使用mp4上报
          */
@@ -6501,6 +6627,48 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncInnerTsrResponse>(await DoRequestAsync("1.0", "twc.notary.inner.tsr.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 转化短链接(废弃)
+         * Summary: 转化短链接(废弃)
+         */
+        public TransferInnerShorturlResponse TransferInnerShorturl(TransferInnerShorturlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return TransferInnerShorturlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 转化短链接(废弃)
+         * Summary: 转化短链接(废弃)
+         */
+        public async Task<TransferInnerShorturlResponse> TransferInnerShorturlAsync(TransferInnerShorturlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await TransferInnerShorturlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 转化短链接(废弃)
+         * Summary: 转化短链接(废弃)
+         */
+        public TransferInnerShorturlResponse TransferInnerShorturlEx(TransferInnerShorturlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferInnerShorturlResponse>(DoRequest("1.0", "twc.notary.inner.shorturl.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 转化短链接(废弃)
+         * Summary: 转化短链接(废弃)
+         */
+        public async Task<TransferInnerShorturlResponse> TransferInnerShorturlExAsync(TransferInnerShorturlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferInnerShorturlResponse>(await DoRequestAsync("1.0", "twc.notary.inner.shorturl.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
