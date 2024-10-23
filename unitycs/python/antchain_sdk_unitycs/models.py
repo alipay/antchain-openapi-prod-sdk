@@ -407,6 +407,131 @@ class CreateDepositResponse(TeaModel):
         return self
 
 
+class GetDepositRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        metadata_code: str = None,
+        tx_hash: str = None,
+        identify: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 元数据编码
+        self.metadata_code = metadata_code
+        # 交易hash，与identify两者必须至少传入一个，两者都输入时，以tx_hash为准
+        self.tx_hash = tx_hash
+        # 数据标识，与交易hash（tx_hash）两者必须至少传入一个，两者都输入时，以tx_hash为准
+        self.identify = identify
+
+    def validate(self):
+        self.validate_required(self.metadata_code, 'metadata_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.metadata_code is not None:
+            result['metadata_code'] = self.metadata_code
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.identify is not None:
+            result['identify'] = self.identify
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('metadata_code') is not None:
+            self.metadata_code = m.get('metadata_code')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('identify') is not None:
+            self.identify = m.get('identify')
+        return self
+
+
+class GetDepositResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tx_hash: str = None,
+        block_number: int = None,
+        tx_time: int = None,
+        base_info_json: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 交易Hash
+        self.tx_hash = tx_hash
+        # 块高
+        self.block_number = block_number
+        # 交易时间戳
+        self.tx_time = tx_time
+        # 上链的基础信息json
+        self.base_info_json = base_info_json
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.block_number is not None:
+            result['block_number'] = self.block_number
+        if self.tx_time is not None:
+            result['tx_time'] = self.tx_time
+        if self.base_info_json is not None:
+            result['base_info_json'] = self.base_info_json
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('block_number') is not None:
+            self.block_number = m.get('block_number')
+        if m.get('tx_time') is not None:
+            self.tx_time = m.get('tx_time')
+        if m.get('base_info_json') is not None:
+            self.base_info_json = m.get('base_info_json')
+        return self
+
+
 class VerifyDataRequest(TeaModel):
     def __init__(
         self,

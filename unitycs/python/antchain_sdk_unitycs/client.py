@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1',
+                    'sdk_version': '1.3.2',
                     '_prod_code': 'UNITYCS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1',
+                    'sdk_version': '1.3.2',
                     '_prod_code': 'UNITYCS',
                     '_prod_channel': 'default'
                 }
@@ -385,6 +385,62 @@ class Client:
         return TeaCore.from_map(
             unitycs_models.CreateDepositResponse(),
             await self.do_request_async('1.0', 'antchain.unitycs.deposit.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_deposit(
+        self,
+        request: unitycs_models.GetDepositRequest,
+    ) -> unitycs_models.GetDepositResponse:
+        """
+        Description: 根据上链Hash，查询上链数据
+        Summary: 根据上链Hash，查询上链数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_deposit_ex(request, headers, runtime)
+
+    async def get_deposit_async(
+        self,
+        request: unitycs_models.GetDepositRequest,
+    ) -> unitycs_models.GetDepositResponse:
+        """
+        Description: 根据上链Hash，查询上链数据
+        Summary: 根据上链Hash，查询上链数据
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_deposit_ex_async(request, headers, runtime)
+
+    def get_deposit_ex(
+        self,
+        request: unitycs_models.GetDepositRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> unitycs_models.GetDepositResponse:
+        """
+        Description: 根据上链Hash，查询上链数据
+        Summary: 根据上链Hash，查询上链数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            unitycs_models.GetDepositResponse(),
+            self.do_request('1.0', 'antchain.unitycs.deposit.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_deposit_ex_async(
+        self,
+        request: unitycs_models.GetDepositRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> unitycs_models.GetDepositResponse:
+        """
+        Description: 根据上链Hash，查询上链数据
+        Summary: 根据上链Hash，查询上链数据
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            unitycs_models.GetDepositResponse(),
+            await self.do_request_async('1.0', 'antchain.unitycs.deposit.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def verify_data(
