@@ -349,6 +349,111 @@ func (s *CreateDepositResponse) SetIdentify(v string) *CreateDepositResponse {
 	return s
 }
 
+type GetDepositRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 元数据编码
+	MetadataCode *string `json:"metadata_code,omitempty" xml:"metadata_code,omitempty" require:"true"`
+	// 交易hash，与identify两者必须至少传入一个，两者都输入时，以tx_hash为准
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 数据标识，与交易hash（tx_hash）两者必须至少传入一个，两者都输入时，以tx_hash为准
+	Identify *string `json:"identify,omitempty" xml:"identify,omitempty"`
+}
+
+func (s GetDepositRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDepositRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetDepositRequest) SetAuthToken(v string) *GetDepositRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetDepositRequest) SetProductInstanceId(v string) *GetDepositRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetDepositRequest) SetMetadataCode(v string) *GetDepositRequest {
+	s.MetadataCode = &v
+	return s
+}
+
+func (s *GetDepositRequest) SetTxHash(v string) *GetDepositRequest {
+	s.TxHash = &v
+	return s
+}
+
+func (s *GetDepositRequest) SetIdentify(v string) *GetDepositRequest {
+	s.Identify = &v
+	return s
+}
+
+type GetDepositResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 交易Hash
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 块高
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
+	// 交易时间戳
+	TxTime *int64 `json:"tx_time,omitempty" xml:"tx_time,omitempty"`
+	// 上链的基础信息json
+	BaseInfoJson *string `json:"base_info_json,omitempty" xml:"base_info_json,omitempty"`
+}
+
+func (s GetDepositResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetDepositResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetDepositResponse) SetReqMsgId(v string) *GetDepositResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetDepositResponse) SetResultCode(v string) *GetDepositResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetDepositResponse) SetResultMsg(v string) *GetDepositResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetDepositResponse) SetTxHash(v string) *GetDepositResponse {
+	s.TxHash = &v
+	return s
+}
+
+func (s *GetDepositResponse) SetBlockNumber(v int64) *GetDepositResponse {
+	s.BlockNumber = &v
+	return s
+}
+
+func (s *GetDepositResponse) SetTxTime(v int64) *GetDepositResponse {
+	s.TxTime = &v
+	return s
+}
+
+func (s *GetDepositResponse) SetBaseInfoJson(v string) *GetDepositResponse {
+	s.BaseInfoJson = &v
+	return s
+}
+
 type VerifyDataRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -576,7 +681,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.1"),
+				"sdk_version":      tea.String("1.3.2"),
 				"_prod_code":       tea.String("UNITYCS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -695,6 +800,40 @@ func (client *Client) CreateDepositEx(request *CreateDepositRequest, headers map
 	}
 	_result = &CreateDepositResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.unitycs.deposit.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据上链Hash，查询上链数据
+ * Summary: 根据上链Hash，查询上链数据
+ */
+func (client *Client) GetDeposit(request *GetDepositRequest) (_result *GetDepositResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetDepositResponse{}
+	_body, _err := client.GetDepositEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据上链Hash，查询上链数据
+ * Summary: 根据上链Hash，查询上链数据
+ */
+func (client *Client) GetDepositEx(request *GetDepositRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetDepositResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetDepositResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.unitycs.deposit.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
