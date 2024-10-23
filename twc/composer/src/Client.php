@@ -63,6 +63,8 @@ use AntChain\TWC\Models\CancelBclInsuranceRequest;
 use AntChain\TWC\Models\CancelBclInsuranceResponse;
 use AntChain\TWC\Models\CancelBclWithholdRequest;
 use AntChain\TWC\Models\CancelBclWithholdResponse;
+use AntChain\TWC\Models\CancelContractFlowRequest;
+use AntChain\TWC\Models\CancelContractFlowResponse;
 use AntChain\TWC\Models\CancelContractPaysingletradeRequest;
 use AntChain\TWC\Models\CancelContractPaysingletradeResponse;
 use AntChain\TWC\Models\CancelContractPaytradeRequest;
@@ -635,6 +637,8 @@ use AntChain\TWC\Models\SubmitBclComplainfeedbackRequest;
 use AntChain\TWC\Models\SubmitBclComplainfeedbackResponse;
 use AntChain\TWC\Models\SubmitBclOrderRequest;
 use AntChain\TWC\Models\SubmitBclOrderResponse;
+use AntChain\TWC\Models\SubmitContractArchiveRequest;
+use AntChain\TWC\Models\SubmitContractArchiveResponse;
 use AntChain\TWC\Models\SubmitDigitalcontentOrderRequest;
 use AntChain\TWC\Models\SubmitDigitalcontentOrderResponse;
 use AntChain\TWC\Models\SyncInnerNotaryRequest;
@@ -649,6 +653,10 @@ use AntChain\TWC\Models\SyncInnerTwcopenRequest;
 use AntChain\TWC\Models\SyncInnerTwcopenResponse;
 use AntChain\TWC\Models\SyncLeaseSupplierorderstatusRequest;
 use AntChain\TWC\Models\SyncLeaseSupplierorderstatusResponse;
+use AntChain\TWC\Models\TransferGeneralShortenurlRequest;
+use AntChain\TWC\Models\TransferGeneralShortenurlResponse;
+use AntChain\TWC\Models\TransferInnerShorturlRequest;
+use AntChain\TWC\Models\TransferInnerShorturlResponse;
 use AntChain\TWC\Models\UnbindContractPayRequest;
 use AntChain\TWC\Models\UnbindContractPayResponse;
 use AntChain\TWC\Models\UpdateBclPromiserepaymentRequest;
@@ -850,7 +858,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.23',
+                    'sdk_version'      => '1.13.1',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5490,6 +5498,105 @@ class Client
     }
 
     /**
+     * Description: 对ato等系统提供区块链合同签署流程撤销能力
+     * Summary: 区块链合同签署流程撤销
+     *
+     * @param CancelContractFlowRequest $request
+     *
+     * @return CancelContractFlowResponse
+     */
+    public function cancelContractFlow($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->cancelContractFlowEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对ato等系统提供区块链合同签署流程撤销能力
+     * Summary: 区块链合同签署流程撤销
+     *
+     * @param CancelContractFlowRequest $request
+     * @param string[]                  $headers
+     * @param RuntimeOptions            $runtime
+     *
+     * @return CancelContractFlowResponse
+     */
+    public function cancelContractFlowEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CancelContractFlowResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.flow.cancel', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 转化短链接
+     * Summary: 转化短链接.
+     *
+     * @param TransferGeneralShortenurlRequest $request
+     *
+     * @return TransferGeneralShortenurlResponse
+     */
+    public function transferGeneralShortenurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->transferGeneralShortenurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 转化短链接
+     * Summary: 转化短链接.
+     *
+     * @param TransferGeneralShortenurlRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return TransferGeneralShortenurlResponse
+     */
+    public function transferGeneralShortenurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return TransferGeneralShortenurlResponse::fromMap($this->doRequest('1.0', 'twc.notary.general.shortenurl.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 触发合同提交归档
+     * Summary: 合同提交归档.
+     *
+     * @param SubmitContractArchiveRequest $request
+     *
+     * @return SubmitContractArchiveResponse
+     */
+    public function submitContractArchive($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitContractArchiveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 触发合同提交归档
+     * Summary: 合同提交归档.
+     *
+     * @param SubmitContractArchiveRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitContractArchiveResponse
+     */
+    public function submitContractArchiveEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitContractArchiveResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.archive.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 用户使用mp4内容，集成方通过该openAPI进行使用上报。
      * Summary: 集成方通过该接口进行使用mp4上报.
      *
@@ -5751,6 +5858,39 @@ class Client
         Utils::validateModel($request);
 
         return SyncInnerTsrResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 转化短链接(废弃)
+     * Summary: 转化短链接(废弃).
+     *
+     * @param TransferInnerShorturlRequest $request
+     *
+     * @return TransferInnerShorturlResponse
+     */
+    public function transferInnerShorturl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->transferInnerShorturlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 转化短链接(废弃)
+     * Summary: 转化短链接(废弃).
+     *
+     * @param TransferInnerShorturlRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return TransferInnerShorturlResponse
+     */
+    public function transferInnerShorturlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return TransferInnerShorturlResponse::fromMap($this->doRequest('1.0', 'twc.notary.inner.shorturl.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
