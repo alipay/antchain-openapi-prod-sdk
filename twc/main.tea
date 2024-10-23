@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.23',
+    sdk_version = '1.13.1',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -9751,6 +9751,134 @@ async function queryContractComplaineventidsEx(request: QueryContractComplaineve
   return doRequest('1.0' ,'twc.notary.contract.complaineventids.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model CancelContractFlowRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 撤销合同的流程id
+  flowId: string(name='flow_id'),
+  // 区块链合同撤销理由
+  revokeReason?: string(name='revoke_reason'),
+  // 用户ID
+  accountId: string(name='account_id'),
+  // 发起人账户id，如不传默认由对接平台发起
+  operatorId?: string(name='operator_id'),
+}
+
+model CancelContractFlowResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 区块链合同返回的code, 0为成功
+  code?: long(name='code'),
+  // 区块链合同返回的 message,业务描述信息;
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 对ato等系统提供区块链合同签署流程撤销能力
+ * Summary: 区块链合同签署流程撤销
+ */
+async function cancelContractFlow(request: CancelContractFlowRequest): CancelContractFlowResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelContractFlowEx(request, headers, runtime);
+}
+
+/**
+ * Description: 对ato等系统提供区块链合同签署流程撤销能力
+ * Summary: 区块链合同签署流程撤销
+ */
+async function cancelContractFlowEx(request: CancelContractFlowRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelContractFlowResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.flow.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model TransferGeneralShortenurlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 对接雨燕（basement）短网址服务
+  sourceUrl: string(name='source_url'),
+}
+
+model TransferGeneralShortenurlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 短链接
+  targetUrl?: string(name='target_url'),
+  // 原网址
+  sourceUrl?: string(name='source_url'),
+}
+
+/**
+ * Description: 转化短链接
+ * Summary: 转化短链接
+ */
+async function transferGeneralShortenurl(request: TransferGeneralShortenurlRequest): TransferGeneralShortenurlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return transferGeneralShortenurlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转化短链接
+ * Summary: 转化短链接
+ */
+async function transferGeneralShortenurlEx(request: TransferGeneralShortenurlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TransferGeneralShortenurlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.general.shortenurl.transfer', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitContractArchiveRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 流程id
+  flowId: string(name='flow_id'),
+  // 参与人account_id
+  accountId: string(name='account_id'),
+}
+
+model SubmitContractArchiveResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 0代表成功
+  code?: long(name='code'),
+  // 返回结果
+  message?: string(name='message'),
+}
+
+/**
+ * Description: 触发合同提交归档
+ * Summary: 合同提交归档
+ */
+async function submitContractArchive(request: SubmitContractArchiveRequest): SubmitContractArchiveResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitContractArchiveEx(request, headers, runtime);
+}
+
+/**
+ * Description: 触发合同提交归档
+ * Summary: 合同提交归档
+ */
+async function submitContractArchiveEx(request: SubmitContractArchiveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitContractArchiveResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.archive.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model PushDigitalcontentUsageRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -10141,6 +10269,46 @@ async function syncInnerTsr(request: SyncInnerTsrRequest): SyncInnerTsrResponse 
 async function syncInnerTsrEx(request: SyncInnerTsrRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncInnerTsrResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.inner.tsr.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model TransferInnerShorturlRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 对接雨燕（basement）短网址服务
+  sourceUrl: string(name='source_url'),
+}
+
+model TransferInnerShorturlResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 短链接
+  targetUrl?: string(name='target_url'),
+  // 原网址
+  sourceUrl?: string(name='source_url'),
+}
+
+/**
+ * Description: 转化短链接(废弃)
+ * Summary: 转化短链接(废弃)
+ */
+async function transferInnerShorturl(request: TransferInnerShorturlRequest): TransferInnerShorturlResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return transferInnerShorturlEx(request, headers, runtime);
+}
+
+/**
+ * Description: 转化短链接(废弃)
+ * Summary: 转化短链接(废弃)
+ */
+async function transferInnerShorturlEx(request: TransferInnerShorturlRequest, headers: map[string]string, runtime: Util.RuntimeOptions): TransferInnerShorturlResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.inner.shorturl.transfer', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CheckEpidentityTwometaRequest = {
