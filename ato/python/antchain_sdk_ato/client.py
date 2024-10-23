@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.30',
+                    'sdk_version': '1.9.64',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.30',
+                    'sdk_version': '1.9.64',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -4233,6 +4233,678 @@ class Client:
         return TeaCore.from_map(
             ato_models.GetInnerFunddividemerchantResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.funddividemerchant.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_inner_insuresign(
+        self,
+        request: ato_models.QueryInnerInsuresignRequest,
+    ) -> ato_models.QueryInnerInsuresignResponse:
+        """
+        Description: 查询商户和保司协议签署信息
+        Summary: 查询商户和保司协议签署信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_insuresign_ex(request, headers, runtime)
+
+    async def query_inner_insuresign_async(
+        self,
+        request: ato_models.QueryInnerInsuresignRequest,
+    ) -> ato_models.QueryInnerInsuresignResponse:
+        """
+        Description: 查询商户和保司协议签署信息
+        Summary: 查询商户和保司协议签署信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_insuresign_ex_async(request, headers, runtime)
+
+    def query_inner_insuresign_ex(
+        self,
+        request: ato_models.QueryInnerInsuresignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerInsuresignResponse:
+        """
+        Description: 查询商户和保司协议签署信息
+        Summary: 查询商户和保司协议签署信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerInsuresignResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.insuresign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_insuresign_ex_async(
+        self,
+        request: ato_models.QueryInnerInsuresignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerInsuresignResponse:
+        """
+        Description: 查询商户和保司协议签署信息
+        Summary: 查询商户和保司协议签署信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerInsuresignResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.insuresign.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_inner_insuresign(
+        self,
+        request: ato_models.CreateInnerInsuresignRequest,
+    ) -> ato_models.CreateInnerInsuresignResponse:
+        """
+        Description: 生成商户和保司签约链接
+        Summary: 生成商户和保司签约链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inner_insuresign_ex(request, headers, runtime)
+
+    async def create_inner_insuresign_async(
+        self,
+        request: ato_models.CreateInnerInsuresignRequest,
+    ) -> ato_models.CreateInnerInsuresignResponse:
+        """
+        Description: 生成商户和保司签约链接
+        Summary: 生成商户和保司签约链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_inner_insuresign_ex_async(request, headers, runtime)
+
+    def create_inner_insuresign_ex(
+        self,
+        request: ato_models.CreateInnerInsuresignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerInsuresignResponse:
+        """
+        Description: 生成商户和保司签约链接
+        Summary: 生成商户和保司签约链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerInsuresignResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.insuresign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_inner_insuresign_ex_async(
+        self,
+        request: ato_models.CreateInnerInsuresignRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerInsuresignResponse:
+        """
+        Description: 生成商户和保司签约链接
+        Summary: 生成商户和保司签约链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerInsuresignResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.insuresign.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_insureorder(
+        self,
+        request: ato_models.PagequeryInnerInsureorderRequest,
+    ) -> ato_models.PagequeryInnerInsureorderResponse:
+        """
+        Description: 查询保单信息
+        Summary: 查询保单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_insureorder_ex(request, headers, runtime)
+
+    async def pagequery_inner_insureorder_async(
+        self,
+        request: ato_models.PagequeryInnerInsureorderRequest,
+    ) -> ato_models.PagequeryInnerInsureorderResponse:
+        """
+        Description: 查询保单信息
+        Summary: 查询保单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_insureorder_ex_async(request, headers, runtime)
+
+    def pagequery_inner_insureorder_ex(
+        self,
+        request: ato_models.PagequeryInnerInsureorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerInsureorderResponse:
+        """
+        Description: 查询保单信息
+        Summary: 查询保单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerInsureorderResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.insureorder.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_insureorder_ex_async(
+        self,
+        request: ato_models.PagequeryInnerInsureorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerInsureorderResponse:
+        """
+        Description: 查询保单信息
+        Summary: 查询保单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerInsureorderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.insureorder.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_product(
+        self,
+        request: ato_models.PagequeryInnerProductRequest,
+    ) -> ato_models.PagequeryInnerProductResponse:
+        """
+        Description: 商户控制台商品列表
+        Summary: 商品列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_product_ex(request, headers, runtime)
+
+    async def pagequery_inner_product_async(
+        self,
+        request: ato_models.PagequeryInnerProductRequest,
+    ) -> ato_models.PagequeryInnerProductResponse:
+        """
+        Description: 商户控制台商品列表
+        Summary: 商品列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_product_ex_async(request, headers, runtime)
+
+    def pagequery_inner_product_ex(
+        self,
+        request: ato_models.PagequeryInnerProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerProductResponse:
+        """
+        Description: 商户控制台商品列表
+        Summary: 商品列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerProductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.product.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_product_ex_async(
+        self,
+        request: ato_models.PagequeryInnerProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerProductResponse:
+        """
+        Description: 商户控制台商品列表
+        Summary: 商品列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerProductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.product.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_inner_product(
+        self,
+        request: ato_models.DetailInnerProductRequest,
+    ) -> ato_models.DetailInnerProductResponse:
+        """
+        Description: 商户控制台商品详情
+        Summary: 商品详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_inner_product_ex(request, headers, runtime)
+
+    async def detail_inner_product_async(
+        self,
+        request: ato_models.DetailInnerProductRequest,
+    ) -> ato_models.DetailInnerProductResponse:
+        """
+        Description: 商户控制台商品详情
+        Summary: 商品详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_inner_product_ex_async(request, headers, runtime)
+
+    def detail_inner_product_ex(
+        self,
+        request: ato_models.DetailInnerProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerProductResponse:
+        """
+        Description: 商户控制台商品详情
+        Summary: 商品详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerProductResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.product.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_inner_product_ex_async(
+        self,
+        request: ato_models.DetailInnerProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerProductResponse:
+        """
+        Description: 商户控制台商品详情
+        Summary: 商品详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerProductResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.product.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_inner_homepagenotice(
+        self,
+        request: ato_models.GetInnerHomepagenoticeRequest,
+    ) -> ato_models.GetInnerHomepagenoticeResponse:
+        """
+        Description: 商户控制台首页通知栏
+        Summary: 首页通知栏
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_inner_homepagenotice_ex(request, headers, runtime)
+
+    async def get_inner_homepagenotice_async(
+        self,
+        request: ato_models.GetInnerHomepagenoticeRequest,
+    ) -> ato_models.GetInnerHomepagenoticeResponse:
+        """
+        Description: 商户控制台首页通知栏
+        Summary: 首页通知栏
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_inner_homepagenotice_ex_async(request, headers, runtime)
+
+    def get_inner_homepagenotice_ex(
+        self,
+        request: ato_models.GetInnerHomepagenoticeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerHomepagenoticeResponse:
+        """
+        Description: 商户控制台首页通知栏
+        Summary: 首页通知栏
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerHomepagenoticeResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.homepagenotice.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_inner_homepagenotice_ex_async(
+        self,
+        request: ato_models.GetInnerHomepagenoticeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerHomepagenoticeResponse:
+        """
+        Description: 商户控制台首页通知栏
+        Summary: 首页通知栏
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerHomepagenoticeResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.homepagenotice.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_notice(
+        self,
+        request: ato_models.PagequeryInnerNoticeRequest,
+    ) -> ato_models.PagequeryInnerNoticeResponse:
+        """
+        Description: 商户控制台通知列表
+        Summary: 通知列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_notice_ex(request, headers, runtime)
+
+    async def pagequery_inner_notice_async(
+        self,
+        request: ato_models.PagequeryInnerNoticeRequest,
+    ) -> ato_models.PagequeryInnerNoticeResponse:
+        """
+        Description: 商户控制台通知列表
+        Summary: 通知列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_notice_ex_async(request, headers, runtime)
+
+    def pagequery_inner_notice_ex(
+        self,
+        request: ato_models.PagequeryInnerNoticeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerNoticeResponse:
+        """
+        Description: 商户控制台通知列表
+        Summary: 通知列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerNoticeResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.notice.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_notice_ex_async(
+        self,
+        request: ato_models.PagequeryInnerNoticeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerNoticeResponse:
+        """
+        Description: 商户控制台通知列表
+        Summary: 通知列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerNoticeResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.notice.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_inner_notice(
+        self,
+        request: ato_models.DetailInnerNoticeRequest,
+    ) -> ato_models.DetailInnerNoticeResponse:
+        """
+        Description: 商户控制台通知详情
+        Summary: 通知详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_inner_notice_ex(request, headers, runtime)
+
+    async def detail_inner_notice_async(
+        self,
+        request: ato_models.DetailInnerNoticeRequest,
+    ) -> ato_models.DetailInnerNoticeResponse:
+        """
+        Description: 商户控制台通知详情
+        Summary: 通知详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_inner_notice_ex_async(request, headers, runtime)
+
+    def detail_inner_notice_ex(
+        self,
+        request: ato_models.DetailInnerNoticeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerNoticeResponse:
+        """
+        Description: 商户控制台通知详情
+        Summary: 通知详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerNoticeResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.notice.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_inner_notice_ex_async(
+        self,
+        request: ato_models.DetailInnerNoticeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerNoticeResponse:
+        """
+        Description: 商户控制台通知详情
+        Summary: 通知详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerNoticeResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.notice.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_order(
+        self,
+        request: ato_models.PagequeryInnerOrderRequest,
+    ) -> ato_models.PagequeryInnerOrderResponse:
+        """
+        Description: 商户控制台订单列表
+        Summary: 订单列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_order_ex(request, headers, runtime)
+
+    async def pagequery_inner_order_async(
+        self,
+        request: ato_models.PagequeryInnerOrderRequest,
+    ) -> ato_models.PagequeryInnerOrderResponse:
+        """
+        Description: 商户控制台订单列表
+        Summary: 订单列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_order_ex_async(request, headers, runtime)
+
+    def pagequery_inner_order_ex(
+        self,
+        request: ato_models.PagequeryInnerOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerOrderResponse:
+        """
+        Description: 商户控制台订单列表
+        Summary: 订单列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerOrderResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.order.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_order_ex_async(
+        self,
+        request: ato_models.PagequeryInnerOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerOrderResponse:
+        """
+        Description: 商户控制台订单列表
+        Summary: 订单列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerOrderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.order.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_insure(
+        self,
+        request: ato_models.CreateInsureRequest,
+    ) -> ato_models.CreateInsureResponse:
+        """
+        Description: 一键投保
+        Summary: 投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_insure_ex(request, headers, runtime)
+
+    async def create_insure_async(
+        self,
+        request: ato_models.CreateInsureRequest,
+    ) -> ato_models.CreateInsureResponse:
+        """
+        Description: 一键投保
+        Summary: 投保
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_insure_ex_async(request, headers, runtime)
+
+    def create_insure_ex(
+        self,
+        request: ato_models.CreateInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInsureResponse:
+        """
+        Description: 一键投保
+        Summary: 投保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInsureResponse(),
+            self.do_request('1.0', 'antchain.ato.insure.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_insure_ex_async(
+        self,
+        request: ato_models.CreateInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInsureResponse:
+        """
+        Description: 一键投保
+        Summary: 投保
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInsureResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.insure.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_insure(
+        self,
+        request: ato_models.QueryInsureRequest,
+    ) -> ato_models.QueryInsureResponse:
+        """
+        Description: 保单查询
+        Summary: 保单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_insure_ex(request, headers, runtime)
+
+    async def query_insure_async(
+        self,
+        request: ato_models.QueryInsureRequest,
+    ) -> ato_models.QueryInsureResponse:
+        """
+        Description: 保单查询
+        Summary: 保单查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_insure_ex_async(request, headers, runtime)
+
+    def query_insure_ex(
+        self,
+        request: ato_models.QueryInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInsureResponse:
+        """
+        Description: 保单查询
+        Summary: 保单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInsureResponse(),
+            self.do_request('1.0', 'antchain.ato.insure.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_insure_ex_async(
+        self,
+        request: ato_models.QueryInsureRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInsureResponse:
+        """
+        Description: 保单查询
+        Summary: 保单查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInsureResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.insure.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def retry_insure_pay(
+        self,
+        request: ato_models.RetryInsurePayRequest,
+    ) -> ato_models.RetryInsurePayResponse:
+        """
+        Description: 保险代扣重试
+        Summary: 保险代扣重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_insure_pay_ex(request, headers, runtime)
+
+    async def retry_insure_pay_async(
+        self,
+        request: ato_models.RetryInsurePayRequest,
+    ) -> ato_models.RetryInsurePayResponse:
+        """
+        Description: 保险代扣重试
+        Summary: 保险代扣重试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.retry_insure_pay_ex_async(request, headers, runtime)
+
+    def retry_insure_pay_ex(
+        self,
+        request: ato_models.RetryInsurePayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryInsurePayResponse:
+        """
+        Description: 保险代扣重试
+        Summary: 保险代扣重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryInsurePayResponse(),
+            self.do_request('1.0', 'antchain.ato.insure.pay.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def retry_insure_pay_ex_async(
+        self,
+        request: ato_models.RetryInsurePayRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.RetryInsurePayResponse:
+        """
+        Description: 保险代扣重试
+        Summary: 保险代扣重试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.RetryInsurePayResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.insure.pay.retry', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def register_merchantexpand_merchant(
