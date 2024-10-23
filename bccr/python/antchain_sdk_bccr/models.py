@@ -8809,7 +8809,6 @@ class CreateDciPreregistrationRequest(TeaModel):
         channel_terminal: str = None,
         recommend_category_list: List[RecommendCategoryDetail] = None,
         customize_cert_id: str = None,
-        tenant_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8858,8 +8857,6 @@ class CreateDciPreregistrationRequest(TeaModel):
         self.recommend_category_list = recommend_category_list
         # 证书样式ID
         self.customize_cert_id = customize_cert_id
-        # 租户名称
-        self.tenant_name = tenant_name
 
     def validate(self):
         self.validate_required(self.work_name, 'work_name')
@@ -8943,8 +8940,6 @@ class CreateDciPreregistrationRequest(TeaModel):
                 result['recommend_category_list'].append(k.to_map() if k else None)
         if self.customize_cert_id is not None:
             result['customize_cert_id'] = self.customize_cert_id
-        if self.tenant_name is not None:
-            result['tenant_name'] = self.tenant_name
         return result
 
     def from_map(self, m: dict = None):
@@ -9004,8 +8999,6 @@ class CreateDciPreregistrationRequest(TeaModel):
                 self.recommend_category_list.append(temp_model.from_map(k))
         if m.get('customize_cert_id') is not None:
             self.customize_cert_id = m.get('customize_cert_id')
-        if m.get('tenant_name') is not None:
-            self.tenant_name = m.get('tenant_name')
         return self
 
 
