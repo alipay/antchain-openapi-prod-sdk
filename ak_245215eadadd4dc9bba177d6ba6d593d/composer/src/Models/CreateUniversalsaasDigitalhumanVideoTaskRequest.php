@@ -19,6 +19,12 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
      */
     public $productInstanceId;
 
+    // 画布大小
+    /**
+     * @var int
+     */
+    public $height;
+
     // 数字人id
     /**
      * @var string
@@ -78,9 +84,16 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
      * @var string
      */
     public $format;
+
+    // 画布大小
+    /**
+     * @var int
+     */
+    public $width;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'height'            => 'height',
         'avatarId'          => 'avatar_id',
         'driverType'        => 'driver_type',
         'profileInfo'       => 'profile_info',
@@ -91,6 +104,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         'background'        => 'background',
         'pasters'           => 'pasters',
         'format'            => 'format',
+        'width'             => 'width',
     ];
 
     public function validate()
@@ -109,6 +123,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->height) {
+            $res['height'] = $this->height;
         }
         if (null !== $this->avatarId) {
             $res['avatar_id'] = $this->avatarId;
@@ -146,6 +163,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         if (null !== $this->format) {
             $res['format'] = $this->format;
         }
+        if (null !== $this->width) {
+            $res['width'] = $this->width;
+        }
 
         return $res;
     }
@@ -163,6 +183,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['height'])) {
+            $model->height = $map['height'];
         }
         if (isset($map['avatar_id'])) {
             $model->avatarId = $map['avatar_id'];
@@ -199,6 +222,9 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest extends Model
         }
         if (isset($map['format'])) {
             $model->format = $map['format'];
+        }
+        if (isset($map['width'])) {
+            $model->width = $map['width'];
         }
 
         return $model;

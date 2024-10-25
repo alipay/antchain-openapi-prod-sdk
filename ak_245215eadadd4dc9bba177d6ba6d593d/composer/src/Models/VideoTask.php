@@ -23,9 +23,18 @@ class VideoTask extends Model
      * @var string
      */
     public $videoUrl;
+
+    // 视频时长
+    /**
+     * @example 123456
+     *
+     * @var int
+     */
+    public $videoDuration;
     protected $_name = [
-        'state'    => 'state',
-        'videoUrl' => 'video_url',
+        'state'         => 'state',
+        'videoUrl'      => 'video_url',
+        'videoDuration' => 'video_duration',
     ];
 
     public function validate()
@@ -41,6 +50,9 @@ class VideoTask extends Model
         }
         if (null !== $this->videoUrl) {
             $res['video_url'] = $this->videoUrl;
+        }
+        if (null !== $this->videoDuration) {
+            $res['video_duration'] = $this->videoDuration;
         }
 
         return $res;
@@ -59,6 +71,9 @@ class VideoTask extends Model
         }
         if (isset($map['video_url'])) {
             $model->videoUrl = $map['video_url'];
+        }
+        if (isset($map['video_duration'])) {
+            $model->videoDuration = $map['video_duration'];
         }
 
         return $model;

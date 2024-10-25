@@ -33,7 +33,7 @@ class CloneUniversalsaasDigitalhumanAvatarRequest extends Model
 
     // 是否克隆声音，默认为false
     /**
-     * @var string
+     * @var bool
      */
     public $cloneVoice;
     protected $_name = [

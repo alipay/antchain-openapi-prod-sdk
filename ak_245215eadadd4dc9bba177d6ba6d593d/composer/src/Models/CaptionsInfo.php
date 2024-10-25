@@ -55,13 +55,31 @@ class CaptionsInfo extends Model
      * @var Sentence[]
      */
     public $sentences;
+
+    // 是否自定义字幕样式，默认为false
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $customCaptions;
+
+    // 字幕自定义样式
+    /**
+     * @example
+     *
+     * @var CaptionsStyle
+     */
+    public $captionsStyle;
     protected $_name = [
-        'x'         => 'x',
-        'y'         => 'y',
-        'w'         => 'w',
-        'h'         => 'h',
-        'id'        => 'id',
-        'sentences' => 'sentences',
+        'x'              => 'x',
+        'y'              => 'y',
+        'w'              => 'w',
+        'h'              => 'h',
+        'id'             => 'id',
+        'sentences'      => 'sentences',
+        'customCaptions' => 'custom_captions',
+        'captionsStyle'  => 'captions_style',
     ];
 
     public function validate()
@@ -71,6 +89,7 @@ class CaptionsInfo extends Model
         Model::validateRequired('w', $this->w, true);
         Model::validateRequired('h', $this->h, true);
         Model::validateRequired('sentences', $this->sentences, true);
+        Model::validateRequired('captionsStyle', $this->captionsStyle, true);
     }
 
     public function toMap()
@@ -99,6 +118,12 @@ class CaptionsInfo extends Model
                     $res['sentences'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->customCaptions) {
+            $res['custom_captions'] = $this->customCaptions;
+        }
+        if (null !== $this->captionsStyle) {
+            $res['captions_style'] = null !== $this->captionsStyle ? $this->captionsStyle->toMap() : null;
         }
 
         return $res;
@@ -135,6 +160,12 @@ class CaptionsInfo extends Model
                     $model->sentences[$n++] = null !== $item ? Sentence::fromMap($item) : $item;
                 }
             }
+        }
+        if (isset($map['custom_captions'])) {
+            $model->customCaptions = $map['custom_captions'];
+        }
+        if (isset($map['captions_style'])) {
+            $model->captionsStyle = CaptionsStyle::fromMap($map['captions_style']);
         }
 
         return $model;
