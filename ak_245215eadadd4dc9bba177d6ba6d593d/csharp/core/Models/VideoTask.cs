@@ -20,6 +20,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public string VideoUrl { get; set; }
 
+        // 视频时长
+        [NameInMap("video_duration")]
+        [Validation(Required=false)]
+        public long? VideoDuration { get; set; }
+
     }
 
 }

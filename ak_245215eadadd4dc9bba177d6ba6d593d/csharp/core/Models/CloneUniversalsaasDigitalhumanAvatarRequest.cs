@@ -31,7 +31,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         // 是否克隆声音，默认为false
         [NameInMap("clone_voice")]
         [Validation(Required=false)]
-        public string CloneVoice { get; set; }
+        public bool? CloneVoice { get; set; }
 
     }
 

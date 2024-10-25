@@ -40,6 +40,16 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=true)]
         public List<Sentence> Sentences { get; set; }
 
+        // 是否自定义字幕样式，默认为false
+        [NameInMap("custom_captions")]
+        [Validation(Required=false)]
+        public bool? CustomCaptions { get; set; }
+
+        // 字幕自定义样式
+        [NameInMap("captions_style")]
+        [Validation(Required=true)]
+        public CaptionsStyle CaptionsStyle { get; set; }
+
     }
 
 }

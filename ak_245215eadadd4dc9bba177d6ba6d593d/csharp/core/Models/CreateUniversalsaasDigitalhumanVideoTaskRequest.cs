@@ -18,6 +18,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
+        // 画布大小
+        [NameInMap("height")]
+        [Validation(Required=false)]
+        public long? Height { get; set; }
+
         // 数字人id
         [NameInMap("avatar_id")]
         [Validation(Required=true)]
@@ -67,6 +72,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [NameInMap("format")]
         [Validation(Required=false)]
         public string Format { get; set; }
+
+        // 画布大小
+        [NameInMap("width")]
+        [Validation(Required=false)]
+        public long? Width { get; set; }
 
     }
 
