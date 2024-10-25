@@ -181,6 +181,60 @@ func (s *Sentence) SetEndTime(v int64) *Sentence {
 	return s
 }
 
+// 字幕样式
+type CaptionsStyle struct {
+	// 字体类型
+	FontType *string `json:"font_type,omitempty" xml:"font_type,omitempty" require:"true"`
+	// 字体大小，像素单位
+	FontSize *int64 `json:"font_size,omitempty" xml:"font_size,omitempty" require:"true"`
+	// 字体颜色
+	FontColor *string `json:"font_color,omitempty" xml:"font_color,omitempty" require:"true"`
+	// 描边颜色
+	StrokeColor *string `json:"stroke_color,omitempty" xml:"stroke_color,omitempty"`
+	// 描边宽度
+	StrokeWidth *int64 `json:"stroke_width,omitempty" xml:"stroke_width,omitempty"`
+	// 字体背景颜色
+	BackgroundColor *string `json:"background_color,omitempty" xml:"background_color,omitempty"`
+}
+
+func (s CaptionsStyle) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaptionsStyle) GoString() string {
+	return s.String()
+}
+
+func (s *CaptionsStyle) SetFontType(v string) *CaptionsStyle {
+	s.FontType = &v
+	return s
+}
+
+func (s *CaptionsStyle) SetFontSize(v int64) *CaptionsStyle {
+	s.FontSize = &v
+	return s
+}
+
+func (s *CaptionsStyle) SetFontColor(v string) *CaptionsStyle {
+	s.FontColor = &v
+	return s
+}
+
+func (s *CaptionsStyle) SetStrokeColor(v string) *CaptionsStyle {
+	s.StrokeColor = &v
+	return s
+}
+
+func (s *CaptionsStyle) SetStrokeWidth(v int64) *CaptionsStyle {
+	s.StrokeWidth = &v
+	return s
+}
+
+func (s *CaptionsStyle) SetBackgroundColor(v string) *CaptionsStyle {
+	s.BackgroundColor = &v
+	return s
+}
+
 // 数字人形象
 type AvatarProfile struct {
 	// 190087
@@ -240,6 +294,107 @@ func (s *AvatarProfile) SetBgUrl(v string) *AvatarProfile {
 
 func (s *AvatarProfile) SetThumbUrl(v string) *AvatarProfile {
 	s.ThumbUrl = &v
+	return s
+}
+
+// 字幕信息
+type CaptionsInfo struct {
+	// 字幕画面位置x坐标，距左侧
+	X *int64 `json:"x,omitempty" xml:"x,omitempty" require:"true"`
+	// 字幕画面位置y坐标，距上侧
+	Y *int64 `json:"y,omitempty" xml:"y,omitempty" require:"true"`
+	// 字幕框宽度
+	W *int64 `json:"w,omitempty" xml:"w,omitempty" require:"true"`
+	// 字幕框高度
+	H *int64 `json:"h,omitempty" xml:"h,omitempty" require:"true"`
+	// 字幕id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 字幕句子时间节点信息
+	Sentences []*Sentence `json:"sentences,omitempty" xml:"sentences,omitempty" require:"true" type:"Repeated"`
+	// 是否自定义字幕样式，默认为false
+	CustomCaptions *bool `json:"custom_captions,omitempty" xml:"custom_captions,omitempty"`
+	// 字幕自定义样式
+	CaptionsStyle *CaptionsStyle `json:"captions_style,omitempty" xml:"captions_style,omitempty" require:"true"`
+}
+
+func (s CaptionsInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CaptionsInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CaptionsInfo) SetX(v int64) *CaptionsInfo {
+	s.X = &v
+	return s
+}
+
+func (s *CaptionsInfo) SetY(v int64) *CaptionsInfo {
+	s.Y = &v
+	return s
+}
+
+func (s *CaptionsInfo) SetW(v int64) *CaptionsInfo {
+	s.W = &v
+	return s
+}
+
+func (s *CaptionsInfo) SetH(v int64) *CaptionsInfo {
+	s.H = &v
+	return s
+}
+
+func (s *CaptionsInfo) SetId(v string) *CaptionsInfo {
+	s.Id = &v
+	return s
+}
+
+func (s *CaptionsInfo) SetSentences(v []*Sentence) *CaptionsInfo {
+	s.Sentences = v
+	return s
+}
+
+func (s *CaptionsInfo) SetCustomCaptions(v bool) *CaptionsInfo {
+	s.CustomCaptions = &v
+	return s
+}
+
+func (s *CaptionsInfo) SetCaptionsStyle(v *CaptionsStyle) *CaptionsInfo {
+	s.CaptionsStyle = v
+	return s
+}
+
+// 数字人形象集合
+type AvatarProfileResult struct {
+	// 数字人形象数量
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
+	// 查询页面索引，不分页无
+	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
+	// 数字人形象列表
+	ItemList []*AvatarProfile `json:"item_list,omitempty" xml:"item_list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s AvatarProfileResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvatarProfileResult) GoString() string {
+	return s.String()
+}
+
+func (s *AvatarProfileResult) SetTotal(v int64) *AvatarProfileResult {
+	s.Total = &v
+	return s
+}
+
+func (s *AvatarProfileResult) SetPageIndex(v int64) *AvatarProfileResult {
+	s.PageIndex = &v
+	return s
+}
+
+func (s *AvatarProfileResult) SetItemList(v []*AvatarProfile) *AvatarProfileResult {
+	s.ItemList = v
 	return s
 }
 
@@ -372,93 +527,6 @@ func (s *AvatarVoice) SetDemoUrl(v string) *AvatarVoice {
 	return s
 }
 
-// 字幕信息
-type CaptionsInfo struct {
-	// 字幕画面位置x坐标，距左侧
-	X *int64 `json:"x,omitempty" xml:"x,omitempty" require:"true"`
-	// 字幕画面位置y坐标，距上侧
-	Y *int64 `json:"y,omitempty" xml:"y,omitempty" require:"true"`
-	// 字幕框宽度
-	W *int64 `json:"w,omitempty" xml:"w,omitempty" require:"true"`
-	// 字幕框高度
-	H *int64 `json:"h,omitempty" xml:"h,omitempty" require:"true"`
-	// 字幕id
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 字幕句子时间节点信息
-	Sentences []*Sentence `json:"sentences,omitempty" xml:"sentences,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s CaptionsInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CaptionsInfo) GoString() string {
-	return s.String()
-}
-
-func (s *CaptionsInfo) SetX(v int64) *CaptionsInfo {
-	s.X = &v
-	return s
-}
-
-func (s *CaptionsInfo) SetY(v int64) *CaptionsInfo {
-	s.Y = &v
-	return s
-}
-
-func (s *CaptionsInfo) SetW(v int64) *CaptionsInfo {
-	s.W = &v
-	return s
-}
-
-func (s *CaptionsInfo) SetH(v int64) *CaptionsInfo {
-	s.H = &v
-	return s
-}
-
-func (s *CaptionsInfo) SetId(v string) *CaptionsInfo {
-	s.Id = &v
-	return s
-}
-
-func (s *CaptionsInfo) SetSentences(v []*Sentence) *CaptionsInfo {
-	s.Sentences = v
-	return s
-}
-
-// 数字人形象集合
-type AvatarProfileResult struct {
-	// 数字人形象数量
-	Total *int64 `json:"total,omitempty" xml:"total,omitempty" require:"true"`
-	// 查询页面索引，不分页无
-	PageIndex *int64 `json:"page_index,omitempty" xml:"page_index,omitempty"`
-	// 数字人形象列表
-	ItemList []*AvatarProfile `json:"item_list,omitempty" xml:"item_list,omitempty" require:"true" type:"Repeated"`
-}
-
-func (s AvatarProfileResult) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AvatarProfileResult) GoString() string {
-	return s.String()
-}
-
-func (s *AvatarProfileResult) SetTotal(v int64) *AvatarProfileResult {
-	s.Total = &v
-	return s
-}
-
-func (s *AvatarProfileResult) SetPageIndex(v int64) *AvatarProfileResult {
-	s.PageIndex = &v
-	return s
-}
-
-func (s *AvatarProfileResult) SetItemList(v []*AvatarProfile) *AvatarProfileResult {
-	s.ItemList = v
-	return s
-}
-
 // 数字人形象设置
 type ProfileInfo struct {
 	// 数字人离画面位置坐标,可以为负数或者出画
@@ -573,6 +641,8 @@ type VideoTask struct {
 	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
 	// 完成状态，会返回视频地址
 	VideoUrl *string `json:"video_url,omitempty" xml:"video_url,omitempty"`
+	// 视频时长
+	VideoDuration *int64 `json:"video_duration,omitempty" xml:"video_duration,omitempty"`
 }
 
 func (s VideoTask) String() string {
@@ -590,6 +660,11 @@ func (s *VideoTask) SetState(v string) *VideoTask {
 
 func (s *VideoTask) SetVideoUrl(v string) *VideoTask {
 	s.VideoUrl = &v
+	return s
+}
+
+func (s *VideoTask) SetVideoDuration(v int64) *VideoTask {
+	s.VideoDuration = &v
 	return s
 }
 
@@ -804,6 +879,8 @@ type CreateUniversalsaasDigitalhumanVideoTaskRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 画布大小
+	Height *int64 `json:"height,omitempty" xml:"height,omitempty"`
 	// 数字人id
 	AvatarId *string `json:"avatar_id,omitempty" xml:"avatar_id,omitempty" require:"true"`
 	// text/audio, 合成驱动--文本/音频
@@ -824,6 +901,8 @@ type CreateUniversalsaasDigitalhumanVideoTaskRequest struct {
 	Pasters []*Paster `json:"pasters,omitempty" xml:"pasters,omitempty" type:"Repeated"`
 	// 数字人视频生成格式，默认不填
 	Format *string `json:"format,omitempty" xml:"format,omitempty"`
+	// 画布大小
+	Width *int64 `json:"width,omitempty" xml:"width,omitempty"`
 }
 
 func (s CreateUniversalsaasDigitalhumanVideoTaskRequest) String() string {
@@ -841,6 +920,11 @@ func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetAuthToken(v string)
 
 func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetProductInstanceId(v string) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
 	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetHeight(v int64) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
+	s.Height = &v
 	return s
 }
 
@@ -891,6 +975,11 @@ func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetPasters(v []*Paster
 
 func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetFormat(v string) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
 	s.Format = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVideoTaskRequest) SetWidth(v int64) *CreateUniversalsaasDigitalhumanVideoTaskRequest {
+	s.Width = &v
 	return s
 }
 
@@ -1131,7 +1220,7 @@ type CloneUniversalsaasDigitalhumanAvatarRequest struct {
 	// 数字人名称
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
 	// 是否克隆声音，默认为false
-	CloneVoice *string `json:"clone_voice,omitempty" xml:"clone_voice,omitempty"`
+	CloneVoice *bool `json:"clone_voice,omitempty" xml:"clone_voice,omitempty"`
 }
 
 func (s CloneUniversalsaasDigitalhumanAvatarRequest) String() string {
@@ -1162,7 +1251,7 @@ func (s *CloneUniversalsaasDigitalhumanAvatarRequest) SetName(v string) *CloneUn
 	return s
 }
 
-func (s *CloneUniversalsaasDigitalhumanAvatarRequest) SetCloneVoice(v string) *CloneUniversalsaasDigitalhumanAvatarRequest {
+func (s *CloneUniversalsaasDigitalhumanAvatarRequest) SetCloneVoice(v bool) *CloneUniversalsaasDigitalhumanAvatarRequest {
 	s.CloneVoice = &v
 	return s
 }
@@ -1497,7 +1586,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.1"),
+				"sdk_version":      tea.String("1.1.2"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
