@@ -23,7 +23,7 @@ public class CloneUniversalsaasDigitalhumanAvatarRequest extends TeaModel {
 
     // 是否克隆声音，默认为false
     @NameInMap("clone_voice")
-    public String cloneVoice;
+    public Boolean cloneVoice;
 
     public static CloneUniversalsaasDigitalhumanAvatarRequest build(java.util.Map<String, ?> map) throws Exception {
         CloneUniversalsaasDigitalhumanAvatarRequest self = new CloneUniversalsaasDigitalhumanAvatarRequest();
@@ -62,11 +62,11 @@ public class CloneUniversalsaasDigitalhumanAvatarRequest extends TeaModel {
         return this.name;
     }
 
-    public CloneUniversalsaasDigitalhumanAvatarRequest setCloneVoice(String cloneVoice) {
+    public CloneUniversalsaasDigitalhumanAvatarRequest setCloneVoice(Boolean cloneVoice) {
         this.cloneVoice = cloneVoice;
         return this;
     }
-    public String getCloneVoice() {
+    public Boolean getCloneVoice() {
         return this.cloneVoice;
     }
 

@@ -11,6 +11,10 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
+    // 画布大小
+    @NameInMap("height")
+    public Long height;
+
     // 数字人id
     @NameInMap("avatar_id")
     @Validation(required = true)
@@ -55,6 +59,10 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     @NameInMap("format")
     public String format;
 
+    // 画布大小
+    @NameInMap("width")
+    public Long width;
+
     public static CreateUniversalsaasDigitalhumanVideoTaskRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateUniversalsaasDigitalhumanVideoTaskRequest self = new CreateUniversalsaasDigitalhumanVideoTaskRequest();
         return TeaModel.build(map, self);
@@ -74,6 +82,14 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
+    }
+
+    public CreateUniversalsaasDigitalhumanVideoTaskRequest setHeight(Long height) {
+        this.height = height;
+        return this;
+    }
+    public Long getHeight() {
+        return this.height;
     }
 
     public CreateUniversalsaasDigitalhumanVideoTaskRequest setAvatarId(String avatarId) {
@@ -154,6 +170,14 @@ public class CreateUniversalsaasDigitalhumanVideoTaskRequest extends TeaModel {
     }
     public String getFormat() {
         return this.format;
+    }
+
+    public CreateUniversalsaasDigitalhumanVideoTaskRequest setWidth(Long width) {
+        this.width = width;
+        return this;
+    }
+    public Long getWidth() {
+        return this.width;
     }
 
 }

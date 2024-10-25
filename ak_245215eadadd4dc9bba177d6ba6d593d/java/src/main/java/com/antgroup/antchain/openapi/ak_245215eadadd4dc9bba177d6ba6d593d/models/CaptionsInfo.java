@@ -33,6 +33,15 @@ public class CaptionsInfo extends TeaModel {
     @Validation(required = true)
     public java.util.List<Sentence> sentences;
 
+    // 是否自定义字幕样式，默认为false
+    @NameInMap("custom_captions")
+    public Boolean customCaptions;
+
+    // 字幕自定义样式
+    @NameInMap("captions_style")
+    @Validation(required = true)
+    public CaptionsStyle captionsStyle;
+
     public static CaptionsInfo build(java.util.Map<String, ?> map) throws Exception {
         CaptionsInfo self = new CaptionsInfo();
         return TeaModel.build(map, self);
@@ -84,6 +93,22 @@ public class CaptionsInfo extends TeaModel {
     }
     public java.util.List<Sentence> getSentences() {
         return this.sentences;
+    }
+
+    public CaptionsInfo setCustomCaptions(Boolean customCaptions) {
+        this.customCaptions = customCaptions;
+        return this;
+    }
+    public Boolean getCustomCaptions() {
+        return this.customCaptions;
+    }
+
+    public CaptionsInfo setCaptionsStyle(CaptionsStyle captionsStyle) {
+        this.captionsStyle = captionsStyle;
+        return this;
+    }
+    public CaptionsStyle getCaptionsStyle() {
+        return this.captionsStyle;
     }
 
 }
