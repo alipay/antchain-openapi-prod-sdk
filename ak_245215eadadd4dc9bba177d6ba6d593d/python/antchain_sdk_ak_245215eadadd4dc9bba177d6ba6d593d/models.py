@@ -198,6 +198,71 @@ class Sentence(TeaModel):
         return self
 
 
+class CaptionsStyle(TeaModel):
+    def __init__(
+        self,
+        font_type: str = None,
+        font_size: int = None,
+        font_color: str = None,
+        stroke_color: str = None,
+        stroke_width: int = None,
+        background_color: str = None,
+    ):
+        # 字体类型
+        self.font_type = font_type
+        # 字体大小，像素单位
+        self.font_size = font_size
+        # 字体颜色
+        self.font_color = font_color
+        # 描边颜色
+        self.stroke_color = stroke_color
+        # 描边宽度
+        self.stroke_width = stroke_width
+        # 字体背景颜色
+        self.background_color = background_color
+
+    def validate(self):
+        self.validate_required(self.font_type, 'font_type')
+        self.validate_required(self.font_size, 'font_size')
+        self.validate_required(self.font_color, 'font_color')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.font_type is not None:
+            result['font_type'] = self.font_type
+        if self.font_size is not None:
+            result['font_size'] = self.font_size
+        if self.font_color is not None:
+            result['font_color'] = self.font_color
+        if self.stroke_color is not None:
+            result['stroke_color'] = self.stroke_color
+        if self.stroke_width is not None:
+            result['stroke_width'] = self.stroke_width
+        if self.background_color is not None:
+            result['background_color'] = self.background_color
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('font_type') is not None:
+            self.font_type = m.get('font_type')
+        if m.get('font_size') is not None:
+            self.font_size = m.get('font_size')
+        if m.get('font_color') is not None:
+            self.font_color = m.get('font_color')
+        if m.get('stroke_color') is not None:
+            self.stroke_color = m.get('stroke_color')
+        if m.get('stroke_width') is not None:
+            self.stroke_width = m.get('stroke_width')
+        if m.get('background_color') is not None:
+            self.background_color = m.get('background_color')
+        return self
+
+
 class AvatarProfile(TeaModel):
     def __init__(
         self,
@@ -269,6 +334,152 @@ class AvatarProfile(TeaModel):
             self.bg_url = m.get('bg_url')
         if m.get('thumb_url') is not None:
             self.thumb_url = m.get('thumb_url')
+        return self
+
+
+class CaptionsInfo(TeaModel):
+    def __init__(
+        self,
+        x: int = None,
+        y: int = None,
+        w: int = None,
+        h: int = None,
+        id: str = None,
+        sentences: List[Sentence] = None,
+        custom_captions: bool = None,
+        captions_style: CaptionsStyle = None,
+    ):
+        # 字幕画面位置x坐标，距左侧
+        self.x = x
+        # 字幕画面位置y坐标，距上侧
+        self.y = y
+        # 字幕框宽度
+        self.w = w
+        # 字幕框高度
+        self.h = h
+        # 字幕id
+        self.id = id
+        # 字幕句子时间节点信息
+        self.sentences = sentences
+        # 是否自定义字幕样式，默认为false
+        self.custom_captions = custom_captions
+        # 字幕自定义样式
+        self.captions_style = captions_style
+
+    def validate(self):
+        self.validate_required(self.x, 'x')
+        self.validate_required(self.y, 'y')
+        self.validate_required(self.w, 'w')
+        self.validate_required(self.h, 'h')
+        self.validate_required(self.sentences, 'sentences')
+        if self.sentences:
+            for k in self.sentences:
+                if k:
+                    k.validate()
+        self.validate_required(self.captions_style, 'captions_style')
+        if self.captions_style:
+            self.captions_style.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.x is not None:
+            result['x'] = self.x
+        if self.y is not None:
+            result['y'] = self.y
+        if self.w is not None:
+            result['w'] = self.w
+        if self.h is not None:
+            result['h'] = self.h
+        if self.id is not None:
+            result['id'] = self.id
+        result['sentences'] = []
+        if self.sentences is not None:
+            for k in self.sentences:
+                result['sentences'].append(k.to_map() if k else None)
+        if self.custom_captions is not None:
+            result['custom_captions'] = self.custom_captions
+        if self.captions_style is not None:
+            result['captions_style'] = self.captions_style.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('x') is not None:
+            self.x = m.get('x')
+        if m.get('y') is not None:
+            self.y = m.get('y')
+        if m.get('w') is not None:
+            self.w = m.get('w')
+        if m.get('h') is not None:
+            self.h = m.get('h')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        self.sentences = []
+        if m.get('sentences') is not None:
+            for k in m.get('sentences'):
+                temp_model = Sentence()
+                self.sentences.append(temp_model.from_map(k))
+        if m.get('custom_captions') is not None:
+            self.custom_captions = m.get('custom_captions')
+        if m.get('captions_style') is not None:
+            temp_model = CaptionsStyle()
+            self.captions_style = temp_model.from_map(m['captions_style'])
+        return self
+
+
+class AvatarProfileResult(TeaModel):
+    def __init__(
+        self,
+        total: int = None,
+        page_index: int = None,
+        item_list: List[AvatarProfile] = None,
+    ):
+        # 数字人形象数量
+        self.total = total
+        # 查询页面索引，不分页无
+        self.page_index = page_index
+        # 数字人形象列表
+        self.item_list = item_list
+
+    def validate(self):
+        self.validate_required(self.total, 'total')
+        self.validate_required(self.item_list, 'item_list')
+        if self.item_list:
+            for k in self.item_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.total is not None:
+            result['total'] = self.total
+        if self.page_index is not None:
+            result['page_index'] = self.page_index
+        result['item_list'] = []
+        if self.item_list is not None:
+            for k in self.item_list:
+                result['item_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        if m.get('page_index') is not None:
+            self.page_index = m.get('page_index')
+        self.item_list = []
+        if m.get('item_list') is not None:
+            for k in m.get('item_list'):
+                temp_model = AvatarProfile()
+                self.item_list.append(temp_model.from_map(k))
         return self
 
 
@@ -435,134 +646,6 @@ class AvatarVoice(TeaModel):
         return self
 
 
-class CaptionsInfo(TeaModel):
-    def __init__(
-        self,
-        x: int = None,
-        y: int = None,
-        w: int = None,
-        h: int = None,
-        id: str = None,
-        sentences: List[Sentence] = None,
-    ):
-        # 字幕画面位置x坐标，距左侧
-        self.x = x
-        # 字幕画面位置y坐标，距上侧
-        self.y = y
-        # 字幕框宽度
-        self.w = w
-        # 字幕框高度
-        self.h = h
-        # 字幕id
-        self.id = id
-        # 字幕句子时间节点信息
-        self.sentences = sentences
-
-    def validate(self):
-        self.validate_required(self.x, 'x')
-        self.validate_required(self.y, 'y')
-        self.validate_required(self.w, 'w')
-        self.validate_required(self.h, 'h')
-        self.validate_required(self.sentences, 'sentences')
-        if self.sentences:
-            for k in self.sentences:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.x is not None:
-            result['x'] = self.x
-        if self.y is not None:
-            result['y'] = self.y
-        if self.w is not None:
-            result['w'] = self.w
-        if self.h is not None:
-            result['h'] = self.h
-        if self.id is not None:
-            result['id'] = self.id
-        result['sentences'] = []
-        if self.sentences is not None:
-            for k in self.sentences:
-                result['sentences'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('x') is not None:
-            self.x = m.get('x')
-        if m.get('y') is not None:
-            self.y = m.get('y')
-        if m.get('w') is not None:
-            self.w = m.get('w')
-        if m.get('h') is not None:
-            self.h = m.get('h')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        self.sentences = []
-        if m.get('sentences') is not None:
-            for k in m.get('sentences'):
-                temp_model = Sentence()
-                self.sentences.append(temp_model.from_map(k))
-        return self
-
-
-class AvatarProfileResult(TeaModel):
-    def __init__(
-        self,
-        total: int = None,
-        page_index: int = None,
-        item_list: List[AvatarProfile] = None,
-    ):
-        # 数字人形象数量
-        self.total = total
-        # 查询页面索引，不分页无
-        self.page_index = page_index
-        # 数字人形象列表
-        self.item_list = item_list
-
-    def validate(self):
-        self.validate_required(self.total, 'total')
-        self.validate_required(self.item_list, 'item_list')
-        if self.item_list:
-            for k in self.item_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.total is not None:
-            result['total'] = self.total
-        if self.page_index is not None:
-            result['page_index'] = self.page_index
-        result['item_list'] = []
-        if self.item_list is not None:
-            for k in self.item_list:
-                result['item_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('total') is not None:
-            self.total = m.get('total')
-        if m.get('page_index') is not None:
-            self.page_index = m.get('page_index')
-        self.item_list = []
-        if m.get('item_list') is not None:
-            for k in m.get('item_list'):
-                temp_model = AvatarProfile()
-                self.item_list.append(temp_model.from_map(k))
-        return self
-
-
 class ProfileInfo(TeaModel):
     def __init__(
         self,
@@ -706,11 +789,14 @@ class VideoTask(TeaModel):
         self,
         state: str = None,
         video_url: str = None,
+        video_duration: int = None,
     ):
         # RUNNING, COMPLETE,FAIL
         self.state = state
         # 完成状态，会返回视频地址
         self.video_url = video_url
+        # 视频时长
+        self.video_duration = video_duration
 
     def validate(self):
         self.validate_required(self.state, 'state')
@@ -725,6 +811,8 @@ class VideoTask(TeaModel):
             result['state'] = self.state
         if self.video_url is not None:
             result['video_url'] = self.video_url
+        if self.video_duration is not None:
+            result['video_duration'] = self.video_duration
         return result
 
     def from_map(self, m: dict = None):
@@ -733,6 +821,8 @@ class VideoTask(TeaModel):
             self.state = m.get('state')
         if m.get('video_url') is not None:
             self.video_url = m.get('video_url')
+        if m.get('video_duration') is not None:
+            self.video_duration = m.get('video_duration')
         return self
 
 
@@ -1009,6 +1099,7 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        height: int = None,
         avatar_id: str = None,
         driver_type: str = None,
         profile_info: ProfileInfo = None,
@@ -1019,10 +1110,13 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         background: Background = None,
         pasters: List[Paster] = None,
         format: str = None,
+        width: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 画布大小
+        self.height = height
         # 数字人id
         self.avatar_id = avatar_id
         # text/audio, 合成驱动--文本/音频
@@ -1043,6 +1137,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
         self.pasters = pasters
         # 数字人视频生成格式，默认不填
         self.format = format
+        # 画布大小
+        self.width = width
 
     def validate(self):
         self.validate_required(self.avatar_id, 'avatar_id')
@@ -1072,6 +1168,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.height is not None:
+            result['height'] = self.height
         if self.avatar_id is not None:
             result['avatar_id'] = self.avatar_id
         if self.driver_type is not None:
@@ -1094,6 +1192,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
                 result['pasters'].append(k.to_map() if k else None)
         if self.format is not None:
             result['format'] = self.format
+        if self.width is not None:
+            result['width'] = self.width
         return result
 
     def from_map(self, m: dict = None):
@@ -1102,6 +1202,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('height') is not None:
+            self.height = m.get('height')
         if m.get('avatar_id') is not None:
             self.avatar_id = m.get('avatar_id')
         if m.get('driver_type') is not None:
@@ -1129,6 +1231,8 @@ class CreateUniversalsaasDigitalhumanVideoTaskRequest(TeaModel):
                 self.pasters.append(temp_model.from_map(k))
         if m.get('format') is not None:
             self.format = m.get('format')
+        if m.get('width') is not None:
+            self.width = m.get('width')
         return self
 
 
@@ -1420,7 +1524,7 @@ class CloneUniversalsaasDigitalhumanAvatarRequest(TeaModel):
         product_instance_id: str = None,
         file_url: str = None,
         name: str = None,
-        clone_voice: str = None,
+        clone_voice: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
