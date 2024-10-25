@@ -106,6 +106,47 @@ export class Sentence extends $tea.Model {
   }
 }
 
+// 字幕样式
+export class CaptionsStyle extends $tea.Model {
+  // 字体类型
+  fontType: string;
+  // 字体大小，像素单位
+  fontSize: number;
+  // 字体颜色
+  fontColor: string;
+  // 描边颜色
+  strokeColor?: string;
+  // 描边宽度
+  strokeWidth?: number;
+  // 字体背景颜色
+  backgroundColor?: string;
+  static names(): { [key: string]: string } {
+    return {
+      fontType: 'font_type',
+      fontSize: 'font_size',
+      fontColor: 'font_color',
+      strokeColor: 'stroke_color',
+      strokeWidth: 'stroke_width',
+      backgroundColor: 'background_color',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fontType: 'string',
+      fontSize: 'number',
+      fontColor: 'string',
+      strokeColor: 'string',
+      strokeWidth: 'number',
+      backgroundColor: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数字人形象
 export class AvatarProfile extends $tea.Model {
   // 190087
@@ -144,6 +185,84 @@ export class AvatarProfile extends $tea.Model {
       picUrl: 'string',
       bgUrl: 'string',
       thumbUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 字幕信息
+export class CaptionsInfo extends $tea.Model {
+  // 字幕画面位置x坐标，距左侧
+  x: number;
+  // 字幕画面位置y坐标，距上侧
+  y: number;
+  // 字幕框宽度
+  w: number;
+  // 字幕框高度
+  h: number;
+  // 字幕id
+  id?: string;
+  // 字幕句子时间节点信息
+  sentences: Sentence[];
+  // 是否自定义字幕样式，默认为false
+  customCaptions?: boolean;
+  // 字幕自定义样式
+  captionsStyle: CaptionsStyle;
+  static names(): { [key: string]: string } {
+    return {
+      x: 'x',
+      y: 'y',
+      w: 'w',
+      h: 'h',
+      id: 'id',
+      sentences: 'sentences',
+      customCaptions: 'custom_captions',
+      captionsStyle: 'captions_style',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      x: 'number',
+      y: 'number',
+      w: 'number',
+      h: 'number',
+      id: 'string',
+      sentences: { 'type': 'array', 'itemType': Sentence },
+      customCaptions: 'boolean',
+      captionsStyle: CaptionsStyle,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 数字人形象集合
+export class AvatarProfileResult extends $tea.Model {
+  // 数字人形象数量
+  total: number;
+  // 查询页面索引，不分页无
+  pageIndex?: number;
+  // 数字人形象列表
+  itemList: AvatarProfile[];
+  static names(): { [key: string]: string } {
+    return {
+      total: 'total',
+      pageIndex: 'page_index',
+      itemList: 'item_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      total: 'number',
+      pageIndex: 'number',
+      itemList: { 'type': 'array', 'itemType': AvatarProfile },
     };
   }
 
@@ -257,76 +376,6 @@ export class AvatarVoice extends $tea.Model {
   }
 }
 
-// 字幕信息
-export class CaptionsInfo extends $tea.Model {
-  // 字幕画面位置x坐标，距左侧
-  x: number;
-  // 字幕画面位置y坐标，距上侧
-  y: number;
-  // 字幕框宽度
-  w: number;
-  // 字幕框高度
-  h: number;
-  // 字幕id
-  id?: string;
-  // 字幕句子时间节点信息
-  sentences: Sentence[];
-  static names(): { [key: string]: string } {
-    return {
-      x: 'x',
-      y: 'y',
-      w: 'w',
-      h: 'h',
-      id: 'id',
-      sentences: 'sentences',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      x: 'number',
-      y: 'number',
-      w: 'number',
-      h: 'number',
-      id: 'string',
-      sentences: { 'type': 'array', 'itemType': Sentence },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 数字人形象集合
-export class AvatarProfileResult extends $tea.Model {
-  // 数字人形象数量
-  total: number;
-  // 查询页面索引，不分页无
-  pageIndex?: number;
-  // 数字人形象列表
-  itemList: AvatarProfile[];
-  static names(): { [key: string]: string } {
-    return {
-      total: 'total',
-      pageIndex: 'page_index',
-      itemList: 'item_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      total: 'number',
-      pageIndex: 'number',
-      itemList: { 'type': 'array', 'itemType': AvatarProfile },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 数字人形象设置
 export class ProfileInfo extends $tea.Model {
   // 数字人离画面位置坐标,可以为负数或者出画
@@ -426,10 +475,13 @@ export class VideoTask extends $tea.Model {
   state: string;
   // 完成状态，会返回视频地址
   videoUrl?: string;
+  // 视频时长
+  videoDuration?: number;
   static names(): { [key: string]: string } {
     return {
       state: 'state',
       videoUrl: 'video_url',
+      videoDuration: 'video_duration',
     };
   }
 
@@ -437,6 +489,7 @@ export class VideoTask extends $tea.Model {
     return {
       state: 'string',
       videoUrl: 'string',
+      videoDuration: 'number',
     };
   }
 
@@ -618,6 +671,8 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 画布大小
+  height?: number;
   // 数字人id
   avatarId: string;
   // text/audio, 合成驱动--文本/音频
@@ -638,10 +693,13 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
   pasters?: Paster[];
   // 数字人视频生成格式，默认不填
   format?: string;
+  // 画布大小
+  width?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      height: 'height',
       avatarId: 'avatar_id',
       driverType: 'driver_type',
       profileInfo: 'profile_info',
@@ -652,6 +710,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
       background: 'background',
       pasters: 'pasters',
       format: 'format',
+      width: 'width',
     };
   }
 
@@ -659,6 +718,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      height: 'number',
       avatarId: 'string',
       driverType: 'string',
       profileInfo: ProfileInfo,
@@ -669,6 +729,7 @@ export class CreateUniversalsaasDigitalhumanVideoTaskRequest extends $tea.Model 
       background: Background,
       pasters: { 'type': 'array', 'itemType': Paster },
       format: 'string',
+      width: 'number',
     };
   }
 
@@ -864,7 +925,7 @@ export class CloneUniversalsaasDigitalhumanAvatarRequest extends $tea.Model {
   // 数字人名称
   name: string;
   // 是否克隆声音，默认为false
-  cloneVoice?: string;
+  cloneVoice?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -881,7 +942,7 @@ export class CloneUniversalsaasDigitalhumanAvatarRequest extends $tea.Model {
       productInstanceId: 'string',
       fileUrl: 'string',
       name: 'string',
-      cloneVoice: 'string',
+      cloneVoice: 'boolean',
     };
   }
 
@@ -1170,7 +1231,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.1",
+          sdk_version: "1.1.2",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
