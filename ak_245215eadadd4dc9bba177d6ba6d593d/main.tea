@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.1',
+    sdk_version = '1.1.2',
     _prod_code = 'ak_245215eadadd4dc9bba177d6ba6d593d',
     _prod_channel = 'saas'
   };
@@ -171,6 +171,22 @@ model Sentence {
   endTime: long(name='end_time', example='50'),
 }
 
+// 字幕样式
+model CaptionsStyle {
+  // 字体类型
+  fontType: string(name='font_type', example='AlibabaPuHuiTi-Medium'),
+  // 字体大小，像素单位
+  fontSize: long(name='font_size', example='1'),
+  // 字体颜色
+  fontColor: string(name='font_color', example='FF1100'),
+  // 描边颜色
+  strokeColor?: string(name='stroke_color', example='FF1100'),
+  // 描边宽度
+  strokeWidth?: long(name='stroke_width', example='1'),
+  // 字体背景颜色
+  backgroundColor?: string(name='background_color', example='FFFFFF'),
+}
+
 // 数字人形象
 model AvatarProfile {
   // 190087
@@ -188,6 +204,36 @@ model AvatarProfile {
   bgUrl?: string(name='bg_url', example='https://aaaa.png'),
   // 形象thumb图Url
   thumbUrl?: string(name='thumb_url', example='https://3424.png'),
+}
+
+// 字幕信息
+model CaptionsInfo {
+  // 字幕画面位置x坐标，距左侧
+  x: long(name='x', example='10'),
+  // 字幕画面位置y坐标，距上侧
+  y: long(name='y', example='100'),
+  // 字幕框宽度
+  w: long(name='w', example='100'),
+  // 字幕框高度
+  h: long(name='h', example='20'),
+  // 字幕id
+  id?: string(name='id', example='123'),
+  // 字幕句子时间节点信息
+  sentences: [ Sentence ](name='sentences', example=''),
+  // 是否自定义字幕样式，默认为false
+  customCaptions?: boolean(name='custom_captions', example='true, false'),
+  // 字幕自定义样式
+  captionsStyle: CaptionsStyle(name='captions_style', example=''),
+}
+
+// 数字人形象集合
+model AvatarProfileResult {
+  // 数字人形象数量
+  total: long(name='total', example='34'),
+  // 查询页面索引，不分页无
+  pageIndex?: long(name='page_index', example='0'),
+  // 数字人形象列表
+  itemList: [ AvatarProfile ](name='item_list', example=''),
 }
 
 // 视频贴片信息
@@ -230,32 +276,6 @@ model AvatarVoice {
   demoUrl: string(name='demo_url', example='https://cdn.xsxsxs.aaa.wav'),
 }
 
-// 字幕信息
-model CaptionsInfo {
-  // 字幕画面位置x坐标，距左侧
-  x: long(name='x', example='10'),
-  // 字幕画面位置y坐标，距上侧
-  y: long(name='y', example='100'),
-  // 字幕框宽度
-  w: long(name='w', example='100'),
-  // 字幕框高度
-  h: long(name='h', example='20'),
-  // 字幕id
-  id?: string(name='id', example='123'),
-  // 字幕句子时间节点信息
-  sentences: [ Sentence ](name='sentences', example=''),
-}
-
-// 数字人形象集合
-model AvatarProfileResult {
-  // 数字人形象数量
-  total: long(name='total', example='34'),
-  // 查询页面索引，不分页无
-  pageIndex?: long(name='page_index', example='0'),
-  // 数字人形象列表
-  itemList: [ AvatarProfile ](name='item_list', example=''),
-}
-
 // 数字人形象设置
 model ProfileInfo {
   // 数字人离画面位置坐标,可以为负数或者出画
@@ -296,6 +316,8 @@ model VideoTask {
   state: string(name='state', example='RUNNING'),
   // 完成状态，会返回视频地址
   videoUrl?: string(name='video_url', example='https://sdasdsa.webm'),
+  // 视频时长
+  videoDuration?: long(name='video_duration', example='123456'),
 }
 
 // 背景设置
@@ -402,6 +424,8 @@ model CreateUniversalsaasDigitalhumanVideoTaskRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 画布大小
+  height?: long(name='height'),
   // 数字人id
   avatarId: string(name='avatar_id'),
   // text/audio, 合成驱动--文本/音频
@@ -422,6 +446,8 @@ model CreateUniversalsaasDigitalhumanVideoTaskRequest = {
   pasters?: [ Paster ](name='pasters'),
   // 数字人视频生成格式，默认不填
   format?: string(name='format'),
+  // 画布大小
+  width?: long(name='width'),
 }
 
 model CreateUniversalsaasDigitalhumanVideoTaskResponse = {
@@ -553,7 +579,7 @@ model CloneUniversalsaasDigitalhumanAvatarRequest = {
   // 数字人名称
   name: string(name='name'),
   // 是否克隆声音，默认为false
-  cloneVoice?: string(name='clone_voice'),
+  cloneVoice?: boolean(name='clone_voice'),
 }
 
 model CloneUniversalsaasDigitalhumanAvatarResponse = {
