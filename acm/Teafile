@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "acm",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -15,7 +15,7 @@
     "csharp": "AntChain.SDK.Acm:1.6.0",
     "ts": "@antchain/acm:1.6.0",
     "php": "antchain/acm:1.6.0",
-    "python": "antchain_sdk_acm:1.5.2"
+    "python": "antchain_sdk_acm:1.6.0"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
