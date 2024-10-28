@@ -276,8 +276,12 @@ type CheckAicoguardrailsAskResponse struct {
 	SecurityAnswer *string `json:"security_answer,omitempty" xml:"security_answer,omitempty"`
 	// 有安全风险时的提问改写
 	SecurityPrompt *string `json:"security_prompt,omitempty" xml:"security_prompt,omitempty"`
-	// 有风险时的风险标签
+	// 有风险时的风险类型，一级风险分类
+	RiskCategory *string `json:"risk_category,omitempty" xml:"risk_category,omitempty"`
+	// 有风险时的风险类型，二级风险明细分类
 	RiskLabel *string `json:"risk_label,omitempty" xml:"risk_label,omitempty"`
+	// 命中风险场景的风险词
+	RiskWords []*string `json:"risk_words,omitempty" xml:"risk_words,omitempty" type:"Repeated"`
 	// 会话动作
 	//    END_SESSION：终止会话
 	//    RECALL_QUERY：撤回提问
@@ -337,8 +341,18 @@ func (s *CheckAicoguardrailsAskResponse) SetSecurityPrompt(v string) *CheckAicog
 	return s
 }
 
+func (s *CheckAicoguardrailsAskResponse) SetRiskCategory(v string) *CheckAicoguardrailsAskResponse {
+	s.RiskCategory = &v
+	return s
+}
+
 func (s *CheckAicoguardrailsAskResponse) SetRiskLabel(v string) *CheckAicoguardrailsAskResponse {
 	s.RiskLabel = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAskResponse) SetRiskWords(v []*string) *CheckAicoguardrailsAskResponse {
+	s.RiskWords = v
 	return s
 }
 
@@ -626,7 +640,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.16"),
+				"sdk_version":      tea.String("1.0.18"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
