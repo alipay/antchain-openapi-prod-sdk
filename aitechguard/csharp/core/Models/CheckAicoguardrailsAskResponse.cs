@@ -58,10 +58,20 @@ namespace AntChain.SDK.AITECHGUARD.Models
         [Validation(Required=false)]
         public string SecurityPrompt { get; set; }
 
-        // 有风险时的风险标签
+        // 有风险时的风险类型，一级风险分类
+        [NameInMap("risk_category")]
+        [Validation(Required=false)]
+        public string RiskCategory { get; set; }
+
+        // 有风险时的风险类型，二级风险明细分类
         [NameInMap("risk_label")]
         [Validation(Required=false)]
         public string RiskLabel { get; set; }
+
+        // 命中风险场景的风险词
+        [NameInMap("risk_words")]
+        [Validation(Required=false)]
+        public List<string> RiskWords { get; set; }
 
         // 会话动作
         //    END_SESSION：终止会话
