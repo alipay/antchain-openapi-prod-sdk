@@ -21,7 +21,7 @@
   "dependencies": {
     "@alicloud/tea-typescript": "latest",
     "@antchain/alipay-util": "^1.0.4",
-    "@alicloud/tea-util": "^1.4.7",
+    "@alicloud/tea-util": "^1.4.9",
     "@alicloud/rpc-util": "^0.1.0"
   },
   "files": [
