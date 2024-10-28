@@ -2,13 +2,15 @@
 package com.antgroup.antchain.openapi.acm;
 
 import com.aliyun.tea.*;
+import com.aliyun.tea.interceptor.InterceptorChain;
+import com.aliyun.tea.interceptor.RuntimeOptionsInterceptor;
+import com.aliyun.tea.interceptor.RequestInterceptor;
+import com.aliyun.tea.interceptor.ResponseInterceptor;
 import com.antgroup.antchain.openapi.acm.models.*;
-import com.antgroup.antchain.openapi.antchain.util.*;
-import com.aliyun.teautil.*;
-import com.aliyun.teautil.models.*;
-import com.aliyun.common.*;
 
 public class Client {
+
+    private final static InterceptorChain interceptorChain = InterceptorChain.create();
 
     public String _endpoint;
     public String _regionId;
@@ -34,7 +36,7 @@ public class Client {
      * @param config config contains the necessary information to create a client
      */
     public Client(Config config) throws Exception {
-        if (com.aliyun.teautil.Common.isUnset(TeaModel.buildMap(config))) {
+        if (com.aliyun.teautil.Common.isUnset(config)) {
             throw new TeaException(TeaConverter.buildMap(
                 new TeaPair("code", "ParameterMissing"),
                 new TeaPair("message", "'config' can not be unset")
@@ -61,7 +63,17 @@ public class Client {
         this._maxRequestsPerHost = com.aliyun.teautil.Common.defaultNumber(config.maxRequestsPerHost, 100);
     }
 
-    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    /**
+     * Encapsulate the request and invoke the network
+     * @param action api name
+     * @param protocol http or https
+     * @param method e.g. GET
+     * @param pathname pathname of every api
+     * @param request which contains request params
+     * @param runtime which controls some details of call api, such as retry times
+     * @return the response
+     */
+    public java.util.Map<String, ?> doRequest(String version, String action, String protocol, String method, String pathname, java.util.Map<String, ?> request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         java.util.Map<String, Object> runtime_ = TeaConverter.buildMap(
             new TeaPair("timeouted", "retry"),
             new TeaPair("readTimeout", com.aliyun.teautil.Common.defaultNumber(runtime.readTimeout, _readTimeout)),
@@ -134,7 +146,7 @@ public class Client {
                 );
                 request_.query.put("sign", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getSignature(signedParam, _accessKeySecret));
                 _lastRequest = request_;
-                TeaResponse response_ = Tea.doAction(request_, runtime_);
+                TeaResponse response_ = Tea.doAction(request_, runtime_, interceptorChain);
 
                 String raw = com.aliyun.teautil.Common.readAsString(response_.body);
                 Object obj = com.aliyun.teautil.Common.parseJSON(raw);
@@ -157,8 +169,19 @@ public class Client {
                 throw e;
             }
         }
-
         throw new TeaUnretryableException(_lastRequest, _lastException);
+    }
+
+    public void addRuntimeOptionsInterceptor(RuntimeOptionsInterceptor interceptor) {
+        interceptorChain.addRuntimeOptionsInterceptor(interceptor);
+    }
+
+    public void addRequestInterceptor(RequestInterceptor interceptor) {
+        interceptorChain.addRequestInterceptor(interceptor);
+    }
+
+    public void addResponseInterceptor(ResponseInterceptor interceptor) {
+        interceptorChain.addResponseInterceptor(interceptor);
     }
 
     /**
@@ -166,7 +189,7 @@ public class Client {
      * Summary: 获取企业
      */
     public GetCustomerResponse getCustomer(GetCustomerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getCustomerEx(request, headers, runtime);
     }
@@ -175,7 +198,7 @@ public class Client {
      * Description: 查询企业详情
      * Summary: 获取企业
      */
-    public GetCustomerResponse getCustomerEx(GetCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetCustomerResponse getCustomerEx(GetCustomerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.customer.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetCustomerResponse());
     }
@@ -185,7 +208,7 @@ public class Client {
      * Summary: 获取操作员
      */
     public GetOperatorResponse getOperator(GetOperatorRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getOperatorEx(request, headers, runtime);
     }
@@ -194,7 +217,7 @@ public class Client {
      * Description: 查询一个操作员的详情
      * Summary: 获取操作员
      */
-    public GetOperatorResponse getOperatorEx(GetOperatorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetOperatorResponse getOperatorEx(GetOperatorRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetOperatorResponse());
     }
@@ -204,7 +227,7 @@ public class Client {
      * Summary: 查询操作员
      */
     public QueryOperatorResponse queryOperator(QueryOperatorRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryOperatorEx(request, headers, runtime);
     }
@@ -213,7 +236,7 @@ public class Client {
      * Description: 查询操作员列表
      * Summary: 查询操作员
      */
-    public QueryOperatorResponse queryOperatorEx(QueryOperatorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryOperatorResponse queryOperatorEx(QueryOperatorRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOperatorResponse());
     }
@@ -223,7 +246,7 @@ public class Client {
      * Summary: 搜索操作员
      */
     public SearchOperatorResponse searchOperator(SearchOperatorRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.searchOperatorEx(request, headers, runtime);
     }
@@ -232,7 +255,7 @@ public class Client {
      * Description: 搜索操作员
      * Summary: 搜索操作员
      */
-    public SearchOperatorResponse searchOperatorEx(SearchOperatorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SearchOperatorResponse searchOperatorEx(SearchOperatorRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.search", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SearchOperatorResponse());
     }
@@ -242,7 +265,7 @@ public class Client {
      * Summary: 创建操作员
      */
     public CreateOperatorResponse createOperator(CreateOperatorRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createOperatorEx(request, headers, runtime);
     }
@@ -251,7 +274,7 @@ public class Client {
      * Description: 创建操作员
      * Summary: 创建操作员
      */
-    public CreateOperatorResponse createOperatorEx(CreateOperatorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateOperatorResponse createOperatorEx(CreateOperatorRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOperatorResponse());
     }
@@ -261,7 +284,7 @@ public class Client {
      * Summary: 更新操作员
      */
     public UpdateOperatorResponse updateOperator(UpdateOperatorRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.updateOperatorEx(request, headers, runtime);
     }
@@ -270,7 +293,7 @@ public class Client {
      * Description: 更新操作员
      * Summary: 更新操作员
      */
-    public UpdateOperatorResponse updateOperatorEx(UpdateOperatorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public UpdateOperatorResponse updateOperatorEx(UpdateOperatorRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateOperatorResponse());
     }
@@ -280,7 +303,7 @@ public class Client {
      * Summary: 删除操作员
      */
     public DeleteOperatorResponse deleteOperator(DeleteOperatorRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.deleteOperatorEx(request, headers, runtime);
     }
@@ -289,7 +312,7 @@ public class Client {
      * Description: 删除操作员
      * Summary: 删除操作员
      */
-    public DeleteOperatorResponse deleteOperatorEx(DeleteOperatorRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public DeleteOperatorResponse deleteOperatorEx(DeleteOperatorRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteOperatorResponse());
     }
@@ -299,7 +322,7 @@ public class Client {
      * Summary: 添加租户成员
      */
     public AddTenantMemberResponse addTenantMember(AddTenantMemberRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.addTenantMemberEx(request, headers, runtime);
     }
@@ -308,7 +331,7 @@ public class Client {
      * Description: 添加租户成员
      * Summary: 添加租户成员
      */
-    public AddTenantMemberResponse addTenantMemberEx(AddTenantMemberRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public AddTenantMemberResponse addTenantMemberEx(AddTenantMemberRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.member.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddTenantMemberResponse());
     }
@@ -318,7 +341,7 @@ public class Client {
      * Summary: 初始化租户
      */
     public CreateTenantResponse createTenant(CreateTenantRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createTenantEx(request, headers, runtime);
     }
@@ -327,7 +350,7 @@ public class Client {
      * Description: 初始化租户
      * Summary: 初始化租户
      */
-    public CreateTenantResponse createTenantEx(CreateTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateTenantResponse createTenantEx(CreateTenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateTenantResponse());
     }
@@ -337,7 +360,7 @@ public class Client {
      * Summary: 获取用户信息
      */
     public GetTenantResponse getTenant(GetTenantRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getTenantEx(request, headers, runtime);
     }
@@ -346,7 +369,7 @@ public class Client {
      * Description: 查询租户详情
      * Summary: 获取用户信息
      */
-    public GetTenantResponse getTenantEx(GetTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetTenantResponse getTenantEx(GetTenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetTenantResponse());
     }
@@ -356,7 +379,7 @@ public class Client {
      * Summary: 查询租户列表
      */
     public QueryTenantResponse queryTenant(QueryTenantRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryTenantEx(request, headers, runtime);
     }
@@ -365,7 +388,7 @@ public class Client {
      * Description: 查询租户列表
      * Summary: 查询租户列表
      */
-    public QueryTenantResponse queryTenantEx(QueryTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryTenantResponse queryTenantEx(QueryTenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTenantResponse());
     }
@@ -375,7 +398,7 @@ public class Client {
      * Summary: 查询租户ID
      */
     public GetAntpassportTenantResponse getAntpassportTenant(GetAntpassportTenantRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getAntpassportTenantEx(request, headers, runtime);
     }
@@ -384,7 +407,7 @@ public class Client {
      * Description: 根据蚂蚁通行证uid查询租户id
      * Summary: 查询租户ID
      */
-    public GetAntpassportTenantResponse getAntpassportTenantEx(GetAntpassportTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetAntpassportTenantResponse getAntpassportTenantEx(GetAntpassportTenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.antpassport.tenant.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetAntpassportTenantResponse());
     }
@@ -394,7 +417,7 @@ public class Client {
      * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
      */
     public GetCurrentidResponse getCurrentid(GetCurrentidRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getCurrentidEx(request, headers, runtime);
     }
@@ -403,7 +426,7 @@ public class Client {
      * Description: 获取调用接口所使用AccessKey对应的身份实体信息
      * Summary: 获取调用接口所使用AccessKey对应的身份实体信息
      */
-    public GetCurrentidResponse getCurrentidEx(GetCurrentidRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetCurrentidResponse getCurrentidEx(GetCurrentidRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.currentid.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetCurrentidResponse());
     }
@@ -413,7 +436,7 @@ public class Client {
      * Summary: 获取租户的钉钉授权
      */
     public GetTenantDingtokenResponse getTenantDingtoken(GetTenantDingtokenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getTenantDingtokenEx(request, headers, runtime);
     }
@@ -422,7 +445,7 @@ public class Client {
      * Description: 获取租户对应的钉钉授权token信息，内部接口
      * Summary: 获取租户的钉钉授权
      */
-    public GetTenantDingtokenResponse getTenantDingtokenEx(GetTenantDingtokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetTenantDingtokenResponse getTenantDingtokenEx(GetTenantDingtokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.dingtoken.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetTenantDingtokenResponse());
     }
@@ -432,7 +455,7 @@ public class Client {
      * Summary: 分页查询管理员
      */
     public QueryAdminResponse queryAdmin(QueryAdminRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryAdminEx(request, headers, runtime);
     }
@@ -441,7 +464,7 @@ public class Client {
      * Description: 分页查询管理员，内部接口
      * Summary: 分页查询管理员
      */
-    public QueryAdminResponse queryAdminEx(QueryAdminRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryAdminResponse queryAdminEx(QueryAdminRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.admin.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAdminResponse());
     }
@@ -451,7 +474,7 @@ public class Client {
      * Summary: 获取租户的IaaS账号
      */
     public GetTenantIaasaccountResponse getTenantIaasaccount(GetTenantIaasaccountRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getTenantIaasaccountEx(request, headers, runtime);
     }
@@ -460,7 +483,7 @@ public class Client {
      * Description: 获取租户的IaaS账号
      * Summary: 获取租户的IaaS账号
      */
-    public GetTenantIaasaccountResponse getTenantIaasaccountEx(GetTenantIaasaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetTenantIaasaccountResponse getTenantIaasaccountEx(GetTenantIaasaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.iaasaccount.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetTenantIaasaccountResponse());
     }
@@ -470,7 +493,7 @@ public class Client {
      * Summary: 查询企业列表
      */
     public ListCustomerResponse listCustomer(ListCustomerRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.listCustomerEx(request, headers, runtime);
     }
@@ -479,7 +502,7 @@ public class Client {
      * Description: 查询企业列表(内部接口,私有云开放)
      * Summary: 查询企业列表
      */
-    public ListCustomerResponse listCustomerEx(ListCustomerRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ListCustomerResponse listCustomerEx(ListCustomerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.customer.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListCustomerResponse());
     }
@@ -489,7 +512,7 @@ public class Client {
      * Summary: 支付宝账号证书信息校验、入驻、打标
      */
     public CheckAlipayTenantResponse checkAlipayTenant(CheckAlipayTenantRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkAlipayTenantEx(request, headers, runtime);
     }
@@ -498,7 +521,7 @@ public class Client {
      * Description: 支付宝账号证书信息校验及校验、入驻、打标
      * Summary: 支付宝账号证书信息校验、入驻、打标
      */
-    public CheckAlipayTenantResponse checkAlipayTenantEx(CheckAlipayTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckAlipayTenantResponse checkAlipayTenantEx(CheckAlipayTenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.alipay.tenant.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckAlipayTenantResponse());
     }
@@ -508,7 +531,7 @@ public class Client {
      * Summary: 租户入住状态查询
      */
     public QueryTenantStatusResponse queryTenantStatus(QueryTenantStatusRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryTenantStatusEx(request, headers, runtime);
     }
@@ -517,7 +540,7 @@ public class Client {
      * Description: 租户入住状态查询
      * Summary: 租户入住状态查询
      */
-    public QueryTenantStatusResponse queryTenantStatusEx(QueryTenantStatusRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryTenantStatusResponse queryTenantStatusEx(QueryTenantStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTenantStatusResponse());
     }
@@ -527,7 +550,7 @@ public class Client {
      * Summary: 账号创建
      */
     public CreateAntchainTenantResponse createAntchainTenant(CreateAntchainTenantRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createAntchainTenantEx(request, headers, runtime);
     }
@@ -536,7 +559,7 @@ public class Client {
      * Description: 账号创建
      * Summary: 账号创建
      */
-    public CreateAntchainTenantResponse createAntchainTenantEx(CreateAntchainTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateAntchainTenantResponse createAntchainTenantEx(CreateAntchainTenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.antchain.tenant.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateAntchainTenantResponse());
     }
@@ -546,7 +569,7 @@ public class Client {
      * Summary: 客户认证信息更新
      */
     public UpdateCustomerIdentityResponse updateCustomerIdentity(UpdateCustomerIdentityRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.updateCustomerIdentityEx(request, headers, runtime);
     }
@@ -555,7 +578,7 @@ public class Client {
      * Description: 客户认证信息更新
      * Summary: 客户认证信息更新
      */
-    public UpdateCustomerIdentityResponse updateCustomerIdentityEx(UpdateCustomerIdentityRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public UpdateCustomerIdentityResponse updateCustomerIdentityEx(UpdateCustomerIdentityRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.customer.identity.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateCustomerIdentityResponse());
     }
@@ -565,7 +588,7 @@ public class Client {
      * Summary: 使用用户ID或用户CODE查询用户信息
      */
     public GetMasterTenantResponse getMasterTenant(GetMasterTenantRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getMasterTenantEx(request, headers, runtime);
     }
@@ -574,7 +597,7 @@ public class Client {
      * Description: 使用用户ID或用户CODE查询用户信息
      * Summary: 使用用户ID或用户CODE查询用户信息
      */
-    public GetMasterTenantResponse getMasterTenantEx(GetMasterTenantRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetMasterTenantResponse getMasterTenantEx(GetMasterTenantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.master.tenant.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetMasterTenantResponse());
     }
@@ -584,7 +607,7 @@ public class Client {
      * Summary: 检查邮箱是否可以用来注册
      */
     public CheckLoginnameResponse checkLoginname(CheckLoginnameRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.checkLoginnameEx(request, headers, runtime);
     }
@@ -593,7 +616,7 @@ public class Client {
      * Description: 检查邮箱是否可以用来注册
      * Summary: 检查邮箱是否可以用来注册
      */
-    public CheckLoginnameResponse checkLoginnameEx(CheckLoginnameRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CheckLoginnameResponse checkLoginnameEx(CheckLoginnameRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.loginname.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckLoginnameResponse());
     }
@@ -603,7 +626,7 @@ public class Client {
      * Summary: 查询租户的标签列表
      */
     public QueryTenantTagResponse queryTenantTag(QueryTenantTagRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryTenantTagEx(request, headers, runtime);
     }
@@ -612,7 +635,7 @@ public class Client {
      * Description: 查询租户的标签
      * Summary: 查询租户的标签列表
      */
-    public QueryTenantTagResponse queryTenantTagEx(QueryTenantTagRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryTenantTagResponse queryTenantTagEx(QueryTenantTagRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.tag.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTenantTagResponse());
     }
@@ -622,7 +645,7 @@ public class Client {
      * Summary: 租户增加业务标签
      */
     public AddTenantBusinesstagResponse addTenantBusinesstag(AddTenantBusinesstagRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.addTenantBusinesstagEx(request, headers, runtime);
     }
@@ -631,7 +654,7 @@ public class Client {
      * Description: 租户增加业务标签
      * Summary: 租户增加业务标签
      */
-    public AddTenantBusinesstagResponse addTenantBusinesstagEx(AddTenantBusinesstagRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public AddTenantBusinesstagResponse addTenantBusinesstagEx(AddTenantBusinesstagRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.businesstag.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddTenantBusinesstagResponse());
     }
@@ -641,7 +664,7 @@ public class Client {
      * Summary: 删除业务标签
      */
     public RemoveTenantBusinesstagResponse removeTenantBusinesstag(RemoveTenantBusinesstagRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.removeTenantBusinesstagEx(request, headers, runtime);
     }
@@ -650,7 +673,7 @@ public class Client {
      * Description: 删除业务标签
      * Summary: 删除业务标签
      */
-    public RemoveTenantBusinesstagResponse removeTenantBusinesstagEx(RemoveTenantBusinesstagRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RemoveTenantBusinesstagResponse removeTenantBusinesstagEx(RemoveTenantBusinesstagRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.businesstag.remove", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RemoveTenantBusinesstagResponse());
     }
@@ -660,7 +683,7 @@ public class Client {
      * Summary: 操作员发送激活邮件
      */
     public SendOperatorActiveemailResponse sendOperatorActiveemail(SendOperatorActiveemailRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.sendOperatorActiveemailEx(request, headers, runtime);
     }
@@ -669,7 +692,7 @@ public class Client {
      * Description: 用户发送操作员的激活邮件
      * Summary: 操作员发送激活邮件
      */
-    public SendOperatorActiveemailResponse sendOperatorActiveemailEx(SendOperatorActiveemailRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SendOperatorActiveemailResponse sendOperatorActiveemailEx(SendOperatorActiveemailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.activeemail.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendOperatorActiveemailResponse());
     }
@@ -679,7 +702,7 @@ public class Client {
      * Summary: 账号信息同步
      */
     public SyncTenantInfoResponse syncTenantInfo(SyncTenantInfoRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.syncTenantInfoEx(request, headers, runtime);
     }
@@ -688,7 +711,7 @@ public class Client {
      * Description: 账号信息同步
      * Summary: 账号信息同步
      */
-    public SyncTenantInfoResponse syncTenantInfoEx(SyncTenantInfoRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public SyncTenantInfoResponse syncTenantInfoEx(SyncTenantInfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.info.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncTenantInfoResponse());
     }
@@ -698,7 +721,7 @@ public class Client {
      * Summary: 三方授权创建服务账号
      */
     public CreateOauthServiceaccountResponse createOauthServiceaccount(CreateOauthServiceaccountRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createOauthServiceaccountEx(request, headers, runtime);
     }
@@ -707,7 +730,7 @@ public class Client {
      * Description: 三方授权创建服务账号
      * Summary: 三方授权创建服务账号
      */
-    public CreateOauthServiceaccountResponse createOauthServiceaccountEx(CreateOauthServiceaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateOauthServiceaccountResponse createOauthServiceaccountEx(CreateOauthServiceaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.oauth.serviceaccount.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOauthServiceaccountResponse());
     }
@@ -717,7 +740,7 @@ public class Client {
      * Summary: 三方授权获取服务账号信息
      */
     public GetOauthServiceaccountResponse getOauthServiceaccount(GetOauthServiceaccountRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getOauthServiceaccountEx(request, headers, runtime);
     }
@@ -726,7 +749,7 @@ public class Client {
      * Description: 三方授权获取服务账号信息
      * Summary: 三方授权获取服务账号信息
      */
-    public GetOauthServiceaccountResponse getOauthServiceaccountEx(GetOauthServiceaccountRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetOauthServiceaccountResponse getOauthServiceaccountEx(GetOauthServiceaccountRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.oauth.serviceaccount.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetOauthServiceaccountResponse());
     }
@@ -736,7 +759,7 @@ public class Client {
      * Summary: 三方授权开通手机号登陆
      */
     public EnableOauthMobileloginResponse enableOauthMobilelogin(EnableOauthMobileloginRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.enableOauthMobileloginEx(request, headers, runtime);
     }
@@ -745,7 +768,7 @@ public class Client {
      * Description: 三方授权开通手机号登陆
      * Summary: 三方授权开通手机号登陆
      */
-    public EnableOauthMobileloginResponse enableOauthMobileloginEx(EnableOauthMobileloginRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public EnableOauthMobileloginResponse enableOauthMobileloginEx(EnableOauthMobileloginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.oauth.mobilelogin.enable", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new EnableOauthMobileloginResponse());
     }
@@ -755,7 +778,7 @@ public class Client {
      * Summary: 三方授权关闭手机号登陆
      */
     public DisableOauthMobileloginResponse disableOauthMobilelogin(DisableOauthMobileloginRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.disableOauthMobileloginEx(request, headers, runtime);
     }
@@ -764,7 +787,7 @@ public class Client {
      * Description: 三方授权关闭手机号登陆
      * Summary: 三方授权关闭手机号登陆
      */
-    public DisableOauthMobileloginResponse disableOauthMobileloginEx(DisableOauthMobileloginRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public DisableOauthMobileloginResponse disableOauthMobileloginEx(DisableOauthMobileloginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.oauth.mobilelogin.disable", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DisableOauthMobileloginResponse());
     }
@@ -774,7 +797,7 @@ public class Client {
      * Summary: 一方化会员服务账号创建
      */
     public CreateServiceaccountOnepartyResponse createServiceaccountOneparty(CreateServiceaccountOnepartyRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createServiceaccountOnepartyEx(request, headers, runtime);
     }
@@ -783,7 +806,7 @@ public class Client {
      * Description: 提供给一方化平台代客创建服务账号（ak sk）
      * Summary: 一方化会员服务账号创建
      */
-    public CreateServiceaccountOnepartyResponse createServiceaccountOnepartyEx(CreateServiceaccountOnepartyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateServiceaccountOnepartyResponse createServiceaccountOnepartyEx(CreateServiceaccountOnepartyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.serviceaccount.oneparty.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateServiceaccountOnepartyResponse());
     }
@@ -793,7 +816,7 @@ public class Client {
      * Summary: 一方化会员服务账号查询
      */
     public GetServiceaccountOnepartyResponse getServiceaccountOneparty(GetServiceaccountOnepartyRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.getServiceaccountOnepartyEx(request, headers, runtime);
     }
@@ -802,7 +825,7 @@ public class Client {
      * Description: 一方化会员服务账号查询（ak sk）
      * Summary: 一方化会员服务账号查询
      */
-    public GetServiceaccountOnepartyResponse getServiceaccountOnepartyEx(GetServiceaccountOnepartyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public GetServiceaccountOnepartyResponse getServiceaccountOnepartyEx(GetServiceaccountOnepartyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.serviceaccount.oneparty.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetServiceaccountOnepartyResponse());
     }
@@ -812,7 +835,7 @@ public class Client {
      * Summary: 三方会员免密登录token申请
      */
     public ApplyTrustloginTokenResponse applyTrustloginToken(ApplyTrustloginTokenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.applyTrustloginTokenEx(request, headers, runtime);
     }
@@ -821,7 +844,7 @@ public class Client {
      * Description: token用于三方会员免密登录，与数科官网token不通用
      * Summary: 三方会员免密登录token申请
      */
-    public ApplyTrustloginTokenResponse applyTrustloginTokenEx(ApplyTrustloginTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public ApplyTrustloginTokenResponse applyTrustloginTokenEx(ApplyTrustloginTokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.trustlogin.token.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyTrustloginTokenResponse());
     }
@@ -831,7 +854,7 @@ public class Client {
      * Summary: 三方会员免密登录token校验
      */
     public VerifyTrustloginTokenResponse verifyTrustloginToken(VerifyTrustloginTokenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.verifyTrustloginTokenEx(request, headers, runtime);
     }
@@ -840,7 +863,7 @@ public class Client {
      * Description: 三方会员免密登录token校验，与数科官网token不通用
      * Summary: 三方会员免密登录token校验
      */
-    public VerifyTrustloginTokenResponse verifyTrustloginTokenEx(VerifyTrustloginTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public VerifyTrustloginTokenResponse verifyTrustloginTokenEx(VerifyTrustloginTokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.trustlogin.token.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyTrustloginTokenResponse());
     }
@@ -850,7 +873,7 @@ public class Client {
      * Summary: 一方化会员创建的服务账号授权
      */
     public AddServiceaccountAuthpolicyResponse addServiceaccountAuthpolicy(AddServiceaccountAuthpolicyRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.addServiceaccountAuthpolicyEx(request, headers, runtime);
     }
@@ -859,7 +882,7 @@ public class Client {
      * Description: 一方化会员创建的服务账号授权
      * Summary: 一方化会员创建的服务账号授权
      */
-    public AddServiceaccountAuthpolicyResponse addServiceaccountAuthpolicyEx(AddServiceaccountAuthpolicyRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public AddServiceaccountAuthpolicyResponse addServiceaccountAuthpolicyEx(AddServiceaccountAuthpolicyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.serviceaccount.authpolicy.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddServiceaccountAuthpolicyResponse());
     }
@@ -869,7 +892,7 @@ public class Client {
      * Summary: 查询用户所具有的角色
      */
     public QueryUserRoleResponse queryUserRole(QueryUserRoleRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryUserRoleEx(request, headers, runtime);
     }
@@ -878,7 +901,7 @@ public class Client {
      * Description: 查询用户所具有的角色，用于平台型产品管控用户
      * Summary: 查询用户所具有的角色
      */
-    public QueryUserRoleResponse queryUserRoleEx(QueryUserRoleRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryUserRoleResponse queryUserRoleEx(QueryUserRoleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.user.role.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUserRoleResponse());
     }
@@ -888,7 +911,7 @@ public class Client {
      * Summary: 角色权限点查询
      */
     public QueryRoleActionResponse queryRoleAction(QueryRoleActionRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.queryRoleActionEx(request, headers, runtime);
     }
@@ -897,7 +920,7 @@ public class Client {
      * Description: 角色权限点查询，用于平台型产品
      * Summary: 角色权限点查询
      */
-    public QueryRoleActionResponse queryRoleActionEx(QueryRoleActionRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public QueryRoleActionResponse queryRoleActionEx(QueryRoleActionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.role.action.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRoleActionResponse());
     }
@@ -907,7 +930,7 @@ public class Client {
      * Summary: 服务账号（AK）验签
      */
     public VerifyServiceaccountSignatureResponse verifyServiceaccountSignature(VerifyServiceaccountSignatureRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.verifyServiceaccountSignatureEx(request, headers, runtime);
     }
@@ -916,7 +939,7 @@ public class Client {
      * Description: 服务账号（AK）验签
      * Summary: 服务账号（AK）验签
      */
-    public VerifyServiceaccountSignatureResponse verifyServiceaccountSignatureEx(VerifyServiceaccountSignatureRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public VerifyServiceaccountSignatureResponse verifyServiceaccountSignatureEx(VerifyServiceaccountSignatureRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.serviceaccount.signature.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyServiceaccountSignatureResponse());
     }
@@ -926,7 +949,7 @@ public class Client {
      * Summary: 创建用户登录态（线下环境使用）
      */
     public CreateUserTokenResponse createUserToken(CreateUserTokenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.createUserTokenEx(request, headers, runtime);
     }
@@ -935,7 +958,7 @@ public class Client {
      * Description: 创建用户登录态（线下环境使用）
      * Summary: 创建用户登录态（线下环境使用）
      */
-    public CreateUserTokenResponse createUserTokenEx(CreateUserTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public CreateUserTokenResponse createUserTokenEx(CreateUserTokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.user.token.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateUserTokenResponse());
     }
@@ -945,7 +968,7 @@ public class Client {
      * Summary: 刷新用户登录态（线下环境使用）
      */
     public RefreshUserTokenResponse refreshUserToken(RefreshUserTokenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.refreshUserTokenEx(request, headers, runtime);
     }
@@ -954,7 +977,7 @@ public class Client {
      * Description: 刷新用户登录态（线下环境使用）
      * Summary: 刷新用户登录态（线下环境使用）
      */
-    public RefreshUserTokenResponse refreshUserTokenEx(RefreshUserTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public RefreshUserTokenResponse refreshUserTokenEx(RefreshUserTokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.user.token.refresh", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new RefreshUserTokenResponse());
     }
@@ -964,7 +987,7 @@ public class Client {
      * Summary: 三方会员免密登录token删除
      */
     public DeleteTrustloginTokenResponse deleteTrustloginToken(DeleteTrustloginTokenRequest request) throws Exception {
-        RuntimeOptions runtime = new RuntimeOptions();
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         return this.deleteTrustloginTokenEx(request, headers, runtime);
     }
@@ -973,7 +996,7 @@ public class Client {
      * Description: 三方会员免密登录token删除
      * Summary: 三方会员免密登录token删除
      */
-    public DeleteTrustloginTokenResponse deleteTrustloginTokenEx(DeleteTrustloginTokenRequest request, java.util.Map<String, String> headers, RuntimeOptions runtime) throws Exception {
+    public DeleteTrustloginTokenResponse deleteTrustloginTokenEx(DeleteTrustloginTokenRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.trustlogin.token.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteTrustloginTokenResponse());
     }
