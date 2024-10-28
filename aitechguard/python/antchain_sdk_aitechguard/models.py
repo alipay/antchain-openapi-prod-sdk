@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
+from typing import List
 
 
 class Config(TeaModel):
@@ -302,7 +303,9 @@ class CheckAicoguardrailsAskResponse(TeaModel):
         action_code: str = None,
         security_answer: str = None,
         security_prompt: str = None,
+        risk_category: str = None,
         risk_label: str = None,
+        risk_words: List[str] = None,
         session_action: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -327,8 +330,12 @@ class CheckAicoguardrailsAskResponse(TeaModel):
         self.security_answer = security_answer
         # 有安全风险时的提问改写
         self.security_prompt = security_prompt
-        # 有风险时的风险标签
+        # 有风险时的风险类型，一级风险分类
+        self.risk_category = risk_category
+        # 有风险时的风险类型，二级风险明细分类
         self.risk_label = risk_label
+        # 命中风险场景的风险词
+        self.risk_words = risk_words
         # 会话动作
         # END_SESSION：终止会话
         # RECALL_QUERY：撤回提问
@@ -361,8 +368,12 @@ class CheckAicoguardrailsAskResponse(TeaModel):
             result['security_answer'] = self.security_answer
         if self.security_prompt is not None:
             result['security_prompt'] = self.security_prompt
+        if self.risk_category is not None:
+            result['risk_category'] = self.risk_category
         if self.risk_label is not None:
             result['risk_label'] = self.risk_label
+        if self.risk_words is not None:
+            result['risk_words'] = self.risk_words
         if self.session_action is not None:
             result['session_action'] = self.session_action
         return result
@@ -387,8 +398,12 @@ class CheckAicoguardrailsAskResponse(TeaModel):
             self.security_answer = m.get('security_answer')
         if m.get('security_prompt') is not None:
             self.security_prompt = m.get('security_prompt')
+        if m.get('risk_category') is not None:
+            self.risk_category = m.get('risk_category')
         if m.get('risk_label') is not None:
             self.risk_label = m.get('risk_label')
+        if m.get('risk_words') is not None:
+            self.risk_words = m.get('risk_words')
         if m.get('session_action') is not None:
             self.session_action = m.get('session_action')
         return self
