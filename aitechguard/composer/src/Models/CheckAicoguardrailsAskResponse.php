@@ -66,11 +66,23 @@ class CheckAicoguardrailsAskResponse extends Model
      */
     public $securityPrompt;
 
-    // 有风险时的风险标签
+    // 有风险时的风险类型，一级风险分类
+    /**
+     * @var string
+     */
+    public $riskCategory;
+
+    // 有风险时的风险类型，二级风险明细分类
     /**
      * @var string
      */
     public $riskLabel;
+
+    // 命中风险场景的风险词
+    /**
+     * @var string[]
+     */
+    public $riskWords;
 
     // 会话动作
     // END_SESSION：终止会话
@@ -89,7 +101,9 @@ class CheckAicoguardrailsAskResponse extends Model
         'actionCode'     => 'action_code',
         'securityAnswer' => 'security_answer',
         'securityPrompt' => 'security_prompt',
+        'riskCategory'   => 'risk_category',
         'riskLabel'      => 'risk_label',
+        'riskWords'      => 'risk_words',
         'sessionAction'  => 'session_action',
     ];
 
@@ -127,8 +141,14 @@ class CheckAicoguardrailsAskResponse extends Model
         if (null !== $this->securityPrompt) {
             $res['security_prompt'] = $this->securityPrompt;
         }
+        if (null !== $this->riskCategory) {
+            $res['risk_category'] = $this->riskCategory;
+        }
         if (null !== $this->riskLabel) {
             $res['risk_label'] = $this->riskLabel;
+        }
+        if (null !== $this->riskWords) {
+            $res['risk_words'] = $this->riskWords;
         }
         if (null !== $this->sessionAction) {
             $res['session_action'] = $this->sessionAction;
@@ -172,8 +192,16 @@ class CheckAicoguardrailsAskResponse extends Model
         if (isset($map['security_prompt'])) {
             $model->securityPrompt = $map['security_prompt'];
         }
+        if (isset($map['risk_category'])) {
+            $model->riskCategory = $map['risk_category'];
+        }
         if (isset($map['risk_label'])) {
             $model->riskLabel = $map['risk_label'];
+        }
+        if (isset($map['risk_words'])) {
+            if (!empty($map['risk_words'])) {
+                $model->riskWords = $map['risk_words'];
+            }
         }
         if (isset($map['session_action'])) {
             $model->sessionAction = $map['session_action'];
