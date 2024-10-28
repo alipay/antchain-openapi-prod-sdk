@@ -44,9 +44,17 @@ public class CheckAicoguardrailsAskResponse extends TeaModel {
     @NameInMap("security_prompt")
     public String securityPrompt;
 
-    // 有风险时的风险标签
+    // 有风险时的风险类型，一级风险分类
+    @NameInMap("risk_category")
+    public String riskCategory;
+
+    // 有风险时的风险类型，二级风险明细分类
     @NameInMap("risk_label")
     public String riskLabel;
+
+    // 命中风险场景的风险词
+    @NameInMap("risk_words")
+    public java.util.List<String> riskWords;
 
     // 会话动作
     //    END_SESSION：终止会话
@@ -131,12 +139,28 @@ public class CheckAicoguardrailsAskResponse extends TeaModel {
         return this.securityPrompt;
     }
 
+    public CheckAicoguardrailsAskResponse setRiskCategory(String riskCategory) {
+        this.riskCategory = riskCategory;
+        return this;
+    }
+    public String getRiskCategory() {
+        return this.riskCategory;
+    }
+
     public CheckAicoguardrailsAskResponse setRiskLabel(String riskLabel) {
         this.riskLabel = riskLabel;
         return this;
     }
     public String getRiskLabel() {
         return this.riskLabel;
+    }
+
+    public CheckAicoguardrailsAskResponse setRiskWords(java.util.List<String> riskWords) {
+        this.riskWords = riskWords;
+        return this;
+    }
+    public java.util.List<String> getRiskWords() {
+        return this.riskWords;
     }
 
     public CheckAicoguardrailsAskResponse setSessionAction(String sessionAction) {
