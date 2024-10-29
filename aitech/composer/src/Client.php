@@ -11,28 +11,42 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\AITECH\Models\ApplyAuditImageadvancedRequest;
+use AntChain\AITECH\Models\ApplyAuditImageadvancedResponse;
+use AntChain\AITECH\Models\ApplyAuditImagebaseRequest;
+use AntChain\AITECH\Models\ApplyAuditImagebaseResponse;
 use AntChain\AITECH\Models\ApplyAuditImageRequest;
 use AntChain\AITECH\Models\ApplyAuditImageResponse;
 use AntChain\AITECH\Models\ApplyAuditTextRequest;
 use AntChain\AITECH\Models\ApplyAuditTextResponse;
+use AntChain\AITECH\Models\CallbackAliyunAuditRequest;
+use AntChain\AITECH\Models\CallbackAliyunAuditResponse;
 use AntChain\AITECH\Models\CallbackSofaAuditRequest;
 use AntChain\AITECH\Models\CallbackSofaAuditResponse;
+use AntChain\AITECH\Models\QueryAuditAudiobaseRequest;
+use AntChain\AITECH\Models\QueryAuditAudiobaseResponse;
 use AntChain\AITECH\Models\QueryAuditAudioRequest;
 use AntChain\AITECH\Models\QueryAuditAudioResponse;
 use AntChain\AITECH\Models\QueryAuditImageRequest;
 use AntChain\AITECH\Models\QueryAuditImageResponse;
 use AntChain\AITECH\Models\QueryAuditTextRequest;
 use AntChain\AITECH\Models\QueryAuditTextResponse;
+use AntChain\AITECH\Models\QueryAuditVideobaseRequest;
+use AntChain\AITECH\Models\QueryAuditVideobaseResponse;
 use AntChain\AITECH\Models\QueryAuditVideoRequest;
 use AntChain\AITECH\Models\QueryAuditVideoResponse;
 use AntChain\AITECH\Models\QueryGuardcoreRedgptRequest;
 use AntChain\AITECH\Models\QueryGuardcoreRedgptResponse;
+use AntChain\AITECH\Models\SubmitAuditAudiobaseRequest;
+use AntChain\AITECH\Models\SubmitAuditAudiobaseResponse;
 use AntChain\AITECH\Models\SubmitAuditAudioRequest;
 use AntChain\AITECH\Models\SubmitAuditAudioResponse;
 use AntChain\AITECH\Models\SubmitAuditImageRequest;
 use AntChain\AITECH\Models\SubmitAuditImageResponse;
 use AntChain\AITECH\Models\SubmitAuditTextRequest;
 use AntChain\AITECH\Models\SubmitAuditTextResponse;
+use AntChain\AITECH\Models\SubmitAuditVideobaseRequest;
+use AntChain\AITECH\Models\SubmitAuditVideobaseResponse;
 use AntChain\AITECH\Models\SubmitAuditVideoRequest;
 use AntChain\AITECH\Models\SubmitAuditVideoResponse;
 use AntChain\Util\UtilClient;
@@ -182,7 +196,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.8',
+                    'sdk_version'      => '1.1.9',
                     '_prod_code'       => 'AITECH',
                     '_prod_channel'    => 'default',
                 ];
@@ -591,6 +605,237 @@ class Client
         Utils::validateModel($request);
 
         return ApplyAuditTextResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.text.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步接口，只调用机审能力
+     * Summary: 图片机审基础版.
+     *
+     * @param ApplyAuditImagebaseRequest $request
+     *
+     * @return ApplyAuditImagebaseResponse
+     */
+    public function applyAuditImagebase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyAuditImagebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步接口，只调用机审能力
+     * Summary: 图片机审基础版.
+     *
+     * @param ApplyAuditImagebaseRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ApplyAuditImagebaseResponse
+     */
+    public function applyAuditImagebaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyAuditImagebaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.imagebase.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 同步接口，只调用机审能力
+     * Summary: 图片审核增强版.
+     *
+     * @param ApplyAuditImageadvancedRequest $request
+     *
+     * @return ApplyAuditImageadvancedResponse
+     */
+    public function applyAuditImageadvanced($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->applyAuditImageadvancedEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 同步接口，只调用机审能力
+     * Summary: 图片审核增强版.
+     *
+     * @param ApplyAuditImageadvancedRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ApplyAuditImageadvancedResponse
+     */
+    public function applyAuditImageadvancedEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ApplyAuditImageadvancedResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.imageadvanced.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 异步接口，只调用机审能力
+     * Summary: 音频审核通用版入审
+     *
+     * @param SubmitAuditAudiobaseRequest $request
+     *
+     * @return SubmitAuditAudiobaseResponse
+     */
+    public function submitAuditAudiobase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAuditAudiobaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 异步接口，只调用机审能力
+     * Summary: 音频审核通用版入审
+     *
+     * @param SubmitAuditAudiobaseRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SubmitAuditAudiobaseResponse
+     */
+    public function submitAuditAudiobaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAuditAudiobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.audiobase.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 异步接口，只调用机审能力
+     * Summary: 音频审核通用版查询.
+     *
+     * @param QueryAuditAudiobaseRequest $request
+     *
+     * @return QueryAuditAudiobaseResponse
+     */
+    public function queryAuditAudiobase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuditAudiobaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 异步接口，只调用机审能力
+     * Summary: 音频审核通用版查询.
+     *
+     * @param QueryAuditAudiobaseRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryAuditAudiobaseResponse
+     */
+    public function queryAuditAudiobaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuditAudiobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.audiobase.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 异步通知，只调用机审能力
+     * Summary: 视频审核通用版入审
+     *
+     * @param SubmitAuditVideobaseRequest $request
+     *
+     * @return SubmitAuditVideobaseResponse
+     */
+    public function submitAuditVideobase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAuditVideobaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 异步通知，只调用机审能力
+     * Summary: 视频审核通用版入审
+     *
+     * @param SubmitAuditVideobaseRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SubmitAuditVideobaseResponse
+     */
+    public function submitAuditVideobaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAuditVideobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.videobase.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 异步查询
+     * Summary: 视频审核通用版查询.
+     *
+     * @param QueryAuditVideobaseRequest $request
+     *
+     * @return QueryAuditVideobaseResponse
+     */
+    public function queryAuditVideobase($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuditVideobaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 异步查询
+     * Summary: 视频审核通用版查询.
+     *
+     * @param QueryAuditVideobaseRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return QueryAuditVideobaseResponse
+     */
+    public function queryAuditVideobaseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuditVideobaseResponse::fromMap($this->doRequest('1.0', 'aitech.comm.audit.videobase.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+     * Summary: 阿里云内容审核回调.
+     *
+     * @param CallbackAliyunAuditRequest $request
+     *
+     * @return CallbackAliyunAuditResponse
+     */
+    public function callbackAliyunAudit($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackAliyunAuditEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+     * Summary: 阿里云内容审核回调.
+     *
+     * @param CallbackAliyunAuditRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return CallbackAliyunAuditResponse
+     */
+    public function callbackAliyunAuditEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackAliyunAuditResponse::fromMap($this->doRequest('1.0', 'aitech.comm.aliyun.audit.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
