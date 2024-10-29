@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.8"),
+                    new TeaPair("sdk_version", "1.1.9"),
                     new TeaPair("_prod_code", "AITECH"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -391,6 +391,139 @@ public class Client {
     public ApplyAuditTextResponse applyAuditTextEx(ApplyAuditTextRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.text.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyAuditTextResponse());
+    }
+
+    /**
+     * Description: 同步接口，只调用机审能力
+     * Summary: 图片机审基础版
+     */
+    public ApplyAuditImagebaseResponse applyAuditImagebase(ApplyAuditImagebaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyAuditImagebaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 同步接口，只调用机审能力
+     * Summary: 图片机审基础版
+     */
+    public ApplyAuditImagebaseResponse applyAuditImagebaseEx(ApplyAuditImagebaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.imagebase.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyAuditImagebaseResponse());
+    }
+
+    /**
+     * Description: 同步接口，只调用机审能力
+     * Summary: 图片审核增强版
+     */
+    public ApplyAuditImageadvancedResponse applyAuditImageadvanced(ApplyAuditImageadvancedRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.applyAuditImageadvancedEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 同步接口，只调用机审能力
+     * Summary: 图片审核增强版
+     */
+    public ApplyAuditImageadvancedResponse applyAuditImageadvancedEx(ApplyAuditImageadvancedRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.imageadvanced.apply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ApplyAuditImageadvancedResponse());
+    }
+
+    /**
+     * Description: 异步接口，只调用机审能力
+     * Summary: 音频审核通用版入审
+     */
+    public SubmitAuditAudiobaseResponse submitAuditAudiobase(SubmitAuditAudiobaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAuditAudiobaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 异步接口，只调用机审能力
+     * Summary: 音频审核通用版入审
+     */
+    public SubmitAuditAudiobaseResponse submitAuditAudiobaseEx(SubmitAuditAudiobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.audiobase.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuditAudiobaseResponse());
+    }
+
+    /**
+     * Description: 异步接口，只调用机审能力
+     * Summary: 音频审核通用版查询
+     */
+    public QueryAuditAudiobaseResponse queryAuditAudiobase(QueryAuditAudiobaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuditAudiobaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 异步接口，只调用机审能力
+     * Summary: 音频审核通用版查询
+     */
+    public QueryAuditAudiobaseResponse queryAuditAudiobaseEx(QueryAuditAudiobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.audiobase.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuditAudiobaseResponse());
+    }
+
+    /**
+     * Description: 异步通知，只调用机审能力
+     * Summary: 视频审核通用版入审
+     */
+    public SubmitAuditVideobaseResponse submitAuditVideobase(SubmitAuditVideobaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAuditVideobaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 异步通知，只调用机审能力
+     * Summary: 视频审核通用版入审
+     */
+    public SubmitAuditVideobaseResponse submitAuditVideobaseEx(SubmitAuditVideobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.videobase.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuditVideobaseResponse());
+    }
+
+    /**
+     * Description: 异步查询
+     * Summary: 视频审核通用版查询
+     */
+    public QueryAuditVideobaseResponse queryAuditVideobase(QueryAuditVideobaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuditVideobaseEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 异步查询
+     * Summary: 视频审核通用版查询
+     */
+    public QueryAuditVideobaseResponse queryAuditVideobaseEx(QueryAuditVideobaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.audit.videobase.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuditVideobaseResponse());
+    }
+
+    /**
+     * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+     * Summary: 阿里云内容审核回调
+     */
+    public CallbackAliyunAuditResponse callbackAliyunAudit(CallbackAliyunAuditRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackAliyunAuditEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+     * Summary: 阿里云内容审核回调
+     */
+    public CallbackAliyunAuditResponse callbackAliyunAuditEx(CallbackAliyunAuditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "aitech.comm.aliyun.audit.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackAliyunAuditResponse());
     }
 
     /**
