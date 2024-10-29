@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.8',
+                    'sdk_version': '1.1.9',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.8',
+                    'sdk_version': '1.1.9',
                     '_prod_code': 'AITECH',
                     '_prod_channel': 'default'
                 }
@@ -889,6 +889,398 @@ class Client:
         return TeaCore.from_map(
             aitech_models.ApplyAuditTextResponse(),
             await self.do_request_async('1.0', 'aitech.comm.audit.text.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_audit_imagebase(
+        self,
+        request: aitech_models.ApplyAuditImagebaseRequest,
+    ) -> aitech_models.ApplyAuditImagebaseResponse:
+        """
+        Description: 同步接口，只调用机审能力
+        Summary: 图片机审基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_audit_imagebase_ex(request, headers, runtime)
+
+    async def apply_audit_imagebase_async(
+        self,
+        request: aitech_models.ApplyAuditImagebaseRequest,
+    ) -> aitech_models.ApplyAuditImagebaseResponse:
+        """
+        Description: 同步接口，只调用机审能力
+        Summary: 图片机审基础版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_audit_imagebase_ex_async(request, headers, runtime)
+
+    def apply_audit_imagebase_ex(
+        self,
+        request: aitech_models.ApplyAuditImagebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyAuditImagebaseResponse:
+        """
+        Description: 同步接口，只调用机审能力
+        Summary: 图片机审基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyAuditImagebaseResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.imagebase.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_audit_imagebase_ex_async(
+        self,
+        request: aitech_models.ApplyAuditImagebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyAuditImagebaseResponse:
+        """
+        Description: 同步接口，只调用机审能力
+        Summary: 图片机审基础版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyAuditImagebaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.imagebase.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def apply_audit_imageadvanced(
+        self,
+        request: aitech_models.ApplyAuditImageadvancedRequest,
+    ) -> aitech_models.ApplyAuditImageadvancedResponse:
+        """
+        Description: 同步接口，只调用机审能力
+        Summary: 图片审核增强版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.apply_audit_imageadvanced_ex(request, headers, runtime)
+
+    async def apply_audit_imageadvanced_async(
+        self,
+        request: aitech_models.ApplyAuditImageadvancedRequest,
+    ) -> aitech_models.ApplyAuditImageadvancedResponse:
+        """
+        Description: 同步接口，只调用机审能力
+        Summary: 图片审核增强版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.apply_audit_imageadvanced_ex_async(request, headers, runtime)
+
+    def apply_audit_imageadvanced_ex(
+        self,
+        request: aitech_models.ApplyAuditImageadvancedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyAuditImageadvancedResponse:
+        """
+        Description: 同步接口，只调用机审能力
+        Summary: 图片审核增强版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyAuditImageadvancedResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.imageadvanced.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def apply_audit_imageadvanced_ex_async(
+        self,
+        request: aitech_models.ApplyAuditImageadvancedRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.ApplyAuditImageadvancedResponse:
+        """
+        Description: 同步接口，只调用机审能力
+        Summary: 图片审核增强版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.ApplyAuditImageadvancedResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.imageadvanced.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_audit_audiobase(
+        self,
+        request: aitech_models.SubmitAuditAudiobaseRequest,
+    ) -> aitech_models.SubmitAuditAudiobaseResponse:
+        """
+        Description: 异步接口，只调用机审能力
+        Summary: 音频审核通用版入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_audit_audiobase_ex(request, headers, runtime)
+
+    async def submit_audit_audiobase_async(
+        self,
+        request: aitech_models.SubmitAuditAudiobaseRequest,
+    ) -> aitech_models.SubmitAuditAudiobaseResponse:
+        """
+        Description: 异步接口，只调用机审能力
+        Summary: 音频审核通用版入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_audit_audiobase_ex_async(request, headers, runtime)
+
+    def submit_audit_audiobase_ex(
+        self,
+        request: aitech_models.SubmitAuditAudiobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitAuditAudiobaseResponse:
+        """
+        Description: 异步接口，只调用机审能力
+        Summary: 音频审核通用版入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitAuditAudiobaseResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.audiobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_audit_audiobase_ex_async(
+        self,
+        request: aitech_models.SubmitAuditAudiobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitAuditAudiobaseResponse:
+        """
+        Description: 异步接口，只调用机审能力
+        Summary: 音频审核通用版入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitAuditAudiobaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.audiobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_audit_audiobase(
+        self,
+        request: aitech_models.QueryAuditAudiobaseRequest,
+    ) -> aitech_models.QueryAuditAudiobaseResponse:
+        """
+        Description: 异步接口，只调用机审能力
+        Summary: 音频审核通用版查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_audit_audiobase_ex(request, headers, runtime)
+
+    async def query_audit_audiobase_async(
+        self,
+        request: aitech_models.QueryAuditAudiobaseRequest,
+    ) -> aitech_models.QueryAuditAudiobaseResponse:
+        """
+        Description: 异步接口，只调用机审能力
+        Summary: 音频审核通用版查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_audit_audiobase_ex_async(request, headers, runtime)
+
+    def query_audit_audiobase_ex(
+        self,
+        request: aitech_models.QueryAuditAudiobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAuditAudiobaseResponse:
+        """
+        Description: 异步接口，只调用机审能力
+        Summary: 音频审核通用版查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAuditAudiobaseResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.audiobase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_audit_audiobase_ex_async(
+        self,
+        request: aitech_models.QueryAuditAudiobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAuditAudiobaseResponse:
+        """
+        Description: 异步接口，只调用机审能力
+        Summary: 音频审核通用版查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAuditAudiobaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.audiobase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_audit_videobase(
+        self,
+        request: aitech_models.SubmitAuditVideobaseRequest,
+    ) -> aitech_models.SubmitAuditVideobaseResponse:
+        """
+        Description: 异步通知，只调用机审能力
+        Summary: 视频审核通用版入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_audit_videobase_ex(request, headers, runtime)
+
+    async def submit_audit_videobase_async(
+        self,
+        request: aitech_models.SubmitAuditVideobaseRequest,
+    ) -> aitech_models.SubmitAuditVideobaseResponse:
+        """
+        Description: 异步通知，只调用机审能力
+        Summary: 视频审核通用版入审
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_audit_videobase_ex_async(request, headers, runtime)
+
+    def submit_audit_videobase_ex(
+        self,
+        request: aitech_models.SubmitAuditVideobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitAuditVideobaseResponse:
+        """
+        Description: 异步通知，只调用机审能力
+        Summary: 视频审核通用版入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitAuditVideobaseResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.videobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_audit_videobase_ex_async(
+        self,
+        request: aitech_models.SubmitAuditVideobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.SubmitAuditVideobaseResponse:
+        """
+        Description: 异步通知，只调用机审能力
+        Summary: 视频审核通用版入审
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.SubmitAuditVideobaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.videobase.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_audit_videobase(
+        self,
+        request: aitech_models.QueryAuditVideobaseRequest,
+    ) -> aitech_models.QueryAuditVideobaseResponse:
+        """
+        Description: 异步查询
+        Summary: 视频审核通用版查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_audit_videobase_ex(request, headers, runtime)
+
+    async def query_audit_videobase_async(
+        self,
+        request: aitech_models.QueryAuditVideobaseRequest,
+    ) -> aitech_models.QueryAuditVideobaseResponse:
+        """
+        Description: 异步查询
+        Summary: 视频审核通用版查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_audit_videobase_ex_async(request, headers, runtime)
+
+    def query_audit_videobase_ex(
+        self,
+        request: aitech_models.QueryAuditVideobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAuditVideobaseResponse:
+        """
+        Description: 异步查询
+        Summary: 视频审核通用版查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAuditVideobaseResponse(),
+            self.do_request('1.0', 'aitech.comm.audit.videobase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_audit_videobase_ex_async(
+        self,
+        request: aitech_models.QueryAuditVideobaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.QueryAuditVideobaseResponse:
+        """
+        Description: 异步查询
+        Summary: 视频审核通用版查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.QueryAuditVideobaseResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.audit.videobase.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_aliyun_audit(
+        self,
+        request: aitech_models.CallbackAliyunAuditRequest,
+    ) -> aitech_models.CallbackAliyunAuditResponse:
+        """
+        Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+        Summary: 阿里云内容审核回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_aliyun_audit_ex(request, headers, runtime)
+
+    async def callback_aliyun_audit_async(
+        self,
+        request: aitech_models.CallbackAliyunAuditRequest,
+    ) -> aitech_models.CallbackAliyunAuditResponse:
+        """
+        Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+        Summary: 阿里云内容审核回调
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_aliyun_audit_ex_async(request, headers, runtime)
+
+    def callback_aliyun_audit_ex(
+        self,
+        request: aitech_models.CallbackAliyunAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.CallbackAliyunAuditResponse:
+        """
+        Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+        Summary: 阿里云内容审核回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.CallbackAliyunAuditResponse(),
+            self.do_request('1.0', 'aitech.comm.aliyun.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_aliyun_audit_ex_async(
+        self,
+        request: aitech_models.CallbackAliyunAuditRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> aitech_models.CallbackAliyunAuditResponse:
+        """
+        Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+        Summary: 阿里云内容审核回调
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            aitech_models.CallbackAliyunAuditResponse(),
+            await self.do_request_async('1.0', 'aitech.comm.aliyun.audit.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_guardcore_redgpt(
