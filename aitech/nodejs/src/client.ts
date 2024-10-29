@@ -1237,6 +1237,541 @@ export class ApplyAuditTextResponse extends $tea.Model {
   }
 }
 
+export class ApplyAuditImagebaseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 审核内容链接
+  // 目前支持 jpeg、png、jpg、bmp、webp 五种格式
+  // 图片的 contentType 必须为 image/xxx 或者 application/octet-stream，其余类型都无法识别
+  url: string;
+  // 场景，固定填写：BASE_IMAGE_SEC
+  scene: string;
+  // 客户业务ID
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      url: 'url',
+      scene: 'scene',
+      businessId: 'business_id',
+      dataId: 'data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      url: 'string',
+      scene: 'string',
+      businessId: 'string',
+      dataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyAuditImagebaseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
+  requestId?: string;
+  // 图片基础版审核结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyAuditImageadvancedRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 审核内容链接
+  // 目前支持 jpeg、png、jpg、bmp、webp 五种格式
+  // 图片的 contentType 必须为 image/xxx 或者 application/octet-stream，其余类型都无法识别
+  url: string;
+  // 场景，固定填写：ADVANCED_IMAGE_SEC
+  scene: string;
+  // 客户业务ID
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId?: string;
+  // 数据Id，调用方入审数据的唯一Id
+  dataId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      url: 'url',
+      scene: 'scene',
+      businessId: 'business_id',
+      dataId: 'data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      url: 'string',
+      scene: 'string',
+      businessId: 'string',
+      dataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyAuditImageadvancedResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，...
+  requestId?: string;
+  // 图片增强版审核结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuditAudiobaseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符
+  // 说明 ：
+  // 1. URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  // 2. 支持音频文件格式：MP3、WAV、AAC、WMA、OGG、M4A、AMR
+  url: string;
+  // 审核场景类型
+  // 目前支持 BASE_AUDIO_SEC：音视频媒体通用检测
+  scene: string;
+  // 客户业务ID
+  // 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId: string;
+  // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string;
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string;
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      url: 'url',
+      scene: 'scene',
+      businessId: 'business_id',
+      dataId: 'data_id',
+      callback: 'callback',
+      seed: 'seed',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      url: 'string',
+      scene: 'string',
+      businessId: 'string',
+      dataId: 'string',
+      callback: 'string',
+      seed: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuditAudiobaseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string;
+  // 任务ID
+  taskId?: string;
+  // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      taskId: 'task_id',
+      dataId: 'data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      taskId: 'string',
+      dataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuditAudiobaseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuditAudiobaseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string;
+  // 音频通用版审核结果
+  // 
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuditVideobaseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 待检测对象的URL，请确保该URL能通过公网访问到，且URL地址长度不超过2048个字符
+  // 说明 ：
+  // 1. URL地址中不能包含中文，且一次请求请确保仅传入1条URL
+  // 2. 视频文件链接支持以下协议：HTTP和HTTPS。
+  // 3. 视频文件支持以下格式：AVI、FLV、MP4、MPG、ASF、WMV、MOV、WMA、RMVB、RM、FLASH、TS。
+  // 4. 视频大小限制：默认单个视频大小不超过500 MB。如果您的需求超过500 MB，您可以对视频进行分片处理
+  url: string;
+  // 审核场景类型
+  // 目前支持通用版 BASE_VIDEO_SEC
+  scene: string;
+  // 客户业务ID 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  businessId: string;
+  // 检测对象对应的数据ID。 由大小写英文字母、数字、下划线（_）、短划线（-）、英文句号（.）组成，不超过128个字符，可以用于唯一标识您的业务数据
+  dataId: string;
+  // 结果通知地址，不指定时需要调用方主动查询结果
+  callback?: string;
+  // 传callback时必须指定，tenant + seed + auditResult做SHA256生成checksum，保证结果未被篡改（即数科官网控制台-账户信息中的「用户code」）
+  seed?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      url: 'url',
+      scene: 'scene',
+      businessId: 'business_id',
+      dataId: 'data_id',
+      callback: 'callback',
+      seed: 'seed',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      url: 'string',
+      scene: 'string',
+      businessId: 'string',
+      dataId: 'string',
+      callback: 'string',
+      seed: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuditVideobaseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string;
+  // 任务ID
+  taskId?: string;
+  // 检测对象对应的数据ID。 如果在提交审核任务的请求参数中传入了dataId，则此处返回对应dataId
+  dataId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      taskId: 'task_id',
+      dataId: 'data_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      taskId: 'string',
+      dataId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuditVideobaseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuditVideobaseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 本次调用请求的ID，是由蚂蚁数科为该请求生成的唯一标识符，可用于排查和定位问题
+  requestId?: string;
+  // 视频通用版审核结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAliyunAuditRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回执原文
+  payload: string;
+  // 回执场景，固定填写 ALIYUN"
+  bizScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      payload: 'payload',
+      bizScene: 'biz_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      payload: 'string',
+      bizScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackAliyunAuditResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 错误码
+  errorCode?: string;
+  // 错误原因
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      errorCode: 'string',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryGuardcoreRedgptRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1437,7 +1972,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.8",
+          sdk_version: "1.1.9",
           _prod_code: "AITECH",
           _prod_channel: "default",
         };
@@ -1692,6 +2227,139 @@ export default class Client {
   async applyAuditTextEx(request: ApplyAuditTextRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyAuditTextResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyAuditTextResponse>(await this.doRequest("1.0", "aitech.comm.audit.text.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyAuditTextResponse({}));
+  }
+
+  /**
+   * Description: 同步接口，只调用机审能力
+   * Summary: 图片机审基础版
+   */
+  async applyAuditImagebase(request: ApplyAuditImagebaseRequest): Promise<ApplyAuditImagebaseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyAuditImagebaseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 同步接口，只调用机审能力
+   * Summary: 图片机审基础版
+   */
+  async applyAuditImagebaseEx(request: ApplyAuditImagebaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyAuditImagebaseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyAuditImagebaseResponse>(await this.doRequest("1.0", "aitech.comm.audit.imagebase.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyAuditImagebaseResponse({}));
+  }
+
+  /**
+   * Description: 同步接口，只调用机审能力
+   * Summary: 图片审核增强版
+   */
+  async applyAuditImageadvanced(request: ApplyAuditImageadvancedRequest): Promise<ApplyAuditImageadvancedResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyAuditImageadvancedEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 同步接口，只调用机审能力
+   * Summary: 图片审核增强版
+   */
+  async applyAuditImageadvancedEx(request: ApplyAuditImageadvancedRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyAuditImageadvancedResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyAuditImageadvancedResponse>(await this.doRequest("1.0", "aitech.comm.audit.imageadvanced.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyAuditImageadvancedResponse({}));
+  }
+
+  /**
+   * Description: 异步接口，只调用机审能力
+   * Summary: 音频审核通用版入审
+   */
+  async submitAuditAudiobase(request: SubmitAuditAudiobaseRequest): Promise<SubmitAuditAudiobaseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAuditAudiobaseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 异步接口，只调用机审能力
+   * Summary: 音频审核通用版入审
+   */
+  async submitAuditAudiobaseEx(request: SubmitAuditAudiobaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuditAudiobaseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAuditAudiobaseResponse>(await this.doRequest("1.0", "aitech.comm.audit.audiobase.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuditAudiobaseResponse({}));
+  }
+
+  /**
+   * Description: 异步接口，只调用机审能力
+   * Summary: 音频审核通用版查询
+   */
+  async queryAuditAudiobase(request: QueryAuditAudiobaseRequest): Promise<QueryAuditAudiobaseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuditAudiobaseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 异步接口，只调用机审能力
+   * Summary: 音频审核通用版查询
+   */
+  async queryAuditAudiobaseEx(request: QueryAuditAudiobaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuditAudiobaseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuditAudiobaseResponse>(await this.doRequest("1.0", "aitech.comm.audit.audiobase.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuditAudiobaseResponse({}));
+  }
+
+  /**
+   * Description: 异步通知，只调用机审能力
+   * Summary: 视频审核通用版入审
+   */
+  async submitAuditVideobase(request: SubmitAuditVideobaseRequest): Promise<SubmitAuditVideobaseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAuditVideobaseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 异步通知，只调用机审能力
+   * Summary: 视频审核通用版入审
+   */
+  async submitAuditVideobaseEx(request: SubmitAuditVideobaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuditVideobaseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAuditVideobaseResponse>(await this.doRequest("1.0", "aitech.comm.audit.videobase.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuditVideobaseResponse({}));
+  }
+
+  /**
+   * Description: 异步查询
+   * Summary: 视频审核通用版查询
+   */
+  async queryAuditVideobase(request: QueryAuditVideobaseRequest): Promise<QueryAuditVideobaseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuditVideobaseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 异步查询
+   * Summary: 视频审核通用版查询
+   */
+  async queryAuditVideobaseEx(request: QueryAuditVideobaseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuditVideobaseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuditVideobaseResponse>(await this.doRequest("1.0", "aitech.comm.audit.videobase.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuditVideobaseResponse({}));
+  }
+
+  /**
+   * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+   * Summary: 阿里云内容审核回调
+   */
+  async callbackAliyunAudit(request: CallbackAliyunAuditRequest): Promise<CallbackAliyunAuditResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackAliyunAuditEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+   * Summary: 阿里云内容审核回调
+   */
+  async callbackAliyunAuditEx(request: CallbackAliyunAuditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackAliyunAuditResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackAliyunAuditResponse>(await this.doRequest("1.0", "aitech.comm.aliyun.audit.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackAliyunAuditResponse({}));
   }
 
   /**
