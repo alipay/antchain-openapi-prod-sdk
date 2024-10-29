@@ -21,6 +21,11 @@ public class DetailInnerNoticeRequest extends TeaModel {
     @Validation(required = true)
     public Long noticeId;
 
+    // 是否未读
+    @NameInMap("unread")
+    @Validation(required = true)
+    public Boolean unread;
+
     public static DetailInnerNoticeRequest build(java.util.Map<String, ?> map) throws Exception {
         DetailInnerNoticeRequest self = new DetailInnerNoticeRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class DetailInnerNoticeRequest extends TeaModel {
     }
     public Long getNoticeId() {
         return this.noticeId;
+    }
+
+    public DetailInnerNoticeRequest setUnread(Boolean unread) {
+        this.unread = unread;
+        return this;
+    }
+    public Boolean getUnread() {
+        return this.unread;
     }
 
 }

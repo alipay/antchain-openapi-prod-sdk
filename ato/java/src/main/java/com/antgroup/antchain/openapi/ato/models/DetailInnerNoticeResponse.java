@@ -25,8 +25,8 @@ public class DetailInnerNoticeResponse extends TeaModel {
     public String content;
 
     // 通知创建时间
-    @NameInMap("notic_create_time")
-    public String noticCreateTime;
+    @NameInMap("notice_create_time")
+    public String noticeCreateTime;
 
     public static DetailInnerNoticeResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailInnerNoticeResponse self = new DetailInnerNoticeResponse();
@@ -73,12 +73,12 @@ public class DetailInnerNoticeResponse extends TeaModel {
         return this.content;
     }
 
-    public DetailInnerNoticeResponse setNoticCreateTime(String noticCreateTime) {
-        this.noticCreateTime = noticCreateTime;
+    public DetailInnerNoticeResponse setNoticeCreateTime(String noticeCreateTime) {
+        this.noticeCreateTime = noticeCreateTime;
         return this;
     }
-    public String getNoticCreateTime() {
-        return this.noticCreateTime;
+    public String getNoticeCreateTime() {
+        return this.noticeCreateTime;
     }
 
 }

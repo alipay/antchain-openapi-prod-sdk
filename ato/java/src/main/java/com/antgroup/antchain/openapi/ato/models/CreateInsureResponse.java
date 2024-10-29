@@ -16,14 +16,6 @@ public class CreateInsureResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 创建结果，true 表示创建成功
-    @NameInMap("result")
-    public Boolean result;
-
-    // 创建操作描述信息
-    @NameInMap("msg")
-    public String msg;
-
     public static CreateInsureResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateInsureResponse self = new CreateInsureResponse();
         return TeaModel.build(map, self);
@@ -51,22 +43,6 @@ public class CreateInsureResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public CreateInsureResponse setResult(Boolean result) {
-        this.result = result;
-        return this;
-    }
-    public Boolean getResult() {
-        return this.result;
-    }
-
-    public CreateInsureResponse setMsg(String msg) {
-        this.msg = msg;
-        return this;
-    }
-    public String getMsg() {
-        return this.msg;
     }
 
 }

@@ -18,12 +18,10 @@ public class InsureOrderInfo extends TeaModel {
 
     // 保险开始时间
     @NameInMap("insure_start_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String insureStartTime;
 
     // 保险终止时间
     @NameInMap("insure_end_time")
-    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String insureEndTime;
 
     // 投保金额（保额），单位分 100代表1元

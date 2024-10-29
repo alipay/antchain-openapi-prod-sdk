@@ -28,6 +28,10 @@ public class GetInnerHomepagenoticeResponse extends TeaModel {
     @NameInMap("unread_count")
     public Long unreadCount;
 
+    // 是否未读
+    @NameInMap("unread")
+    public Boolean unread;
+
     public static GetInnerHomepagenoticeResponse build(java.util.Map<String, ?> map) throws Exception {
         GetInnerHomepagenoticeResponse self = new GetInnerHomepagenoticeResponse();
         return TeaModel.build(map, self);
@@ -79,6 +83,14 @@ public class GetInnerHomepagenoticeResponse extends TeaModel {
     }
     public Long getUnreadCount() {
         return this.unreadCount;
+    }
+
+    public GetInnerHomepagenoticeResponse setUnread(Boolean unread) {
+        this.unread = unread;
+        return this;
+    }
+    public Boolean getUnread() {
+        return this.unread;
     }
 
 }

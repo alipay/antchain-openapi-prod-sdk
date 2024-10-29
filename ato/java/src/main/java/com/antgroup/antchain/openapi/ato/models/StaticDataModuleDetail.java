@@ -14,6 +14,14 @@ public class StaticDataModuleDetail extends TeaModel {
     @Validation(required = true)
     public String propertyValue;
 
+    // 叶子结点，目前存的一级类目下的二级类目
+    @NameInMap("children_detail_list")
+    public String childrenDetailList;
+
+    // 是否有叶子结点
+    @NameInMap("has_children")
+    public Boolean hasChildren;
+
     public static StaticDataModuleDetail build(java.util.Map<String, ?> map) throws Exception {
         StaticDataModuleDetail self = new StaticDataModuleDetail();
         return TeaModel.build(map, self);
@@ -33,6 +41,22 @@ public class StaticDataModuleDetail extends TeaModel {
     }
     public String getPropertyValue() {
         return this.propertyValue;
+    }
+
+    public StaticDataModuleDetail setChildrenDetailList(String childrenDetailList) {
+        this.childrenDetailList = childrenDetailList;
+        return this;
+    }
+    public String getChildrenDetailList() {
+        return this.childrenDetailList;
+    }
+
+    public StaticDataModuleDetail setHasChildren(Boolean hasChildren) {
+        this.hasChildren = hasChildren;
+        return this;
+    }
+    public Boolean getHasChildren() {
+        return this.hasChildren;
     }
 
 }

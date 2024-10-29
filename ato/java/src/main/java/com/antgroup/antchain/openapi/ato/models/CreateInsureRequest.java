@@ -53,14 +53,14 @@ public class CreateInsureRequest extends TeaModel {
     @Validation(required = true, maxLength = 1024)
     public String contactMobile;
 
-    // 物流单号
-    @NameInMap("logistics_number")
-    @Validation(required = true, maxLength = 64)
-    public String logisticsNumber;
-
     // 实人认证业务流水号
     @NameInMap("facevrf_flow_id")
     public String facevrfFlowId;
+
+    // 物流单号，非必填参数。如果选择的物流发货方式为 EXPRESS（物流发货），则该字段必填。
+    @NameInMap("logistics_number")
+    @Validation(maxLength = 64)
+    public String logisticsNumber;
 
     // 交易时间，非必填参数。如果发货方式为 OFFLINE（线下交易），则该字段必填。
     @NameInMap("trade_time")
@@ -152,20 +152,20 @@ public class CreateInsureRequest extends TeaModel {
         return this.contactMobile;
     }
 
-    public CreateInsureRequest setLogisticsNumber(String logisticsNumber) {
-        this.logisticsNumber = logisticsNumber;
-        return this;
-    }
-    public String getLogisticsNumber() {
-        return this.logisticsNumber;
-    }
-
     public CreateInsureRequest setFacevrfFlowId(String facevrfFlowId) {
         this.facevrfFlowId = facevrfFlowId;
         return this;
     }
     public String getFacevrfFlowId() {
         return this.facevrfFlowId;
+    }
+
+    public CreateInsureRequest setLogisticsNumber(String logisticsNumber) {
+        this.logisticsNumber = logisticsNumber;
+        return this;
+    }
+    public String getLogisticsNumber() {
+        return this.logisticsNumber;
     }
 
     public CreateInsureRequest setTradeTime(String tradeTime) {
