@@ -137,7 +137,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.8"},
+                        {"sdk_version", "1.1.9"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AITECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.8"},
+                        {"sdk_version", "1.1.9"},
                         {"_prod_code", "AITECH"},
                         {"_prod_channel", "default"},
                     };
@@ -781,6 +781,300 @@ namespace AntChain.SDK.AITECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyAuditTextResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.text.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步接口，只调用机审能力
+         * Summary: 图片机审基础版
+         */
+        public ApplyAuditImagebaseResponse ApplyAuditImagebase(ApplyAuditImagebaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyAuditImagebaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步接口，只调用机审能力
+         * Summary: 图片机审基础版
+         */
+        public async Task<ApplyAuditImagebaseResponse> ApplyAuditImagebaseAsync(ApplyAuditImagebaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyAuditImagebaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步接口，只调用机审能力
+         * Summary: 图片机审基础版
+         */
+        public ApplyAuditImagebaseResponse ApplyAuditImagebaseEx(ApplyAuditImagebaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAuditImagebaseResponse>(DoRequest("1.0", "aitech.comm.audit.imagebase.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步接口，只调用机审能力
+         * Summary: 图片机审基础版
+         */
+        public async Task<ApplyAuditImagebaseResponse> ApplyAuditImagebaseExAsync(ApplyAuditImagebaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAuditImagebaseResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.imagebase.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步接口，只调用机审能力
+         * Summary: 图片审核增强版
+         */
+        public ApplyAuditImageadvancedResponse ApplyAuditImageadvanced(ApplyAuditImageadvancedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyAuditImageadvancedEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步接口，只调用机审能力
+         * Summary: 图片审核增强版
+         */
+        public async Task<ApplyAuditImageadvancedResponse> ApplyAuditImageadvancedAsync(ApplyAuditImageadvancedRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyAuditImageadvancedExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 同步接口，只调用机审能力
+         * Summary: 图片审核增强版
+         */
+        public ApplyAuditImageadvancedResponse ApplyAuditImageadvancedEx(ApplyAuditImageadvancedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAuditImageadvancedResponse>(DoRequest("1.0", "aitech.comm.audit.imageadvanced.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 同步接口，只调用机审能力
+         * Summary: 图片审核增强版
+         */
+        public async Task<ApplyAuditImageadvancedResponse> ApplyAuditImageadvancedExAsync(ApplyAuditImageadvancedRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAuditImageadvancedResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.imageadvanced.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 异步接口，只调用机审能力
+         * Summary: 音频审核通用版入审
+         */
+        public SubmitAuditAudiobaseResponse SubmitAuditAudiobase(SubmitAuditAudiobaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAuditAudiobaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 异步接口，只调用机审能力
+         * Summary: 音频审核通用版入审
+         */
+        public async Task<SubmitAuditAudiobaseResponse> SubmitAuditAudiobaseAsync(SubmitAuditAudiobaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAuditAudiobaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 异步接口，只调用机审能力
+         * Summary: 音频审核通用版入审
+         */
+        public SubmitAuditAudiobaseResponse SubmitAuditAudiobaseEx(SubmitAuditAudiobaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuditAudiobaseResponse>(DoRequest("1.0", "aitech.comm.audit.audiobase.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 异步接口，只调用机审能力
+         * Summary: 音频审核通用版入审
+         */
+        public async Task<SubmitAuditAudiobaseResponse> SubmitAuditAudiobaseExAsync(SubmitAuditAudiobaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuditAudiobaseResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.audiobase.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 异步接口，只调用机审能力
+         * Summary: 音频审核通用版查询
+         */
+        public QueryAuditAudiobaseResponse QueryAuditAudiobase(QueryAuditAudiobaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuditAudiobaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 异步接口，只调用机审能力
+         * Summary: 音频审核通用版查询
+         */
+        public async Task<QueryAuditAudiobaseResponse> QueryAuditAudiobaseAsync(QueryAuditAudiobaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuditAudiobaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 异步接口，只调用机审能力
+         * Summary: 音频审核通用版查询
+         */
+        public QueryAuditAudiobaseResponse QueryAuditAudiobaseEx(QueryAuditAudiobaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuditAudiobaseResponse>(DoRequest("1.0", "aitech.comm.audit.audiobase.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 异步接口，只调用机审能力
+         * Summary: 音频审核通用版查询
+         */
+        public async Task<QueryAuditAudiobaseResponse> QueryAuditAudiobaseExAsync(QueryAuditAudiobaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuditAudiobaseResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.audiobase.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 异步通知，只调用机审能力
+         * Summary: 视频审核通用版入审
+         */
+        public SubmitAuditVideobaseResponse SubmitAuditVideobase(SubmitAuditVideobaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAuditVideobaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 异步通知，只调用机审能力
+         * Summary: 视频审核通用版入审
+         */
+        public async Task<SubmitAuditVideobaseResponse> SubmitAuditVideobaseAsync(SubmitAuditVideobaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAuditVideobaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 异步通知，只调用机审能力
+         * Summary: 视频审核通用版入审
+         */
+        public SubmitAuditVideobaseResponse SubmitAuditVideobaseEx(SubmitAuditVideobaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuditVideobaseResponse>(DoRequest("1.0", "aitech.comm.audit.videobase.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 异步通知，只调用机审能力
+         * Summary: 视频审核通用版入审
+         */
+        public async Task<SubmitAuditVideobaseResponse> SubmitAuditVideobaseExAsync(SubmitAuditVideobaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuditVideobaseResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.videobase.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 异步查询
+         * Summary: 视频审核通用版查询
+         */
+        public QueryAuditVideobaseResponse QueryAuditVideobase(QueryAuditVideobaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuditVideobaseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 异步查询
+         * Summary: 视频审核通用版查询
+         */
+        public async Task<QueryAuditVideobaseResponse> QueryAuditVideobaseAsync(QueryAuditVideobaseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuditVideobaseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 异步查询
+         * Summary: 视频审核通用版查询
+         */
+        public QueryAuditVideobaseResponse QueryAuditVideobaseEx(QueryAuditVideobaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuditVideobaseResponse>(DoRequest("1.0", "aitech.comm.audit.videobase.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 异步查询
+         * Summary: 视频审核通用版查询
+         */
+        public async Task<QueryAuditVideobaseResponse> QueryAuditVideobaseExAsync(QueryAuditVideobaseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuditVideobaseResponse>(await DoRequestAsync("1.0", "aitech.comm.audit.videobase.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+         * Summary: 阿里云内容审核回调
+         */
+        public CallbackAliyunAuditResponse CallbackAliyunAudit(CallbackAliyunAuditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackAliyunAuditEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+         * Summary: 阿里云内容审核回调
+         */
+        public async Task<CallbackAliyunAuditResponse> CallbackAliyunAuditAsync(CallbackAliyunAuditRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackAliyunAuditExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+         * Summary: 阿里云内容审核回调
+         */
+        public CallbackAliyunAuditResponse CallbackAliyunAuditEx(CallbackAliyunAuditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackAliyunAuditResponse>(DoRequest("1.0", "aitech.comm.aliyun.audit.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 阿里云音频、视频的审核结果，经过 adapter 中转，通过该接口回调回来
+         * Summary: 阿里云内容审核回调
+         */
+        public async Task<CallbackAliyunAuditResponse> CallbackAliyunAuditExAsync(CallbackAliyunAuditRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackAliyunAuditResponse>(await DoRequestAsync("1.0", "aitech.comm.aliyun.audit.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
