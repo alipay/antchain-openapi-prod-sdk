@@ -43,6 +43,12 @@ class GetInnerHomepagenoticeResponse extends Model
      * @var int
      */
     public $unreadCount;
+
+    // 是否未读
+    /**
+     * @var bool
+     */
+    public $unread;
     protected $_name = [
         'reqMsgId'    => 'req_msg_id',
         'resultCode'  => 'result_code',
@@ -50,6 +56,7 @@ class GetInnerHomepagenoticeResponse extends Model
         'noticeId'    => 'notice_id',
         'title'       => 'title',
         'unreadCount' => 'unread_count',
+        'unread'      => 'unread',
     ];
 
     public function validate()
@@ -76,6 +83,9 @@ class GetInnerHomepagenoticeResponse extends Model
         }
         if (null !== $this->unreadCount) {
             $res['unread_count'] = $this->unreadCount;
+        }
+        if (null !== $this->unread) {
+            $res['unread'] = $this->unread;
         }
 
         return $res;
@@ -106,6 +116,9 @@ class GetInnerHomepagenoticeResponse extends Model
         }
         if (isset($map['unread_count'])) {
             $model->unreadCount = $map['unread_count'];
+        }
+        if (isset($map['unread'])) {
+            $model->unread = $map['unread'];
         }
 
         return $model;

@@ -25,24 +25,10 @@ class CreateInsureResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // 创建结果，true 表示创建成功
-    /**
-     * @var bool
-     */
-    public $result;
-
-    // 创建操作描述信息
-    /**
-     * @var string
-     */
-    public $msg;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'result'     => 'result',
-        'msg'        => 'msg',
     ];
 
     public function validate()
@@ -60,12 +46,6 @@ class CreateInsureResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->result) {
-            $res['result'] = $this->result;
-        }
-        if (null !== $this->msg) {
-            $res['msg'] = $this->msg;
         }
 
         return $res;
@@ -87,12 +67,6 @@ class CreateInsureResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['result'])) {
-            $model->result = $map['result'];
-        }
-        if (isset($map['msg'])) {
-            $model->msg = $map['msg'];
         }
 
         return $model;

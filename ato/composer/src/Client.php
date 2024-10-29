@@ -67,6 +67,8 @@ use AntChain\ATO\Models\DeleteInnerTemplateRequest;
 use AntChain\ATO\Models\DeleteInnerTemplateResponse;
 use AntChain\ATO\Models\DetailInnerNoticeRequest;
 use AntChain\ATO\Models\DetailInnerNoticeResponse;
+use AntChain\ATO\Models\DetailInnerOrderRequest;
+use AntChain\ATO\Models\DetailInnerOrderResponse;
 use AntChain\ATO\Models\DetailInnerProductRequest;
 use AntChain\ATO\Models\DetailInnerProductResponse;
 use AntChain\ATO\Models\DetailInnerTemplateRequest;
@@ -406,7 +408,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.64',
+                    'sdk_version'      => '1.9.71',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3080,6 +3082,39 @@ class Client
         Utils::validateModel($request);
 
         return PagequeryInnerOrderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.order.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单详情
+     * Summary: 订单详情.
+     *
+     * @param DetailInnerOrderRequest $request
+     *
+     * @return DetailInnerOrderResponse
+     */
+    public function detailInnerOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailInnerOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单详情
+     * Summary: 订单详情.
+     *
+     * @param DetailInnerOrderRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return DetailInnerOrderResponse
+     */
+    public function detailInnerOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailInnerOrderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.order.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

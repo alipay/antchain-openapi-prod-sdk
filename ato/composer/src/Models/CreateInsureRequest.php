@@ -69,17 +69,17 @@ class CreateInsureRequest extends Model
      */
     public $contactMobile;
 
-    // 物流单号
-    /**
-     * @var string
-     */
-    public $logisticsNumber;
-
     // 实人认证业务流水号
     /**
      * @var string
      */
     public $facevrfFlowId;
+
+    // 物流单号，非必填参数。如果选择的物流发货方式为 EXPRESS（物流发货），则该字段必填。
+    /**
+     * @var string
+     */
+    public $logisticsNumber;
 
     // 交易时间，非必填参数。如果发货方式为 OFFLINE（线下交易），则该字段必填。
     /**
@@ -97,8 +97,8 @@ class CreateInsureRequest extends Model
         'deliveryType'      => 'delivery_type',
         'contactName'       => 'contact_name',
         'contactMobile'     => 'contact_mobile',
-        'logisticsNumber'   => 'logistics_number',
         'facevrfFlowId'     => 'facevrf_flow_id',
+        'logisticsNumber'   => 'logistics_number',
         'tradeTime'         => 'trade_time',
     ];
 
@@ -112,7 +112,6 @@ class CreateInsureRequest extends Model
         Model::validateRequired('deliveryType', $this->deliveryType, true);
         Model::validateRequired('contactName', $this->contactName, true);
         Model::validateRequired('contactMobile', $this->contactMobile, true);
-        Model::validateRequired('logisticsNumber', $this->logisticsNumber, true);
         Model::validateMaxLength('deliveryType', $this->deliveryType, 64);
         Model::validateMaxLength('contactName', $this->contactName, 1024);
         Model::validateMaxLength('contactMobile', $this->contactMobile, 1024);
@@ -159,11 +158,11 @@ class CreateInsureRequest extends Model
         if (null !== $this->contactMobile) {
             $res['contact_mobile'] = $this->contactMobile;
         }
-        if (null !== $this->logisticsNumber) {
-            $res['logistics_number'] = $this->logisticsNumber;
-        }
         if (null !== $this->facevrfFlowId) {
             $res['facevrf_flow_id'] = $this->facevrfFlowId;
+        }
+        if (null !== $this->logisticsNumber) {
+            $res['logistics_number'] = $this->logisticsNumber;
         }
         if (null !== $this->tradeTime) {
             $res['trade_time'] = $this->tradeTime;
@@ -216,11 +215,11 @@ class CreateInsureRequest extends Model
         if (isset($map['contact_mobile'])) {
             $model->contactMobile = $map['contact_mobile'];
         }
-        if (isset($map['logistics_number'])) {
-            $model->logisticsNumber = $map['logistics_number'];
-        }
         if (isset($map['facevrf_flow_id'])) {
             $model->facevrfFlowId = $map['facevrf_flow_id'];
+        }
+        if (isset($map['logistics_number'])) {
+            $model->logisticsNumber = $map['logistics_number'];
         }
         if (isset($map['trade_time'])) {
             $model->tradeTime = $map['trade_time'];

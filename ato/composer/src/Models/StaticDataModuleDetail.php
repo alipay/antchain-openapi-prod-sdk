@@ -23,9 +23,27 @@ class StaticDataModuleDetail extends Model
      * @var string
      */
     public $propertyValue;
+
+    // 叶子结点，目前存的一级类目下的二级类目
+    /**
+     * @example [{"propertyText":"123","propertyValue":"123"}]
+     *
+     * @var string
+     */
+    public $childrenDetailList;
+
+    // 是否有叶子结点
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $hasChildren;
     protected $_name = [
-        'propertyText'  => 'property_text',
-        'propertyValue' => 'property_value',
+        'propertyText'       => 'property_text',
+        'propertyValue'      => 'property_value',
+        'childrenDetailList' => 'children_detail_list',
+        'hasChildren'        => 'has_children',
     ];
 
     public function validate()
@@ -42,6 +60,12 @@ class StaticDataModuleDetail extends Model
         }
         if (null !== $this->propertyValue) {
             $res['property_value'] = $this->propertyValue;
+        }
+        if (null !== $this->childrenDetailList) {
+            $res['children_detail_list'] = $this->childrenDetailList;
+        }
+        if (null !== $this->hasChildren) {
+            $res['has_children'] = $this->hasChildren;
         }
 
         return $res;
@@ -60,6 +84,12 @@ class StaticDataModuleDetail extends Model
         }
         if (isset($map['property_value'])) {
             $model->propertyValue = $map['property_value'];
+        }
+        if (isset($map['children_detail_list'])) {
+            $model->childrenDetailList = $map['children_detail_list'];
+        }
+        if (isset($map['has_children'])) {
+            $model->hasChildren = $map['has_children'];
         }
 
         return $model;

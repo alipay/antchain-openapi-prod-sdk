@@ -42,14 +42,14 @@ class DetailInnerNoticeResponse extends Model
     /**
      * @var string
      */
-    public $noticCreateTime;
+    public $noticeCreateTime;
     protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'title'           => 'title',
-        'content'         => 'content',
-        'noticCreateTime' => 'notic_create_time',
+        'reqMsgId'         => 'req_msg_id',
+        'resultCode'       => 'result_code',
+        'resultMsg'        => 'result_msg',
+        'title'            => 'title',
+        'content'          => 'content',
+        'noticeCreateTime' => 'notice_create_time',
     ];
 
     public function validate()
@@ -74,8 +74,8 @@ class DetailInnerNoticeResponse extends Model
         if (null !== $this->content) {
             $res['content'] = $this->content;
         }
-        if (null !== $this->noticCreateTime) {
-            $res['notic_create_time'] = $this->noticCreateTime;
+        if (null !== $this->noticeCreateTime) {
+            $res['notice_create_time'] = $this->noticeCreateTime;
         }
 
         return $res;
@@ -104,8 +104,8 @@ class DetailInnerNoticeResponse extends Model
         if (isset($map['content'])) {
             $model->content = $map['content'];
         }
-        if (isset($map['notic_create_time'])) {
-            $model->noticCreateTime = $map['notic_create_time'];
+        if (isset($map['notice_create_time'])) {
+            $model->noticeCreateTime = $map['notice_create_time'];
         }
 
         return $model;

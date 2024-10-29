@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class DetailInnerNoticeRequest extends Model
+class DetailInnerOrderRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -25,30 +25,22 @@ class DetailInnerNoticeRequest extends Model
      */
     public $tenantId;
 
-    // 通知id
+    // 订单id
     /**
-     * @var int
+     * @var string
      */
-    public $noticeId;
-
-    // 是否未读
-    /**
-     * @var bool
-     */
-    public $unread;
+    public $orderId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
-        'noticeId'          => 'notice_id',
-        'unread'            => 'unread',
+        'orderId'           => 'order_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('noticeId', $this->noticeId, true);
-        Model::validateRequired('unread', $this->unread, true);
+        Model::validateRequired('orderId', $this->orderId, true);
     }
 
     public function toMap()
@@ -63,11 +55,8 @@ class DetailInnerNoticeRequest extends Model
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->noticeId) {
-            $res['notice_id'] = $this->noticeId;
-        }
-        if (null !== $this->unread) {
-            $res['unread'] = $this->unread;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
 
         return $res;
@@ -76,7 +65,7 @@ class DetailInnerNoticeRequest extends Model
     /**
      * @param array $map
      *
-     * @return DetailInnerNoticeRequest
+     * @return DetailInnerOrderRequest
      */
     public static function fromMap($map = [])
     {
@@ -90,11 +79,8 @@ class DetailInnerNoticeRequest extends Model
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['notice_id'])) {
-            $model->noticeId = $map['notice_id'];
-        }
-        if (isset($map['unread'])) {
-            $model->unread = $map['unread'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
 
         return $model;
