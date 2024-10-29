@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.64',
+                    'sdk_version': '1.9.71',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.9.64',
+                    'sdk_version': '1.9.71',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -4737,6 +4737,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.PagequeryInnerOrderResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.order.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_inner_order(
+        self,
+        request: ato_models.DetailInnerOrderRequest,
+    ) -> ato_models.DetailInnerOrderResponse:
+        """
+        Description: 订单详情
+        Summary: 订单详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_inner_order_ex(request, headers, runtime)
+
+    async def detail_inner_order_async(
+        self,
+        request: ato_models.DetailInnerOrderRequest,
+    ) -> ato_models.DetailInnerOrderResponse:
+        """
+        Description: 订单详情
+        Summary: 订单详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_inner_order_ex_async(request, headers, runtime)
+
+    def detail_inner_order_ex(
+        self,
+        request: ato_models.DetailInnerOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerOrderResponse:
+        """
+        Description: 订单详情
+        Summary: 订单详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerOrderResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.order.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_inner_order_ex_async(
+        self,
+        request: ato_models.DetailInnerOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerOrderResponse:
+        """
+        Description: 订单详情
+        Summary: 订单详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerOrderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.order.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_insure(
