@@ -107,16 +107,51 @@ export class SubRentRiskItem extends $tea.Model {
   }
 }
 
+// 订单还款策略
+export class OrderRepayStrategy extends $tea.Model {
+  // 还款期数
+  termIndex?: number;
+  // 每期应还租金(分)
+  rentalMoney?: number;
+  // 每期应付时间
+  payDay?: string;
+  static names(): { [key: string]: string } {
+    return {
+      termIndex: 'term_index',
+      rentalMoney: 'rental_money',
+      payDay: 'pay_day',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      termIndex: 'number',
+      rentalMoney: 'number',
+      payDay: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 静态数据模块详情
 export class StaticDataModuleDetail extends $tea.Model {
   // 描述
   propertyText: string;
   // 商户类型
   propertyValue: string;
+  // 叶子结点，目前存的一级类目下的二级类目
+  childrenDetailList?: string;
+  // 是否有叶子结点
+  hasChildren?: boolean;
   static names(): { [key: string]: string } {
     return {
       propertyText: 'property_text',
       propertyValue: 'property_value',
+      childrenDetailList: 'children_detail_list',
+      hasChildren: 'has_children',
     };
   }
 
@@ -124,6 +159,8 @@ export class StaticDataModuleDetail extends $tea.Model {
     return {
       propertyText: 'string',
       propertyValue: 'string',
+      childrenDetailList: 'string',
+      hasChildren: 'boolean',
     };
   }
 
@@ -594,13 +631,90 @@ export class OrderMsgInfo extends $tea.Model {
 
 // 主订单信息
 export class OrderInfo extends $tea.Model {
+  // 订单id
+  orderId?: string;
+  // 订单创建时间
+  orderCreateTime?: string;
+  // 订单支付时间
+  orderPayTime?: string;
+  // 租金总额(分)
+  totalRentMoney?: number;
+  // 租期
+  rentTerm?: number;
+  // 租期单位
+  rentUnit?: string;
+  // 订单状态
+  orderStatus?: string;
+  // 订单子状态
+  orderSubStatus?: string;
+  // 免押金额（分）
+  depositPrice?: number;
+  // 到期买断价(分)
+  buyOutPrice?: number;
+  // 物流方案
+  logisticType?: string;
+  // 到期形式
+  // NA(0, "无意义"),
+  // BUYOUT(1, "到期买断或归还"),
+  // FREE_ON_RENT(2, "租满即送"),
+  // RENEW_LEASE(3, "续租"),;
+  dueMode?: number;
+  // 首付款金额(分)
+  downPayment?: number;
   static names(): { [key: string]: string } {
     return {
+      orderId: 'order_id',
+      orderCreateTime: 'order_create_time',
+      orderPayTime: 'order_pay_time',
+      totalRentMoney: 'total_rent_money',
+      rentTerm: 'rent_term',
+      rentUnit: 'rent_unit',
+      orderStatus: 'order_status',
+      orderSubStatus: 'order_sub_status',
+      depositPrice: 'deposit_price',
+      buyOutPrice: 'buy_out_price',
+      logisticType: 'logistic_type',
+      dueMode: 'due_mode',
+      downPayment: 'down_payment',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
+      orderId: 'string',
+      orderCreateTime: 'string',
+      orderPayTime: 'string',
+      totalRentMoney: 'number',
+      rentTerm: 'number',
+      rentUnit: 'string',
+      orderStatus: 'string',
+      orderSubStatus: 'string',
+      depositPrice: 'number',
+      buyOutPrice: 'number',
+      logisticType: 'string',
+      dueMode: 'number',
+      downPayment: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单还款承诺
+export class OrderPromiseInfo extends $tea.Model {
+  // 订单还款策略
+  repayStrategyList?: OrderRepayStrategy[];
+  static names(): { [key: string]: string } {
+    return {
+      repayStrategyList: 'repay_strategy_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      repayStrategyList: { 'type': 'array', 'itemType': OrderRepayStrategy },
     };
   }
 
@@ -716,6 +830,49 @@ export class AuditInfo extends $tea.Model {
       status: 'string',
       applyDateStr: 'string',
       failReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单用户信息
+export class OrderUserInfo extends $tea.Model {
+  // 承租人名称
+  userName?: string;
+  // 承租人手机号
+  userPhoneNumber?: string;
+  // 地址
+  userAddress?: string;
+  // 支付宝账号
+  alipayUid?: string;
+  // 租赁类别
+  // 1:个人用户
+  // 2:企业用户
+  lesseeType?: number;
+  // 承租人身份证
+  userId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      userName: 'user_name',
+      userPhoneNumber: 'user_phone_number',
+      userAddress: 'user_address',
+      alipayUid: 'alipay_uid',
+      lesseeType: 'lessee_type',
+      userId: 'user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      userName: 'string',
+      userPhoneNumber: 'string',
+      userAddress: 'string',
+      alipayUid: 'string',
+      lesseeType: 'number',
+      userId: 'string',
     };
   }
 
@@ -963,6 +1120,43 @@ export class AgreementPage extends $tea.Model {
   }
 }
 
+// 订单履约
+export class OrderFulfillmentInfo extends $tea.Model {
+  // 租期编号
+  leaseTermIndex?: number;
+  // 租期归还状态
+  rentalReturnState?: string;
+  // 实际还款金额(分)
+  realRepayMoney?: number;
+  // 租金(分)
+  rentalMoney?: number;
+  // 每期实付时间
+  returnTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      leaseTermIndex: 'lease_term_index',
+      rentalReturnState: 'rental_return_state',
+      realRepayMoney: 'real_repay_money',
+      rentalMoney: 'rental_money',
+      returnTime: 'return_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      leaseTermIndex: 'number',
+      rentalReturnState: 'string',
+      realRepayMoney: 'number',
+      rentalMoney: 'number',
+      returnTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 风险场景的决策结果
 export class RiskScene extends $tea.Model {
   // 风险场景编码
@@ -1078,6 +1272,35 @@ export class CompanyInfoUpdate extends $tea.Model {
       contactName: 'string',
       contactMobile: 'string',
       merchantType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单商品
+export class OrderProductInfo extends $tea.Model {
+  // 商品编码
+  productId?: string;
+  // 商品名称
+  productName?: string;
+  // 商品数量
+  productNumber?: number;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productName: 'product_name',
+      productNumber: 'product_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productName: 'string',
+      productNumber: 'number',
     };
   }
 
@@ -6926,6 +7149,8 @@ export class GetInnerHomepagenoticeResponse extends $tea.Model {
   title?: string;
   // 未读数量
   unreadCount?: number;
+  // 是否未读
+  unread?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -6934,6 +7159,7 @@ export class GetInnerHomepagenoticeResponse extends $tea.Model {
       noticeId: 'notice_id',
       title: 'title',
       unreadCount: 'unread_count',
+      unread: 'unread',
     };
   }
 
@@ -6945,6 +7171,7 @@ export class GetInnerHomepagenoticeResponse extends $tea.Model {
       noticeId: 'number',
       title: 'string',
       unreadCount: 'number',
+      unread: 'boolean',
     };
   }
 
@@ -7028,12 +7255,15 @@ export class DetailInnerNoticeRequest extends $tea.Model {
   tenantId: string;
   // 通知id
   noticeId: number;
+  // 是否未读
+  unread: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       tenantId: 'tenant_id',
       noticeId: 'notice_id',
+      unread: 'unread',
     };
   }
 
@@ -7043,6 +7273,7 @@ export class DetailInnerNoticeRequest extends $tea.Model {
       productInstanceId: 'string',
       tenantId: 'string',
       noticeId: 'number',
+      unread: 'boolean',
     };
   }
 
@@ -7063,7 +7294,7 @@ export class DetailInnerNoticeResponse extends $tea.Model {
   // 通知内容
   content?: string;
   // 通知创建时间
-  noticCreateTime?: string;
+  noticeCreateTime?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7071,7 +7302,7 @@ export class DetailInnerNoticeResponse extends $tea.Model {
       resultMsg: 'result_msg',
       title: 'title',
       content: 'content',
-      noticCreateTime: 'notic_create_time',
+      noticeCreateTime: 'notice_create_time',
     };
   }
 
@@ -7082,7 +7313,7 @@ export class DetailInnerNoticeResponse extends $tea.Model {
       resultMsg: 'string',
       title: 'string',
       content: 'string',
-      noticCreateTime: 'string',
+      noticeCreateTime: 'string',
     };
   }
 
@@ -7178,6 +7409,97 @@ export class PagequeryInnerOrderResponse extends $tea.Model {
   }
 }
 
+export class DetailInnerOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户租户id
+  tenantId: string;
+  // 订单id
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailInnerOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单id
+  orderId?: string;
+  // 支付宝代扣协议号
+  agreementNo?: string;
+  // 商品总数量
+  productTotalCount?: number;
+  // 订单基础信息
+  orderInfo?: OrderInfo;
+  // 用户信息
+  orderUserInfo?: OrderUserInfo;
+  // 订单履约
+  orderFulfillmentInfoList?: OrderFulfillmentInfo[];
+  // 订单还款承诺
+  orderPromiseInfo?: OrderPromiseInfo;
+  // 订单商品信息
+  orderProductInfoList?: OrderProductInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      agreementNo: 'agreement_no',
+      productTotalCount: 'product_total_count',
+      orderInfo: 'order_info',
+      orderUserInfo: 'order_user_info',
+      orderFulfillmentInfoList: 'order_fulfillment_info_list',
+      orderPromiseInfo: 'order_promise_info',
+      orderProductInfoList: 'order_product_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      agreementNo: 'string',
+      productTotalCount: 'number',
+      orderInfo: OrderInfo,
+      orderUserInfo: OrderUserInfo,
+      orderFulfillmentInfoList: { 'type': 'array', 'itemType': OrderFulfillmentInfo },
+      orderPromiseInfo: OrderPromiseInfo,
+      orderProductInfoList: { 'type': 'array', 'itemType': OrderProductInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateInsureRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -7200,10 +7522,10 @@ export class CreateInsureRequest extends $tea.Model {
   contactName: string;
   // 公司联系人手机号，RSA 加密传输
   contactMobile: string;
-  // 物流单号
-  logisticsNumber: string;
   // 实人认证业务流水号
   facevrfFlowId?: string;
+  // 物流单号，非必填参数。如果选择的物流发货方式为 EXPRESS（物流发货），则该字段必填。
+  logisticsNumber?: string;
   // 交易时间，非必填参数。如果发货方式为 OFFLINE（线下交易），则该字段必填。
   tradeTime?: string;
   static names(): { [key: string]: string } {
@@ -7218,8 +7540,8 @@ export class CreateInsureRequest extends $tea.Model {
       deliveryType: 'delivery_type',
       contactName: 'contact_name',
       contactMobile: 'contact_mobile',
-      logisticsNumber: 'logistics_number',
       facevrfFlowId: 'facevrf_flow_id',
+      logisticsNumber: 'logistics_number',
       tradeTime: 'trade_time',
     };
   }
@@ -7236,8 +7558,8 @@ export class CreateInsureRequest extends $tea.Model {
       deliveryType: 'string',
       contactName: 'string',
       contactMobile: 'string',
-      logisticsNumber: 'string',
       facevrfFlowId: 'string',
+      logisticsNumber: 'string',
       tradeTime: 'string',
     };
   }
@@ -7254,17 +7576,11 @@ export class CreateInsureResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 创建结果，true 表示创建成功
-  result?: boolean;
-  // 创建操作描述信息
-  msg?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      result: 'result',
-      msg: 'msg',
     };
   }
 
@@ -7273,8 +7589,6 @@ export class CreateInsureResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      result: 'boolean',
-      msg: 'string',
     };
   }
 
@@ -10880,7 +11194,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.64",
+          sdk_version: "1.9.71",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -12451,6 +12765,25 @@ export default class Client {
   async pagequeryInnerOrderEx(request: PagequeryInnerOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryInnerOrderResponse> {
     Util.validateModel(request);
     return $tea.cast<PagequeryInnerOrderResponse>(await this.doRequest("1.0", "antchain.ato.inner.order.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryInnerOrderResponse({}));
+  }
+
+  /**
+   * Description: 订单详情
+   * Summary: 订单详情
+   */
+  async detailInnerOrder(request: DetailInnerOrderRequest): Promise<DetailInnerOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailInnerOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 订单详情
+   * Summary: 订单详情
+   */
+  async detailInnerOrderEx(request: DetailInnerOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailInnerOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailInnerOrderResponse>(await this.doRequest("1.0", "antchain.ato.inner.order.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailInnerOrderResponse({}));
   }
 
   /**
