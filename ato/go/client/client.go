@@ -182,12 +182,49 @@ func (s *SubRentRiskItem) SetRiskDesc(v string) *SubRentRiskItem {
 	return s
 }
 
+// 订单还款策略
+type OrderRepayStrategy struct {
+	// 还款期数
+	TermIndex *int64 `json:"term_index,omitempty" xml:"term_index,omitempty"`
+	// 每期应还租金(分)
+	RentalMoney *int64 `json:"rental_money,omitempty" xml:"rental_money,omitempty"`
+	// 每期应付时间
+	PayDay *string `json:"pay_day,omitempty" xml:"pay_day,omitempty"`
+}
+
+func (s OrderRepayStrategy) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderRepayStrategy) GoString() string {
+	return s.String()
+}
+
+func (s *OrderRepayStrategy) SetTermIndex(v int64) *OrderRepayStrategy {
+	s.TermIndex = &v
+	return s
+}
+
+func (s *OrderRepayStrategy) SetRentalMoney(v int64) *OrderRepayStrategy {
+	s.RentalMoney = &v
+	return s
+}
+
+func (s *OrderRepayStrategy) SetPayDay(v string) *OrderRepayStrategy {
+	s.PayDay = &v
+	return s
+}
+
 // 静态数据模块详情
 type StaticDataModuleDetail struct {
 	// 描述
 	PropertyText *string `json:"property_text,omitempty" xml:"property_text,omitempty" require:"true"`
 	// 商户类型
 	PropertyValue *string `json:"property_value,omitempty" xml:"property_value,omitempty" require:"true"`
+	// 叶子结点，目前存的一级类目下的二级类目
+	ChildrenDetailList *string `json:"children_detail_list,omitempty" xml:"children_detail_list,omitempty"`
+	// 是否有叶子结点
+	HasChildren *bool `json:"has_children,omitempty" xml:"has_children,omitempty"`
 }
 
 func (s StaticDataModuleDetail) String() string {
@@ -205,6 +242,16 @@ func (s *StaticDataModuleDetail) SetPropertyText(v string) *StaticDataModuleDeta
 
 func (s *StaticDataModuleDetail) SetPropertyValue(v string) *StaticDataModuleDetail {
 	s.PropertyValue = &v
+	return s
+}
+
+func (s *StaticDataModuleDetail) SetChildrenDetailList(v string) *StaticDataModuleDetail {
+	s.ChildrenDetailList = &v
+	return s
+}
+
+func (s *StaticDataModuleDetail) SetHasChildren(v bool) *StaticDataModuleDetail {
+	s.HasChildren = &v
 	return s
 }
 
@@ -541,9 +588,9 @@ type InsureOrderInfo struct {
 	// 商品名称
 	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
 	// 保险开始时间
-	InsureStartTime *string `json:"insure_start_time,omitempty" xml:"insure_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	InsureStartTime *string `json:"insure_start_time,omitempty" xml:"insure_start_time,omitempty"`
 	// 保险终止时间
-	InsureEndTime *string `json:"insure_end_time,omitempty" xml:"insure_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	InsureEndTime *string `json:"insure_end_time,omitempty" xml:"insure_end_time,omitempty"`
 	// 投保金额（保额），单位分 100代表1元
 	InsureAmount *int64 `json:"insure_amount,omitempty" xml:"insure_amount,omitempty"`
 	// 投保费用（保费），单位分 100代表1元
@@ -796,6 +843,36 @@ func (s *OrderMsgInfo) SetNewMsgCallbackUrl(v string) *OrderMsgInfo {
 
 // 主订单信息
 type OrderInfo struct {
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 订单创建时间
+	OrderCreateTime *string `json:"order_create_time,omitempty" xml:"order_create_time,omitempty"`
+	// 订单支付时间
+	OrderPayTime *string `json:"order_pay_time,omitempty" xml:"order_pay_time,omitempty"`
+	// 租金总额(分)
+	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty"`
+	// 租期
+	RentTerm *int64 `json:"rent_term,omitempty" xml:"rent_term,omitempty"`
+	// 租期单位
+	RentUnit *string `json:"rent_unit,omitempty" xml:"rent_unit,omitempty"`
+	// 订单状态
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty"`
+	// 订单子状态
+	OrderSubStatus *string `json:"order_sub_status,omitempty" xml:"order_sub_status,omitempty"`
+	// 免押金额（分）
+	DepositPrice *int64 `json:"deposit_price,omitempty" xml:"deposit_price,omitempty"`
+	// 到期买断价(分)
+	BuyOutPrice *int64 `json:"buy_out_price,omitempty" xml:"buy_out_price,omitempty"`
+	// 物流方案
+	LogisticType *string `json:"logistic_type,omitempty" xml:"logistic_type,omitempty"`
+	// 到期形式
+	// NA(0, "无意义"),
+	// BUYOUT(1, "到期买断或归还"),
+	// FREE_ON_RENT(2, "租满即送"),
+	// RENEW_LEASE(3, "续租"),;
+	DueMode *int64 `json:"due_mode,omitempty" xml:"due_mode,omitempty"`
+	// 首付款金额(分)
+	DownPayment *int64 `json:"down_payment,omitempty" xml:"down_payment,omitempty"`
 }
 
 func (s OrderInfo) String() string {
@@ -804,6 +881,90 @@ func (s OrderInfo) String() string {
 
 func (s OrderInfo) GoString() string {
 	return s.String()
+}
+
+func (s *OrderInfo) SetOrderId(v string) *OrderInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *OrderInfo) SetOrderCreateTime(v string) *OrderInfo {
+	s.OrderCreateTime = &v
+	return s
+}
+
+func (s *OrderInfo) SetOrderPayTime(v string) *OrderInfo {
+	s.OrderPayTime = &v
+	return s
+}
+
+func (s *OrderInfo) SetTotalRentMoney(v int64) *OrderInfo {
+	s.TotalRentMoney = &v
+	return s
+}
+
+func (s *OrderInfo) SetRentTerm(v int64) *OrderInfo {
+	s.RentTerm = &v
+	return s
+}
+
+func (s *OrderInfo) SetRentUnit(v string) *OrderInfo {
+	s.RentUnit = &v
+	return s
+}
+
+func (s *OrderInfo) SetOrderStatus(v string) *OrderInfo {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *OrderInfo) SetOrderSubStatus(v string) *OrderInfo {
+	s.OrderSubStatus = &v
+	return s
+}
+
+func (s *OrderInfo) SetDepositPrice(v int64) *OrderInfo {
+	s.DepositPrice = &v
+	return s
+}
+
+func (s *OrderInfo) SetBuyOutPrice(v int64) *OrderInfo {
+	s.BuyOutPrice = &v
+	return s
+}
+
+func (s *OrderInfo) SetLogisticType(v string) *OrderInfo {
+	s.LogisticType = &v
+	return s
+}
+
+func (s *OrderInfo) SetDueMode(v int64) *OrderInfo {
+	s.DueMode = &v
+	return s
+}
+
+func (s *OrderInfo) SetDownPayment(v int64) *OrderInfo {
+	s.DownPayment = &v
+	return s
+}
+
+// 订单还款承诺
+type OrderPromiseInfo struct {
+	// 订单还款策略
+	RepayStrategyList []*OrderRepayStrategy `json:"repay_strategy_list,omitempty" xml:"repay_strategy_list,omitempty" type:"Repeated"`
+}
+
+func (s OrderPromiseInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderPromiseInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderPromiseInfo) SetRepayStrategyList(v []*OrderRepayStrategy) *OrderPromiseInfo {
+	s.RepayStrategyList = v
+	return s
 }
 
 // 通知信息
@@ -951,6 +1112,62 @@ func (s *AuditInfo) SetApplyDateStr(v string) *AuditInfo {
 
 func (s *AuditInfo) SetFailReason(v string) *AuditInfo {
 	s.FailReason = &v
+	return s
+}
+
+// 订单用户信息
+type OrderUserInfo struct {
+	// 承租人名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 承租人手机号
+	UserPhoneNumber *string `json:"user_phone_number,omitempty" xml:"user_phone_number,omitempty"`
+	// 地址
+	UserAddress *string `json:"user_address,omitempty" xml:"user_address,omitempty"`
+	// 支付宝账号
+	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty"`
+	// 租赁类别
+	// 1:个人用户
+	// 2:企业用户
+	LesseeType *int64 `json:"lessee_type,omitempty" xml:"lessee_type,omitempty"`
+	// 承租人身份证
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+}
+
+func (s OrderUserInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderUserInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderUserInfo) SetUserName(v string) *OrderUserInfo {
+	s.UserName = &v
+	return s
+}
+
+func (s *OrderUserInfo) SetUserPhoneNumber(v string) *OrderUserInfo {
+	s.UserPhoneNumber = &v
+	return s
+}
+
+func (s *OrderUserInfo) SetUserAddress(v string) *OrderUserInfo {
+	s.UserAddress = &v
+	return s
+}
+
+func (s *OrderUserInfo) SetAlipayUid(v string) *OrderUserInfo {
+	s.AlipayUid = &v
+	return s
+}
+
+func (s *OrderUserInfo) SetLesseeType(v int64) *OrderUserInfo {
+	s.LesseeType = &v
+	return s
+}
+
+func (s *OrderUserInfo) SetUserId(v string) *OrderUserInfo {
+	s.UserId = &v
 	return s
 }
 
@@ -1248,6 +1465,53 @@ func (s *AgreementPage) SetSignStatus(v string) *AgreementPage {
 	return s
 }
 
+// 订单履约
+type OrderFulfillmentInfo struct {
+	// 租期编号
+	LeaseTermIndex *int64 `json:"lease_term_index,omitempty" xml:"lease_term_index,omitempty"`
+	// 租期归还状态
+	RentalReturnState *string `json:"rental_return_state,omitempty" xml:"rental_return_state,omitempty"`
+	// 实际还款金额(分)
+	RealRepayMoney *int64 `json:"real_repay_money,omitempty" xml:"real_repay_money,omitempty"`
+	// 租金(分)
+	RentalMoney *int64 `json:"rental_money,omitempty" xml:"rental_money,omitempty"`
+	// 每期实付时间
+	ReturnTime *string `json:"return_time,omitempty" xml:"return_time,omitempty"`
+}
+
+func (s OrderFulfillmentInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderFulfillmentInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderFulfillmentInfo) SetLeaseTermIndex(v int64) *OrderFulfillmentInfo {
+	s.LeaseTermIndex = &v
+	return s
+}
+
+func (s *OrderFulfillmentInfo) SetRentalReturnState(v string) *OrderFulfillmentInfo {
+	s.RentalReturnState = &v
+	return s
+}
+
+func (s *OrderFulfillmentInfo) SetRealRepayMoney(v int64) *OrderFulfillmentInfo {
+	s.RealRepayMoney = &v
+	return s
+}
+
+func (s *OrderFulfillmentInfo) SetRentalMoney(v int64) *OrderFulfillmentInfo {
+	s.RentalMoney = &v
+	return s
+}
+
+func (s *OrderFulfillmentInfo) SetReturnTime(v string) *OrderFulfillmentInfo {
+	s.ReturnTime = &v
+	return s
+}
+
 // 风险场景的决策结果
 type RiskScene struct {
 	// 风险场景编码
@@ -1407,6 +1671,39 @@ func (s *CompanyInfoUpdate) SetContactMobile(v string) *CompanyInfoUpdate {
 
 func (s *CompanyInfoUpdate) SetMerchantType(v string) *CompanyInfoUpdate {
 	s.MerchantType = &v
+	return s
+}
+
+// 订单商品
+type OrderProductInfo struct {
+	// 商品编码
+	ProductId *string `json:"product_id,omitempty" xml:"product_id,omitempty"`
+	// 商品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 商品数量
+	ProductNumber *int64 `json:"product_number,omitempty" xml:"product_number,omitempty"`
+}
+
+func (s OrderProductInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderProductInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderProductInfo) SetProductId(v string) *OrderProductInfo {
+	s.ProductId = &v
+	return s
+}
+
+func (s *OrderProductInfo) SetProductName(v string) *OrderProductInfo {
+	s.ProductName = &v
+	return s
+}
+
+func (s *OrderProductInfo) SetProductNumber(v int64) *OrderProductInfo {
+	s.ProductNumber = &v
 	return s
 }
 
@@ -8917,6 +9214,8 @@ type GetInnerHomepagenoticeResponse struct {
 	Title *string `json:"title,omitempty" xml:"title,omitempty"`
 	// 未读数量
 	UnreadCount *int64 `json:"unread_count,omitempty" xml:"unread_count,omitempty"`
+	// 是否未读
+	Unread *bool `json:"unread,omitempty" xml:"unread,omitempty"`
 }
 
 func (s GetInnerHomepagenoticeResponse) String() string {
@@ -8954,6 +9253,11 @@ func (s *GetInnerHomepagenoticeResponse) SetTitle(v string) *GetInnerHomepagenot
 
 func (s *GetInnerHomepagenoticeResponse) SetUnreadCount(v int64) *GetInnerHomepagenoticeResponse {
 	s.UnreadCount = &v
+	return s
+}
+
+func (s *GetInnerHomepagenoticeResponse) SetUnread(v bool) *GetInnerHomepagenoticeResponse {
+	s.Unread = &v
 	return s
 }
 
@@ -9049,6 +9353,8 @@ type DetailInnerNoticeRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 通知id
 	NoticeId *int64 `json:"notice_id,omitempty" xml:"notice_id,omitempty" require:"true"`
+	// 是否未读
+	Unread *bool `json:"unread,omitempty" xml:"unread,omitempty" require:"true"`
 }
 
 func (s DetailInnerNoticeRequest) String() string {
@@ -9079,6 +9385,11 @@ func (s *DetailInnerNoticeRequest) SetNoticeId(v int64) *DetailInnerNoticeReques
 	return s
 }
 
+func (s *DetailInnerNoticeRequest) SetUnread(v bool) *DetailInnerNoticeRequest {
+	s.Unread = &v
+	return s
+}
+
 type DetailInnerNoticeResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -9091,7 +9402,7 @@ type DetailInnerNoticeResponse struct {
 	// 通知内容
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
 	// 通知创建时间
-	NoticCreateTime *string `json:"notic_create_time,omitempty" xml:"notic_create_time,omitempty"`
+	NoticeCreateTime *string `json:"notice_create_time,omitempty" xml:"notice_create_time,omitempty"`
 }
 
 func (s DetailInnerNoticeResponse) String() string {
@@ -9127,8 +9438,8 @@ func (s *DetailInnerNoticeResponse) SetContent(v string) *DetailInnerNoticeRespo
 	return s
 }
 
-func (s *DetailInnerNoticeResponse) SetNoticCreateTime(v string) *DetailInnerNoticeResponse {
-	s.NoticCreateTime = &v
+func (s *DetailInnerNoticeResponse) SetNoticeCreateTime(v string) *DetailInnerNoticeResponse {
+	s.NoticeCreateTime = &v
 	return s
 }
 
@@ -9251,6 +9562,132 @@ func (s *PagequeryInnerOrderResponse) SetTotal(v int64) *PagequeryInnerOrderResp
 	return s
 }
 
+type DetailInnerOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s DetailInnerOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailInnerOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailInnerOrderRequest) SetAuthToken(v string) *DetailInnerOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailInnerOrderRequest) SetProductInstanceId(v string) *DetailInnerOrderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailInnerOrderRequest) SetTenantId(v string) *DetailInnerOrderRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *DetailInnerOrderRequest) SetOrderId(v string) *DetailInnerOrderRequest {
+	s.OrderId = &v
+	return s
+}
+
+type DetailInnerOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 支付宝代扣协议号
+	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty"`
+	// 商品总数量
+	ProductTotalCount *int64 `json:"product_total_count,omitempty" xml:"product_total_count,omitempty"`
+	// 订单基础信息
+	OrderInfo *OrderInfo `json:"order_info,omitempty" xml:"order_info,omitempty"`
+	// 用户信息
+	OrderUserInfo *OrderUserInfo `json:"order_user_info,omitempty" xml:"order_user_info,omitempty"`
+	// 订单履约
+	OrderFulfillmentInfoList []*OrderFulfillmentInfo `json:"order_fulfillment_info_list,omitempty" xml:"order_fulfillment_info_list,omitempty" type:"Repeated"`
+	// 订单还款承诺
+	OrderPromiseInfo *OrderPromiseInfo `json:"order_promise_info,omitempty" xml:"order_promise_info,omitempty"`
+	// 订单商品信息
+	OrderProductInfoList []*OrderProductInfo `json:"order_product_info_list,omitempty" xml:"order_product_info_list,omitempty" type:"Repeated"`
+}
+
+func (s DetailInnerOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailInnerOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailInnerOrderResponse) SetReqMsgId(v string) *DetailInnerOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetResultCode(v string) *DetailInnerOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetResultMsg(v string) *DetailInnerOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetOrderId(v string) *DetailInnerOrderResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetAgreementNo(v string) *DetailInnerOrderResponse {
+	s.AgreementNo = &v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetProductTotalCount(v int64) *DetailInnerOrderResponse {
+	s.ProductTotalCount = &v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetOrderInfo(v *OrderInfo) *DetailInnerOrderResponse {
+	s.OrderInfo = v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetOrderUserInfo(v *OrderUserInfo) *DetailInnerOrderResponse {
+	s.OrderUserInfo = v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetOrderFulfillmentInfoList(v []*OrderFulfillmentInfo) *DetailInnerOrderResponse {
+	s.OrderFulfillmentInfoList = v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetOrderPromiseInfo(v *OrderPromiseInfo) *DetailInnerOrderResponse {
+	s.OrderPromiseInfo = v
+	return s
+}
+
+func (s *DetailInnerOrderResponse) SetOrderProductInfoList(v []*OrderProductInfo) *DetailInnerOrderResponse {
+	s.OrderProductInfoList = v
+	return s
+}
+
 type CreateInsureRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -9273,10 +9710,10 @@ type CreateInsureRequest struct {
 	ContactName *string `json:"contact_name,omitempty" xml:"contact_name,omitempty" require:"true" maxLength:"1024"`
 	// 公司联系人手机号，RSA 加密传输
 	ContactMobile *string `json:"contact_mobile,omitempty" xml:"contact_mobile,omitempty" require:"true" maxLength:"1024"`
-	// 物流单号
-	LogisticsNumber *string `json:"logistics_number,omitempty" xml:"logistics_number,omitempty" require:"true" maxLength:"64"`
 	// 实人认证业务流水号
 	FacevrfFlowId *string `json:"facevrf_flow_id,omitempty" xml:"facevrf_flow_id,omitempty"`
+	// 物流单号，非必填参数。如果选择的物流发货方式为 EXPRESS（物流发货），则该字段必填。
+	LogisticsNumber *string `json:"logistics_number,omitempty" xml:"logistics_number,omitempty" maxLength:"64"`
 	// 交易时间，非必填参数。如果发货方式为 OFFLINE（线下交易），则该字段必填。
 	TradeTime *string `json:"trade_time,omitempty" xml:"trade_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 }
@@ -9339,13 +9776,13 @@ func (s *CreateInsureRequest) SetContactMobile(v string) *CreateInsureRequest {
 	return s
 }
 
-func (s *CreateInsureRequest) SetLogisticsNumber(v string) *CreateInsureRequest {
-	s.LogisticsNumber = &v
+func (s *CreateInsureRequest) SetFacevrfFlowId(v string) *CreateInsureRequest {
+	s.FacevrfFlowId = &v
 	return s
 }
 
-func (s *CreateInsureRequest) SetFacevrfFlowId(v string) *CreateInsureRequest {
-	s.FacevrfFlowId = &v
+func (s *CreateInsureRequest) SetLogisticsNumber(v string) *CreateInsureRequest {
+	s.LogisticsNumber = &v
 	return s
 }
 
@@ -9361,10 +9798,6 @@ type CreateInsureResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 创建结果，true 表示创建成功
-	Result *bool `json:"result,omitempty" xml:"result,omitempty"`
-	// 创建操作描述信息
-	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
 }
 
 func (s CreateInsureResponse) String() string {
@@ -9387,16 +9820,6 @@ func (s *CreateInsureResponse) SetResultCode(v string) *CreateInsureResponse {
 
 func (s *CreateInsureResponse) SetResultMsg(v string) *CreateInsureResponse {
 	s.ResultMsg = &v
-	return s
-}
-
-func (s *CreateInsureResponse) SetResult(v bool) *CreateInsureResponse {
-	s.Result = &v
-	return s
-}
-
-func (s *CreateInsureResponse) SetMsg(v string) *CreateInsureResponse {
-	s.Msg = &v
 	return s
 }
 
@@ -14088,7 +14511,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.9.64"),
+				"sdk_version":      tea.String("1.9.71"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -16857,6 +17280,40 @@ func (client *Client) PagequeryInnerOrderEx(request *PagequeryInnerOrderRequest,
 	}
 	_result = &PagequeryInnerOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.order.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 订单详情
+ * Summary: 订单详情
+ */
+func (client *Client) DetailInnerOrder(request *DetailInnerOrderRequest) (_result *DetailInnerOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailInnerOrderResponse{}
+	_body, _err := client.DetailInnerOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 订单详情
+ * Summary: 订单详情
+ */
+func (client *Client) DetailInnerOrderEx(request *DetailInnerOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailInnerOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailInnerOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.order.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
