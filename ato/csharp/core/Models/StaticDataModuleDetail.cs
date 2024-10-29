@@ -20,6 +20,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string PropertyValue { get; set; }
 
+        // 叶子结点，目前存的一级类目下的二级类目
+        [NameInMap("children_detail_list")]
+        [Validation(Required=false)]
+        public string ChildrenDetailList { get; set; }
+
+        // 是否有叶子结点
+        [NameInMap("has_children")]
+        [Validation(Required=false)]
+        public bool? HasChildren { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class DetailInnerNoticeRequest : TeaModel {
+    public class DetailInnerOrderRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -23,15 +23,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
-        // 通知id
-        [NameInMap("notice_id")]
+        // 订单id
+        [NameInMap("order_id")]
         [Validation(Required=true)]
-        public long? NoticeId { get; set; }
-
-        // 是否未读
-        [NameInMap("unread")]
-        [Validation(Required=true)]
-        public bool? Unread { get; set; }
+        public string OrderId { get; set; }
 
     }
 

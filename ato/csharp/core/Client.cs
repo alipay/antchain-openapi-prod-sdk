@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.64"},
+                        {"sdk_version", "1.9.71"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.64"},
+                        {"sdk_version", "1.9.71"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3689,6 +3689,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PagequeryInnerOrderResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.order.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单详情
+         * Summary: 订单详情
+         */
+        public DetailInnerOrderResponse DetailInnerOrder(DetailInnerOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailInnerOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单详情
+         * Summary: 订单详情
+         */
+        public async Task<DetailInnerOrderResponse> DetailInnerOrderAsync(DetailInnerOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailInnerOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单详情
+         * Summary: 订单详情
+         */
+        public DetailInnerOrderResponse DetailInnerOrderEx(DetailInnerOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailInnerOrderResponse>(DoRequest("1.0", "antchain.ato.inner.order.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单详情
+         * Summary: 订单详情
+         */
+        public async Task<DetailInnerOrderResponse> DetailInnerOrderExAsync(DetailInnerOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailInnerOrderResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.order.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

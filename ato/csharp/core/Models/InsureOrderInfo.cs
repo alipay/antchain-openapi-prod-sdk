@@ -27,12 +27,12 @@ namespace AntChain.SDK.ATO.Models
 
         // 保险开始时间
         [NameInMap("insure_start_time")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string InsureStartTime { get; set; }
 
         // 保险终止时间
         [NameInMap("insure_end_time")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string InsureEndTime { get; set; }
 
         // 投保金额（保额），单位分 100代表1元

@@ -24,16 +24,6 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 创建结果，true 表示创建成功
-        [NameInMap("result")]
-        [Validation(Required=false)]
-        public bool? Result { get; set; }
-
-        // 创建操作描述信息
-        [NameInMap("msg")]
-        [Validation(Required=false)]
-        public string Msg { get; set; }
-
     }
 
 }

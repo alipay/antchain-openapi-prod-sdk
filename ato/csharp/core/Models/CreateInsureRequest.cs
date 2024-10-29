@@ -60,15 +60,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true, MaxLength=1024)]
         public string ContactMobile { get; set; }
 
-        // 物流单号
-        [NameInMap("logistics_number")]
-        [Validation(Required=true, MaxLength=64)]
-        public string LogisticsNumber { get; set; }
-
         // 实人认证业务流水号
         [NameInMap("facevrf_flow_id")]
         [Validation(Required=false)]
         public string FacevrfFlowId { get; set; }
+
+        // 物流单号，非必填参数。如果选择的物流发货方式为 EXPRESS（物流发货），则该字段必填。
+        [NameInMap("logistics_number")]
+        [Validation(Required=false, MaxLength=64)]
+        public string LogisticsNumber { get; set; }
 
         // 交易时间，非必填参数。如果发货方式为 OFFLINE（线下交易），则该字段必填。
         [NameInMap("trade_time")]

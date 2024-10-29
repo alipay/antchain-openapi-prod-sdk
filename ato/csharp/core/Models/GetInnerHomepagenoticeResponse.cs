@@ -39,6 +39,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public long? UnreadCount { get; set; }
 
+        // 是否未读
+        [NameInMap("unread")]
+        [Validation(Required=false)]
+        public bool? Unread { get; set; }
+
     }
 
 }

@@ -35,9 +35,9 @@ namespace AntChain.SDK.ATO.Models
         public string Content { get; set; }
 
         // 通知创建时间
-        [NameInMap("notic_create_time")]
+        [NameInMap("notice_create_time")]
         [Validation(Required=false)]
-        public string NoticCreateTime { get; set; }
+        public string NoticeCreateTime { get; set; }
 
     }
 
