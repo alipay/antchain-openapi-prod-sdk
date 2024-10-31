@@ -1446,6 +1446,7 @@ class EducationTagInfo(TeaModel):
         admission_date: str = None,
         school_type: str = None,
         education_type_code: str = None,
+        school_name: str = None,
     ):
         # 专业名称
         self.major = major
@@ -1462,6 +1463,8 @@ class EducationTagInfo(TeaModel):
         self.school_type = school_type
         # 学习形式字典code
         self.education_type_code = education_type_code
+        # 学校名称
+        self.school_name = school_name
 
     def validate(self):
         pass
@@ -1486,6 +1489,8 @@ class EducationTagInfo(TeaModel):
             result['school_type'] = self.school_type
         if self.education_type_code is not None:
             result['education_type_code'] = self.education_type_code
+        if self.school_name is not None:
+            result['school_name'] = self.school_name
         return result
 
     def from_map(self, m: dict = None):
@@ -1504,6 +1509,8 @@ class EducationTagInfo(TeaModel):
             self.school_type = m.get('school_type')
         if m.get('education_type_code') is not None:
             self.education_type_code = m.get('education_type_code')
+        if m.get('school_name') is not None:
+            self.school_name = m.get('school_name')
         return self
 
 
@@ -3863,7 +3870,6 @@ class QueryDetailcarinfoPesonandlicRequest(TeaModel):
         self.validate_required(self.user_authed, 'user_authed')
         self.validate_required(self.file_index, 'file_index')
         self.validate_required(self.user_name, 'user_name')
-        self.validate_required(self.user_cert_no, 'user_cert_no')
         self.validate_required(self.license_no, 'license_no')
 
     def to_map(self):
@@ -4247,6 +4253,8 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
         params: str = None,
         user_authed: bool = None,
         data_set_id: str = None,
+        token: str = None,
+        scene_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4259,6 +4267,10 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
         self.user_authed = user_authed
         # 数据集服务id
         self.data_set_id = data_set_id
+        # 授权token
+        self.token = token
+        # token授权场景码
+        self.scene_code = scene_code
 
     def validate(self):
         self.validate_required(self.params, 'params')
@@ -4282,6 +4294,10 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
             result['user_authed'] = self.user_authed
         if self.data_set_id is not None:
             result['data_set_id'] = self.data_set_id
+        if self.token is not None:
+            result['token'] = self.token
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
         return result
 
     def from_map(self, m: dict = None):
@@ -4298,6 +4314,10 @@ class QueryApplicationUnifiedentranceRequest(TeaModel):
             self.user_authed = m.get('user_authed')
         if m.get('data_set_id') is not None:
             self.data_set_id = m.get('data_set_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
         return self
 
 
@@ -5096,6 +5116,352 @@ class GetApplicationFileentranceResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('url') is not None:
             self.url = m.get('url')
+        return self
+
+
+class InitUnifiedentranceAsyncRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_index: str = None,
+        params: str = None,
+        user_authed: str = None,
+        data_set_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权协议索引
+        self.file_index = file_index
+        # 整个需求的入参，map json
+        self.params = params
+        # 是否授权
+        self.user_authed = user_authed
+        # 数据集服务id
+        self.data_set_id = data_set_id
+
+    def validate(self):
+        self.validate_required(self.params, 'params')
+        self.validate_required(self.data_set_id, 'data_set_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_index is not None:
+            result['file_index'] = self.file_index
+        if self.params is not None:
+            result['params'] = self.params
+        if self.user_authed is not None:
+            result['user_authed'] = self.user_authed
+        if self.data_set_id is not None:
+            result['data_set_id'] = self.data_set_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_index') is not None:
+            self.file_index = m.get('file_index')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        if m.get('user_authed') is not None:
+            self.user_authed = m.get('user_authed')
+        if m.get('data_set_id') is not None:
+            self.data_set_id = m.get('data_set_id')
+        return self
+
+
+class InitUnifiedentranceAsyncResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 具体返回，map json
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class QueryUnifiedentranceAsyncRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        params: str = None,
+        data_set_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 整个需求的入参，map json
+        self.params = params
+        # 数据集服务id
+        self.data_set_id = data_set_id
+
+    def validate(self):
+        self.validate_required(self.params, 'params')
+        self.validate_required(self.data_set_id, 'data_set_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.params is not None:
+            result['params'] = self.params
+        if self.data_set_id is not None:
+            result['data_set_id'] = self.data_set_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        if m.get('data_set_id') is not None:
+            self.data_set_id = m.get('data_set_id')
+        return self
+
+
+class QueryUnifiedentranceAsyncResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 具体返回，map json
+        # 
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class QueryMainsiteUnifiedentranceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_index: str = None,
+        params: str = None,
+        user_authed: bool = None,
+        data_set_id: str = None,
+        token: str = None,
+        scene_code: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 授权协议索引
+        self.file_index = file_index
+        # 整个需求的入参，map json
+        self.params = params
+        # 是否授权
+        self.user_authed = user_authed
+        # 数据集服务id
+        self.data_set_id = data_set_id
+        # 
+        # 授权token
+        self.token = token
+        # token授权场景码
+        self.scene_code = scene_code
+        # 实际调用的租户ID
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.params, 'params')
+        self.validate_required(self.data_set_id, 'data_set_id')
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_index is not None:
+            result['file_index'] = self.file_index
+        if self.params is not None:
+            result['params'] = self.params
+        if self.user_authed is not None:
+            result['user_authed'] = self.user_authed
+        if self.data_set_id is not None:
+            result['data_set_id'] = self.data_set_id
+        if self.token is not None:
+            result['token'] = self.token
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_index') is not None:
+            self.file_index = m.get('file_index')
+        if m.get('params') is not None:
+            self.params = m.get('params')
+        if m.get('user_authed') is not None:
+            self.user_authed = m.get('user_authed')
+        if m.get('data_set_id') is not None:
+            self.data_set_id = m.get('data_set_id')
+        if m.get('token') is not None:
+            self.token = m.get('token')
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryMainsiteUnifiedentranceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 具体返回，map json
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
         return self
 
 

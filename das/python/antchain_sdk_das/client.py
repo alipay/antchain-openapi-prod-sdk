@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.58',
+                    'sdk_version': '1.1.65',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.58',
+                    'sdk_version': '1.1.65',
                     '_prod_code': 'DAS',
                     '_prod_channel': 'undefined'
                 }
@@ -326,6 +326,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             das_models.UploadApplicationBatchqueryfileResponse(),
@@ -359,6 +360,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             das_models.UploadApplicationBatchqueryfileResponse(),
@@ -752,6 +754,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             das_models.UploadApplicationAuthfileResponse(),
@@ -785,6 +788,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             das_models.UploadApplicationAuthfileResponse(),
@@ -1514,6 +1518,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             das_models.UploadServiceAuthfileResponse(),
@@ -1547,6 +1552,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             das_models.UploadServiceAuthfileResponse(),
@@ -1663,6 +1669,174 @@ class Client:
         return TeaCore.from_map(
             das_models.GetApplicationFileentranceResponse(),
             await self.do_request_async('1.0', 'antchain.das.application.fileentrance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def init_unifiedentrance_async(
+        self,
+        request: das_models.InitUnifiedentranceAsyncRequest,
+    ) -> das_models.InitUnifiedentranceAsyncResponse:
+        """
+        Description: 万文
+        Summary: 异步入口--获取流水号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.init_unifiedentrance_async_ex(request, headers, runtime)
+
+    async def init_unifiedentrance_async_async(
+        self,
+        request: das_models.InitUnifiedentranceAsyncRequest,
+    ) -> das_models.InitUnifiedentranceAsyncResponse:
+        """
+        Description: 万文
+        Summary: 异步入口--获取流水号
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.init_unifiedentrance_async_ex_async(request, headers, runtime)
+
+    def init_unifiedentrance_async_ex(
+        self,
+        request: das_models.InitUnifiedentranceAsyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.InitUnifiedentranceAsyncResponse:
+        """
+        Description: 万文
+        Summary: 异步入口--获取流水号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.InitUnifiedentranceAsyncResponse(),
+            self.do_request('1.0', 'antchain.das.unifiedentrance.async.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def init_unifiedentrance_async_ex_async(
+        self,
+        request: das_models.InitUnifiedentranceAsyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.InitUnifiedentranceAsyncResponse:
+        """
+        Description: 万文
+        Summary: 异步入口--获取流水号
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.InitUnifiedentranceAsyncResponse(),
+            await self.do_request_async('1.0', 'antchain.das.unifiedentrance.async.init', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_unifiedentrance_async(
+        self,
+        request: das_models.QueryUnifiedentranceAsyncRequest,
+    ) -> das_models.QueryUnifiedentranceAsyncResponse:
+        """
+        Description: 获取异步结果
+        Summary: 获取异步结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_unifiedentrance_async_ex(request, headers, runtime)
+
+    async def query_unifiedentrance_async_async(
+        self,
+        request: das_models.QueryUnifiedentranceAsyncRequest,
+    ) -> das_models.QueryUnifiedentranceAsyncResponse:
+        """
+        Description: 获取异步结果
+        Summary: 获取异步结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_unifiedentrance_async_ex_async(request, headers, runtime)
+
+    def query_unifiedentrance_async_ex(
+        self,
+        request: das_models.QueryUnifiedentranceAsyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryUnifiedentranceAsyncResponse:
+        """
+        Description: 获取异步结果
+        Summary: 获取异步结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryUnifiedentranceAsyncResponse(),
+            self.do_request('1.0', 'antchain.das.unifiedentrance.async.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_unifiedentrance_async_ex_async(
+        self,
+        request: das_models.QueryUnifiedentranceAsyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryUnifiedentranceAsyncResponse:
+        """
+        Description: 获取异步结果
+        Summary: 获取异步结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryUnifiedentranceAsyncResponse(),
+            await self.do_request_async('1.0', 'antchain.das.unifiedentrance.async.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_mainsite_unifiedentrance(
+        self,
+        request: das_models.QueryMainsiteUnifiedentranceRequest,
+    ) -> das_models.QueryMainsiteUnifiedentranceResponse:
+        """
+        Description: 数据应用统一入口，主站调用
+        Summary: 数据应用统一入口，主站调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mainsite_unifiedentrance_ex(request, headers, runtime)
+
+    async def query_mainsite_unifiedentrance_async(
+        self,
+        request: das_models.QueryMainsiteUnifiedentranceRequest,
+    ) -> das_models.QueryMainsiteUnifiedentranceResponse:
+        """
+        Description: 数据应用统一入口，主站调用
+        Summary: 数据应用统一入口，主站调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_mainsite_unifiedentrance_ex_async(request, headers, runtime)
+
+    def query_mainsite_unifiedentrance_ex(
+        self,
+        request: das_models.QueryMainsiteUnifiedentranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryMainsiteUnifiedentranceResponse:
+        """
+        Description: 数据应用统一入口，主站调用
+        Summary: 数据应用统一入口，主站调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryMainsiteUnifiedentranceResponse(),
+            self.do_request('1.0', 'antchain.das.mainsite.unifiedentrance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_mainsite_unifiedentrance_ex_async(
+        self,
+        request: das_models.QueryMainsiteUnifiedentranceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> das_models.QueryMainsiteUnifiedentranceResponse:
+        """
+        Description: 数据应用统一入口，主站调用
+        Summary: 数据应用统一入口，主站调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            das_models.QueryMainsiteUnifiedentranceResponse(),
+            await self.do_request_async('1.0', 'antchain.das.mainsite.unifiedentrance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_das_link(
