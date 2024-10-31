@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class QueryApplicationUnifiedentranceRequest extends TeaModel {
+public class InitUnifiedentranceAsyncRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -22,27 +22,19 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
 
     // 是否授权
     @NameInMap("user_authed")
-    public Boolean userAuthed;
+    public String userAuthed;
 
     // 数据集服务id
     @NameInMap("data_set_id")
     @Validation(required = true)
     public String dataSetId;
 
-    // 授权token
-    @NameInMap("token")
-    public String token;
-
-    // token授权场景码
-    @NameInMap("scene_code")
-    public String sceneCode;
-
-    public static QueryApplicationUnifiedentranceRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryApplicationUnifiedentranceRequest self = new QueryApplicationUnifiedentranceRequest();
+    public static InitUnifiedentranceAsyncRequest build(java.util.Map<String, ?> map) throws Exception {
+        InitUnifiedentranceAsyncRequest self = new InitUnifiedentranceAsyncRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryApplicationUnifiedentranceRequest setAuthToken(String authToken) {
+    public InitUnifiedentranceAsyncRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -50,7 +42,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryApplicationUnifiedentranceRequest setProductInstanceId(String productInstanceId) {
+    public InitUnifiedentranceAsyncRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -58,7 +50,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryApplicationUnifiedentranceRequest setFileIndex(String fileIndex) {
+    public InitUnifiedentranceAsyncRequest setFileIndex(String fileIndex) {
         this.fileIndex = fileIndex;
         return this;
     }
@@ -66,7 +58,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.fileIndex;
     }
 
-    public QueryApplicationUnifiedentranceRequest setParams(String params) {
+    public InitUnifiedentranceAsyncRequest setParams(String params) {
         this.params = params;
         return this;
     }
@@ -74,36 +66,20 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.params;
     }
 
-    public QueryApplicationUnifiedentranceRequest setUserAuthed(Boolean userAuthed) {
+    public InitUnifiedentranceAsyncRequest setUserAuthed(String userAuthed) {
         this.userAuthed = userAuthed;
         return this;
     }
-    public Boolean getUserAuthed() {
+    public String getUserAuthed() {
         return this.userAuthed;
     }
 
-    public QueryApplicationUnifiedentranceRequest setDataSetId(String dataSetId) {
+    public InitUnifiedentranceAsyncRequest setDataSetId(String dataSetId) {
         this.dataSetId = dataSetId;
         return this;
     }
     public String getDataSetId() {
         return this.dataSetId;
-    }
-
-    public QueryApplicationUnifiedentranceRequest setToken(String token) {
-        this.token = token;
-        return this;
-    }
-    public String getToken() {
-        return this.token;
-    }
-
-    public QueryApplicationUnifiedentranceRequest setSceneCode(String sceneCode) {
-        this.sceneCode = sceneCode;
-        return this;
-    }
-    public String getSceneCode() {
-        return this.sceneCode;
     }
 
 }

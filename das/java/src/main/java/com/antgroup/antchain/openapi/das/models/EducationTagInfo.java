@@ -33,6 +33,10 @@ public class EducationTagInfo extends TeaModel {
     @NameInMap("education_type_code")
     public String educationTypeCode;
 
+    // 学校名称
+    @NameInMap("school_name")
+    public String schoolName;
+
     public static EducationTagInfo build(java.util.Map<String, ?> map) throws Exception {
         EducationTagInfo self = new EducationTagInfo();
         return TeaModel.build(map, self);
@@ -92,6 +96,14 @@ public class EducationTagInfo extends TeaModel {
     }
     public String getEducationTypeCode() {
         return this.educationTypeCode;
+    }
+
+    public EducationTagInfo setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+        return this;
+    }
+    public String getSchoolName() {
+        return this.schoolName;
     }
 
 }

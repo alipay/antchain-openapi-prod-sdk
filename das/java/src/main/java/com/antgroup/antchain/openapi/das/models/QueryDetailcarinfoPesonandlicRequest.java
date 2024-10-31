@@ -38,7 +38,6 @@ public class QueryDetailcarinfoPesonandlicRequest extends TeaModel {
     // 待核验车主身份证号
     // 
     @NameInMap("user_cert_no")
-    @Validation(required = true)
     public String userCertNo;
 
     // 号牌号码

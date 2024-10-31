@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.das.models;
 
 import com.aliyun.tea.*;
 
-public class QueryApplicationUnifiedentranceRequest extends TeaModel {
+public class QueryMainsiteUnifiedentranceRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -29,6 +29,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     @Validation(required = true)
     public String dataSetId;
 
+    // 	
     // 授权token
     @NameInMap("token")
     public String token;
@@ -37,12 +38,17 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
     @NameInMap("scene_code")
     public String sceneCode;
 
-    public static QueryApplicationUnifiedentranceRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryApplicationUnifiedentranceRequest self = new QueryApplicationUnifiedentranceRequest();
+    // 实际调用的租户ID
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
+
+    public static QueryMainsiteUnifiedentranceRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryMainsiteUnifiedentranceRequest self = new QueryMainsiteUnifiedentranceRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryApplicationUnifiedentranceRequest setAuthToken(String authToken) {
+    public QueryMainsiteUnifiedentranceRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -50,7 +56,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryApplicationUnifiedentranceRequest setProductInstanceId(String productInstanceId) {
+    public QueryMainsiteUnifiedentranceRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -58,7 +64,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryApplicationUnifiedentranceRequest setFileIndex(String fileIndex) {
+    public QueryMainsiteUnifiedentranceRequest setFileIndex(String fileIndex) {
         this.fileIndex = fileIndex;
         return this;
     }
@@ -66,7 +72,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.fileIndex;
     }
 
-    public QueryApplicationUnifiedentranceRequest setParams(String params) {
+    public QueryMainsiteUnifiedentranceRequest setParams(String params) {
         this.params = params;
         return this;
     }
@@ -74,7 +80,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.params;
     }
 
-    public QueryApplicationUnifiedentranceRequest setUserAuthed(Boolean userAuthed) {
+    public QueryMainsiteUnifiedentranceRequest setUserAuthed(Boolean userAuthed) {
         this.userAuthed = userAuthed;
         return this;
     }
@@ -82,7 +88,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.userAuthed;
     }
 
-    public QueryApplicationUnifiedentranceRequest setDataSetId(String dataSetId) {
+    public QueryMainsiteUnifiedentranceRequest setDataSetId(String dataSetId) {
         this.dataSetId = dataSetId;
         return this;
     }
@@ -90,7 +96,7 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.dataSetId;
     }
 
-    public QueryApplicationUnifiedentranceRequest setToken(String token) {
+    public QueryMainsiteUnifiedentranceRequest setToken(String token) {
         this.token = token;
         return this;
     }
@@ -98,12 +104,20 @@ public class QueryApplicationUnifiedentranceRequest extends TeaModel {
         return this.token;
     }
 
-    public QueryApplicationUnifiedentranceRequest setSceneCode(String sceneCode) {
+    public QueryMainsiteUnifiedentranceRequest setSceneCode(String sceneCode) {
         this.sceneCode = sceneCode;
         return this;
     }
     public String getSceneCode() {
         return this.sceneCode;
+    }
+
+    public QueryMainsiteUnifiedentranceRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

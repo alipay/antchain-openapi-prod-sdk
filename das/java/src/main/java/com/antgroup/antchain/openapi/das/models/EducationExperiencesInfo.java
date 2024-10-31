@@ -26,10 +26,12 @@ public class EducationExperiencesInfo extends TeaModel {
 
     // 年
     @NameInMap("year")
+    @Validation(maximum = 6)
     public Long year;
 
     // 月
     @NameInMap("month")
+    @Validation(maximum = 5)
     public Long month;
 
     public static EducationExperiencesInfo build(java.util.Map<String, ?> map) throws Exception {

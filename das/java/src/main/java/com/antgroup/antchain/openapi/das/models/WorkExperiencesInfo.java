@@ -6,10 +6,12 @@ import com.aliyun.tea.*;
 public class WorkExperiencesInfo extends TeaModel {
     // 工作开始日期
     @NameInMap("work_start_time")
+    @Validation(maximum = 32)
     public Long workStartTime;
 
     // 工作结束日期
     @NameInMap("work_end_time")
+    @Validation(maximum = 32)
     public Long workEndTime;
 
     // 公司名称
