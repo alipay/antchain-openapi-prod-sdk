@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.58',
+    sdk_version = '1.1.65',
     _prod_code = 'DAS',
     _prod_channel = 'undefined'
   };
@@ -484,6 +484,8 @@ model EducationTagInfo {
   schoolType?: string(name='school_type', example='985学校'),
   // 学习形式字典code
   educationTypeCode?: string(name='education_type_code', example='01'),
+  // 学校名称
+  schoolName?: string(name='school_name', example='北京大学'),
 }
 
 // 车辆详细信息
@@ -721,6 +723,7 @@ async function uploadApplicationBatchqueryfileEx(request: UploadApplicationBatch
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.application.batchqueryfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -1048,6 +1051,7 @@ async function uploadApplicationAuthfileEx(request: UploadApplicationAuthfileReq
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.application.authfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -1313,7 +1317,7 @@ model QueryDetailcarinfoPesonandlicRequest = {
   userName: string(name='user_name'),
   // 待核验车主身份证号
   // 
-  userCertNo: string(name='user_cert_no'),
+  userCertNo?: string(name='user_cert_no'),
   // 号牌号码
   licenseNo: string(name='license_no'),
 }
@@ -1460,6 +1464,10 @@ model QueryApplicationUnifiedentranceRequest = {
   userAuthed?: boolean(name='user_authed'),
   // 数据集服务id
   dataSetId: string(name='data_set_id'),
+  // 授权token
+  token?: string(name='token'),
+  // token授权场景码
+  sceneCode?: string(name='scene_code'),
 }
 
 model QueryApplicationUnifiedentranceResponse = {
@@ -1698,6 +1706,7 @@ async function uploadServiceAuthfileEx(request: UploadServiceAuthfileRequest, he
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.service.authfile.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -1783,6 +1792,142 @@ async function getApplicationFileentrance(request: GetApplicationFileentranceReq
 async function getApplicationFileentranceEx(request: GetApplicationFileentranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetApplicationFileentranceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.das.application.fileentrance.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitUnifiedentranceAsyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权协议索引
+  fileIndex?: string(name='file_index'),
+  // 整个需求的入参，map json
+  params: string(name='params'),
+  // 是否授权
+  userAuthed?: string(name='user_authed'),
+  // 数据集服务id
+  dataSetId: string(name='data_set_id'),
+}
+
+model InitUnifiedentranceAsyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 具体返回，map json
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 万文
+ * Summary: 异步入口--获取流水号
+ */
+async function initUnifiedentranceAsync(request: InitUnifiedentranceAsyncRequest): InitUnifiedentranceAsyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initUnifiedentranceAsyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 万文
+ * Summary: 异步入口--获取流水号
+ */
+async function initUnifiedentranceAsyncEx(request: InitUnifiedentranceAsyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitUnifiedentranceAsyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.unifiedentrance.async.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUnifiedentranceAsyncRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 整个需求的入参，map json
+  params: string(name='params'),
+  // 数据集服务id
+  dataSetId: string(name='data_set_id'),
+}
+
+model QueryUnifiedentranceAsyncResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 具体返回，map json
+  // 
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 获取异步结果
+ * Summary: 获取异步结果
+ */
+async function queryUnifiedentranceAsync(request: QueryUnifiedentranceAsyncRequest): QueryUnifiedentranceAsyncResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUnifiedentranceAsyncEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取异步结果
+ * Summary: 获取异步结果
+ */
+async function queryUnifiedentranceAsyncEx(request: QueryUnifiedentranceAsyncRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUnifiedentranceAsyncResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.unifiedentrance.async.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryMainsiteUnifiedentranceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 授权协议索引
+  fileIndex?: string(name='file_index'),
+  // 整个需求的入参，map json
+  params: string(name='params'),
+  // 是否授权
+  userAuthed?: boolean(name='user_authed'),
+  // 数据集服务id
+  dataSetId: string(name='data_set_id'),
+  // 	
+  // 授权token
+  token?: string(name='token'),
+  // token授权场景码
+  sceneCode?: string(name='scene_code'),
+  // 实际调用的租户ID
+  tenantId: string(name='tenant_id'),
+}
+
+model QueryMainsiteUnifiedentranceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 具体返回，map json
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数据应用统一入口，主站调用
+ * Summary: 数据应用统一入口，主站调用
+ */
+async function queryMainsiteUnifiedentrance(request: QueryMainsiteUnifiedentranceRequest): QueryMainsiteUnifiedentranceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryMainsiteUnifiedentranceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据应用统一入口，主站调用
+ * Summary: 数据应用统一入口，主站调用
+ */
+async function queryMainsiteUnifiedentranceEx(request: QueryMainsiteUnifiedentranceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMainsiteUnifiedentranceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.das.mainsite.unifiedentrance.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model GetDasLinkRequest = {
