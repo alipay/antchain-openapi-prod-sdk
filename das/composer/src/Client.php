@@ -33,6 +33,8 @@ use AntChain\DAS\Models\GetDasLinkRequest;
 use AntChain\DAS\Models\GetDasLinkResponse;
 use AntChain\DAS\Models\GetDomesticTrademarklogoRequest;
 use AntChain\DAS\Models\GetDomesticTrademarklogoResponse;
+use AntChain\DAS\Models\InitUnifiedentranceAsyncRequest;
+use AntChain\DAS\Models\InitUnifiedentranceAsyncResponse;
 use AntChain\DAS\Models\QueryApplicationBasecarinfoRequest;
 use AntChain\DAS\Models\QueryApplicationBasecarinfoResponse;
 use AntChain\DAS\Models\QueryApplicationBatchqueryresultRequest;
@@ -65,8 +67,12 @@ use AntChain\DAS\Models\QueryEncryptEnterpriseinfoRequest;
 use AntChain\DAS\Models\QueryEncryptEnterpriseinfoResponse;
 use AntChain\DAS\Models\QueryIdnumberEducationtaginfoRequest;
 use AntChain\DAS\Models\QueryIdnumberEducationtaginfoResponse;
+use AntChain\DAS\Models\QueryMainsiteUnifiedentranceRequest;
+use AntChain\DAS\Models\QueryMainsiteUnifiedentranceResponse;
 use AntChain\DAS\Models\QueryPhonenumberEducationinfoRequest;
 use AntChain\DAS\Models\QueryPhonenumberEducationinfoResponse;
+use AntChain\DAS\Models\QueryUnifiedentranceAsyncRequest;
+use AntChain\DAS\Models\QueryUnifiedentranceAsyncResponse;
 use AntChain\DAS\Models\SendDasSmsRequest;
 use AntChain\DAS\Models\SendDasSmsResponse;
 use AntChain\DAS\Models\SignApplicationResumeRequest;
@@ -232,7 +238,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.58',
+                    'sdk_version'      => '1.1.65',
                     '_prod_code'       => 'DAS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -324,7 +330,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -573,7 +580,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -1020,7 +1028,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -1091,6 +1100,105 @@ class Client
         Utils::validateModel($request);
 
         return GetApplicationFileentranceResponse::fromMap($this->doRequest('1.0', 'antchain.das.application.fileentrance.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 万文
+     * Summary: 异步入口--获取流水号.
+     *
+     * @param InitUnifiedentranceAsyncRequest $request
+     *
+     * @return InitUnifiedentranceAsyncResponse
+     */
+    public function initUnifiedentranceAsync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->initUnifiedentranceAsyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 万文
+     * Summary: 异步入口--获取流水号.
+     *
+     * @param InitUnifiedentranceAsyncRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return InitUnifiedentranceAsyncResponse
+     */
+    public function initUnifiedentranceAsyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return InitUnifiedentranceAsyncResponse::fromMap($this->doRequest('1.0', 'antchain.das.unifiedentrance.async.init', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取异步结果
+     * Summary: 获取异步结果.
+     *
+     * @param QueryUnifiedentranceAsyncRequest $request
+     *
+     * @return QueryUnifiedentranceAsyncResponse
+     */
+    public function queryUnifiedentranceAsync($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUnifiedentranceAsyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取异步结果
+     * Summary: 获取异步结果.
+     *
+     * @param QueryUnifiedentranceAsyncRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryUnifiedentranceAsyncResponse
+     */
+    public function queryUnifiedentranceAsyncEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUnifiedentranceAsyncResponse::fromMap($this->doRequest('1.0', 'antchain.das.unifiedentrance.async.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据应用统一入口，主站调用
+     * Summary: 数据应用统一入口，主站调用.
+     *
+     * @param QueryMainsiteUnifiedentranceRequest $request
+     *
+     * @return QueryMainsiteUnifiedentranceResponse
+     */
+    public function queryMainsiteUnifiedentrance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryMainsiteUnifiedentranceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据应用统一入口，主站调用
+     * Summary: 数据应用统一入口，主站调用.
+     *
+     * @param QueryMainsiteUnifiedentranceRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return QueryMainsiteUnifiedentranceResponse
+     */
+    public function queryMainsiteUnifiedentranceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryMainsiteUnifiedentranceResponse::fromMap($this->doRequest('1.0', 'antchain.das.mainsite.unifiedentrance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

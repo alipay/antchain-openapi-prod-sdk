@@ -64,6 +64,14 @@ class EducationTagInfo extends Model
      * @var string
      */
     public $educationTypeCode;
+
+    // 学校名称
+    /**
+     * @example 北京大学
+     *
+     * @var string
+     */
+    public $schoolName;
     protected $_name = [
         'major'             => 'major',
         'educationLevel'    => 'education_level',
@@ -72,6 +80,7 @@ class EducationTagInfo extends Model
         'admissionDate'     => 'admission_date',
         'schoolType'        => 'school_type',
         'educationTypeCode' => 'education_type_code',
+        'schoolName'        => 'school_name',
     ];
 
     public function validate()
@@ -101,6 +110,9 @@ class EducationTagInfo extends Model
         }
         if (null !== $this->educationTypeCode) {
             $res['education_type_code'] = $this->educationTypeCode;
+        }
+        if (null !== $this->schoolName) {
+            $res['school_name'] = $this->schoolName;
         }
 
         return $res;
@@ -134,6 +146,9 @@ class EducationTagInfo extends Model
         }
         if (isset($map['education_type_code'])) {
             $model->educationTypeCode = $map['education_type_code'];
+        }
+        if (isset($map['school_name'])) {
+            $model->schoolName = $map['school_name'];
         }
 
         return $model;

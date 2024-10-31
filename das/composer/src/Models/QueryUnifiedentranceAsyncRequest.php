@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApplicationUnifiedentranceRequest extends Model
+class QueryUnifiedentranceAsyncRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,50 +19,22 @@ class QueryApplicationUnifiedentranceRequest extends Model
      */
     public $productInstanceId;
 
-    // 授权协议索引
-    /**
-     * @var string
-     */
-    public $fileIndex;
-
     // 整个需求的入参，map json
     /**
      * @var string
      */
     public $params;
 
-    // 是否授权
-    /**
-     * @var bool
-     */
-    public $userAuthed;
-
     // 数据集服务id
     /**
      * @var string
      */
     public $dataSetId;
-
-    // 授权token
-    /**
-     * @var string
-     */
-    public $token;
-
-    // token授权场景码
-    /**
-     * @var string
-     */
-    public $sceneCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'fileIndex'         => 'file_index',
         'params'            => 'params',
-        'userAuthed'        => 'user_authed',
         'dataSetId'         => 'data_set_id',
-        'token'             => 'token',
-        'sceneCode'         => 'scene_code',
     ];
 
     public function validate()
@@ -80,23 +52,11 @@ class QueryApplicationUnifiedentranceRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->fileIndex) {
-            $res['file_index'] = $this->fileIndex;
-        }
         if (null !== $this->params) {
             $res['params'] = $this->params;
         }
-        if (null !== $this->userAuthed) {
-            $res['user_authed'] = $this->userAuthed;
-        }
         if (null !== $this->dataSetId) {
             $res['data_set_id'] = $this->dataSetId;
-        }
-        if (null !== $this->token) {
-            $res['token'] = $this->token;
-        }
-        if (null !== $this->sceneCode) {
-            $res['scene_code'] = $this->sceneCode;
         }
 
         return $res;
@@ -105,7 +65,7 @@ class QueryApplicationUnifiedentranceRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryApplicationUnifiedentranceRequest
+     * @return QueryUnifiedentranceAsyncRequest
      */
     public static function fromMap($map = [])
     {
@@ -116,23 +76,11 @@ class QueryApplicationUnifiedentranceRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['file_index'])) {
-            $model->fileIndex = $map['file_index'];
-        }
         if (isset($map['params'])) {
             $model->params = $map['params'];
         }
-        if (isset($map['user_authed'])) {
-            $model->userAuthed = $map['user_authed'];
-        }
         if (isset($map['data_set_id'])) {
             $model->dataSetId = $map['data_set_id'];
-        }
-        if (isset($map['token'])) {
-            $model->token = $map['token'];
-        }
-        if (isset($map['scene_code'])) {
-            $model->sceneCode = $map['scene_code'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApplicationUnifiedentranceRequest extends Model
+class InitUnifiedentranceAsyncRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -33,7 +33,7 @@ class QueryApplicationUnifiedentranceRequest extends Model
 
     // 是否授权
     /**
-     * @var bool
+     * @var string
      */
     public $userAuthed;
 
@@ -42,18 +42,6 @@ class QueryApplicationUnifiedentranceRequest extends Model
      * @var string
      */
     public $dataSetId;
-
-    // 授权token
-    /**
-     * @var string
-     */
-    public $token;
-
-    // token授权场景码
-    /**
-     * @var string
-     */
-    public $sceneCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -61,8 +49,6 @@ class QueryApplicationUnifiedentranceRequest extends Model
         'params'            => 'params',
         'userAuthed'        => 'user_authed',
         'dataSetId'         => 'data_set_id',
-        'token'             => 'token',
-        'sceneCode'         => 'scene_code',
     ];
 
     public function validate()
@@ -92,12 +78,6 @@ class QueryApplicationUnifiedentranceRequest extends Model
         if (null !== $this->dataSetId) {
             $res['data_set_id'] = $this->dataSetId;
         }
-        if (null !== $this->token) {
-            $res['token'] = $this->token;
-        }
-        if (null !== $this->sceneCode) {
-            $res['scene_code'] = $this->sceneCode;
-        }
 
         return $res;
     }
@@ -105,7 +85,7 @@ class QueryApplicationUnifiedentranceRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryApplicationUnifiedentranceRequest
+     * @return InitUnifiedentranceAsyncRequest
      */
     public static function fromMap($map = [])
     {
@@ -127,12 +107,6 @@ class QueryApplicationUnifiedentranceRequest extends Model
         }
         if (isset($map['data_set_id'])) {
             $model->dataSetId = $map['data_set_id'];
-        }
-        if (isset($map['token'])) {
-            $model->token = $map['token'];
-        }
-        if (isset($map['scene_code'])) {
-            $model->sceneCode = $map['scene_code'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\DAS\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryApplicationUnifiedentranceRequest extends Model
+class QueryMainsiteUnifiedentranceRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -43,6 +43,7 @@ class QueryApplicationUnifiedentranceRequest extends Model
      */
     public $dataSetId;
 
+    //
     // 授权token
     /**
      * @var string
@@ -54,6 +55,12 @@ class QueryApplicationUnifiedentranceRequest extends Model
      * @var string
      */
     public $sceneCode;
+
+    // 实际调用的租户ID
+    /**
+     * @var string
+     */
+    public $tenantId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,12 +70,14 @@ class QueryApplicationUnifiedentranceRequest extends Model
         'dataSetId'         => 'data_set_id',
         'token'             => 'token',
         'sceneCode'         => 'scene_code',
+        'tenantId'          => 'tenant_id',
     ];
 
     public function validate()
     {
         Model::validateRequired('params', $this->params, true);
         Model::validateRequired('dataSetId', $this->dataSetId, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
     }
 
     public function toMap()
@@ -98,6 +107,9 @@ class QueryApplicationUnifiedentranceRequest extends Model
         if (null !== $this->sceneCode) {
             $res['scene_code'] = $this->sceneCode;
         }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
 
         return $res;
     }
@@ -105,7 +117,7 @@ class QueryApplicationUnifiedentranceRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryApplicationUnifiedentranceRequest
+     * @return QueryMainsiteUnifiedentranceRequest
      */
     public static function fromMap($map = [])
     {
@@ -133,6 +145,9 @@ class QueryApplicationUnifiedentranceRequest extends Model
         }
         if (isset($map['scene_code'])) {
             $model->sceneCode = $map['scene_code'];
+        }
+        if (isset($map['tenant_id'])) {
+            $model->tenantId = $map['tenant_id'];
         }
 
         return $model;

@@ -76,7 +76,6 @@ class QueryDetailcarinfoPesonandlicRequest extends Model
         Model::validateRequired('userAuthed', $this->userAuthed, true);
         Model::validateRequired('fileIndex', $this->fileIndex, true);
         Model::validateRequired('userName', $this->userName, true);
-        Model::validateRequired('userCertNo', $this->userCertNo, true);
         Model::validateRequired('licenseNo', $this->licenseNo, true);
     }
 
