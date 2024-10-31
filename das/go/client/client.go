@@ -1199,6 +1199,8 @@ type EducationTagInfo struct {
 	SchoolType *string `json:"school_type,omitempty" xml:"school_type,omitempty"`
 	// 学习形式字典code
 	EducationTypeCode *string `json:"education_type_code,omitempty" xml:"education_type_code,omitempty"`
+	// 学校名称
+	SchoolName *string `json:"school_name,omitempty" xml:"school_name,omitempty"`
 }
 
 func (s EducationTagInfo) String() string {
@@ -1241,6 +1243,11 @@ func (s *EducationTagInfo) SetSchoolType(v string) *EducationTagInfo {
 
 func (s *EducationTagInfo) SetEducationTypeCode(v string) *EducationTagInfo {
 	s.EducationTypeCode = &v
+	return s
+}
+
+func (s *EducationTagInfo) SetSchoolName(v string) *EducationTagInfo {
+	s.SchoolName = &v
 	return s
 }
 
@@ -3091,7 +3098,7 @@ type QueryDetailcarinfoPesonandlicRequest struct {
 	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty" require:"true"`
 	// 待核验车主身份证号
 	//
-	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty" require:"true"`
+	UserCertNo *string `json:"user_cert_no,omitempty" xml:"user_cert_no,omitempty"`
 	// 号牌号码
 	LicenseNo *string `json:"license_no,omitempty" xml:"license_no,omitempty" require:"true"`
 }
@@ -3419,6 +3426,10 @@ type QueryApplicationUnifiedentranceRequest struct {
 	UserAuthed *bool `json:"user_authed,omitempty" xml:"user_authed,omitempty"`
 	// 数据集服务id
 	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	// 授权token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// token授权场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty"`
 }
 
 func (s QueryApplicationUnifiedentranceRequest) String() string {
@@ -3456,6 +3467,16 @@ func (s *QueryApplicationUnifiedentranceRequest) SetUserAuthed(v bool) *QueryApp
 
 func (s *QueryApplicationUnifiedentranceRequest) SetDataSetId(v string) *QueryApplicationUnifiedentranceRequest {
 	s.DataSetId = &v
+	return s
+}
+
+func (s *QueryApplicationUnifiedentranceRequest) SetToken(v string) *QueryApplicationUnifiedentranceRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *QueryApplicationUnifiedentranceRequest) SetSceneCode(v string) *QueryApplicationUnifiedentranceRequest {
+	s.SceneCode = &v
 	return s
 }
 
@@ -4083,6 +4104,288 @@ func (s *GetApplicationFileentranceResponse) SetResultMsg(v string) *GetApplicat
 
 func (s *GetApplicationFileentranceResponse) SetUrl(v string) *GetApplicationFileentranceResponse {
 	s.Url = &v
+	return s
+}
+
+type InitUnifiedentranceAsyncRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权协议索引
+	FileIndex *string `json:"file_index,omitempty" xml:"file_index,omitempty"`
+	// 整个需求的入参，map json
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 是否授权
+	UserAuthed *string `json:"user_authed,omitempty" xml:"user_authed,omitempty"`
+	// 数据集服务id
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+}
+
+func (s InitUnifiedentranceAsyncRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitUnifiedentranceAsyncRequest) GoString() string {
+	return s.String()
+}
+
+func (s *InitUnifiedentranceAsyncRequest) SetAuthToken(v string) *InitUnifiedentranceAsyncRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *InitUnifiedentranceAsyncRequest) SetProductInstanceId(v string) *InitUnifiedentranceAsyncRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *InitUnifiedentranceAsyncRequest) SetFileIndex(v string) *InitUnifiedentranceAsyncRequest {
+	s.FileIndex = &v
+	return s
+}
+
+func (s *InitUnifiedentranceAsyncRequest) SetParams(v string) *InitUnifiedentranceAsyncRequest {
+	s.Params = &v
+	return s
+}
+
+func (s *InitUnifiedentranceAsyncRequest) SetUserAuthed(v string) *InitUnifiedentranceAsyncRequest {
+	s.UserAuthed = &v
+	return s
+}
+
+func (s *InitUnifiedentranceAsyncRequest) SetDataSetId(v string) *InitUnifiedentranceAsyncRequest {
+	s.DataSetId = &v
+	return s
+}
+
+type InitUnifiedentranceAsyncResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 具体返回，map json
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s InitUnifiedentranceAsyncResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s InitUnifiedentranceAsyncResponse) GoString() string {
+	return s.String()
+}
+
+func (s *InitUnifiedentranceAsyncResponse) SetReqMsgId(v string) *InitUnifiedentranceAsyncResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *InitUnifiedentranceAsyncResponse) SetResultCode(v string) *InitUnifiedentranceAsyncResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *InitUnifiedentranceAsyncResponse) SetResultMsg(v string) *InitUnifiedentranceAsyncResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *InitUnifiedentranceAsyncResponse) SetData(v string) *InitUnifiedentranceAsyncResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryUnifiedentranceAsyncRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 整个需求的入参，map json
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 数据集服务id
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+}
+
+func (s QueryUnifiedentranceAsyncRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUnifiedentranceAsyncRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUnifiedentranceAsyncRequest) SetAuthToken(v string) *QueryUnifiedentranceAsyncRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUnifiedentranceAsyncRequest) SetProductInstanceId(v string) *QueryUnifiedentranceAsyncRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUnifiedentranceAsyncRequest) SetParams(v string) *QueryUnifiedentranceAsyncRequest {
+	s.Params = &v
+	return s
+}
+
+func (s *QueryUnifiedentranceAsyncRequest) SetDataSetId(v string) *QueryUnifiedentranceAsyncRequest {
+	s.DataSetId = &v
+	return s
+}
+
+type QueryUnifiedentranceAsyncResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 具体返回，map json
+	//
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryUnifiedentranceAsyncResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUnifiedentranceAsyncResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUnifiedentranceAsyncResponse) SetReqMsgId(v string) *QueryUnifiedentranceAsyncResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUnifiedentranceAsyncResponse) SetResultCode(v string) *QueryUnifiedentranceAsyncResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUnifiedentranceAsyncResponse) SetResultMsg(v string) *QueryUnifiedentranceAsyncResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUnifiedentranceAsyncResponse) SetData(v string) *QueryUnifiedentranceAsyncResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryMainsiteUnifiedentranceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 授权协议索引
+	FileIndex *string `json:"file_index,omitempty" xml:"file_index,omitempty"`
+	// 整个需求的入参，map json
+	Params *string `json:"params,omitempty" xml:"params,omitempty" require:"true"`
+	// 是否授权
+	UserAuthed *bool `json:"user_authed,omitempty" xml:"user_authed,omitempty"`
+	// 数据集服务id
+	DataSetId *string `json:"data_set_id,omitempty" xml:"data_set_id,omitempty" require:"true"`
+	//
+	// 授权token
+	Token *string `json:"token,omitempty" xml:"token,omitempty"`
+	// token授权场景码
+	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty"`
+	// 实际调用的租户ID
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+}
+
+func (s QueryMainsiteUnifiedentranceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMainsiteUnifiedentranceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetAuthToken(v string) *QueryMainsiteUnifiedentranceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetProductInstanceId(v string) *QueryMainsiteUnifiedentranceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetFileIndex(v string) *QueryMainsiteUnifiedentranceRequest {
+	s.FileIndex = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetParams(v string) *QueryMainsiteUnifiedentranceRequest {
+	s.Params = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetUserAuthed(v bool) *QueryMainsiteUnifiedentranceRequest {
+	s.UserAuthed = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetDataSetId(v string) *QueryMainsiteUnifiedentranceRequest {
+	s.DataSetId = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetToken(v string) *QueryMainsiteUnifiedentranceRequest {
+	s.Token = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetSceneCode(v string) *QueryMainsiteUnifiedentranceRequest {
+	s.SceneCode = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceRequest) SetTenantId(v string) *QueryMainsiteUnifiedentranceRequest {
+	s.TenantId = &v
+	return s
+}
+
+type QueryMainsiteUnifiedentranceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 具体返回，map json
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryMainsiteUnifiedentranceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryMainsiteUnifiedentranceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryMainsiteUnifiedentranceResponse) SetReqMsgId(v string) *QueryMainsiteUnifiedentranceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceResponse) SetResultCode(v string) *QueryMainsiteUnifiedentranceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceResponse) SetResultMsg(v string) *QueryMainsiteUnifiedentranceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryMainsiteUnifiedentranceResponse) SetData(v string) *QueryMainsiteUnifiedentranceResponse {
+	s.Data = &v
 	return s
 }
 
@@ -5462,7 +5765,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.58"),
+				"sdk_version":      tea.String("1.1.65"),
 				"_prod_code":       tea.String("DAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5568,6 +5871,7 @@ func (client *Client) UploadApplicationBatchqueryfileEx(request *UploadApplicati
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -5835,6 +6139,7 @@ func (client *Client) UploadApplicationAuthfileEx(request *UploadApplicationAuth
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -6306,6 +6611,7 @@ func (client *Client) UploadServiceAuthfileEx(request *UploadServiceAuthfileRequ
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -6382,6 +6688,108 @@ func (client *Client) GetApplicationFileentranceEx(request *GetApplicationFileen
 	}
 	_result = &GetApplicationFileentranceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.application.fileentrance.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 万文
+ * Summary: 异步入口--获取流水号
+ */
+func (client *Client) InitUnifiedentranceAsync(request *InitUnifiedentranceAsyncRequest) (_result *InitUnifiedentranceAsyncResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &InitUnifiedentranceAsyncResponse{}
+	_body, _err := client.InitUnifiedentranceAsyncEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 万文
+ * Summary: 异步入口--获取流水号
+ */
+func (client *Client) InitUnifiedentranceAsyncEx(request *InitUnifiedentranceAsyncRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *InitUnifiedentranceAsyncResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &InitUnifiedentranceAsyncResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.unifiedentrance.async.init"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取异步结果
+ * Summary: 获取异步结果
+ */
+func (client *Client) QueryUnifiedentranceAsync(request *QueryUnifiedentranceAsyncRequest) (_result *QueryUnifiedentranceAsyncResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUnifiedentranceAsyncResponse{}
+	_body, _err := client.QueryUnifiedentranceAsyncEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取异步结果
+ * Summary: 获取异步结果
+ */
+func (client *Client) QueryUnifiedentranceAsyncEx(request *QueryUnifiedentranceAsyncRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUnifiedentranceAsyncResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUnifiedentranceAsyncResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.unifiedentrance.async.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数据应用统一入口，主站调用
+ * Summary: 数据应用统一入口，主站调用
+ */
+func (client *Client) QueryMainsiteUnifiedentrance(request *QueryMainsiteUnifiedentranceRequest) (_result *QueryMainsiteUnifiedentranceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryMainsiteUnifiedentranceResponse{}
+	_body, _err := client.QueryMainsiteUnifiedentranceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据应用统一入口，主站调用
+ * Summary: 数据应用统一入口，主站调用
+ */
+func (client *Client) QueryMainsiteUnifiedentranceEx(request *QueryMainsiteUnifiedentranceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryMainsiteUnifiedentranceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryMainsiteUnifiedentranceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.das.mainsite.unifiedentrance.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
