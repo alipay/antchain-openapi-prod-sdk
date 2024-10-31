@@ -878,6 +878,8 @@ export class EducationTagInfo extends $tea.Model {
   schoolType?: string;
   // 学习形式字典code
   educationTypeCode?: string;
+  // 学校名称
+  schoolName?: string;
   static names(): { [key: string]: string } {
     return {
       major: 'major',
@@ -887,6 +889,7 @@ export class EducationTagInfo extends $tea.Model {
       admissionDate: 'admission_date',
       schoolType: 'school_type',
       educationTypeCode: 'education_type_code',
+      schoolName: 'school_name',
     };
   }
 
@@ -899,6 +902,7 @@ export class EducationTagInfo extends $tea.Model {
       admissionDate: 'string',
       schoolType: 'string',
       educationTypeCode: 'string',
+      schoolName: 'string',
     };
   }
 
@@ -2332,7 +2336,7 @@ export class QueryDetailcarinfoPesonandlicRequest extends $tea.Model {
   userName: string;
   // 待核验车主身份证号
   // 
-  userCertNo: string;
+  userCertNo?: string;
   // 号牌号码
   licenseNo: string;
   static names(): { [key: string]: string } {
@@ -2576,6 +2580,10 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
   userAuthed?: boolean;
   // 数据集服务id
   dataSetId: string;
+  // 授权token
+  token?: string;
+  // token授权场景码
+  sceneCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2584,6 +2592,8 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
       params: 'params',
       userAuthed: 'user_authed',
       dataSetId: 'data_set_id',
+      token: 'token',
+      sceneCode: 'scene_code',
     };
   }
 
@@ -2595,6 +2605,8 @@ export class QueryApplicationUnifiedentranceRequest extends $tea.Model {
       params: 'string',
       userAuthed: 'boolean',
       dataSetId: 'string',
+      token: 'string',
+      sceneCode: 'string',
     };
   }
 
@@ -3075,6 +3087,225 @@ export class GetApplicationFileentranceResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitUnifiedentranceAsyncRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权协议索引
+  fileIndex?: string;
+  // 整个需求的入参，map json
+  params: string;
+  // 是否授权
+  userAuthed?: string;
+  // 数据集服务id
+  dataSetId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileIndex: 'file_index',
+      params: 'params',
+      userAuthed: 'user_authed',
+      dataSetId: 'data_set_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileIndex: 'string',
+      params: 'string',
+      userAuthed: 'string',
+      dataSetId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class InitUnifiedentranceAsyncResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 具体返回，map json
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUnifiedentranceAsyncRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 整个需求的入参，map json
+  params: string;
+  // 数据集服务id
+  dataSetId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      params: 'params',
+      dataSetId: 'data_set_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      params: 'string',
+      dataSetId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUnifiedentranceAsyncResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 具体返回，map json
+  // 
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMainsiteUnifiedentranceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 授权协议索引
+  fileIndex?: string;
+  // 整个需求的入参，map json
+  params: string;
+  // 是否授权
+  userAuthed?: boolean;
+  // 数据集服务id
+  dataSetId: string;
+  // 	
+  // 授权token
+  token?: string;
+  // token授权场景码
+  sceneCode?: string;
+  // 实际调用的租户ID
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileIndex: 'file_index',
+      params: 'params',
+      userAuthed: 'user_authed',
+      dataSetId: 'data_set_id',
+      token: 'token',
+      sceneCode: 'scene_code',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileIndex: 'string',
+      params: 'string',
+      userAuthed: 'boolean',
+      dataSetId: 'string',
+      token: 'string',
+      sceneCode: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryMainsiteUnifiedentranceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 具体返回，map json
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
     };
   }
 
@@ -4093,7 +4324,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -4179,7 +4410,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.58",
+          sdk_version: "1.1.65",
           _prod_code: "DAS",
           _prod_channel: "undefined",
         };
@@ -4261,6 +4492,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -4415,6 +4647,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -4683,6 +4916,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -4725,6 +4959,63 @@ export default class Client {
   async getApplicationFileentranceEx(request: GetApplicationFileentranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetApplicationFileentranceResponse> {
     Util.validateModel(request);
     return $tea.cast<GetApplicationFileentranceResponse>(await this.doRequest("1.0", "antchain.das.application.fileentrance.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetApplicationFileentranceResponse({}));
+  }
+
+  /**
+   * Description: 万文
+   * Summary: 异步入口--获取流水号
+   */
+  async initUnifiedentranceAsync(request: InitUnifiedentranceAsyncRequest): Promise<InitUnifiedentranceAsyncResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.initUnifiedentranceAsyncEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 万文
+   * Summary: 异步入口--获取流水号
+   */
+  async initUnifiedentranceAsyncEx(request: InitUnifiedentranceAsyncRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<InitUnifiedentranceAsyncResponse> {
+    Util.validateModel(request);
+    return $tea.cast<InitUnifiedentranceAsyncResponse>(await this.doRequest("1.0", "antchain.das.unifiedentrance.async.init", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new InitUnifiedentranceAsyncResponse({}));
+  }
+
+  /**
+   * Description: 获取异步结果
+   * Summary: 获取异步结果
+   */
+  async queryUnifiedentranceAsync(request: QueryUnifiedentranceAsyncRequest): Promise<QueryUnifiedentranceAsyncResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUnifiedentranceAsyncEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取异步结果
+   * Summary: 获取异步结果
+   */
+  async queryUnifiedentranceAsyncEx(request: QueryUnifiedentranceAsyncRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUnifiedentranceAsyncResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUnifiedentranceAsyncResponse>(await this.doRequest("1.0", "antchain.das.unifiedentrance.async.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUnifiedentranceAsyncResponse({}));
+  }
+
+  /**
+   * Description: 数据应用统一入口，主站调用
+   * Summary: 数据应用统一入口，主站调用
+   */
+  async queryMainsiteUnifiedentrance(request: QueryMainsiteUnifiedentranceRequest): Promise<QueryMainsiteUnifiedentranceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryMainsiteUnifiedentranceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据应用统一入口，主站调用
+   * Summary: 数据应用统一入口，主站调用
+   */
+  async queryMainsiteUnifiedentranceEx(request: QueryMainsiteUnifiedentranceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMainsiteUnifiedentranceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryMainsiteUnifiedentranceResponse>(await this.doRequest("1.0", "antchain.das.mainsite.unifiedentrance.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMainsiteUnifiedentranceResponse({}));
   }
 
   /**
