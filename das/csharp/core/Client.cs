@@ -137,7 +137,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.58"},
+                        {"sdk_version", "1.1.65"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.DAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.58"},
+                        {"sdk_version", "1.1.65"},
                         {"_prod_code", "DAS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -371,6 +371,7 @@ namespace AntChain.SDK.DAS
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadApplicationBatchqueryfileResponse>(DoRequest("1.0", "antchain.das.application.batchqueryfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -404,6 +405,7 @@ namespace AntChain.SDK.DAS
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadApplicationBatchqueryfileResponse>(await DoRequestAsync("1.0", "antchain.das.application.batchqueryfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -711,6 +713,7 @@ namespace AntChain.SDK.DAS
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadApplicationAuthfileResponse>(DoRequest("1.0", "antchain.das.application.authfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -744,6 +747,7 @@ namespace AntChain.SDK.DAS
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadApplicationAuthfileResponse>(await DoRequestAsync("1.0", "antchain.das.application.authfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -1303,6 +1307,7 @@ namespace AntChain.SDK.DAS
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadServiceAuthfileResponse>(DoRequest("1.0", "antchain.das.service.authfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -1336,6 +1341,7 @@ namespace AntChain.SDK.DAS
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadServiceAuthfileResponse>(await DoRequestAsync("1.0", "antchain.das.service.authfile.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -1423,6 +1429,132 @@ namespace AntChain.SDK.DAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetApplicationFileentranceResponse>(await DoRequestAsync("1.0", "antchain.das.application.fileentrance.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 万文
+         * Summary: 异步入口--获取流水号
+         */
+        public InitUnifiedentranceAsyncResponse InitUnifiedentranceAsync(InitUnifiedentranceAsyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return InitUnifiedentranceAsyncEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 万文
+         * Summary: 异步入口--获取流水号
+         */
+        public async Task<InitUnifiedentranceAsyncResponse> InitUnifiedentranceAsyncAsync(InitUnifiedentranceAsyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await InitUnifiedentranceAsyncExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 万文
+         * Summary: 异步入口--获取流水号
+         */
+        public InitUnifiedentranceAsyncResponse InitUnifiedentranceAsyncEx(InitUnifiedentranceAsyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitUnifiedentranceAsyncResponse>(DoRequest("1.0", "antchain.das.unifiedentrance.async.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 万文
+         * Summary: 异步入口--获取流水号
+         */
+        public async Task<InitUnifiedentranceAsyncResponse> InitUnifiedentranceAsyncExAsync(InitUnifiedentranceAsyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<InitUnifiedentranceAsyncResponse>(await DoRequestAsync("1.0", "antchain.das.unifiedentrance.async.init", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取异步结果
+         * Summary: 获取异步结果
+         */
+        public QueryUnifiedentranceAsyncResponse QueryUnifiedentranceAsync(QueryUnifiedentranceAsyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUnifiedentranceAsyncEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取异步结果
+         * Summary: 获取异步结果
+         */
+        public async Task<QueryUnifiedentranceAsyncResponse> QueryUnifiedentranceAsyncAsync(QueryUnifiedentranceAsyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUnifiedentranceAsyncExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取异步结果
+         * Summary: 获取异步结果
+         */
+        public QueryUnifiedentranceAsyncResponse QueryUnifiedentranceAsyncEx(QueryUnifiedentranceAsyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUnifiedentranceAsyncResponse>(DoRequest("1.0", "antchain.das.unifiedentrance.async.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取异步结果
+         * Summary: 获取异步结果
+         */
+        public async Task<QueryUnifiedentranceAsyncResponse> QueryUnifiedentranceAsyncExAsync(QueryUnifiedentranceAsyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUnifiedentranceAsyncResponse>(await DoRequestAsync("1.0", "antchain.das.unifiedentrance.async.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据应用统一入口，主站调用
+         * Summary: 数据应用统一入口，主站调用
+         */
+        public QueryMainsiteUnifiedentranceResponse QueryMainsiteUnifiedentrance(QueryMainsiteUnifiedentranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMainsiteUnifiedentranceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据应用统一入口，主站调用
+         * Summary: 数据应用统一入口，主站调用
+         */
+        public async Task<QueryMainsiteUnifiedentranceResponse> QueryMainsiteUnifiedentranceAsync(QueryMainsiteUnifiedentranceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMainsiteUnifiedentranceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据应用统一入口，主站调用
+         * Summary: 数据应用统一入口，主站调用
+         */
+        public QueryMainsiteUnifiedentranceResponse QueryMainsiteUnifiedentranceEx(QueryMainsiteUnifiedentranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMainsiteUnifiedentranceResponse>(DoRequest("1.0", "antchain.das.mainsite.unifiedentrance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据应用统一入口，主站调用
+         * Summary: 数据应用统一入口，主站调用
+         */
+        public async Task<QueryMainsiteUnifiedentranceResponse> QueryMainsiteUnifiedentranceExAsync(QueryMainsiteUnifiedentranceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMainsiteUnifiedentranceResponse>(await DoRequestAsync("1.0", "antchain.das.mainsite.unifiedentrance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

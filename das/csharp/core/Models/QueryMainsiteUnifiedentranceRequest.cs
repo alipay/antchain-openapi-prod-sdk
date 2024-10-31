@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.DAS.Models
 {
-    public class QueryApplicationUnifiedentranceRequest : TeaModel {
+    public class QueryMainsiteUnifiedentranceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -38,6 +38,7 @@ namespace AntChain.SDK.DAS.Models
         [Validation(Required=true)]
         public string DataSetId { get; set; }
 
+        // 	
         // 授权token
         [NameInMap("token")]
         [Validation(Required=false)]
@@ -47,6 +48,11 @@ namespace AntChain.SDK.DAS.Models
         [NameInMap("scene_code")]
         [Validation(Required=false)]
         public string SceneCode { get; set; }
+
+        // 实际调用的租户ID
+        [NameInMap("tenant_id")]
+        [Validation(Required=true)]
+        public string TenantId { get; set; }
 
     }
 

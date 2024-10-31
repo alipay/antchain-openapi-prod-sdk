@@ -45,7 +45,7 @@ namespace AntChain.SDK.DAS.Models
         // 待核验车主身份证号
         // 
         [NameInMap("user_cert_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string UserCertNo { get; set; }
 
         // 号牌号码
