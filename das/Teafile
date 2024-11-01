@@ -10,7 +10,7 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-das:1.1.58",
+    "java": "com.antgroup.antchain.openapi:openapi-das:1.1.65",
     "go": "github.com/antchain-openapi-sdk-go/das/client:v1.1.65",
     "csharp": "AntChain.SDK.DAS:1.1.65",
     "ts": "@antchain/das:1.1.65",
