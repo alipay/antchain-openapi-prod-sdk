@@ -794,6 +794,7 @@ class AcesProject(TeaModel):
         need_deliver: str = None,
         need_ad_entry: str = None,
         need_tender: str = None,
+        cre: str = None,
     ):
         # 项目id
         self.project_id = project_id
@@ -837,6 +838,8 @@ class AcesProject(TeaModel):
         self.need_ad_entry = need_ad_entry
         # 是否需要竞标 1需要 0不需要
         self.need_tender = need_tender
+        # 张三
+        self.cre = cre
 
     def validate(self):
         self.validate_required(self.project_id, 'project_id')
@@ -899,6 +902,8 @@ class AcesProject(TeaModel):
             result['need_ad_entry'] = self.need_ad_entry
         if self.need_tender is not None:
             result['need_tender'] = self.need_tender
+        if self.cre is not None:
+            result['cre'] = self.cre
         return result
 
     def from_map(self, m: dict = None):
@@ -945,6 +950,8 @@ class AcesProject(TeaModel):
             self.need_ad_entry = m.get('need_ad_entry')
         if m.get('need_tender') is not None:
             self.need_tender = m.get('need_tender')
+        if m.get('cre') is not None:
+            self.cre = m.get('cre')
         return self
 
 
