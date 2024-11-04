@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.17',
+    sdk_version = '1.19.18',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -4775,8 +4775,6 @@ model CreateEvidenceLiveRequest = {
   expectedDuration?: long(name='expected_duration'),
   // 主播名称
   anchorName?: string(name='anchor_name'),
-  // 自动化取证类型
-  autoForensicsType?: string(name='auto_forensics_type'),
 }
 
 model CreateEvidenceLiveResponse = {
