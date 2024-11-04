@@ -502,6 +502,8 @@ export class AcesProject extends $tea.Model {
   needAdEntry: string;
   // 是否需要竞标 1需要 0不需要
   needTender: string;
+  // 张三
+  cre?: string;
   static names(): { [key: string]: string } {
     return {
       projectId: 'project_id',
@@ -525,6 +527,7 @@ export class AcesProject extends $tea.Model {
       needDeliver: 'need_deliver',
       needAdEntry: 'need_ad_entry',
       needTender: 'need_tender',
+      cre: 'cre',
     };
   }
 
@@ -551,6 +554,7 @@ export class AcesProject extends $tea.Model {
       needDeliver: 'string',
       needAdEntry: 'string',
       needTender: 'string',
+      cre: 'string',
     };
   }
 
@@ -1595,7 +1599,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.3",
+          sdk_version: "1.3.4",
           _prod_code: "TAM",
           _prod_channel: "undefined",
         };
