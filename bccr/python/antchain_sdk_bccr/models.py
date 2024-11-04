@@ -14662,6 +14662,8 @@ class CreateEvidenceLiveRequest(TeaModel):
         client_token: str = None,
         profile_id: str = None,
         expected_duration: int = None,
+        anchor_name: str = None,
+        auto_forensics_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14680,6 +14682,10 @@ class CreateEvidenceLiveRequest(TeaModel):
         self.profile_id = profile_id
         # 预定时间：分钟，建议传值范围5-20分钟
         self.expected_duration = expected_duration
+        # 主播名称
+        self.anchor_name = anchor_name
+        # 自动化取证类型
+        self.auto_forensics_type = auto_forensics_type
 
     def validate(self):
         self.validate_required(self.evidence_user_id, 'evidence_user_id')
@@ -14714,6 +14720,10 @@ class CreateEvidenceLiveRequest(TeaModel):
             result['profile_id'] = self.profile_id
         if self.expected_duration is not None:
             result['expected_duration'] = self.expected_duration
+        if self.anchor_name is not None:
+            result['anchor_name'] = self.anchor_name
+        if self.auto_forensics_type is not None:
+            result['auto_forensics_type'] = self.auto_forensics_type
         return result
 
     def from_map(self, m: dict = None):
@@ -14737,6 +14747,10 @@ class CreateEvidenceLiveRequest(TeaModel):
             self.profile_id = m.get('profile_id')
         if m.get('expected_duration') is not None:
             self.expected_duration = m.get('expected_duration')
+        if m.get('anchor_name') is not None:
+            self.anchor_name = m.get('anchor_name')
+        if m.get('auto_forensics_type') is not None:
+            self.auto_forensics_type = m.get('auto_forensics_type')
         return self
 
 
