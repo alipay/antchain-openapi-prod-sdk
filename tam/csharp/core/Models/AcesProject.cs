@@ -115,6 +115,11 @@ namespace AntChain.SDK.TAM.Models
         [Validation(Required=true)]
         public string NeedTender { get; set; }
 
+        // 张三
+        [NameInMap("cre")]
+        [Validation(Required=false)]
+        public string Cre { get; set; }
+
     }
 
 }
