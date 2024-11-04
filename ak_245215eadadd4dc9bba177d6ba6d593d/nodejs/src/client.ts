@@ -448,11 +448,14 @@ export class CloneTask extends $tea.Model {
   voiceId?: string;
   // 初始化/训练队列中/声音克隆中/声音克隆完成/形象克隆中/形象克隆完成
   avatarStatus?: string;
+  //  数字人训练失败会返回原因
+  failReason?: string;
   static names(): { [key: string]: string } {
     return {
       modelId: 'model_id',
       voiceId: 'voice_id',
       avatarStatus: 'avatar_status',
+      failReason: 'fail_reason',
     };
   }
 
@@ -461,6 +464,7 @@ export class CloneTask extends $tea.Model {
       modelId: 'string',
       voiceId: 'string',
       avatarStatus: 'string',
+      failReason: 'string',
     };
   }
 
@@ -1231,7 +1235,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.2",
+          sdk_version: "1.1.3",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
@@ -1356,8 +1360,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字人tts接口
-   * Summary: 数字人tts接口
+   * Description: 数字人短文本试听接口
+   * Summary: 数字人短文本试听接口
    */
   async createUniversalsaasDigitalhumanVoice(request: CreateUniversalsaasDigitalhumanVoiceRequest): Promise<CreateUniversalsaasDigitalhumanVoiceResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1366,8 +1370,8 @@ export default class Client {
   }
 
   /**
-   * Description: 数字人tts接口
-   * Summary: 数字人tts接口
+   * Description: 数字人短文本试听接口
+   * Summary: 数字人短文本试听接口
    */
   async createUniversalsaasDigitalhumanVoiceEx(request: CreateUniversalsaasDigitalhumanVoiceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateUniversalsaasDigitalhumanVoiceResponse> {
     Util.validateModel(request);
