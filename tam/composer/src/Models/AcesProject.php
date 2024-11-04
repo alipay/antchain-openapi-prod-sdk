@@ -174,6 +174,14 @@ class AcesProject extends Model
      * @var string
      */
     public $needTender;
+
+    // 张三
+    /**
+     * @example 张三
+     *
+     * @var string
+     */
+    public $cre;
     protected $_name = [
         'projectId'       => 'project_id',
         'projectName'     => 'project_name',
@@ -196,6 +204,7 @@ class AcesProject extends Model
         'needDeliver'     => 'need_deliver',
         'needAdEntry'     => 'need_ad_entry',
         'needTender'      => 'need_tender',
+        'cre'             => 'cre',
     ];
 
     public function validate()
@@ -279,6 +288,9 @@ class AcesProject extends Model
         if (null !== $this->needTender) {
             $res['need_tender'] = $this->needTender;
         }
+        if (null !== $this->cre) {
+            $res['cre'] = $this->cre;
+        }
 
         return $res;
     }
@@ -353,6 +365,9 @@ class AcesProject extends Model
         }
         if (isset($map['need_tender'])) {
             $model->needTender = $map['need_tender'];
+        }
+        if (isset($map['cre'])) {
+            $model->cre = $map['cre'];
         }
 
         return $model;
