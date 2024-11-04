@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.2"),
+                    new TeaPair("sdk_version", "1.1.3"),
                     new TeaPair("_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -261,8 +261,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字人tts接口
-     * Summary: 数字人tts接口
+     * Description: 数字人短文本试听接口
+     * Summary: 数字人短文本试听接口
      */
     public CreateUniversalsaasDigitalhumanVoiceResponse createUniversalsaasDigitalhumanVoice(CreateUniversalsaasDigitalhumanVoiceRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -271,8 +271,8 @@ public class Client {
     }
 
     /**
-     * Description: 数字人tts接口
-     * Summary: 数字人tts接口
+     * Description: 数字人短文本试听接口
+     * Summary: 数字人短文本试听接口
      */
     public CreateUniversalsaasDigitalhumanVoiceResponse createUniversalsaasDigitalhumanVoiceEx(CreateUniversalsaasDigitalhumanVoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

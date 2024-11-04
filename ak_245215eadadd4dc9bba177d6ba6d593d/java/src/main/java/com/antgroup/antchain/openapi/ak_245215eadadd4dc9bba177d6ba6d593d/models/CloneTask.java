@@ -16,6 +16,10 @@ public class CloneTask extends TeaModel {
     @NameInMap("avatar_status")
     public String avatarStatus;
 
+    //  数字人训练失败会返回原因
+    @NameInMap("fail_reason")
+    public String failReason;
+
     public static CloneTask build(java.util.Map<String, ?> map) throws Exception {
         CloneTask self = new CloneTask();
         return TeaModel.build(map, self);
@@ -43,6 +47,14 @@ public class CloneTask extends TeaModel {
     }
     public String getAvatarStatus() {
         return this.avatarStatus;
+    }
+
+    public CloneTask setFailReason(String failReason) {
+        this.failReason = failReason;
+        return this;
+    }
+    public String getFailReason() {
+        return this.failReason;
     }
 
 }
