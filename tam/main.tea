@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.3',
+    sdk_version = '1.3.4',
     _prod_code = 'TAM',
     _prod_channel = 'undefined'
   };
@@ -355,6 +355,8 @@ model AcesProject {
   needAdEntry: string(name='need_ad_entry', example='1'),
   // 是否需要竞标 1需要 0不需要
   needTender: string(name='need_tender', example='1'),
+  // 张三
+  cre?: string(name='cre', example='张三'),
 }
 
 //  
