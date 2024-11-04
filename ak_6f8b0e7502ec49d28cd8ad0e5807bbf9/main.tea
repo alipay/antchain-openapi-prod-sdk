@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.2',
+    sdk_version = '1.0.3',
     _prod_code = 'ak_6f8b0e7502ec49d28cd8ad0e5807bbf9',
     _prod_channel = 'saas'
   };
@@ -165,6 +165,8 @@ model QueryDemoAaaBbbCccRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
+  // 入参
+  param: string(name='param'),
 }
 
 model QueryDemoAaaBbbCccResponse = {
@@ -227,172 +229,5 @@ async function bindDemoAaaBbbCcd(request: BindDemoAaaBbbCcdRequest): BindDemoAaa
 async function bindDemoAaaBbbCcdEx(request: BindDemoAaaBbbCcdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BindDemoAaaBbbCcdResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDemoAcopmAtoWithholdRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 订单id 长度不可超过50
-  orderId: string(name='order_id'),
-}
-
-model QueryDemoAcopmAtoWithholdResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 协议生效时间
-  validTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='valid_time'),
-  // 协议当前状态 1. UNSIGNED：未签约 2. SIG...
-  // 
-  status?: string(name='status'),
-  // 协议失效时间
-  invalidTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='invalid_time'),
-  // 协议签署时间
-  signTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='sign_time'),
-}
-
-/**
- * Description: 测试
- * Summary: 测试ato异常
- */
-async function queryDemoAcopmAtoWithhold(request: QueryDemoAcopmAtoWithholdRequest): QueryDemoAcopmAtoWithholdResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoAcopmAtoWithholdEx(request, headers, runtime);
-}
-
-/**
- * Description: 测试
- * Summary: 测试ato异常
- */
-async function queryDemoAcopmAtoWithholdEx(request: QueryDemoAcopmAtoWithholdRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoAcopmAtoWithholdResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.acopm.ato.withhold.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDemoApdevcenterTestobjectTestsubRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // test
-  test: string(maxLength=200, minLength=200, name='test'),
-}
-
-model QueryDemoApdevcenterTestobjectTestsubResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-}
-
-/**
- * Description: test
- * Summary: 新增API测试查询接口(只是测试使用)
- */
-async function queryDemoApdevcenterTestobjectTestsub(request: QueryDemoApdevcenterTestobjectTestsubRequest): QueryDemoApdevcenterTestobjectTestsubResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoApdevcenterTestobjectTestsubEx(request, headers, runtime);
-}
-
-/**
- * Description: test
- * Summary: 新增API测试查询接口(只是测试使用)
- */
-async function queryDemoApdevcenterTestobjectTestsubEx(request: QueryDemoApdevcenterTestobjectTestsubRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoApdevcenterTestobjectTestsubResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.apdevcenter.testobject.testsub.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDemoApdevcenterTestobjectTestsubaRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // 主键
-  id: long(name='id'),
-  // 名称
-  name: string(maxLength=521, name='name'),
-  // test
-  test: string(name='test'),
-}
-
-model QueryDemoApdevcenterTestobjectTestsubaResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // 主键
-  id?: long(name='id'),
-  // 名称
-  name?: string(name='name'),
-  // 描述
-  desc?: string(name='desc'),
-}
-
-/**
- * Description: testtest
- * Summary: 新增API测试查询接口(只是测试使用)
- */
-async function queryDemoApdevcenterTestobjectTestsuba(request: QueryDemoApdevcenterTestobjectTestsubaRequest): QueryDemoApdevcenterTestobjectTestsubaResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoApdevcenterTestobjectTestsubaEx(request, headers, runtime);
-}
-
-/**
- * Description: testtest
- * Summary: 新增API测试查询接口(只是测试使用)
- */
-async function queryDemoApdevcenterTestobjectTestsubaEx(request: QueryDemoApdevcenterTestobjectTestsubaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoApdevcenterTestobjectTestsubaResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.apdevcenter.testobject.testsuba.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
-}
-
-model QueryDemoTestproductTestobjectTestsubaaaRequest = {
-  // OAuth模式下的授权token
-  authToken?: string(name='auth_token'),
-  productInstanceId?: string(name='product_instance_id'),
-  // test
-  id: long(name='id'),
-  // test
-  name: string(name='name'),
-}
-
-model QueryDemoTestproductTestobjectTestsubaaaResponse = {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string(name='req_msg_id'),
-  // 结果码，一般OK表示调用成功
-  resultCode?: string(name='result_code'),
-  // 异常信息的文本描述
-  resultMsg?: string(name='result_msg'),
-  // test
-  name?: string(name='name'),
-}
-
-/**
- * Description: test
- * Summary: 新增API测试查询接口(只是测试使用)
- */
-async function queryDemoTestproductTestobjectTestsubaaa(request: QueryDemoTestproductTestobjectTestsubaaaRequest): QueryDemoTestproductTestobjectTestsubaaaResponse {
-  var runtime = new Util.RuntimeOptions{};
-  var headers : map[string]string= {};
-  return queryDemoTestproductTestobjectTestsubaaaEx(request, headers, runtime);
-}
-
-/**
- * Description: test
- * Summary: 新增API测试查询接口(只是测试使用)
- */
-async function queryDemoTestproductTestobjectTestsubaaaEx(request: QueryDemoTestproductTestobjectTestsubaaaRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDemoTestproductTestobjectTestsubaaaResponse {
-  Util.validateModel(request);
-  return doRequest('1.0' ,'demo.testproduct.testobject.testsubaaa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
