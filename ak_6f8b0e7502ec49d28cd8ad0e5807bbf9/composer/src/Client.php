@@ -15,14 +15,6 @@ use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\BindDemoAaaBbbCcdRequest
 use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\BindDemoAaaBbbCcdResponse;
 use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoAaaBbbCccRequest;
 use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoAaaBbbCccResponse;
-use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoAcopmAtoWithholdRequest;
-use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoAcopmAtoWithholdResponse;
-use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoApdevcenterTestobjectTestsubaRequest;
-use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoApdevcenterTestobjectTestsubaResponse;
-use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoApdevcenterTestobjectTestsubRequest;
-use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoApdevcenterTestobjectTestsubResponse;
-use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoTestproductTestobjectTestsubaaaRequest;
-use AntChain\Ak_6f8b0e7502ec49d28cd8ad0e5807bbf9\Models\QueryDemoTestproductTestobjectTestsubaaaResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -169,7 +161,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.2',
+                    'sdk_version'      => '1.0.3',
                     '_prod_code'       => 'ak_6f8b0e7502ec49d28cd8ad0e5807bbf9',
                     '_prod_channel'    => 'saas',
                 ];
@@ -281,137 +273,5 @@ class Client
         Utils::validateModel($request);
 
         return BindDemoAaaBbbCcdResponse::fromMap($this->doRequest('1.0', 'demo.aaa.bbb.ccd.bind', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: 测试
-     * Summary: 测试ato异常.
-     *
-     * @param QueryDemoAcopmAtoWithholdRequest $request
-     *
-     * @return QueryDemoAcopmAtoWithholdResponse
-     */
-    public function queryDemoAcopmAtoWithhold($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoAcopmAtoWithholdEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 测试
-     * Summary: 测试ato异常.
-     *
-     * @param QueryDemoAcopmAtoWithholdRequest $request
-     * @param string[]                         $headers
-     * @param RuntimeOptions                   $runtime
-     *
-     * @return QueryDemoAcopmAtoWithholdResponse
-     */
-    public function queryDemoAcopmAtoWithholdEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoAcopmAtoWithholdResponse::fromMap($this->doRequest('1.0', 'demo.acopm.ato.withhold.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: test
-     * Summary: 新增API测试查询接口(只是测试使用).
-     *
-     * @param QueryDemoApdevcenterTestobjectTestsubRequest $request
-     *
-     * @return array|QueryDemoApdevcenterTestobjectTestsubResponse
-     */
-    public function queryDemoApdevcenterTestobjectTestsub($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoApdevcenterTestobjectTestsubEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: 新增API测试查询接口(只是测试使用).
-     *
-     * @param QueryDemoApdevcenterTestobjectTestsubRequest $request
-     * @param string[]                                     $headers
-     * @param RuntimeOptions                               $runtime
-     *
-     * @return array|QueryDemoApdevcenterTestobjectTestsubResponse
-     */
-    public function queryDemoApdevcenterTestobjectTestsubEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoApdevcenterTestobjectTestsubResponse::fromMap($this->doRequest('1.0', 'demo.apdevcenter.testobject.testsub.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: testtest
-     * Summary: 新增API测试查询接口(只是测试使用).
-     *
-     * @param QueryDemoApdevcenterTestobjectTestsubaRequest $request
-     *
-     * @return array|QueryDemoApdevcenterTestobjectTestsubaResponse
-     */
-    public function queryDemoApdevcenterTestobjectTestsuba($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoApdevcenterTestobjectTestsubaEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: testtest
-     * Summary: 新增API测试查询接口(只是测试使用).
-     *
-     * @param QueryDemoApdevcenterTestobjectTestsubaRequest $request
-     * @param string[]                                      $headers
-     * @param RuntimeOptions                                $runtime
-     *
-     * @return array|QueryDemoApdevcenterTestobjectTestsubaResponse
-     */
-    public function queryDemoApdevcenterTestobjectTestsubaEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoApdevcenterTestobjectTestsubaResponse::fromMap($this->doRequest('1.0', 'demo.apdevcenter.testobject.testsuba.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
-     * Description: test
-     * Summary: 新增API测试查询接口(只是测试使用).
-     *
-     * @param QueryDemoTestproductTestobjectTestsubaaaRequest $request
-     *
-     * @return array|QueryDemoTestproductTestobjectTestsubaaaResponse
-     */
-    public function queryDemoTestproductTestobjectTestsubaaa($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->queryDemoTestproductTestobjectTestsubaaaEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: test
-     * Summary: 新增API测试查询接口(只是测试使用).
-     *
-     * @param QueryDemoTestproductTestobjectTestsubaaaRequest $request
-     * @param string[]                                        $headers
-     * @param RuntimeOptions                                  $runtime
-     *
-     * @return array|QueryDemoTestproductTestobjectTestsubaaaResponse
-     */
-    public function queryDemoTestproductTestobjectTestsubaaaEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return QueryDemoTestproductTestobjectTestsubaaaResponse::fromMap($this->doRequest('1.0', 'demo.testproduct.testobject.testsubaaa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
