@@ -748,6 +748,7 @@ class CloneTask(TeaModel):
         model_id: str = None,
         voice_id: str = None,
         avatar_status: str = None,
+        fail_reason: str = None,
     ):
         # 数字人id
         self.model_id = model_id
@@ -755,6 +756,8 @@ class CloneTask(TeaModel):
         self.voice_id = voice_id
         # 初始化/训练队列中/声音克隆中/声音克隆完成/形象克隆中/形象克隆完成
         self.avatar_status = avatar_status
+        # 数字人训练失败会返回原因
+        self.fail_reason = fail_reason
 
     def validate(self):
         pass
@@ -771,6 +774,8 @@ class CloneTask(TeaModel):
             result['voice_id'] = self.voice_id
         if self.avatar_status is not None:
             result['avatar_status'] = self.avatar_status
+        if self.fail_reason is not None:
+            result['fail_reason'] = self.fail_reason
         return result
 
     def from_map(self, m: dict = None):
@@ -781,6 +786,8 @@ class CloneTask(TeaModel):
             self.voice_id = m.get('voice_id')
         if m.get('avatar_status') is not None:
             self.avatar_status = m.get('avatar_status')
+        if m.get('fail_reason') is not None:
+            self.fail_reason = m.get('fail_reason')
         return self
 
 

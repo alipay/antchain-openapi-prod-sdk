@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2',
+                    'sdk_version': '1.1.3',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2',
+                    'sdk_version': '1.1.3',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -504,8 +504,8 @@ class Client:
         request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceRequest,
     ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse:
         """
-        Description: 数字人tts接口
-        Summary: 数字人tts接口
+        Description: 数字人短文本试听接口
+        Summary: 数字人短文本试听接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -516,8 +516,8 @@ class Client:
         request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceRequest,
     ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse:
         """
-        Description: 数字人tts接口
-        Summary: 数字人tts接口
+        Description: 数字人短文本试听接口
+        Summary: 数字人短文本试听接口
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -530,8 +530,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse:
         """
-        Description: 数字人tts接口
-        Summary: 数字人tts接口
+        Description: 数字人短文本试听接口
+        Summary: 数字人短文本试听接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -546,8 +546,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CreateUniversalsaasDigitalhumanVoiceResponse:
         """
-        Description: 数字人tts接口
-        Summary: 数字人tts接口
+        Description: 数字人短文本试听接口
+        Summary: 数字人短文本试听接口
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
