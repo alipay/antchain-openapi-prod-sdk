@@ -11889,6 +11889,10 @@ type CreateEvidenceLiveRequest struct {
 	ProfileId *string `json:"profile_id,omitempty" xml:"profile_id,omitempty"`
 	// 预定时间：分钟，建议传值范围5-20分钟
 	ExpectedDuration *int64 `json:"expected_duration,omitempty" xml:"expected_duration,omitempty"`
+	// 主播名称
+	AnchorName *string `json:"anchor_name,omitempty" xml:"anchor_name,omitempty"`
+	// 自动化取证类型
+	AutoForensicsType *string `json:"auto_forensics_type,omitempty" xml:"auto_forensics_type,omitempty"`
 }
 
 func (s CreateEvidenceLiveRequest) String() string {
@@ -11941,6 +11945,16 @@ func (s *CreateEvidenceLiveRequest) SetProfileId(v string) *CreateEvidenceLiveRe
 
 func (s *CreateEvidenceLiveRequest) SetExpectedDuration(v int64) *CreateEvidenceLiveRequest {
 	s.ExpectedDuration = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetAnchorName(v string) *CreateEvidenceLiveRequest {
+	s.AnchorName = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetAutoForensicsType(v string) *CreateEvidenceLiveRequest {
+	s.AutoForensicsType = &v
 	return s
 }
 
@@ -13890,7 +13904,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.16"),
+				"sdk_version":      tea.String("1.19.17"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
