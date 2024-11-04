@@ -99,6 +99,10 @@ public class AcesProject extends TeaModel {
     @Validation(required = true)
     public String needTender;
 
+    // 张三
+    @NameInMap("cre")
+    public String cre;
+
     public static AcesProject build(java.util.Map<String, ?> map) throws Exception {
         AcesProject self = new AcesProject();
         return TeaModel.build(map, self);
@@ -270,6 +274,14 @@ public class AcesProject extends TeaModel {
     }
     public String getNeedTender() {
         return this.needTender;
+    }
+
+    public AcesProject setCre(String cre) {
+        this.cre = cre;
+        return this;
+    }
+    public String getCre() {
+        return this.cre;
     }
 
 }
