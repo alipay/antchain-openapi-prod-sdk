@@ -44,6 +44,14 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     @NameInMap("expected_duration")
     public Long expectedDuration;
 
+    // 主播名称
+    @NameInMap("anchor_name")
+    public String anchorName;
+
+    // 自动化取证类型
+    @NameInMap("auto_forensics_type")
+    public String autoForensicsType;
+
     public static CreateEvidenceLiveRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateEvidenceLiveRequest self = new CreateEvidenceLiveRequest();
         return TeaModel.build(map, self);
@@ -119,6 +127,22 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     }
     public Long getExpectedDuration() {
         return this.expectedDuration;
+    }
+
+    public CreateEvidenceLiveRequest setAnchorName(String anchorName) {
+        this.anchorName = anchorName;
+        return this;
+    }
+    public String getAnchorName() {
+        return this.anchorName;
+    }
+
+    public CreateEvidenceLiveRequest setAutoForensicsType(String autoForensicsType) {
+        this.autoForensicsType = autoForensicsType;
+        return this;
+    }
+    public String getAutoForensicsType() {
+        return this.autoForensicsType;
     }
 
 }
