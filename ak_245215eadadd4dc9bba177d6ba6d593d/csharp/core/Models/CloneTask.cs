@@ -25,6 +25,11 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d.Models
         [Validation(Required=false)]
         public string AvatarStatus { get; set; }
 
+        //  数字人训练失败会返回原因
+        [NameInMap("fail_reason")]
+        [Validation(Required=false)]
+        public string FailReason { get; set; }
+
     }
 
 }

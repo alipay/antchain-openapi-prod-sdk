@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.2"},
+                        {"sdk_version", "1.1.3"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.2"},
+                        {"sdk_version", "1.1.3"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -490,8 +490,8 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
         }
 
         /**
-         * Description: 数字人tts接口
-         * Summary: 数字人tts接口
+         * Description: 数字人短文本试听接口
+         * Summary: 数字人短文本试听接口
          */
         public CreateUniversalsaasDigitalhumanVoiceResponse CreateUniversalsaasDigitalhumanVoice(CreateUniversalsaasDigitalhumanVoiceRequest request)
         {
@@ -501,8 +501,8 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
         }
 
         /**
-         * Description: 数字人tts接口
-         * Summary: 数字人tts接口
+         * Description: 数字人短文本试听接口
+         * Summary: 数字人短文本试听接口
          */
         public async Task<CreateUniversalsaasDigitalhumanVoiceResponse> CreateUniversalsaasDigitalhumanVoiceAsync(CreateUniversalsaasDigitalhumanVoiceRequest request)
         {
@@ -512,8 +512,8 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
         }
 
         /**
-         * Description: 数字人tts接口
-         * Summary: 数字人tts接口
+         * Description: 数字人短文本试听接口
+         * Summary: 数字人短文本试听接口
          */
         public CreateUniversalsaasDigitalhumanVoiceResponse CreateUniversalsaasDigitalhumanVoiceEx(CreateUniversalsaasDigitalhumanVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -522,8 +522,8 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
         }
 
         /**
-         * Description: 数字人tts接口
-         * Summary: 数字人tts接口
+         * Description: 数字人短文本试听接口
+         * Summary: 数字人短文本试听接口
          */
         public async Task<CreateUniversalsaasDigitalhumanVoiceResponse> CreateUniversalsaasDigitalhumanVoiceExAsync(CreateUniversalsaasDigitalhumanVoiceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
