@@ -174,7 +174,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.2',
+                    'sdk_version'      => '1.1.3',
                     '_prod_code'       => 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel'    => 'saas',
                 ];
@@ -355,8 +355,8 @@ class Client
     }
 
     /**
-     * Description: 数字人tts接口
-     * Summary: 数字人tts接口.
+     * Description: 数字人短文本试听接口
+     * Summary: 数字人短文本试听接口.
      *
      * @param CreateUniversalsaasDigitalhumanVoiceRequest $request
      *
@@ -371,8 +371,8 @@ class Client
     }
 
     /**
-     * Description: 数字人tts接口
-     * Summary: 数字人tts接口.
+     * Description: 数字人短文本试听接口
+     * Summary: 数字人短文本试听接口.
      *
      * @param CreateUniversalsaasDigitalhumanVoiceRequest $request
      * @param string[]                                    $headers

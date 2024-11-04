@@ -31,10 +31,19 @@ class CloneTask extends Model
      * @var string
      */
     public $avatarStatus;
+
+    // 数字人训练失败会返回原因
+    /**
+     * @example 失败原因
+     *
+     * @var string
+     */
+    public $failReason;
     protected $_name = [
         'modelId'      => 'model_id',
         'voiceId'      => 'voice_id',
         'avatarStatus' => 'avatar_status',
+        'failReason'   => 'fail_reason',
     ];
 
     public function validate()
@@ -52,6 +61,9 @@ class CloneTask extends Model
         }
         if (null !== $this->avatarStatus) {
             $res['avatar_status'] = $this->avatarStatus;
+        }
+        if (null !== $this->failReason) {
+            $res['fail_reason'] = $this->failReason;
         }
 
         return $res;
@@ -73,6 +85,9 @@ class CloneTask extends Model
         }
         if (isset($map['avatar_status'])) {
             $model->avatarStatus = $map['avatar_status'];
+        }
+        if (isset($map['fail_reason'])) {
+            $model->failReason = $map['fail_reason'];
         }
 
         return $model;
