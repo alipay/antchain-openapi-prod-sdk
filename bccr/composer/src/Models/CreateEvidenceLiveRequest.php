@@ -66,12 +66,6 @@ class CreateEvidenceLiveRequest extends Model
      * @var string
      */
     public $anchorName;
-
-    // 自动化取证类型
-    /**
-     * @var string
-     */
-    public $autoForensicsType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -83,7 +77,6 @@ class CreateEvidenceLiveRequest extends Model
         'profileId'         => 'profile_id',
         'expectedDuration'  => 'expected_duration',
         'anchorName'        => 'anchor_name',
-        'autoForensicsType' => 'auto_forensics_type',
     ];
 
     public function validate()
@@ -128,9 +121,6 @@ class CreateEvidenceLiveRequest extends Model
         if (null !== $this->anchorName) {
             $res['anchor_name'] = $this->anchorName;
         }
-        if (null !== $this->autoForensicsType) {
-            $res['auto_forensics_type'] = $this->autoForensicsType;
-        }
 
         return $res;
     }
@@ -172,9 +162,6 @@ class CreateEvidenceLiveRequest extends Model
         }
         if (isset($map['anchor_name'])) {
             $model->anchorName = $map['anchor_name'];
-        }
-        if (isset($map['auto_forensics_type'])) {
-            $model->autoForensicsType = $map['auto_forensics_type'];
         }
 
         return $model;
