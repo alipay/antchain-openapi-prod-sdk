@@ -610,6 +610,8 @@ type CloneTask struct {
 	VoiceId *string `json:"voice_id,omitempty" xml:"voice_id,omitempty"`
 	// 初始化/训练队列中/声音克隆中/声音克隆完成/形象克隆中/形象克隆完成
 	AvatarStatus *string `json:"avatar_status,omitempty" xml:"avatar_status,omitempty"`
+	//  数字人训练失败会返回原因
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
 }
 
 func (s CloneTask) String() string {
@@ -632,6 +634,11 @@ func (s *CloneTask) SetVoiceId(v string) *CloneTask {
 
 func (s *CloneTask) SetAvatarStatus(v string) *CloneTask {
 	s.AvatarStatus = &v
+	return s
+}
+
+func (s *CloneTask) SetFailReason(v string) *CloneTask {
+	s.FailReason = &v
 	return s
 }
 
@@ -1586,7 +1593,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.1.3"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1781,8 +1788,8 @@ func (client *Client) QueryUniversalsaasDigitalhumanVideoTaskEx(request *QueryUn
 }
 
 /**
- * Description: 数字人tts接口
- * Summary: 数字人tts接口
+ * Description: 数字人短文本试听接口
+ * Summary: 数字人短文本试听接口
  */
 func (client *Client) CreateUniversalsaasDigitalhumanVoice(request *CreateUniversalsaasDigitalhumanVoiceRequest) (_result *CreateUniversalsaasDigitalhumanVoiceResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -1797,8 +1804,8 @@ func (client *Client) CreateUniversalsaasDigitalhumanVoice(request *CreateUniver
 }
 
 /**
- * Description: 数字人tts接口
- * Summary: 数字人tts接口
+ * Description: 数字人短文本试听接口
+ * Summary: 数字人短文本试听接口
  */
 func (client *Client) CreateUniversalsaasDigitalhumanVoiceEx(request *CreateUniversalsaasDigitalhumanVoiceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateUniversalsaasDigitalhumanVoiceResponse, _err error) {
 	_err = util.ValidateModel(request)
