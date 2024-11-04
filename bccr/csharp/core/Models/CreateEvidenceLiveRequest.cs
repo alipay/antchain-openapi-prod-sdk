@@ -58,11 +58,6 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string AnchorName { get; set; }
 
-        // 自动化取证类型
-        [NameInMap("auto_forensics_type")]
-        [Validation(Required=false)]
-        public string AutoForensicsType { get; set; }
-
     }
 
 }
