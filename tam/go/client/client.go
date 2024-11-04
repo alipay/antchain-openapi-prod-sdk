@@ -699,6 +699,8 @@ type AcesProject struct {
 	NeedAdEntry *string `json:"need_ad_entry,omitempty" xml:"need_ad_entry,omitempty" require:"true"`
 	// 是否需要竞标 1需要 0不需要
 	NeedTender *string `json:"need_tender,omitempty" xml:"need_tender,omitempty" require:"true"`
+	// 张三
+	Cre *string `json:"cre,omitempty" xml:"cre,omitempty"`
 }
 
 func (s AcesProject) String() string {
@@ -811,6 +813,11 @@ func (s *AcesProject) SetNeedAdEntry(v string) *AcesProject {
 
 func (s *AcesProject) SetNeedTender(v string) *AcesProject {
 	s.NeedTender = &v
+	return s
+}
+
+func (s *AcesProject) SetCre(v string) *AcesProject {
+	s.Cre = &v
 	return s
 }
 
@@ -2090,7 +2097,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.3"),
+				"sdk_version":      tea.String("1.3.4"),
 				"_prod_code":       tea.String("TAM"),
 				"_prod_channel":    tea.String("undefined"),
 			}
