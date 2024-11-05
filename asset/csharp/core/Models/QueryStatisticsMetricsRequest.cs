@@ -25,7 +25,7 @@ namespace AntChain.SDK.ASSET.Models
 
         // 请求唯一id
         [NameInMap("request_unique_id")]
-        [Validation(Required=true, MaxLength=36)]
+        [Validation(Required=false)]
         public string RequestUniqueId { get; set; }
 
         // 租户指标: OPERATING_INCOME, REPAY_AMOUNT, REPAY_NUMBER, REPAY_USER_NUMBER, REPAY_AVG_AMOUNT, ALI_DST_AMT

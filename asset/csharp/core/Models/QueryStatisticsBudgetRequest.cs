@@ -26,7 +26,7 @@ namespace AntChain.SDK.ASSET.Models
 
         // 请求唯一id
         [NameInMap("request_unique_id")]
-        [Validation(Required=true, MaxLength=36)]
+        [Validation(Required=false)]
         public string RequestUniqueId { get; set; }
 
     }
