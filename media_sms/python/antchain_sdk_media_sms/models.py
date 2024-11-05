@@ -198,6 +198,61 @@ class SmsSendStatus(TeaModel):
         return self
 
 
+class AccountSmsSendStatus(TeaModel):
+    def __init__(
+        self,
+        phone_no: str = None,
+        batch_task_id: str = None,
+        status: str = None,
+        detail_msg: str = None,
+    ):
+        # ⼿机号
+        self.phone_no = phone_no
+        # 批次号
+        self.batch_task_id = batch_task_id
+        # 发送状态
+        # SUCCESS：发送成
+        # 功；
+        # FAILED：发送失败；
+        self.status = status
+        # 发送状态描述
+        self.detail_msg = detail_msg
+
+    def validate(self):
+        self.validate_required(self.phone_no, 'phone_no')
+        self.validate_required(self.batch_task_id, 'batch_task_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.detail_msg, 'detail_msg')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.phone_no is not None:
+            result['phone_no'] = self.phone_no
+        if self.batch_task_id is not None:
+            result['batch_task_id'] = self.batch_task_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.detail_msg is not None:
+            result['detail_msg'] = self.detail_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('phone_no') is not None:
+            self.phone_no = m.get('phone_no')
+        if m.get('batch_task_id') is not None:
+            self.batch_task_id = m.get('batch_task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('detail_msg') is not None:
+            self.detail_msg = m.get('detail_msg')
+        return self
+
+
 class QueryTemplateStatusRes(TeaModel):
     def __init__(
         self,
@@ -1075,6 +1130,111 @@ class QueryMsgStatusResponse(TeaModel):
         if m.get('data') is not None:
             for k in m.get('data'):
                 temp_model = SmsSendStatus()
+                self.data.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAccountMsgstatusRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        ext_info: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 扩展信息
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
+class QueryAccountMsgstatusResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AccountSmsSendStatus] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 信息发送状态
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AccountSmsSendStatus()
                 self.data.append(temp_model.from_map(k))
         return self
 

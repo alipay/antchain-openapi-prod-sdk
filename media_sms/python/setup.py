@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_media_sms.
 
-Created on 13/09/2024
+Created on 05/11/2024
 
 @author: Ant Chain SDK
 """

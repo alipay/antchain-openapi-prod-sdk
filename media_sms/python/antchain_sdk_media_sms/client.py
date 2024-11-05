@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.15',
+                    'sdk_version': '1.0.19',
                     '_prod_code': 'MEDIA_SMS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.15',
+                    'sdk_version': '1.0.19',
                     '_prod_code': 'MEDIA_SMS',
                     '_prod_channel': 'default'
                 }
@@ -553,4 +553,60 @@ class Client:
         return TeaCore.from_map(
             media__sms_models.QueryMsgStatusResponse(),
             await self.do_request_async('1.0', 'antdigital.mediasms.msg.status.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_account_msgstatus(
+        self,
+        request: media__sms_models.QueryAccountMsgstatusRequest,
+    ) -> media__sms_models.QueryAccountMsgstatusResponse:
+        """
+        Description: 根据账户id查询短信结果
+        Summary: 根据账户id查询短信结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_account_msgstatus_ex(request, headers, runtime)
+
+    async def query_account_msgstatus_async(
+        self,
+        request: media__sms_models.QueryAccountMsgstatusRequest,
+    ) -> media__sms_models.QueryAccountMsgstatusResponse:
+        """
+        Description: 根据账户id查询短信结果
+        Summary: 根据账户id查询短信结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_account_msgstatus_ex_async(request, headers, runtime)
+
+    def query_account_msgstatus_ex(
+        self,
+        request: media__sms_models.QueryAccountMsgstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.QueryAccountMsgstatusResponse:
+        """
+        Description: 根据账户id查询短信结果
+        Summary: 根据账户id查询短信结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.QueryAccountMsgstatusResponse(),
+            self.do_request('1.0', 'antdigital.mediasms.account.msgstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_account_msgstatus_ex_async(
+        self,
+        request: media__sms_models.QueryAccountMsgstatusRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> media__sms_models.QueryAccountMsgstatusResponse:
+        """
+        Description: 根据账户id查询短信结果
+        Summary: 根据账户id查询短信结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            media__sms_models.QueryAccountMsgstatusResponse(),
+            await self.do_request_async('1.0', 'antdigital.mediasms.account.msgstatus.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
