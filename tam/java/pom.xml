@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-tam</artifactId>
-  <version>1.3.4</version>
+  <version>1.3.5</version>
   <packaging>jar</packaging>
   <name>openapi-tam</name>
   <description>Ant Chain TAM SDK for Java
