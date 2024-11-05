@@ -197,7 +197,7 @@ export class QuerySupplierMonthwriteofffileRequest extends $tea.Model {
   cloudTenantId: string;
   // 请求唯一id	
   // 
-  requestUniqueId: string;
+  requestUniqueId?: string;
   // 202408
   billingMonth?: string;
   static names(): { [key: string]: string } {
@@ -263,7 +263,7 @@ export class QuerySupplierFundamtRequest extends $tea.Model {
   productInstanceId?: string;
   // 请求唯一id	
   // 
-  requestUniqueId: string;
+  requestUniqueId?: string;
   // 云站供应商 租户 id
   cloudTenantId: string;
   static names(): { [key: string]: string } {
@@ -337,7 +337,7 @@ export class QueryStatisticsBudgetRequest extends $tea.Model {
   // 
   tenantId: string;
   // 请求唯一id
-  requestUniqueId: string;
+  requestUniqueId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -400,7 +400,7 @@ export class QueryStatisticsMetricsRequest extends $tea.Model {
   // 租户id
   tenantId: string;
   // 请求唯一id
-  requestUniqueId: string;
+  requestUniqueId?: string;
   // 租户指标: OPERATING_INCOME, REPAY_AMOUNT, REPAY_NUMBER, REPAY_USER_NUMBER, REPAY_AVG_AMOUNT, ALI_DST_AMT
   type: string;
   // 查询开始时间: DAY:20240911; MONTH:202409
@@ -481,7 +481,7 @@ export class QueryStatisticsConversionmetricsRequest extends $tea.Model {
   tenantId: string;
   // 请求唯一id
   // 
-  requestUniqueId: string;
+  requestUniqueId?: string;
   // VOUCHER_CONVERSION, USER_CONVERSION
   type: string;
   static names(): { [key: string]: string } {
@@ -654,7 +654,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.10",
+          sdk_version: "1.0.11",
           _prod_code: "ASSET",
           _prod_channel: "default",
         };
