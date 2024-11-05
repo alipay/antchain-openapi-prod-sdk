@@ -181,6 +181,49 @@ func (s *SmsSendStatus) SetDetailMsg(v string) *SmsSendStatus {
 	return s
 }
 
+// 账户查询结构体
+type AccountSmsSendStatus struct {
+	// ⼿机号
+	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty" require:"true"`
+	// 批次号
+	BatchTaskId *string `json:"batch_task_id,omitempty" xml:"batch_task_id,omitempty" require:"true"`
+	// 发送状态
+	// SUCCESS：发送成
+	// 功；
+	// FAILED：发送失败；
+	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
+	// 发送状态描述
+	DetailMsg *string `json:"detail_msg,omitempty" xml:"detail_msg,omitempty" require:"true"`
+}
+
+func (s AccountSmsSendStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AccountSmsSendStatus) GoString() string {
+	return s.String()
+}
+
+func (s *AccountSmsSendStatus) SetPhoneNo(v string) *AccountSmsSendStatus {
+	s.PhoneNo = &v
+	return s
+}
+
+func (s *AccountSmsSendStatus) SetBatchTaskId(v string) *AccountSmsSendStatus {
+	s.BatchTaskId = &v
+	return s
+}
+
+func (s *AccountSmsSendStatus) SetStatus(v string) *AccountSmsSendStatus {
+	s.Status = &v
+	return s
+}
+
+func (s *AccountSmsSendStatus) SetDetailMsg(v string) *AccountSmsSendStatus {
+	s.DetailMsg = &v
+	return s
+}
+
 // 短信模板状态查询结果
 type QueryTemplateStatusRes struct {
 	// 短信模板id
@@ -848,6 +891,83 @@ func (s *QueryMsgStatusResponse) SetData(v []*SmsSendStatus) *QueryMsgStatusResp
 	return s
 }
 
+type QueryAccountMsgstatusRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
+}
+
+func (s QueryAccountMsgstatusRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAccountMsgstatusRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAccountMsgstatusRequest) SetAuthToken(v string) *QueryAccountMsgstatusRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAccountMsgstatusRequest) SetProductInstanceId(v string) *QueryAccountMsgstatusRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAccountMsgstatusRequest) SetTenantId(v string) *QueryAccountMsgstatusRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryAccountMsgstatusRequest) SetExtInfo(v string) *QueryAccountMsgstatusRequest {
+	s.ExtInfo = &v
+	return s
+}
+
+type QueryAccountMsgstatusResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 信息发送状态
+	Data []*AccountSmsSendStatus `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryAccountMsgstatusResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAccountMsgstatusResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAccountMsgstatusResponse) SetReqMsgId(v string) *QueryAccountMsgstatusResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAccountMsgstatusResponse) SetResultCode(v string) *QueryAccountMsgstatusResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAccountMsgstatusResponse) SetResultMsg(v string) *QueryAccountMsgstatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAccountMsgstatusResponse) SetData(v []*AccountSmsSendStatus) *QueryAccountMsgstatusResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -970,7 +1090,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.15"),
+				"sdk_version":      tea.String("1.0.19"),
 				"_prod_code":       tea.String("MEDIA_SMS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1191,6 +1311,40 @@ func (client *Client) QueryMsgStatusEx(request *QueryMsgStatusRequest, headers m
 	}
 	_result = &QueryMsgStatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mediasms.msg.status.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据账户id查询短信结果
+ * Summary: 根据账户id查询短信结果
+ */
+func (client *Client) QueryAccountMsgstatus(request *QueryAccountMsgstatusRequest) (_result *QueryAccountMsgstatusResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAccountMsgstatusResponse{}
+	_body, _err := client.QueryAccountMsgstatusEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据账户id查询短信结果
+ * Summary: 根据账户id查询短信结果
+ */
+func (client *Client) QueryAccountMsgstatusEx(request *QueryAccountMsgstatusRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAccountMsgstatusResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAccountMsgstatusResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.mediasms.account.msgstatus.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
