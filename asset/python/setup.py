@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_asset.
 
-Created on 01/11/2024
+Created on 05/11/2024
 
 @author: Ant Chain SDK
 """

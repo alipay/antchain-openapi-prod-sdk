@@ -353,9 +353,6 @@ class QuerySupplierMonthwriteofffileRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.cloud_tenant_id, 'cloud_tenant_id')
-        self.validate_required(self.request_unique_id, 'request_unique_id')
-        if self.request_unique_id is not None:
-            self.validate_max_length(self.request_unique_id, 'request_unique_id', 36)
 
     def to_map(self):
         _map = super().to_map()
@@ -465,9 +462,6 @@ class QuerySupplierFundamtRequest(TeaModel):
         self.cloud_tenant_id = cloud_tenant_id
 
     def validate(self):
-        self.validate_required(self.request_unique_id, 'request_unique_id')
-        if self.request_unique_id is not None:
-            self.validate_max_length(self.request_unique_id, 'request_unique_id', 36)
         self.validate_required(self.cloud_tenant_id, 'cloud_tenant_id')
 
     def to_map(self):
@@ -581,9 +575,6 @@ class QueryStatisticsBudgetRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
-        self.validate_required(self.request_unique_id, 'request_unique_id')
-        if self.request_unique_id is not None:
-            self.validate_max_length(self.request_unique_id, 'request_unique_id', 36)
 
     def to_map(self):
         _map = super().to_map()
@@ -693,9 +684,6 @@ class QueryStatisticsMetricsRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
-        self.validate_required(self.request_unique_id, 'request_unique_id')
-        if self.request_unique_id is not None:
-            self.validate_max_length(self.request_unique_id, 'request_unique_id', 36)
         self.validate_required(self.type, 'type')
         self.validate_required(self.start_date, 'start_date')
         self.validate_required(self.end_date, 'end_date')
@@ -820,9 +808,6 @@ class QueryStatisticsConversionmetricsRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.tenant_id, 'tenant_id')
-        self.validate_required(self.request_unique_id, 'request_unique_id')
-        if self.request_unique_id is not None:
-            self.validate_max_length(self.request_unique_id, 'request_unique_id', 36)
         self.validate_required(self.type, 'type')
 
     def to_map(self):
