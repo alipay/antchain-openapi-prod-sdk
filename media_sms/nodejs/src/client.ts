@@ -106,6 +106,42 @@ export class SmsSendStatus extends $tea.Model {
   }
 }
 
+// 账户查询结构体
+export class AccountSmsSendStatus extends $tea.Model {
+  // ⼿机号
+  phoneNo: string;
+  // 批次号
+  batchTaskId: string;
+  // 发送状态
+  // SUCCESS：发送成
+  // 功；
+  // FAILED：发送失败；
+  status: string;
+  // 发送状态描述
+  detailMsg: string;
+  static names(): { [key: string]: string } {
+    return {
+      phoneNo: 'phone_no',
+      batchTaskId: 'batch_task_id',
+      status: 'status',
+      detailMsg: 'detail_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phoneNo: 'string',
+      batchTaskId: 'string',
+      status: 'string',
+      detailMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 短信模板状态查询结果
 export class QueryTemplateStatusRes extends $tea.Model {
   // 短信模板id
@@ -646,6 +682,69 @@ export class QueryMsgStatusResponse extends $tea.Model {
   }
 }
 
+export class QueryAccountMsgstatusRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 扩展信息
+  extInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAccountMsgstatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 信息发送状态
+  data?: AccountSmsSendStatus[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AccountSmsSendStatus },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -759,7 +858,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.15",
+          sdk_version: "1.0.19",
           _prod_code: "MEDIA_SMS",
           _prod_channel: "default",
         };
@@ -900,6 +999,25 @@ export default class Client {
   async queryMsgStatusEx(request: QueryMsgStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMsgStatusResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMsgStatusResponse>(await this.doRequest("1.0", "antdigital.mediasms.msg.status.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMsgStatusResponse({}));
+  }
+
+  /**
+   * Description: 根据账户id查询短信结果
+   * Summary: 根据账户id查询短信结果
+   */
+  async queryAccountMsgstatus(request: QueryAccountMsgstatusRequest): Promise<QueryAccountMsgstatusResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAccountMsgstatusEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据账户id查询短信结果
+   * Summary: 根据账户id查询短信结果
+   */
+  async queryAccountMsgstatusEx(request: QueryAccountMsgstatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAccountMsgstatusResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAccountMsgstatusResponse>(await this.doRequest("1.0", "antdigital.mediasms.account.msgstatus.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAccountMsgstatusResponse({}));
   }
 
 }

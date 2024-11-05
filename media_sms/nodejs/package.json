@@ -1,6 +1,6 @@
 {
   "name": "@antchain/media_sms",
-  "version": "1.0.15",
+  "version": "1.0.19",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
