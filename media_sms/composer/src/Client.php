@@ -15,6 +15,8 @@ use AntChain\MEDIA_SMS\Models\CreateBatchSendRequest;
 use AntChain\MEDIA_SMS\Models\CreateBatchSendResponse;
 use AntChain\MEDIA_SMS\Models\CreateTemplateRequest;
 use AntChain\MEDIA_SMS\Models\CreateTemplateResponse;
+use AntChain\MEDIA_SMS\Models\QueryAccountMsgstatusRequest;
+use AntChain\MEDIA_SMS\Models\QueryAccountMsgstatusResponse;
 use AntChain\MEDIA_SMS\Models\QueryMsgStatusRequest;
 use AntChain\MEDIA_SMS\Models\QueryMsgStatusResponse;
 use AntChain\MEDIA_SMS\Models\QueryReplyRequest;
@@ -168,7 +170,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.15',
+                    'sdk_version'      => '1.0.19',
                     '_prod_code'       => 'MEDIA_SMS',
                     '_prod_channel'    => 'default',
                 ];
@@ -379,5 +381,38 @@ class Client
         Utils::validateModel($request);
 
         return QueryMsgStatusResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.msg.status.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据账户id查询短信结果
+     * Summary: 根据账户id查询短信结果.
+     *
+     * @param QueryAccountMsgstatusRequest $request
+     *
+     * @return QueryAccountMsgstatusResponse
+     */
+    public function queryAccountMsgstatus($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAccountMsgstatusEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据账户id查询短信结果
+     * Summary: 根据账户id查询短信结果.
+     *
+     * @param QueryAccountMsgstatusRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return QueryAccountMsgstatusResponse
+     */
+    public function queryAccountMsgstatusEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAccountMsgstatusResponse::fromMap($this->doRequest('1.0', 'antdigital.mediasms.account.msgstatus.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
