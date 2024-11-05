@@ -40,9 +40,7 @@ class QuerySupplierFundamtRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('requestUniqueId', $this->requestUniqueId, true);
         Model::validateRequired('cloudTenantId', $this->cloudTenantId, true);
-        Model::validateMaxLength('requestUniqueId', $this->requestUniqueId, 36);
     }
 
     public function toMap()

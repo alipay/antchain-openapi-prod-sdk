@@ -68,12 +68,10 @@ class QueryStatisticsMetricsRequest extends Model
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('requestUniqueId', $this->requestUniqueId, true);
         Model::validateRequired('type', $this->type, true);
         Model::validateRequired('startDate', $this->startDate, true);
         Model::validateRequired('endDate', $this->endDate, true);
         Model::validateRequired('dateUnit', $this->dateUnit, true);
-        Model::validateMaxLength('requestUniqueId', $this->requestUniqueId, 36);
     }
 
     public function toMap()

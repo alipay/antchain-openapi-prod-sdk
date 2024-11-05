@@ -41,8 +41,6 @@ class QueryStatisticsBudgetRequest extends Model
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('requestUniqueId', $this->requestUniqueId, true);
-        Model::validateMaxLength('requestUniqueId', $this->requestUniqueId, 36);
     }
 
     public function toMap()

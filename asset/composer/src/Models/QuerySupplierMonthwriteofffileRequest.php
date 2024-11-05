@@ -48,8 +48,6 @@ class QuerySupplierMonthwriteofffileRequest extends Model
     public function validate()
     {
         Model::validateRequired('cloudTenantId', $this->cloudTenantId, true);
-        Model::validateRequired('requestUniqueId', $this->requestUniqueId, true);
-        Model::validateMaxLength('requestUniqueId', $this->requestUniqueId, 36);
     }
 
     public function toMap()
