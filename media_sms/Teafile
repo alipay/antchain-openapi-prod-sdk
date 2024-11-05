@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "MEDIA_SMS",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-media_sms:1.0.15",
-    "go": "github.com/antchain-openapi-sdk-go/media_sms/client:v1.0.15",
-    "csharp": "AntChain.SDK.MEDIA_SMS:1.0.15",
-    "ts": "@antchain/media_sms:1.0.15",
-    "php": "antchain/media_sms:1.0.15",
-    "python": "antchain_sdk_media_sms:1.0.15"
+    "java": "com.antgroup.antchain.openapi:openapi-media_sms:1.0.19",
+    "go": "github.com/antchain-openapi-sdk-go/media_sms/client:v1.0.19",
+    "csharp": "AntChain.SDK.MEDIA_SMS:1.0.19",
+    "ts": "@antchain/media_sms:1.0.19",
+    "php": "antchain/media_sms:1.0.19",
+    "python": "antchain_sdk_media_sms:1.0.19"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

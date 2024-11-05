@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.15',
+    sdk_version = '1.0.19',
     _prod_code = 'MEDIA_SMS',
     _prod_channel = 'default'
   };
@@ -167,6 +167,21 @@ model SmsSendStatus {
   phoneNo: string(name='phone_no', example='132XXXXXXXX'),
   // 发送状态
   status: string(name='status', example='WAITING SENDING SUCCESS FAILED'),
+  // 发送状态描述
+  detailMsg: string(name='detail_msg', example='暂无'),
+}
+
+// 账户查询结构体
+model AccountSmsSendStatus {
+  // ⼿机号
+  phoneNo: string(name='phone_no', example='132XXXXXXXX'),
+  // 批次号
+  batchTaskId: string(name='batch_task_id', example='202409050005000000019020'),
+  // 发送状态
+  // SUCCESS：发送成
+  // 功；
+  // FAILED：发送失败；
+  status: string(name='status', example='SUCCESS'),
   // 发送状态描述
   detailMsg: string(name='detail_msg', example='暂无'),
 }
@@ -458,5 +473,45 @@ async function queryMsgStatus(request: QueryMsgStatusRequest): QueryMsgStatusRes
 async function queryMsgStatusEx(request: QueryMsgStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryMsgStatusResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.mediasms.msg.status.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAccountMsgstatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 扩展信息
+  extInfo?: string(name='ext_info'),
+}
+
+model QueryAccountMsgstatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 信息发送状态
+  data?: [ AccountSmsSendStatus ](name='data'),
+}
+
+/**
+ * Description: 根据账户id查询短信结果
+ * Summary: 根据账户id查询短信结果
+ */
+async function queryAccountMsgstatus(request: QueryAccountMsgstatusRequest): QueryAccountMsgstatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAccountMsgstatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据账户id查询短信结果
+ * Summary: 根据账户id查询短信结果
+ */
+async function queryAccountMsgstatusEx(request: QueryAccountMsgstatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAccountMsgstatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.mediasms.account.msgstatus.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
