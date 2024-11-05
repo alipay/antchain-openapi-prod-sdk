@@ -14,7 +14,6 @@ public class QuerySupplierFundamtRequest extends TeaModel {
     // 请求唯一id	
     // 
     @NameInMap("request_unique_id")
-    @Validation(required = true, maxLength = 36)
     public String requestUniqueId;
 
     // 云站供应商 租户 id

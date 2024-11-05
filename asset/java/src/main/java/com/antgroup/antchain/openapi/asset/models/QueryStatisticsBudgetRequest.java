@@ -19,7 +19,6 @@ public class QueryStatisticsBudgetRequest extends TeaModel {
 
     // 请求唯一id
     @NameInMap("request_unique_id")
-    @Validation(required = true, maxLength = 36)
     public String requestUniqueId;
 
     public static QueryStatisticsBudgetRequest build(java.util.Map<String, ?> map) throws Exception {

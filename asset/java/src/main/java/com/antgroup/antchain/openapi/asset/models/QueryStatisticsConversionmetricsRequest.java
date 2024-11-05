@@ -20,7 +20,6 @@ public class QueryStatisticsConversionmetricsRequest extends TeaModel {
     // 请求唯一id
     // 
     @NameInMap("request_unique_id")
-    @Validation(required = true, maxLength = 36)
     public String requestUniqueId;
 
     // VOUCHER_CONVERSION, USER_CONVERSION

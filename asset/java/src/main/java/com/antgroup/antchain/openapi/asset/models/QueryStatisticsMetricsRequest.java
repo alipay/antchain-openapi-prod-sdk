@@ -18,7 +18,6 @@ public class QueryStatisticsMetricsRequest extends TeaModel {
 
     // 请求唯一id
     @NameInMap("request_unique_id")
-    @Validation(required = true, maxLength = 36)
     public String requestUniqueId;
 
     // 租户指标: OPERATING_INCOME, REPAY_AMOUNT, REPAY_NUMBER, REPAY_USER_NUMBER, REPAY_AVG_AMOUNT, ALI_DST_AMT

@@ -19,7 +19,6 @@ public class QuerySupplierMonthwriteofffileRequest extends TeaModel {
     // 请求唯一id	
     // 
     @NameInMap("request_unique_id")
-    @Validation(required = true, maxLength = 36)
     public String requestUniqueId;
 
     // 202408
