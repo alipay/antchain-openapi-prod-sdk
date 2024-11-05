@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.15"),
+                    new TeaPair("sdk_version", "1.0.19"),
                     new TeaPair("_prod_code", "MEDIA_SMS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -277,5 +277,24 @@ public class Client {
     public QueryMsgStatusResponse queryMsgStatusEx(QueryMsgStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.msg.status.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMsgStatusResponse());
+    }
+
+    /**
+     * Description: 根据账户id查询短信结果
+     * Summary: 根据账户id查询短信结果
+     */
+    public QueryAccountMsgstatusResponse queryAccountMsgstatus(QueryAccountMsgstatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAccountMsgstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据账户id查询短信结果
+     * Summary: 根据账户id查询短信结果
+     */
+    public QueryAccountMsgstatusResponse queryAccountMsgstatusEx(QueryAccountMsgstatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mediasms.account.msgstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAccountMsgstatusResponse());
     }
 }
