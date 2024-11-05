@@ -7,7 +7,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>AntChain.SDK.MEDIA_SMS</AssemblyName>
-    <Version>1.0.15</Version>
+    <Version>1.0.19</Version>
     <LangVersion>5</LangVersion>
     <Authors>Ant Chain, Inc</Authors>
     <Description>Ant Chain MEDIA_SMS SDK Library for .NET</Description>

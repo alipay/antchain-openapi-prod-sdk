@@ -137,7 +137,7 @@ namespace AntChain.SDK.MEDIA_SMS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.15"},
+                        {"sdk_version", "1.0.19"},
                         {"_prod_code", "MEDIA_SMS"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.MEDIA_SMS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.15"},
+                        {"sdk_version", "1.0.19"},
                         {"_prod_code", "MEDIA_SMS"},
                         {"_prod_channel", "default"},
                     };
@@ -529,6 +529,48 @@ namespace AntChain.SDK.MEDIA_SMS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMsgStatusResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.msg.status.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据账户id查询短信结果
+         * Summary: 根据账户id查询短信结果
+         */
+        public QueryAccountMsgstatusResponse QueryAccountMsgstatus(QueryAccountMsgstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAccountMsgstatusEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据账户id查询短信结果
+         * Summary: 根据账户id查询短信结果
+         */
+        public async Task<QueryAccountMsgstatusResponse> QueryAccountMsgstatusAsync(QueryAccountMsgstatusRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAccountMsgstatusExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据账户id查询短信结果
+         * Summary: 根据账户id查询短信结果
+         */
+        public QueryAccountMsgstatusResponse QueryAccountMsgstatusEx(QueryAccountMsgstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAccountMsgstatusResponse>(DoRequest("1.0", "antdigital.mediasms.account.msgstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据账户id查询短信结果
+         * Summary: 根据账户id查询短信结果
+         */
+        public async Task<QueryAccountMsgstatusResponse> QueryAccountMsgstatusExAsync(QueryAccountMsgstatusRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAccountMsgstatusResponse>(await DoRequestAsync("1.0", "antdigital.mediasms.account.msgstatus.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
