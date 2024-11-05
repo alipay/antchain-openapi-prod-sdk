@@ -281,7 +281,7 @@ type QuerySupplierMonthwriteofffileRequest struct {
 	CloudTenantId *string `json:"cloud_tenant_id,omitempty" xml:"cloud_tenant_id,omitempty" require:"true"`
 	// 请求唯一id
 	//
-	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true" maxLength:"36"`
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty"`
 	// 202408
 	BillingMonth *string `json:"billing_month,omitempty" xml:"billing_month,omitempty"`
 }
@@ -364,7 +364,7 @@ type QuerySupplierFundamtRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 请求唯一id
 	//
-	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true" maxLength:"36"`
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty"`
 	// 云站供应商 租户 id
 	CloudTenantId *string `json:"cloud_tenant_id,omitempty" xml:"cloud_tenant_id,omitempty" require:"true"`
 }
@@ -458,7 +458,7 @@ type QueryStatisticsBudgetRequest struct {
 	//
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 请求唯一id
-	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true" maxLength:"36"`
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty"`
 }
 
 func (s QueryStatisticsBudgetRequest) String() string {
@@ -535,7 +535,7 @@ type QueryStatisticsMetricsRequest struct {
 	// 租户id
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 请求唯一id
-	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true" maxLength:"36"`
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty"`
 	// 租户指标: OPERATING_INCOME, REPAY_AMOUNT, REPAY_NUMBER, REPAY_USER_NUMBER, REPAY_AVG_AMOUNT, ALI_DST_AMT
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 查询开始时间: DAY:20240911; MONTH:202409
@@ -642,7 +642,7 @@ type QueryStatisticsConversionmetricsRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 请求唯一id
 	//
-	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true" maxLength:"36"`
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty"`
 	// VOUCHER_CONVERSION, USER_CONVERSION
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 }
@@ -841,7 +841,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.10"),
+				"sdk_version":      tea.String("1.0.11"),
 				"_prod_code":       tea.String("ASSET"),
 				"_prod_channel":    tea.String("default"),
 			}
