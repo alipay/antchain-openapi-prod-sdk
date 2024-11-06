@@ -183,6 +183,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string QuoteMark { get; set; }
 
+        // 标的列表
+        [NameInMap("cargo_info")]
+        [Validation(Required=false)]
+        public List<CargoInfo> CargoInfo { get; set; }
+
     }
 
 }

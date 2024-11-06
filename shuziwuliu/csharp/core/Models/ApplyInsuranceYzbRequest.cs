@@ -42,7 +42,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=100)]
         public string TbrName { get; set; }
 
-        // 投保人证件类型，03--营业执照
+        // 投保人证件类型，01-居民身份证,03--统一社会信用代码
         [NameInMap("tbr_id_type")]
         [Validation(Required=true, MaxLength=2)]
         public string TbrIdType { get; set; }
@@ -57,7 +57,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=100)]
         public string BbrName { get; set; }
 
-        // 被保人证件类型，01--居民身份证、03--营业执照
+        // 被保人证件类型，01--居民身份证、03--统一社会信用代码
         [NameInMap("bbr_id_type")]
         [Validation(Required=true, MaxLength=2)]
         public string BbrIdType { get; set; }
@@ -77,7 +77,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=100)]
         public string BeneficiaryName { get; set; }
 
-        // 受益人证件类型，01--居民身份证、03--营业执照
+        // 受益人证件类型，01--居民身份证、03--统一社会信用代码
         [NameInMap("beneficiary_id_type")]
         [Validation(Required=true, MaxLength=2)]
         public string BeneficiaryIdType { get; set; }
@@ -93,7 +93,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         public string InsureStart { get; set; }
 
         // 套餐编码，
-        // 平安（PK00053022、PK00053025、PK00053026）
+        // 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467）
         // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
         [NameInMap("product_package_type")]
         [Validation(Required=true, MaxLength=20)]
@@ -139,7 +139,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=300)]
         public string WholeAddress { get; set; }
 
-        // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
+        // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障，上门人员综合险-30万保额，上门人员综合险-50万保额
         [NameInMap("scheme_name")]
         [Validation(Required=true, MaxLength=100)]
         public string SchemeName { get; set; }

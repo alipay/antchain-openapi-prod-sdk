@@ -27,12 +27,12 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
 
-        // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保
+        // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
         [NameInMap("external_channel_code")]
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }
 
-        // 险种编码，06--跨境邮包险
+        // 险种编码，06--跨境邮包险，07--平台责任险
         [NameInMap("external_product_code")]
         [Validation(Required=true, MaxLength=2)]
         public string ExternalProductCode { get; set; }
@@ -182,6 +182,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [NameInMap("quote_mark")]
         [Validation(Required=false, MaxLength=100)]
         public string QuoteMark { get; set; }
+
+        // 标的列表
+        [NameInMap("cargo_info")]
+        [Validation(Required=false)]
+        public List<CargoInfo> CargoInfo { get; set; }
 
     }
 

@@ -42,6 +42,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=200)]
         public string PolicyNo { get; set; }
 
+        // 报案号，用于报案材料更新
+        [NameInMap("report_no")]
+        [Validation(Required=false)]
+        public string ReportNo { get; set; }
+
         // 报案唯一标识，申请理赔所关联的订单号，如一个订单会存在多次理赔，请用唯一标识
         [NameInMap("report_unique_key")]
         [Validation(Required=true, MaxLength=200)]
@@ -172,10 +177,30 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string IsStarStation { get; set; }
 
-        // 报案号，用于报案材料更新
-        [NameInMap("report_no")]
+        // 被保人姓名，实际的保险被保人名称
+        [NameInMap("bbr_name")]
         [Validation(Required=false)]
-        public string ReportNo { get; set; }
+        public string BbrName { get; set; }
+
+        // 被保人证件类型，01--居民身份证、03--营业执照
+        [NameInMap("bbr_id_type")]
+        [Validation(Required=false)]
+        public string BbrIdType { get; set; }
+
+        // 被保人证件号码
+        [NameInMap("bbr_id_no")]
+        [Validation(Required=false)]
+        public string BbrIdNo { get; set; }
+
+        // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+        [NameInMap("insure_start")]
+        [Validation(Required=false)]
+        public string InsureStart { get; set; }
+
+        // 保险止期，格式：yyyy-MM-dd HH:mm:ss
+        [NameInMap("insure_end")]
+        [Validation(Required=false)]
+        public string InsureEnd { get; set; }
 
     }
 

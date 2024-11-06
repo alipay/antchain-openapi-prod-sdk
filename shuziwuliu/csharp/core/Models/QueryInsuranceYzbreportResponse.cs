@@ -80,6 +80,21 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string ReportVerdictDesc { get; set; }
 
+        // 收款账户名称
+        [NameInMap("receiver_account_name")]
+        [Validation(Required=false)]
+        public string ReceiverAccountName { get; set; }
+
+        // 收款账户类型 ,1-支付宝，2-银行卡
+        [NameInMap("receiver_account_type")]
+        [Validation(Required=false)]
+        public string ReceiverAccountType { get; set; }
+
+        // 收款人账户
+        [NameInMap("receiver_account")]
+        [Validation(Required=false)]
+        public string ReceiverAccount { get; set; }
+
     }
 
 }
