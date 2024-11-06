@@ -35,6 +35,10 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     @Validation(required = true, maxLength = 200)
     public String policyNo;
 
+    // 报案号，用于报案材料更新
+    @NameInMap("report_no")
+    public String reportNo;
+
     // 报案唯一标识，申请理赔所关联的订单号，如一个订单会存在多次理赔，请用唯一标识
     @NameInMap("report_unique_key")
     @Validation(required = true, maxLength = 200)
@@ -159,9 +163,25 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     @NameInMap("is_star_station")
     public String isStarStation;
 
-    // 报案号，用于报案材料更新
-    @NameInMap("report_no")
-    public String reportNo;
+    // 被保人姓名，实际的保险被保人名称
+    @NameInMap("bbr_name")
+    public String bbrName;
+
+    // 被保人证件类型，01--居民身份证、03--营业执照
+    @NameInMap("bbr_id_type")
+    public String bbrIdType;
+
+    // 被保人证件号码
+    @NameInMap("bbr_id_no")
+    public String bbrIdNo;
+
+    // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+    @NameInMap("insure_start")
+    public String insureStart;
+
+    // 保险止期，格式：yyyy-MM-dd HH:mm:ss
+    @NameInMap("insure_end")
+    public String insureEnd;
 
     public static ApplyInsuranceYzbreportRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceYzbreportRequest self = new ApplyInsuranceYzbreportRequest();
@@ -214,6 +234,14 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     }
     public String getPolicyNo() {
         return this.policyNo;
+    }
+
+    public ApplyInsuranceYzbreportRequest setReportNo(String reportNo) {
+        this.reportNo = reportNo;
+        return this;
+    }
+    public String getReportNo() {
+        return this.reportNo;
     }
 
     public ApplyInsuranceYzbreportRequest setReportUniqueKey(String reportUniqueKey) {
@@ -424,12 +452,44 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
         return this.isStarStation;
     }
 
-    public ApplyInsuranceYzbreportRequest setReportNo(String reportNo) {
-        this.reportNo = reportNo;
+    public ApplyInsuranceYzbreportRequest setBbrName(String bbrName) {
+        this.bbrName = bbrName;
         return this;
     }
-    public String getReportNo() {
-        return this.reportNo;
+    public String getBbrName() {
+        return this.bbrName;
+    }
+
+    public ApplyInsuranceYzbreportRequest setBbrIdType(String bbrIdType) {
+        this.bbrIdType = bbrIdType;
+        return this;
+    }
+    public String getBbrIdType() {
+        return this.bbrIdType;
+    }
+
+    public ApplyInsuranceYzbreportRequest setBbrIdNo(String bbrIdNo) {
+        this.bbrIdNo = bbrIdNo;
+        return this;
+    }
+    public String getBbrIdNo() {
+        return this.bbrIdNo;
+    }
+
+    public ApplyInsuranceYzbreportRequest setInsureStart(String insureStart) {
+        this.insureStart = insureStart;
+        return this;
+    }
+    public String getInsureStart() {
+        return this.insureStart;
+    }
+
+    public ApplyInsuranceYzbreportRequest setInsureEnd(String insureEnd) {
+        this.insureEnd = insureEnd;
+        return this;
+    }
+    public String getInsureEnd() {
+        return this.insureEnd;
     }
 
 }

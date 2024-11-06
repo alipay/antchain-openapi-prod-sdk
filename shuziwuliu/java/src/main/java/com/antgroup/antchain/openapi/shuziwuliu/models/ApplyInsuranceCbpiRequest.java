@@ -20,12 +20,12 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String tradeNo;
 
-    // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保
+    // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
     @NameInMap("external_channel_code")
     @Validation(required = true, maxLength = 10)
     public String externalChannelCode;
 
-    // 险种编码，06--跨境邮包险
+    // 险种编码，06--跨境邮包险，07--平台责任险
     @NameInMap("external_product_code")
     @Validation(required = true, maxLength = 2)
     public String externalProductCode;
@@ -175,6 +175,10 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     @NameInMap("quote_mark")
     @Validation(maxLength = 100)
     public String quoteMark;
+
+    // 标的列表
+    @NameInMap("cargo_info")
+    public java.util.List<CargoInfo> cargoInfo;
 
     public static ApplyInsuranceCbpiRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceCbpiRequest self = new ApplyInsuranceCbpiRequest();
@@ -443,6 +447,14 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     }
     public String getQuoteMark() {
         return this.quoteMark;
+    }
+
+    public ApplyInsuranceCbpiRequest setCargoInfo(java.util.List<CargoInfo> cargoInfo) {
+        this.cargoInfo = cargoInfo;
+        return this;
+    }
+    public java.util.List<CargoInfo> getCargoInfo() {
+        return this.cargoInfo;
     }
 
 }

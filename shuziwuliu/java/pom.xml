@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-shuziwuliu</artifactId>
-  <version>1.7.2</version>
+  <version>1.7.7</version>
   <packaging>jar</packaging>
   <name>openapi-shuziwuliu</name>
   <description>Ant Chain SHUZIWULIU SDK for Java
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>com.aliyun</groupId>
       <artifactId>tea-util</artifactId>
-      <version>0.2.21</version>
+      <version>0.2.23</version>
     </dependency>
     <dependency>
       <groupId>com.aliyun</groupId>

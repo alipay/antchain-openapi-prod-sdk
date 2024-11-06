@@ -175,6 +175,10 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     @NameInMap("quote_mark")
     public String quoteMark;
 
+    // 标的列表
+    @NameInMap("cargo_info")
+    public java.util.List<CargoInfo> cargoInfo;
+
     public static ApplyInsuranceOspiRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceOspiRequest self = new ApplyInsuranceOspiRequest();
         return TeaModel.build(map, self);
@@ -450,6 +454,14 @@ public class ApplyInsuranceOspiRequest extends TeaModel {
     }
     public String getQuoteMark() {
         return this.quoteMark;
+    }
+
+    public ApplyInsuranceOspiRequest setCargoInfo(java.util.List<CargoInfo> cargoInfo) {
+        this.cargoInfo = cargoInfo;
+        return this;
+    }
+    public java.util.List<CargoInfo> getCargoInfo() {
+        return this.cargoInfo;
     }
 
 }

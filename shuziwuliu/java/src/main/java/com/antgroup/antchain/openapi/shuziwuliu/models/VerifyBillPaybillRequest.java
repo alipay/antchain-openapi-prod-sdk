@@ -31,7 +31,7 @@ public class VerifyBillPaybillRequest extends TeaModel {
 
     // 核销应付资费项编号
     @NameInMap("verify_pay_tariff_code")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 65555)
     public String verifyPayTariffCode;
 
     // 核销状态 WAIT_VERIFY-待核销，PART_VERIFY-部分核销，COMPLETE_VERIFY-完成核销 

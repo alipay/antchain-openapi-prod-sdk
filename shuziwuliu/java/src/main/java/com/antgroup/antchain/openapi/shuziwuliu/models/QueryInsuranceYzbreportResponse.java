@@ -61,6 +61,18 @@ public class QueryInsuranceYzbreportResponse extends TeaModel {
     @NameInMap("report_verdict_desc")
     public String reportVerdictDesc;
 
+    // 收款账户名称
+    @NameInMap("receiver_account_name")
+    public String receiverAccountName;
+
+    // 收款账户类型 ,1-支付宝，2-银行卡
+    @NameInMap("receiver_account_type")
+    public String receiverAccountType;
+
+    // 收款人账户
+    @NameInMap("receiver_account")
+    public String receiverAccount;
+
     public static QueryInsuranceYzbreportResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInsuranceYzbreportResponse self = new QueryInsuranceYzbreportResponse();
         return TeaModel.build(map, self);
@@ -176,6 +188,30 @@ public class QueryInsuranceYzbreportResponse extends TeaModel {
     }
     public String getReportVerdictDesc() {
         return this.reportVerdictDesc;
+    }
+
+    public QueryInsuranceYzbreportResponse setReceiverAccountName(String receiverAccountName) {
+        this.receiverAccountName = receiverAccountName;
+        return this;
+    }
+    public String getReceiverAccountName() {
+        return this.receiverAccountName;
+    }
+
+    public QueryInsuranceYzbreportResponse setReceiverAccountType(String receiverAccountType) {
+        this.receiverAccountType = receiverAccountType;
+        return this;
+    }
+    public String getReceiverAccountType() {
+        return this.receiverAccountType;
+    }
+
+    public QueryInsuranceYzbreportResponse setReceiverAccount(String receiverAccount) {
+        this.receiverAccount = receiverAccount;
+        return this;
+    }
+    public String getReceiverAccount() {
+        return this.receiverAccount;
     }
 
 }

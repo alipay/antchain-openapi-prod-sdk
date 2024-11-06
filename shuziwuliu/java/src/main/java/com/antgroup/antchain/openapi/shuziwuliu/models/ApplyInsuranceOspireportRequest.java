@@ -20,7 +20,7 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String tradeNo;
 
-    // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
+    // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
     @NameInMap("external_channel_code")
     @Validation(required = true, maxLength = 10)
     public String externalChannelCode;
@@ -28,6 +28,7 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     // 险种编码
     // 04--海外邮包险
     // 06--跨境邮包险
+    // 07--平台责任险
     @NameInMap("external_product_code")
     @Validation(required = true, maxLength = 2)
     public String externalProductCode;
