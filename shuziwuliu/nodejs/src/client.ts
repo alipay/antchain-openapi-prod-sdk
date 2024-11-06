@@ -1536,6 +1536,39 @@ export class ContainerTypeInfo extends $tea.Model {
   }
 }
 
+// 平台报案赔款支付信息
+export class ReparationsInfo extends $tea.Model {
+  // 平台赔款支付流水号
+  paymentNo?: string;
+  // 平台赔款支付金额
+  paymentAmount?: string;
+  // 平台是否放弃货物所有权。Y:是，N:否
+  relinquishGoods?: string;
+  // 退货本身是否高于货物本身价值。Y:是，N:否
+  returnOverValue?: string;
+  static names(): { [key: string]: string } {
+    return {
+      paymentNo: 'payment_no',
+      paymentAmount: 'payment_amount',
+      relinquishGoods: 'relinquish_goods',
+      returnOverValue: 'return_over_value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      paymentNo: 'string',
+      paymentAmount: 'string',
+      relinquishGoods: 'string',
+      returnOverValue: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 凭证返回值
 export class VoucherResp extends $tea.Model {
   // 消息
@@ -1634,6 +1667,39 @@ export class ContainerGoodsParam extends $tea.Model {
       unNo: 'string',
       volume: 'string',
       weight: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 货物标的列表
+export class CargoInfo extends $tea.Model {
+  // 货物类型，货物类型的大类
+  cargoType: string;
+  // 货物名称，实际的货物名称
+  cargoName: string;
+  // 货物数量
+  cargoQuantity: string;
+  // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+  cargoWorth: string;
+  static names(): { [key: string]: string } {
+    return {
+      cargoType: 'cargo_type',
+      cargoName: 'cargo_name',
+      cargoQuantity: 'cargo_quantity',
+      cargoWorth: 'cargo_worth',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cargoType: 'string',
+      cargoName: 'string',
+      cargoQuantity: 'string',
+      cargoWorth: 'string',
     };
   }
 
@@ -13259,6 +13325,8 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
   consigneeName?: string;
   // 询价code
   quoteMark?: string;
+  // 标的列表
+  cargoInfo?: CargoInfo[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13295,6 +13363,7 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
       cargoWorth: 'cargo_worth',
       consigneeName: 'consignee_name',
       quoteMark: 'quote_mark',
+      cargoInfo: 'cargo_info',
     };
   }
 
@@ -13334,6 +13403,7 @@ export class ApplyInsuranceOspiRequest extends $tea.Model {
       cargoWorth: 'string',
       consigneeName: 'string',
       quoteMark: 'string',
+      cargoInfo: { 'type': 'array', 'itemType': CargoInfo },
     };
   }
 
@@ -13404,11 +13474,12 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
+  // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
   externalChannelCode: string;
   // 险种编码
   // 04--海外邮包险
   // 06--跨境邮包险
+  // 07--平台责任险
   externalProductCode: string;
   // 保单号，申请理赔的保单号
   policyNo: string;
@@ -13422,14 +13493,14 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   reporterContact: string;
   // 索赔金额，单位（元），最多支持2位小数，超2位小数拒绝
   claimAmount: string;
-  // 物流揽收时间，yyyy-MM-dd HH:mm:ss
-  collectDate: string;
-  // 工单号，平台客服判责的工单号
+  // 物流揽收时间，yyyy-MM-dd HH:mm:ss。平台责任险可不填
+  collectDate?: string;
+  // 工单号，平台客服判责的工单号。
   jobNo: string;
-  // 快递公司名称，实际的派送公司全称
-  courierCompany: string;
-  // 快递单号，实际的派送快递单号
-  courierNumber: string;
+  // 快递公司名称，实际的派送公司全称。平台责任险可不填
+  courierCompany?: string;
+  // 快递单号，实际的派送快递单号。平台责任险可不填
+  courierNumber?: string;
   // 买家ID，买家的脱敏唯一标识
   buyId: string;
   // 卖家ID，卖家的脱敏唯一标识 
@@ -13438,26 +13509,28 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   siteId?: string;
   // 货物名称，实际的货物名称
   cargoName: string;
-  // 货物的重量，单位(kg)，最多支持6位小数
-  cargoWeight: string;
+  // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
+  cargoWeight?: string;
   // 出发地地址，货物的出发地地址
   startPlace: string;
   // 目的地地址，货物的目的地地址
   destination: string;
   // ISO到达国别，包裹业务实际发生的国家
   isoCountry: string;
-  // 出险地址，货物发生实际损失的最近的一次地址记录
-  accidentAddress: string;
+  // 出险地址，货物发生实际损失的最近的一次地址记录。平台责任险选填
+  accidentAddress?: string;
   // 平台赔款支付时间，平台先行赔付的时间，yyyy-MM-dd HH:mm:ss
   paymentTime: string;
   // 赔付项目类型，01-运费，02-货值，03-货值2
   paymentItem: string;
   // 出险类型，赔付的出险类型，届时保司和平台方商定
   accidentType: string;
-  // 索赔资料附件，最多10个
-  claimInformations: ClaimInformation[];
+  // 索赔资料附件，最多10个。平台责任险可不填
+  claimInformations?: ClaimInformation[];
   // 客户或物流CP商，针对此票货物的出发仓ID
   despatchWarehouseId?: string;
+  // 平台赔款支付信息。平台责任险需填
+  reparationsInfo?: ReparationsInfo;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13489,6 +13562,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
       accidentType: 'accident_type',
       claimInformations: 'claim_informations',
       despatchWarehouseId: 'despatch_warehouse_id',
+      reparationsInfo: 'reparations_info',
     };
   }
 
@@ -13523,6 +13597,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
       accidentType: 'string',
       claimInformations: { 'type': 'array', 'itemType': ClaimInformation },
       despatchWarehouseId: 'string',
+      reparationsInfo: ReparationsInfo,
     };
   }
 
@@ -13667,13 +13742,13 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   externalProductCode: string;
   // 投保人姓名，保险协议中的投保人全称
   tbrName: string;
-  // 投保人证件类型，03--营业执照
+  // 投保人证件类型，01-居民身份证,03--统一社会信用代码
   tbrIdType: string;
   // 投保人证件号码
   tbrIdNo: string;
   // 被保人姓名，实际的保险被保人名称
   bbrName: string;
-  // 被保人证件类型，01--居民身份证、03--营业执照
+  // 被保人证件类型，01--居民身份证、03--统一社会信用代码
   bbrIdType: string;
   // 被保人证件号码
   bbrIdNo: string;
@@ -13681,14 +13756,14 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   bbrContact: string;
   // 受益人名称，实际的保险受益人名称
   beneficiaryName: string;
-  // 受益人证件类型，01--居民身份证、03--营业执照
+  // 受益人证件类型，01--居民身份证、03--统一社会信用代码
   beneficiaryIdType: string;
   // 受益人证件号码
   beneficiaryNo: string;
   // 保险起期，格式：yyyy-MM-dd HH:mm:ss
   insureStart: string;
   // 套餐编码，
-  // 平安（PK00053022、PK00053025、PK00053026）
+  // 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467）
   // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
   productPackageType: string;
   // 站点ID，站点的唯一标识
@@ -13707,7 +13782,7 @@ export class ApplyInsuranceYzbRequest extends $tea.Model {
   districtCode: string;
   // 完整地址，站点的详细地址
   wholeAddress: string;
-  // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
+  // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障，上门人员综合险-30万保额，上门人员综合险-50万保额
   schemeName: string;
   // 意健险被保人姓名
   acplBbrName: string;
@@ -13854,9 +13929,9 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string;
-  // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保
+  // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
   externalChannelCode: string;
-  // 险种编码，06--跨境邮包险
+  // 险种编码，06--跨境邮包险，07--平台责任险
   externalProductCode: string;
   // 保险协议中的投保人全称
   tbrName: string;
@@ -13920,6 +13995,8 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
   consigneeName?: string;
   // 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
   quoteMark?: string;
+  // 标的列表
+  cargoInfo?: CargoInfo[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13955,6 +14032,7 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
       cargoWorth: 'cargo_worth',
       consigneeName: 'consignee_name',
       quoteMark: 'quote_mark',
+      cargoInfo: 'cargo_info',
     };
   }
 
@@ -13993,6 +14071,7 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
       cargoWorth: 'string',
       consigneeName: 'string',
       quoteMark: 'string',
+      cargoInfo: { 'type': 'array', 'itemType': CargoInfo },
     };
   }
 
@@ -14075,6 +14154,8 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
   externalProductCode: string;
   // 保单号，申请理赔的保单号
   policyNo: string;
+  // 报案号，用于报案材料更新
+  reportNo?: string;
   // 报案唯一标识，申请理赔所关联的订单号，如一个订单会存在多次理赔，请用唯一标识
   reportUniqueKey: string;
   // 理赔申请人
@@ -14127,6 +14208,16 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
   workType?: string;
   // 是否星级站点，0是，1否
   isStarStation?: string;
+  // 被保人姓名，实际的保险被保人名称
+  bbrName?: string;
+  // 被保人证件类型，01--居民身份证、03--营业执照
+  bbrIdType?: string;
+  // 被保人证件号码
+  bbrIdNo?: string;
+  // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+  insureStart?: string;
+  // 保险止期，格式：yyyy-MM-dd HH:mm:ss
+  insureEnd?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -14135,6 +14226,7 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
       externalChannelCode: 'external_channel_code',
       externalProductCode: 'external_product_code',
       policyNo: 'policy_no',
+      reportNo: 'report_no',
       reportUniqueKey: 'report_unique_key',
       claimApplyPerson: 'claim_apply_person',
       reporterName: 'reporter_name',
@@ -14161,6 +14253,11 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
       genWorkDate: 'gen_work_date',
       workType: 'work_type',
       isStarStation: 'is_star_station',
+      bbrName: 'bbr_name',
+      bbrIdType: 'bbr_id_type',
+      bbrIdNo: 'bbr_id_no',
+      insureStart: 'insure_start',
+      insureEnd: 'insure_end',
     };
   }
 
@@ -14172,6 +14269,7 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
       externalChannelCode: 'string',
       externalProductCode: 'string',
       policyNo: 'string',
+      reportNo: 'string',
       reportUniqueKey: 'string',
       claimApplyPerson: 'string',
       reporterName: 'string',
@@ -14198,6 +14296,11 @@ export class ApplyInsuranceYzbreportRequest extends $tea.Model {
       genWorkDate: 'string',
       workType: 'string',
       isStarStation: 'string',
+      bbrName: 'string',
+      bbrIdType: 'string',
+      bbrIdNo: 'string',
+      insureStart: 'string',
+      insureEnd: 'string',
     };
   }
 
@@ -14306,6 +14409,14 @@ export class QueryInsuranceYzbreportResponse extends $tea.Model {
   // 案件赔付时间，格式yyyy-mm-dd hh:mm:ss
   // 
   reportPaidTime?: string;
+  // 案件结论描述
+  reportVerdictDesc?: string;
+  // 收款账户名称
+  receiverAccountName?: string;
+  // 收款账户类型 ,1-支付宝，2-银行卡
+  receiverAccountType?: string;
+  // 收款人账户
+  receiverAccount?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -14321,6 +14432,10 @@ export class QueryInsuranceYzbreportResponse extends $tea.Model {
       reportEndTime: 'report_end_time',
       reportPaidDesc: 'report_paid_desc',
       reportPaidTime: 'report_paid_time',
+      reportVerdictDesc: 'report_verdict_desc',
+      receiverAccountName: 'receiver_account_name',
+      receiverAccountType: 'receiver_account_type',
+      receiverAccount: 'receiver_account',
     };
   }
 
@@ -14339,6 +14454,10 @@ export class QueryInsuranceYzbreportResponse extends $tea.Model {
       reportEndTime: 'string',
       reportPaidDesc: 'string',
       reportPaidTime: 'string',
+      reportVerdictDesc: 'string',
+      receiverAccountName: 'string',
+      receiverAccountType: 'string',
+      receiverAccount: 'string',
     };
   }
 
@@ -15167,7 +15286,7 @@ export class ApplyInsurancePiprereportRequest extends $tea.Model {
   productInstanceId?: string;
   // 调用方生成的唯一编码，格式为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。 yyyyMMdd请传递当前时间。 身份标识可自定义。 其他编码建议为随机值。 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
   tradeNo: string;
-  // 保司编码，CPIC--太保
+  // 保司编码，海外邮包险（CICP--中华财险、PAIC--平安）、跨境邮包险（PAIC--平安、PICC--人保、CPIC--太保）
   externalChannelCode: string;
   // 险种编码 04--海外邮包险 06--跨境邮包险
   // 
@@ -21336,7 +21455,7 @@ export default class Client {
    * @param config config contains the necessary information to create a client
    */
   constructor(config: Config) {
-    if (Util.isUnset($tea.toMap(config))) {
+    if (Util.isUnset(config)) {
       throw $tea.newError({
         code: "ParameterMissing",
         message: "'config' can not be unset",
@@ -21422,7 +21541,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.10",
+          sdk_version: "1.7.7",
           _prod_code: "SHUZIWULIU",
           _prod_channel: "undefined",
         };
@@ -23318,8 +23437,8 @@ export default class Client {
   }
 
   /**
-   * Description: 海外、跨境邮包险理赔报案
-   * Summary: 海外、跨境邮包险报案
+   * Description: 海外、跨境邮包险、平台责任险的理赔报案
+   * Summary: 海外、跨境邮包险、平台责任险报案
    */
   async applyInsuranceOspireport(request: ApplyInsuranceOspireportRequest): Promise<ApplyInsuranceOspireportResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -23328,8 +23447,8 @@ export default class Client {
   }
 
   /**
-   * Description: 海外、跨境邮包险理赔报案
-   * Summary: 海外、跨境邮包险报案
+   * Description: 海外、跨境邮包险、平台责任险的理赔报案
+   * Summary: 海外、跨境邮包险、平台责任险报案
    */
   async applyInsuranceOspireportEx(request: ApplyInsuranceOspireportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceOspireportResponse> {
     Util.validateModel(request);
@@ -23337,8 +23456,8 @@ export default class Client {
   }
 
   /**
-   * Description: 海外、跨境邮包险案件结果通知
-   * Summary: 海外、跨境邮包险案件结果通知
+   * Description: 海外、跨境邮包险、平台责任险案件结果通知
+   * Summary: 海外、跨境邮包险、平台责任险案件结果通知
    */
   async notifyInsuranceOspireport(request: NotifyInsuranceOspireportRequest): Promise<NotifyInsuranceOspireportResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -23347,8 +23466,8 @@ export default class Client {
   }
 
   /**
-   * Description: 海外、跨境邮包险案件结果通知
-   * Summary: 海外、跨境邮包险案件结果通知
+   * Description: 海外、跨境邮包险、平台责任险案件结果通知
+   * Summary: 海外、跨境邮包险、平台责任险案件结果通知
    */
   async notifyInsuranceOspireportEx(request: NotifyInsuranceOspireportRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyInsuranceOspireportResponse> {
     Util.validateModel(request);
@@ -23375,8 +23494,8 @@ export default class Client {
   }
 
   /**
-   * Description: 跨境邮包险投保
-   * Summary: 跨境邮包险投保
+   * Description: 跨境邮包险、平台责任险投保
+   * Summary: 跨境邮包险、平台责任险投保
    */
   async applyInsuranceCbpi(request: ApplyInsuranceCbpiRequest): Promise<ApplyInsuranceCbpiResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -23385,8 +23504,8 @@ export default class Client {
   }
 
   /**
-   * Description: 跨境邮包险投保
-   * Summary: 跨境邮包险投保
+   * Description: 跨境邮包险、平台责任险投保
+   * Summary: 跨境邮包险、平台责任险投保
    */
   async applyInsuranceCbpiEx(request: ApplyInsuranceCbpiRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyInsuranceCbpiResponse> {
     Util.validateModel(request);
