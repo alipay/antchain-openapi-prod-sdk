@@ -29,7 +29,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
+    // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
     /**
      * @var string
      */
@@ -38,6 +38,7 @@ class ApplyInsuranceOspireportRequest extends Model
     // 险种编码
     // 04--海外邮包险
     // 06--跨境邮包险
+    // 07--平台责任险
     /**
      * @var string
      */

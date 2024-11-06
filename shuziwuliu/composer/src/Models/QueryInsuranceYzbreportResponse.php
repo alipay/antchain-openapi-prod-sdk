@@ -92,6 +92,24 @@ class QueryInsuranceYzbreportResponse extends Model
      * @var string
      */
     public $reportVerdictDesc;
+
+    // 收款账户名称
+    /**
+     * @var string
+     */
+    public $receiverAccountName;
+
+    // 收款账户类型 ,1-支付宝，2-银行卡
+    /**
+     * @var string
+     */
+    public $receiverAccountType;
+
+    // 收款人账户
+    /**
+     * @var string
+     */
+    public $receiverAccount;
     protected $_name = [
         'reqMsgId'            => 'req_msg_id',
         'resultCode'          => 'result_code',
@@ -107,6 +125,9 @@ class QueryInsuranceYzbreportResponse extends Model
         'reportPaidDesc'      => 'report_paid_desc',
         'reportPaidTime'      => 'report_paid_time',
         'reportVerdictDesc'   => 'report_verdict_desc',
+        'receiverAccountName' => 'receiver_account_name',
+        'receiverAccountType' => 'receiver_account_type',
+        'receiverAccount'     => 'receiver_account',
     ];
 
     public function validate()
@@ -157,6 +178,15 @@ class QueryInsuranceYzbreportResponse extends Model
         }
         if (null !== $this->reportVerdictDesc) {
             $res['report_verdict_desc'] = $this->reportVerdictDesc;
+        }
+        if (null !== $this->receiverAccountName) {
+            $res['receiver_account_name'] = $this->receiverAccountName;
+        }
+        if (null !== $this->receiverAccountType) {
+            $res['receiver_account_type'] = $this->receiverAccountType;
+        }
+        if (null !== $this->receiverAccount) {
+            $res['receiver_account'] = $this->receiverAccount;
         }
 
         return $res;
@@ -211,6 +241,15 @@ class QueryInsuranceYzbreportResponse extends Model
         }
         if (isset($map['report_verdict_desc'])) {
             $model->reportVerdictDesc = $map['report_verdict_desc'];
+        }
+        if (isset($map['receiver_account_name'])) {
+            $model->receiverAccountName = $map['receiver_account_name'];
+        }
+        if (isset($map['receiver_account_type'])) {
+            $model->receiverAccountType = $map['receiver_account_type'];
+        }
+        if (isset($map['receiver_account'])) {
+            $model->receiverAccount = $map['receiver_account'];
         }
 
         return $model;

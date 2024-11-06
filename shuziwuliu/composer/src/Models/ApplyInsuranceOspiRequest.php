@@ -215,6 +215,12 @@ class ApplyInsuranceOspiRequest extends Model
      * @var string
      */
     public $quoteMark;
+
+    // 标的列表
+    /**
+     * @var CargoInfo[]
+     */
+    public $cargoInfo;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -250,6 +256,7 @@ class ApplyInsuranceOspiRequest extends Model
         'cargoWorth'          => 'cargo_worth',
         'consigneeName'       => 'consignee_name',
         'quoteMark'           => 'quote_mark',
+        'cargoInfo'           => 'cargo_info',
     ];
 
     public function validate()
@@ -417,6 +424,15 @@ class ApplyInsuranceOspiRequest extends Model
         if (null !== $this->quoteMark) {
             $res['quote_mark'] = $this->quoteMark;
         }
+        if (null !== $this->cargoInfo) {
+            $res['cargo_info'] = [];
+            if (null !== $this->cargoInfo && \is_array($this->cargoInfo)) {
+                $n = 0;
+                foreach ($this->cargoInfo as $item) {
+                    $res['cargo_info'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
 
         return $res;
     }
@@ -530,6 +546,15 @@ class ApplyInsuranceOspiRequest extends Model
         }
         if (isset($map['quote_mark'])) {
             $model->quoteMark = $map['quote_mark'];
+        }
+        if (isset($map['cargo_info'])) {
+            if (!empty($map['cargo_info'])) {
+                $model->cargoInfo = [];
+                $n                = 0;
+                foreach ($map['cargo_info'] as $item) {
+                    $model->cargoInfo[$n++] = null !== $item ? CargoInfo::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

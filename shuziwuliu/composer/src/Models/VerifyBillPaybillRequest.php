@@ -71,6 +71,7 @@ class VerifyBillPaybillRequest extends Model
         Model::validateRequired('forwarderDid', $this->forwarderDid, true);
         Model::validateRequired('payTariffCode', $this->payTariffCode, true);
         Model::validateRequired('verifyPayTariffCode', $this->verifyPayTariffCode, true);
+        Model::validateMaxLength('verifyPayTariffCode', $this->verifyPayTariffCode, 65555);
     }
 
     public function toMap()

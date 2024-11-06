@@ -47,6 +47,12 @@ class ApplyInsuranceYzbreportRequest extends Model
      */
     public $policyNo;
 
+    // 报案号，用于报案材料更新
+    /**
+     * @var string
+     */
+    public $reportNo;
+
     // 报案唯一标识，申请理赔所关联的订单号，如一个订单会存在多次理赔，请用唯一标识
     /**
      * @var string
@@ -203,11 +209,35 @@ class ApplyInsuranceYzbreportRequest extends Model
      */
     public $isStarStation;
 
-    // 报案号，用于报案材料更新
+    // 被保人姓名，实际的保险被保人名称
     /**
      * @var string
      */
-    public $reportNo;
+    public $bbrName;
+
+    // 被保人证件类型，01--居民身份证、03--营业执照
+    /**
+     * @var string
+     */
+    public $bbrIdType;
+
+    // 被保人证件号码
+    /**
+     * @var string
+     */
+    public $bbrIdNo;
+
+    // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+    /**
+     * @var string
+     */
+    public $insureStart;
+
+    // 保险止期，格式：yyyy-MM-dd HH:mm:ss
+    /**
+     * @var string
+     */
+    public $insureEnd;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -215,6 +245,7 @@ class ApplyInsuranceYzbreportRequest extends Model
         'externalChannelCode'     => 'external_channel_code',
         'externalProductCode'     => 'external_product_code',
         'policyNo'                => 'policy_no',
+        'reportNo'                => 'report_no',
         'reportUniqueKey'         => 'report_unique_key',
         'claimApplyPerson'        => 'claim_apply_person',
         'reporterName'            => 'reporter_name',
@@ -241,7 +272,11 @@ class ApplyInsuranceYzbreportRequest extends Model
         'genWorkDate'             => 'gen_work_date',
         'workType'                => 'work_type',
         'isStarStation'           => 'is_star_station',
-        'reportNo'                => 'report_no',
+        'bbrName'                 => 'bbr_name',
+        'bbrIdType'               => 'bbr_id_type',
+        'bbrIdNo'                 => 'bbr_id_no',
+        'insureStart'             => 'insure_start',
+        'insureEnd'               => 'insure_end',
     ];
 
     public function validate()
@@ -306,6 +341,9 @@ class ApplyInsuranceYzbreportRequest extends Model
         }
         if (null !== $this->policyNo) {
             $res['policy_no'] = $this->policyNo;
+        }
+        if (null !== $this->reportNo) {
+            $res['report_no'] = $this->reportNo;
         }
         if (null !== $this->reportUniqueKey) {
             $res['report_unique_key'] = $this->reportUniqueKey;
@@ -391,8 +429,20 @@ class ApplyInsuranceYzbreportRequest extends Model
         if (null !== $this->isStarStation) {
             $res['is_star_station'] = $this->isStarStation;
         }
-        if (null !== $this->reportNo) {
-            $res['report_no'] = $this->reportNo;
+        if (null !== $this->bbrName) {
+            $res['bbr_name'] = $this->bbrName;
+        }
+        if (null !== $this->bbrIdType) {
+            $res['bbr_id_type'] = $this->bbrIdType;
+        }
+        if (null !== $this->bbrIdNo) {
+            $res['bbr_id_no'] = $this->bbrIdNo;
+        }
+        if (null !== $this->insureStart) {
+            $res['insure_start'] = $this->insureStart;
+        }
+        if (null !== $this->insureEnd) {
+            $res['insure_end'] = $this->insureEnd;
         }
 
         return $res;
@@ -423,6 +473,9 @@ class ApplyInsuranceYzbreportRequest extends Model
         }
         if (isset($map['policy_no'])) {
             $model->policyNo = $map['policy_no'];
+        }
+        if (isset($map['report_no'])) {
+            $model->reportNo = $map['report_no'];
         }
         if (isset($map['report_unique_key'])) {
             $model->reportUniqueKey = $map['report_unique_key'];
@@ -508,8 +561,20 @@ class ApplyInsuranceYzbreportRequest extends Model
         if (isset($map['is_star_station'])) {
             $model->isStarStation = $map['is_star_station'];
         }
-        if (isset($map['report_no'])) {
-            $model->reportNo = $map['report_no'];
+        if (isset($map['bbr_name'])) {
+            $model->bbrName = $map['bbr_name'];
+        }
+        if (isset($map['bbr_id_type'])) {
+            $model->bbrIdType = $map['bbr_id_type'];
+        }
+        if (isset($map['bbr_id_no'])) {
+            $model->bbrIdNo = $map['bbr_id_no'];
+        }
+        if (isset($map['insure_start'])) {
+            $model->insureStart = $map['insure_start'];
+        }
+        if (isset($map['insure_end'])) {
+            $model->insureEnd = $map['insure_end'];
         }
 
         return $model;

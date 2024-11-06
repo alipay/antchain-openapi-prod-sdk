@@ -47,7 +47,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $tbrName;
 
-    // 投保人证件类型，03--营业执照
+    // 投保人证件类型，01-居民身份证,03--统一社会信用代码
     /**
      * @var string
      */
@@ -65,7 +65,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $bbrName;
 
-    // 被保人证件类型，01--居民身份证、03--营业执照
+    // 被保人证件类型，01--居民身份证、03--统一社会信用代码
     /**
      * @var string
      */
@@ -89,7 +89,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $beneficiaryName;
 
-    // 受益人证件类型，01--居民身份证、03--营业执照
+    // 受益人证件类型，01--居民身份证、03--统一社会信用代码
     /**
      * @var string
      */
@@ -108,7 +108,7 @@ class ApplyInsuranceYzbRequest extends Model
     public $insureStart;
 
     // 套餐编码，
-    // 平安（PK00053022、PK00053025、PK00053026）
+    // 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467）
     // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
     /**
      * @var string
@@ -163,7 +163,7 @@ class ApplyInsuranceYzbRequest extends Model
      */
     public $wholeAddress;
 
-    // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
+    // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障，上门人员综合险-30万保额，上门人员综合险-50万保额
     /**
      * @var string
      */
