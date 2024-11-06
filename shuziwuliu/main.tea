@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.2',
+    sdk_version = '1.7.7',
     _prod_code = 'SHUZIWULIU',
     _prod_channel = 'undefined'
   };
@@ -794,6 +794,18 @@ model ContainerGoodsParam {
   volume?: string(name='volume', example='1'),
   // 毛重 业务必填
   weight?: string(name='weight', example='1'),
+}
+
+// 货物标的列表
+model CargoInfo {
+  // 货物类型，货物类型的大类
+  cargoType: string(name='cargo_type', example='Computer & Office'),
+  // 货物名称，实际的货物名称
+  cargoName: string(name='cargo_name', example='3D Printing'),
+  // 货物数量
+  cargoQuantity: string(name='cargo_quantity', example='10'),
+  // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+  cargoWorth: string(name='cargo_worth', example='1002.00'),
 }
 
 // 应付账单发票关联项
@@ -7492,6 +7504,8 @@ model ApplyInsuranceOspiRequest = {
   consigneeName?: string(maxLength=100, name='consignee_name'),
   // 询价code
   quoteMark?: string(name='quote_mark'),
+  // 标的列表
+  cargoInfo?: [ CargoInfo ](name='cargo_info'),
 }
 
 model ApplyInsuranceOspiResponse = {
@@ -7544,11 +7558,12 @@ model ApplyInsuranceOspireportRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
+  // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码
   // 04--海外邮包险
   // 06--跨境邮包险
+  // 07--平台责任险
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 保单号，申请理赔的保单号
   policyNo: string(maxLength=200, name='policy_no'),
@@ -7701,13 +7716,13 @@ model ApplyInsuranceYzbRequest = {
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 投保人姓名，保险协议中的投保人全称
   tbrName: string(maxLength=100, name='tbr_name'),
-  // 投保人证件类型，03--营业执照
+  // 投保人证件类型，01-居民身份证,03--统一社会信用代码
   tbrIdType: string(maxLength=2, name='tbr_id_type'),
   // 投保人证件号码
   tbrIdNo: string(maxLength=30, name='tbr_id_no'),
   // 被保人姓名，实际的保险被保人名称
   bbrName: string(maxLength=100, name='bbr_name'),
-  // 被保人证件类型，01--居民身份证、03--营业执照
+  // 被保人证件类型，01--居民身份证、03--统一社会信用代码
   bbrIdType: string(maxLength=2, name='bbr_id_type'),
   // 被保人证件号码
   bbrIdNo: string(maxLength=30, name='bbr_id_no'),
@@ -7715,14 +7730,14 @@ model ApplyInsuranceYzbRequest = {
   bbrContact: string(maxLength=30, name='bbr_contact'),
   // 受益人名称，实际的保险受益人名称
   beneficiaryName: string(maxLength=100, name='beneficiary_name'),
-  // 受益人证件类型，01--居民身份证、03--营业执照
+  // 受益人证件类型，01--居民身份证、03--统一社会信用代码
   beneficiaryIdType: string(maxLength=2, name='beneficiary_id_type'),
   // 受益人证件号码
   beneficiaryNo: string(maxLength=30, name='beneficiary_no'),
   // 保险起期，格式：yyyy-MM-dd HH:mm:ss
   insureStart: string(name='insure_start'),
   // 套餐编码，
-  // 平安（PK00053022、PK00053025、PK00053026）
+  // 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467）
   // 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
   productPackageType: string(maxLength=20, name='product_package_type'),
   // 站点ID，站点的唯一标识
@@ -7741,7 +7756,7 @@ model ApplyInsuranceYzbRequest = {
   districtCode: string(maxLength=10, name='district_code'),
   // 完整地址，站点的详细地址
   wholeAddress: string(maxLength=300, name='whole_address'),
-  // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
+  // 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障，上门人员综合险-30万保额，上门人员综合险-50万保额
   schemeName: string(maxLength=100, name='scheme_name'),
   // 意健险被保人姓名
   acplBbrName: string(maxLength=100, name='acpl_bbr_name'),
@@ -7803,9 +7818,9 @@ model ApplyInsuranceCbpiRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保
+  // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
-  // 险种编码，06--跨境邮包险
+  // 险种编码，06--跨境邮包险，07--平台责任险
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 保险协议中的投保人全称
   tbrName: string(maxLength=100, name='tbr_name'),
@@ -7869,6 +7884,8 @@ model ApplyInsuranceCbpiRequest = {
   consigneeName?: string(maxLength=100, name='consignee_name'),
   // 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
   quoteMark?: string(maxLength=100, name='quote_mark'),
+  // 标的列表
+  cargoInfo?: [ CargoInfo ](name='cargo_info'),
 }
 
 model ApplyInsuranceCbpiResponse = {
@@ -7933,6 +7950,8 @@ model ApplyInsuranceYzbreportRequest = {
   externalProductCode: string(maxLength=2, name='external_product_code'),
   // 保单号，申请理赔的保单号
   policyNo: string(maxLength=200, name='policy_no'),
+  // 报案号，用于报案材料更新
+  reportNo?: string(name='report_no'),
   // 报案唯一标识，申请理赔所关联的订单号，如一个订单会存在多次理赔，请用唯一标识
   reportUniqueKey: string(maxLength=200, name='report_unique_key'),
   // 理赔申请人
@@ -7985,8 +8004,16 @@ model ApplyInsuranceYzbreportRequest = {
   workType?: string(maxLength=20, name='work_type'),
   // 是否星级站点，0是，1否
   isStarStation?: string(name='is_star_station'),
-  // 报案号，用于报案材料更新
-  reportNo?: string(name='report_no'),
+  // 被保人姓名，实际的保险被保人名称
+  bbrName?: string(name='bbr_name'),
+  // 被保人证件类型，01--居民身份证、03--营业执照
+  bbrIdType?: string(name='bbr_id_type'),
+  // 被保人证件号码
+  bbrIdNo?: string(name='bbr_id_no'),
+  // 保险起期，格式：yyyy-MM-dd HH:mm:ss
+  insureStart?: string(name='insure_start'),
+  // 保险止期，格式：yyyy-MM-dd HH:mm:ss
+  insureEnd?: string(name='insure_end'),
 }
 
 model ApplyInsuranceYzbreportResponse = {
@@ -8064,6 +8091,12 @@ model QueryInsuranceYzbreportResponse = {
   reportPaidTime?: string(name='report_paid_time'),
   // 案件结论描述
   reportVerdictDesc?: string(name='report_verdict_desc'),
+  // 收款账户名称
+  receiverAccountName?: string(name='receiver_account_name'),
+  // 收款账户类型 ,1-支付宝，2-银行卡
+  receiverAccountType?: string(name='receiver_account_type'),
+  // 收款人账户
+  receiverAccount?: string(name='receiver_account'),
 }
 
 /**
@@ -10804,7 +10837,7 @@ model VerifyBillPaybillRequest = {
   // 核销金额 业务必填
   verifyAmount?: string(name='verify_amount'),
   // 核销应付资费项编号
-  verifyPayTariffCode: string(name='verify_pay_tariff_code'),
+  verifyPayTariffCode: string(maxLength=65555, name='verify_pay_tariff_code'),
   // 核销状态 WAIT_VERIFY-待核销，PART_VERIFY-部分核销，COMPLETE_VERIFY-完成核销 
   // 业务必填
   verifyStatus?: string(name='verify_status'),
