@@ -2235,6 +2235,46 @@ func (s *ContainerGoodsParam) SetWeight(v string) *ContainerGoodsParam {
 	return s
 }
 
+// 货物标的列表
+type CargoInfo struct {
+	// 货物类型，货物类型的大类
+	CargoType *string `json:"cargo_type,omitempty" xml:"cargo_type,omitempty" require:"true"`
+	// 货物名称，实际的货物名称
+	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true"`
+	// 货物数量
+	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true"`
+	// 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+	CargoWorth *string `json:"cargo_worth,omitempty" xml:"cargo_worth,omitempty" require:"true"`
+}
+
+func (s CargoInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CargoInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CargoInfo) SetCargoType(v string) *CargoInfo {
+	s.CargoType = &v
+	return s
+}
+
+func (s *CargoInfo) SetCargoName(v string) *CargoInfo {
+	s.CargoName = &v
+	return s
+}
+
+func (s *CargoInfo) SetCargoQuantity(v string) *CargoInfo {
+	s.CargoQuantity = &v
+	return s
+}
+
+func (s *CargoInfo) SetCargoWorth(v string) *CargoInfo {
+	s.CargoWorth = &v
+	return s
+}
+
 // 应付账单发票关联项
 type PayBillInvoiceParam struct {
 	// 账单发票code
@@ -18610,6 +18650,8 @@ type ApplyInsuranceOspiRequest struct {
 	ConsigneeName *string `json:"consignee_name,omitempty" xml:"consignee_name,omitempty" maxLength:"100"`
 	// 询价code
 	QuoteMark *string `json:"quote_mark,omitempty" xml:"quote_mark,omitempty"`
+	// 标的列表
+	CargoInfo []*CargoInfo `json:"cargo_info,omitempty" xml:"cargo_info,omitempty" type:"Repeated"`
 }
 
 func (s ApplyInsuranceOspiRequest) String() string {
@@ -18790,6 +18832,11 @@ func (s *ApplyInsuranceOspiRequest) SetQuoteMark(v string) *ApplyInsuranceOspiRe
 	return s
 }
 
+func (s *ApplyInsuranceOspiRequest) SetCargoInfo(v []*CargoInfo) *ApplyInsuranceOspiRequest {
+	s.CargoInfo = v
+	return s
+}
+
 type ApplyInsuranceOspiResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -18874,11 +18921,12 @@ type ApplyInsuranceOspireportRequest struct {
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保
+	// 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
 	// 险种编码
 	// 04--海外邮包险
 	// 06--跨境邮包险
+	// 07--平台责任险
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 保单号，申请理赔的保单号
 	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"200"`
@@ -19265,13 +19313,13 @@ type ApplyInsuranceYzbRequest struct {
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 投保人姓名，保险协议中的投保人全称
 	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
-	// 投保人证件类型，03--营业执照
+	// 投保人证件类型，01-居民身份证,03--统一社会信用代码
 	TbrIdType *string `json:"tbr_id_type,omitempty" xml:"tbr_id_type,omitempty" require:"true" maxLength:"2"`
 	// 投保人证件号码
 	TbrIdNo *string `json:"tbr_id_no,omitempty" xml:"tbr_id_no,omitempty" require:"true" maxLength:"30"`
 	// 被保人姓名，实际的保险被保人名称
 	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty" require:"true" maxLength:"100"`
-	// 被保人证件类型，01--居民身份证、03--营业执照
+	// 被保人证件类型，01--居民身份证、03--统一社会信用代码
 	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty" require:"true" maxLength:"2"`
 	// 被保人证件号码
 	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty" require:"true" maxLength:"30"`
@@ -19279,14 +19327,14 @@ type ApplyInsuranceYzbRequest struct {
 	BbrContact *string `json:"bbr_contact,omitempty" xml:"bbr_contact,omitempty" require:"true" maxLength:"30"`
 	// 受益人名称，实际的保险受益人名称
 	BeneficiaryName *string `json:"beneficiary_name,omitempty" xml:"beneficiary_name,omitempty" require:"true" maxLength:"100"`
-	// 受益人证件类型，01--居民身份证、03--营业执照
+	// 受益人证件类型，01--居民身份证、03--统一社会信用代码
 	BeneficiaryIdType *string `json:"beneficiary_id_type,omitempty" xml:"beneficiary_id_type,omitempty" require:"true" maxLength:"2"`
 	// 受益人证件号码
 	BeneficiaryNo *string `json:"beneficiary_no,omitempty" xml:"beneficiary_no,omitempty" require:"true" maxLength:"30"`
 	// 保险起期，格式：yyyy-MM-dd HH:mm:ss
 	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty" require:"true"`
 	// 套餐编码，
-	// 平安（PK00053022、PK00053025、PK00053026）
+	// 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467）
 	// 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
 	ProductPackageType *string `json:"product_package_type,omitempty" xml:"product_package_type,omitempty" require:"true" maxLength:"20"`
 	// 站点ID，站点的唯一标识
@@ -19305,7 +19353,7 @@ type ApplyInsuranceYzbRequest struct {
 	DistrictCode *string `json:"district_code,omitempty" xml:"district_code,omitempty" require:"true" maxLength:"10"`
 	// 完整地址，站点的详细地址
 	WholeAddress *string `json:"whole_address,omitempty" xml:"whole_address,omitempty" require:"true" maxLength:"300"`
-	// 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障
+	// 方案名称，菜鸟驿站宝、菜鸟校园驿站宝、溪鸟公共服务站保障，上门人员综合险-30万保额，上门人员综合险-50万保额
 	SchemeName *string `json:"scheme_name,omitempty" xml:"scheme_name,omitempty" require:"true" maxLength:"100"`
 	// 意健险被保人姓名
 	AcplBbrName *string `json:"acpl_bbr_name,omitempty" xml:"acpl_bbr_name,omitempty" require:"true" maxLength:"100"`
@@ -19559,9 +19607,9 @@ type ApplyInsuranceCbpiRequest struct {
 	// 其他编码建议为随机值。
 	// 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" require:"true" maxLength:"50"`
-	// 保司编码.，PAIC---平安，PICC-人保，CPIC--太保
+	// 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
 	ExternalChannelCode *string `json:"external_channel_code,omitempty" xml:"external_channel_code,omitempty" require:"true" maxLength:"10"`
-	// 险种编码，06--跨境邮包险
+	// 险种编码，06--跨境邮包险，07--平台责任险
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 保险协议中的投保人全称
 	TbrName *string `json:"tbr_name,omitempty" xml:"tbr_name,omitempty" require:"true" maxLength:"100"`
@@ -19625,6 +19673,8 @@ type ApplyInsuranceCbpiRequest struct {
 	ConsigneeName *string `json:"consignee_name,omitempty" xml:"consignee_name,omitempty" maxLength:"100"`
 	// 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
 	QuoteMark *string `json:"quote_mark,omitempty" xml:"quote_mark,omitempty" maxLength:"100"`
+	// 标的列表
+	CargoInfo []*CargoInfo `json:"cargo_info,omitempty" xml:"cargo_info,omitempty" type:"Repeated"`
 }
 
 func (s ApplyInsuranceCbpiRequest) String() string {
@@ -19800,6 +19850,11 @@ func (s *ApplyInsuranceCbpiRequest) SetQuoteMark(v string) *ApplyInsuranceCbpiRe
 	return s
 }
 
+func (s *ApplyInsuranceCbpiRequest) SetCargoInfo(v []*CargoInfo) *ApplyInsuranceCbpiRequest {
+	s.CargoInfo = v
+	return s
+}
+
 type ApplyInsuranceCbpiResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -19896,6 +19951,8 @@ type ApplyInsuranceYzbreportRequest struct {
 	ExternalProductCode *string `json:"external_product_code,omitempty" xml:"external_product_code,omitempty" require:"true" maxLength:"2"`
 	// 保单号，申请理赔的保单号
 	PolicyNo *string `json:"policy_no,omitempty" xml:"policy_no,omitempty" require:"true" maxLength:"200"`
+	// 报案号，用于报案材料更新
+	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty"`
 	// 报案唯一标识，申请理赔所关联的订单号，如一个订单会存在多次理赔，请用唯一标识
 	ReportUniqueKey *string `json:"report_unique_key,omitempty" xml:"report_unique_key,omitempty" require:"true" maxLength:"200"`
 	// 理赔申请人
@@ -19948,8 +20005,16 @@ type ApplyInsuranceYzbreportRequest struct {
 	WorkType *string `json:"work_type,omitempty" xml:"work_type,omitempty" maxLength:"20"`
 	// 是否星级站点，0是，1否
 	IsStarStation *string `json:"is_star_station,omitempty" xml:"is_star_station,omitempty"`
-	// 报案号，用于报案材料更新
-	ReportNo *string `json:"report_no,omitempty" xml:"report_no,omitempty"`
+	// 被保人姓名，实际的保险被保人名称
+	BbrName *string `json:"bbr_name,omitempty" xml:"bbr_name,omitempty"`
+	// 被保人证件类型，01--居民身份证、03--营业执照
+	BbrIdType *string `json:"bbr_id_type,omitempty" xml:"bbr_id_type,omitempty"`
+	// 被保人证件号码
+	BbrIdNo *string `json:"bbr_id_no,omitempty" xml:"bbr_id_no,omitempty"`
+	// 保险起期，格式：yyyy-MM-dd HH:mm:ss
+	InsureStart *string `json:"insure_start,omitempty" xml:"insure_start,omitempty"`
+	// 保险止期，格式：yyyy-MM-dd HH:mm:ss
+	InsureEnd *string `json:"insure_end,omitempty" xml:"insure_end,omitempty"`
 }
 
 func (s ApplyInsuranceYzbreportRequest) String() string {
@@ -19987,6 +20052,11 @@ func (s *ApplyInsuranceYzbreportRequest) SetExternalProductCode(v string) *Apply
 
 func (s *ApplyInsuranceYzbreportRequest) SetPolicyNo(v string) *ApplyInsuranceYzbreportRequest {
 	s.PolicyNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetReportNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.ReportNo = &v
 	return s
 }
 
@@ -20120,8 +20190,28 @@ func (s *ApplyInsuranceYzbreportRequest) SetIsStarStation(v string) *ApplyInsura
 	return s
 }
 
-func (s *ApplyInsuranceYzbreportRequest) SetReportNo(v string) *ApplyInsuranceYzbreportRequest {
-	s.ReportNo = &v
+func (s *ApplyInsuranceYzbreportRequest) SetBbrName(v string) *ApplyInsuranceYzbreportRequest {
+	s.BbrName = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetBbrIdType(v string) *ApplyInsuranceYzbreportRequest {
+	s.BbrIdType = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetBbrIdNo(v string) *ApplyInsuranceYzbreportRequest {
+	s.BbrIdNo = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetInsureStart(v string) *ApplyInsuranceYzbreportRequest {
+	s.InsureStart = &v
+	return s
+}
+
+func (s *ApplyInsuranceYzbreportRequest) SetInsureEnd(v string) *ApplyInsuranceYzbreportRequest {
+	s.InsureEnd = &v
 	return s
 }
 
@@ -20247,6 +20337,12 @@ type QueryInsuranceYzbreportResponse struct {
 	ReportPaidTime *string `json:"report_paid_time,omitempty" xml:"report_paid_time,omitempty"`
 	// 案件结论描述
 	ReportVerdictDesc *string `json:"report_verdict_desc,omitempty" xml:"report_verdict_desc,omitempty"`
+	// 收款账户名称
+	ReceiverAccountName *string `json:"receiver_account_name,omitempty" xml:"receiver_account_name,omitempty"`
+	// 收款账户类型 ,1-支付宝，2-银行卡
+	ReceiverAccountType *string `json:"receiver_account_type,omitempty" xml:"receiver_account_type,omitempty"`
+	// 收款人账户
+	ReceiverAccount *string `json:"receiver_account,omitempty" xml:"receiver_account,omitempty"`
 }
 
 func (s QueryInsuranceYzbreportResponse) String() string {
@@ -20324,6 +20420,21 @@ func (s *QueryInsuranceYzbreportResponse) SetReportPaidTime(v string) *QueryInsu
 
 func (s *QueryInsuranceYzbreportResponse) SetReportVerdictDesc(v string) *QueryInsuranceYzbreportResponse {
 	s.ReportVerdictDesc = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReceiverAccountName(v string) *QueryInsuranceYzbreportResponse {
+	s.ReceiverAccountName = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReceiverAccountType(v string) *QueryInsuranceYzbreportResponse {
+	s.ReceiverAccountType = &v
+	return s
+}
+
+func (s *QueryInsuranceYzbreportResponse) SetReceiverAccount(v string) *QueryInsuranceYzbreportResponse {
+	s.ReceiverAccount = &v
 	return s
 }
 
@@ -26931,7 +27042,7 @@ type VerifyBillPaybillRequest struct {
 	// 核销金额 业务必填
 	VerifyAmount *string `json:"verify_amount,omitempty" xml:"verify_amount,omitempty"`
 	// 核销应付资费项编号
-	VerifyPayTariffCode *string `json:"verify_pay_tariff_code,omitempty" xml:"verify_pay_tariff_code,omitempty" require:"true"`
+	VerifyPayTariffCode *string `json:"verify_pay_tariff_code,omitempty" xml:"verify_pay_tariff_code,omitempty" require:"true" maxLength:"65555"`
 	// 核销状态 WAIT_VERIFY-待核销，PART_VERIFY-部分核销，COMPLETE_VERIFY-完成核销
 	// 业务必填
 	VerifyStatus *string `json:"verify_status,omitempty" xml:"verify_status,omitempty"`
@@ -30381,7 +30492,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.2"),
+				"sdk_version":      tea.String("1.7.7"),
 				"_prod_code":       tea.String("SHUZIWULIU"),
 				"_prod_channel":    tea.String("undefined"),
 			}
