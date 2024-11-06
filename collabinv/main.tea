@@ -1,0 +1,690 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.9',
+    _prod_code = 'COLLABINV',
+    _prod_channel = 'default'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 特征集信息
+model FeatureSetInfo {
+  // 特征集编码
+  featuresetCode: string(name='featureset_code', example='xxx'),
+  // 名称
+  featuresetName: string(name='featureset_name', example='公共特征集'),
+  // 数量
+  nums: string(name='nums', example='2000'),
+  // 描述
+  desc: string(name='desc', example='公共特征类'),
+}
+
+// 调用统计
+model GwCallDataStats {
+  // 租户
+  invokeTenant?: string(name='invoke_tenant', example='ds'),
+  // 租户ID
+  invokeTenantId?: string(name='invoke_tenant_id', example='dd'),
+  // 公key
+  accessKey?: string(name='access_key', example='ss'),
+  // 调用数量
+  invokeCount?: string(name='invoke_count', example='33'),
+  // 调用查得统计
+  successCount?: string(name='success_count', example='3'),
+  // id
+  id: string(name='id', example='223'),
+}
+
+// 分页信息
+model PageInfo {
+  // 总数量
+  total?: long(name='total', example='50'),
+  // 当前页
+  pageIndex: long(name='page_index', example='1'),
+  // 页容量
+  pageSize: long(name='page_size', example='10'),
+}
+
+model QueryLocationInternalRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // md5加密的身份证号
+  idNumber?: string(name='id_number'),
+  // md5加密的手机号
+  phoneNo?: string(name='phone_no'),
+  // 定位时间范围开始时间
+  startTime: string(name='start_time'),
+  // 定位时间范围结束时间
+  endTime: string(name='end_time'),
+  // 核查中心位置（经度,纬度）
+  centerPosition?: string(name='center_position'),
+  // 核查省市区县范围
+  distinctCounty?: string(name='distinct_county'),
+  // 协查类型：
+  // 0: 为经纬度精准定位协查 (默认)
+  // 1:  为区县定位 (省-市-区/县) 协查
+  invType?: long(name='inv_type'),
+  // 服务级别与结果值定义
+  apiServiceLevel: string(name='api_service_level'),
+}
+
+model QueryLocationInternalResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 置信度取值：A/B/C
+  confidenceValue?: string(name='confidence_value'),
+  // 扩展字段，其他信息
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 基于交易数据的定位信息协查
+ * Summary: 定位协查
+ */
+async function queryLocationInternal(request: QueryLocationInternalRequest): QueryLocationInternalResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLocationInternalEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于交易数据的定位信息协查
+ * Summary: 定位协查
+ */
+async function queryLocationInternalEx(request: QueryLocationInternalRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLocationInternalResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.location.internal.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryLocationTradeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // md5加密的身份证号
+  idNumber?: string(maxLength=32, name='id_number'),
+  // md5加密的手机号
+  phoneNo?: string(maxLength=32, name='phone_no'),
+  // 调用者用户ID（或外部系统业务ID）
+  callerId: string(maxLength=128, name='caller_id'),
+  // 定位时间范围开始时间
+  startTime: string(maxLength=19, name='start_time'),
+  // 定位时间范围结束时间
+  endTime: string(maxLength=19, name='end_time'),
+  // 核查中心位置（经度,纬度）
+  centerPosition?: string(maxLength=64, name='center_position'),
+  // 核查省市区县范围
+  distinctCounty?: string(maxLength=128, name='distinct_county'),
+  // 协查类型：
+  // 0: 为经纬度精准定位协查 (默认)
+  // 1:  为区县定位 (省-市-区/县) 协查
+  invType?: string(maxLength=2, name='inv_type'),
+}
+
+model QueryLocationTradeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 置信度取值：A/B/C
+  confidenceValue?: string(name='confidence_value'),
+  // 扩展字段，其他信息
+  extInfo?: string(name='ext_info'),
+}
+
+/**
+ * Description: 基于交易数据的定位信息协查对外接口
+ * Summary: 定位协查对外接口
+ */
+async function queryLocationTrade(request: QueryLocationTradeRequest): QueryLocationTradeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryLocationTradeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于交易数据的定位信息协查对外接口
+ * Summary: 定位协查对外接口
+ */
+async function queryLocationTradeEx(request: QueryLocationTradeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryLocationTradeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.location.trade.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushModelSamplefileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 开始日期：示例 YYYYMMDD
+  beginDate: string(name='begin_date'),
+  // 样本内采样日期截止日：YYYYMMDD
+  endDate: string(name='end_date'),
+  // 样本数据量
+  orgNums: long(name='org_nums'),
+  // 样本批次号，唯一，建议：租户code+时间戳
+  sampleCode: string(name='sample_code'),
+  // 文件路径，bucket 下路径
+  filePath: string(name='file_path'),
+  // 文件名,以.csv结尾，分隔符为  ","号
+  fileName: string(name='file_name'),
+}
+
+model PushModelSamplefileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 轮训编码
+  loopCode?: string(name='loop_code'),
+}
+
+/**
+ * Description: 样本文件摘要
+ * Summary: 样本文件摘要
+ */
+async function pushModelSamplefile(request: PushModelSamplefileRequest): PushModelSamplefileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushModelSamplefileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 样本文件摘要
+ * Summary: 样本文件摘要
+ */
+async function pushModelSamplefileEx(request: PushModelSamplefileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushModelSamplefileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.samplefile.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecModelSampletaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 样本批次号，唯一，建议：租户code+时间戳
+  sampleCode: string(name='sample_code'),
+  // 特征集编码或模型编码，依据类型使用
+  taskCode: string(name='task_code'),
+  // 任务类型：特征集 FEATURESET、模型分 MODEL
+  taskType: string(name='task_type'),
+  // 本次事件序号编码
+  sampleTaskCode: string(name='sample_task_code'),
+}
+
+model ExecModelSampletaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 轮训编码
+  loopCode?: string(name='loop_code'),
+}
+
+/**
+ * Description: 样本任务执行
+ * Summary: 样本任务执行
+ */
+async function execModelSampletask(request: ExecModelSampletaskRequest): ExecModelSampletaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execModelSampletaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 样本任务执行
+ * Summary: 样本任务执行
+ */
+async function execModelSampletaskEx(request: ExecModelSampletaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecModelSampletaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.sampletask.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelSampletaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 事件查询序号编码，在有loop_code接口返回值的异步接口的值
+  // 如：antchain.zkcollabinv.model.samplefile.push、antchain.zkcollabinv.model.sampletask.exec
+  loopCode: string(name='loop_code'),
+  // 阶段：poc_050 样本提交阶段，poc_500 任务跑批阶段
+  phase: string(name='phase'),
+}
+
+model QueryModelSampletaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 任务进度
+  progress?: string(name='progress'),
+  // 有输出的时候会有值
+  files?: [ string ](name='files'),
+}
+
+/**
+ * Description: 任务状态查询
+ * Summary: 任务状态查询
+ */
+async function queryModelSampletask(request: QueryModelSampletaskRequest): QueryModelSampletaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelSampletaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 任务状态查询
+ * Summary: 任务状态查询
+ */
+async function queryModelSampletaskEx(request: QueryModelSampletaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelSampletaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.sampletask.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelFeaturesetRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 分页信息
+  pageInfo: PageInfo(name='page_info'),
+}
+
+model QueryModelFeaturesetResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 特征列表
+  featuresets?: [ FeatureSetInfo ](name='featuresets'),
+  // 分页信息
+  pageInfo?: PageInfo(name='page_info'),
+}
+
+/**
+ * Description: 特征集查询
+ * Summary: 特征集查询
+ */
+async function queryModelFeatureset(request: QueryModelFeaturesetRequest): QueryModelFeaturesetResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelFeaturesetEx(request, headers, runtime);
+}
+
+/**
+ * Description: 特征集查询
+ * Summary: 特征集查询
+ */
+async function queryModelFeaturesetEx(request: QueryModelFeaturesetRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelFeaturesetResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.featureset.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitModelInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户编码
+  tenantCode: string(name='tenant_code'),
+  // 模型文件路径
+  modelFilePath: string(name='model_file_path'),
+  // 特征集路径
+  featuresFilePath: string(name='features_file_path'),
+  // 示例文件路径
+  demoFilePath?: string(name='demo_file_path'),
+  // 模型编码，同一租户下唯一，后续回溯生产调用标记
+  modelCode: string(name='model_code'),
+}
+
+model SubmitModelInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 模型保存
+ * Summary: 模型保存
+ */
+async function submitModelInstance(request: SubmitModelInstanceRequest): SubmitModelInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitModelInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 模型保存
+ * Summary: 模型保存
+ */
+async function submitModelInstanceEx(request: SubmitModelInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitModelInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.instance.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelStatsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // yyyyMMdd
+  invokeDay: string(name='invoke_day'),
+  // 类型：TENANT  租户；AK key维度
+  type: string(name='type'),
+}
+
+model QueryModelStatsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 数据
+  datas?: [ GwCallDataStats ](name='datas'),
+}
+
+/**
+ * Description: 模型调用统计查询
+ * Summary: 模型调用统计查询
+ */
+async function queryModelStats(request: QueryModelStatsRequest): QueryModelStatsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelStatsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 模型调用统计查询
+ * Summary: 模型调用统计查询
+ */
+async function queryModelStatsEx(request: QueryModelStatsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelStatsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.stats.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelCommonscoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户授权编码
+  authNo: string(name='auth_no'),
+  // 模型编码
+  modelCode: string(name='model_code'),
+  // 用户id（客户身份证号/手机号的md5/sha256散列值）
+  userId: string(name='user_id'),
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string(name='user_id_type'),
+  // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+  hashType: string(name='hash_type'),
+  // 客户编码
+  customerCode: string(name='customer_code'),
+  // 流水号，串联链路用，非必填
+  transNo?: string(name='trans_no'),
+  // hash_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+  userIdEncryptType?: string(name='user_id_encrypt_type'),
+}
+
+model QueryModelCommonscoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模型分
+  score?: string(name='score'),
+  // 流水号
+  transNo?: string(name='trans_no'),
+}
+
+/**
+ * Description: 通用查询
+ * Summary: 通用查询
+ */
+async function queryModelCommonscore(request: QueryModelCommonscoreRequest): QueryModelCommonscoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelCommonscoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 通用查询
+ * Summary: 通用查询
+ */
+async function queryModelCommonscoreEx(request: QueryModelCommonscoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelCommonscoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.commonscore.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model BatchqueryModelCommonscoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户ID
+  userIds: [ string ](name='user_ids'),
+  // 用户授权编码
+  authNos: [ string ](name='auth_nos'),
+  // 模型编码
+  modelCode: string(name='model_code'),
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string(name='user_id_type'),
+  // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+  hashType: string(name='hash_type'),
+  // 客户编码
+  customerCode: string(name='customer_code'),
+  // 流水号，串联链路用，非必填
+  transNo?: string(name='trans_no'),
+  // hash_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+  userIdEncryptType?: string(name='user_id_encrypt_type'),
+}
+
+model BatchqueryModelCommonscoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 分数
+  scores?: [ string ](name='scores'),
+  // 意向
+  ratings?: [ string ](name='ratings'),
+  // 流水号
+  transNo?: string(name='trans_no'),
+}
+
+/**
+ * Description: 模型分
+ * Summary: 模型分
+ */
+async function batchqueryModelCommonscore(request: BatchqueryModelCommonscoreRequest): BatchqueryModelCommonscoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return batchqueryModelCommonscoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 模型分
+ * Summary: 模型分
+ */
+async function batchqueryModelCommonscoreEx(request: BatchqueryModelCommonscoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryModelCommonscoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.commonscore.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
