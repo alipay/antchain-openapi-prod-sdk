@@ -84,6 +84,12 @@ class CheckAicoguardrailsAskResponse extends Model
      */
     public $riskWords;
 
+    // 风险词索引
+    /**
+     * @var string[]
+     */
+    public $riskWordsIndex;
+
     // 会话动作
     // END_SESSION：终止会话
     // RECALL_QUERY：撤回提问
@@ -104,6 +110,7 @@ class CheckAicoguardrailsAskResponse extends Model
         'riskCategory'   => 'risk_category',
         'riskLabel'      => 'risk_label',
         'riskWords'      => 'risk_words',
+        'riskWordsIndex' => 'risk_words_index',
         'sessionAction'  => 'session_action',
     ];
 
@@ -149,6 +156,9 @@ class CheckAicoguardrailsAskResponse extends Model
         }
         if (null !== $this->riskWords) {
             $res['risk_words'] = $this->riskWords;
+        }
+        if (null !== $this->riskWordsIndex) {
+            $res['risk_words_index'] = $this->riskWordsIndex;
         }
         if (null !== $this->sessionAction) {
             $res['session_action'] = $this->sessionAction;
@@ -201,6 +211,11 @@ class CheckAicoguardrailsAskResponse extends Model
         if (isset($map['risk_words'])) {
             if (!empty($map['risk_words'])) {
                 $model->riskWords = $map['risk_words'];
+            }
+        }
+        if (isset($map['risk_words_index'])) {
+            if (!empty($map['risk_words_index'])) {
+                $model->riskWordsIndex = $map['risk_words_index'];
             }
         }
         if (isset($map['session_action'])) {
