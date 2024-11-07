@@ -306,6 +306,7 @@ class CheckAicoguardrailsAskResponse(TeaModel):
         risk_category: str = None,
         risk_label: str = None,
         risk_words: List[str] = None,
+        risk_words_index: List[str] = None,
         session_action: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -336,6 +337,8 @@ class CheckAicoguardrailsAskResponse(TeaModel):
         self.risk_label = risk_label
         # 命中风险场景的风险词
         self.risk_words = risk_words
+        # 风险词索引
+        self.risk_words_index = risk_words_index
         # 会话动作
         # END_SESSION：终止会话
         # RECALL_QUERY：撤回提问
@@ -374,6 +377,8 @@ class CheckAicoguardrailsAskResponse(TeaModel):
             result['risk_label'] = self.risk_label
         if self.risk_words is not None:
             result['risk_words'] = self.risk_words
+        if self.risk_words_index is not None:
+            result['risk_words_index'] = self.risk_words_index
         if self.session_action is not None:
             result['session_action'] = self.session_action
         return result
@@ -404,6 +409,8 @@ class CheckAicoguardrailsAskResponse(TeaModel):
             self.risk_label = m.get('risk_label')
         if m.get('risk_words') is not None:
             self.risk_words = m.get('risk_words')
+        if m.get('risk_words_index') is not None:
+            self.risk_words_index = m.get('risk_words_index')
         if m.get('session_action') is not None:
             self.session_action = m.get('session_action')
         return self
