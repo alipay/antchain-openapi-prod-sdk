@@ -196,6 +196,8 @@ export class CheckAicoguardrailsAskResponse extends $tea.Model {
   riskLabel?: string;
   // 命中风险场景的风险词
   riskWords?: string[];
+  // 风险词索引
+  riskWordsIndex?: string[];
   // 会话动作
   //    END_SESSION：终止会话
   //    RECALL_QUERY：撤回提问
@@ -214,6 +216,7 @@ export class CheckAicoguardrailsAskResponse extends $tea.Model {
       riskCategory: 'risk_category',
       riskLabel: 'risk_label',
       riskWords: 'risk_words',
+      riskWordsIndex: 'risk_words_index',
       sessionAction: 'session_action',
     };
   }
@@ -232,6 +235,7 @@ export class CheckAicoguardrailsAskResponse extends $tea.Model {
       riskCategory: 'string',
       riskLabel: 'string',
       riskWords: { 'type': 'array', 'itemType': 'string' },
+      riskWordsIndex: { 'type': 'array', 'itemType': 'string' },
       sessionAction: 'string',
     };
   }
@@ -464,7 +468,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.18",
+          sdk_version: "1.0.19",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
