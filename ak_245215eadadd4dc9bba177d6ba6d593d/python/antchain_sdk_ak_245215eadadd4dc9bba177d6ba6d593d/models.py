@@ -263,80 +263,6 @@ class CaptionsStyle(TeaModel):
         return self
 
 
-class AvatarProfile(TeaModel):
-    def __init__(
-        self,
-        avatar_id: str = None,
-        name: str = None,
-        type: str = None,
-        conf: str = None,
-        pic_url: str = None,
-        bg_url: str = None,
-        thumb_url: str = None,
-    ):
-        # 190087
-        self.avatar_id = avatar_id
-        # 数字人形象名称
-        self.name = name
-        # CUSTOM---定制；
-        # PRESET---预置
-        self.type = type
-        # 位置信息等配置信息
-        self.conf = conf
-        # 数字人形象图片
-        self.pic_url = pic_url
-        # 背景图片地址
-        self.bg_url = bg_url
-        # 形象thumb图Url
-        self.thumb_url = thumb_url
-
-    def validate(self):
-        self.validate_required(self.avatar_id, 'avatar_id')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.type, 'type')
-        self.validate_required(self.pic_url, 'pic_url')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.avatar_id is not None:
-            result['avatar_id'] = self.avatar_id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.type is not None:
-            result['type'] = self.type
-        if self.conf is not None:
-            result['conf'] = self.conf
-        if self.pic_url is not None:
-            result['pic_url'] = self.pic_url
-        if self.bg_url is not None:
-            result['bg_url'] = self.bg_url
-        if self.thumb_url is not None:
-            result['thumb_url'] = self.thumb_url
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('avatar_id') is not None:
-            self.avatar_id = m.get('avatar_id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('conf') is not None:
-            self.conf = m.get('conf')
-        if m.get('pic_url') is not None:
-            self.pic_url = m.get('pic_url')
-        if m.get('bg_url') is not None:
-            self.bg_url = m.get('bg_url')
-        if m.get('thumb_url') is not None:
-            self.thumb_url = m.get('thumb_url')
-        return self
-
-
 class CaptionsInfo(TeaModel):
     def __init__(
         self,
@@ -428,6 +354,80 @@ class CaptionsInfo(TeaModel):
         if m.get('captions_style') is not None:
             temp_model = CaptionsStyle()
             self.captions_style = temp_model.from_map(m['captions_style'])
+        return self
+
+
+class AvatarProfile(TeaModel):
+    def __init__(
+        self,
+        avatar_id: str = None,
+        name: str = None,
+        type: str = None,
+        conf: str = None,
+        pic_url: str = None,
+        bg_url: str = None,
+        thumb_url: str = None,
+    ):
+        # 190087
+        self.avatar_id = avatar_id
+        # 数字人形象名称
+        self.name = name
+        # CUSTOM---定制；
+        # PRESET---预置
+        self.type = type
+        # 位置信息等配置信息
+        self.conf = conf
+        # 数字人形象图片
+        self.pic_url = pic_url
+        # 背景图片地址
+        self.bg_url = bg_url
+        # 形象thumb图Url
+        self.thumb_url = thumb_url
+
+    def validate(self):
+        self.validate_required(self.avatar_id, 'avatar_id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.type, 'type')
+        self.validate_required(self.pic_url, 'pic_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.avatar_id is not None:
+            result['avatar_id'] = self.avatar_id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.type is not None:
+            result['type'] = self.type
+        if self.conf is not None:
+            result['conf'] = self.conf
+        if self.pic_url is not None:
+            result['pic_url'] = self.pic_url
+        if self.bg_url is not None:
+            result['bg_url'] = self.bg_url
+        if self.thumb_url is not None:
+            result['thumb_url'] = self.thumb_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('avatar_id') is not None:
+            self.avatar_id = m.get('avatar_id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('conf') is not None:
+            self.conf = m.get('conf')
+        if m.get('pic_url') is not None:
+            self.pic_url = m.get('pic_url')
+        if m.get('bg_url') is not None:
+            self.bg_url = m.get('bg_url')
+        if m.get('thumb_url') is not None:
+            self.thumb_url = m.get('thumb_url')
         return self
 
 
@@ -882,6 +882,60 @@ class Background(TeaModel):
             self.x = m.get('x')
         if m.get('y') is not None:
             self.y = m.get('y')
+        return self
+
+
+class VoiceTask(TeaModel):
+    def __init__(
+        self,
+        state: str = None,
+        audio_url: str = None,
+        audio_time: int = None,
+        captions_info: CaptionsInfo = None,
+    ):
+        # RUNNING, COMPLETE,FAIL
+        self.state = state
+        # 音频地址
+        self.audio_url = audio_url
+        # 音频时长
+        self.audio_time = audio_time
+        # 字幕信息
+        self.captions_info = captions_info
+
+    def validate(self):
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.audio_url, 'audio_url')
+        self.validate_required(self.audio_time, 'audio_time')
+        if self.captions_info:
+            self.captions_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.state is not None:
+            result['state'] = self.state
+        if self.audio_url is not None:
+            result['audio_url'] = self.audio_url
+        if self.audio_time is not None:
+            result['audio_time'] = self.audio_time
+        if self.captions_info is not None:
+            result['captions_info'] = self.captions_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('audio_url') is not None:
+            self.audio_url = m.get('audio_url')
+        if m.get('audio_time') is not None:
+            self.audio_time = m.get('audio_time')
+        if m.get('captions_info') is not None:
+            temp_model = CaptionsInfo()
+            self.captions_info = temp_model.from_map(m['captions_info'])
         return self
 
 
@@ -1839,6 +1893,239 @@ class QueryUniversalsaasDigitalhumanCloneTaskResponse(TeaModel):
             self.status = m.get('status')
         if m.get('data') is not None:
             temp_model = CloneTask()
+            self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class CreateUniversalsaasDigitalhumanVoiceTaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        text: str = None,
+        speed: str = None,
+        pitch: str = None,
+        volume: str = None,
+        voice_id: str = None,
+        open_caption: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 话术脚本
+        self.text = text
+        # 语速，支持 0.5-2 倍速
+        self.speed = speed
+        # 音调，[0.1, 3]，默认为1，通常保留一位小数即可
+        self.pitch = pitch
+        # [0.1, 3]，默认为1，通常保留一位小数即可
+        self.volume = volume
+        # 音色id
+        self.voice_id = voice_id
+        # 是否返回字幕信息，默认不返回
+        self.open_caption = open_caption
+
+    def validate(self):
+        self.validate_required(self.text, 'text')
+        self.validate_required(self.speed, 'speed')
+        self.validate_required(self.voice_id, 'voice_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.text is not None:
+            result['text'] = self.text
+        if self.speed is not None:
+            result['speed'] = self.speed
+        if self.pitch is not None:
+            result['pitch'] = self.pitch
+        if self.volume is not None:
+            result['volume'] = self.volume
+        if self.voice_id is not None:
+            result['voice_id'] = self.voice_id
+        if self.open_caption is not None:
+            result['open_caption'] = self.open_caption
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        if m.get('speed') is not None:
+            self.speed = m.get('speed')
+        if m.get('pitch') is not None:
+            self.pitch = m.get('pitch')
+        if m.get('volume') is not None:
+            self.volume = m.get('volume')
+        if m.get('voice_id') is not None:
+            self.voice_id = m.get('voice_id')
+        if m.get('open_caption') is not None:
+            self.open_caption = m.get('open_caption')
+        return self
+
+
+class CreateUniversalsaasDigitalhumanVoiceTaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: bool = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果状态
+        self.status = status
+        # taskId
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
+class QueryUniversalsaasDigitalhumanVoiceTaskRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 音频合成任务ID
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryUniversalsaasDigitalhumanVoiceTaskResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        status: bool = None,
+        data: VoiceTask = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果状态
+        self.status = status
+        # 音频生成返回结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.status is not None:
+            result['status'] = self.status
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('data') is not None:
+            temp_model = VoiceTask()
             self.data = temp_model.from_map(m['data'])
         return self
 
