@@ -19,6 +19,8 @@ use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigit
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVideoTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVoiceRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVoiceResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVoiceTaskRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVoiceTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoProfileRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoProfileResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoVoiceRequest;
@@ -27,6 +29,8 @@ use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigita
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanCloneTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVideoTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVideoTaskResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceTaskRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceTaskResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -174,7 +178,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.3',
+                    'sdk_version'      => '1.2.0',
                     '_prod_code'       => 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel'    => 'saas',
                 ];
@@ -484,5 +488,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryUniversalsaasDigitalhumanCloneTaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.clone.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字人音频生成接口
+     * Summary: 数字人音频生成接口.
+     *
+     * @param CreateUniversalsaasDigitalhumanVoiceTaskRequest $request
+     *
+     * @return CreateUniversalsaasDigitalhumanVoiceTaskResponse
+     */
+    public function createUniversalsaasDigitalhumanVoiceTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createUniversalsaasDigitalhumanVoiceTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字人音频生成接口
+     * Summary: 数字人音频生成接口.
+     *
+     * @param CreateUniversalsaasDigitalhumanVoiceTaskRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return CreateUniversalsaasDigitalhumanVoiceTaskResponse
+     */
+    public function createUniversalsaasDigitalhumanVoiceTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateUniversalsaasDigitalhumanVoiceTaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.task.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音频生成任务查询接口
+     * Summary: 音频生成任务查询接口.
+     *
+     * @param QueryUniversalsaasDigitalhumanVoiceTaskRequest $request
+     *
+     * @return QueryUniversalsaasDigitalhumanVoiceTaskResponse
+     */
+    public function queryUniversalsaasDigitalhumanVoiceTask($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUniversalsaasDigitalhumanVoiceTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音频生成任务查询接口
+     * Summary: 音频生成任务查询接口.
+     *
+     * @param QueryUniversalsaasDigitalhumanVoiceTaskRequest $request
+     * @param string[]                                       $headers
+     * @param RuntimeOptions                                 $runtime
+     *
+     * @return QueryUniversalsaasDigitalhumanVoiceTaskResponse
+     */
+    public function queryUniversalsaasDigitalhumanVoiceTaskEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUniversalsaasDigitalhumanVoiceTaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
