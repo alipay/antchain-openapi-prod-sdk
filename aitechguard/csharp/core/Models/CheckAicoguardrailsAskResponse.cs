@@ -73,6 +73,11 @@ namespace AntChain.SDK.AITECHGUARD.Models
         [Validation(Required=false)]
         public List<string> RiskWords { get; set; }
 
+        // 风险词索引
+        [NameInMap("risk_words_index")]
+        [Validation(Required=false)]
+        public List<string> RiskWordsIndex { get; set; }
+
         // 会话动作
         //    END_SESSION：终止会话
         //    RECALL_QUERY：撤回提问
