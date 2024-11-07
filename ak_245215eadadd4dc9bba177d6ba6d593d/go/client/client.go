@@ -235,68 +235,6 @@ func (s *CaptionsStyle) SetBackgroundColor(v string) *CaptionsStyle {
 	return s
 }
 
-// 数字人形象
-type AvatarProfile struct {
-	// 190087
-	AvatarId *string `json:"avatar_id,omitempty" xml:"avatar_id,omitempty" require:"true"`
-	// 数字人形象名称
-	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// CUSTOM---定制；
-	// PRESET---预置
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 位置信息等配置信息
-	Conf *string `json:"conf,omitempty" xml:"conf,omitempty"`
-	// 数字人形象图片
-	PicUrl *string `json:"pic_url,omitempty" xml:"pic_url,omitempty" require:"true"`
-	// 背景图片地址
-	BgUrl *string `json:"bg_url,omitempty" xml:"bg_url,omitempty"`
-	// 形象thumb图Url
-	ThumbUrl *string `json:"thumb_url,omitempty" xml:"thumb_url,omitempty"`
-}
-
-func (s AvatarProfile) String() string {
-	return tea.Prettify(s)
-}
-
-func (s AvatarProfile) GoString() string {
-	return s.String()
-}
-
-func (s *AvatarProfile) SetAvatarId(v string) *AvatarProfile {
-	s.AvatarId = &v
-	return s
-}
-
-func (s *AvatarProfile) SetName(v string) *AvatarProfile {
-	s.Name = &v
-	return s
-}
-
-func (s *AvatarProfile) SetType(v string) *AvatarProfile {
-	s.Type = &v
-	return s
-}
-
-func (s *AvatarProfile) SetConf(v string) *AvatarProfile {
-	s.Conf = &v
-	return s
-}
-
-func (s *AvatarProfile) SetPicUrl(v string) *AvatarProfile {
-	s.PicUrl = &v
-	return s
-}
-
-func (s *AvatarProfile) SetBgUrl(v string) *AvatarProfile {
-	s.BgUrl = &v
-	return s
-}
-
-func (s *AvatarProfile) SetThumbUrl(v string) *AvatarProfile {
-	s.ThumbUrl = &v
-	return s
-}
-
 // 字幕信息
 type CaptionsInfo struct {
 	// 字幕画面位置x坐标，距左侧
@@ -362,6 +300,68 @@ func (s *CaptionsInfo) SetCustomCaptions(v bool) *CaptionsInfo {
 
 func (s *CaptionsInfo) SetCaptionsStyle(v *CaptionsStyle) *CaptionsInfo {
 	s.CaptionsStyle = v
+	return s
+}
+
+// 数字人形象
+type AvatarProfile struct {
+	// 190087
+	AvatarId *string `json:"avatar_id,omitempty" xml:"avatar_id,omitempty" require:"true"`
+	// 数字人形象名称
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// CUSTOM---定制；
+	// PRESET---预置
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 位置信息等配置信息
+	Conf *string `json:"conf,omitempty" xml:"conf,omitempty"`
+	// 数字人形象图片
+	PicUrl *string `json:"pic_url,omitempty" xml:"pic_url,omitempty" require:"true"`
+	// 背景图片地址
+	BgUrl *string `json:"bg_url,omitempty" xml:"bg_url,omitempty"`
+	// 形象thumb图Url
+	ThumbUrl *string `json:"thumb_url,omitempty" xml:"thumb_url,omitempty"`
+}
+
+func (s AvatarProfile) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvatarProfile) GoString() string {
+	return s.String()
+}
+
+func (s *AvatarProfile) SetAvatarId(v string) *AvatarProfile {
+	s.AvatarId = &v
+	return s
+}
+
+func (s *AvatarProfile) SetName(v string) *AvatarProfile {
+	s.Name = &v
+	return s
+}
+
+func (s *AvatarProfile) SetType(v string) *AvatarProfile {
+	s.Type = &v
+	return s
+}
+
+func (s *AvatarProfile) SetConf(v string) *AvatarProfile {
+	s.Conf = &v
+	return s
+}
+
+func (s *AvatarProfile) SetPicUrl(v string) *AvatarProfile {
+	s.PicUrl = &v
+	return s
+}
+
+func (s *AvatarProfile) SetBgUrl(v string) *AvatarProfile {
+	s.BgUrl = &v
+	return s
+}
+
+func (s *AvatarProfile) SetThumbUrl(v string) *AvatarProfile {
+	s.ThumbUrl = &v
 	return s
 }
 
@@ -713,6 +713,46 @@ func (s *Background) SetX(v int64) *Background {
 
 func (s *Background) SetY(v int64) *Background {
 	s.Y = &v
+	return s
+}
+
+// 音频合成任务返回结果
+type VoiceTask struct {
+	// RUNNING, COMPLETE,FAIL
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 音频地址
+	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty" require:"true"`
+	// 音频时长
+	AudioTime *int64 `json:"audio_time,omitempty" xml:"audio_time,omitempty" require:"true"`
+	// 字幕信息
+	CaptionsInfo *CaptionsInfo `json:"captions_info,omitempty" xml:"captions_info,omitempty"`
+}
+
+func (s VoiceTask) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VoiceTask) GoString() string {
+	return s.String()
+}
+
+func (s *VoiceTask) SetState(v string) *VoiceTask {
+	s.State = &v
+	return s
+}
+
+func (s *VoiceTask) SetAudioUrl(v string) *VoiceTask {
+	s.AudioUrl = &v
+	return s
+}
+
+func (s *VoiceTask) SetAudioTime(v int64) *VoiceTask {
+	s.AudioTime = &v
+	return s
+}
+
+func (s *VoiceTask) SetCaptionsInfo(v *CaptionsInfo) *VoiceTask {
+	s.CaptionsInfo = v
 	return s
 }
 
@@ -1471,6 +1511,195 @@ func (s *QueryUniversalsaasDigitalhumanCloneTaskResponse) SetData(v *CloneTask) 
 	return s
 }
 
+type CreateUniversalsaasDigitalhumanVoiceTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 话术脚本
+	Text *string `json:"text,omitempty" xml:"text,omitempty" require:"true"`
+	// 语速，支持 0.5-2 倍速
+	Speed *string `json:"speed,omitempty" xml:"speed,omitempty" require:"true"`
+	// 音调，[0.1, 3]，默认为1，通常保留一位小数即可
+	Pitch *string `json:"pitch,omitempty" xml:"pitch,omitempty"`
+	// [0.1, 3]，默认为1，通常保留一位小数即可
+	Volume *string `json:"volume,omitempty" xml:"volume,omitempty"`
+	// 音色id
+	VoiceId *string `json:"voice_id,omitempty" xml:"voice_id,omitempty" require:"true"`
+	// 是否返回字幕信息，默认不返回
+	OpenCaption *bool `json:"open_caption,omitempty" xml:"open_caption,omitempty"`
+}
+
+func (s CreateUniversalsaasDigitalhumanVoiceTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateUniversalsaasDigitalhumanVoiceTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskRequest) SetAuthToken(v string) *CreateUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskRequest) SetProductInstanceId(v string) *CreateUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskRequest) SetText(v string) *CreateUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.Text = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskRequest) SetSpeed(v string) *CreateUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.Speed = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskRequest) SetPitch(v string) *CreateUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.Pitch = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskRequest) SetVolume(v string) *CreateUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.Volume = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskRequest) SetVoiceId(v string) *CreateUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.VoiceId = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskRequest) SetOpenCaption(v bool) *CreateUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.OpenCaption = &v
+	return s
+}
+
+type CreateUniversalsaasDigitalhumanVoiceTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// taskId
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CreateUniversalsaasDigitalhumanVoiceTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateUniversalsaasDigitalhumanVoiceTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskResponse) SetReqMsgId(v string) *CreateUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskResponse) SetResultCode(v string) *CreateUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskResponse) SetResultMsg(v string) *CreateUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskResponse) SetStatus(v bool) *CreateUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *CreateUniversalsaasDigitalhumanVoiceTaskResponse) SetData(v string) *CreateUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanVoiceTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 音频合成任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryUniversalsaasDigitalhumanVoiceTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanVoiceTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceTaskRequest) SetAuthToken(v string) *QueryUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceTaskRequest) SetProductInstanceId(v string) *QueryUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceTaskRequest) SetTaskId(v string) *QueryUniversalsaasDigitalhumanVoiceTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanVoiceTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// 音频生成返回结果
+	Data *VoiceTask `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryUniversalsaasDigitalhumanVoiceTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanVoiceTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceTaskResponse) SetReqMsgId(v string) *QueryUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceTaskResponse) SetResultCode(v string) *QueryUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceTaskResponse) SetResultMsg(v string) *QueryUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceTaskResponse) SetStatus(v bool) *QueryUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceTaskResponse) SetData(v *VoiceTask) *QueryUniversalsaasDigitalhumanVoiceTaskResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -1593,7 +1822,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.3"),
+				"sdk_version":      tea.String("1.2.0"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -1916,6 +2145,74 @@ func (client *Client) QueryUniversalsaasDigitalhumanCloneTaskEx(request *QueryUn
 	}
 	_result = &QueryUniversalsaasDigitalhumanCloneTaskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.clone.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字人音频生成接口
+ * Summary: 数字人音频生成接口
+ */
+func (client *Client) CreateUniversalsaasDigitalhumanVoiceTask(request *CreateUniversalsaasDigitalhumanVoiceTaskRequest) (_result *CreateUniversalsaasDigitalhumanVoiceTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateUniversalsaasDigitalhumanVoiceTaskResponse{}
+	_body, _err := client.CreateUniversalsaasDigitalhumanVoiceTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字人音频生成接口
+ * Summary: 数字人音频生成接口
+ */
+func (client *Client) CreateUniversalsaasDigitalhumanVoiceTaskEx(request *CreateUniversalsaasDigitalhumanVoiceTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateUniversalsaasDigitalhumanVoiceTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateUniversalsaasDigitalhumanVoiceTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.task.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音频生成任务查询接口
+ * Summary: 音频生成任务查询接口
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanVoiceTask(request *QueryUniversalsaasDigitalhumanVoiceTaskRequest) (_result *QueryUniversalsaasDigitalhumanVoiceTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUniversalsaasDigitalhumanVoiceTaskResponse{}
+	_body, _err := client.QueryUniversalsaasDigitalhumanVoiceTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音频生成任务查询接口
+ * Summary: 音频生成任务查询接口
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanVoiceTaskEx(request *QueryUniversalsaasDigitalhumanVoiceTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUniversalsaasDigitalhumanVoiceTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUniversalsaasDigitalhumanVoiceTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
