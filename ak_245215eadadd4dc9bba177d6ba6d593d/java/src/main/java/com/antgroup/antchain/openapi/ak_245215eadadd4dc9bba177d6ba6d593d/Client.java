@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.3"),
+                    new TeaPair("sdk_version", "1.2.0"),
                     new TeaPair("_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -334,5 +334,43 @@ public class Client {
     public QueryUniversalsaasDigitalhumanCloneTaskResponse queryUniversalsaasDigitalhumanCloneTaskEx(QueryUniversalsaasDigitalhumanCloneTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.clone.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanCloneTaskResponse());
+    }
+
+    /**
+     * Description: 数字人音频生成接口
+     * Summary: 数字人音频生成接口
+     */
+    public CreateUniversalsaasDigitalhumanVoiceTaskResponse createUniversalsaasDigitalhumanVoiceTask(CreateUniversalsaasDigitalhumanVoiceTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createUniversalsaasDigitalhumanVoiceTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字人音频生成接口
+     * Summary: 数字人音频生成接口
+     */
+    public CreateUniversalsaasDigitalhumanVoiceTaskResponse createUniversalsaasDigitalhumanVoiceTaskEx(CreateUniversalsaasDigitalhumanVoiceTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.voice.task.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateUniversalsaasDigitalhumanVoiceTaskResponse());
+    }
+
+    /**
+     * Description: 音频生成任务查询接口
+     * Summary: 音频生成任务查询接口
+     */
+    public QueryUniversalsaasDigitalhumanVoiceTaskResponse queryUniversalsaasDigitalhumanVoiceTask(QueryUniversalsaasDigitalhumanVoiceTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUniversalsaasDigitalhumanVoiceTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 音频生成任务查询接口
+     * Summary: 音频生成任务查询接口
+     */
+    public QueryUniversalsaasDigitalhumanVoiceTaskResponse queryUniversalsaasDigitalhumanVoiceTaskEx(QueryUniversalsaasDigitalhumanVoiceTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.voice.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanVoiceTaskResponse());
     }
 }
