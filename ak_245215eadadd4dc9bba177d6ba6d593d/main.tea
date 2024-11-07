@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.3',
+    sdk_version = '1.2.0',
     _prod_code = 'ak_245215eadadd4dc9bba177d6ba6d593d',
     _prod_channel = 'saas'
   };
@@ -187,25 +187,6 @@ model CaptionsStyle {
   backgroundColor?: string(name='background_color', example='FFFFFF'),
 }
 
-// 数字人形象
-model AvatarProfile {
-  // 190087
-  avatarId: string(name='avatar_id', example='数字人形象id'),
-  // 数字人形象名称
-  name: string(name='name', example='灵韵-坐姿'),
-  // CUSTOM---定制；
-  // PRESET---预置
-  type: string(name='type', example='CUSTOM'),
-  // 位置信息等配置信息
-  conf?: string(name='conf', example='{\"leftOffset\":0,\"topOffset\":866,\"width\":1080}'),
-  // 数字人形象图片
-  picUrl: string(name='pic_url', example='https://3123.png'),
-  // 背景图片地址
-  bgUrl?: string(name='bg_url', example='https://aaaa.png'),
-  // 形象thumb图Url
-  thumbUrl?: string(name='thumb_url', example='https://3424.png'),
-}
-
 // 字幕信息
 model CaptionsInfo {
   // 字幕画面位置x坐标，距左侧
@@ -224,6 +205,25 @@ model CaptionsInfo {
   customCaptions?: boolean(name='custom_captions', example='true, false'),
   // 字幕自定义样式
   captionsStyle: CaptionsStyle(name='captions_style', example=''),
+}
+
+// 数字人形象
+model AvatarProfile {
+  // 190087
+  avatarId: string(name='avatar_id', example='数字人形象id'),
+  // 数字人形象名称
+  name: string(name='name', example='灵韵-坐姿'),
+  // CUSTOM---定制；
+  // PRESET---预置
+  type: string(name='type', example='CUSTOM'),
+  // 位置信息等配置信息
+  conf?: string(name='conf', example='{\"leftOffset\":0,\"topOffset\":866,\"width\":1080}'),
+  // 数字人形象图片
+  picUrl: string(name='pic_url', example='https://3123.png'),
+  // 背景图片地址
+  bgUrl?: string(name='bg_url', example='https://aaaa.png'),
+  // 形象thumb图Url
+  thumbUrl?: string(name='thumb_url', example='https://3424.png'),
 }
 
 // 数字人形象集合
@@ -333,6 +333,18 @@ model Background {
   x: long(name='x', example='0'),
   // 背景图片y坐标位置，距上侧
   y: long(name='y', example='0'),
+}
+
+// 音频合成任务返回结果
+model VoiceTask {
+  // RUNNING, COMPLETE,FAIL
+  state: string(name='state', example='RUNNING'),
+  // 音频地址
+  audioUrl: string(name='audio_url', example='https://sdasdsa.mp3'),
+  // 音频时长
+  audioTime: long(name='audio_time', example='123'),
+  // 字幕信息
+  captionsInfo?: CaptionsInfo(name='captions_info', example=''),
 }
 
 model ListUniversalsaasDigitalhumanVideoVoiceRequest = {
@@ -697,5 +709,95 @@ async function queryUniversalsaasDigitalhumanCloneTask(request: QueryUniversalsa
 async function queryUniversalsaasDigitalhumanCloneTaskEx(request: QueryUniversalsaasDigitalhumanCloneTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUniversalsaasDigitalhumanCloneTaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.digitalhuman.clone.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateUniversalsaasDigitalhumanVoiceTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 话术脚本
+  text: string(name='text'),
+  // 语速，支持 0.5-2 倍速
+  speed: string(name='speed'),
+  // 音调，[0.1, 3]，默认为1，通常保留一位小数即可
+  pitch?: string(name='pitch'),
+  // [0.1, 3]，默认为1，通常保留一位小数即可
+  volume?: string(name='volume'),
+  // 音色id
+  voiceId: string(name='voice_id'),
+  // 是否返回字幕信息，默认不返回
+  openCaption?: boolean(name='open_caption'),
+}
+
+model CreateUniversalsaasDigitalhumanVoiceTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果状态
+  status?: boolean(name='status'),
+  // taskId
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数字人音频生成接口
+ * Summary: 数字人音频生成接口
+ */
+async function createUniversalsaasDigitalhumanVoiceTask(request: CreateUniversalsaasDigitalhumanVoiceTaskRequest): CreateUniversalsaasDigitalhumanVoiceTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createUniversalsaasDigitalhumanVoiceTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字人音频生成接口
+ * Summary: 数字人音频生成接口
+ */
+async function createUniversalsaasDigitalhumanVoiceTaskEx(request: CreateUniversalsaasDigitalhumanVoiceTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateUniversalsaasDigitalhumanVoiceTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.voice.task.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUniversalsaasDigitalhumanVoiceTaskRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 音频合成任务ID
+  taskId: string(name='task_id'),
+}
+
+model QueryUniversalsaasDigitalhumanVoiceTaskResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果状态
+  status?: boolean(name='status'),
+  // 音频生成返回结果
+  data?: VoiceTask(name='data'),
+}
+
+/**
+ * Description: 音频生成任务查询接口
+ * Summary: 音频生成任务查询接口
+ */
+async function queryUniversalsaasDigitalhumanVoiceTask(request: QueryUniversalsaasDigitalhumanVoiceTaskRequest): QueryUniversalsaasDigitalhumanVoiceTaskResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUniversalsaasDigitalhumanVoiceTaskEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音频生成任务查询接口
+ * Summary: 音频生成任务查询接口
+ */
+async function queryUniversalsaasDigitalhumanVoiceTaskEx(request: QueryUniversalsaasDigitalhumanVoiceTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUniversalsaasDigitalhumanVoiceTaskResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.voice.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
