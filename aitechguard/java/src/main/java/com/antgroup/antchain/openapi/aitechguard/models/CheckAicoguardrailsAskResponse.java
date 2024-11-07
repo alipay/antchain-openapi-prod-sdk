@@ -56,6 +56,10 @@ public class CheckAicoguardrailsAskResponse extends TeaModel {
     @NameInMap("risk_words")
     public java.util.List<String> riskWords;
 
+    // 风险词索引
+    @NameInMap("risk_words_index")
+    public java.util.List<String> riskWordsIndex;
+
     // 会话动作
     //    END_SESSION：终止会话
     //    RECALL_QUERY：撤回提问
@@ -161,6 +165,14 @@ public class CheckAicoguardrailsAskResponse extends TeaModel {
     }
     public java.util.List<String> getRiskWords() {
         return this.riskWords;
+    }
+
+    public CheckAicoguardrailsAskResponse setRiskWordsIndex(java.util.List<String> riskWordsIndex) {
+        this.riskWordsIndex = riskWordsIndex;
+        return this;
+    }
+    public java.util.List<String> getRiskWordsIndex() {
+        return this.riskWordsIndex;
     }
 
     public CheckAicoguardrailsAskResponse setSessionAction(String sessionAction) {
