@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.22',
+                    'sdk_version': '1.15.27',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.22',
+                    'sdk_version': '1.15.27',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -774,6 +774,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             realperson_models.CreateVoiceprintServermodeResponse(),
@@ -807,6 +808,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             realperson_models.CreateVoiceprintServermodeResponse(),
@@ -2213,60 +2215,96 @@ class Client:
             await self.do_request_async('1.0', 'di.realperson.socialrisk.tobrisk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    def query_zolozmeta_threemetamobilereuse(
+    def exec_facevrf_servermode(
         self,
-        request: realperson_models.QueryZolozmetaThreemetamobilereuseRequest,
-    ) -> realperson_models.QueryZolozmetaThreemetamobilereuseResponse:
+        request: realperson_models.ExecFacevrfServermodeRequest,
+    ) -> realperson_models.ExecFacevrfServermodeResponse:
         """
-        Description: 个人运营商二次放号
-        Summary: 个人运营商二次放号-meta版本
+        Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+        Summary: 纯服务端比对V2版本
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_zolozmeta_threemetamobilereuse_ex(request, headers, runtime)
+        return self.exec_facevrf_servermode_ex(request, headers, runtime)
 
-    async def query_zolozmeta_threemetamobilereuse_async(
+    async def exec_facevrf_servermode_async(
         self,
-        request: realperson_models.QueryZolozmetaThreemetamobilereuseRequest,
-    ) -> realperson_models.QueryZolozmetaThreemetamobilereuseResponse:
+        request: realperson_models.ExecFacevrfServermodeRequest,
+    ) -> realperson_models.ExecFacevrfServermodeResponse:
         """
-        Description: 个人运营商二次放号
-        Summary: 个人运营商二次放号-meta版本
+        Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+        Summary: 纯服务端比对V2版本
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return await self.query_zolozmeta_threemetamobilereuse_ex_async(request, headers, runtime)
+        return await self.exec_facevrf_servermode_ex_async(request, headers, runtime)
 
-    def query_zolozmeta_threemetamobilereuse_ex(
+    def exec_facevrf_servermode_ex(
         self,
-        request: realperson_models.QueryZolozmetaThreemetamobilereuseRequest,
+        request: realperson_models.ExecFacevrfServermodeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> realperson_models.QueryZolozmetaThreemetamobilereuseResponse:
+    ) -> realperson_models.ExecFacevrfServermodeResponse:
         """
-        Description: 个人运营商二次放号
-        Summary: 个人运营商二次放号-meta版本
+        Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+        Summary: 纯服务端比对V2版本
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.facevrf.servermode.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_facevrf_servermode_response = realperson_models.ExecFacevrfServermodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_facevrf_servermode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            realperson_models.QueryZolozmetaThreemetamobilereuseResponse(),
-            self.do_request('1.0', 'di.realperson.zolozmeta.threemetamobilereuse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            realperson_models.ExecFacevrfServermodeResponse(),
+            self.do_request('1.0', 'di.realperson.facevrf.servermode.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
-    async def query_zolozmeta_threemetamobilereuse_ex_async(
+    async def exec_facevrf_servermode_ex_async(
         self,
-        request: realperson_models.QueryZolozmetaThreemetamobilereuseRequest,
+        request: realperson_models.ExecFacevrfServermodeRequest,
         headers: Dict[str, str],
         runtime: util_models.RuntimeOptions,
-    ) -> realperson_models.QueryZolozmetaThreemetamobilereuseResponse:
+    ) -> realperson_models.ExecFacevrfServermodeResponse:
         """
-        Description: 个人运营商二次放号
-        Summary: 个人运营商二次放号-meta版本
+        Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+        Summary: 纯服务端比对V2版本
         """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = realperson_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='di.realperson.facevrf.servermode.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_facevrf_servermode_response = realperson_models.ExecFacevrfServermodeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_facevrf_servermode_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
-            realperson_models.QueryZolozmetaThreemetamobilereuseResponse(),
-            await self.do_request_async('1.0', 'di.realperson.zolozmeta.threemetamobilereuse.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+            realperson_models.ExecFacevrfServermodeResponse(),
+            await self.do_request_async('1.0', 'di.realperson.facevrf.servermode.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

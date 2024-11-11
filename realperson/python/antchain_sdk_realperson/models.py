@@ -1868,7 +1868,7 @@ class CheckRouteTwometaRequest(TeaModel):
         self.cert_name = cert_name
         # 身份证号
         self.cert_no = cert_no
-        # 使用场景
+        # 使用场景（不再使用）
         self.scene = scene
         # map结果的json数据格式，预留字段
         # 
@@ -1878,7 +1878,6 @@ class CheckRouteTwometaRequest(TeaModel):
         self.validate_required(self.outer_order_no, 'outer_order_no')
         self.validate_required(self.cert_name, 'cert_name')
         self.validate_required(self.cert_no, 'cert_no')
-        self.validate_required(self.scene, 'scene')
 
     def to_map(self):
         _map = super().to_map()
@@ -5184,40 +5183,68 @@ class QuerySocialriskTobriskResponse(TeaModel):
         return self
 
 
-class QueryZolozmetaThreemetamobilereuseRequest(TeaModel):
+class ExecFacevrfServermodeRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        outer_order_no: str = None,
-        mobile: str = None,
-        date: str = None,
-        carrier: str = None,
-        encrypt_type: str = None,
+        cert_name: str = None,
+        cert_no: str = None,
+        enc_type: str = None,
+        cert_type: str = None,
         extern_param: str = None,
+        facial_picture_ref: str = None,
+        identity_type: str = None,
+        outer_order_no: str = None,
+        scene_id: str = None,
+        user_id: str = None,
+        user_ip: str = None,
+        user_mobile: str = None,
+        facial_picture_auth: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
-        self.outer_order_no = outer_order_no
-        # 手机号
-        self.mobile = mobile
-        # 日期
-        self.date = date
-        # 运营商类型
-        self.carrier = carrier
-        # 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
-        self.encrypt_type = encrypt_type
-        # 扩展参数
+        # 真实姓名
+        self.cert_name = cert_name
+        # 证件号码
+        self.cert_no = cert_no
+        # cert_name、cert_no两个字段的传入模式0：明文1：密文
+        self.enc_type = enc_type
+        # 证件类型，如身份证
+        self.cert_type = cert_type
+        # 预留扩展参数
         self.extern_param = extern_param
+        # 自定义比对源人脸图像，base64编码格式
+        self.facial_picture_ref = facial_picture_ref
+        # 身份信息来源类型，如证件
+        self.identity_type = identity_type
+        # 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
+        self.outer_order_no = outer_order_no
+        # 场景ID
+        self.scene_id = scene_id
+        # 商户自定义的用户ID
+        self.user_id = user_id
+        # 用户的IP
+        self.user_ip = user_ip
+        # 用户的手机号（或其哈希值）
+        self.user_mobile = user_mobile
+        # 待认证的人脸图像，base64编码格式
+        self.facial_picture_auth = facial_picture_auth
+        # 视频文件
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
 
     def validate(self):
+        self.validate_required(self.identity_type, 'identity_type')
         self.validate_required(self.outer_order_no, 'outer_order_no')
-        self.validate_required(self.mobile, 'mobile')
-        self.validate_required(self.date, 'date')
-        self.validate_required(self.carrier, 'carrier')
-        self.validate_required(self.extern_param, 'extern_param')
+        self.validate_required(self.scene_id, 'scene_id')
 
     def to_map(self):
         _map = super().to_map()
@@ -5229,18 +5256,38 @@ class QueryZolozmetaThreemetamobilereuseRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.outer_order_no is not None:
-            result['outer_order_no'] = self.outer_order_no
-        if self.mobile is not None:
-            result['mobile'] = self.mobile
-        if self.date is not None:
-            result['date'] = self.date
-        if self.carrier is not None:
-            result['carrier'] = self.carrier
-        if self.encrypt_type is not None:
-            result['encrypt_type'] = self.encrypt_type
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.enc_type is not None:
+            result['enc_type'] = self.enc_type
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
+        if self.facial_picture_ref is not None:
+            result['facial_picture_ref'] = self.facial_picture_ref
+        if self.identity_type is not None:
+            result['identity_type'] = self.identity_type
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.scene_id is not None:
+            result['scene_id'] = self.scene_id
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_ip is not None:
+            result['user_ip'] = self.user_ip
+        if self.user_mobile is not None:
+            result['user_mobile'] = self.user_mobile
+        if self.facial_picture_auth is not None:
+            result['facial_picture_auth'] = self.facial_picture_auth
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
         return result
 
     def from_map(self, m: dict = None):
@@ -5249,30 +5296,51 @@ class QueryZolozmetaThreemetamobilereuseRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('outer_order_no') is not None:
-            self.outer_order_no = m.get('outer_order_no')
-        if m.get('mobile') is not None:
-            self.mobile = m.get('mobile')
-        if m.get('date') is not None:
-            self.date = m.get('date')
-        if m.get('carrier') is not None:
-            self.carrier = m.get('carrier')
-        if m.get('encrypt_type') is not None:
-            self.encrypt_type = m.get('encrypt_type')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('enc_type') is not None:
+            self.enc_type = m.get('enc_type')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
+        if m.get('facial_picture_ref') is not None:
+            self.facial_picture_ref = m.get('facial_picture_ref')
+        if m.get('identity_type') is not None:
+            self.identity_type = m.get('identity_type')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('scene_id') is not None:
+            self.scene_id = m.get('scene_id')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_ip') is not None:
+            self.user_ip = m.get('user_ip')
+        if m.get('user_mobile') is not None:
+            self.user_mobile = m.get('user_mobile')
+        if m.get('facial_picture_auth') is not None:
+            self.facial_picture_auth = m.get('facial_picture_auth')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
         return self
 
 
-class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
+class ExecFacevrfServermodeResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        phone_reuse: str = None,
-        extern_info: str = None,
-        carrier: str = None,
+        certify_id: str = None,
+        passed: str = None,
+        reason: str = None,
+        material_info: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -5280,12 +5348,14 @@ class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 是否二次放号
-        self.phone_reuse = phone_reuse
-        # 扩展参数
-        self.extern_info = extern_info
-        # 运营商
-        self.carrier = carrier
+        # 认证ID
+        self.certify_id = certify_id
+        # 是否通过，通过为T，不通过为F
+        self.passed = passed
+        # 业务失败原因
+        self.reason = reason
+        # 认证主体附件信息，包含共计类型等
+        self.material_info = material_info
 
     def validate(self):
         pass
@@ -5302,12 +5372,14 @@ class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.phone_reuse is not None:
-            result['phone_reuse'] = self.phone_reuse
-        if self.extern_info is not None:
-            result['extern_info'] = self.extern_info
-        if self.carrier is not None:
-            result['carrier'] = self.carrier
+        if self.certify_id is not None:
+            result['certify_id'] = self.certify_id
+        if self.passed is not None:
+            result['passed'] = self.passed
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.material_info is not None:
+            result['material_info'] = self.material_info
         return result
 
     def from_map(self, m: dict = None):
@@ -5318,12 +5390,14 @@ class QueryZolozmetaThreemetamobilereuseResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('phone_reuse') is not None:
-            self.phone_reuse = m.get('phone_reuse')
-        if m.get('extern_info') is not None:
-            self.extern_info = m.get('extern_info')
-        if m.get('carrier') is not None:
-            self.carrier = m.get('carrier')
+        if m.get('certify_id') is not None:
+            self.certify_id = m.get('certify_id')
+        if m.get('passed') is not None:
+            self.passed = m.get('passed')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('material_info') is not None:
+            self.material_info = m.get('material_info')
         return self
 
 
