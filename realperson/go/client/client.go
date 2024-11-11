@@ -1578,8 +1578,8 @@ type CheckRouteTwometaRequest struct {
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
 	// 身份证号
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
-	// 使用场景
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty" require:"true"`
+	// 使用场景（不再使用）
+	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
 	// map结果的json数据格式，预留字段
 	//
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
@@ -4376,122 +4376,199 @@ func (s *QuerySocialriskTobriskResponse) SetExternInfo(v string) *QuerySocialris
 	return s
 }
 
-type QueryZolozmetaThreemetamobilereuseRequest struct {
+type ExecFacevrfServermodeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+	// 真实姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 证件号码
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
+	// cert_name、cert_no两个字段的传入模式0：明文1：密文
+	EncType *string `json:"enc_type,omitempty" xml:"enc_type,omitempty"`
+	// 证件类型，如身份证
+	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 预留扩展参数
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 自定义比对源人脸图像，base64编码格式
+	FacialPictureRef *string `json:"facial_picture_ref,omitempty" xml:"facial_picture_ref,omitempty"`
+	// 身份信息来源类型，如证件
+	IdentityType *string `json:"identity_type,omitempty" xml:"identity_type,omitempty" require:"true"`
+	// 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
 	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
-	// 手机号
-	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty" require:"true"`
-	// 日期
-	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
-	// 运营商类型
-	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty" require:"true"`
-	// 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
-	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
-	// 扩展参数
-	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
+	// 场景ID
+	SceneId *string `json:"scene_id,omitempty" xml:"scene_id,omitempty" require:"true"`
+	// 商户自定义的用户ID
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 用户的IP
+	UserIp *string `json:"user_ip,omitempty" xml:"user_ip,omitempty"`
+	// 用户的手机号（或其哈希值）
+	UserMobile *string `json:"user_mobile,omitempty" xml:"user_mobile,omitempty"`
+	// 待认证的人脸图像，base64编码格式
+	FacialPictureAuth *string `json:"facial_picture_auth,omitempty" xml:"facial_picture_auth,omitempty"`
+	// 视频文件
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 }
 
-func (s QueryZolozmetaThreemetamobilereuseRequest) String() string {
+func (s ExecFacevrfServermodeRequest) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryZolozmetaThreemetamobilereuseRequest) GoString() string {
+func (s ExecFacevrfServermodeRequest) GoString() string {
 	return s.String()
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseRequest) SetAuthToken(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+func (s *ExecFacevrfServermodeRequest) SetAuthToken(v string) *ExecFacevrfServermodeRequest {
 	s.AuthToken = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseRequest) SetProductInstanceId(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+func (s *ExecFacevrfServermodeRequest) SetProductInstanceId(v string) *ExecFacevrfServermodeRequest {
 	s.ProductInstanceId = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseRequest) SetOuterOrderNo(v string) *QueryZolozmetaThreemetamobilereuseRequest {
-	s.OuterOrderNo = &v
+func (s *ExecFacevrfServermodeRequest) SetCertName(v string) *ExecFacevrfServermodeRequest {
+	s.CertName = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseRequest) SetMobile(v string) *QueryZolozmetaThreemetamobilereuseRequest {
-	s.Mobile = &v
+func (s *ExecFacevrfServermodeRequest) SetCertNo(v string) *ExecFacevrfServermodeRequest {
+	s.CertNo = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseRequest) SetDate(v string) *QueryZolozmetaThreemetamobilereuseRequest {
-	s.Date = &v
+func (s *ExecFacevrfServermodeRequest) SetEncType(v string) *ExecFacevrfServermodeRequest {
+	s.EncType = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseRequest) SetCarrier(v string) *QueryZolozmetaThreemetamobilereuseRequest {
-	s.Carrier = &v
+func (s *ExecFacevrfServermodeRequest) SetCertType(v string) *ExecFacevrfServermodeRequest {
+	s.CertType = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseRequest) SetEncryptType(v string) *QueryZolozmetaThreemetamobilereuseRequest {
-	s.EncryptType = &v
-	return s
-}
-
-func (s *QueryZolozmetaThreemetamobilereuseRequest) SetExternParam(v string) *QueryZolozmetaThreemetamobilereuseRequest {
+func (s *ExecFacevrfServermodeRequest) SetExternParam(v string) *ExecFacevrfServermodeRequest {
 	s.ExternParam = &v
 	return s
 }
 
-type QueryZolozmetaThreemetamobilereuseResponse struct {
+func (s *ExecFacevrfServermodeRequest) SetFacialPictureRef(v string) *ExecFacevrfServermodeRequest {
+	s.FacialPictureRef = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetIdentityType(v string) *ExecFacevrfServermodeRequest {
+	s.IdentityType = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetOuterOrderNo(v string) *ExecFacevrfServermodeRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetSceneId(v string) *ExecFacevrfServermodeRequest {
+	s.SceneId = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetUserId(v string) *ExecFacevrfServermodeRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetUserIp(v string) *ExecFacevrfServermodeRequest {
+	s.UserIp = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetUserMobile(v string) *ExecFacevrfServermodeRequest {
+	s.UserMobile = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFacialPictureAuth(v string) *ExecFacevrfServermodeRequest {
+	s.FacialPictureAuth = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFileObject(v io.Reader) *ExecFacevrfServermodeRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFileObjectName(v string) *ExecFacevrfServermodeRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeRequest) SetFileId(v string) *ExecFacevrfServermodeRequest {
+	s.FileId = &v
+	return s
+}
+
+type ExecFacevrfServermodeResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
 	// 结果码，一般OK表示调用成功
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 是否二次放号
-	PhoneReuse *string `json:"phone_reuse,omitempty" xml:"phone_reuse,omitempty"`
-	// 扩展参数
-	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
-	// 运营商
-	Carrier *string `json:"carrier,omitempty" xml:"carrier,omitempty"`
+	// 认证ID
+	CertifyId *string `json:"certify_id,omitempty" xml:"certify_id,omitempty"`
+	// 是否通过，通过为T，不通过为F
+	Passed *string `json:"passed,omitempty" xml:"passed,omitempty"`
+	// 业务失败原因
+	Reason *string `json:"reason,omitempty" xml:"reason,omitempty"`
+	// 认证主体附件信息，包含共计类型等
+	MaterialInfo *string `json:"material_info,omitempty" xml:"material_info,omitempty"`
 }
 
-func (s QueryZolozmetaThreemetamobilereuseResponse) String() string {
+func (s ExecFacevrfServermodeResponse) String() string {
 	return tea.Prettify(s)
 }
 
-func (s QueryZolozmetaThreemetamobilereuseResponse) GoString() string {
+func (s ExecFacevrfServermodeResponse) GoString() string {
 	return s.String()
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseResponse) SetReqMsgId(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+func (s *ExecFacevrfServermodeResponse) SetReqMsgId(v string) *ExecFacevrfServermodeResponse {
 	s.ReqMsgId = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseResponse) SetResultCode(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+func (s *ExecFacevrfServermodeResponse) SetResultCode(v string) *ExecFacevrfServermodeResponse {
 	s.ResultCode = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseResponse) SetResultMsg(v string) *QueryZolozmetaThreemetamobilereuseResponse {
+func (s *ExecFacevrfServermodeResponse) SetResultMsg(v string) *ExecFacevrfServermodeResponse {
 	s.ResultMsg = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseResponse) SetPhoneReuse(v string) *QueryZolozmetaThreemetamobilereuseResponse {
-	s.PhoneReuse = &v
+func (s *ExecFacevrfServermodeResponse) SetCertifyId(v string) *ExecFacevrfServermodeResponse {
+	s.CertifyId = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseResponse) SetExternInfo(v string) *QueryZolozmetaThreemetamobilereuseResponse {
-	s.ExternInfo = &v
+func (s *ExecFacevrfServermodeResponse) SetPassed(v string) *ExecFacevrfServermodeResponse {
+	s.Passed = &v
 	return s
 }
 
-func (s *QueryZolozmetaThreemetamobilereuseResponse) SetCarrier(v string) *QueryZolozmetaThreemetamobilereuseResponse {
-	s.Carrier = &v
+func (s *ExecFacevrfServermodeResponse) SetReason(v string) *ExecFacevrfServermodeResponse {
+	s.Reason = &v
+	return s
+}
+
+func (s *ExecFacevrfServermodeResponse) SetMaterialInfo(v string) *ExecFacevrfServermodeResponse {
+	s.MaterialInfo = &v
 	return s
 }
 
@@ -4737,7 +4814,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.22"),
+				"sdk_version":      tea.String("1.15.27"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -5115,6 +5192,7 @@ func (client *Client) CreateVoiceprintServermodeEx(request *CreateVoiceprintServ
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -5981,14 +6059,14 @@ func (client *Client) QuerySocialriskTobriskEx(request *QuerySocialriskTobriskRe
 }
 
 /**
- * Description: 个人运营商二次放号
- * Summary: 个人运营商二次放号-meta版本
+ * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+ * Summary: 纯服务端比对V2版本
  */
-func (client *Client) QueryZolozmetaThreemetamobilereuse(request *QueryZolozmetaThreemetamobilereuseRequest) (_result *QueryZolozmetaThreemetamobilereuseResponse, _err error) {
+func (client *Client) ExecFacevrfServermode(request *ExecFacevrfServermodeRequest) (_result *ExecFacevrfServermodeResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
-	_result = &QueryZolozmetaThreemetamobilereuseResponse{}
-	_body, _err := client.QueryZolozmetaThreemetamobilereuseEx(request, headers, runtime)
+	_result = &ExecFacevrfServermodeResponse{}
+	_body, _err := client.ExecFacevrfServermodeEx(request, headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -5997,16 +6075,46 @@ func (client *Client) QueryZolozmetaThreemetamobilereuse(request *QueryZolozmeta
 }
 
 /**
- * Description: 个人运营商二次放号
- * Summary: 个人运营商二次放号-meta版本
+ * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+ * Summary: 纯服务端比对V2版本
  */
-func (client *Client) QueryZolozmetaThreemetamobilereuseEx(request *QueryZolozmetaThreemetamobilereuseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryZolozmetaThreemetamobilereuseResponse, _err error) {
+func (client *Client) ExecFacevrfServermodeEx(request *ExecFacevrfServermodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecFacevrfServermodeResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("di.realperson.facevrf.servermode.exec"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			execFacevrfServermodeResponse := &ExecFacevrfServermodeResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = execFacevrfServermodeResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
 	_err = util.ValidateModel(request)
 	if _err != nil {
 		return _result, _err
 	}
-	_result = &QueryZolozmetaThreemetamobilereuseResponse{}
-	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.zolozmeta.threemetamobilereuse.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	_result = &ExecFacevrfServermodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.servermode.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
