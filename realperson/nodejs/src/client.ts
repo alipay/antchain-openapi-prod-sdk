@@ -1122,8 +1122,8 @@ export class CheckRouteTwometaRequest extends $tea.Model {
   certName: string;
   // 身份证号
   certNo: string;
-  // 使用场景
-  scene: string;
+  // 使用场景（不再使用）
+  scene?: string;
   // map结果的json数据格式，预留字段
   // 
   externParam?: string;
@@ -3191,32 +3191,60 @@ export class QuerySocialriskTobriskResponse extends $tea.Model {
   }
 }
 
-export class QueryZolozmetaThreemetamobilereuseRequest extends $tea.Model {
+export class ExecFacevrfServermodeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
+  // 真实姓名
+  certName?: string;
+  // 证件号码
+  certNo?: string;
+  // cert_name、cert_no两个字段的传入模式0：明文1：密文
+  encType?: string;
+  // 证件类型，如身份证
+  certType?: string;
+  // 预留扩展参数
+  externParam?: string;
+  // 自定义比对源人脸图像，base64编码格式
+  facialPictureRef?: string;
+  // 身份信息来源类型，如证件
+  identityType: string;
+  // 外部唯一标识。用于定位。 值为32位长度的字母数字组合前面几位字符是商户自定义的简称，中间可以使用一段时间，后段可以使用一个随机或递增序列
   outerOrderNo: string;
-  // 手机号
-  mobile: string;
-  // 日期
-  date: string;
-  // 运营商类型
-  carrier: string;
-  // 加密类型，填写时「支持加密」字段需要对应加密后赋值。默认使用明文模式 0：明文 1：MD5
-  encryptType?: string;
-  // 扩展参数
-  externParam: string;
+  // 场景ID
+  sceneId: string;
+  // 商户自定义的用户ID
+  userId?: string;
+  // 用户的IP
+  userIp?: string;
+  // 用户的手机号（或其哈希值）
+  userMobile?: string;
+  // 待认证的人脸图像，base64编码格式
+  facialPictureAuth?: string;
+  // 视频文件
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      outerOrderNo: 'outer_order_no',
-      mobile: 'mobile',
-      date: 'date',
-      carrier: 'carrier',
-      encryptType: 'encrypt_type',
+      certName: 'cert_name',
+      certNo: 'cert_no',
+      encType: 'enc_type',
+      certType: 'cert_type',
       externParam: 'extern_param',
+      facialPictureRef: 'facial_picture_ref',
+      identityType: 'identity_type',
+      outerOrderNo: 'outer_order_no',
+      sceneId: 'scene_id',
+      userId: 'user_id',
+      userIp: 'user_ip',
+      userMobile: 'user_mobile',
+      facialPictureAuth: 'facial_picture_auth',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
     };
   }
 
@@ -3224,12 +3252,22 @@ export class QueryZolozmetaThreemetamobilereuseRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      outerOrderNo: 'string',
-      mobile: 'string',
-      date: 'string',
-      carrier: 'string',
-      encryptType: 'string',
+      certName: 'string',
+      certNo: 'string',
+      encType: 'string',
+      certType: 'string',
       externParam: 'string',
+      facialPictureRef: 'string',
+      identityType: 'string',
+      outerOrderNo: 'string',
+      sceneId: 'string',
+      userId: 'string',
+      userIp: 'string',
+      userMobile: 'string',
+      facialPictureAuth: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
     };
   }
 
@@ -3238,27 +3276,30 @@ export class QueryZolozmetaThreemetamobilereuseRequest extends $tea.Model {
   }
 }
 
-export class QueryZolozmetaThreemetamobilereuseResponse extends $tea.Model {
+export class ExecFacevrfServermodeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 是否二次放号
-  phoneReuse?: string;
-  // 扩展参数
-  externInfo?: string;
-  // 运营商
-  carrier?: string;
+  // 认证ID
+  certifyId?: string;
+  // 是否通过，通过为T，不通过为F
+  passed?: string;
+  // 业务失败原因
+  reason?: string;
+  // 认证主体附件信息，包含共计类型等
+  materialInfo?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
-      phoneReuse: 'phone_reuse',
-      externInfo: 'extern_info',
-      carrier: 'carrier',
+      certifyId: 'certify_id',
+      passed: 'passed',
+      reason: 'reason',
+      materialInfo: 'material_info',
     };
   }
 
@@ -3267,9 +3308,10 @@ export class QueryZolozmetaThreemetamobilereuseResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      phoneReuse: 'string',
-      externInfo: 'string',
-      carrier: 'string',
+      certifyId: 'string',
+      passed: 'string',
+      reason: 'string',
+      materialInfo: 'string',
     };
   }
 
@@ -3479,7 +3521,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.22",
+          sdk_version: "1.15.27",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -3713,6 +3755,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -4195,22 +4238,44 @@ export default class Client {
   }
 
   /**
-   * Description: 个人运营商二次放号
-   * Summary: 个人运营商二次放号-meta版本
+   * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+   * Summary: 纯服务端比对V2版本
    */
-  async queryZolozmetaThreemetamobilereuse(request: QueryZolozmetaThreemetamobilereuseRequest): Promise<QueryZolozmetaThreemetamobilereuseResponse> {
+  async execFacevrfServermode(request: ExecFacevrfServermodeRequest): Promise<ExecFacevrfServermodeResponse> {
     let runtime = new $Util.RuntimeOptions({ });
     let headers : {[key: string ]: string} = { };
-    return await this.queryZolozmetaThreemetamobilereuseEx(request, headers, runtime);
+    return await this.execFacevrfServermodeEx(request, headers, runtime);
   }
 
   /**
-   * Description: 个人运营商二次放号
-   * Summary: 个人运营商二次放号-meta版本
+   * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+   * Summary: 纯服务端比对V2版本
    */
-  async queryZolozmetaThreemetamobilereuseEx(request: QueryZolozmetaThreemetamobilereuseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryZolozmetaThreemetamobilereuseResponse> {
+  async execFacevrfServermodeEx(request: ExecFacevrfServermodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecFacevrfServermodeResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "di.realperson.facevrf.servermode.exec",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let execFacevrfServermodeResponse = new ExecFacevrfServermodeResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return execFacevrfServermodeResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
     Util.validateModel(request);
-    return $tea.cast<QueryZolozmetaThreemetamobilereuseResponse>(await this.doRequest("1.0", "di.realperson.zolozmeta.threemetamobilereuse.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryZolozmetaThreemetamobilereuseResponse({}));
+    return $tea.cast<ExecFacevrfServermodeResponse>(await this.doRequest("1.0", "di.realperson.facevrf.servermode.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecFacevrfServermodeResponse({}));
   }
 
   /**
