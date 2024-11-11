@@ -6,7 +6,7 @@ namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryZolozmetaThreemetamobilereuseResponse extends Model
+class ExecFacevrfServermodeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,37 @@ class QueryZolozmetaThreemetamobilereuseResponse extends Model
      */
     public $resultMsg;
 
-    // 是否二次放号
+    // 认证ID
     /**
      * @var string
      */
-    public $phoneReuse;
+    public $certifyId;
 
-    // 扩展参数
+    // 是否通过，通过为T，不通过为F
     /**
      * @var string
      */
-    public $externInfo;
+    public $passed;
 
-    // 运营商
+    // 业务失败原因
     /**
      * @var string
      */
-    public $carrier;
+    public $reason;
+
+    // 认证主体附件信息，包含共计类型等
+    /**
+     * @var string
+     */
+    public $materialInfo;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'phoneReuse' => 'phone_reuse',
-        'externInfo' => 'extern_info',
-        'carrier'    => 'carrier',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'certifyId'    => 'certify_id',
+        'passed'       => 'passed',
+        'reason'       => 'reason',
+        'materialInfo' => 'material_info',
     ];
 
     public function validate()
@@ -68,14 +75,17 @@ class QueryZolozmetaThreemetamobilereuseResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->phoneReuse) {
-            $res['phone_reuse'] = $this->phoneReuse;
+        if (null !== $this->certifyId) {
+            $res['certify_id'] = $this->certifyId;
         }
-        if (null !== $this->externInfo) {
-            $res['extern_info'] = $this->externInfo;
+        if (null !== $this->passed) {
+            $res['passed'] = $this->passed;
         }
-        if (null !== $this->carrier) {
-            $res['carrier'] = $this->carrier;
+        if (null !== $this->reason) {
+            $res['reason'] = $this->reason;
+        }
+        if (null !== $this->materialInfo) {
+            $res['material_info'] = $this->materialInfo;
         }
 
         return $res;
@@ -84,7 +94,7 @@ class QueryZolozmetaThreemetamobilereuseResponse extends Model
     /**
      * @param array $map
      *
-     * @return QueryZolozmetaThreemetamobilereuseResponse
+     * @return ExecFacevrfServermodeResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +108,17 @@ class QueryZolozmetaThreemetamobilereuseResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['phone_reuse'])) {
-            $model->phoneReuse = $map['phone_reuse'];
+        if (isset($map['certify_id'])) {
+            $model->certifyId = $map['certify_id'];
         }
-        if (isset($map['extern_info'])) {
-            $model->externInfo = $map['extern_info'];
+        if (isset($map['passed'])) {
+            $model->passed = $map['passed'];
         }
-        if (isset($map['carrier'])) {
-            $model->carrier = $map['carrier'];
+        if (isset($map['reason'])) {
+            $model->reason = $map['reason'];
+        }
+        if (isset($map['material_info'])) {
+            $model->materialInfo = $map['material_info'];
         }
 
         return $model;

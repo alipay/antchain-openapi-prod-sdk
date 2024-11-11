@@ -41,6 +41,8 @@ use AntChain\REALPERSON\Models\CreateVoiceprintServermodeRequest;
 use AntChain\REALPERSON\Models\CreateVoiceprintServermodeResponse;
 use AntChain\REALPERSON\Models\DetailFacevrfServerRequest;
 use AntChain\REALPERSON\Models\DetailFacevrfServerResponse;
+use AntChain\REALPERSON\Models\ExecFacevrfServermodeRequest;
+use AntChain\REALPERSON\Models\ExecFacevrfServermodeResponse;
 use AntChain\REALPERSON\Models\ExecFacevrfServerRequest;
 use AntChain\REALPERSON\Models\ExecFacevrfServerResponse;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceRequest;
@@ -75,8 +77,6 @@ use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseResponse;
 use AntChain\REALPERSON\Models\QueryTscenterDeviceRequest;
 use AntChain\REALPERSON\Models\QueryTscenterDeviceResponse;
-use AntChain\REALPERSON\Models\QueryZolozmetaThreemetamobilereuseRequest;
-use AntChain\REALPERSON\Models\QueryZolozmetaThreemetamobilereuseResponse;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardRequest;
 use AntChain\REALPERSON\Models\RecognizeDocIndividualcardResponse;
 use AntChain\REALPERSON\Models\VerifyFacevrfZimRequest;
@@ -230,7 +230,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.22',
+                    'sdk_version'      => '1.15.27',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -586,7 +586,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -1419,36 +1420,55 @@ class Client
     }
 
     /**
-     * Description: 个人运营商二次放号
-     * Summary: 个人运营商二次放号-meta版本.
+     * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+     * Summary: 纯服务端比对V2版本.
      *
-     * @param QueryZolozmetaThreemetamobilereuseRequest $request
+     * @param ExecFacevrfServermodeRequest $request
      *
-     * @return QueryZolozmetaThreemetamobilereuseResponse
+     * @return ExecFacevrfServermodeResponse
      */
-    public function queryZolozmetaThreemetamobilereuse($request)
+    public function execFacevrfServermode($request)
     {
         $runtime = new RuntimeOptions([]);
         $headers = [];
 
-        return $this->queryZolozmetaThreemetamobilereuseEx($request, $headers, $runtime);
+        return $this->execFacevrfServermodeEx($request, $headers, $runtime);
     }
 
     /**
-     * Description: 个人运营商二次放号
-     * Summary: 个人运营商二次放号-meta版本.
+     * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+     * Summary: 纯服务端比对V2版本.
      *
-     * @param QueryZolozmetaThreemetamobilereuseRequest $request
-     * @param string[]                                  $headers
-     * @param RuntimeOptions                            $runtime
+     * @param ExecFacevrfServermodeRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
      *
-     * @return QueryZolozmetaThreemetamobilereuseResponse
+     * @return ExecFacevrfServermodeResponse
      */
-    public function queryZolozmetaThreemetamobilereuseEx($request, $headers, $runtime)
+    public function execFacevrfServermodeEx($request, $headers, $runtime)
     {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'di.realperson.facevrf.servermode.exec',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new ExecFacevrfServermodeResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
         Utils::validateModel($request);
 
-        return QueryZolozmetaThreemetamobilereuseResponse::fromMap($this->doRequest('1.0', 'di.realperson.zolozmeta.threemetamobilereuse.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+        return ExecFacevrfServermodeResponse::fromMap($this->doRequest('1.0', 'di.realperson.facevrf.servermode.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

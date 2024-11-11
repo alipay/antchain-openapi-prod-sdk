@@ -37,7 +37,7 @@ class CheckRouteTwometaRequest extends Model
      */
     public $certNo;
 
-    // 使用场景
+    // 使用场景（不再使用）
     /**
      * @var string
      */
@@ -64,7 +64,6 @@ class CheckRouteTwometaRequest extends Model
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
         Model::validateRequired('certName', $this->certName, true);
         Model::validateRequired('certNo', $this->certNo, true);
-        Model::validateRequired('scene', $this->scene, true);
     }
 
     public function toMap()
