@@ -26,9 +26,8 @@ public class CheckRouteTwometaRequest extends TeaModel {
     @Validation(required = true)
     public String certNo;
 
-    // 使用场景
+    // 使用场景（不再使用）
     @NameInMap("scene")
-    @Validation(required = true)
     public String scene;
 
     // map结果的json数据格式，预留字段

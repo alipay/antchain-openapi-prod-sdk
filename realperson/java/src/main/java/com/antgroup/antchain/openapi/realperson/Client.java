@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.15.22"),
+                    new TeaPair("sdk_version", "1.15.27"),
                     new TeaPair("_prod_code", "REALPERSON"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -370,6 +370,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -852,22 +853,44 @@ public class Client {
     }
 
     /**
-     * Description: 个人运营商二次放号
-     * Summary: 个人运营商二次放号-meta版本
+     * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+     * Summary: 纯服务端比对V2版本
      */
-    public QueryZolozmetaThreemetamobilereuseResponse queryZolozmetaThreemetamobilereuse(QueryZolozmetaThreemetamobilereuseRequest request) throws Exception {
+    public ExecFacevrfServermodeResponse execFacevrfServermode(ExecFacevrfServermodeRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
         java.util.Map<String, String> headers = new java.util.HashMap<>();
-        return this.queryZolozmetaThreemetamobilereuseEx(request, headers, runtime);
+        return this.execFacevrfServermodeEx(request, headers, runtime);
     }
 
     /**
-     * Description: 个人运营商二次放号
-     * Summary: 个人运营商二次放号-meta版本
+     * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+     * Summary: 纯服务端比对V2版本
      */
-    public QueryZolozmetaThreemetamobilereuseResponse queryZolozmetaThreemetamobilereuseEx(QueryZolozmetaThreemetamobilereuseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+    public ExecFacevrfServermodeResponse execFacevrfServermodeEx(ExecFacevrfServermodeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "di.realperson.facevrf.servermode.exec"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ExecFacevrfServermodeResponse execFacevrfServermodeResponse = ExecFacevrfServermodeResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return execFacevrfServermodeResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
         com.aliyun.teautil.Common.validateModel(request);
-        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.zolozmeta.threemetamobilereuse.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryZolozmetaThreemetamobilereuseResponse());
+        return TeaModel.toModel(this.doRequest("1.0", "di.realperson.facevrf.servermode.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecFacevrfServermodeResponse());
     }
 
     /**
