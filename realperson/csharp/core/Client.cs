@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.22"},
+                        {"sdk_version", "1.15.27"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.22"},
+                        {"sdk_version", "1.15.27"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -707,6 +707,7 @@ namespace AntChain.SDK.REALPERSON
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateVoiceprintServermodeResponse>(DoRequest("1.0", "di.realperson.voiceprint.servermode.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -740,6 +741,7 @@ namespace AntChain.SDK.REALPERSON
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateVoiceprintServermodeResponse>(await DoRequestAsync("1.0", "di.realperson.voiceprint.servermode.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -1796,45 +1798,93 @@ namespace AntChain.SDK.REALPERSON
         }
 
         /**
-         * Description: 个人运营商二次放号
-         * Summary: 个人运营商二次放号-meta版本
+         * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+         * Summary: 纯服务端比对V2版本
          */
-        public QueryZolozmetaThreemetamobilereuseResponse QueryZolozmetaThreemetamobilereuse(QueryZolozmetaThreemetamobilereuseRequest request)
+        public ExecFacevrfServermodeResponse ExecFacevrfServermode(ExecFacevrfServermodeRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return QueryZolozmetaThreemetamobilereuseEx(request, headers, runtime);
+            return ExecFacevrfServermodeEx(request, headers, runtime);
         }
 
         /**
-         * Description: 个人运营商二次放号
-         * Summary: 个人运营商二次放号-meta版本
+         * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+         * Summary: 纯服务端比对V2版本
          */
-        public async Task<QueryZolozmetaThreemetamobilereuseResponse> QueryZolozmetaThreemetamobilereuseAsync(QueryZolozmetaThreemetamobilereuseRequest request)
+        public async Task<ExecFacevrfServermodeResponse> ExecFacevrfServermodeAsync(ExecFacevrfServermodeRequest request)
         {
             AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
             Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await QueryZolozmetaThreemetamobilereuseExAsync(request, headers, runtime);
+            return await ExecFacevrfServermodeExAsync(request, headers, runtime);
         }
 
         /**
-         * Description: 个人运营商二次放号
-         * Summary: 个人运营商二次放号-meta版本
+         * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+         * Summary: 纯服务端比对V2版本
          */
-        public QueryZolozmetaThreemetamobilereuseResponse QueryZolozmetaThreemetamobilereuseEx(QueryZolozmetaThreemetamobilereuseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public ExecFacevrfServermodeResponse ExecFacevrfServermodeEx(ExecFacevrfServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.facevrf.servermode.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecFacevrfServermodeResponse execFacevrfServermodeResponse = new ExecFacevrfServermodeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execFacevrfServermodeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryZolozmetaThreemetamobilereuseResponse>(DoRequest("1.0", "di.realperson.zolozmeta.threemetamobilereuse.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ExecFacevrfServermodeResponse>(DoRequest("1.0", "di.realperson.facevrf.servermode.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
-         * Description: 个人运营商二次放号
-         * Summary: 个人运营商二次放号-meta版本
+         * Description: 纯服务端比对，直接输入待比对的图片，返回比对结果
+         * Summary: 纯服务端比对V2版本
          */
-        public async Task<QueryZolozmetaThreemetamobilereuseResponse> QueryZolozmetaThreemetamobilereuseExAsync(QueryZolozmetaThreemetamobilereuseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        public async Task<ExecFacevrfServermodeResponse> ExecFacevrfServermodeExAsync(ExecFacevrfServermodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "di.realperson.facevrf.servermode.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecFacevrfServermodeResponse execFacevrfServermodeResponse = new ExecFacevrfServermodeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execFacevrfServermodeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<QueryZolozmetaThreemetamobilereuseResponse>(await DoRequestAsync("1.0", "di.realperson.zolozmeta.threemetamobilereuse.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+            return TeaModel.ToObject<ExecFacevrfServermodeResponse>(await DoRequestAsync("1.0", "di.realperson.facevrf.servermode.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

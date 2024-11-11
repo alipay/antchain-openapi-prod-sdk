@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.REALPERSON.Models
 {
-    public class QueryZolozmetaThreemetamobilereuseResponse : TeaModel {
+    public class ExecFacevrfServermodeResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,25 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 是否二次放号
-        [NameInMap("phone_reuse")]
+        // 认证ID
+        [NameInMap("certify_id")]
         [Validation(Required=false)]
-        public string PhoneReuse { get; set; }
+        public string CertifyId { get; set; }
 
-        // 扩展参数
-        [NameInMap("extern_info")]
+        // 是否通过，通过为T，不通过为F
+        [NameInMap("passed")]
         [Validation(Required=false)]
-        public string ExternInfo { get; set; }
+        public string Passed { get; set; }
 
-        // 运营商
-        [NameInMap("carrier")]
+        // 业务失败原因
+        [NameInMap("reason")]
         [Validation(Required=false)]
-        public string Carrier { get; set; }
+        public string Reason { get; set; }
+
+        // 认证主体附件信息，包含共计类型等
+        [NameInMap("material_info")]
+        [Validation(Required=false)]
+        public string MaterialInfo { get; set; }
 
     }
 

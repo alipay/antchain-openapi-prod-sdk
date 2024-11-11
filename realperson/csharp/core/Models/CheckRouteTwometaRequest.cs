@@ -33,9 +33,9 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string CertNo { get; set; }
 
-        // 使用场景
+        // 使用场景（不再使用）
         [NameInMap("scene")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Scene { get; set; }
 
         // map结果的json数据格式，预留字段
