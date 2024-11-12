@@ -3320,6 +3320,93 @@ export class ExecFacevrfServermodeResponse extends $tea.Model {
   }
 }
 
+export class QueryBankLivenessRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID
+  outerOrderNo: string;
+  // 加密方式
+  encryptType: string;
+  // 身份证号
+  certNo: string;
+  // 银行编码
+  bankCode: string;
+  // 姓名
+  certName?: string;
+  // 手机号码	
+  mobile?: string;
+  // 扩展信息，预留字段
+  externParam?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      encryptType: 'encrypt_type',
+      certNo: 'cert_no',
+      bankCode: 'bank_code',
+      certName: 'cert_name',
+      mobile: 'mobile',
+      externParam: 'extern_param',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      encryptType: 'string',
+      certNo: 'string',
+      bankCode: 'string',
+      certName: 'string',
+      mobile: 'string',
+      externParam: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryBankLivenessResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 银行活跃度详情，可解析为JSONArray。
+  livenessInfo?: string;
+  // 扩展信息，预留字段
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      livenessInfo: 'liveness_info',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      livenessInfo: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3521,7 +3608,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.27",
+          sdk_version: "1.15.28",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -4276,6 +4363,25 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<ExecFacevrfServermodeResponse>(await this.doRequest("1.0", "di.realperson.facevrf.servermode.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecFacevrfServermodeResponse({}));
+  }
+
+  /**
+   * Description: 银行活跃度
+   * Summary: 银行活跃度
+   */
+  async queryBankLiveness(request: QueryBankLivenessRequest): Promise<QueryBankLivenessResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryBankLivenessEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 银行活跃度
+   * Summary: 银行活跃度
+   */
+  async queryBankLivenessEx(request: QueryBankLivenessRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBankLivenessResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryBankLivenessResponse>(await this.doRequest("1.0", "di.realperson.bank.liveness.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBankLivenessResponse({}));
   }
 
   /**
