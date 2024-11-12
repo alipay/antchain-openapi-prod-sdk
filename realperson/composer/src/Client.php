@@ -49,6 +49,8 @@ use AntChain\REALPERSON\Models\GetFacevrfEvidenceRequest;
 use AntChain\REALPERSON\Models\GetFacevrfEvidenceResponse;
 use AntChain\REALPERSON\Models\InitFacevrfZimRequest;
 use AntChain\REALPERSON\Models\InitFacevrfZimResponse;
+use AntChain\REALPERSON\Models\QueryBankLivenessRequest;
+use AntChain\REALPERSON\Models\QueryBankLivenessResponse;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusRequest;
 use AntChain\REALPERSON\Models\QueryCarrierNetstatusResponse;
 use AntChain\REALPERSON\Models\QueryDeepsecRiskRequest;
@@ -230,7 +232,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.15.27',
+                    'sdk_version'      => '1.15.28',
                     '_prod_code'       => 'REALPERSON',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1469,6 +1471,39 @@ class Client
         Utils::validateModel($request);
 
         return ExecFacevrfServermodeResponse::fromMap($this->doRequest('1.0', 'di.realperson.facevrf.servermode.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 银行活跃度
+     * Summary: 银行活跃度.
+     *
+     * @param QueryBankLivenessRequest $request
+     *
+     * @return QueryBankLivenessResponse
+     */
+    public function queryBankLiveness($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryBankLivenessEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 银行活跃度
+     * Summary: 银行活跃度.
+     *
+     * @param QueryBankLivenessRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryBankLivenessResponse
+     */
+    public function queryBankLivenessEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryBankLivenessResponse::fromMap($this->doRequest('1.0', 'di.realperson.bank.liveness.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
