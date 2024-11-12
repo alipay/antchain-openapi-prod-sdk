@@ -4572,6 +4572,125 @@ func (s *ExecFacevrfServermodeResponse) SetMaterialInfo(v string) *ExecFacevrfSe
 	return s
 }
 
+type QueryBankLivenessRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 加密方式
+	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty" require:"true"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 银行编码
+	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 扩展信息，预留字段
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+}
+
+func (s QueryBankLivenessRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessRequest) SetAuthToken(v string) *QueryBankLivenessRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetProductInstanceId(v string) *QueryBankLivenessRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetOuterOrderNo(v string) *QueryBankLivenessRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetEncryptType(v string) *QueryBankLivenessRequest {
+	s.EncryptType = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetCertNo(v string) *QueryBankLivenessRequest {
+	s.CertNo = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetBankCode(v string) *QueryBankLivenessRequest {
+	s.BankCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetCertName(v string) *QueryBankLivenessRequest {
+	s.CertName = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetMobile(v string) *QueryBankLivenessRequest {
+	s.Mobile = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetExternParam(v string) *QueryBankLivenessRequest {
+	s.ExternParam = &v
+	return s
+}
+
+type QueryBankLivenessResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 银行活跃度详情，可解析为JSONArray。
+	LivenessInfo *string `json:"liveness_info,omitempty" xml:"liveness_info,omitempty"`
+	// 扩展信息，预留字段
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryBankLivenessResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryBankLivenessResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryBankLivenessResponse) SetReqMsgId(v string) *QueryBankLivenessResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryBankLivenessResponse) SetResultCode(v string) *QueryBankLivenessResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessResponse) SetResultMsg(v string) *QueryBankLivenessResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryBankLivenessResponse) SetLivenessInfo(v string) *QueryBankLivenessResponse {
+	s.LivenessInfo = &v
+	return s
+}
+
+func (s *QueryBankLivenessResponse) SetExternInfo(v string) *QueryBankLivenessResponse {
+	s.ExternInfo = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4814,7 +4933,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.27"),
+				"sdk_version":      tea.String("1.15.28"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6115,6 +6234,40 @@ func (client *Client) ExecFacevrfServermodeEx(request *ExecFacevrfServermodeRequ
 	}
 	_result = &ExecFacevrfServermodeResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.facevrf.servermode.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 银行活跃度
+ * Summary: 银行活跃度
+ */
+func (client *Client) QueryBankLiveness(request *QueryBankLivenessRequest) (_result *QueryBankLivenessResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryBankLivenessResponse{}
+	_body, _err := client.QueryBankLivenessEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 银行活跃度
+ * Summary: 银行活跃度
+ */
+func (client *Client) QueryBankLivenessEx(request *QueryBankLivenessRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryBankLivenessResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryBankLivenessResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("di.realperson.bank.liveness.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
