@@ -137,7 +137,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.27"},
+                        {"sdk_version", "1.15.28"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.REALPERSON
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.15.27"},
+                        {"sdk_version", "1.15.28"},
                         {"_prod_code", "REALPERSON"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1885,6 +1885,48 @@ namespace AntChain.SDK.REALPERSON
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecFacevrfServermodeResponse>(await DoRequestAsync("1.0", "di.realperson.facevrf.servermode.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行活跃度
+         * Summary: 银行活跃度
+         */
+        public QueryBankLivenessResponse QueryBankLiveness(QueryBankLivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryBankLivenessEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行活跃度
+         * Summary: 银行活跃度
+         */
+        public async Task<QueryBankLivenessResponse> QueryBankLivenessAsync(QueryBankLivenessRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryBankLivenessExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 银行活跃度
+         * Summary: 银行活跃度
+         */
+        public QueryBankLivenessResponse QueryBankLivenessEx(QueryBankLivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBankLivenessResponse>(DoRequest("1.0", "di.realperson.bank.liveness.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 银行活跃度
+         * Summary: 银行活跃度
+         */
+        public async Task<QueryBankLivenessResponse> QueryBankLivenessExAsync(QueryBankLivenessRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryBankLivenessResponse>(await DoRequestAsync("1.0", "di.realperson.bank.liveness.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
