@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.27',
+                    'sdk_version': '1.15.28',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.15.27',
+                    'sdk_version': '1.15.28',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -2305,6 +2305,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.ExecFacevrfServermodeResponse(),
             await self.do_request_async('1.0', 'di.realperson.facevrf.servermode.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_bank_liveness(
+        self,
+        request: realperson_models.QueryBankLivenessRequest,
+    ) -> realperson_models.QueryBankLivenessResponse:
+        """
+        Description: 银行活跃度
+        Summary: 银行活跃度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_bank_liveness_ex(request, headers, runtime)
+
+    async def query_bank_liveness_async(
+        self,
+        request: realperson_models.QueryBankLivenessRequest,
+    ) -> realperson_models.QueryBankLivenessResponse:
+        """
+        Description: 银行活跃度
+        Summary: 银行活跃度
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_bank_liveness_ex_async(request, headers, runtime)
+
+    def query_bank_liveness_ex(
+        self,
+        request: realperson_models.QueryBankLivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryBankLivenessResponse:
+        """
+        Description: 银行活跃度
+        Summary: 银行活跃度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryBankLivenessResponse(),
+            self.do_request('1.0', 'di.realperson.bank.liveness.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_bank_liveness_ex_async(
+        self,
+        request: realperson_models.QueryBankLivenessRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryBankLivenessResponse:
+        """
+        Description: 银行活跃度
+        Summary: 银行活跃度
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryBankLivenessResponse(),
+            await self.do_request_async('1.0', 'di.realperson.bank.liveness.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

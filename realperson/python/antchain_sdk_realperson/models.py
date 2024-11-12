@@ -5401,6 +5401,148 @@ class ExecFacevrfServermodeResponse(TeaModel):
         return self
 
 
+class QueryBankLivenessRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        encrypt_type: str = None,
+        cert_no: str = None,
+        bank_code: str = None,
+        cert_name: str = None,
+        mobile: str = None,
+        extern_param: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID
+        self.outer_order_no = outer_order_no
+        # 加密方式
+        self.encrypt_type = encrypt_type
+        # 身份证号
+        self.cert_no = cert_no
+        # 银行编码
+        self.bank_code = bank_code
+        # 姓名
+        self.cert_name = cert_name
+        # 手机号码
+        self.mobile = mobile
+        # 扩展信息，预留字段
+        self.extern_param = extern_param
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.encrypt_type, 'encrypt_type')
+        self.validate_required(self.cert_no, 'cert_no')
+        self.validate_required(self.bank_code, 'bank_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.encrypt_type is not None:
+            result['encrypt_type'] = self.encrypt_type
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.bank_code is not None:
+            result['bank_code'] = self.bank_code
+        if self.cert_name is not None:
+            result['cert_name'] = self.cert_name
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('encrypt_type') is not None:
+            self.encrypt_type = m.get('encrypt_type')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('bank_code') is not None:
+            self.bank_code = m.get('bank_code')
+        if m.get('cert_name') is not None:
+            self.cert_name = m.get('cert_name')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
+        return self
+
+
+class QueryBankLivenessResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        liveness_info: str = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 银行活跃度详情，可解析为JSONArray。
+        self.liveness_info = liveness_info
+        # 扩展信息，预留字段
+        self.extern_info = extern_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.liveness_info is not None:
+            result['liveness_info'] = self.liveness_info
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('liveness_info') is not None:
+            self.liveness_info = m.get('liveness_info')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
