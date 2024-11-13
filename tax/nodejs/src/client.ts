@@ -2585,6 +2585,8 @@ export class MatchIcmSimpleauthRequest extends $tea.Model {
   authType?: string;
   // 授权编号
   authCode: string;
+  // 请求模式，queryMode=0，与异步接口的轮询逻辑保持一致;queryMode=1， 与同步接口的调度逻辑保持一致
+  queryMode?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2594,6 +2596,7 @@ export class MatchIcmSimpleauthRequest extends $tea.Model {
       bizRequestId: 'biz_request_id',
       authType: 'auth_type',
       authCode: 'auth_code',
+      queryMode: 'query_mode',
     };
   }
 
@@ -2606,6 +2609,7 @@ export class MatchIcmSimpleauthRequest extends $tea.Model {
       bizRequestId: 'string',
       authType: 'string',
       authCode: 'string',
+      queryMode: 'number',
     };
   }
 
@@ -4931,7 +4935,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.8.41",
+          sdk_version: "1.8.42",
           _prod_code: "TAX",
           _prod_channel: "undefined",
         };
