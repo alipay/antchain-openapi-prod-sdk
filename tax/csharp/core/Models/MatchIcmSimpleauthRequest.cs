@@ -43,6 +43,11 @@ namespace AntChain.SDK.TAX.Models
         [Validation(Required=true)]
         public string AuthCode { get; set; }
 
+        // 请求模式，queryMode=0，与异步接口的轮询逻辑保持一致;queryMode=1， 与同步接口的调度逻辑保持一致
+        [NameInMap("query_mode")]
+        [Validation(Required=false)]
+        public long? QueryMode { get; set; }
+
     }
 
 }
