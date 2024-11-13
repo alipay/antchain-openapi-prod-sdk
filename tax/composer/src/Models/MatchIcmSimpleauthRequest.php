@@ -48,6 +48,12 @@ class MatchIcmSimpleauthRequest extends Model
      * @var string
      */
     public $authCode;
+
+    // 请求模式，queryMode=0，与异步接口的轮询逻辑保持一致;queryMode=1， 与同步接口的调度逻辑保持一致
+    /**
+     * @var int
+     */
+    public $queryMode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,6 +62,7 @@ class MatchIcmSimpleauthRequest extends Model
         'bizRequestId'      => 'biz_request_id',
         'authType'          => 'auth_type',
         'authCode'          => 'auth_code',
+        'queryMode'         => 'query_mode',
     ];
 
     public function validate()
@@ -90,6 +97,9 @@ class MatchIcmSimpleauthRequest extends Model
         if (null !== $this->authCode) {
             $res['auth_code'] = $this->authCode;
         }
+        if (null !== $this->queryMode) {
+            $res['query_mode'] = $this->queryMode;
+        }
 
         return $res;
     }
@@ -122,6 +132,9 @@ class MatchIcmSimpleauthRequest extends Model
         }
         if (isset($map['auth_code'])) {
             $model->authCode = $map['auth_code'];
+        }
+        if (isset($map['query_mode'])) {
+            $model->queryMode = $map['query_mode'];
         }
 
         return $model;
