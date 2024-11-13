@@ -4252,6 +4252,7 @@ class MatchIcmSimpleauthRequest(TeaModel):
         biz_request_id: str = None,
         auth_type: str = None,
         auth_code: str = None,
+        query_mode: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4266,6 +4267,8 @@ class MatchIcmSimpleauthRequest(TeaModel):
         self.auth_type = auth_type
         # 授权编号
         self.auth_code = auth_code
+        # 请求模式，queryMode=0，与异步接口的轮询逻辑保持一致;queryMode=1， 与同步接口的调度逻辑保持一致
+        self.query_mode = query_mode
 
     def validate(self):
         self.validate_required(self.inst_code, 'inst_code')
@@ -4293,6 +4296,8 @@ class MatchIcmSimpleauthRequest(TeaModel):
             result['auth_type'] = self.auth_type
         if self.auth_code is not None:
             result['auth_code'] = self.auth_code
+        if self.query_mode is not None:
+            result['query_mode'] = self.query_mode
         return result
 
     def from_map(self, m: dict = None):
@@ -4311,6 +4316,8 @@ class MatchIcmSimpleauthRequest(TeaModel):
             self.auth_type = m.get('auth_type')
         if m.get('auth_code') is not None:
             self.auth_code = m.get('auth_code')
+        if m.get('query_mode') is not None:
+            self.query_mode = m.get('query_mode')
         return self
 
 
