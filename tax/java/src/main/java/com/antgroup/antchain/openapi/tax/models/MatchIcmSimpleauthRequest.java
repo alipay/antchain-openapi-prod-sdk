@@ -35,6 +35,10 @@ public class MatchIcmSimpleauthRequest extends TeaModel {
     @Validation(required = true)
     public String authCode;
 
+    // 请求模式，queryMode=0，与异步接口的轮询逻辑保持一致;queryMode=1， 与同步接口的调度逻辑保持一致
+    @NameInMap("query_mode")
+    public Long queryMode;
+
     public static MatchIcmSimpleauthRequest build(java.util.Map<String, ?> map) throws Exception {
         MatchIcmSimpleauthRequest self = new MatchIcmSimpleauthRequest();
         return TeaModel.build(map, self);
@@ -94,6 +98,14 @@ public class MatchIcmSimpleauthRequest extends TeaModel {
     }
     public String getAuthCode() {
         return this.authCode;
+    }
+
+    public MatchIcmSimpleauthRequest setQueryMode(Long queryMode) {
+        this.queryMode = queryMode;
+        return this;
+    }
+    public Long getQueryMode() {
+        return this.queryMode;
     }
 
 }
