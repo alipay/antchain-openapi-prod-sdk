@@ -3391,6 +3391,8 @@ type MatchIcmSimpleauthRequest struct {
 	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty"`
 	// 授权编号
 	AuthCode *string `json:"auth_code,omitempty" xml:"auth_code,omitempty" require:"true"`
+	// 请求模式，queryMode=0，与异步接口的轮询逻辑保持一致;queryMode=1， 与同步接口的调度逻辑保持一致
+	QueryMode *int64 `json:"query_mode,omitempty" xml:"query_mode,omitempty"`
 }
 
 func (s MatchIcmSimpleauthRequest) String() string {
@@ -3433,6 +3435,11 @@ func (s *MatchIcmSimpleauthRequest) SetAuthType(v string) *MatchIcmSimpleauthReq
 
 func (s *MatchIcmSimpleauthRequest) SetAuthCode(v string) *MatchIcmSimpleauthRequest {
 	s.AuthCode = &v
+	return s
+}
+
+func (s *MatchIcmSimpleauthRequest) SetQueryMode(v int64) *MatchIcmSimpleauthRequest {
+	s.QueryMode = &v
 	return s
 }
 
@@ -6523,7 +6530,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.41"),
+				"sdk_version":      tea.String("1.8.42"),
 				"_prod_code":       tea.String("TAX"),
 				"_prod_channel":    tea.String("undefined"),
 			}
