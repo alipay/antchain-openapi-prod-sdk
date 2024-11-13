@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.8.41',
+    sdk_version = '1.8.42',
     _prod_code = 'TAX',
     _prod_channel = 'undefined'
   };
@@ -1454,6 +1454,8 @@ model MatchIcmSimpleauthRequest = {
   authType?: string(name='auth_type'),
   // 授权编号
   authCode: string(name='auth_code'),
+  // 请求模式，queryMode=0，与异步接口的轮询逻辑保持一致;queryMode=1， 与同步接口的调度逻辑保持一致
+  queryMode?: long(name='query_mode'),
 }
 
 model MatchIcmSimpleauthResponse = {
