@@ -292,6 +292,16 @@ model ProfileInfo {
   scale?: string(name='scale', example='1.2'),
 }
 
+// 数字人动作序列
+model AvatarAction {
+  // 动作序列id
+  actionId: long(name='action_id', example='1'),
+  // 动作时长，单位毫秒
+  duration: long(name='duration', example='1200'),
+  // 动作预览链接
+  videoPath: string(name='video_path', example='http://14.103.114.23/action_0.mp4'),
+}
+
 // 数字人训练结果
 model TrainingResult {
   // 数字人id
@@ -799,5 +809,93 @@ async function queryUniversalsaasDigitalhumanVoiceTask(request: QueryUniversalsa
 async function queryUniversalsaasDigitalhumanVoiceTaskEx(request: QueryUniversalsaasDigitalhumanVoiceTaskRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUniversalsaasDigitalhumanVoiceTaskResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.digitalhuman.voice.task.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUniversalsaasDigitalhumanAvatarActionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 数字人id
+  avatarId: long(name='avatar_id'),
+}
+
+model QueryUniversalsaasDigitalhumanAvatarActionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 动作序列列表
+  data?: [ AvatarAction ](name='data'),
+  // 状态结果
+  status?: boolean(name='status'),
+}
+
+/**
+ * Description: 获取数字人动作序列接口
+ * Summary: 获取数字人动作序列接口
+ */
+async function queryUniversalsaasDigitalhumanAvatarAction(request: QueryUniversalsaasDigitalhumanAvatarActionRequest): QueryUniversalsaasDigitalhumanAvatarActionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUniversalsaasDigitalhumanAvatarActionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取数字人动作序列接口
+ * Summary: 获取数字人动作序列接口
+ */
+async function queryUniversalsaasDigitalhumanAvatarActionEx(request: QueryUniversalsaasDigitalhumanAvatarActionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUniversalsaasDigitalhumanAvatarActionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.avatar.action.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitUniversalsaasDigitalhumanOrderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 渠道类型
+  source: string(name='source'),
+  // 操作类型
+  actionType: string(name='action_type'),
+  // 业务类型
+  bizType: string(name='biz_type'),
+  // 业务id
+  bizId: string(name='biz_id'),
+  // 业务自定义信息
+  bizData: string(name='biz_data'),
+}
+
+model SubmitUniversalsaasDigitalhumanOrderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单记录code
+  data?: string(name='data'),
+  // 结果状态
+  status?: boolean(name='status'),
+}
+
+/**
+ * Description: 数字人订单上报接口
+ * Summary: 数字人订单上报接口
+ */
+async function submitUniversalsaasDigitalhumanOrder(request: SubmitUniversalsaasDigitalhumanOrderRequest): SubmitUniversalsaasDigitalhumanOrderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitUniversalsaasDigitalhumanOrderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数字人订单上报接口
+ * Summary: 数字人订单上报接口
+ */
+async function submitUniversalsaasDigitalhumanOrderEx(request: SubmitUniversalsaasDigitalhumanOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitUniversalsaasDigitalhumanOrderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.order.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
