@@ -834,3 +834,115 @@ class Client:
             ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceTaskResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.voice.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
+
+    def query_universalsaas_digitalhuman_avatar_action(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionResponse:
+        """
+        Description: 获取数字人动作序列接口
+        Summary: 获取数字人动作序列接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_universalsaas_digitalhuman_avatar_action_ex(request, headers, runtime)
+
+    async def query_universalsaas_digitalhuman_avatar_action_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionResponse:
+        """
+        Description: 获取数字人动作序列接口
+        Summary: 获取数字人动作序列接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_universalsaas_digitalhuman_avatar_action_ex_async(request, headers, runtime)
+
+    def query_universalsaas_digitalhuman_avatar_action_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionResponse:
+        """
+        Description: 获取数字人动作序列接口
+        Summary: 获取数字人动作序列接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.avatar.action.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_universalsaas_digitalhuman_avatar_action_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionResponse:
+        """
+        Description: 获取数字人动作序列接口
+        Summary: 获取数字人动作序列接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanAvatarActionResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.avatar.action.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_universalsaas_digitalhuman_order(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderResponse:
+        """
+        Description: 数字人订单上报接口
+        Summary: 数字人订单上报接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_universalsaas_digitalhuman_order_ex(request, headers, runtime)
+
+    async def submit_universalsaas_digitalhuman_order_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderResponse:
+        """
+        Description: 数字人订单上报接口
+        Summary: 数字人订单上报接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_universalsaas_digitalhuman_order_ex_async(request, headers, runtime)
+
+    def submit_universalsaas_digitalhuman_order_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderResponse:
+        """
+        Description: 数字人订单上报接口
+        Summary: 数字人订单上报接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.order.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_universalsaas_digitalhuman_order_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderResponse:
+        """
+        Description: 数字人订单上报接口
+        Summary: 数字人订单上报接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.order.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )

@@ -707,6 +707,50 @@ class ProfileInfo(TeaModel):
         return self
 
 
+class AvatarAction(TeaModel):
+    def __init__(
+        self,
+        action_id: int = None,
+        duration: int = None,
+        video_path: str = None,
+    ):
+        # 动作序列id
+        self.action_id = action_id
+        # 动作时长，单位毫秒
+        self.duration = duration
+        # 动作预览链接
+        self.video_path = video_path
+
+    def validate(self):
+        self.validate_required(self.action_id, 'action_id')
+        self.validate_required(self.duration, 'duration')
+        self.validate_required(self.video_path, 'video_path')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action_id is not None:
+            result['action_id'] = self.action_id
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.video_path is not None:
+            result['video_path'] = self.video_path
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('action_id') is not None:
+            self.action_id = m.get('action_id')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('video_path') is not None:
+            self.video_path = m.get('video_path')
+        return self
+
+
 class TrainingResult(TeaModel):
     def __init__(
         self,
@@ -2127,6 +2171,240 @@ class QueryUniversalsaasDigitalhumanVoiceTaskResponse(TeaModel):
         if m.get('data') is not None:
             temp_model = VoiceTask()
             self.data = temp_model.from_map(m['data'])
+        return self
+
+
+class QueryUniversalsaasDigitalhumanAvatarActionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        avatar_id: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 数字人id
+        self.avatar_id = avatar_id
+
+    def validate(self):
+        self.validate_required(self.avatar_id, 'avatar_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.avatar_id is not None:
+            result['avatar_id'] = self.avatar_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('avatar_id') is not None:
+            self.avatar_id = m.get('avatar_id')
+        return self
+
+
+class QueryUniversalsaasDigitalhumanAvatarActionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: List[AvatarAction] = None,
+        status: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 动作序列列表
+        self.data = data
+        # 状态结果
+        self.status = status
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['data'].append(k.to_map() if k else None)
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.data = []
+        if m.get('data') is not None:
+            for k in m.get('data'):
+                temp_model = AvatarAction()
+                self.data.append(temp_model.from_map(k))
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class SubmitUniversalsaasDigitalhumanOrderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        source: str = None,
+        action_type: str = None,
+        biz_type: str = None,
+        biz_id: str = None,
+        biz_data: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 渠道类型
+        self.source = source
+        # 操作类型
+        self.action_type = action_type
+        # 业务类型
+        self.biz_type = biz_type
+        # 业务id
+        self.biz_id = biz_id
+        # 业务自定义信息
+        self.biz_data = biz_data
+
+    def validate(self):
+        self.validate_required(self.source, 'source')
+        self.validate_required(self.action_type, 'action_type')
+        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.biz_id, 'biz_id')
+        self.validate_required(self.biz_data, 'biz_data')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.source is not None:
+            result['source'] = self.source
+        if self.action_type is not None:
+            result['action_type'] = self.action_type
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.biz_data is not None:
+            result['biz_data'] = self.biz_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('action_type') is not None:
+            self.action_type = m.get('action_type')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('biz_data') is not None:
+            self.biz_data = m.get('biz_data')
+        return self
+
+
+class SubmitUniversalsaasDigitalhumanOrderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+        status: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单记录code
+        self.data = data
+        # 结果状态
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
