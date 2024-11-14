@@ -576,6 +576,39 @@ func (s *ProfileInfo) SetScale(v string) *ProfileInfo {
 	return s
 }
 
+// 数字人动作序列
+type AvatarAction struct {
+	// 动作序列id
+	ActionId *int64 `json:"action_id,omitempty" xml:"action_id,omitempty" require:"true"`
+	// 动作时长，单位毫秒
+	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty" require:"true"`
+	// 动作预览链接
+	VideoPath *string `json:"video_path,omitempty" xml:"video_path,omitempty" require:"true"`
+}
+
+func (s AvatarAction) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AvatarAction) GoString() string {
+	return s.String()
+}
+
+func (s *AvatarAction) SetActionId(v int64) *AvatarAction {
+	s.ActionId = &v
+	return s
+}
+
+func (s *AvatarAction) SetDuration(v int64) *AvatarAction {
+	s.Duration = &v
+	return s
+}
+
+func (s *AvatarAction) SetVideoPath(v string) *AvatarAction {
+	s.VideoPath = &v
+	return s
+}
+
 // 数字人训练结果
 type TrainingResult struct {
 	// 数字人id
@@ -1700,6 +1733,188 @@ func (s *QueryUniversalsaasDigitalhumanVoiceTaskResponse) SetData(v *VoiceTask) 
 	return s
 }
 
+type QueryUniversalsaasDigitalhumanAvatarActionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 数字人id
+	AvatarId *int64 `json:"avatar_id,omitempty" xml:"avatar_id,omitempty" require:"true"`
+}
+
+func (s QueryUniversalsaasDigitalhumanAvatarActionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanAvatarActionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanAvatarActionRequest) SetAuthToken(v string) *QueryUniversalsaasDigitalhumanAvatarActionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAvatarActionRequest) SetProductInstanceId(v string) *QueryUniversalsaasDigitalhumanAvatarActionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAvatarActionRequest) SetAvatarId(v int64) *QueryUniversalsaasDigitalhumanAvatarActionRequest {
+	s.AvatarId = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanAvatarActionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 动作序列列表
+	Data []*AvatarAction `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+	// 状态结果
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s QueryUniversalsaasDigitalhumanAvatarActionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanAvatarActionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanAvatarActionResponse) SetReqMsgId(v string) *QueryUniversalsaasDigitalhumanAvatarActionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAvatarActionResponse) SetResultCode(v string) *QueryUniversalsaasDigitalhumanAvatarActionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAvatarActionResponse) SetResultMsg(v string) *QueryUniversalsaasDigitalhumanAvatarActionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAvatarActionResponse) SetData(v []*AvatarAction) *QueryUniversalsaasDigitalhumanAvatarActionResponse {
+	s.Data = v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanAvatarActionResponse) SetStatus(v bool) *QueryUniversalsaasDigitalhumanAvatarActionResponse {
+	s.Status = &v
+	return s
+}
+
+type SubmitUniversalsaasDigitalhumanOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 渠道类型
+	Source *string `json:"source,omitempty" xml:"source,omitempty" require:"true"`
+	// 操作类型
+	ActionType *string `json:"action_type,omitempty" xml:"action_type,omitempty" require:"true"`
+	// 业务类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 业务id
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty" require:"true"`
+	// 业务自定义信息
+	BizData *string `json:"biz_data,omitempty" xml:"biz_data,omitempty" require:"true"`
+}
+
+func (s SubmitUniversalsaasDigitalhumanOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitUniversalsaasDigitalhumanOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderRequest) SetAuthToken(v string) *SubmitUniversalsaasDigitalhumanOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderRequest) SetProductInstanceId(v string) *SubmitUniversalsaasDigitalhumanOrderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderRequest) SetSource(v string) *SubmitUniversalsaasDigitalhumanOrderRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderRequest) SetActionType(v string) *SubmitUniversalsaasDigitalhumanOrderRequest {
+	s.ActionType = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderRequest) SetBizType(v string) *SubmitUniversalsaasDigitalhumanOrderRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderRequest) SetBizId(v string) *SubmitUniversalsaasDigitalhumanOrderRequest {
+	s.BizId = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderRequest) SetBizData(v string) *SubmitUniversalsaasDigitalhumanOrderRequest {
+	s.BizData = &v
+	return s
+}
+
+type SubmitUniversalsaasDigitalhumanOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 订单记录code
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+	// 结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s SubmitUniversalsaasDigitalhumanOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitUniversalsaasDigitalhumanOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderResponse) SetReqMsgId(v string) *SubmitUniversalsaasDigitalhumanOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderResponse) SetResultCode(v string) *SubmitUniversalsaasDigitalhumanOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderResponse) SetResultMsg(v string) *SubmitUniversalsaasDigitalhumanOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderResponse) SetData(v string) *SubmitUniversalsaasDigitalhumanOrderResponse {
+	s.Data = &v
+	return s
+}
+
+func (s *SubmitUniversalsaasDigitalhumanOrderResponse) SetStatus(v bool) *SubmitUniversalsaasDigitalhumanOrderResponse {
+	s.Status = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2213,6 +2428,74 @@ func (client *Client) QueryUniversalsaasDigitalhumanVoiceTaskEx(request *QueryUn
 	}
 	_result = &QueryUniversalsaasDigitalhumanVoiceTaskResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取数字人动作序列接口
+ * Summary: 获取数字人动作序列接口
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanAvatarAction(request *QueryUniversalsaasDigitalhumanAvatarActionRequest) (_result *QueryUniversalsaasDigitalhumanAvatarActionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUniversalsaasDigitalhumanAvatarActionResponse{}
+	_body, _err := client.QueryUniversalsaasDigitalhumanAvatarActionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取数字人动作序列接口
+ * Summary: 获取数字人动作序列接口
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanAvatarActionEx(request *QueryUniversalsaasDigitalhumanAvatarActionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUniversalsaasDigitalhumanAvatarActionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUniversalsaasDigitalhumanAvatarActionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.avatar.action.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数字人订单上报接口
+ * Summary: 数字人订单上报接口
+ */
+func (client *Client) SubmitUniversalsaasDigitalhumanOrder(request *SubmitUniversalsaasDigitalhumanOrderRequest) (_result *SubmitUniversalsaasDigitalhumanOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitUniversalsaasDigitalhumanOrderResponse{}
+	_body, _err := client.SubmitUniversalsaasDigitalhumanOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数字人订单上报接口
+ * Summary: 数字人订单上报接口
+ */
+func (client *Client) SubmitUniversalsaasDigitalhumanOrderEx(request *SubmitUniversalsaasDigitalhumanOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitUniversalsaasDigitalhumanOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitUniversalsaasDigitalhumanOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.order.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
