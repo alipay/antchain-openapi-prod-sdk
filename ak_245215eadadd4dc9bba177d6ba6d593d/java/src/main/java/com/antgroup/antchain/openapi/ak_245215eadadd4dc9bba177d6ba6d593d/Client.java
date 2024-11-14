@@ -373,4 +373,42 @@ public class Client {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.voice.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanVoiceTaskResponse());
     }
+
+    /**
+     * Description: 获取数字人动作序列接口
+     * Summary: 获取数字人动作序列接口
+     */
+    public QueryUniversalsaasDigitalhumanAvatarActionResponse queryUniversalsaasDigitalhumanAvatarAction(QueryUniversalsaasDigitalhumanAvatarActionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryUniversalsaasDigitalhumanAvatarActionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取数字人动作序列接口
+     * Summary: 获取数字人动作序列接口
+     */
+    public QueryUniversalsaasDigitalhumanAvatarActionResponse queryUniversalsaasDigitalhumanAvatarActionEx(QueryUniversalsaasDigitalhumanAvatarActionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.avatar.action.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanAvatarActionResponse());
+    }
+
+    /**
+     * Description: 数字人订单上报接口
+     * Summary: 数字人订单上报接口
+     */
+    public SubmitUniversalsaasDigitalhumanOrderResponse submitUniversalsaasDigitalhumanOrder(SubmitUniversalsaasDigitalhumanOrderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitUniversalsaasDigitalhumanOrderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数字人订单上报接口
+     * Summary: 数字人订单上报接口
+     */
+    public SubmitUniversalsaasDigitalhumanOrderResponse submitUniversalsaasDigitalhumanOrderEx(SubmitUniversalsaasDigitalhumanOrderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "universalsaas.digitalhuman.order.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitUniversalsaasDigitalhumanOrderResponse());
+    }
 }
