@@ -25,12 +25,16 @@ use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigital
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoProfileResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoVoiceRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\ListUniversalsaasDigitalhumanVideoVoiceResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanAvatarActionRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanAvatarActionResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanCloneTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanCloneTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVideoTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVideoTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceTaskResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\SubmitUniversalsaasDigitalhumanOrderRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\SubmitUniversalsaasDigitalhumanOrderResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -554,5 +558,71 @@ class Client
         Utils::validateModel($request);
 
         return QueryUniversalsaasDigitalhumanVoiceTaskResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.task.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取数字人动作序列接口
+     * Summary: 获取数字人动作序列接口.
+     *
+     * @param QueryUniversalsaasDigitalhumanAvatarActionRequest $request
+     *
+     * @return QueryUniversalsaasDigitalhumanAvatarActionResponse
+     */
+    public function queryUniversalsaasDigitalhumanAvatarAction($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUniversalsaasDigitalhumanAvatarActionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取数字人动作序列接口
+     * Summary: 获取数字人动作序列接口.
+     *
+     * @param QueryUniversalsaasDigitalhumanAvatarActionRequest $request
+     * @param string[]                                          $headers
+     * @param RuntimeOptions                                    $runtime
+     *
+     * @return QueryUniversalsaasDigitalhumanAvatarActionResponse
+     */
+    public function queryUniversalsaasDigitalhumanAvatarActionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUniversalsaasDigitalhumanAvatarActionResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.avatar.action.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数字人订单上报接口
+     * Summary: 数字人订单上报接口.
+     *
+     * @param SubmitUniversalsaasDigitalhumanOrderRequest $request
+     *
+     * @return SubmitUniversalsaasDigitalhumanOrderResponse
+     */
+    public function submitUniversalsaasDigitalhumanOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitUniversalsaasDigitalhumanOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数字人订单上报接口
+     * Summary: 数字人订单上报接口.
+     *
+     * @param SubmitUniversalsaasDigitalhumanOrderRequest $request
+     * @param string[]                                    $headers
+     * @param RuntimeOptions                              $runtime
+     *
+     * @return SubmitUniversalsaasDigitalhumanOrderResponse
+     */
+    public function submitUniversalsaasDigitalhumanOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitUniversalsaasDigitalhumanOrderResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.order.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
