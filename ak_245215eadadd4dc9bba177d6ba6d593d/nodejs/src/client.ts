@@ -415,6 +415,35 @@ export class ProfileInfo extends $tea.Model {
   }
 }
 
+// 数字人动作序列
+export class AvatarAction extends $tea.Model {
+  // 动作序列id
+  actionId: number;
+  // 动作时长，单位毫秒
+  duration: number;
+  // 动作预览链接
+  videoPath: string;
+  static names(): { [key: string]: string } {
+    return {
+      actionId: 'action_id',
+      duration: 'duration',
+      videoPath: 'video_path',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      actionId: 'number',
+      duration: 'number',
+      videoPath: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 数字人训练结果
 export class TrainingResult extends $tea.Model {
   // 数字人id
@@ -1301,6 +1330,148 @@ export class QueryUniversalsaasDigitalhumanVoiceTaskResponse extends $tea.Model 
   }
 }
 
+export class QueryUniversalsaasDigitalhumanAvatarActionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 数字人id
+  avatarId: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      avatarId: 'avatar_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      avatarId: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUniversalsaasDigitalhumanAvatarActionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 动作序列列表
+  data?: AvatarAction[];
+  // 状态结果
+  status?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': AvatarAction },
+      status: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitUniversalsaasDigitalhumanOrderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 渠道类型
+  source: string;
+  // 操作类型
+  actionType: string;
+  // 业务类型
+  bizType: string;
+  // 业务id
+  bizId: string;
+  // 业务自定义信息
+  bizData: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      source: 'source',
+      actionType: 'action_type',
+      bizType: 'biz_type',
+      bizId: 'biz_id',
+      bizData: 'biz_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      source: 'string',
+      actionType: 'string',
+      bizType: 'string',
+      bizId: 'string',
+      bizData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitUniversalsaasDigitalhumanOrderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单记录code
+  data?: string;
+  // 结果状态
+  status?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+      status: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1650,6 +1821,44 @@ export default class Client {
   async queryUniversalsaasDigitalhumanVoiceTaskEx(request: QueryUniversalsaasDigitalhumanVoiceTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanVoiceTaskResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUniversalsaasDigitalhumanVoiceTaskResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.voice.task.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanVoiceTaskResponse({}));
+  }
+
+  /**
+   * Description: 获取数字人动作序列接口
+   * Summary: 获取数字人动作序列接口
+   */
+  async queryUniversalsaasDigitalhumanAvatarAction(request: QueryUniversalsaasDigitalhumanAvatarActionRequest): Promise<QueryUniversalsaasDigitalhumanAvatarActionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUniversalsaasDigitalhumanAvatarActionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取数字人动作序列接口
+   * Summary: 获取数字人动作序列接口
+   */
+  async queryUniversalsaasDigitalhumanAvatarActionEx(request: QueryUniversalsaasDigitalhumanAvatarActionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanAvatarActionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUniversalsaasDigitalhumanAvatarActionResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.avatar.action.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanAvatarActionResponse({}));
+  }
+
+  /**
+   * Description: 数字人订单上报接口
+   * Summary: 数字人订单上报接口
+   */
+  async submitUniversalsaasDigitalhumanOrder(request: SubmitUniversalsaasDigitalhumanOrderRequest): Promise<SubmitUniversalsaasDigitalhumanOrderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitUniversalsaasDigitalhumanOrderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数字人订单上报接口
+   * Summary: 数字人订单上报接口
+   */
+  async submitUniversalsaasDigitalhumanOrderEx(request: SubmitUniversalsaasDigitalhumanOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitUniversalsaasDigitalhumanOrderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitUniversalsaasDigitalhumanOrderResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.order.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitUniversalsaasDigitalhumanOrderResponse({}));
   }
 
 }
