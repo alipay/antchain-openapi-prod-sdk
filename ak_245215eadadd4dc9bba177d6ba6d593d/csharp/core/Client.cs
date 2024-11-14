@@ -741,5 +741,89 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
             return TeaModel.ToObject<QueryUniversalsaasDigitalhumanVoiceTaskResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.voice.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
+        /**
+         * Description: 获取数字人动作序列接口
+         * Summary: 获取数字人动作序列接口
+         */
+        public QueryUniversalsaasDigitalhumanAvatarActionResponse QueryUniversalsaasDigitalhumanAvatarAction(QueryUniversalsaasDigitalhumanAvatarActionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUniversalsaasDigitalhumanAvatarActionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取数字人动作序列接口
+         * Summary: 获取数字人动作序列接口
+         */
+        public async Task<QueryUniversalsaasDigitalhumanAvatarActionResponse> QueryUniversalsaasDigitalhumanAvatarActionAsync(QueryUniversalsaasDigitalhumanAvatarActionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUniversalsaasDigitalhumanAvatarActionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取数字人动作序列接口
+         * Summary: 获取数字人动作序列接口
+         */
+        public QueryUniversalsaasDigitalhumanAvatarActionResponse QueryUniversalsaasDigitalhumanAvatarActionEx(QueryUniversalsaasDigitalhumanAvatarActionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanAvatarActionResponse>(DoRequest("1.0", "universalsaas.digitalhuman.avatar.action.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取数字人动作序列接口
+         * Summary: 获取数字人动作序列接口
+         */
+        public async Task<QueryUniversalsaasDigitalhumanAvatarActionResponse> QueryUniversalsaasDigitalhumanAvatarActionExAsync(QueryUniversalsaasDigitalhumanAvatarActionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanAvatarActionResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.avatar.action.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人订单上报接口
+         * Summary: 数字人订单上报接口
+         */
+        public SubmitUniversalsaasDigitalhumanOrderResponse SubmitUniversalsaasDigitalhumanOrder(SubmitUniversalsaasDigitalhumanOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitUniversalsaasDigitalhumanOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人订单上报接口
+         * Summary: 数字人订单上报接口
+         */
+        public async Task<SubmitUniversalsaasDigitalhumanOrderResponse> SubmitUniversalsaasDigitalhumanOrderAsync(SubmitUniversalsaasDigitalhumanOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitUniversalsaasDigitalhumanOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数字人订单上报接口
+         * Summary: 数字人订单上报接口
+         */
+        public SubmitUniversalsaasDigitalhumanOrderResponse SubmitUniversalsaasDigitalhumanOrderEx(SubmitUniversalsaasDigitalhumanOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitUniversalsaasDigitalhumanOrderResponse>(DoRequest("1.0", "universalsaas.digitalhuman.order.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数字人订单上报接口
+         * Summary: 数字人订单上报接口
+         */
+        public async Task<SubmitUniversalsaasDigitalhumanOrderResponse> SubmitUniversalsaasDigitalhumanOrderExAsync(SubmitUniversalsaasDigitalhumanOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitUniversalsaasDigitalhumanOrderResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.order.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
     }
 }
