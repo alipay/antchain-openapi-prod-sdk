@@ -3700,6 +3700,32 @@ func (s *PublicKeyRelation) SetRecipientId(v string) *PublicKeyRelation {
 	return s
 }
 
+// 获取Afts文件上传地址返回值，包含地址和token
+type GetAftsUploadUrlResponse struct {
+	// 11121312
+	MassToken *string `json:"mass_token,omitempty" xml:"mass_token,omitempty" require:"true"`
+	// 上传文件地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty" require:"true"`
+}
+
+func (s GetAftsUploadUrlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAftsUploadUrlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetAftsUploadUrlResponse) SetMassToken(v string) *GetAftsUploadUrlResponse {
+	s.MassToken = &v
+	return s
+}
+
+func (s *GetAftsUploadUrlResponse) SetUploadUrl(v string) *GetAftsUploadUrlResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 // 合约类型
 type ContractTypeResp struct {
 	// 合约服务类型
@@ -7672,6 +7698,25 @@ func (s *UpdateDidAuthPayload) SetPublicKeyType(v string) *UpdateDidAuthPayload 
 
 func (s *UpdateDidAuthPayload) SetValue(v string) *UpdateDidAuthPayload {
 	s.Value = &v
+	return s
+}
+
+// 获取Afts上传地址和token
+type GetAftsUploadUrlRequest struct {
+	// 问件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+}
+
+func (s GetAftsUploadUrlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetAftsUploadUrlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetAftsUploadUrlRequest) SetFileType(v string) *GetAftsUploadUrlRequest {
+	s.FileType = &v
 	return s
 }
 
@@ -50882,6 +50927,195 @@ func (s *AuthAuthBusinessUserResponse) SetAuthToken(v string) *AuthAuthBusinessU
 	return s
 }
 
+type QueryAuthCrowdUploadurlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 问件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+	// 业务类型：survey_1（排除问卷三个月人群）；survey_2（排除问卷六个月人群）；recruit_1（排除招募三个月人群）recruit_2（排除招募任务六个月人群）
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+}
+
+func (s QueryAuthCrowdUploadurlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthCrowdUploadurlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthCrowdUploadurlRequest) SetAuthToken(v string) *QueryAuthCrowdUploadurlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlRequest) SetProductInstanceId(v string) *QueryAuthCrowdUploadurlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlRequest) SetFileType(v string) *QueryAuthCrowdUploadurlRequest {
+	s.FileType = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlRequest) SetBizType(v string) *QueryAuthCrowdUploadurlRequest {
+	s.BizType = &v
+	return s
+}
+
+type QueryAuthCrowdUploadurlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+	// policy
+	Policy *string `json:"policy,omitempty" xml:"policy,omitempty"`
+	// 签名
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty"`
+	// 文件目录
+	Dir *string `json:"dir,omitempty" xml:"dir,omitempty"`
+	// oss地址
+	Host *string `json:"host,omitempty" xml:"host,omitempty"`
+	// 过期时间
+	Expire *string `json:"expire,omitempty" xml:"expire,omitempty"`
+}
+
+func (s QueryAuthCrowdUploadurlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAuthCrowdUploadurlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetReqMsgId(v string) *QueryAuthCrowdUploadurlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetResultCode(v string) *QueryAuthCrowdUploadurlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetResultMsg(v string) *QueryAuthCrowdUploadurlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetUploadUrl(v string) *QueryAuthCrowdUploadurlResponse {
+	s.UploadUrl = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetPolicy(v string) *QueryAuthCrowdUploadurlResponse {
+	s.Policy = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetSignature(v string) *QueryAuthCrowdUploadurlResponse {
+	s.Signature = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetDir(v string) *QueryAuthCrowdUploadurlResponse {
+	s.Dir = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetHost(v string) *QueryAuthCrowdUploadurlResponse {
+	s.Host = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetExpire(v string) *QueryAuthCrowdUploadurlResponse {
+	s.Expire = &v
+	return s
+}
+
+type SubmitAuthCrowdUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 上传文件地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty" require:"true"`
+	// 人群类型 （1，三个月的问卷人群，2，六个月的问卷人群，3，三个月的招募人群，4，六个月的招募人群）
+	CrowdType *string `json:"crowd_type,omitempty" xml:"crowd_type,omitempty" require:"true"`
+	// 备注信息
+	Remark *string `json:"remark,omitempty" xml:"remark,omitempty"`
+}
+
+func (s SubmitAuthCrowdUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuthCrowdUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuthCrowdUploadRequest) SetAuthToken(v string) *SubmitAuthCrowdUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAuthCrowdUploadRequest) SetProductInstanceId(v string) *SubmitAuthCrowdUploadRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAuthCrowdUploadRequest) SetUploadUrl(v string) *SubmitAuthCrowdUploadRequest {
+	s.UploadUrl = &v
+	return s
+}
+
+func (s *SubmitAuthCrowdUploadRequest) SetCrowdType(v string) *SubmitAuthCrowdUploadRequest {
+	s.CrowdType = &v
+	return s
+}
+
+func (s *SubmitAuthCrowdUploadRequest) SetRemark(v string) *SubmitAuthCrowdUploadRequest {
+	s.Remark = &v
+	return s
+}
+
+type SubmitAuthCrowdUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SubmitAuthCrowdUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAuthCrowdUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAuthCrowdUploadResponse) SetReqMsgId(v string) *SubmitAuthCrowdUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAuthCrowdUploadResponse) SetResultCode(v string) *SubmitAuthCrowdUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAuthCrowdUploadResponse) SetResultMsg(v string) *SubmitAuthCrowdUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type StartDidCorporateAgentcreateRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -70180,7 +70414,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.24"),
+				"sdk_version":      tea.String("1.28.34"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -79382,6 +79616,7 @@ func (client *Client) UploadDataFileBatchqueryEx(request *UploadDataFileBatchque
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -83017,6 +83252,7 @@ func (client *Client) UploadAuthCertInstanceEx(request *UploadAuthCertInstanceRe
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -84419,6 +84655,74 @@ func (client *Client) AuthAuthBusinessUserEx(request *AuthAuthBusinessUserReques
 	}
 	_result = &AuthAuthBusinessUserResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.business.user.auth"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取文件上传到OSS的地址和key信息
+ * Summary: 获取文件上传到OSS的地址和key信息
+ */
+func (client *Client) QueryAuthCrowdUploadurl(request *QueryAuthCrowdUploadurlRequest) (_result *QueryAuthCrowdUploadurlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAuthCrowdUploadurlResponse{}
+	_body, _err := client.QueryAuthCrowdUploadurlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取文件上传到OSS的地址和key信息
+ * Summary: 获取文件上传到OSS的地址和key信息
+ */
+func (client *Client) QueryAuthCrowdUploadurlEx(request *QueryAuthCrowdUploadurlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAuthCrowdUploadurlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAuthCrowdUploadurlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.crowd.uploadurl.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 提交人群上传相关文件信息
+ * Summary: 提交
+ */
+func (client *Client) SubmitAuthCrowdUpload(request *SubmitAuthCrowdUploadRequest) (_result *SubmitAuthCrowdUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAuthCrowdUploadResponse{}
+	_body, _err := client.SubmitAuthCrowdUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 提交人群上传相关文件信息
+ * Summary: 提交
+ */
+func (client *Client) SubmitAuthCrowdUploadEx(request *SubmitAuthCrowdUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAuthCrowdUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAuthCrowdUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.crowd.upload.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
