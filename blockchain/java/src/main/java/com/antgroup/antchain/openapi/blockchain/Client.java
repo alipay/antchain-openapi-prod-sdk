@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.28.24"),
+                    new TeaPair("sdk_version", "1.28.34"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -5309,6 +5309,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -7346,6 +7347,7 @@ public class Client {
             java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
             com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
             request.fileId = uploadResp.fileId;
+            request.fileObject = null;
         }
 
         com.aliyun.teautil.Common.validateModel(request);
@@ -8129,6 +8131,44 @@ public class Client {
     public AuthAuthBusinessUserResponse authAuthBusinessUserEx(AuthAuthBusinessUserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.business.user.auth", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AuthAuthBusinessUserResponse());
+    }
+
+    /**
+     * Description: 获取文件上传到OSS的地址和key信息
+     * Summary: 获取文件上传到OSS的地址和key信息
+     */
+    public QueryAuthCrowdUploadurlResponse queryAuthCrowdUploadurl(QueryAuthCrowdUploadurlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAuthCrowdUploadurlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取文件上传到OSS的地址和key信息
+     * Summary: 获取文件上传到OSS的地址和key信息
+     */
+    public QueryAuthCrowdUploadurlResponse queryAuthCrowdUploadurlEx(QueryAuthCrowdUploadurlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.crowd.uploadurl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAuthCrowdUploadurlResponse());
+    }
+
+    /**
+     * Description: 提交人群上传相关文件信息
+     * Summary: 提交
+     */
+    public SubmitAuthCrowdUploadResponse submitAuthCrowdUpload(SubmitAuthCrowdUploadRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitAuthCrowdUploadEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 提交人群上传相关文件信息
+     * Summary: 提交
+     */
+    public SubmitAuthCrowdUploadResponse submitAuthCrowdUploadEx(SubmitAuthCrowdUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.crowd.upload.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuthCrowdUploadResponse());
     }
 
     /**
