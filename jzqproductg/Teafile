@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "JZQPRODUCTG",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-jzqproductg:0.0.1",
+    "go": "github.com/antchain-openapi-sdk-go/jzqproductg/client:v1.0.0",
+    "csharp": "AntChain.SDK.JZQPRODUCTG:1.0.0",
+    "ts": "@antchain/jzqproductg:1.0.0",
+    "php": "antchain/jzqproductg:1.0.0",
+    "python": "antchain_sdk_jzqproductg:1.0.0"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.jzqproductg",
+    "packageInfo": {
+      "description": "Ant Chain JZQPRODUCTG SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.JZQPRODUCTG",
+    "packageInfo": {
+      "name": "jzqproductg",
+      "title": "antchain-jzqproductg",
+      "description": "Ant Chain JZQPRODUCTG SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.JZQPRODUCTG",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/jzqproductg",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_jzqproductg",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_jzqproductg",
+      "desc": "Ant Chain JZQPRODUCTG SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
