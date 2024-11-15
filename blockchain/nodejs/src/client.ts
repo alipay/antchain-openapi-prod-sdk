@@ -2728,6 +2728,31 @@ export class PublicKeyRelation extends $tea.Model {
   }
 }
 
+// 获取Afts文件上传地址返回值，包含地址和token
+export class GetAftsUploadUrlResponse extends $tea.Model {
+  // 11121312
+  massToken: string;
+  // 上传文件地址
+  uploadUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      massToken: 'mass_token',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      massToken: 'string',
+      uploadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 合约类型
 export class ContractTypeResp extends $tea.Model {
   // 合约服务类型
@@ -5876,6 +5901,27 @@ export class UpdateDidAuthPayload extends $tea.Model {
       publicKeyId: 'string',
       publicKeyType: 'string',
       value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 获取Afts上传地址和token
+export class GetAftsUploadUrlRequest extends $tea.Model {
+  // 问件类型
+  fileType: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileType: 'file_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileType: 'string',
     };
   }
 
@@ -39150,6 +39196,152 @@ export class AuthAuthBusinessUserResponse extends $tea.Model {
   }
 }
 
+export class QueryAuthCrowdUploadurlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 问件类型
+  fileType: string;
+  // 业务类型：survey_1（排除问卷三个月人群）；survey_2（排除问卷六个月人群）；recruit_1（排除招募三个月人群）recruit_2（排除招募任务六个月人群）
+  bizType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileType: 'file_type',
+      bizType: 'biz_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileType: 'string',
+      bizType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAuthCrowdUploadurlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传地址
+  uploadUrl?: string;
+  // policy
+  policy?: string;
+  // 签名
+  signature?: string;
+  // 文件目录
+  dir?: string;
+  // oss地址
+  host?: string;
+  // 过期时间
+  expire?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      uploadUrl: 'upload_url',
+      policy: 'policy',
+      signature: 'signature',
+      dir: 'dir',
+      host: 'host',
+      expire: 'expire',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      uploadUrl: 'string',
+      policy: 'string',
+      signature: 'string',
+      dir: 'string',
+      host: 'string',
+      expire: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuthCrowdUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 上传文件地址
+  uploadUrl: string;
+  // 人群类型 （1，三个月的问卷人群，2，六个月的问卷人群，3，三个月的招募人群，4，六个月的招募人群）
+  crowdType: string;
+  // 备注信息
+  remark?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      uploadUrl: 'upload_url',
+      crowdType: 'crowd_type',
+      remark: 'remark',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      uploadUrl: 'string',
+      crowdType: 'string',
+      remark: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAuthCrowdUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class StartDidCorporateAgentcreateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -54028,7 +54220,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.24",
+          sdk_version: "1.28.34",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -59201,6 +59393,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -61238,6 +61431,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -62021,6 +62215,44 @@ export default class Client {
   async authAuthBusinessUserEx(request: AuthAuthBusinessUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AuthAuthBusinessUserResponse> {
     Util.validateModel(request);
     return $tea.cast<AuthAuthBusinessUserResponse>(await this.doRequest("1.0", "baas.auth.business.user.auth", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AuthAuthBusinessUserResponse({}));
+  }
+
+  /**
+   * Description: 获取文件上传到OSS的地址和key信息
+   * Summary: 获取文件上传到OSS的地址和key信息
+   */
+  async queryAuthCrowdUploadurl(request: QueryAuthCrowdUploadurlRequest): Promise<QueryAuthCrowdUploadurlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAuthCrowdUploadurlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取文件上传到OSS的地址和key信息
+   * Summary: 获取文件上传到OSS的地址和key信息
+   */
+  async queryAuthCrowdUploadurlEx(request: QueryAuthCrowdUploadurlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAuthCrowdUploadurlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAuthCrowdUploadurlResponse>(await this.doRequest("1.0", "baas.auth.crowd.uploadurl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAuthCrowdUploadurlResponse({}));
+  }
+
+  /**
+   * Description: 提交人群上传相关文件信息
+   * Summary: 提交
+   */
+  async submitAuthCrowdUpload(request: SubmitAuthCrowdUploadRequest): Promise<SubmitAuthCrowdUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAuthCrowdUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 提交人群上传相关文件信息
+   * Summary: 提交
+   */
+  async submitAuthCrowdUploadEx(request: SubmitAuthCrowdUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuthCrowdUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAuthCrowdUploadResponse>(await this.doRequest("1.0", "baas.auth.crowd.upload.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuthCrowdUploadResponse({}));
   }
 
   /**
