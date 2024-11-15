@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.24',
+                    'sdk_version': '1.28.34',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.24',
+                    'sdk_version': '1.28.34',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -15314,6 +15314,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             blockchain_models.UploadDataFileBatchqueryResponse(),
@@ -15347,6 +15348,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             blockchain_models.UploadDataFileBatchqueryResponse(),
@@ -21288,6 +21290,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             blockchain_models.UploadAuthCertInstanceResponse(),
@@ -21321,6 +21324,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             blockchain_models.UploadAuthCertInstanceResponse(),
@@ -23621,6 +23625,118 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.AuthAuthBusinessUserResponse(),
             await self.do_request_async('1.0', 'baas.auth.business.user.auth', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_auth_crowd_uploadurl(
+        self,
+        request: blockchain_models.QueryAuthCrowdUploadurlRequest,
+    ) -> blockchain_models.QueryAuthCrowdUploadurlResponse:
+        """
+        Description: 获取文件上传到OSS的地址和key信息
+        Summary: 获取文件上传到OSS的地址和key信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_auth_crowd_uploadurl_ex(request, headers, runtime)
+
+    async def query_auth_crowd_uploadurl_async(
+        self,
+        request: blockchain_models.QueryAuthCrowdUploadurlRequest,
+    ) -> blockchain_models.QueryAuthCrowdUploadurlResponse:
+        """
+        Description: 获取文件上传到OSS的地址和key信息
+        Summary: 获取文件上传到OSS的地址和key信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_auth_crowd_uploadurl_ex_async(request, headers, runtime)
+
+    def query_auth_crowd_uploadurl_ex(
+        self,
+        request: blockchain_models.QueryAuthCrowdUploadurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCrowdUploadurlResponse:
+        """
+        Description: 获取文件上传到OSS的地址和key信息
+        Summary: 获取文件上传到OSS的地址和key信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCrowdUploadurlResponse(),
+            self.do_request('1.0', 'baas.auth.crowd.uploadurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_auth_crowd_uploadurl_ex_async(
+        self,
+        request: blockchain_models.QueryAuthCrowdUploadurlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.QueryAuthCrowdUploadurlResponse:
+        """
+        Description: 获取文件上传到OSS的地址和key信息
+        Summary: 获取文件上传到OSS的地址和key信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.QueryAuthCrowdUploadurlResponse(),
+            await self.do_request_async('1.0', 'baas.auth.crowd.uploadurl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_auth_crowd_upload(
+        self,
+        request: blockchain_models.SubmitAuthCrowdUploadRequest,
+    ) -> blockchain_models.SubmitAuthCrowdUploadResponse:
+        """
+        Description: 提交人群上传相关文件信息
+        Summary: 提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_auth_crowd_upload_ex(request, headers, runtime)
+
+    async def submit_auth_crowd_upload_async(
+        self,
+        request: blockchain_models.SubmitAuthCrowdUploadRequest,
+    ) -> blockchain_models.SubmitAuthCrowdUploadResponse:
+        """
+        Description: 提交人群上传相关文件信息
+        Summary: 提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_auth_crowd_upload_ex_async(request, headers, runtime)
+
+    def submit_auth_crowd_upload_ex(
+        self,
+        request: blockchain_models.SubmitAuthCrowdUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SubmitAuthCrowdUploadResponse:
+        """
+        Description: 提交人群上传相关文件信息
+        Summary: 提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SubmitAuthCrowdUploadResponse(),
+            self.do_request('1.0', 'baas.auth.crowd.upload.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_auth_crowd_upload_ex_async(
+        self,
+        request: blockchain_models.SubmitAuthCrowdUploadRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.SubmitAuthCrowdUploadResponse:
+        """
+        Description: 提交人群上传相关文件信息
+        Summary: 提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.SubmitAuthCrowdUploadResponse(),
+            await self.do_request_async('1.0', 'baas.auth.crowd.upload.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(

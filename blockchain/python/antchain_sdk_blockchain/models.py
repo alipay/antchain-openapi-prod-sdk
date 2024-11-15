@@ -4473,6 +4473,42 @@ class PublicKeyRelation(TeaModel):
         return self
 
 
+class GetAftsUploadUrlResponse(TeaModel):
+    def __init__(
+        self,
+        mass_token: str = None,
+        upload_url: str = None,
+    ):
+        # 11121312
+        self.mass_token = mass_token
+        # 上传文件地址
+        self.upload_url = upload_url
+
+    def validate(self):
+        self.validate_required(self.mass_token, 'mass_token')
+        self.validate_required(self.upload_url, 'upload_url')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.mass_token is not None:
+            result['mass_token'] = self.mass_token
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('mass_token') is not None:
+            self.mass_token = m.get('mass_token')
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
+        return self
+
+
 class ContractTypeResp(TeaModel):
     def __init__(
         self,
@@ -9553,6 +9589,34 @@ class UpdateDidAuthPayload(TeaModel):
             self.public_key_type = m.get('public_key_type')
         if m.get('value') is not None:
             self.value = m.get('value')
+        return self
+
+
+class GetAftsUploadUrlRequest(TeaModel):
+    def __init__(
+        self,
+        file_type: str = None,
+    ):
+        # 问件类型
+        self.file_type = file_type
+
+    def validate(self):
+        self.validate_required(self.file_type, 'file_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
         return self
 
 
@@ -63700,6 +63764,237 @@ class AuthAuthBusinessUserResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
+        return self
+
+
+class QueryAuthCrowdUploadurlRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        file_type: str = None,
+        biz_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 问件类型
+        self.file_type = file_type
+        # 业务类型：survey_1（排除问卷三个月人群）；survey_2（排除问卷六个月人群）；recruit_1（排除招募三个月人群）recruit_2（排除招募任务六个月人群）
+        self.biz_type = biz_type
+
+    def validate(self):
+        self.validate_required(self.file_type, 'file_type')
+        self.validate_required(self.biz_type, 'biz_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.file_type is not None:
+            result['file_type'] = self.file_type
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('file_type') is not None:
+            self.file_type = m.get('file_type')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        return self
+
+
+class QueryAuthCrowdUploadurlResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        upload_url: str = None,
+        policy: str = None,
+        signature: str = None,
+        dir: str = None,
+        host: str = None,
+        expire: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 上传地址
+        self.upload_url = upload_url
+        # policy
+        self.policy = policy
+        # 签名
+        self.signature = signature
+        # 文件目录
+        self.dir = dir
+        # oss地址
+        self.host = host
+        # 过期时间
+        self.expire = expire
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        if self.policy is not None:
+            result['policy'] = self.policy
+        if self.signature is not None:
+            result['signature'] = self.signature
+        if self.dir is not None:
+            result['dir'] = self.dir
+        if self.host is not None:
+            result['host'] = self.host
+        if self.expire is not None:
+            result['expire'] = self.expire
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
+        if m.get('policy') is not None:
+            self.policy = m.get('policy')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        if m.get('dir') is not None:
+            self.dir = m.get('dir')
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('expire') is not None:
+            self.expire = m.get('expire')
+        return self
+
+
+class SubmitAuthCrowdUploadRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        upload_url: str = None,
+        crowd_type: str = None,
+        remark: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 上传文件地址
+        self.upload_url = upload_url
+        # 人群类型 （1，三个月的问卷人群，2，六个月的问卷人群，3，三个月的招募人群，4，六个月的招募人群）
+        self.crowd_type = crowd_type
+        # 备注信息
+        self.remark = remark
+
+    def validate(self):
+        self.validate_required(self.upload_url, 'upload_url')
+        self.validate_required(self.crowd_type, 'crowd_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.upload_url is not None:
+            result['upload_url'] = self.upload_url
+        if self.crowd_type is not None:
+            result['crowd_type'] = self.crowd_type
+        if self.remark is not None:
+            result['remark'] = self.remark
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('upload_url') is not None:
+            self.upload_url = m.get('upload_url')
+        if m.get('crowd_type') is not None:
+            self.crowd_type = m.get('crowd_type')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        return self
+
+
+class SubmitAuthCrowdUploadResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 
