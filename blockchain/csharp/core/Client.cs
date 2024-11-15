@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.24"},
+                        {"sdk_version", "1.28.34"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.24"},
+                        {"sdk_version", "1.28.34"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -11621,6 +11621,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadDataFileBatchqueryResponse>(DoRequest("1.0", "baas.data.file.batchquery.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -11654,6 +11655,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadDataFileBatchqueryResponse>(await DoRequestAsync("1.0", "baas.data.file.batchquery.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -16123,6 +16125,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadAuthCertInstanceResponse>(DoRequest("1.0", "baas.auth.cert.instance.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -16156,6 +16159,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadAuthCertInstanceResponse>(await DoRequestAsync("1.0", "baas.auth.cert.instance.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -17881,6 +17885,90 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<AuthAuthBusinessUserResponse>(await DoRequestAsync("1.0", "baas.auth.business.user.auth", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取文件上传到OSS的地址和key信息
+         * Summary: 获取文件上传到OSS的地址和key信息
+         */
+        public QueryAuthCrowdUploadurlResponse QueryAuthCrowdUploadurl(QueryAuthCrowdUploadurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAuthCrowdUploadurlEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取文件上传到OSS的地址和key信息
+         * Summary: 获取文件上传到OSS的地址和key信息
+         */
+        public async Task<QueryAuthCrowdUploadurlResponse> QueryAuthCrowdUploadurlAsync(QueryAuthCrowdUploadurlRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAuthCrowdUploadurlExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取文件上传到OSS的地址和key信息
+         * Summary: 获取文件上传到OSS的地址和key信息
+         */
+        public QueryAuthCrowdUploadurlResponse QueryAuthCrowdUploadurlEx(QueryAuthCrowdUploadurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthCrowdUploadurlResponse>(DoRequest("1.0", "baas.auth.crowd.uploadurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取文件上传到OSS的地址和key信息
+         * Summary: 获取文件上传到OSS的地址和key信息
+         */
+        public async Task<QueryAuthCrowdUploadurlResponse> QueryAuthCrowdUploadurlExAsync(QueryAuthCrowdUploadurlRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAuthCrowdUploadurlResponse>(await DoRequestAsync("1.0", "baas.auth.crowd.uploadurl.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交人群上传相关文件信息
+         * Summary: 提交
+         */
+        public SubmitAuthCrowdUploadResponse SubmitAuthCrowdUpload(SubmitAuthCrowdUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAuthCrowdUploadEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交人群上传相关文件信息
+         * Summary: 提交
+         */
+        public async Task<SubmitAuthCrowdUploadResponse> SubmitAuthCrowdUploadAsync(SubmitAuthCrowdUploadRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAuthCrowdUploadExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 提交人群上传相关文件信息
+         * Summary: 提交
+         */
+        public SubmitAuthCrowdUploadResponse SubmitAuthCrowdUploadEx(SubmitAuthCrowdUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuthCrowdUploadResponse>(DoRequest("1.0", "baas.auth.crowd.upload.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 提交人群上传相关文件信息
+         * Summary: 提交
+         */
+        public async Task<SubmitAuthCrowdUploadResponse> SubmitAuthCrowdUploadExAsync(SubmitAuthCrowdUploadRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAuthCrowdUploadResponse>(await DoRequestAsync("1.0", "baas.auth.crowd.upload.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
