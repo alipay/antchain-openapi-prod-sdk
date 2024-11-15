@@ -1,0 +1,1474 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.3.39',
+    _prod_code = 'ACOPM',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// RateLimitEffectScopeValueDTO
+model RateLimitEffectScopeValueDTO {
+  // region
+  region: string(name='region', example='region'),
+  // enabled
+  enabled: boolean(name='enabled', example='true, false'),
+  // limit
+  limit: long(name='limit', example=''),
+  // timeDuration
+  timeDuration: string(name='time_duration', example='timeDuration'),
+}
+
+// RateLimitEffectScopeDTO
+model RateLimitEffectScopeDTO {
+  // RateLimitEffectScopeValueDTO list
+  values: [ RateLimitEffectScopeValueDTO ](name='values', example='RateLimitEffectScopeValueDTO'),
+}
+
+// 商业化规则项
+model BusinessRuleItem {
+  // 规则表达式
+  condition: string(name='condition', example='jexl表达式，参考：https://commons.apache.org/proper/commons-jexl/'),
+  // 规则值
+  value: string(name='value', example='/'),
+}
+
+// updateScopeValue
+model UpdateScopeValue {
+  // CN-HANGZHOU-FINANCE
+  region: string(name='region', example='CN-HANGZHOU-FINANCE'),
+  // 限流值
+  limit: long(name='limit', example=''),
+  // 生效与否
+  enabled: boolean(name='enabled', example='true, false'),
+  // 时间单位
+  timeDuration: string(name='time_duration', example='SECOND'),
+}
+
+// 商业化规则
+model BusinessRule {
+  // 规则类型（BUSINESS/INSTANCE/TENANT_WHITELIST）
+  ruleType: string(name='rule_type', example='BUSINESS'),
+  // 规则项列表
+  ruleItems: [ BusinessRuleItem ](name='rule_items', example=''),
+}
+
+// sdk打包结果
+model MultiSdkItem {
+  // 任务id
+  taskUniqueId: string(name='task_unique_id', example='123'),
+  // 产品码
+  prodCode: string(name='prod_code', example='ABC'),
+  // sdk版本
+  saassdkVersion: string(name='saassdk_version', example='1.0.0'),
+  // sdk语言
+  lang: string(name='lang', example='python'),
+  // 发布仓库
+  repo: string(name='repo', example='http://maven'),
+  // 发布地址
+  address: string(name='address', example='http://maven'),
+  // 开始时间
+  startTme: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_tme', example='开始时间'),
+  // 花费时间
+  cost: long(name='cost', example=''),
+  // 结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 打包状态
+  status: string(name='status', example='RUNNING'),
+  // 查看链接
+  previewLink?: string(name='preview_link', example='123'),
+  // 依赖
+  dependency?: string(name='dependency', example='123'),
+}
+
+// UpdateRateLimit
+model UpdateRateLimit {
+  // api_name
+  apiName: string(name='api_name', example='api_name'),
+  // provider_id
+  providerId: string(name='provider_id', example='provider_id'),
+  // update_scope_value
+  updateScopeValue: UpdateScopeValue(name='update_scope_value', example=''),
+}
+
+// api限流信息
+model RateLimitDetail {
+  // apiName
+  apiName: string(name='api_name', example='apiName'),
+  // provider_id
+  providerId: string(name='provider_id', example='0000000123'),
+  // 租户ID
+  tenantId?: string(name='tenant_id', example='AJHKJHJKD'),
+  // 已使用量
+  used?: long(name='used', example='500'),
+  // effectScope
+  effectScope?: RateLimitEffectScopeDTO(name='effect_scope', example='effectScope'),
+}
+
+// user信息
+model BucUser {
+  // 工号
+  empId: string(name='emp_id', example='387745'),
+  // 域账号
+  emailPrefix: string(name='email_prefix', example='zhangsan.zs'),
+  // 花名
+  nickName?: string(name='nick_name', example='张三'),
+}
+
+// api信息结构体
+model ApiInfoModel {
+  // API名称
+  apiName: string(name='api_name', example='demo.abc.abc.query'),
+  // 网关产品码
+  prodCode: string(name='prod_code', example='demo'),
+  // 是否是内部接口 0对外 1对内
+  internal: long(name='internal', example='1'),
+  // API版本号
+  apiVersion: string(name='api_version', example='1.0'),
+  // API描述
+  apiDesc: string(name='api_desc', example='测试用接口'),
+  // api所属网关产品id
+  providerId: string(name='provider_id', example='test'),
+}
+
+// sdk的maven依赖信息
+model SdkMavenDependencyInfo {
+  // client端依赖
+  referenceClient: string(name='reference_client', example='<>'),
+  // server端依赖
+  referencServer: string(name='referenc_server', example='<>'),
+  // client端maven仓库地址
+  mavenLinkClient: string(name='maven_link_client', example='http://mvn.dev.alipay.net/artifactory/xxx'),
+  // server端maven仓库地址
+  mavenLinkServer: string(name='maven_link_server', example='http://mvn.dev.alipay.net/artifactory/xxx'),
+}
+
+// 产品信息
+model ProductInfo {
+  // 产品码
+  prodCode: string(name='prod_code', example='YUNQING'),
+  // sdk版本号
+  sdkVersion: string(name='sdk_version', example='1.1.3'),
+}
+
+model ListProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 用户域账号
+  userId?: string(name='user_id'),
+  // 产品关键字
+  keyword?: string(name='keyword'),
+  // 每页记录
+  pageSize?: long(name='page_size'),
+  // 当前页面
+  currentPage?: long(name='current_page'),
+}
+
+model ListProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 产品列表
+  products?: [ ProductInfo ](name='products'),
+  // 记录总数
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 获取产品列表
+ * Summary: 获取产品列表
+ */
+async function listProduct(request: ListProductRequest): ListProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取产品列表
+ * Summary: 获取产品列表
+ */
+async function listProductEx(request: ListProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackMultisdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 回调JSON报文
+  body?: string(name='body'),
+}
+
+model CallbackMultisdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 阿里云Tea多语言SDK生成回调
+ * Summary: 阿里云Tea多语言SDK生成回调
+ */
+async function callbackMultisdk(request: CallbackMultisdkRequest): CallbackMultisdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackMultisdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 阿里云Tea多语言SDK生成回调
+ * Summary: 阿里云Tea多语言SDK生成回调
+ */
+async function callbackMultisdkEx(request: CallbackMultisdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackMultisdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.multisdk.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 英文名
+  nameEn: string(name='name_en'),
+  // 中文名
+  nameCn: string(name='name_cn'),
+  // 描述
+  description: string(name='description'),
+  // zoujili.zjl
+  ownerId: string(name='owner_id'),
+  // 成员域账号，用于同步权限
+  memberList?: [ string ](name='member_list'),
+}
+
+model CreateProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 创建产品
+ * Summary: 创建产品
+ */
+async function createProduct(request: CreateProductRequest): CreateProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 创建产品
+ * Summary: 创建产品
+ */
+async function createProductEx(request: CreateProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model InitProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 品牌名
+  firstName: string(name='first_name'),
+  // 产品标识
+  secondName: string(name='second_name'),
+  // api类型，tr或http(不区分大小写)
+  type: string(name='type'),
+}
+
+model InitProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: api初始化
+ * Summary: api初始化
+ */
+async function initProduct(request: InitProductRequest): InitProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return initProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: api初始化
+ * Summary: api初始化
+ */
+async function initProductEx(request: InitProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): InitProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.init', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DeleteProductRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // YUNYOU
+  prodCode: string(name='prod_code'),
+}
+
+model DeleteProductResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 删除产品
+ * Summary: 删除产品
+ */
+async function deleteProduct(request: DeleteProductRequest): DeleteProductResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return deleteProductEx(request, headers, runtime);
+}
+
+/**
+ * Description: 删除产品
+ * Summary: 删除产品
+ */
+async function deleteProductEx(request: DeleteProductRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteProductResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishProductSdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 版本号。生成的sdk的最终版本号格式为<publish_version>.<platform_origin>
+  publishVersion: string(name='publish_version'),
+  // sdk发布请求来源。生成的sdk的最终版本号格式为<publish_version>.<platform_origin>。
+  platformOrigin: string(name='platform_origin'),
+}
+
+model PublishProductSdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // maven sdk依赖信息
+  sdkMavenDependencyInfo?: SdkMavenDependencyInfo(name='sdk_maven_dependency_info'),
+}
+
+/**
+ * Description: 发布sdk
+ * Summary: 发布sdk
+ */
+async function publishProductSdk(request: PublishProductSdkRequest): PublishProductSdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishProductSdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布sdk
+ * Summary: 发布sdk
+ */
+async function publishProductSdkEx(request: PublishProductSdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishProductSdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.sdk.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetSdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+  // 版本号
+  apiVersion: string(name='api_version'),
+}
+
+model GetSdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // xml内容
+  content?: string(name='content'),
+}
+
+/**
+ * Description: 获取sdk元数据snapshot
+ * Summary: 获取sdk元数据snapshot
+ */
+async function getSdk(request: GetSdkRequest): GetSdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getSdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取sdk元数据snapshot
+ * Summary: 获取sdk元数据snapshot
+ */
+async function getSdkEx(request: GetSdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetSdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.sdk.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PublishProductSaassdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 要发布的共享能力名称
+  saasCode: string(name='saas_code'),
+  // 本次打包的版本
+  saassdkVersion: string(name='saassdk_version'),
+  // 是否发布
+  publish: boolean(name='publish'),
+}
+
+model PublishProductSaassdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 发布共享能力中心sdk
+ * Summary: 共享能力中心sdk发布
+ */
+async function publishProductSaassdk(request: PublishProductSaassdkRequest): PublishProductSaassdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return publishProductSaassdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 发布共享能力中心sdk
+ * Summary: 共享能力中心sdk发布
+ */
+async function publishProductSaassdkEx(request: PublishProductSaassdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PublishProductSaassdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.saassdk.publish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetProductSaassdkRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 共享能力码
+  saasCode: string(name='saas_code'),
+}
+
+model GetProductSaassdkResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前的sdk版本
+  currentVersion?: string(name='current_version'),
+  // 要发布的版本
+  publishVersion?: string(name='publish_version'),
+  // 打包是否正在进行
+  taskRunning?: boolean(name='task_running'),
+  // 已经过发布的sdk
+  publishedSdks?: [ MultiSdkItem ](name='published_sdks'),
+  // 任务状态
+  taskStatus?: string(name='task_status'),
+  // 任务码
+  taskId?: string(name='task_id'),
+}
+
+/**
+ * Description: 共享能力中心获取sdk打包结果
+ * Summary: 共享能力中心获取sdk打包结果
+ */
+async function getProductSaassdk(request: GetProductSaassdkRequest): GetProductSaassdkResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getProductSaassdkEx(request, headers, runtime);
+}
+
+/**
+ * Description: 共享能力中心获取sdk打包结果
+ * Summary: 共享能力中心获取sdk打包结果
+ */
+async function getProductSaassdkEx(request: GetProductSaassdkRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetProductSaassdkResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.saassdk.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddProductMemberRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // user_id
+  memberList: [ string ](name='member_list'),
+  // 产品码
+  prodCode: string(name='prod_code'),
+}
+
+model AddProductMemberResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 同步产品成员权限
+ * Summary: 同步产品成员权限
+ */
+async function addProductMember(request: AddProductMemberRequest): AddProductMemberResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addProductMemberEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步产品成员权限
+ * Summary: 同步产品成员权限
+ */
+async function addProductMemberEx(request: AddProductMemberRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddProductMemberResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.product.member.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiRatelimitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // api名
+  apiNameList: [ string ](name='api_name_list'),
+}
+
+model QueryApiRatelimitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 限流信息
+  rateLimitDetailList?: [ RateLimitDetail ](name='rate_limit_detail_list'),
+}
+
+/**
+ * Description: 查询api限流信息
+ * Summary: 查询api限流信息（api）
+ */
+async function queryApiRatelimit(request: QueryApiRatelimitRequest): QueryApiRatelimitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiRatelimitEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询api限流信息
+ * Summary: 查询api限流信息（api）
+ */
+async function queryApiRatelimitEx(request: QueryApiRatelimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiRatelimitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.api.ratelimit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryTenantRatelimitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户id
+  tenantIdList: [ string ](name='tenant_id_list'),
+  // api名
+  apiNameList: [ string ](name='api_name_list'),
+}
+
+model QueryTenantRatelimitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 限流信息
+  rateLimitDetailList?: [ RateLimitDetail ](name='rate_limit_detail_list'),
+}
+
+/**
+ * Description:  查询api限流信息
+ * Summary:  查询api限流信息（租户维度）
+ */
+async function queryTenantRatelimit(request: QueryTenantRatelimitRequest): QueryTenantRatelimitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryTenantRatelimitEx(request, headers, runtime);
+}
+
+/**
+ * Description:  查询api限流信息
+ * Summary:  查询api限流信息（租户维度）
+ */
+async function queryTenantRatelimitEx(request: QueryTenantRatelimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryTenantRatelimitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.tenant.ratelimit.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateApiRatelimitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // update_limit_list
+  updateLimitList: [ UpdateRateLimit ](name='update_limit_list'),
+}
+
+model UpdateApiRatelimitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: api限流更新
+ * Summary: api限流更新（api维度）
+ */
+async function updateApiRatelimit(request: UpdateApiRatelimitRequest): UpdateApiRatelimitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateApiRatelimitEx(request, headers, runtime);
+}
+
+/**
+ * Description: api限流更新
+ * Summary: api限流更新（api维度）
+ */
+async function updateApiRatelimitEx(request: UpdateApiRatelimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateApiRatelimitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.api.ratelimit.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateTenantRatelimitRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 更新列表
+  updateLimitList: [ UpdateRateLimit ](name='update_limit_list'),
+}
+
+model UpdateTenantRatelimitResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // result
+  result?: string(name='result'),
+}
+
+/**
+ * Description: api限流更新
+ * Summary: api限流更新（租户维度）
+ */
+async function updateTenantRatelimit(request: UpdateTenantRatelimitRequest): UpdateTenantRatelimitResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateTenantRatelimitEx(request, headers, runtime);
+}
+
+/**
+ * Description: api限流更新
+ * Summary: api限流更新（租户维度）
+ */
+async function updateTenantRatelimitEx(request: UpdateTenantRatelimitRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateTenantRatelimitResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.tenant.ratelimit.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CallbackJiuzhouPlanRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求标识
+  execId: string(name='exec_id'),
+  // 回调数据
+  callBackData: string(name='call_back_data'),
+}
+
+model CallbackJiuzhouPlanResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求标识
+  execId?: string(name='exec_id'),
+  // 请求是否成功
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: 九州工单回调接口
+ * Summary: 九州工单回调接口
+ */
+async function callbackJiuzhouPlan(request: CallbackJiuzhouPlanRequest): CallbackJiuzhouPlanResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return callbackJiuzhouPlanEx(request, headers, runtime);
+}
+
+/**
+ * Description: 九州工单回调接口
+ * Summary: 九州工单回调接口
+ */
+async function callbackJiuzhouPlanEx(request: CallbackJiuzhouPlanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CallbackJiuzhouPlanResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.jiuzhou.plan.callback', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecRobotIntelligentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求id
+  targetReqMsgId: string(name='target_req_msg_id'),
+  // 通知人
+  senderStaffId?: string(name='sender_staff_id'),
+  // 回调通知接口
+  callUrl?: string(name='call_url'),
+  // token
+  robotToken?: string(name='robot_token'),
+}
+
+model ExecRobotIntelligentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 智能排障机器人接口
+ * Summary: 排障机器人接口
+ */
+async function execRobotIntelligent(request: ExecRobotIntelligentRequest): ExecRobotIntelligentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execRobotIntelligentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 智能排障机器人接口
+ * Summary: 排障机器人接口
+ */
+async function execRobotIntelligentEx(request: ExecRobotIntelligentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecRobotIntelligentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.robot.intelligent.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateApisStatusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 待更新的api数组
+  apis: [ string ](name='apis'),
+  // 产品码，原字段废弃
+  newProductCode: string(name='new_product_code'),
+}
+
+model UpdateApisStatusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 生产环境api状态更新
+ * Summary: 生产环境api状态更新
+ */
+async function updateApisStatus(request: UpdateApisStatusRequest): UpdateApisStatusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateApisStatusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 生产环境api状态更新
+ * Summary: 生产环境api状态更新
+ */
+async function updateApisStatusEx(request: UpdateApisStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateApisStatusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.apis.status.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QuerySdkApiRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商业能力id
+  abilityId: string(name='ability_id'),
+  // 发布版本号
+  publishVersion: string(name='publish_version'),
+}
+
+model QuerySdkApiResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 当前版本sdk包含api信息列表
+  apiInfoModels?: [ ApiInfoModel ](name='api_info_models'),
+}
+
+/**
+ * Description: 查询商业产品sdk版本api信息
+ * Summary: 查询商业产品sdk版本api信息
+ */
+async function querySdkApi(request: QuerySdkApiRequest): QuerySdkApiResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return querySdkApiEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询商业产品sdk版本api信息
+ * Summary: 查询商业产品sdk版本api信息
+ */
+async function querySdkApiEx(request: QuerySdkApiRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySdkApiResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.sdk.api.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecRobotBaasplusRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 目标请求id
+  targetReqId?: string(name='target_req_id'),
+  // 目标请求参数
+  targetParam?: string(name='target_param'),
+  // 是否重试
+  retryFlag: boolean(name='retry_flag'),
+}
+
+model ExecRobotBaasplusResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求数据json字符串数组
+  reqJsonString?: [ string ](name='req_json_string'),
+}
+
+/**
+ * Description: 企业认证排障
+ * Summary: 企业认证排障
+ */
+async function execRobotBaasplus(request: ExecRobotBaasplusRequest): ExecRobotBaasplusResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execRobotBaasplusEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业认证排障
+ * Summary: 企业认证排障
+ */
+async function execRobotBaasplusEx(request: ExecRobotBaasplusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecRobotBaasplusResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.robot.baasplus.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiDetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // demo
+  targetProd: string(name='target_prod'),
+  // demo
+  targetApi: string(name='target_api'),
+}
+
+model QueryApiDetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json
+  apiDetailJson?: string(name='api_detail_json'),
+}
+
+/**
+ * Description: api数据获取
+ * Summary: api数据获取
+ */
+async function queryApiDetail(request: QueryApiDetailRequest): QueryApiDetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiDetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: api数据获取
+ * Summary: api数据获取
+ */
+async function queryApiDetailEx(request: QueryApiDetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiDetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.api.detail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiOwnerRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 网关产品码
+  productCode: string(name='product_code'),
+  // api方法信息
+  api: string(name='api'),
+}
+
+model QueryApiOwnerResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // buc用户信息
+  bucUser?: BucUser(name='buc_user'),
+}
+
+/**
+ * Description: 查询api负责人信息
+ * Summary: 查询api负责人信息
+ */
+async function queryApiOwner(request: QueryApiOwnerRequest): QueryApiOwnerResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiOwnerEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询api负责人信息
+ * Summary: 查询api负责人信息
+ */
+async function queryApiOwnerEx(request: QueryApiOwnerRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiOwnerResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.api.owner.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateGwCacheRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 刷新缓存的key
+  cacheKey: string(name='cache_key'),
+}
+
+model UpdateGwCacheResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 请求刷新gw的缓存
+ * Summary: 网关运行态gw cache刷新
+ */
+async function updateGwCache(request: UpdateGwCacheRequest): UpdateGwCacheResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateGwCacheEx(request, headers, runtime);
+}
+
+/**
+ * Description: 请求刷新gw的缓存
+ * Summary: 网关运行态gw cache刷新
+ */
+async function updateGwCacheEx(request: UpdateGwCacheRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateGwCacheResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.gw.cache.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateBusinessruleOperateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // api名称
+  apiName: string(name='api_name'),
+  // 规则列表
+  rules: [ BusinessRule ](name='rules'),
+  // api版本（可选，传递则表示导入）
+  ruleVersion?: string(name='rule_version'),
+}
+
+model CreateBusinessruleOperateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 版本号
+  version?: string(name='version'),
+}
+
+/**
+ * Description: 商业化规则创建
+ * Summary: 商业化规则创建
+ */
+async function createBusinessruleOperate(request: CreateBusinessruleOperateRequest): CreateBusinessruleOperateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createBusinessruleOperateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 商业化规则创建
+ * Summary: 商业化规则创建
+ */
+async function createBusinessruleOperateEx(request: CreateBusinessruleOperateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateBusinessruleOperateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.businessrule.operate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model EnableBusinessruleOperateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // api名称
+  apiName: string(name='api_name'),
+  // 环境
+  env?: string(name='env'),
+  // 版本（不传为创建新版）
+  ruleVersion: string(name='rule_version'),
+}
+
+model EnableBusinessruleOperateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 版本号
+  version?: string(name='version'),
+}
+
+/**
+ * Description: 生效商业化规则
+ * Summary: 生效商业化规则
+ */
+async function enableBusinessruleOperate(request: EnableBusinessruleOperateRequest): EnableBusinessruleOperateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return enableBusinessruleOperateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 生效商业化规则
+ * Summary: 生效商业化规则
+ */
+async function enableBusinessruleOperateEx(request: EnableBusinessruleOperateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): EnableBusinessruleOperateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.businessrule.operate.enable', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBusinessruleMatchRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 请求的reqMsgId
+  requestMsgId: string(name='request_msg_id'),
+}
+
+model QueryBusinessruleMatchResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 最终匹配结果
+  matchResult?: string(name='match_result'),
+  // 出入参信息
+  httpContent?: string(name='http_content'),
+  // 防控结果
+  preventResult?: string(name='prevent_result'),
+  // 匹配到的L5
+  matchBusinessCode?: string(name='match_business_code'),
+  // 匹配到的实例id
+  matchInstanceId?: string(name='match_instance_id'),
+  // 规则引擎耗时
+  engineTime?: string(name='engine_time'),
+}
+
+/**
+ * Description: 查询规则匹配情况
+ * Summary: 查询规则匹配情况
+ */
+async function queryBusinessruleMatch(request: QueryBusinessruleMatchRequest): QueryBusinessruleMatchResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBusinessruleMatchEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询规则匹配情况
+ * Summary: 查询规则匹配情况
+ */
+async function queryBusinessruleMatchEx(request: QueryBusinessruleMatchRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBusinessruleMatchResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.businessrule.match.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryBusinessruleServicesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 提交人域账号
+  submitterId: string(name='submitter_id'),
+}
+
+model QueryBusinessruleServicesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // api服务列表
+  serviceList?: [ ApiInfoModel ](name='service_list'),
+}
+
+/**
+ * Description: 查询当前登录人有权限的服务列表
+ * Summary: 查询当前登录人有权限的服务列表
+ */
+async function queryBusinessruleServices(request: QueryBusinessruleServicesRequest): QueryBusinessruleServicesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryBusinessruleServicesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询当前登录人有权限的服务列表
+ * Summary: 查询当前登录人有权限的服务列表
+ */
+async function queryBusinessruleServicesEx(request: QueryBusinessruleServicesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryBusinessruleServicesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.businessrule.services.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetBusinessruleServicesRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // api名称
+  apiName: string(name='api_name'),
+  // 版本号（可不填）
+  apiVersion?: string(name='api_version'),
+}
+
+model GetBusinessruleServicesResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // api元数据（参照facade包中的cn.com.antcloud.opm.service.model.apimng.response.ExportApiResponse结构）
+  apiMeta?: string(name='api_meta'),
+}
+
+/**
+ * Description: 查询单个服务的参数/返回等元信息
+ * Summary: 查询单个服务的参数/返回等元信息
+ */
+async function getBusinessruleServices(request: GetBusinessruleServicesRequest): GetBusinessruleServicesResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getBusinessruleServicesEx(request, headers, runtime);
+}
+
+/**
+ * Description: 查询单个服务的参数/返回等元信息
+ * Summary: 查询单个服务的参数/返回等元信息
+ */
+async function getBusinessruleServicesEx(request: GetBusinessruleServicesRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetBusinessruleServicesResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.businessrule.services.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateInstanceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 实例ID
+  instanceId: string(name='instance_id'),
+  // 需变更的实例状态
+  instanceStatus: string(name='instance_status'),
+  // 履约幂等号
+  bizNo: string(name='biz_no'),
+  // L5商品编号
+  businessCode: string(name='business_code'),
+  // 规格属性
+  specification?: string(name='specification'),
+  // 扩展信息
+  extensionInfo?: string(name='extension_info'),
+  // 修改时间戳
+  versionTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='version_timestamp'),
+}
+
+model UpdateInstanceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 实例更新
+ * Summary: 实例更新
+ */
+async function updateInstance(request: UpdateInstanceRequest): UpdateInstanceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateInstanceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实例更新
+ * Summary: 实例更新
+ */
+async function updateInstanceEx(request: UpdateInstanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateInstanceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.instance.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateInstanceTenantRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 实例ID
+  instanceId: string(name='instance_id'),
+  // 履约幂等号
+  bizNo: string(name='biz_no'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 租户操作
+  tenantOperatorEnum: string(name='tenant_operator_enum'),
+  // 扩展信息
+  extensionInfo?: string(name='extension_info'),
+  // 修改时间戳
+  versionTimestamp: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='version_timestamp'),
+}
+
+model UpdateInstanceTenantResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 租户实例更新
+ * Summary: 租户实例更新
+ */
+async function updateInstanceTenant(request: UpdateInstanceTenantRequest): UpdateInstanceTenantResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateInstanceTenantEx(request, headers, runtime);
+}
+
+/**
+ * Description: 租户实例更新
+ * Summary: 租户实例更新
+ */
+async function updateInstanceTenantEx(request: UpdateInstanceTenantRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateInstanceTenantResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.acopm.instance.tenant.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
