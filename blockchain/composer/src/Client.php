@@ -611,6 +611,8 @@ use AntChain\BLOCKCHAIN\Models\QueryAuthCertProgressRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthCertProgressResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthClaimVcResponse;
+use AntChain\BLOCKCHAIN\Models\QueryAuthCrowdUploadurlRequest;
+use AntChain\BLOCKCHAIN\Models\QueryAuthCrowdUploadurlResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthIdentityauthRequest;
 use AntChain\BLOCKCHAIN\Models\QueryAuthIdentityauthResponse;
 use AntChain\BLOCKCHAIN\Models\QueryAuthOrgStatusRequest;
@@ -1141,6 +1143,8 @@ use AntChain\BLOCKCHAIN\Models\StopOcpProductRequest;
 use AntChain\BLOCKCHAIN\Models\StopOcpProductResponse;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthBusinessDataRequest;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthBusinessDataResponse;
+use AntChain\BLOCKCHAIN\Models\SubmitAuthCrowdUploadRequest;
+use AntChain\BLOCKCHAIN\Models\SubmitAuthCrowdUploadResponse;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskRequest;
 use AntChain\BLOCKCHAIN\Models\SubmitAuthTaskResponse;
 use AntChain\BLOCKCHAIN\Models\SyncMydidcommunWorkergroupGroupRequest;
@@ -1382,7 +1386,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.24',
+                    'sdk_version'      => '1.28.34',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -10303,7 +10307,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -13821,7 +13826,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -15179,6 +15185,72 @@ class Client
         Utils::validateModel($request);
 
         return AuthAuthBusinessUserResponse::fromMap($this->doRequest('1.0', 'baas.auth.business.user.auth', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取文件上传到OSS的地址和key信息
+     * Summary: 获取文件上传到OSS的地址和key信息.
+     *
+     * @param QueryAuthCrowdUploadurlRequest $request
+     *
+     * @return QueryAuthCrowdUploadurlResponse
+     */
+    public function queryAuthCrowdUploadurl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAuthCrowdUploadurlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取文件上传到OSS的地址和key信息
+     * Summary: 获取文件上传到OSS的地址和key信息.
+     *
+     * @param QueryAuthCrowdUploadurlRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return QueryAuthCrowdUploadurlResponse
+     */
+    public function queryAuthCrowdUploadurlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAuthCrowdUploadurlResponse::fromMap($this->doRequest('1.0', 'baas.auth.crowd.uploadurl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 提交人群上传相关文件信息
+     * Summary: 提交.
+     *
+     * @param SubmitAuthCrowdUploadRequest $request
+     *
+     * @return SubmitAuthCrowdUploadResponse
+     */
+    public function submitAuthCrowdUpload($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitAuthCrowdUploadEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 提交人群上传相关文件信息
+     * Summary: 提交.
+     *
+     * @param SubmitAuthCrowdUploadRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SubmitAuthCrowdUploadResponse
+     */
+    public function submitAuthCrowdUploadEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitAuthCrowdUploadResponse::fromMap($this->doRequest('1.0', 'baas.auth.crowd.upload.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
