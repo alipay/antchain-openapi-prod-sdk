@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_jzqproductg.
 
-Created on 15/11/2024
+Created on 18/11/2024
 
 @author: Ant Chain SDK
 """
