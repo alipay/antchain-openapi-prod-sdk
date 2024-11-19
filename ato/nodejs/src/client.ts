@@ -169,6 +169,51 @@ export class StaticDataModuleDetail extends $tea.Model {
   }
 }
 
+// 站点信息
+export class SiteInfo extends $tea.Model {
+  // 小程序id
+  tinyAppId?: string;
+  // 站点名称
+  siteName?: string;
+  // 
+  // 截图照片
+  screenshotImage?: string;
+  // 站点地址
+  siteUrl?: string;
+  // 站点类型
+  // 网站: 01
+  // APP: 02
+  // 服务窗: 03
+  // 公众号: 04
+  // 其他: 05
+  // 支付宝小程序: 06
+  // 手机网站/H5: 07
+  siteType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      tinyAppId: 'tiny_app_id',
+      siteName: 'site_name',
+      screenshotImage: 'screenshot_image',
+      siteUrl: 'site_url',
+      siteType: 'site_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tinyAppId: 'string',
+      siteName: 'string',
+      screenshotImage: 'string',
+      siteUrl: 'string',
+      siteType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 文件信息
 export class FileInfo extends $tea.Model {
   // 文件名称
@@ -364,6 +409,27 @@ export class UserPerformanceInfo extends $tea.Model {
   }
 }
 
+// 营销分查询对象
+export class MarketingScoreQueryInfo extends $tea.Model {
+  // 手机号码
+  phoneNum?: string;
+  static names(): { [key: string]: string } {
+    return {
+      phoneNum: 'phone_num',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phoneNum: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 投保商品信息
 export class InsureProductInfo extends $tea.Model {
   // 商品库id
@@ -426,6 +492,59 @@ export class RiskStrategy extends $tea.Model {
   }
 }
 
+// 模板组件（文本域）
+export class TemplateComponent extends $tea.Model {
+  // 模板编码
+  templateCode: string;
+  // 组件（文本域）id
+  id: string;
+  // 组件（文本域）名称
+  name: string;
+  // 组件（文本域）的唯一标识
+  uk?: string;
+  // 占位符，组件（文本域）的展示样式值
+  placeholder?: string;
+  // 组件（文本域）是否可以编辑。取值：Y/N
+  enableEdit?: string;
+  // 是否必填，取值：Y/N
+  required?: string;
+  // 组件（文本域）类型，INPUT:单行文本 TEXTAREA:多行文本
+  type?: string;
+  // 组件（文本域）值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      templateCode: 'template_code',
+      id: 'id',
+      name: 'name',
+      uk: 'uk',
+      placeholder: 'placeholder',
+      enableEdit: 'enable_edit',
+      required: 'required',
+      type: 'type',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      templateCode: 'string',
+      id: 'string',
+      name: 'string',
+      uk: 'string',
+      placeholder: 'string',
+      enableEdit: 'string',
+      required: 'string',
+      type: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 保单信息
 export class InsureOrderInfo extends $tea.Model {
   // 商家订单ID
@@ -444,6 +563,10 @@ export class InsureOrderInfo extends $tea.Model {
   insurePremium?: number;
   // 投保状态枚举
   status?: string;
+  // 电子保单下载链接
+  policyUrl?: string;
+  // 验真码
+  validateCode?: string;
   static names(): { [key: string]: string } {
     return {
       orderId: 'order_id',
@@ -454,6 +577,8 @@ export class InsureOrderInfo extends $tea.Model {
       insureAmount: 'insure_amount',
       insurePremium: 'insure_premium',
       status: 'status',
+      policyUrl: 'policy_url',
+      validateCode: 'validate_code',
     };
   }
 
@@ -467,6 +592,33 @@ export class InsureOrderInfo extends $tea.Model {
       insureAmount: 'number',
       insurePremium: 'number',
       status: 'string',
+      policyUrl: 'string',
+      validateCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销分对象
+export class MarketingScoreInfo extends $tea.Model {
+  // 手机号
+  phoneNum?: string;
+  // 营销分
+  score?: string;
+  static names(): { [key: string]: string } {
+    return {
+      phoneNum: 'phone_num',
+      score: 'score',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      phoneNum: 'string',
+      score: 'string',
     };
   }
 
@@ -1079,6 +1231,36 @@ export class DeliveryDetail extends $tea.Model {
   }
 }
 
+// 经营分账收入模型
+export class OperationDivideTransInModel extends $tea.Model {
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId: string;
+  // 分账金额，单位为分
+  // 
+  divideAmount: number;
+  // 分账描述
+  desc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      transInUserId: 'trans_in_user_id',
+      divideAmount: 'divide_amount',
+      desc: 'desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transInUserId: 'string',
+      divideAmount: 'number',
+      desc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 租户协议分页对象
 export class AgreementPage extends $tea.Model {
   // 协议id
@@ -1387,6 +1569,8 @@ export class ApplicationInfo extends $tea.Model {
   // 商户服务描述。
   // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
   merchantServiceDesc: string;
+  // 站点信息
+  siteInfo?: SiteInfo[];
   static names(): { [key: string]: string } {
     return {
       applicationScene: 'application_scene',
@@ -1396,6 +1580,7 @@ export class ApplicationInfo extends $tea.Model {
       merchantName: 'merchant_name',
       merchantServiceName: 'merchant_service_name',
       merchantServiceDesc: 'merchant_service_desc',
+      siteInfo: 'site_info',
     };
   }
 
@@ -1408,6 +1593,7 @@ export class ApplicationInfo extends $tea.Model {
       merchantName: 'string',
       merchantServiceName: 'string',
       merchantServiceDesc: 'string',
+      siteInfo: { 'type': 'array', 'itemType': SiteInfo },
     };
   }
 
@@ -3168,6 +3354,73 @@ export class SyncFundFinanceprecheckresultResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFundCompensateaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资方社会信用代码
+  fundId: string;
+  // 商户社会信用代码
+  merchantId: string;
+  // 商户租户id
+  merchantTenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundId: 'fund_id',
+      merchantId: 'merchant_id',
+      merchantTenantId: 'merchant_tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundId: 'string',
+      merchantId: 'string',
+      merchantTenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryFundCompensateaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 可用余额，单位为分
+  availableAmount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      availableAmount: 'available_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      availableAmount: 'number',
     };
   }
 
@@ -5685,17 +5938,17 @@ export class UpdateInnerTemplateRequest extends $tea.Model {
   productInstanceId?: string;
   // 商户对应租户ID
   tenantId: string;
-  // 魔法库版本id
-  templateVersionId: string;
   // 模板名称
   templateName: string;
+  // 模板code
+  templateCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       tenantId: 'tenant_id',
-      templateVersionId: 'template_version_id',
       templateName: 'template_name',
+      templateCode: 'template_code',
     };
   }
 
@@ -5704,8 +5957,8 @@ export class UpdateInnerTemplateRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       tenantId: 'string',
-      templateVersionId: 'string',
       templateName: 'string',
+      templateCode: 'string',
     };
   }
 
@@ -6998,117 +7251,6 @@ export class PagequeryInnerProductResponse extends $tea.Model {
   }
 }
 
-export class DetailInnerProductRequest extends $tea.Model {
-  // OAuth模式下的授权token
-  authToken?: string;
-  productInstanceId?: string;
-  // 商户租户id
-  tenantId: string;
-  // 商家社会统一信用代码
-  merchantId: string;
-  // 商品id
-  productId: string;
-  // 商品版本
-  productVersion: string;
-  static names(): { [key: string]: string } {
-    return {
-      authToken: 'auth_token',
-      productInstanceId: 'product_instance_id',
-      tenantId: 'tenant_id',
-      merchantId: 'merchant_id',
-      productId: 'product_id',
-      productVersion: 'product_version',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      authToken: 'string',
-      productInstanceId: 'string',
-      tenantId: 'string',
-      merchantId: 'string',
-      productId: 'string',
-      productVersion: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-export class DetailInnerProductResponse extends $tea.Model {
-  // 请求唯一ID，用于链路跟踪和问题排查
-  reqMsgId?: string;
-  // 结果码，一般OK表示调用成功
-  resultCode?: string;
-  // 异常信息的文本描述
-  resultMsg?: string;
-  // 商家社会统一信用代码
-  merchantId?: string;
-  // 商品名称
-  productName?: string;
-  // 商品id
-  productId?: string;
-  // 商品规格
-  productModel?: string;
-  // 商品版本
-  productVersion?: string;
-  // 指导价
-  productPrice?: string;
-  // 一级类目
-  mainClass?: string;
-  // 二级类目
-  subClass?: string;
-  // 品牌
-  productBrand?: string;
-  // 商品链接
-  productUrl?: string;
-  // 商品详情
-  productDetailInfo?: string;
-  static names(): { [key: string]: string } {
-    return {
-      reqMsgId: 'req_msg_id',
-      resultCode: 'result_code',
-      resultMsg: 'result_msg',
-      merchantId: 'merchant_id',
-      productName: 'product_name',
-      productId: 'product_id',
-      productModel: 'product_model',
-      productVersion: 'product_version',
-      productPrice: 'product_price',
-      mainClass: 'main_class',
-      subClass: 'sub_class',
-      productBrand: 'product_brand',
-      productUrl: 'product_url',
-      productDetailInfo: 'product_detail_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      reqMsgId: 'string',
-      resultCode: 'string',
-      resultMsg: 'string',
-      merchantId: 'string',
-      productName: 'string',
-      productId: 'string',
-      productModel: 'string',
-      productVersion: 'string',
-      productPrice: 'string',
-      mainClass: 'string',
-      subClass: 'string',
-      productBrand: 'string',
-      productUrl: 'string',
-      productDetailInfo: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 export class GetInnerHomepagenoticeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -7188,12 +7330,15 @@ export class PagequeryInnerNoticeRequest extends $tea.Model {
   tenantId: string;
   // 分页
   pageInfo: PageQuery;
+  // 是否未读
+  unread?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       tenantId: 'tenant_id',
       pageInfo: 'page_info',
+      unread: 'unread',
     };
   }
 
@@ -7203,6 +7348,7 @@ export class PagequeryInnerNoticeRequest extends $tea.Model {
       productInstanceId: 'string',
       tenantId: 'string',
       pageInfo: PageQuery,
+      unread: 'boolean',
     };
   }
 
@@ -7500,6 +7646,140 @@ export class DetailInnerOrderResponse extends $tea.Model {
   }
 }
 
+export class RenderInnerTemplateinstanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户对应租户ID
+  tenantId: string;
+  // 模板编码集，数组
+  templateCodes: string[];
+  // 幂等值
+  idempotent: string;
+  // 业务方id，唯一
+  bizBusinessId: string;
+  // 组件（文本域）的实际值
+  componentInstDtos: TemplateComponent[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      templateCodes: 'template_codes',
+      idempotent: 'idempotent',
+      bizBusinessId: 'biz_business_id',
+      componentInstDtos: 'component_inst_dtos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      templateCodes: { 'type': 'array', 'itemType': 'string' },
+      idempotent: 'string',
+      bizBusinessId: 'string',
+      componentInstDtos: { 'type': 'array', 'itemType': TemplateComponent },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class RenderInnerTemplateinstanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实例化成功时返回唯一业务id
+  businessId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      businessId: 'business_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      businessId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryInnerMarketingscoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 营销分查询对象
+  marketingScoreQueryInfos: MarketingScoreQueryInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      marketingScoreQueryInfos: 'marketing_score_query_infos',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      marketingScoreQueryInfos: { 'type': 'array', 'itemType': MarketingScoreQueryInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class BatchqueryInnerMarketingscoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 营销分返回对象
+  marketingScoreInfo?: MarketingScoreInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      marketingScoreInfo: 'marketing_score_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      marketingScoreInfo: { 'type': 'array', 'itemType': MarketingScoreInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateInsureRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -7655,6 +7935,10 @@ export class QueryInsureResponse extends $tea.Model {
   insureAmount?: string;
   // 投保费用（保费），单位分。100代表1元
   insurePremium?: string;
+  // 电子保单下载链接
+  policyUrl?: string;
+  // 验真码
+  validateCode?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7668,6 +7952,8 @@ export class QueryInsureResponse extends $tea.Model {
       insureEndTime: 'insure_end_time',
       insureAmount: 'insure_amount',
       insurePremium: 'insure_premium',
+      policyUrl: 'policy_url',
+      validateCode: 'validate_code',
     };
   }
 
@@ -7684,6 +7970,8 @@ export class QueryInsureResponse extends $tea.Model {
       insureEndTime: 'string',
       insureAmount: 'string',
       insurePremium: 'string',
+      policyUrl: 'string',
+      validateCode: 'string',
     };
   }
 
@@ -7931,6 +8219,8 @@ export class QueryMerchantexpandMerchantResponse extends $tea.Model {
   // INIT 入驻中
   // SUCCESS 入驻成功
   // FAIL 入驻失败
+  // MERCHANT_CONFIRM 待商户B站确认
+  // SUB_MERCHANT_CREDIT 二级户商户签约中
   enrollmentStatus?: string;
   // 入驻失败原因
   failReason?: string;
@@ -10615,14 +10905,31 @@ export class CreateWithholdActivepayRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单id 长度不可超过50
   orderId: string;
-  // 第几期
-  periodNum: number;
+  // 第几期,当支付类型为PERFORMANCE或为空必填
+  periodNum?: number;
+  // 支付类型
+  payType?: string;
+  // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+  payChannel?: string;
+  // 支付金额，单位为分
+  payAmount?: number;
+  // 经营分账标识Y/N
+  // 当pay_type=BUYOUT、PENALTY必填。
+  operationDivideFlag?: string;
+  // 当operation_divide_flag=Y 必填
+  // 经营分账收入列表，最多10条，分账比例与正常限制一致。
+  operationDivideTransInList?: OperationDivideTransInModel[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderId: 'order_id',
       periodNum: 'period_num',
+      payType: 'pay_type',
+      payChannel: 'pay_channel',
+      payAmount: 'pay_amount',
+      operationDivideFlag: 'operation_divide_flag',
+      operationDivideTransInList: 'operation_divide_trans_in_list',
     };
   }
 
@@ -10632,6 +10939,11 @@ export class CreateWithholdActivepayRequest extends $tea.Model {
       productInstanceId: 'string',
       orderId: 'string',
       periodNum: 'number',
+      payType: 'string',
+      payChannel: 'string',
+      payAmount: 'number',
+      operationDivideFlag: 'string',
+      operationDivideTransInList: { 'type': 'array', 'itemType': OperationDivideTransInModel },
     };
   }
 
@@ -10649,12 +10961,15 @@ export class CreateWithholdActivepayResponse extends $tea.Model {
   resultMsg?: string;
   // 支付宝支付订单号，用于拉起主动支付页面
   tradeNo?: string;
+  // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+  orderStr?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       tradeNo: 'trade_no',
+      orderStr: 'order_str',
     };
   }
 
@@ -10664,6 +10979,7 @@ export class CreateWithholdActivepayResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       tradeNo: 'string',
+      orderStr: 'string',
     };
   }
 
@@ -10678,10 +10994,12 @@ export class QueryWithholdActivepayRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单id 长度不可超过50
   orderId: string;
-  // 第几期
-  periodNum: number;
+  // 第几期,当支付类型为PERFORMANCE或为空必填
+  periodNum?: number;
   // 支付宝支付订单号，当传递此单号时，只会返回当前单据
   tradeNo?: string;
+  // 支付类型
+  payType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10689,6 +11007,7 @@ export class QueryWithholdActivepayRequest extends $tea.Model {
       orderId: 'order_id',
       periodNum: 'period_num',
       tradeNo: 'trade_no',
+      payType: 'pay_type',
     };
   }
 
@@ -10699,6 +11018,7 @@ export class QueryWithholdActivepayRequest extends $tea.Model {
       orderId: 'string',
       periodNum: 'number',
       tradeNo: 'string',
+      payType: 'string',
     };
   }
 
@@ -10818,7 +11138,7 @@ export class CreateWithholdRefundRequest extends $tea.Model {
   orderId: string;
   // 第几期
   // 针对用户履约的第几期进行退款申请
-  periodNum: number;
+  periodNum?: number;
   // 外部系统传入的退款请求号
   refundRequestNo: string;
   // 本次请求的退款金额，单位为分
@@ -10826,6 +11146,11 @@ export class CreateWithholdRefundRequest extends $tea.Model {
   refundMoney: number;
   // 退款原因
   refundReason?: string;
+  // 支付类型
+  // ORDER_BUYOUT:买断金
+  // ORDER_PENALTY:违约金
+  // PERFORMANCE:正常履约（默认）
+  payType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10835,6 +11160,7 @@ export class CreateWithholdRefundRequest extends $tea.Model {
       refundRequestNo: 'refund_request_no',
       refundMoney: 'refund_money',
       refundReason: 'refund_reason',
+      payType: 'pay_type',
     };
   }
 
@@ -10847,6 +11173,7 @@ export class CreateWithholdRefundRequest extends $tea.Model {
       refundRequestNo: 'string',
       refundMoney: 'number',
       refundReason: 'string',
+      payType: 'string',
     };
   }
 
@@ -10903,9 +11230,14 @@ export class QueryWithholdRefundRequest extends $tea.Model {
   orderId: string;
   // 几期
   // 针对用户履约的第几期进行退款申请
-  periodNum: number;
+  periodNum?: number;
   // 外部系统传入的退款请求号
   refundRequestNo: string;
+  // 支付类型
+  // ORDER_BUYOUT:买断金
+  // ORDER_PENALTY:违约金
+  // PERFORMANCE:正常履约（默认）
+  payType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10913,6 +11245,7 @@ export class QueryWithholdRefundRequest extends $tea.Model {
       orderId: 'order_id',
       periodNum: 'period_num',
       refundRequestNo: 'refund_request_no',
+      payType: 'pay_type',
     };
   }
 
@@ -10923,6 +11256,7 @@ export class QueryWithholdRefundRequest extends $tea.Model {
       orderId: 'string',
       periodNum: 'number',
       refundRequestNo: 'string',
+      payType: 'string',
     };
   }
 
@@ -10985,6 +11319,77 @@ export class QueryWithholdRefundResponse extends $tea.Model {
       totalRefundAmount: 'number',
       sendBackAmount: 'number',
       gmtRefundPay: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWithholdCompensateaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户社会信用代码
+  merchantId: string;
+  // 资方社会信用代码
+  fundId: string;
+  // 资方租户id
+  fundTenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantId: 'merchant_id',
+      fundId: 'fund_id',
+      fundTenantId: 'fund_tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantId: 'string',
+      fundId: 'string',
+      fundTenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWithholdCompensateaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代偿卡号
+  cardNo?: string;
+  // 可用余额，单位为分
+  availableAmount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      cardNo: 'card_no',
+      availableAmount: 'available_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      cardNo: 'string',
+      availableAmount: 'number',
     };
   }
 
@@ -11194,7 +11599,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.9.73",
+          sdk_version: "1.10.16",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -11661,6 +12066,25 @@ export default class Client {
   async syncFundFinanceprecheckresultEx(request: SyncFundFinanceprecheckresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncFundFinanceprecheckresultResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncFundFinanceprecheckresultResponse>(await this.doRequest("1.0", "antchain.ato.fund.financeprecheckresult.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncFundFinanceprecheckresultResponse({}));
+  }
+
+  /**
+   * Description: 资方查询代偿户余额
+   * Summary: 代偿户查询
+   */
+  async queryFundCompensateaccount(request: QueryFundCompensateaccountRequest): Promise<QueryFundCompensateaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryFundCompensateaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资方查询代偿户余额
+   * Summary: 代偿户查询
+   */
+  async queryFundCompensateaccountEx(request: QueryFundCompensateaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFundCompensateaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryFundCompensateaccountResponse>(await this.doRequest("1.0", "antchain.ato.fund.compensateaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFundCompensateaccountResponse({}));
   }
 
   /**
@@ -12673,25 +13097,6 @@ export default class Client {
   }
 
   /**
-   * Description: 商户控制台商品详情
-   * Summary: 商品详情
-   */
-  async detailInnerProduct(request: DetailInnerProductRequest): Promise<DetailInnerProductResponse> {
-    let runtime = new $Util.RuntimeOptions({ });
-    let headers : {[key: string ]: string} = { };
-    return await this.detailInnerProductEx(request, headers, runtime);
-  }
-
-  /**
-   * Description: 商户控制台商品详情
-   * Summary: 商品详情
-   */
-  async detailInnerProductEx(request: DetailInnerProductRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailInnerProductResponse> {
-    Util.validateModel(request);
-    return $tea.cast<DetailInnerProductResponse>(await this.doRequest("1.0", "antchain.ato.inner.product.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailInnerProductResponse({}));
-  }
-
-  /**
    * Description: 商户控制台首页通知栏
    * Summary: 首页通知栏
    */
@@ -12784,6 +13189,44 @@ export default class Client {
   async detailInnerOrderEx(request: DetailInnerOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailInnerOrderResponse> {
     Util.validateModel(request);
     return $tea.cast<DetailInnerOrderResponse>(await this.doRequest("1.0", "antchain.ato.inner.order.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailInnerOrderResponse({}));
+  }
+
+  /**
+   * Description: 合同模板实例化渲染，文本域赋值
+   * Summary: 合同模板实例化渲染
+   */
+  async renderInnerTemplateinstance(request: RenderInnerTemplateinstanceRequest): Promise<RenderInnerTemplateinstanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.renderInnerTemplateinstanceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 合同模板实例化渲染，文本域赋值
+   * Summary: 合同模板实例化渲染
+   */
+  async renderInnerTemplateinstanceEx(request: RenderInnerTemplateinstanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RenderInnerTemplateinstanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<RenderInnerTemplateinstanceResponse>(await this.doRequest("1.0", "antchain.ato.inner.templateinstance.render", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new RenderInnerTemplateinstanceResponse({}));
+  }
+
+  /**
+   * Description: 批量查询营销分
+   * Summary: 批量查询营销分
+   */
+  async batchqueryInnerMarketingscore(request: BatchqueryInnerMarketingscoreRequest): Promise<BatchqueryInnerMarketingscoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.batchqueryInnerMarketingscoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 批量查询营销分
+   * Summary: 批量查询营销分
+   */
+  async batchqueryInnerMarketingscoreEx(request: BatchqueryInnerMarketingscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryInnerMarketingscoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<BatchqueryInnerMarketingscoreResponse>(await this.doRequest("1.0", "antchain.ato.inner.marketingscore.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryInnerMarketingscoreResponse({}));
   }
 
   /**
@@ -13668,6 +14111,25 @@ export default class Client {
   async queryWithholdRefundEx(request: QueryWithholdRefundRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryWithholdRefundResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryWithholdRefundResponse>(await this.doRequest("1.0", "antchain.ato.withhold.refund.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryWithholdRefundResponse({}));
+  }
+
+  /**
+   * Description: 代偿户账户查询
+   * Summary: 代偿户账户查询
+   */
+  async queryWithholdCompensateaccount(request: QueryWithholdCompensateaccountRequest): Promise<QueryWithholdCompensateaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryWithholdCompensateaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代偿户账户查询
+   * Summary: 代偿户账户查询
+   */
+  async queryWithholdCompensateaccountEx(request: QueryWithholdCompensateaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryWithholdCompensateaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryWithholdCompensateaccountResponse>(await this.doRequest("1.0", "antchain.ato.withhold.compensateaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryWithholdCompensateaccountResponse({}));
   }
 
   /**
