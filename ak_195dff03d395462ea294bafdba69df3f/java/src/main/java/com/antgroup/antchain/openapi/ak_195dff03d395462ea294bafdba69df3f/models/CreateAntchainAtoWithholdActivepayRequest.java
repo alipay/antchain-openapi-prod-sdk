@@ -16,10 +16,34 @@ public class CreateAntchainAtoWithholdActivepayRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String orderId;
 
-    // 第几期
+    // 第几期,当支付类型为PERFORMANCE或为空必填
     @NameInMap("period_num")
-    @Validation(required = true, minimum = 1)
     public Long periodNum;
+
+    // 支付类型
+    @NameInMap("pay_type")
+    @Validation(maxLength = 64, minLength = 1)
+    public String payType;
+
+    // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+    @NameInMap("pay_channel")
+    @Validation(maxLength = 64, minLength = 1)
+    public String payChannel;
+
+    // 支付金额，单位为分
+    @NameInMap("pay_amount")
+    public Long payAmount;
+
+    // 经营分账标识Y/N
+    // 当pay_type=BUYOUT、PENALTY必填。
+    @NameInMap("operation_divide_flag")
+    @Validation(maxLength = 1, minLength = 1)
+    public String operationDivideFlag;
+
+    // 当operation_divide_flag=Y 必填
+    // 经营分账收入列表，最多10条，分账比例与正常限制一致。
+    @NameInMap("operation_divide_trans_in_list")
+    public java.util.List<OperationDivideTransInModel> operationDivideTransInList;
 
     public static CreateAntchainAtoWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdActivepayRequest self = new CreateAntchainAtoWithholdActivepayRequest();
@@ -56,6 +80,46 @@ public class CreateAntchainAtoWithholdActivepayRequest extends TeaModel {
     }
     public Long getPeriodNum() {
         return this.periodNum;
+    }
+
+    public CreateAntchainAtoWithholdActivepayRequest setPayType(String payType) {
+        this.payType = payType;
+        return this;
+    }
+    public String getPayType() {
+        return this.payType;
+    }
+
+    public CreateAntchainAtoWithholdActivepayRequest setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
+    }
+
+    public CreateAntchainAtoWithholdActivepayRequest setPayAmount(Long payAmount) {
+        this.payAmount = payAmount;
+        return this;
+    }
+    public Long getPayAmount() {
+        return this.payAmount;
+    }
+
+    public CreateAntchainAtoWithholdActivepayRequest setOperationDivideFlag(String operationDivideFlag) {
+        this.operationDivideFlag = operationDivideFlag;
+        return this;
+    }
+    public String getOperationDivideFlag() {
+        return this.operationDivideFlag;
+    }
+
+    public CreateAntchainAtoWithholdActivepayRequest setOperationDivideTransInList(java.util.List<OperationDivideTransInModel> operationDivideTransInList) {
+        this.operationDivideTransInList = operationDivideTransInList;
+        return this;
+    }
+    public java.util.List<OperationDivideTransInModel> getOperationDivideTransInList() {
+        return this.operationDivideTransInList;
     }
 
 }

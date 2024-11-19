@@ -16,15 +16,19 @@ public class QueryAntchainAtoWithholdActivepayRequest extends TeaModel {
     @Validation(required = true, maxLength = 50, minLength = 1)
     public String orderId;
 
-    // 第几期
+    // 第几期,当支付类型为PERFORMANCE或为空必填
     @NameInMap("period_num")
-    @Validation(required = true)
     public Long periodNum;
 
     // 支付宝支付订单号，当传递此单号时，只会返回当前单据
     @NameInMap("trade_no")
     @Validation(maxLength = 64)
     public String tradeNo;
+
+    // 支付类型
+    @NameInMap("pay_type")
+    @Validation(maxLength = 64, minLength = 1)
+    public String payType;
 
     public static QueryAntchainAtoWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoWithholdActivepayRequest self = new QueryAntchainAtoWithholdActivepayRequest();
@@ -69,6 +73,14 @@ public class QueryAntchainAtoWithholdActivepayRequest extends TeaModel {
     }
     public String getTradeNo() {
         return this.tradeNo;
+    }
+
+    public QueryAntchainAtoWithholdActivepayRequest setPayType(String payType) {
+        this.payType = payType;
+        return this;
+    }
+    public String getPayType() {
+        return this.payType;
     }
 
 }

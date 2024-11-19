@@ -20,6 +20,10 @@ public class CreateAntchainAtoWithholdActivepayResponse extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
+    // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+    @NameInMap("order_str")
+    public String orderStr;
+
     public static CreateAntchainAtoWithholdActivepayResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateAntchainAtoWithholdActivepayResponse self = new CreateAntchainAtoWithholdActivepayResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateAntchainAtoWithholdActivepayResponse extends TeaModel {
     }
     public String getTradeNo() {
         return this.tradeNo;
+    }
+
+    public CreateAntchainAtoWithholdActivepayResponse setOrderStr(String orderStr) {
+        this.orderStr = orderStr;
+        return this;
+    }
+    public String getOrderStr() {
+        return this.orderStr;
     }
 
 }
