@@ -175,6 +175,61 @@ func (s *FileInfo) SetFileKey(v string) *FileInfo {
 	return s
 }
 
+// 站点信息
+type SiteInfo struct {
+	// 小程序id
+	TinyAppId *string `json:"tiny_app_id,omitempty" xml:"tiny_app_id,omitempty"`
+	// 站点名称
+	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty"`
+	//
+	// 截图照片
+	ScreenshotImage *string `json:"screenshot_image,omitempty" xml:"screenshot_image,omitempty"`
+	// 站点地址
+	SiteUrl *string `json:"site_url,omitempty" xml:"site_url,omitempty"`
+	// 站点类型
+	// 网站: 01
+	// APP: 02
+	// 服务窗: 03
+	// 公众号: 04
+	// 其他: 05
+	// 支付宝小程序: 06
+	// 手机网站/H5: 07
+	SiteType *string `json:"site_type,omitempty" xml:"site_type,omitempty"`
+}
+
+func (s SiteInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SiteInfo) GoString() string {
+	return s.String()
+}
+
+func (s *SiteInfo) SetTinyAppId(v string) *SiteInfo {
+	s.TinyAppId = &v
+	return s
+}
+
+func (s *SiteInfo) SetSiteName(v string) *SiteInfo {
+	s.SiteName = &v
+	return s
+}
+
+func (s *SiteInfo) SetScreenshotImage(v string) *SiteInfo {
+	s.ScreenshotImage = &v
+	return s
+}
+
+func (s *SiteInfo) SetSiteUrl(v string) *SiteInfo {
+	s.SiteUrl = &v
+	return s
+}
+
+func (s *SiteInfo) SetSiteType(v string) *SiteInfo {
+	s.SiteType = &v
+	return s
+}
+
 // 公司信息
 type CompanyInfo struct {
 	// 营业执照文件信息
@@ -286,6 +341,40 @@ func (s *CompanyInfo) SetBindAlipayUid(v string) *CompanyInfo {
 	return s
 }
 
+// 经营分账收入模型
+type OperationDivideTransInModel struct {
+	// 分账收入方支付宝用户id, 支付宝2088id
+	TransInUserId *string `json:"trans_in_user_id,omitempty" xml:"trans_in_user_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 分账金额，单位为分
+	//
+	DivideAmount *int64 `json:"divide_amount,omitempty" xml:"divide_amount,omitempty" require:"true" minimum:"1"`
+	// 分账描述
+	Desc *string `json:"desc,omitempty" xml:"desc,omitempty" maxLength:"64" minLength:"1"`
+}
+
+func (s OperationDivideTransInModel) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OperationDivideTransInModel) GoString() string {
+	return s.String()
+}
+
+func (s *OperationDivideTransInModel) SetTransInUserId(v string) *OperationDivideTransInModel {
+	s.TransInUserId = &v
+	return s
+}
+
+func (s *OperationDivideTransInModel) SetDivideAmount(v int64) *OperationDivideTransInModel {
+	s.DivideAmount = &v
+	return s
+}
+
+func (s *OperationDivideTransInModel) SetDesc(v string) *OperationDivideTransInModel {
+	s.Desc = &v
+	return s
+}
+
 // 主动支付单据
 type ActivePayOrder struct {
 	// 支付宝支付订单号，用于拉起主动支付页面
@@ -383,6 +472,8 @@ type ApplicationInfo struct {
 	// 商户服务描述。
 	// 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
 	MerchantServiceDesc *string `json:"merchant_service_desc,omitempty" xml:"merchant_service_desc,omitempty" require:"true"`
+	// 站点信息
+	SiteInfo []*SiteInfo `json:"site_info,omitempty" xml:"site_info,omitempty" type:"Repeated"`
 }
 
 func (s ApplicationInfo) String() string {
@@ -425,6 +516,11 @@ func (s *ApplicationInfo) SetMerchantServiceName(v string) *ApplicationInfo {
 
 func (s *ApplicationInfo) SetMerchantServiceDesc(v string) *ApplicationInfo {
 	s.MerchantServiceDesc = &v
+	return s
+}
+
+func (s *ApplicationInfo) SetSiteInfo(v []*SiteInfo) *ApplicationInfo {
+	s.SiteInfo = v
 	return s
 }
 
@@ -1633,6 +1729,8 @@ type CreateAntchainAtoWithholdSignResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 签约字符串
 	SignStr *string `json:"sign_str,omitempty" xml:"sign_str,omitempty"`
+	// 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+	SignStrType *string `json:"sign_str_type,omitempty" xml:"sign_str_type,omitempty"`
 }
 
 func (s CreateAntchainAtoWithholdSignResponse) String() string {
@@ -1660,6 +1758,11 @@ func (s *CreateAntchainAtoWithholdSignResponse) SetResultMsg(v string) *CreateAn
 
 func (s *CreateAntchainAtoWithholdSignResponse) SetSignStr(v string) *CreateAntchainAtoWithholdSignResponse {
 	s.SignStr = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdSignResponse) SetSignStrType(v string) *CreateAntchainAtoWithholdSignResponse {
+	s.SignStrType = &v
 	return s
 }
 
@@ -3004,8 +3107,20 @@ type CreateAntchainAtoWithholdActivepayRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单id 长度不可超过50
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
-	// 第几期
-	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
+	// 第几期,当支付类型为PERFORMANCE或为空必填
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" minimum:"1"`
+	// 支付类型
+	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" maxLength:"64" minLength:"1"`
+	// 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty" maxLength:"64" minLength:"1"`
+	// 支付金额，单位为分
+	PayAmount *int64 `json:"pay_amount,omitempty" xml:"pay_amount,omitempty" minimum:"1"`
+	// 经营分账标识Y/N
+	// 当pay_type=BUYOUT、PENALTY必填。
+	OperationDivideFlag *string `json:"operation_divide_flag,omitempty" xml:"operation_divide_flag,omitempty" maxLength:"1" minLength:"1"`
+	// 当operation_divide_flag=Y 必填
+	// 经营分账收入列表，最多10条，分账比例与正常限制一致。
+	OperationDivideTransInList []*OperationDivideTransInModel `json:"operation_divide_trans_in_list,omitempty" xml:"operation_divide_trans_in_list,omitempty" type:"Repeated"`
 }
 
 func (s CreateAntchainAtoWithholdActivepayRequest) String() string {
@@ -3036,6 +3151,31 @@ func (s *CreateAntchainAtoWithholdActivepayRequest) SetPeriodNum(v int64) *Creat
 	return s
 }
 
+func (s *CreateAntchainAtoWithholdActivepayRequest) SetPayType(v string) *CreateAntchainAtoWithholdActivepayRequest {
+	s.PayType = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdActivepayRequest) SetPayChannel(v string) *CreateAntchainAtoWithholdActivepayRequest {
+	s.PayChannel = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdActivepayRequest) SetPayAmount(v int64) *CreateAntchainAtoWithholdActivepayRequest {
+	s.PayAmount = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdActivepayRequest) SetOperationDivideFlag(v string) *CreateAntchainAtoWithholdActivepayRequest {
+	s.OperationDivideFlag = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdActivepayRequest) SetOperationDivideTransInList(v []*OperationDivideTransInModel) *CreateAntchainAtoWithholdActivepayRequest {
+	s.OperationDivideTransInList = v
+	return s
+}
+
 type CreateAntchainAtoWithholdActivepayResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -3045,6 +3185,8 @@ type CreateAntchainAtoWithholdActivepayResponse struct {
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 支付宝支付订单号，用于拉起主动支付页面
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+	// 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+	OrderStr *string `json:"order_str,omitempty" xml:"order_str,omitempty"`
 }
 
 func (s CreateAntchainAtoWithholdActivepayResponse) String() string {
@@ -3075,16 +3217,23 @@ func (s *CreateAntchainAtoWithholdActivepayResponse) SetTradeNo(v string) *Creat
 	return s
 }
 
+func (s *CreateAntchainAtoWithholdActivepayResponse) SetOrderStr(v string) *CreateAntchainAtoWithholdActivepayResponse {
+	s.OrderStr = &v
+	return s
+}
+
 type QueryAntchainAtoWithholdActivepayRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 订单id 长度不可超过50
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50" minLength:"1"`
-	// 第几期
-	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true"`
+	// 第几期,当支付类型为PERFORMANCE或为空必填
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" minimum:"1"`
 	// 支付宝支付订单号，当传递此单号时，只会返回当前单据
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" maxLength:"64"`
+	// 支付类型
+	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" maxLength:"64" minLength:"1"`
 }
 
 func (s QueryAntchainAtoWithholdActivepayRequest) String() string {
@@ -3117,6 +3266,11 @@ func (s *QueryAntchainAtoWithholdActivepayRequest) SetPeriodNum(v int64) *QueryA
 
 func (s *QueryAntchainAtoWithholdActivepayRequest) SetTradeNo(v string) *QueryAntchainAtoWithholdActivepayRequest {
 	s.TradeNo = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdActivepayRequest) SetPayType(v string) *QueryAntchainAtoWithholdActivepayRequest {
+	s.PayType = &v
 	return s
 }
 
@@ -4447,7 +4601,7 @@ type CreateAntchainAtoWithholdRefundRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
 	// 第几期
 	// 针对用户履约的第几期进行退款申请
-	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" minimum:"1"`
 	// 外部系统传入的退款请求号
 	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty" require:"true" maxLength:"128" minLength:"1"`
 	// 本次请求的退款金额，单位为分
@@ -4455,6 +4609,11 @@ type CreateAntchainAtoWithholdRefundRequest struct {
 	RefundMoney *int64 `json:"refund_money,omitempty" xml:"refund_money,omitempty" require:"true" minimum:"1"`
 	// 退款原因
 	RefundReason *string `json:"refund_reason,omitempty" xml:"refund_reason,omitempty" maxLength:"200"`
+	// 支付类型
+	// ORDER_BUYOUT:买断金
+	// ORDER_PENALTY:违约金
+	// PERFORMANCE:正常履约（默认）
+	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" maxLength:"64"`
 }
 
 func (s CreateAntchainAtoWithholdRefundRequest) String() string {
@@ -4497,6 +4656,11 @@ func (s *CreateAntchainAtoWithholdRefundRequest) SetRefundMoney(v int64) *Create
 
 func (s *CreateAntchainAtoWithholdRefundRequest) SetRefundReason(v string) *CreateAntchainAtoWithholdRefundRequest {
 	s.RefundReason = &v
+	return s
+}
+
+func (s *CreateAntchainAtoWithholdRefundRequest) SetPayType(v string) *CreateAntchainAtoWithholdRefundRequest {
+	s.PayType = &v
 	return s
 }
 
@@ -4561,9 +4725,14 @@ type QueryAntchainAtoWithholdRefundRequest struct {
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"128" minLength:"1"`
 	// 几期
 	// 针对用户履约的第几期进行退款申请
-	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" require:"true" minimum:"1"`
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" minimum:"1"`
 	// 外部系统传入的退款请求号
 	RefundRequestNo *string `json:"refund_request_no,omitempty" xml:"refund_request_no,omitempty" require:"true" maxLength:"128" minLength:"1"`
+	// 支付类型
+	// ORDER_BUYOUT:买断金
+	// ORDER_PENALTY:违约金
+	// PERFORMANCE:正常履约（默认）
+	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" maxLength:"64"`
 }
 
 func (s QueryAntchainAtoWithholdRefundRequest) String() string {
@@ -4596,6 +4765,11 @@ func (s *QueryAntchainAtoWithholdRefundRequest) SetPeriodNum(v int64) *QueryAntc
 
 func (s *QueryAntchainAtoWithholdRefundRequest) SetRefundRequestNo(v string) *QueryAntchainAtoWithholdRefundRequest {
 	s.RefundRequestNo = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdRefundRequest) SetPayType(v string) *QueryAntchainAtoWithholdRefundRequest {
+	s.PayType = &v
 	return s
 }
 
@@ -5242,6 +5416,8 @@ type QueryAntchainAtoMerchantexpandMerchantResponse struct {
 	// INIT 入驻中
 	// SUCCESS 入驻成功
 	// FAIL 入驻失败
+	// MERCHANT_CONFIRM 待商户B站确认
+	// SUB_MERCHANT_CREDIT 二级户商户签约中
 	EnrollmentStatus *string `json:"enrollment_status,omitempty" xml:"enrollment_status,omitempty"`
 	// 入驻失败原因
 	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
@@ -6270,6 +6446,181 @@ func (s *SyncAntchainAtoFundFinanceprecheckresultResponse) SetResultMsg(v string
 	return s
 }
 
+type QueryAntchainAtoFundCompensateaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资方社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 商户社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 商户租户id
+	MerchantTenantId *string `json:"merchant_tenant_id,omitempty" xml:"merchant_tenant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+}
+
+func (s QueryAntchainAtoFundCompensateaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAtoFundCompensateaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountRequest) SetAuthToken(v string) *QueryAntchainAtoFundCompensateaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountRequest) SetProductInstanceId(v string) *QueryAntchainAtoFundCompensateaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountRequest) SetFundId(v string) *QueryAntchainAtoFundCompensateaccountRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountRequest) SetMerchantId(v string) *QueryAntchainAtoFundCompensateaccountRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountRequest) SetMerchantTenantId(v string) *QueryAntchainAtoFundCompensateaccountRequest {
+	s.MerchantTenantId = &v
+	return s
+}
+
+type QueryAntchainAtoFundCompensateaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 可用余额，单位为分
+	AvailableAmount *int64 `json:"available_amount,omitempty" xml:"available_amount,omitempty"`
+}
+
+func (s QueryAntchainAtoFundCompensateaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAtoFundCompensateaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountResponse) SetReqMsgId(v string) *QueryAntchainAtoFundCompensateaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountResponse) SetResultCode(v string) *QueryAntchainAtoFundCompensateaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountResponse) SetResultMsg(v string) *QueryAntchainAtoFundCompensateaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainAtoFundCompensateaccountResponse) SetAvailableAmount(v int64) *QueryAntchainAtoFundCompensateaccountResponse {
+	s.AvailableAmount = &v
+	return s
+}
+
+type QueryAntchainAtoWithholdCompensateaccountRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 商户社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 资方社会信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+	// 资方租户id
+	FundTenantId *string `json:"fund_tenant_id,omitempty" xml:"fund_tenant_id,omitempty" require:"true" maxLength:"64" minLength:"1"`
+}
+
+func (s QueryAntchainAtoWithholdCompensateaccountRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAtoWithholdCompensateaccountRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountRequest) SetAuthToken(v string) *QueryAntchainAtoWithholdCompensateaccountRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountRequest) SetProductInstanceId(v string) *QueryAntchainAtoWithholdCompensateaccountRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountRequest) SetMerchantId(v string) *QueryAntchainAtoWithholdCompensateaccountRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountRequest) SetFundId(v string) *QueryAntchainAtoWithholdCompensateaccountRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountRequest) SetFundTenantId(v string) *QueryAntchainAtoWithholdCompensateaccountRequest {
+	s.FundTenantId = &v
+	return s
+}
+
+type QueryAntchainAtoWithholdCompensateaccountResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 代偿卡号
+	CardNo *string `json:"card_no,omitempty" xml:"card_no,omitempty"`
+	// 可用余额，单位为分
+	AvailableAmount *int64 `json:"available_amount,omitempty" xml:"available_amount,omitempty"`
+}
+
+func (s QueryAntchainAtoWithholdCompensateaccountResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntchainAtoWithholdCompensateaccountResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountResponse) SetReqMsgId(v string) *QueryAntchainAtoWithholdCompensateaccountResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountResponse) SetResultCode(v string) *QueryAntchainAtoWithholdCompensateaccountResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountResponse) SetResultMsg(v string) *QueryAntchainAtoWithholdCompensateaccountResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountResponse) SetCardNo(v string) *QueryAntchainAtoWithholdCompensateaccountResponse {
+	s.CardNo = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdCompensateaccountResponse) SetAvailableAmount(v int64) *QueryAntchainAtoWithholdCompensateaccountResponse {
+	s.AvailableAmount = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -6512,7 +6863,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.7"),
+				"sdk_version":      tea.String("1.3.8"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -7200,6 +7551,7 @@ func (client *Client) UploadAntchainAtoFundFlowEx(request *UploadAntchainAtoFund
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -7875,6 +8227,7 @@ func (client *Client) UploadAntchainAtoSignFlowEx(request *UploadAntchainAtoSign
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -8244,6 +8597,7 @@ func (client *Client) UploadAntchainAtoSignTemplateEx(request *UploadAntchainAto
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -8558,6 +8912,74 @@ func (client *Client) SyncAntchainAtoFundFinanceprecheckresultEx(request *SyncAn
 	}
 	_result = &SyncAntchainAtoFundFinanceprecheckresultResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.financeprecheckresult.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 资方查询代偿户余额
+ * Summary: 代偿户查询
+ */
+func (client *Client) QueryAntchainAtoFundCompensateaccount(request *QueryAntchainAtoFundCompensateaccountRequest) (_result *QueryAntchainAtoFundCompensateaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainAtoFundCompensateaccountResponse{}
+	_body, _err := client.QueryAntchainAtoFundCompensateaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 资方查询代偿户余额
+ * Summary: 代偿户查询
+ */
+func (client *Client) QueryAntchainAtoFundCompensateaccountEx(request *QueryAntchainAtoFundCompensateaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainAtoFundCompensateaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainAtoFundCompensateaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.compensateaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代偿户账户查询
+ * Summary: 代偿户账户查询
+ */
+func (client *Client) QueryAntchainAtoWithholdCompensateaccount(request *QueryAntchainAtoWithholdCompensateaccountRequest) (_result *QueryAntchainAtoWithholdCompensateaccountResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntchainAtoWithholdCompensateaccountResponse{}
+	_body, _err := client.QueryAntchainAtoWithholdCompensateaccountEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代偿户账户查询
+ * Summary: 代偿户账户查询
+ */
+func (client *Client) QueryAntchainAtoWithholdCompensateaccountEx(request *QueryAntchainAtoWithholdCompensateaccountRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainAtoWithholdCompensateaccountResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntchainAtoWithholdCompensateaccountResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.withhold.compensateaccount.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
