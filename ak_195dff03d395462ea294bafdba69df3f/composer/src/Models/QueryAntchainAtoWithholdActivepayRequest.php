@@ -25,7 +25,7 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
      */
     public $orderId;
 
-    // 第几期
+    // 第几期,当支付类型为PERFORMANCE或为空必填
     /**
      * @var int
      */
@@ -36,21 +36,30 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
      * @var string
      */
     public $tradeNo;
+
+    // 支付类型
+    /**
+     * @var string
+     */
+    public $payType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'orderId'           => 'order_id',
         'periodNum'         => 'period_num',
         'tradeNo'           => 'trade_no',
+        'payType'           => 'pay_type',
     ];
 
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('periodNum', $this->periodNum, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('tradeNo', $this->tradeNo, 64);
+        Model::validateMaxLength('payType', $this->payType, 64);
         Model::validateMinLength('orderId', $this->orderId, 1);
+        Model::validateMinLength('payType', $this->payType, 1);
+        Model::validateMinimum('periodNum', $this->periodNum, 1);
     }
 
     public function toMap()
@@ -70,6 +79,9 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         }
         if (null !== $this->tradeNo) {
             $res['trade_no'] = $this->tradeNo;
+        }
+        if (null !== $this->payType) {
+            $res['pay_type'] = $this->payType;
         }
 
         return $res;
@@ -97,6 +109,9 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         }
         if (isset($map['trade_no'])) {
             $model->tradeNo = $map['trade_no'];
+        }
+        if (isset($map['pay_type'])) {
+            $model->payType = $map['pay_type'];
         }
 
         return $model;

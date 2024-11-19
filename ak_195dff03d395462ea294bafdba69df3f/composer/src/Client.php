@@ -63,6 +63,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserp
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\NotifyAntchainAtoFundFlowResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCompensateaccountResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoFundCreditResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoMerchantexpandMerchantRequest;
@@ -73,6 +75,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoSignCred
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoSignCreditResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdActivepayResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdCompensateaccountRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdCompensateaccountResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdRefundRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdRefundResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\QueryAntchainAtoWithholdSignRequest;
@@ -272,7 +276,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.7',
+                    'sdk_version'      => '1.3.8',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -929,7 +933,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -1574,7 +1579,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -1922,7 +1928,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -2224,6 +2231,72 @@ class Client
         Utils::validateModel($request);
 
         return SyncAntchainAtoFundFinanceprecheckresultResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方查询代偿户余额
+     * Summary: 代偿户查询.
+     *
+     * @param QueryAntchainAtoFundCompensateaccountRequest $request
+     *
+     * @return QueryAntchainAtoFundCompensateaccountResponse
+     */
+    public function queryAntchainAtoFundCompensateaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoFundCompensateaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方查询代偿户余额
+     * Summary: 代偿户查询.
+     *
+     * @param QueryAntchainAtoFundCompensateaccountRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return QueryAntchainAtoFundCompensateaccountResponse
+     */
+    public function queryAntchainAtoFundCompensateaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoFundCompensateaccountResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.compensateaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代偿户账户查询
+     * Summary: 代偿户账户查询.
+     *
+     * @param QueryAntchainAtoWithholdCompensateaccountRequest $request
+     *
+     * @return QueryAntchainAtoWithholdCompensateaccountResponse
+     */
+    public function queryAntchainAtoWithholdCompensateaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryAntchainAtoWithholdCompensateaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代偿户账户查询
+     * Summary: 代偿户账户查询.
+     *
+     * @param QueryAntchainAtoWithholdCompensateaccountRequest $request
+     * @param string[]                                         $headers
+     * @param RuntimeOptions                                   $runtime
+     *
+     * @return QueryAntchainAtoWithholdCompensateaccountResponse
+     */
+    public function queryAntchainAtoWithholdCompensateaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryAntchainAtoWithholdCompensateaccountResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

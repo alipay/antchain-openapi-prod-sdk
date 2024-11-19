@@ -31,11 +31,18 @@ class CreateAntchainAtoWithholdSignResponse extends Model
      * @var string
      */
     public $signStr;
+
+    // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+    /**
+     * @var string
+     */
+    public $signStrType;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'signStr'    => 'sign_str',
+        'reqMsgId'    => 'req_msg_id',
+        'resultCode'  => 'result_code',
+        'resultMsg'   => 'result_msg',
+        'signStr'     => 'sign_str',
+        'signStrType' => 'sign_str_type',
     ];
 
     public function validate()
@@ -56,6 +63,9 @@ class CreateAntchainAtoWithholdSignResponse extends Model
         }
         if (null !== $this->signStr) {
             $res['sign_str'] = $this->signStr;
+        }
+        if (null !== $this->signStrType) {
+            $res['sign_str_type'] = $this->signStrType;
         }
 
         return $res;
@@ -80,6 +90,9 @@ class CreateAntchainAtoWithholdSignResponse extends Model
         }
         if (isset($map['sign_str'])) {
             $model->signStr = $map['sign_str'];
+        }
+        if (isset($map['sign_str_type'])) {
+            $model->signStrType = $map['sign_str_type'];
         }
 
         return $model;
