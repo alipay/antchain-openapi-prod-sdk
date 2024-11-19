@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.7',
+                    'sdk_version': '1.3.8',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.7',
+                    'sdk_version': '1.3.8',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -1286,6 +1286,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundFlowResponse(),
@@ -1319,6 +1320,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoFundFlowResponse(),
@@ -2384,6 +2386,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse(),
@@ -2417,6 +2420,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignFlowResponse(),
@@ -2978,6 +2982,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse(),
@@ -3011,6 +3016,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignTemplateResponse(),
@@ -3519,6 +3525,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.SyncAntchainAtoFundFinanceprecheckresultResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_fund_compensateaccount(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountResponse:
+        """
+        Description: 资方查询代偿户余额
+        Summary: 代偿户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_fund_compensateaccount_ex(request, headers, runtime)
+
+    async def query_antchain_ato_fund_compensateaccount_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountResponse:
+        """
+        Description: 资方查询代偿户余额
+        Summary: 代偿户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_fund_compensateaccount_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_fund_compensateaccount_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountResponse:
+        """
+        Description: 资方查询代偿户余额
+        Summary: 代偿户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.compensateaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_fund_compensateaccount_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountResponse:
+        """
+        Description: 资方查询代偿户余额
+        Summary: 代偿户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoFundCompensateaccountResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.compensateaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antchain_ato_withhold_compensateaccount(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountResponse:
+        """
+        Description: 代偿户账户查询
+        Summary: 代偿户账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antchain_ato_withhold_compensateaccount_ex(request, headers, runtime)
+
+    async def query_antchain_ato_withhold_compensateaccount_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountResponse:
+        """
+        Description: 代偿户账户查询
+        Summary: 代偿户账户查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antchain_ato_withhold_compensateaccount_ex_async(request, headers, runtime)
+
+    def query_antchain_ato_withhold_compensateaccount_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountResponse:
+        """
+        Description: 代偿户账户查询
+        Summary: 代偿户账户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountResponse(),
+            self.do_request('1.0', 'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antchain_ato_withhold_compensateaccount_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountResponse:
+        """
+        Description: 代偿户账户查询
+        Summary: 代偿户账户查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
