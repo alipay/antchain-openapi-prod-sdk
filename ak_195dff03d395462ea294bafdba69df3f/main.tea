@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.7',
+    sdk_version = '1.3.8',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -169,6 +169,28 @@ model FileInfo {
   fileKey: string(name='file_key', example='adadqweqw12sads1'),
 }
 
+// 站点信息
+model SiteInfo {
+  // 小程序id
+  tinyAppId?: string(name='tiny_app_id', example='123456789'),
+  // 站点名称
+  siteName?: string(name='site_name', example='站点名称'),
+  // 
+  // 截图照片
+  screenshotImage?: string(name='screenshot_image', example='c6c0c7a1-b9d5-4e5d-b9d4-9eed39f00e65.jpg'),
+  // 站点地址
+  siteUrl?: string(name='site_url', example='https://open.alipay.com'),
+  // 站点类型
+  // 网站: 01
+  // APP: 02
+  // 服务窗: 03
+  // 公众号: 04
+  // 其他: 05
+  // 支付宝小程序: 06
+  // 手机网站/H5: 07
+  siteType?: string(name='site_type', example='02'),
+}
+
 // 公司信息
 model CompanyInfo {
   // 营业执照文件信息
@@ -200,6 +222,17 @@ model CompanyInfo {
   settleAlipayNo: string(name='settle_alipay_no', example='结算企业支付宝账号'),
   // 绑定支付宝uid
   bindAlipayUid: string(name='bind_alipay_uid', example='绑定支付宝uid'),
+}
+
+// 经营分账收入模型
+model OperationDivideTransInModel {
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId: string(maxLength=64, minLength=1, name='trans_in_user_id', example='2088****1'),
+  // 分账金额，单位为分
+  // 
+  divideAmount: long(minimum=1, name='divide_amount', example='100'),
+  // 分账描述
+  desc?: string(maxLength=64, minLength=1, name='desc', example='分账给经营商'),
 }
 
 // 主动支付单据
@@ -251,6 +284,8 @@ model ApplicationInfo {
   // 商户服务描述。
   // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
   merchantServiceDesc: string(name='merchant_service_desc', example='xx服务描述'),
+  // 站点信息
+  siteInfo?: [ SiteInfo ](name='site_info', example=''),
 }
 
 // 应用信息修改
@@ -761,6 +796,8 @@ model CreateAntchainAtoWithholdSignResponse = {
   resultMsg?: string(name='result_msg'),
   // 签约字符串
   signStr?: string(name='sign_str'),
+  // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+  signStrType?: string(name='sign_str_type'),
 }
 
 /**
@@ -1303,6 +1340,7 @@ async function uploadAntchainAtoFundFlowEx(request: UploadAntchainAtoFundFlowReq
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.fund.flow.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -1448,8 +1486,20 @@ model CreateAntchainAtoWithholdActivepayRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 订单id 长度不可超过50
   orderId: string(maxLength=50, name='order_id'),
-  // 第几期
-  periodNum: long(minimum=1, name='period_num'),
+  // 第几期,当支付类型为PERFORMANCE或为空必填
+  periodNum?: long(minimum=1, name='period_num'),
+  // 支付类型
+  payType?: string(maxLength=64, minLength=1, name='pay_type'),
+  // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+  payChannel?: string(maxLength=64, minLength=1, name='pay_channel'),
+  // 支付金额，单位为分
+  payAmount?: long(minimum=1, name='pay_amount'),
+  // 经营分账标识Y/N
+  // 当pay_type=BUYOUT、PENALTY必填。
+  operationDivideFlag?: string(maxLength=1, minLength=1, name='operation_divide_flag'),
+  // 当operation_divide_flag=Y 必填
+  // 经营分账收入列表，最多10条，分账比例与正常限制一致。
+  operationDivideTransInList?: [ OperationDivideTransInModel ](name='operation_divide_trans_in_list'),
 }
 
 model CreateAntchainAtoWithholdActivepayResponse = {
@@ -1461,6 +1511,8 @@ model CreateAntchainAtoWithholdActivepayResponse = {
   resultMsg?: string(name='result_msg'),
   // 支付宝支付订单号，用于拉起主动支付页面
   tradeNo?: string(name='trade_no'),
+  // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+  orderStr?: string(name='order_str'),
 }
 
 /**
@@ -1488,10 +1540,12 @@ model QueryAntchainAtoWithholdActivepayRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 订单id 长度不可超过50
   orderId: string(maxLength=50, minLength=1, name='order_id'),
-  // 第几期
-  periodNum: long(name='period_num'),
+  // 第几期,当支付类型为PERFORMANCE或为空必填
+  periodNum?: long(minimum=1, name='period_num'),
   // 支付宝支付订单号，当传递此单号时，只会返回当前单据
   tradeNo?: string(maxLength=64, name='trade_no'),
+  // 支付类型
+  payType?: string(maxLength=64, minLength=1, name='pay_type'),
 }
 
 model QueryAntchainAtoWithholdActivepayResponse = {
@@ -2163,6 +2217,7 @@ async function uploadAntchainAtoSignFlowEx(request: UploadAntchainAtoSignFlowReq
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.sign.flow.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -2176,7 +2231,7 @@ model CreateAntchainAtoWithholdRefundRequest = {
   orderId: string(maxLength=128, minLength=1, name='order_id'),
   // 第几期
   // 针对用户履约的第几期进行退款申请
-  periodNum: long(minimum=1, name='period_num'),
+  periodNum?: long(minimum=1, name='period_num'),
   // 外部系统传入的退款请求号
   refundRequestNo: string(maxLength=128, minLength=1, name='refund_request_no'),
   // 本次请求的退款金额，单位为分
@@ -2184,6 +2239,11 @@ model CreateAntchainAtoWithholdRefundRequest = {
   refundMoney: long(minimum=1, name='refund_money'),
   // 退款原因
   refundReason?: string(maxLength=200, name='refund_reason'),
+  // 支付类型
+  // ORDER_BUYOUT:买断金
+  // ORDER_PENALTY:违约金
+  // PERFORMANCE:正常履约（默认）
+  payType?: string(maxLength=64, name='pay_type'),
 }
 
 model CreateAntchainAtoWithholdRefundResponse = {
@@ -2228,9 +2288,14 @@ model QueryAntchainAtoWithholdRefundRequest = {
   orderId: string(maxLength=128, minLength=1, name='order_id'),
   // 几期
   // 针对用户履约的第几期进行退款申请
-  periodNum: long(minimum=1, name='period_num'),
+  periodNum?: long(minimum=1, name='period_num'),
   // 外部系统传入的退款请求号
   refundRequestNo: string(maxLength=128, minLength=1, name='refund_request_no'),
+  // 支付类型
+  // ORDER_BUYOUT:买断金
+  // ORDER_PENALTY:违约金
+  // PERFORMANCE:正常履约（默认）
+  payType?: string(maxLength=64, name='pay_type'),
 }
 
 model QueryAntchainAtoWithholdRefundResponse = {
@@ -2557,6 +2622,8 @@ model QueryAntchainAtoMerchantexpandMerchantResponse = {
   // INIT 入驻中
   // SUCCESS 入驻成功
   // FAIL 入驻失败
+  // MERCHANT_CONFIRM 待商户B站确认
+  // SUB_MERCHANT_CREDIT 二级户商户签约中
   enrollmentStatus?: string(name='enrollment_status'),
   // 入驻失败原因
   failReason?: string(name='fail_reason'),
@@ -2645,6 +2712,7 @@ async function uploadAntchainAtoSignTemplateEx(request: UploadAntchainAtoSignTem
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.sign.template.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -3061,6 +3129,92 @@ async function syncAntchainAtoFundFinanceprecheckresult(request: SyncAntchainAto
 async function syncAntchainAtoFundFinanceprecheckresultEx(request: SyncAntchainAtoFundFinanceprecheckresultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncAntchainAtoFundFinanceprecheckresultResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAtoFundCompensateaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 资方社会信用代码
+  fundId: string(maxLength=64, minLength=1, name='fund_id'),
+  // 商户社会信用代码
+  merchantId: string(maxLength=64, minLength=1, name='merchant_id'),
+  // 商户租户id
+  merchantTenantId: string(maxLength=64, minLength=1, name='merchant_tenant_id'),
+}
+
+model QueryAntchainAtoFundCompensateaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 可用余额，单位为分
+  availableAmount?: long(name='available_amount'),
+}
+
+/**
+ * Description: 资方查询代偿户余额
+ * Summary: 代偿户查询
+ */
+async function queryAntchainAtoFundCompensateaccount(request: QueryAntchainAtoFundCompensateaccountRequest): QueryAntchainAtoFundCompensateaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAtoFundCompensateaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资方查询代偿户余额
+ * Summary: 代偿户查询
+ */
+async function queryAntchainAtoFundCompensateaccountEx(request: QueryAntchainAtoFundCompensateaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoFundCompensateaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.compensateaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryAntchainAtoWithholdCompensateaccountRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 商户社会信用代码
+  merchantId: string(maxLength=64, minLength=1, name='merchant_id'),
+  // 资方社会信用代码
+  fundId: string(maxLength=64, minLength=1, name='fund_id'),
+  // 资方租户id
+  fundTenantId: string(maxLength=64, minLength=1, name='fund_tenant_id'),
+}
+
+model QueryAntchainAtoWithholdCompensateaccountResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 代偿卡号
+  cardNo?: string(name='card_no'),
+  // 可用余额，单位为分
+  availableAmount?: long(name='available_amount'),
+}
+
+/**
+ * Description: 代偿户账户查询
+ * Summary: 代偿户账户查询
+ */
+async function queryAntchainAtoWithholdCompensateaccount(request: QueryAntchainAtoWithholdCompensateaccountRequest): QueryAntchainAtoWithholdCompensateaccountResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryAntchainAtoWithholdCompensateaccountEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代偿户账户查询
+ * Summary: 代偿户账户查询
+ */
+async function queryAntchainAtoWithholdCompensateaccountEx(request: QueryAntchainAtoWithholdCompensateaccountRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryAntchainAtoWithholdCompensateaccountResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
