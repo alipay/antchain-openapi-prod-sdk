@@ -21,6 +21,8 @@ use AntChain\ATO\Models\AuthFundFlowRequest;
 use AntChain\ATO\Models\AuthFundFlowResponse;
 use AntChain\ATO\Models\AuthSignFlowRequest;
 use AntChain\ATO\Models\AuthSignFlowResponse;
+use AntChain\ATO\Models\BatchqueryInnerMarketingscoreRequest;
+use AntChain\ATO\Models\BatchqueryInnerMarketingscoreResponse;
 use AntChain\ATO\Models\CallbackFundNotifyRequest;
 use AntChain\ATO\Models\CallbackFundNotifyResponse;
 use AntChain\ATO\Models\CancelFundPlanRequest;
@@ -69,8 +71,6 @@ use AntChain\ATO\Models\DetailInnerNoticeRequest;
 use AntChain\ATO\Models\DetailInnerNoticeResponse;
 use AntChain\ATO\Models\DetailInnerOrderRequest;
 use AntChain\ATO\Models\DetailInnerOrderResponse;
-use AntChain\ATO\Models\DetailInnerProductRequest;
-use AntChain\ATO\Models\DetailInnerProductResponse;
 use AntChain\ATO\Models\DetailInnerTemplateRequest;
 use AntChain\ATO\Models\DetailInnerTemplateResponse;
 use AntChain\ATO\Models\DownloadInnerFileRequest;
@@ -133,6 +133,8 @@ use AntChain\ATO\Models\PreviewInnerTemplateRequest;
 use AntChain\ATO\Models\PreviewInnerTemplateResponse;
 use AntChain\ATO\Models\PublishInnerTemplateRequest;
 use AntChain\ATO\Models\PublishInnerTemplateResponse;
+use AntChain\ATO\Models\QueryFundCompensateaccountRequest;
+use AntChain\ATO\Models\QueryFundCompensateaccountResponse;
 use AntChain\ATO\Models\QueryFundCreditRequest;
 use AntChain\ATO\Models\QueryFundCreditResponse;
 use AntChain\ATO\Models\QueryInnerAuthorizationRequest;
@@ -173,6 +175,8 @@ use AntChain\ATO\Models\QuerySignCreditRequest;
 use AntChain\ATO\Models\QuerySignCreditResponse;
 use AntChain\ATO\Models\QueryWithholdActivepayRequest;
 use AntChain\ATO\Models\QueryWithholdActivepayResponse;
+use AntChain\ATO\Models\QueryWithholdCompensateaccountRequest;
+use AntChain\ATO\Models\QueryWithholdCompensateaccountResponse;
 use AntChain\ATO\Models\QueryWithholdRefundRequest;
 use AntChain\ATO\Models\QueryWithholdRefundResponse;
 use AntChain\ATO\Models\QueryWithholdSignRequest;
@@ -183,6 +187,8 @@ use AntChain\ATO\Models\RefuseFundFlowRequest;
 use AntChain\ATO\Models\RefuseFundFlowResponse;
 use AntChain\ATO\Models\RegisterMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\RegisterMerchantexpandMerchantResponse;
+use AntChain\ATO\Models\RenderInnerTemplateinstanceRequest;
+use AntChain\ATO\Models\RenderInnerTemplateinstanceResponse;
 use AntChain\ATO\Models\RepayWithholdPlanRequest;
 use AntChain\ATO\Models\RepayWithholdPlanResponse;
 use AntChain\ATO\Models\ReplaceTradeUserpromiseRequest;
@@ -408,7 +414,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.9.73',
+                    'sdk_version'      => '1.10.16',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1166,6 +1172,39 @@ class Client
         Utils::validateModel($request);
 
         return SyncFundFinanceprecheckresultResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.financeprecheckresult.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方查询代偿户余额
+     * Summary: 代偿户查询.
+     *
+     * @param QueryFundCompensateaccountRequest $request
+     *
+     * @return QueryFundCompensateaccountResponse
+     */
+    public function queryFundCompensateaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryFundCompensateaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方查询代偿户余额
+     * Summary: 代偿户查询.
+     *
+     * @param QueryFundCompensateaccountRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryFundCompensateaccountResponse
+     */
+    public function queryFundCompensateaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryFundCompensateaccountResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.compensateaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -2920,39 +2959,6 @@ class Client
     }
 
     /**
-     * Description: 商户控制台商品详情
-     * Summary: 商品详情.
-     *
-     * @param DetailInnerProductRequest $request
-     *
-     * @return DetailInnerProductResponse
-     */
-    public function detailInnerProduct($request)
-    {
-        $runtime = new RuntimeOptions([]);
-        $headers = [];
-
-        return $this->detailInnerProductEx($request, $headers, $runtime);
-    }
-
-    /**
-     * Description: 商户控制台商品详情
-     * Summary: 商品详情.
-     *
-     * @param DetailInnerProductRequest $request
-     * @param string[]                  $headers
-     * @param RuntimeOptions            $runtime
-     *
-     * @return DetailInnerProductResponse
-     */
-    public function detailInnerProductEx($request, $headers, $runtime)
-    {
-        Utils::validateModel($request);
-
-        return DetailInnerProductResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.product.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
-    }
-
-    /**
      * Description: 商户控制台首页通知栏
      * Summary: 首页通知栏.
      *
@@ -3115,6 +3121,72 @@ class Client
         Utils::validateModel($request);
 
         return DetailInnerOrderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.order.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 合同模板实例化渲染，文本域赋值
+     * Summary: 合同模板实例化渲染.
+     *
+     * @param RenderInnerTemplateinstanceRequest $request
+     *
+     * @return RenderInnerTemplateinstanceResponse
+     */
+    public function renderInnerTemplateinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->renderInnerTemplateinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 合同模板实例化渲染，文本域赋值
+     * Summary: 合同模板实例化渲染.
+     *
+     * @param RenderInnerTemplateinstanceRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return RenderInnerTemplateinstanceResponse
+     */
+    public function renderInnerTemplateinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return RenderInnerTemplateinstanceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templateinstance.render', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 批量查询营销分
+     * Summary: 批量查询营销分.
+     *
+     * @param BatchqueryInnerMarketingscoreRequest $request
+     *
+     * @return BatchqueryInnerMarketingscoreResponse
+     */
+    public function batchqueryInnerMarketingscore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->batchqueryInnerMarketingscoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 批量查询营销分
+     * Summary: 批量查询营销分.
+     *
+     * @param BatchqueryInnerMarketingscoreRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return BatchqueryInnerMarketingscoreResponse
+     */
+    public function batchqueryInnerMarketingscoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return BatchqueryInnerMarketingscoreResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.marketingscore.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4609,6 +4681,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryWithholdRefundResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.refund.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代偿户账户查询
+     * Summary: 代偿户账户查询.
+     *
+     * @param QueryWithholdCompensateaccountRequest $request
+     *
+     * @return QueryWithholdCompensateaccountResponse
+     */
+    public function queryWithholdCompensateaccount($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryWithholdCompensateaccountEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代偿户账户查询
+     * Summary: 代偿户账户查询.
+     *
+     * @param QueryWithholdCompensateaccountRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return QueryWithholdCompensateaccountResponse
+     */
+    public function queryWithholdCompensateaccountEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryWithholdCompensateaccountResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

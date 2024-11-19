@@ -30,6 +30,8 @@ class QueryMerchantexpandMerchantResponse extends Model
     // INIT 入驻中
     // SUCCESS 入驻成功
     // FAIL 入驻失败
+    // MERCHANT_CONFIRM 待商户B站确认
+    // SUB_MERCHANT_CREDIT 二级户商户签约中
     /**
      * @var string
      */

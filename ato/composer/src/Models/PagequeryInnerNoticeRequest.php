@@ -30,11 +30,18 @@ class PagequeryInnerNoticeRequest extends Model
      * @var PageQuery
      */
     public $pageInfo;
+
+    // 是否未读
+    /**
+     * @var bool
+     */
+    public $unread;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
         'pageInfo'          => 'page_info',
+        'unread'            => 'unread',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class PagequeryInnerNoticeRequest extends Model
         }
         if (null !== $this->pageInfo) {
             $res['page_info'] = null !== $this->pageInfo ? $this->pageInfo->toMap() : null;
+        }
+        if (null !== $this->unread) {
+            $res['unread'] = $this->unread;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class PagequeryInnerNoticeRequest extends Model
         }
         if (isset($map['page_info'])) {
             $model->pageInfo = PageQuery::fromMap($map['page_info']);
+        }
+        if (isset($map['unread'])) {
+            $model->unread = $map['unread'];
         }
 
         return $model;

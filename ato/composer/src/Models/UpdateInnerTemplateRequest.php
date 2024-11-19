@@ -25,30 +25,30 @@ class UpdateInnerTemplateRequest extends Model
      */
     public $tenantId;
 
-    // 魔法库版本id
-    /**
-     * @var string
-     */
-    public $templateVersionId;
-
     // 模板名称
     /**
      * @var string
      */
     public $templateName;
+
+    // 模板code
+    /**
+     * @var string
+     */
+    public $templateCode;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'tenantId'          => 'tenant_id',
-        'templateVersionId' => 'template_version_id',
         'templateName'      => 'template_name',
+        'templateCode'      => 'template_code',
     ];
 
     public function validate()
     {
         Model::validateRequired('tenantId', $this->tenantId, true);
-        Model::validateRequired('templateVersionId', $this->templateVersionId, true);
         Model::validateRequired('templateName', $this->templateName, true);
+        Model::validateRequired('templateCode', $this->templateCode, true);
     }
 
     public function toMap()
@@ -63,11 +63,11 @@ class UpdateInnerTemplateRequest extends Model
         if (null !== $this->tenantId) {
             $res['tenant_id'] = $this->tenantId;
         }
-        if (null !== $this->templateVersionId) {
-            $res['template_version_id'] = $this->templateVersionId;
-        }
         if (null !== $this->templateName) {
             $res['template_name'] = $this->templateName;
+        }
+        if (null !== $this->templateCode) {
+            $res['template_code'] = $this->templateCode;
         }
 
         return $res;
@@ -90,11 +90,11 @@ class UpdateInnerTemplateRequest extends Model
         if (isset($map['tenant_id'])) {
             $model->tenantId = $map['tenant_id'];
         }
-        if (isset($map['template_version_id'])) {
-            $model->templateVersionId = $map['template_version_id'];
-        }
         if (isset($map['template_name'])) {
             $model->templateName = $map['template_name'];
+        }
+        if (isset($map['template_code'])) {
+            $model->templateCode = $map['template_code'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateWithholdActivepayResponse extends Model
+class QueryWithholdCompensateaccountResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,23 @@ class CreateWithholdActivepayResponse extends Model
      */
     public $resultMsg;
 
-    // 支付宝支付订单号，用于拉起主动支付页面
+    // 代偿卡号
     /**
      * @var string
      */
-    public $tradeNo;
+    public $cardNo;
 
-    // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+    // 可用余额，单位为分
     /**
-     * @var string
+     * @var int
      */
-    public $orderStr;
+    public $availableAmount;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'tradeNo'    => 'trade_no',
-        'orderStr'   => 'order_str',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'cardNo'          => 'card_no',
+        'availableAmount' => 'available_amount',
     ];
 
     public function validate()
@@ -61,11 +61,11 @@ class CreateWithholdActivepayResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->tradeNo) {
-            $res['trade_no'] = $this->tradeNo;
+        if (null !== $this->cardNo) {
+            $res['card_no'] = $this->cardNo;
         }
-        if (null !== $this->orderStr) {
-            $res['order_str'] = $this->orderStr;
+        if (null !== $this->availableAmount) {
+            $res['available_amount'] = $this->availableAmount;
         }
 
         return $res;
@@ -74,7 +74,7 @@ class CreateWithholdActivepayResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateWithholdActivepayResponse
+     * @return QueryWithholdCompensateaccountResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +88,11 @@ class CreateWithholdActivepayResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['trade_no'])) {
-            $model->tradeNo = $map['trade_no'];
+        if (isset($map['card_no'])) {
+            $model->cardNo = $map['card_no'];
         }
-        if (isset($map['order_str'])) {
-            $model->orderStr = $map['order_str'];
+        if (isset($map['available_amount'])) {
+            $model->availableAmount = $map['available_amount'];
         }
 
         return $model;

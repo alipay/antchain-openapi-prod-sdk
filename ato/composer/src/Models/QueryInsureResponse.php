@@ -73,6 +73,18 @@ class QueryInsureResponse extends Model
      * @var string
      */
     public $insurePremium;
+
+    // 电子保单下载链接
+    /**
+     * @var string
+     */
+    public $policyUrl;
+
+    // 验真码
+    /**
+     * @var string
+     */
+    public $validateCode;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
@@ -85,6 +97,8 @@ class QueryInsureResponse extends Model
         'insureEndTime'   => 'insure_end_time',
         'insureAmount'    => 'insure_amount',
         'insurePremium'   => 'insure_premium',
+        'policyUrl'       => 'policy_url',
+        'validateCode'    => 'validate_code',
     ];
 
     public function validate()
@@ -126,6 +140,12 @@ class QueryInsureResponse extends Model
         }
         if (null !== $this->insurePremium) {
             $res['insure_premium'] = $this->insurePremium;
+        }
+        if (null !== $this->policyUrl) {
+            $res['policy_url'] = $this->policyUrl;
+        }
+        if (null !== $this->validateCode) {
+            $res['validate_code'] = $this->validateCode;
         }
 
         return $res;
@@ -171,6 +191,12 @@ class QueryInsureResponse extends Model
         }
         if (isset($map['insure_premium'])) {
             $model->insurePremium = $map['insure_premium'];
+        }
+        if (isset($map['policy_url'])) {
+            $model->policyUrl = $map['policy_url'];
+        }
+        if (isset($map['validate_code'])) {
+            $model->validateCode = $map['validate_code'];
         }
 
         return $model;

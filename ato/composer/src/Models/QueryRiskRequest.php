@@ -92,6 +92,7 @@ class QueryRiskRequest extends Model
         Model::validateRequired('userName', $this->userName, true);
         Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('mobile', $this->mobile, true);
+        Model::validateMaxLength('userName', $this->userName, 2000);
         Model::validateMaxLength('alipayUserId', $this->alipayUserId, 20);
         Model::validateMaxLength('source', $this->source, 10);
     }

@@ -71,6 +71,22 @@ class InsureOrderInfo extends Model
      * @var string
      */
     public $status;
+
+    // 电子保单下载链接
+    /**
+     * @example https://test-open.pingan.com.cn/Gateway/xxxxx/printGPForDMZ?ciphertext=${ciphertext}&sign=${sign}
+     *
+     * @var string
+     */
+    public $policyUrl;
+
+    // 验真码
+    /**
+     * @example 9u649pfJ76crNdRRVD
+     *
+     * @var string
+     */
+    public $validateCode;
     protected $_name = [
         'orderId'         => 'order_id',
         'insureId'        => 'insure_id',
@@ -80,6 +96,8 @@ class InsureOrderInfo extends Model
         'insureAmount'    => 'insure_amount',
         'insurePremium'   => 'insure_premium',
         'status'          => 'status',
+        'policyUrl'       => 'policy_url',
+        'validateCode'    => 'validate_code',
     ];
 
     public function validate()
@@ -112,6 +130,12 @@ class InsureOrderInfo extends Model
         }
         if (null !== $this->status) {
             $res['status'] = $this->status;
+        }
+        if (null !== $this->policyUrl) {
+            $res['policy_url'] = $this->policyUrl;
+        }
+        if (null !== $this->validateCode) {
+            $res['validate_code'] = $this->validateCode;
         }
 
         return $res;
@@ -148,6 +172,12 @@ class InsureOrderInfo extends Model
         }
         if (isset($map['status'])) {
             $model->status = $map['status'];
+        }
+        if (isset($map['policy_url'])) {
+            $model->policyUrl = $map['policy_url'];
+        }
+        if (isset($map['validate_code'])) {
+            $model->validateCode = $map['validate_code'];
         }
 
         return $model;
