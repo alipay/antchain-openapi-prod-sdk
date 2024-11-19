@@ -26,7 +26,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         // 第几期
         // 针对用户履约的第几期进行退款申请
         [NameInMap("period_num")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? PeriodNum { get; set; }
 
         // 外部系统传入的退款请求号
@@ -44,6 +44,14 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [NameInMap("refund_reason")]
         [Validation(Required=false, MaxLength=200)]
         public string RefundReason { get; set; }
+
+        // 支付类型
+        // ORDER_BUYOUT:买断金
+        // ORDER_PENALTY:违约金
+        // PERFORMANCE:正常履约（默认）
+        [NameInMap("pay_type")]
+        [Validation(Required=false, MaxLength=64)]
+        public string PayType { get; set; }
 
     }
 

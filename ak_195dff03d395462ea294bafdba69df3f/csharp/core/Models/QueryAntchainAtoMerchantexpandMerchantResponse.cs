@@ -28,6 +28,8 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         // INIT 入驻中
         // SUCCESS 入驻成功
         // FAIL 入驻失败
+        // MERCHANT_CONFIRM 待商户B站确认
+        // SUB_MERCHANT_CREDIT 二级户商户签约中
         [NameInMap("enrollment_status")]
         [Validation(Required=false)]
         public string EnrollmentStatus { get; set; }

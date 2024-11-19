@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class CreateAntchainAtoWithholdSignResponse : TeaModel {
+    public class QueryAntchainAtoWithholdCompensateaccountResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,15 +24,15 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 签约字符串
-        [NameInMap("sign_str")]
+        // 代偿卡号
+        [NameInMap("card_no")]
         [Validation(Required=false)]
-        public string SignStr { get; set; }
+        public string CardNo { get; set; }
 
-        // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
-        [NameInMap("sign_str_type")]
+        // 可用余额，单位为分
+        [NameInMap("available_amount")]
         [Validation(Required=false)]
-        public string SignStrType { get; set; }
+        public long? AvailableAmount { get; set; }
 
     }
 

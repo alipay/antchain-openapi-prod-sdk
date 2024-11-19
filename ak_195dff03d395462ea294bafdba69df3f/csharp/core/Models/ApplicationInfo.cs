@@ -51,6 +51,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true)]
         public string MerchantServiceDesc { get; set; }
 
+        // 站点信息
+        [NameInMap("site_info")]
+        [Validation(Required=false)]
+        public List<SiteInfo> SiteInfo { get; set; }
+
     }
 
 }

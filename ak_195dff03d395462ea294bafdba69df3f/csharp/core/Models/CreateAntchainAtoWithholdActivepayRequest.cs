@@ -23,10 +23,37 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true, MaxLength=50)]
         public string OrderId { get; set; }
 
-        // 第几期
+        // 第几期,当支付类型为PERFORMANCE或为空必填
         [NameInMap("period_num")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? PeriodNum { get; set; }
+
+        // 支付类型
+        [NameInMap("pay_type")]
+        [Validation(Required=false, MaxLength=64)]
+        public string PayType { get; set; }
+
+        // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+        [NameInMap("pay_channel")]
+        [Validation(Required=false, MaxLength=64)]
+        public string PayChannel { get; set; }
+
+        // 支付金额，单位为分
+        [NameInMap("pay_amount")]
+        [Validation(Required=false)]
+        public long? PayAmount { get; set; }
+
+        // 经营分账标识Y/N
+        // 当pay_type=BUYOUT、PENALTY必填。
+        [NameInMap("operation_divide_flag")]
+        [Validation(Required=false, MaxLength=1)]
+        public string OperationDivideFlag { get; set; }
+
+        // 当operation_divide_flag=Y 必填
+        // 经营分账收入列表，最多10条，分账比例与正常限制一致。
+        [NameInMap("operation_divide_trans_in_list")]
+        [Validation(Required=false)]
+        public List<OperationDivideTransInModel> OperationDivideTransInList { get; set; }
 
     }
 

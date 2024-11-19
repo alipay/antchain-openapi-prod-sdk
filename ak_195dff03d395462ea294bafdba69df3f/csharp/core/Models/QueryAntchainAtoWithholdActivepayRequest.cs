@@ -23,15 +23,20 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=true, MaxLength=50)]
         public string OrderId { get; set; }
 
-        // 第几期
+        // 第几期,当支付类型为PERFORMANCE或为空必填
         [NameInMap("period_num")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? PeriodNum { get; set; }
 
         // 支付宝支付订单号，当传递此单号时，只会返回当前单据
         [NameInMap("trade_no")]
         [Validation(Required=false, MaxLength=64)]
         public string TradeNo { get; set; }
+
+        // 支付类型
+        [NameInMap("pay_type")]
+        [Validation(Required=false, MaxLength=64)]
+        public string PayType { get; set; }
 
     }
 
