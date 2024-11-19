@@ -29,6 +29,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string TradeNo { get; set; }
 
+        // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+        [NameInMap("order_str")]
+        [Validation(Required=false)]
+        public string OrderStr { get; set; }
+
     }
 
 }

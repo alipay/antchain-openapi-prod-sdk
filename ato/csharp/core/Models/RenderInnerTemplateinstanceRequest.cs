@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class DetailInnerProductRequest : TeaModel {
+    public class RenderInnerTemplateinstanceRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,25 +18,30 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 商户租户id
+        // 商户对应租户ID
         [NameInMap("tenant_id")]
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
-        // 商家社会统一信用代码
-        [NameInMap("merchant_id")]
+        // 模板编码集，数组
+        [NameInMap("template_codes")]
         [Validation(Required=true)]
-        public string MerchantId { get; set; }
+        public List<string> TemplateCodes { get; set; }
 
-        // 商品id
-        [NameInMap("product_id")]
+        // 幂等值
+        [NameInMap("idempotent")]
         [Validation(Required=true)]
-        public string ProductId { get; set; }
+        public string Idempotent { get; set; }
 
-        // 商品版本
-        [NameInMap("product_version")]
+        // 业务方id，唯一
+        [NameInMap("biz_business_id")]
         [Validation(Required=true)]
-        public string ProductVersion { get; set; }
+        public string BizBusinessId { get; set; }
+
+        // 组件（文本域）的实际值
+        [NameInMap("component_inst_dtos")]
+        [Validation(Required=true)]
+        public List<TemplateComponent> ComponentInstDtos { get; set; }
 
     }
 

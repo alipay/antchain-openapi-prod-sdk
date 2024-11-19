@@ -23,15 +23,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string TenantId { get; set; }
 
-        // 魔法库版本id
-        [NameInMap("template_version_id")]
-        [Validation(Required=true)]
-        public string TemplateVersionId { get; set; }
-
         // 模板名称
         [NameInMap("template_name")]
         [Validation(Required=true)]
         public string TemplateName { get; set; }
+
+        // 模板code
+        [NameInMap("template_code")]
+        [Validation(Required=true)]
+        public string TemplateCode { get; set; }
 
     }
 

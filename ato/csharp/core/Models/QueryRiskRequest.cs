@@ -25,7 +25,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 用户姓名
         [NameInMap("user_name")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=2000)]
         public string UserName { get; set; }
 
         // 用户证件号码

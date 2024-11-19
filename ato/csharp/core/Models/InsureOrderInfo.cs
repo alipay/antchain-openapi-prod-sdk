@@ -50,6 +50,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string Status { get; set; }
 
+        // 电子保单下载链接
+        [NameInMap("policy_url")]
+        [Validation(Required=false)]
+        public string PolicyUrl { get; set; }
+
+        // 验真码
+        [NameInMap("validate_code")]
+        [Validation(Required=false)]
+        public string ValidateCode { get; set; }
+
     }
 
 }

@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class QueryMerchantexpandMerchantResponse : TeaModel {
+    public class QueryWithholdCompensateaccountResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 商户入驻状态
-        // INIT 入驻中
-        // SUCCESS 入驻成功
-        // FAIL 入驻失败
-        // MERCHANT_CONFIRM 待商户B站确认
-        // SUB_MERCHANT_CREDIT 二级户商户签约中
-        [NameInMap("enrollment_status")]
+        // 代偿卡号
+        [NameInMap("card_no")]
         [Validation(Required=false)]
-        public string EnrollmentStatus { get; set; }
+        public string CardNo { get; set; }
 
-        // 入驻失败原因
-        [NameInMap("fail_reason")]
+        // 可用余额，单位为分
+        [NameInMap("available_amount")]
         [Validation(Required=false)]
-        public string FailReason { get; set; }
+        public long? AvailableAmount { get; set; }
 
     }
 

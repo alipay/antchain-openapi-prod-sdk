@@ -26,13 +26,21 @@ namespace AntChain.SDK.ATO.Models
         // 几期
         // 针对用户履约的第几期进行退款申请
         [NameInMap("period_num")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? PeriodNum { get; set; }
 
         // 外部系统传入的退款请求号
         [NameInMap("refund_request_no")]
         [Validation(Required=true, MaxLength=128)]
         public string RefundRequestNo { get; set; }
+
+        // 支付类型
+        // ORDER_BUYOUT:买断金
+        // ORDER_PENALTY:违约金
+        // PERFORMANCE:正常履约（默认）
+        [NameInMap("pay_type")]
+        [Validation(Required=false, MaxLength=64)]
+        public string PayType { get; set; }
 
     }
 

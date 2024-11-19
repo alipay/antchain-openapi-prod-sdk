@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class PagequeryInnerNoticeRequest : TeaModel {
+    public class BatchqueryInnerMarketingscoreRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 商户租户id
-        [NameInMap("tenant_id")]
+        // 营销分查询对象
+        [NameInMap("marketing_score_query_infos")]
         [Validation(Required=true)]
-        public string TenantId { get; set; }
-
-        // 分页
-        [NameInMap("page_info")]
-        [Validation(Required=true)]
-        public PageQuery PageInfo { get; set; }
-
-        // 是否未读
-        [NameInMap("unread")]
-        [Validation(Required=false)]
-        public bool? Unread { get; set; }
+        public List<MarketingScoreQueryInfo> MarketingScoreQueryInfos { get; set; }
 
     }
 

@@ -52,12 +52,12 @@ namespace AntChain.SDK.ATO.Models
 
         // 公司联系人姓名，RSA 加密传输
         [NameInMap("contact_name")]
-        [Validation(Required=true, MaxLength=1024)]
+        [Validation(Required=true, MaxLength=2000)]
         public string ContactName { get; set; }
 
         // 公司联系人手机号，RSA 加密传输
         [NameInMap("contact_mobile")]
-        [Validation(Required=true, MaxLength=1024)]
+        [Validation(Required=true, MaxLength=2000)]
         public string ContactMobile { get; set; }
 
         // 实人认证业务流水号

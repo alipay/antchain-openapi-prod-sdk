@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.73"},
+                        {"sdk_version", "1.10.16"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.9.73"},
+                        {"sdk_version", "1.10.16"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1249,6 +1249,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SyncFundFinanceprecheckresultResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.financeprecheckresult.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方查询代偿户余额
+         * Summary: 代偿户查询
+         */
+        public QueryFundCompensateaccountResponse QueryFundCompensateaccount(QueryFundCompensateaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryFundCompensateaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方查询代偿户余额
+         * Summary: 代偿户查询
+         */
+        public async Task<QueryFundCompensateaccountResponse> QueryFundCompensateaccountAsync(QueryFundCompensateaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryFundCompensateaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方查询代偿户余额
+         * Summary: 代偿户查询
+         */
+        public QueryFundCompensateaccountResponse QueryFundCompensateaccountEx(QueryFundCompensateaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFundCompensateaccountResponse>(DoRequest("1.0", "antchain.ato.fund.compensateaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方查询代偿户余额
+         * Summary: 代偿户查询
+         */
+        public async Task<QueryFundCompensateaccountResponse> QueryFundCompensateaccountExAsync(QueryFundCompensateaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryFundCompensateaccountResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.compensateaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -3482,48 +3524,6 @@ namespace AntChain.SDK.ATO
         }
 
         /**
-         * Description: 商户控制台商品详情
-         * Summary: 商品详情
-         */
-        public DetailInnerProductResponse DetailInnerProduct(DetailInnerProductRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return DetailInnerProductEx(request, headers, runtime);
-        }
-
-        /**
-         * Description: 商户控制台商品详情
-         * Summary: 商品详情
-         */
-        public async Task<DetailInnerProductResponse> DetailInnerProductAsync(DetailInnerProductRequest request)
-        {
-            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
-            Dictionary<string, string> headers = new Dictionary<string, string>(){};
-            return await DetailInnerProductExAsync(request, headers, runtime);
-        }
-
-        /**
-         * Description: 商户控制台商品详情
-         * Summary: 商品详情
-         */
-        public DetailInnerProductResponse DetailInnerProductEx(DetailInnerProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DetailInnerProductResponse>(DoRequest("1.0", "antchain.ato.inner.product.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
-         * Description: 商户控制台商品详情
-         * Summary: 商品详情
-         */
-        public async Task<DetailInnerProductResponse> DetailInnerProductExAsync(DetailInnerProductRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
-        {
-            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
-            return TeaModel.ToObject<DetailInnerProductResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.product.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
-        }
-
-        /**
          * Description: 商户控制台首页通知栏
          * Summary: 首页通知栏
          */
@@ -3731,6 +3731,90 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DetailInnerOrderResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.order.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合同模板实例化渲染，文本域赋值
+         * Summary: 合同模板实例化渲染
+         */
+        public RenderInnerTemplateinstanceResponse RenderInnerTemplateinstance(RenderInnerTemplateinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return RenderInnerTemplateinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合同模板实例化渲染，文本域赋值
+         * Summary: 合同模板实例化渲染
+         */
+        public async Task<RenderInnerTemplateinstanceResponse> RenderInnerTemplateinstanceAsync(RenderInnerTemplateinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await RenderInnerTemplateinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 合同模板实例化渲染，文本域赋值
+         * Summary: 合同模板实例化渲染
+         */
+        public RenderInnerTemplateinstanceResponse RenderInnerTemplateinstanceEx(RenderInnerTemplateinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RenderInnerTemplateinstanceResponse>(DoRequest("1.0", "antchain.ato.inner.templateinstance.render", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 合同模板实例化渲染，文本域赋值
+         * Summary: 合同模板实例化渲染
+         */
+        public async Task<RenderInnerTemplateinstanceResponse> RenderInnerTemplateinstanceExAsync(RenderInnerTemplateinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<RenderInnerTemplateinstanceResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.templateinstance.render", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量查询营销分
+         * Summary: 批量查询营销分
+         */
+        public BatchqueryInnerMarketingscoreResponse BatchqueryInnerMarketingscore(BatchqueryInnerMarketingscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return BatchqueryInnerMarketingscoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量查询营销分
+         * Summary: 批量查询营销分
+         */
+        public async Task<BatchqueryInnerMarketingscoreResponse> BatchqueryInnerMarketingscoreAsync(BatchqueryInnerMarketingscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await BatchqueryInnerMarketingscoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 批量查询营销分
+         * Summary: 批量查询营销分
+         */
+        public BatchqueryInnerMarketingscoreResponse BatchqueryInnerMarketingscoreEx(BatchqueryInnerMarketingscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryInnerMarketingscoreResponse>(DoRequest("1.0", "antchain.ato.inner.marketingscore.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 批量查询营销分
+         * Summary: 批量查询营销分
+         */
+        public async Task<BatchqueryInnerMarketingscoreResponse> BatchqueryInnerMarketingscoreExAsync(BatchqueryInnerMarketingscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<BatchqueryInnerMarketingscoreResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.marketingscore.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -5683,6 +5767,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryWithholdRefundResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.refund.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代偿户账户查询
+         * Summary: 代偿户账户查询
+         */
+        public QueryWithholdCompensateaccountResponse QueryWithholdCompensateaccount(QueryWithholdCompensateaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryWithholdCompensateaccountEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代偿户账户查询
+         * Summary: 代偿户账户查询
+         */
+        public async Task<QueryWithholdCompensateaccountResponse> QueryWithholdCompensateaccountAsync(QueryWithholdCompensateaccountRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryWithholdCompensateaccountExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代偿户账户查询
+         * Summary: 代偿户账户查询
+         */
+        public QueryWithholdCompensateaccountResponse QueryWithholdCompensateaccountEx(QueryWithholdCompensateaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWithholdCompensateaccountResponse>(DoRequest("1.0", "antchain.ato.withhold.compensateaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代偿户账户查询
+         * Summary: 代偿户账户查询
+         */
+        public async Task<QueryWithholdCompensateaccountResponse> QueryWithholdCompensateaccountExAsync(QueryWithholdCompensateaccountRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWithholdCompensateaccountResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.compensateaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
