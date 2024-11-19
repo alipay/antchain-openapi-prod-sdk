@@ -18,7 +18,7 @@ public class QueryRiskRequest extends TeaModel {
 
     // 用户姓名
     @NameInMap("user_name")
-    @Validation(required = true)
+    @Validation(required = true, maxLength = 2000)
     public String userName;
 
     // 用户证件号码

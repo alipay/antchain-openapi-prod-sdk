@@ -16,15 +16,15 @@ public class UpdateInnerTemplateRequest extends TeaModel {
     @Validation(required = true)
     public String tenantId;
 
-    // 魔法库版本id
-    @NameInMap("template_version_id")
-    @Validation(required = true)
-    public String templateVersionId;
-
     // 模板名称
     @NameInMap("template_name")
     @Validation(required = true)
     public String templateName;
+
+    // 模板code
+    @NameInMap("template_code")
+    @Validation(required = true)
+    public String templateCode;
 
     public static UpdateInnerTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateInnerTemplateRequest self = new UpdateInnerTemplateRequest();
@@ -55,20 +55,20 @@ public class UpdateInnerTemplateRequest extends TeaModel {
         return this.tenantId;
     }
 
-    public UpdateInnerTemplateRequest setTemplateVersionId(String templateVersionId) {
-        this.templateVersionId = templateVersionId;
-        return this;
-    }
-    public String getTemplateVersionId() {
-        return this.templateVersionId;
-    }
-
     public UpdateInnerTemplateRequest setTemplateName(String templateName) {
         this.templateName = templateName;
         return this;
     }
     public String getTemplateName() {
         return this.templateName;
+    }
+
+    public UpdateInnerTemplateRequest setTemplateCode(String templateCode) {
+        this.templateCode = templateCode;
+        return this;
+    }
+    public String getTemplateCode() {
+        return this.templateCode;
     }
 
 }

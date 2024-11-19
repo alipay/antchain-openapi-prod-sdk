@@ -20,6 +20,10 @@ public class CreateWithholdActivepayResponse extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
+    // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+    @NameInMap("order_str")
+    public String orderStr;
+
     public static CreateWithholdActivepayResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateWithholdActivepayResponse self = new CreateWithholdActivepayResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class CreateWithholdActivepayResponse extends TeaModel {
     }
     public String getTradeNo() {
         return this.tradeNo;
+    }
+
+    public CreateWithholdActivepayResponse setOrderStr(String orderStr) {
+        this.orderStr = orderStr;
+        return this;
+    }
+    public String getOrderStr() {
+        return this.orderStr;
     }
 
 }

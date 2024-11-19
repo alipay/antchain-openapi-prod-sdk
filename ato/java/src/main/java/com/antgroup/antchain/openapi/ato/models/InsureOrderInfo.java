@@ -36,6 +36,14 @@ public class InsureOrderInfo extends TeaModel {
     @NameInMap("status")
     public String status;
 
+    // 电子保单下载链接
+    @NameInMap("policy_url")
+    public String policyUrl;
+
+    // 验真码
+    @NameInMap("validate_code")
+    public String validateCode;
+
     public static InsureOrderInfo build(java.util.Map<String, ?> map) throws Exception {
         InsureOrderInfo self = new InsureOrderInfo();
         return TeaModel.build(map, self);
@@ -103,6 +111,22 @@ public class InsureOrderInfo extends TeaModel {
     }
     public String getStatus() {
         return this.status;
+    }
+
+    public InsureOrderInfo setPolicyUrl(String policyUrl) {
+        this.policyUrl = policyUrl;
+        return this;
+    }
+    public String getPolicyUrl() {
+        return this.policyUrl;
+    }
+
+    public InsureOrderInfo setValidateCode(String validateCode) {
+        this.validateCode = validateCode;
+        return this;
+    }
+    public String getValidateCode() {
+        return this.validateCode;
     }
 
 }

@@ -21,6 +21,10 @@ public class PagequeryInnerNoticeRequest extends TeaModel {
     @Validation(required = true)
     public PageQuery pageInfo;
 
+    // 是否未读
+    @NameInMap("unread")
+    public Boolean unread;
+
     public static PagequeryInnerNoticeRequest build(java.util.Map<String, ?> map) throws Exception {
         PagequeryInnerNoticeRequest self = new PagequeryInnerNoticeRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class PagequeryInnerNoticeRequest extends TeaModel {
     }
     public PageQuery getPageInfo() {
         return this.pageInfo;
+    }
+
+    public PagequeryInnerNoticeRequest setUnread(Boolean unread) {
+        this.unread = unread;
+        return this;
+    }
+    public Boolean getUnread() {
+        return this.unread;
     }
 
 }

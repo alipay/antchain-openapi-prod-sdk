@@ -45,12 +45,12 @@ public class CreateInsureRequest extends TeaModel {
 
     // 公司联系人姓名，RSA 加密传输
     @NameInMap("contact_name")
-    @Validation(required = true, maxLength = 1024)
+    @Validation(required = true, maxLength = 2000)
     public String contactName;
 
     // 公司联系人手机号，RSA 加密传输
     @NameInMap("contact_mobile")
-    @Validation(required = true, maxLength = 1024)
+    @Validation(required = true, maxLength = 2000)
     public String contactMobile;
 
     // 实人认证业务流水号

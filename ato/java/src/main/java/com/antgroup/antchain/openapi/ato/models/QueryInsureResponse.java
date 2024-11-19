@@ -48,6 +48,14 @@ public class QueryInsureResponse extends TeaModel {
     @NameInMap("insure_premium")
     public String insurePremium;
 
+    // 电子保单下载链接
+    @NameInMap("policy_url")
+    public String policyUrl;
+
+    // 验真码
+    @NameInMap("validate_code")
+    public String validateCode;
+
     public static QueryInsureResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInsureResponse self = new QueryInsureResponse();
         return TeaModel.build(map, self);
@@ -139,6 +147,22 @@ public class QueryInsureResponse extends TeaModel {
     }
     public String getInsurePremium() {
         return this.insurePremium;
+    }
+
+    public QueryInsureResponse setPolicyUrl(String policyUrl) {
+        this.policyUrl = policyUrl;
+        return this;
+    }
+    public String getPolicyUrl() {
+        return this.policyUrl;
+    }
+
+    public QueryInsureResponse setValidateCode(String validateCode) {
+        this.validateCode = validateCode;
+        return this;
+    }
+    public String getValidateCode() {
+        return this.validateCode;
     }
 
 }

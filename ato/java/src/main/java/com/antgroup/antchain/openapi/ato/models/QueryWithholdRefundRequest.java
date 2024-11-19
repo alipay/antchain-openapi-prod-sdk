@@ -19,13 +19,20 @@ public class QueryWithholdRefundRequest extends TeaModel {
     // 几期
     // 针对用户履约的第几期进行退款申请
     @NameInMap("period_num")
-    @Validation(required = true, minimum = 1)
     public Long periodNum;
 
     // 外部系统传入的退款请求号
     @NameInMap("refund_request_no")
     @Validation(required = true, maxLength = 128, minLength = 1)
     public String refundRequestNo;
+
+    // 支付类型
+    // ORDER_BUYOUT:买断金
+    // ORDER_PENALTY:违约金
+    // PERFORMANCE:正常履约（默认）
+    @NameInMap("pay_type")
+    @Validation(maxLength = 64)
+    public String payType;
 
     public static QueryWithholdRefundRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryWithholdRefundRequest self = new QueryWithholdRefundRequest();
@@ -70,6 +77,14 @@ public class QueryWithholdRefundRequest extends TeaModel {
     }
     public String getRefundRequestNo() {
         return this.refundRequestNo;
+    }
+
+    public QueryWithholdRefundRequest setPayType(String payType) {
+        this.payType = payType;
+        return this;
+    }
+    public String getPayType() {
+        return this.payType;
     }
 
 }
