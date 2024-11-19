@@ -103,6 +103,51 @@ export class FileInfo extends $tea.Model {
   }
 }
 
+// 站点信息
+export class SiteInfo extends $tea.Model {
+  // 小程序id
+  tinyAppId?: string;
+  // 站点名称
+  siteName?: string;
+  // 
+  // 截图照片
+  screenshotImage?: string;
+  // 站点地址
+  siteUrl?: string;
+  // 站点类型
+  // 网站: 01
+  // APP: 02
+  // 服务窗: 03
+  // 公众号: 04
+  // 其他: 05
+  // 支付宝小程序: 06
+  // 手机网站/H5: 07
+  siteType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      tinyAppId: 'tiny_app_id',
+      siteName: 'site_name',
+      screenshotImage: 'screenshot_image',
+      siteUrl: 'site_url',
+      siteType: 'site_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      tinyAppId: 'string',
+      siteName: 'string',
+      screenshotImage: 'string',
+      siteUrl: 'string',
+      siteType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 公司信息
 export class CompanyInfo extends $tea.Model {
   // 营业执照文件信息
@@ -169,6 +214,36 @@ export class CompanyInfo extends $tea.Model {
       bindAlipayNo: 'string',
       settleAlipayNo: 'string',
       bindAlipayUid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 经营分账收入模型
+export class OperationDivideTransInModel extends $tea.Model {
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId: string;
+  // 分账金额，单位为分
+  // 
+  divideAmount: number;
+  // 分账描述
+  desc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      transInUserId: 'trans_in_user_id',
+      divideAmount: 'divide_amount',
+      desc: 'desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transInUserId: 'string',
+      divideAmount: 'number',
+      desc: 'string',
     };
   }
 
@@ -255,6 +330,8 @@ export class ApplicationInfo extends $tea.Model {
   // 商户服务描述。
   // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
   merchantServiceDesc: string;
+  // 站点信息
+  siteInfo?: SiteInfo[];
   static names(): { [key: string]: string } {
     return {
       applicationScene: 'application_scene',
@@ -264,6 +341,7 @@ export class ApplicationInfo extends $tea.Model {
       merchantName: 'merchant_name',
       merchantServiceName: 'merchant_service_name',
       merchantServiceDesc: 'merchant_service_desc',
+      siteInfo: 'site_info',
     };
   }
 
@@ -276,6 +354,7 @@ export class ApplicationInfo extends $tea.Model {
       merchantName: 'string',
       merchantServiceName: 'string',
       merchantServiceDesc: 'string',
+      siteInfo: { 'type': 'array', 'itemType': SiteInfo },
     };
   }
 
@@ -1187,12 +1266,15 @@ export class CreateAntchainAtoWithholdSignResponse extends $tea.Model {
   resultMsg?: string;
   // 签约字符串
   signStr?: string;
+  // 签约字符串类型。SIGN_ONLY:仅签约;PAY_SIGN:支付并签约
+  signStrType?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       signStr: 'sign_str',
+      signStrType: 'sign_str_type',
     };
   }
 
@@ -1202,6 +1284,7 @@ export class CreateAntchainAtoWithholdSignResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       signStr: 'string',
+      signStrType: 'string',
     };
   }
 
@@ -2238,14 +2321,31 @@ export class CreateAntchainAtoWithholdActivepayRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单id 长度不可超过50
   orderId: string;
-  // 第几期
-  periodNum: number;
+  // 第几期,当支付类型为PERFORMANCE或为空必填
+  periodNum?: number;
+  // 支付类型
+  payType?: string;
+  // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+  payChannel?: string;
+  // 支付金额，单位为分
+  payAmount?: number;
+  // 经营分账标识Y/N
+  // 当pay_type=BUYOUT、PENALTY必填。
+  operationDivideFlag?: string;
+  // 当operation_divide_flag=Y 必填
+  // 经营分账收入列表，最多10条，分账比例与正常限制一致。
+  operationDivideTransInList?: OperationDivideTransInModel[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       orderId: 'order_id',
       periodNum: 'period_num',
+      payType: 'pay_type',
+      payChannel: 'pay_channel',
+      payAmount: 'pay_amount',
+      operationDivideFlag: 'operation_divide_flag',
+      operationDivideTransInList: 'operation_divide_trans_in_list',
     };
   }
 
@@ -2255,6 +2355,11 @@ export class CreateAntchainAtoWithholdActivepayRequest extends $tea.Model {
       productInstanceId: 'string',
       orderId: 'string',
       periodNum: 'number',
+      payType: 'string',
+      payChannel: 'string',
+      payAmount: 'number',
+      operationDivideFlag: 'string',
+      operationDivideTransInList: { 'type': 'array', 'itemType': OperationDivideTransInModel },
     };
   }
 
@@ -2272,12 +2377,15 @@ export class CreateAntchainAtoWithholdActivepayResponse extends $tea.Model {
   resultMsg?: string;
   // 支付宝支付订单号，用于拉起主动支付页面
   tradeNo?: string;
+  // 签名字符串，用于APP支付场景，客户端唤起支付宝收银台使用。
+  orderStr?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       tradeNo: 'trade_no',
+      orderStr: 'order_str',
     };
   }
 
@@ -2287,6 +2395,7 @@ export class CreateAntchainAtoWithholdActivepayResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       tradeNo: 'string',
+      orderStr: 'string',
     };
   }
 
@@ -2301,10 +2410,12 @@ export class QueryAntchainAtoWithholdActivepayRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单id 长度不可超过50
   orderId: string;
-  // 第几期
-  periodNum: number;
+  // 第几期,当支付类型为PERFORMANCE或为空必填
+  periodNum?: number;
   // 支付宝支付订单号，当传递此单号时，只会返回当前单据
   tradeNo?: string;
+  // 支付类型
+  payType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2312,6 +2423,7 @@ export class QueryAntchainAtoWithholdActivepayRequest extends $tea.Model {
       orderId: 'order_id',
       periodNum: 'period_num',
       tradeNo: 'trade_no',
+      payType: 'pay_type',
     };
   }
 
@@ -2322,6 +2434,7 @@ export class QueryAntchainAtoWithholdActivepayRequest extends $tea.Model {
       orderId: 'string',
       periodNum: 'number',
       tradeNo: 'string',
+      payType: 'string',
     };
   }
 
@@ -3371,7 +3484,7 @@ export class CreateAntchainAtoWithholdRefundRequest extends $tea.Model {
   orderId: string;
   // 第几期
   // 针对用户履约的第几期进行退款申请
-  periodNum: number;
+  periodNum?: number;
   // 外部系统传入的退款请求号
   refundRequestNo: string;
   // 本次请求的退款金额，单位为分
@@ -3379,6 +3492,11 @@ export class CreateAntchainAtoWithholdRefundRequest extends $tea.Model {
   refundMoney: number;
   // 退款原因
   refundReason?: string;
+  // 支付类型
+  // ORDER_BUYOUT:买断金
+  // ORDER_PENALTY:违约金
+  // PERFORMANCE:正常履约（默认）
+  payType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3388,6 +3506,7 @@ export class CreateAntchainAtoWithholdRefundRequest extends $tea.Model {
       refundRequestNo: 'refund_request_no',
       refundMoney: 'refund_money',
       refundReason: 'refund_reason',
+      payType: 'pay_type',
     };
   }
 
@@ -3400,6 +3519,7 @@ export class CreateAntchainAtoWithholdRefundRequest extends $tea.Model {
       refundRequestNo: 'string',
       refundMoney: 'number',
       refundReason: 'string',
+      payType: 'string',
     };
   }
 
@@ -3456,9 +3576,14 @@ export class QueryAntchainAtoWithholdRefundRequest extends $tea.Model {
   orderId: string;
   // 几期
   // 针对用户履约的第几期进行退款申请
-  periodNum: number;
+  periodNum?: number;
   // 外部系统传入的退款请求号
   refundRequestNo: string;
+  // 支付类型
+  // ORDER_BUYOUT:买断金
+  // ORDER_PENALTY:违约金
+  // PERFORMANCE:正常履约（默认）
+  payType?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3466,6 +3591,7 @@ export class QueryAntchainAtoWithholdRefundRequest extends $tea.Model {
       orderId: 'order_id',
       periodNum: 'period_num',
       refundRequestNo: 'refund_request_no',
+      payType: 'pay_type',
     };
   }
 
@@ -3476,6 +3602,7 @@ export class QueryAntchainAtoWithholdRefundRequest extends $tea.Model {
       orderId: 'string',
       periodNum: 'number',
       refundRequestNo: 'string',
+      payType: 'string',
     };
   }
 
@@ -3993,6 +4120,8 @@ export class QueryAntchainAtoMerchantexpandMerchantResponse extends $tea.Model {
   // INIT 入驻中
   // SUCCESS 入驻成功
   // FAIL 入驻失败
+  // MERCHANT_CONFIRM 待商户B站确认
+  // SUB_MERCHANT_CREDIT 二级户商户签约中
   enrollmentStatus?: string;
   // 入驻失败原因
   failReason?: string;
@@ -4776,6 +4905,144 @@ export class SyncAntchainAtoFundFinanceprecheckresultResponse extends $tea.Model
   }
 }
 
+export class QueryAntchainAtoFundCompensateaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资方社会信用代码
+  fundId: string;
+  // 商户社会信用代码
+  merchantId: string;
+  // 商户租户id
+  merchantTenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fundId: 'fund_id',
+      merchantId: 'merchant_id',
+      merchantTenantId: 'merchant_tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fundId: 'string',
+      merchantId: 'string',
+      merchantTenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainAtoFundCompensateaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 可用余额，单位为分
+  availableAmount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      availableAmount: 'available_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      availableAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainAtoWithholdCompensateaccountRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户社会信用代码
+  merchantId: string;
+  // 资方社会信用代码
+  fundId: string;
+  // 资方租户id
+  fundTenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      merchantId: 'merchant_id',
+      fundId: 'fund_id',
+      fundTenantId: 'fund_tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      merchantId: 'string',
+      fundId: 'string',
+      fundTenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntchainAtoWithholdCompensateaccountResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代偿卡号
+  cardNo?: string;
+  // 可用余额，单位为分
+  availableAmount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      cardNo: 'card_no',
+      availableAmount: 'available_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      cardNo: 'string',
+      availableAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -4977,7 +5244,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.7",
+          sdk_version: "1.3.8",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
@@ -5386,6 +5653,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -5768,6 +6036,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -5979,6 +6248,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -6154,6 +6424,44 @@ export default class Client {
   async syncAntchainAtoFundFinanceprecheckresultEx(request: SyncAntchainAtoFundFinanceprecheckresultRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncAntchainAtoFundFinanceprecheckresultResponse> {
     Util.validateModel(request);
     return $tea.cast<SyncAntchainAtoFundFinanceprecheckresultResponse>(await this.doRequest("1.0", "antchain.ato.fund.financeprecheckresult.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncAntchainAtoFundFinanceprecheckresultResponse({}));
+  }
+
+  /**
+   * Description: 资方查询代偿户余额
+   * Summary: 代偿户查询
+   */
+  async queryAntchainAtoFundCompensateaccount(request: QueryAntchainAtoFundCompensateaccountRequest): Promise<QueryAntchainAtoFundCompensateaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainAtoFundCompensateaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资方查询代偿户余额
+   * Summary: 代偿户查询
+   */
+  async queryAntchainAtoFundCompensateaccountEx(request: QueryAntchainAtoFundCompensateaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainAtoFundCompensateaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainAtoFundCompensateaccountResponse>(await this.doRequest("1.0", "antchain.ato.fund.compensateaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainAtoFundCompensateaccountResponse({}));
+  }
+
+  /**
+   * Description: 代偿户账户查询
+   * Summary: 代偿户账户查询
+   */
+  async queryAntchainAtoWithholdCompensateaccount(request: QueryAntchainAtoWithholdCompensateaccountRequest): Promise<QueryAntchainAtoWithholdCompensateaccountResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntchainAtoWithholdCompensateaccountEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代偿户账户查询
+   * Summary: 代偿户账户查询
+   */
+  async queryAntchainAtoWithholdCompensateaccountEx(request: QueryAntchainAtoWithholdCompensateaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainAtoWithholdCompensateaccountResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntchainAtoWithholdCompensateaccountResponse>(await this.doRequest("1.0", "antchain.ato.withhold.compensateaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainAtoWithholdCompensateaccountResponse({}));
   }
 
   /**
