@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.21.0"),
+                    new TeaPair("sdk_version", "1.22.0"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2170,6 +2170,120 @@ public class Client {
     }
 
     /**
+     * Description: 企管盾票税交接授权信息表的同步
+     * Summary: 企管盾票税交接授权信息表的同步
+     */
+    public SyncRdaasTaxAuthinfoResponse syncRdaasTaxAuthinfo(SyncRdaasTaxAuthinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncRdaasTaxAuthinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接授权信息表的同步
+     * Summary: 企管盾票税交接授权信息表的同步
+     */
+    public SyncRdaasTaxAuthinfoResponse syncRdaasTaxAuthinfoEx(SyncRdaasTaxAuthinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rdaas.tax.authinfo.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncRdaasTaxAuthinfoResponse());
+    }
+
+    /**
+     * Description: 企管盾票税交接授权记录表的同步
+     * Summary: 企管盾票税交接授权记录表的同步
+     */
+    public SyncRdaasTaxAuthorderResponse syncRdaasTaxAuthorder(SyncRdaasTaxAuthorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncRdaasTaxAuthorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接授权记录表的同步
+     * Summary: 企管盾票税交接授权记录表的同步
+     */
+    public SyncRdaasTaxAuthorderResponse syncRdaasTaxAuthorderEx(SyncRdaasTaxAuthorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rdaas.tax.authorder.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncRdaasTaxAuthorderResponse());
+    }
+
+    /**
+     * Description: 企管盾票税交接回调通知
+     * Summary: 企管盾票税交接回调通知
+     */
+    public NotifyRdaasTaxCallbackResponse notifyRdaasTaxCallback(NotifyRdaasTaxCallbackRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifyRdaasTaxCallbackEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接回调通知
+     * Summary: 企管盾票税交接回调通知
+     */
+    public NotifyRdaasTaxCallbackResponse notifyRdaasTaxCallbackEx(NotifyRdaasTaxCallbackRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rdaas.tax.callback.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifyRdaasTaxCallbackResponse());
+    }
+
+    /**
+     * Description: 企管盾票税交接RPA决策服务查询
+     * Summary: 企管盾票税交接RPA决策服务查询
+     */
+    public QueryRdaasTaxRpadecisionserviceResponse queryRdaasTaxRpadecisionservice(QueryRdaasTaxRpadecisionserviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRdaasTaxRpadecisionserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接RPA决策服务查询
+     * Summary: 企管盾票税交接RPA决策服务查询
+     */
+    public QueryRdaasTaxRpadecisionserviceResponse queryRdaasTaxRpadecisionserviceEx(QueryRdaasTaxRpadecisionserviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rdaas.tax.rpadecisionservice.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRdaasTaxRpadecisionserviceResponse());
+    }
+
+    /**
+     * Description: 企管盾票税交接RPA决策服务指标查询
+     * Summary: 企管盾票税交接RPA决策服务指标查询
+     */
+    public QueryRdaasTaxRpadecisionindicatorResponse queryRdaasTaxRpadecisionindicator(QueryRdaasTaxRpadecisionindicatorRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRdaasTaxRpadecisionindicatorEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接RPA决策服务指标查询
+     * Summary: 企管盾票税交接RPA决策服务指标查询
+     */
+    public QueryRdaasTaxRpadecisionindicatorResponse queryRdaasTaxRpadecisionindicatorEx(QueryRdaasTaxRpadecisionindicatorRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rdaas.tax.rpadecisionindicator.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRdaasTaxRpadecisionindicatorResponse());
+    }
+
+    /**
+     * Description: 企管盾票税交接要素授权决策查询
+     * Summary: 企管盾票税交接要素授权决策查询
+     */
+    public QueryRdaasTaxSimpleauthdecisionResponse queryRdaasTaxSimpleauthdecision(QueryRdaasTaxSimpleauthdecisionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRdaasTaxSimpleauthdecisionEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接要素授权决策查询
+     * Summary: 企管盾票税交接要素授权决策查询
+     */
+    public QueryRdaasTaxSimpleauthdecisionResponse queryRdaasTaxSimpleauthdecisionEx(QueryRdaasTaxSimpleauthdecisionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rdaas.tax.simpleauthdecision.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRdaasTaxSimpleauthdecisionResponse());
+    }
+
+    /**
      * Description: 风险大脑企业版通用查询接口
      * Summary: 【已废弃】
      */
@@ -2607,6 +2721,25 @@ public class Client {
     public PushRbbCustomerStatusResponse pushRbbCustomerStatusEx(PushRbbCustomerStatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.customer.status.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRbbCustomerStatusResponse());
+    }
+
+    /**
+     * Description: 票税计费处理推送，由票税侧请求
+     * Summary: 票税计费处理推送
+     */
+    public PushRbbInvoiceChargeResponse pushRbbInvoiceCharge(PushRbbInvoiceChargeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushRbbInvoiceChargeEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 票税计费处理推送，由票税侧请求
+     * Summary: 票税计费处理推送
+     */
+    public PushRbbInvoiceChargeResponse pushRbbInvoiceChargeEx(PushRbbInvoiceChargeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.rbb.invoice.charge.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRbbInvoiceChargeResponse());
     }
 
     /**
@@ -4080,6 +4213,47 @@ public class Client {
     public QueryUmktOfflinedecisionPlandetailsResponse queryUmktOfflinedecisionPlandetailsEx(QueryUmktOfflinedecisionPlandetailsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.offlinedecision.plandetails.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryUmktOfflinedecisionPlandetailsResponse());
+    }
+
+    /**
+     * Description: 营销盾离线圈投一体文件上传
+     * Summary: 营销盾离线圈投一体文件上传
+     */
+    public UploadUmktOfflineImportrecordResponse uploadUmktOfflineImportrecord(UploadUmktOfflineImportrecordRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadUmktOfflineImportrecordEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 营销盾离线圈投一体文件上传
+     * Summary: 营销盾离线圈投一体文件上传
+     */
+    public UploadUmktOfflineImportrecordResponse uploadUmktOfflineImportrecordEx(UploadUmktOfflineImportrecordRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "riskplus.umkt.offline.importrecord.upload"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                UploadUmktOfflineImportrecordResponse uploadUmktOfflineImportrecordResponse = UploadUmktOfflineImportrecordResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return uploadUmktOfflineImportrecordResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.umkt.offline.importrecord.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadUmktOfflineImportrecordResponse());
     }
 
     /**
