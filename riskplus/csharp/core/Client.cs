@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.21.0"},
+                        {"sdk_version", "1.22.0"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.21.0"},
+                        {"sdk_version", "1.22.0"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4708,6 +4708,258 @@ namespace AntChain.SDK.RISKPLUS
         }
 
         /**
+         * Description: 企管盾票税交接授权信息表的同步
+         * Summary: 企管盾票税交接授权信息表的同步
+         */
+        public SyncRdaasTaxAuthinfoResponse SyncRdaasTaxAuthinfo(SyncRdaasTaxAuthinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncRdaasTaxAuthinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接授权信息表的同步
+         * Summary: 企管盾票税交接授权信息表的同步
+         */
+        public async Task<SyncRdaasTaxAuthinfoResponse> SyncRdaasTaxAuthinfoAsync(SyncRdaasTaxAuthinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncRdaasTaxAuthinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接授权信息表的同步
+         * Summary: 企管盾票税交接授权信息表的同步
+         */
+        public SyncRdaasTaxAuthinfoResponse SyncRdaasTaxAuthinfoEx(SyncRdaasTaxAuthinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncRdaasTaxAuthinfoResponse>(DoRequest("1.0", "riskplus.rdaas.tax.authinfo.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接授权信息表的同步
+         * Summary: 企管盾票税交接授权信息表的同步
+         */
+        public async Task<SyncRdaasTaxAuthinfoResponse> SyncRdaasTaxAuthinfoExAsync(SyncRdaasTaxAuthinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncRdaasTaxAuthinfoResponse>(await DoRequestAsync("1.0", "riskplus.rdaas.tax.authinfo.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接授权记录表的同步
+         * Summary: 企管盾票税交接授权记录表的同步
+         */
+        public SyncRdaasTaxAuthorderResponse SyncRdaasTaxAuthorder(SyncRdaasTaxAuthorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncRdaasTaxAuthorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接授权记录表的同步
+         * Summary: 企管盾票税交接授权记录表的同步
+         */
+        public async Task<SyncRdaasTaxAuthorderResponse> SyncRdaasTaxAuthorderAsync(SyncRdaasTaxAuthorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncRdaasTaxAuthorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接授权记录表的同步
+         * Summary: 企管盾票税交接授权记录表的同步
+         */
+        public SyncRdaasTaxAuthorderResponse SyncRdaasTaxAuthorderEx(SyncRdaasTaxAuthorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncRdaasTaxAuthorderResponse>(DoRequest("1.0", "riskplus.rdaas.tax.authorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接授权记录表的同步
+         * Summary: 企管盾票税交接授权记录表的同步
+         */
+        public async Task<SyncRdaasTaxAuthorderResponse> SyncRdaasTaxAuthorderExAsync(SyncRdaasTaxAuthorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncRdaasTaxAuthorderResponse>(await DoRequestAsync("1.0", "riskplus.rdaas.tax.authorder.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接回调通知
+         * Summary: 企管盾票税交接回调通知
+         */
+        public NotifyRdaasTaxCallbackResponse NotifyRdaasTaxCallback(NotifyRdaasTaxCallbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return NotifyRdaasTaxCallbackEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接回调通知
+         * Summary: 企管盾票税交接回调通知
+         */
+        public async Task<NotifyRdaasTaxCallbackResponse> NotifyRdaasTaxCallbackAsync(NotifyRdaasTaxCallbackRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await NotifyRdaasTaxCallbackExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接回调通知
+         * Summary: 企管盾票税交接回调通知
+         */
+        public NotifyRdaasTaxCallbackResponse NotifyRdaasTaxCallbackEx(NotifyRdaasTaxCallbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyRdaasTaxCallbackResponse>(DoRequest("1.0", "riskplus.rdaas.tax.callback.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接回调通知
+         * Summary: 企管盾票税交接回调通知
+         */
+        public async Task<NotifyRdaasTaxCallbackResponse> NotifyRdaasTaxCallbackExAsync(NotifyRdaasTaxCallbackRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<NotifyRdaasTaxCallbackResponse>(await DoRequestAsync("1.0", "riskplus.rdaas.tax.callback.notify", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接RPA决策服务查询
+         * Summary: 企管盾票税交接RPA决策服务查询
+         */
+        public QueryRdaasTaxRpadecisionserviceResponse QueryRdaasTaxRpadecisionservice(QueryRdaasTaxRpadecisionserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRdaasTaxRpadecisionserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接RPA决策服务查询
+         * Summary: 企管盾票税交接RPA决策服务查询
+         */
+        public async Task<QueryRdaasTaxRpadecisionserviceResponse> QueryRdaasTaxRpadecisionserviceAsync(QueryRdaasTaxRpadecisionserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRdaasTaxRpadecisionserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接RPA决策服务查询
+         * Summary: 企管盾票税交接RPA决策服务查询
+         */
+        public QueryRdaasTaxRpadecisionserviceResponse QueryRdaasTaxRpadecisionserviceEx(QueryRdaasTaxRpadecisionserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRdaasTaxRpadecisionserviceResponse>(DoRequest("1.0", "riskplus.rdaas.tax.rpadecisionservice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接RPA决策服务查询
+         * Summary: 企管盾票税交接RPA决策服务查询
+         */
+        public async Task<QueryRdaasTaxRpadecisionserviceResponse> QueryRdaasTaxRpadecisionserviceExAsync(QueryRdaasTaxRpadecisionserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRdaasTaxRpadecisionserviceResponse>(await DoRequestAsync("1.0", "riskplus.rdaas.tax.rpadecisionservice.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接RPA决策服务指标查询
+         * Summary: 企管盾票税交接RPA决策服务指标查询
+         */
+        public QueryRdaasTaxRpadecisionindicatorResponse QueryRdaasTaxRpadecisionindicator(QueryRdaasTaxRpadecisionindicatorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRdaasTaxRpadecisionindicatorEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接RPA决策服务指标查询
+         * Summary: 企管盾票税交接RPA决策服务指标查询
+         */
+        public async Task<QueryRdaasTaxRpadecisionindicatorResponse> QueryRdaasTaxRpadecisionindicatorAsync(QueryRdaasTaxRpadecisionindicatorRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRdaasTaxRpadecisionindicatorExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接RPA决策服务指标查询
+         * Summary: 企管盾票税交接RPA决策服务指标查询
+         */
+        public QueryRdaasTaxRpadecisionindicatorResponse QueryRdaasTaxRpadecisionindicatorEx(QueryRdaasTaxRpadecisionindicatorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRdaasTaxRpadecisionindicatorResponse>(DoRequest("1.0", "riskplus.rdaas.tax.rpadecisionindicator.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接RPA决策服务指标查询
+         * Summary: 企管盾票税交接RPA决策服务指标查询
+         */
+        public async Task<QueryRdaasTaxRpadecisionindicatorResponse> QueryRdaasTaxRpadecisionindicatorExAsync(QueryRdaasTaxRpadecisionindicatorRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRdaasTaxRpadecisionindicatorResponse>(await DoRequestAsync("1.0", "riskplus.rdaas.tax.rpadecisionindicator.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接要素授权决策查询
+         * Summary: 企管盾票税交接要素授权决策查询
+         */
+        public QueryRdaasTaxSimpleauthdecisionResponse QueryRdaasTaxSimpleauthdecision(QueryRdaasTaxSimpleauthdecisionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRdaasTaxSimpleauthdecisionEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接要素授权决策查询
+         * Summary: 企管盾票税交接要素授权决策查询
+         */
+        public async Task<QueryRdaasTaxSimpleauthdecisionResponse> QueryRdaasTaxSimpleauthdecisionAsync(QueryRdaasTaxSimpleauthdecisionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRdaasTaxSimpleauthdecisionExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企管盾票税交接要素授权决策查询
+         * Summary: 企管盾票税交接要素授权决策查询
+         */
+        public QueryRdaasTaxSimpleauthdecisionResponse QueryRdaasTaxSimpleauthdecisionEx(QueryRdaasTaxSimpleauthdecisionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRdaasTaxSimpleauthdecisionResponse>(DoRequest("1.0", "riskplus.rdaas.tax.simpleauthdecision.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企管盾票税交接要素授权决策查询
+         * Summary: 企管盾票税交接要素授权决策查询
+         */
+        public async Task<QueryRdaasTaxSimpleauthdecisionResponse> QueryRdaasTaxSimpleauthdecisionExAsync(QueryRdaasTaxSimpleauthdecisionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRdaasTaxSimpleauthdecisionResponse>(await DoRequestAsync("1.0", "riskplus.rdaas.tax.simpleauthdecision.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 风险大脑企业版通用查询接口
          * Summary: 【已废弃】
          */
@@ -5677,6 +5929,48 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushRbbCustomerStatusResponse>(await DoRequestAsync("1.0", "riskplus.rbb.customer.status.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 票税计费处理推送，由票税侧请求
+         * Summary: 票税计费处理推送
+         */
+        public PushRbbInvoiceChargeResponse PushRbbInvoiceCharge(PushRbbInvoiceChargeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRbbInvoiceChargeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 票税计费处理推送，由票税侧请求
+         * Summary: 票税计费处理推送
+         */
+        public async Task<PushRbbInvoiceChargeResponse> PushRbbInvoiceChargeAsync(PushRbbInvoiceChargeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRbbInvoiceChargeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 票税计费处理推送，由票税侧请求
+         * Summary: 票税计费处理推送
+         */
+        public PushRbbInvoiceChargeResponse PushRbbInvoiceChargeEx(PushRbbInvoiceChargeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRbbInvoiceChargeResponse>(DoRequest("1.0", "riskplus.rbb.invoice.charge.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 票税计费处理推送，由票税侧请求
+         * Summary: 票税计费处理推送
+         */
+        public async Task<PushRbbInvoiceChargeResponse> PushRbbInvoiceChargeExAsync(PushRbbInvoiceChargeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRbbInvoiceChargeResponse>(await DoRequestAsync("1.0", "riskplus.rbb.invoice.charge.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -8931,6 +9225,96 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryUmktOfflinedecisionPlandetailsResponse>(await DoRequestAsync("1.0", "riskplus.umkt.offlinedecision.plandetails.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾离线圈投一体文件上传
+         * Summary: 营销盾离线圈投一体文件上传
+         */
+        public UploadUmktOfflineImportrecordResponse UploadUmktOfflineImportrecord(UploadUmktOfflineImportrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadUmktOfflineImportrecordEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾离线圈投一体文件上传
+         * Summary: 营销盾离线圈投一体文件上传
+         */
+        public async Task<UploadUmktOfflineImportrecordResponse> UploadUmktOfflineImportrecordAsync(UploadUmktOfflineImportrecordRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadUmktOfflineImportrecordExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 营销盾离线圈投一体文件上传
+         * Summary: 营销盾离线圈投一体文件上传
+         */
+        public UploadUmktOfflineImportrecordResponse UploadUmktOfflineImportrecordEx(UploadUmktOfflineImportrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.umkt.offline.importrecord.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadUmktOfflineImportrecordResponse uploadUmktOfflineImportrecordResponse = new UploadUmktOfflineImportrecordResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadUmktOfflineImportrecordResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadUmktOfflineImportrecordResponse>(DoRequest("1.0", "riskplus.umkt.offline.importrecord.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 营销盾离线圈投一体文件上传
+         * Summary: 营销盾离线圈投一体文件上传
+         */
+        public async Task<UploadUmktOfflineImportrecordResponse> UploadUmktOfflineImportrecordExAsync(UploadUmktOfflineImportrecordRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "riskplus.umkt.offline.importrecord.upload",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    UploadUmktOfflineImportrecordResponse uploadUmktOfflineImportrecordResponse = new UploadUmktOfflineImportrecordResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return uploadUmktOfflineImportrecordResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadUmktOfflineImportrecordResponse>(await DoRequestAsync("1.0", "riskplus.umkt.offline.importrecord.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
