@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.21.0',
+    sdk_version = '1.22.0',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -1663,6 +1663,22 @@ model OverdueInfoResponse {
   nearestRepayTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='nearest_repay_time', example=''),
 }
 
+// 企管盾票税交接决策服务指标
+model RdaasTaxDecsionServiceIndicator {
+  // 决策指标id
+  id: string(name='id', example='决策指标id'),
+  // 决策服务id
+  serviceId: string(name='service_id', example='700002'),
+  // 属性名
+  propertyName: string(name='property_name', example='weight'),
+  // 属性值或指标值
+  propertyValue?: string(name='property_value', example='100'),
+  // 决策租户
+  decisionTenant?: string(name='decision_tenant', example='DEFAULT'),
+  // 创建时间，格式:yyyy-MM-dd HH:mm:ss
+  createTime?: string(name='create_time', example='创建时间，格式:yyyy-MM-dd HH:mm:ss'),
+}
+
 // 天枢预览协议信息
 model GetAgreementUrlResponseData {
   // 协议标题
@@ -1904,6 +1920,24 @@ model ShortUrlInfo {
 model CustomRelationStatus {
   // 是否联登
   regFlag?: boolean(name='reg_flag', example='true, false'),
+}
+
+// 企管盾票税决策服务
+model RdaasTaxDecsionService {
+  // 决策服务id
+  id: string(name='id', example='1'),
+  // 产品编码
+  serviceName: string(name='service_name', example='13'),
+  // 区域编码
+  serviceZone?: string(name='service_zone', example='SJ_ALL'),
+  // 渠道
+  channel?: string(name='channel', example='HZSZKJ'),
+  // 决策租户
+  decisionTenant?: string(name='decision_tenant', example='DEFAULT'),
+  // 是否启用
+  status?: string(name='status', example='enabled'),
+  // 创建时间，格式:yyyy-MM-dd HH:mm:ss
+  createTime?: string(name='create_time', example='创建时间，格式:yyyy-MM-dd HH:mm:ss'),
 }
 
 // 服务上下文包括环境信息和用户信息
@@ -7191,6 +7225,302 @@ async function pushQmpBackflowJsondataEx(request: PushQmpBackflowJsondataRequest
   return doRequest('1.0' ,'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model SyncRdaasTaxAuthinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 应用id
+  appId: string(name='app_id'),
+  // 授权类型
+  authType: string(name='auth_type'),
+  // 税号
+  nsrsbh: string(name='nsrsbh'),
+  // 应用key
+  appKey?: string(name='app_key'),
+  // 授权状态：Y-有效，N-无效
+  authStatus?: string(name='auth_status'),
+  // 省份编码
+  proCode?: string(name='pro_code'),
+  // 城市编码
+  cityCode?: string(name='city_code'),
+  // 授权回调地址
+  authCallbackUrl?: string(name='auth_callback_url'),
+  // 过期时间，格式: yyyy-MM-dd HH:mm:ss
+  expireDate?: string(name='expire_date'),
+  // 最近一次授权成功的订单号
+  orderNo?: string(name='order_no'),
+  // 授权场景
+  authScene?: string(name='auth_scene'),
+  // 授权成功时间,格式：yyyy-MM-dd HH:mm:ss
+  authStartTime?: string(name='auth_start_time'),
+  // 授权创建时间,格式: yyyy-MM-dd HH:mm:ss
+  authCreateTime?: string(name='auth_create_time'),
+  // 企业名称
+  corpName?: string(name='corp_name'),
+}
+
+model SyncRdaasTaxAuthinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 企管盾票税交接授权信息表的同步
+ * Summary: 企管盾票税交接授权信息表的同步
+ */
+async function syncRdaasTaxAuthinfo(request: SyncRdaasTaxAuthinfoRequest): SyncRdaasTaxAuthinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncRdaasTaxAuthinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企管盾票税交接授权信息表的同步
+ * Summary: 企管盾票税交接授权信息表的同步
+ */
+async function syncRdaasTaxAuthinfoEx(request: SyncRdaasTaxAuthinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncRdaasTaxAuthinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rdaas.tax.authinfo.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncRdaasTaxAuthorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户号
+  instCode: string(name='inst_code'),
+  // 授权类型
+  authType: string(name='auth_type'),
+  // 税号
+  identityId?: string(name='identity_id'),
+  // 授权因子
+  factorValue?: string(name='factor_value'),
+  // 第二授权因子
+  secondFactorValue?: string(name='second_factor_value'),
+  // 授权订单号
+  orderNo: string(name='order_no'),
+  // 内容
+  content?: string(name='content'),
+  // 过期时间
+  expireTime?: string(name='expire_time'),
+  // 授权场景
+  authScene?: string(name='auth_scene'),
+  // 授权状态
+  authStatus?: string(name='auth_status'),
+  // 授权成功时间,格式：yyyy-MM-dd HH:mm:ss
+  authStartTime?: string(name='auth_start_time'),
+  // 授权创建时间,格式: yyyy-MM-dd HH:mm:ss
+  authCreateTime?: string(name='auth_create_time'),
+  // 名称
+  identityName?: string(name='identity_name'),
+  // 企业实际所属税局地区编码
+  taxZoneCode?: string(name='tax_zone_code'),
+  // 失败原因
+  failReason?: string(name='fail_reason'),
+}
+
+model SyncRdaasTaxAuthorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 企管盾票税交接授权记录表的同步
+ * Summary: 企管盾票税交接授权记录表的同步
+ */
+async function syncRdaasTaxAuthorder(request: SyncRdaasTaxAuthorderRequest): SyncRdaasTaxAuthorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncRdaasTaxAuthorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企管盾票税交接授权记录表的同步
+ * Summary: 企管盾票税交接授权记录表的同步
+ */
+async function syncRdaasTaxAuthorderEx(request: SyncRdaasTaxAuthorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncRdaasTaxAuthorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rdaas.tax.authorder.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyRdaasTaxCallbackRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 通知场景
+  notifyScene: string(name='notify_scene'),
+  // 租户号
+  instCode: string(name='inst_code'),
+  // 解决方案id
+  solutionId?: string(name='solution_id'),
+  // 通知回调地址
+  callbackUrl?: string(name='callback_url'),
+  // 业务参数
+  jsonBizParams?: string(name='json_biz_params'),
+}
+
+model NotifyRdaasTaxCallbackResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 通知是否成功
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 企管盾票税交接回调通知
+ * Summary: 企管盾票税交接回调通知
+ */
+async function notifyRdaasTaxCallback(request: NotifyRdaasTaxCallbackRequest): NotifyRdaasTaxCallbackResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyRdaasTaxCallbackEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企管盾票税交接回调通知
+ * Summary: 企管盾票税交接回调通知
+ */
+async function notifyRdaasTaxCallbackEx(request: NotifyRdaasTaxCallbackRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyRdaasTaxCallbackResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rdaas.tax.callback.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRdaasTaxRpadecisionserviceRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 决策服务
+  serviceName: string(name='service_name'),
+  // 决策租户
+  decisionTenant: string(name='decision_tenant'),
+}
+
+model QueryRdaasTaxRpadecisionserviceResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 决策服务列表
+  data?: [ RdaasTaxDecsionService ](name='data'),
+}
+
+/**
+ * Description: 企管盾票税交接RPA决策服务查询
+ * Summary: 企管盾票税交接RPA决策服务查询
+ */
+async function queryRdaasTaxRpadecisionservice(request: QueryRdaasTaxRpadecisionserviceRequest): QueryRdaasTaxRpadecisionserviceResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRdaasTaxRpadecisionserviceEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企管盾票税交接RPA决策服务查询
+ * Summary: 企管盾票税交接RPA决策服务查询
+ */
+async function queryRdaasTaxRpadecisionserviceEx(request: QueryRdaasTaxRpadecisionserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRdaasTaxRpadecisionserviceResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rdaas.tax.rpadecisionservice.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRdaasTaxRpadecisionindicatorRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 决策服务id
+  serviceId: string(name='service_id'),
+  // 决策属性名称，目前一种属性: 比重-weight
+  propertyName?: string(name='property_name'),
+  // 决策租户
+  decisionTenant?: string(name='decision_tenant'),
+}
+
+model QueryRdaasTaxRpadecisionindicatorResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 决策指标
+  data?: [ RdaasTaxDecsionServiceIndicator ](name='data'),
+}
+
+/**
+ * Description: 企管盾票税交接RPA决策服务指标查询
+ * Summary: 企管盾票税交接RPA决策服务指标查询
+ */
+async function queryRdaasTaxRpadecisionindicator(request: QueryRdaasTaxRpadecisionindicatorRequest): QueryRdaasTaxRpadecisionindicatorResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRdaasTaxRpadecisionindicatorEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企管盾票税交接RPA决策服务指标查询
+ * Summary: 企管盾票税交接RPA决策服务指标查询
+ */
+async function queryRdaasTaxRpadecisionindicatorEx(request: QueryRdaasTaxRpadecisionindicatorRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRdaasTaxRpadecisionindicatorResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rdaas.tax.rpadecisionindicator.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryRdaasTaxSimpleauthdecisionRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 决策租户
+  decisionTenant: string(name='decision_tenant'),
+  // 授权类型
+  authType: string(name='auth_type'),
+  // 省份
+  provinceCode: string(name='province_code'),
+}
+
+model QueryRdaasTaxSimpleauthdecisionResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // json决策结果
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 企管盾票税交接要素授权决策查询
+ * Summary: 企管盾票税交接要素授权决策查询
+ */
+async function queryRdaasTaxSimpleauthdecision(request: QueryRdaasTaxSimpleauthdecisionRequest): QueryRdaasTaxSimpleauthdecisionResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryRdaasTaxSimpleauthdecisionEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企管盾票税交接要素授权决策查询
+ * Summary: 企管盾票税交接要素授权决策查询
+ */
+async function queryRdaasTaxSimpleauthdecisionEx(request: QueryRdaasTaxSimpleauthdecisionRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryRdaasTaxSimpleauthdecisionResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rdaas.tax.simpleauthdecision.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryRbbGenericInvokeRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -8137,6 +8467,56 @@ async function pushRbbCustomerStatus(request: PushRbbCustomerStatusRequest): Pus
 async function pushRbbCustomerStatusEx(request: PushRbbCustomerStatusRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRbbCustomerStatusResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.rbb.customer.status.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushRbbInvoiceChargeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户码
+  tenantCode: string(name='tenant_code'),
+  // 授权类型
+  bizType: string(name='biz_type'),
+  // 计费项,主租户：税号,子租户：子租户|税号
+  customerId: string(name='customer_id'),
+  // 请求id
+  taskRequestId: string(name='task_request_id'),
+  // 利润共享方
+  benefitSharePartner: string(name='benefit_share_partner'),
+  // 计费时间
+  feeTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='fee_time'),
+  // 税号
+  sharding: string(name='sharding'),
+  // true为接收侧提交账单，false接收侧不用提交账单
+  receiverSubmitBill: boolean(name='receiver_submit_bill'),
+}
+
+model PushRbbInvoiceChargeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 票税计费处理推送，由票税侧请求
+ * Summary: 票税计费处理推送
+ */
+async function pushRbbInvoiceCharge(request: PushRbbInvoiceChargeRequest): PushRbbInvoiceChargeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushRbbInvoiceChargeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 票税计费处理推送，由票税侧请求
+ * Summary: 票税计费处理推送
+ */
+async function pushRbbInvoiceChargeEx(request: PushRbbInvoiceChargeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushRbbInvoiceChargeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushRpaasReportAnswerRequest = {
@@ -11874,6 +12254,66 @@ async function queryUmktOfflinedecisionPlandetails(request: QueryUmktOfflinedeci
 async function queryUmktOfflinedecisionPlandetailsEx(request: QueryUmktOfflinedecisionPlandetailsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUmktOfflinedecisionPlandetailsResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'riskplus.umkt.offlinedecision.plandetails.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadUmktOfflineImportrecordRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 文件上传后返回的fileId
+  fileObject?: readable(description='待上传文件', ignore='true'),
+  fileObjectName?: string(description='待上传文件名', ignore='true'),
+  fileId: string(name='file_id'),
+  // 文件内手机号类型 
+  fileTemplate: string(name='file_template'),
+}
+
+model UploadUmktOfflineImportrecordResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 营销盾离线圈投一体文件上传
+ * Summary: 营销盾离线圈投一体文件上传
+ */
+async function uploadUmktOfflineImportrecord(request: UploadUmktOfflineImportrecordRequest): UploadUmktOfflineImportrecordResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadUmktOfflineImportrecordEx(request, headers, runtime);
+}
+
+/**
+ * Description: 营销盾离线圈投一体文件上传
+ * Summary: 营销盾离线圈投一体文件上传
+ */
+async function uploadUmktOfflineImportrecordEx(request: UploadUmktOfflineImportrecordRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadUmktOfflineImportrecordResponse {
+  if (!Util.isUnset(request.fileObject)) {
+    var uploadReq = new CreateAntcloudGatewayxFileUploadRequest{
+      authToken = request.authToken,
+      apiCode = 'riskplus.umkt.offline.importrecord.upload',
+      fileName = request.fileObjectName,
+    };
+    var uploadResp = createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+    if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+      var uploadUmktOfflineImportrecordResponse = new UploadUmktOfflineImportrecordResponse{
+        reqMsgId = uploadResp.reqMsgId,
+        resultCode = uploadResp.resultCode,
+        resultMsg = uploadResp.resultMsg,
+      };
+      return uploadUmktOfflineImportrecordResponse;
+    }
+    var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+    AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+    request.fileId = uploadResp.fileId;
+    request.fileObject = null;
+  }
+  Util.validateModel(request);
+  return doRequest('1.0' ,'riskplus.umkt.offline.importrecord.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
