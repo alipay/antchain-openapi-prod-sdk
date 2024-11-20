@@ -5082,6 +5082,60 @@ func (s *OverdueInfoResponse) SetNearestRepayTime(v string) *OverdueInfoResponse
 	return s
 }
 
+// 企管盾票税交接决策服务指标
+type RdaasTaxDecsionServiceIndicator struct {
+	// 决策指标id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 决策服务id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 属性名
+	PropertyName *string `json:"property_name,omitempty" xml:"property_name,omitempty" require:"true"`
+	// 属性值或指标值
+	PropertyValue *string `json:"property_value,omitempty" xml:"property_value,omitempty"`
+	// 决策租户
+	DecisionTenant *string `json:"decision_tenant,omitempty" xml:"decision_tenant,omitempty"`
+	// 创建时间，格式:yyyy-MM-dd HH:mm:ss
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+}
+
+func (s RdaasTaxDecsionServiceIndicator) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RdaasTaxDecsionServiceIndicator) GoString() string {
+	return s.String()
+}
+
+func (s *RdaasTaxDecsionServiceIndicator) SetId(v string) *RdaasTaxDecsionServiceIndicator {
+	s.Id = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionServiceIndicator) SetServiceId(v string) *RdaasTaxDecsionServiceIndicator {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionServiceIndicator) SetPropertyName(v string) *RdaasTaxDecsionServiceIndicator {
+	s.PropertyName = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionServiceIndicator) SetPropertyValue(v string) *RdaasTaxDecsionServiceIndicator {
+	s.PropertyValue = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionServiceIndicator) SetDecisionTenant(v string) *RdaasTaxDecsionServiceIndicator {
+	s.DecisionTenant = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionServiceIndicator) SetCreateTime(v string) *RdaasTaxDecsionServiceIndicator {
+	s.CreateTime = &v
+	return s
+}
+
 // 天枢预览协议信息
 type GetAgreementUrlResponseData struct {
 	// 协议标题
@@ -5900,6 +5954,67 @@ func (s CustomRelationStatus) GoString() string {
 
 func (s *CustomRelationStatus) SetRegFlag(v bool) *CustomRelationStatus {
 	s.RegFlag = &v
+	return s
+}
+
+// 企管盾票税决策服务
+type RdaasTaxDecsionService struct {
+	// 决策服务id
+	Id *string `json:"id,omitempty" xml:"id,omitempty" require:"true"`
+	// 产品编码
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+	// 区域编码
+	ServiceZone *string `json:"service_zone,omitempty" xml:"service_zone,omitempty"`
+	// 渠道
+	Channel *string `json:"channel,omitempty" xml:"channel,omitempty"`
+	// 决策租户
+	DecisionTenant *string `json:"decision_tenant,omitempty" xml:"decision_tenant,omitempty"`
+	// 是否启用
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 创建时间，格式:yyyy-MM-dd HH:mm:ss
+	CreateTime *string `json:"create_time,omitempty" xml:"create_time,omitempty"`
+}
+
+func (s RdaasTaxDecsionService) String() string {
+	return tea.Prettify(s)
+}
+
+func (s RdaasTaxDecsionService) GoString() string {
+	return s.String()
+}
+
+func (s *RdaasTaxDecsionService) SetId(v string) *RdaasTaxDecsionService {
+	s.Id = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionService) SetServiceName(v string) *RdaasTaxDecsionService {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionService) SetServiceZone(v string) *RdaasTaxDecsionService {
+	s.ServiceZone = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionService) SetChannel(v string) *RdaasTaxDecsionService {
+	s.Channel = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionService) SetDecisionTenant(v string) *RdaasTaxDecsionService {
+	s.DecisionTenant = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionService) SetStatus(v string) *RdaasTaxDecsionService {
+	s.Status = &v
+	return s
+}
+
+func (s *RdaasTaxDecsionService) SetCreateTime(v string) *RdaasTaxDecsionService {
+	s.CreateTime = &v
 	return s
 }
 
@@ -17719,6 +17834,664 @@ func (s *PushQmpBackflowJsondataResponse) SetResultMsg(v string) *PushQmpBackflo
 	return s
 }
 
+type SyncRdaasTaxAuthinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 应用id
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 税号
+	Nsrsbh *string `json:"nsrsbh,omitempty" xml:"nsrsbh,omitempty" require:"true"`
+	// 应用key
+	AppKey *string `json:"app_key,omitempty" xml:"app_key,omitempty"`
+	// 授权状态：Y-有效，N-无效
+	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty"`
+	// 省份编码
+	ProCode *string `json:"pro_code,omitempty" xml:"pro_code,omitempty"`
+	// 城市编码
+	CityCode *string `json:"city_code,omitempty" xml:"city_code,omitempty"`
+	// 授权回调地址
+	AuthCallbackUrl *string `json:"auth_callback_url,omitempty" xml:"auth_callback_url,omitempty"`
+	// 过期时间，格式: yyyy-MM-dd HH:mm:ss
+	ExpireDate *string `json:"expire_date,omitempty" xml:"expire_date,omitempty"`
+	// 最近一次授权成功的订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty"`
+	// 授权场景
+	AuthScene *string `json:"auth_scene,omitempty" xml:"auth_scene,omitempty"`
+	// 授权成功时间,格式：yyyy-MM-dd HH:mm:ss
+	AuthStartTime *string `json:"auth_start_time,omitempty" xml:"auth_start_time,omitempty"`
+	// 授权创建时间,格式: yyyy-MM-dd HH:mm:ss
+	AuthCreateTime *string `json:"auth_create_time,omitempty" xml:"auth_create_time,omitempty"`
+	// 企业名称
+	CorpName *string `json:"corp_name,omitempty" xml:"corp_name,omitempty"`
+}
+
+func (s SyncRdaasTaxAuthinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncRdaasTaxAuthinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAuthToken(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetProductInstanceId(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAppId(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAuthType(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetNsrsbh(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.Nsrsbh = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAppKey(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AppKey = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAuthStatus(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetProCode(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.ProCode = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetCityCode(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.CityCode = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAuthCallbackUrl(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AuthCallbackUrl = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetExpireDate(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.ExpireDate = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetOrderNo(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAuthScene(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AuthScene = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAuthStartTime(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AuthStartTime = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetAuthCreateTime(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.AuthCreateTime = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoRequest) SetCorpName(v string) *SyncRdaasTaxAuthinfoRequest {
+	s.CorpName = &v
+	return s
+}
+
+type SyncRdaasTaxAuthinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncRdaasTaxAuthinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncRdaasTaxAuthinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncRdaasTaxAuthinfoResponse) SetReqMsgId(v string) *SyncRdaasTaxAuthinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoResponse) SetResultCode(v string) *SyncRdaasTaxAuthinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthinfoResponse) SetResultMsg(v string) *SyncRdaasTaxAuthinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type SyncRdaasTaxAuthorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 税号
+	IdentityId *string `json:"identity_id,omitempty" xml:"identity_id,omitempty"`
+	// 授权因子
+	FactorValue *string `json:"factor_value,omitempty" xml:"factor_value,omitempty"`
+	// 第二授权因子
+	SecondFactorValue *string `json:"second_factor_value,omitempty" xml:"second_factor_value,omitempty"`
+	// 授权订单号
+	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
+	// 内容
+	Content *string `json:"content,omitempty" xml:"content,omitempty"`
+	// 过期时间
+	ExpireTime *string `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+	// 授权场景
+	AuthScene *string `json:"auth_scene,omitempty" xml:"auth_scene,omitempty"`
+	// 授权状态
+	AuthStatus *string `json:"auth_status,omitempty" xml:"auth_status,omitempty"`
+	// 授权成功时间,格式：yyyy-MM-dd HH:mm:ss
+	AuthStartTime *string `json:"auth_start_time,omitempty" xml:"auth_start_time,omitempty"`
+	// 授权创建时间,格式: yyyy-MM-dd HH:mm:ss
+	AuthCreateTime *string `json:"auth_create_time,omitempty" xml:"auth_create_time,omitempty"`
+	// 名称
+	IdentityName *string `json:"identity_name,omitempty" xml:"identity_name,omitempty"`
+	// 企业实际所属税局地区编码
+	TaxZoneCode *string `json:"tax_zone_code,omitempty" xml:"tax_zone_code,omitempty"`
+	// 失败原因
+	FailReason *string `json:"fail_reason,omitempty" xml:"fail_reason,omitempty"`
+}
+
+func (s SyncRdaasTaxAuthorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncRdaasTaxAuthorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetAuthToken(v string) *SyncRdaasTaxAuthorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetProductInstanceId(v string) *SyncRdaasTaxAuthorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetInstCode(v string) *SyncRdaasTaxAuthorderRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetAuthType(v string) *SyncRdaasTaxAuthorderRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetIdentityId(v string) *SyncRdaasTaxAuthorderRequest {
+	s.IdentityId = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetFactorValue(v string) *SyncRdaasTaxAuthorderRequest {
+	s.FactorValue = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetSecondFactorValue(v string) *SyncRdaasTaxAuthorderRequest {
+	s.SecondFactorValue = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetOrderNo(v string) *SyncRdaasTaxAuthorderRequest {
+	s.OrderNo = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetContent(v string) *SyncRdaasTaxAuthorderRequest {
+	s.Content = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetExpireTime(v string) *SyncRdaasTaxAuthorderRequest {
+	s.ExpireTime = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetAuthScene(v string) *SyncRdaasTaxAuthorderRequest {
+	s.AuthScene = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetAuthStatus(v string) *SyncRdaasTaxAuthorderRequest {
+	s.AuthStatus = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetAuthStartTime(v string) *SyncRdaasTaxAuthorderRequest {
+	s.AuthStartTime = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetAuthCreateTime(v string) *SyncRdaasTaxAuthorderRequest {
+	s.AuthCreateTime = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetIdentityName(v string) *SyncRdaasTaxAuthorderRequest {
+	s.IdentityName = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetTaxZoneCode(v string) *SyncRdaasTaxAuthorderRequest {
+	s.TaxZoneCode = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderRequest) SetFailReason(v string) *SyncRdaasTaxAuthorderRequest {
+	s.FailReason = &v
+	return s
+}
+
+type SyncRdaasTaxAuthorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SyncRdaasTaxAuthorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncRdaasTaxAuthorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncRdaasTaxAuthorderResponse) SetReqMsgId(v string) *SyncRdaasTaxAuthorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderResponse) SetResultCode(v string) *SyncRdaasTaxAuthorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncRdaasTaxAuthorderResponse) SetResultMsg(v string) *SyncRdaasTaxAuthorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type NotifyRdaasTaxCallbackRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 通知场景
+	NotifyScene *string `json:"notify_scene,omitempty" xml:"notify_scene,omitempty" require:"true"`
+	// 租户号
+	InstCode *string `json:"inst_code,omitempty" xml:"inst_code,omitempty" require:"true"`
+	// 解决方案id
+	SolutionId *string `json:"solution_id,omitempty" xml:"solution_id,omitempty"`
+	// 通知回调地址
+	CallbackUrl *string `json:"callback_url,omitempty" xml:"callback_url,omitempty"`
+	// 业务参数
+	JsonBizParams *string `json:"json_biz_params,omitempty" xml:"json_biz_params,omitempty"`
+}
+
+func (s NotifyRdaasTaxCallbackRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyRdaasTaxCallbackRequest) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyRdaasTaxCallbackRequest) SetAuthToken(v string) *NotifyRdaasTaxCallbackRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackRequest) SetProductInstanceId(v string) *NotifyRdaasTaxCallbackRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackRequest) SetNotifyScene(v string) *NotifyRdaasTaxCallbackRequest {
+	s.NotifyScene = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackRequest) SetInstCode(v string) *NotifyRdaasTaxCallbackRequest {
+	s.InstCode = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackRequest) SetSolutionId(v string) *NotifyRdaasTaxCallbackRequest {
+	s.SolutionId = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackRequest) SetCallbackUrl(v string) *NotifyRdaasTaxCallbackRequest {
+	s.CallbackUrl = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackRequest) SetJsonBizParams(v string) *NotifyRdaasTaxCallbackRequest {
+	s.JsonBizParams = &v
+	return s
+}
+
+type NotifyRdaasTaxCallbackResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 通知是否成功
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s NotifyRdaasTaxCallbackResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NotifyRdaasTaxCallbackResponse) GoString() string {
+	return s.String()
+}
+
+func (s *NotifyRdaasTaxCallbackResponse) SetReqMsgId(v string) *NotifyRdaasTaxCallbackResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackResponse) SetResultCode(v string) *NotifyRdaasTaxCallbackResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackResponse) SetResultMsg(v string) *NotifyRdaasTaxCallbackResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *NotifyRdaasTaxCallbackResponse) SetData(v bool) *NotifyRdaasTaxCallbackResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryRdaasTaxRpadecisionserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 决策服务
+	ServiceName *string `json:"service_name,omitempty" xml:"service_name,omitempty" require:"true"`
+	// 决策租户
+	DecisionTenant *string `json:"decision_tenant,omitempty" xml:"decision_tenant,omitempty" require:"true"`
+}
+
+func (s QueryRdaasTaxRpadecisionserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRdaasTaxRpadecisionserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRdaasTaxRpadecisionserviceRequest) SetAuthToken(v string) *QueryRdaasTaxRpadecisionserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionserviceRequest) SetProductInstanceId(v string) *QueryRdaasTaxRpadecisionserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionserviceRequest) SetServiceName(v string) *QueryRdaasTaxRpadecisionserviceRequest {
+	s.ServiceName = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionserviceRequest) SetDecisionTenant(v string) *QueryRdaasTaxRpadecisionserviceRequest {
+	s.DecisionTenant = &v
+	return s
+}
+
+type QueryRdaasTaxRpadecisionserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 决策服务列表
+	Data []*RdaasTaxDecsionService `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryRdaasTaxRpadecisionserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRdaasTaxRpadecisionserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRdaasTaxRpadecisionserviceResponse) SetReqMsgId(v string) *QueryRdaasTaxRpadecisionserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionserviceResponse) SetResultCode(v string) *QueryRdaasTaxRpadecisionserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionserviceResponse) SetResultMsg(v string) *QueryRdaasTaxRpadecisionserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionserviceResponse) SetData(v []*RdaasTaxDecsionService) *QueryRdaasTaxRpadecisionserviceResponse {
+	s.Data = v
+	return s
+}
+
+type QueryRdaasTaxRpadecisionindicatorRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 决策服务id
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 决策属性名称，目前一种属性: 比重-weight
+	PropertyName *string `json:"property_name,omitempty" xml:"property_name,omitempty"`
+	// 决策租户
+	DecisionTenant *string `json:"decision_tenant,omitempty" xml:"decision_tenant,omitempty"`
+}
+
+func (s QueryRdaasTaxRpadecisionindicatorRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRdaasTaxRpadecisionindicatorRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorRequest) SetAuthToken(v string) *QueryRdaasTaxRpadecisionindicatorRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorRequest) SetProductInstanceId(v string) *QueryRdaasTaxRpadecisionindicatorRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorRequest) SetServiceId(v string) *QueryRdaasTaxRpadecisionindicatorRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorRequest) SetPropertyName(v string) *QueryRdaasTaxRpadecisionindicatorRequest {
+	s.PropertyName = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorRequest) SetDecisionTenant(v string) *QueryRdaasTaxRpadecisionindicatorRequest {
+	s.DecisionTenant = &v
+	return s
+}
+
+type QueryRdaasTaxRpadecisionindicatorResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 决策指标
+	Data []*RdaasTaxDecsionServiceIndicator `json:"data,omitempty" xml:"data,omitempty" type:"Repeated"`
+}
+
+func (s QueryRdaasTaxRpadecisionindicatorResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRdaasTaxRpadecisionindicatorResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorResponse) SetReqMsgId(v string) *QueryRdaasTaxRpadecisionindicatorResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorResponse) SetResultCode(v string) *QueryRdaasTaxRpadecisionindicatorResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorResponse) SetResultMsg(v string) *QueryRdaasTaxRpadecisionindicatorResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRdaasTaxRpadecisionindicatorResponse) SetData(v []*RdaasTaxDecsionServiceIndicator) *QueryRdaasTaxRpadecisionindicatorResponse {
+	s.Data = v
+	return s
+}
+
+type QueryRdaasTaxSimpleauthdecisionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 决策租户
+	DecisionTenant *string `json:"decision_tenant,omitempty" xml:"decision_tenant,omitempty" require:"true"`
+	// 授权类型
+	AuthType *string `json:"auth_type,omitempty" xml:"auth_type,omitempty" require:"true"`
+	// 省份
+	ProvinceCode *string `json:"province_code,omitempty" xml:"province_code,omitempty" require:"true"`
+}
+
+func (s QueryRdaasTaxSimpleauthdecisionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRdaasTaxSimpleauthdecisionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionRequest) SetAuthToken(v string) *QueryRdaasTaxSimpleauthdecisionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionRequest) SetProductInstanceId(v string) *QueryRdaasTaxSimpleauthdecisionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionRequest) SetDecisionTenant(v string) *QueryRdaasTaxSimpleauthdecisionRequest {
+	s.DecisionTenant = &v
+	return s
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionRequest) SetAuthType(v string) *QueryRdaasTaxSimpleauthdecisionRequest {
+	s.AuthType = &v
+	return s
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionRequest) SetProvinceCode(v string) *QueryRdaasTaxSimpleauthdecisionRequest {
+	s.ProvinceCode = &v
+	return s
+}
+
+type QueryRdaasTaxSimpleauthdecisionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// json决策结果
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryRdaasTaxSimpleauthdecisionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryRdaasTaxSimpleauthdecisionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionResponse) SetReqMsgId(v string) *QueryRdaasTaxSimpleauthdecisionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionResponse) SetResultCode(v string) *QueryRdaasTaxSimpleauthdecisionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionResponse) SetResultMsg(v string) *QueryRdaasTaxSimpleauthdecisionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryRdaasTaxSimpleauthdecisionResponse) SetData(v string) *QueryRdaasTaxSimpleauthdecisionResponse {
+	s.Data = &v
+	return s
+}
+
 type QueryRbbGenericInvokeRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -19579,6 +20352,118 @@ func (s *PushRbbCustomerStatusResponse) SetResultCode(v string) *PushRbbCustomer
 }
 
 func (s *PushRbbCustomerStatusResponse) SetResultMsg(v string) *PushRbbCustomerStatusResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PushRbbInvoiceChargeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户码
+	TenantCode *string `json:"tenant_code,omitempty" xml:"tenant_code,omitempty" require:"true"`
+	// 授权类型
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 计费项,主租户：税号,子租户：子租户|税号
+	CustomerId *string `json:"customer_id,omitempty" xml:"customer_id,omitempty" require:"true"`
+	// 请求id
+	TaskRequestId *string `json:"task_request_id,omitempty" xml:"task_request_id,omitempty" require:"true"`
+	// 利润共享方
+	BenefitSharePartner *string `json:"benefit_share_partner,omitempty" xml:"benefit_share_partner,omitempty" require:"true"`
+	// 计费时间
+	FeeTime *string `json:"fee_time,omitempty" xml:"fee_time,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 税号
+	Sharding *string `json:"sharding,omitempty" xml:"sharding,omitempty" require:"true"`
+	// true为接收侧提交账单，false接收侧不用提交账单
+	ReceiverSubmitBill *bool `json:"receiver_submit_bill,omitempty" xml:"receiver_submit_bill,omitempty" require:"true"`
+}
+
+func (s PushRbbInvoiceChargeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRbbInvoiceChargeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetAuthToken(v string) *PushRbbInvoiceChargeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetProductInstanceId(v string) *PushRbbInvoiceChargeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetTenantCode(v string) *PushRbbInvoiceChargeRequest {
+	s.TenantCode = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetBizType(v string) *PushRbbInvoiceChargeRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetCustomerId(v string) *PushRbbInvoiceChargeRequest {
+	s.CustomerId = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetTaskRequestId(v string) *PushRbbInvoiceChargeRequest {
+	s.TaskRequestId = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetBenefitSharePartner(v string) *PushRbbInvoiceChargeRequest {
+	s.BenefitSharePartner = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetFeeTime(v string) *PushRbbInvoiceChargeRequest {
+	s.FeeTime = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetSharding(v string) *PushRbbInvoiceChargeRequest {
+	s.Sharding = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeRequest) SetReceiverSubmitBill(v bool) *PushRbbInvoiceChargeRequest {
+	s.ReceiverSubmitBill = &v
+	return s
+}
+
+type PushRbbInvoiceChargeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s PushRbbInvoiceChargeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRbbInvoiceChargeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRbbInvoiceChargeResponse) SetReqMsgId(v string) *PushRbbInvoiceChargeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeResponse) SetResultCode(v string) *PushRbbInvoiceChargeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRbbInvoiceChargeResponse) SetResultMsg(v string) *PushRbbInvoiceChargeResponse {
 	s.ResultMsg = &v
 	return s
 }
@@ -27745,6 +28630,90 @@ func (s *QueryUmktOfflinedecisionPlandetailsResponse) SetPlanDetailList(v []*Off
 	return s
 }
 
+type UploadUmktOfflineImportrecordRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 文件上传后返回的fileId
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 文件内手机号类型
+	FileTemplate *string `json:"file_template,omitempty" xml:"file_template,omitempty" require:"true"`
+}
+
+func (s UploadUmktOfflineImportrecordRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadUmktOfflineImportrecordRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadUmktOfflineImportrecordRequest) SetAuthToken(v string) *UploadUmktOfflineImportrecordRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadUmktOfflineImportrecordRequest) SetProductInstanceId(v string) *UploadUmktOfflineImportrecordRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadUmktOfflineImportrecordRequest) SetFileObject(v io.Reader) *UploadUmktOfflineImportrecordRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *UploadUmktOfflineImportrecordRequest) SetFileObjectName(v string) *UploadUmktOfflineImportrecordRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *UploadUmktOfflineImportrecordRequest) SetFileId(v string) *UploadUmktOfflineImportrecordRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *UploadUmktOfflineImportrecordRequest) SetFileTemplate(v string) *UploadUmktOfflineImportrecordRequest {
+	s.FileTemplate = &v
+	return s
+}
+
+type UploadUmktOfflineImportrecordResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UploadUmktOfflineImportrecordResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadUmktOfflineImportrecordResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadUmktOfflineImportrecordResponse) SetReqMsgId(v string) *UploadUmktOfflineImportrecordResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadUmktOfflineImportrecordResponse) SetResultCode(v string) *UploadUmktOfflineImportrecordResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadUmktOfflineImportrecordResponse) SetResultMsg(v string) *UploadUmktOfflineImportrecordResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -27987,7 +28956,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.21.0"),
+				"sdk_version":      tea.String("1.22.0"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -31570,6 +32539,210 @@ func (client *Client) PushQmpBackflowJsondataEx(request *PushQmpBackflowJsondata
 }
 
 /**
+ * Description: 企管盾票税交接授权信息表的同步
+ * Summary: 企管盾票税交接授权信息表的同步
+ */
+func (client *Client) SyncRdaasTaxAuthinfo(request *SyncRdaasTaxAuthinfoRequest) (_result *SyncRdaasTaxAuthinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncRdaasTaxAuthinfoResponse{}
+	_body, _err := client.SyncRdaasTaxAuthinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接授权信息表的同步
+ * Summary: 企管盾票税交接授权信息表的同步
+ */
+func (client *Client) SyncRdaasTaxAuthinfoEx(request *SyncRdaasTaxAuthinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncRdaasTaxAuthinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncRdaasTaxAuthinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rdaas.tax.authinfo.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接授权记录表的同步
+ * Summary: 企管盾票税交接授权记录表的同步
+ */
+func (client *Client) SyncRdaasTaxAuthorder(request *SyncRdaasTaxAuthorderRequest) (_result *SyncRdaasTaxAuthorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncRdaasTaxAuthorderResponse{}
+	_body, _err := client.SyncRdaasTaxAuthorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接授权记录表的同步
+ * Summary: 企管盾票税交接授权记录表的同步
+ */
+func (client *Client) SyncRdaasTaxAuthorderEx(request *SyncRdaasTaxAuthorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncRdaasTaxAuthorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncRdaasTaxAuthorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rdaas.tax.authorder.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接回调通知
+ * Summary: 企管盾票税交接回调通知
+ */
+func (client *Client) NotifyRdaasTaxCallback(request *NotifyRdaasTaxCallbackRequest) (_result *NotifyRdaasTaxCallbackResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &NotifyRdaasTaxCallbackResponse{}
+	_body, _err := client.NotifyRdaasTaxCallbackEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接回调通知
+ * Summary: 企管盾票税交接回调通知
+ */
+func (client *Client) NotifyRdaasTaxCallbackEx(request *NotifyRdaasTaxCallbackRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *NotifyRdaasTaxCallbackResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &NotifyRdaasTaxCallbackResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rdaas.tax.callback.notify"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接RPA决策服务查询
+ * Summary: 企管盾票税交接RPA决策服务查询
+ */
+func (client *Client) QueryRdaasTaxRpadecisionservice(request *QueryRdaasTaxRpadecisionserviceRequest) (_result *QueryRdaasTaxRpadecisionserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRdaasTaxRpadecisionserviceResponse{}
+	_body, _err := client.QueryRdaasTaxRpadecisionserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接RPA决策服务查询
+ * Summary: 企管盾票税交接RPA决策服务查询
+ */
+func (client *Client) QueryRdaasTaxRpadecisionserviceEx(request *QueryRdaasTaxRpadecisionserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRdaasTaxRpadecisionserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRdaasTaxRpadecisionserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rdaas.tax.rpadecisionservice.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接RPA决策服务指标查询
+ * Summary: 企管盾票税交接RPA决策服务指标查询
+ */
+func (client *Client) QueryRdaasTaxRpadecisionindicator(request *QueryRdaasTaxRpadecisionindicatorRequest) (_result *QueryRdaasTaxRpadecisionindicatorResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRdaasTaxRpadecisionindicatorResponse{}
+	_body, _err := client.QueryRdaasTaxRpadecisionindicatorEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接RPA决策服务指标查询
+ * Summary: 企管盾票税交接RPA决策服务指标查询
+ */
+func (client *Client) QueryRdaasTaxRpadecisionindicatorEx(request *QueryRdaasTaxRpadecisionindicatorRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRdaasTaxRpadecisionindicatorResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRdaasTaxRpadecisionindicatorResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rdaas.tax.rpadecisionindicator.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接要素授权决策查询
+ * Summary: 企管盾票税交接要素授权决策查询
+ */
+func (client *Client) QueryRdaasTaxSimpleauthdecision(request *QueryRdaasTaxSimpleauthdecisionRequest) (_result *QueryRdaasTaxSimpleauthdecisionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryRdaasTaxSimpleauthdecisionResponse{}
+	_body, _err := client.QueryRdaasTaxSimpleauthdecisionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企管盾票税交接要素授权决策查询
+ * Summary: 企管盾票税交接要素授权决策查询
+ */
+func (client *Client) QueryRdaasTaxSimpleauthdecisionEx(request *QueryRdaasTaxSimpleauthdecisionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryRdaasTaxSimpleauthdecisionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryRdaasTaxSimpleauthdecisionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rdaas.tax.simpleauthdecision.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
  * Description: 风险大脑企业版通用查询接口
  * Summary: 【已废弃】
  */
@@ -32340,6 +33513,40 @@ func (client *Client) PushRbbCustomerStatusEx(request *PushRbbCustomerStatusRequ
 	}
 	_result = &PushRbbCustomerStatusResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.customer.status.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 票税计费处理推送，由票税侧请求
+ * Summary: 票税计费处理推送
+ */
+func (client *Client) PushRbbInvoiceCharge(request *PushRbbInvoiceChargeRequest) (_result *PushRbbInvoiceChargeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRbbInvoiceChargeResponse{}
+	_body, _err := client.PushRbbInvoiceChargeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 票税计费处理推送，由票税侧请求
+ * Summary: 票税计费处理推送
+ */
+func (client *Client) PushRbbInvoiceChargeEx(request *PushRbbInvoiceChargeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRbbInvoiceChargeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRbbInvoiceChargeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.rbb.invoice.charge.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -34954,6 +36161,70 @@ func (client *Client) QueryUmktOfflinedecisionPlandetailsEx(request *QueryUmktOf
 	}
 	_result = &QueryUmktOfflinedecisionPlandetailsResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offlinedecision.plandetails.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾离线圈投一体文件上传
+ * Summary: 营销盾离线圈投一体文件上传
+ */
+func (client *Client) UploadUmktOfflineImportrecord(request *UploadUmktOfflineImportrecordRequest) (_result *UploadUmktOfflineImportrecordResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadUmktOfflineImportrecordResponse{}
+	_body, _err := client.UploadUmktOfflineImportrecordEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 营销盾离线圈投一体文件上传
+ * Summary: 营销盾离线圈投一体文件上传
+ */
+func (client *Client) UploadUmktOfflineImportrecordEx(request *UploadUmktOfflineImportrecordRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadUmktOfflineImportrecordResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("riskplus.umkt.offline.importrecord.upload"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			uploadUmktOfflineImportrecordResponse := &UploadUmktOfflineImportrecordResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = uploadUmktOfflineImportrecordResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadUmktOfflineImportrecordResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.umkt.offline.importrecord.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
