@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.0',
+                    'sdk_version': '1.22.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.21.0',
+                    'sdk_version': '1.22.0',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -6039,6 +6039,342 @@ class Client:
             await self.do_request_async('1.0', 'riskplus.qmp.backflow.jsondata.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def sync_rdaas_tax_authinfo(
+        self,
+        request: riskplus_models.SyncRdaasTaxAuthinfoRequest,
+    ) -> riskplus_models.SyncRdaasTaxAuthinfoResponse:
+        """
+        Description: 企管盾票税交接授权信息表的同步
+        Summary: 企管盾票税交接授权信息表的同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_rdaas_tax_authinfo_ex(request, headers, runtime)
+
+    async def sync_rdaas_tax_authinfo_async(
+        self,
+        request: riskplus_models.SyncRdaasTaxAuthinfoRequest,
+    ) -> riskplus_models.SyncRdaasTaxAuthinfoResponse:
+        """
+        Description: 企管盾票税交接授权信息表的同步
+        Summary: 企管盾票税交接授权信息表的同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_rdaas_tax_authinfo_ex_async(request, headers, runtime)
+
+    def sync_rdaas_tax_authinfo_ex(
+        self,
+        request: riskplus_models.SyncRdaasTaxAuthinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SyncRdaasTaxAuthinfoResponse:
+        """
+        Description: 企管盾票税交接授权信息表的同步
+        Summary: 企管盾票税交接授权信息表的同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SyncRdaasTaxAuthinfoResponse(),
+            self.do_request('1.0', 'riskplus.rdaas.tax.authinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_rdaas_tax_authinfo_ex_async(
+        self,
+        request: riskplus_models.SyncRdaasTaxAuthinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SyncRdaasTaxAuthinfoResponse:
+        """
+        Description: 企管盾票税交接授权信息表的同步
+        Summary: 企管盾票税交接授权信息表的同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SyncRdaasTaxAuthinfoResponse(),
+            await self.do_request_async('1.0', 'riskplus.rdaas.tax.authinfo.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def sync_rdaas_tax_authorder(
+        self,
+        request: riskplus_models.SyncRdaasTaxAuthorderRequest,
+    ) -> riskplus_models.SyncRdaasTaxAuthorderResponse:
+        """
+        Description: 企管盾票税交接授权记录表的同步
+        Summary: 企管盾票税交接授权记录表的同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_rdaas_tax_authorder_ex(request, headers, runtime)
+
+    async def sync_rdaas_tax_authorder_async(
+        self,
+        request: riskplus_models.SyncRdaasTaxAuthorderRequest,
+    ) -> riskplus_models.SyncRdaasTaxAuthorderResponse:
+        """
+        Description: 企管盾票税交接授权记录表的同步
+        Summary: 企管盾票税交接授权记录表的同步
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.sync_rdaas_tax_authorder_ex_async(request, headers, runtime)
+
+    def sync_rdaas_tax_authorder_ex(
+        self,
+        request: riskplus_models.SyncRdaasTaxAuthorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SyncRdaasTaxAuthorderResponse:
+        """
+        Description: 企管盾票税交接授权记录表的同步
+        Summary: 企管盾票税交接授权记录表的同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SyncRdaasTaxAuthorderResponse(),
+            self.do_request('1.0', 'riskplus.rdaas.tax.authorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def sync_rdaas_tax_authorder_ex_async(
+        self,
+        request: riskplus_models.SyncRdaasTaxAuthorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.SyncRdaasTaxAuthorderResponse:
+        """
+        Description: 企管盾票税交接授权记录表的同步
+        Summary: 企管盾票税交接授权记录表的同步
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.SyncRdaasTaxAuthorderResponse(),
+            await self.do_request_async('1.0', 'riskplus.rdaas.tax.authorder.sync', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def notify_rdaas_tax_callback(
+        self,
+        request: riskplus_models.NotifyRdaasTaxCallbackRequest,
+    ) -> riskplus_models.NotifyRdaasTaxCallbackResponse:
+        """
+        Description: 企管盾票税交接回调通知
+        Summary: 企管盾票税交接回调通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.notify_rdaas_tax_callback_ex(request, headers, runtime)
+
+    async def notify_rdaas_tax_callback_async(
+        self,
+        request: riskplus_models.NotifyRdaasTaxCallbackRequest,
+    ) -> riskplus_models.NotifyRdaasTaxCallbackResponse:
+        """
+        Description: 企管盾票税交接回调通知
+        Summary: 企管盾票税交接回调通知
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.notify_rdaas_tax_callback_ex_async(request, headers, runtime)
+
+    def notify_rdaas_tax_callback_ex(
+        self,
+        request: riskplus_models.NotifyRdaasTaxCallbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyRdaasTaxCallbackResponse:
+        """
+        Description: 企管盾票税交接回调通知
+        Summary: 企管盾票税交接回调通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyRdaasTaxCallbackResponse(),
+            self.do_request('1.0', 'riskplus.rdaas.tax.callback.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def notify_rdaas_tax_callback_ex_async(
+        self,
+        request: riskplus_models.NotifyRdaasTaxCallbackRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.NotifyRdaasTaxCallbackResponse:
+        """
+        Description: 企管盾票税交接回调通知
+        Summary: 企管盾票税交接回调通知
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.NotifyRdaasTaxCallbackResponse(),
+            await self.do_request_async('1.0', 'riskplus.rdaas.tax.callback.notify', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rdaas_tax_rpadecisionservice(
+        self,
+        request: riskplus_models.QueryRdaasTaxRpadecisionserviceRequest,
+    ) -> riskplus_models.QueryRdaasTaxRpadecisionserviceResponse:
+        """
+        Description: 企管盾票税交接RPA决策服务查询
+        Summary: 企管盾票税交接RPA决策服务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rdaas_tax_rpadecisionservice_ex(request, headers, runtime)
+
+    async def query_rdaas_tax_rpadecisionservice_async(
+        self,
+        request: riskplus_models.QueryRdaasTaxRpadecisionserviceRequest,
+    ) -> riskplus_models.QueryRdaasTaxRpadecisionserviceResponse:
+        """
+        Description: 企管盾票税交接RPA决策服务查询
+        Summary: 企管盾票税交接RPA决策服务查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rdaas_tax_rpadecisionservice_ex_async(request, headers, runtime)
+
+    def query_rdaas_tax_rpadecisionservice_ex(
+        self,
+        request: riskplus_models.QueryRdaasTaxRpadecisionserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRdaasTaxRpadecisionserviceResponse:
+        """
+        Description: 企管盾票税交接RPA决策服务查询
+        Summary: 企管盾票税交接RPA决策服务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRdaasTaxRpadecisionserviceResponse(),
+            self.do_request('1.0', 'riskplus.rdaas.tax.rpadecisionservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rdaas_tax_rpadecisionservice_ex_async(
+        self,
+        request: riskplus_models.QueryRdaasTaxRpadecisionserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRdaasTaxRpadecisionserviceResponse:
+        """
+        Description: 企管盾票税交接RPA决策服务查询
+        Summary: 企管盾票税交接RPA决策服务查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRdaasTaxRpadecisionserviceResponse(),
+            await self.do_request_async('1.0', 'riskplus.rdaas.tax.rpadecisionservice.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rdaas_tax_rpadecisionindicator(
+        self,
+        request: riskplus_models.QueryRdaasTaxRpadecisionindicatorRequest,
+    ) -> riskplus_models.QueryRdaasTaxRpadecisionindicatorResponse:
+        """
+        Description: 企管盾票税交接RPA决策服务指标查询
+        Summary: 企管盾票税交接RPA决策服务指标查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rdaas_tax_rpadecisionindicator_ex(request, headers, runtime)
+
+    async def query_rdaas_tax_rpadecisionindicator_async(
+        self,
+        request: riskplus_models.QueryRdaasTaxRpadecisionindicatorRequest,
+    ) -> riskplus_models.QueryRdaasTaxRpadecisionindicatorResponse:
+        """
+        Description: 企管盾票税交接RPA决策服务指标查询
+        Summary: 企管盾票税交接RPA决策服务指标查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rdaas_tax_rpadecisionindicator_ex_async(request, headers, runtime)
+
+    def query_rdaas_tax_rpadecisionindicator_ex(
+        self,
+        request: riskplus_models.QueryRdaasTaxRpadecisionindicatorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRdaasTaxRpadecisionindicatorResponse:
+        """
+        Description: 企管盾票税交接RPA决策服务指标查询
+        Summary: 企管盾票税交接RPA决策服务指标查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRdaasTaxRpadecisionindicatorResponse(),
+            self.do_request('1.0', 'riskplus.rdaas.tax.rpadecisionindicator.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rdaas_tax_rpadecisionindicator_ex_async(
+        self,
+        request: riskplus_models.QueryRdaasTaxRpadecisionindicatorRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRdaasTaxRpadecisionindicatorResponse:
+        """
+        Description: 企管盾票税交接RPA决策服务指标查询
+        Summary: 企管盾票税交接RPA决策服务指标查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRdaasTaxRpadecisionindicatorResponse(),
+            await self.do_request_async('1.0', 'riskplus.rdaas.tax.rpadecisionindicator.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_rdaas_tax_simpleauthdecision(
+        self,
+        request: riskplus_models.QueryRdaasTaxSimpleauthdecisionRequest,
+    ) -> riskplus_models.QueryRdaasTaxSimpleauthdecisionResponse:
+        """
+        Description: 企管盾票税交接要素授权决策查询
+        Summary: 企管盾票税交接要素授权决策查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_rdaas_tax_simpleauthdecision_ex(request, headers, runtime)
+
+    async def query_rdaas_tax_simpleauthdecision_async(
+        self,
+        request: riskplus_models.QueryRdaasTaxSimpleauthdecisionRequest,
+    ) -> riskplus_models.QueryRdaasTaxSimpleauthdecisionResponse:
+        """
+        Description: 企管盾票税交接要素授权决策查询
+        Summary: 企管盾票税交接要素授权决策查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_rdaas_tax_simpleauthdecision_ex_async(request, headers, runtime)
+
+    def query_rdaas_tax_simpleauthdecision_ex(
+        self,
+        request: riskplus_models.QueryRdaasTaxSimpleauthdecisionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRdaasTaxSimpleauthdecisionResponse:
+        """
+        Description: 企管盾票税交接要素授权决策查询
+        Summary: 企管盾票税交接要素授权决策查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRdaasTaxSimpleauthdecisionResponse(),
+            self.do_request('1.0', 'riskplus.rdaas.tax.simpleauthdecision.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_rdaas_tax_simpleauthdecision_ex_async(
+        self,
+        request: riskplus_models.QueryRdaasTaxSimpleauthdecisionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.QueryRdaasTaxSimpleauthdecisionResponse:
+        """
+        Description: 企管盾票税交接要素授权决策查询
+        Summary: 企管盾票税交接要素授权决策查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.QueryRdaasTaxSimpleauthdecisionResponse(),
+            await self.do_request_async('1.0', 'riskplus.rdaas.tax.simpleauthdecision.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def query_rbb_generic_invoke(
         self,
         request: riskplus_models.QueryRbbGenericInvokeRequest,
@@ -7305,6 +7641,62 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.PushRbbCustomerStatusResponse(),
             await self.do_request_async('1.0', 'riskplus.rbb.customer.status.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rbb_invoice_charge(
+        self,
+        request: riskplus_models.PushRbbInvoiceChargeRequest,
+    ) -> riskplus_models.PushRbbInvoiceChargeResponse:
+        """
+        Description: 票税计费处理推送，由票税侧请求
+        Summary: 票税计费处理推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rbb_invoice_charge_ex(request, headers, runtime)
+
+    async def push_rbb_invoice_charge_async(
+        self,
+        request: riskplus_models.PushRbbInvoiceChargeRequest,
+    ) -> riskplus_models.PushRbbInvoiceChargeResponse:
+        """
+        Description: 票税计费处理推送，由票税侧请求
+        Summary: 票税计费处理推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rbb_invoice_charge_ex_async(request, headers, runtime)
+
+    def push_rbb_invoice_charge_ex(
+        self,
+        request: riskplus_models.PushRbbInvoiceChargeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRbbInvoiceChargeResponse:
+        """
+        Description: 票税计费处理推送，由票税侧请求
+        Summary: 票税计费处理推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushRbbInvoiceChargeResponse(),
+            self.do_request('1.0', 'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rbb_invoice_charge_ex_async(
+        self,
+        request: riskplus_models.PushRbbInvoiceChargeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.PushRbbInvoiceChargeResponse:
+        """
+        Description: 票税计费处理推送，由票税侧请求
+        Summary: 票税计费处理推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.PushRbbInvoiceChargeResponse(),
+            await self.do_request_async('1.0', 'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_rpaas_report_answer(
@@ -11585,6 +11977,98 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryUmktOfflinedecisionPlandetailsResponse(),
             await self.do_request_async('1.0', 'riskplus.umkt.offlinedecision.plandetails.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_umkt_offline_importrecord(
+        self,
+        request: riskplus_models.UploadUmktOfflineImportrecordRequest,
+    ) -> riskplus_models.UploadUmktOfflineImportrecordResponse:
+        """
+        Description: 营销盾离线圈投一体文件上传
+        Summary: 营销盾离线圈投一体文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_umkt_offline_importrecord_ex(request, headers, runtime)
+
+    async def upload_umkt_offline_importrecord_async(
+        self,
+        request: riskplus_models.UploadUmktOfflineImportrecordRequest,
+    ) -> riskplus_models.UploadUmktOfflineImportrecordResponse:
+        """
+        Description: 营销盾离线圈投一体文件上传
+        Summary: 营销盾离线圈投一体文件上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_umkt_offline_importrecord_ex_async(request, headers, runtime)
+
+    def upload_umkt_offline_importrecord_ex(
+        self,
+        request: riskplus_models.UploadUmktOfflineImportrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadUmktOfflineImportrecordResponse:
+        """
+        Description: 营销盾离线圈投一体文件上传
+        Summary: 营销盾离线圈投一体文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.umkt.offline.importrecord.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_umkt_offline_importrecord_response = riskplus_models.UploadUmktOfflineImportrecordResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_umkt_offline_importrecord_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadUmktOfflineImportrecordResponse(),
+            self.do_request('1.0', 'riskplus.umkt.offline.importrecord.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_umkt_offline_importrecord_ex_async(
+        self,
+        request: riskplus_models.UploadUmktOfflineImportrecordRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.UploadUmktOfflineImportrecordResponse:
+        """
+        Description: 营销盾离线圈投一体文件上传
+        Summary: 营销盾离线圈投一体文件上传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = riskplus_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='riskplus.umkt.offline.importrecord.upload',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                upload_umkt_offline_importrecord_response = riskplus_models.UploadUmktOfflineImportrecordResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return upload_umkt_offline_importrecord_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.UploadUmktOfflineImportrecordResponse(),
+            await self.do_request_async('1.0', 'riskplus.umkt.offline.importrecord.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
