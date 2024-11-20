@@ -3756,6 +3756,47 @@ export class OverdueInfoResponse extends $tea.Model {
   }
 }
 
+// 企管盾票税交接决策服务指标
+export class RdaasTaxDecsionServiceIndicator extends $tea.Model {
+  // 决策指标id
+  id: string;
+  // 决策服务id
+  serviceId: string;
+  // 属性名
+  propertyName: string;
+  // 属性值或指标值
+  propertyValue?: string;
+  // 决策租户
+  decisionTenant?: string;
+  // 创建时间，格式:yyyy-MM-dd HH:mm:ss
+  createTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      serviceId: 'service_id',
+      propertyName: 'property_name',
+      propertyValue: 'property_value',
+      decisionTenant: 'decision_tenant',
+      createTime: 'create_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      serviceId: 'string',
+      propertyName: 'string',
+      propertyValue: 'string',
+      decisionTenant: 'string',
+      createTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 天枢预览协议信息
 export class GetAgreementUrlResponseData extends $tea.Model {
   // 协议标题
@@ -4330,6 +4371,51 @@ export class CustomRelationStatus extends $tea.Model {
   static types(): { [key: string]: any } {
     return {
       regFlag: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 企管盾票税决策服务
+export class RdaasTaxDecsionService extends $tea.Model {
+  // 决策服务id
+  id: string;
+  // 产品编码
+  serviceName: string;
+  // 区域编码
+  serviceZone?: string;
+  // 渠道
+  channel?: string;
+  // 决策租户
+  decisionTenant?: string;
+  // 是否启用
+  status?: string;
+  // 创建时间，格式:yyyy-MM-dd HH:mm:ss
+  createTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      id: 'id',
+      serviceName: 'service_name',
+      serviceZone: 'service_zone',
+      channel: 'channel',
+      decisionTenant: 'decision_tenant',
+      status: 'status',
+      createTime: 'create_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      id: 'string',
+      serviceName: 'string',
+      serviceZone: 'string',
+      channel: 'string',
+      decisionTenant: 'string',
+      status: 'string',
+      createTime: 'string',
     };
   }
 
@@ -13182,6 +13268,496 @@ export class PushQmpBackflowJsondataResponse extends $tea.Model {
   }
 }
 
+export class SyncRdaasTaxAuthinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 应用id
+  appId: string;
+  // 授权类型
+  authType: string;
+  // 税号
+  nsrsbh: string;
+  // 应用key
+  appKey?: string;
+  // 授权状态：Y-有效，N-无效
+  authStatus?: string;
+  // 省份编码
+  proCode?: string;
+  // 城市编码
+  cityCode?: string;
+  // 授权回调地址
+  authCallbackUrl?: string;
+  // 过期时间，格式: yyyy-MM-dd HH:mm:ss
+  expireDate?: string;
+  // 最近一次授权成功的订单号
+  orderNo?: string;
+  // 授权场景
+  authScene?: string;
+  // 授权成功时间,格式：yyyy-MM-dd HH:mm:ss
+  authStartTime?: string;
+  // 授权创建时间,格式: yyyy-MM-dd HH:mm:ss
+  authCreateTime?: string;
+  // 企业名称
+  corpName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appId: 'app_id',
+      authType: 'auth_type',
+      nsrsbh: 'nsrsbh',
+      appKey: 'app_key',
+      authStatus: 'auth_status',
+      proCode: 'pro_code',
+      cityCode: 'city_code',
+      authCallbackUrl: 'auth_callback_url',
+      expireDate: 'expire_date',
+      orderNo: 'order_no',
+      authScene: 'auth_scene',
+      authStartTime: 'auth_start_time',
+      authCreateTime: 'auth_create_time',
+      corpName: 'corp_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appId: 'string',
+      authType: 'string',
+      nsrsbh: 'string',
+      appKey: 'string',
+      authStatus: 'string',
+      proCode: 'string',
+      cityCode: 'string',
+      authCallbackUrl: 'string',
+      expireDate: 'string',
+      orderNo: 'string',
+      authScene: 'string',
+      authStartTime: 'string',
+      authCreateTime: 'string',
+      corpName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncRdaasTaxAuthinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncRdaasTaxAuthorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户号
+  instCode: string;
+  // 授权类型
+  authType: string;
+  // 税号
+  identityId?: string;
+  // 授权因子
+  factorValue?: string;
+  // 第二授权因子
+  secondFactorValue?: string;
+  // 授权订单号
+  orderNo: string;
+  // 内容
+  content?: string;
+  // 过期时间
+  expireTime?: string;
+  // 授权场景
+  authScene?: string;
+  // 授权状态
+  authStatus?: string;
+  // 授权成功时间,格式：yyyy-MM-dd HH:mm:ss
+  authStartTime?: string;
+  // 授权创建时间,格式: yyyy-MM-dd HH:mm:ss
+  authCreateTime?: string;
+  // 名称
+  identityName?: string;
+  // 企业实际所属税局地区编码
+  taxZoneCode?: string;
+  // 失败原因
+  failReason?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      instCode: 'inst_code',
+      authType: 'auth_type',
+      identityId: 'identity_id',
+      factorValue: 'factor_value',
+      secondFactorValue: 'second_factor_value',
+      orderNo: 'order_no',
+      content: 'content',
+      expireTime: 'expire_time',
+      authScene: 'auth_scene',
+      authStatus: 'auth_status',
+      authStartTime: 'auth_start_time',
+      authCreateTime: 'auth_create_time',
+      identityName: 'identity_name',
+      taxZoneCode: 'tax_zone_code',
+      failReason: 'fail_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      instCode: 'string',
+      authType: 'string',
+      identityId: 'string',
+      factorValue: 'string',
+      secondFactorValue: 'string',
+      orderNo: 'string',
+      content: 'string',
+      expireTime: 'string',
+      authScene: 'string',
+      authStatus: 'string',
+      authStartTime: 'string',
+      authCreateTime: 'string',
+      identityName: 'string',
+      taxZoneCode: 'string',
+      failReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncRdaasTaxAuthorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyRdaasTaxCallbackRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 通知场景
+  notifyScene: string;
+  // 租户号
+  instCode: string;
+  // 解决方案id
+  solutionId?: string;
+  // 通知回调地址
+  callbackUrl?: string;
+  // 业务参数
+  jsonBizParams?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      notifyScene: 'notify_scene',
+      instCode: 'inst_code',
+      solutionId: 'solution_id',
+      callbackUrl: 'callback_url',
+      jsonBizParams: 'json_biz_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      notifyScene: 'string',
+      instCode: 'string',
+      solutionId: 'string',
+      callbackUrl: 'string',
+      jsonBizParams: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class NotifyRdaasTaxCallbackResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 通知是否成功
+  data?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRdaasTaxRpadecisionserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 决策服务
+  serviceName: string;
+  // 决策租户
+  decisionTenant: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceName: 'service_name',
+      decisionTenant: 'decision_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceName: 'string',
+      decisionTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRdaasTaxRpadecisionserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 决策服务列表
+  data?: RdaasTaxDecsionService[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': RdaasTaxDecsionService },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRdaasTaxRpadecisionindicatorRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 决策服务id
+  serviceId: string;
+  // 决策属性名称，目前一种属性: 比重-weight
+  propertyName?: string;
+  // 决策租户
+  decisionTenant?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+      propertyName: 'property_name',
+      decisionTenant: 'decision_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+      propertyName: 'string',
+      decisionTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRdaasTaxRpadecisionindicatorResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 决策指标
+  data?: RdaasTaxDecsionServiceIndicator[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: { 'type': 'array', 'itemType': RdaasTaxDecsionServiceIndicator },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRdaasTaxSimpleauthdecisionRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 决策租户
+  decisionTenant: string;
+  // 授权类型
+  authType: string;
+  // 省份
+  provinceCode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      decisionTenant: 'decision_tenant',
+      authType: 'auth_type',
+      provinceCode: 'province_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      decisionTenant: 'string',
+      authType: 'string',
+      provinceCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRdaasTaxSimpleauthdecisionResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // json决策结果
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryRbbGenericInvokeRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -14637,6 +15213,89 @@ export class PushRbbCustomerStatusRequest extends $tea.Model {
 }
 
 export class PushRbbCustomerStatusResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRbbInvoiceChargeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户码
+  tenantCode: string;
+  // 授权类型
+  bizType: string;
+  // 计费项,主租户：税号,子租户：子租户|税号
+  customerId: string;
+  // 请求id
+  taskRequestId: string;
+  // 利润共享方
+  benefitSharePartner: string;
+  // 计费时间
+  feeTime: string;
+  // 税号
+  sharding: string;
+  // true为接收侧提交账单，false接收侧不用提交账单
+  receiverSubmitBill: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantCode: 'tenant_code',
+      bizType: 'biz_type',
+      customerId: 'customer_id',
+      taskRequestId: 'task_request_id',
+      benefitSharePartner: 'benefit_share_partner',
+      feeTime: 'fee_time',
+      sharding: 'sharding',
+      receiverSubmitBill: 'receiver_submit_bill',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantCode: 'string',
+      bizType: 'string',
+      customerId: 'string',
+      taskRequestId: 'string',
+      benefitSharePartner: 'string',
+      feeTime: 'string',
+      sharding: 'string',
+      receiverSubmitBill: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRbbInvoiceChargeResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -20758,6 +21417,71 @@ export class QueryUmktOfflinedecisionPlandetailsResponse extends $tea.Model {
   }
 }
 
+export class UploadUmktOfflineImportrecordRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 文件上传后返回的fileId
+  fileObject?: Readable;
+  fileObjectName?: string;
+  fileId: string;
+  // 文件内手机号类型 
+  fileTemplate: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      fileTemplate: 'file_template',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      fileTemplate: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadUmktOfflineImportrecordResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -20959,7 +21683,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.21.0",
+          sdk_version: "1.22.0",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -22993,6 +23717,120 @@ export default class Client {
   }
 
   /**
+   * Description: 企管盾票税交接授权信息表的同步
+   * Summary: 企管盾票税交接授权信息表的同步
+   */
+  async syncRdaasTaxAuthinfo(request: SyncRdaasTaxAuthinfoRequest): Promise<SyncRdaasTaxAuthinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncRdaasTaxAuthinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企管盾票税交接授权信息表的同步
+   * Summary: 企管盾票税交接授权信息表的同步
+   */
+  async syncRdaasTaxAuthinfoEx(request: SyncRdaasTaxAuthinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncRdaasTaxAuthinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncRdaasTaxAuthinfoResponse>(await this.doRequest("1.0", "riskplus.rdaas.tax.authinfo.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncRdaasTaxAuthinfoResponse({}));
+  }
+
+  /**
+   * Description: 企管盾票税交接授权记录表的同步
+   * Summary: 企管盾票税交接授权记录表的同步
+   */
+  async syncRdaasTaxAuthorder(request: SyncRdaasTaxAuthorderRequest): Promise<SyncRdaasTaxAuthorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncRdaasTaxAuthorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企管盾票税交接授权记录表的同步
+   * Summary: 企管盾票税交接授权记录表的同步
+   */
+  async syncRdaasTaxAuthorderEx(request: SyncRdaasTaxAuthorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncRdaasTaxAuthorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncRdaasTaxAuthorderResponse>(await this.doRequest("1.0", "riskplus.rdaas.tax.authorder.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncRdaasTaxAuthorderResponse({}));
+  }
+
+  /**
+   * Description: 企管盾票税交接回调通知
+   * Summary: 企管盾票税交接回调通知
+   */
+  async notifyRdaasTaxCallback(request: NotifyRdaasTaxCallbackRequest): Promise<NotifyRdaasTaxCallbackResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.notifyRdaasTaxCallbackEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企管盾票税交接回调通知
+   * Summary: 企管盾票税交接回调通知
+   */
+  async notifyRdaasTaxCallbackEx(request: NotifyRdaasTaxCallbackRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<NotifyRdaasTaxCallbackResponse> {
+    Util.validateModel(request);
+    return $tea.cast<NotifyRdaasTaxCallbackResponse>(await this.doRequest("1.0", "riskplus.rdaas.tax.callback.notify", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new NotifyRdaasTaxCallbackResponse({}));
+  }
+
+  /**
+   * Description: 企管盾票税交接RPA决策服务查询
+   * Summary: 企管盾票税交接RPA决策服务查询
+   */
+  async queryRdaasTaxRpadecisionservice(request: QueryRdaasTaxRpadecisionserviceRequest): Promise<QueryRdaasTaxRpadecisionserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRdaasTaxRpadecisionserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企管盾票税交接RPA决策服务查询
+   * Summary: 企管盾票税交接RPA决策服务查询
+   */
+  async queryRdaasTaxRpadecisionserviceEx(request: QueryRdaasTaxRpadecisionserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRdaasTaxRpadecisionserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRdaasTaxRpadecisionserviceResponse>(await this.doRequest("1.0", "riskplus.rdaas.tax.rpadecisionservice.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRdaasTaxRpadecisionserviceResponse({}));
+  }
+
+  /**
+   * Description: 企管盾票税交接RPA决策服务指标查询
+   * Summary: 企管盾票税交接RPA决策服务指标查询
+   */
+  async queryRdaasTaxRpadecisionindicator(request: QueryRdaasTaxRpadecisionindicatorRequest): Promise<QueryRdaasTaxRpadecisionindicatorResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRdaasTaxRpadecisionindicatorEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企管盾票税交接RPA决策服务指标查询
+   * Summary: 企管盾票税交接RPA决策服务指标查询
+   */
+  async queryRdaasTaxRpadecisionindicatorEx(request: QueryRdaasTaxRpadecisionindicatorRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRdaasTaxRpadecisionindicatorResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRdaasTaxRpadecisionindicatorResponse>(await this.doRequest("1.0", "riskplus.rdaas.tax.rpadecisionindicator.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRdaasTaxRpadecisionindicatorResponse({}));
+  }
+
+  /**
+   * Description: 企管盾票税交接要素授权决策查询
+   * Summary: 企管盾票税交接要素授权决策查询
+   */
+  async queryRdaasTaxSimpleauthdecision(request: QueryRdaasTaxSimpleauthdecisionRequest): Promise<QueryRdaasTaxSimpleauthdecisionResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRdaasTaxSimpleauthdecisionEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企管盾票税交接要素授权决策查询
+   * Summary: 企管盾票税交接要素授权决策查询
+   */
+  async queryRdaasTaxSimpleauthdecisionEx(request: QueryRdaasTaxSimpleauthdecisionRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRdaasTaxSimpleauthdecisionResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRdaasTaxSimpleauthdecisionResponse>(await this.doRequest("1.0", "riskplus.rdaas.tax.simpleauthdecision.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRdaasTaxSimpleauthdecisionResponse({}));
+  }
+
+  /**
    * Description: 风险大脑企业版通用查询接口
    * Summary: 【已废弃】
    */
@@ -23430,6 +24268,25 @@ export default class Client {
   async pushRbbCustomerStatusEx(request: PushRbbCustomerStatusRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRbbCustomerStatusResponse> {
     Util.validateModel(request);
     return $tea.cast<PushRbbCustomerStatusResponse>(await this.doRequest("1.0", "riskplus.rbb.customer.status.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRbbCustomerStatusResponse({}));
+  }
+
+  /**
+   * Description: 票税计费处理推送，由票税侧请求
+   * Summary: 票税计费处理推送
+   */
+  async pushRbbInvoiceCharge(request: PushRbbInvoiceChargeRequest): Promise<PushRbbInvoiceChargeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRbbInvoiceChargeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 票税计费处理推送，由票税侧请求
+   * Summary: 票税计费处理推送
+   */
+  async pushRbbInvoiceChargeEx(request: PushRbbInvoiceChargeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRbbInvoiceChargeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRbbInvoiceChargeResponse>(await this.doRequest("1.0", "riskplus.rbb.invoice.charge.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRbbInvoiceChargeResponse({}));
   }
 
   /**
@@ -24903,6 +25760,47 @@ export default class Client {
   async queryUmktOfflinedecisionPlandetailsEx(request: QueryUmktOfflinedecisionPlandetailsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUmktOfflinedecisionPlandetailsResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryUmktOfflinedecisionPlandetailsResponse>(await this.doRequest("1.0", "riskplus.umkt.offlinedecision.plandetails.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUmktOfflinedecisionPlandetailsResponse({}));
+  }
+
+  /**
+   * Description: 营销盾离线圈投一体文件上传
+   * Summary: 营销盾离线圈投一体文件上传
+   */
+  async uploadUmktOfflineImportrecord(request: UploadUmktOfflineImportrecordRequest): Promise<UploadUmktOfflineImportrecordResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadUmktOfflineImportrecordEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 营销盾离线圈投一体文件上传
+   * Summary: 营销盾离线圈投一体文件上传
+   */
+  async uploadUmktOfflineImportrecordEx(request: UploadUmktOfflineImportrecordRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadUmktOfflineImportrecordResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "riskplus.umkt.offline.importrecord.upload",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let uploadUmktOfflineImportrecordResponse = new UploadUmktOfflineImportrecordResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return uploadUmktOfflineImportrecordResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<UploadUmktOfflineImportrecordResponse>(await this.doRequest("1.0", "riskplus.umkt.offline.importrecord.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadUmktOfflineImportrecordResponse({}));
   }
 
   /**
