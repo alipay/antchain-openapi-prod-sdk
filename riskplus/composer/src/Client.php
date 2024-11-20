@@ -141,6 +141,8 @@ use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelRequest;
 use AntChain\RISKPLUS\Models\NotifyDubbridgeDefininnerchannelResponse;
+use AntChain\RISKPLUS\Models\NotifyRdaasTaxCallbackRequest;
+use AntChain\RISKPLUS\Models\NotifyRdaasTaxCallbackResponse;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultRequest;
 use AntChain\RISKPLUS\Models\NotifyRpgwUserSignresultResponse;
 use AntChain\RISKPLUS\Models\OperateRbbCreditRequest;
@@ -157,6 +159,8 @@ use AntChain\RISKPLUS\Models\PushRbbCustomerInformationRequest;
 use AntChain\RISKPLUS\Models\PushRbbCustomerInformationResponse;
 use AntChain\RISKPLUS\Models\PushRbbCustomerStatusRequest;
 use AntChain\RISKPLUS\Models\PushRbbCustomerStatusResponse;
+use AntChain\RISKPLUS\Models\PushRbbInvoiceChargeRequest;
+use AntChain\RISKPLUS\Models\PushRbbInvoiceChargeResponse;
 use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowRequest;
 use AntChain\RISKPLUS\Models\PushRiskplusUmktCommonbackflowResponse;
 use AntChain\RISKPLUS\Models\PushRpaasReportAnswerRequest;
@@ -277,6 +281,12 @@ use AntChain\RISKPLUS\Models\QueryRbbObtsZsearchRequest;
 use AntChain\RISKPLUS\Models\QueryRbbObtsZsearchResponse;
 use AntChain\RISKPLUS\Models\QueryRbbRegdatasyncPreparedRequest;
 use AntChain\RISKPLUS\Models\QueryRbbRegdatasyncPreparedResponse;
+use AntChain\RISKPLUS\Models\QueryRdaasTaxRpadecisionindicatorRequest;
+use AntChain\RISKPLUS\Models\QueryRdaasTaxRpadecisionindicatorResponse;
+use AntChain\RISKPLUS\Models\QueryRdaasTaxRpadecisionserviceRequest;
+use AntChain\RISKPLUS\Models\QueryRdaasTaxRpadecisionserviceResponse;
+use AntChain\RISKPLUS\Models\QueryRdaasTaxSimpleauthdecisionRequest;
+use AntChain\RISKPLUS\Models\QueryRdaasTaxSimpleauthdecisionResponse;
 use AntChain\RISKPLUS\Models\QueryRpgwSignUrlRequest;
 use AntChain\RISKPLUS\Models\QueryRpgwSignUrlResponse;
 use AntChain\RISKPLUS\Models\QueryRpgwUserSignurlRequest;
@@ -381,6 +391,10 @@ use AntChain\RISKPLUS\Models\SendUmktTextsmsBatchRequest;
 use AntChain\RISKPLUS\Models\SendUmktTextsmsBatchResponse;
 use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleRequest;
 use AntChain\RISKPLUS\Models\StartRbbRegdatasyncScheduleResponse;
+use AntChain\RISKPLUS\Models\SyncRdaasTaxAuthinfoRequest;
+use AntChain\RISKPLUS\Models\SyncRdaasTaxAuthinfoResponse;
+use AntChain\RISKPLUS\Models\SyncRdaasTaxAuthorderRequest;
+use AntChain\RISKPLUS\Models\SyncRdaasTaxAuthorderResponse;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoRequest;
 use AntChain\RISKPLUS\Models\SyncRpgwUserOrderinfoResponse;
 use AntChain\RISKPLUS\Models\SyncUmktRtEventresultRequest;
@@ -401,6 +415,8 @@ use AntChain\RISKPLUS\Models\UploadRbbFileAmapRequest;
 use AntChain\RISKPLUS\Models\UploadRbbFileAmapResponse;
 use AntChain\RISKPLUS\Models\UploadUmktOfflinedecisionRequest;
 use AntChain\RISKPLUS\Models\UploadUmktOfflinedecisionResponse;
+use AntChain\RISKPLUS\Models\UploadUmktOfflineImportrecordRequest;
+use AntChain\RISKPLUS\Models\UploadUmktOfflineImportrecordResponse;
 use AntChain\RISKPLUS\Models\UploadUmktParamsFileRequest;
 use AntChain\RISKPLUS\Models\UploadUmktParamsFileResponse;
 use AntChain\RISKPLUS\Models\VerifyDubbridgeCustomerBankcardRequest;
@@ -556,7 +572,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.21.0',
+                    'sdk_version'      => '1.22.0',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3995,6 +4011,204 @@ class Client
     }
 
     /**
+     * Description: 企管盾票税交接授权信息表的同步
+     * Summary: 企管盾票税交接授权信息表的同步.
+     *
+     * @param SyncRdaasTaxAuthinfoRequest $request
+     *
+     * @return SyncRdaasTaxAuthinfoResponse
+     */
+    public function syncRdaasTaxAuthinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncRdaasTaxAuthinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接授权信息表的同步
+     * Summary: 企管盾票税交接授权信息表的同步.
+     *
+     * @param SyncRdaasTaxAuthinfoRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return SyncRdaasTaxAuthinfoResponse
+     */
+    public function syncRdaasTaxAuthinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncRdaasTaxAuthinfoResponse::fromMap($this->doRequest('1.0', 'riskplus.rdaas.tax.authinfo.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企管盾票税交接授权记录表的同步
+     * Summary: 企管盾票税交接授权记录表的同步.
+     *
+     * @param SyncRdaasTaxAuthorderRequest $request
+     *
+     * @return SyncRdaasTaxAuthorderResponse
+     */
+    public function syncRdaasTaxAuthorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncRdaasTaxAuthorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接授权记录表的同步
+     * Summary: 企管盾票税交接授权记录表的同步.
+     *
+     * @param SyncRdaasTaxAuthorderRequest $request
+     * @param string[]                     $headers
+     * @param RuntimeOptions               $runtime
+     *
+     * @return SyncRdaasTaxAuthorderResponse
+     */
+    public function syncRdaasTaxAuthorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncRdaasTaxAuthorderResponse::fromMap($this->doRequest('1.0', 'riskplus.rdaas.tax.authorder.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企管盾票税交接回调通知
+     * Summary: 企管盾票税交接回调通知.
+     *
+     * @param NotifyRdaasTaxCallbackRequest $request
+     *
+     * @return NotifyRdaasTaxCallbackResponse
+     */
+    public function notifyRdaasTaxCallback($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->notifyRdaasTaxCallbackEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接回调通知
+     * Summary: 企管盾票税交接回调通知.
+     *
+     * @param NotifyRdaasTaxCallbackRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return NotifyRdaasTaxCallbackResponse
+     */
+    public function notifyRdaasTaxCallbackEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return NotifyRdaasTaxCallbackResponse::fromMap($this->doRequest('1.0', 'riskplus.rdaas.tax.callback.notify', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企管盾票税交接RPA决策服务查询
+     * Summary: 企管盾票税交接RPA决策服务查询.
+     *
+     * @param QueryRdaasTaxRpadecisionserviceRequest $request
+     *
+     * @return QueryRdaasTaxRpadecisionserviceResponse
+     */
+    public function queryRdaasTaxRpadecisionservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRdaasTaxRpadecisionserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接RPA决策服务查询
+     * Summary: 企管盾票税交接RPA决策服务查询.
+     *
+     * @param QueryRdaasTaxRpadecisionserviceRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryRdaasTaxRpadecisionserviceResponse
+     */
+    public function queryRdaasTaxRpadecisionserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRdaasTaxRpadecisionserviceResponse::fromMap($this->doRequest('1.0', 'riskplus.rdaas.tax.rpadecisionservice.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企管盾票税交接RPA决策服务指标查询
+     * Summary: 企管盾票税交接RPA决策服务指标查询.
+     *
+     * @param QueryRdaasTaxRpadecisionindicatorRequest $request
+     *
+     * @return QueryRdaasTaxRpadecisionindicatorResponse
+     */
+    public function queryRdaasTaxRpadecisionindicator($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRdaasTaxRpadecisionindicatorEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接RPA决策服务指标查询
+     * Summary: 企管盾票税交接RPA决策服务指标查询.
+     *
+     * @param QueryRdaasTaxRpadecisionindicatorRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryRdaasTaxRpadecisionindicatorResponse
+     */
+    public function queryRdaasTaxRpadecisionindicatorEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRdaasTaxRpadecisionindicatorResponse::fromMap($this->doRequest('1.0', 'riskplus.rdaas.tax.rpadecisionindicator.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企管盾票税交接要素授权决策查询
+     * Summary: 企管盾票税交接要素授权决策查询.
+     *
+     * @param QueryRdaasTaxSimpleauthdecisionRequest $request
+     *
+     * @return QueryRdaasTaxSimpleauthdecisionResponse
+     */
+    public function queryRdaasTaxSimpleauthdecision($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRdaasTaxSimpleauthdecisionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企管盾票税交接要素授权决策查询
+     * Summary: 企管盾票税交接要素授权决策查询.
+     *
+     * @param QueryRdaasTaxSimpleauthdecisionRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return QueryRdaasTaxSimpleauthdecisionResponse
+     */
+    public function queryRdaasTaxSimpleauthdecisionEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRdaasTaxSimpleauthdecisionResponse::fromMap($this->doRequest('1.0', 'riskplus.rdaas.tax.simpleauthdecision.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 风险大脑企业版通用查询接口
      * Summary: 【已废弃】.
      *
@@ -4737,6 +4951,39 @@ class Client
         Utils::validateModel($request);
 
         return PushRbbCustomerStatusResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.customer.status.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 票税计费处理推送，由票税侧请求
+     * Summary: 票税计费处理推送
+     *
+     * @param PushRbbInvoiceChargeRequest $request
+     *
+     * @return PushRbbInvoiceChargeResponse
+     */
+    public function pushRbbInvoiceCharge($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushRbbInvoiceChargeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 票税计费处理推送，由票税侧请求
+     * Summary: 票税计费处理推送
+     *
+     * @param PushRbbInvoiceChargeRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return PushRbbInvoiceChargeResponse
+     */
+    public function pushRbbInvoiceChargeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushRbbInvoiceChargeResponse::fromMap($this->doRequest('1.0', 'riskplus.rbb.invoice.charge.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -7254,6 +7501,58 @@ class Client
         Utils::validateModel($request);
 
         return QueryUmktOfflinedecisionPlandetailsResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offlinedecision.plandetails.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 营销盾离线圈投一体文件上传
+     * Summary: 营销盾离线圈投一体文件上传.
+     *
+     * @param UploadUmktOfflineImportrecordRequest $request
+     *
+     * @return UploadUmktOfflineImportrecordResponse
+     */
+    public function uploadUmktOfflineImportrecord($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadUmktOfflineImportrecordEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 营销盾离线圈投一体文件上传
+     * Summary: 营销盾离线圈投一体文件上传.
+     *
+     * @param UploadUmktOfflineImportrecordRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return UploadUmktOfflineImportrecordResponse
+     */
+    public function uploadUmktOfflineImportrecordEx($request, $headers, $runtime)
+    {
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                'authToken' => $request->authToken,
+                'apiCode'   => 'riskplus.umkt.offline.importrecord.upload',
+                'fileName'  => $request->fileObjectName,
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, 'ok')) {
+                return new UploadUmktOfflineImportrecordResponse([
+                    'reqMsgId'   => $uploadResp->reqMsgId,
+                    'resultCode' => $uploadResp->resultCode,
+                    'resultMsg'  => $uploadResp->resultMsg,
+                ]);
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+
+        return UploadUmktOfflineImportrecordResponse::fromMap($this->doRequest('1.0', 'riskplus.umkt.offline.importrecord.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
