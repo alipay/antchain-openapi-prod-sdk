@@ -22,9 +22,9 @@ namespace AntChain.SDK.ATO.Models
 
         // 
         // 截图照片
-        [NameInMap("screenshot_image")]
+        [NameInMap("screenshot_file")]
         [Validation(Required=false)]
-        public string ScreenshotImage { get; set; }
+        public FileInfo ScreenshotFile { get; set; }
 
         // 站点地址
         [NameInMap("site_url")]

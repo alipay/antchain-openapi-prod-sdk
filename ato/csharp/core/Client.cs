@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.16"},
+                        {"sdk_version", "1.10.24"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.16"},
+                        {"sdk_version", "1.10.24"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3815,6 +3815,216 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryInnerMarketingscoreResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.marketingscore.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建客服信息
+         * Summary: 创建客服信息
+         */
+        public CreateInnerCustomerserviceResponse CreateInnerCustomerservice(CreateInnerCustomerserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateInnerCustomerserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建客服信息
+         * Summary: 创建客服信息
+         */
+        public async Task<CreateInnerCustomerserviceResponse> CreateInnerCustomerserviceAsync(CreateInnerCustomerserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateInnerCustomerserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 创建客服信息
+         * Summary: 创建客服信息
+         */
+        public CreateInnerCustomerserviceResponse CreateInnerCustomerserviceEx(CreateInnerCustomerserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInnerCustomerserviceResponse>(DoRequest("1.0", "antchain.ato.inner.customerservice.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 创建客服信息
+         * Summary: 创建客服信息
+         */
+        public async Task<CreateInnerCustomerserviceResponse> CreateInnerCustomerserviceExAsync(CreateInnerCustomerserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateInnerCustomerserviceResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.customerservice.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新客服信息
+         * Summary: 更新客服信息
+         */
+        public UpdateInnerCustomerserviceResponse UpdateInnerCustomerservice(UpdateInnerCustomerserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateInnerCustomerserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新客服信息
+         * Summary: 更新客服信息
+         */
+        public async Task<UpdateInnerCustomerserviceResponse> UpdateInnerCustomerserviceAsync(UpdateInnerCustomerserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateInnerCustomerserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新客服信息
+         * Summary: 更新客服信息
+         */
+        public UpdateInnerCustomerserviceResponse UpdateInnerCustomerserviceEx(UpdateInnerCustomerserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerCustomerserviceResponse>(DoRequest("1.0", "antchain.ato.inner.customerservice.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新客服信息
+         * Summary: 更新客服信息
+         */
+        public async Task<UpdateInnerCustomerserviceResponse> UpdateInnerCustomerserviceExAsync(UpdateInnerCustomerserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerCustomerserviceResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.customerservice.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询客服信息
+         * Summary:  分页查询客服信息
+         */
+        public PagequeryInnerCustomerserviceResponse PagequeryInnerCustomerservice(PagequeryInnerCustomerserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PagequeryInnerCustomerserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询客服信息
+         * Summary:  分页查询客服信息
+         */
+        public async Task<PagequeryInnerCustomerserviceResponse> PagequeryInnerCustomerserviceAsync(PagequeryInnerCustomerserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PagequeryInnerCustomerserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 分页查询客服信息
+         * Summary:  分页查询客服信息
+         */
+        public PagequeryInnerCustomerserviceResponse PagequeryInnerCustomerserviceEx(PagequeryInnerCustomerserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryInnerCustomerserviceResponse>(DoRequest("1.0", "antchain.ato.inner.customerservice.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 分页查询客服信息
+         * Summary:  分页查询客服信息
+         */
+        public async Task<PagequeryInnerCustomerserviceResponse> PagequeryInnerCustomerserviceExAsync(PagequeryInnerCustomerserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PagequeryInnerCustomerserviceResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.customerservice.pagequery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取客服信息详情
+         * Summary: 获取客服信息详情
+         */
+        public DetailInnerCustomerserviceResponse DetailInnerCustomerservice(DetailInnerCustomerserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DetailInnerCustomerserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取客服信息详情
+         * Summary: 获取客服信息详情
+         */
+        public async Task<DetailInnerCustomerserviceResponse> DetailInnerCustomerserviceAsync(DetailInnerCustomerserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DetailInnerCustomerserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取客服信息详情
+         * Summary: 获取客服信息详情
+         */
+        public DetailInnerCustomerserviceResponse DetailInnerCustomerserviceEx(DetailInnerCustomerserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailInnerCustomerserviceResponse>(DoRequest("1.0", "antchain.ato.inner.customerservice.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取客服信息详情
+         * Summary: 获取客服信息详情
+         */
+        public async Task<DetailInnerCustomerserviceResponse> DetailInnerCustomerserviceExAsync(DetailInnerCustomerserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DetailInnerCustomerserviceResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.customerservice.detail", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取代理商客服信息模版
+         * Summary: 获取代理商客服信息模版
+         */
+        public GetInnerCustomerservicetemplateResponse GetInnerCustomerservicetemplate(GetInnerCustomerservicetemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetInnerCustomerservicetemplateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取代理商客服信息模版
+         * Summary: 获取代理商客服信息模版
+         */
+        public async Task<GetInnerCustomerservicetemplateResponse> GetInnerCustomerservicetemplateAsync(GetInnerCustomerservicetemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetInnerCustomerservicetemplateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取代理商客服信息模版
+         * Summary: 获取代理商客服信息模版
+         */
+        public GetInnerCustomerservicetemplateResponse GetInnerCustomerservicetemplateEx(GetInnerCustomerservicetemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInnerCustomerservicetemplateResponse>(DoRequest("1.0", "antchain.ato.inner.customerservicetemplate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取代理商客服信息模版
+         * Summary: 获取代理商客服信息模版
+         */
+        public async Task<GetInnerCustomerservicetemplateResponse> GetInnerCustomerservicetemplateExAsync(GetInnerCustomerservicetemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetInnerCustomerservicetemplateResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.customerservicetemplate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

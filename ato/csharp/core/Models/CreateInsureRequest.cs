@@ -72,7 +72,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 交易时间，非必填参数。如果发货方式为 OFFLINE（线下交易），则该字段必填。
         [NameInMap("trade_time")]
-        [Validation(Required=false, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
+        [Validation(Required=false)]
         public string TradeTime { get; set; }
 
     }

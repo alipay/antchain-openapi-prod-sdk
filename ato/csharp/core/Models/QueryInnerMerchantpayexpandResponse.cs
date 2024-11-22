@@ -64,6 +64,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ExpandFailReason { get; set; }
 
+        // 是否展示进件信息登记入口
+        [NameInMap("show_customer_complaint_regist_portal")]
+        [Validation(Required=false)]
+        public bool? ShowCustomerComplaintRegistPortal { get; set; }
+
     }
 
 }
