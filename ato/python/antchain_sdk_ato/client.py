@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 智租风控-子风险项
+            # 文件信息
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.16',
+                    'sdk_version': '1.10.24',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 智租风控-子风险项
+            # 文件信息
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.16',
+                    'sdk_version': '1.10.24',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -4905,6 +4905,286 @@ class Client:
         return TeaCore.from_map(
             ato_models.BatchqueryInnerMarketingscoreResponse(),
             await self.do_request_async('1.0', 'antchain.ato.inner.marketingscore.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_inner_customerservice(
+        self,
+        request: ato_models.CreateInnerCustomerserviceRequest,
+    ) -> ato_models.CreateInnerCustomerserviceResponse:
+        """
+        Description: 创建客服信息
+        Summary: 创建客服信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_inner_customerservice_ex(request, headers, runtime)
+
+    async def create_inner_customerservice_async(
+        self,
+        request: ato_models.CreateInnerCustomerserviceRequest,
+    ) -> ato_models.CreateInnerCustomerserviceResponse:
+        """
+        Description: 创建客服信息
+        Summary: 创建客服信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_inner_customerservice_ex_async(request, headers, runtime)
+
+    def create_inner_customerservice_ex(
+        self,
+        request: ato_models.CreateInnerCustomerserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerCustomerserviceResponse:
+        """
+        Description: 创建客服信息
+        Summary: 创建客服信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerCustomerserviceResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.customerservice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_inner_customerservice_ex_async(
+        self,
+        request: ato_models.CreateInnerCustomerserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.CreateInnerCustomerserviceResponse:
+        """
+        Description: 创建客服信息
+        Summary: 创建客服信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.CreateInnerCustomerserviceResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.customerservice.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_inner_customerservice(
+        self,
+        request: ato_models.UpdateInnerCustomerserviceRequest,
+    ) -> ato_models.UpdateInnerCustomerserviceResponse:
+        """
+        Description: 更新客服信息
+        Summary: 更新客服信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_inner_customerservice_ex(request, headers, runtime)
+
+    async def update_inner_customerservice_async(
+        self,
+        request: ato_models.UpdateInnerCustomerserviceRequest,
+    ) -> ato_models.UpdateInnerCustomerserviceResponse:
+        """
+        Description: 更新客服信息
+        Summary: 更新客服信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_inner_customerservice_ex_async(request, headers, runtime)
+
+    def update_inner_customerservice_ex(
+        self,
+        request: ato_models.UpdateInnerCustomerserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerCustomerserviceResponse:
+        """
+        Description: 更新客服信息
+        Summary: 更新客服信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerCustomerserviceResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.customerservice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_inner_customerservice_ex_async(
+        self,
+        request: ato_models.UpdateInnerCustomerserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerCustomerserviceResponse:
+        """
+        Description: 更新客服信息
+        Summary: 更新客服信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerCustomerserviceResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.customerservice.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def pagequery_inner_customerservice(
+        self,
+        request: ato_models.PagequeryInnerCustomerserviceRequest,
+    ) -> ato_models.PagequeryInnerCustomerserviceResponse:
+        """
+        Description: 分页查询客服信息
+        Summary:  分页查询客服信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.pagequery_inner_customerservice_ex(request, headers, runtime)
+
+    async def pagequery_inner_customerservice_async(
+        self,
+        request: ato_models.PagequeryInnerCustomerserviceRequest,
+    ) -> ato_models.PagequeryInnerCustomerserviceResponse:
+        """
+        Description: 分页查询客服信息
+        Summary:  分页查询客服信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.pagequery_inner_customerservice_ex_async(request, headers, runtime)
+
+    def pagequery_inner_customerservice_ex(
+        self,
+        request: ato_models.PagequeryInnerCustomerserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerCustomerserviceResponse:
+        """
+        Description: 分页查询客服信息
+        Summary:  分页查询客服信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerCustomerserviceResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.customerservice.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def pagequery_inner_customerservice_ex_async(
+        self,
+        request: ato_models.PagequeryInnerCustomerserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.PagequeryInnerCustomerserviceResponse:
+        """
+        Description: 分页查询客服信息
+        Summary:  分页查询客服信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.PagequeryInnerCustomerserviceResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.customerservice.pagequery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_inner_customerservice(
+        self,
+        request: ato_models.DetailInnerCustomerserviceRequest,
+    ) -> ato_models.DetailInnerCustomerserviceResponse:
+        """
+        Description: 获取客服信息详情
+        Summary: 获取客服信息详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_inner_customerservice_ex(request, headers, runtime)
+
+    async def detail_inner_customerservice_async(
+        self,
+        request: ato_models.DetailInnerCustomerserviceRequest,
+    ) -> ato_models.DetailInnerCustomerserviceResponse:
+        """
+        Description: 获取客服信息详情
+        Summary: 获取客服信息详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_inner_customerservice_ex_async(request, headers, runtime)
+
+    def detail_inner_customerservice_ex(
+        self,
+        request: ato_models.DetailInnerCustomerserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerCustomerserviceResponse:
+        """
+        Description: 获取客服信息详情
+        Summary: 获取客服信息详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerCustomerserviceResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.customerservice.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_inner_customerservice_ex_async(
+        self,
+        request: ato_models.DetailInnerCustomerserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.DetailInnerCustomerserviceResponse:
+        """
+        Description: 获取客服信息详情
+        Summary: 获取客服信息详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.DetailInnerCustomerserviceResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.customerservice.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_inner_customerservicetemplate(
+        self,
+        request: ato_models.GetInnerCustomerservicetemplateRequest,
+    ) -> ato_models.GetInnerCustomerservicetemplateResponse:
+        """
+        Description: 获取代理商客服信息模版
+        Summary: 获取代理商客服信息模版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_inner_customerservicetemplate_ex(request, headers, runtime)
+
+    async def get_inner_customerservicetemplate_async(
+        self,
+        request: ato_models.GetInnerCustomerservicetemplateRequest,
+    ) -> ato_models.GetInnerCustomerservicetemplateResponse:
+        """
+        Description: 获取代理商客服信息模版
+        Summary: 获取代理商客服信息模版
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_inner_customerservicetemplate_ex_async(request, headers, runtime)
+
+    def get_inner_customerservicetemplate_ex(
+        self,
+        request: ato_models.GetInnerCustomerservicetemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerCustomerservicetemplateResponse:
+        """
+        Description: 获取代理商客服信息模版
+        Summary: 获取代理商客服信息模版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerCustomerservicetemplateResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.customerservicetemplate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_inner_customerservicetemplate_ex_async(
+        self,
+        request: ato_models.GetInnerCustomerservicetemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetInnerCustomerservicetemplateResponse:
+        """
+        Description: 获取代理商客服信息模版
+        Summary: 获取代理商客服信息模版
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetInnerCustomerservicetemplateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.customerservicetemplate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_insure(
