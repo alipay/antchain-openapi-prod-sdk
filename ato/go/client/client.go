@@ -149,6 +149,32 @@ func (s *Config) SetMaxRequestsPerHost(v int) *Config {
 	return s
 }
 
+// 文件信息
+type FileInfo struct {
+	// 文件名称
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
+	// 文件key
+	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty" require:"true"`
+}
+
+func (s FileInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FileInfo) GoString() string {
+	return s.String()
+}
+
+func (s *FileInfo) SetFileName(v string) *FileInfo {
+	s.FileName = &v
+	return s
+}
+
+func (s *FileInfo) SetFileKey(v string) *FileInfo {
+	s.FileKey = &v
+	return s
+}
+
 // 智租风控-子风险项
 type SubRentRiskItem struct {
 	// 风险名称。枚举值：BASE_PERFORMANCE - 基础履约风险；OVERDUE - 逾期风险；MULTI_RENT - 共租风险。
@@ -263,7 +289,7 @@ type SiteInfo struct {
 	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty"`
 	//
 	// 截图照片
-	ScreenshotImage *string `json:"screenshot_image,omitempty" xml:"screenshot_image,omitempty"`
+	ScreenshotFile *FileInfo `json:"screenshot_file,omitempty" xml:"screenshot_file,omitempty"`
 	// 站点地址
 	SiteUrl *string `json:"site_url,omitempty" xml:"site_url,omitempty"`
 	// 站点类型
@@ -295,8 +321,8 @@ func (s *SiteInfo) SetSiteName(v string) *SiteInfo {
 	return s
 }
 
-func (s *SiteInfo) SetScreenshotImage(v string) *SiteInfo {
-	s.ScreenshotImage = &v
+func (s *SiteInfo) SetScreenshotFile(v *FileInfo) *SiteInfo {
+	s.ScreenshotFile = v
 	return s
 }
 
@@ -307,32 +333,6 @@ func (s *SiteInfo) SetSiteUrl(v string) *SiteInfo {
 
 func (s *SiteInfo) SetSiteType(v string) *SiteInfo {
 	s.SiteType = &v
-	return s
-}
-
-// 文件信息
-type FileInfo struct {
-	// 文件名称
-	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" require:"true"`
-	// 文件key
-	FileKey *string `json:"file_key,omitempty" xml:"file_key,omitempty" require:"true"`
-}
-
-func (s FileInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s FileInfo) GoString() string {
-	return s.String()
-}
-
-func (s *FileInfo) SetFileName(v string) *FileInfo {
-	s.FileName = &v
-	return s
-}
-
-func (s *FileInfo) SetFileKey(v string) *FileInfo {
-	s.FileKey = &v
 	return s
 }
 
@@ -1597,6 +1597,39 @@ func (s *DeliveryDetail) SetReceiverMobile(v string) *DeliveryDetail {
 
 func (s *DeliveryDetail) SetReceiverAddress(v string) *DeliveryDetail {
 	s.ReceiverAddress = &v
+	return s
+}
+
+// 客服信息
+type CustomerServiceInfo struct {
+	// 公司社会统一信息代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 公司名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 处理类型: 商家处理 服务商代处理
+	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty"`
+}
+
+func (s CustomerServiceInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CustomerServiceInfo) GoString() string {
+	return s.String()
+}
+
+func (s *CustomerServiceInfo) SetMerchantId(v string) *CustomerServiceInfo {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *CustomerServiceInfo) SetMerchantName(v string) *CustomerServiceInfo {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *CustomerServiceInfo) SetProcessType(v string) *CustomerServiceInfo {
+	s.ProcessType = &v
 	return s
 }
 
@@ -7231,6 +7264,8 @@ type QueryInnerMerchantpayexpandResponse struct {
 	ExpandStatus *string `json:"expand_status,omitempty" xml:"expand_status,omitempty"`
 	// 进件失败描述
 	ExpandFailReason *string `json:"expand_fail_reason,omitempty" xml:"expand_fail_reason,omitempty"`
+	// 是否展示进件信息登记入口
+	ShowCustomerComplaintRegistPortal *bool `json:"show_customer_complaint_regist_portal,omitempty" xml:"show_customer_complaint_regist_portal,omitempty"`
 }
 
 func (s QueryInnerMerchantpayexpandResponse) String() string {
@@ -7293,6 +7328,11 @@ func (s *QueryInnerMerchantpayexpandResponse) SetExpandStatus(v string) *QueryIn
 
 func (s *QueryInnerMerchantpayexpandResponse) SetExpandFailReason(v string) *QueryInnerMerchantpayexpandResponse {
 	s.ExpandFailReason = &v
+	return s
+}
+
+func (s *QueryInnerMerchantpayexpandResponse) SetShowCustomerComplaintRegistPortal(v bool) *QueryInnerMerchantpayexpandResponse {
+	s.ShowCustomerComplaintRegistPortal = &v
 	return s
 }
 
@@ -10016,6 +10056,673 @@ func (s *BatchqueryInnerMarketingscoreResponse) SetMarketingScoreInfo(v []*Marke
 	return s
 }
 
+type CreateInnerCustomerserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 公司社会统一信息代码,间联模式必传
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 公司名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 处理类型:
+	// 商家处理
+	// 服务商代处理
+	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty" require:"true"`
+	// 服务商名称
+	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
+	// 客诉处理员支付宝绑定手机号
+	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty" require:"true"`
+	// 客诉处理员支付宝账号
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty" require:"true"`
+	// 客服电话
+	CustomerServicePhone *string `json:"customer_service_phone,omitempty" xml:"customer_service_phone,omitempty" require:"true"`
+	// 客服人员名称
+	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty" require:"true"`
+	// 在线客服网址
+	OnlineSupportSiteUrl *string `json:"online_support_site_url,omitempty" xml:"online_support_site_url,omitempty" require:"true"`
+	// 投诉问题
+	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty" require:"true"`
+	// 进件类型
+	// DIRECT("DIRECT", "直连进件模式"),
+	// AGENT("AGENT", "代理商进件模式"),
+	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
+}
+
+func (s CreateInnerCustomerserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateInnerCustomerserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetAuthToken(v string) *CreateInnerCustomerserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetProductInstanceId(v string) *CreateInnerCustomerserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetTenantId(v string) *CreateInnerCustomerserviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetMerchantId(v string) *CreateInnerCustomerserviceRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetMerchantName(v string) *CreateInnerCustomerserviceRequest {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetProcessType(v string) *CreateInnerCustomerserviceRequest {
+	s.ProcessType = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetServiceProviderName(v string) *CreateInnerCustomerserviceRequest {
+	s.ServiceProviderName = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetAlipayBindMobile(v string) *CreateInnerCustomerserviceRequest {
+	s.AlipayBindMobile = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetAlipayLogonId(v string) *CreateInnerCustomerserviceRequest {
+	s.AlipayLogonId = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetCustomerServicePhone(v string) *CreateInnerCustomerserviceRequest {
+	s.CustomerServicePhone = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetCustomerServiceName(v string) *CreateInnerCustomerserviceRequest {
+	s.CustomerServiceName = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetOnlineSupportSiteUrl(v string) *CreateInnerCustomerserviceRequest {
+	s.OnlineSupportSiteUrl = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetCustomerComplaintIssues(v string) *CreateInnerCustomerserviceRequest {
+	s.CustomerComplaintIssues = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceRequest) SetExpandMode(v string) *CreateInnerCustomerserviceRequest {
+	s.ExpandMode = &v
+	return s
+}
+
+type CreateInnerCustomerserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CreateInnerCustomerserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateInnerCustomerserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateInnerCustomerserviceResponse) SetReqMsgId(v string) *CreateInnerCustomerserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceResponse) SetResultCode(v string) *CreateInnerCustomerserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateInnerCustomerserviceResponse) SetResultMsg(v string) *CreateInnerCustomerserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type UpdateInnerCustomerserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 商家社会统一信用代码，间联模式必传
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 公司名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
+	// 处理类型: 商家处理 服务商代处理
+	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty" require:"true"`
+	// 服务商名称
+	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
+	// 客诉处理员支付宝绑定手机号
+	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty" require:"true"`
+	// 客诉处理员支付宝账号
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty" require:"true"`
+	// 客服电话
+	CustomerServicePhone *string `json:"customer_service_phone,omitempty" xml:"customer_service_phone,omitempty" require:"true"`
+	// 客服人员名称
+	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty" require:"true"`
+	// 在线客服网址
+	OnlineSupportSiteUrl *string `json:"online_support_site_url,omitempty" xml:"online_support_site_url,omitempty" require:"true"`
+	// 投诉问题
+	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty" require:"true"`
+	// 进件类型
+	// DIRECT("DIRECT", "直连进件模式"), AGENT("AGENT", "代理商进件模式"),
+	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
+}
+
+func (s UpdateInnerCustomerserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateInnerCustomerserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetAuthToken(v string) *UpdateInnerCustomerserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetProductInstanceId(v string) *UpdateInnerCustomerserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetTenantId(v string) *UpdateInnerCustomerserviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetMerchantId(v string) *UpdateInnerCustomerserviceRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetMerchantName(v string) *UpdateInnerCustomerserviceRequest {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetProcessType(v string) *UpdateInnerCustomerserviceRequest {
+	s.ProcessType = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetServiceProviderName(v string) *UpdateInnerCustomerserviceRequest {
+	s.ServiceProviderName = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetAlipayBindMobile(v string) *UpdateInnerCustomerserviceRequest {
+	s.AlipayBindMobile = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetAlipayLogonId(v string) *UpdateInnerCustomerserviceRequest {
+	s.AlipayLogonId = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetCustomerServicePhone(v string) *UpdateInnerCustomerserviceRequest {
+	s.CustomerServicePhone = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetCustomerServiceName(v string) *UpdateInnerCustomerserviceRequest {
+	s.CustomerServiceName = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetOnlineSupportSiteUrl(v string) *UpdateInnerCustomerserviceRequest {
+	s.OnlineSupportSiteUrl = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetCustomerComplaintIssues(v string) *UpdateInnerCustomerserviceRequest {
+	s.CustomerComplaintIssues = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceRequest) SetExpandMode(v string) *UpdateInnerCustomerserviceRequest {
+	s.ExpandMode = &v
+	return s
+}
+
+type UpdateInnerCustomerserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s UpdateInnerCustomerserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateInnerCustomerserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateInnerCustomerserviceResponse) SetReqMsgId(v string) *UpdateInnerCustomerserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceResponse) SetResultCode(v string) *UpdateInnerCustomerserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateInnerCustomerserviceResponse) SetResultMsg(v string) *UpdateInnerCustomerserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type PagequeryInnerCustomerserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 分页信息
+	PageInfo *PageQuery `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
+	// 处理类型: 商家处理 服务商代处理
+	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty"`
+	// 公司社会统一信息代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 公司名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+}
+
+func (s PagequeryInnerCustomerserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryInnerCustomerserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryInnerCustomerserviceRequest) SetAuthToken(v string) *PagequeryInnerCustomerserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceRequest) SetProductInstanceId(v string) *PagequeryInnerCustomerserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceRequest) SetTenantId(v string) *PagequeryInnerCustomerserviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceRequest) SetPageInfo(v *PageQuery) *PagequeryInnerCustomerserviceRequest {
+	s.PageInfo = v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceRequest) SetProcessType(v string) *PagequeryInnerCustomerserviceRequest {
+	s.ProcessType = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceRequest) SetMerchantId(v string) *PagequeryInnerCustomerserviceRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceRequest) SetMerchantName(v string) *PagequeryInnerCustomerserviceRequest {
+	s.MerchantName = &v
+	return s
+}
+
+type PagequeryInnerCustomerserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总数
+	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
+	// 客服信息
+	CustomerServiceInfoList []*CustomerServiceInfo `json:"customer_service_info_list,omitempty" xml:"customer_service_info_list,omitempty" type:"Repeated"`
+}
+
+func (s PagequeryInnerCustomerserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PagequeryInnerCustomerserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PagequeryInnerCustomerserviceResponse) SetReqMsgId(v string) *PagequeryInnerCustomerserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceResponse) SetResultCode(v string) *PagequeryInnerCustomerserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceResponse) SetResultMsg(v string) *PagequeryInnerCustomerserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceResponse) SetTotal(v int64) *PagequeryInnerCustomerserviceResponse {
+	s.Total = &v
+	return s
+}
+
+func (s *PagequeryInnerCustomerserviceResponse) SetCustomerServiceInfoList(v []*CustomerServiceInfo) *PagequeryInnerCustomerserviceResponse {
+	s.CustomerServiceInfoList = v
+	return s
+}
+
+type DetailInnerCustomerserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 公司社会统一信息代码，间联模式必传
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 进件类型
+	// DIRECT("DIRECT", "直连进件模式"),
+	// AGENT("AGENT", "代理商进件模式"),
+	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
+}
+
+func (s DetailInnerCustomerserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailInnerCustomerserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DetailInnerCustomerserviceRequest) SetAuthToken(v string) *DetailInnerCustomerserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceRequest) SetProductInstanceId(v string) *DetailInnerCustomerserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceRequest) SetTenantId(v string) *DetailInnerCustomerserviceRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceRequest) SetMerchantId(v string) *DetailInnerCustomerserviceRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceRequest) SetExpandMode(v string) *DetailInnerCustomerserviceRequest {
+	s.ExpandMode = &v
+	return s
+}
+
+type DetailInnerCustomerserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 公司社会统一信息代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 公司名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 处理类型: 商家处理;服务商代处理
+	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty"`
+	// 服务商名称
+	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
+	// 客诉处理员支付宝绑定手机号
+	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty"`
+	// 客诉处理员支付宝账号
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
+	// 客服电话
+	CustomerServicePhone *string `json:"customer_service_phone,omitempty" xml:"customer_service_phone,omitempty"`
+	// 客服人员名称
+	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty"`
+	// 在线客服网址
+	OnlineSupportSiteUrl *string `json:"online_support_site_url,omitempty" xml:"online_support_site_url,omitempty"`
+	// 投诉问题
+	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty"`
+}
+
+func (s DetailInnerCustomerserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DetailInnerCustomerserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetReqMsgId(v string) *DetailInnerCustomerserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetResultCode(v string) *DetailInnerCustomerserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetResultMsg(v string) *DetailInnerCustomerserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetMerchantId(v string) *DetailInnerCustomerserviceResponse {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetMerchantName(v string) *DetailInnerCustomerserviceResponse {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetProcessType(v string) *DetailInnerCustomerserviceResponse {
+	s.ProcessType = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetServiceProviderName(v string) *DetailInnerCustomerserviceResponse {
+	s.ServiceProviderName = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetAlipayBindMobile(v string) *DetailInnerCustomerserviceResponse {
+	s.AlipayBindMobile = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetAlipayLogonId(v string) *DetailInnerCustomerserviceResponse {
+	s.AlipayLogonId = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetCustomerServicePhone(v string) *DetailInnerCustomerserviceResponse {
+	s.CustomerServicePhone = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetCustomerServiceName(v string) *DetailInnerCustomerserviceResponse {
+	s.CustomerServiceName = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetOnlineSupportSiteUrl(v string) *DetailInnerCustomerserviceResponse {
+	s.OnlineSupportSiteUrl = &v
+	return s
+}
+
+func (s *DetailInnerCustomerserviceResponse) SetCustomerComplaintIssues(v string) *DetailInnerCustomerserviceResponse {
+	s.CustomerComplaintIssues = &v
+	return s
+}
+
+type GetInnerCustomerservicetemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 进件类型
+	// DIRECT("DIRECT", "直连进件模式")
+	// AGENT("AGENT", "代理商进件模式")
+	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
+	// 处理类型: 商家处理；服务商代处理
+	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty" require:"true"`
+}
+
+func (s GetInnerCustomerservicetemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerCustomerservicetemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerCustomerservicetemplateRequest) SetAuthToken(v string) *GetInnerCustomerservicetemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateRequest) SetProductInstanceId(v string) *GetInnerCustomerservicetemplateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateRequest) SetTenantId(v string) *GetInnerCustomerservicetemplateRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateRequest) SetExpandMode(v string) *GetInnerCustomerservicetemplateRequest {
+	s.ExpandMode = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateRequest) SetProcessType(v string) *GetInnerCustomerservicetemplateRequest {
+	s.ProcessType = &v
+	return s
+}
+
+type GetInnerCustomerservicetemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 服务商名称
+	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
+	// 客诉处理员支付宝绑定手机号
+	AlipayBindMobile *string `json:"alipay_bind_mobile,omitempty" xml:"alipay_bind_mobile,omitempty"`
+	// 客诉处理员支付宝账号
+	AlipayLogonId *string `json:"alipay_logon_id,omitempty" xml:"alipay_logon_id,omitempty"`
+	// 客服电话
+	CustomerServicePhone *string `json:"customer_service_phone,omitempty" xml:"customer_service_phone,omitempty"`
+	// 客服人员名称
+	CustomerServiceName *string `json:"customer_service_name,omitempty" xml:"customer_service_name,omitempty"`
+	// 在线客服网址
+	OnlineSupportSiteUrl *string `json:"online_support_site_url,omitempty" xml:"online_support_site_url,omitempty"`
+	// 投诉问题
+	CustomerComplaintIssues *string `json:"customer_complaint_issues,omitempty" xml:"customer_complaint_issues,omitempty"`
+}
+
+func (s GetInnerCustomerservicetemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetInnerCustomerservicetemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetReqMsgId(v string) *GetInnerCustomerservicetemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetResultCode(v string) *GetInnerCustomerservicetemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetResultMsg(v string) *GetInnerCustomerservicetemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetServiceProviderName(v string) *GetInnerCustomerservicetemplateResponse {
+	s.ServiceProviderName = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetAlipayBindMobile(v string) *GetInnerCustomerservicetemplateResponse {
+	s.AlipayBindMobile = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetAlipayLogonId(v string) *GetInnerCustomerservicetemplateResponse {
+	s.AlipayLogonId = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetCustomerServicePhone(v string) *GetInnerCustomerservicetemplateResponse {
+	s.CustomerServicePhone = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetCustomerServiceName(v string) *GetInnerCustomerservicetemplateResponse {
+	s.CustomerServiceName = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetOnlineSupportSiteUrl(v string) *GetInnerCustomerservicetemplateResponse {
+	s.OnlineSupportSiteUrl = &v
+	return s
+}
+
+func (s *GetInnerCustomerservicetemplateResponse) SetCustomerComplaintIssues(v string) *GetInnerCustomerservicetemplateResponse {
+	s.CustomerComplaintIssues = &v
+	return s
+}
+
 type CreateInsureRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -10043,7 +10750,7 @@ type CreateInsureRequest struct {
 	// 物流单号，非必填参数。如果选择的物流发货方式为 EXPRESS（物流发货），则该字段必填。
 	LogisticsNumber *string `json:"logistics_number,omitempty" xml:"logistics_number,omitempty" maxLength:"64"`
 	// 交易时间，非必填参数。如果发货方式为 OFFLINE（线下交易），则该字段必填。
-	TradeTime *string `json:"trade_time,omitempty" xml:"trade_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	TradeTime *string `json:"trade_time,omitempty" xml:"trade_time,omitempty"`
 }
 
 func (s CreateInsureRequest) String() string {
@@ -15017,7 +15724,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.16"),
+				"sdk_version":      tea.String("1.10.24"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -17888,6 +18595,176 @@ func (client *Client) BatchqueryInnerMarketingscoreEx(request *BatchqueryInnerMa
 	}
 	_result = &BatchqueryInnerMarketingscoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.marketingscore.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 创建客服信息
+ * Summary: 创建客服信息
+ */
+func (client *Client) CreateInnerCustomerservice(request *CreateInnerCustomerserviceRequest) (_result *CreateInnerCustomerserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateInnerCustomerserviceResponse{}
+	_body, _err := client.CreateInnerCustomerserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 创建客服信息
+ * Summary: 创建客服信息
+ */
+func (client *Client) CreateInnerCustomerserviceEx(request *CreateInnerCustomerserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateInnerCustomerserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateInnerCustomerserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.customerservice.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新客服信息
+ * Summary: 更新客服信息
+ */
+func (client *Client) UpdateInnerCustomerservice(request *UpdateInnerCustomerserviceRequest) (_result *UpdateInnerCustomerserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateInnerCustomerserviceResponse{}
+	_body, _err := client.UpdateInnerCustomerserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新客服信息
+ * Summary: 更新客服信息
+ */
+func (client *Client) UpdateInnerCustomerserviceEx(request *UpdateInnerCustomerserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateInnerCustomerserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateInnerCustomerserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.customerservice.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询客服信息
+ * Summary:  分页查询客服信息
+ */
+func (client *Client) PagequeryInnerCustomerservice(request *PagequeryInnerCustomerserviceRequest) (_result *PagequeryInnerCustomerserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PagequeryInnerCustomerserviceResponse{}
+	_body, _err := client.PagequeryInnerCustomerserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 分页查询客服信息
+ * Summary:  分页查询客服信息
+ */
+func (client *Client) PagequeryInnerCustomerserviceEx(request *PagequeryInnerCustomerserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PagequeryInnerCustomerserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PagequeryInnerCustomerserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.customerservice.pagequery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取客服信息详情
+ * Summary: 获取客服信息详情
+ */
+func (client *Client) DetailInnerCustomerservice(request *DetailInnerCustomerserviceRequest) (_result *DetailInnerCustomerserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DetailInnerCustomerserviceResponse{}
+	_body, _err := client.DetailInnerCustomerserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取客服信息详情
+ * Summary: 获取客服信息详情
+ */
+func (client *Client) DetailInnerCustomerserviceEx(request *DetailInnerCustomerserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DetailInnerCustomerserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DetailInnerCustomerserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.customerservice.detail"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取代理商客服信息模版
+ * Summary: 获取代理商客服信息模版
+ */
+func (client *Client) GetInnerCustomerservicetemplate(request *GetInnerCustomerservicetemplateRequest) (_result *GetInnerCustomerservicetemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetInnerCustomerservicetemplateResponse{}
+	_body, _err := client.GetInnerCustomerservicetemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取代理商客服信息模版
+ * Summary: 获取代理商客服信息模版
+ */
+func (client *Client) GetInnerCustomerservicetemplateEx(request *GetInnerCustomerservicetemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetInnerCustomerservicetemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetInnerCustomerservicetemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.inner.customerservicetemplate.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
