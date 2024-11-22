@@ -48,6 +48,10 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     @NameInMap("expand_fail_reason")
     public String expandFailReason;
 
+    // 是否展示进件信息登记入口
+    @NameInMap("show_customer_complaint_regist_portal")
+    public Boolean showCustomerComplaintRegistPortal;
+
     public static QueryInnerMerchantpayexpandResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerMerchantpayexpandResponse self = new QueryInnerMerchantpayexpandResponse();
         return TeaModel.build(map, self);
@@ -139,6 +143,14 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     }
     public String getExpandFailReason() {
         return this.expandFailReason;
+    }
+
+    public QueryInnerMerchantpayexpandResponse setShowCustomerComplaintRegistPortal(Boolean showCustomerComplaintRegistPortal) {
+        this.showCustomerComplaintRegistPortal = showCustomerComplaintRegistPortal;
+        return this;
+    }
+    public Boolean getShowCustomerComplaintRegistPortal() {
+        return this.showCustomerComplaintRegistPortal;
     }
 
 }

@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.10.16"),
+                    new TeaPair("sdk_version", "1.10.24"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1764,6 +1764,101 @@ public class Client {
     public BatchqueryInnerMarketingscoreResponse batchqueryInnerMarketingscoreEx(BatchqueryInnerMarketingscoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.marketingscore.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryInnerMarketingscoreResponse());
+    }
+
+    /**
+     * Description: 创建客服信息
+     * Summary: 创建客服信息
+     */
+    public CreateInnerCustomerserviceResponse createInnerCustomerservice(CreateInnerCustomerserviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createInnerCustomerserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 创建客服信息
+     * Summary: 创建客服信息
+     */
+    public CreateInnerCustomerserviceResponse createInnerCustomerserviceEx(CreateInnerCustomerserviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.customerservice.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateInnerCustomerserviceResponse());
+    }
+
+    /**
+     * Description: 更新客服信息
+     * Summary: 更新客服信息
+     */
+    public UpdateInnerCustomerserviceResponse updateInnerCustomerservice(UpdateInnerCustomerserviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateInnerCustomerserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 更新客服信息
+     * Summary: 更新客服信息
+     */
+    public UpdateInnerCustomerserviceResponse updateInnerCustomerserviceEx(UpdateInnerCustomerserviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.customerservice.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateInnerCustomerserviceResponse());
+    }
+
+    /**
+     * Description: 分页查询客服信息
+     * Summary:  分页查询客服信息
+     */
+    public PagequeryInnerCustomerserviceResponse pagequeryInnerCustomerservice(PagequeryInnerCustomerserviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pagequeryInnerCustomerserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 分页查询客服信息
+     * Summary:  分页查询客服信息
+     */
+    public PagequeryInnerCustomerserviceResponse pagequeryInnerCustomerserviceEx(PagequeryInnerCustomerserviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.customerservice.pagequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PagequeryInnerCustomerserviceResponse());
+    }
+
+    /**
+     * Description: 获取客服信息详情
+     * Summary: 获取客服信息详情
+     */
+    public DetailInnerCustomerserviceResponse detailInnerCustomerservice(DetailInnerCustomerserviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailInnerCustomerserviceEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取客服信息详情
+     * Summary: 获取客服信息详情
+     */
+    public DetailInnerCustomerserviceResponse detailInnerCustomerserviceEx(DetailInnerCustomerserviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.customerservice.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailInnerCustomerserviceResponse());
+    }
+
+    /**
+     * Description: 获取代理商客服信息模版
+     * Summary: 获取代理商客服信息模版
+     */
+    public GetInnerCustomerservicetemplateResponse getInnerCustomerservicetemplate(GetInnerCustomerservicetemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.getInnerCustomerservicetemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取代理商客服信息模版
+     * Summary: 获取代理商客服信息模版
+     */
+    public GetInnerCustomerservicetemplateResponse getInnerCustomerservicetemplateEx(GetInnerCustomerservicetemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.inner.customerservicetemplate.get", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new GetInnerCustomerservicetemplateResponse());
     }
 
     /**
