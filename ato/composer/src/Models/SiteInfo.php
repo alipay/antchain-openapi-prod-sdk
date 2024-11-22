@@ -29,9 +29,9 @@ class SiteInfo extends Model
     /**
      * @example c6c0c7a1-b9d5-4e5d-b9d4-9eed39f00e65.jpg
      *
-     * @var string
+     * @var FileInfo
      */
-    public $screenshotImage;
+    public $screenshotFile;
 
     // 站点地址
     /**
@@ -56,11 +56,11 @@ class SiteInfo extends Model
      */
     public $siteType;
     protected $_name = [
-        'tinyAppId'       => 'tiny_app_id',
-        'siteName'        => 'site_name',
-        'screenshotImage' => 'screenshot_image',
-        'siteUrl'         => 'site_url',
-        'siteType'        => 'site_type',
+        'tinyAppId'      => 'tiny_app_id',
+        'siteName'       => 'site_name',
+        'screenshotFile' => 'screenshot_file',
+        'siteUrl'        => 'site_url',
+        'siteType'       => 'site_type',
     ];
 
     public function validate()
@@ -76,8 +76,8 @@ class SiteInfo extends Model
         if (null !== $this->siteName) {
             $res['site_name'] = $this->siteName;
         }
-        if (null !== $this->screenshotImage) {
-            $res['screenshot_image'] = $this->screenshotImage;
+        if (null !== $this->screenshotFile) {
+            $res['screenshot_file'] = null !== $this->screenshotFile ? $this->screenshotFile->toMap() : null;
         }
         if (null !== $this->siteUrl) {
             $res['site_url'] = $this->siteUrl;
@@ -103,8 +103,8 @@ class SiteInfo extends Model
         if (isset($map['site_name'])) {
             $model->siteName = $map['site_name'];
         }
-        if (isset($map['screenshot_image'])) {
-            $model->screenshotImage = $map['screenshot_image'];
+        if (isset($map['screenshot_file'])) {
+            $model->screenshotFile = FileInfo::fromMap($map['screenshot_file']);
         }
         if (isset($map['site_url'])) {
             $model->siteUrl = $map['site_url'];

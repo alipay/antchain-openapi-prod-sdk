@@ -116,7 +116,6 @@ class CreateInsureRequest extends Model
         Model::validateMaxLength('contactName', $this->contactName, 2000);
         Model::validateMaxLength('contactMobile', $this->contactMobile, 2000);
         Model::validateMaxLength('logisticsNumber', $this->logisticsNumber, 64);
-        Model::validatePattern('tradeTime', $this->tradeTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
     public function toMap()

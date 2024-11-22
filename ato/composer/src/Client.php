@@ -41,6 +41,8 @@ use AntChain\ATO\Models\ConfirmWithholdSignasyncunsignRequest;
 use AntChain\ATO\Models\ConfirmWithholdSignasyncunsignResponse;
 use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\ATO\Models\CreateAntcloudGatewayxFileUploadResponse;
+use AntChain\ATO\Models\CreateInnerCustomerserviceRequest;
+use AntChain\ATO\Models\CreateInnerCustomerserviceResponse;
 use AntChain\ATO\Models\CreateInnerFunddividerelationRequest;
 use AntChain\ATO\Models\CreateInnerFunddividerelationResponse;
 use AntChain\ATO\Models\CreateInnerInsuresignRequest;
@@ -67,6 +69,8 @@ use AntChain\ATO\Models\CreateWithholdSignRequest;
 use AntChain\ATO\Models\CreateWithholdSignResponse;
 use AntChain\ATO\Models\DeleteInnerTemplateRequest;
 use AntChain\ATO\Models\DeleteInnerTemplateResponse;
+use AntChain\ATO\Models\DetailInnerCustomerserviceRequest;
+use AntChain\ATO\Models\DetailInnerCustomerserviceResponse;
 use AntChain\ATO\Models\DetailInnerNoticeRequest;
 use AntChain\ATO\Models\DetailInnerNoticeResponse;
 use AntChain\ATO\Models\DetailInnerOrderRequest;
@@ -87,6 +91,8 @@ use AntChain\ATO\Models\GetFundUserperformanceRequest;
 use AntChain\ATO\Models\GetFundUserperformanceResponse;
 use AntChain\ATO\Models\GetFundUserpromiseRequest;
 use AntChain\ATO\Models\GetFundUserpromiseResponse;
+use AntChain\ATO\Models\GetInnerCustomerservicetemplateRequest;
+use AntChain\ATO\Models\GetInnerCustomerservicetemplateResponse;
 use AntChain\ATO\Models\GetInnerFunddividemerchantRequest;
 use AntChain\ATO\Models\GetInnerFunddividemerchantResponse;
 use AntChain\ATO\Models\GetInnerHomepagenoticeRequest;
@@ -113,6 +119,8 @@ use AntChain\ATO\Models\ListInnerTemplateRequest;
 use AntChain\ATO\Models\ListInnerTemplateResponse;
 use AntChain\ATO\Models\NotifyFundFlowRequest;
 use AntChain\ATO\Models\NotifyFundFlowResponse;
+use AntChain\ATO\Models\PagequeryInnerCustomerserviceRequest;
+use AntChain\ATO\Models\PagequeryInnerCustomerserviceResponse;
 use AntChain\ATO\Models\PagequeryInnerFunddividerelationRequest;
 use AntChain\ATO\Models\PagequeryInnerFunddividerelationResponse;
 use AntChain\ATO\Models\PagequeryInnerInsureorderRequest;
@@ -247,6 +255,8 @@ use AntChain\ATO\Models\SyncTradeRequest;
 use AntChain\ATO\Models\SyncTradeResponse;
 use AntChain\ATO\Models\UnbindWithholdSignRequest;
 use AntChain\ATO\Models\UnbindWithholdSignResponse;
+use AntChain\ATO\Models\UpdateInnerCustomerserviceRequest;
+use AntChain\ATO\Models\UpdateInnerCustomerserviceResponse;
 use AntChain\ATO\Models\UpdateInnerTemplateRequest;
 use AntChain\ATO\Models\UpdateInnerTemplateResponse;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantRequest;
@@ -386,7 +396,7 @@ class Client
                 'period' => Utils::defaultNumber($runtime->backoffPeriod, 1),
             ],
             'ignoreSSL' => $runtime->ignoreSSL,
-            // 智租风控-子风险项
+            // 文件信息
         ];
         $_lastRequest   = null;
         $_lastException = null;
@@ -414,7 +424,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.16',
+                    'sdk_version'      => '1.10.24',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3187,6 +3197,171 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryInnerMarketingscoreResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.marketingscore.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建客服信息
+     * Summary: 创建客服信息.
+     *
+     * @param CreateInnerCustomerserviceRequest $request
+     *
+     * @return CreateInnerCustomerserviceResponse
+     */
+    public function createInnerCustomerservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->createInnerCustomerserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建客服信息
+     * Summary: 创建客服信息.
+     *
+     * @param CreateInnerCustomerserviceRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return CreateInnerCustomerserviceResponse
+     */
+    public function createInnerCustomerserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CreateInnerCustomerserviceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.customerservice.create', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新客服信息
+     * Summary: 更新客服信息.
+     *
+     * @param UpdateInnerCustomerserviceRequest $request
+     *
+     * @return UpdateInnerCustomerserviceResponse
+     */
+    public function updateInnerCustomerservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInnerCustomerserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新客服信息
+     * Summary: 更新客服信息.
+     *
+     * @param UpdateInnerCustomerserviceRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return UpdateInnerCustomerserviceResponse
+     */
+    public function updateInnerCustomerserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInnerCustomerserviceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.customerservice.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询客服信息
+     * Summary:  分页查询客服信息.
+     *
+     * @param PagequeryInnerCustomerserviceRequest $request
+     *
+     * @return PagequeryInnerCustomerserviceResponse
+     */
+    public function pagequeryInnerCustomerservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pagequeryInnerCustomerserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询客服信息
+     * Summary:  分页查询客服信息.
+     *
+     * @param PagequeryInnerCustomerserviceRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return PagequeryInnerCustomerserviceResponse
+     */
+    public function pagequeryInnerCustomerserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PagequeryInnerCustomerserviceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.customerservice.pagequery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取客服信息详情
+     * Summary: 获取客服信息详情.
+     *
+     * @param DetailInnerCustomerserviceRequest $request
+     *
+     * @return DetailInnerCustomerserviceResponse
+     */
+    public function detailInnerCustomerservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->detailInnerCustomerserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取客服信息详情
+     * Summary: 获取客服信息详情.
+     *
+     * @param DetailInnerCustomerserviceRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return DetailInnerCustomerserviceResponse
+     */
+    public function detailInnerCustomerserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DetailInnerCustomerserviceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.customerservice.detail', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取代理商客服信息模版
+     * Summary: 获取代理商客服信息模版.
+     *
+     * @param GetInnerCustomerservicetemplateRequest $request
+     *
+     * @return GetInnerCustomerservicetemplateResponse
+     */
+    public function getInnerCustomerservicetemplate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getInnerCustomerservicetemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取代理商客服信息模版
+     * Summary: 获取代理商客服信息模版.
+     *
+     * @param GetInnerCustomerservicetemplateRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return GetInnerCustomerservicetemplateResponse
+     */
+    public function getInnerCustomerservicetemplateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetInnerCustomerservicetemplateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.customerservicetemplate.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
