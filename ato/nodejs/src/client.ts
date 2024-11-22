@@ -78,6 +78,31 @@ export class Config extends $tea.Model {
   }
 }
 
+// 文件信息
+export class FileInfo extends $tea.Model {
+  // 文件名称
+  fileName: string;
+  // 文件key
+  fileKey: string;
+  static names(): { [key: string]: string } {
+    return {
+      fileName: 'file_name',
+      fileKey: 'file_key',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      fileName: 'string',
+      fileKey: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 智租风控-子风险项
 export class SubRentRiskItem extends $tea.Model {
   // 风险名称。枚举值：BASE_PERFORMANCE - 基础履约风险；OVERDUE - 逾期风险；MULTI_RENT - 共租风险。
@@ -177,7 +202,7 @@ export class SiteInfo extends $tea.Model {
   siteName?: string;
   // 
   // 截图照片
-  screenshotImage?: string;
+  screenshotFile?: FileInfo;
   // 站点地址
   siteUrl?: string;
   // 站点类型
@@ -193,7 +218,7 @@ export class SiteInfo extends $tea.Model {
     return {
       tinyAppId: 'tiny_app_id',
       siteName: 'site_name',
-      screenshotImage: 'screenshot_image',
+      screenshotFile: 'screenshot_file',
       siteUrl: 'site_url',
       siteType: 'site_type',
     };
@@ -203,34 +228,9 @@ export class SiteInfo extends $tea.Model {
     return {
       tinyAppId: 'string',
       siteName: 'string',
-      screenshotImage: 'string',
+      screenshotFile: FileInfo,
       siteUrl: 'string',
       siteType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 文件信息
-export class FileInfo extends $tea.Model {
-  // 文件名称
-  fileName: string;
-  // 文件key
-  fileKey: string;
-  static names(): { [key: string]: string } {
-    return {
-      fileName: 'file_name',
-      fileKey: 'file_key',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      fileName: 'string',
-      fileKey: 'string',
     };
   }
 
@@ -1223,6 +1223,35 @@ export class DeliveryDetail extends $tea.Model {
       receiverName: 'string',
       receiverMobile: 'string',
       receiverAddress: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 客服信息
+export class CustomerServiceInfo extends $tea.Model {
+  // 公司社会统一信息代码
+  merchantId?: string;
+  // 公司名称
+  merchantName?: string;
+  // 处理类型: 商家处理 服务商代处理
+  processType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      merchantId: 'merchant_id',
+      merchantName: 'merchant_name',
+      processType: 'process_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      merchantId: 'string',
+      merchantName: 'string',
+      processType: 'string',
     };
   }
 
@@ -5611,6 +5640,8 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
   expandStatus?: string;
   // 进件失败描述
   expandFailReason?: string;
+  // 是否展示进件信息登记入口
+  showCustomerComplaintRegistPortal?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -5624,6 +5655,7 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
       expandMode: 'expand_mode',
       expandStatus: 'expand_status',
       expandFailReason: 'expand_fail_reason',
+      showCustomerComplaintRegistPortal: 'show_customer_complaint_regist_portal',
     };
   }
 
@@ -5640,6 +5672,7 @@ export class QueryInnerMerchantpayexpandResponse extends $tea.Model {
       expandMode: 'string',
       expandStatus: 'string',
       expandFailReason: 'string',
+      showCustomerComplaintRegistPortal: 'boolean',
     };
   }
 
@@ -7772,6 +7805,486 @@ export class BatchqueryInnerMarketingscoreResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       marketingScoreInfo: { 'type': 'array', 'itemType': MarketingScoreInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateInnerCustomerserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 公司社会统一信息代码,间联模式必传
+  merchantId?: string;
+  // 公司名称
+  merchantName?: string;
+  // 处理类型:
+  // 商家处理
+  // 服务商代处理
+  processType: string;
+  // 服务商名称
+  serviceProviderName?: string;
+  // 客诉处理员支付宝绑定手机号
+  alipayBindMobile: string;
+  // 客诉处理员支付宝账号
+  alipayLogonId: string;
+  // 客服电话
+  customerServicePhone: string;
+  // 客服人员名称
+  customerServiceName: string;
+  // 在线客服网址
+  onlineSupportSiteUrl: string;
+  // 投诉问题
+  customerComplaintIssues: string;
+  // 进件类型
+  // DIRECT("DIRECT", "直连进件模式"),
+  // AGENT("AGENT", "代理商进件模式"),
+  expandMode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      merchantName: 'merchant_name',
+      processType: 'process_type',
+      serviceProviderName: 'service_provider_name',
+      alipayBindMobile: 'alipay_bind_mobile',
+      alipayLogonId: 'alipay_logon_id',
+      customerServicePhone: 'customer_service_phone',
+      customerServiceName: 'customer_service_name',
+      onlineSupportSiteUrl: 'online_support_site_url',
+      customerComplaintIssues: 'customer_complaint_issues',
+      expandMode: 'expand_mode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      merchantName: 'string',
+      processType: 'string',
+      serviceProviderName: 'string',
+      alipayBindMobile: 'string',
+      alipayLogonId: 'string',
+      customerServicePhone: 'string',
+      customerServiceName: 'string',
+      onlineSupportSiteUrl: 'string',
+      customerComplaintIssues: 'string',
+      expandMode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateInnerCustomerserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateInnerCustomerserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 商家社会统一信用代码，间联模式必传
+  merchantId?: string;
+  // 公司名称
+  merchantName: string;
+  // 处理类型: 商家处理 服务商代处理
+  processType: string;
+  // 服务商名称
+  serviceProviderName?: string;
+  // 客诉处理员支付宝绑定手机号
+  alipayBindMobile: string;
+  // 客诉处理员支付宝账号
+  alipayLogonId: string;
+  // 客服电话
+  customerServicePhone: string;
+  // 客服人员名称
+  customerServiceName: string;
+  // 在线客服网址
+  onlineSupportSiteUrl: string;
+  // 投诉问题
+  customerComplaintIssues: string;
+  // 进件类型 
+  // DIRECT("DIRECT", "直连进件模式"), AGENT("AGENT", "代理商进件模式"),
+  expandMode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      merchantName: 'merchant_name',
+      processType: 'process_type',
+      serviceProviderName: 'service_provider_name',
+      alipayBindMobile: 'alipay_bind_mobile',
+      alipayLogonId: 'alipay_logon_id',
+      customerServicePhone: 'customer_service_phone',
+      customerServiceName: 'customer_service_name',
+      onlineSupportSiteUrl: 'online_support_site_url',
+      customerComplaintIssues: 'customer_complaint_issues',
+      expandMode: 'expand_mode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      merchantName: 'string',
+      processType: 'string',
+      serviceProviderName: 'string',
+      alipayBindMobile: 'string',
+      alipayLogonId: 'string',
+      customerServicePhone: 'string',
+      customerServiceName: 'string',
+      onlineSupportSiteUrl: 'string',
+      customerComplaintIssues: 'string',
+      expandMode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateInnerCustomerserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryInnerCustomerserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 分页信息
+  pageInfo: PageQuery;
+  // 处理类型: 商家处理 服务商代处理
+  processType?: string;
+  // 公司社会统一信息代码
+  merchantId?: string;
+  // 公司名称
+  merchantName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      pageInfo: 'page_info',
+      processType: 'process_type',
+      merchantId: 'merchant_id',
+      merchantName: 'merchant_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      pageInfo: PageQuery,
+      processType: 'string',
+      merchantId: 'string',
+      merchantName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PagequeryInnerCustomerserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总数
+  total?: number;
+  // 客服信息
+  customerServiceInfoList?: CustomerServiceInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      total: 'total',
+      customerServiceInfoList: 'customer_service_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      total: 'number',
+      customerServiceInfoList: { 'type': 'array', 'itemType': CustomerServiceInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailInnerCustomerserviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 公司社会统一信息代码，间联模式必传
+  merchantId?: string;
+  // 进件类型 
+  // DIRECT("DIRECT", "直连进件模式"),
+  // AGENT("AGENT", "代理商进件模式"),
+  expandMode: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      merchantId: 'merchant_id',
+      expandMode: 'expand_mode',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      merchantId: 'string',
+      expandMode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DetailInnerCustomerserviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 公司社会统一信息代码
+  merchantId?: string;
+  // 公司名称
+  merchantName?: string;
+  // 处理类型: 商家处理;服务商代处理
+  processType?: string;
+  // 服务商名称
+  serviceProviderName?: string;
+  // 客诉处理员支付宝绑定手机号
+  alipayBindMobile?: string;
+  // 客诉处理员支付宝账号
+  alipayLogonId?: string;
+  // 客服电话
+  customerServicePhone?: string;
+  // 客服人员名称
+  customerServiceName?: string;
+  // 在线客服网址
+  onlineSupportSiteUrl?: string;
+  // 投诉问题
+  customerComplaintIssues?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      merchantId: 'merchant_id',
+      merchantName: 'merchant_name',
+      processType: 'process_type',
+      serviceProviderName: 'service_provider_name',
+      alipayBindMobile: 'alipay_bind_mobile',
+      alipayLogonId: 'alipay_logon_id',
+      customerServicePhone: 'customer_service_phone',
+      customerServiceName: 'customer_service_name',
+      onlineSupportSiteUrl: 'online_support_site_url',
+      customerComplaintIssues: 'customer_complaint_issues',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      merchantId: 'string',
+      merchantName: 'string',
+      processType: 'string',
+      serviceProviderName: 'string',
+      alipayBindMobile: 'string',
+      alipayLogonId: 'string',
+      customerServicePhone: 'string',
+      customerServiceName: 'string',
+      onlineSupportSiteUrl: 'string',
+      customerComplaintIssues: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInnerCustomerservicetemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 进件类型 
+  // DIRECT("DIRECT", "直连进件模式")
+  // AGENT("AGENT", "代理商进件模式")
+  expandMode: string;
+  // 处理类型: 商家处理；服务商代处理
+  processType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      expandMode: 'expand_mode',
+      processType: 'process_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      expandMode: 'string',
+      processType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetInnerCustomerservicetemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 服务商名称
+  serviceProviderName?: string;
+  // 客诉处理员支付宝绑定手机号
+  alipayBindMobile?: string;
+  // 客诉处理员支付宝账号
+  alipayLogonId?: string;
+  // 客服电话
+  customerServicePhone?: string;
+  // 客服人员名称
+  customerServiceName?: string;
+  // 在线客服网址
+  onlineSupportSiteUrl?: string;
+  // 投诉问题
+  customerComplaintIssues?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      serviceProviderName: 'service_provider_name',
+      alipayBindMobile: 'alipay_bind_mobile',
+      alipayLogonId: 'alipay_logon_id',
+      customerServicePhone: 'customer_service_phone',
+      customerServiceName: 'customer_service_name',
+      onlineSupportSiteUrl: 'online_support_site_url',
+      customerComplaintIssues: 'customer_complaint_issues',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      serviceProviderName: 'string',
+      alipayBindMobile: 'string',
+      alipayLogonId: 'string',
+      customerServicePhone: 'string',
+      customerServiceName: 'string',
+      onlineSupportSiteUrl: 'string',
+      customerComplaintIssues: 'string',
     };
   }
 
@@ -11599,7 +12112,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.10.16",
+          sdk_version: "1.10.24",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -13227,6 +13740,101 @@ export default class Client {
   async batchqueryInnerMarketingscoreEx(request: BatchqueryInnerMarketingscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryInnerMarketingscoreResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryInnerMarketingscoreResponse>(await this.doRequest("1.0", "antchain.ato.inner.marketingscore.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryInnerMarketingscoreResponse({}));
+  }
+
+  /**
+   * Description: 创建客服信息
+   * Summary: 创建客服信息
+   */
+  async createInnerCustomerservice(request: CreateInnerCustomerserviceRequest): Promise<CreateInnerCustomerserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createInnerCustomerserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 创建客服信息
+   * Summary: 创建客服信息
+   */
+  async createInnerCustomerserviceEx(request: CreateInnerCustomerserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateInnerCustomerserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateInnerCustomerserviceResponse>(await this.doRequest("1.0", "antchain.ato.inner.customerservice.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateInnerCustomerserviceResponse({}));
+  }
+
+  /**
+   * Description: 更新客服信息
+   * Summary: 更新客服信息
+   */
+  async updateInnerCustomerservice(request: UpdateInnerCustomerserviceRequest): Promise<UpdateInnerCustomerserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateInnerCustomerserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 更新客服信息
+   * Summary: 更新客服信息
+   */
+  async updateInnerCustomerserviceEx(request: UpdateInnerCustomerserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateInnerCustomerserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateInnerCustomerserviceResponse>(await this.doRequest("1.0", "antchain.ato.inner.customerservice.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateInnerCustomerserviceResponse({}));
+  }
+
+  /**
+   * Description: 分页查询客服信息
+   * Summary:  分页查询客服信息
+   */
+  async pagequeryInnerCustomerservice(request: PagequeryInnerCustomerserviceRequest): Promise<PagequeryInnerCustomerserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pagequeryInnerCustomerserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 分页查询客服信息
+   * Summary:  分页查询客服信息
+   */
+  async pagequeryInnerCustomerserviceEx(request: PagequeryInnerCustomerserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PagequeryInnerCustomerserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PagequeryInnerCustomerserviceResponse>(await this.doRequest("1.0", "antchain.ato.inner.customerservice.pagequery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PagequeryInnerCustomerserviceResponse({}));
+  }
+
+  /**
+   * Description: 获取客服信息详情
+   * Summary: 获取客服信息详情
+   */
+  async detailInnerCustomerservice(request: DetailInnerCustomerserviceRequest): Promise<DetailInnerCustomerserviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.detailInnerCustomerserviceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取客服信息详情
+   * Summary: 获取客服信息详情
+   */
+  async detailInnerCustomerserviceEx(request: DetailInnerCustomerserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DetailInnerCustomerserviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DetailInnerCustomerserviceResponse>(await this.doRequest("1.0", "antchain.ato.inner.customerservice.detail", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DetailInnerCustomerserviceResponse({}));
+  }
+
+  /**
+   * Description: 获取代理商客服信息模版
+   * Summary: 获取代理商客服信息模版
+   */
+  async getInnerCustomerservicetemplate(request: GetInnerCustomerservicetemplateRequest): Promise<GetInnerCustomerservicetemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getInnerCustomerservicetemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取代理商客服信息模版
+   * Summary: 获取代理商客服信息模版
+   */
+  async getInnerCustomerservicetemplateEx(request: GetInnerCustomerservicetemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetInnerCustomerservicetemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetInnerCustomerservicetemplateResponse>(await this.doRequest("1.0", "antchain.ato.inner.customerservicetemplate.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetInnerCustomerservicetemplateResponse({}));
   }
 
   /**
