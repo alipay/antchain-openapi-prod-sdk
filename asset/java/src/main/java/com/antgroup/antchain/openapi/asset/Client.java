@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.11"),
+                    new TeaPair("sdk_version", "1.0.12"),
                     new TeaPair("_prod_code", "ASSET"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -220,6 +220,25 @@ public class Client {
     public QuerySupplierFundamtResponse querySupplierFundamtEx(QuerySupplierFundamtRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.asset.supplier.fundamt.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySupplierFundamtResponse());
+    }
+
+    /**
+     * Description: 用于录入供应商打款金额
+     * Summary: 供应商资金打款接口
+     */
+    public AddSupplierPaymentResponse addSupplierPayment(AddSupplierPaymentRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.addSupplierPaymentEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 用于录入供应商打款金额
+     * Summary: 供应商资金打款接口
+     */
+    public AddSupplierPaymentResponse addSupplierPaymentEx(AddSupplierPaymentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.asset.supplier.payment.add", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new AddSupplierPaymentResponse());
     }
 
     /**
