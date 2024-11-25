@@ -450,6 +450,104 @@ func (s *QuerySupplierFundamtResponse) SetTotalAmount(v int64) *QuerySupplierFun
 	return s
 }
 
+type AddSupplierPaymentRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 云上租户id
+	CloudTenantId *string `json:"cloud_tenant_id,omitempty" xml:"cloud_tenant_id,omitempty" require:"true"`
+	// 打款金额，单位分
+	PaymentAmount *int64 `json:"payment_amount,omitempty" xml:"payment_amount,omitempty" require:"true"`
+	// 服务商名称 - 即云租户名称，比如南京飞翰
+	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty" require:"true"`
+	// 打款日期
+	PaymentDate *string `json:"payment_date,omitempty" xml:"payment_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 唯一请求id
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+}
+
+func (s AddSupplierPaymentRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddSupplierPaymentRequest) GoString() string {
+	return s.String()
+}
+
+func (s *AddSupplierPaymentRequest) SetAuthToken(v string) *AddSupplierPaymentRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *AddSupplierPaymentRequest) SetProductInstanceId(v string) *AddSupplierPaymentRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *AddSupplierPaymentRequest) SetCloudTenantId(v string) *AddSupplierPaymentRequest {
+	s.CloudTenantId = &v
+	return s
+}
+
+func (s *AddSupplierPaymentRequest) SetPaymentAmount(v int64) *AddSupplierPaymentRequest {
+	s.PaymentAmount = &v
+	return s
+}
+
+func (s *AddSupplierPaymentRequest) SetSupplierName(v string) *AddSupplierPaymentRequest {
+	s.SupplierName = &v
+	return s
+}
+
+func (s *AddSupplierPaymentRequest) SetPaymentDate(v string) *AddSupplierPaymentRequest {
+	s.PaymentDate = &v
+	return s
+}
+
+func (s *AddSupplierPaymentRequest) SetRequestUniqueId(v string) *AddSupplierPaymentRequest {
+	s.RequestUniqueId = &v
+	return s
+}
+
+type AddSupplierPaymentResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 添加打款记录成功
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s AddSupplierPaymentResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s AddSupplierPaymentResponse) GoString() string {
+	return s.String()
+}
+
+func (s *AddSupplierPaymentResponse) SetReqMsgId(v string) *AddSupplierPaymentResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *AddSupplierPaymentResponse) SetResultCode(v string) *AddSupplierPaymentResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *AddSupplierPaymentResponse) SetResultMsg(v string) *AddSupplierPaymentResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *AddSupplierPaymentResponse) SetData(v bool) *AddSupplierPaymentResponse {
+	s.Data = &v
+	return s
+}
+
 type QueryStatisticsBudgetRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -841,7 +939,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.11"),
+				"sdk_version":      tea.String("1.0.12"),
 				"_prod_code":       tea.String("ASSET"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -960,6 +1058,40 @@ func (client *Client) QuerySupplierFundamtEx(request *QuerySupplierFundamtReques
 	}
 	_result = &QuerySupplierFundamtResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.asset.supplier.fundamt.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于录入供应商打款金额
+ * Summary: 供应商资金打款接口
+ */
+func (client *Client) AddSupplierPayment(request *AddSupplierPaymentRequest) (_result *AddSupplierPaymentResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &AddSupplierPaymentResponse{}
+	_body, _err := client.AddSupplierPaymentEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于录入供应商打款金额
+ * Summary: 供应商资金打款接口
+ */
+func (client *Client) AddSupplierPaymentEx(request *AddSupplierPaymentRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *AddSupplierPaymentResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &AddSupplierPaymentResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.asset.supplier.payment.add"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
