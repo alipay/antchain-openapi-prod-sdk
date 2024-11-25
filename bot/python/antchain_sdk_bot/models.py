@@ -27201,6 +27201,141 @@ class QueryDigitalkeyPreauthpayResponse(TeaModel):
         return self
 
 
+class ExecDeviceCustomerthingserviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        sn: str = None,
+        corp: str = None,
+        user: str = None,
+        service_identifier: str = None,
+        service_args: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备sn
+        self.sn = sn
+        # 设备厂商
+        self.corp = corp
+        # 设备所属用户
+        self.user = user
+        # 服务调用标识符
+        self.service_identifier = service_identifier
+        # 服务调用参数 key-value，json字符串
+        self.service_args = service_args
+
+    def validate(self):
+        self.validate_required(self.sn, 'sn')
+        self.validate_required(self.corp, 'corp')
+        self.validate_required(self.user, 'user')
+        self.validate_required(self.service_identifier, 'service_identifier')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.sn is not None:
+            result['sn'] = self.sn
+        if self.corp is not None:
+            result['corp'] = self.corp
+        if self.user is not None:
+            result['user'] = self.user
+        if self.service_identifier is not None:
+            result['service_identifier'] = self.service_identifier
+        if self.service_args is not None:
+            result['service_args'] = self.service_args
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        if m.get('corp') is not None:
+            self.corp = m.get('corp')
+        if m.get('user') is not None:
+            self.user = m.get('user')
+        if m.get('service_identifier') is not None:
+            self.service_identifier = m.get('service_identifier')
+        if m.get('service_args') is not None:
+            self.service_args = m.get('service_args')
+        return self
+
+
+class ExecDeviceCustomerthingserviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        message_id: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+        # 云端向设备下发服务调用的消息ID
+        self.message_id = message_id
+        # 调用结果
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
 class QueryIotplatformPurchaseorderRequest(TeaModel):
     def __init__(
         self,

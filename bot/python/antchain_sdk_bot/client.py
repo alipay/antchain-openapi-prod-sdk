@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.56',
+                    'sdk_version': '1.11.57',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.56',
+                    'sdk_version': '1.11.57',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -7625,6 +7625,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryDigitalkeyPreauthpayResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.digitalkey.preauthpay.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_device_customerthingservice(
+        self,
+        request: bot_models.ExecDeviceCustomerthingserviceRequest,
+    ) -> bot_models.ExecDeviceCustomerthingserviceResponse:
+        """
+        Description: iotbasic-客户指定设备调用服务
+        Summary: iotbasic-客户指定设备调用服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_device_customerthingservice_ex(request, headers, runtime)
+
+    async def exec_device_customerthingservice_async(
+        self,
+        request: bot_models.ExecDeviceCustomerthingserviceRequest,
+    ) -> bot_models.ExecDeviceCustomerthingserviceResponse:
+        """
+        Description: iotbasic-客户指定设备调用服务
+        Summary: iotbasic-客户指定设备调用服务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_device_customerthingservice_ex_async(request, headers, runtime)
+
+    def exec_device_customerthingservice_ex(
+        self,
+        request: bot_models.ExecDeviceCustomerthingserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecDeviceCustomerthingserviceResponse:
+        """
+        Description: iotbasic-客户指定设备调用服务
+        Summary: iotbasic-客户指定设备调用服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecDeviceCustomerthingserviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.customerthingservice.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_device_customerthingservice_ex_async(
+        self,
+        request: bot_models.ExecDeviceCustomerthingserviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecDeviceCustomerthingserviceResponse:
+        """
+        Description: iotbasic-客户指定设备调用服务
+        Summary: iotbasic-客户指定设备调用服务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecDeviceCustomerthingserviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.customerthingservice.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
