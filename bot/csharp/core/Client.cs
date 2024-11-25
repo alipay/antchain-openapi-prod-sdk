@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.56"},
+                        {"sdk_version", "1.11.57"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.56"},
+                        {"sdk_version", "1.11.57"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5875,6 +5875,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryDigitalkeyPreauthpayResponse>(await DoRequestAsync("1.0", "blockchain.bot.digitalkey.preauthpay.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-客户指定设备调用服务
+         * Summary: iotbasic-客户指定设备调用服务
+         */
+        public ExecDeviceCustomerthingserviceResponse ExecDeviceCustomerthingservice(ExecDeviceCustomerthingserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecDeviceCustomerthingserviceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-客户指定设备调用服务
+         * Summary: iotbasic-客户指定设备调用服务
+         */
+        public async Task<ExecDeviceCustomerthingserviceResponse> ExecDeviceCustomerthingserviceAsync(ExecDeviceCustomerthingserviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecDeviceCustomerthingserviceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-客户指定设备调用服务
+         * Summary: iotbasic-客户指定设备调用服务
+         */
+        public ExecDeviceCustomerthingserviceResponse ExecDeviceCustomerthingserviceEx(ExecDeviceCustomerthingserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecDeviceCustomerthingserviceResponse>(DoRequest("1.0", "blockchain.bot.device.customerthingservice.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-客户指定设备调用服务
+         * Summary: iotbasic-客户指定设备调用服务
+         */
+        public async Task<ExecDeviceCustomerthingserviceResponse> ExecDeviceCustomerthingserviceExAsync(ExecDeviceCustomerthingserviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecDeviceCustomerthingserviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.customerthingservice.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
