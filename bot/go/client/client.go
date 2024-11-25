@@ -21734,6 +21734,118 @@ func (s *QueryDigitalkeyPreauthpayResponse) SetData(v string) *QueryDigitalkeyPr
 	return s
 }
 
+type ExecDeviceCustomerthingserviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备sn
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty" require:"true"`
+	// 设备厂商
+	Corp *string `json:"corp,omitempty" xml:"corp,omitempty" require:"true"`
+	// 设备所属用户
+	User *string `json:"user,omitempty" xml:"user,omitempty" require:"true"`
+	// 服务调用标识符
+	ServiceIdentifier *string `json:"service_identifier,omitempty" xml:"service_identifier,omitempty" require:"true"`
+	// 服务调用参数 key-value，json字符串
+	ServiceArgs *string `json:"service_args,omitempty" xml:"service_args,omitempty"`
+}
+
+func (s ExecDeviceCustomerthingserviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecDeviceCustomerthingserviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecDeviceCustomerthingserviceRequest) SetAuthToken(v string) *ExecDeviceCustomerthingserviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceRequest) SetProductInstanceId(v string) *ExecDeviceCustomerthingserviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceRequest) SetSn(v string) *ExecDeviceCustomerthingserviceRequest {
+	s.Sn = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceRequest) SetCorp(v string) *ExecDeviceCustomerthingserviceRequest {
+	s.Corp = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceRequest) SetUser(v string) *ExecDeviceCustomerthingserviceRequest {
+	s.User = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceRequest) SetServiceIdentifier(v string) *ExecDeviceCustomerthingserviceRequest {
+	s.ServiceIdentifier = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceRequest) SetServiceArgs(v string) *ExecDeviceCustomerthingserviceRequest {
+	s.ServiceArgs = &v
+	return s
+}
+
+type ExecDeviceCustomerthingserviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 云端向设备下发服务调用的消息ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 调用结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s ExecDeviceCustomerthingserviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecDeviceCustomerthingserviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecDeviceCustomerthingserviceResponse) SetReqMsgId(v string) *ExecDeviceCustomerthingserviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceResponse) SetResultCode(v string) *ExecDeviceCustomerthingserviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceResponse) SetResultMsg(v string) *ExecDeviceCustomerthingserviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceResponse) SetSuccess(v bool) *ExecDeviceCustomerthingserviceResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceResponse) SetMessageId(v string) *ExecDeviceCustomerthingserviceResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *ExecDeviceCustomerthingserviceResponse) SetResult(v string) *ExecDeviceCustomerthingserviceResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -34939,7 +35051,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.56"),
+				"sdk_version":      tea.String("1.11.57"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -39470,6 +39582,40 @@ func (client *Client) QueryDigitalkeyPreauthpayEx(request *QueryDigitalkeyPreaut
 	}
 	_result = &QueryDigitalkeyPreauthpayResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.digitalkey.preauthpay.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-客户指定设备调用服务
+ * Summary: iotbasic-客户指定设备调用服务
+ */
+func (client *Client) ExecDeviceCustomerthingservice(request *ExecDeviceCustomerthingserviceRequest) (_result *ExecDeviceCustomerthingserviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecDeviceCustomerthingserviceResponse{}
+	_body, _err := client.ExecDeviceCustomerthingserviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-客户指定设备调用服务
+ * Summary: iotbasic-客户指定设备调用服务
+ */
+func (client *Client) ExecDeviceCustomerthingserviceEx(request *ExecDeviceCustomerthingserviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecDeviceCustomerthingserviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecDeviceCustomerthingserviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.customerthingservice.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
