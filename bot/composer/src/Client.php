@@ -149,6 +149,8 @@ use AntChain\BOT\Models\DetailThingmodelDeviceRequest;
 use AntChain\BOT\Models\DetailThingmodelDeviceResponse;
 use AntChain\BOT\Models\DetailXrXrticketpoolRequest;
 use AntChain\BOT\Models\DetailXrXrticketpoolResponse;
+use AntChain\BOT\Models\ExecDeviceCustomerthingserviceRequest;
+use AntChain\BOT\Models\ExecDeviceCustomerthingserviceResponse;
 use AntChain\BOT\Models\ExecDeviceThingserviceRequest;
 use AntChain\BOT\Models\ExecDeviceThingserviceResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
@@ -686,7 +688,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.56',
+                    'sdk_version'      => '1.11.57',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5060,6 +5062,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryDigitalkeyPreauthpayResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.digitalkey.preauthpay.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-客户指定设备调用服务
+     * Summary: iotbasic-客户指定设备调用服务
+     *
+     * @param ExecDeviceCustomerthingserviceRequest $request
+     *
+     * @return ExecDeviceCustomerthingserviceResponse
+     */
+    public function execDeviceCustomerthingservice($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDeviceCustomerthingserviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-客户指定设备调用服务
+     * Summary: iotbasic-客户指定设备调用服务
+     *
+     * @param ExecDeviceCustomerthingserviceRequest $request
+     * @param string[]                              $headers
+     * @param RuntimeOptions                        $runtime
+     *
+     * @return ExecDeviceCustomerthingserviceResponse
+     */
+    public function execDeviceCustomerthingserviceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDeviceCustomerthingserviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.customerthingservice.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
