@@ -329,6 +329,81 @@ export class QuerySupplierFundamtResponse extends $tea.Model {
   }
 }
 
+export class AddSupplierPaymentRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 云上租户id 
+  cloudTenantId: string;
+  // 打款金额，单位分
+  paymentAmount: number;
+  // 服务商名称 - 即云租户名称，比如南京飞翰
+  supplierName: string;
+  // 打款日期
+  paymentDate: string;
+  // 唯一请求id
+  requestUniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      cloudTenantId: 'cloud_tenant_id',
+      paymentAmount: 'payment_amount',
+      supplierName: 'supplier_name',
+      paymentDate: 'payment_date',
+      requestUniqueId: 'request_unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      cloudTenantId: 'string',
+      paymentAmount: 'number',
+      supplierName: 'string',
+      paymentDate: 'string',
+      requestUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddSupplierPaymentResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 添加打款记录成功
+  data?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryStatisticsBudgetRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -654,7 +729,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.11",
+          sdk_version: "1.0.12",
           _prod_code: "ASSET",
           _prod_channel: "default",
         };
@@ -738,6 +813,25 @@ export default class Client {
   async querySupplierFundamtEx(request: QuerySupplierFundamtRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QuerySupplierFundamtResponse> {
     Util.validateModel(request);
     return $tea.cast<QuerySupplierFundamtResponse>(await this.doRequest("1.0", "antdigital.asset.supplier.fundamt.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QuerySupplierFundamtResponse({}));
+  }
+
+  /**
+   * Description: 用于录入供应商打款金额
+   * Summary: 供应商资金打款接口
+   */
+  async addSupplierPayment(request: AddSupplierPaymentRequest): Promise<AddSupplierPaymentResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addSupplierPaymentEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于录入供应商打款金额
+   * Summary: 供应商资金打款接口
+   */
+  async addSupplierPaymentEx(request: AddSupplierPaymentRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddSupplierPaymentResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddSupplierPaymentResponse>(await this.doRequest("1.0", "antdigital.asset.supplier.payment.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddSupplierPaymentResponse({}));
   }
 
   /**
