@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.11',
+                    'sdk_version': '1.0.12',
                     '_prod_code': 'ASSET',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.11',
+                    'sdk_version': '1.0.12',
                     '_prod_code': 'ASSET',
                     '_prod_channel': 'default'
                 }
@@ -385,6 +385,62 @@ class Client:
         return TeaCore.from_map(
             asset_models.QuerySupplierFundamtResponse(),
             await self.do_request_async('1.0', 'antdigital.asset.supplier.fundamt.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_supplier_payment(
+        self,
+        request: asset_models.AddSupplierPaymentRequest,
+    ) -> asset_models.AddSupplierPaymentResponse:
+        """
+        Description: 用于录入供应商打款金额
+        Summary: 供应商资金打款接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_supplier_payment_ex(request, headers, runtime)
+
+    async def add_supplier_payment_async(
+        self,
+        request: asset_models.AddSupplierPaymentRequest,
+    ) -> asset_models.AddSupplierPaymentResponse:
+        """
+        Description: 用于录入供应商打款金额
+        Summary: 供应商资金打款接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_supplier_payment_ex_async(request, headers, runtime)
+
+    def add_supplier_payment_ex(
+        self,
+        request: asset_models.AddSupplierPaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.AddSupplierPaymentResponse:
+        """
+        Description: 用于录入供应商打款金额
+        Summary: 供应商资金打款接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.AddSupplierPaymentResponse(),
+            self.do_request('1.0', 'antdigital.asset.supplier.payment.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_supplier_payment_ex_async(
+        self,
+        request: asset_models.AddSupplierPaymentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> asset_models.AddSupplierPaymentResponse:
+        """
+        Description: 用于录入供应商打款金额
+        Summary: 供应商资金打款接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            asset_models.AddSupplierPaymentResponse(),
+            await self.do_request_async('1.0', 'antdigital.asset.supplier.payment.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_statistics_budget(

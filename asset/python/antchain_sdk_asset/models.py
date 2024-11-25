@@ -556,6 +556,130 @@ class QuerySupplierFundamtResponse(TeaModel):
         return self
 
 
+class AddSupplierPaymentRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        cloud_tenant_id: str = None,
+        payment_amount: int = None,
+        supplier_name: str = None,
+        payment_date: str = None,
+        request_unique_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 云上租户id
+        self.cloud_tenant_id = cloud_tenant_id
+        # 打款金额，单位分
+        self.payment_amount = payment_amount
+        # 服务商名称 - 即云租户名称，比如南京飞翰
+        self.supplier_name = supplier_name
+        # 打款日期
+        self.payment_date = payment_date
+        # 唯一请求id
+        self.request_unique_id = request_unique_id
+
+    def validate(self):
+        self.validate_required(self.cloud_tenant_id, 'cloud_tenant_id')
+        self.validate_required(self.payment_amount, 'payment_amount')
+        self.validate_required(self.supplier_name, 'supplier_name')
+        self.validate_required(self.payment_date, 'payment_date')
+        if self.payment_date is not None:
+            self.validate_pattern(self.payment_date, 'payment_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.request_unique_id, 'request_unique_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.cloud_tenant_id is not None:
+            result['cloud_tenant_id'] = self.cloud_tenant_id
+        if self.payment_amount is not None:
+            result['payment_amount'] = self.payment_amount
+        if self.supplier_name is not None:
+            result['supplier_name'] = self.supplier_name
+        if self.payment_date is not None:
+            result['payment_date'] = self.payment_date
+        if self.request_unique_id is not None:
+            result['request_unique_id'] = self.request_unique_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('cloud_tenant_id') is not None:
+            self.cloud_tenant_id = m.get('cloud_tenant_id')
+        if m.get('payment_amount') is not None:
+            self.payment_amount = m.get('payment_amount')
+        if m.get('supplier_name') is not None:
+            self.supplier_name = m.get('supplier_name')
+        if m.get('payment_date') is not None:
+            self.payment_date = m.get('payment_date')
+        if m.get('request_unique_id') is not None:
+            self.request_unique_id = m.get('request_unique_id')
+        return self
+
+
+class AddSupplierPaymentResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 添加打款记录成功
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
 class QueryStatisticsBudgetRequest(TeaModel):
     def __init__(
         self,
