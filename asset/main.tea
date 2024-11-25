@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.11',
+    sdk_version = '1.0.12',
     _prod_code = 'ASSET',
     _prod_channel = 'default'
   };
@@ -285,6 +285,52 @@ async function querySupplierFundamt(request: QuerySupplierFundamtRequest): Query
 async function querySupplierFundamtEx(request: QuerySupplierFundamtRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QuerySupplierFundamtResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antdigital.asset.supplier.fundamt.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddSupplierPaymentRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 云上租户id 
+  cloudTenantId: string(name='cloud_tenant_id'),
+  // 打款金额，单位分
+  paymentAmount: long(name='payment_amount'),
+  // 服务商名称 - 即云租户名称，比如南京飞翰
+  supplierName: string(name='supplier_name'),
+  // 打款日期
+  paymentDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='payment_date'),
+  // 唯一请求id
+  requestUniqueId: string(name='request_unique_id'),
+}
+
+model AddSupplierPaymentResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 添加打款记录成功
+  data?: boolean(name='data'),
+}
+
+/**
+ * Description: 用于录入供应商打款金额
+ * Summary: 供应商资金打款接口
+ */
+async function addSupplierPayment(request: AddSupplierPaymentRequest): AddSupplierPaymentResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addSupplierPaymentEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于录入供应商打款金额
+ * Summary: 供应商资金打款接口
+ */
+async function addSupplierPaymentEx(request: AddSupplierPaymentRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddSupplierPaymentResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antdigital.asset.supplier.payment.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryStatisticsBudgetRequest = {
