@@ -137,7 +137,7 @@ namespace AntChain.SDK.ASSET
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.11"},
+                        {"sdk_version", "1.0.12"},
                         {"_prod_code", "ASSET"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ASSET
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.11"},
+                        {"sdk_version", "1.0.12"},
                         {"_prod_code", "ASSET"},
                         {"_prod_channel", "default"},
                     };
@@ -403,6 +403,48 @@ namespace AntChain.SDK.ASSET
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QuerySupplierFundamtResponse>(await DoRequestAsync("1.0", "antdigital.asset.supplier.fundamt.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于录入供应商打款金额
+         * Summary: 供应商资金打款接口
+         */
+        public AddSupplierPaymentResponse AddSupplierPayment(AddSupplierPaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddSupplierPaymentEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于录入供应商打款金额
+         * Summary: 供应商资金打款接口
+         */
+        public async Task<AddSupplierPaymentResponse> AddSupplierPaymentAsync(AddSupplierPaymentRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddSupplierPaymentExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 用于录入供应商打款金额
+         * Summary: 供应商资金打款接口
+         */
+        public AddSupplierPaymentResponse AddSupplierPaymentEx(AddSupplierPaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddSupplierPaymentResponse>(DoRequest("1.0", "antdigital.asset.supplier.payment.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 用于录入供应商打款金额
+         * Summary: 供应商资金打款接口
+         */
+        public async Task<AddSupplierPaymentResponse> AddSupplierPaymentExAsync(AddSupplierPaymentRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddSupplierPaymentResponse>(await DoRequestAsync("1.0", "antdigital.asset.supplier.payment.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
