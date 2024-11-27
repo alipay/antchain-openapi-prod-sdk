@@ -25,7 +25,7 @@ class CreateOrderRequest extends Model
      */
     public $clientToken;
 
-    // 幂等id
+    // 幂等id【标废弃， 幂等id已client_token为准】
     /**
      * @var string
      */
@@ -54,7 +54,6 @@ class CreateOrderRequest extends Model
     public function validate()
     {
         Model::validateRequired('clientToken', $this->clientToken, true);
-        Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('invoiceInfo', $this->invoiceInfo, true);
         Model::validateRequired('orderItem', $this->orderItem, true);
     }

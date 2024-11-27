@@ -103,12 +103,6 @@ class QueryRegisterstatusResponse extends Model
      * @var SecurityData
      */
     public $security;
-
-    // 保管函url
-    /**
-     * @var string
-     */
-    public $correctionUrl;
     protected $_name = [
         'reqMsgId'             => 'req_msg_id',
         'resultCode'           => 'result_code',
@@ -126,7 +120,6 @@ class QueryRegisterstatusResponse extends Model
         'packageTxHash'        => 'package_tx_hash',
         'statementUrl'         => 'statement_url',
         'security'             => 'security',
-        'correctionUrl'        => 'correction_url',
     ];
 
     public function validate()
@@ -183,9 +176,6 @@ class QueryRegisterstatusResponse extends Model
         }
         if (null !== $this->security) {
             $res['security'] = null !== $this->security ? $this->security->toMap() : null;
-        }
-        if (null !== $this->correctionUrl) {
-            $res['correction_url'] = $this->correctionUrl;
         }
 
         return $res;
@@ -246,9 +236,6 @@ class QueryRegisterstatusResponse extends Model
         }
         if (isset($map['security'])) {
             $model->security = SecurityData::fromMap($map['security']);
-        }
-        if (isset($map['correction_url'])) {
-            $model->correctionUrl = $map['correction_url'];
         }
 
         return $model;
