@@ -5937,6 +5937,7 @@ class QueryRegisterstatusResponse(TeaModel):
         package_tx_hash: str = None,
         statement_url: str = None,
         security: SecurityData = None,
+        correction_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -5970,6 +5971,8 @@ class QueryRegisterstatusResponse(TeaModel):
         self.statement_url = statement_url
         # 安全信息
         self.security = security
+        # 补正函下载链接
+        self.correction_url = correction_url
 
     def validate(self):
         if self.security:
@@ -6013,6 +6016,8 @@ class QueryRegisterstatusResponse(TeaModel):
             result['statement_url'] = self.statement_url
         if self.security is not None:
             result['security'] = self.security.to_map()
+        if self.correction_url is not None:
+            result['correction_url'] = self.correction_url
         return result
 
     def from_map(self, m: dict = None):
@@ -6050,6 +6055,8 @@ class QueryRegisterstatusResponse(TeaModel):
         if m.get('security') is not None:
             temp_model = SecurityData()
             self.security = temp_model.from_map(m['security'])
+        if m.get('correction_url') is not None:
+            self.correction_url = m.get('correction_url')
         return self
 
 
