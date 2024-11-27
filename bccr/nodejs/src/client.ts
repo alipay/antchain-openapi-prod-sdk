@@ -3608,6 +3608,8 @@ export class QueryRegisterstatusResponse extends $tea.Model {
   statementUrl?: string;
   // 安全信息
   security?: SecurityData;
+  // 补正函下载链接
+  correctionUrl?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -3626,6 +3628,7 @@ export class QueryRegisterstatusResponse extends $tea.Model {
       packageTxHash: 'package_tx_hash',
       statementUrl: 'statement_url',
       security: 'security',
+      correctionUrl: 'correction_url',
     };
   }
 
@@ -3647,6 +3650,7 @@ export class QueryRegisterstatusResponse extends $tea.Model {
       packageTxHash: 'string',
       statementUrl: 'string',
       security: SecurityData,
+      correctionUrl: 'string',
     };
   }
 
@@ -10323,7 +10327,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.19",
+          sdk_version: "1.19.20",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
