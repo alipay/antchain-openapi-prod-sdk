@@ -23,9 +23,9 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=true)]
         public string ClientToken { get; set; }
 
-        // 幂等id
+        // 幂等id【标废弃， 幂等id已client_token为准】
         [NameInMap("request_id")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string RequestId { get; set; }
 
         // 发票信息

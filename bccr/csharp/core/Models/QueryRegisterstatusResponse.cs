@@ -89,11 +89,6 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public SecurityData Security { get; set; }
 
-        // 保管函url
-        [NameInMap("correction_url")]
-        [Validation(Required=false)]
-        public string CorrectionUrl { get; set; }
-
     }
 
 }
