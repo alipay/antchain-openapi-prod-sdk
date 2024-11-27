@@ -4794,6 +4794,8 @@ type QueryRegisterstatusResponse struct {
 	StatementUrl *string `json:"statement_url,omitempty" xml:"statement_url,omitempty"`
 	// 安全信息
 	Security *SecurityData `json:"security,omitempty" xml:"security,omitempty"`
+	// 补正函下载链接
+	CorrectionUrl *string `json:"correction_url,omitempty" xml:"correction_url,omitempty"`
 }
 
 func (s QueryRegisterstatusResponse) String() string {
@@ -4881,6 +4883,11 @@ func (s *QueryRegisterstatusResponse) SetStatementUrl(v string) *QueryRegisterst
 
 func (s *QueryRegisterstatusResponse) SetSecurity(v *SecurityData) *QueryRegisterstatusResponse {
 	s.Security = v
+	return s
+}
+
+func (s *QueryRegisterstatusResponse) SetCorrectionUrl(v string) *QueryRegisterstatusResponse {
+	s.CorrectionUrl = &v
 	return s
 }
 
@@ -13890,7 +13897,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.19"),
+				"sdk_version":      tea.String("1.19.20"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
