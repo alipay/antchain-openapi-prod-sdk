@@ -68,6 +68,10 @@ public class QueryRegisterstatusResponse extends TeaModel {
     @NameInMap("security")
     public SecurityData security;
 
+    // 补正函下载链接
+    @NameInMap("correction_url")
+    public String correctionUrl;
+
     public static QueryRegisterstatusResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRegisterstatusResponse self = new QueryRegisterstatusResponse();
         return TeaModel.build(map, self);
@@ -199,6 +203,14 @@ public class QueryRegisterstatusResponse extends TeaModel {
     }
     public SecurityData getSecurity() {
         return this.security;
+    }
+
+    public QueryRegisterstatusResponse setCorrectionUrl(String correctionUrl) {
+        this.correctionUrl = correctionUrl;
+        return this;
+    }
+    public String getCorrectionUrl() {
+        return this.correctionUrl;
     }
 
 }
