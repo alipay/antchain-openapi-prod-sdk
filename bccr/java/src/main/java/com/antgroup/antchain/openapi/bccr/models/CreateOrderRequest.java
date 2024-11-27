@@ -16,9 +16,8 @@ public class CreateOrderRequest extends TeaModel {
     @Validation(required = true)
     public String clientToken;
 
-    // 幂等id
+    // 幂等id【标废弃， 幂等id已client_token为准】
     @NameInMap("request_id")
-    @Validation(required = true)
     public String requestId;
 
     // 发票信息
