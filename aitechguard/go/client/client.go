@@ -280,6 +280,8 @@ type CheckAicoguardrailsAskResponse struct {
 	RiskCategory *string `json:"risk_category,omitempty" xml:"risk_category,omitempty"`
 	// 有风险时的风险类型，二级风险明细分类
 	RiskLabel *string `json:"risk_label,omitempty" xml:"risk_label,omitempty"`
+	// 风险等级分数，0-100，分数越高风险等级越高
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
 	// 命中风险场景的风险词
 	RiskWords []*string `json:"risk_words,omitempty" xml:"risk_words,omitempty" type:"Repeated"`
 	// 风险词索引
@@ -350,6 +352,11 @@ func (s *CheckAicoguardrailsAskResponse) SetRiskCategory(v string) *CheckAicogua
 
 func (s *CheckAicoguardrailsAskResponse) SetRiskLabel(v string) *CheckAicoguardrailsAskResponse {
 	s.RiskLabel = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAskResponse) SetRiskScore(v int64) *CheckAicoguardrailsAskResponse {
+	s.RiskScore = &v
 	return s
 }
 
@@ -647,7 +654,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.19"),
+				"sdk_version":      tea.String("1.0.20"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
