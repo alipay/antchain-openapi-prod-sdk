@@ -305,6 +305,7 @@ class CheckAicoguardrailsAskResponse(TeaModel):
         security_prompt: str = None,
         risk_category: str = None,
         risk_label: str = None,
+        risk_score: int = None,
         risk_words: List[str] = None,
         risk_words_index: List[str] = None,
         session_action: str = None,
@@ -335,6 +336,8 @@ class CheckAicoguardrailsAskResponse(TeaModel):
         self.risk_category = risk_category
         # 有风险时的风险类型，二级风险明细分类
         self.risk_label = risk_label
+        # 风险等级分数，0-100，分数越高风险等级越高
+        self.risk_score = risk_score
         # 命中风险场景的风险词
         self.risk_words = risk_words
         # 风险词索引
@@ -375,6 +378,8 @@ class CheckAicoguardrailsAskResponse(TeaModel):
             result['risk_category'] = self.risk_category
         if self.risk_label is not None:
             result['risk_label'] = self.risk_label
+        if self.risk_score is not None:
+            result['risk_score'] = self.risk_score
         if self.risk_words is not None:
             result['risk_words'] = self.risk_words
         if self.risk_words_index is not None:
@@ -407,6 +412,8 @@ class CheckAicoguardrailsAskResponse(TeaModel):
             self.risk_category = m.get('risk_category')
         if m.get('risk_label') is not None:
             self.risk_label = m.get('risk_label')
+        if m.get('risk_score') is not None:
+            self.risk_score = m.get('risk_score')
         if m.get('risk_words') is not None:
             self.risk_words = m.get('risk_words')
         if m.get('risk_words_index') is not None:
