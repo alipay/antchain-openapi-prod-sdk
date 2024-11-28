@@ -78,6 +78,12 @@ class CheckAicoguardrailsAskResponse extends Model
      */
     public $riskLabel;
 
+    // 风险等级分数，0-100，分数越高风险等级越高
+    /**
+     * @var int
+     */
+    public $riskScore;
+
     // 命中风险场景的风险词
     /**
      * @var string[]
@@ -109,6 +115,7 @@ class CheckAicoguardrailsAskResponse extends Model
         'securityPrompt' => 'security_prompt',
         'riskCategory'   => 'risk_category',
         'riskLabel'      => 'risk_label',
+        'riskScore'      => 'risk_score',
         'riskWords'      => 'risk_words',
         'riskWordsIndex' => 'risk_words_index',
         'sessionAction'  => 'session_action',
@@ -153,6 +160,9 @@ class CheckAicoguardrailsAskResponse extends Model
         }
         if (null !== $this->riskLabel) {
             $res['risk_label'] = $this->riskLabel;
+        }
+        if (null !== $this->riskScore) {
+            $res['risk_score'] = $this->riskScore;
         }
         if (null !== $this->riskWords) {
             $res['risk_words'] = $this->riskWords;
@@ -207,6 +217,9 @@ class CheckAicoguardrailsAskResponse extends Model
         }
         if (isset($map['risk_label'])) {
             $model->riskLabel = $map['risk_label'];
+        }
+        if (isset($map['risk_score'])) {
+            $model->riskScore = $map['risk_score'];
         }
         if (isset($map['risk_words'])) {
             if (!empty($map['risk_words'])) {
