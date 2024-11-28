@@ -137,7 +137,7 @@ namespace AntChain.SDK.AITECHGUARD
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.19"},
+                        {"sdk_version", "1.0.20"},
                         {"_prod_code", "AITECHGUARD"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.AITECHGUARD
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.19"},
+                        {"sdk_version", "1.0.20"},
                         {"_prod_code", "AITECHGUARD"},
                         {"_prod_channel", "default"},
                     };

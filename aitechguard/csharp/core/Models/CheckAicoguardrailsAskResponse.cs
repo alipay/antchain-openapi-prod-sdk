@@ -68,6 +68,11 @@ namespace AntChain.SDK.AITECHGUARD.Models
         [Validation(Required=false)]
         public string RiskLabel { get; set; }
 
+        // 风险等级分数，0-100，分数越高风险等级越高
+        [NameInMap("risk_score")]
+        [Validation(Required=false)]
+        public long? RiskScore { get; set; }
+
         // 命中风险场景的风险词
         [NameInMap("risk_words")]
         [Validation(Required=false)]
