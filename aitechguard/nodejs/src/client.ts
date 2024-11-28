@@ -194,6 +194,8 @@ export class CheckAicoguardrailsAskResponse extends $tea.Model {
   riskCategory?: string;
   // 有风险时的风险类型，二级风险明细分类
   riskLabel?: string;
+  // 风险等级分数，0-100，分数越高风险等级越高
+  riskScore?: number;
   // 命中风险场景的风险词
   riskWords?: string[];
   // 风险词索引
@@ -215,6 +217,7 @@ export class CheckAicoguardrailsAskResponse extends $tea.Model {
       securityPrompt: 'security_prompt',
       riskCategory: 'risk_category',
       riskLabel: 'risk_label',
+      riskScore: 'risk_score',
       riskWords: 'risk_words',
       riskWordsIndex: 'risk_words_index',
       sessionAction: 'session_action',
@@ -234,6 +237,7 @@ export class CheckAicoguardrailsAskResponse extends $tea.Model {
       securityPrompt: 'string',
       riskCategory: 'string',
       riskLabel: 'string',
+      riskScore: 'number',
       riskWords: { 'type': 'array', 'itemType': 'string' },
       riskWordsIndex: { 'type': 'array', 'itemType': 'string' },
       sessionAction: 'string',
@@ -468,7 +472,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.19",
+          sdk_version: "1.0.20",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
