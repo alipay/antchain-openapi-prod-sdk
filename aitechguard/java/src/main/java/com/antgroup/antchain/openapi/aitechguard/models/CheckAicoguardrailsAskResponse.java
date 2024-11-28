@@ -52,6 +52,10 @@ public class CheckAicoguardrailsAskResponse extends TeaModel {
     @NameInMap("risk_label")
     public String riskLabel;
 
+    // 风险等级分数，0-100，分数越高风险等级越高
+    @NameInMap("risk_score")
+    public Long riskScore;
+
     // 命中风险场景的风险词
     @NameInMap("risk_words")
     public java.util.List<String> riskWords;
@@ -157,6 +161,14 @@ public class CheckAicoguardrailsAskResponse extends TeaModel {
     }
     public String getRiskLabel() {
         return this.riskLabel;
+    }
+
+    public CheckAicoguardrailsAskResponse setRiskScore(Long riskScore) {
+        this.riskScore = riskScore;
+        return this;
+    }
+    public Long getRiskScore() {
+        return this.riskScore;
     }
 
     public CheckAicoguardrailsAskResponse setRiskWords(java.util.List<String> riskWords) {
