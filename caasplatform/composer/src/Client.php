@@ -27,6 +27,8 @@ use AntChain\CAASPLATFORM\Models\CreateExtendRightsRequest;
 use AntChain\CAASPLATFORM\Models\CreateExtendRightsResponse;
 use AntChain\CAASPLATFORM\Models\DeleteGeneralDivideRequest;
 use AntChain\CAASPLATFORM\Models\DeleteGeneralDivideResponse;
+use AntChain\CAASPLATFORM\Models\DescribeExtendTxqrcodeRequest;
+use AntChain\CAASPLATFORM\Models\DescribeExtendTxqrcodeResponse;
 use AntChain\CAASPLATFORM\Models\GetGeneralDepositRequest;
 use AntChain\CAASPLATFORM\Models\GetGeneralDepositResponse;
 use AntChain\CAASPLATFORM\Models\GetGeneralDivideRequest;
@@ -224,7 +226,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.4.0',
+                    'sdk_version'      => '1.5.1',
                     '_prod_code'       => 'CAASPLATFORM',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -316,7 +318,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -433,7 +436,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -517,7 +521,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -601,7 +606,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -751,7 +757,8 @@ class Client
             }
             $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
             UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
-            $request->fileId = $uploadResp->fileId;
+            $request->fileId     = $uploadResp->fileId;
+            $request->fileObject = null;
         }
         Utils::validateModel($request);
 
@@ -1440,6 +1447,39 @@ class Client
         Utils::validateModel($request);
 
         return GetGeneralRightsbalanceResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.general.rightsbalance.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取蚂蚁区块链交易二维码
+     * Summary: 获取蚂蚁区块链交易二维码
+     *
+     * @param DescribeExtendTxqrcodeRequest $request
+     *
+     * @return DescribeExtendTxqrcodeResponse
+     */
+    public function describeExtendTxqrcode($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->describeExtendTxqrcodeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取蚂蚁区块链交易二维码
+     * Summary: 获取蚂蚁区块链交易二维码
+     *
+     * @param DescribeExtendTxqrcodeRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return DescribeExtendTxqrcodeResponse
+     */
+    public function describeExtendTxqrcodeEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return DescribeExtendTxqrcodeResponse::fromMap($this->doRequest('1.0', 'antchain.caasplatform.extend.txqrcode.describe', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

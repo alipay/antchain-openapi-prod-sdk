@@ -6,7 +6,7 @@ namespace AntChain\CAASPLATFORM\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CreateDepositResponse extends Model
+class DescribeExtendTxqrcodeResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,30 @@ class CreateDepositResponse extends Model
      */
     public $resultMsg;
 
-    // 合约调用交易哈希
+    // Base64编码的二维码 png 图片
+    /**
+     * @var string
+     */
+    public $base64QrCodePng;
+
+    // 二维码内容
+    /**
+     * @var string
+     */
+    public $qrCodeContent;
+
+    // ac73c8fa158436513e0b398632d9a082e04cee3eac6f9fb50087a46d801bdfd1
     /**
      * @var string
      */
     public $txHash;
-
-    // 合约调用交易块高
-    /**
-     * @var int
-     */
-    public $blockNumber;
     protected $_name = [
-        'reqMsgId'    => 'req_msg_id',
-        'resultCode'  => 'result_code',
-        'resultMsg'   => 'result_msg',
-        'txHash'      => 'tx_hash',
-        'blockNumber' => 'block_number',
+        'reqMsgId'        => 'req_msg_id',
+        'resultCode'      => 'result_code',
+        'resultMsg'       => 'result_msg',
+        'base64QrCodePng' => 'base64_qr_code_png',
+        'qrCodeContent'   => 'qr_code_content',
+        'txHash'          => 'tx_hash',
     ];
 
     public function validate()
@@ -61,11 +68,14 @@ class CreateDepositResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
+        if (null !== $this->base64QrCodePng) {
+            $res['base64_qr_code_png'] = $this->base64QrCodePng;
+        }
+        if (null !== $this->qrCodeContent) {
+            $res['qr_code_content'] = $this->qrCodeContent;
+        }
         if (null !== $this->txHash) {
             $res['tx_hash'] = $this->txHash;
-        }
-        if (null !== $this->blockNumber) {
-            $res['block_number'] = $this->blockNumber;
         }
 
         return $res;
@@ -74,7 +84,7 @@ class CreateDepositResponse extends Model
     /**
      * @param array $map
      *
-     * @return CreateDepositResponse
+     * @return DescribeExtendTxqrcodeResponse
      */
     public static function fromMap($map = [])
     {
@@ -88,11 +98,14 @@ class CreateDepositResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
+        if (isset($map['base64_qr_code_png'])) {
+            $model->base64QrCodePng = $map['base64_qr_code_png'];
+        }
+        if (isset($map['qr_code_content'])) {
+            $model->qrCodeContent = $map['qr_code_content'];
+        }
         if (isset($map['tx_hash'])) {
             $model->txHash = $map['tx_hash'];
-        }
-        if (isset($map['block_number'])) {
-            $model->blockNumber = $map['block_number'];
         }
 
         return $model;
