@@ -16,6 +16,14 @@ public class CreateDepositResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
+    // 合约调用交易哈希
+    @NameInMap("tx_hash")
+    public String txHash;
+
+    // 合约调用交易块高
+    @NameInMap("block_number")
+    public Long blockNumber;
+
     public static CreateDepositResponse build(java.util.Map<String, ?> map) throws Exception {
         CreateDepositResponse self = new CreateDepositResponse();
         return TeaModel.build(map, self);
@@ -43,6 +51,22 @@ public class CreateDepositResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public CreateDepositResponse setTxHash(String txHash) {
+        this.txHash = txHash;
+        return this;
+    }
+    public String getTxHash() {
+        return this.txHash;
+    }
+
+    public CreateDepositResponse setBlockNumber(Long blockNumber) {
+        this.blockNumber = blockNumber;
+        return this;
+    }
+    public Long getBlockNumber() {
+        return this.blockNumber;
     }
 
 }
