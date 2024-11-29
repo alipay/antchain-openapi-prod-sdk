@@ -184,11 +184,17 @@ export class CreateDepositResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
+  // 合约调用交易哈希
+  txHash?: string;
+  // 合约调用交易块高
+  blockNumber?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
+      txHash: 'tx_hash',
+      blockNumber: 'block_number',
     };
   }
 
@@ -197,6 +203,8 @@ export class CreateDepositResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+      txHash: 'string',
+      blockNumber: 'number',
     };
   }
 
@@ -2774,6 +2782,81 @@ export class GetGeneralRightsbalanceResponse extends $tea.Model {
   }
 }
 
+export class DescribeExtendTxqrcodeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 合约服务ID
+  serviceId: string;
+  // 业务幂等id(和tx_hash二者必须选其一)
+  orderId?: string;
+  // 交易hash(和order_id二者必须选其一)
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      serviceId: 'service_id',
+      orderId: 'order_id',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      serviceId: 'string',
+      orderId: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DescribeExtendTxqrcodeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // Base64编码的二维码 png 图片
+  base64QrCodePng?: string;
+  // 二维码内容
+  qrCodeContent?: string;
+  // ac73c8fa158436513e0b398632d9a082e04cee3eac6f9fb50087a46d801bdfd1
+  txHash?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      base64QrCodePng: 'base64_qr_code_png',
+      qrCodeContent: 'qr_code_content',
+      txHash: 'tx_hash',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      base64QrCodePng: 'string',
+      qrCodeContent: 'string',
+      txHash: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2975,7 +3058,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.4.0",
+          sdk_version: "1.5.1",
           _prod_code: "CAASPLATFORM",
           _prod_channel: "undefined",
         };
@@ -3057,6 +3140,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -3135,6 +3219,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -3194,6 +3279,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -3253,6 +3339,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -3350,6 +3437,7 @@ export default class Client {
       let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
       await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
       request.fileId = uploadResp.fileId;
+      request.fileObject = null;
     }
 
     Util.validateModel(request);
@@ -3758,6 +3846,25 @@ export default class Client {
   async getGeneralRightsbalanceEx(request: GetGeneralRightsbalanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetGeneralRightsbalanceResponse> {
     Util.validateModel(request);
     return $tea.cast<GetGeneralRightsbalanceResponse>(await this.doRequest("1.0", "antchain.caasplatform.general.rightsbalance.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetGeneralRightsbalanceResponse({}));
+  }
+
+  /**
+   * Description: 获取蚂蚁区块链交易二维码
+   * Summary: 获取蚂蚁区块链交易二维码
+   */
+  async describeExtendTxqrcode(request: DescribeExtendTxqrcodeRequest): Promise<DescribeExtendTxqrcodeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.describeExtendTxqrcodeEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取蚂蚁区块链交易二维码
+   * Summary: 获取蚂蚁区块链交易二维码
+   */
+  async describeExtendTxqrcodeEx(request: DescribeExtendTxqrcodeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DescribeExtendTxqrcodeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DescribeExtendTxqrcodeResponse>(await this.doRequest("1.0", "antchain.caasplatform.extend.txqrcode.describe", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DescribeExtendTxqrcodeResponse({}));
   }
 
   /**
