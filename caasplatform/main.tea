@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.4.0',
+    sdk_version = '1.5.1',
     _prod_code = 'CAASPLATFORM',
     _prod_channel = 'undefined'
   };
@@ -202,6 +202,10 @@ model CreateDepositResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
+  // 合约调用交易哈希
+  txHash?: string(name='tx_hash'),
+  // 合约调用交易块高
+  blockNumber?: long(name='block_number'),
 }
 
 /**
@@ -237,6 +241,7 @@ async function createDepositEx(request: CreateDepositRequest, headers: map[strin
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.caasplatform.deposit.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -418,6 +423,7 @@ async function createDepositCertificateEx(request: CreateDepositCertificateReque
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.caasplatform.deposit.certificate.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -541,6 +547,7 @@ async function createDepositCharityEx(request: CreateDepositCharityRequest, head
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.caasplatform.deposit.charity.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -664,6 +671,7 @@ async function createDepositSweepstakesEx(request: CreateDepositSweepstakesReque
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.caasplatform.deposit.sweepstakes.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -875,6 +883,7 @@ async function uploadExtendRightsEx(request: UploadExtendRightsRequest, headers:
     var uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
     AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
     request.fileId = uploadResp.fileId;
+    request.fileObject = null;
   }
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.caasplatform.extend.rights.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
@@ -1884,6 +1893,52 @@ async function getGeneralRightsbalance(request: GetGeneralRightsbalanceRequest):
 async function getGeneralRightsbalanceEx(request: GetGeneralRightsbalanceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetGeneralRightsbalanceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.caasplatform.general.rightsbalance.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model DescribeExtendTxqrcodeRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 合约服务ID
+  serviceId: string(name='service_id'),
+  // 业务幂等id(和tx_hash二者必须选其一)
+  orderId?: string(name='order_id'),
+  // 交易hash(和order_id二者必须选其一)
+  txHash?: string(name='tx_hash'),
+}
+
+model DescribeExtendTxqrcodeResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // Base64编码的二维码 png 图片
+  base64QrCodePng?: string(name='base64_qr_code_png'),
+  // 二维码内容
+  qrCodeContent?: string(name='qr_code_content'),
+  // ac73c8fa158436513e0b398632d9a082e04cee3eac6f9fb50087a46d801bdfd1
+  txHash?: string(name='tx_hash'),
+}
+
+/**
+ * Description: 获取蚂蚁区块链交易二维码
+ * Summary: 获取蚂蚁区块链交易二维码
+ */
+async function describeExtendTxqrcode(request: DescribeExtendTxqrcodeRequest): DescribeExtendTxqrcodeResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return describeExtendTxqrcodeEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取蚂蚁区块链交易二维码
+ * Summary: 获取蚂蚁区块链交易二维码
+ */
+async function describeExtendTxqrcodeEx(request: DescribeExtendTxqrcodeRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DescribeExtendTxqrcodeResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.caasplatform.extend.txqrcode.describe', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
