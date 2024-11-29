@@ -281,6 +281,10 @@ type CreateDepositResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 合约调用交易哈希
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+	// 合约调用交易块高
+	BlockNumber *int64 `json:"block_number,omitempty" xml:"block_number,omitempty"`
 }
 
 func (s CreateDepositResponse) String() string {
@@ -303,6 +307,16 @@ func (s *CreateDepositResponse) SetResultCode(v string) *CreateDepositResponse {
 
 func (s *CreateDepositResponse) SetResultMsg(v string) *CreateDepositResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateDepositResponse) SetTxHash(v string) *CreateDepositResponse {
+	s.TxHash = &v
+	return s
+}
+
+func (s *CreateDepositResponse) SetBlockNumber(v int64) *CreateDepositResponse {
+	s.BlockNumber = &v
 	return s
 }
 
@@ -3785,6 +3799,104 @@ func (s *GetGeneralRightsbalanceResponse) SetResult(v string) *GetGeneralRightsb
 	return s
 }
 
+type DescribeExtendTxqrcodeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 合约服务ID
+	ServiceId *string `json:"service_id,omitempty" xml:"service_id,omitempty" require:"true"`
+	// 业务幂等id(和tx_hash二者必须选其一)
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 交易hash(和order_id二者必须选其一)
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s DescribeExtendTxqrcodeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DescribeExtendTxqrcodeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DescribeExtendTxqrcodeRequest) SetAuthToken(v string) *DescribeExtendTxqrcodeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeRequest) SetProductInstanceId(v string) *DescribeExtendTxqrcodeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeRequest) SetServiceId(v string) *DescribeExtendTxqrcodeRequest {
+	s.ServiceId = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeRequest) SetOrderId(v string) *DescribeExtendTxqrcodeRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeRequest) SetTxHash(v string) *DescribeExtendTxqrcodeRequest {
+	s.TxHash = &v
+	return s
+}
+
+type DescribeExtendTxqrcodeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// Base64编码的二维码 png 图片
+	Base64QrCodePng *string `json:"base64_qr_code_png,omitempty" xml:"base64_qr_code_png,omitempty"`
+	// 二维码内容
+	QrCodeContent *string `json:"qr_code_content,omitempty" xml:"qr_code_content,omitempty"`
+	// ac73c8fa158436513e0b398632d9a082e04cee3eac6f9fb50087a46d801bdfd1
+	TxHash *string `json:"tx_hash,omitempty" xml:"tx_hash,omitempty"`
+}
+
+func (s DescribeExtendTxqrcodeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DescribeExtendTxqrcodeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DescribeExtendTxqrcodeResponse) SetReqMsgId(v string) *DescribeExtendTxqrcodeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeResponse) SetResultCode(v string) *DescribeExtendTxqrcodeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeResponse) SetResultMsg(v string) *DescribeExtendTxqrcodeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeResponse) SetBase64QrCodePng(v string) *DescribeExtendTxqrcodeResponse {
+	s.Base64QrCodePng = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeResponse) SetQrCodeContent(v string) *DescribeExtendTxqrcodeResponse {
+	s.QrCodeContent = &v
+	return s
+}
+
+func (s *DescribeExtendTxqrcodeResponse) SetTxHash(v string) *DescribeExtendTxqrcodeResponse {
+	s.TxHash = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4027,7 +4139,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.4.0"),
+				"sdk_version":      tea.String("1.5.1"),
 				"_prod_code":       tea.String("CAASPLATFORM"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4133,6 +4245,7 @@ func (client *Client) CreateDepositEx(request *CreateDepositRequest, headers map
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -4264,6 +4377,7 @@ func (client *Client) CreateDepositCertificateEx(request *CreateDepositCertifica
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -4361,6 +4475,7 @@ func (client *Client) CreateDepositCharityEx(request *CreateDepositCharityReques
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -4458,6 +4573,7 @@ func (client *Client) CreateDepositSweepstakesEx(request *CreateDepositSweepstak
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -4623,6 +4739,7 @@ func (client *Client) UploadExtendRightsEx(request *UploadExtendRightsRequest, h
 			return _result, _err
 		}
 		request.FileId = uploadResp.FileId
+		request.FileObject = nil
 	}
 
 	_err = util.ValidateModel(request)
@@ -5335,6 +5452,40 @@ func (client *Client) GetGeneralRightsbalanceEx(request *GetGeneralRightsbalance
 	}
 	_result = &GetGeneralRightsbalanceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.general.rightsbalance.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取蚂蚁区块链交易二维码
+ * Summary: 获取蚂蚁区块链交易二维码
+ */
+func (client *Client) DescribeExtendTxqrcode(request *DescribeExtendTxqrcodeRequest) (_result *DescribeExtendTxqrcodeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DescribeExtendTxqrcodeResponse{}
+	_body, _err := client.DescribeExtendTxqrcodeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取蚂蚁区块链交易二维码
+ * Summary: 获取蚂蚁区块链交易二维码
+ */
+func (client *Client) DescribeExtendTxqrcodeEx(request *DescribeExtendTxqrcodeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DescribeExtendTxqrcodeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DescribeExtendTxqrcodeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.caasplatform.extend.txqrcode.describe"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
