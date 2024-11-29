@@ -214,6 +214,53 @@ func (s *MetricData) SetSubList(v []*SubMetricData) *MetricData {
 	return s
 }
 
+// 供应商打款记录
+type PaymentRecord struct {
+	// 云上租户id
+	CloudTenantId *string `json:"cloud_tenant_id,omitempty" xml:"cloud_tenant_id,omitempty" require:"true"`
+	// 打款金额，单位分
+	PaymentAmount *int64 `json:"payment_amount,omitempty" xml:"payment_amount,omitempty" require:"true"`
+	// 服务商名称 - 即云租户名称，比如南京飞翰
+	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty" require:"true"`
+	// 打款日期
+	PaymentDate *string `json:"payment_date,omitempty" xml:"payment_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 唯一请求id，即payment_record_id
+	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+}
+
+func (s PaymentRecord) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PaymentRecord) GoString() string {
+	return s.String()
+}
+
+func (s *PaymentRecord) SetCloudTenantId(v string) *PaymentRecord {
+	s.CloudTenantId = &v
+	return s
+}
+
+func (s *PaymentRecord) SetPaymentAmount(v int64) *PaymentRecord {
+	s.PaymentAmount = &v
+	return s
+}
+
+func (s *PaymentRecord) SetSupplierName(v string) *PaymentRecord {
+	s.SupplierName = &v
+	return s
+}
+
+func (s *PaymentRecord) SetPaymentDate(v string) *PaymentRecord {
+	s.PaymentDate = &v
+	return s
+}
+
+func (s *PaymentRecord) SetRequestUniqueId(v string) *PaymentRecord {
+	s.RequestUniqueId = &v
+	return s
+}
+
 // 过程转化指标结果
 type ProcessConversionMetricData struct {
 	// 发放数
@@ -454,16 +501,8 @@ type AddSupplierPaymentRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 云上租户id
-	CloudTenantId *string `json:"cloud_tenant_id,omitempty" xml:"cloud_tenant_id,omitempty" require:"true"`
-	// 打款金额，单位分
-	PaymentAmount *int64 `json:"payment_amount,omitempty" xml:"payment_amount,omitempty" require:"true"`
-	// 服务商名称 - 即云租户名称，比如南京飞翰
-	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty" require:"true"`
-	// 打款日期
-	PaymentDate *string `json:"payment_date,omitempty" xml:"payment_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
-	// 唯一请求id
-	RequestUniqueId *string `json:"request_unique_id,omitempty" xml:"request_unique_id,omitempty" require:"true"`
+	// 打款记录集
+	PaymentRecords []*PaymentRecord `json:"payment_records,omitempty" xml:"payment_records,omitempty" require:"true" type:"Repeated"`
 }
 
 func (s AddSupplierPaymentRequest) String() string {
@@ -484,28 +523,8 @@ func (s *AddSupplierPaymentRequest) SetProductInstanceId(v string) *AddSupplierP
 	return s
 }
 
-func (s *AddSupplierPaymentRequest) SetCloudTenantId(v string) *AddSupplierPaymentRequest {
-	s.CloudTenantId = &v
-	return s
-}
-
-func (s *AddSupplierPaymentRequest) SetPaymentAmount(v int64) *AddSupplierPaymentRequest {
-	s.PaymentAmount = &v
-	return s
-}
-
-func (s *AddSupplierPaymentRequest) SetSupplierName(v string) *AddSupplierPaymentRequest {
-	s.SupplierName = &v
-	return s
-}
-
-func (s *AddSupplierPaymentRequest) SetPaymentDate(v string) *AddSupplierPaymentRequest {
-	s.PaymentDate = &v
-	return s
-}
-
-func (s *AddSupplierPaymentRequest) SetRequestUniqueId(v string) *AddSupplierPaymentRequest {
-	s.RequestUniqueId = &v
+func (s *AddSupplierPaymentRequest) SetPaymentRecords(v []*PaymentRecord) *AddSupplierPaymentRequest {
+	s.PaymentRecords = v
 	return s
 }
 
@@ -939,7 +958,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.12"),
+				"sdk_version":      tea.String("1.0.13"),
 				"_prod_code":       tea.String("ASSET"),
 				"_prod_channel":    tea.String("default"),
 			}
