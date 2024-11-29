@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.0',
+                    'sdk_version': '1.5.1',
                     '_prod_code': 'CAASPLATFORM',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.4.0',
+                    'sdk_version': '1.5.1',
                     '_prod_code': 'CAASPLATFORM',
                     '_prod_channel': 'undefined'
                 }
@@ -326,6 +326,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.CreateDepositResponse(),
@@ -359,6 +360,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.CreateDepositResponse(),
@@ -528,6 +530,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.CreateDepositCertificateResponse(),
@@ -561,6 +564,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.CreateDepositCertificateResponse(),
@@ -674,6 +678,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.CreateDepositCharityResponse(),
@@ -707,6 +712,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.CreateDepositCharityResponse(),
@@ -820,6 +826,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.CreateDepositSweepstakesResponse(),
@@ -853,6 +860,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.CreateDepositSweepstakesResponse(),
@@ -1078,6 +1086,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.UploadExtendRightsResponse(),
@@ -1111,6 +1120,7 @@ class Client:
             upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
             await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
             request.file_id = upload_resp.file_id
+            request.file_object = None
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             caasplatform_models.UploadExtendRightsResponse(),
@@ -2283,6 +2293,62 @@ class Client:
         return TeaCore.from_map(
             caasplatform_models.GetGeneralRightsbalanceResponse(),
             await self.do_request_async('1.0', 'antchain.caasplatform.general.rightsbalance.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def describe_extend_txqrcode(
+        self,
+        request: caasplatform_models.DescribeExtendTxqrcodeRequest,
+    ) -> caasplatform_models.DescribeExtendTxqrcodeResponse:
+        """
+        Description: 获取蚂蚁区块链交易二维码
+        Summary: 获取蚂蚁区块链交易二维码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_extend_txqrcode_ex(request, headers, runtime)
+
+    async def describe_extend_txqrcode_async(
+        self,
+        request: caasplatform_models.DescribeExtendTxqrcodeRequest,
+    ) -> caasplatform_models.DescribeExtendTxqrcodeResponse:
+        """
+        Description: 获取蚂蚁区块链交易二维码
+        Summary: 获取蚂蚁区块链交易二维码
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.describe_extend_txqrcode_ex_async(request, headers, runtime)
+
+    def describe_extend_txqrcode_ex(
+        self,
+        request: caasplatform_models.DescribeExtendTxqrcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.DescribeExtendTxqrcodeResponse:
+        """
+        Description: 获取蚂蚁区块链交易二维码
+        Summary: 获取蚂蚁区块链交易二维码
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.DescribeExtendTxqrcodeResponse(),
+            self.do_request('1.0', 'antchain.caasplatform.extend.txqrcode.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def describe_extend_txqrcode_ex_async(
+        self,
+        request: caasplatform_models.DescribeExtendTxqrcodeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> caasplatform_models.DescribeExtendTxqrcodeResponse:
+        """
+        Description: 获取蚂蚁区块链交易二维码
+        Summary: 获取蚂蚁区块链交易二维码
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            caasplatform_models.DescribeExtendTxqrcodeResponse(),
+            await self.do_request_async('1.0', 'antchain.caasplatform.extend.txqrcode.describe', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

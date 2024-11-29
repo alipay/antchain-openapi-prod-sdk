@@ -316,6 +316,8 @@ class CreateDepositResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
+        tx_hash: str = None,
+        block_number: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -323,6 +325,10 @@ class CreateDepositResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
+        # 合约调用交易哈希
+        self.tx_hash = tx_hash
+        # 合约调用交易块高
+        self.block_number = block_number
 
     def validate(self):
         pass
@@ -339,6 +345,10 @@ class CreateDepositResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        if self.block_number is not None:
+            result['block_number'] = self.block_number
         return result
 
     def from_map(self, m: dict = None):
@@ -349,6 +359,10 @@ class CreateDepositResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        if m.get('block_number') is not None:
+            self.block_number = m.get('block_number')
         return self
 
 
@@ -4545,6 +4559,124 @@ class GetGeneralRightsbalanceResponse(TeaModel):
             self.code = m.get('code')
         if m.get('result') is not None:
             self.result = m.get('result')
+        return self
+
+
+class DescribeExtendTxqrcodeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        service_id: str = None,
+        order_id: str = None,
+        tx_hash: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 合约服务ID
+        self.service_id = service_id
+        # 业务幂等id(和tx_hash二者必须选其一)
+        self.order_id = order_id
+        # 交易hash(和order_id二者必须选其一)
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        self.validate_required(self.service_id, 'service_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.service_id is not None:
+            result['service_id'] = self.service_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('service_id') is not None:
+            self.service_id = m.get('service_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
+        return self
+
+
+class DescribeExtendTxqrcodeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        base_64qr_code_png: str = None,
+        qr_code_content: str = None,
+        tx_hash: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # Base64编码的二维码 png 图片
+        self.base_64qr_code_png = base_64qr_code_png
+        # 二维码内容
+        self.qr_code_content = qr_code_content
+        # ac73c8fa158436513e0b398632d9a082e04cee3eac6f9fb50087a46d801bdfd1
+        self.tx_hash = tx_hash
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.base_64qr_code_png is not None:
+            result['base64_qr_code_png'] = self.base_64qr_code_png
+        if self.qr_code_content is not None:
+            result['qr_code_content'] = self.qr_code_content
+        if self.tx_hash is not None:
+            result['tx_hash'] = self.tx_hash
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('base64_qr_code_png') is not None:
+            self.base_64qr_code_png = m.get('base64_qr_code_png')
+        if m.get('qr_code_content') is not None:
+            self.qr_code_content = m.get('qr_code_content')
+        if m.get('tx_hash') is not None:
+            self.tx_hash = m.get('tx_hash')
         return self
 
 
