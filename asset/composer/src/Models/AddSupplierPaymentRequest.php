@@ -19,53 +19,20 @@ class AddSupplierPaymentRequest extends Model
      */
     public $productInstanceId;
 
-    // 云上租户id
+    // 打款记录集
     /**
-     * @var string
+     * @var PaymentRecord[]
      */
-    public $cloudTenantId;
-
-    // 打款金额，单位分
-    /**
-     * @var int
-     */
-    public $paymentAmount;
-
-    // 服务商名称 - 即云租户名称，比如南京飞翰
-    /**
-     * @var string
-     */
-    public $supplierName;
-
-    // 打款日期
-    /**
-     * @var string
-     */
-    public $paymentDate;
-
-    // 唯一请求id
-    /**
-     * @var string
-     */
-    public $requestUniqueId;
+    public $paymentRecords;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'cloudTenantId'     => 'cloud_tenant_id',
-        'paymentAmount'     => 'payment_amount',
-        'supplierName'      => 'supplier_name',
-        'paymentDate'       => 'payment_date',
-        'requestUniqueId'   => 'request_unique_id',
+        'paymentRecords'    => 'payment_records',
     ];
 
     public function validate()
     {
-        Model::validateRequired('cloudTenantId', $this->cloudTenantId, true);
-        Model::validateRequired('paymentAmount', $this->paymentAmount, true);
-        Model::validateRequired('supplierName', $this->supplierName, true);
-        Model::validateRequired('paymentDate', $this->paymentDate, true);
-        Model::validateRequired('requestUniqueId', $this->requestUniqueId, true);
-        Model::validatePattern('paymentDate', $this->paymentDate, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateRequired('paymentRecords', $this->paymentRecords, true);
     }
 
     public function toMap()
@@ -77,20 +44,14 @@ class AddSupplierPaymentRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->cloudTenantId) {
-            $res['cloud_tenant_id'] = $this->cloudTenantId;
-        }
-        if (null !== $this->paymentAmount) {
-            $res['payment_amount'] = $this->paymentAmount;
-        }
-        if (null !== $this->supplierName) {
-            $res['supplier_name'] = $this->supplierName;
-        }
-        if (null !== $this->paymentDate) {
-            $res['payment_date'] = $this->paymentDate;
-        }
-        if (null !== $this->requestUniqueId) {
-            $res['request_unique_id'] = $this->requestUniqueId;
+        if (null !== $this->paymentRecords) {
+            $res['payment_records'] = [];
+            if (null !== $this->paymentRecords && \is_array($this->paymentRecords)) {
+                $n = 0;
+                foreach ($this->paymentRecords as $item) {
+                    $res['payment_records'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -110,20 +71,14 @@ class AddSupplierPaymentRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['cloud_tenant_id'])) {
-            $model->cloudTenantId = $map['cloud_tenant_id'];
-        }
-        if (isset($map['payment_amount'])) {
-            $model->paymentAmount = $map['payment_amount'];
-        }
-        if (isset($map['supplier_name'])) {
-            $model->supplierName = $map['supplier_name'];
-        }
-        if (isset($map['payment_date'])) {
-            $model->paymentDate = $map['payment_date'];
-        }
-        if (isset($map['request_unique_id'])) {
-            $model->requestUniqueId = $map['request_unique_id'];
+        if (isset($map['payment_records'])) {
+            if (!empty($map['payment_records'])) {
+                $model->paymentRecords = [];
+                $n                     = 0;
+                foreach ($map['payment_records'] as $item) {
+                    $model->paymentRecords[$n++] = null !== $item ? PaymentRecord::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;
