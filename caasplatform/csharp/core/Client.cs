@@ -137,7 +137,7 @@ namespace AntChain.SDK.CAASPLATFORM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.0"},
+                        {"sdk_version", "1.5.1"},
                         {"_prod_code", "CAASPLATFORM"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.CAASPLATFORM
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.4.0"},
+                        {"sdk_version", "1.5.1"},
                         {"_prod_code", "CAASPLATFORM"},
                         {"_prod_channel", "undefined"},
                     };
@@ -371,6 +371,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositResponse>(DoRequest("1.0", "antchain.caasplatform.deposit.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -404,6 +405,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.deposit.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -543,6 +545,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositCertificateResponse>(DoRequest("1.0", "antchain.caasplatform.deposit.certificate.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -576,6 +579,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositCertificateResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.deposit.certificate.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -673,6 +677,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositCharityResponse>(DoRequest("1.0", "antchain.caasplatform.deposit.charity.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -706,6 +711,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositCharityResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.deposit.charity.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -803,6 +809,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositSweepstakesResponse>(DoRequest("1.0", "antchain.caasplatform.deposit.sweepstakes.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -836,6 +843,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<CreateDepositSweepstakesResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.deposit.sweepstakes.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -1017,6 +1025,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadExtendRightsResponse>(DoRequest("1.0", "antchain.caasplatform.extend.rights.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -1050,6 +1059,7 @@ namespace AntChain.SDK.CAASPLATFORM
                 Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
                 AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
                 request.FileId = uploadResp.FileId;
+                request.FileObject = null;
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<UploadExtendRightsResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.extend.rights.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
@@ -1941,6 +1951,48 @@ namespace AntChain.SDK.CAASPLATFORM
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<GetGeneralRightsbalanceResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.general.rightsbalance.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取蚂蚁区块链交易二维码
+         * Summary: 获取蚂蚁区块链交易二维码
+         */
+        public DescribeExtendTxqrcodeResponse DescribeExtendTxqrcode(DescribeExtendTxqrcodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DescribeExtendTxqrcodeEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取蚂蚁区块链交易二维码
+         * Summary: 获取蚂蚁区块链交易二维码
+         */
+        public async Task<DescribeExtendTxqrcodeResponse> DescribeExtendTxqrcodeAsync(DescribeExtendTxqrcodeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DescribeExtendTxqrcodeExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取蚂蚁区块链交易二维码
+         * Summary: 获取蚂蚁区块链交易二维码
+         */
+        public DescribeExtendTxqrcodeResponse DescribeExtendTxqrcodeEx(DescribeExtendTxqrcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DescribeExtendTxqrcodeResponse>(DoRequest("1.0", "antchain.caasplatform.extend.txqrcode.describe", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取蚂蚁区块链交易二维码
+         * Summary: 获取蚂蚁区块链交易二维码
+         */
+        public async Task<DescribeExtendTxqrcodeResponse> DescribeExtendTxqrcodeExAsync(DescribeExtendTxqrcodeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DescribeExtendTxqrcodeResponse>(await DoRequestAsync("1.0", "antchain.caasplatform.extend.txqrcode.describe", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
