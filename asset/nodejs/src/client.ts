@@ -135,6 +135,43 @@ export class MetricData extends $tea.Model {
   }
 }
 
+// 供应商打款记录
+export class PaymentRecord extends $tea.Model {
+  // 云上租户id	
+  cloudTenantId: string;
+  // 打款金额，单位分
+  paymentAmount: number;
+  // 服务商名称 - 即云租户名称，比如南京飞翰
+  supplierName: string;
+  // 打款日期
+  paymentDate: string;
+  // 唯一请求id，即payment_record_id
+  requestUniqueId: string;
+  static names(): { [key: string]: string } {
+    return {
+      cloudTenantId: 'cloud_tenant_id',
+      paymentAmount: 'payment_amount',
+      supplierName: 'supplier_name',
+      paymentDate: 'payment_date',
+      requestUniqueId: 'request_unique_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      cloudTenantId: 'string',
+      paymentAmount: 'number',
+      supplierName: 'string',
+      paymentDate: 'string',
+      requestUniqueId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 过程转化指标结果
 export class ProcessConversionMetricData extends $tea.Model {
   // 发放数
@@ -333,25 +370,13 @@ export class AddSupplierPaymentRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 云上租户id 
-  cloudTenantId: string;
-  // 打款金额，单位分
-  paymentAmount: number;
-  // 服务商名称 - 即云租户名称，比如南京飞翰
-  supplierName: string;
-  // 打款日期
-  paymentDate: string;
-  // 唯一请求id
-  requestUniqueId: string;
+  // 打款记录集
+  paymentRecords: PaymentRecord[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      cloudTenantId: 'cloud_tenant_id',
-      paymentAmount: 'payment_amount',
-      supplierName: 'supplier_name',
-      paymentDate: 'payment_date',
-      requestUniqueId: 'request_unique_id',
+      paymentRecords: 'payment_records',
     };
   }
 
@@ -359,11 +384,7 @@ export class AddSupplierPaymentRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      cloudTenantId: 'string',
-      paymentAmount: 'number',
-      supplierName: 'string',
-      paymentDate: 'string',
-      requestUniqueId: 'string',
+      paymentRecords: { 'type': 'array', 'itemType': PaymentRecord },
     };
   }
 
@@ -729,7 +750,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.12",
+          sdk_version: "1.0.13",
           _prod_code: "ASSET",
           _prod_channel: "default",
         };
