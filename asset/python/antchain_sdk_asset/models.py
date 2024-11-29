@@ -251,6 +251,68 @@ class MetricData(TeaModel):
         return self
 
 
+class PaymentRecord(TeaModel):
+    def __init__(
+        self,
+        cloud_tenant_id: str = None,
+        payment_amount: int = None,
+        supplier_name: str = None,
+        payment_date: str = None,
+        request_unique_id: str = None,
+    ):
+        # 云上租户id
+        self.cloud_tenant_id = cloud_tenant_id
+        # 打款金额，单位分
+        self.payment_amount = payment_amount
+        # 服务商名称 - 即云租户名称，比如南京飞翰
+        self.supplier_name = supplier_name
+        # 打款日期
+        self.payment_date = payment_date
+        # 唯一请求id，即payment_record_id
+        self.request_unique_id = request_unique_id
+
+    def validate(self):
+        self.validate_required(self.cloud_tenant_id, 'cloud_tenant_id')
+        self.validate_required(self.payment_amount, 'payment_amount')
+        self.validate_required(self.supplier_name, 'supplier_name')
+        self.validate_required(self.payment_date, 'payment_date')
+        if self.payment_date is not None:
+            self.validate_pattern(self.payment_date, 'payment_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.request_unique_id, 'request_unique_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloud_tenant_id is not None:
+            result['cloud_tenant_id'] = self.cloud_tenant_id
+        if self.payment_amount is not None:
+            result['payment_amount'] = self.payment_amount
+        if self.supplier_name is not None:
+            result['supplier_name'] = self.supplier_name
+        if self.payment_date is not None:
+            result['payment_date'] = self.payment_date
+        if self.request_unique_id is not None:
+            result['request_unique_id'] = self.request_unique_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('cloud_tenant_id') is not None:
+            self.cloud_tenant_id = m.get('cloud_tenant_id')
+        if m.get('payment_amount') is not None:
+            self.payment_amount = m.get('payment_amount')
+        if m.get('supplier_name') is not None:
+            self.supplier_name = m.get('supplier_name')
+        if m.get('payment_date') is not None:
+            self.payment_date = m.get('payment_date')
+        if m.get('request_unique_id') is not None:
+            self.request_unique_id = m.get('request_unique_id')
+        return self
+
+
 class ProcessConversionMetricData(TeaModel):
     def __init__(
         self,
@@ -561,34 +623,20 @@ class AddSupplierPaymentRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        cloud_tenant_id: str = None,
-        payment_amount: int = None,
-        supplier_name: str = None,
-        payment_date: str = None,
-        request_unique_id: str = None,
+        payment_records: List[PaymentRecord] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 云上租户id
-        self.cloud_tenant_id = cloud_tenant_id
-        # 打款金额，单位分
-        self.payment_amount = payment_amount
-        # 服务商名称 - 即云租户名称，比如南京飞翰
-        self.supplier_name = supplier_name
-        # 打款日期
-        self.payment_date = payment_date
-        # 唯一请求id
-        self.request_unique_id = request_unique_id
+        # 打款记录集
+        self.payment_records = payment_records
 
     def validate(self):
-        self.validate_required(self.cloud_tenant_id, 'cloud_tenant_id')
-        self.validate_required(self.payment_amount, 'payment_amount')
-        self.validate_required(self.supplier_name, 'supplier_name')
-        self.validate_required(self.payment_date, 'payment_date')
-        if self.payment_date is not None:
-            self.validate_pattern(self.payment_date, 'payment_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.request_unique_id, 'request_unique_id')
+        self.validate_required(self.payment_records, 'payment_records')
+        if self.payment_records:
+            for k in self.payment_records:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -600,16 +648,10 @@ class AddSupplierPaymentRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.cloud_tenant_id is not None:
-            result['cloud_tenant_id'] = self.cloud_tenant_id
-        if self.payment_amount is not None:
-            result['payment_amount'] = self.payment_amount
-        if self.supplier_name is not None:
-            result['supplier_name'] = self.supplier_name
-        if self.payment_date is not None:
-            result['payment_date'] = self.payment_date
-        if self.request_unique_id is not None:
-            result['request_unique_id'] = self.request_unique_id
+        result['payment_records'] = []
+        if self.payment_records is not None:
+            for k in self.payment_records:
+                result['payment_records'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -618,16 +660,11 @@ class AddSupplierPaymentRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('cloud_tenant_id') is not None:
-            self.cloud_tenant_id = m.get('cloud_tenant_id')
-        if m.get('payment_amount') is not None:
-            self.payment_amount = m.get('payment_amount')
-        if m.get('supplier_name') is not None:
-            self.supplier_name = m.get('supplier_name')
-        if m.get('payment_date') is not None:
-            self.payment_date = m.get('payment_date')
-        if m.get('request_unique_id') is not None:
-            self.request_unique_id = m.get('request_unique_id')
+        self.payment_records = []
+        if m.get('payment_records') is not None:
+            for k in m.get('payment_records'):
+                temp_model = PaymentRecord()
+                self.payment_records.append(temp_model.from_map(k))
         return self
 
 
