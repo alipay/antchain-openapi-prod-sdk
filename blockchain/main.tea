@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.34',
+    sdk_version = '1.28.39',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -22440,8 +22440,8 @@ model QueryAuthCrowdUploadurlRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 问件类型
   fileType: string(name='file_type'),
-  // 业务类型：survey_1（排除问卷三个月人群）；survey_2（排除问卷六个月人群）；recruit_1（排除招募三个月人群）recruit_2（排除招募任务六个月人群）
-  bizType: string(name='biz_type'),
+  // 人群类型：LAST_THREE_MONTHS_SURVEY（排除问卷三个月人群）；LAST_SIX_MONTHS_SURVEY（排除问卷六个月人群）；LAST_THREE_MONTHS_RECRUIT（排除招募三个月人群）LAST_SIX_MONTHS_RECRUIT（排除招募任务六个月人群）
+  crowdType: string(name='crowd_type'),
 }
 
 model QueryAuthCrowdUploadurlResponse = {
@@ -22463,6 +22463,8 @@ model QueryAuthCrowdUploadurlResponse = {
   host?: string(name='host'),
   // 过期时间
   expire?: string(name='expire'),
+  // access_id
+  accessId?: string(name='access_id'),
 }
 
 /**
@@ -22522,6 +22524,44 @@ async function submitAuthCrowdUpload(request: SubmitAuthCrowdUploadRequest): Sub
 async function submitAuthCrowdUploadEx(request: SubmitAuthCrowdUploadRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAuthCrowdUploadResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'baas.auth.crowd.upload.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadAuthCertPhotoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 图片文件类型
+  fileType: string(name='file_type'),
+}
+
+model UploadAuthCertPhotoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // oss文件上传策略
+  presignedUrlPolicy?: PresignedUrlPolicy(name='presigned_url_policy'),
+}
+
+/**
+ * Description: 上传证书动态图片
+ * Summary: 上传证书动态图片
+ */
+async function uploadAuthCertPhoto(request: UploadAuthCertPhotoRequest): UploadAuthCertPhotoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadAuthCertPhotoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 上传证书动态图片
+ * Summary: 上传证书动态图片
+ */
+async function uploadAuthCertPhotoEx(request: UploadAuthCertPhotoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadAuthCertPhotoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'baas.auth.cert.photo.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model StartDidCorporateAgentcreateRequest = {
