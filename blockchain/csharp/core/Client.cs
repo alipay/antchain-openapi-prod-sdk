@@ -137,7 +137,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.34"},
+                        {"sdk_version", "1.28.39"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BLOCKCHAIN
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.28.34"},
+                        {"sdk_version", "1.28.39"},
                         {"_prod_code", "BLOCKCHAIN"},
                         {"_prod_channel", "undefined"},
                     };
@@ -17969,6 +17969,48 @@ namespace AntChain.SDK.BLOCKCHAIN
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitAuthCrowdUploadResponse>(await DoRequestAsync("1.0", "baas.auth.crowd.upload.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上传证书动态图片
+         * Summary: 上传证书动态图片
+         */
+        public UploadAuthCertPhotoResponse UploadAuthCertPhoto(UploadAuthCertPhotoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadAuthCertPhotoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上传证书动态图片
+         * Summary: 上传证书动态图片
+         */
+        public async Task<UploadAuthCertPhotoResponse> UploadAuthCertPhotoAsync(UploadAuthCertPhotoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadAuthCertPhotoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 上传证书动态图片
+         * Summary: 上传证书动态图片
+         */
+        public UploadAuthCertPhotoResponse UploadAuthCertPhotoEx(UploadAuthCertPhotoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAuthCertPhotoResponse>(DoRequest("1.0", "baas.auth.cert.photo.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 上传证书动态图片
+         * Summary: 上传证书动态图片
+         */
+        public async Task<UploadAuthCertPhotoResponse> UploadAuthCertPhotoExAsync(UploadAuthCertPhotoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadAuthCertPhotoResponse>(await DoRequestAsync("1.0", "baas.auth.cert.photo.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

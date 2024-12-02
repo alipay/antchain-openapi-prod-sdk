@@ -54,6 +54,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=false)]
         public string Expire { get; set; }
 
+        // access_id
+        [NameInMap("access_id")]
+        [Validation(Required=false)]
+        public string AccessId { get; set; }
+
     }
 
 }
