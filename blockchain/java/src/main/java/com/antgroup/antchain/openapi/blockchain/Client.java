@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.28.34"),
+                    new TeaPair("sdk_version", "1.28.39"),
                     new TeaPair("_prod_code", "BLOCKCHAIN"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -8169,6 +8169,25 @@ public class Client {
     public SubmitAuthCrowdUploadResponse submitAuthCrowdUploadEx(SubmitAuthCrowdUploadRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "baas.auth.crowd.upload.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitAuthCrowdUploadResponse());
+    }
+
+    /**
+     * Description: 上传证书动态图片
+     * Summary: 上传证书动态图片
+     */
+    public UploadAuthCertPhotoResponse uploadAuthCertPhoto(UploadAuthCertPhotoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadAuthCertPhotoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 上传证书动态图片
+     * Summary: 上传证书动态图片
+     */
+    public UploadAuthCertPhotoResponse uploadAuthCertPhotoEx(UploadAuthCertPhotoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "baas.auth.cert.photo.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadAuthCertPhotoResponse());
     }
 
     /**

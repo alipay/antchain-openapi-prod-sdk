@@ -16,10 +16,10 @@ public class QueryAuthCrowdUploadurlRequest extends TeaModel {
     @Validation(required = true)
     public String fileType;
 
-    // 业务类型：survey_1（排除问卷三个月人群）；survey_2（排除问卷六个月人群）；recruit_1（排除招募三个月人群）recruit_2（排除招募任务六个月人群）
-    @NameInMap("biz_type")
+    // 人群类型：LAST_THREE_MONTHS_SURVEY（排除问卷三个月人群）；LAST_SIX_MONTHS_SURVEY（排除问卷六个月人群）；LAST_THREE_MONTHS_RECRUIT（排除招募三个月人群）LAST_SIX_MONTHS_RECRUIT（排除招募任务六个月人群）
+    @NameInMap("crowd_type")
     @Validation(required = true)
-    public String bizType;
+    public String crowdType;
 
     public static QueryAuthCrowdUploadurlRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAuthCrowdUploadurlRequest self = new QueryAuthCrowdUploadurlRequest();
@@ -50,12 +50,12 @@ public class QueryAuthCrowdUploadurlRequest extends TeaModel {
         return this.fileType;
     }
 
-    public QueryAuthCrowdUploadurlRequest setBizType(String bizType) {
-        this.bizType = bizType;
+    public QueryAuthCrowdUploadurlRequest setCrowdType(String crowdType) {
+        this.crowdType = crowdType;
         return this;
     }
-    public String getBizType() {
-        return this.bizType;
+    public String getCrowdType() {
+        return this.crowdType;
     }
 
 }

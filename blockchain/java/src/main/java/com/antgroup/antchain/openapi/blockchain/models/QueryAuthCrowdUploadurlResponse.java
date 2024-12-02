@@ -40,6 +40,10 @@ public class QueryAuthCrowdUploadurlResponse extends TeaModel {
     @NameInMap("expire")
     public String expire;
 
+    // access_id
+    @NameInMap("access_id")
+    public String accessId;
+
     public static QueryAuthCrowdUploadurlResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAuthCrowdUploadurlResponse self = new QueryAuthCrowdUploadurlResponse();
         return TeaModel.build(map, self);
@@ -115,6 +119,14 @@ public class QueryAuthCrowdUploadurlResponse extends TeaModel {
     }
     public String getExpire() {
         return this.expire;
+    }
+
+    public QueryAuthCrowdUploadurlResponse setAccessId(String accessId) {
+        this.accessId = accessId;
+        return this;
+    }
+    public String getAccessId() {
+        return this.accessId;
     }
 
 }
