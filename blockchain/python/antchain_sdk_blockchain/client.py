@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.34',
+                    'sdk_version': '1.28.39',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.28.34',
+                    'sdk_version': '1.28.39',
                     '_prod_code': 'BLOCKCHAIN',
                     '_prod_channel': 'undefined'
                 }
@@ -23737,6 +23737,62 @@ class Client:
         return TeaCore.from_map(
             blockchain_models.SubmitAuthCrowdUploadResponse(),
             await self.do_request_async('1.0', 'baas.auth.crowd.upload.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_auth_cert_photo(
+        self,
+        request: blockchain_models.UploadAuthCertPhotoRequest,
+    ) -> blockchain_models.UploadAuthCertPhotoResponse:
+        """
+        Description: 上传证书动态图片
+        Summary: 上传证书动态图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_auth_cert_photo_ex(request, headers, runtime)
+
+    async def upload_auth_cert_photo_async(
+        self,
+        request: blockchain_models.UploadAuthCertPhotoRequest,
+    ) -> blockchain_models.UploadAuthCertPhotoResponse:
+        """
+        Description: 上传证书动态图片
+        Summary: 上传证书动态图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_auth_cert_photo_ex_async(request, headers, runtime)
+
+    def upload_auth_cert_photo_ex(
+        self,
+        request: blockchain_models.UploadAuthCertPhotoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadAuthCertPhotoResponse:
+        """
+        Description: 上传证书动态图片
+        Summary: 上传证书动态图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UploadAuthCertPhotoResponse(),
+            self.do_request('1.0', 'baas.auth.cert.photo.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_auth_cert_photo_ex_async(
+        self,
+        request: blockchain_models.UploadAuthCertPhotoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> blockchain_models.UploadAuthCertPhotoResponse:
+        """
+        Description: 上传证书动态图片
+        Summary: 上传证书动态图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            blockchain_models.UploadAuthCertPhotoResponse(),
+            await self.do_request_async('1.0', 'baas.auth.cert.photo.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def start_did_corporate_agentcreate(
