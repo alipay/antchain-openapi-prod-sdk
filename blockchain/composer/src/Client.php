@@ -1229,6 +1229,8 @@ use AntChain\BLOCKCHAIN\Models\UploadAuthBusinessCardRequest;
 use AntChain\BLOCKCHAIN\Models\UploadAuthBusinessCardResponse;
 use AntChain\BLOCKCHAIN\Models\UploadAuthCertInstanceRequest;
 use AntChain\BLOCKCHAIN\Models\UploadAuthCertInstanceResponse;
+use AntChain\BLOCKCHAIN\Models\UploadAuthCertPhotoRequest;
+use AntChain\BLOCKCHAIN\Models\UploadAuthCertPhotoResponse;
 use AntChain\BLOCKCHAIN\Models\UploadDataFileBatchqueryRequest;
 use AntChain\BLOCKCHAIN\Models\UploadDataFileBatchqueryResponse;
 use AntChain\BLOCKCHAIN\Models\VerifyAuthBusinessUserRequest;
@@ -1386,7 +1388,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.28.34',
+                    'sdk_version'      => '1.28.39',
                     '_prod_code'       => 'BLOCKCHAIN',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -15251,6 +15253,39 @@ class Client
         Utils::validateModel($request);
 
         return SubmitAuthCrowdUploadResponse::fromMap($this->doRequest('1.0', 'baas.auth.crowd.upload.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上传证书动态图片
+     * Summary: 上传证书动态图片.
+     *
+     * @param UploadAuthCertPhotoRequest $request
+     *
+     * @return UploadAuthCertPhotoResponse
+     */
+    public function uploadAuthCertPhoto($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadAuthCertPhotoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传证书动态图片
+     * Summary: 上传证书动态图片.
+     *
+     * @param UploadAuthCertPhotoRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return UploadAuthCertPhotoResponse
+     */
+    public function uploadAuthCertPhotoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadAuthCertPhotoResponse::fromMap($this->doRequest('1.0', 'baas.auth.cert.photo.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

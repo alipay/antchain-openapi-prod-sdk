@@ -61,6 +61,12 @@ class QueryAuthCrowdUploadurlResponse extends Model
      * @var string
      */
     public $expire;
+
+    // access_id
+    /**
+     * @var string
+     */
+    public $accessId;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
@@ -71,6 +77,7 @@ class QueryAuthCrowdUploadurlResponse extends Model
         'dir'        => 'dir',
         'host'       => 'host',
         'expire'     => 'expire',
+        'accessId'   => 'access_id',
     ];
 
     public function validate()
@@ -106,6 +113,9 @@ class QueryAuthCrowdUploadurlResponse extends Model
         }
         if (null !== $this->expire) {
             $res['expire'] = $this->expire;
+        }
+        if (null !== $this->accessId) {
+            $res['access_id'] = $this->accessId;
         }
 
         return $res;
@@ -145,6 +155,9 @@ class QueryAuthCrowdUploadurlResponse extends Model
         }
         if (isset($map['expire'])) {
             $model->expire = $map['expire'];
+        }
+        if (isset($map['access_id'])) {
+            $model->accessId = $map['access_id'];
         }
 
         return $model;
