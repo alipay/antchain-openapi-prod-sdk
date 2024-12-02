@@ -50933,8 +50933,8 @@ type QueryAuthCrowdUploadurlRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 问件类型
 	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
-	// 业务类型：survey_1（排除问卷三个月人群）；survey_2（排除问卷六个月人群）；recruit_1（排除招募三个月人群）recruit_2（排除招募任务六个月人群）
-	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 人群类型：LAST_THREE_MONTHS_SURVEY（排除问卷三个月人群）；LAST_SIX_MONTHS_SURVEY（排除问卷六个月人群）；LAST_THREE_MONTHS_RECRUIT（排除招募三个月人群）LAST_SIX_MONTHS_RECRUIT（排除招募任务六个月人群）
+	CrowdType *string `json:"crowd_type,omitempty" xml:"crowd_type,omitempty" require:"true"`
 }
 
 func (s QueryAuthCrowdUploadurlRequest) String() string {
@@ -50960,8 +50960,8 @@ func (s *QueryAuthCrowdUploadurlRequest) SetFileType(v string) *QueryAuthCrowdUp
 	return s
 }
 
-func (s *QueryAuthCrowdUploadurlRequest) SetBizType(v string) *QueryAuthCrowdUploadurlRequest {
-	s.BizType = &v
+func (s *QueryAuthCrowdUploadurlRequest) SetCrowdType(v string) *QueryAuthCrowdUploadurlRequest {
+	s.CrowdType = &v
 	return s
 }
 
@@ -50984,6 +50984,8 @@ type QueryAuthCrowdUploadurlResponse struct {
 	Host *string `json:"host,omitempty" xml:"host,omitempty"`
 	// 过期时间
 	Expire *string `json:"expire,omitempty" xml:"expire,omitempty"`
+	// access_id
+	AccessId *string `json:"access_id,omitempty" xml:"access_id,omitempty"`
 }
 
 func (s QueryAuthCrowdUploadurlResponse) String() string {
@@ -51036,6 +51038,11 @@ func (s *QueryAuthCrowdUploadurlResponse) SetHost(v string) *QueryAuthCrowdUploa
 
 func (s *QueryAuthCrowdUploadurlResponse) SetExpire(v string) *QueryAuthCrowdUploadurlResponse {
 	s.Expire = &v
+	return s
+}
+
+func (s *QueryAuthCrowdUploadurlResponse) SetAccessId(v string) *QueryAuthCrowdUploadurlResponse {
+	s.AccessId = &v
 	return s
 }
 
@@ -51113,6 +51120,76 @@ func (s *SubmitAuthCrowdUploadResponse) SetResultCode(v string) *SubmitAuthCrowd
 
 func (s *SubmitAuthCrowdUploadResponse) SetResultMsg(v string) *SubmitAuthCrowdUploadResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type UploadAuthCertPhotoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 图片文件类型
+	FileType *string `json:"file_type,omitempty" xml:"file_type,omitempty" require:"true"`
+}
+
+func (s UploadAuthCertPhotoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAuthCertPhotoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAuthCertPhotoRequest) SetAuthToken(v string) *UploadAuthCertPhotoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadAuthCertPhotoRequest) SetProductInstanceId(v string) *UploadAuthCertPhotoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadAuthCertPhotoRequest) SetFileType(v string) *UploadAuthCertPhotoRequest {
+	s.FileType = &v
+	return s
+}
+
+type UploadAuthCertPhotoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// oss文件上传策略
+	PresignedUrlPolicy *PresignedUrlPolicy `json:"presigned_url_policy,omitempty" xml:"presigned_url_policy,omitempty"`
+}
+
+func (s UploadAuthCertPhotoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadAuthCertPhotoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadAuthCertPhotoResponse) SetReqMsgId(v string) *UploadAuthCertPhotoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadAuthCertPhotoResponse) SetResultCode(v string) *UploadAuthCertPhotoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadAuthCertPhotoResponse) SetResultMsg(v string) *UploadAuthCertPhotoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadAuthCertPhotoResponse) SetPresignedUrlPolicy(v *PresignedUrlPolicy) *UploadAuthCertPhotoResponse {
+	s.PresignedUrlPolicy = v
 	return s
 }
 
@@ -70414,7 +70491,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.34"),
+				"sdk_version":      tea.String("1.28.39"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -84723,6 +84800,40 @@ func (client *Client) SubmitAuthCrowdUploadEx(request *SubmitAuthCrowdUploadRequ
 	}
 	_result = &SubmitAuthCrowdUploadResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.crowd.upload.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 上传证书动态图片
+ * Summary: 上传证书动态图片
+ */
+func (client *Client) UploadAuthCertPhoto(request *UploadAuthCertPhotoRequest) (_result *UploadAuthCertPhotoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadAuthCertPhotoResponse{}
+	_body, _err := client.UploadAuthCertPhotoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 上传证书动态图片
+ * Summary: 上传证书动态图片
+ */
+func (client *Client) UploadAuthCertPhotoEx(request *UploadAuthCertPhotoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAuthCertPhotoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadAuthCertPhotoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("baas.auth.cert.photo.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
