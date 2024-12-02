@@ -39202,14 +39202,14 @@ export class QueryAuthCrowdUploadurlRequest extends $tea.Model {
   productInstanceId?: string;
   // 问件类型
   fileType: string;
-  // 业务类型：survey_1（排除问卷三个月人群）；survey_2（排除问卷六个月人群）；recruit_1（排除招募三个月人群）recruit_2（排除招募任务六个月人群）
-  bizType: string;
+  // 人群类型：LAST_THREE_MONTHS_SURVEY（排除问卷三个月人群）；LAST_SIX_MONTHS_SURVEY（排除问卷六个月人群）；LAST_THREE_MONTHS_RECRUIT（排除招募三个月人群）LAST_SIX_MONTHS_RECRUIT（排除招募任务六个月人群）
+  crowdType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       fileType: 'file_type',
-      bizType: 'biz_type',
+      crowdType: 'crowd_type',
     };
   }
 
@@ -39218,7 +39218,7 @@ export class QueryAuthCrowdUploadurlRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       fileType: 'string',
-      bizType: 'string',
+      crowdType: 'string',
     };
   }
 
@@ -39246,6 +39246,8 @@ export class QueryAuthCrowdUploadurlResponse extends $tea.Model {
   host?: string;
   // 过期时间
   expire?: string;
+  // access_id
+  accessId?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -39257,6 +39259,7 @@ export class QueryAuthCrowdUploadurlResponse extends $tea.Model {
       dir: 'dir',
       host: 'host',
       expire: 'expire',
+      accessId: 'access_id',
     };
   }
 
@@ -39271,6 +39274,7 @@ export class QueryAuthCrowdUploadurlResponse extends $tea.Model {
       dir: 'string',
       host: 'string',
       expire: 'string',
+      accessId: 'string',
     };
   }
 
@@ -39334,6 +39338,65 @@ export class SubmitAuthCrowdUploadResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAuthCertPhotoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 图片文件类型
+  fileType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      fileType: 'file_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      fileType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadAuthCertPhotoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // oss文件上传策略
+  presignedUrlPolicy?: PresignedUrlPolicy;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      presignedUrlPolicy: 'presigned_url_policy',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      presignedUrlPolicy: PresignedUrlPolicy,
     };
   }
 
@@ -54220,7 +54283,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.34",
+          sdk_version: "1.28.39",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
@@ -62253,6 +62316,25 @@ export default class Client {
   async submitAuthCrowdUploadEx(request: SubmitAuthCrowdUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAuthCrowdUploadResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitAuthCrowdUploadResponse>(await this.doRequest("1.0", "baas.auth.crowd.upload.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAuthCrowdUploadResponse({}));
+  }
+
+  /**
+   * Description: 上传证书动态图片
+   * Summary: 上传证书动态图片
+   */
+  async uploadAuthCertPhoto(request: UploadAuthCertPhotoRequest): Promise<UploadAuthCertPhotoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadAuthCertPhotoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 上传证书动态图片
+   * Summary: 上传证书动态图片
+   */
+  async uploadAuthCertPhotoEx(request: UploadAuthCertPhotoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadAuthCertPhotoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadAuthCertPhotoResponse>(await this.doRequest("1.0", "baas.auth.cert.photo.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadAuthCertPhotoResponse({}));
   }
 
   /**
