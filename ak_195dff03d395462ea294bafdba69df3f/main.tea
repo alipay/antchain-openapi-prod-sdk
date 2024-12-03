@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.8',
+    sdk_version = '1.3.9',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -177,7 +177,7 @@ model SiteInfo {
   siteName?: string(name='site_name', example='站点名称'),
   // 
   // 截图照片
-  screenshotImage?: string(name='screenshot_image', example='c6c0c7a1-b9d5-4e5d-b9d4-9eed39f00e65.jpg'),
+  screenshotFile?: FileInfo(name='screenshot_file', example='c6c0c7a1-b9d5-4e5d-b9d4-9eed39f00e65.jpg'),
   // 站点地址
   siteUrl?: string(name='site_url', example='https://open.alipay.com'),
   // 站点类型
@@ -1546,6 +1546,8 @@ model QueryAntchainAtoWithholdActivepayRequest = {
   tradeNo?: string(maxLength=64, name='trade_no'),
   // 支付类型
   payType?: string(maxLength=64, minLength=1, name='pay_type'),
+  // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+  payChannel?: string(maxLength=64, name='pay_channel'),
 }
 
 model QueryAntchainAtoWithholdActivepayResponse = {
@@ -1637,6 +1639,10 @@ model CancelAntchainAtoFundPlanRequest = {
   cancelReason: string(name='cancel_reason'),
   // 融资单的资方社会信用代码
   fundId?: string(maxLength=64, name='fund_id'),
+  // 操作
+  operation?: string(maxLength=64, name='operation'),
+  // 赎回金额,单位为分,取消并赎回时必填
+  redeemAmount?: long(minimum=10, name='redeem_amount'),
 }
 
 model CancelAntchainAtoFundPlanResponse = {
