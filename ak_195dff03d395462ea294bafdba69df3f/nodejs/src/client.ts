@@ -111,7 +111,7 @@ export class SiteInfo extends $tea.Model {
   siteName?: string;
   // 
   // 截图照片
-  screenshotImage?: string;
+  screenshotFile?: FileInfo;
   // 站点地址
   siteUrl?: string;
   // 站点类型
@@ -127,7 +127,7 @@ export class SiteInfo extends $tea.Model {
     return {
       tinyAppId: 'tiny_app_id',
       siteName: 'site_name',
-      screenshotImage: 'screenshot_image',
+      screenshotFile: 'screenshot_file',
       siteUrl: 'site_url',
       siteType: 'site_type',
     };
@@ -137,7 +137,7 @@ export class SiteInfo extends $tea.Model {
     return {
       tinyAppId: 'string',
       siteName: 'string',
-      screenshotImage: 'string',
+      screenshotFile: FileInfo,
       siteUrl: 'string',
       siteType: 'string',
     };
@@ -2416,6 +2416,8 @@ export class QueryAntchainAtoWithholdActivepayRequest extends $tea.Model {
   tradeNo?: string;
   // 支付类型
   payType?: string;
+  // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+  payChannel?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2424,6 +2426,7 @@ export class QueryAntchainAtoWithholdActivepayRequest extends $tea.Model {
       periodNum: 'period_num',
       tradeNo: 'trade_no',
       payType: 'pay_type',
+      payChannel: 'pay_channel',
     };
   }
 
@@ -2435,6 +2438,7 @@ export class QueryAntchainAtoWithholdActivepayRequest extends $tea.Model {
       periodNum: 'number',
       tradeNo: 'string',
       payType: 'string',
+      payChannel: 'string',
     };
   }
 
@@ -2561,6 +2565,10 @@ export class CancelAntchainAtoFundPlanRequest extends $tea.Model {
   cancelReason: string;
   // 融资单的资方社会信用代码
   fundId?: string;
+  // 操作
+  operation?: string;
+  // 赎回金额,单位为分,取消并赎回时必填
+  redeemAmount?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2569,6 +2577,8 @@ export class CancelAntchainAtoFundPlanRequest extends $tea.Model {
       merchantId: 'merchant_id',
       cancelReason: 'cancel_reason',
       fundId: 'fund_id',
+      operation: 'operation',
+      redeemAmount: 'redeem_amount',
     };
   }
 
@@ -2580,6 +2590,8 @@ export class CancelAntchainAtoFundPlanRequest extends $tea.Model {
       merchantId: 'string',
       cancelReason: 'string',
       fundId: 'string',
+      operation: 'string',
+      redeemAmount: 'number',
     };
   }
 
@@ -5244,7 +5256,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.8",
+          sdk_version: "1.3.9",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
