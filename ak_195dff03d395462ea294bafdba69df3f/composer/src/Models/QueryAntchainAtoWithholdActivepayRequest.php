@@ -42,6 +42,12 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
      * @var string
      */
     public $payType;
+
+    // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+    /**
+     * @var string
+     */
+    public $payChannel;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -49,6 +55,7 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         'periodNum'         => 'period_num',
         'tradeNo'           => 'trade_no',
         'payType'           => 'pay_type',
+        'payChannel'        => 'pay_channel',
     ];
 
     public function validate()
@@ -57,6 +64,7 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('tradeNo', $this->tradeNo, 64);
         Model::validateMaxLength('payType', $this->payType, 64);
+        Model::validateMaxLength('payChannel', $this->payChannel, 64);
         Model::validateMinLength('orderId', $this->orderId, 1);
         Model::validateMinLength('payType', $this->payType, 1);
         Model::validateMinimum('periodNum', $this->periodNum, 1);
@@ -82,6 +90,9 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         }
         if (null !== $this->payType) {
             $res['pay_type'] = $this->payType;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
         }
 
         return $res;
@@ -112,6 +123,9 @@ class QueryAntchainAtoWithholdActivepayRequest extends Model
         }
         if (isset($map['pay_type'])) {
             $model->payType = $map['pay_type'];
+        }
+        if (isset($map['pay_channel'])) {
+            $model->payChannel = $map['pay_channel'];
         }
 
         return $model;
