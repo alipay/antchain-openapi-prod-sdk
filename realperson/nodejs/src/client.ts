@@ -595,8 +595,6 @@ export class CheckIndividualidTwometaRequest extends $tea.Model {
   certNo: string;
   // map结果的json数据格式，预留字段
   externParam?: string;
-  // 认证子类型
-  scene?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -605,7 +603,6 @@ export class CheckIndividualidTwometaRequest extends $tea.Model {
       certName: 'cert_name',
       certNo: 'cert_no',
       externParam: 'extern_param',
-      scene: 'scene',
     };
   }
 
@@ -617,7 +614,6 @@ export class CheckIndividualidTwometaRequest extends $tea.Model {
       certName: 'string',
       certNo: 'string',
       externParam: 'string',
-      scene: 'string',
     };
   }
 
@@ -3332,6 +3328,8 @@ export class QueryBankLivenessRequest extends $tea.Model {
   certNo: string;
   // 银行编码
   bankCode: string;
+  // 1=借记卡+贷记卡（默认）；2=借记卡
+  bankCardType?: string;
   // 姓名
   certName?: string;
   // 手机号码	
@@ -3346,6 +3344,7 @@ export class QueryBankLivenessRequest extends $tea.Model {
       encryptType: 'encrypt_type',
       certNo: 'cert_no',
       bankCode: 'bank_code',
+      bankCardType: 'bank_card_type',
       certName: 'cert_name',
       mobile: 'mobile',
       externParam: 'extern_param',
@@ -3360,6 +3359,7 @@ export class QueryBankLivenessRequest extends $tea.Model {
       encryptType: 'string',
       certNo: 'string',
       bankCode: 'string',
+      bankCardType: 'string',
       certName: 'string',
       mobile: 'string',
       externParam: 'string',
@@ -3608,7 +3608,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.28",
+          sdk_version: "1.15.29",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
