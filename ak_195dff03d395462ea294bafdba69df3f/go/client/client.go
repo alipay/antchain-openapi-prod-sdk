@@ -183,7 +183,7 @@ type SiteInfo struct {
 	SiteName *string `json:"site_name,omitempty" xml:"site_name,omitempty"`
 	//
 	// 截图照片
-	ScreenshotImage *string `json:"screenshot_image,omitempty" xml:"screenshot_image,omitempty"`
+	ScreenshotFile *FileInfo `json:"screenshot_file,omitempty" xml:"screenshot_file,omitempty"`
 	// 站点地址
 	SiteUrl *string `json:"site_url,omitempty" xml:"site_url,omitempty"`
 	// 站点类型
@@ -215,8 +215,8 @@ func (s *SiteInfo) SetSiteName(v string) *SiteInfo {
 	return s
 }
 
-func (s *SiteInfo) SetScreenshotImage(v string) *SiteInfo {
-	s.ScreenshotImage = &v
+func (s *SiteInfo) SetScreenshotFile(v *FileInfo) *SiteInfo {
+	s.ScreenshotFile = v
 	return s
 }
 
@@ -3234,6 +3234,8 @@ type QueryAntchainAtoWithholdActivepayRequest struct {
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" maxLength:"64"`
 	// 支付类型
 	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" maxLength:"64" minLength:"1"`
+	// 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty" maxLength:"64"`
 }
 
 func (s QueryAntchainAtoWithholdActivepayRequest) String() string {
@@ -3271,6 +3273,11 @@ func (s *QueryAntchainAtoWithholdActivepayRequest) SetTradeNo(v string) *QueryAn
 
 func (s *QueryAntchainAtoWithholdActivepayRequest) SetPayType(v string) *QueryAntchainAtoWithholdActivepayRequest {
 	s.PayType = &v
+	return s
+}
+
+func (s *QueryAntchainAtoWithholdActivepayRequest) SetPayChannel(v string) *QueryAntchainAtoWithholdActivepayRequest {
+	s.PayChannel = &v
 	return s
 }
 
@@ -3419,6 +3426,10 @@ type CancelAntchainAtoFundPlanRequest struct {
 	CancelReason *string `json:"cancel_reason,omitempty" xml:"cancel_reason,omitempty" require:"true"`
 	// 融资单的资方社会信用代码
 	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" maxLength:"64"`
+	// 操作
+	Operation *string `json:"operation,omitempty" xml:"operation,omitempty" maxLength:"64"`
+	// 赎回金额,单位为分,取消并赎回时必填
+	RedeemAmount *int64 `json:"redeem_amount,omitempty" xml:"redeem_amount,omitempty" minimum:"10"`
 }
 
 func (s CancelAntchainAtoFundPlanRequest) String() string {
@@ -3456,6 +3467,16 @@ func (s *CancelAntchainAtoFundPlanRequest) SetCancelReason(v string) *CancelAntc
 
 func (s *CancelAntchainAtoFundPlanRequest) SetFundId(v string) *CancelAntchainAtoFundPlanRequest {
 	s.FundId = &v
+	return s
+}
+
+func (s *CancelAntchainAtoFundPlanRequest) SetOperation(v string) *CancelAntchainAtoFundPlanRequest {
+	s.Operation = &v
+	return s
+}
+
+func (s *CancelAntchainAtoFundPlanRequest) SetRedeemAmount(v int64) *CancelAntchainAtoFundPlanRequest {
+	s.RedeemAmount = &v
 	return s
 }
 
@@ -6863,7 +6884,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.8"),
+				"sdk_version":      tea.String("1.3.9"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
