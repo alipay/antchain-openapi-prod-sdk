@@ -38,6 +38,11 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=true)]
         public string BankCode { get; set; }
 
+        // 1=借记卡+贷记卡（默认）；2=借记卡
+        [NameInMap("bank_card_type")]
+        [Validation(Required=false)]
+        public string BankCardType { get; set; }
+
         // 姓名
         [NameInMap("cert_name")]
         [Validation(Required=false)]

@@ -38,11 +38,6 @@ namespace AntChain.SDK.REALPERSON.Models
         [Validation(Required=false)]
         public string ExternParam { get; set; }
 
-        // 认证子类型
-        [NameInMap("scene")]
-        [Validation(Required=false)]
-        public string Scene { get; set; }
-
     }
 
 }
