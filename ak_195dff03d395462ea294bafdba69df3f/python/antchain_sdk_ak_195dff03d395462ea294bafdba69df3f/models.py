@@ -195,7 +195,7 @@ class SiteInfo(TeaModel):
         self,
         tiny_app_id: str = None,
         site_name: str = None,
-        screenshot_image: str = None,
+        screenshot_file: FileInfo = None,
         site_url: str = None,
         site_type: str = None,
     ):
@@ -205,7 +205,7 @@ class SiteInfo(TeaModel):
         self.site_name = site_name
         # 
         # 截图照片
-        self.screenshot_image = screenshot_image
+        self.screenshot_file = screenshot_file
         # 站点地址
         self.site_url = site_url
         # 站点类型
@@ -219,7 +219,8 @@ class SiteInfo(TeaModel):
         self.site_type = site_type
 
     def validate(self):
-        pass
+        if self.screenshot_file:
+            self.screenshot_file.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -231,8 +232,8 @@ class SiteInfo(TeaModel):
             result['tiny_app_id'] = self.tiny_app_id
         if self.site_name is not None:
             result['site_name'] = self.site_name
-        if self.screenshot_image is not None:
-            result['screenshot_image'] = self.screenshot_image
+        if self.screenshot_file is not None:
+            result['screenshot_file'] = self.screenshot_file.to_map()
         if self.site_url is not None:
             result['site_url'] = self.site_url
         if self.site_type is not None:
@@ -245,8 +246,9 @@ class SiteInfo(TeaModel):
             self.tiny_app_id = m.get('tiny_app_id')
         if m.get('site_name') is not None:
             self.site_name = m.get('site_name')
-        if m.get('screenshot_image') is not None:
-            self.screenshot_image = m.get('screenshot_image')
+        if m.get('screenshot_file') is not None:
+            temp_model = FileInfo()
+            self.screenshot_file = temp_model.from_map(m['screenshot_file'])
         if m.get('site_url') is not None:
             self.site_url = m.get('site_url')
         if m.get('site_type') is not None:
@@ -4002,6 +4004,7 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
         period_num: int = None,
         trade_no: str = None,
         pay_type: str = None,
+        pay_channel: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4014,6 +4017,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
         self.trade_no = trade_no
         # 支付类型
         self.pay_type = pay_type
+        # 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+        self.pay_channel = pay_channel
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -4025,6 +4030,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             self.validate_max_length(self.trade_no, 'trade_no', 64)
         if self.pay_type is not None:
             self.validate_max_length(self.pay_type, 'pay_type', 64)
+        if self.pay_channel is not None:
+            self.validate_max_length(self.pay_channel, 'pay_channel', 64)
 
     def to_map(self):
         _map = super().to_map()
@@ -4044,6 +4051,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             result['trade_no'] = self.trade_no
         if self.pay_type is not None:
             result['pay_type'] = self.pay_type
+        if self.pay_channel is not None:
+            result['pay_channel'] = self.pay_channel
         return result
 
     def from_map(self, m: dict = None):
@@ -4060,6 +4069,8 @@ class QueryAntchainAtoWithholdActivepayRequest(TeaModel):
             self.trade_no = m.get('trade_no')
         if m.get('pay_type') is not None:
             self.pay_type = m.get('pay_type')
+        if m.get('pay_channel') is not None:
+            self.pay_channel = m.get('pay_channel')
         return self
 
 
@@ -4244,6 +4255,8 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
         merchant_id: str = None,
         cancel_reason: str = None,
         fund_id: str = None,
+        operation: str = None,
+        redeem_amount: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -4259,6 +4272,10 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
         self.cancel_reason = cancel_reason
         # 融资单的资方社会信用代码
         self.fund_id = fund_id
+        # 操作
+        self.operation = operation
+        # 赎回金额,单位为分,取消并赎回时必填
+        self.redeem_amount = redeem_amount
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -4266,6 +4283,10 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
         self.validate_required(self.cancel_reason, 'cancel_reason')
         if self.fund_id is not None:
             self.validate_max_length(self.fund_id, 'fund_id', 64)
+        if self.operation is not None:
+            self.validate_max_length(self.operation, 'operation', 64)
+        if self.redeem_amount is not None:
+            self.validate_minimum(self.redeem_amount, 'redeem_amount', 10)
 
     def to_map(self):
         _map = super().to_map()
@@ -4285,6 +4306,10 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
             result['cancel_reason'] = self.cancel_reason
         if self.fund_id is not None:
             result['fund_id'] = self.fund_id
+        if self.operation is not None:
+            result['operation'] = self.operation
+        if self.redeem_amount is not None:
+            result['redeem_amount'] = self.redeem_amount
         return result
 
     def from_map(self, m: dict = None):
@@ -4301,6 +4326,10 @@ class CancelAntchainAtoFundPlanRequest(TeaModel):
             self.cancel_reason = m.get('cancel_reason')
         if m.get('fund_id') is not None:
             self.fund_id = m.get('fund_id')
+        if m.get('operation') is not None:
+            self.operation = m.get('operation')
+        if m.get('redeem_amount') is not None:
+            self.redeem_amount = m.get('redeem_amount')
         return self
 
 
