@@ -30,10 +30,6 @@ public class CheckIndividualidTwometaRequest extends TeaModel {
     @NameInMap("extern_param")
     public String externParam;
 
-    // 认证子类型
-    @NameInMap("scene")
-    public String scene;
-
     public static CheckIndividualidTwometaRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckIndividualidTwometaRequest self = new CheckIndividualidTwometaRequest();
         return TeaModel.build(map, self);
@@ -85,14 +81,6 @@ public class CheckIndividualidTwometaRequest extends TeaModel {
     }
     public String getExternParam() {
         return this.externParam;
-    }
-
-    public CheckIndividualidTwometaRequest setScene(String scene) {
-        this.scene = scene;
-        return this;
-    }
-    public String getScene() {
-        return this.scene;
     }
 
 }

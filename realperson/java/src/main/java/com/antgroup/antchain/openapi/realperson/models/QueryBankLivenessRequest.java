@@ -31,6 +31,10 @@ public class QueryBankLivenessRequest extends TeaModel {
     @Validation(required = true)
     public String bankCode;
 
+    // 1=借记卡+贷记卡（默认）；2=借记卡
+    @NameInMap("bank_card_type")
+    public String bankCardType;
+
     // 姓名
     @NameInMap("cert_name")
     public String certName;
@@ -94,6 +98,14 @@ public class QueryBankLivenessRequest extends TeaModel {
     }
     public String getBankCode() {
         return this.bankCode;
+    }
+
+    public QueryBankLivenessRequest setBankCardType(String bankCardType) {
+        this.bankCardType = bankCardType;
+        return this;
+    }
+    public String getBankCardType() {
+        return this.bankCardType;
     }
 
     public QueryBankLivenessRequest setCertName(String certName) {
