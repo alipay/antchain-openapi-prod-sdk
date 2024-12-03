@@ -43,6 +43,12 @@ class QueryBankLivenessRequest extends Model
      */
     public $bankCode;
 
+    // 1=借记卡+贷记卡（默认）；2=借记卡
+    /**
+     * @var string
+     */
+    public $bankCardType;
+
     // 姓名
     /**
      * @var string
@@ -67,6 +73,7 @@ class QueryBankLivenessRequest extends Model
         'encryptType'       => 'encrypt_type',
         'certNo'            => 'cert_no',
         'bankCode'          => 'bank_code',
+        'bankCardType'      => 'bank_card_type',
         'certName'          => 'cert_name',
         'mobile'            => 'mobile',
         'externParam'       => 'extern_param',
@@ -100,6 +107,9 @@ class QueryBankLivenessRequest extends Model
         }
         if (null !== $this->bankCode) {
             $res['bank_code'] = $this->bankCode;
+        }
+        if (null !== $this->bankCardType) {
+            $res['bank_card_type'] = $this->bankCardType;
         }
         if (null !== $this->certName) {
             $res['cert_name'] = $this->certName;
@@ -139,6 +149,9 @@ class QueryBankLivenessRequest extends Model
         }
         if (isset($map['bank_code'])) {
             $model->bankCode = $map['bank_code'];
+        }
+        if (isset($map['bank_card_type'])) {
+            $model->bankCardType = $map['bank_card_type'];
         }
         if (isset($map['cert_name'])) {
             $model->certName = $map['cert_name'];
