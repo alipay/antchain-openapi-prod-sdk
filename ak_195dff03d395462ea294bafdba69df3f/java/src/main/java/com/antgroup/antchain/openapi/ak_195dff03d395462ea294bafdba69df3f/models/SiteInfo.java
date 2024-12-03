@@ -14,8 +14,8 @@ public class SiteInfo extends TeaModel {
 
     // 
     // 截图照片
-    @NameInMap("screenshot_image")
-    public String screenshotImage;
+    @NameInMap("screenshot_file")
+    public FileInfo screenshotFile;
 
     // 站点地址
     @NameInMap("site_url")
@@ -53,12 +53,12 @@ public class SiteInfo extends TeaModel {
         return this.siteName;
     }
 
-    public SiteInfo setScreenshotImage(String screenshotImage) {
-        this.screenshotImage = screenshotImage;
+    public SiteInfo setScreenshotFile(FileInfo screenshotFile) {
+        this.screenshotFile = screenshotFile;
         return this;
     }
-    public String getScreenshotImage() {
-        return this.screenshotImage;
+    public FileInfo getScreenshotFile() {
+        return this.screenshotFile;
     }
 
     public SiteInfo setSiteUrl(String siteUrl) {

@@ -30,6 +30,11 @@ public class QueryAntchainAtoWithholdActivepayRequest extends TeaModel {
     @Validation(maxLength = 64, minLength = 1)
     public String payType;
 
+    // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+    @NameInMap("pay_channel")
+    @Validation(maxLength = 64)
+    public String payChannel;
+
     public static QueryAntchainAtoWithholdActivepayRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntchainAtoWithholdActivepayRequest self = new QueryAntchainAtoWithholdActivepayRequest();
         return TeaModel.build(map, self);
@@ -81,6 +86,14 @@ public class QueryAntchainAtoWithholdActivepayRequest extends TeaModel {
     }
     public String getPayType() {
         return this.payType;
+    }
+
+    public QueryAntchainAtoWithholdActivepayRequest setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+        return this;
+    }
+    public String getPayChannel() {
+        return this.payChannel;
     }
 
 }

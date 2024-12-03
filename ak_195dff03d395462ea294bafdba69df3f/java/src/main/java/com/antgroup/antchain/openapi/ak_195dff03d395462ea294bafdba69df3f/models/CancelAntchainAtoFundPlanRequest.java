@@ -34,6 +34,15 @@ public class CancelAntchainAtoFundPlanRequest extends TeaModel {
     @Validation(maxLength = 64)
     public String fundId;
 
+    // 操作
+    @NameInMap("operation")
+    @Validation(maxLength = 64)
+    public String operation;
+
+    // 赎回金额,单位为分,取消并赎回时必填
+    @NameInMap("redeem_amount")
+    public Long redeemAmount;
+
     public static CancelAntchainAtoFundPlanRequest build(java.util.Map<String, ?> map) throws Exception {
         CancelAntchainAtoFundPlanRequest self = new CancelAntchainAtoFundPlanRequest();
         return TeaModel.build(map, self);
@@ -85,6 +94,22 @@ public class CancelAntchainAtoFundPlanRequest extends TeaModel {
     }
     public String getFundId() {
         return this.fundId;
+    }
+
+    public CancelAntchainAtoFundPlanRequest setOperation(String operation) {
+        this.operation = operation;
+        return this;
+    }
+    public String getOperation() {
+        return this.operation;
+    }
+
+    public CancelAntchainAtoFundPlanRequest setRedeemAmount(Long redeemAmount) {
+        this.redeemAmount = redeemAmount;
+        return this;
+    }
+    public Long getRedeemAmount() {
+        return this.redeemAmount;
     }
 
 }
