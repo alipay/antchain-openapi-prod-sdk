@@ -981,7 +981,6 @@ class CheckIndividualidTwometaRequest(TeaModel):
         cert_name: str = None,
         cert_no: str = None,
         extern_param: str = None,
-        scene: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -994,8 +993,6 @@ class CheckIndividualidTwometaRequest(TeaModel):
         self.cert_no = cert_no
         # map结果的json数据格式，预留字段
         self.extern_param = extern_param
-        # 认证子类型
-        self.scene = scene
 
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
@@ -1020,8 +1017,6 @@ class CheckIndividualidTwometaRequest(TeaModel):
             result['cert_no'] = self.cert_no
         if self.extern_param is not None:
             result['extern_param'] = self.extern_param
-        if self.scene is not None:
-            result['scene'] = self.scene
         return result
 
     def from_map(self, m: dict = None):
@@ -1038,8 +1033,6 @@ class CheckIndividualidTwometaRequest(TeaModel):
             self.cert_no = m.get('cert_no')
         if m.get('extern_param') is not None:
             self.extern_param = m.get('extern_param')
-        if m.get('scene') is not None:
-            self.scene = m.get('scene')
         return self
 
 
@@ -5410,6 +5403,7 @@ class QueryBankLivenessRequest(TeaModel):
         encrypt_type: str = None,
         cert_no: str = None,
         bank_code: str = None,
+        bank_card_type: str = None,
         cert_name: str = None,
         mobile: str = None,
         extern_param: str = None,
@@ -5425,6 +5419,8 @@ class QueryBankLivenessRequest(TeaModel):
         self.cert_no = cert_no
         # 银行编码
         self.bank_code = bank_code
+        # 1=借记卡+贷记卡（默认）；2=借记卡
+        self.bank_card_type = bank_card_type
         # 姓名
         self.cert_name = cert_name
         # 手机号码
@@ -5456,6 +5452,8 @@ class QueryBankLivenessRequest(TeaModel):
             result['cert_no'] = self.cert_no
         if self.bank_code is not None:
             result['bank_code'] = self.bank_code
+        if self.bank_card_type is not None:
+            result['bank_card_type'] = self.bank_card_type
         if self.cert_name is not None:
             result['cert_name'] = self.cert_name
         if self.mobile is not None:
@@ -5478,6 +5476,8 @@ class QueryBankLivenessRequest(TeaModel):
             self.cert_no = m.get('cert_no')
         if m.get('bank_code') is not None:
             self.bank_code = m.get('bank_code')
+        if m.get('bank_card_type') is not None:
+            self.bank_card_type = m.get('bank_card_type')
         if m.get('cert_name') is not None:
             self.cert_name = m.get('cert_name')
         if m.get('mobile') is not None:
