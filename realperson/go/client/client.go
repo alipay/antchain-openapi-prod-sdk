@@ -857,8 +857,6 @@ type CheckIndividualidTwometaRequest struct {
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
 	// map结果的json数据格式，预留字段
 	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
-	// 认证子类型
-	Scene *string `json:"scene,omitempty" xml:"scene,omitempty"`
 }
 
 func (s CheckIndividualidTwometaRequest) String() string {
@@ -896,11 +894,6 @@ func (s *CheckIndividualidTwometaRequest) SetCertNo(v string) *CheckIndividualid
 
 func (s *CheckIndividualidTwometaRequest) SetExternParam(v string) *CheckIndividualidTwometaRequest {
 	s.ExternParam = &v
-	return s
-}
-
-func (s *CheckIndividualidTwometaRequest) SetScene(v string) *CheckIndividualidTwometaRequest {
-	s.Scene = &v
 	return s
 }
 
@@ -4584,6 +4577,8 @@ type QueryBankLivenessRequest struct {
 	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
 	// 银行编码
 	BankCode *string `json:"bank_code,omitempty" xml:"bank_code,omitempty" require:"true"`
+	// 1=借记卡+贷记卡（默认）；2=借记卡
+	BankCardType *string `json:"bank_card_type,omitempty" xml:"bank_card_type,omitempty"`
 	// 姓名
 	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
 	// 手机号码
@@ -4627,6 +4622,11 @@ func (s *QueryBankLivenessRequest) SetCertNo(v string) *QueryBankLivenessRequest
 
 func (s *QueryBankLivenessRequest) SetBankCode(v string) *QueryBankLivenessRequest {
 	s.BankCode = &v
+	return s
+}
+
+func (s *QueryBankLivenessRequest) SetBankCardType(v string) *QueryBankLivenessRequest {
+	s.BankCardType = &v
 	return s
 }
 
@@ -4933,7 +4933,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.28"),
+				"sdk_version":      tea.String("1.15.29"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
