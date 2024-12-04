@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.20',
+    sdk_version = '1.19.21',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -4775,6 +4775,12 @@ model CreateEvidenceLiveRequest = {
   expectedDuration?: long(name='expected_duration'),
   // 主播名称
   anchorName?: string(name='anchor_name'),
+  // 1：视频点播，2：视频直播，3：背景音乐
+  obtainType?: string(name='obtain_type'),
+  // 1：PC、2：移动设备
+  obtainDeviceType?: string(name='obtain_device_type'),
+  // 2：momo，4：比心，5：小红书
+  obtainPlatform?: string(name='obtain_platform'),
 }
 
 model CreateEvidenceLiveResponse = {
