@@ -8804,6 +8804,12 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
   expectedDuration?: number;
   // 主播名称
   anchorName?: string;
+  // 1：视频点播，2：视频直播，3：背景音乐
+  obtainType?: string;
+  // 1：PC、2：移动设备
+  obtainDeviceType?: string;
+  // 2：momo，4：比心，5：小红书
+  obtainPlatform?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8816,6 +8822,9 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
       profileId: 'profile_id',
       expectedDuration: 'expected_duration',
       anchorName: 'anchor_name',
+      obtainType: 'obtain_type',
+      obtainDeviceType: 'obtain_device_type',
+      obtainPlatform: 'obtain_platform',
     };
   }
 
@@ -8831,6 +8840,9 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
       profileId: 'string',
       expectedDuration: 'number',
       anchorName: 'string',
+      obtainType: 'string',
+      obtainDeviceType: 'string',
+      obtainPlatform: 'string',
     };
   }
 
@@ -10327,7 +10339,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.20",
+          sdk_version: "1.19.21",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
