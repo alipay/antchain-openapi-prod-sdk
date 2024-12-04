@@ -4811,7 +4811,6 @@ class QueryCarrierNetstatusRequest(TeaModel):
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
         self.validate_required(self.mobile, 'mobile')
-        self.validate_required(self.extern_param, 'extern_param')
 
     def to_map(self):
         _map = super().to_map()
