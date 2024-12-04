@@ -64,7 +64,6 @@ class QueryCarrierNetstatusRequest extends Model
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
         Model::validateRequired('mobile', $this->mobile, true);
-        Model::validateRequired('externParam', $this->externParam, true);
     }
 
     public function toMap()
