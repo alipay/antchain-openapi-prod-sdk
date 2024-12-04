@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0',
+                    'sdk_version': '1.3.9',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.0',
+                    'sdk_version': '1.3.9',
                     '_prod_code': 'SECURITYTECH',
                     '_prod_channel': 'undefined'
                 }
@@ -501,6 +501,174 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.ListDcpAccountbookResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.dcp.accountbook.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_etc_vehicle(
+        self,
+        request: securitytech_models.QueryEtcVehicleRequest,
+    ) -> securitytech_models.QueryEtcVehicleResponse:
+        """
+        Description: 企业ETC入驻车辆查询
+        Summary: 企业ETC入驻车辆查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_etc_vehicle_ex(request, headers, runtime)
+
+    async def query_etc_vehicle_async(
+        self,
+        request: securitytech_models.QueryEtcVehicleRequest,
+    ) -> securitytech_models.QueryEtcVehicleResponse:
+        """
+        Description: 企业ETC入驻车辆查询
+        Summary: 企业ETC入驻车辆查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_etc_vehicle_ex_async(request, headers, runtime)
+
+    def query_etc_vehicle_ex(
+        self,
+        request: securitytech_models.QueryEtcVehicleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEtcVehicleResponse:
+        """
+        Description: 企业ETC入驻车辆查询
+        Summary: 企业ETC入驻车辆查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEtcVehicleResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.etc.vehicle.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_etc_vehicle_ex_async(
+        self,
+        request: securitytech_models.QueryEtcVehicleRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEtcVehicleResponse:
+        """
+        Description: 企业ETC入驻车辆查询
+        Summary: 企业ETC入驻车辆查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEtcVehicleResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.etc.vehicle.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_etc_waybill(
+        self,
+        request: securitytech_models.UploadEtcWaybillRequest,
+    ) -> securitytech_models.UploadEtcWaybillResponse:
+        """
+        Description: 企业ETC运单上传
+        Summary: 企业ETC运单上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_etc_waybill_ex(request, headers, runtime)
+
+    async def upload_etc_waybill_async(
+        self,
+        request: securitytech_models.UploadEtcWaybillRequest,
+    ) -> securitytech_models.UploadEtcWaybillResponse:
+        """
+        Description: 企业ETC运单上传
+        Summary: 企业ETC运单上传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_etc_waybill_ex_async(request, headers, runtime)
+
+    def upload_etc_waybill_ex(
+        self,
+        request: securitytech_models.UploadEtcWaybillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UploadEtcWaybillResponse:
+        """
+        Description: 企业ETC运单上传
+        Summary: 企业ETC运单上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UploadEtcWaybillResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.etc.waybill.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_etc_waybill_ex_async(
+        self,
+        request: securitytech_models.UploadEtcWaybillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.UploadEtcWaybillResponse:
+        """
+        Description: 企业ETC运单上传
+        Summary: 企业ETC运单上传
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.UploadEtcWaybillResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.etc.waybill.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_etc_trip(
+        self,
+        request: securitytech_models.QueryEtcTripRequest,
+    ) -> securitytech_models.QueryEtcTripResponse:
+        """
+        Description: 企业ETC车辆行程查询
+        Summary: 企业ETC车辆行程查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_etc_trip_ex(request, headers, runtime)
+
+    async def query_etc_trip_async(
+        self,
+        request: securitytech_models.QueryEtcTripRequest,
+    ) -> securitytech_models.QueryEtcTripResponse:
+        """
+        Description: 企业ETC车辆行程查询
+        Summary: 企业ETC车辆行程查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_etc_trip_ex_async(request, headers, runtime)
+
+    def query_etc_trip_ex(
+        self,
+        request: securitytech_models.QueryEtcTripRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEtcTripResponse:
+        """
+        Description: 企业ETC车辆行程查询
+        Summary: 企业ETC车辆行程查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEtcTripResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.etc.trip.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_etc_trip_ex_async(
+        self,
+        request: securitytech_models.QueryEtcTripRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.QueryEtcTripResponse:
+        """
+        Description: 企业ETC车辆行程查询
+        Summary: 企业ETC车辆行程查询
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.QueryEtcTripResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.etc.trip.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_bssecpic(
@@ -2573,4 +2741,60 @@ class Client:
         return TeaCore.from_map(
             securitytech_models.DeleteIifaaDigitalkeyResponse(),
             await self.do_request_async('1.0', 'antsecuritytech.gateway.iifaa.digitalkey.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def check_optical_identify(
+        self,
+        request: securitytech_models.CheckOpticalIdentifyRequest,
+    ) -> securitytech_models.CheckOpticalIdentifyResponse:
+        """
+        Description: 光鉴智能凭证
+        Summary: 光鉴智能凭证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_optical_identify_ex(request, headers, runtime)
+
+    async def check_optical_identify_async(
+        self,
+        request: securitytech_models.CheckOpticalIdentifyRequest,
+    ) -> securitytech_models.CheckOpticalIdentifyResponse:
+        """
+        Description: 光鉴智能凭证
+        Summary: 光鉴智能凭证
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.check_optical_identify_ex_async(request, headers, runtime)
+
+    def check_optical_identify_ex(
+        self,
+        request: securitytech_models.CheckOpticalIdentifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CheckOpticalIdentifyResponse:
+        """
+        Description: 光鉴智能凭证
+        Summary: 光鉴智能凭证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CheckOpticalIdentifyResponse(),
+            self.do_request('1.0', 'antsecuritytech.gateway.optical.identify.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def check_optical_identify_ex_async(
+        self,
+        request: securitytech_models.CheckOpticalIdentifyRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> securitytech_models.CheckOpticalIdentifyResponse:
+        """
+        Description: 光鉴智能凭证
+        Summary: 光鉴智能凭证
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            securitytech_models.CheckOpticalIdentifyResponse(),
+            await self.do_request_async('1.0', 'antsecuritytech.gateway.optical.identify.check', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )

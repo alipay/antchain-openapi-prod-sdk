@@ -719,6 +719,50 @@ class FaceVerifyResultData(TeaModel):
         return self
 
 
+class IdentityData(TeaModel):
+    def __init__(
+        self,
+        is_risk: str = None,
+        risk_type: str = None,
+        ext_info: str = None,
+    ):
+        # 风险等级，枚举值： 0：低风险（打扰率＞10%） 1：中风险（5%＜打扰率≤10%） 2：高风险（打扰率≤5%）
+        self.is_risk = is_risk
+        # 风险类型，枚举值及对应含义： ● PS：图片被PS篡改 ● SCREEN_PHOTO：屏幕翻拍 ● SCREENSHOT：截屏图片 ● COLOR_PRINT：彩打复印 ● WATERMARK：水印 ● FACE_SIMILAR：人脸相似 ● BACKGROUND_SIMILAR：背景相似 ● SIGNATURE_SIMILAR：证件手写签名相似 格式：以英文逗号分隔，如样例
+        self.risk_type = risk_type
+        # 附加字段,json格式字符串
+        self.ext_info = ext_info
+
+    def validate(self):
+        self.validate_required(self.is_risk, 'is_risk')
+        self.validate_required(self.risk_type, 'risk_type')
+        self.validate_required(self.ext_info, 'ext_info')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.is_risk is not None:
+            result['is_risk'] = self.is_risk
+        if self.risk_type is not None:
+            result['risk_type'] = self.risk_type
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('is_risk') is not None:
+            self.is_risk = m.get('is_risk')
+        if m.get('risk_type') is not None:
+            self.risk_type = m.get('risk_type')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
+        return self
+
+
 class HardeningTaskResponse(TeaModel):
     def __init__(
         self,
@@ -768,6 +812,117 @@ class HardeningTaskResponse(TeaModel):
             self.after_md_five = m.get('after_md_five')
         if m.get('after_size') is not None:
             self.after_size = m.get('after_size')
+        return self
+
+
+class EtcVehicleInfo(TeaModel):
+    def __init__(
+        self,
+        vehicle_id: str = None,
+        order_id: str = None,
+        biz_agreement_no: str = None,
+        order_status: str = None,
+        device_no: str = None,
+        deduct_sign_status: str = None,
+        first_actived_time: str = None,
+        service_exp: str = None,
+        device_status: str = None,
+        device_status_detail: str = None,
+        device_biz_time: str = None,
+    ):
+        # 车辆id
+        self.vehicle_id = vehicle_id
+        # etc申请单号
+        self.order_id = order_id
+        # etc平台扣款协议号
+        self.biz_agreement_no = biz_agreement_no
+        # etc申请单状态
+        # ORDER_CREATE:订单创建;ORDER_SYNCED:订单已同步;SUCCESS_ACTIVATE:订单已激活;UNMOUNTING:注销中;UNMOUNTED:已注销;
+        self.order_status = order_status
+        # 用户ETC设备OBU号，当order_status为SUCCESS_ACTIVATE及以后状态时，必选
+        self.device_no = device_no
+        # 代扣签约状态，当传入waybill_no且匹配到对应运单时，deduct_sign_status必选
+        # 待签约: WAIT_SIGN
+        # 已签约: SIGNED
+        # 已解约: UNSIGN
+        self.deduct_sign_status = deduct_sign_status
+        # 设备首次激活时间
+        self.first_actived_time = first_actived_time
+        # 合约到期时间
+        self.service_exp = service_exp
+        # etc设备状态，USABLE-设备激活可用（可上高速正常使用）PENDING-设备激活挂起（限制消费） UNUSABLE-设备异常不可用
+        self.device_status = device_status
+        # 设备状态明细，能清楚说明etc设备此时状态（/卡签注销/卡签挂失/已过户/维修中/黑名单/卡过期/欠费/标签脱落/设备报警/正常/ETC停用等）
+        self.device_status_detail = device_status_detail
+        # 设备状态触发的具体时间
+        self.device_biz_time = device_biz_time
+
+    def validate(self):
+        self.validate_required(self.vehicle_id, 'vehicle_id')
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.biz_agreement_no, 'biz_agreement_no')
+        self.validate_required(self.order_status, 'order_status')
+        if self.first_actived_time is not None:
+            self.validate_pattern(self.first_actived_time, 'first_actived_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.service_exp is not None:
+            self.validate_pattern(self.service_exp, 'service_exp', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.device_biz_time is not None:
+            self.validate_pattern(self.device_biz_time, 'device_biz_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.vehicle_id is not None:
+            result['vehicle_id'] = self.vehicle_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.biz_agreement_no is not None:
+            result['biz_agreement_no'] = self.biz_agreement_no
+        if self.order_status is not None:
+            result['order_status'] = self.order_status
+        if self.device_no is not None:
+            result['device_no'] = self.device_no
+        if self.deduct_sign_status is not None:
+            result['deduct_sign_status'] = self.deduct_sign_status
+        if self.first_actived_time is not None:
+            result['first_actived_time'] = self.first_actived_time
+        if self.service_exp is not None:
+            result['service_exp'] = self.service_exp
+        if self.device_status is not None:
+            result['device_status'] = self.device_status
+        if self.device_status_detail is not None:
+            result['device_status_detail'] = self.device_status_detail
+        if self.device_biz_time is not None:
+            result['device_biz_time'] = self.device_biz_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('vehicle_id') is not None:
+            self.vehicle_id = m.get('vehicle_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('biz_agreement_no') is not None:
+            self.biz_agreement_no = m.get('biz_agreement_no')
+        if m.get('order_status') is not None:
+            self.order_status = m.get('order_status')
+        if m.get('device_no') is not None:
+            self.device_no = m.get('device_no')
+        if m.get('deduct_sign_status') is not None:
+            self.deduct_sign_status = m.get('deduct_sign_status')
+        if m.get('first_actived_time') is not None:
+            self.first_actived_time = m.get('first_actived_time')
+        if m.get('service_exp') is not None:
+            self.service_exp = m.get('service_exp')
+        if m.get('device_status') is not None:
+            self.device_status = m.get('device_status')
+        if m.get('device_status_detail') is not None:
+            self.device_status_detail = m.get('device_status_detail')
+        if m.get('device_biz_time') is not None:
+            self.device_biz_time = m.get('device_biz_time')
         return self
 
 
@@ -1695,6 +1850,100 @@ class ResultList(TeaModel):
         return self
 
 
+class EtcTripInfo(TeaModel):
+    def __init__(
+        self,
+        out_order_id: str = None,
+        trip_start_time: str = None,
+        trip_end_time: str = None,
+        start_station_name: str = None,
+        end_station_name: str = None,
+        sub_type: str = None,
+        sub_scene: str = None,
+        total_amount: str = None,
+        trip_id: str = None,
+        trade_no: str = None,
+    ):
+        # 发行方扣款订单号
+        self.out_order_id = out_order_id
+        # 行程开始时间
+        self.trip_start_time = trip_start_time
+        # 行程结束时间
+        self.trip_end_time = trip_end_time
+        # 1、收费站入口名称 2、格式为省份+收费站名，比如“黑龙江瓦盆窑西站”
+        self.start_station_name = start_station_name
+        # 1、收费站出口名称 2、格式为省份+收费站名，比如“黑龙江瓦盆窑西站”
+        self.end_station_name = end_station_name
+        # HIGHWAY_TYPE：高速交易场景类型，对应具体交易场景[ETC_HIGHWAY,ETC_HIGHWAY_OPEN] EXPAND_TYPE：拓展消费交易类型，对应具体交易场景 [ETC_PARKING,ETC_GAS,ETC_SERVICE_AREA,ETC_MUNICIPAL_SERVICE]
+        self.sub_type = sub_type
+        # ETC_HIGHWAY：ETC封闭式高速公路； ETC_HIGHWAY_OPEN：ETC开放式高速公路； ETC_PARKING：ETC停车场； ETC_GAS：ETC加油站； ETC_SERVICE_AREA：ETC服务区； ETC_MUNICIPAL_SERVICE：ETC市政服务
+        self.sub_scene = sub_scene
+        # 商户扣费的总金额：单位为元，精确到小数点后两位
+        self.total_amount = total_amount
+        # 行程id
+        self.trip_id = trip_id
+        # 交易单号
+        self.trade_no = trade_no
+
+    def validate(self):
+        if self.trip_start_time is not None:
+            self.validate_pattern(self.trip_start_time, 'trip_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.trip_end_time is not None:
+            self.validate_pattern(self.trip_end_time, 'trip_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.trip_start_time is not None:
+            result['trip_start_time'] = self.trip_start_time
+        if self.trip_end_time is not None:
+            result['trip_end_time'] = self.trip_end_time
+        if self.start_station_name is not None:
+            result['start_station_name'] = self.start_station_name
+        if self.end_station_name is not None:
+            result['end_station_name'] = self.end_station_name
+        if self.sub_type is not None:
+            result['sub_type'] = self.sub_type
+        if self.sub_scene is not None:
+            result['sub_scene'] = self.sub_scene
+        if self.total_amount is not None:
+            result['total_amount'] = self.total_amount
+        if self.trip_id is not None:
+            result['trip_id'] = self.trip_id
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('trip_start_time') is not None:
+            self.trip_start_time = m.get('trip_start_time')
+        if m.get('trip_end_time') is not None:
+            self.trip_end_time = m.get('trip_end_time')
+        if m.get('start_station_name') is not None:
+            self.start_station_name = m.get('start_station_name')
+        if m.get('end_station_name') is not None:
+            self.end_station_name = m.get('end_station_name')
+        if m.get('sub_type') is not None:
+            self.sub_type = m.get('sub_type')
+        if m.get('sub_scene') is not None:
+            self.sub_scene = m.get('sub_scene')
+        if m.get('total_amount') is not None:
+            self.total_amount = m.get('total_amount')
+        if m.get('trip_id') is not None:
+            self.trip_id = m.get('trip_id')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        return self
+
+
 class RunGeneralRequest(TeaModel):
     def __init__(
         self,
@@ -2132,6 +2381,547 @@ class ListDcpAccountbookResponse(TeaModel):
             for k in m.get('sign_info_list'):
                 temp_model = SignInfo()
                 self.sign_info_list.append(temp_model.from_map(k))
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class QueryEtcVehicleRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        corp_vehicle_id: str = None,
+        plate_no: str = None,
+        plate_color: str = None,
+        waybill_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+        self.outer_order_no = outer_order_no
+        # 企业侧车辆编号
+        self.corp_vehicle_id = corp_vehicle_id
+        # 车牌号码
+        self.plate_no = plate_no
+        # 车牌颜色，枚举值
+        # 蓝: BLUE
+        # 黄: YELLOW
+        # 黑: BLACK
+        # 白: WHITE
+        # 绿: GREEN
+        self.plate_color = plate_color
+        # 企业运单号，唯一值
+        self.waybill_no = waybill_no
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.corp_vehicle_id, 'corp_vehicle_id')
+        self.validate_required(self.plate_no, 'plate_no')
+        self.validate_required(self.plate_color, 'plate_color')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.corp_vehicle_id is not None:
+            result['corp_vehicle_id'] = self.corp_vehicle_id
+        if self.plate_no is not None:
+            result['plate_no'] = self.plate_no
+        if self.plate_color is not None:
+            result['plate_color'] = self.plate_color
+        if self.waybill_no is not None:
+            result['waybill_no'] = self.waybill_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('corp_vehicle_id') is not None:
+            self.corp_vehicle_id = m.get('corp_vehicle_id')
+        if m.get('plate_no') is not None:
+            self.plate_no = m.get('plate_no')
+        if m.get('plate_color') is not None:
+            self.plate_color = m.get('plate_color')
+        if m.get('waybill_no') is not None:
+            self.waybill_no = m.get('waybill_no')
+        return self
+
+
+class QueryEtcVehicleResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        etc_vehicle: EtcVehicleInfo = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求方租户所关联的车辆入驻信息
+        self.etc_vehicle = etc_vehicle
+        # json格式字符串扩展信息，预留字段。
+        self.extern_info = extern_info
+
+    def validate(self):
+        if self.etc_vehicle:
+            self.etc_vehicle.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.etc_vehicle is not None:
+            result['etc_vehicle'] = self.etc_vehicle.to_map()
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('etc_vehicle') is not None:
+            temp_model = EtcVehicleInfo()
+            self.etc_vehicle = temp_model.from_map(m['etc_vehicle'])
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class UploadEtcWaybillRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        corp_vehicle_id: str = None,
+        plate_no: str = None,
+        plate_color: str = None,
+        waybill_no: str = None,
+        waybill_status: str = None,
+        waybill_start_time: str = None,
+        waybill_end_time: str = None,
+        waybill_start_address: str = None,
+        waybill_end_address: str = None,
+        waybill_fee: str = None,
+        highway_fee: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+        self.outer_order_no = outer_order_no
+        # 企业侧车辆编号
+        self.corp_vehicle_id = corp_vehicle_id
+        # 车牌号码
+        self.plate_no = plate_no
+        # 车牌颜色，枚举值
+        # 蓝: BLUE
+        # 黄: YELLOW
+        # 黑: BLACK
+        # 白: WHITE
+        # 绿: GREEN
+        self.plate_color = plate_color
+        # 企业运单号，唯一值
+        self.waybill_no = waybill_no
+        # 企业运单状态，枚举值
+        # 进行中: IN_PROGRESS
+        # 已完成: COMPLETED
+        # 已取消: CANCELED
+        self.waybill_status = waybill_status
+        # 运单开始时间
+        # 【必选条件】当传入waybill_status，且waybill_status= IN_PROGRESS时必选
+        self.waybill_start_time = waybill_start_time
+        # 企业运单结束时间
+        # 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+        self.waybill_end_time = waybill_end_time
+        # 运单开始地址
+        # 【必选条件】当传入waybill_status，且waybill_status= IN_PROGRESS时必选
+        self.waybill_start_address = waybill_start_address
+        # 运单结束地址，运单目的地
+        # 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+        self.waybill_end_address = waybill_end_address
+        # 运单总费用，单位元，精确到两位小数
+        # 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+        self.waybill_fee = waybill_fee
+        # 高速通行费用，单位元，精确到两位小数
+        self.highway_fee = highway_fee
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.corp_vehicle_id, 'corp_vehicle_id')
+        self.validate_required(self.plate_no, 'plate_no')
+        self.validate_required(self.plate_color, 'plate_color')
+        self.validate_required(self.waybill_no, 'waybill_no')
+        self.validate_required(self.waybill_status, 'waybill_status')
+        if self.waybill_start_time is not None:
+            self.validate_pattern(self.waybill_start_time, 'waybill_start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.waybill_end_time is not None:
+            self.validate_pattern(self.waybill_end_time, 'waybill_end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.corp_vehicle_id is not None:
+            result['corp_vehicle_id'] = self.corp_vehicle_id
+        if self.plate_no is not None:
+            result['plate_no'] = self.plate_no
+        if self.plate_color is not None:
+            result['plate_color'] = self.plate_color
+        if self.waybill_no is not None:
+            result['waybill_no'] = self.waybill_no
+        if self.waybill_status is not None:
+            result['waybill_status'] = self.waybill_status
+        if self.waybill_start_time is not None:
+            result['waybill_start_time'] = self.waybill_start_time
+        if self.waybill_end_time is not None:
+            result['waybill_end_time'] = self.waybill_end_time
+        if self.waybill_start_address is not None:
+            result['waybill_start_address'] = self.waybill_start_address
+        if self.waybill_end_address is not None:
+            result['waybill_end_address'] = self.waybill_end_address
+        if self.waybill_fee is not None:
+            result['waybill_fee'] = self.waybill_fee
+        if self.highway_fee is not None:
+            result['highway_fee'] = self.highway_fee
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('corp_vehicle_id') is not None:
+            self.corp_vehicle_id = m.get('corp_vehicle_id')
+        if m.get('plate_no') is not None:
+            self.plate_no = m.get('plate_no')
+        if m.get('plate_color') is not None:
+            self.plate_color = m.get('plate_color')
+        if m.get('waybill_no') is not None:
+            self.waybill_no = m.get('waybill_no')
+        if m.get('waybill_status') is not None:
+            self.waybill_status = m.get('waybill_status')
+        if m.get('waybill_start_time') is not None:
+            self.waybill_start_time = m.get('waybill_start_time')
+        if m.get('waybill_end_time') is not None:
+            self.waybill_end_time = m.get('waybill_end_time')
+        if m.get('waybill_start_address') is not None:
+            self.waybill_start_address = m.get('waybill_start_address')
+        if m.get('waybill_end_address') is not None:
+            self.waybill_end_address = m.get('waybill_end_address')
+        if m.get('waybill_fee') is not None:
+            self.waybill_fee = m.get('waybill_fee')
+        if m.get('highway_fee') is not None:
+            self.highway_fee = m.get('highway_fee')
+        return self
+
+
+class UploadEtcWaybillResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_id: str = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 运单记录号
+        self.biz_id = biz_id
+        # json格式字符串扩展信息，预留字段。
+        self.extern_info = extern_info
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_id is not None:
+            result['biz_id'] = self.biz_id
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_id') is not None:
+            self.biz_id = m.get('biz_id')
+        if m.get('extern_info') is not None:
+            self.extern_info = m.get('extern_info')
+        return self
+
+
+class QueryEtcTripRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        outer_order_no: str = None,
+        corp_vehicle_id: str = None,
+        plate_no: str = None,
+        plate_color: str = None,
+        waybill_no: str = None,
+        page_num: int = None,
+        page_size: int = None,
+        start_time: str = None,
+        end_time: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+        self.outer_order_no = outer_order_no
+        # 企业侧车辆编号
+        self.corp_vehicle_id = corp_vehicle_id
+        # 车牌号码
+        self.plate_no = plate_no
+        # 车牌颜色，蓝: BLUE 黄: YELLOW 黑: BLACK 白: WHITE 绿: GREEN
+        self.plate_color = plate_color
+        # 企业运单号，唯一值
+        self.waybill_no = waybill_no
+        # 当前页码
+        # 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+        self.page_num = page_num
+        # 每页数据条数
+        # 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+        self.page_size = page_size
+        # 行程查询开始时间
+        # 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+        self.start_time = start_time
+        # 行程查询结束时间
+        # 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+        # 
+        self.end_time = end_time
+
+    def validate(self):
+        self.validate_required(self.outer_order_no, 'outer_order_no')
+        self.validate_required(self.corp_vehicle_id, 'corp_vehicle_id')
+        self.validate_required(self.plate_no, 'plate_no')
+        self.validate_required(self.plate_color, 'plate_color')
+        self.validate_required(self.waybill_no, 'waybill_no')
+        if self.start_time is not None:
+            self.validate_pattern(self.start_time, 'start_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        if self.end_time is not None:
+            self.validate_pattern(self.end_time, 'end_time', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.outer_order_no is not None:
+            result['outer_order_no'] = self.outer_order_no
+        if self.corp_vehicle_id is not None:
+            result['corp_vehicle_id'] = self.corp_vehicle_id
+        if self.plate_no is not None:
+            result['plate_no'] = self.plate_no
+        if self.plate_color is not None:
+            result['plate_color'] = self.plate_color
+        if self.waybill_no is not None:
+            result['waybill_no'] = self.waybill_no
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.start_time is not None:
+            result['start_time'] = self.start_time
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('outer_order_no') is not None:
+            self.outer_order_no = m.get('outer_order_no')
+        if m.get('corp_vehicle_id') is not None:
+            self.corp_vehicle_id = m.get('corp_vehicle_id')
+        if m.get('plate_no') is not None:
+            self.plate_no = m.get('plate_no')
+        if m.get('plate_color') is not None:
+            self.plate_color = m.get('plate_color')
+        if m.get('waybill_no') is not None:
+            self.waybill_no = m.get('waybill_no')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('start_time') is not None:
+            self.start_time = m.get('start_time')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        return self
+
+
+class QueryEtcTripResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        total_page: int = None,
+        total_size: int = None,
+        page_num: int = None,
+        page_size: int = None,
+        has_next: bool = None,
+        trip_list: List[EtcTripInfo] = None,
+        extern_info: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 总页数
+        self.total_page = total_page
+        # 总记录数
+        self.total_size = total_size
+        # 当前页码
+        # 
+        self.page_num = page_num
+        # 每页条数
+        self.page_size = page_size
+        # 是否还有下一页
+        self.has_next = has_next
+        # 请求方租户所关联的行程单据列表
+        self.trip_list = trip_list
+        # json格式字符串扩展信息，预留字段。
+        self.extern_info = extern_info
+
+    def validate(self):
+        if self.trip_list:
+            for k in self.trip_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.total_page is not None:
+            result['total_page'] = self.total_page
+        if self.total_size is not None:
+            result['total_size'] = self.total_size
+        if self.page_num is not None:
+            result['page_num'] = self.page_num
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.has_next is not None:
+            result['has_next'] = self.has_next
+        result['trip_list'] = []
+        if self.trip_list is not None:
+            for k in self.trip_list:
+                result['trip_list'].append(k.to_map() if k else None)
+        if self.extern_info is not None:
+            result['extern_info'] = self.extern_info
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('total_page') is not None:
+            self.total_page = m.get('total_page')
+        if m.get('total_size') is not None:
+            self.total_size = m.get('total_size')
+        if m.get('page_num') is not None:
+            self.page_num = m.get('page_num')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('has_next') is not None:
+            self.has_next = m.get('has_next')
+        self.trip_list = []
+        if m.get('trip_list') is not None:
+            for k in m.get('trip_list'):
+                temp_model = EtcTripInfo()
+                self.trip_list.append(temp_model.from_map(k))
         if m.get('extern_info') is not None:
             self.extern_info = m.get('extern_info')
         return self
@@ -7286,6 +8076,120 @@ class DeleteIifaaDigitalkeyResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class CheckOpticalIdentifyRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        reserved_data: str = None,
+        image_url: str = None,
+        image_content: str = None,
+        raas_products: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # json数据，包含tenantId,sceneId,outBizId,fakeType,certType
+        self.reserved_data = reserved_data
+        # 图片链接,image_url和image_content 2选1优先选择image_content
+        self.image_url = image_url
+        # base64编码的图片,image_url和image_content 2选1，优先选择image_content
+        self.image_content = image_content
+        # raas产品码
+        self.raas_products = raas_products
+
+    def validate(self):
+        self.validate_required(self.reserved_data, 'reserved_data')
+        self.validate_required(self.raas_products, 'raas_products')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.reserved_data is not None:
+            result['reserved_data'] = self.reserved_data
+        if self.image_url is not None:
+            result['image_url'] = self.image_url
+        if self.image_content is not None:
+            result['image_content'] = self.image_content
+        if self.raas_products is not None:
+            result['raas_products'] = self.raas_products
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('reserved_data') is not None:
+            self.reserved_data = m.get('reserved_data')
+        if m.get('image_url') is not None:
+            self.image_url = m.get('image_url')
+        if m.get('image_content') is not None:
+            self.image_content = m.get('image_content')
+        if m.get('raas_products') is not None:
+            self.raas_products = m.get('raas_products')
+        return self
+
+
+class CheckOpticalIdentifyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: IdentityData = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 光鉴智能凭证响应结果
+        self.data = data
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            temp_model = IdentityData()
+            self.data = temp_model.from_map(m['data'])
         return self
 
 
