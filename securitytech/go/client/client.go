@@ -574,6 +574,39 @@ func (s *FaceVerifyResultData) SetMaterialInfo(v string) *FaceVerifyResultData {
 	return s
 }
 
+// 光鉴智能凭证结构体
+type IdentityData struct {
+	// 风险等级，枚举值： 0：低风险（打扰率＞10%） 1：中风险（5%＜打扰率≤10%） 2：高风险（打扰率≤5%）
+	IsRisk *string `json:"is_risk,omitempty" xml:"is_risk,omitempty" require:"true"`
+	// 风险类型，枚举值及对应含义： ● PS：图片被PS篡改 ● SCREEN_PHOTO：屏幕翻拍 ● SCREENSHOT：截屏图片 ● COLOR_PRINT：彩打复印 ● WATERMARK：水印 ● FACE_SIMILAR：人脸相似 ● BACKGROUND_SIMILAR：背景相似 ● SIGNATURE_SIMILAR：证件手写签名相似 格式：以英文逗号分隔，如样例
+	RiskType *string `json:"risk_type,omitempty" xml:"risk_type,omitempty" require:"true"`
+	// 附加字段,json格式字符串
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty" require:"true"`
+}
+
+func (s IdentityData) String() string {
+	return tea.Prettify(s)
+}
+
+func (s IdentityData) GoString() string {
+	return s.String()
+}
+
+func (s *IdentityData) SetIsRisk(v string) *IdentityData {
+	s.IsRisk = &v
+	return s
+}
+
+func (s *IdentityData) SetRiskType(v string) *IdentityData {
+	s.RiskType = &v
+	return s
+}
+
+func (s *IdentityData) SetExtInfo(v string) *IdentityData {
+	s.ExtInfo = &v
+	return s
+}
+
 // 安卓加固HardeningTaskResponse
 type HardeningTaskResponse struct {
 	// 加固任务的 ID，后续用来轮询调用
@@ -611,6 +644,99 @@ func (s *HardeningTaskResponse) SetAfterMdFive(v string) *HardeningTaskResponse 
 
 func (s *HardeningTaskResponse) SetAfterSize(v int64) *HardeningTaskResponse {
 	s.AfterSize = &v
+	return s
+}
+
+// ETC车辆信息
+type EtcVehicleInfo struct {
+	// 车辆id
+	VehicleId *string `json:"vehicle_id,omitempty" xml:"vehicle_id,omitempty" require:"true"`
+	// etc申请单号
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// etc平台扣款协议号
+	BizAgreementNo *string `json:"biz_agreement_no,omitempty" xml:"biz_agreement_no,omitempty" require:"true"`
+	// etc申请单状态
+	// ORDER_CREATE:订单创建;ORDER_SYNCED:订单已同步;SUCCESS_ACTIVATE:订单已激活;UNMOUNTING:注销中;UNMOUNTED:已注销;
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty" require:"true"`
+	// 用户ETC设备OBU号，当order_status为SUCCESS_ACTIVATE及以后状态时，必选
+	DeviceNo *string `json:"device_no,omitempty" xml:"device_no,omitempty"`
+	// 代扣签约状态，当传入waybill_no且匹配到对应运单时，deduct_sign_status必选
+	// 待签约: WAIT_SIGN
+	// 已签约: SIGNED
+	// 已解约: UNSIGN
+	DeductSignStatus *string `json:"deduct_sign_status,omitempty" xml:"deduct_sign_status,omitempty"`
+	// 设备首次激活时间
+	FirstActivedTime *string `json:"first_actived_time,omitempty" xml:"first_actived_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 合约到期时间
+	ServiceExp *string `json:"service_exp,omitempty" xml:"service_exp,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// etc设备状态，USABLE-设备激活可用（可上高速正常使用）PENDING-设备激活挂起（限制消费） UNUSABLE-设备异常不可用
+	DeviceStatus *string `json:"device_status,omitempty" xml:"device_status,omitempty"`
+	// 设备状态明细，能清楚说明etc设备此时状态（/卡签注销/卡签挂失/已过户/维修中/黑名单/卡过期/欠费/标签脱落/设备报警/正常/ETC停用等）
+	DeviceStatusDetail *string `json:"device_status_detail,omitempty" xml:"device_status_detail,omitempty"`
+	// 设备状态触发的具体时间
+	DeviceBizTime *string `json:"device_biz_time,omitempty" xml:"device_biz_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s EtcVehicleInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EtcVehicleInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EtcVehicleInfo) SetVehicleId(v string) *EtcVehicleInfo {
+	s.VehicleId = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetOrderId(v string) *EtcVehicleInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetBizAgreementNo(v string) *EtcVehicleInfo {
+	s.BizAgreementNo = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetOrderStatus(v string) *EtcVehicleInfo {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetDeviceNo(v string) *EtcVehicleInfo {
+	s.DeviceNo = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetDeductSignStatus(v string) *EtcVehicleInfo {
+	s.DeductSignStatus = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetFirstActivedTime(v string) *EtcVehicleInfo {
+	s.FirstActivedTime = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetServiceExp(v string) *EtcVehicleInfo {
+	s.ServiceExp = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetDeviceStatus(v string) *EtcVehicleInfo {
+	s.DeviceStatus = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetDeviceStatusDetail(v string) *EtcVehicleInfo {
+	s.DeviceStatusDetail = &v
+	return s
+}
+
+func (s *EtcVehicleInfo) SetDeviceBizTime(v string) *EtcVehicleInfo {
+	s.DeviceBizTime = &v
 	return s
 }
 
@@ -1287,6 +1413,88 @@ func (s *ResultList) SetBizParams(v []*BizParam) *ResultList {
 	return s
 }
 
+// ETC行程信息
+type EtcTripInfo struct {
+	// 发行方扣款订单号
+	OutOrderId *string `json:"out_order_id,omitempty" xml:"out_order_id,omitempty"`
+	// 行程开始时间
+	TripStartTime *string `json:"trip_start_time,omitempty" xml:"trip_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 行程结束时间
+	TripEndTime *string `json:"trip_end_time,omitempty" xml:"trip_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 1、收费站入口名称 2、格式为省份+收费站名，比如“黑龙江瓦盆窑西站”
+	StartStationName *string `json:"start_station_name,omitempty" xml:"start_station_name,omitempty"`
+	// 1、收费站出口名称 2、格式为省份+收费站名，比如“黑龙江瓦盆窑西站”
+	EndStationName *string `json:"end_station_name,omitempty" xml:"end_station_name,omitempty"`
+	// HIGHWAY_TYPE：高速交易场景类型，对应具体交易场景[ETC_HIGHWAY,ETC_HIGHWAY_OPEN] EXPAND_TYPE：拓展消费交易类型，对应具体交易场景 [ETC_PARKING,ETC_GAS,ETC_SERVICE_AREA,ETC_MUNICIPAL_SERVICE]
+	SubType *string `json:"sub_type,omitempty" xml:"sub_type,omitempty"`
+	// ETC_HIGHWAY：ETC封闭式高速公路； ETC_HIGHWAY_OPEN：ETC开放式高速公路； ETC_PARKING：ETC停车场； ETC_GAS：ETC加油站； ETC_SERVICE_AREA：ETC服务区； ETC_MUNICIPAL_SERVICE：ETC市政服务
+	SubScene *string `json:"sub_scene,omitempty" xml:"sub_scene,omitempty"`
+	// 商户扣费的总金额：单位为元，精确到小数点后两位
+	TotalAmount *string `json:"total_amount,omitempty" xml:"total_amount,omitempty"`
+	// 行程id
+	TripId *string `json:"trip_id,omitempty" xml:"trip_id,omitempty"`
+	// 交易单号
+	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty"`
+}
+
+func (s EtcTripInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s EtcTripInfo) GoString() string {
+	return s.String()
+}
+
+func (s *EtcTripInfo) SetOutOrderId(v string) *EtcTripInfo {
+	s.OutOrderId = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetTripStartTime(v string) *EtcTripInfo {
+	s.TripStartTime = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetTripEndTime(v string) *EtcTripInfo {
+	s.TripEndTime = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetStartStationName(v string) *EtcTripInfo {
+	s.StartStationName = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetEndStationName(v string) *EtcTripInfo {
+	s.EndStationName = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetSubType(v string) *EtcTripInfo {
+	s.SubType = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetSubScene(v string) *EtcTripInfo {
+	s.SubScene = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetTotalAmount(v string) *EtcTripInfo {
+	s.TotalAmount = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetTripId(v string) *EtcTripInfo {
+	s.TripId = &v
+	return s
+}
+
+func (s *EtcTripInfo) SetTradeNo(v string) *EtcTripInfo {
+	s.TradeNo = &v
+	return s
+}
+
 type RunGeneralRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -1626,6 +1834,457 @@ func (s *ListDcpAccountbookResponse) SetSignInfoList(v []*SignInfo) *ListDcpAcco
 }
 
 func (s *ListDcpAccountbookResponse) SetExternInfo(v string) *ListDcpAccountbookResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryEtcVehicleRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 企业侧车辆编号
+	CorpVehicleId *string `json:"corp_vehicle_id,omitempty" xml:"corp_vehicle_id,omitempty" require:"true"`
+	// 车牌号码
+	PlateNo *string `json:"plate_no,omitempty" xml:"plate_no,omitempty" require:"true"`
+	// 车牌颜色，枚举值
+	// 蓝: BLUE
+	// 黄: YELLOW
+	// 黑: BLACK
+	// 白: WHITE
+	// 绿: GREEN
+	PlateColor *string `json:"plate_color,omitempty" xml:"plate_color,omitempty" require:"true"`
+	// 企业运单号，唯一值
+	WaybillNo *string `json:"waybill_no,omitempty" xml:"waybill_no,omitempty"`
+}
+
+func (s QueryEtcVehicleRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEtcVehicleRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEtcVehicleRequest) SetAuthToken(v string) *QueryEtcVehicleRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEtcVehicleRequest) SetProductInstanceId(v string) *QueryEtcVehicleRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEtcVehicleRequest) SetOuterOrderNo(v string) *QueryEtcVehicleRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryEtcVehicleRequest) SetCorpVehicleId(v string) *QueryEtcVehicleRequest {
+	s.CorpVehicleId = &v
+	return s
+}
+
+func (s *QueryEtcVehicleRequest) SetPlateNo(v string) *QueryEtcVehicleRequest {
+	s.PlateNo = &v
+	return s
+}
+
+func (s *QueryEtcVehicleRequest) SetPlateColor(v string) *QueryEtcVehicleRequest {
+	s.PlateColor = &v
+	return s
+}
+
+func (s *QueryEtcVehicleRequest) SetWaybillNo(v string) *QueryEtcVehicleRequest {
+	s.WaybillNo = &v
+	return s
+}
+
+type QueryEtcVehicleResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求方租户所关联的车辆入驻信息
+	EtcVehicle *EtcVehicleInfo `json:"etc_vehicle,omitempty" xml:"etc_vehicle,omitempty"`
+	// json格式字符串扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryEtcVehicleResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEtcVehicleResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEtcVehicleResponse) SetReqMsgId(v string) *QueryEtcVehicleResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEtcVehicleResponse) SetResultCode(v string) *QueryEtcVehicleResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEtcVehicleResponse) SetResultMsg(v string) *QueryEtcVehicleResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEtcVehicleResponse) SetEtcVehicle(v *EtcVehicleInfo) *QueryEtcVehicleResponse {
+	s.EtcVehicle = v
+	return s
+}
+
+func (s *QueryEtcVehicleResponse) SetExternInfo(v string) *QueryEtcVehicleResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type UploadEtcWaybillRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 企业侧车辆编号
+	CorpVehicleId *string `json:"corp_vehicle_id,omitempty" xml:"corp_vehicle_id,omitempty" require:"true"`
+	// 车牌号码
+	PlateNo *string `json:"plate_no,omitempty" xml:"plate_no,omitempty" require:"true"`
+	// 车牌颜色，枚举值
+	// 蓝: BLUE
+	// 黄: YELLOW
+	// 黑: BLACK
+	// 白: WHITE
+	// 绿: GREEN
+	PlateColor *string `json:"plate_color,omitempty" xml:"plate_color,omitempty" require:"true"`
+	// 企业运单号，唯一值
+	WaybillNo *string `json:"waybill_no,omitempty" xml:"waybill_no,omitempty" require:"true"`
+	// 企业运单状态，枚举值
+	// 进行中: IN_PROGRESS
+	// 已完成: COMPLETED
+	// 已取消: CANCELED
+	WaybillStatus *string `json:"waybill_status,omitempty" xml:"waybill_status,omitempty" require:"true"`
+	// 运单开始时间
+	// 【必选条件】当传入waybill_status，且waybill_status= IN_PROGRESS时必选
+	WaybillStartTime *string `json:"waybill_start_time,omitempty" xml:"waybill_start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 企业运单结束时间
+	// 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+	WaybillEndTime *string `json:"waybill_end_time,omitempty" xml:"waybill_end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 运单开始地址
+	// 【必选条件】当传入waybill_status，且waybill_status= IN_PROGRESS时必选
+	WaybillStartAddress *string `json:"waybill_start_address,omitempty" xml:"waybill_start_address,omitempty"`
+	// 运单结束地址，运单目的地
+	// 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+	WaybillEndAddress *string `json:"waybill_end_address,omitempty" xml:"waybill_end_address,omitempty"`
+	// 运单总费用，单位元，精确到两位小数
+	// 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+	WaybillFee *string `json:"waybill_fee,omitempty" xml:"waybill_fee,omitempty"`
+	// 高速通行费用，单位元，精确到两位小数
+	HighwayFee *string `json:"highway_fee,omitempty" xml:"highway_fee,omitempty"`
+}
+
+func (s UploadEtcWaybillRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadEtcWaybillRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UploadEtcWaybillRequest) SetAuthToken(v string) *UploadEtcWaybillRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetProductInstanceId(v string) *UploadEtcWaybillRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetOuterOrderNo(v string) *UploadEtcWaybillRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetCorpVehicleId(v string) *UploadEtcWaybillRequest {
+	s.CorpVehicleId = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetPlateNo(v string) *UploadEtcWaybillRequest {
+	s.PlateNo = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetPlateColor(v string) *UploadEtcWaybillRequest {
+	s.PlateColor = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetWaybillNo(v string) *UploadEtcWaybillRequest {
+	s.WaybillNo = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetWaybillStatus(v string) *UploadEtcWaybillRequest {
+	s.WaybillStatus = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetWaybillStartTime(v string) *UploadEtcWaybillRequest {
+	s.WaybillStartTime = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetWaybillEndTime(v string) *UploadEtcWaybillRequest {
+	s.WaybillEndTime = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetWaybillStartAddress(v string) *UploadEtcWaybillRequest {
+	s.WaybillStartAddress = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetWaybillEndAddress(v string) *UploadEtcWaybillRequest {
+	s.WaybillEndAddress = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetWaybillFee(v string) *UploadEtcWaybillRequest {
+	s.WaybillFee = &v
+	return s
+}
+
+func (s *UploadEtcWaybillRequest) SetHighwayFee(v string) *UploadEtcWaybillRequest {
+	s.HighwayFee = &v
+	return s
+}
+
+type UploadEtcWaybillResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 运单记录号
+	BizId *string `json:"biz_id,omitempty" xml:"biz_id,omitempty"`
+	// json格式字符串扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s UploadEtcWaybillResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UploadEtcWaybillResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UploadEtcWaybillResponse) SetReqMsgId(v string) *UploadEtcWaybillResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UploadEtcWaybillResponse) SetResultCode(v string) *UploadEtcWaybillResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UploadEtcWaybillResponse) SetResultMsg(v string) *UploadEtcWaybillResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UploadEtcWaybillResponse) SetBizId(v string) *UploadEtcWaybillResponse {
+	s.BizId = &v
+	return s
+}
+
+func (s *UploadEtcWaybillResponse) SetExternInfo(v string) *UploadEtcWaybillResponse {
+	s.ExternInfo = &v
+	return s
+}
+
+type QueryEtcTripRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
+	// 企业侧车辆编号
+	CorpVehicleId *string `json:"corp_vehicle_id,omitempty" xml:"corp_vehicle_id,omitempty" require:"true"`
+	// 车牌号码
+	PlateNo *string `json:"plate_no,omitempty" xml:"plate_no,omitempty" require:"true"`
+	// 车牌颜色，蓝: BLUE 黄: YELLOW 黑: BLACK 白: WHITE 绿: GREEN
+	PlateColor *string `json:"plate_color,omitempty" xml:"plate_color,omitempty" require:"true"`
+	// 企业运单号，唯一值
+	WaybillNo *string `json:"waybill_no,omitempty" xml:"waybill_no,omitempty" require:"true"`
+	// 当前页码
+	// 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页数据条数
+	// 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 行程查询开始时间
+	// 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+	StartTime *string `json:"start_time,omitempty" xml:"start_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 行程查询结束时间
+	// 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+	//
+	EndTime *string `json:"end_time,omitempty" xml:"end_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+}
+
+func (s QueryEtcTripRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEtcTripRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEtcTripRequest) SetAuthToken(v string) *QueryEtcTripRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetProductInstanceId(v string) *QueryEtcTripRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetOuterOrderNo(v string) *QueryEtcTripRequest {
+	s.OuterOrderNo = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetCorpVehicleId(v string) *QueryEtcTripRequest {
+	s.CorpVehicleId = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetPlateNo(v string) *QueryEtcTripRequest {
+	s.PlateNo = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetPlateColor(v string) *QueryEtcTripRequest {
+	s.PlateColor = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetWaybillNo(v string) *QueryEtcTripRequest {
+	s.WaybillNo = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetPageNum(v int64) *QueryEtcTripRequest {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetPageSize(v int64) *QueryEtcTripRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetStartTime(v string) *QueryEtcTripRequest {
+	s.StartTime = &v
+	return s
+}
+
+func (s *QueryEtcTripRequest) SetEndTime(v string) *QueryEtcTripRequest {
+	s.EndTime = &v
+	return s
+}
+
+type QueryEtcTripResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 总页数
+	TotalPage *int64 `json:"total_page,omitempty" xml:"total_page,omitempty"`
+	// 总记录数
+	TotalSize *int64 `json:"total_size,omitempty" xml:"total_size,omitempty"`
+	// 当前页码
+	//
+	PageNum *int64 `json:"page_num,omitempty" xml:"page_num,omitempty"`
+	// 每页条数
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 是否还有下一页
+	HasNext *bool `json:"has_next,omitempty" xml:"has_next,omitempty"`
+	// 请求方租户所关联的行程单据列表
+	TripList []*EtcTripInfo `json:"trip_list,omitempty" xml:"trip_list,omitempty" type:"Repeated"`
+	// json格式字符串扩展信息，预留字段。
+	ExternInfo *string `json:"extern_info,omitempty" xml:"extern_info,omitempty"`
+}
+
+func (s QueryEtcTripResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryEtcTripResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryEtcTripResponse) SetReqMsgId(v string) *QueryEtcTripResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetResultCode(v string) *QueryEtcTripResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetResultMsg(v string) *QueryEtcTripResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetTotalPage(v int64) *QueryEtcTripResponse {
+	s.TotalPage = &v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetTotalSize(v int64) *QueryEtcTripResponse {
+	s.TotalSize = &v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetPageNum(v int64) *QueryEtcTripResponse {
+	s.PageNum = &v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetPageSize(v int64) *QueryEtcTripResponse {
+	s.PageSize = &v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetHasNext(v bool) *QueryEtcTripResponse {
+	s.HasNext = &v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetTripList(v []*EtcTripInfo) *QueryEtcTripResponse {
+	s.TripList = v
+	return s
+}
+
+func (s *QueryEtcTripResponse) SetExternInfo(v string) *QueryEtcTripResponse {
 	s.ExternInfo = &v
 	return s
 }
@@ -5846,6 +6505,97 @@ func (s *DeleteIifaaDigitalkeyResponse) SetData(v bool) *DeleteIifaaDigitalkeyRe
 	return s
 }
 
+type CheckOpticalIdentifyRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// json数据，包含tenantId,sceneId,outBizId,fakeType,certType
+	ReservedData *string `json:"reserved_data,omitempty" xml:"reserved_data,omitempty" require:"true"`
+	// 图片链接,image_url和image_content 2选1优先选择image_content
+	ImageUrl *string `json:"image_url,omitempty" xml:"image_url,omitempty"`
+	// base64编码的图片,image_url和image_content 2选1，优先选择image_content
+	ImageContent *string `json:"image_content,omitempty" xml:"image_content,omitempty"`
+	// raas产品码
+	RaasProducts *string `json:"raas_products,omitempty" xml:"raas_products,omitempty" require:"true"`
+}
+
+func (s CheckOpticalIdentifyRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckOpticalIdentifyRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CheckOpticalIdentifyRequest) SetAuthToken(v string) *CheckOpticalIdentifyRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CheckOpticalIdentifyRequest) SetProductInstanceId(v string) *CheckOpticalIdentifyRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CheckOpticalIdentifyRequest) SetReservedData(v string) *CheckOpticalIdentifyRequest {
+	s.ReservedData = &v
+	return s
+}
+
+func (s *CheckOpticalIdentifyRequest) SetImageUrl(v string) *CheckOpticalIdentifyRequest {
+	s.ImageUrl = &v
+	return s
+}
+
+func (s *CheckOpticalIdentifyRequest) SetImageContent(v string) *CheckOpticalIdentifyRequest {
+	s.ImageContent = &v
+	return s
+}
+
+func (s *CheckOpticalIdentifyRequest) SetRaasProducts(v string) *CheckOpticalIdentifyRequest {
+	s.RaasProducts = &v
+	return s
+}
+
+type CheckOpticalIdentifyResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 光鉴智能凭证响应结果
+	Data *IdentityData `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CheckOpticalIdentifyResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CheckOpticalIdentifyResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CheckOpticalIdentifyResponse) SetReqMsgId(v string) *CheckOpticalIdentifyResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CheckOpticalIdentifyResponse) SetResultCode(v string) *CheckOpticalIdentifyResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CheckOpticalIdentifyResponse) SetResultMsg(v string) *CheckOpticalIdentifyResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CheckOpticalIdentifyResponse) SetData(v *IdentityData) *CheckOpticalIdentifyResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -5968,7 +6718,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.0"),
+				"sdk_version":      tea.String("1.3.9"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -6157,6 +6907,108 @@ func (client *Client) ListDcpAccountbookEx(request *ListDcpAccountbookRequest, h
 	}
 	_result = &ListDcpAccountbookResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.dcp.accountbook.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业ETC入驻车辆查询
+ * Summary: 企业ETC入驻车辆查询
+ */
+func (client *Client) QueryEtcVehicle(request *QueryEtcVehicleRequest) (_result *QueryEtcVehicleResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEtcVehicleResponse{}
+	_body, _err := client.QueryEtcVehicleEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业ETC入驻车辆查询
+ * Summary: 企业ETC入驻车辆查询
+ */
+func (client *Client) QueryEtcVehicleEx(request *QueryEtcVehicleRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEtcVehicleResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEtcVehicleResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.etc.vehicle.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业ETC运单上传
+ * Summary: 企业ETC运单上传
+ */
+func (client *Client) UploadEtcWaybill(request *UploadEtcWaybillRequest) (_result *UploadEtcWaybillResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UploadEtcWaybillResponse{}
+	_body, _err := client.UploadEtcWaybillEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业ETC运单上传
+ * Summary: 企业ETC运单上传
+ */
+func (client *Client) UploadEtcWaybillEx(request *UploadEtcWaybillRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadEtcWaybillResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UploadEtcWaybillResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.etc.waybill.upload"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 企业ETC车辆行程查询
+ * Summary: 企业ETC车辆行程查询
+ */
+func (client *Client) QueryEtcTrip(request *QueryEtcTripRequest) (_result *QueryEtcTripResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryEtcTripResponse{}
+	_body, _err := client.QueryEtcTripEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 企业ETC车辆行程查询
+ * Summary: 企业ETC车辆行程查询
+ */
+func (client *Client) QueryEtcTripEx(request *QueryEtcTripRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryEtcTripResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryEtcTripResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.etc.trip.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
@@ -7415,6 +8267,40 @@ func (client *Client) DeleteIifaaDigitalkeyEx(request *DeleteIifaaDigitalkeyRequ
 	}
 	_result = &DeleteIifaaDigitalkeyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.iifaa.digitalkey.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 光鉴智能凭证
+ * Summary: 光鉴智能凭证
+ */
+func (client *Client) CheckOpticalIdentify(request *CheckOpticalIdentifyRequest) (_result *CheckOpticalIdentifyResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CheckOpticalIdentifyResponse{}
+	_body, _err := client.CheckOpticalIdentifyEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 光鉴智能凭证
+ * Summary: 光鉴智能凭证
+ */
+func (client *Client) CheckOpticalIdentifyEx(request *CheckOpticalIdentifyRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CheckOpticalIdentifyResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CheckOpticalIdentifyResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.optical.identify.check"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
