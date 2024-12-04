@@ -4055,7 +4055,7 @@ type QueryCarrierNetstatusRequest struct {
 	// 1：MD5
 	EncryptType *string `json:"encrypt_type,omitempty" xml:"encrypt_type,omitempty"`
 	// 扩展信息，预留字段
-	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty" require:"true"`
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
 
 func (s QueryCarrierNetstatusRequest) String() string {
@@ -4933,7 +4933,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.29"),
+				"sdk_version":      tea.String("1.15.30"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
