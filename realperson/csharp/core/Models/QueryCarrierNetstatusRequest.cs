@@ -42,7 +42,7 @@ namespace AntChain.SDK.REALPERSON.Models
 
         // 扩展信息，预留字段
         [NameInMap("extern_param")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ExternParam { get; set; }
 
     }
