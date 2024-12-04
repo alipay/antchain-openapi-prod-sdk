@@ -48,6 +48,18 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     @NameInMap("anchor_name")
     public String anchorName;
 
+    // 1：视频点播，2：视频直播，3：背景音乐
+    @NameInMap("obtain_type")
+    public String obtainType;
+
+    // 1：PC、2：移动设备
+    @NameInMap("obtain_device_type")
+    public String obtainDeviceType;
+
+    // 2：momo，4：比心，5：小红书
+    @NameInMap("obtain_platform")
+    public String obtainPlatform;
+
     public static CreateEvidenceLiveRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateEvidenceLiveRequest self = new CreateEvidenceLiveRequest();
         return TeaModel.build(map, self);
@@ -131,6 +143,30 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     }
     public String getAnchorName() {
         return this.anchorName;
+    }
+
+    public CreateEvidenceLiveRequest setObtainType(String obtainType) {
+        this.obtainType = obtainType;
+        return this;
+    }
+    public String getObtainType() {
+        return this.obtainType;
+    }
+
+    public CreateEvidenceLiveRequest setObtainDeviceType(String obtainDeviceType) {
+        this.obtainDeviceType = obtainDeviceType;
+        return this;
+    }
+    public String getObtainDeviceType() {
+        return this.obtainDeviceType;
+    }
+
+    public CreateEvidenceLiveRequest setObtainPlatform(String obtainPlatform) {
+        this.obtainPlatform = obtainPlatform;
+        return this;
+    }
+    public String getObtainPlatform() {
+        return this.obtainPlatform;
     }
 
 }
