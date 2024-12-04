@@ -66,6 +66,24 @@ class CreateEvidenceLiveRequest extends Model
      * @var string
      */
     public $anchorName;
+
+    // 1：视频点播，2：视频直播，3：背景音乐
+    /**
+     * @var string
+     */
+    public $obtainType;
+
+    // 1：PC、2：移动设备
+    /**
+     * @var string
+     */
+    public $obtainDeviceType;
+
+    // 2：momo，4：比心，5：小红书
+    /**
+     * @var string
+     */
+    public $obtainPlatform;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +95,9 @@ class CreateEvidenceLiveRequest extends Model
         'profileId'         => 'profile_id',
         'expectedDuration'  => 'expected_duration',
         'anchorName'        => 'anchor_name',
+        'obtainType'        => 'obtain_type',
+        'obtainDeviceType'  => 'obtain_device_type',
+        'obtainPlatform'    => 'obtain_platform',
     ];
 
     public function validate()
@@ -121,6 +142,15 @@ class CreateEvidenceLiveRequest extends Model
         if (null !== $this->anchorName) {
             $res['anchor_name'] = $this->anchorName;
         }
+        if (null !== $this->obtainType) {
+            $res['obtain_type'] = $this->obtainType;
+        }
+        if (null !== $this->obtainDeviceType) {
+            $res['obtain_device_type'] = $this->obtainDeviceType;
+        }
+        if (null !== $this->obtainPlatform) {
+            $res['obtain_platform'] = $this->obtainPlatform;
+        }
 
         return $res;
     }
@@ -162,6 +192,15 @@ class CreateEvidenceLiveRequest extends Model
         }
         if (isset($map['anchor_name'])) {
             $model->anchorName = $map['anchor_name'];
+        }
+        if (isset($map['obtain_type'])) {
+            $model->obtainType = $map['obtain_type'];
+        }
+        if (isset($map['obtain_device_type'])) {
+            $model->obtainDeviceType = $map['obtain_device_type'];
+        }
+        if (isset($map['obtain_platform'])) {
+            $model->obtainPlatform = $map['obtain_platform'];
         }
 
         return $model;
