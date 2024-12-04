@@ -13,6 +13,8 @@ use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyRequest;
 use AntChain\SECURITYTECH\Models\ApplyIifaaDevicekeyResponse;
+use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyRequest;
+use AntChain\SECURITYTECH\Models\CheckOpticalIdentifyResponse;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureRequest;
 use AntChain\SECURITYTECH\Models\CreateBlueshieldSecuritypictureResponse;
 use AntChain\SECURITYTECH\Models\CreateBssecpicRequest;
@@ -63,6 +65,10 @@ use AntChain\SECURITYTECH\Models\QueryEkytFaceverifyRequest;
 use AntChain\SECURITYTECH\Models\QueryEkytFaceverifyResponse;
 use AntChain\SECURITYTECH\Models\QueryEkytTrustsignRequest;
 use AntChain\SECURITYTECH\Models\QueryEkytTrustsignResponse;
+use AntChain\SECURITYTECH\Models\QueryEtcTripRequest;
+use AntChain\SECURITYTECH\Models\QueryEtcTripResponse;
+use AntChain\SECURITYTECH\Models\QueryEtcVehicleRequest;
+use AntChain\SECURITYTECH\Models\QueryEtcVehicleResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeRequest;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldNativeResponse;
 use AntChain\SECURITYTECH\Models\QueryFaceshieldWebRequest;
@@ -91,6 +97,8 @@ use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskRequest;
 use AntChain\SECURITYTECH\Models\SubmitAshieldPeriodhardeningtaskResponse;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportRequest;
 use AntChain\SECURITYTECH\Models\SubmitDeviceriskReportResponse;
+use AntChain\SECURITYTECH\Models\UploadEtcWaybillRequest;
+use AntChain\SECURITYTECH\Models\UploadEtcWaybillResponse;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceRequest;
 use AntChain\SECURITYTECH\Models\VerifyIifaaDeviceResponse;
 use AntChain\Util\UtilClient;
@@ -240,7 +248,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.0',
+                    'sdk_version'      => '1.3.9',
                     '_prod_code'       => 'SECURITYTECH',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -420,6 +428,105 @@ class Client
         Utils::validateModel($request);
 
         return ListDcpAccountbookResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.dcp.accountbook.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业ETC入驻车辆查询
+     * Summary: 企业ETC入驻车辆查询.
+     *
+     * @param QueryEtcVehicleRequest $request
+     *
+     * @return QueryEtcVehicleResponse
+     */
+    public function queryEtcVehicle($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEtcVehicleEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业ETC入驻车辆查询
+     * Summary: 企业ETC入驻车辆查询.
+     *
+     * @param QueryEtcVehicleRequest $request
+     * @param string[]               $headers
+     * @param RuntimeOptions         $runtime
+     *
+     * @return QueryEtcVehicleResponse
+     */
+    public function queryEtcVehicleEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEtcVehicleResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.etc.vehicle.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业ETC运单上传
+     * Summary: 企业ETC运单上传.
+     *
+     * @param UploadEtcWaybillRequest $request
+     *
+     * @return UploadEtcWaybillResponse
+     */
+    public function uploadEtcWaybill($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->uploadEtcWaybillEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业ETC运单上传
+     * Summary: 企业ETC运单上传.
+     *
+     * @param UploadEtcWaybillRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UploadEtcWaybillResponse
+     */
+    public function uploadEtcWaybillEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UploadEtcWaybillResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.etc.waybill.upload', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 企业ETC车辆行程查询
+     * Summary: 企业ETC车辆行程查询.
+     *
+     * @param QueryEtcTripRequest $request
+     *
+     * @return QueryEtcTripResponse
+     */
+    public function queryEtcTrip($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryEtcTripEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 企业ETC车辆行程查询
+     * Summary: 企业ETC车辆行程查询.
+     *
+     * @param QueryEtcTripRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryEtcTripResponse
+     */
+    public function queryEtcTripEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryEtcTripResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.etc.trip.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -1641,5 +1748,38 @@ class Client
         Utils::validateModel($request);
 
         return DeleteIifaaDigitalkeyResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.iifaa.digitalkey.delete', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 光鉴智能凭证
+     * Summary: 光鉴智能凭证
+     *
+     * @param CheckOpticalIdentifyRequest $request
+     *
+     * @return CheckOpticalIdentifyResponse
+     */
+    public function checkOpticalIdentify($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->checkOpticalIdentifyEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 光鉴智能凭证
+     * Summary: 光鉴智能凭证
+     *
+     * @param CheckOpticalIdentifyRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return CheckOpticalIdentifyResponse
+     */
+    public function checkOpticalIdentifyEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CheckOpticalIdentifyResponse::fromMap($this->doRequest('1.0', 'antsecuritytech.gateway.optical.identify.check', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
