@@ -14663,6 +14663,9 @@ class CreateEvidenceLiveRequest(TeaModel):
         profile_id: str = None,
         expected_duration: int = None,
         anchor_name: str = None,
+        obtain_type: str = None,
+        obtain_device_type: str = None,
+        obtain_platform: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14683,6 +14686,12 @@ class CreateEvidenceLiveRequest(TeaModel):
         self.expected_duration = expected_duration
         # 主播名称
         self.anchor_name = anchor_name
+        # 1：视频点播，2：视频直播，3：背景音乐
+        self.obtain_type = obtain_type
+        # 1：PC、2：移动设备
+        self.obtain_device_type = obtain_device_type
+        # 2：momo，4：比心，5：小红书
+        self.obtain_platform = obtain_platform
 
     def validate(self):
         self.validate_required(self.evidence_user_id, 'evidence_user_id')
@@ -14719,6 +14728,12 @@ class CreateEvidenceLiveRequest(TeaModel):
             result['expected_duration'] = self.expected_duration
         if self.anchor_name is not None:
             result['anchor_name'] = self.anchor_name
+        if self.obtain_type is not None:
+            result['obtain_type'] = self.obtain_type
+        if self.obtain_device_type is not None:
+            result['obtain_device_type'] = self.obtain_device_type
+        if self.obtain_platform is not None:
+            result['obtain_platform'] = self.obtain_platform
         return result
 
     def from_map(self, m: dict = None):
@@ -14744,6 +14759,12 @@ class CreateEvidenceLiveRequest(TeaModel):
             self.expected_duration = m.get('expected_duration')
         if m.get('anchor_name') is not None:
             self.anchor_name = m.get('anchor_name')
+        if m.get('obtain_type') is not None:
+            self.obtain_type = m.get('obtain_type')
+        if m.get('obtain_device_type') is not None:
+            self.obtain_device_type = m.get('obtain_device_type')
+        if m.get('obtain_platform') is not None:
+            self.obtain_platform = m.get('obtain_platform')
         return self
 
 
