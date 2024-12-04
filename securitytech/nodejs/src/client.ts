@@ -432,6 +432,35 @@ export class FaceVerifyResultData extends $tea.Model {
   }
 }
 
+// 光鉴智能凭证结构体
+export class IdentityData extends $tea.Model {
+  // 风险等级，枚举值： 0：低风险（打扰率＞10%） 1：中风险（5%＜打扰率≤10%） 2：高风险（打扰率≤5%）
+  isRisk: string;
+  // 风险类型，枚举值及对应含义： ● PS：图片被PS篡改 ● SCREEN_PHOTO：屏幕翻拍 ● SCREENSHOT：截屏图片 ● COLOR_PRINT：彩打复印 ● WATERMARK：水印 ● FACE_SIMILAR：人脸相似 ● BACKGROUND_SIMILAR：背景相似 ● SIGNATURE_SIMILAR：证件手写签名相似 格式：以英文逗号分隔，如样例
+  riskType: string;
+  // 附加字段,json格式字符串
+  extInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      isRisk: 'is_risk',
+      riskType: 'risk_type',
+      extInfo: 'ext_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      isRisk: 'string',
+      riskType: 'string',
+      extInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 安卓加固HardeningTaskResponse
 export class HardeningTaskResponse extends $tea.Model {
   // 加固任务的 ID，后续用来轮询调用
@@ -457,6 +486,71 @@ export class HardeningTaskResponse extends $tea.Model {
       status: 'number',
       afterMdFive: 'string',
       afterSize: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// ETC车辆信息
+export class EtcVehicleInfo extends $tea.Model {
+  // 车辆id
+  vehicleId: string;
+  // etc申请单号
+  orderId: string;
+  // etc平台扣款协议号
+  bizAgreementNo: string;
+  // etc申请单状态
+  // ORDER_CREATE:订单创建;ORDER_SYNCED:订单已同步;SUCCESS_ACTIVATE:订单已激活;UNMOUNTING:注销中;UNMOUNTED:已注销;
+  orderStatus: string;
+  // 用户ETC设备OBU号，当order_status为SUCCESS_ACTIVATE及以后状态时，必选
+  deviceNo?: string;
+  // 代扣签约状态，当传入waybill_no且匹配到对应运单时，deduct_sign_status必选
+  // 待签约: WAIT_SIGN
+  // 已签约: SIGNED
+  // 已解约: UNSIGN
+  deductSignStatus?: string;
+  // 设备首次激活时间
+  firstActivedTime?: string;
+  // 合约到期时间
+  serviceExp?: string;
+  // etc设备状态，USABLE-设备激活可用（可上高速正常使用）PENDING-设备激活挂起（限制消费） UNUSABLE-设备异常不可用
+  deviceStatus?: string;
+  // 设备状态明细，能清楚说明etc设备此时状态（/卡签注销/卡签挂失/已过户/维修中/黑名单/卡过期/欠费/标签脱落/设备报警/正常/ETC停用等）
+  deviceStatusDetail?: string;
+  // 设备状态触发的具体时间
+  deviceBizTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      vehicleId: 'vehicle_id',
+      orderId: 'order_id',
+      bizAgreementNo: 'biz_agreement_no',
+      orderStatus: 'order_status',
+      deviceNo: 'device_no',
+      deductSignStatus: 'deduct_sign_status',
+      firstActivedTime: 'first_actived_time',
+      serviceExp: 'service_exp',
+      deviceStatus: 'device_status',
+      deviceStatusDetail: 'device_status_detail',
+      deviceBizTime: 'device_biz_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      vehicleId: 'string',
+      orderId: 'string',
+      bizAgreementNo: 'string',
+      orderStatus: 'string',
+      deviceNo: 'string',
+      deductSignStatus: 'string',
+      firstActivedTime: 'string',
+      serviceExp: 'string',
+      deviceStatus: 'string',
+      deviceStatusDetail: 'string',
+      deviceBizTime: 'string',
     };
   }
 
@@ -1033,6 +1127,63 @@ export class ResultList extends $tea.Model {
   }
 }
 
+// ETC行程信息
+export class EtcTripInfo extends $tea.Model {
+  // 发行方扣款订单号
+  outOrderId?: string;
+  // 行程开始时间
+  tripStartTime?: string;
+  // 行程结束时间
+  tripEndTime?: string;
+  // 1、收费站入口名称 2、格式为省份+收费站名，比如“黑龙江瓦盆窑西站”
+  startStationName?: string;
+  // 1、收费站出口名称 2、格式为省份+收费站名，比如“黑龙江瓦盆窑西站”
+  endStationName?: string;
+  // HIGHWAY_TYPE：高速交易场景类型，对应具体交易场景[ETC_HIGHWAY,ETC_HIGHWAY_OPEN] EXPAND_TYPE：拓展消费交易类型，对应具体交易场景 [ETC_PARKING,ETC_GAS,ETC_SERVICE_AREA,ETC_MUNICIPAL_SERVICE]
+  subType?: string;
+  // ETC_HIGHWAY：ETC封闭式高速公路； ETC_HIGHWAY_OPEN：ETC开放式高速公路； ETC_PARKING：ETC停车场； ETC_GAS：ETC加油站； ETC_SERVICE_AREA：ETC服务区； ETC_MUNICIPAL_SERVICE：ETC市政服务
+  subScene?: string;
+  // 商户扣费的总金额：单位为元，精确到小数点后两位
+  totalAmount?: string;
+  // 行程id
+  tripId?: string;
+  // 交易单号
+  tradeNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      outOrderId: 'out_order_id',
+      tripStartTime: 'trip_start_time',
+      tripEndTime: 'trip_end_time',
+      startStationName: 'start_station_name',
+      endStationName: 'end_station_name',
+      subType: 'sub_type',
+      subScene: 'sub_scene',
+      totalAmount: 'total_amount',
+      tripId: 'trip_id',
+      tradeNo: 'trade_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      outOrderId: 'string',
+      tripStartTime: 'string',
+      tripEndTime: 'string',
+      startStationName: 'string',
+      endStationName: 'string',
+      subType: 'string',
+      subScene: 'string',
+      totalAmount: 'string',
+      tripId: 'string',
+      tradeNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class RunGeneralRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -1296,6 +1447,331 @@ export class ListDcpAccountbookResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       signInfoList: { 'type': 'array', 'itemType': SignInfo },
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEtcVehicleRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 企业侧车辆编号
+  corpVehicleId: string;
+  // 车牌号码
+  plateNo: string;
+  // 车牌颜色，枚举值
+  // 蓝: BLUE
+  // 黄: YELLOW
+  // 黑: BLACK
+  // 白: WHITE
+  // 绿: GREEN
+  plateColor: string;
+  // 企业运单号，唯一值
+  waybillNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      corpVehicleId: 'corp_vehicle_id',
+      plateNo: 'plate_no',
+      plateColor: 'plate_color',
+      waybillNo: 'waybill_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      corpVehicleId: 'string',
+      plateNo: 'string',
+      plateColor: 'string',
+      waybillNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEtcVehicleResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求方租户所关联的车辆入驻信息
+  etcVehicle?: EtcVehicleInfo;
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      etcVehicle: 'etc_vehicle',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      etcVehicle: EtcVehicleInfo,
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadEtcWaybillRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 企业侧车辆编号
+  corpVehicleId: string;
+  // 车牌号码
+  plateNo: string;
+  // 车牌颜色，枚举值
+  // 蓝: BLUE
+  // 黄: YELLOW
+  // 黑: BLACK
+  // 白: WHITE
+  // 绿: GREEN
+  plateColor: string;
+  // 企业运单号，唯一值
+  waybillNo: string;
+  // 企业运单状态，枚举值
+  // 进行中: IN_PROGRESS
+  // 已完成: COMPLETED
+  // 已取消: CANCELED
+  waybillStatus: string;
+  // 运单开始时间
+  // 【必选条件】当传入waybill_status，且waybill_status= IN_PROGRESS时必选
+  waybillStartTime?: string;
+  // 企业运单结束时间
+  // 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+  waybillEndTime?: string;
+  // 运单开始地址
+  // 【必选条件】当传入waybill_status，且waybill_status= IN_PROGRESS时必选
+  waybillStartAddress?: string;
+  // 运单结束地址，运单目的地
+  // 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+  waybillEndAddress?: string;
+  // 运单总费用，单位元，精确到两位小数
+  // 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+  waybillFee?: string;
+  // 高速通行费用，单位元，精确到两位小数
+  highwayFee?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      corpVehicleId: 'corp_vehicle_id',
+      plateNo: 'plate_no',
+      plateColor: 'plate_color',
+      waybillNo: 'waybill_no',
+      waybillStatus: 'waybill_status',
+      waybillStartTime: 'waybill_start_time',
+      waybillEndTime: 'waybill_end_time',
+      waybillStartAddress: 'waybill_start_address',
+      waybillEndAddress: 'waybill_end_address',
+      waybillFee: 'waybill_fee',
+      highwayFee: 'highway_fee',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      corpVehicleId: 'string',
+      plateNo: 'string',
+      plateColor: 'string',
+      waybillNo: 'string',
+      waybillStatus: 'string',
+      waybillStartTime: 'string',
+      waybillEndTime: 'string',
+      waybillStartAddress: 'string',
+      waybillEndAddress: 'string',
+      waybillFee: 'string',
+      highwayFee: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UploadEtcWaybillResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 运单记录号
+  bizId?: string;
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizId: 'biz_id',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizId: 'string',
+      externInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEtcTripRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string;
+  // 企业侧车辆编号
+  corpVehicleId: string;
+  // 车牌号码
+  plateNo: string;
+  // 车牌颜色，蓝: BLUE 黄: YELLOW 黑: BLACK 白: WHITE 绿: GREEN
+  plateColor: string;
+  // 企业运单号，唯一值
+  waybillNo: string;
+  // 当前页码
+  // 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+  pageNum?: number;
+  // 每页数据条数
+  // 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+  pageSize?: number;
+  // 行程查询开始时间
+  // 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+  startTime?: string;
+  // 行程查询结束时间
+  // 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+  // 
+  endTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outerOrderNo: 'outer_order_no',
+      corpVehicleId: 'corp_vehicle_id',
+      plateNo: 'plate_no',
+      plateColor: 'plate_color',
+      waybillNo: 'waybill_no',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      startTime: 'start_time',
+      endTime: 'end_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outerOrderNo: 'string',
+      corpVehicleId: 'string',
+      plateNo: 'string',
+      plateColor: 'string',
+      waybillNo: 'string',
+      pageNum: 'number',
+      pageSize: 'number',
+      startTime: 'string',
+      endTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryEtcTripResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 总页数
+  totalPage?: number;
+  // 总记录数
+  totalSize?: number;
+  // 当前页码
+  // 
+  pageNum?: number;
+  // 每页条数
+  pageSize?: number;
+  // 是否还有下一页
+  hasNext?: boolean;
+  // 请求方租户所关联的行程单据列表
+  tripList?: EtcTripInfo[];
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      totalPage: 'total_page',
+      totalSize: 'total_size',
+      pageNum: 'page_num',
+      pageSize: 'page_size',
+      hasNext: 'has_next',
+      tripList: 'trip_list',
+      externInfo: 'extern_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      totalPage: 'number',
+      totalSize: 'number',
+      pageNum: 'number',
+      pageSize: 'number',
+      hasNext: 'boolean',
+      tripList: { 'type': 'array', 'itemType': EtcTripInfo },
       externInfo: 'string',
     };
   }
@@ -4427,6 +4903,77 @@ export class DeleteIifaaDigitalkeyResponse extends $tea.Model {
   }
 }
 
+export class CheckOpticalIdentifyRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // json数据，包含tenantId,sceneId,outBizId,fakeType,certType
+  reservedData: string;
+  // 图片链接,image_url和image_content 2选1优先选择image_content
+  imageUrl?: string;
+  // base64编码的图片,image_url和image_content 2选1，优先选择image_content
+  imageContent?: string;
+  // raas产品码
+  raasProducts: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      reservedData: 'reserved_data',
+      imageUrl: 'image_url',
+      imageContent: 'image_content',
+      raasProducts: 'raas_products',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      reservedData: 'string',
+      imageUrl: 'string',
+      imageContent: 'string',
+      raasProducts: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CheckOpticalIdentifyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 光鉴智能凭证响应结果
+  data?: IdentityData;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      data: IdentityData,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -4540,7 +5087,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.0",
+          sdk_version: "1.3.9",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -4664,6 +5211,63 @@ export default class Client {
   async listDcpAccountbookEx(request: ListDcpAccountbookRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListDcpAccountbookResponse> {
     Util.validateModel(request);
     return $tea.cast<ListDcpAccountbookResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.dcp.accountbook.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListDcpAccountbookResponse({}));
+  }
+
+  /**
+   * Description: 企业ETC入驻车辆查询
+   * Summary: 企业ETC入驻车辆查询
+   */
+  async queryEtcVehicle(request: QueryEtcVehicleRequest): Promise<QueryEtcVehicleResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEtcVehicleEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业ETC入驻车辆查询
+   * Summary: 企业ETC入驻车辆查询
+   */
+  async queryEtcVehicleEx(request: QueryEtcVehicleRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEtcVehicleResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEtcVehicleResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.etc.vehicle.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEtcVehicleResponse({}));
+  }
+
+  /**
+   * Description: 企业ETC运单上传
+   * Summary: 企业ETC运单上传
+   */
+  async uploadEtcWaybill(request: UploadEtcWaybillRequest): Promise<UploadEtcWaybillResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.uploadEtcWaybillEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业ETC运单上传
+   * Summary: 企业ETC运单上传
+   */
+  async uploadEtcWaybillEx(request: UploadEtcWaybillRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UploadEtcWaybillResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UploadEtcWaybillResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.etc.waybill.upload", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UploadEtcWaybillResponse({}));
+  }
+
+  /**
+   * Description: 企业ETC车辆行程查询
+   * Summary: 企业ETC车辆行程查询
+   */
+  async queryEtcTrip(request: QueryEtcTripRequest): Promise<QueryEtcTripResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryEtcTripEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 企业ETC车辆行程查询
+   * Summary: 企业ETC车辆行程查询
+   */
+  async queryEtcTripEx(request: QueryEtcTripRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryEtcTripResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryEtcTripResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.etc.trip.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryEtcTripResponse({}));
   }
 
   /**
@@ -5367,6 +5971,25 @@ export default class Client {
   async deleteIifaaDigitalkeyEx(request: DeleteIifaaDigitalkeyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteIifaaDigitalkeyResponse> {
     Util.validateModel(request);
     return $tea.cast<DeleteIifaaDigitalkeyResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.iifaa.digitalkey.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteIifaaDigitalkeyResponse({}));
+  }
+
+  /**
+   * Description: 光鉴智能凭证
+   * Summary: 光鉴智能凭证
+   */
+  async checkOpticalIdentify(request: CheckOpticalIdentifyRequest): Promise<CheckOpticalIdentifyResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.checkOpticalIdentifyEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 光鉴智能凭证
+   * Summary: 光鉴智能凭证
+   */
+  async checkOpticalIdentifyEx(request: CheckOpticalIdentifyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CheckOpticalIdentifyResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CheckOpticalIdentifyResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.optical.identify.check", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CheckOpticalIdentifyResponse({}));
   }
 
 }
