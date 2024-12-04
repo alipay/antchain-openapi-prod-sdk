@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.0',
+    sdk_version = '1.3.9',
     _prod_code = 'SECURITYTECH',
     _prod_channel = 'undefined'
   };
@@ -289,6 +289,16 @@ model FaceVerifyResultData {
   materialInfo: string(name='material_info', example='"{\"faceOcclusion\":false}"'),
 }
 
+// 光鉴智能凭证结构体
+model IdentityData {
+  // 风险等级，枚举值： 0：低风险（打扰率＞10%） 1：中风险（5%＜打扰率≤10%） 2：高风险（打扰率≤5%）
+  isRisk: string(name='is_risk', example='1'),
+  // 风险类型，枚举值及对应含义： ● PS：图片被PS篡改 ● SCREEN_PHOTO：屏幕翻拍 ● SCREENSHOT：截屏图片 ● COLOR_PRINT：彩打复印 ● WATERMARK：水印 ● FACE_SIMILAR：人脸相似 ● BACKGROUND_SIMILAR：背景相似 ● SIGNATURE_SIMILAR：证件手写签名相似 格式：以英文逗号分隔，如样例
+  riskType: string(name='risk_type', example='PS,SCREEN_PHOTO'),
+  // 附加字段,json格式字符串
+  extInfo: string(name='ext_info', example='{ "ps_score": "0.0236", "screen_photo_score": "0.1839"}'),
+}
+
 // 安卓加固HardeningTaskResponse
 model HardeningTaskResponse {
   // 加固任务的 ID，后续用来轮询调用
@@ -299,6 +309,36 @@ model HardeningTaskResponse {
   afterMdFive: string(name='after_md_five', example='after_md_five'),
   // 加固后 APK/ABB 的大小
   afterSize: long(name='after_size', example=''),
+}
+
+// ETC车辆信息
+model EtcVehicleInfo {
+  // 车辆id
+  vehicleId: string(name='vehicle_id', example='2039029939'),
+  // etc申请单号
+  orderId: string(name='order_id', example='20212424231413243'),
+  // etc平台扣款协议号
+  bizAgreementNo: string(name='biz_agreement_no', example='20211232213232'),
+  // etc申请单状态
+  // ORDER_CREATE:订单创建;ORDER_SYNCED:订单已同步;SUCCESS_ACTIVATE:订单已激活;UNMOUNTING:注销中;UNMOUNTED:已注销;
+  orderStatus: string(name='order_status', example='ORDER_CREATE'),
+  // 用户ETC设备OBU号，当order_status为SUCCESS_ACTIVATE及以后状态时，必选
+  deviceNo?: string(name='device_no', example='32432def'),
+  // 代扣签约状态，当传入waybill_no且匹配到对应运单时，deduct_sign_status必选
+  // 待签约: WAIT_SIGN
+  // 已签约: SIGNED
+  // 已解约: UNSIGN
+  deductSignStatus?: string(name='deduct_sign_status', example='WAIT_SIGN'),
+  // 设备首次激活时间
+  firstActivedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='first_actived_time', example='2018-10-10T10:10:00Z'),
+  // 合约到期时间
+  serviceExp?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='service_exp', example='2018-10-10T10:10:00Z'),
+  // etc设备状态，USABLE-设备激活可用（可上高速正常使用）PENDING-设备激活挂起（限制消费） UNUSABLE-设备异常不可用
+  deviceStatus?: string(name='device_status', example='USABLE'),
+  // 设备状态明细，能清楚说明etc设备此时状态（/卡签注销/卡签挂失/已过户/维修中/黑名单/卡过期/欠费/标签脱落/设备报警/正常/ETC停用等）
+  deviceStatusDetail?: string(name='device_status_detail', example='卡签挂起'),
+  // 设备状态触发的具体时间
+  deviceBizTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='device_biz_time', example='2018-10-10T10:10:00Z'),
 }
 
 // eKYT业务响应结果
@@ -505,6 +545,30 @@ model ResultList {
   bizParams: [ BizParam ](name='biz_params', example=''),
 }
 
+// ETC行程信息
+model EtcTripInfo {
+  // 发行方扣款订单号
+  outOrderId?: string(name='out_order_id', example='56789123456'),
+  // 行程开始时间
+  tripStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trip_start_time', example='2018-10-10T10:10:00Z'),
+  // 行程结束时间
+  tripEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='trip_end_time', example='2018-10-10T10:10:00Z'),
+  // 1、收费站入口名称 2、格式为省份+收费站名，比如“黑龙江瓦盆窑西站”
+  startStationName?: string(name='start_station_name', example='黑龙江瓦盆窑西站'),
+  // 1、收费站出口名称 2、格式为省份+收费站名，比如“黑龙江瓦盆窑西站”
+  endStationName?: string(name='end_station_name', example='黑龙江瓦盆窑西站'),
+  // HIGHWAY_TYPE：高速交易场景类型，对应具体交易场景[ETC_HIGHWAY,ETC_HIGHWAY_OPEN] EXPAND_TYPE：拓展消费交易类型，对应具体交易场景 [ETC_PARKING,ETC_GAS,ETC_SERVICE_AREA,ETC_MUNICIPAL_SERVICE]
+  subType?: string(name='sub_type', example='HIGHWAY_TYPE'),
+  // ETC_HIGHWAY：ETC封闭式高速公路； ETC_HIGHWAY_OPEN：ETC开放式高速公路； ETC_PARKING：ETC停车场； ETC_GAS：ETC加油站； ETC_SERVICE_AREA：ETC服务区； ETC_MUNICIPAL_SERVICE：ETC市政服务
+  subScene?: string(name='sub_scene', example='ETC_HIGHWAY'),
+  // 商户扣费的总金额：单位为元，精确到小数点后两位
+  totalAmount?: string(name='total_amount', example='4.50'),
+  // 行程id
+  tripId?: string(name='trip_id', example='230390390303'),
+  // 交易单号
+  tradeNo?: string(name='trade_no', example='20230916988938938393'),
+}
+
 model RunGeneralRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -675,6 +739,206 @@ async function listDcpAccountbook(request: ListDcpAccountbookRequest): ListDcpAc
 async function listDcpAccountbookEx(request: ListDcpAccountbookRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListDcpAccountbookResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.dcp.accountbook.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEtcVehicleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 企业侧车辆编号
+  corpVehicleId: string(name='corp_vehicle_id'),
+  // 车牌号码
+  plateNo: string(name='plate_no'),
+  // 车牌颜色，枚举值
+  // 蓝: BLUE
+  // 黄: YELLOW
+  // 黑: BLACK
+  // 白: WHITE
+  // 绿: GREEN
+  plateColor: string(name='plate_color'),
+  // 企业运单号，唯一值
+  waybillNo?: string(name='waybill_no'),
+}
+
+model QueryEtcVehicleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 请求方租户所关联的车辆入驻信息
+  etcVehicle?: EtcVehicleInfo(name='etc_vehicle'),
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 企业ETC入驻车辆查询
+ * Summary: 企业ETC入驻车辆查询
+ */
+async function queryEtcVehicle(request: QueryEtcVehicleRequest): QueryEtcVehicleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEtcVehicleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业ETC入驻车辆查询
+ * Summary: 企业ETC入驻车辆查询
+ */
+async function queryEtcVehicleEx(request: QueryEtcVehicleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEtcVehicleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.etc.vehicle.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UploadEtcWaybillRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 企业侧车辆编号
+  corpVehicleId: string(name='corp_vehicle_id'),
+  // 车牌号码
+  plateNo: string(name='plate_no'),
+  // 车牌颜色，枚举值
+  // 蓝: BLUE
+  // 黄: YELLOW
+  // 黑: BLACK
+  // 白: WHITE
+  // 绿: GREEN
+  plateColor: string(name='plate_color'),
+  // 企业运单号，唯一值
+  waybillNo: string(name='waybill_no'),
+  // 企业运单状态，枚举值
+  // 进行中: IN_PROGRESS
+  // 已完成: COMPLETED
+  // 已取消: CANCELED
+  waybillStatus: string(name='waybill_status'),
+  // 运单开始时间
+  // 【必选条件】当传入waybill_status，且waybill_status= IN_PROGRESS时必选
+  waybillStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='waybill_start_time'),
+  // 企业运单结束时间
+  // 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+  waybillEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='waybill_end_time'),
+  // 运单开始地址
+  // 【必选条件】当传入waybill_status，且waybill_status= IN_PROGRESS时必选
+  waybillStartAddress?: string(name='waybill_start_address'),
+  // 运单结束地址，运单目的地
+  // 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+  waybillEndAddress?: string(name='waybill_end_address'),
+  // 运单总费用，单位元，精确到两位小数
+  // 【必选条件】当传入waybill_status，且waybill_status=COMPLETED时必选
+  waybillFee?: string(name='waybill_fee'),
+  // 高速通行费用，单位元，精确到两位小数
+  highwayFee?: string(name='highway_fee'),
+}
+
+model UploadEtcWaybillResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 运单记录号
+  bizId?: string(name='biz_id'),
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 企业ETC运单上传
+ * Summary: 企业ETC运单上传
+ */
+async function uploadEtcWaybill(request: UploadEtcWaybillRequest): UploadEtcWaybillResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return uploadEtcWaybillEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业ETC运单上传
+ * Summary: 企业ETC运单上传
+ */
+async function uploadEtcWaybillEx(request: UploadEtcWaybillRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UploadEtcWaybillResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.etc.waybill.upload', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryEtcTripRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求ID，为32位以内的字母数字组合，由调用方自行生成、保证唯一并留存，以便问题定位。
+  outerOrderNo: string(name='outer_order_no'),
+  // 企业侧车辆编号
+  corpVehicleId: string(name='corp_vehicle_id'),
+  // 车牌号码
+  plateNo: string(name='plate_no'),
+  // 车牌颜色，蓝: BLUE 黄: YELLOW 黑: BLACK 白: WHITE 绿: GREEN
+  plateColor: string(name='plate_color'),
+  // 企业运单号，唯一值
+  waybillNo: string(name='waybill_no'),
+  // 当前页码
+  // 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+  pageNum?: long(name='page_num'),
+  // 每页数据条数
+  // 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+  pageSize?: long(name='page_size'),
+  // 行程查询开始时间
+  // 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+  startTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time'),
+  // 行程查询结束时间
+  // 【必选条件】当需要进行按时间段（跨度不超过2天）筛选时需要传入，不传入时默认至多返回最新20条数据
+  // 
+  endTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time'),
+}
+
+model QueryEtcTripResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 总页数
+  totalPage?: long(name='total_page'),
+  // 总记录数
+  totalSize?: long(name='total_size'),
+  // 当前页码
+  // 
+  pageNum?: long(name='page_num'),
+  // 每页条数
+  pageSize?: long(name='page_size'),
+  // 是否还有下一页
+  hasNext?: boolean(name='has_next'),
+  // 请求方租户所关联的行程单据列表
+  tripList?: [ EtcTripInfo ](name='trip_list'),
+  // json格式字符串扩展信息，预留字段。
+  externInfo?: string(name='extern_info'),
+}
+
+/**
+ * Description: 企业ETC车辆行程查询
+ * Summary: 企业ETC车辆行程查询
+ */
+async function queryEtcTrip(request: QueryEtcTripRequest): QueryEtcTripResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryEtcTripEx(request, headers, runtime);
+}
+
+/**
+ * Description: 企业ETC车辆行程查询
+ * Summary: 企业ETC车辆行程查询
+ */
+async function queryEtcTripEx(request: QueryEtcTripRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryEtcTripResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.etc.trip.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateBssecpicRequest = {
@@ -2562,5 +2826,49 @@ async function deleteIifaaDigitalkey(request: DeleteIifaaDigitalkeyRequest): Del
 async function deleteIifaaDigitalkeyEx(request: DeleteIifaaDigitalkeyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): DeleteIifaaDigitalkeyResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antsecuritytech.gateway.iifaa.digitalkey.delete', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CheckOpticalIdentifyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // json数据，包含tenantId,sceneId,outBizId,fakeType,certType
+  reservedData: string(name='reserved_data'),
+  // 图片链接,image_url和image_content 2选1优先选择image_content
+  imageUrl?: string(name='image_url'),
+  // base64编码的图片,image_url和image_content 2选1，优先选择image_content
+  imageContent?: string(name='image_content'),
+  // raas产品码
+  raasProducts: string(name='raas_products'),
+}
+
+model CheckOpticalIdentifyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 光鉴智能凭证响应结果
+  data?: IdentityData(name='data'),
+}
+
+/**
+ * Description: 光鉴智能凭证
+ * Summary: 光鉴智能凭证
+ */
+async function checkOpticalIdentify(request: CheckOpticalIdentifyRequest): CheckOpticalIdentifyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return checkOpticalIdentifyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 光鉴智能凭证
+ * Summary: 光鉴智能凭证
+ */
+async function checkOpticalIdentifyEx(request: CheckOpticalIdentifyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CheckOpticalIdentifyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antsecuritytech.gateway.optical.identify.check', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
