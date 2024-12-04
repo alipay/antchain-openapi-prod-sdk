@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.0"),
+                    new TeaPair("sdk_version", "1.3.9"),
                     new TeaPair("_prod_code", "SECURITYTECH"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -260,6 +260,63 @@ public class Client {
     public ListDcpAccountbookResponse listDcpAccountbookEx(ListDcpAccountbookRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.dcp.accountbook.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListDcpAccountbookResponse());
+    }
+
+    /**
+     * Description: 企业ETC入驻车辆查询
+     * Summary: 企业ETC入驻车辆查询
+     */
+    public QueryEtcVehicleResponse queryEtcVehicle(QueryEtcVehicleRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEtcVehicleEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业ETC入驻车辆查询
+     * Summary: 企业ETC入驻车辆查询
+     */
+    public QueryEtcVehicleResponse queryEtcVehicleEx(QueryEtcVehicleRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.etc.vehicle.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEtcVehicleResponse());
+    }
+
+    /**
+     * Description: 企业ETC运单上传
+     * Summary: 企业ETC运单上传
+     */
+    public UploadEtcWaybillResponse uploadEtcWaybill(UploadEtcWaybillRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadEtcWaybillEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业ETC运单上传
+     * Summary: 企业ETC运单上传
+     */
+    public UploadEtcWaybillResponse uploadEtcWaybillEx(UploadEtcWaybillRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.etc.waybill.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadEtcWaybillResponse());
+    }
+
+    /**
+     * Description: 企业ETC车辆行程查询
+     * Summary: 企业ETC车辆行程查询
+     */
+    public QueryEtcTripResponse queryEtcTrip(QueryEtcTripRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryEtcTripEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 企业ETC车辆行程查询
+     * Summary: 企业ETC车辆行程查询
+     */
+    public QueryEtcTripResponse queryEtcTripEx(QueryEtcTripRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.etc.trip.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryEtcTripResponse());
     }
 
     /**
@@ -963,5 +1020,24 @@ public class Client {
     public DeleteIifaaDigitalkeyResponse deleteIifaaDigitalkeyEx(DeleteIifaaDigitalkeyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.iifaa.digitalkey.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteIifaaDigitalkeyResponse());
+    }
+
+    /**
+     * Description: 光鉴智能凭证
+     * Summary: 光鉴智能凭证
+     */
+    public CheckOpticalIdentifyResponse checkOpticalIdentify(CheckOpticalIdentifyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.checkOpticalIdentifyEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 光鉴智能凭证
+     * Summary: 光鉴智能凭证
+     */
+    public CheckOpticalIdentifyResponse checkOpticalIdentifyEx(CheckOpticalIdentifyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antsecuritytech.gateway.optical.identify.check", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CheckOpticalIdentifyResponse());
     }
 }
