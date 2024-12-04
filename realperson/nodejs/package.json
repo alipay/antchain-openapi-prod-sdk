@@ -1,6 +1,6 @@
 {
   "name": "@antchain/realperson",
-  "version": "1.15.29",
+  "version": "1.15.30",
   "description": "",
   "main": "dist/client.js",
   "scripts": {
