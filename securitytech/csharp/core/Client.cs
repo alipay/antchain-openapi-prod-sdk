@@ -137,7 +137,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.0"},
+                        {"sdk_version", "1.3.9"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.0"},
+                        {"sdk_version", "1.3.9"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -491,6 +491,132 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ListDcpAccountbookResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.dcp.accountbook.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业ETC入驻车辆查询
+         * Summary: 企业ETC入驻车辆查询
+         */
+        public QueryEtcVehicleResponse QueryEtcVehicle(QueryEtcVehicleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEtcVehicleEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业ETC入驻车辆查询
+         * Summary: 企业ETC入驻车辆查询
+         */
+        public async Task<QueryEtcVehicleResponse> QueryEtcVehicleAsync(QueryEtcVehicleRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEtcVehicleExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业ETC入驻车辆查询
+         * Summary: 企业ETC入驻车辆查询
+         */
+        public QueryEtcVehicleResponse QueryEtcVehicleEx(QueryEtcVehicleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEtcVehicleResponse>(DoRequest("1.0", "antsecuritytech.gateway.etc.vehicle.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业ETC入驻车辆查询
+         * Summary: 企业ETC入驻车辆查询
+         */
+        public async Task<QueryEtcVehicleResponse> QueryEtcVehicleExAsync(QueryEtcVehicleRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEtcVehicleResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.etc.vehicle.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业ETC运单上传
+         * Summary: 企业ETC运单上传
+         */
+        public UploadEtcWaybillResponse UploadEtcWaybill(UploadEtcWaybillRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadEtcWaybillEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业ETC运单上传
+         * Summary: 企业ETC运单上传
+         */
+        public async Task<UploadEtcWaybillResponse> UploadEtcWaybillAsync(UploadEtcWaybillRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadEtcWaybillExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业ETC运单上传
+         * Summary: 企业ETC运单上传
+         */
+        public UploadEtcWaybillResponse UploadEtcWaybillEx(UploadEtcWaybillRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadEtcWaybillResponse>(DoRequest("1.0", "antsecuritytech.gateway.etc.waybill.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业ETC运单上传
+         * Summary: 企业ETC运单上传
+         */
+        public async Task<UploadEtcWaybillResponse> UploadEtcWaybillExAsync(UploadEtcWaybillRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadEtcWaybillResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.etc.waybill.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业ETC车辆行程查询
+         * Summary: 企业ETC车辆行程查询
+         */
+        public QueryEtcTripResponse QueryEtcTrip(QueryEtcTripRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryEtcTripEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业ETC车辆行程查询
+         * Summary: 企业ETC车辆行程查询
+         */
+        public async Task<QueryEtcTripResponse> QueryEtcTripAsync(QueryEtcTripRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryEtcTripExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 企业ETC车辆行程查询
+         * Summary: 企业ETC车辆行程查询
+         */
+        public QueryEtcTripResponse QueryEtcTripEx(QueryEtcTripRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEtcTripResponse>(DoRequest("1.0", "antsecuritytech.gateway.etc.trip.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 企业ETC车辆行程查询
+         * Summary: 企业ETC车辆行程查询
+         */
+        public async Task<QueryEtcTripResponse> QueryEtcTripExAsync(QueryEtcTripRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryEtcTripResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.etc.trip.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -2045,6 +2171,48 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DeleteIifaaDigitalkeyResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.iifaa.digitalkey.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 光鉴智能凭证
+         * Summary: 光鉴智能凭证
+         */
+        public CheckOpticalIdentifyResponse CheckOpticalIdentify(CheckOpticalIdentifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CheckOpticalIdentifyEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 光鉴智能凭证
+         * Summary: 光鉴智能凭证
+         */
+        public async Task<CheckOpticalIdentifyResponse> CheckOpticalIdentifyAsync(CheckOpticalIdentifyRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CheckOpticalIdentifyExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 光鉴智能凭证
+         * Summary: 光鉴智能凭证
+         */
+        public CheckOpticalIdentifyResponse CheckOpticalIdentifyEx(CheckOpticalIdentifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckOpticalIdentifyResponse>(DoRequest("1.0", "antsecuritytech.gateway.optical.identify.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 光鉴智能凭证
+         * Summary: 光鉴智能凭证
+         */
+        public async Task<CheckOpticalIdentifyResponse> CheckOpticalIdentifyExAsync(CheckOpticalIdentifyRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CheckOpticalIdentifyResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.optical.identify.check", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
