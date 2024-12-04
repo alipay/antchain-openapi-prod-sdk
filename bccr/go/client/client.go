@@ -11891,6 +11891,12 @@ type CreateEvidenceLiveRequest struct {
 	ExpectedDuration *int64 `json:"expected_duration,omitempty" xml:"expected_duration,omitempty"`
 	// 主播名称
 	AnchorName *string `json:"anchor_name,omitempty" xml:"anchor_name,omitempty"`
+	// 1：视频点播，2：视频直播，3：背景音乐
+	ObtainType *string `json:"obtain_type,omitempty" xml:"obtain_type,omitempty"`
+	// 1：PC、2：移动设备
+	ObtainDeviceType *string `json:"obtain_device_type,omitempty" xml:"obtain_device_type,omitempty"`
+	// 2：momo，4：比心，5：小红书
+	ObtainPlatform *string `json:"obtain_platform,omitempty" xml:"obtain_platform,omitempty"`
 }
 
 func (s CreateEvidenceLiveRequest) String() string {
@@ -11948,6 +11954,21 @@ func (s *CreateEvidenceLiveRequest) SetExpectedDuration(v int64) *CreateEvidence
 
 func (s *CreateEvidenceLiveRequest) SetAnchorName(v string) *CreateEvidenceLiveRequest {
 	s.AnchorName = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetObtainType(v string) *CreateEvidenceLiveRequest {
+	s.ObtainType = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetObtainDeviceType(v string) *CreateEvidenceLiveRequest {
+	s.ObtainDeviceType = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetObtainPlatform(v string) *CreateEvidenceLiveRequest {
+	s.ObtainPlatform = &v
 	return s
 }
 
@@ -13897,7 +13918,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.20"),
+				"sdk_version":      tea.String("1.19.21"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
