@@ -58,6 +58,21 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public string AnchorName { get; set; }
 
+        // 1：视频点播，2：视频直播，3：背景音乐
+        [NameInMap("obtain_type")]
+        [Validation(Required=false)]
+        public string ObtainType { get; set; }
+
+        // 1：PC、2：移动设备
+        [NameInMap("obtain_device_type")]
+        [Validation(Required=false)]
+        public string ObtainDeviceType { get; set; }
+
+        // 2：momo，4：比心，5：小红书
+        [NameInMap("obtain_platform")]
+        [Validation(Required=false)]
+        public string ObtainPlatform { get; set; }
+
     }
 
 }
