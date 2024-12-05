@@ -2600,7 +2600,7 @@ export class CheckCarrierTwometaRequest extends $tea.Model {
   // CHINA_UNICOM
   carrier?: string;
   // 扩展信息，预留字段
-  externParam: string;
+  externParam?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -3608,7 +3608,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.30",
+          sdk_version: "1.15.31",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
