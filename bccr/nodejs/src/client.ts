@@ -8795,7 +8795,7 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
   // 取证类型（通用直播取证：DEFAULT）
   type: string;
   // 取证网址信息
-  webUrl: EvidenceWebUrlInfo;
+  webUrl?: EvidenceWebUrlInfo;
   // 幂等字段
   clientToken: string;
   // 主播 ID
@@ -8808,8 +8808,6 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
   obtainType?: string;
   // 1：PC、2：移动设备
   obtainDeviceType?: string;
-  // 2：momo，4：比心，5：小红书
-  obtainPlatform?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8824,7 +8822,6 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
       anchorName: 'anchor_name',
       obtainType: 'obtain_type',
       obtainDeviceType: 'obtain_device_type',
-      obtainPlatform: 'obtain_platform',
     };
   }
 
@@ -8842,7 +8839,6 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
       anchorName: 'string',
       obtainType: 'string',
       obtainDeviceType: 'string',
-      obtainPlatform: 'string',
     };
   }
 
@@ -10339,7 +10335,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.21",
+          sdk_version: "1.19.22",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
