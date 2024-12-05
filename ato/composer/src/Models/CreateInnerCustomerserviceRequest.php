@@ -38,8 +38,8 @@ class CreateInnerCustomerserviceRequest extends Model
     public $merchantName;
 
     // 处理类型:
-    // 商家处理
-    // 服务商代处理
+    // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+    // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
     /**
      * @var string
      */

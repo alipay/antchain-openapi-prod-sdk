@@ -86,6 +86,12 @@ class CreateInsureRequest extends Model
      * @var string
      */
     public $tradeTime;
+
+    // 公司地址信息，此处填写的地址信息为投保时最高优先级地址，其次为公司进件时填写的地址信息。如果取不到明确地址信息，投保会失败。
+    /**
+     * @var string
+     */
+    public $address;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -100,6 +106,7 @@ class CreateInsureRequest extends Model
         'facevrfFlowId'     => 'facevrf_flow_id',
         'logisticsNumber'   => 'logistics_number',
         'tradeTime'         => 'trade_time',
+        'address'           => 'address',
     ];
 
     public function validate()
@@ -116,6 +123,8 @@ class CreateInsureRequest extends Model
         Model::validateMaxLength('contactName', $this->contactName, 2000);
         Model::validateMaxLength('contactMobile', $this->contactMobile, 2000);
         Model::validateMaxLength('logisticsNumber', $this->logisticsNumber, 64);
+        Model::validateMaxLength('address', $this->address, 512);
+        Model::validateMinLength('address', $this->address, 1);
     }
 
     public function toMap()
@@ -165,6 +174,9 @@ class CreateInsureRequest extends Model
         }
         if (null !== $this->tradeTime) {
             $res['trade_time'] = $this->tradeTime;
+        }
+        if (null !== $this->address) {
+            $res['address'] = $this->address;
         }
 
         return $res;
@@ -222,6 +234,9 @@ class CreateInsureRequest extends Model
         }
         if (isset($map['trade_time'])) {
             $model->tradeTime = $map['trade_time'];
+        }
+        if (isset($map['address'])) {
+            $model->address = $map['address'];
         }
 
         return $model;

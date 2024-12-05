@@ -45,6 +45,18 @@ class CancelFundPlanRequest extends Model
      * @var string
      */
     public $fundId;
+
+    // 操作
+    /**
+     * @var string
+     */
+    public $operation;
+
+    // 赎回金额,单位为分,取消并赎回时必填
+    /**
+     * @var int
+     */
+    public $redeemAmount;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -52,6 +64,8 @@ class CancelFundPlanRequest extends Model
         'merchantId'        => 'merchant_id',
         'cancelReason'      => 'cancel_reason',
         'fundId'            => 'fund_id',
+        'operation'         => 'operation',
+        'redeemAmount'      => 'redeem_amount',
     ];
 
     public function validate()
@@ -60,6 +74,8 @@ class CancelFundPlanRequest extends Model
         Model::validateRequired('merchantId', $this->merchantId, true);
         Model::validateRequired('cancelReason', $this->cancelReason, true);
         Model::validateMaxLength('fundId', $this->fundId, 64);
+        Model::validateMaxLength('operation', $this->operation, 64);
+        Model::validateMinimum('redeemAmount', $this->redeemAmount, 10);
     }
 
     public function toMap()
@@ -82,6 +98,12 @@ class CancelFundPlanRequest extends Model
         }
         if (null !== $this->fundId) {
             $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->operation) {
+            $res['operation'] = $this->operation;
+        }
+        if (null !== $this->redeemAmount) {
+            $res['redeem_amount'] = $this->redeemAmount;
         }
 
         return $res;
@@ -112,6 +134,12 @@ class CancelFundPlanRequest extends Model
         }
         if (isset($map['fund_id'])) {
             $model->fundId = $map['fund_id'];
+        }
+        if (isset($map['operation'])) {
+            $model->operation = $map['operation'];
+        }
+        if (isset($map['redeem_amount'])) {
+            $model->redeemAmount = $map['redeem_amount'];
         }
 
         return $model;

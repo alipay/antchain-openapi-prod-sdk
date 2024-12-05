@@ -74,24 +74,24 @@ class QueryInnerMerchantpayexpandResponse extends Model
      */
     public $expandFailReason;
 
-    // 是否展示进件信息登记入口
+    // 是否展示客服信息登记入口
     /**
      * @var bool
      */
-    public $showCustomerComplaintRegistPortal;
+    public $showCustomerServiceBanner;
     protected $_name = [
-        'reqMsgId'                          => 'req_msg_id',
-        'resultCode'                        => 'result_code',
-        'resultMsg'                         => 'result_msg',
-        'companyInfo'                       => 'company_info',
-        'legalInfo'                         => 'legal_info',
-        'applicationInfo'                   => 'application_info',
-        'auditInfos'                        => 'audit_infos',
-        'payExpandId'                       => 'pay_expand_id',
-        'expandMode'                        => 'expand_mode',
-        'expandStatus'                      => 'expand_status',
-        'expandFailReason'                  => 'expand_fail_reason',
-        'showCustomerComplaintRegistPortal' => 'show_customer_complaint_regist_portal',
+        'reqMsgId'                  => 'req_msg_id',
+        'resultCode'                => 'result_code',
+        'resultMsg'                 => 'result_msg',
+        'companyInfo'               => 'company_info',
+        'legalInfo'                 => 'legal_info',
+        'applicationInfo'           => 'application_info',
+        'auditInfos'                => 'audit_infos',
+        'payExpandId'               => 'pay_expand_id',
+        'expandMode'                => 'expand_mode',
+        'expandStatus'              => 'expand_status',
+        'expandFailReason'          => 'expand_fail_reason',
+        'showCustomerServiceBanner' => 'show_customer_service_banner',
     ];
 
     public function validate()
@@ -140,8 +140,8 @@ class QueryInnerMerchantpayexpandResponse extends Model
         if (null !== $this->expandFailReason) {
             $res['expand_fail_reason'] = $this->expandFailReason;
         }
-        if (null !== $this->showCustomerComplaintRegistPortal) {
-            $res['show_customer_complaint_regist_portal'] = $this->showCustomerComplaintRegistPortal;
+        if (null !== $this->showCustomerServiceBanner) {
+            $res['show_customer_service_banner'] = $this->showCustomerServiceBanner;
         }
 
         return $res;
@@ -194,8 +194,8 @@ class QueryInnerMerchantpayexpandResponse extends Model
         if (isset($map['expand_fail_reason'])) {
             $model->expandFailReason = $map['expand_fail_reason'];
         }
-        if (isset($map['show_customer_complaint_regist_portal'])) {
-            $model->showCustomerComplaintRegistPortal = $map['show_customer_complaint_regist_portal'];
+        if (isset($map['show_customer_service_banner'])) {
+            $model->showCustomerServiceBanner = $map['show_customer_service_banner'];
         }
 
         return $model;

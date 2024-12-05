@@ -54,6 +54,18 @@ class CreateInnerTemplatetextareaRequest extends Model
      * @var bool
      */
     public $required;
+
+    // 预估文本行数
+    /**
+     * @var int
+     */
+    public $line;
+
+    // 多行文本域名称
+    /**
+     * @var string
+     */
+    public $multiName;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -63,6 +75,8 @@ class CreateInnerTemplatetextareaRequest extends Model
         'componentType'     => 'component_type',
         'componentName'     => 'component_name',
         'required'          => 'required',
+        'line'              => 'line',
+        'multiName'         => 'multi_name',
     ];
 
     public function validate()
@@ -102,6 +116,12 @@ class CreateInnerTemplatetextareaRequest extends Model
         if (null !== $this->required) {
             $res['required'] = $this->required;
         }
+        if (null !== $this->line) {
+            $res['line'] = $this->line;
+        }
+        if (null !== $this->multiName) {
+            $res['multi_name'] = $this->multiName;
+        }
 
         return $res;
     }
@@ -137,6 +157,12 @@ class CreateInnerTemplatetextareaRequest extends Model
         }
         if (isset($map['required'])) {
             $model->required = $map['required'];
+        }
+        if (isset($map['line'])) {
+            $model->line = $map['line'];
+        }
+        if (isset($map['multi_name'])) {
+            $model->multiName = $map['multi_name'];
         }
 
         return $model;

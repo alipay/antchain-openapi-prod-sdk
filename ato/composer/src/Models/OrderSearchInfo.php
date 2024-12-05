@@ -6,16 +6,8 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class MerchantOrderInfo extends Model
+class OrderSearchInfo extends Model
 {
-    // 支付宝代扣协议号
-    /**
-     * @example 20241025944255332
-     *
-     * @var string
-     */
-    public $agreementNo;
-
     // 订单id
     /**
      * @example SH20241017184159846222
@@ -24,9 +16,17 @@ class MerchantOrderInfo extends Model
      */
     public $orderId;
 
+    // 支付宝代扣协议号
+    /**
+     * @example 20241025944255332
+     *
+     * @var string
+     */
+    public $agreementNo;
+
     // 订单创建时间
     /**
-     * @example 2024-10-17 18:41:59.000
+     * @example 2024-10-17 18:41:59
      *
      * @var string
      */
@@ -46,7 +46,15 @@ class MerchantOrderInfo extends Model
      *
      * @var int
      */
-    public $rentRerm;
+    public $rentTerm;
+
+    // 租期单位
+    /**
+     * @example MONTH
+     *
+     * @var string
+     */
+    public $rentUnit;
 
     // 订单状态
     /**
@@ -72,11 +80,12 @@ class MerchantOrderInfo extends Model
      */
     public $userPhoneNumber;
     protected $_name = [
-        'agreementNo'     => 'agreement_no',
         'orderId'         => 'order_id',
+        'agreementNo'     => 'agreement_no',
         'orderCreateTime' => 'order_create_time',
         'totalRentMoney'  => 'total_rent_money',
-        'rentRerm'        => 'rent_rerm',
+        'rentTerm'        => 'rent_term',
+        'rentUnit'        => 'rent_unit',
         'orderStatus'     => 'order_status',
         'userName'        => 'user_name',
         'userPhoneNumber' => 'user_phone_number',
@@ -89,11 +98,11 @@ class MerchantOrderInfo extends Model
     public function toMap()
     {
         $res = [];
-        if (null !== $this->agreementNo) {
-            $res['agreement_no'] = $this->agreementNo;
-        }
         if (null !== $this->orderId) {
             $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->agreementNo) {
+            $res['agreement_no'] = $this->agreementNo;
         }
         if (null !== $this->orderCreateTime) {
             $res['order_create_time'] = $this->orderCreateTime;
@@ -101,8 +110,11 @@ class MerchantOrderInfo extends Model
         if (null !== $this->totalRentMoney) {
             $res['total_rent_money'] = $this->totalRentMoney;
         }
-        if (null !== $this->rentRerm) {
-            $res['rent_rerm'] = $this->rentRerm;
+        if (null !== $this->rentTerm) {
+            $res['rent_term'] = $this->rentTerm;
+        }
+        if (null !== $this->rentUnit) {
+            $res['rent_unit'] = $this->rentUnit;
         }
         if (null !== $this->orderStatus) {
             $res['order_status'] = $this->orderStatus;
@@ -120,16 +132,16 @@ class MerchantOrderInfo extends Model
     /**
      * @param array $map
      *
-     * @return MerchantOrderInfo
+     * @return OrderSearchInfo
      */
     public static function fromMap($map = [])
     {
         $model = new self();
-        if (isset($map['agreement_no'])) {
-            $model->agreementNo = $map['agreement_no'];
-        }
         if (isset($map['order_id'])) {
             $model->orderId = $map['order_id'];
+        }
+        if (isset($map['agreement_no'])) {
+            $model->agreementNo = $map['agreement_no'];
         }
         if (isset($map['order_create_time'])) {
             $model->orderCreateTime = $map['order_create_time'];
@@ -137,8 +149,11 @@ class MerchantOrderInfo extends Model
         if (isset($map['total_rent_money'])) {
             $model->totalRentMoney = $map['total_rent_money'];
         }
-        if (isset($map['rent_rerm'])) {
-            $model->rentRerm = $map['rent_rerm'];
+        if (isset($map['rent_term'])) {
+            $model->rentTerm = $map['rent_term'];
+        }
+        if (isset($map['rent_unit'])) {
+            $model->rentUnit = $map['rent_unit'];
         }
         if (isset($map['order_status'])) {
             $model->orderStatus = $map['order_status'];

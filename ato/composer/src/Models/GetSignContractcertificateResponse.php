@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class PagequeryInnerOrderResponse extends Model
+class GetSignContractcertificateResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,23 +26,16 @@ class PagequeryInnerOrderResponse extends Model
      */
     public $resultMsg;
 
-    // 订单列表信息
+    // 下载文件地址(一小时内有效)
     /**
-     * @var OrderSearchInfo[]
+     * @var string
      */
-    public $orderInfoList;
-
-    // 总量
-    /**
-     * @var int
-     */
-    public $total;
+    public $url;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'orderInfoList' => 'order_info_list',
-        'total'         => 'total',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'url'        => 'url',
     ];
 
     public function validate()
@@ -61,17 +54,8 @@ class PagequeryInnerOrderResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->orderInfoList) {
-            $res['order_info_list'] = [];
-            if (null !== $this->orderInfoList && \is_array($this->orderInfoList)) {
-                $n = 0;
-                foreach ($this->orderInfoList as $item) {
-                    $res['order_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->total) {
-            $res['total'] = $this->total;
+        if (null !== $this->url) {
+            $res['url'] = $this->url;
         }
 
         return $res;
@@ -80,7 +64,7 @@ class PagequeryInnerOrderResponse extends Model
     /**
      * @param array $map
      *
-     * @return PagequeryInnerOrderResponse
+     * @return GetSignContractcertificateResponse
      */
     public static function fromMap($map = [])
     {
@@ -94,17 +78,8 @@ class PagequeryInnerOrderResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['order_info_list'])) {
-            if (!empty($map['order_info_list'])) {
-                $model->orderInfoList = [];
-                $n                    = 0;
-                foreach ($map['order_info_list'] as $item) {
-                    $model->orderInfoList[$n++] = null !== $item ? OrderSearchInfo::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['total'])) {
-            $model->total = $map['total'];
+        if (isset($map['url'])) {
+            $model->url = $map['url'];
         }
 
         return $model;
