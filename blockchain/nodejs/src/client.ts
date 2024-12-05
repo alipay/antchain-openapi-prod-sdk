@@ -38868,12 +38868,15 @@ export class VerifyAuthBusinessUserRequest extends $tea.Model {
   userId: string;
   // 场景码
   sceneCode: string;
+  // 用户核验需要的额外信息，根据场景选择是否需要上传
+  verifyContent?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       userId: 'user_id',
       sceneCode: 'scene_code',
+      verifyContent: 'verify_content',
     };
   }
 
@@ -38883,6 +38886,7 @@ export class VerifyAuthBusinessUserRequest extends $tea.Model {
       productInstanceId: 'string',
       userId: 'string',
       sceneCode: 'string',
+      verifyContent: 'string',
     };
   }
 
@@ -54283,7 +54287,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.28.39",
+          sdk_version: "1.28.40",
           _prod_code: "BLOCKCHAIN",
           _prod_channel: "undefined",
         };
