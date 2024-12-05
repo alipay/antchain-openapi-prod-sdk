@@ -51,7 +51,6 @@ public class CheckCarrierTwometaRequest extends TeaModel {
 
     // 扩展信息，预留字段
     @NameInMap("extern_param")
-    @Validation(required = true)
     public String externParam;
 
     public static CheckCarrierTwometaRequest build(java.util.Map<String, ?> map) throws Exception {
