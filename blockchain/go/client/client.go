@@ -50514,6 +50514,8 @@ type VerifyAuthBusinessUserRequest struct {
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
 	// 场景码
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
+	// 用户核验需要的额外信息，根据场景选择是否需要上传
+	VerifyContent *string `json:"verify_content,omitempty" xml:"verify_content,omitempty"`
 }
 
 func (s VerifyAuthBusinessUserRequest) String() string {
@@ -50541,6 +50543,11 @@ func (s *VerifyAuthBusinessUserRequest) SetUserId(v string) *VerifyAuthBusinessU
 
 func (s *VerifyAuthBusinessUserRequest) SetSceneCode(v string) *VerifyAuthBusinessUserRequest {
 	s.SceneCode = &v
+	return s
+}
+
+func (s *VerifyAuthBusinessUserRequest) SetVerifyContent(v string) *VerifyAuthBusinessUserRequest {
+	s.VerifyContent = &v
 	return s
 }
 
@@ -70491,7 +70498,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.28.39"),
+				"sdk_version":      tea.String("1.28.40"),
 				"_prod_code":       tea.String("BLOCKCHAIN"),
 				"_prod_channel":    tea.String("undefined"),
 			}
