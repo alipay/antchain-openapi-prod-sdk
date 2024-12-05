@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.21',
+    sdk_version = '1.19.22',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -4766,7 +4766,7 @@ model CreateEvidenceLiveRequest = {
   // 取证类型（通用直播取证：DEFAULT）
   type: string(name='type'),
   // 取证网址信息
-  webUrl: EvidenceWebUrlInfo(name='web_url'),
+  webUrl?: EvidenceWebUrlInfo(name='web_url'),
   // 幂等字段
   clientToken: string(name='client_token'),
   // 主播 ID
@@ -4779,8 +4779,6 @@ model CreateEvidenceLiveRequest = {
   obtainType?: string(name='obtain_type'),
   // 1：PC、2：移动设备
   obtainDeviceType?: string(name='obtain_device_type'),
-  // 2：momo，4：比心，5：小红书
-  obtainPlatform?: string(name='obtain_platform'),
 }
 
 model CreateEvidenceLiveResponse = {
