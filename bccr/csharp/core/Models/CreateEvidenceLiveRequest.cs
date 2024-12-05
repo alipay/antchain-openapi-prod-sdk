@@ -35,7 +35,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 取证网址信息
         [NameInMap("web_url")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public EvidenceWebUrlInfo WebUrl { get; set; }
 
         // 幂等字段
@@ -67,11 +67,6 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("obtain_device_type")]
         [Validation(Required=false)]
         public string ObtainDeviceType { get; set; }
-
-        // 2：momo，4：比心，5：小红书
-        [NameInMap("obtain_platform")]
-        [Validation(Required=false)]
-        public string ObtainPlatform { get; set; }
 
     }
 
