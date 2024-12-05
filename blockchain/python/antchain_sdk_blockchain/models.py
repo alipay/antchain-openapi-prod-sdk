@@ -63234,6 +63234,7 @@ class VerifyAuthBusinessUserRequest(TeaModel):
         product_instance_id: str = None,
         user_id: str = None,
         scene_code: str = None,
+        verify_content: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -63242,6 +63243,8 @@ class VerifyAuthBusinessUserRequest(TeaModel):
         self.user_id = user_id
         # 场景码
         self.scene_code = scene_code
+        # 用户核验需要的额外信息，根据场景选择是否需要上传
+        self.verify_content = verify_content
 
     def validate(self):
         self.validate_required(self.user_id, 'user_id')
@@ -63261,6 +63264,8 @@ class VerifyAuthBusinessUserRequest(TeaModel):
             result['user_id'] = self.user_id
         if self.scene_code is not None:
             result['scene_code'] = self.scene_code
+        if self.verify_content is not None:
+            result['verify_content'] = self.verify_content
         return result
 
     def from_map(self, m: dict = None):
@@ -63273,6 +63278,8 @@ class VerifyAuthBusinessUserRequest(TeaModel):
             self.user_id = m.get('user_id')
         if m.get('scene_code') is not None:
             self.scene_code = m.get('scene_code')
+        if m.get('verify_content') is not None:
+            self.verify_content = m.get('verify_content')
         return self
 
 
