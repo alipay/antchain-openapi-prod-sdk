@@ -28,7 +28,6 @@ public class CreateEvidenceLiveRequest extends TeaModel {
 
     // 取证网址信息
     @NameInMap("web_url")
-    @Validation(required = true)
     public EvidenceWebUrlInfo webUrl;
 
     // 幂等字段
@@ -55,10 +54,6 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     // 1：PC、2：移动设备
     @NameInMap("obtain_device_type")
     public String obtainDeviceType;
-
-    // 2：momo，4：比心，5：小红书
-    @NameInMap("obtain_platform")
-    public String obtainPlatform;
 
     public static CreateEvidenceLiveRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateEvidenceLiveRequest self = new CreateEvidenceLiveRequest();
@@ -159,14 +154,6 @@ public class CreateEvidenceLiveRequest extends TeaModel {
     }
     public String getObtainDeviceType() {
         return this.obtainDeviceType;
-    }
-
-    public CreateEvidenceLiveRequest setObtainPlatform(String obtainPlatform) {
-        this.obtainPlatform = obtainPlatform;
-        return this;
-    }
-    public String getObtainPlatform() {
-        return this.obtainPlatform;
     }
 
 }
