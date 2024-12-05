@@ -11882,7 +11882,7 @@ type CreateEvidenceLiveRequest struct {
 	// 取证类型（通用直播取证：DEFAULT）
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
 	// 取证网址信息
-	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
+	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 	// 主播 ID
@@ -11895,8 +11895,6 @@ type CreateEvidenceLiveRequest struct {
 	ObtainType *string `json:"obtain_type,omitempty" xml:"obtain_type,omitempty"`
 	// 1：PC、2：移动设备
 	ObtainDeviceType *string `json:"obtain_device_type,omitempty" xml:"obtain_device_type,omitempty"`
-	// 2：momo，4：比心，5：小红书
-	ObtainPlatform *string `json:"obtain_platform,omitempty" xml:"obtain_platform,omitempty"`
 }
 
 func (s CreateEvidenceLiveRequest) String() string {
@@ -11964,11 +11962,6 @@ func (s *CreateEvidenceLiveRequest) SetObtainType(v string) *CreateEvidenceLiveR
 
 func (s *CreateEvidenceLiveRequest) SetObtainDeviceType(v string) *CreateEvidenceLiveRequest {
 	s.ObtainDeviceType = &v
-	return s
-}
-
-func (s *CreateEvidenceLiveRequest) SetObtainPlatform(v string) *CreateEvidenceLiveRequest {
-	s.ObtainPlatform = &v
 	return s
 }
 
@@ -13918,7 +13911,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.21"),
+				"sdk_version":      tea.String("1.19.22"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
