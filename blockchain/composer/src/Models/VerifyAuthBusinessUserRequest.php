@@ -30,11 +30,18 @@ class VerifyAuthBusinessUserRequest extends Model
      * @var string
      */
     public $sceneCode;
+
+    // 用户核验需要的额外信息，根据场景选择是否需要上传
+    /**
+     * @var string
+     */
+    public $verifyContent;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'userId'            => 'user_id',
         'sceneCode'         => 'scene_code',
+        'verifyContent'     => 'verify_content',
     ];
 
     public function validate()
@@ -57,6 +64,9 @@ class VerifyAuthBusinessUserRequest extends Model
         }
         if (null !== $this->sceneCode) {
             $res['scene_code'] = $this->sceneCode;
+        }
+        if (null !== $this->verifyContent) {
+            $res['verify_content'] = $this->verifyContent;
         }
 
         return $res;
@@ -81,6 +91,9 @@ class VerifyAuthBusinessUserRequest extends Model
         }
         if (isset($map['scene_code'])) {
             $model->sceneCode = $map['scene_code'];
+        }
+        if (isset($map['verify_content'])) {
+            $model->verifyContent = $map['verify_content'];
         }
 
         return $model;
