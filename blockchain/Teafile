@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-blockchain:1.28.39",
-    "go": "github.com/antchain-openapi-sdk-go/blockchain/client:v1.28.39",
-    "csharp": "AntChain.SDK.BLOCKCHAIN:1.28.39",
+    "java": "com.antgroup.antchain.openapi:openapi-blockchain:1.28.40",
+    "go": "github.com/antchain-openapi-sdk-go/blockchain/client:v1.28.40",
+    "csharp": "AntChain.SDK.BLOCKCHAIN:1.28.40",
     "ts": "@antchain/blockchain:1.27.13",
-    "php": "antchain/blockchain:1.28.39",
-    "python": "antchain_sdk_blockchain:1.28.39"
+    "php": "antchain/blockchain:1.28.40",
+    "python": "antchain_sdk_blockchain:1.28.40"
   },
   "libraries": {
     "Util": "darabonba:Util:*",

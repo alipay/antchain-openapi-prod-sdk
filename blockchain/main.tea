@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.28.39',
+    sdk_version = '1.28.40',
     _prod_code = 'BLOCKCHAIN',
     _prod_channel = 'undefined'
   };
@@ -22231,6 +22231,8 @@ model VerifyAuthBusinessUserRequest = {
   userId: string(name='user_id'),
   // 场景码
   sceneCode: string(name='scene_code'),
+  // 用户核验需要的额外信息，根据场景选择是否需要上传
+  verifyContent?: string(name='verify_content'),
 }
 
 model VerifyAuthBusinessUserResponse = {
