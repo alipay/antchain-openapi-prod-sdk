@@ -28,6 +28,11 @@ namespace AntChain.SDK.BLOCKCHAIN.Models
         [Validation(Required=true)]
         public string SceneCode { get; set; }
 
+        // 用户核验需要的额外信息，根据场景选择是否需要上传
+        [NameInMap("verify_content")]
+        [Validation(Required=false)]
+        public string VerifyContent { get; set; }
+
     }
 
 }
