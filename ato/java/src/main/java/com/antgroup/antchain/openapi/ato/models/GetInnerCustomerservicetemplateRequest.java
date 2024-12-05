@@ -23,7 +23,9 @@ public class GetInnerCustomerservicetemplateRequest extends TeaModel {
     @Validation(required = true)
     public String expandMode;
 
-    // 处理类型: 商家处理；服务商代处理
+    // 处理类型:
+    // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+    // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
     @NameInMap("process_type")
     @Validation(required = true)
     public String processType;

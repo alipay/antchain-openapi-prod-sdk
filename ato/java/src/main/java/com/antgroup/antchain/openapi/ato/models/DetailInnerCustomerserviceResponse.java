@@ -24,7 +24,9 @@ public class DetailInnerCustomerserviceResponse extends TeaModel {
     @NameInMap("merchant_name")
     public String merchantName;
 
-    // 处理类型: 商家处理;服务商代处理
+    // 处理类型:
+    // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+    // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
     @NameInMap("process_type")
     public String processType;
 

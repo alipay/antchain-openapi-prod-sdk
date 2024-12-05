@@ -18,7 +18,7 @@ public class PagequeryInnerOrderResponse extends TeaModel {
 
     // 订单列表信息
     @NameInMap("order_info_list")
-    public java.util.List<MerchantOrderInfo> orderInfoList;
+    public java.util.List<OrderSearchInfo> orderInfoList;
 
     // 总量
     @NameInMap("total")
@@ -53,11 +53,11 @@ public class PagequeryInnerOrderResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PagequeryInnerOrderResponse setOrderInfoList(java.util.List<MerchantOrderInfo> orderInfoList) {
+    public PagequeryInnerOrderResponse setOrderInfoList(java.util.List<OrderSearchInfo> orderInfoList) {
         this.orderInfoList = orderInfoList;
         return this;
     }
-    public java.util.List<MerchantOrderInfo> getOrderInfoList() {
+    public java.util.List<OrderSearchInfo> getOrderInfoList() {
         return this.orderInfoList;
     }
 

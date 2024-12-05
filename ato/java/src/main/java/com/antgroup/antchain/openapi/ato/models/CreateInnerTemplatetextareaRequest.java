@@ -41,6 +41,14 @@ public class CreateInnerTemplatetextareaRequest extends TeaModel {
     @Validation(required = true)
     public Boolean required;
 
+    // 预估文本行数
+    @NameInMap("line")
+    public Long line;
+
+    // 多行文本域名称
+    @NameInMap("multi_name")
+    public String multiName;
+
     public static CreateInnerTemplatetextareaRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInnerTemplatetextareaRequest self = new CreateInnerTemplatetextareaRequest();
         return TeaModel.build(map, self);
@@ -108,6 +116,22 @@ public class CreateInnerTemplatetextareaRequest extends TeaModel {
     }
     public Boolean getRequired() {
         return this.required;
+    }
+
+    public CreateInnerTemplatetextareaRequest setLine(Long line) {
+        this.line = line;
+        return this;
+    }
+    public Long getLine() {
+        return this.line;
+    }
+
+    public CreateInnerTemplatetextareaRequest setMultiName(String multiName) {
+        this.multiName = multiName;
+        return this;
+    }
+    public String getMultiName() {
+        return this.multiName;
     }
 
 }

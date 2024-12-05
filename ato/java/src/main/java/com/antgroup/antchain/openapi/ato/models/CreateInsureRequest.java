@@ -66,6 +66,11 @@ public class CreateInsureRequest extends TeaModel {
     @NameInMap("trade_time")
     public String tradeTime;
 
+    // 公司地址信息，此处填写的地址信息为投保时最高优先级地址，其次为公司进件时填写的地址信息。如果取不到明确地址信息，投保会失败。
+    @NameInMap("address")
+    @Validation(maxLength = 512, minLength = 1)
+    public String address;
+
     public static CreateInsureRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInsureRequest self = new CreateInsureRequest();
         return TeaModel.build(map, self);
@@ -173,6 +178,14 @@ public class CreateInsureRequest extends TeaModel {
     }
     public String getTradeTime() {
         return this.tradeTime;
+    }
+
+    public CreateInsureRequest setAddress(String address) {
+        this.address = address;
+        return this;
+    }
+    public String getAddress() {
+        return this.address;
     }
 
 }
