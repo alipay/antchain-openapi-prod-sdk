@@ -1487,74 +1487,6 @@ func (s *LegalInfoUpdate) SetLegalCertBackFile(v *FileInfo) *LegalInfoUpdate {
 	return s
 }
 
-// 订单信息
-type MerchantOrderInfo struct {
-	// 支付宝代扣协议号
-	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty"`
-	// 订单id
-	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
-	// 订单创建时间
-	OrderCreateTime *string `json:"order_create_time,omitempty" xml:"order_create_time,omitempty"`
-	// 租金总额（单位分）
-	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty"`
-	// 租期
-	RentRerm *int64 `json:"rent_rerm,omitempty" xml:"rent_rerm,omitempty"`
-	// 订单状态
-	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty"`
-	// 承租人名称
-	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
-	// 承租人手机号
-	UserPhoneNumber *string `json:"user_phone_number,omitempty" xml:"user_phone_number,omitempty"`
-}
-
-func (s MerchantOrderInfo) String() string {
-	return tea.Prettify(s)
-}
-
-func (s MerchantOrderInfo) GoString() string {
-	return s.String()
-}
-
-func (s *MerchantOrderInfo) SetAgreementNo(v string) *MerchantOrderInfo {
-	s.AgreementNo = &v
-	return s
-}
-
-func (s *MerchantOrderInfo) SetOrderId(v string) *MerchantOrderInfo {
-	s.OrderId = &v
-	return s
-}
-
-func (s *MerchantOrderInfo) SetOrderCreateTime(v string) *MerchantOrderInfo {
-	s.OrderCreateTime = &v
-	return s
-}
-
-func (s *MerchantOrderInfo) SetTotalRentMoney(v int64) *MerchantOrderInfo {
-	s.TotalRentMoney = &v
-	return s
-}
-
-func (s *MerchantOrderInfo) SetRentRerm(v int64) *MerchantOrderInfo {
-	s.RentRerm = &v
-	return s
-}
-
-func (s *MerchantOrderInfo) SetOrderStatus(v string) *MerchantOrderInfo {
-	s.OrderStatus = &v
-	return s
-}
-
-func (s *MerchantOrderInfo) SetUserName(v string) *MerchantOrderInfo {
-	s.UserName = &v
-	return s
-}
-
-func (s *MerchantOrderInfo) SetUserPhoneNumber(v string) *MerchantOrderInfo {
-	s.UserPhoneNumber = &v
-	return s
-}
-
 // 订单还款计划
 type PromiseInfo struct {
 }
@@ -1606,7 +1538,9 @@ type CustomerServiceInfo struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 	// 公司名称
 	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
-	// 处理类型: 商家处理 服务商代处理
+	// 处理类型:
+	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty"`
 }
 
@@ -1927,6 +1861,81 @@ func (s *CompanyInfoUpdate) SetContactMobile(v string) *CompanyInfoUpdate {
 
 func (s *CompanyInfoUpdate) SetMerchantType(v string) *CompanyInfoUpdate {
 	s.MerchantType = &v
+	return s
+}
+
+// 订单搜索信息
+type OrderSearchInfo struct {
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 支付宝代扣协议号
+	AgreementNo *string `json:"agreement_no,omitempty" xml:"agreement_no,omitempty"`
+	// 订单创建时间
+	OrderCreateTime *string `json:"order_create_time,omitempty" xml:"order_create_time,omitempty"`
+	// 租金总额（单位分）
+	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty"`
+	// 租期
+	RentTerm *int64 `json:"rent_term,omitempty" xml:"rent_term,omitempty"`
+	// 租期单位
+	RentUnit *string `json:"rent_unit,omitempty" xml:"rent_unit,omitempty"`
+	// 订单状态
+	OrderStatus *string `json:"order_status,omitempty" xml:"order_status,omitempty"`
+	// 承租人名称
+	UserName *string `json:"user_name,omitempty" xml:"user_name,omitempty"`
+	// 承租人手机号
+	UserPhoneNumber *string `json:"user_phone_number,omitempty" xml:"user_phone_number,omitempty"`
+}
+
+func (s OrderSearchInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s OrderSearchInfo) GoString() string {
+	return s.String()
+}
+
+func (s *OrderSearchInfo) SetOrderId(v string) *OrderSearchInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *OrderSearchInfo) SetAgreementNo(v string) *OrderSearchInfo {
+	s.AgreementNo = &v
+	return s
+}
+
+func (s *OrderSearchInfo) SetOrderCreateTime(v string) *OrderSearchInfo {
+	s.OrderCreateTime = &v
+	return s
+}
+
+func (s *OrderSearchInfo) SetTotalRentMoney(v int64) *OrderSearchInfo {
+	s.TotalRentMoney = &v
+	return s
+}
+
+func (s *OrderSearchInfo) SetRentTerm(v int64) *OrderSearchInfo {
+	s.RentTerm = &v
+	return s
+}
+
+func (s *OrderSearchInfo) SetRentUnit(v string) *OrderSearchInfo {
+	s.RentUnit = &v
+	return s
+}
+
+func (s *OrderSearchInfo) SetOrderStatus(v string) *OrderSearchInfo {
+	s.OrderStatus = &v
+	return s
+}
+
+func (s *OrderSearchInfo) SetUserName(v string) *OrderSearchInfo {
+	s.UserName = &v
+	return s
+}
+
+func (s *OrderSearchInfo) SetUserPhoneNumber(v string) *OrderSearchInfo {
+	s.UserPhoneNumber = &v
 	return s
 }
 
@@ -3292,6 +3301,10 @@ type CancelFundPlanRequest struct {
 	CancelReason *string `json:"cancel_reason,omitempty" xml:"cancel_reason,omitempty" require:"true"`
 	// 融资单的资方社会信用代码
 	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" maxLength:"64"`
+	// 操作
+	Operation *string `json:"operation,omitempty" xml:"operation,omitempty" maxLength:"64"`
+	// 赎回金额,单位为分,取消并赎回时必填
+	RedeemAmount *int64 `json:"redeem_amount,omitempty" xml:"redeem_amount,omitempty" minimum:"10"`
 }
 
 func (s CancelFundPlanRequest) String() string {
@@ -3329,6 +3342,16 @@ func (s *CancelFundPlanRequest) SetCancelReason(v string) *CancelFundPlanRequest
 
 func (s *CancelFundPlanRequest) SetFundId(v string) *CancelFundPlanRequest {
 	s.FundId = &v
+	return s
+}
+
+func (s *CancelFundPlanRequest) SetOperation(v string) *CancelFundPlanRequest {
+	s.Operation = &v
+	return s
+}
+
+func (s *CancelFundPlanRequest) SetRedeemAmount(v int64) *CancelFundPlanRequest {
+	s.RedeemAmount = &v
 	return s
 }
 
@@ -6057,6 +6080,10 @@ type CreateInnerTemplatetextareaRequest struct {
 	ComponentName *string `json:"component_name,omitempty" xml:"component_name,omitempty" require:"true"`
 	// 是否必填
 	Required *bool `json:"required,omitempty" xml:"required,omitempty" require:"true"`
+	// 预估文本行数
+	Line *int64 `json:"line,omitempty" xml:"line,omitempty"`
+	// 多行文本域名称
+	MultiName *string `json:"multi_name,omitempty" xml:"multi_name,omitempty"`
 }
 
 func (s CreateInnerTemplatetextareaRequest) String() string {
@@ -6104,6 +6131,16 @@ func (s *CreateInnerTemplatetextareaRequest) SetComponentName(v string) *CreateI
 
 func (s *CreateInnerTemplatetextareaRequest) SetRequired(v bool) *CreateInnerTemplatetextareaRequest {
 	s.Required = &v
+	return s
+}
+
+func (s *CreateInnerTemplatetextareaRequest) SetLine(v int64) *CreateInnerTemplatetextareaRequest {
+	s.Line = &v
+	return s
+}
+
+func (s *CreateInnerTemplatetextareaRequest) SetMultiName(v string) *CreateInnerTemplatetextareaRequest {
+	s.MultiName = &v
 	return s
 }
 
@@ -7264,8 +7301,8 @@ type QueryInnerMerchantpayexpandResponse struct {
 	ExpandStatus *string `json:"expand_status,omitempty" xml:"expand_status,omitempty"`
 	// 进件失败描述
 	ExpandFailReason *string `json:"expand_fail_reason,omitempty" xml:"expand_fail_reason,omitempty"`
-	// 是否展示进件信息登记入口
-	ShowCustomerComplaintRegistPortal *bool `json:"show_customer_complaint_regist_portal,omitempty" xml:"show_customer_complaint_regist_portal,omitempty"`
+	// 是否展示客服信息登记入口
+	ShowCustomerServiceBanner *bool `json:"show_customer_service_banner,omitempty" xml:"show_customer_service_banner,omitempty"`
 }
 
 func (s QueryInnerMerchantpayexpandResponse) String() string {
@@ -7331,8 +7368,8 @@ func (s *QueryInnerMerchantpayexpandResponse) SetExpandFailReason(v string) *Que
 	return s
 }
 
-func (s *QueryInnerMerchantpayexpandResponse) SetShowCustomerComplaintRegistPortal(v bool) *QueryInnerMerchantpayexpandResponse {
-	s.ShowCustomerComplaintRegistPortal = &v
+func (s *QueryInnerMerchantpayexpandResponse) SetShowCustomerServiceBanner(v bool) *QueryInnerMerchantpayexpandResponse {
+	s.ShowCustomerServiceBanner = &v
 	return s
 }
 
@@ -9724,7 +9761,7 @@ type PagequeryInnerOrderResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 订单列表信息
-	OrderInfoList []*MerchantOrderInfo `json:"order_info_list,omitempty" xml:"order_info_list,omitempty" type:"Repeated"`
+	OrderInfoList []*OrderSearchInfo `json:"order_info_list,omitempty" xml:"order_info_list,omitempty" type:"Repeated"`
 	// 总量
 	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 }
@@ -9752,7 +9789,7 @@ func (s *PagequeryInnerOrderResponse) SetResultMsg(v string) *PagequeryInnerOrde
 	return s
 }
 
-func (s *PagequeryInnerOrderResponse) SetOrderInfoList(v []*MerchantOrderInfo) *PagequeryInnerOrderResponse {
+func (s *PagequeryInnerOrderResponse) SetOrderInfoList(v []*OrderSearchInfo) *PagequeryInnerOrderResponse {
 	s.OrderInfoList = v
 	return s
 }
@@ -10067,8 +10104,8 @@ type CreateInnerCustomerserviceRequest struct {
 	// 公司名称
 	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
 	// 处理类型:
-	// 商家处理
-	// 服务商代处理
+	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty" require:"true"`
 	// 服务商名称
 	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
@@ -10210,7 +10247,9 @@ type UpdateInnerCustomerserviceRequest struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 	// 公司名称
 	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty" require:"true"`
-	// 处理类型: 商家处理 服务商代处理
+	// 处理类型:
+	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty" require:"true"`
 	// 服务商名称
 	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
@@ -10349,7 +10388,9 @@ type PagequeryInnerCustomerserviceRequest struct {
 	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
 	// 分页信息
 	PageInfo *PageQuery `json:"page_info,omitempty" xml:"page_info,omitempty" require:"true"`
-	// 处理类型: 商家处理 服务商代处理
+	// 处理类型:
+	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty"`
 	// 公司社会统一信息代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
@@ -10504,7 +10545,9 @@ type DetailInnerCustomerserviceResponse struct {
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
 	// 公司名称
 	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
-	// 处理类型: 商家处理;服务商代处理
+	// 处理类型:
+	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty"`
 	// 服务商名称
 	ServiceProviderName *string `json:"service_provider_name,omitempty" xml:"service_provider_name,omitempty"`
@@ -10605,7 +10648,9 @@ type GetInnerCustomerservicetemplateRequest struct {
 	// DIRECT("DIRECT", "直连进件模式")
 	// AGENT("AGENT", "代理商进件模式")
 	ExpandMode *string `json:"expand_mode,omitempty" xml:"expand_mode,omitempty" require:"true"`
-	// 处理类型: 商家处理；服务商代处理
+	// 处理类型:
+	// MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+	// PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
 	ProcessType *string `json:"process_type,omitempty" xml:"process_type,omitempty" require:"true"`
 }
 
@@ -10751,6 +10796,8 @@ type CreateInsureRequest struct {
 	LogisticsNumber *string `json:"logistics_number,omitempty" xml:"logistics_number,omitempty" maxLength:"64"`
 	// 交易时间，非必填参数。如果发货方式为 OFFLINE（线下交易），则该字段必填。
 	TradeTime *string `json:"trade_time,omitempty" xml:"trade_time,omitempty"`
+	// 公司地址信息，此处填写的地址信息为投保时最高优先级地址，其次为公司进件时填写的地址信息。如果取不到明确地址信息，投保会失败。
+	Address *string `json:"address,omitempty" xml:"address,omitempty" maxLength:"512" minLength:"1"`
 }
 
 func (s CreateInsureRequest) String() string {
@@ -10823,6 +10870,11 @@ func (s *CreateInsureRequest) SetLogisticsNumber(v string) *CreateInsureRequest 
 
 func (s *CreateInsureRequest) SetTradeTime(v string) *CreateInsureRequest {
 	s.TradeTime = &v
+	return s
+}
+
+func (s *CreateInsureRequest) SetAddress(v string) *CreateInsureRequest {
+	s.Address = &v
 	return s
 }
 
@@ -11912,13 +11964,7 @@ type SubmitSignFlowRequest struct {
 	BusinessScene *string `json:"business_scene,omitempty" xml:"business_scene,omitempty" require:"true"`
 	// 签署完成跳转链接
 	SignedRedirectUrl *string `json:"signed_redirect_url,omitempty" xml:"signed_redirect_url,omitempty"`
-	// 签署的电子合同模板信息，List<Object>的JSON格式，Object如下：
-	// {
-	// templateId:__, // String格式
-	// templateArgs: {
-	//     "模板参数key":"模板参数值", // 必须为String
-	//   }
-	// }
+	// 签署的电子合同模板信息，JSONArray格式，可以传入多个templateId和templateArgs。注意templateArgs的格式为key-value，其中key为模板文件中表单域的名称，value为需要填充的值。
 	TemplateList *string `json:"template_list,omitempty" xml:"template_list,omitempty" require:"true"`
 	// 用户的支付宝uid
 	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" maxLength:"20" minLength:"12"`
@@ -11938,12 +11984,20 @@ type SubmitSignFlowRequest struct {
 	MerchantLegalName *string `json:"merchant_legal_name,omitempty" xml:"merchant_legal_name,omitempty"`
 	// 法人证件号，需要采用RSA加密传输
 	MerchantLegalIdNumber *string `json:"merchant_legal_id_number,omitempty" xml:"merchant_legal_id_number,omitempty"`
-	// 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+	// 除商户以外的第三方签署信息，需要通过此字段传入，需要使用JSONArray格式。注意其中orgIdNumber、orgLegalName、orgLegalIdNumber需要RSA加密。
 	ThirdSigner *string `json:"third_signer,omitempty" xml:"third_signer,omitempty" minLength:"0"`
 	// 支付宝用户 open_id
 	UserOpenId *string `json:"user_open_id,omitempty" xml:"user_open_id,omitempty" maxLength:"64" minLength:"16"`
 	// 商户支付宝应用 id
 	MerchantAppId *string `json:"merchant_app_id,omitempty" xml:"merchant_app_id,omitempty" maxLength:"32"`
+	// (企业作为消费者时)公司名称
+	UserOrgName *string `json:"user_org_name,omitempty" xml:"user_org_name,omitempty"`
+	// (企业作为消费者时)公司证件类型
+	UserOrgIdType *string `json:"user_org_id_type,omitempty" xml:"user_org_id_type,omitempty"`
+	// (企业作为消费者时)公司证件号，无需加密
+	UserOrgIdNumber *string `json:"user_org_id_number,omitempty" xml:"user_org_id_number,omitempty"`
+	// 用户类型，个人或企业，默认是个人
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty"`
 }
 
 func (s SubmitSignFlowRequest) String() string {
@@ -12079,6 +12133,26 @@ func (s *SubmitSignFlowRequest) SetMerchantAppId(v string) *SubmitSignFlowReques
 	return s
 }
 
+func (s *SubmitSignFlowRequest) SetUserOrgName(v string) *SubmitSignFlowRequest {
+	s.UserOrgName = &v
+	return s
+}
+
+func (s *SubmitSignFlowRequest) SetUserOrgIdType(v string) *SubmitSignFlowRequest {
+	s.UserOrgIdType = &v
+	return s
+}
+
+func (s *SubmitSignFlowRequest) SetUserOrgIdNumber(v string) *SubmitSignFlowRequest {
+	s.UserOrgIdNumber = &v
+	return s
+}
+
+func (s *SubmitSignFlowRequest) SetUserType(v string) *SubmitSignFlowRequest {
+	s.UserType = &v
+	return s
+}
+
 type SubmitSignFlowResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -12092,7 +12166,7 @@ type SubmitSignFlowResponse struct {
 	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
 	// 签署用户ID
 	AccountId *string `json:"account_id,omitempty" xml:"account_id,omitempty"`
-	// 签署附加信息，用于获取签署链接等。JSON格式的字符串。
+	// 签署信息，包括短链接、长链接、小程序链接等。
 	SignInfo *string `json:"sign_info,omitempty" xml:"sign_info,omitempty"`
 }
 
@@ -13143,6 +13217,76 @@ func (s *CancelSignFlowResponse) SetResultCode(v string) *CancelSignFlowResponse
 
 func (s *CancelSignFlowResponse) SetResultMsg(v string) *CancelSignFlowResponse {
 	s.ResultMsg = &v
+	return s
+}
+
+type GetSignContractcertificateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 流程id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty" require:"true"`
+}
+
+func (s GetSignContractcertificateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetSignContractcertificateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *GetSignContractcertificateRequest) SetAuthToken(v string) *GetSignContractcertificateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *GetSignContractcertificateRequest) SetProductInstanceId(v string) *GetSignContractcertificateRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *GetSignContractcertificateRequest) SetFlowId(v string) *GetSignContractcertificateRequest {
+	s.FlowId = &v
+	return s
+}
+
+type GetSignContractcertificateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 下载文件地址(一小时内有效)
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+}
+
+func (s GetSignContractcertificateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s GetSignContractcertificateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *GetSignContractcertificateResponse) SetReqMsgId(v string) *GetSignContractcertificateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *GetSignContractcertificateResponse) SetResultCode(v string) *GetSignContractcertificateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *GetSignContractcertificateResponse) SetResultMsg(v string) *GetSignContractcertificateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *GetSignContractcertificateResponse) SetUrl(v string) *GetSignContractcertificateResponse {
+	s.Url = &v
 	return s
 }
 
@@ -14954,6 +15098,8 @@ type QueryWithholdActivepayRequest struct {
 	TradeNo *string `json:"trade_no,omitempty" xml:"trade_no,omitempty" maxLength:"64"`
 	// 支付类型
 	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" maxLength:"64" minLength:"1"`
+	// 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+	PayChannel *string `json:"pay_channel,omitempty" xml:"pay_channel,omitempty" maxLength:"64"`
 }
 
 func (s QueryWithholdActivepayRequest) String() string {
@@ -14991,6 +15137,11 @@ func (s *QueryWithholdActivepayRequest) SetTradeNo(v string) *QueryWithholdActiv
 
 func (s *QueryWithholdActivepayRequest) SetPayType(v string) *QueryWithholdActivepayRequest {
 	s.PayType = &v
+	return s
+}
+
+func (s *QueryWithholdActivepayRequest) SetPayChannel(v string) *QueryWithholdActivepayRequest {
+	s.PayChannel = &v
 	return s
 }
 
@@ -15724,7 +15875,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.10.24"),
+				"sdk_version":      tea.String("1.10.37"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -19505,6 +19656,40 @@ func (client *Client) CancelSignFlowEx(request *CancelSignFlowRequest, headers m
 	}
 	_result = &CancelSignFlowResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.flow.cancel"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取合同存证证明
+ * Summary: 获取合同存证证明
+ */
+func (client *Client) GetSignContractcertificate(request *GetSignContractcertificateRequest) (_result *GetSignContractcertificateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &GetSignContractcertificateResponse{}
+	_body, _err := client.GetSignContractcertificateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取合同存证证明
+ * Summary: 获取合同存证证明
+ */
+func (client *Client) GetSignContractcertificateEx(request *GetSignContractcertificateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *GetSignContractcertificateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &GetSignContractcertificateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.sign.contractcertificate.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
