@@ -27,7 +27,7 @@ namespace AntChain.SDK.ATO.Models
         // 订单列表信息
         [NameInMap("order_info_list")]
         [Validation(Required=false)]
-        public List<MerchantOrderInfo> OrderInfoList { get; set; }
+        public List<OrderSearchInfo> OrderInfoList { get; set; }
 
         // 总量
         [NameInMap("total")]

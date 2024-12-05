@@ -41,6 +41,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=64)]
         public string FundId { get; set; }
 
+        // 操作
+        [NameInMap("operation")]
+        [Validation(Required=false, MaxLength=64)]
+        public string Operation { get; set; }
+
+        // 赎回金额,单位为分,取消并赎回时必填
+        [NameInMap("redeem_amount")]
+        [Validation(Required=false)]
+        public long? RedeemAmount { get; set; }
+
     }
 
 }

@@ -8,17 +8,17 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    // 订单信息
-    public class MerchantOrderInfo : TeaModel {
-        // 支付宝代扣协议号
-        [NameInMap("agreement_no")]
-        [Validation(Required=false)]
-        public string AgreementNo { get; set; }
-
+    // 订单搜索信息
+    public class OrderSearchInfo : TeaModel {
         // 订单id
         [NameInMap("order_id")]
         [Validation(Required=false)]
         public string OrderId { get; set; }
+
+        // 支付宝代扣协议号
+        [NameInMap("agreement_no")]
+        [Validation(Required=false)]
+        public string AgreementNo { get; set; }
 
         // 订单创建时间
         [NameInMap("order_create_time")]
@@ -31,9 +31,14 @@ namespace AntChain.SDK.ATO.Models
         public long? TotalRentMoney { get; set; }
 
         // 租期
-        [NameInMap("rent_rerm")]
+        [NameInMap("rent_term")]
         [Validation(Required=false)]
-        public long? RentRerm { get; set; }
+        public long? RentTerm { get; set; }
+
+        // 租期单位
+        [NameInMap("rent_unit")]
+        [Validation(Required=false)]
+        public string RentUnit { get; set; }
 
         // 订单状态
         [NameInMap("order_status")]

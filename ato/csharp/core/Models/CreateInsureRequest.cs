@@ -75,6 +75,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string TradeTime { get; set; }
 
+        // 公司地址信息，此处填写的地址信息为投保时最高优先级地址，其次为公司进件时填写的地址信息。如果取不到明确地址信息，投保会失败。
+        [NameInMap("address")]
+        [Validation(Required=false, MaxLength=512)]
+        public string Address { get; set; }
+
     }
 
 }

@@ -48,6 +48,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public bool? Required { get; set; }
 
+        // 预估文本行数
+        [NameInMap("line")]
+        [Validation(Required=false)]
+        public long? Line { get; set; }
+
+        // 多行文本域名称
+        [NameInMap("multi_name")]
+        [Validation(Required=false)]
+        public string MultiName { get; set; }
+
     }
 
 }

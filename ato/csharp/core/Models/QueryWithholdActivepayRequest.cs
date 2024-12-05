@@ -38,6 +38,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=64)]
         public string PayType { get; set; }
 
+        // 支付渠道，非必填。可选值：JSAPI-JSAPI支付，APP-APP支付。默认值：JSAPI
+        [NameInMap("pay_channel")]
+        [Validation(Required=false, MaxLength=64)]
+        public string PayChannel { get; set; }
+
     }
 
 }
