@@ -78,12 +78,6 @@ class CreateEvidenceLiveRequest extends Model
      * @var string
      */
     public $obtainDeviceType;
-
-    // 2：momo，4：比心，5：小红书
-    /**
-     * @var string
-     */
-    public $obtainPlatform;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -97,7 +91,6 @@ class CreateEvidenceLiveRequest extends Model
         'anchorName'        => 'anchor_name',
         'obtainType'        => 'obtain_type',
         'obtainDeviceType'  => 'obtain_device_type',
-        'obtainPlatform'    => 'obtain_platform',
     ];
 
     public function validate()
@@ -105,7 +98,6 @@ class CreateEvidenceLiveRequest extends Model
         Model::validateRequired('evidenceUserId', $this->evidenceUserId, true);
         Model::validateRequired('notaryOffice', $this->notaryOffice, true);
         Model::validateRequired('type', $this->type, true);
-        Model::validateRequired('webUrl', $this->webUrl, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
     }
 
@@ -147,9 +139,6 @@ class CreateEvidenceLiveRequest extends Model
         }
         if (null !== $this->obtainDeviceType) {
             $res['obtain_device_type'] = $this->obtainDeviceType;
-        }
-        if (null !== $this->obtainPlatform) {
-            $res['obtain_platform'] = $this->obtainPlatform;
         }
 
         return $res;
@@ -198,9 +187,6 @@ class CreateEvidenceLiveRequest extends Model
         }
         if (isset($map['obtain_device_type'])) {
             $model->obtainDeviceType = $map['obtain_device_type'];
-        }
-        if (isset($map['obtain_platform'])) {
-            $model->obtainPlatform = $map['obtain_platform'];
         }
 
         return $model;
