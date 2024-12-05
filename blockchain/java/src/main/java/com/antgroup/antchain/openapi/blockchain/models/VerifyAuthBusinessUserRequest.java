@@ -21,6 +21,10 @@ public class VerifyAuthBusinessUserRequest extends TeaModel {
     @Validation(required = true)
     public String sceneCode;
 
+    // 用户核验需要的额外信息，根据场景选择是否需要上传
+    @NameInMap("verify_content")
+    public String verifyContent;
+
     public static VerifyAuthBusinessUserRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyAuthBusinessUserRequest self = new VerifyAuthBusinessUserRequest();
         return TeaModel.build(map, self);
@@ -56,6 +60,14 @@ public class VerifyAuthBusinessUserRequest extends TeaModel {
     }
     public String getSceneCode() {
         return this.sceneCode;
+    }
+
+    public VerifyAuthBusinessUserRequest setVerifyContent(String verifyContent) {
+        this.verifyContent = verifyContent;
+        return this;
+    }
+    public String getVerifyContent() {
+        return this.verifyContent;
     }
 
 }
