@@ -1,0 +1,298 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.0.0',
+    _prod_code = 'ak_f9cb6523d99f4d089e97d549f141e6e4',
+    _prod_channel = 'saas'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 返回详情
+model ReturnDetail {
+  // 结果对象内容
+  bizContent: string(name='biz_content', example='{}'),
+  // 返回形式
+  returnType: string(name='return_type', example='BIZCONTENT 字段返回格式化,这种模式下取bizContent字段 FILE 文件模式，这种模式下用fileUrls获取文件'),
+  // 文件列表
+  fileUrls: [ string ](name='file_urls', example='["a.com","b.com"]'),
+  // 文件类型
+  fileType: string(name='file_type', example=' PDF pdf TXT JSON结构化'),
+  // 加密模式
+  encryptModel: string(name='encrypt_model', example='LINKS：链接加密 CONTENT：内容加密，使用信封模式，'),
+  // 密钥信封
+  secretEnvelope: string(name='secret_envelope', example='密钥信封，用RSA将将对内容处理的对称钥加密'),
+}
+
+model ExecBlockchainTaxIcmSyncgatheringRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 机构号码
+  instCode: string(name='inst_code'),
+  // 请求流水号(必填),调用方保证每次请求号唯一，受理方用来校验唯一性，同一受理号返回请求结果一致
+  bizRequestId: string(name='biz_request_id'),
+  // 纳税人识别号(必填)
+  identityId: string(name='identity_id'),
+  // 授权类型(必填)
+  authType: string(name='auth_type'),
+  // 订单号
+  orderNo: string(name='order_no'),
+  // 补充内容,如果不动产中字段为空的话查的就是授权中的cityCode
+  content: string(name='content'),
+  // 查询类型
+  // NORMAL 正常调用
+  // BATCH_HAND  批刷
+  queryType?: string(name='query_type'),
+  // 子机构编码，字典由系统预设白名单
+  subTenant?: string(name='sub_tenant'),
+  // 优先级，越大优先级越高
+  usePriority?: string(name='use_priority'),
+}
+
+model ExecBlockchainTaxIcmSyncgatheringResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回的请求对象jsonString
+  bizContent?: string(name='biz_content'),
+  // unix秒时间戳,查询时间，用来对账使用
+  queryTime?: string(name='query_time'),
+  // 返回模式
+  returnMode?: string(name='return_mode'),
+  // 返回结果
+  returnResult?: [ ReturnDetail ](name='return_result'),
+  // 是否查得
+  nullDataFlag?: boolean(name='null_data_flag'),
+  // 参考区块链给出的标准字段定义
+  queryType?: string(name='query_type'),
+  // 是否需要重新授权
+  reauth?: boolean(name='reauth'),
+}
+
+/**
+ * Description: 采集，不限制同步 异步
+ * Summary: 采集
+ */
+async function execBlockchainTaxIcmSyncgathering(request: ExecBlockchainTaxIcmSyncgatheringRequest): ExecBlockchainTaxIcmSyncgatheringResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execBlockchainTaxIcmSyncgatheringEx(request, headers, runtime);
+}
+
+/**
+ * Description: 采集，不限制同步 异步
+ * Summary: 采集
+ */
+async function execBlockchainTaxIcmSyncgatheringEx(request: ExecBlockchainTaxIcmSyncgatheringRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecBlockchainTaxIcmSyncgatheringResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.icm.syncgathering.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model RunBlockchainTaxApiDataprocessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 请求参数json
+  bizParam: string(name='biz_param'),
+  // 产品code
+  productCode: string(name='product_code'),
+  // 调用的方法
+  methodCode: string(name='method_code'),
+  // 租户编码
+  instCode?: string(name='inst_code'),
+  // RSA-DESede
+  // 代表数字信封：采用 rsa 非对称算法，DESede 对称算法
+  algorithm?: string(name='algorithm'),
+  // 是否采用加密算法
+  encryption?: boolean(name='encryption'),
+  // 对称秘钥加密后的数据
+  encryptionKey?: string(name='encryption_key'),
+}
+
+model RunBlockchainTaxApiDataprocessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 返回数据
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 数据流转通用执行接口
+ * Summary: 数据流转通用执行接口
+ */
+async function runBlockchainTaxApiDataprocess(request: RunBlockchainTaxApiDataprocessRequest): RunBlockchainTaxApiDataprocessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return runBlockchainTaxApiDataprocessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 数据流转通用执行接口
+ * Summary: 数据流转通用执行接口
+ */
+async function runBlockchainTaxApiDataprocessEx(request: RunBlockchainTaxApiDataprocessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RunBlockchainTaxApiDataprocessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.tax.api.dataprocess.run', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
