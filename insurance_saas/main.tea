@@ -1,0 +1,1071 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.7.10',
+    _prod_code = 'INSURANCE_SAAS',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+model QueryInquiryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 询价id
+  inquiryNoInner: string(name='inquiry_no_inner'),
+}
+
+model QueryInquiryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报价内容
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 保险询报价结果查询
+ * Summary: 保险询报价结果查询
+ */
+async function queryInquiry(request: QueryInquiryRequest): QueryInquiryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInquiryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保险询报价结果查询
+ * Summary: 保险询报价结果查询
+ */
+async function queryInquiryEx(request: QueryInquiryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInquiryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.inquiry.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitInquiryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // inquiryNo
+  inquiryNo: string(name='inquiry_no'),
+  // 询价平台
+  inquirePlatform: string(name='inquire_platform'),
+  // 单次保额
+  singleInsuranceAmount: string(name='single_insurance_amount'),
+  // 总保额
+  totalInsuranceAmount: string(name='total_insurance_amount'),
+  // 询价基础材料列表
+  materialList?: string(name='material_list'),
+  // 询价标的列表
+  objectList?: string(name='object_list'),
+  // 保司编号
+  insuranceCompanyNo: string(name='insurance_company_no'),
+  // 保险产品编码
+  trustworthyValueInsuranceTypeCode: string(name='trustworthy_value_insurance_type_code'),
+  // 保司项目代码
+  insuranceProjectCode: string(name='insurance_project_code'),
+  // 保司方案代码
+  insuranceOptionsCode: string(name='insurance_options_code'),
+  // 询价人(名称、证件号、证件类型)
+  inquirer: string(name='inquirer'),
+  // 投保人(可空)
+  applicant?: string(name='applicant'),
+  // 被保人列表(可空)
+  insuredList?: string(name='insured_list'),
+}
+
+model SubmitInquiryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报价内容
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 保险产品询价
+ * Summary: 保险产品询价
+ */
+async function submitInquiry(request: SubmitInquiryRequest): SubmitInquiryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitInquiryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保险产品询价
+ * Summary: 保险产品询价
+ */
+async function submitInquiryEx(request: SubmitInquiryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitInquiryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.inquiry.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDataDisasterRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 行政区域代码
+  areaCode: string(name='area_code'),
+  // 灾害类型：df:⼤⻛，by:暴⾬，xz:雪灾
+  disasterType: string(name='disaster_type'),
+  // 查询起始日期
+  startDate: string(name='start_date'),
+  // 查询截止日期
+  endDate: string(name='end_date'),
+}
+
+model QueryDataDisasterResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 历史灾害内容
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 历史灾害查询
+ * Summary: 历史灾害数据查询
+ */
+async function queryDataDisaster(request: QueryDataDisasterRequest): QueryDataDisasterResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDataDisasterEx(request, headers, runtime);
+}
+
+/**
+ * Description: 历史灾害查询
+ * Summary: 历史灾害数据查询
+ */
+async function queryDataDisasterEx(request: QueryDataDisasterRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDataDisasterResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.data.disaster.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDataWeatherRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 行政区域代码
+  areaCode?: string(name='area_code'),
+}
+
+model QueryDataWeatherResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实时气象内容
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 实时天气预警
+ * Summary: 实时天气预警
+ */
+async function queryDataWeather(request: QueryDataWeatherRequest): QueryDataWeatherResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDataWeatherEx(request, headers, runtime);
+}
+
+/**
+ * Description: 实时天气预警
+ * Summary: 实时天气预警
+ */
+async function queryDataWeatherEx(request: QueryDataWeatherRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDataWeatherResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.data.weather.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncQuoteRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 询价申请号
+  inquiryNo?: string(name='inquiry_no'),
+  // 询价平台
+  inquirePlatform?: string(name='inquire_platform'),
+  // 单次保额
+  singleInsuranceAmount: string(name='single_insurance_amount'),
+  // 总保额
+  totalInsuranceAmount: string(name='total_insurance_amount'),
+  // 询价基础材料
+  materialList?: string(name='material_list'),
+  // 标的材料列表
+  objectList?: string(name='object_list'),
+  // 保司编号
+  insuranceCompanyNo: string(name='insurance_company_no'),
+  // 保险产品编码
+  trustworthyValueInsuranceTypeCode: string(name='trustworthy_value_insurance_type_code'),
+  // 保司项目代码
+  insuranceProjectCode: string(name='insurance_project_code'),
+  // 保司方案代码
+  insuranceOptionsCode: string(name='insurance_options_code'),
+  // 询价人
+  inquirer?: string(name='inquirer'),
+  // 投保人
+  applicant?: string(name='applicant'),
+  // 被保人列表
+  insuredList?: string(name='insured_list'),
+  // 报价结果
+  quotation?: string(name='quotation'),
+}
+
+model SyncQuoteResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 业务返回值
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 报价接口同步接口
+ * Summary: 报价接口同步接口
+ */
+async function syncQuote(request: SyncQuoteRequest): SyncQuoteResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncQuoteEx(request, headers, runtime);
+}
+
+/**
+ * Description: 报价接口同步接口
+ * Summary: 报价接口同步接口
+ */
+async function syncQuoteEx(request: SyncQuoteRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncQuoteResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.quote.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyUnderwritingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 报价单编号（蚂蚁内部）
+  quotationNoInner?: string(name='quotation_no_inner'),
+  // 承保申请号（保司）
+  insuranceApplicationNo: string(name='insurance_application_no'),
+  // 保司编码
+  insuranceCompanyNo: string(name='insurance_company_no'),
+  // 保险产品编码
+  trustworthyValueInsuranceTypeCode: string(name='trustworthy_value_insurance_type_code'),
+  // 保司项目代码
+  insuranceProjectCode: string(name='insurance_project_code'),
+  // 保司方案代码
+  insuranceOptionsCode: string(name='insurance_options_code'),
+  // 投保人信息(名称、证件号、证件类型)
+  applicant: string(name='applicant'),
+  // 被保人列表(可空)
+  insuredList?: string(name='insured_list'),
+  // 受益人列表(可空)
+  beneficiaryList?: string(name='beneficiary_list'),
+  // 投保标的列表
+  objectList?: string(name='object_list'),
+  // 保险起期 yyyy-MM-dd HH:mm:ss
+  insurancePeriodStart: string(name='insurance_period_start'),
+  // 保险止期 yyyy-MM-dd HH:mm:ss
+  insurancePeriodEnd?: string(name='insurance_period_end'),
+  // 保期（天）
+  insurancePeriod: long(name='insurance_period'),
+  // 申请保额， {
+  // 		"cent": 20000,
+  // 		"currency": "CNY"
+  // 	}
+  appliedInsuranceAmount: string(name='applied_insurance_amount'),
+  // 保费
+  appliedPremium: string(name='applied_premium'),
+  // 保费费率
+  premiumRate: string(name='premium_rate'),
+  // 承保申请的报价相关内容
+  quotation?: string(name='quotation'),
+}
+
+model ApplyUnderwritingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 承保申请结果
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 承保自核申请接口
+ * Summary: 承保自核申请接口
+ */
+async function applyUnderwriting(request: ApplyUnderwritingRequest): ApplyUnderwritingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyUnderwritingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 承保自核申请接口
+ * Summary: 承保自核申请接口
+ */
+async function applyUnderwritingEx(request: ApplyUnderwritingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyUnderwritingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.underwriting.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUnderwritingRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 承保申请号（蚂蚁内部）
+  insuranceApplicationNoInner: string(name='insurance_application_no_inner'),
+}
+
+model QueryUnderwritingResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 承保申请结果
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 承保自核结果查询接口
+ * Summary: 承保自核结果查询接口
+ */
+async function queryUnderwriting(request: QueryUnderwritingRequest): QueryUnderwritingResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUnderwritingEx(request, headers, runtime);
+}
+
+/**
+ * Description: 承保自核结果查询接口
+ * Summary: 承保自核结果查询接口
+ */
+async function queryUnderwritingEx(request: QueryUnderwritingRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUnderwritingResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.underwriting.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryPolicyFileRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 蚂蚁侧保单唯一ID
+  insurancePolicyNoInner: string(name='insurance_policy_no_inner'),
+}
+
+model QueryPolicyFileResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询的保单信息
+  ossUrl?: string(name='oss_url'),
+}
+
+/**
+ * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+ * Summary: 保险科技保单附件查询接口
+ */
+async function queryPolicyFile(request: QueryPolicyFileRequest): QueryPolicyFileResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryPolicyFileEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据保单号查询保单附件，并返回一个有效期为7天的ossurl
+ * Summary: 保险科技保单附件查询接口
+ */
+async function queryPolicyFileEx(request: QueryPolicyFileRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryPolicyFileResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.policy.file.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyInsureRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 投保申请号-外部，业务侧需保证唯一
+  insuranceApplicationNo: string(name='insurance_application_no'),
+  // 保司编码
+  insuranceCompanyNo: string(name='insurance_company_no'),
+  // 保险产品编码
+  trustworthyValueInsuranceTypeCode: string(name='trustworthy_value_insurance_type_code'),
+  // 保司项目代码
+  insuranceProjectCode: string(name='insurance_project_code'),
+  // 保司方案代码
+  insuranceOptionsCode: string(name='insurance_options_code'),
+  // 投保人信息(名称-memberName、证件号-certNo、证件类型-certType、手机号-memberMobileNo)
+  applicant: string(name='applicant'),
+  // 被保人列表(可空)，json格式参见投保人信息
+  insuredList?: string(name='insured_list'),
+  // 受益人列表(可空)
+  beneficiaryList?: string(name='beneficiary_list'),
+  // 保险起期
+  insurancePeriodStart: string(name='insurance_period_start'),
+  // 保险止期
+  insurancePeriodEnd?: string(name='insurance_period_end'),
+  // 申请保额，支持多币种， { "cent": 10000, "currency": "CNY" }
+  appliedInsuranceAmount: string(name='applied_insurance_amount'),
+  // 保期，单位：天
+  insurancePeriod?: long(name='insurance_period'),
+  // 投保标的List，动态字段，根据险种所配置的标的传值
+  insuredObjectList?: string(name='insured_object_list'),
+}
+
+model ApplyInsureResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 投保申请结果，不同险种可能返回不同，具体参见相关文档
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 保险SaaS投保申请接口
+ * Summary: 投保申请接口
+ */
+async function applyInsure(request: ApplyInsureRequest): ApplyInsureResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyInsureEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保险SaaS投保申请接口
+ * Summary: 投保申请接口
+ */
+async function applyInsureEx(request: ApplyInsureRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsureResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.insure.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model NotifyPolicyResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 蚂蚁承保申请号
+  insuranceApplicationNoInner: string(name='insurance_application_no_inner'),
+  // 保单号
+  policyNo: string(name='policy_no'),
+  // 保额，JSON格式
+  insuranceAmount: string(name='insurance_amount'),
+  // 保费,json格式
+  insurancePremium: string(name='insurance_premium'),
+  // 保险起期 yyyy-MM-dd HH:mm:ss
+  insurancePeriodStart: string(name='insurance_period_start'),
+  // 保险止期 yyyy-MM-dd HH:mm:ss
+  insurancePeriodEnd: string(name='insurance_period_end'),
+  // 电子保单URL
+  policyUrl?: string(name='policy_url'),
+}
+
+model NotifyPolicyResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 保单同步结果
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 保单结果同步，注意：基于投保信息的保单结果同步。
+ * Summary: 保单结果同步（依赖投保申请）
+ */
+async function notifyPolicyResult(request: NotifyPolicyResultRequest): NotifyPolicyResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return notifyPolicyResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保单结果同步，注意：基于投保信息的保单结果同步。
+ * Summary: 保单结果同步（依赖投保申请）
+ */
+async function notifyPolicyResultEx(request: NotifyPolicyResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): NotifyPolicyResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.policy.result.notify', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyClaimRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 报案单号
+  claimNotificationFormNo: string(name='claim_notification_form_no'),
+  // 保单号
+  insurancePolicyNo: string(name='insurance_policy_no'),
+  // 保司编号
+  insuranceCompanyNo: string(name='insurance_company_no'),
+  // 保险产品代码
+  trustworthyValueInsuranceTypeCode?: string(name='trustworthy_value_insurance_type_code'),
+  // 保司项目代码
+  insuranceOptionsCode?: string(name='insurance_options_code'),
+  //  保司项目代码
+  insuranceProjectCode?: string(name='insurance_project_code'),
+  // 出险时间
+  lossOccurredTime: string(name='loss_occurred_time'),
+  // 出险原因
+  lossOccurredReason: string(name='loss_occurred_reason'),
+  // 出险地点
+  lossOccurredAddress: string(name='loss_occurred_address'),
+  // 出险标的列表
+  objectList?: string(name='object_list'),
+  // 报案金额
+  claimNotificationAmountLocalCurrency: string(name='claim_notification_amount_local_currency'),
+  // 报案人
+  reporter: string(name='reporter'),
+  // 报案材料列表
+  materialList?: string(name='material_list'),
+}
+
+model ApplyClaimResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 报案响应
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 报案接口
+ * Summary: 保险科技 报案接口
+ */
+async function applyClaim(request: ApplyClaimRequest): ApplyClaimResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyClaimEx(request, headers, runtime);
+}
+
+/**
+ * Description: 报案接口
+ * Summary: 保险科技 报案接口
+ */
+async function applyClaimEx(request: ApplyClaimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyClaimResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.claim.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CancelClaimRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 报案单编号（蚂蚁内部）
+  claimNotificationFormNoInner: string(name='claim_notification_form_no_inner'),
+  // 报案撤销附加内容
+  bizInfo?: string(name='biz_info'),
+}
+
+model CancelClaimResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // biz_result
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 报案撤销（场景端）
+ * Summary: 报案撤销（场景端）
+ */
+async function cancelClaim(request: CancelClaimRequest): CancelClaimResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return cancelClaimEx(request, headers, runtime);
+}
+
+/**
+ * Description: 报案撤销（场景端）
+ * Summary: 报案撤销（场景端）
+ */
+async function cancelClaimEx(request: CancelClaimRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CancelClaimResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.claim.cancel', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateClaimMaterialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 报案单号（蚂蚁内部）
+  claimNotificationFormNoInner: string(name='claim_notification_form_no_inner'),
+  // 报案号（保司）
+  claimNotificationNo: string(name='claim_notification_no'),
+  // 报案材料列表
+  materialList: string(name='material_list'),
+  // 不传值，默认（1-已完毕）
+  // 0：未完毕
+  // 1：已完毕
+  isFinished?: string(name='is_finished'),
+}
+
+model UpdateClaimMaterialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // biz_result
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 报案材料更新（场景端）
+ * Summary: 报案材料更新（场景端）
+ */
+async function updateClaimMaterial(request: UpdateClaimMaterialRequest): UpdateClaimMaterialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateClaimMaterialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 报案材料更新（场景端）
+ * Summary: 报案材料更新（场景端）
+ */
+async function updateClaimMaterialEx(request: UpdateClaimMaterialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateClaimMaterialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.claim.material.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ConfirmClaimSettleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 报案单编号（蚂蚁内部）
+  claimNotificationFormNoInner: string(name='claim_notification_form_no_inner'),
+  // 附加内容
+  bizInfo?: string(name='biz_info'),
+}
+
+model ConfirmClaimSettleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // biz_result
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 理赔结果确认（场景端）
+ * Summary: 理赔结果确认（场景端）
+ */
+async function confirmClaimSettle(request: ConfirmClaimSettleRequest): ConfirmClaimSettleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return confirmClaimSettleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 理赔结果确认（场景端）
+ * Summary: 理赔结果确认（场景端）
+ */
+async function confirmClaimSettleEx(request: ConfirmClaimSettleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ConfirmClaimSettleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.claim.settle.confirm', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model FinishClaimSettleRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 报案单编号（蚂蚁内部）
+  claimNotificationFormNoInner: string(name='claim_notification_form_no_inner'),
+  // 报案号（保司）
+  claimNotificationNo?: string(name='claim_notification_no'),
+  // 赔付受理结果：01--受理、02--拒赔
+  acceptResult: string(name='accept_result'),
+  // 受理结论
+  acceptNote?: string(name='accept_note'),
+  // 支付信息
+  tradeInfo?: string(name='trade_info'),
+}
+
+model FinishClaimSettleResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // biz_result
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 理赔结案通知（保司端）
+ * Summary: 理赔结案通知（保司端）
+ */
+async function finishClaimSettle(request: FinishClaimSettleRequest): FinishClaimSettleResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return finishClaimSettleEx(request, headers, runtime);
+}
+
+/**
+ * Description: 理赔结案通知（保司端）
+ * Summary: 理赔结案通知（保司端）
+ */
+async function finishClaimSettleEx(request: FinishClaimSettleRequest, headers: map[string]string, runtime: Util.RuntimeOptions): FinishClaimSettleResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.claim.settle.finish', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ApplyEndorsementStrategyRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 承保申请编号（蚂蚁内部）
+  insuranceApplicationNoInner: string(name='insurance_application_no_inner'),
+  // 投保人信息(名称、证件号、证件类型)
+  applicant?: string(name='applicant'),
+  // 被保人列表
+  insuredList?: string(name='insured_list'),
+  // 受益人列表
+  beneficiaryList?: string(name='beneficiary_list'),
+  // 投保标的列表
+  objectList?: string(name='object_list'),
+  // 保险起期 yyyy-MM-dd HH:mm:ss
+  insurancePeriodStart?: string(name='insurance_period_start'),
+  // 保险止期 yyyy-MM-dd HH:mm:ss
+  insurancePeriodEnd?: string(name='insurance_period_end'),
+  // 保期（天）
+  insurancePeriod?: long(name='insurance_period'),
+  // 申请保额， { "cent": 20000, "currency": "CNY" }
+  appliedInsuranceAmount?: string(name='applied_insurance_amount'),
+  // 保费， { "cent": 20000, "currency": "CNY" }
+  appliedPremium?: string(name='applied_premium'),
+  // 保费费率
+  premiumRate?: string(name='premium_rate'),
+}
+
+model ApplyEndorsementStrategyResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 承保申请结果
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 保险批改自核接口
+ * Summary: 保险批改自核接口
+ */
+async function applyEndorsementStrategy(request: ApplyEndorsementStrategyRequest): ApplyEndorsementStrategyResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return applyEndorsementStrategyEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保险批改自核接口
+ * Summary: 保险批改自核接口
+ */
+async function applyEndorsementStrategyEx(request: ApplyEndorsementStrategyRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyEndorsementStrategyResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.endorsement.strategy.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncPolicyResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 投保申请号-外部，业务侧需保证唯一
+  insuranceApplicationNo: string(name='insurance_application_no'),
+  // 保司编码
+  insuranceCompanyNo: string(name='insurance_company_no'),
+  // 保险产品编码
+  trustworthyValueInsuranceTypeCode: string(name='trustworthy_value_insurance_type_code'),
+  // 保司项目代码
+  insuranceProjectCode: string(name='insurance_project_code'),
+  // 保司方案代码
+  insuranceOptionsCode: string(name='insurance_options_code'),
+  // 投保人信息(名称-memberName、证件号-certNo、证件类型-certType、手机号-memberMobileNo)
+  applicant: string(name='applicant'),
+  // 被保人列表(可空)
+  insuredList?: string(name='insured_list'),
+  // 受益人列表(可空)
+  beneficiaryList?: string(name='beneficiary_list'),
+  // 投保标的List，动态字段，根据险种所配置的标的传值
+  objectList: string(name='object_list'),
+  // 保单号
+  policyNo: string(name='policy_no'),
+  // 保额，JSON格式
+  insuranceAmount: string(name='insurance_amount'),
+  // 保费,json格式
+  // 
+  insurancePremium: string(name='insurance_premium'),
+  // 保险起期 yyyy-MM-dd HH:mm:ss
+  insurancePeriodStart: string(name='insurance_period_start'),
+  // 保险止期 yyyy-MM-dd HH:mm:ss
+  insurancePeriodEnd: string(name='insurance_period_end'),
+  // 电子保单URL
+  policyUrl?: string(name='policy_url'),
+}
+
+model SyncPolicyResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 保单同步结果
+  bizResult?: string(name='biz_result'),
+}
+
+/**
+ * Description: 保单信息离线同步
+ * Summary: 保单信息离线同步
+ */
+async function syncPolicyResult(request: SyncPolicyResultRequest): SyncPolicyResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncPolicyResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保单信息离线同步
+ * Summary: 保单信息离线同步
+ */
+async function syncPolicyResultEx(request: SyncPolicyResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncPolicyResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.policy.result.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryInsureResultRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 保险产品编码
+  trustworthyValueInsuranceTypeCode: string(name='trustworthy_value_insurance_type_code'),
+  // 保司编码
+  insuranceCompanyNo: string(name='insurance_company_no'),
+  // 通知单号,投保申请时会返回
+  noticeNo: string(name='notice_no'),
+}
+
+model QueryInsureResultResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 通知单号
+  noticeNo?: string(name='notice_no'),
+  // 付款状态
+  paymentStatus?: string(name='payment_status'),
+  // 保单号
+  policyNo?: string(name='policy_no'),
+  // 保额(人民币)
+  insuranceAmount?: string(name='insurance_amount'),
+  // 保费(人民币)
+  insurancePremium?: string(name='insurance_premium'),
+  // 保险起期
+  effectDate?: string(name='effect_date'),
+  // 保险止期
+  expireDate?: string(name='expire_date'),
+  // 电子保单URL
+  outPolicyUrl?: string(name='out_policy_url'),
+  // 投保申请号-外部
+  insuranceApplicationNo?: string(name='insurance_application_no'),
+  // 交易流水号
+  insuranceApplicationNoInner?: string(name='insurance_application_no_inner'),
+}
+
+/**
+ * Description: 基于通知单号查询保险投保结果
+ * Summary: 保险投保结果查询
+ */
+async function queryInsureResult(request: QueryInsureResultRequest): QueryInsureResultResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryInsureResultEx(request, headers, runtime);
+}
+
+/**
+ * Description: 基于通知单号查询保险投保结果
+ * Summary: 保险投保结果查询
+ */
+async function queryInsureResultEx(request: QueryInsureResultRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryInsureResultResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.insurance.insure.result.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+

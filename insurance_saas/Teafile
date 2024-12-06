@@ -1,0 +1,71 @@
+{
+  "scope": "antchain",
+  "name": "INSURANCE_SAAS",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "maintainers": [
+    {
+      "name": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  ],
+  "releases": {
+    "java": "com.antgroup.antchain.openapi:openapi-insurance_saas:1.7.10",
+    "go": "github.com/antchain-openapi-sdk-go/insurance_saas/client:v1.7.10",
+    "csharp": "AntChain.SDK.INSURANCE_SAAS:1.7.10",
+    "ts": "@antchain/insurance_saas:1.7.10",
+    "php": "antchain/insurance_saas:1.7.10",
+    "python": "antchain_sdk_insurance_saas:1.7.10"
+  },
+  "libraries": {
+    "Util": "darabonba:Util:*",
+    "RPCUtil": "alibabacloud:RPCUtil:*",
+    "AntchainUtil": "antchain:AntchainUtil:*"
+  },
+  "java": {
+    "package": "com.antgroup.antchain.openapi.insurance_saas",
+    "packageInfo": {
+      "description": "Ant Chain INSURANCE_SAAS SDK for Java",
+      "url": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "licenseNmae": "The Apache License, Version 2.0",
+      "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+      "developerId": "alipayproducts",
+      "developerName": "Ant Chain SDK",
+      "groupId": "com.antgroup.antchain.openapi",
+      "developerEmail": "alipaysdk@alipay.com"
+    }
+  },
+  "csharp": {
+    "className": "Client",
+    "namespace": "AntChain.SDK.INSURANCE_SAAS",
+    "packageInfo": {
+      "name": "insurance_saas",
+      "title": "antchain-insurance_saas",
+      "description": "Ant Chain INSURANCE_SAAS SDK Library for .NET",
+      "company": "Ant Chain, Inc"
+    }
+  },
+  "php": {
+    "package": "AntChain.INSURANCE_SAAS",
+    "clientName": "Client",
+    "packageInfo": {
+      "name": "antchain/insurance_saas",
+      "desc": "Ant Chain SDK Library for PHP",
+      "github": "https://github.com/alipay/antchain-openapi-sdk-php",
+      "files": {
+        "LICENSE": "../LICENSE"
+      }
+    }
+  },
+  "python": {
+    "package": "antchain_sdk_insurance_saas",
+    "clientName": "client",
+    "packageInfo": {
+      "name": "antchain_insurance_saas",
+      "desc": "Ant Chain INSURANCE_SAAS SDK Library for Python",
+      "github": "https://github.com/alipay/antchain-openapi-prod-sdk",
+      "author": "Ant Chain SDK",
+      "email": "sdk-team@alibabacloud.com"
+    }
+  }
+}
