@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.demo.models;
 
 import com.aliyun.tea.*;
 
-public class QueryTestvvvvvTestvvvvvTestvvvvvResponse extends TeaModel {
+public class QueryTestEmbedUserResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,12 +16,16 @@ public class QueryTestvvvvvTestvvvvvTestvvvvvResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    public static QueryTestvvvvvTestvvvvvTestvvvvvResponse build(java.util.Map<String, ?> map) throws Exception {
-        QueryTestvvvvvTestvvvvvTestvvvvvResponse self = new QueryTestvvvvvTestvvvvvTestvvvvvResponse();
+    // name
+    @NameInMap("name")
+    public String name;
+
+    public static QueryTestEmbedUserResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryTestEmbedUserResponse self = new QueryTestEmbedUserResponse();
         return TeaModel.build(map, self);
     }
 
-    public QueryTestvvvvvTestvvvvvTestvvvvvResponse setReqMsgId(String reqMsgId) {
+    public QueryTestEmbedUserResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -29,7 +33,7 @@ public class QueryTestvvvvvTestvvvvvTestvvvvvResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public QueryTestvvvvvTestvvvvvTestvvvvvResponse setResultCode(String resultCode) {
+    public QueryTestEmbedUserResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -37,12 +41,20 @@ public class QueryTestvvvvvTestvvvvvTestvvvvvResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public QueryTestvvvvvTestvvvvvTestvvvvvResponse setResultMsg(String resultMsg) {
+    public QueryTestEmbedUserResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
     public String getResultMsg() {
         return this.resultMsg;
+    }
+
+    public QueryTestEmbedUserResponse setName(String name) {
+        this.name = name;
+        return this;
+    }
+    public String getName() {
+        return this.name;
     }
 
 }
