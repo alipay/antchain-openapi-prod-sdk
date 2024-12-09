@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "BLOCKCHAIN",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "main": "./main.tea",
   "maintainers": [
     {
