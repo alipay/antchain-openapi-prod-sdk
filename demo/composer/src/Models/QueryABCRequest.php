@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class TransferDatanetworkMeteringAaaRequest extends Model
+class QueryABCRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -43,7 +43,7 @@ class TransferDatanetworkMeteringAaaRequest extends Model
     /**
      * @param array $map
      *
-     * @return TransferDatanetworkMeteringAaaRequest
+     * @return QueryABCRequest
      */
     public static function fromMap($map = [])
     {

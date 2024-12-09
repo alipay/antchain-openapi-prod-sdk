@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class TransferTesttrasferTesttrasferTesttrasferRequest extends Model
+class QueryLoadtestTimeFourRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -18,13 +18,21 @@ class TransferTesttrasferTesttrasferTesttrasferRequest extends Model
      * @var string
      */
     public $productInstanceId;
+
+    // 毫秒值
+    /**
+     * @var int
+     */
+    public $timeout;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
+        'timeout'           => 'timeout',
     ];
 
     public function validate()
     {
+        Model::validateRequired('timeout', $this->timeout, true);
     }
 
     public function toMap()
@@ -36,6 +44,9 @@ class TransferTesttrasferTesttrasferTesttrasferRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
+        if (null !== $this->timeout) {
+            $res['timeout'] = $this->timeout;
+        }
 
         return $res;
     }
@@ -43,7 +54,7 @@ class TransferTesttrasferTesttrasferTesttrasferRequest extends Model
     /**
      * @param array $map
      *
-     * @return TransferTesttrasferTesttrasferTesttrasferRequest
+     * @return QueryLoadtestTimeFourRequest
      */
     public static function fromMap($map = [])
     {
@@ -53,6 +64,9 @@ class TransferTesttrasferTesttrasferTesttrasferRequest extends Model
         }
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
+        }
+        if (isset($map['timeout'])) {
+            $model->timeout = $map['timeout'];
         }
 
         return $model;

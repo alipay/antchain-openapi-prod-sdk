@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAaaBbbCccRequest extends Model
+class QueryTestCatcheLimitRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class QueryAaaBbbCccRequest extends Model
      */
     public $productInstanceId;
 
-    // 入参
+    // abc
     /**
      * @var string
      */
-    public $param;
+    public $timeout;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'param'             => 'param',
+        'timeout'           => 'timeout',
     ];
 
     public function validate()
     {
-        Model::validateRequired('param', $this->param, true);
+        Model::validateRequired('timeout', $this->timeout, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class QueryAaaBbbCccRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->param) {
-            $res['param'] = $this->param;
+        if (null !== $this->timeout) {
+            $res['timeout'] = $this->timeout;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class QueryAaaBbbCccRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryAaaBbbCccRequest
+     * @return QueryTestCatcheLimitRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +65,8 @@ class QueryAaaBbbCccRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['param'])) {
-            $model->param = $map['param'];
+        if (isset($map['timeout'])) {
+            $model->timeout = $map['timeout'];
         }
 
         return $model;
