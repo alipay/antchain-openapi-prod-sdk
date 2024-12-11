@@ -39,6 +39,21 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=false)]
         public string OpenUserId { get; set; }
 
+        // 租户下用户id
+        [NameInMap("tenant_uid")]
+        [Validation(Required=false)]
+        public string TenantUid { get; set; }
+
+        // 用户手机号
+        [NameInMap("phone")]
+        [Validation(Required=false)]
+        public string Phone { get; set; }
+
+        // 0-未实名; 1-已实名
+        [NameInMap("is_real_name_verified")]
+        [Validation(Required=false)]
+        public long? IsRealNameVerified { get; set; }
+
     }
 
 }

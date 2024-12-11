@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.24"},
+                        {"sdk_version", "1.0.28"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.24"},
+                        {"sdk_version", "1.0.28"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -613,6 +613,48 @@ namespace AntChain.SDK.NFTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyOauthUserinfotokenResponse>(await DoRequestAsync("1.0", "antchain.nftc.oauth.userinfotoken.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: token获取实名信息
+         * Summary: token获取实名认证信息
+         */
+        public QueryOauthRealnameinfoResponse QueryOauthRealnameinfo(QueryOauthRealnameinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryOauthRealnameinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: token获取实名信息
+         * Summary: token获取实名认证信息
+         */
+        public async Task<QueryOauthRealnameinfoResponse> QueryOauthRealnameinfoAsync(QueryOauthRealnameinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryOauthRealnameinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: token获取实名信息
+         * Summary: token获取实名认证信息
+         */
+        public QueryOauthRealnameinfoResponse QueryOauthRealnameinfoEx(QueryOauthRealnameinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOauthRealnameinfoResponse>(DoRequest("1.0", "antchain.nftc.oauth.realnameinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: token获取实名信息
+         * Summary: token获取实名认证信息
+         */
+        public async Task<QueryOauthRealnameinfoResponse> QueryOauthRealnameinfoExAsync(QueryOauthRealnameinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryOauthRealnameinfoResponse>(await DoRequestAsync("1.0", "antchain.nftc.oauth.realnameinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

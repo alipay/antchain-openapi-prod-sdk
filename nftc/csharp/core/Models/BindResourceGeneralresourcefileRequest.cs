@@ -20,7 +20,7 @@ namespace AntChain.SDK.NFTC.Models
 
         // 小程序的APP ID
         [NameInMap("app_id")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string AppId { get; set; }
 
         // 资源ID

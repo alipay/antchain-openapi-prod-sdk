@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.NFTC.Models
 {
-    public class QueryOauthUserinfoRequest : TeaModel {
+    public class QueryOauthRealnameinfoRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,15 +18,10 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // accessToken请求
+        // 访问token
         [NameInMap("access_token")]
         [Validation(Required=true)]
         public string AccessToken { get; set; }
-
-        // 查询信息范围
-        [NameInMap("scope")]
-        [Validation(Required=false)]
-        public string Scope { get; set; }
 
     }
 
