@@ -69,6 +69,8 @@ use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardRequest;
 use AntChain\RISKPLUS\Models\BindDubbridgeCustomerBankcardResponse;
 use AntChain\RISKPLUS\Models\CallbackMdipAuditRequest;
 use AntChain\RISKPLUS\Models\CallbackMdipAuditResponse;
+use AntChain\RISKPLUS\Models\CallbackMdipYunfengdieParamsRequest;
+use AntChain\RISKPLUS\Models\CallbackMdipYunfengdieParamsResponse;
 use AntChain\RISKPLUS\Models\CallbackQmpRobotcallRequest;
 use AntChain\RISKPLUS\Models\CallbackQmpRobotcallResponse;
 use AntChain\RISKPLUS\Models\CallbackQmpSmsReportRequest;
@@ -129,6 +131,8 @@ use AntChain\RISKPLUS\Models\GetRtopCompanyMonitorRequest;
 use AntChain\RISKPLUS\Models\GetRtopCompanyMonitorResponse;
 use AntChain\RISKPLUS\Models\ImportUmktSceneUploadRequest;
 use AntChain\RISKPLUS\Models\ImportUmktSceneUploadResponse;
+use AntChain\RISKPLUS\Models\ListMdipDefaultSupplierRequest;
+use AntChain\RISKPLUS\Models\ListMdipDefaultSupplierResponse;
 use AntChain\RISKPLUS\Models\ListRtopCompanyOpinionsRequest;
 use AntChain\RISKPLUS\Models\ListRtopCompanyOpinionsResponse;
 use AntChain\RISKPLUS\Models\ListRtopCompanyRelatedRequest;
@@ -572,7 +576,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.22.0',
+                    'sdk_version'      => '1.22.2',
                     '_prod_code'       => 'RISKPLUS',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3315,6 +3319,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryMdipDataservicePocResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.dataservice.poc.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询默认租户的供应商列表
+     * Summary: 查询默认租户的供应商列表.
+     *
+     * @param ListMdipDefaultSupplierRequest $request
+     *
+     * @return ListMdipDefaultSupplierResponse
+     */
+    public function listMdipDefaultSupplier($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listMdipDefaultSupplierEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询默认租户的供应商列表
+     * Summary: 查询默认租户的供应商列表.
+     *
+     * @param ListMdipDefaultSupplierRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ListMdipDefaultSupplierResponse
+     */
+    public function listMdipDefaultSupplierEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListMdipDefaultSupplierResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.default.supplier.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 数据回调
+     * Summary: 云凤蝶回调参数.
+     *
+     * @param CallbackMdipYunfengdieParamsRequest $request
+     *
+     * @return CallbackMdipYunfengdieParamsResponse
+     */
+    public function callbackMdipYunfengdieParams($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->callbackMdipYunfengdieParamsEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 数据回调
+     * Summary: 云凤蝶回调参数.
+     *
+     * @param CallbackMdipYunfengdieParamsRequest $request
+     * @param string[]                            $headers
+     * @param RuntimeOptions                      $runtime
+     *
+     * @return CallbackMdipYunfengdieParamsResponse
+     */
+    public function callbackMdipYunfengdieParamsEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CallbackMdipYunfengdieParamsResponse::fromMap($this->doRequest('1.0', 'riskplus.mdip.yunfengdie.params.callback', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
