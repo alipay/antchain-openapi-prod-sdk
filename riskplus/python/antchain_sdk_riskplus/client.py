@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.0',
+                    'sdk_version': '1.22.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.0',
+                    'sdk_version': '1.22.2',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -4861,6 +4861,118 @@ class Client:
         return TeaCore.from_map(
             riskplus_models.QueryMdipDataservicePocResponse(),
             await self.do_request_async('1.0', 'riskplus.mdip.dataservice.poc.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_mdip_default_supplier(
+        self,
+        request: riskplus_models.ListMdipDefaultSupplierRequest,
+    ) -> riskplus_models.ListMdipDefaultSupplierResponse:
+        """
+        Description: 查询默认租户的供应商列表
+        Summary: 查询默认租户的供应商列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_mdip_default_supplier_ex(request, headers, runtime)
+
+    async def list_mdip_default_supplier_async(
+        self,
+        request: riskplus_models.ListMdipDefaultSupplierRequest,
+    ) -> riskplus_models.ListMdipDefaultSupplierResponse:
+        """
+        Description: 查询默认租户的供应商列表
+        Summary: 查询默认租户的供应商列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_mdip_default_supplier_ex_async(request, headers, runtime)
+
+    def list_mdip_default_supplier_ex(
+        self,
+        request: riskplus_models.ListMdipDefaultSupplierRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ListMdipDefaultSupplierResponse:
+        """
+        Description: 查询默认租户的供应商列表
+        Summary: 查询默认租户的供应商列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ListMdipDefaultSupplierResponse(),
+            self.do_request('1.0', 'riskplus.mdip.default.supplier.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_mdip_default_supplier_ex_async(
+        self,
+        request: riskplus_models.ListMdipDefaultSupplierRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.ListMdipDefaultSupplierResponse:
+        """
+        Description: 查询默认租户的供应商列表
+        Summary: 查询默认租户的供应商列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.ListMdipDefaultSupplierResponse(),
+            await self.do_request_async('1.0', 'riskplus.mdip.default.supplier.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def callback_mdip_yunfengdie_params(
+        self,
+        request: riskplus_models.CallbackMdipYunfengdieParamsRequest,
+    ) -> riskplus_models.CallbackMdipYunfengdieParamsResponse:
+        """
+        Description: 数据回调
+        Summary: 云凤蝶回调参数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.callback_mdip_yunfengdie_params_ex(request, headers, runtime)
+
+    async def callback_mdip_yunfengdie_params_async(
+        self,
+        request: riskplus_models.CallbackMdipYunfengdieParamsRequest,
+    ) -> riskplus_models.CallbackMdipYunfengdieParamsResponse:
+        """
+        Description: 数据回调
+        Summary: 云凤蝶回调参数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.callback_mdip_yunfengdie_params_ex_async(request, headers, runtime)
+
+    def callback_mdip_yunfengdie_params_ex(
+        self,
+        request: riskplus_models.CallbackMdipYunfengdieParamsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackMdipYunfengdieParamsResponse:
+        """
+        Description: 数据回调
+        Summary: 云凤蝶回调参数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackMdipYunfengdieParamsResponse(),
+            self.do_request('1.0', 'riskplus.mdip.yunfengdie.params.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def callback_mdip_yunfengdie_params_ex_async(
+        self,
+        request: riskplus_models.CallbackMdipYunfengdieParamsRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> riskplus_models.CallbackMdipYunfengdieParamsResponse:
+        """
+        Description: 数据回调
+        Summary: 云凤蝶回调参数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            riskplus_models.CallbackMdipYunfengdieParamsResponse(),
+            await self.do_request_async('1.0', 'riskplus.mdip.yunfengdie.params.callback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def apply_qmp_rt_batchmarketing(
