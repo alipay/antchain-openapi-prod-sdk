@@ -1359,12 +1359,15 @@ class QueryOauthUserinfoRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         access_token: str = None,
+        scope: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # accessToken请求
         self.access_token = access_token
+        # 查询信息范围
+        self.scope = scope
 
     def validate(self):
         self.validate_required(self.access_token, 'access_token')
@@ -1381,6 +1384,8 @@ class QueryOauthUserinfoRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.access_token is not None:
             result['access_token'] = self.access_token
+        if self.scope is not None:
+            result['scope'] = self.scope
         return result
 
     def from_map(self, m: dict = None):
@@ -1391,6 +1396,8 @@ class QueryOauthUserinfoRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('access_token') is not None:
             self.access_token = m.get('access_token')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
         return self
 
 
@@ -1403,6 +1410,9 @@ class QueryOauthUserinfoResponse(TeaModel):
         nick_name: str = None,
         avatar: str = None,
         open_user_id: str = None,
+        tenant_uid: str = None,
+        phone: str = None,
+        is_real_name_verified: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1416,6 +1426,12 @@ class QueryOauthUserinfoResponse(TeaModel):
         self.avatar = avatar
         # 用户id
         self.open_user_id = open_user_id
+        # 租户下用户id
+        self.tenant_uid = tenant_uid
+        # 用户手机号
+        self.phone = phone
+        # 0-未实名; 1-已实名
+        self.is_real_name_verified = is_real_name_verified
 
     def validate(self):
         pass
@@ -1438,6 +1454,12 @@ class QueryOauthUserinfoResponse(TeaModel):
             result['avatar'] = self.avatar
         if self.open_user_id is not None:
             result['open_user_id'] = self.open_user_id
+        if self.tenant_uid is not None:
+            result['tenant_uid'] = self.tenant_uid
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.is_real_name_verified is not None:
+            result['is_real_name_verified'] = self.is_real_name_verified
         return result
 
     def from_map(self, m: dict = None):
@@ -1454,6 +1476,12 @@ class QueryOauthUserinfoResponse(TeaModel):
             self.avatar = m.get('avatar')
         if m.get('open_user_id') is not None:
             self.open_user_id = m.get('open_user_id')
+        if m.get('tenant_uid') is not None:
+            self.tenant_uid = m.get('tenant_uid')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('is_real_name_verified') is not None:
+            self.is_real_name_verified = m.get('is_real_name_verified')
         return self
 
 
@@ -1554,6 +1582,103 @@ class ApplyOauthUserinfotokenResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('user_info_token') is not None:
             self.user_info_token = m.get('user_info_token')
+        return self
+
+
+class QueryOauthRealnameinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        access_token: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 访问token
+        self.access_token = access_token
+
+    def validate(self):
+        self.validate_required(self.access_token, 'access_token')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.access_token is not None:
+            result['access_token'] = self.access_token
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('access_token') is not None:
+            self.access_token = m.get('access_token')
+        return self
+
+
+class QueryOauthRealnameinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        real_name: str = None,
+        id_card: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 实名
+        self.real_name = real_name
+        # 身份证编号
+        self.id_card = id_card
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.real_name is not None:
+            result['real_name'] = self.real_name
+        if self.id_card is not None:
+            result['id_card'] = self.id_card
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('real_name') is not None:
+            self.real_name = m.get('real_name')
+        if m.get('id_card') is not None:
+            self.id_card = m.get('id_card')
         return self
 
 
@@ -2809,6 +2934,7 @@ class BindResourceGeneralresourcefileRequest(TeaModel):
         self.biz_version = biz_version
 
     def validate(self):
+        self.validate_required(self.app_id, 'app_id')
         self.validate_required(self.resource_id, 'resource_id')
         self.validate_required(self.file_id, 'file_id')
 

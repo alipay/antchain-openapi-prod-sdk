@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.24',
+                    'sdk_version': '1.0.28',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.24',
+                    'sdk_version': '1.0.28',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -665,6 +665,62 @@ class Client:
         return TeaCore.from_map(
             nftc_models.ApplyOauthUserinfotokenResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.oauth.userinfotoken.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_oauth_realnameinfo(
+        self,
+        request: nftc_models.QueryOauthRealnameinfoRequest,
+    ) -> nftc_models.QueryOauthRealnameinfoResponse:
+        """
+        Description: token获取实名信息
+        Summary: token获取实名认证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_oauth_realnameinfo_ex(request, headers, runtime)
+
+    async def query_oauth_realnameinfo_async(
+        self,
+        request: nftc_models.QueryOauthRealnameinfoRequest,
+    ) -> nftc_models.QueryOauthRealnameinfoResponse:
+        """
+        Description: token获取实名信息
+        Summary: token获取实名认证信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_oauth_realnameinfo_ex_async(request, headers, runtime)
+
+    def query_oauth_realnameinfo_ex(
+        self,
+        request: nftc_models.QueryOauthRealnameinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryOauthRealnameinfoResponse:
+        """
+        Description: token获取实名信息
+        Summary: token获取实名认证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryOauthRealnameinfoResponse(),
+            self.do_request('1.0', 'antchain.nftc.oauth.realnameinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_oauth_realnameinfo_ex_async(
+        self,
+        request: nftc_models.QueryOauthRealnameinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryOauthRealnameinfoResponse:
+        """
+        Description: token获取实名信息
+        Summary: token获取实名认证信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryOauthRealnameinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.oauth.realnameinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def publish_merchant_diysku(
