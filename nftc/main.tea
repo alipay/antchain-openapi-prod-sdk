@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.24',
+    sdk_version = '1.0.28',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -530,6 +530,8 @@ model QueryOauthUserinfoRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // accessToken请求
   accessToken: string(name='access_token'),
+  // 查询信息范围
+  scope?: string(name='scope'),
 }
 
 model QueryOauthUserinfoResponse = {
@@ -545,6 +547,12 @@ model QueryOauthUserinfoResponse = {
   avatar?: string(name='avatar'),
   // 用户id
   openUserId?: string(name='open_user_id'),
+  // 租户下用户id
+  tenantUid?: string(name='tenant_uid'),
+  // 用户手机号
+  phone?: string(name='phone'),
+  // 0-未实名; 1-已实名
+  isRealNameVerified?: long(name='is_real_name_verified'),
 }
 
 /**
@@ -606,6 +614,46 @@ async function applyOauthUserinfotoken(request: ApplyOauthUserinfotokenRequest):
 async function applyOauthUserinfotokenEx(request: ApplyOauthUserinfotokenRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyOauthUserinfotokenResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.oauth.userinfotoken.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryOauthRealnameinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 访问token
+  accessToken: string(name='access_token'),
+}
+
+model QueryOauthRealnameinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 实名
+  realName?: string(name='real_name'),
+  // 身份证编号
+  idCard?: string(name='id_card'),
+}
+
+/**
+ * Description: token获取实名信息
+ * Summary: token获取实名认证信息
+ */
+async function queryOauthRealnameinfo(request: QueryOauthRealnameinfoRequest): QueryOauthRealnameinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryOauthRealnameinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: token获取实名信息
+ * Summary: token获取实名认证信息
+ */
+async function queryOauthRealnameinfoEx(request: QueryOauthRealnameinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOauthRealnameinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.oauth.realnameinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PublishMerchantDiyskuRequest = {
@@ -1087,7 +1135,7 @@ model BindResourceGeneralresourcefileRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 小程序的APP ID
-  appId?: string(name='app_id'),
+  appId: string(name='app_id'),
   // 资源ID
   resourceId: string(name='resource_id'),
   // 文件ID
