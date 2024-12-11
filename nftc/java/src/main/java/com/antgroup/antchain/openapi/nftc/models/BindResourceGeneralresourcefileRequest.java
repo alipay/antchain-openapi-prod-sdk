@@ -13,6 +13,7 @@ public class BindResourceGeneralresourcefileRequest extends TeaModel {
 
     // 小程序的APP ID
     @NameInMap("app_id")
+    @Validation(required = true)
     public String appId;
 
     // 资源ID

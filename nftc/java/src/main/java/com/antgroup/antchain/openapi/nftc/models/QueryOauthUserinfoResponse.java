@@ -28,6 +28,18 @@ public class QueryOauthUserinfoResponse extends TeaModel {
     @NameInMap("open_user_id")
     public String openUserId;
 
+    // 租户下用户id
+    @NameInMap("tenant_uid")
+    public String tenantUid;
+
+    // 用户手机号
+    @NameInMap("phone")
+    public String phone;
+
+    // 0-未实名; 1-已实名
+    @NameInMap("is_real_name_verified")
+    public Long isRealNameVerified;
+
     public static QueryOauthUserinfoResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryOauthUserinfoResponse self = new QueryOauthUserinfoResponse();
         return TeaModel.build(map, self);
@@ -79,6 +91,30 @@ public class QueryOauthUserinfoResponse extends TeaModel {
     }
     public String getOpenUserId() {
         return this.openUserId;
+    }
+
+    public QueryOauthUserinfoResponse setTenantUid(String tenantUid) {
+        this.tenantUid = tenantUid;
+        return this;
+    }
+    public String getTenantUid() {
+        return this.tenantUid;
+    }
+
+    public QueryOauthUserinfoResponse setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public QueryOauthUserinfoResponse setIsRealNameVerified(Long isRealNameVerified) {
+        this.isRealNameVerified = isRealNameVerified;
+        return this;
+    }
+    public Long getIsRealNameVerified() {
+        return this.isRealNameVerified;
     }
 
 }

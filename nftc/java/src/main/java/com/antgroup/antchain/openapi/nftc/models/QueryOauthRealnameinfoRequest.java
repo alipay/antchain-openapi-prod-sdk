@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.nftc.models;
 
 import com.aliyun.tea.*;
 
-public class QueryOauthUserinfoRequest extends TeaModel {
+public class QueryOauthRealnameinfoRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,21 +11,17 @@ public class QueryOauthUserinfoRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // accessToken请求
+    // 访问token
     @NameInMap("access_token")
     @Validation(required = true)
     public String accessToken;
 
-    // 查询信息范围
-    @NameInMap("scope")
-    public String scope;
-
-    public static QueryOauthUserinfoRequest build(java.util.Map<String, ?> map) throws Exception {
-        QueryOauthUserinfoRequest self = new QueryOauthUserinfoRequest();
+    public static QueryOauthRealnameinfoRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryOauthRealnameinfoRequest self = new QueryOauthRealnameinfoRequest();
         return TeaModel.build(map, self);
     }
 
-    public QueryOauthUserinfoRequest setAuthToken(String authToken) {
+    public QueryOauthRealnameinfoRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -33,7 +29,7 @@ public class QueryOauthUserinfoRequest extends TeaModel {
         return this.authToken;
     }
 
-    public QueryOauthUserinfoRequest setProductInstanceId(String productInstanceId) {
+    public QueryOauthRealnameinfoRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -41,20 +37,12 @@ public class QueryOauthUserinfoRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public QueryOauthUserinfoRequest setAccessToken(String accessToken) {
+    public QueryOauthRealnameinfoRequest setAccessToken(String accessToken) {
         this.accessToken = accessToken;
         return this;
     }
     public String getAccessToken() {
         return this.accessToken;
-    }
-
-    public QueryOauthUserinfoRequest setScope(String scope) {
-        this.scope = scope;
-        return this;
-    }
-    public String getScope() {
-        return this.scope;
     }
 
 }
