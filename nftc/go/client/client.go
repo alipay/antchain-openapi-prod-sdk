@@ -1065,6 +1065,8 @@ type QueryOauthUserinfoRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// accessToken请求
 	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+	// 查询信息范围
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
 }
 
 func (s QueryOauthUserinfoRequest) String() string {
@@ -1090,6 +1092,11 @@ func (s *QueryOauthUserinfoRequest) SetAccessToken(v string) *QueryOauthUserinfo
 	return s
 }
 
+func (s *QueryOauthUserinfoRequest) SetScope(v string) *QueryOauthUserinfoRequest {
+	s.Scope = &v
+	return s
+}
+
 type QueryOauthUserinfoResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -1103,6 +1110,12 @@ type QueryOauthUserinfoResponse struct {
 	Avatar *string `json:"avatar,omitempty" xml:"avatar,omitempty"`
 	// 用户id
 	OpenUserId *string `json:"open_user_id,omitempty" xml:"open_user_id,omitempty"`
+	// 租户下用户id
+	TenantUid *string `json:"tenant_uid,omitempty" xml:"tenant_uid,omitempty"`
+	// 用户手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty"`
+	// 0-未实名; 1-已实名
+	IsRealNameVerified *int64 `json:"is_real_name_verified,omitempty" xml:"is_real_name_verified,omitempty"`
 }
 
 func (s QueryOauthUserinfoResponse) String() string {
@@ -1140,6 +1153,21 @@ func (s *QueryOauthUserinfoResponse) SetAvatar(v string) *QueryOauthUserinfoResp
 
 func (s *QueryOauthUserinfoResponse) SetOpenUserId(v string) *QueryOauthUserinfoResponse {
 	s.OpenUserId = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoResponse) SetTenantUid(v string) *QueryOauthUserinfoResponse {
+	s.TenantUid = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoResponse) SetPhone(v string) *QueryOauthUserinfoResponse {
+	s.Phone = &v
+	return s
+}
+
+func (s *QueryOauthUserinfoResponse) SetIsRealNameVerified(v int64) *QueryOauthUserinfoResponse {
+	s.IsRealNameVerified = &v
 	return s
 }
 
@@ -1219,6 +1247,83 @@ func (s *ApplyOauthUserinfotokenResponse) SetResultMsg(v string) *ApplyOauthUser
 
 func (s *ApplyOauthUserinfotokenResponse) SetUserInfoToken(v string) *ApplyOauthUserinfotokenResponse {
 	s.UserInfoToken = &v
+	return s
+}
+
+type QueryOauthRealnameinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 访问token
+	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
+}
+
+func (s QueryOauthRealnameinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOauthRealnameinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOauthRealnameinfoRequest) SetAuthToken(v string) *QueryOauthRealnameinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOauthRealnameinfoRequest) SetProductInstanceId(v string) *QueryOauthRealnameinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryOauthRealnameinfoRequest) SetAccessToken(v string) *QueryOauthRealnameinfoRequest {
+	s.AccessToken = &v
+	return s
+}
+
+type QueryOauthRealnameinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 实名
+	RealName *string `json:"real_name,omitempty" xml:"real_name,omitempty"`
+	// 身份证编号
+	IdCard *string `json:"id_card,omitempty" xml:"id_card,omitempty"`
+}
+
+func (s QueryOauthRealnameinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOauthRealnameinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOauthRealnameinfoResponse) SetReqMsgId(v string) *QueryOauthRealnameinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryOauthRealnameinfoResponse) SetResultCode(v string) *QueryOauthRealnameinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryOauthRealnameinfoResponse) SetResultMsg(v string) *QueryOauthRealnameinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryOauthRealnameinfoResponse) SetRealName(v string) *QueryOauthRealnameinfoResponse {
+	s.RealName = &v
+	return s
+}
+
+func (s *QueryOauthRealnameinfoResponse) SetIdCard(v string) *QueryOauthRealnameinfoResponse {
+	s.IdCard = &v
 	return s
 }
 
@@ -2206,7 +2311,7 @@ type BindResourceGeneralresourcefileRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 小程序的APP ID
-	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty" require:"true"`
 	// 资源ID
 	ResourceId *string `json:"resource_id,omitempty" xml:"resource_id,omitempty" require:"true"`
 	// 文件ID
@@ -2771,7 +2876,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.24"),
+				"sdk_version":      tea.String("1.0.28"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3060,6 +3165,40 @@ func (client *Client) ApplyOauthUserinfotokenEx(request *ApplyOauthUserinfotoken
 	}
 	_result = &ApplyOauthUserinfotokenResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.oauth.userinfotoken.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: token获取实名信息
+ * Summary: token获取实名认证信息
+ */
+func (client *Client) QueryOauthRealnameinfo(request *QueryOauthRealnameinfoRequest) (_result *QueryOauthRealnameinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryOauthRealnameinfoResponse{}
+	_body, _err := client.QueryOauthRealnameinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: token获取实名信息
+ * Summary: token获取实名认证信息
+ */
+func (client *Client) QueryOauthRealnameinfoEx(request *QueryOauthRealnameinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOauthRealnameinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryOauthRealnameinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.oauth.realnameinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
