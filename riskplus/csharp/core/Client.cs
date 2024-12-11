@@ -137,7 +137,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.0"},
+                        {"sdk_version", "1.22.2"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.RISKPLUS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.0"},
+                        {"sdk_version", "1.22.2"},
                         {"_prod_code", "RISKPLUS"},
                         {"_prod_channel", "undefined"},
                     };
@@ -3823,6 +3823,90 @@ namespace AntChain.SDK.RISKPLUS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryMdipDataservicePocResponse>(await DoRequestAsync("1.0", "riskplus.mdip.dataservice.poc.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询默认租户的供应商列表
+         * Summary: 查询默认租户的供应商列表
+         */
+        public ListMdipDefaultSupplierResponse ListMdipDefaultSupplier(ListMdipDefaultSupplierRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListMdipDefaultSupplierEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询默认租户的供应商列表
+         * Summary: 查询默认租户的供应商列表
+         */
+        public async Task<ListMdipDefaultSupplierResponse> ListMdipDefaultSupplierAsync(ListMdipDefaultSupplierRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListMdipDefaultSupplierExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询默认租户的供应商列表
+         * Summary: 查询默认租户的供应商列表
+         */
+        public ListMdipDefaultSupplierResponse ListMdipDefaultSupplierEx(ListMdipDefaultSupplierRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListMdipDefaultSupplierResponse>(DoRequest("1.0", "riskplus.mdip.default.supplier.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询默认租户的供应商列表
+         * Summary: 查询默认租户的供应商列表
+         */
+        public async Task<ListMdipDefaultSupplierResponse> ListMdipDefaultSupplierExAsync(ListMdipDefaultSupplierRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListMdipDefaultSupplierResponse>(await DoRequestAsync("1.0", "riskplus.mdip.default.supplier.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据回调
+         * Summary: 云凤蝶回调参数
+         */
+        public CallbackMdipYunfengdieParamsResponse CallbackMdipYunfengdieParams(CallbackMdipYunfengdieParamsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CallbackMdipYunfengdieParamsEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据回调
+         * Summary: 云凤蝶回调参数
+         */
+        public async Task<CallbackMdipYunfengdieParamsResponse> CallbackMdipYunfengdieParamsAsync(CallbackMdipYunfengdieParamsRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CallbackMdipYunfengdieParamsExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 数据回调
+         * Summary: 云凤蝶回调参数
+         */
+        public CallbackMdipYunfengdieParamsResponse CallbackMdipYunfengdieParamsEx(CallbackMdipYunfengdieParamsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMdipYunfengdieParamsResponse>(DoRequest("1.0", "riskplus.mdip.yunfengdie.params.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 数据回调
+         * Summary: 云凤蝶回调参数
+         */
+        public async Task<CallbackMdipYunfengdieParamsResponse> CallbackMdipYunfengdieParamsExAsync(CallbackMdipYunfengdieParamsRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CallbackMdipYunfengdieParamsResponse>(await DoRequestAsync("1.0", "riskplus.mdip.yunfengdie.params.callback", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
