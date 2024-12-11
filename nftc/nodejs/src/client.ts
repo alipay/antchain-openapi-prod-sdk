@@ -765,11 +765,14 @@ export class QueryOauthUserinfoRequest extends $tea.Model {
   productInstanceId?: string;
   // accessToken请求
   accessToken: string;
+  // 查询信息范围
+  scope?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       accessToken: 'access_token',
+      scope: 'scope',
     };
   }
 
@@ -778,6 +781,7 @@ export class QueryOauthUserinfoRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       accessToken: 'string',
+      scope: 'string',
     };
   }
 
@@ -799,6 +803,12 @@ export class QueryOauthUserinfoResponse extends $tea.Model {
   avatar?: string;
   // 用户id
   openUserId?: string;
+  // 租户下用户id
+  tenantUid?: string;
+  // 用户手机号
+  phone?: string;
+  // 0-未实名; 1-已实名
+  isRealNameVerified?: number;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -807,6 +817,9 @@ export class QueryOauthUserinfoResponse extends $tea.Model {
       nickName: 'nick_name',
       avatar: 'avatar',
       openUserId: 'open_user_id',
+      tenantUid: 'tenant_uid',
+      phone: 'phone',
+      isRealNameVerified: 'is_real_name_verified',
     };
   }
 
@@ -818,6 +831,9 @@ export class QueryOauthUserinfoResponse extends $tea.Model {
       nickName: 'string',
       avatar: 'string',
       openUserId: 'string',
+      tenantUid: 'string',
+      phone: 'string',
+      isRealNameVerified: 'number',
     };
   }
 
@@ -883,6 +899,69 @@ export class ApplyOauthUserinfotokenResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       userInfoToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOauthRealnameinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 访问token
+  accessToken: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      accessToken: 'access_token',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      accessToken: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOauthRealnameinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 实名
+  realName?: string;
+  // 身份证编号
+  idCard?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      realName: 'real_name',
+      idCard: 'id_card',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      realName: 'string',
+      idCard: 'string',
     };
   }
 
@@ -1654,7 +1733,7 @@ export class BindResourceGeneralresourcefileRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 小程序的APP ID
-  appId?: string;
+  appId: string;
   // 资源ID
   resourceId: string;
   // 文件ID
@@ -2094,7 +2173,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.24",
+          sdk_version: "1.0.28",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
@@ -2273,6 +2352,25 @@ export default class Client {
   async applyOauthUserinfotokenEx(request: ApplyOauthUserinfotokenRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyOauthUserinfotokenResponse> {
     Util.validateModel(request);
     return $tea.cast<ApplyOauthUserinfotokenResponse>(await this.doRequest("1.0", "antchain.nftc.oauth.userinfotoken.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyOauthUserinfotokenResponse({}));
+  }
+
+  /**
+   * Description: token获取实名信息
+   * Summary: token获取实名认证信息
+   */
+  async queryOauthRealnameinfo(request: QueryOauthRealnameinfoRequest): Promise<QueryOauthRealnameinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryOauthRealnameinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: token获取实名信息
+   * Summary: token获取实名认证信息
+   */
+  async queryOauthRealnameinfoEx(request: QueryOauthRealnameinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOauthRealnameinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryOauthRealnameinfoResponse>(await this.doRequest("1.0", "antchain.nftc.oauth.realnameinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOauthRealnameinfoResponse({}));
   }
 
   /**
