@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.0"),
+                    new TeaPair("sdk_version", "1.22.2"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1768,6 +1768,44 @@ public class Client {
     public QueryMdipDataservicePocResponse queryMdipDataservicePocEx(QueryMdipDataservicePocRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.dataservice.poc.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMdipDataservicePocResponse());
+    }
+
+    /**
+     * Description: 查询默认租户的供应商列表
+     * Summary: 查询默认租户的供应商列表
+     */
+    public ListMdipDefaultSupplierResponse listMdipDefaultSupplier(ListMdipDefaultSupplierRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listMdipDefaultSupplierEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 查询默认租户的供应商列表
+     * Summary: 查询默认租户的供应商列表
+     */
+    public ListMdipDefaultSupplierResponse listMdipDefaultSupplierEx(ListMdipDefaultSupplierRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.default.supplier.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListMdipDefaultSupplierResponse());
+    }
+
+    /**
+     * Description: 数据回调
+     * Summary: 云凤蝶回调参数
+     */
+    public CallbackMdipYunfengdieParamsResponse callbackMdipYunfengdieParams(CallbackMdipYunfengdieParamsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.callbackMdipYunfengdieParamsEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 数据回调
+     * Summary: 云凤蝶回调参数
+     */
+    public CallbackMdipYunfengdieParamsResponse callbackMdipYunfengdieParamsEx(CallbackMdipYunfengdieParamsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "riskplus.mdip.yunfengdie.params.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackMdipYunfengdieParamsResponse());
     }
 
     /**
