@@ -4916,6 +4916,32 @@ func (s *CustomerBankCardInfo) SetAcctBankCard(v string) *CustomerBankCardInfo {
 	return s
 }
 
+// 供应商
+type Supplier struct {
+	// 供应商id
+	SupplierId *string `json:"supplier_id,omitempty" xml:"supplier_id,omitempty" require:"true"`
+	// 供应商名字
+	SupplierName *string `json:"supplier_name,omitempty" xml:"supplier_name,omitempty" require:"true"`
+}
+
+func (s Supplier) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Supplier) GoString() string {
+	return s.String()
+}
+
+func (s *Supplier) SetSupplierId(v string) *Supplier {
+	s.SupplierId = &v
+	return s
+}
+
+func (s *Supplier) SetSupplierName(v string) *Supplier {
+	s.SupplierName = &v
+	return s
+}
+
 // 查询结果
 type QueryResult struct {
 	// key
@@ -15324,6 +15350,139 @@ func (s *QueryMdipDataservicePocResponse) SetResultMsg(v string) *QueryMdipDatas
 
 func (s *QueryMdipDataservicePocResponse) SetData(v string) *QueryMdipDataservicePocResponse {
 	s.Data = &v
+	return s
+}
+
+type ListMdipDefaultSupplierRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// ANTCLOUD
+	DefaultTenant *string `json:"default_tenant,omitempty" xml:"default_tenant,omitempty"`
+}
+
+func (s ListMdipDefaultSupplierRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListMdipDefaultSupplierRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListMdipDefaultSupplierRequest) SetAuthToken(v string) *ListMdipDefaultSupplierRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListMdipDefaultSupplierRequest) SetProductInstanceId(v string) *ListMdipDefaultSupplierRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListMdipDefaultSupplierRequest) SetDefaultTenant(v string) *ListMdipDefaultSupplierRequest {
+	s.DefaultTenant = &v
+	return s
+}
+
+type ListMdipDefaultSupplierResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 供应商列表
+	SupplierList []*Supplier `json:"supplier_list,omitempty" xml:"supplier_list,omitempty" type:"Repeated"`
+}
+
+func (s ListMdipDefaultSupplierResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListMdipDefaultSupplierResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListMdipDefaultSupplierResponse) SetReqMsgId(v string) *ListMdipDefaultSupplierResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListMdipDefaultSupplierResponse) SetResultCode(v string) *ListMdipDefaultSupplierResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListMdipDefaultSupplierResponse) SetResultMsg(v string) *ListMdipDefaultSupplierResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListMdipDefaultSupplierResponse) SetSupplierList(v []*Supplier) *ListMdipDefaultSupplierResponse {
+	s.SupplierList = v
+	return s
+}
+
+type CallbackMdipYunfengdieParamsRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 回调参数
+	ParamsMap *string `json:"params_map,omitempty" xml:"params_map,omitempty" require:"true"`
+}
+
+func (s CallbackMdipYunfengdieParamsRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMdipYunfengdieParamsRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMdipYunfengdieParamsRequest) SetAuthToken(v string) *CallbackMdipYunfengdieParamsRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CallbackMdipYunfengdieParamsRequest) SetProductInstanceId(v string) *CallbackMdipYunfengdieParamsRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CallbackMdipYunfengdieParamsRequest) SetParamsMap(v string) *CallbackMdipYunfengdieParamsRequest {
+	s.ParamsMap = &v
+	return s
+}
+
+type CallbackMdipYunfengdieParamsResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s CallbackMdipYunfengdieParamsResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CallbackMdipYunfengdieParamsResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CallbackMdipYunfengdieParamsResponse) SetReqMsgId(v string) *CallbackMdipYunfengdieParamsResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CallbackMdipYunfengdieParamsResponse) SetResultCode(v string) *CallbackMdipYunfengdieParamsResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CallbackMdipYunfengdieParamsResponse) SetResultMsg(v string) *CallbackMdipYunfengdieParamsResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -28956,7 +29115,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.0"),
+				"sdk_version":      tea.String("1.22.2"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -31817,6 +31976,74 @@ func (client *Client) QueryMdipDataservicePocEx(request *QueryMdipDataservicePoc
 	}
 	_result = &QueryMdipDataservicePocResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.dataservice.poc.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 查询默认租户的供应商列表
+ * Summary: 查询默认租户的供应商列表
+ */
+func (client *Client) ListMdipDefaultSupplier(request *ListMdipDefaultSupplierRequest) (_result *ListMdipDefaultSupplierResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListMdipDefaultSupplierResponse{}
+	_body, _err := client.ListMdipDefaultSupplierEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 查询默认租户的供应商列表
+ * Summary: 查询默认租户的供应商列表
+ */
+func (client *Client) ListMdipDefaultSupplierEx(request *ListMdipDefaultSupplierRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListMdipDefaultSupplierResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListMdipDefaultSupplierResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.default.supplier.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 数据回调
+ * Summary: 云凤蝶回调参数
+ */
+func (client *Client) CallbackMdipYunfengdieParams(request *CallbackMdipYunfengdieParamsRequest) (_result *CallbackMdipYunfengdieParamsResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CallbackMdipYunfengdieParamsResponse{}
+	_body, _err := client.CallbackMdipYunfengdieParamsEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 数据回调
+ * Summary: 云凤蝶回调参数
+ */
+func (client *Client) CallbackMdipYunfengdieParamsEx(request *CallbackMdipYunfengdieParamsRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CallbackMdipYunfengdieParamsResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CallbackMdipYunfengdieParamsResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("riskplus.mdip.yunfengdie.params.callback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
