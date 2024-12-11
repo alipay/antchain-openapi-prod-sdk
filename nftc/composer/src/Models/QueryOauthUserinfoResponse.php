@@ -43,13 +43,34 @@ class QueryOauthUserinfoResponse extends Model
      * @var string
      */
     public $openUserId;
+
+    // 租户下用户id
+    /**
+     * @var string
+     */
+    public $tenantUid;
+
+    // 用户手机号
+    /**
+     * @var string
+     */
+    public $phone;
+
+    // 0-未实名; 1-已实名
+    /**
+     * @var int
+     */
+    public $isRealNameVerified;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'nickName'   => 'nick_name',
-        'avatar'     => 'avatar',
-        'openUserId' => 'open_user_id',
+        'reqMsgId'           => 'req_msg_id',
+        'resultCode'         => 'result_code',
+        'resultMsg'          => 'result_msg',
+        'nickName'           => 'nick_name',
+        'avatar'             => 'avatar',
+        'openUserId'         => 'open_user_id',
+        'tenantUid'          => 'tenant_uid',
+        'phone'              => 'phone',
+        'isRealNameVerified' => 'is_real_name_verified',
     ];
 
     public function validate()
@@ -76,6 +97,15 @@ class QueryOauthUserinfoResponse extends Model
         }
         if (null !== $this->openUserId) {
             $res['open_user_id'] = $this->openUserId;
+        }
+        if (null !== $this->tenantUid) {
+            $res['tenant_uid'] = $this->tenantUid;
+        }
+        if (null !== $this->phone) {
+            $res['phone'] = $this->phone;
+        }
+        if (null !== $this->isRealNameVerified) {
+            $res['is_real_name_verified'] = $this->isRealNameVerified;
         }
 
         return $res;
@@ -106,6 +136,15 @@ class QueryOauthUserinfoResponse extends Model
         }
         if (isset($map['open_user_id'])) {
             $model->openUserId = $map['open_user_id'];
+        }
+        if (isset($map['tenant_uid'])) {
+            $model->tenantUid = $map['tenant_uid'];
+        }
+        if (isset($map['phone'])) {
+            $model->phone = $map['phone'];
+        }
+        if (isset($map['is_real_name_verified'])) {
+            $model->isRealNameVerified = $map['is_real_name_verified'];
         }
 
         return $model;

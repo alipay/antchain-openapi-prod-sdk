@@ -6,7 +6,7 @@ namespace AntChain\NFTC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryOauthUserinfoRequest extends Model
+class QueryOauthRealnameinfoRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,22 +19,15 @@ class QueryOauthUserinfoRequest extends Model
      */
     public $productInstanceId;
 
-    // accessToken请求
+    // 访问token
     /**
      * @var string
      */
     public $accessToken;
-
-    // 查询信息范围
-    /**
-     * @var string
-     */
-    public $scope;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'accessToken'       => 'access_token',
-        'scope'             => 'scope',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class QueryOauthUserinfoRequest extends Model
         if (null !== $this->accessToken) {
             $res['access_token'] = $this->accessToken;
         }
-        if (null !== $this->scope) {
-            $res['scope'] = $this->scope;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class QueryOauthUserinfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryOauthUserinfoRequest
+     * @return QueryOauthRealnameinfoRequest
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class QueryOauthUserinfoRequest extends Model
         }
         if (isset($map['access_token'])) {
             $model->accessToken = $map['access_token'];
-        }
-        if (isset($map['scope'])) {
-            $model->scope = $map['scope'];
         }
 
         return $model;

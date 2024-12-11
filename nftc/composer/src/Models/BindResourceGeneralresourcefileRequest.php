@@ -60,6 +60,7 @@ class BindResourceGeneralresourcefileRequest extends Model
 
     public function validate()
     {
+        Model::validateRequired('appId', $this->appId, true);
         Model::validateRequired('resourceId', $this->resourceId, true);
         Model::validateRequired('fileId', $this->fileId, true);
     }

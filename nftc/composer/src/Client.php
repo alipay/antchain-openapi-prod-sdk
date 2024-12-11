@@ -45,6 +45,8 @@ use AntChain\NFTC\Models\QueryNftAssetbyskuRequest;
 use AntChain\NFTC\Models\QueryNftAssetbyskuResponse;
 use AntChain\NFTC\Models\QueryNftOrderRequest;
 use AntChain\NFTC\Models\QueryNftOrderResponse;
+use AntChain\NFTC\Models\QueryOauthRealnameinfoRequest;
+use AntChain\NFTC\Models\QueryOauthRealnameinfoResponse;
 use AntChain\NFTC\Models\QueryOauthUserinfoRequest;
 use AntChain\NFTC\Models\QueryOauthUserinfoResponse;
 use AntChain\NFTC\Models\QueryPromoteActivityRequest;
@@ -200,7 +202,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.24',
+                    'sdk_version'      => '1.0.28',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -477,6 +479,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyOauthUserinfotokenResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.oauth.userinfotoken.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: token获取实名信息
+     * Summary: token获取实名认证信息.
+     *
+     * @param QueryOauthRealnameinfoRequest $request
+     *
+     * @return QueryOauthRealnameinfoResponse
+     */
+    public function queryOauthRealnameinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOauthRealnameinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: token获取实名信息
+     * Summary: token获取实名认证信息.
+     *
+     * @param QueryOauthRealnameinfoRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryOauthRealnameinfoResponse
+     */
+    public function queryOauthRealnameinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOauthRealnameinfoResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.oauth.realnameinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
