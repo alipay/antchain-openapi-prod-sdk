@@ -3640,6 +3640,31 @@ export class CustomerBankCardInfo extends $tea.Model {
   }
 }
 
+// 供应商
+export class Supplier extends $tea.Model {
+  // 供应商id
+  supplierId: string;
+  // 供应商名字
+  supplierName: string;
+  static names(): { [key: string]: string } {
+    return {
+      supplierId: 'supplier_id',
+      supplierName: 'supplier_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      supplierId: 'string',
+      supplierName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询结果
 export class QueryResult extends $tea.Model {
   // key
@@ -11428,6 +11453,120 @@ export class QueryMdipDataservicePocResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListMdipDefaultSupplierRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // ANTCLOUD
+  defaultTenant?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      defaultTenant: 'default_tenant',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      defaultTenant: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListMdipDefaultSupplierResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 供应商列表
+  supplierList?: Supplier[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      supplierList: 'supplier_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      supplierList: { 'type': 'array', 'itemType': Supplier },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMdipYunfengdieParamsRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 回调参数
+  paramsMap: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      paramsMap: 'params_map',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      paramsMap: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CallbackMdipYunfengdieParamsResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -21683,7 +21822,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.0",
+          sdk_version: "1.22.2",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
@@ -23315,6 +23454,44 @@ export default class Client {
   async queryMdipDataservicePocEx(request: QueryMdipDataservicePocRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryMdipDataservicePocResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryMdipDataservicePocResponse>(await this.doRequest("1.0", "riskplus.mdip.dataservice.poc.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryMdipDataservicePocResponse({}));
+  }
+
+  /**
+   * Description: 查询默认租户的供应商列表
+   * Summary: 查询默认租户的供应商列表
+   */
+  async listMdipDefaultSupplier(request: ListMdipDefaultSupplierRequest): Promise<ListMdipDefaultSupplierResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listMdipDefaultSupplierEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询默认租户的供应商列表
+   * Summary: 查询默认租户的供应商列表
+   */
+  async listMdipDefaultSupplierEx(request: ListMdipDefaultSupplierRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListMdipDefaultSupplierResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListMdipDefaultSupplierResponse>(await this.doRequest("1.0", "riskplus.mdip.default.supplier.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListMdipDefaultSupplierResponse({}));
+  }
+
+  /**
+   * Description: 数据回调
+   * Summary: 云凤蝶回调参数
+   */
+  async callbackMdipYunfengdieParams(request: CallbackMdipYunfengdieParamsRequest): Promise<CallbackMdipYunfengdieParamsResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.callbackMdipYunfengdieParamsEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 数据回调
+   * Summary: 云凤蝶回调参数
+   */
+  async callbackMdipYunfengdieParamsEx(request: CallbackMdipYunfengdieParamsRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CallbackMdipYunfengdieParamsResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CallbackMdipYunfengdieParamsResponse>(await this.doRequest("1.0", "riskplus.mdip.yunfengdie.params.callback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CallbackMdipYunfengdieParamsResponse({}));
   }
 
   /**
