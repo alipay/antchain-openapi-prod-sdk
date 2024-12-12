@@ -18,12 +18,10 @@ public class QueryThreemetaOnlinetimeRequest extends TeaModel {
 
     // 姓名
     @NameInMap("cert_name")
-    @Validation(required = true)
     public String certName;
 
     // 身份证号
     @NameInMap("cert_no")
-    @Validation(required = true)
     public String certNo;
 
     // 手机号码
