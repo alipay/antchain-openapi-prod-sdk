@@ -314,12 +314,18 @@ export class ScriptVoiceConfig extends $tea.Model {
   speed?: string;
   // 音频URL，合成驱动选择audio时必填
   audioUrl?: string;
+  // 音量，[0.1, 3]，默认为1，通常保留一位小数即可
+  volume?: string;
+  // 音调，[0.1, 3]，默认为1，通常保留一位小数即可
+  pitch?: string;
   static names(): { [key: string]: string } {
     return {
       voiceId: 'voice_id',
       text: 'text',
       speed: 'speed',
       audioUrl: 'audio_url',
+      volume: 'volume',
+      pitch: 'pitch',
     };
   }
 
@@ -329,6 +335,8 @@ export class ScriptVoiceConfig extends $tea.Model {
       text: 'string',
       speed: 'string',
       audioUrl: 'string',
+      volume: 'string',
+      pitch: 'string',
     };
   }
 
@@ -1585,7 +1593,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.0",
+          sdk_version: "1.2.1",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
