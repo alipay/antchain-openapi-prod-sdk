@@ -84,8 +84,6 @@ class QueryThreemetaOnlinetimeRequest extends Model
     public function validate()
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('certName', $this->certName, true);
-        Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('phoneNo', $this->phoneNo, true);
     }
 
