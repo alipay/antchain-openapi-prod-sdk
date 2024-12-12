@@ -39,11 +39,29 @@ class ScriptVoiceConfig extends Model
      * @var string
      */
     public $audioUrl;
+
+    // 音量，[0.1, 3]，默认为1，通常保留一位小数即可
+    /**
+     * @example 1.0
+     *
+     * @var string
+     */
+    public $volume;
+
+    // 音调，[0.1, 3]，默认为1，通常保留一位小数即可
+    /**
+     * @example 1.0
+     *
+     * @var string
+     */
+    public $pitch;
     protected $_name = [
         'voiceId'  => 'voice_id',
         'text'     => 'text',
         'speed'    => 'speed',
         'audioUrl' => 'audio_url',
+        'volume'   => 'volume',
+        'pitch'    => 'pitch',
     ];
 
     public function validate()
@@ -64,6 +82,12 @@ class ScriptVoiceConfig extends Model
         }
         if (null !== $this->audioUrl) {
             $res['audio_url'] = $this->audioUrl;
+        }
+        if (null !== $this->volume) {
+            $res['volume'] = $this->volume;
+        }
+        if (null !== $this->pitch) {
+            $res['pitch'] = $this->pitch;
         }
 
         return $res;
@@ -88,6 +112,12 @@ class ScriptVoiceConfig extends Model
         }
         if (isset($map['audio_url'])) {
             $model->audioUrl = $map['audio_url'];
+        }
+        if (isset($map['volume'])) {
+            $model->volume = $map['volume'];
+        }
+        if (isset($map['pitch'])) {
+            $model->pitch = $map['pitch'];
         }
 
         return $model;
