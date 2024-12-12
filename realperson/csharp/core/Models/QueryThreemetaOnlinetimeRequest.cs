@@ -25,12 +25,12 @@ namespace AntChain.SDK.REALPERSON.Models
 
         // 姓名
         [NameInMap("cert_name")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertName { get; set; }
 
         // 身份证号
         [NameInMap("cert_no")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string CertNo { get; set; }
 
         // 手机号码
