@@ -542,6 +542,8 @@ class ScriptVoiceConfig(TeaModel):
         text: str = None,
         speed: str = None,
         audio_url: str = None,
+        volume: str = None,
+        pitch: str = None,
     ):
         # 音色id，合成驱动选择text时必填
         self.voice_id = voice_id
@@ -551,6 +553,10 @@ class ScriptVoiceConfig(TeaModel):
         self.speed = speed
         # 音频URL，合成驱动选择audio时必填
         self.audio_url = audio_url
+        # 音量，[0.1, 3]，默认为1，通常保留一位小数即可
+        self.volume = volume
+        # 音调，[0.1, 3]，默认为1，通常保留一位小数即可
+        self.pitch = pitch
 
     def validate(self):
         pass
@@ -569,6 +575,10 @@ class ScriptVoiceConfig(TeaModel):
             result['speed'] = self.speed
         if self.audio_url is not None:
             result['audio_url'] = self.audio_url
+        if self.volume is not None:
+            result['volume'] = self.volume
+        if self.pitch is not None:
+            result['pitch'] = self.pitch
         return result
 
     def from_map(self, m: dict = None):
@@ -581,6 +591,10 @@ class ScriptVoiceConfig(TeaModel):
             self.speed = m.get('speed')
         if m.get('audio_url') is not None:
             self.audio_url = m.get('audio_url')
+        if m.get('volume') is not None:
+            self.volume = m.get('volume')
+        if m.get('pitch') is not None:
+            self.pitch = m.get('pitch')
         return self
 
 
