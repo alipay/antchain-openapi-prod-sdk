@@ -1501,9 +1501,9 @@ export class QueryThreemetaOnlinetimeRequest extends $tea.Model {
   // 外部请求id
   outerOrderNo: string;
   // 姓名
-  certName: string;
+  certName?: string;
   // 身份证号
-  certNo: string;
+  certNo?: string;
   // 手机号码
   phoneNo: string;
   // 是否区分运营商
@@ -3608,7 +3608,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.31",
+          sdk_version: "1.15.32",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
