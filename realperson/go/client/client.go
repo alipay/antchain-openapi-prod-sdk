@@ -2072,9 +2072,9 @@ type QueryThreemetaOnlinetimeRequest struct {
 	// 外部请求id
 	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
 	// 姓名
-	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
 	// 身份证号
-	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
 	// 手机号码
 	PhoneNo *string `json:"phone_no,omitempty" xml:"phone_no,omitempty" require:"true"`
 	// 是否区分运营商
@@ -4933,7 +4933,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.31"),
+				"sdk_version":      tea.String("1.15.32"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
