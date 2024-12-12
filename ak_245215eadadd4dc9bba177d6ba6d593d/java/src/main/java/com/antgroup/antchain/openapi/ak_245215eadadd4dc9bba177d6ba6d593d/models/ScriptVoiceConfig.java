@@ -20,6 +20,14 @@ public class ScriptVoiceConfig extends TeaModel {
     @NameInMap("audio_url")
     public String audioUrl;
 
+    // 音量，[0.1, 3]，默认为1，通常保留一位小数即可
+    @NameInMap("volume")
+    public String volume;
+
+    // 音调，[0.1, 3]，默认为1，通常保留一位小数即可
+    @NameInMap("pitch")
+    public String pitch;
+
     public static ScriptVoiceConfig build(java.util.Map<String, ?> map) throws Exception {
         ScriptVoiceConfig self = new ScriptVoiceConfig();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class ScriptVoiceConfig extends TeaModel {
     }
     public String getAudioUrl() {
         return this.audioUrl;
+    }
+
+    public ScriptVoiceConfig setVolume(String volume) {
+        this.volume = volume;
+        return this;
+    }
+    public String getVolume() {
+        return this.volume;
+    }
+
+    public ScriptVoiceConfig setPitch(String pitch) {
+        this.pitch = pitch;
+        return this;
+    }
+    public String getPitch() {
+        return this.pitch;
     }
 
 }
