@@ -448,6 +448,10 @@ type ScriptVoiceConfig struct {
 	Speed *string `json:"speed,omitempty" xml:"speed,omitempty"`
 	// 音频URL，合成驱动选择audio时必填
 	AudioUrl *string `json:"audio_url,omitempty" xml:"audio_url,omitempty"`
+	// 音量，[0.1, 3]，默认为1，通常保留一位小数即可
+	Volume *string `json:"volume,omitempty" xml:"volume,omitempty"`
+	// 音调，[0.1, 3]，默认为1，通常保留一位小数即可
+	Pitch *string `json:"pitch,omitempty" xml:"pitch,omitempty"`
 }
 
 func (s ScriptVoiceConfig) String() string {
@@ -475,6 +479,16 @@ func (s *ScriptVoiceConfig) SetSpeed(v string) *ScriptVoiceConfig {
 
 func (s *ScriptVoiceConfig) SetAudioUrl(v string) *ScriptVoiceConfig {
 	s.AudioUrl = &v
+	return s
+}
+
+func (s *ScriptVoiceConfig) SetVolume(v string) *ScriptVoiceConfig {
+	s.Volume = &v
+	return s
+}
+
+func (s *ScriptVoiceConfig) SetPitch(v string) *ScriptVoiceConfig {
+	s.Pitch = &v
 	return s
 }
 
@@ -2037,7 +2051,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.0"),
+				"sdk_version":      tea.String("1.2.1"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
