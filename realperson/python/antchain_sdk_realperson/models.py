@@ -2491,8 +2491,6 @@ class QueryThreemetaOnlinetimeRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
-        self.validate_required(self.cert_name, 'cert_name')
-        self.validate_required(self.cert_no, 'cert_no')
         self.validate_required(self.phone_no, 'phone_no')
 
     def to_map(self):
