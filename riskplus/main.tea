@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.22.2',
+    sdk_version = '1.22.3',
     _prod_code = 'RISKPLUS',
     _prod_channel = 'undefined'
   };
@@ -2161,6 +2161,10 @@ model TenantActionPlanInfo {
   gmtCreate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_create', example='2018-10-10T10:10:00Z'),
   // 修改时间
   gmtModified: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_modified', example=''),
+  // 场景策略入参名
+  actionParamInfo?: [ string ](name='action_param_info', example=''),
+  // 参数查询是否完成
+  isParamQueryDone?: boolean(name='is_param_query_done', example='true, false'),
 }
 
 // 键值对
