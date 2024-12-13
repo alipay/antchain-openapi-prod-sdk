@@ -92,6 +92,12 @@ class CreateInsureRequest extends Model
      * @var string
      */
     public $address;
+
+    // 保险投保期数
+    /**
+     * @var int
+     */
+    public $period;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -107,6 +113,7 @@ class CreateInsureRequest extends Model
         'logisticsNumber'   => 'logistics_number',
         'tradeTime'         => 'trade_time',
         'address'           => 'address',
+        'period'            => 'period',
     ];
 
     public function validate()
@@ -125,6 +132,8 @@ class CreateInsureRequest extends Model
         Model::validateMaxLength('logisticsNumber', $this->logisticsNumber, 64);
         Model::validateMaxLength('address', $this->address, 512);
         Model::validateMinLength('address', $this->address, 1);
+        Model::validateMaximum('period', $this->period, 120);
+        Model::validateMinimum('period', $this->period, 1);
     }
 
     public function toMap()
@@ -177,6 +186,9 @@ class CreateInsureRequest extends Model
         }
         if (null !== $this->address) {
             $res['address'] = $this->address;
+        }
+        if (null !== $this->period) {
+            $res['period'] = $this->period;
         }
 
         return $res;
@@ -237,6 +249,9 @@ class CreateInsureRequest extends Model
         }
         if (isset($map['address'])) {
             $model->address = $map['address'];
+        }
+        if (isset($map['period'])) {
+            $model->period = $map['period'];
         }
 
         return $model;

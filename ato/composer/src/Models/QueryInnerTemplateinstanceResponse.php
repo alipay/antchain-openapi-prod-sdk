@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitFrontSignResponse extends Model
+class QueryInnerTemplateinstanceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,40 +26,16 @@ class SubmitFrontSignResponse extends Model
      */
     public $resultMsg;
 
-    // 签署合同单号
-    //
+    // 模板实例化后的信息
     /**
      * @var string
      */
-    public $signNo;
-
-    // 电子签署流程ID
-    //
-    /**
-     * @var string
-     */
-    public $flowId;
-
-    // 签署用户ID
-    //
-    /**
-     * @var string
-     */
-    public $accountId;
-
-    // 签署信息，包括短链接、长链接、小程序链接等。
-    /**
-     * @var string
-     */
-    public $signInfo;
+    public $data;
     protected $_name = [
         'reqMsgId'   => 'req_msg_id',
         'resultCode' => 'result_code',
         'resultMsg'  => 'result_msg',
-        'signNo'     => 'sign_no',
-        'flowId'     => 'flow_id',
-        'accountId'  => 'account_id',
-        'signInfo'   => 'sign_info',
+        'data'       => 'data',
     ];
 
     public function validate()
@@ -78,17 +54,8 @@ class SubmitFrontSignResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->signNo) {
-            $res['sign_no'] = $this->signNo;
-        }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
-        }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
-        if (null !== $this->signInfo) {
-            $res['sign_info'] = $this->signInfo;
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
         }
 
         return $res;
@@ -97,7 +64,7 @@ class SubmitFrontSignResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitFrontSignResponse
+     * @return QueryInnerTemplateinstanceResponse
      */
     public static function fromMap($map = [])
     {
@@ -111,17 +78,8 @@ class SubmitFrontSignResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['sign_no'])) {
-            $model->signNo = $map['sign_no'];
-        }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
-        }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
-        if (isset($map['sign_info'])) {
-            $model->signInfo = $map['sign_info'];
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
 
         return $model;

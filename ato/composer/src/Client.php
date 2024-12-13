@@ -165,6 +165,8 @@ use AntChain\ATO\Models\QueryInnerTemplateelementlinkRequest;
 use AntChain\ATO\Models\QueryInnerTemplateelementlinkResponse;
 use AntChain\ATO\Models\QueryInnerTemplateimageRequest;
 use AntChain\ATO\Models\QueryInnerTemplateimageResponse;
+use AntChain\ATO\Models\QueryInnerTemplateinstanceRequest;
+use AntChain\ATO\Models\QueryInnerTemplateinstanceResponse;
 use AntChain\ATO\Models\QueryInnerTemplateRequest;
 use AntChain\ATO\Models\QueryInnerTemplateResponse;
 use AntChain\ATO\Models\QueryInnerTemplateversionRequest;
@@ -255,6 +257,8 @@ use AntChain\ATO\Models\SyncTradeIndirectorderRequest;
 use AntChain\ATO\Models\SyncTradeIndirectorderResponse;
 use AntChain\ATO\Models\SyncTradeRequest;
 use AntChain\ATO\Models\SyncTradeResponse;
+use AntChain\ATO\Models\TransferTradeFinanceRequest;
+use AntChain\ATO\Models\TransferTradeFinanceResponse;
 use AntChain\ATO\Models\UnbindWithholdSignRequest;
 use AntChain\ATO\Models\UnbindWithholdSignResponse;
 use AntChain\ATO\Models\UpdateInnerCustomerserviceRequest;
@@ -426,7 +430,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.10.37',
+                    'sdk_version'      => '1.11.2',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -3367,6 +3371,39 @@ class Client
     }
 
     /**
+     * Description: 获取模板实例化后的模板信息，包括pdf下载链接
+     * Summary: 获取模板实例化后的模板信息.
+     *
+     * @param QueryInnerTemplateinstanceRequest $request
+     *
+     * @return QueryInnerTemplateinstanceResponse
+     */
+    public function queryInnerTemplateinstance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerTemplateinstanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取模板实例化后的模板信息，包括pdf下载链接
+     * Summary: 获取模板实例化后的模板信息.
+     *
+     * @param QueryInnerTemplateinstanceRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryInnerTemplateinstanceResponse
+     */
+    public function queryInnerTemplateinstanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerTemplateinstanceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templateinstance.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 一键投保
      * Summary: 投保.
      *
@@ -4491,6 +4528,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyTradeFinanceprecheckResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.financeprecheck.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非融转融资
+     * Summary: 非融转融资.
+     *
+     * @param TransferTradeFinanceRequest $request
+     *
+     * @return TransferTradeFinanceResponse
+     */
+    public function transferTradeFinance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->transferTradeFinanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非融转融资
+     * Summary: 非融转融资.
+     *
+     * @param TransferTradeFinanceRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return TransferTradeFinanceResponse
+     */
+    public function transferTradeFinanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return TransferTradeFinanceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

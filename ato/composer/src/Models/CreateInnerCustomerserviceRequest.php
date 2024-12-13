@@ -119,7 +119,6 @@ class CreateInnerCustomerserviceRequest extends Model
         Model::validateRequired('alipayLogonId', $this->alipayLogonId, true);
         Model::validateRequired('customerServicePhone', $this->customerServicePhone, true);
         Model::validateRequired('customerServiceName', $this->customerServiceName, true);
-        Model::validateRequired('onlineSupportSiteUrl', $this->onlineSupportSiteUrl, true);
         Model::validateRequired('customerComplaintIssues', $this->customerComplaintIssues, true);
         Model::validateRequired('expandMode', $this->expandMode, true);
     }

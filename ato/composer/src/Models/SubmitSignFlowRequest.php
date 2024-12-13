@@ -161,6 +161,12 @@ class SubmitSignFlowRequest extends Model
      */
     public $merchantAppId;
 
+    // 用户类型，个人或企业，默认是个人
+    /**
+     * @var string
+     */
+    public $userType;
+
     // (企业作为消费者时)公司名称
     /**
      * @var string
@@ -178,12 +184,6 @@ class SubmitSignFlowRequest extends Model
      * @var string
      */
     public $userOrgIdNumber;
-
-    // 用户类型，个人或企业，默认是个人
-    /**
-     * @var string
-     */
-    public $userType;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -210,10 +210,10 @@ class SubmitSignFlowRequest extends Model
         'thirdSigner'           => 'third_signer',
         'userOpenId'            => 'user_open_id',
         'merchantAppId'         => 'merchant_app_id',
+        'userType'              => 'user_type',
         'userOrgName'           => 'user_org_name',
         'userOrgIdType'         => 'user_org_id_type',
         'userOrgIdNumber'       => 'user_org_id_number',
-        'userType'              => 'user_type',
     ];
 
     public function validate()
@@ -323,6 +323,9 @@ class SubmitSignFlowRequest extends Model
         if (null !== $this->merchantAppId) {
             $res['merchant_app_id'] = $this->merchantAppId;
         }
+        if (null !== $this->userType) {
+            $res['user_type'] = $this->userType;
+        }
         if (null !== $this->userOrgName) {
             $res['user_org_name'] = $this->userOrgName;
         }
@@ -331,9 +334,6 @@ class SubmitSignFlowRequest extends Model
         }
         if (null !== $this->userOrgIdNumber) {
             $res['user_org_id_number'] = $this->userOrgIdNumber;
-        }
-        if (null !== $this->userType) {
-            $res['user_type'] = $this->userType;
         }
 
         return $res;
@@ -422,6 +422,9 @@ class SubmitSignFlowRequest extends Model
         if (isset($map['merchant_app_id'])) {
             $model->merchantAppId = $map['merchant_app_id'];
         }
+        if (isset($map['user_type'])) {
+            $model->userType = $map['user_type'];
+        }
         if (isset($map['user_org_name'])) {
             $model->userOrgName = $map['user_org_name'];
         }
@@ -430,9 +433,6 @@ class SubmitSignFlowRequest extends Model
         }
         if (isset($map['user_org_id_number'])) {
             $model->userOrgIdNumber = $map['user_org_id_number'];
-        }
-        if (isset($map['user_type'])) {
-            $model->userType = $map['user_type'];
         }
 
         return $model;

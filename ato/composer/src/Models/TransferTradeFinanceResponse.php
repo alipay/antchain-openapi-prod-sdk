@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SubmitFrontSignResponse extends Model
+class TransferTradeFinanceResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,40 +26,37 @@ class SubmitFrontSignResponse extends Model
      */
     public $resultMsg;
 
-    // 签署合同单号
-    //
+    // order_id
     /**
      * @var string
      */
-    public $signNo;
+    public $orderId;
 
-    // 电子签署流程ID
-    //
+    // merchant_id
     /**
      * @var string
      */
-    public $flowId;
+    public $merchantId;
 
-    // 签署用户ID
-    //
+    // jsonArray.toString
     /**
      * @var string
      */
-    public $accountId;
+    public $fundCandidates;
 
-    // 签署信息，包括短链接、长链接、小程序链接等。
+    // 转融资结果
     /**
      * @var string
      */
-    public $signInfo;
+    public $transferResult;
     protected $_name = [
-        'reqMsgId'   => 'req_msg_id',
-        'resultCode' => 'result_code',
-        'resultMsg'  => 'result_msg',
-        'signNo'     => 'sign_no',
-        'flowId'     => 'flow_id',
-        'accountId'  => 'account_id',
-        'signInfo'   => 'sign_info',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'orderId'        => 'order_id',
+        'merchantId'     => 'merchant_id',
+        'fundCandidates' => 'fund_candidates',
+        'transferResult' => 'transfer_result',
     ];
 
     public function validate()
@@ -78,17 +75,17 @@ class SubmitFrontSignResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->signNo) {
-            $res['sign_no'] = $this->signNo;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
+        if (null !== $this->fundCandidates) {
+            $res['fund_candidates'] = $this->fundCandidates;
         }
-        if (null !== $this->signInfo) {
-            $res['sign_info'] = $this->signInfo;
+        if (null !== $this->transferResult) {
+            $res['transfer_result'] = $this->transferResult;
         }
 
         return $res;
@@ -97,7 +94,7 @@ class SubmitFrontSignResponse extends Model
     /**
      * @param array $map
      *
-     * @return SubmitFrontSignResponse
+     * @return TransferTradeFinanceResponse
      */
     public static function fromMap($map = [])
     {
@@ -111,17 +108,17 @@ class SubmitFrontSignResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['sign_no'])) {
-            $model->signNo = $map['sign_no'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
+        if (isset($map['fund_candidates'])) {
+            $model->fundCandidates = $map['fund_candidates'];
         }
-        if (isset($map['sign_info'])) {
-            $model->signInfo = $map['sign_info'];
+        if (isset($map['transfer_result'])) {
+            $model->transferResult = $map['transfer_result'];
         }
 
         return $model;

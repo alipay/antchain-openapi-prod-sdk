@@ -23,16 +23,16 @@ class GetSignContractcertificateRequest extends Model
     /**
      * @var string
      */
-    public $flowId;
+    public $signNo;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'flowId'            => 'flow_id',
+        'signNo'            => 'sign_no',
     ];
 
     public function validate()
     {
-        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('signNo', $this->signNo, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class GetSignContractcertificateRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
+        if (null !== $this->signNo) {
+            $res['sign_no'] = $this->signNo;
         }
 
         return $res;
@@ -65,8 +65,8 @@ class GetSignContractcertificateRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
+        if (isset($map['sign_no'])) {
+            $model->signNo = $map['sign_no'];
         }
 
         return $model;
