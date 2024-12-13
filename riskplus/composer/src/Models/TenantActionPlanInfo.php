@@ -63,6 +63,22 @@ class TenantActionPlanInfo extends Model
      * @var string
      */
     public $gmtModified;
+
+    // 场景策略入参名
+    /**
+     * @example
+     *
+     * @var string[]
+     */
+    public $actionParamInfo;
+
+    // 参数查询是否完成
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $isParamQueryDone;
     protected $_name = [
         'sceneStrategyId'     => 'scene_strategy_id',
         'sceneStrategyName'   => 'scene_strategy_name',
@@ -71,6 +87,8 @@ class TenantActionPlanInfo extends Model
         'channelCode'         => 'channel_code',
         'gmtCreate'           => 'gmt_create',
         'gmtModified'         => 'gmt_modified',
+        'actionParamInfo'     => 'action_param_info',
+        'isParamQueryDone'    => 'is_param_query_done',
     ];
 
     public function validate()
@@ -110,6 +128,12 @@ class TenantActionPlanInfo extends Model
         if (null !== $this->gmtModified) {
             $res['gmt_modified'] = $this->gmtModified;
         }
+        if (null !== $this->actionParamInfo) {
+            $res['action_param_info'] = $this->actionParamInfo;
+        }
+        if (null !== $this->isParamQueryDone) {
+            $res['is_param_query_done'] = $this->isParamQueryDone;
+        }
 
         return $res;
     }
@@ -142,6 +166,14 @@ class TenantActionPlanInfo extends Model
         }
         if (isset($map['gmt_modified'])) {
             $model->gmtModified = $map['gmt_modified'];
+        }
+        if (isset($map['action_param_info'])) {
+            if (!empty($map['action_param_info'])) {
+                $model->actionParamInfo = $map['action_param_info'];
+            }
+        }
+        if (isset($map['is_param_query_done'])) {
+            $model->isParamQueryDone = $map['is_param_query_done'];
         }
 
         return $model;
