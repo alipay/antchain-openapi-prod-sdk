@@ -39,6 +39,14 @@ public class TenantActionPlanInfo extends TeaModel {
     @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtModified;
 
+    // 场景策略入参名
+    @NameInMap("action_param_info")
+    public java.util.List<String> actionParamInfo;
+
+    // 参数查询是否完成
+    @NameInMap("is_param_query_done")
+    public Boolean isParamQueryDone;
+
     public static TenantActionPlanInfo build(java.util.Map<String, ?> map) throws Exception {
         TenantActionPlanInfo self = new TenantActionPlanInfo();
         return TeaModel.build(map, self);
@@ -98,6 +106,22 @@ public class TenantActionPlanInfo extends TeaModel {
     }
     public String getGmtModified() {
         return this.gmtModified;
+    }
+
+    public TenantActionPlanInfo setActionParamInfo(java.util.List<String> actionParamInfo) {
+        this.actionParamInfo = actionParamInfo;
+        return this;
+    }
+    public java.util.List<String> getActionParamInfo() {
+        return this.actionParamInfo;
+    }
+
+    public TenantActionPlanInfo setIsParamQueryDone(Boolean isParamQueryDone) {
+        this.isParamQueryDone = isParamQueryDone;
+        return this;
+    }
+    public Boolean getIsParamQueryDone() {
+        return this.isParamQueryDone;
     }
 
 }
