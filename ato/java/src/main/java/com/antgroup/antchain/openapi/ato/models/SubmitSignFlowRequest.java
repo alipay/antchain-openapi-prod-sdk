@@ -121,6 +121,10 @@ public class SubmitSignFlowRequest extends TeaModel {
     @Validation(maxLength = 32)
     public String merchantAppId;
 
+    // 用户类型，个人或企业，默认是个人
+    @NameInMap("user_type")
+    public String userType;
+
     // (企业作为消费者时)公司名称
     @NameInMap("user_org_name")
     public String userOrgName;
@@ -132,10 +136,6 @@ public class SubmitSignFlowRequest extends TeaModel {
     // (企业作为消费者时)公司证件号，无需加密
     @NameInMap("user_org_id_number")
     public String userOrgIdNumber;
-
-    // 用户类型，个人或企业，默认是个人
-    @NameInMap("user_type")
-    public String userType;
 
     public static SubmitSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitSignFlowRequest self = new SubmitSignFlowRequest();
@@ -342,6 +342,14 @@ public class SubmitSignFlowRequest extends TeaModel {
         return this.merchantAppId;
     }
 
+    public SubmitSignFlowRequest setUserType(String userType) {
+        this.userType = userType;
+        return this;
+    }
+    public String getUserType() {
+        return this.userType;
+    }
+
     public SubmitSignFlowRequest setUserOrgName(String userOrgName) {
         this.userOrgName = userOrgName;
         return this;
@@ -364,14 +372,6 @@ public class SubmitSignFlowRequest extends TeaModel {
     }
     public String getUserOrgIdNumber() {
         return this.userOrgIdNumber;
-    }
-
-    public SubmitSignFlowRequest setUserType(String userType) {
-        this.userType = userType;
-        return this;
-    }
-    public String getUserType() {
-        return this.userType;
     }
 
 }

@@ -12,9 +12,9 @@ public class GetSignContractcertificateRequest extends TeaModel {
     public String productInstanceId;
 
     // 流程id
-    @NameInMap("flow_id")
+    @NameInMap("sign_no")
     @Validation(required = true)
-    public String flowId;
+    public String signNo;
 
     public static GetSignContractcertificateRequest build(java.util.Map<String, ?> map) throws Exception {
         GetSignContractcertificateRequest self = new GetSignContractcertificateRequest();
@@ -37,12 +37,12 @@ public class GetSignContractcertificateRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public GetSignContractcertificateRequest setFlowId(String flowId) {
-        this.flowId = flowId;
+    public GetSignContractcertificateRequest setSignNo(String signNo) {
+        this.signNo = signNo;
         return this;
     }
-    public String getFlowId() {
-        return this.flowId;
+    public String getSignNo() {
+        return this.signNo;
     }
 
 }

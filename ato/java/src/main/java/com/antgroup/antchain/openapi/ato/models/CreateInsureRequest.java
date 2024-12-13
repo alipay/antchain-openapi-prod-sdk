@@ -71,6 +71,11 @@ public class CreateInsureRequest extends TeaModel {
     @Validation(maxLength = 512, minLength = 1)
     public String address;
 
+    // 保险投保期数
+    @NameInMap("period")
+    @Validation(maximum = 120, minimum = 1)
+    public Long period;
+
     public static CreateInsureRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateInsureRequest self = new CreateInsureRequest();
         return TeaModel.build(map, self);
@@ -186,6 +191,14 @@ public class CreateInsureRequest extends TeaModel {
     }
     public String getAddress() {
         return this.address;
+    }
+
+    public CreateInsureRequest setPeriod(Long period) {
+        this.period = period;
+        return this;
+    }
+    public Long getPeriod() {
+        return this.period;
     }
 
 }

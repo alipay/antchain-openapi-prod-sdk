@@ -58,7 +58,6 @@ public class UpdateInnerCustomerserviceRequest extends TeaModel {
 
     // 在线客服网址
     @NameInMap("online_support_site_url")
-    @Validation(required = true)
     public String onlineSupportSiteUrl;
 
     // 投诉问题

@@ -31,7 +31,7 @@ public class SubmitFrontSignResponse extends TeaModel {
     @NameInMap("account_id")
     public String accountId;
 
-    // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+    // 签署信息，包括短链接、长链接、小程序链接等。
     @NameInMap("sign_info")
     public String signInfo;
 

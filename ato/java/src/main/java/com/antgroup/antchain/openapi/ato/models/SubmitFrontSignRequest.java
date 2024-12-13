@@ -65,7 +65,7 @@ public class SubmitFrontSignRequest extends TeaModel {
     @NameInMap("signed_redirect_url")
     public String signedRedirectUrl;
 
-    // 签署的电子合同模板信息，List<Object>的JSON格式，Object如下： { templateId:__, // String格式 templateArgs: { "模板参数key":"模板参数值", // 必须为String } }
+    // 签署的电子合同模板信息，JSONArray格式，可以传入多个templateId和templateArgs。注意templateArgs的格式为key-value，其中key为模板文件中表单域的名称，value为需要填充的值。
     @NameInMap("template_list")
     @Validation(required = true)
     public String templateList;
@@ -115,7 +115,7 @@ public class SubmitFrontSignRequest extends TeaModel {
     @NameInMap("merchant_legal_id_number")
     public String merchantLegalIdNumber;
 
-    // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+    // 除商户以外的第三方签署信息，需要通过此字段传入，需要使用JSONArray格式。注意其中orgIdNumber、orgLegalName、orgLegalIdNumber需要RSA加密。
     @NameInMap("third_signer")
     public String thirdSigner;
 
@@ -128,6 +128,22 @@ public class SubmitFrontSignRequest extends TeaModel {
     @NameInMap("merchant_app_id")
     @Validation(maxLength = 32)
     public String merchantAppId;
+
+    // 用户类型，个人或企业，默认是个人
+    @NameInMap("user_type")
+    public String userType;
+
+    // (企业作为消费者时)公司证件号，无需加密
+    @NameInMap("user_org_id_number")
+    public String userOrgIdNumber;
+
+    // (企业作为消费者时)公司证件类型
+    @NameInMap("user_org_id_type")
+    public String userOrgIdType;
+
+    // (企业作为消费者时)公司名称
+    @NameInMap("user_org_name")
+    public String userOrgName;
 
     public static SubmitFrontSignRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitFrontSignRequest self = new SubmitFrontSignRequest();
@@ -332,6 +348,38 @@ public class SubmitFrontSignRequest extends TeaModel {
     }
     public String getMerchantAppId() {
         return this.merchantAppId;
+    }
+
+    public SubmitFrontSignRequest setUserType(String userType) {
+        this.userType = userType;
+        return this;
+    }
+    public String getUserType() {
+        return this.userType;
+    }
+
+    public SubmitFrontSignRequest setUserOrgIdNumber(String userOrgIdNumber) {
+        this.userOrgIdNumber = userOrgIdNumber;
+        return this;
+    }
+    public String getUserOrgIdNumber() {
+        return this.userOrgIdNumber;
+    }
+
+    public SubmitFrontSignRequest setUserOrgIdType(String userOrgIdType) {
+        this.userOrgIdType = userOrgIdType;
+        return this;
+    }
+    public String getUserOrgIdType() {
+        return this.userOrgIdType;
+    }
+
+    public SubmitFrontSignRequest setUserOrgName(String userOrgName) {
+        this.userOrgName = userOrgName;
+        return this;
+    }
+    public String getUserOrgName() {
+        return this.userOrgName;
     }
 
 }
