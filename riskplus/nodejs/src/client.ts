@@ -4980,6 +4980,10 @@ export class TenantActionPlanInfo extends $tea.Model {
   gmtCreate: string;
   // 修改时间
   gmtModified: string;
+  // 场景策略入参名
+  actionParamInfo?: string[];
+  // 参数查询是否完成
+  isParamQueryDone?: boolean;
   static names(): { [key: string]: string } {
     return {
       sceneStrategyId: 'scene_strategy_id',
@@ -4989,6 +4993,8 @@ export class TenantActionPlanInfo extends $tea.Model {
       channelCode: 'channel_code',
       gmtCreate: 'gmt_create',
       gmtModified: 'gmt_modified',
+      actionParamInfo: 'action_param_info',
+      isParamQueryDone: 'is_param_query_done',
     };
   }
 
@@ -5001,6 +5007,8 @@ export class TenantActionPlanInfo extends $tea.Model {
       channelCode: 'string',
       gmtCreate: 'string',
       gmtModified: 'string',
+      actionParamInfo: { 'type': 'array', 'itemType': 'string' },
+      isParamQueryDone: 'boolean',
     };
   }
 
@@ -21822,7 +21830,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.2",
+          sdk_version: "1.22.3",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
