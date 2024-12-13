@@ -45,6 +45,16 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=true, Pattern="\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")]
         public string GmtModified { get; set; }
 
+        // 场景策略入参名
+        [NameInMap("action_param_info")]
+        [Validation(Required=false)]
+        public List<string> ActionParamInfo { get; set; }
+
+        // 参数查询是否完成
+        [NameInMap("is_param_query_done")]
+        [Validation(Required=false)]
+        public bool? IsParamQueryDone { get; set; }
+
     }
 
 }
