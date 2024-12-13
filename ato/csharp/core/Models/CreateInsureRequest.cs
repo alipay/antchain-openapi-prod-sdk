@@ -80,6 +80,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=512)]
         public string Address { get; set; }
 
+        // 保险投保期数
+        [NameInMap("period")]
+        [Validation(Required=false)]
+        public long? Period { get; set; }
+
     }
 
 }

@@ -67,7 +67,7 @@ namespace AntChain.SDK.ATO.Models
 
         // 在线客服网址
         [NameInMap("online_support_site_url")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string OnlineSupportSiteUrl { get; set; }
 
         // 投诉问题

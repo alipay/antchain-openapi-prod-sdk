@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class SubmitFrontSignResponse : TeaModel {
+    public class QueryInnerTemplateinstanceResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,28 +24,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 签署合同单号
-        // 
-        [NameInMap("sign_no")]
+        // 模板实例化后的信息
+        [NameInMap("data")]
         [Validation(Required=false)]
-        public string SignNo { get; set; }
-
-        // 电子签署流程ID
-        // 
-        [NameInMap("flow_id")]
-        [Validation(Required=false)]
-        public string FlowId { get; set; }
-
-        // 签署用户ID
-        // 
-        [NameInMap("account_id")]
-        [Validation(Required=false)]
-        public string AccountId { get; set; }
-
-        // 签署信息，包括短链接、长链接、小程序链接等。
-        [NameInMap("sign_info")]
-        [Validation(Required=false)]
-        public string SignInfo { get; set; }
+        public string Data { get; set; }
 
     }
 

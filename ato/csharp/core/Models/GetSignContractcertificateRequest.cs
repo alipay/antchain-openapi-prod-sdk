@@ -19,9 +19,9 @@ namespace AntChain.SDK.ATO.Models
         public string ProductInstanceId { get; set; }
 
         // 流程id
-        [NameInMap("flow_id")]
+        [NameInMap("sign_no")]
         [Validation(Required=true)]
-        public string FlowId { get; set; }
+        public string SignNo { get; set; }
 
     }
 

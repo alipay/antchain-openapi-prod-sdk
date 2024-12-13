@@ -137,6 +137,11 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=32)]
         public string MerchantAppId { get; set; }
 
+        // 用户类型，个人或企业，默认是个人
+        [NameInMap("user_type")]
+        [Validation(Required=false)]
+        public string UserType { get; set; }
+
         // (企业作为消费者时)公司名称
         [NameInMap("user_org_name")]
         [Validation(Required=false)]
@@ -151,11 +156,6 @@ namespace AntChain.SDK.ATO.Models
         [NameInMap("user_org_id_number")]
         [Validation(Required=false)]
         public string UserOrgIdNumber { get; set; }
-
-        // 用户类型，个人或企业，默认是个人
-        [NameInMap("user_type")]
-        [Validation(Required=false)]
-        public string UserType { get; set; }
 
     }
 

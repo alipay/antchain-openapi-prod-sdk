@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.37"},
+                        {"sdk_version", "1.11.2"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.10.37"},
+                        {"sdk_version", "1.11.2"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4028,6 +4028,48 @@ namespace AntChain.SDK.ATO
         }
 
         /**
+         * Description: 获取模板实例化后的模板信息，包括pdf下载链接
+         * Summary: 获取模板实例化后的模板信息
+         */
+        public QueryInnerTemplateinstanceResponse QueryInnerTemplateinstance(QueryInnerTemplateinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerTemplateinstanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取模板实例化后的模板信息，包括pdf下载链接
+         * Summary: 获取模板实例化后的模板信息
+         */
+        public async Task<QueryInnerTemplateinstanceResponse> QueryInnerTemplateinstanceAsync(QueryInnerTemplateinstanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerTemplateinstanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取模板实例化后的模板信息，包括pdf下载链接
+         * Summary: 获取模板实例化后的模板信息
+         */
+        public QueryInnerTemplateinstanceResponse QueryInnerTemplateinstanceEx(QueryInnerTemplateinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerTemplateinstanceResponse>(DoRequest("1.0", "antchain.ato.inner.templateinstance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取模板实例化后的模板信息，包括pdf下载链接
+         * Summary: 获取模板实例化后的模板信息
+         */
+        public async Task<QueryInnerTemplateinstanceResponse> QueryInnerTemplateinstanceExAsync(QueryInnerTemplateinstanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerTemplateinstanceResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.templateinstance.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 一键投保
          * Summary: 投保
          */
@@ -5507,6 +5549,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyTradeFinanceprecheckResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.financeprecheck.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 非融转融资
+         * Summary: 非融转融资
+         */
+        public TransferTradeFinanceResponse TransferTradeFinance(TransferTradeFinanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return TransferTradeFinanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 非融转融资
+         * Summary: 非融转融资
+         */
+        public async Task<TransferTradeFinanceResponse> TransferTradeFinanceAsync(TransferTradeFinanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await TransferTradeFinanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 非融转融资
+         * Summary: 非融转融资
+         */
+        public TransferTradeFinanceResponse TransferTradeFinanceEx(TransferTradeFinanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferTradeFinanceResponse>(DoRequest("1.0", "antchain.ato.trade.finance.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 非融转融资
+         * Summary: 非融转融资
+         */
+        public async Task<TransferTradeFinanceResponse> TransferTradeFinanceExAsync(TransferTradeFinanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferTradeFinanceResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.finance.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
