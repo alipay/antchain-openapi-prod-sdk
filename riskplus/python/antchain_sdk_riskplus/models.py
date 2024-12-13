@@ -8262,6 +8262,8 @@ class TenantActionPlanInfo(TeaModel):
         channel_code: str = None,
         gmt_create: str = None,
         gmt_modified: str = None,
+        action_param_info: List[str] = None,
+        is_param_query_done: bool = None,
     ):
         # 场景策略id
         self.scene_strategy_id = scene_strategy_id
@@ -8277,6 +8279,10 @@ class TenantActionPlanInfo(TeaModel):
         self.gmt_create = gmt_create
         # 修改时间
         self.gmt_modified = gmt_modified
+        # 场景策略入参名
+        self.action_param_info = action_param_info
+        # 参数查询是否完成
+        self.is_param_query_done = is_param_query_done
 
     def validate(self):
         self.validate_required(self.scene_strategy_id, 'scene_strategy_id')
@@ -8311,6 +8317,10 @@ class TenantActionPlanInfo(TeaModel):
             result['gmt_create'] = self.gmt_create
         if self.gmt_modified is not None:
             result['gmt_modified'] = self.gmt_modified
+        if self.action_param_info is not None:
+            result['action_param_info'] = self.action_param_info
+        if self.is_param_query_done is not None:
+            result['is_param_query_done'] = self.is_param_query_done
         return result
 
     def from_map(self, m: dict = None):
@@ -8329,6 +8339,10 @@ class TenantActionPlanInfo(TeaModel):
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modified') is not None:
             self.gmt_modified = m.get('gmt_modified')
+        if m.get('action_param_info') is not None:
+            self.action_param_info = m.get('action_param_info')
+        if m.get('is_param_query_done') is not None:
+            self.is_param_query_done = m.get('is_param_query_done')
         return self
 
 
