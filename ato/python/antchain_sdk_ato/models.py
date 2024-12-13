@@ -12927,7 +12927,6 @@ class CreateInnerCustomerserviceRequest(TeaModel):
         self.validate_required(self.alipay_logon_id, 'alipay_logon_id')
         self.validate_required(self.customer_service_phone, 'customer_service_phone')
         self.validate_required(self.customer_service_name, 'customer_service_name')
-        self.validate_required(self.online_support_site_url, 'online_support_site_url')
         self.validate_required(self.customer_complaint_issues, 'customer_complaint_issues')
         self.validate_required(self.expand_mode, 'expand_mode')
 
@@ -13099,7 +13098,6 @@ class UpdateInnerCustomerserviceRequest(TeaModel):
         self.validate_required(self.alipay_logon_id, 'alipay_logon_id')
         self.validate_required(self.customer_service_phone, 'customer_service_phone')
         self.validate_required(self.customer_service_name, 'customer_service_name')
-        self.validate_required(self.online_support_site_url, 'online_support_site_url')
         self.validate_required(self.customer_complaint_issues, 'customer_complaint_issues')
         self.validate_required(self.expand_mode, 'expand_mode')
 
@@ -13677,6 +13675,120 @@ class GetInnerCustomerservicetemplateResponse(TeaModel):
         return self
 
 
+class QueryInnerTemplateinstanceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        template_code: str = None,
+        business_id: str = None,
+        need_pdf_file: bool = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户8位id
+        self.tenant_id = tenant_id
+        # 模板code
+        self.template_code = template_code
+        # 业务唯一实例id（模板实例化时的业务id）
+        self.business_id = business_id
+        # 实例化文件是否需要pdf格式
+        self.need_pdf_file = need_pdf_file
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.business_id, 'business_id')
+        self.validate_required(self.need_pdf_file, 'need_pdf_file')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.business_id is not None:
+            result['business_id'] = self.business_id
+        if self.need_pdf_file is not None:
+            result['need_pdf_file'] = self.need_pdf_file
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('business_id') is not None:
+            self.business_id = m.get('business_id')
+        if m.get('need_pdf_file') is not None:
+            self.need_pdf_file = m.get('need_pdf_file')
+        return self
+
+
+class QueryInnerTemplateinstanceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板实例化后的信息
+        self.data = data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.data is not None:
+            result['data'] = self.data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        return self
+
+
 class CreateInsureRequest(TeaModel):
     def __init__(
         self,
@@ -13694,6 +13806,7 @@ class CreateInsureRequest(TeaModel):
         logistics_number: str = None,
         trade_time: str = None,
         address: str = None,
+        period: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13724,6 +13837,8 @@ class CreateInsureRequest(TeaModel):
         self.trade_time = trade_time
         # 公司地址信息，此处填写的地址信息为投保时最高优先级地址，其次为公司进件时填写的地址信息。如果取不到明确地址信息，投保会失败。
         self.address = address
+        # 保险投保期数
+        self.period = period
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -13748,6 +13863,9 @@ class CreateInsureRequest(TeaModel):
             self.validate_max_length(self.logistics_number, 'logistics_number', 64)
         if self.address is not None:
             self.validate_max_length(self.address, 'address', 512)
+        if self.period is not None:
+            self.validate_maximum(self.period, 'period', 120)
+            self.validate_minimum(self.period, 'period', 1)
 
     def to_map(self):
         _map = super().to_map()
@@ -13785,6 +13903,8 @@ class CreateInsureRequest(TeaModel):
             result['trade_time'] = self.trade_time
         if self.address is not None:
             result['address'] = self.address
+        if self.period is not None:
+            result['period'] = self.period
         return result
 
     def from_map(self, m: dict = None):
@@ -13820,6 +13940,8 @@ class CreateInsureRequest(TeaModel):
             self.trade_time = m.get('trade_time')
         if m.get('address') is not None:
             self.address = m.get('address')
+        if m.get('period') is not None:
+            self.period = m.get('period')
         return self
 
 
@@ -15185,10 +15307,10 @@ class SubmitSignFlowRequest(TeaModel):
         third_signer: str = None,
         user_open_id: str = None,
         merchant_app_id: str = None,
+        user_type: str = None,
         user_org_name: str = None,
         user_org_id_type: str = None,
         user_org_id_number: str = None,
-        user_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -15243,14 +15365,14 @@ class SubmitSignFlowRequest(TeaModel):
         self.user_open_id = user_open_id
         # 商户支付宝应用 id
         self.merchant_app_id = merchant_app_id
+        # 用户类型，个人或企业，默认是个人
+        self.user_type = user_type
         # (企业作为消费者时)公司名称
         self.user_org_name = user_org_name
         # (企业作为消费者时)公司证件类型
         self.user_org_id_type = user_org_id_type
         # (企业作为消费者时)公司证件号，无需加密
         self.user_org_id_number = user_org_id_number
-        # 用户类型，个人或企业，默认是个人
-        self.user_type = user_type
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -15336,14 +15458,14 @@ class SubmitSignFlowRequest(TeaModel):
             result['user_open_id'] = self.user_open_id
         if self.merchant_app_id is not None:
             result['merchant_app_id'] = self.merchant_app_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
         if self.user_org_name is not None:
             result['user_org_name'] = self.user_org_name
         if self.user_org_id_type is not None:
             result['user_org_id_type'] = self.user_org_id_type
         if self.user_org_id_number is not None:
             result['user_org_id_number'] = self.user_org_id_number
-        if self.user_type is not None:
-            result['user_type'] = self.user_type
         return result
 
     def from_map(self, m: dict = None):
@@ -15398,14 +15520,14 @@ class SubmitSignFlowRequest(TeaModel):
             self.user_open_id = m.get('user_open_id')
         if m.get('merchant_app_id') is not None:
             self.merchant_app_id = m.get('merchant_app_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
         if m.get('user_org_name') is not None:
             self.user_org_name = m.get('user_org_name')
         if m.get('user_org_id_type') is not None:
             self.user_org_id_type = m.get('user_org_id_type')
         if m.get('user_org_id_number') is not None:
             self.user_org_id_number = m.get('user_org_id_number')
-        if m.get('user_type') is not None:
-            self.user_type = m.get('user_type')
         return self
 
 
@@ -15781,6 +15903,10 @@ class SubmitFrontSignRequest(TeaModel):
         third_signer: str = None,
         user_open_id: str = None,
         merchant_app_id: str = None,
+        user_type: str = None,
+        user_org_id_number: str = None,
+        user_org_id_type: str = None,
+        user_org_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -15814,7 +15940,7 @@ class SubmitFrontSignRequest(TeaModel):
         # 签署完成跳转链接
         # 
         self.signed_redirect_url = signed_redirect_url
-        # 签署的电子合同模板信息，List<Object>的JSON格式，Object如下： { templateId:__, // String格式 templateArgs: { "模板参数key":"模板参数值", // 必须为String } }
+        # 签署的电子合同模板信息，JSONArray格式，可以传入多个templateId和templateArgs。注意templateArgs的格式为key-value，其中key为模板文件中表单域的名称，value为需要填充的值。
         self.template_list = template_list
         # 用户的支付宝uid
         self.alipay_user_id = alipay_user_id
@@ -15838,12 +15964,20 @@ class SubmitFrontSignRequest(TeaModel):
         # 法人证件号，需要采用RSA加密传输
         # 
         self.merchant_legal_id_number = merchant_legal_id_number
-        # 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+        # 除商户以外的第三方签署信息，需要通过此字段传入，需要使用JSONArray格式。注意其中orgIdNumber、orgLegalName、orgLegalIdNumber需要RSA加密。
         self.third_signer = third_signer
         # 用户在支付宝开放平台下应用的 open_id
         self.user_open_id = user_open_id
         # 商户支付宝应用 id
         self.merchant_app_id = merchant_app_id
+        # 用户类型，个人或企业，默认是个人
+        self.user_type = user_type
+        # (企业作为消费者时)公司证件号，无需加密
+        self.user_org_id_number = user_org_id_number
+        # (企业作为消费者时)公司证件类型
+        self.user_org_id_type = user_org_id_type
+        # (企业作为消费者时)公司名称
+        self.user_org_name = user_org_name
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -15928,6 +16062,14 @@ class SubmitFrontSignRequest(TeaModel):
             result['user_open_id'] = self.user_open_id
         if self.merchant_app_id is not None:
             result['merchant_app_id'] = self.merchant_app_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.user_org_id_number is not None:
+            result['user_org_id_number'] = self.user_org_id_number
+        if self.user_org_id_type is not None:
+            result['user_org_id_type'] = self.user_org_id_type
+        if self.user_org_name is not None:
+            result['user_org_name'] = self.user_org_name
         return result
 
     def from_map(self, m: dict = None):
@@ -15982,6 +16124,14 @@ class SubmitFrontSignRequest(TeaModel):
             self.user_open_id = m.get('user_open_id')
         if m.get('merchant_app_id') is not None:
             self.merchant_app_id = m.get('merchant_app_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('user_org_id_number') is not None:
+            self.user_org_id_number = m.get('user_org_id_number')
+        if m.get('user_org_id_type') is not None:
+            self.user_org_id_type = m.get('user_org_id_type')
+        if m.get('user_org_name') is not None:
+            self.user_org_name = m.get('user_org_name')
         return self
 
 
@@ -16011,7 +16161,7 @@ class SubmitFrontSignResponse(TeaModel):
         # 签署用户ID
         # 
         self.account_id = account_id
-        # 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+        # 签署信息，包括短链接、长链接、小程序链接等。
         self.sign_info = sign_info
 
     def validate(self):
@@ -16696,16 +16846,16 @@ class GetSignContractcertificateRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
-        flow_id: str = None,
+        sign_no: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 流程id
-        self.flow_id = flow_id
+        self.sign_no = sign_no
 
     def validate(self):
-        self.validate_required(self.flow_id, 'flow_id')
+        self.validate_required(self.sign_no, 'sign_no')
 
     def to_map(self):
         _map = super().to_map()
@@ -16717,8 +16867,8 @@ class GetSignContractcertificateRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
-        if self.flow_id is not None:
-            result['flow_id'] = self.flow_id
+        if self.sign_no is not None:
+            result['sign_no'] = self.sign_no
         return result
 
     def from_map(self, m: dict = None):
@@ -16727,8 +16877,8 @@ class GetSignContractcertificateRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
-        if m.get('flow_id') is not None:
-            self.flow_id = m.get('flow_id')
+        if m.get('sign_no') is not None:
+            self.sign_no = m.get('sign_no')
         return self
 
 
@@ -18097,6 +18247,151 @@ class ApplyTradeFinanceprecheckResponse(TeaModel):
             self.order_id = m.get('order_id')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        return self
+
+
+class TransferTradeFinanceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        fund_id_list: List[str] = None,
+        fund_sign_mode: str = None,
+        divide_start_term_index: int = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id
+        self.order_id = order_id
+        # 公司社会信用代码
+        self.merchant_id = merchant_id
+        # 待预审资方列表
+        self.fund_id_list = fund_id_list
+        # 融资签署模式
+        self.fund_sign_mode = fund_sign_mode
+        # 商户分账起始期数
+        self.divide_start_term_index = divide_start_term_index
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.fund_id_list, 'fund_id_list')
+        self.validate_required(self.fund_sign_mode, 'fund_sign_mode')
+        self.validate_required(self.divide_start_term_index, 'divide_start_term_index')
+        if self.divide_start_term_index is not None:
+            self.validate_minimum(self.divide_start_term_index, 'divide_start_term_index', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.fund_id_list is not None:
+            result['fund_id_list'] = self.fund_id_list
+        if self.fund_sign_mode is not None:
+            result['fund_sign_mode'] = self.fund_sign_mode
+        if self.divide_start_term_index is not None:
+            result['divide_start_term_index'] = self.divide_start_term_index
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('fund_id_list') is not None:
+            self.fund_id_list = m.get('fund_id_list')
+        if m.get('fund_sign_mode') is not None:
+            self.fund_sign_mode = m.get('fund_sign_mode')
+        if m.get('divide_start_term_index') is not None:
+            self.divide_start_term_index = m.get('divide_start_term_index')
+        return self
+
+
+class TransferTradeFinanceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        fund_candidates: str = None,
+        transfer_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # order_id
+        self.order_id = order_id
+        # merchant_id
+        self.merchant_id = merchant_id
+        # jsonArray.toString
+        self.fund_candidates = fund_candidates
+        # 转融资结果
+        self.transfer_result = transfer_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.fund_candidates is not None:
+            result['fund_candidates'] = self.fund_candidates
+        if self.transfer_result is not None:
+            result['transfer_result'] = self.transfer_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('fund_candidates') is not None:
+            self.fund_candidates = m.get('fund_candidates')
+        if m.get('transfer_result') is not None:
+            self.transfer_result = m.get('transfer_result')
         return self
 
 

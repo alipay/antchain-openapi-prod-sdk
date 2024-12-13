@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.37',
+                    'sdk_version': '1.11.2',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.10.37',
+                    'sdk_version': '1.11.2',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -5187,6 +5187,62 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.inner.customerservicetemplate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_inner_templateinstance(
+        self,
+        request: ato_models.QueryInnerTemplateinstanceRequest,
+    ) -> ato_models.QueryInnerTemplateinstanceResponse:
+        """
+        Description: 获取模板实例化后的模板信息，包括pdf下载链接
+        Summary: 获取模板实例化后的模板信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_templateinstance_ex(request, headers, runtime)
+
+    async def query_inner_templateinstance_async(
+        self,
+        request: ato_models.QueryInnerTemplateinstanceRequest,
+    ) -> ato_models.QueryInnerTemplateinstanceResponse:
+        """
+        Description: 获取模板实例化后的模板信息，包括pdf下载链接
+        Summary: 获取模板实例化后的模板信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_templateinstance_ex_async(request, headers, runtime)
+
+    def query_inner_templateinstance_ex(
+        self,
+        request: ato_models.QueryInnerTemplateinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerTemplateinstanceResponse:
+        """
+        Description: 获取模板实例化后的模板信息，包括pdf下载链接
+        Summary: 获取模板实例化后的模板信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerTemplateinstanceResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.templateinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_templateinstance_ex_async(
+        self,
+        request: ato_models.QueryInnerTemplateinstanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerTemplateinstanceResponse:
+        """
+        Description: 获取模板实例化后的模板信息，包括pdf下载链接
+        Summary: 获取模板实例化后的模板信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerTemplateinstanceResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.templateinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_insure(
         self,
         request: ato_models.CreateInsureRequest,
@@ -7105,6 +7161,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.ApplyTradeFinanceprecheckResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.financeprecheck.apply', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def transfer_trade_finance(
+        self,
+        request: ato_models.TransferTradeFinanceRequest,
+    ) -> ato_models.TransferTradeFinanceResponse:
+        """
+        Description: 非融转融资
+        Summary: 非融转融资
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.transfer_trade_finance_ex(request, headers, runtime)
+
+    async def transfer_trade_finance_async(
+        self,
+        request: ato_models.TransferTradeFinanceRequest,
+    ) -> ato_models.TransferTradeFinanceResponse:
+        """
+        Description: 非融转融资
+        Summary: 非融转融资
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.transfer_trade_finance_ex_async(request, headers, runtime)
+
+    def transfer_trade_finance_ex(
+        self,
+        request: ato_models.TransferTradeFinanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.TransferTradeFinanceResponse:
+        """
+        Description: 非融转融资
+        Summary: 非融转融资
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.TransferTradeFinanceResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def transfer_trade_finance_ex_async(
+        self,
+        request: ato_models.TransferTradeFinanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.TransferTradeFinanceResponse:
+        """
+        Description: 非融转融资
+        Summary: 非融转融资
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.TransferTradeFinanceResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_withhold_sign(
