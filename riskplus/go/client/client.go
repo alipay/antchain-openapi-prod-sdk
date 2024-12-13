@@ -6709,6 +6709,10 @@ type TenantActionPlanInfo struct {
 	GmtCreate *string `json:"gmt_create,omitempty" xml:"gmt_create,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 修改时间
 	GmtModified *string `json:"gmt_modified,omitempty" xml:"gmt_modified,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 场景策略入参名
+	ActionParamInfo []*string `json:"action_param_info,omitempty" xml:"action_param_info,omitempty" type:"Repeated"`
+	// 参数查询是否完成
+	IsParamQueryDone *bool `json:"is_param_query_done,omitempty" xml:"is_param_query_done,omitempty"`
 }
 
 func (s TenantActionPlanInfo) String() string {
@@ -6751,6 +6755,16 @@ func (s *TenantActionPlanInfo) SetGmtCreate(v string) *TenantActionPlanInfo {
 
 func (s *TenantActionPlanInfo) SetGmtModified(v string) *TenantActionPlanInfo {
 	s.GmtModified = &v
+	return s
+}
+
+func (s *TenantActionPlanInfo) SetActionParamInfo(v []*string) *TenantActionPlanInfo {
+	s.ActionParamInfo = v
+	return s
+}
+
+func (s *TenantActionPlanInfo) SetIsParamQueryDone(v bool) *TenantActionPlanInfo {
+	s.IsParamQueryDone = &v
 	return s
 }
 
@@ -29115,7 +29129,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.2"),
+				"sdk_version":      tea.String("1.22.3"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
