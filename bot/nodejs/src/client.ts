@@ -16664,6 +16664,95 @@ export class ExecDeviceCustomerthingserviceResponse extends $tea.Model {
   }
 }
 
+export class ExecDeviceUsertopicRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备did
+  deviceDid: string;
+  // 使用Hmac-SHA256 哈希算法对对deviceDid进行加签， key 为deviceSecret 
+  // Hmac-SHA256(deviceDid,deviceSecret)
+  signature: string;
+  // 自定义topic名称
+  topicIdentifer: string;
+  // FORWARD
+  userTopicCmdType: string;
+  // 指令内容
+  cmdContent: string;
+  // 业务场景
+  bizScene: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceDid: 'device_did',
+      signature: 'signature',
+      topicIdentifer: 'topic_identifer',
+      userTopicCmdType: 'user_topic_cmd_type',
+      cmdContent: 'cmd_content',
+      bizScene: 'biz_scene',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceDid: 'string',
+      signature: 'string',
+      topicIdentifer: 'string',
+      userTopicCmdType: 'string',
+      cmdContent: 'string',
+      bizScene: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecDeviceUsertopicResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 	
+  // 接口调用结果
+  success?: boolean;
+  // 调用返回结果
+  result?: string;
+  // 云端向设备下发服务调用的消息ID
+  messageId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      result: 'result',
+      messageId: 'message_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      result: 'string',
+      messageId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -26931,7 +27020,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.57",
+          sdk_version: "1.12.1",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -29510,6 +29599,25 @@ export default class Client {
   async execDeviceCustomerthingserviceEx(request: ExecDeviceCustomerthingserviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecDeviceCustomerthingserviceResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecDeviceCustomerthingserviceResponse>(await this.doRequest("1.0", "blockchain.bot.device.customerthingservice.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecDeviceCustomerthingserviceResponse({}));
+  }
+
+  /**
+   * Description: 在指定设备上对自定义topic 远程下发消息 
+   * Summary: 自定义topic远程调用
+   */
+  async execDeviceUsertopic(request: ExecDeviceUsertopicRequest): Promise<ExecDeviceUsertopicResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execDeviceUsertopicEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 在指定设备上对自定义topic 远程下发消息 
+   * Summary: 自定义topic远程调用
+   */
+  async execDeviceUsertopicEx(request: ExecDeviceUsertopicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecDeviceUsertopicResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecDeviceUsertopicResponse>(await this.doRequest("1.0", "blockchain.bot.device.usertopic.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecDeviceUsertopicResponse({}));
   }
 
   /**
