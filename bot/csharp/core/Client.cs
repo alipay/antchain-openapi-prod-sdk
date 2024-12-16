@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.57"},
+                        {"sdk_version", "1.12.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.57"},
+                        {"sdk_version", "1.12.1"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5917,6 +5917,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecDeviceCustomerthingserviceResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.customerthingservice.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在指定设备上对自定义topic 远程下发消息 
+         * Summary: 自定义topic远程调用
+         */
+        public ExecDeviceUsertopicResponse ExecDeviceUsertopic(ExecDeviceUsertopicRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecDeviceUsertopicEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在指定设备上对自定义topic 远程下发消息 
+         * Summary: 自定义topic远程调用
+         */
+        public async Task<ExecDeviceUsertopicResponse> ExecDeviceUsertopicAsync(ExecDeviceUsertopicRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecDeviceUsertopicExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 在指定设备上对自定义topic 远程下发消息 
+         * Summary: 自定义topic远程调用
+         */
+        public ExecDeviceUsertopicResponse ExecDeviceUsertopicEx(ExecDeviceUsertopicRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecDeviceUsertopicResponse>(DoRequest("1.0", "blockchain.bot.device.usertopic.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 在指定设备上对自定义topic 远程下发消息 
+         * Summary: 自定义topic远程调用
+         */
+        public async Task<ExecDeviceUsertopicResponse> ExecDeviceUsertopicExAsync(ExecDeviceUsertopicRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecDeviceUsertopicResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.usertopic.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
