@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.57',
+                    'sdk_version': '1.12.1',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.57',
+                    'sdk_version': '1.12.1',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -7681,6 +7681,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.ExecDeviceCustomerthingserviceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.customerthingservice.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_device_usertopic(
+        self,
+        request: bot_models.ExecDeviceUsertopicRequest,
+    ) -> bot_models.ExecDeviceUsertopicResponse:
+        """
+        Description: 在指定设备上对自定义topic 远程下发消息
+        Summary: 自定义topic远程调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_device_usertopic_ex(request, headers, runtime)
+
+    async def exec_device_usertopic_async(
+        self,
+        request: bot_models.ExecDeviceUsertopicRequest,
+    ) -> bot_models.ExecDeviceUsertopicResponse:
+        """
+        Description: 在指定设备上对自定义topic 远程下发消息
+        Summary: 自定义topic远程调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_device_usertopic_ex_async(request, headers, runtime)
+
+    def exec_device_usertopic_ex(
+        self,
+        request: bot_models.ExecDeviceUsertopicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecDeviceUsertopicResponse:
+        """
+        Description: 在指定设备上对自定义topic 远程下发消息
+        Summary: 自定义topic远程调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecDeviceUsertopicResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.usertopic.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_device_usertopic_ex_async(
+        self,
+        request: bot_models.ExecDeviceUsertopicRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ExecDeviceUsertopicResponse:
+        """
+        Description: 在指定设备上对自定义topic 远程下发消息
+        Summary: 自定义topic远程调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ExecDeviceUsertopicResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.usertopic.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(

@@ -27336,6 +27336,152 @@ class ExecDeviceCustomerthingserviceResponse(TeaModel):
         return self
 
 
+class ExecDeviceUsertopicRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_did: str = None,
+        signature: str = None,
+        topic_identifer: str = None,
+        user_topic_cmd_type: str = None,
+        cmd_content: str = None,
+        biz_scene: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 设备did
+        self.device_did = device_did
+        # 使用Hmac-SHA256 哈希算法对对deviceDid进行加签， key 为deviceSecret
+        # Hmac-SHA256(deviceDid,deviceSecret)
+        self.signature = signature
+        # 自定义topic名称
+        self.topic_identifer = topic_identifer
+        # FORWARD
+        self.user_topic_cmd_type = user_topic_cmd_type
+        # 指令内容
+        self.cmd_content = cmd_content
+        # 业务场景
+        self.biz_scene = biz_scene
+
+    def validate(self):
+        self.validate_required(self.device_did, 'device_did')
+        self.validate_required(self.signature, 'signature')
+        self.validate_required(self.topic_identifer, 'topic_identifer')
+        self.validate_required(self.user_topic_cmd_type, 'user_topic_cmd_type')
+        self.validate_required(self.cmd_content, 'cmd_content')
+        self.validate_required(self.biz_scene, 'biz_scene')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_did is not None:
+            result['device_did'] = self.device_did
+        if self.signature is not None:
+            result['signature'] = self.signature
+        if self.topic_identifer is not None:
+            result['topic_identifer'] = self.topic_identifer
+        if self.user_topic_cmd_type is not None:
+            result['user_topic_cmd_type'] = self.user_topic_cmd_type
+        if self.cmd_content is not None:
+            result['cmd_content'] = self.cmd_content
+        if self.biz_scene is not None:
+            result['biz_scene'] = self.biz_scene
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_did') is not None:
+            self.device_did = m.get('device_did')
+        if m.get('signature') is not None:
+            self.signature = m.get('signature')
+        if m.get('topic_identifer') is not None:
+            self.topic_identifer = m.get('topic_identifer')
+        if m.get('user_topic_cmd_type') is not None:
+            self.user_topic_cmd_type = m.get('user_topic_cmd_type')
+        if m.get('cmd_content') is not None:
+            self.cmd_content = m.get('cmd_content')
+        if m.get('biz_scene') is not None:
+            self.biz_scene = m.get('biz_scene')
+        return self
+
+
+class ExecDeviceUsertopicResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+        result: str = None,
+        message_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 
+        # 接口调用结果
+        self.success = success
+        # 调用返回结果
+        self.result = result
+        # 云端向设备下发服务调用的消息ID
+        self.message_id = message_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        if self.result is not None:
+            result['result'] = self.result
+        if self.message_id is not None:
+            result['message_id'] = self.message_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        if m.get('message_id') is not None:
+            self.message_id = m.get('message_id')
+        return self
+
+
 class QueryIotplatformPurchaseorderRequest(TeaModel):
     def __init__(
         self,
