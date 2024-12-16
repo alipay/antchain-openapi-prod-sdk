@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.11.57"),
+                    new TeaPair("sdk_version", "1.12.1"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2715,6 +2715,25 @@ public class Client {
     public ExecDeviceCustomerthingserviceResponse execDeviceCustomerthingserviceEx(ExecDeviceCustomerthingserviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.customerthingservice.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecDeviceCustomerthingserviceResponse());
+    }
+
+    /**
+     * Description: 在指定设备上对自定义topic 远程下发消息 
+     * Summary: 自定义topic远程调用
+     */
+    public ExecDeviceUsertopicResponse execDeviceUsertopic(ExecDeviceUsertopicRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execDeviceUsertopicEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 在指定设备上对自定义topic 远程下发消息 
+     * Summary: 自定义topic远程调用
+     */
+    public ExecDeviceUsertopicResponse execDeviceUsertopicEx(ExecDeviceUsertopicRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.usertopic.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecDeviceUsertopicResponse());
     }
 
     /**
