@@ -153,6 +153,8 @@ use AntChain\BOT\Models\ExecDeviceCustomerthingserviceRequest;
 use AntChain\BOT\Models\ExecDeviceCustomerthingserviceResponse;
 use AntChain\BOT\Models\ExecDeviceThingserviceRequest;
 use AntChain\BOT\Models\ExecDeviceThingserviceResponse;
+use AntChain\BOT\Models\ExecDeviceUsertopicRequest;
+use AntChain\BOT\Models\ExecDeviceUsertopicResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\ExecThingServiceRequest;
@@ -688,7 +690,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.57',
+                    'sdk_version'      => '1.12.1',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5095,6 +5097,39 @@ class Client
         Utils::validateModel($request);
 
         return ExecDeviceCustomerthingserviceResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.customerthingservice.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 在指定设备上对自定义topic 远程下发消息
+     * Summary: 自定义topic远程调用.
+     *
+     * @param ExecDeviceUsertopicRequest $request
+     *
+     * @return ExecDeviceUsertopicResponse
+     */
+    public function execDeviceUsertopic($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->execDeviceUsertopicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 在指定设备上对自定义topic 远程下发消息
+     * Summary: 自定义topic远程调用.
+     *
+     * @param ExecDeviceUsertopicRequest $request
+     * @param string[]                   $headers
+     * @param RuntimeOptions             $runtime
+     *
+     * @return ExecDeviceUsertopicResponse
+     */
+    public function execDeviceUsertopicEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ExecDeviceUsertopicResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.usertopic.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
