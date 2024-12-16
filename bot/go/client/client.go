@@ -21846,6 +21846,127 @@ func (s *ExecDeviceCustomerthingserviceResponse) SetResult(v string) *ExecDevice
 	return s
 }
 
+type ExecDeviceUsertopicRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备did
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty" require:"true"`
+	// 使用Hmac-SHA256 哈希算法对对deviceDid进行加签， key 为deviceSecret
+	// Hmac-SHA256(deviceDid,deviceSecret)
+	Signature *string `json:"signature,omitempty" xml:"signature,omitempty" require:"true"`
+	// 自定义topic名称
+	TopicIdentifer *string `json:"topic_identifer,omitempty" xml:"topic_identifer,omitempty" require:"true"`
+	// FORWARD
+	UserTopicCmdType *string `json:"user_topic_cmd_type,omitempty" xml:"user_topic_cmd_type,omitempty" require:"true"`
+	// 指令内容
+	CmdContent *string `json:"cmd_content,omitempty" xml:"cmd_content,omitempty" require:"true"`
+	// 业务场景
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+}
+
+func (s ExecDeviceUsertopicRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecDeviceUsertopicRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecDeviceUsertopicRequest) SetAuthToken(v string) *ExecDeviceUsertopicRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicRequest) SetProductInstanceId(v string) *ExecDeviceUsertopicRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicRequest) SetDeviceDid(v string) *ExecDeviceUsertopicRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicRequest) SetSignature(v string) *ExecDeviceUsertopicRequest {
+	s.Signature = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicRequest) SetTopicIdentifer(v string) *ExecDeviceUsertopicRequest {
+	s.TopicIdentifer = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicRequest) SetUserTopicCmdType(v string) *ExecDeviceUsertopicRequest {
+	s.UserTopicCmdType = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicRequest) SetCmdContent(v string) *ExecDeviceUsertopicRequest {
+	s.CmdContent = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicRequest) SetBizScene(v string) *ExecDeviceUsertopicRequest {
+	s.BizScene = &v
+	return s
+}
+
+type ExecDeviceUsertopicResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	//
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 调用返回结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+	// 云端向设备下发服务调用的消息ID
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+}
+
+func (s ExecDeviceUsertopicResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecDeviceUsertopicResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecDeviceUsertopicResponse) SetReqMsgId(v string) *ExecDeviceUsertopicResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicResponse) SetResultCode(v string) *ExecDeviceUsertopicResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicResponse) SetResultMsg(v string) *ExecDeviceUsertopicResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicResponse) SetSuccess(v bool) *ExecDeviceUsertopicResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicResponse) SetResult(v string) *ExecDeviceUsertopicResponse {
+	s.Result = &v
+	return s
+}
+
+func (s *ExecDeviceUsertopicResponse) SetMessageId(v string) *ExecDeviceUsertopicResponse {
+	s.MessageId = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -35051,7 +35172,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.57"),
+				"sdk_version":      tea.String("1.12.1"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -39616,6 +39737,40 @@ func (client *Client) ExecDeviceCustomerthingserviceEx(request *ExecDeviceCustom
 	}
 	_result = &ExecDeviceCustomerthingserviceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.customerthingservice.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 在指定设备上对自定义topic 远程下发消息
+ * Summary: 自定义topic远程调用
+ */
+func (client *Client) ExecDeviceUsertopic(request *ExecDeviceUsertopicRequest) (_result *ExecDeviceUsertopicResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecDeviceUsertopicResponse{}
+	_body, _err := client.ExecDeviceUsertopicEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 在指定设备上对自定义topic 远程下发消息
+ * Summary: 自定义topic远程调用
+ */
+func (client *Client) ExecDeviceUsertopicEx(request *ExecDeviceUsertopicRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecDeviceUsertopicResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecDeviceUsertopicResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.usertopic.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
