@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.11.57',
+    sdk_version = '1.12.1',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -9091,6 +9091,60 @@ async function execDeviceCustomerthingservice(request: ExecDeviceCustomerthingse
 async function execDeviceCustomerthingserviceEx(request: ExecDeviceCustomerthingserviceRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecDeviceCustomerthingserviceResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.device.customerthingservice.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ExecDeviceUsertopicRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备did
+  deviceDid: string(name='device_did'),
+  // 使用Hmac-SHA256 哈希算法对对deviceDid进行加签， key 为deviceSecret 
+  // Hmac-SHA256(deviceDid,deviceSecret)
+  signature: string(name='signature'),
+  // 自定义topic名称
+  topicIdentifer: string(name='topic_identifer'),
+  // FORWARD
+  userTopicCmdType: string(name='user_topic_cmd_type'),
+  // 指令内容
+  cmdContent: string(name='cmd_content'),
+  // 业务场景
+  bizScene: string(name='biz_scene'),
+}
+
+model ExecDeviceUsertopicResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 	
+  // 接口调用结果
+  success?: boolean(name='success'),
+  // 调用返回结果
+  result?: string(name='result'),
+  // 云端向设备下发服务调用的消息ID
+  messageId?: string(name='message_id'),
+}
+
+/**
+ * Description: 在指定设备上对自定义topic 远程下发消息 
+ * Summary: 自定义topic远程调用
+ */
+async function execDeviceUsertopic(request: ExecDeviceUsertopicRequest): ExecDeviceUsertopicResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return execDeviceUsertopicEx(request, headers, runtime);
+}
+
+/**
+ * Description: 在指定设备上对自定义topic 远程下发消息 
+ * Summary: 自定义topic远程调用
+ */
+async function execDeviceUsertopicEx(request: ExecDeviceUsertopicRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecDeviceUsertopicResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.usertopic.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
