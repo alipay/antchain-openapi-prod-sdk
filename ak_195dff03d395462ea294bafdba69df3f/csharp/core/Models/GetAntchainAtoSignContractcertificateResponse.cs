@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class SubmitAntchainAtoSignFlowResponse : TeaModel {
+    public class GetAntchainAtoSignContractcertificateResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,10 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 签署合同单号
-        [NameInMap("sign_no")]
+        // 下载文件地址(一小时内有效)
+        [NameInMap("url")]
         [Validation(Required=false)]
-        public string SignNo { get; set; }
-
-        // 电子签署流程ID
-        [NameInMap("flow_id")]
-        [Validation(Required=false)]
-        public string FlowId { get; set; }
-
-        // 签署用户ID
-        [NameInMap("account_id")]
-        [Validation(Required=false)]
-        public string AccountId { get; set; }
-
-        // 签署信息，包括短链接、长链接、小程序链接等。
-        [NameInMap("sign_info")]
-        [Validation(Required=false)]
-        public string SignInfo { get; set; }
+        public string Url { get; set; }
 
     }
 

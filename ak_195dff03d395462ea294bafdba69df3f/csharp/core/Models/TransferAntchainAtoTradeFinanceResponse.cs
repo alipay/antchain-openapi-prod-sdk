@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class SubmitAntchainAtoSignFlowResponse : TeaModel {
+    public class TransferAntchainAtoTradeFinanceResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,25 +24,25 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 签署合同单号
-        [NameInMap("sign_no")]
+        // order_id
+        [NameInMap("order_id")]
         [Validation(Required=false)]
-        public string SignNo { get; set; }
+        public string OrderId { get; set; }
 
-        // 电子签署流程ID
-        [NameInMap("flow_id")]
+        // merchant_id
+        [NameInMap("merchant_id")]
         [Validation(Required=false)]
-        public string FlowId { get; set; }
+        public string MerchantId { get; set; }
 
-        // 签署用户ID
-        [NameInMap("account_id")]
+        // jsonArray.toString
+        [NameInMap("fund_candidates")]
         [Validation(Required=false)]
-        public string AccountId { get; set; }
+        public string FundCandidates { get; set; }
 
-        // 签署信息，包括短链接、长链接、小程序链接等。
-        [NameInMap("sign_info")]
+        // 转融资结果
+        [NameInMap("transfer_result")]
         [Validation(Required=false)]
-        public string SignInfo { get; set; }
+        public string TransferResult { get; set; }
 
     }
 

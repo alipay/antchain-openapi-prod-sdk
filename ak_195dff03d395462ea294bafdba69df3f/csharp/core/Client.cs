@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.9"},
+                        {"sdk_version", "1.3.10"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.9"},
+                        {"sdk_version", "1.3.10"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -2907,6 +2907,90 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntchainAtoWithholdCompensateaccountResponse>(await DoRequestAsync("1.0", "antchain.ato.withhold.compensateaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取合同存证证明
+         * Summary: 获取合同存证证明
+         */
+        public GetAntchainAtoSignContractcertificateResponse GetAntchainAtoSignContractcertificate(GetAntchainAtoSignContractcertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetAntchainAtoSignContractcertificateEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取合同存证证明
+         * Summary: 获取合同存证证明
+         */
+        public async Task<GetAntchainAtoSignContractcertificateResponse> GetAntchainAtoSignContractcertificateAsync(GetAntchainAtoSignContractcertificateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetAntchainAtoSignContractcertificateExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 获取合同存证证明
+         * Summary: 获取合同存证证明
+         */
+        public GetAntchainAtoSignContractcertificateResponse GetAntchainAtoSignContractcertificateEx(GetAntchainAtoSignContractcertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAntchainAtoSignContractcertificateResponse>(DoRequest("1.0", "antchain.ato.sign.contractcertificate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 获取合同存证证明
+         * Summary: 获取合同存证证明
+         */
+        public async Task<GetAntchainAtoSignContractcertificateResponse> GetAntchainAtoSignContractcertificateExAsync(GetAntchainAtoSignContractcertificateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetAntchainAtoSignContractcertificateResponse>(await DoRequestAsync("1.0", "antchain.ato.sign.contractcertificate.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 非融转融资
+         * Summary: 非融转融资
+         */
+        public TransferAntchainAtoTradeFinanceResponse TransferAntchainAtoTradeFinance(TransferAntchainAtoTradeFinanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return TransferAntchainAtoTradeFinanceEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 非融转融资
+         * Summary: 非融转融资
+         */
+        public async Task<TransferAntchainAtoTradeFinanceResponse> TransferAntchainAtoTradeFinanceAsync(TransferAntchainAtoTradeFinanceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await TransferAntchainAtoTradeFinanceExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 非融转融资
+         * Summary: 非融转融资
+         */
+        public TransferAntchainAtoTradeFinanceResponse TransferAntchainAtoTradeFinanceEx(TransferAntchainAtoTradeFinanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferAntchainAtoTradeFinanceResponse>(DoRequest("1.0", "antchain.ato.trade.finance.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 非融转融资
+         * Summary: 非融转融资
+         */
+        public async Task<TransferAntchainAtoTradeFinanceResponse> TransferAntchainAtoTradeFinanceExAsync(TransferAntchainAtoTradeFinanceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TransferAntchainAtoTradeFinanceResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.finance.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

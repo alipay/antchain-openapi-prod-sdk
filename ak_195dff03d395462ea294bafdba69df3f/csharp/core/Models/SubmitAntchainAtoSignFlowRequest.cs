@@ -72,13 +72,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string SignedRedirectUrl { get; set; }
 
-        // 签署的电子合同模板信息，List<Object>的JSON格式，Object如下：
-        // {
-        // templateId:__, // String格式
-        // templateArgs: {
-        //     "模板参数key":"模板参数值", // 必须为String
-        //   }
-        // }
+        // 签署的电子合同模板信息，JSONArray格式，可以传入多个templateId和templateArgs。注意templateArgs的格式为key-value，其中key为模板文件中表单域的名称，value为需要填充的值。
         [NameInMap("template_list")]
         [Validation(Required=true)]
         public string TemplateList { get; set; }
@@ -128,7 +122,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string MerchantLegalIdNumber { get; set; }
 
-        // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+        // 除商户以外的第三方签署信息，需要通过此字段传入，需要使用JSONArray格式。注意其中orgIdNumber、orgLegalName、orgLegalIdNumber需要RSA加密。
         [NameInMap("third_signer")]
         [Validation(Required=false)]
         public string ThirdSigner { get; set; }
@@ -142,6 +136,26 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [NameInMap("merchant_app_id")]
         [Validation(Required=false, MaxLength=32)]
         public string MerchantAppId { get; set; }
+
+        // 用户类型，个人或企业，默认是个人
+        [NameInMap("user_type")]
+        [Validation(Required=false)]
+        public string UserType { get; set; }
+
+        // (企业作为消费者时)公司名称
+        [NameInMap("user_org_name")]
+        [Validation(Required=false)]
+        public string UserOrgName { get; set; }
+
+        // (企业作为消费者时)公司证件类型
+        [NameInMap("user_org_id_type")]
+        [Validation(Required=false)]
+        public string UserOrgIdType { get; set; }
+
+        // (企业作为消费者时)公司证件号，无需加密
+        [NameInMap("user_org_id_number")]
+        [Validation(Required=false)]
+        public string UserOrgIdNumber { get; set; }
 
     }
 

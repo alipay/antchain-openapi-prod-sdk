@@ -42,7 +42,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string AccountId { get; set; }
 
-        // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+        // 签署信息，包括短链接、长链接、小程序链接等。
         [NameInMap("sign_info")]
         [Validation(Required=false)]
         public string SignInfo { get; set; }
