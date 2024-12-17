@@ -83,13 +83,7 @@ class SubmitAntchainAtoSignFlowRequest extends Model
      */
     public $signedRedirectUrl;
 
-    // 签署的电子合同模板信息，List<Object>的JSON格式，Object如下：
-    // {
-    // templateId:__, // String格式
-    // templateArgs: {
-    // "模板参数key":"模板参数值", // 必须为String
-    // }
-    // }
+    // 签署的电子合同模板信息，JSONArray格式，可以传入多个templateId和templateArgs。注意templateArgs的格式为key-value，其中key为模板文件中表单域的名称，value为需要填充的值。
     /**
      * @var string
      */
@@ -149,7 +143,7 @@ class SubmitAntchainAtoSignFlowRequest extends Model
      */
     public $merchantLegalIdNumber;
 
-    // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+    // 除商户以外的第三方签署信息，需要通过此字段传入，需要使用JSONArray格式。注意其中orgIdNumber、orgLegalName、orgLegalIdNumber需要RSA加密。
     /**
      * @var string
      */
@@ -166,6 +160,30 @@ class SubmitAntchainAtoSignFlowRequest extends Model
      * @var string
      */
     public $merchantAppId;
+
+    // 用户类型，个人或企业，默认是个人
+    /**
+     * @var string
+     */
+    public $userType;
+
+    // (企业作为消费者时)公司名称
+    /**
+     * @var string
+     */
+    public $userOrgName;
+
+    // (企业作为消费者时)公司证件类型
+    /**
+     * @var string
+     */
+    public $userOrgIdType;
+
+    // (企业作为消费者时)公司证件号，无需加密
+    /**
+     * @var string
+     */
+    public $userOrgIdNumber;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -192,6 +210,10 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         'thirdSigner'           => 'third_signer',
         'userOpenId'            => 'user_open_id',
         'merchantAppId'         => 'merchant_app_id',
+        'userType'              => 'user_type',
+        'userOrgName'           => 'user_org_name',
+        'userOrgIdType'         => 'user_org_id_type',
+        'userOrgIdNumber'       => 'user_org_id_number',
     ];
 
     public function validate()
@@ -301,6 +323,18 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         if (null !== $this->merchantAppId) {
             $res['merchant_app_id'] = $this->merchantAppId;
         }
+        if (null !== $this->userType) {
+            $res['user_type'] = $this->userType;
+        }
+        if (null !== $this->userOrgName) {
+            $res['user_org_name'] = $this->userOrgName;
+        }
+        if (null !== $this->userOrgIdType) {
+            $res['user_org_id_type'] = $this->userOrgIdType;
+        }
+        if (null !== $this->userOrgIdNumber) {
+            $res['user_org_id_number'] = $this->userOrgIdNumber;
+        }
 
         return $res;
     }
@@ -387,6 +421,18 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         }
         if (isset($map['merchant_app_id'])) {
             $model->merchantAppId = $map['merchant_app_id'];
+        }
+        if (isset($map['user_type'])) {
+            $model->userType = $map['user_type'];
+        }
+        if (isset($map['user_org_name'])) {
+            $model->userOrgName = $map['user_org_name'];
+        }
+        if (isset($map['user_org_id_type'])) {
+            $model->userOrgIdType = $map['user_org_id_type'];
+        }
+        if (isset($map['user_org_id_number'])) {
+            $model->userOrgIdNumber = $map['user_org_id_number'];
         }
 
         return $model;

@@ -51,6 +51,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundUserpe
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundUserperformanceResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundUserpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundUserpromiseResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoSignContractcertificateRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoSignContractcertificateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoSignFlowRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoSignFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerchantfulfillmentRequest;
@@ -111,6 +113,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndi
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeIndirectorderResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SyncAntchainAtoTradeResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\TransferAntchainAtoTradeFinanceRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\TransferAntchainAtoTradeFinanceResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoMerchantexpandMerchantRequest;
@@ -276,7 +280,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.9',
+                    'sdk_version'      => '1.3.10',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -2297,6 +2301,72 @@ class Client
         Utils::validateModel($request);
 
         return QueryAntchainAtoWithholdCompensateaccountResponse::fromMap($this->doRequest('1.0', 'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取合同存证证明
+     * Summary: 获取合同存证证明.
+     *
+     * @param GetAntchainAtoSignContractcertificateRequest $request
+     *
+     * @return GetAntchainAtoSignContractcertificateResponse
+     */
+    public function getAntchainAtoSignContractcertificate($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoSignContractcertificateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取合同存证证明
+     * Summary: 获取合同存证证明.
+     *
+     * @param GetAntchainAtoSignContractcertificateRequest $request
+     * @param string[]                                     $headers
+     * @param RuntimeOptions                               $runtime
+     *
+     * @return GetAntchainAtoSignContractcertificateResponse
+     */
+    public function getAntchainAtoSignContractcertificateEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoSignContractcertificateResponse::fromMap($this->doRequest('1.0', 'antchain.ato.sign.contractcertificate.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 非融转融资
+     * Summary: 非融转融资.
+     *
+     * @param TransferAntchainAtoTradeFinanceRequest $request
+     *
+     * @return TransferAntchainAtoTradeFinanceResponse
+     */
+    public function transferAntchainAtoTradeFinance($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->transferAntchainAtoTradeFinanceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 非融转融资
+     * Summary: 非融转融资.
+     *
+     * @param TransferAntchainAtoTradeFinanceRequest $request
+     * @param string[]                               $headers
+     * @param RuntimeOptions                         $runtime
+     *
+     * @return TransferAntchainAtoTradeFinanceResponse
+     */
+    public function transferAntchainAtoTradeFinanceEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return TransferAntchainAtoTradeFinanceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
