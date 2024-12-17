@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.9',
+                    'sdk_version': '1.3.10',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.9',
+                    'sdk_version': '1.3.10',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -3637,6 +3637,118 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoWithholdCompensateaccountResponse(),
             await self.do_request_async('1.0', 'antchain.ato.withhold.compensateaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_antchain_ato_sign_contractcertificate(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateResponse:
+        """
+        Description: 获取合同存证证明
+        Summary: 获取合同存证证明
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_antchain_ato_sign_contractcertificate_ex(request, headers, runtime)
+
+    async def get_antchain_ato_sign_contractcertificate_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateResponse:
+        """
+        Description: 获取合同存证证明
+        Summary: 获取合同存证证明
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_antchain_ato_sign_contractcertificate_ex_async(request, headers, runtime)
+
+    def get_antchain_ato_sign_contractcertificate_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateResponse:
+        """
+        Description: 获取合同存证证明
+        Summary: 获取合同存证证明
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateResponse(),
+            self.do_request('1.0', 'antchain.ato.sign.contractcertificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_antchain_ato_sign_contractcertificate_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateResponse:
+        """
+        Description: 获取合同存证证明
+        Summary: 获取合同存证证明
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoSignContractcertificateResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.sign.contractcertificate.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def transfer_antchain_ato_trade_finance(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceResponse:
+        """
+        Description: 非融转融资
+        Summary: 非融转融资
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.transfer_antchain_ato_trade_finance_ex(request, headers, runtime)
+
+    async def transfer_antchain_ato_trade_finance_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceResponse:
+        """
+        Description: 非融转融资
+        Summary: 非融转融资
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.transfer_antchain_ato_trade_finance_ex_async(request, headers, runtime)
+
+    def transfer_antchain_ato_trade_finance_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceResponse:
+        """
+        Description: 非融转融资
+        Summary: 非融转融资
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def transfer_antchain_ato_trade_finance_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceResponse:
+        """
+        Description: 非融转融资
+        Summary: 非融转融资
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
