@@ -960,13 +960,7 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
   businessScene: string;
   // 签署完成跳转链接
   signedRedirectUrl?: string;
-  // 签署的电子合同模板信息，List<Object>的JSON格式，Object如下：
-  // {
-  // templateId:__, // String格式
-  // templateArgs: {
-  //     "模板参数key":"模板参数值", // 必须为String
-  //   }
-  // }
+  // 签署的电子合同模板信息，JSONArray格式，可以传入多个templateId和templateArgs。注意templateArgs的格式为key-value，其中key为模板文件中表单域的名称，value为需要填充的值。
   templateList: string;
   // 用户的支付宝uid
   alipayUserId?: string;
@@ -986,12 +980,20 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
   merchantLegalName?: string;
   // 法人证件号，需要采用RSA加密传输
   merchantLegalIdNumber?: string;
-  // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012"}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+  // 除商户以外的第三方签署信息，需要通过此字段传入，需要使用JSONArray格式。注意其中orgIdNumber、orgLegalName、orgLegalIdNumber需要RSA加密。
   thirdSigner?: string;
   // 支付宝用户 open_id
   userOpenId?: string;
   // 商户支付宝应用 id
   merchantAppId?: string;
+  // 用户类型，个人或企业，默认是个人
+  userType?: string;
+  // (企业作为消费者时)公司名称
+  userOrgName?: string;
+  // (企业作为消费者时)公司证件类型
+  userOrgIdType?: string;
+  // (企业作为消费者时)公司证件号，无需加密
+  userOrgIdNumber?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1019,6 +1021,10 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       thirdSigner: 'third_signer',
       userOpenId: 'user_open_id',
       merchantAppId: 'merchant_app_id',
+      userType: 'user_type',
+      userOrgName: 'user_org_name',
+      userOrgIdType: 'user_org_id_type',
+      userOrgIdNumber: 'user_org_id_number',
     };
   }
 
@@ -1049,6 +1055,10 @@ export class SubmitAntchainAtoSignFlowRequest extends $tea.Model {
       thirdSigner: 'string',
       userOpenId: 'string',
       merchantAppId: 'string',
+      userType: 'string',
+      userOrgName: 'string',
+      userOrgIdType: 'string',
+      userOrgIdNumber: 'string',
     };
   }
 
@@ -1070,7 +1080,7 @@ export class SubmitAntchainAtoSignFlowResponse extends $tea.Model {
   flowId?: string;
   // 签署用户ID
   accountId?: string;
-  // 签署附加信息，用于获取签署链接等。JSON格式的字符串。
+  // 签署信息，包括短链接、长链接、小程序链接等。
   signInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1675,7 +1685,7 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
   // 签署完成跳转链接
   // 
   signedRedirectUrl?: string;
-  // 签署的电子合同模板信息，List<Object>的JSON格式，Object如下： { templateId:__, // String格式 templateArgs: { "模板参数key":"模板参数值", // 必须为String } }
+  // 签署的电子合同模板信息，JSONArray格式，可以传入多个templateId和templateArgs。注意templateArgs的格式为key-value，其中key为模板文件中表单域的名称，value为需要填充的值。
   templateList: string;
   // 用户的支付宝uid
   alipayUserId?: string;
@@ -1699,12 +1709,20 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
   // 法人证件号，需要采用RSA加密传输
   // 
   merchantLegalIdNumber?: string;
-  // 多方签署的其他参与方的签署信息，json的array格式，参考：[{"tag":"zf_a","orgName":"上海网络科技有限公司","orgIdType":"CRED_ORG_REGCODE","orgIdNumber":"12098760923","orgLegalName":"王大浪","orgLegalIdNumber":"107120196708289012","sealIds":["12b2317-0000-3333-2222-ec087dc97d8b"]}]，其中：orgIdNumber、orgLegalName、orgLegalIdNumber需要加密传输。
+  // 除商户以外的第三方签署信息，需要通过此字段传入，需要使用JSONArray格式。注意其中orgIdNumber、orgLegalName、orgLegalIdNumber需要RSA加密。
   thirdSigner?: string;
   // 用户在支付宝开放平台下应用的 open_id
   userOpenId?: string;
   // 商户支付宝应用 id
   merchantAppId?: string;
+  // 用户类型，个人或企业，默认是个人
+  userType?: string;
+  // (企业作为消费者时)公司证件号，无需加密
+  userOrgIdNumber?: string;
+  // (企业作为消费者时)公司证件类型
+  userOrgIdType?: string;
+  // (企业作为消费者时)公司名称
+  userOrgName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1732,6 +1750,10 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
       thirdSigner: 'third_signer',
       userOpenId: 'user_open_id',
       merchantAppId: 'merchant_app_id',
+      userType: 'user_type',
+      userOrgIdNumber: 'user_org_id_number',
+      userOrgIdType: 'user_org_id_type',
+      userOrgName: 'user_org_name',
     };
   }
 
@@ -1762,6 +1784,10 @@ export class SubmitAntchainAtoFrontSignRequest extends $tea.Model {
       thirdSigner: 'string',
       userOpenId: 'string',
       merchantAppId: 'string',
+      userType: 'string',
+      userOrgIdNumber: 'string',
+      userOrgIdType: 'string',
+      userOrgName: 'string',
     };
   }
 
@@ -1786,7 +1812,7 @@ export class SubmitAntchainAtoFrontSignResponse extends $tea.Model {
   // 签署用户ID
   // 
   accountId?: string;
-  // 签署扩展信息，用于获取签署链接等。JSON格式字符串。
+  // 签署信息，包括短链接、长链接、小程序链接等。
   signInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -5055,6 +5081,152 @@ export class QueryAntchainAtoWithholdCompensateaccountResponse extends $tea.Mode
   }
 }
 
+export class GetAntchainAtoSignContractcertificateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 流程id
+  signNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      signNo: 'sign_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      signNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetAntchainAtoSignContractcertificateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 下载文件地址(一小时内有效)
+  url?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferAntchainAtoTradeFinanceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单id
+  orderId: string;
+  // 公司社会信用代码
+  merchantId: string;
+  // 待预审资方列表
+  fundIdList: string[];
+  // 融资签署模式
+  fundSignMode: string;
+  // 商户分账起始期数
+  divideStartTermIndex: number;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      fundIdList: 'fund_id_list',
+      fundSignMode: 'fund_sign_mode',
+      divideStartTermIndex: 'divide_start_term_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+      fundIdList: { 'type': 'array', 'itemType': 'string' },
+      fundSignMode: 'string',
+      divideStartTermIndex: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class TransferAntchainAtoTradeFinanceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // order_id
+  orderId?: string;
+  // merchant_id
+  merchantId?: string;
+  // jsonArray.toString
+  fundCandidates?: string;
+  // 转融资结果
+  transferResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      fundCandidates: 'fund_candidates',
+      transferResult: 'transfer_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+      fundCandidates: 'string',
+      transferResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5256,7 +5428,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.9",
+          sdk_version: "1.3.10",
           _prod_code: "ak_195dff03d395462ea294bafdba69df3f",
           _prod_channel: "saas",
         };
@@ -6474,6 +6646,44 @@ export default class Client {
   async queryAntchainAtoWithholdCompensateaccountEx(request: QueryAntchainAtoWithholdCompensateaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntchainAtoWithholdCompensateaccountResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntchainAtoWithholdCompensateaccountResponse>(await this.doRequest("1.0", "antchain.ato.withhold.compensateaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntchainAtoWithholdCompensateaccountResponse({}));
+  }
+
+  /**
+   * Description: 获取合同存证证明
+   * Summary: 获取合同存证证明
+   */
+  async getAntchainAtoSignContractcertificate(request: GetAntchainAtoSignContractcertificateRequest): Promise<GetAntchainAtoSignContractcertificateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getAntchainAtoSignContractcertificateEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取合同存证证明
+   * Summary: 获取合同存证证明
+   */
+  async getAntchainAtoSignContractcertificateEx(request: GetAntchainAtoSignContractcertificateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetAntchainAtoSignContractcertificateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetAntchainAtoSignContractcertificateResponse>(await this.doRequest("1.0", "antchain.ato.sign.contractcertificate.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetAntchainAtoSignContractcertificateResponse({}));
+  }
+
+  /**
+   * Description: 非融转融资
+   * Summary: 非融转融资
+   */
+  async transferAntchainAtoTradeFinance(request: TransferAntchainAtoTradeFinanceRequest): Promise<TransferAntchainAtoTradeFinanceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.transferAntchainAtoTradeFinanceEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 非融转融资
+   * Summary: 非融转融资
+   */
+  async transferAntchainAtoTradeFinanceEx(request: TransferAntchainAtoTradeFinanceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<TransferAntchainAtoTradeFinanceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<TransferAntchainAtoTradeFinanceResponse>(await this.doRequest("1.0", "antchain.ato.trade.finance.transfer", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new TransferAntchainAtoTradeFinanceResponse({}));
   }
 
   /**
