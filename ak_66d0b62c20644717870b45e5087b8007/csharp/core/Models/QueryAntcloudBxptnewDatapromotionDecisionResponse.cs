@@ -34,6 +34,11 @@ namespace AntChain.SDK.Ak_66d0b62c20644717870b45e5087b8007.Models
         [Validation(Required=false)]
         public string PromotionStatus { get; set; }
 
+        // 业务出参JSON字符串
+        [NameInMap("biz_result")]
+        [Validation(Required=false)]
+        public string BizResult { get; set; }
+
     }
 
 }
