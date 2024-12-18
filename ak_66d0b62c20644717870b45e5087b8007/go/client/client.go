@@ -198,6 +198,8 @@ type QueryAntcloudBxptnewDatapromotionDecisionResponse struct {
 	Uid *string `json:"uid,omitempty" xml:"uid,omitempty"`
 	// 营销状态
 	PromotionStatus *string `json:"promotion_status,omitempty" xml:"promotion_status,omitempty"`
+	// 业务出参JSON字符串
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
 }
 
 func (s QueryAntcloudBxptnewDatapromotionDecisionResponse) String() string {
@@ -233,6 +235,11 @@ func (s *QueryAntcloudBxptnewDatapromotionDecisionResponse) SetPromotionStatus(v
 	return s
 }
 
+func (s *QueryAntcloudBxptnewDatapromotionDecisionResponse) SetBizResult(v string) *QueryAntcloudBxptnewDatapromotionDecisionResponse {
+	s.BizResult = &v
+	return s
+}
+
 type PushAntcloudBxptnewDatapromotionTrafficRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -242,6 +249,9 @@ type PushAntcloudBxptnewDatapromotionTrafficRequest struct {
 	InsuranceType *string `json:"insurance_type,omitempty" xml:"insurance_type,omitempty" require:"true"`
 	// 业务参数内容JSON字符串
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
+	// 协议签署：USER_SIGN;；
+	// 车辆信息上报：CAR_INFO_REPORTED；
+	PushDataType *string `json:"push_data_type,omitempty" xml:"push_data_type,omitempty" require:"true"`
 }
 
 func (s PushAntcloudBxptnewDatapromotionTrafficRequest) String() string {
@@ -269,6 +279,11 @@ func (s *PushAntcloudBxptnewDatapromotionTrafficRequest) SetInsuranceType(v stri
 
 func (s *PushAntcloudBxptnewDatapromotionTrafficRequest) SetBizContent(v string) *PushAntcloudBxptnewDatapromotionTrafficRequest {
 	s.BizContent = &v
+	return s
+}
+
+func (s *PushAntcloudBxptnewDatapromotionTrafficRequest) SetPushDataType(v string) *PushAntcloudBxptnewDatapromotionTrafficRequest {
+	s.PushDataType = &v
 	return s
 }
 
@@ -433,7 +448,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("ak_66d0b62c20644717870b45e5087b8007"),
 				"_prod_channel":    tea.String("saas"),
 			}
