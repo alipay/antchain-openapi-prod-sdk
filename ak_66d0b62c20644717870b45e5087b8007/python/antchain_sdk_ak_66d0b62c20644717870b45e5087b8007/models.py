@@ -212,6 +212,7 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse(TeaModel):
         result_msg: str = None,
         uid: str = None,
         promotion_status: str = None,
+        biz_result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -223,6 +224,8 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse(TeaModel):
         self.uid = uid
         # 营销状态
         self.promotion_status = promotion_status
+        # 业务出参JSON字符串
+        self.biz_result = biz_result
 
     def validate(self):
         pass
@@ -243,6 +246,8 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse(TeaModel):
             result['uid'] = self.uid
         if self.promotion_status is not None:
             result['promotion_status'] = self.promotion_status
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
         return result
 
     def from_map(self, m: dict = None):
@@ -257,6 +262,8 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse(TeaModel):
             self.uid = m.get('uid')
         if m.get('promotion_status') is not None:
             self.promotion_status = m.get('promotion_status')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
         return self
 
 
@@ -267,6 +274,7 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest(TeaModel):
         insurer_code: str = None,
         insurance_type: str = None,
         biz_content: str = None,
+        push_data_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -276,11 +284,15 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest(TeaModel):
         self.insurance_type = insurance_type
         # 业务参数内容JSON字符串
         self.biz_content = biz_content
+        # 协议签署：USER_SIGN;；
+        # 车辆信息上报：CAR_INFO_REPORTED；
+        self.push_data_type = push_data_type
 
     def validate(self):
         self.validate_required(self.insurer_code, 'insurer_code')
         self.validate_required(self.insurance_type, 'insurance_type')
         self.validate_required(self.biz_content, 'biz_content')
+        self.validate_required(self.push_data_type, 'push_data_type')
 
     def to_map(self):
         _map = super().to_map()
@@ -296,6 +308,8 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest(TeaModel):
             result['insurance_type'] = self.insurance_type
         if self.biz_content is not None:
             result['biz_content'] = self.biz_content
+        if self.push_data_type is not None:
+            result['push_data_type'] = self.push_data_type
         return result
 
     def from_map(self, m: dict = None):
@@ -308,6 +322,8 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest(TeaModel):
             self.insurance_type = m.get('insurance_type')
         if m.get('biz_content') is not None:
             self.biz_content = m.get('biz_content')
+        if m.get('push_data_type') is not None:
+            self.push_data_type = m.get('push_data_type')
         return self
 
 
