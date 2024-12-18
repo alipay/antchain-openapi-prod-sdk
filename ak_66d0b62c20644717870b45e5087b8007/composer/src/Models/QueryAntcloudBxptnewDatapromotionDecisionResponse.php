@@ -37,12 +37,19 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse extends Model
      * @var string
      */
     public $promotionStatus;
+
+    // 业务出参JSON字符串
+    /**
+     * @var string
+     */
+    public $bizResult;
     protected $_name = [
         'reqMsgId'        => 'req_msg_id',
         'resultCode'      => 'result_code',
         'resultMsg'       => 'result_msg',
         'uid'             => 'uid',
         'promotionStatus' => 'promotion_status',
+        'bizResult'       => 'biz_result',
     ];
 
     public function validate()
@@ -66,6 +73,9 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse extends Model
         }
         if (null !== $this->promotionStatus) {
             $res['promotion_status'] = $this->promotionStatus;
+        }
+        if (null !== $this->bizResult) {
+            $res['biz_result'] = $this->bizResult;
         }
 
         return $res;
@@ -93,6 +103,9 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse extends Model
         }
         if (isset($map['promotion_status'])) {
             $model->promotionStatus = $map['promotion_status'];
+        }
+        if (isset($map['biz_result'])) {
+            $model->bizResult = $map['biz_result'];
         }
 
         return $model;

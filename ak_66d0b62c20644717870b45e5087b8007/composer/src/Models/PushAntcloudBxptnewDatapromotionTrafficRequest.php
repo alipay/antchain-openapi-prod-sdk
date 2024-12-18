@@ -31,11 +31,19 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest extends Model
      * @var string
      */
     public $bizContent;
+
+    // 协议签署：USER_SIGN;；
+    // 车辆信息上报：CAR_INFO_REPORTED；
+    /**
+     * @var string
+     */
+    public $pushDataType;
     protected $_name = [
         'authToken'     => 'auth_token',
         'insurerCode'   => 'insurer_code',
         'insuranceType' => 'insurance_type',
         'bizContent'    => 'biz_content',
+        'pushDataType'  => 'push_data_type',
     ];
 
     public function validate()
@@ -43,6 +51,7 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest extends Model
         Model::validateRequired('insurerCode', $this->insurerCode, true);
         Model::validateRequired('insuranceType', $this->insuranceType, true);
         Model::validateRequired('bizContent', $this->bizContent, true);
+        Model::validateRequired('pushDataType', $this->pushDataType, true);
     }
 
     public function toMap()
@@ -59,6 +68,9 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest extends Model
         }
         if (null !== $this->bizContent) {
             $res['biz_content'] = $this->bizContent;
+        }
+        if (null !== $this->pushDataType) {
+            $res['push_data_type'] = $this->pushDataType;
         }
 
         return $res;
@@ -83,6 +95,9 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest extends Model
         }
         if (isset($map['biz_content'])) {
             $model->bizContent = $map['biz_content'];
+        }
+        if (isset($map['push_data_type'])) {
+            $model->pushDataType = $map['push_data_type'];
         }
 
         return $model;
