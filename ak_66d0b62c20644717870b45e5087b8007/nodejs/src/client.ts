@@ -120,6 +120,8 @@ export class QueryAntcloudBxptnewDatapromotionDecisionResponse extends $tea.Mode
   uid?: string;
   // 营销状态
   promotionStatus?: string;
+  // 业务出参JSON字符串
+  bizResult?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -127,6 +129,7 @@ export class QueryAntcloudBxptnewDatapromotionDecisionResponse extends $tea.Mode
       resultMsg: 'result_msg',
       uid: 'uid',
       promotionStatus: 'promotion_status',
+      bizResult: 'biz_result',
     };
   }
 
@@ -137,6 +140,7 @@ export class QueryAntcloudBxptnewDatapromotionDecisionResponse extends $tea.Mode
       resultMsg: 'string',
       uid: 'string',
       promotionStatus: 'string',
+      bizResult: 'string',
     };
   }
 
@@ -154,12 +158,16 @@ export class PushAntcloudBxptnewDatapromotionTrafficRequest extends $tea.Model {
   insuranceType: string;
   // 业务参数内容JSON字符串
   bizContent: string;
+  // 协议签署：USER_SIGN;；
+  // 车辆信息上报：CAR_INFO_REPORTED；
+  pushDataType: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       insurerCode: 'insurer_code',
       insuranceType: 'insurance_type',
       bizContent: 'biz_content',
+      pushDataType: 'push_data_type',
     };
   }
 
@@ -169,6 +177,7 @@ export class PushAntcloudBxptnewDatapromotionTrafficRequest extends $tea.Model {
       insurerCode: 'string',
       insuranceType: 'string',
       bizContent: 'string',
+      pushDataType: 'string',
     };
   }
 
@@ -322,7 +331,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "ak_66d0b62c20644717870b45e5087b8007",
           _prod_channel: "saas",
         };
