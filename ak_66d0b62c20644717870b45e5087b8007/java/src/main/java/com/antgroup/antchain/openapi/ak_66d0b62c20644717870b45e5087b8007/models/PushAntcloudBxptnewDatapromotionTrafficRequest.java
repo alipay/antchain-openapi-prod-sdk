@@ -23,6 +23,12 @@ public class PushAntcloudBxptnewDatapromotionTrafficRequest extends TeaModel {
     @Validation(required = true)
     public String bizContent;
 
+    // 协议签署：USER_SIGN;；
+    // 车辆信息上报：CAR_INFO_REPORTED；
+    @NameInMap("push_data_type")
+    @Validation(required = true)
+    public String pushDataType;
+
     public static PushAntcloudBxptnewDatapromotionTrafficRequest build(java.util.Map<String, ?> map) throws Exception {
         PushAntcloudBxptnewDatapromotionTrafficRequest self = new PushAntcloudBxptnewDatapromotionTrafficRequest();
         return TeaModel.build(map, self);
@@ -58,6 +64,14 @@ public class PushAntcloudBxptnewDatapromotionTrafficRequest extends TeaModel {
     }
     public String getBizContent() {
         return this.bizContent;
+    }
+
+    public PushAntcloudBxptnewDatapromotionTrafficRequest setPushDataType(String pushDataType) {
+        this.pushDataType = pushDataType;
+        return this;
+    }
+    public String getPushDataType() {
+        return this.pushDataType;
     }
 
 }

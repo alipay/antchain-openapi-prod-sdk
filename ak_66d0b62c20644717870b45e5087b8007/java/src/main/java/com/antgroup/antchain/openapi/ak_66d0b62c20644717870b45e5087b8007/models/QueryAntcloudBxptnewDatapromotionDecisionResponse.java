@@ -24,6 +24,10 @@ public class QueryAntcloudBxptnewDatapromotionDecisionResponse extends TeaModel 
     @NameInMap("promotion_status")
     public String promotionStatus;
 
+    // 业务出参JSON字符串
+    @NameInMap("biz_result")
+    public String bizResult;
+
     public static QueryAntcloudBxptnewDatapromotionDecisionResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntcloudBxptnewDatapromotionDecisionResponse self = new QueryAntcloudBxptnewDatapromotionDecisionResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class QueryAntcloudBxptnewDatapromotionDecisionResponse extends TeaModel 
     }
     public String getPromotionStatus() {
         return this.promotionStatus;
+    }
+
+    public QueryAntcloudBxptnewDatapromotionDecisionResponse setBizResult(String bizResult) {
+        this.bizResult = bizResult;
+        return this;
+    }
+    public String getBizResult() {
+        return this.bizResult;
     }
 
 }
