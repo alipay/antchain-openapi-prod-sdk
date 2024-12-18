@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'ak_66d0b62c20644717870b45e5087b8007',
     _prod_channel = 'saas'
   };
@@ -183,6 +183,8 @@ model QueryAntcloudBxptnewDatapromotionDecisionResponse = {
   uid?: string(name='uid'),
   // 营销状态
   promotionStatus?: string(name='promotion_status'),
+  // 业务出参JSON字符串
+  bizResult?: string(name='biz_result'),
 }
 
 /**
@@ -213,6 +215,9 @@ model PushAntcloudBxptnewDatapromotionTrafficRequest = {
   insuranceType: string(name='insurance_type'),
   // 业务参数内容JSON字符串
   bizContent: string(name='biz_content'),
+  // 协议签署：USER_SIGN;；
+  // 车辆信息上报：CAR_INFO_REPORTED；
+  pushDataType: string(name='push_data_type'),
 }
 
 model PushAntcloudBxptnewDatapromotionTrafficResponse = {
