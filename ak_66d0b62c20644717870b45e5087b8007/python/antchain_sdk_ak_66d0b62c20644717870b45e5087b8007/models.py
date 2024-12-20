@@ -210,8 +210,6 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        uid: str = None,
-        promotion_status: str = None,
         biz_result: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -220,10 +218,6 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 用户ID
-        self.uid = uid
-        # 营销状态
-        self.promotion_status = promotion_status
         # 业务出参JSON字符串
         self.biz_result = biz_result
 
@@ -242,10 +236,6 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
-        if self.uid is not None:
-            result['uid'] = self.uid
-        if self.promotion_status is not None:
-            result['promotion_status'] = self.promotion_status
         if self.biz_result is not None:
             result['biz_result'] = self.biz_result
         return result
@@ -258,10 +248,6 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
-        if m.get('uid') is not None:
-            self.uid = m.get('uid')
-        if m.get('promotion_status') is not None:
-            self.promotion_status = m.get('promotion_status')
         if m.get('biz_result') is not None:
             self.biz_result = m.get('biz_result')
         return self
@@ -284,8 +270,8 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest(TeaModel):
         self.insurance_type = insurance_type
         # 业务参数内容JSON字符串
         self.biz_content = biz_content
-        # 协议签署：USER_SIGN;；
-        # 车辆信息上报：CAR_INFO_REPORTED；
+        # 协议签署：USER_SIGN_INFO;；
+        # 车辆信息上报：CAR_INFO；
         self.push_data_type = push_data_type
 
     def validate(self):
