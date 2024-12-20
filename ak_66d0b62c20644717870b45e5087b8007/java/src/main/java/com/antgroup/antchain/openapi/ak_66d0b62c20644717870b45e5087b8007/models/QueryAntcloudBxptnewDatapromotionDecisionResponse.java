@@ -16,14 +16,6 @@ public class QueryAntcloudBxptnewDatapromotionDecisionResponse extends TeaModel 
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 用户ID
-    @NameInMap("uid")
-    public String uid;
-
-    // 营销状态
-    @NameInMap("promotion_status")
-    public String promotionStatus;
-
     // 业务出参JSON字符串
     @NameInMap("biz_result")
     public String bizResult;
@@ -55,22 +47,6 @@ public class QueryAntcloudBxptnewDatapromotionDecisionResponse extends TeaModel 
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public QueryAntcloudBxptnewDatapromotionDecisionResponse setUid(String uid) {
-        this.uid = uid;
-        return this;
-    }
-    public String getUid() {
-        return this.uid;
-    }
-
-    public QueryAntcloudBxptnewDatapromotionDecisionResponse setPromotionStatus(String promotionStatus) {
-        this.promotionStatus = promotionStatus;
-        return this;
-    }
-    public String getPromotionStatus() {
-        return this.promotionStatus;
     }
 
     public QueryAntcloudBxptnewDatapromotionDecisionResponse setBizResult(String bizResult) {

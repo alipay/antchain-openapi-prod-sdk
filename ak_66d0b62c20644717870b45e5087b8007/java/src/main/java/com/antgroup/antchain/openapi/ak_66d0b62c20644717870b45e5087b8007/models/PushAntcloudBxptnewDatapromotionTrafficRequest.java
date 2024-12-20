@@ -23,8 +23,8 @@ public class PushAntcloudBxptnewDatapromotionTrafficRequest extends TeaModel {
     @Validation(required = true)
     public String bizContent;
 
-    // 协议签署：USER_SIGN;；
-    // 车辆信息上报：CAR_INFO_REPORTED；
+    // 协议签署：USER_SIGN_INFO;；
+    // 车辆信息上报：CAR_INFO；
     @NameInMap("push_data_type")
     @Validation(required = true)
     public String pushDataType;
