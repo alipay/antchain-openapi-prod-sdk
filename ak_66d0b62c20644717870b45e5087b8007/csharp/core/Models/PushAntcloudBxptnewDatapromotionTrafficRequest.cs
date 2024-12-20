@@ -29,8 +29,8 @@ namespace AntChain.SDK.Ak_66d0b62c20644717870b45e5087b8007.Models
         [Validation(Required=true)]
         public string BizContent { get; set; }
 
-        // 协议签署：USER_SIGN;；
-        // 车辆信息上报：CAR_INFO_REPORTED；
+        // 协议签署：USER_SIGN_INFO;；
+        // 车辆信息上报：CAR_INFO；
         [NameInMap("push_data_type")]
         [Validation(Required=true)]
         public string PushDataType { get; set; }
