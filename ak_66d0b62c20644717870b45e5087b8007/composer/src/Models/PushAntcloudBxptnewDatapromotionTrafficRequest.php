@@ -32,8 +32,8 @@ class PushAntcloudBxptnewDatapromotionTrafficRequest extends Model
      */
     public $bizContent;
 
-    // 协议签署：USER_SIGN;；
-    // 车辆信息上报：CAR_INFO_REPORTED；
+    // 协议签署：USER_SIGN_INFO;；
+    // 车辆信息上报：CAR_INFO；
     /**
      * @var string
      */

@@ -26,30 +26,16 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse extends Model
      */
     public $resultMsg;
 
-    // 用户ID
-    /**
-     * @var string
-     */
-    public $uid;
-
-    // 营销状态
-    /**
-     * @var string
-     */
-    public $promotionStatus;
-
     // 业务出参JSON字符串
     /**
      * @var string
      */
     public $bizResult;
     protected $_name = [
-        'reqMsgId'        => 'req_msg_id',
-        'resultCode'      => 'result_code',
-        'resultMsg'       => 'result_msg',
-        'uid'             => 'uid',
-        'promotionStatus' => 'promotion_status',
-        'bizResult'       => 'biz_result',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
+        'bizResult'  => 'biz_result',
     ];
 
     public function validate()
@@ -67,12 +53,6 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse extends Model
         }
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->uid) {
-            $res['uid'] = $this->uid;
-        }
-        if (null !== $this->promotionStatus) {
-            $res['promotion_status'] = $this->promotionStatus;
         }
         if (null !== $this->bizResult) {
             $res['biz_result'] = $this->bizResult;
@@ -97,12 +77,6 @@ class QueryAntcloudBxptnewDatapromotionDecisionResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['uid'])) {
-            $model->uid = $map['uid'];
-        }
-        if (isset($map['promotion_status'])) {
-            $model->promotionStatus = $map['promotion_status'];
         }
         if (isset($map['biz_result'])) {
             $model->bizResult = $map['biz_result'];
