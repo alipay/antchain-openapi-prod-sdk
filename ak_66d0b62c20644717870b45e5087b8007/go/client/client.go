@@ -194,10 +194,6 @@ type QueryAntcloudBxptnewDatapromotionDecisionResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 用户ID
-	Uid *string `json:"uid,omitempty" xml:"uid,omitempty"`
-	// 营销状态
-	PromotionStatus *string `json:"promotion_status,omitempty" xml:"promotion_status,omitempty"`
 	// 业务出参JSON字符串
 	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
 }
@@ -225,16 +221,6 @@ func (s *QueryAntcloudBxptnewDatapromotionDecisionResponse) SetResultMsg(v strin
 	return s
 }
 
-func (s *QueryAntcloudBxptnewDatapromotionDecisionResponse) SetUid(v string) *QueryAntcloudBxptnewDatapromotionDecisionResponse {
-	s.Uid = &v
-	return s
-}
-
-func (s *QueryAntcloudBxptnewDatapromotionDecisionResponse) SetPromotionStatus(v string) *QueryAntcloudBxptnewDatapromotionDecisionResponse {
-	s.PromotionStatus = &v
-	return s
-}
-
 func (s *QueryAntcloudBxptnewDatapromotionDecisionResponse) SetBizResult(v string) *QueryAntcloudBxptnewDatapromotionDecisionResponse {
 	s.BizResult = &v
 	return s
@@ -249,8 +235,8 @@ type PushAntcloudBxptnewDatapromotionTrafficRequest struct {
 	InsuranceType *string `json:"insurance_type,omitempty" xml:"insurance_type,omitempty" require:"true"`
 	// 业务参数内容JSON字符串
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
-	// 协议签署：USER_SIGN;；
-	// 车辆信息上报：CAR_INFO_REPORTED；
+	// 协议签署：USER_SIGN_INFO;；
+	// 车辆信息上报：CAR_INFO；
 	PushDataType *string `json:"push_data_type,omitempty" xml:"push_data_type,omitempty" require:"true"`
 }
 
@@ -448,7 +434,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("1.0.2"),
 				"_prod_code":       tea.String("ak_66d0b62c20644717870b45e5087b8007"),
 				"_prod_channel":    tea.String("saas"),
 			}
