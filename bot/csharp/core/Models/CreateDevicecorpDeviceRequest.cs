@@ -58,6 +58,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string DeviceExt { get; set; }
 
+        // 安全认证ID
+        [NameInMap("sec_id")]
+        [Validation(Required=false)]
+        public string SecId { get; set; }
+
     }
 
 }
