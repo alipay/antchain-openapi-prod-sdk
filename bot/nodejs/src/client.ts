@@ -16753,6 +16753,103 @@ export class ExecDeviceUsertopicResponse extends $tea.Model {
   }
 }
 
+export class PushDeviceMessageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 设备序列化
+  deviceSn?: string;
+  // 设备厂商
+  deviceCorp?: string;
+  // 推送消息 主题
+  topicIdentifer: string;
+  // 推送消息类型
+  mesageType: string;
+  // 消息内容
+  messageContent: string;
+  // 业务场景-项目
+  bizScene: string;
+  // 设备唯一ID，蚂蚁IoT平台生成
+  deviceDid?: string;
+  // iffaa 硬件唯一ID
+  tuid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceSn: 'device_sn',
+      deviceCorp: 'device_corp',
+      topicIdentifer: 'topic_identifer',
+      mesageType: 'mesage_type',
+      messageContent: 'message_content',
+      bizScene: 'biz_scene',
+      deviceDid: 'device_did',
+      tuid: 'tuid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceSn: 'string',
+      deviceCorp: 'string',
+      topicIdentifer: 'string',
+      mesageType: 'string',
+      messageContent: 'string',
+      bizScene: 'string',
+      deviceDid: 'string',
+      tuid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushDeviceMessageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口调用结果
+  // 
+  success?: boolean;
+  // 云端向设备下发服务调用的消息ID
+  // 
+  messageId?: string;
+  // 指令执行 响应结果
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+      messageId: 'message_id',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+      messageId: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -27020,7 +27117,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.1",
+          sdk_version: "1.12.3",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -29618,6 +29715,25 @@ export default class Client {
   async execDeviceUsertopicEx(request: ExecDeviceUsertopicRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecDeviceUsertopicResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecDeviceUsertopicResponse>(await this.doRequest("1.0", "blockchain.bot.device.usertopic.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecDeviceUsertopicResponse({}));
+  }
+
+  /**
+   * Description: 主动往设备下发消息
+   * Summary: 主动往设备下发消息
+   */
+  async pushDeviceMessage(request: PushDeviceMessageRequest): Promise<PushDeviceMessageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushDeviceMessageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 主动往设备下发消息
+   * Summary: 主动往设备下发消息
+   */
+  async pushDeviceMessageEx(request: PushDeviceMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushDeviceMessageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushDeviceMessageResponse>(await this.doRequest("1.0", "blockchain.bot.device.message.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushDeviceMessageResponse({}));
   }
 
   /**
