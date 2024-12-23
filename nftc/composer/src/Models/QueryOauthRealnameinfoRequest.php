@@ -19,7 +19,7 @@ class QueryOauthRealnameinfoRequest extends Model
      */
     public $productInstanceId;
 
-    // 访问token
+    // token
     /**
      * @var string
      */

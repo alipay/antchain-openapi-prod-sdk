@@ -55,6 +55,8 @@ use AntChain\NFTC\Models\QueryResourcePatchlistRequest;
 use AntChain\NFTC\Models\QueryResourcePatchlistResponse;
 use AntChain\NFTC\Models\SendPromoPrizeRequest;
 use AntChain\NFTC\Models\SendPromoPrizeResponse;
+use AntChain\NFTC\Models\SendSmsMessageRequest;
+use AntChain\NFTC\Models\SendSmsMessageResponse;
 use AntChain\Util\UtilClient;
 use Exception;
 
@@ -202,7 +204,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.28',
+                    'sdk_version'      => '1.0.29',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -512,6 +514,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryOauthRealnameinfoResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.oauth.realnameinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 短信发送
+     * Summary: 短信发送
+     *
+     * @param SendSmsMessageRequest $request
+     *
+     * @return SendSmsMessageResponse
+     */
+    public function sendSmsMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->sendSmsMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 短信发送
+     * Summary: 短信发送
+     *
+     * @param SendSmsMessageRequest $request
+     * @param string[]              $headers
+     * @param RuntimeOptions        $runtime
+     *
+     * @return SendSmsMessageResponse
+     */
+    public function sendSmsMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SendSmsMessageResponse::fromMap($this->doRequest('1.0', 'antchain.nftc.sms.message.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

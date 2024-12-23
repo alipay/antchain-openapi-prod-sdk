@@ -6,7 +6,7 @@ namespace AntChain\NFTC\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryOauthUserinfoRequest extends Model
+class SendSmsMessageRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,27 +19,36 @@ class QueryOauthUserinfoRequest extends Model
      */
     public $productInstanceId;
 
-    // accessToken请求
+    // 短信模版Id
     /**
      * @var string
      */
-    public $accessToken;
+    public $templateId;
 
-    // 查询信息范围,user_base_info-查询头像、昵称
+    // 手机号
     /**
      * @var string
      */
-    public $scope;
+    public $phone;
+
+    // 参数键值对
+    /**
+     * @var string
+     */
+    public $templateArgs;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'accessToken'       => 'access_token',
-        'scope'             => 'scope',
+        'templateId'        => 'template_id',
+        'phone'             => 'phone',
+        'templateArgs'      => 'template_args',
     ];
 
     public function validate()
     {
-        Model::validateRequired('accessToken', $this->accessToken, true);
+        Model::validateRequired('templateId', $this->templateId, true);
+        Model::validateRequired('phone', $this->phone, true);
+        Model::validateRequired('templateArgs', $this->templateArgs, true);
     }
 
     public function toMap()
@@ -51,11 +60,14 @@ class QueryOauthUserinfoRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->accessToken) {
-            $res['access_token'] = $this->accessToken;
+        if (null !== $this->templateId) {
+            $res['template_id'] = $this->templateId;
         }
-        if (null !== $this->scope) {
-            $res['scope'] = $this->scope;
+        if (null !== $this->phone) {
+            $res['phone'] = $this->phone;
+        }
+        if (null !== $this->templateArgs) {
+            $res['template_args'] = $this->templateArgs;
         }
 
         return $res;
@@ -64,7 +76,7 @@ class QueryOauthUserinfoRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryOauthUserinfoRequest
+     * @return SendSmsMessageRequest
      */
     public static function fromMap($map = [])
     {
@@ -75,11 +87,14 @@ class QueryOauthUserinfoRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['access_token'])) {
-            $model->accessToken = $map['access_token'];
+        if (isset($map['template_id'])) {
+            $model->templateId = $map['template_id'];
         }
-        if (isset($map['scope'])) {
-            $model->scope = $map['scope'];
+        if (isset($map['phone'])) {
+            $model->phone = $map['phone'];
+        }
+        if (isset($map['template_args'])) {
+            $model->templateArgs = $map['template_args'];
         }
 
         return $model;
