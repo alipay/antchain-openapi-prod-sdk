@@ -18,7 +18,7 @@ namespace AntChain.SDK.NFTC.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 访问token
+        // token
         [NameInMap("access_token")]
         [Validation(Required=true)]
         public string AccessToken { get; set; }

@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.28"},
+                        {"sdk_version", "1.0.29"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.28"},
+                        {"sdk_version", "1.0.29"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -655,6 +655,48 @@ namespace AntChain.SDK.NFTC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryOauthRealnameinfoResponse>(await DoRequestAsync("1.0", "antchain.nftc.oauth.realnameinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信发送
+         * Summary: 短信发送
+         */
+        public SendSmsMessageResponse SendSmsMessage(SendSmsMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SendSmsMessageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信发送
+         * Summary: 短信发送
+         */
+        public async Task<SendSmsMessageResponse> SendSmsMessageAsync(SendSmsMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SendSmsMessageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 短信发送
+         * Summary: 短信发送
+         */
+        public SendSmsMessageResponse SendSmsMessageEx(SendSmsMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendSmsMessageResponse>(DoRequest("1.0", "antchain.nftc.sms.message.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 短信发送
+         * Summary: 短信发送
+         */
+        public async Task<SendSmsMessageResponse> SendSmsMessageExAsync(SendSmsMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SendSmsMessageResponse>(await DoRequestAsync("1.0", "antchain.nftc.sms.message.send", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
