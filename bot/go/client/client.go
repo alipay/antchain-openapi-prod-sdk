@@ -21967,6 +21967,141 @@ func (s *ExecDeviceUsertopicResponse) SetMessageId(v string) *ExecDeviceUsertopi
 	return s
 }
 
+type PushDeviceMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 设备序列化
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
+	// 设备厂商
+	DeviceCorp *string `json:"device_corp,omitempty" xml:"device_corp,omitempty"`
+	// 推送消息 主题
+	TopicIdentifer *string `json:"topic_identifer,omitempty" xml:"topic_identifer,omitempty" require:"true"`
+	// 推送消息类型
+	MesageType *string `json:"mesage_type,omitempty" xml:"mesage_type,omitempty" require:"true"`
+	// 消息内容
+	MessageContent *string `json:"message_content,omitempty" xml:"message_content,omitempty" require:"true"`
+	// 业务场景-项目
+	BizScene *string `json:"biz_scene,omitempty" xml:"biz_scene,omitempty" require:"true"`
+	// 设备唯一ID，蚂蚁IoT平台生成
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
+	// iffaa 硬件唯一ID
+	Tuid *string `json:"tuid,omitempty" xml:"tuid,omitempty"`
+}
+
+func (s PushDeviceMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushDeviceMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushDeviceMessageRequest) SetAuthToken(v string) *PushDeviceMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetProductInstanceId(v string) *PushDeviceMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetDeviceSn(v string) *PushDeviceMessageRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetDeviceCorp(v string) *PushDeviceMessageRequest {
+	s.DeviceCorp = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetTopicIdentifer(v string) *PushDeviceMessageRequest {
+	s.TopicIdentifer = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetMesageType(v string) *PushDeviceMessageRequest {
+	s.MesageType = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetMessageContent(v string) *PushDeviceMessageRequest {
+	s.MessageContent = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetBizScene(v string) *PushDeviceMessageRequest {
+	s.BizScene = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetDeviceDid(v string) *PushDeviceMessageRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *PushDeviceMessageRequest) SetTuid(v string) *PushDeviceMessageRequest {
+	s.Tuid = &v
+	return s
+}
+
+type PushDeviceMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	//
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+	// 云端向设备下发服务调用的消息ID
+	//
+	MessageId *string `json:"message_id,omitempty" xml:"message_id,omitempty"`
+	// 指令执行 响应结果
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s PushDeviceMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushDeviceMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushDeviceMessageResponse) SetReqMsgId(v string) *PushDeviceMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushDeviceMessageResponse) SetResultCode(v string) *PushDeviceMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushDeviceMessageResponse) SetResultMsg(v string) *PushDeviceMessageResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushDeviceMessageResponse) SetSuccess(v bool) *PushDeviceMessageResponse {
+	s.Success = &v
+	return s
+}
+
+func (s *PushDeviceMessageResponse) SetMessageId(v string) *PushDeviceMessageResponse {
+	s.MessageId = &v
+	return s
+}
+
+func (s *PushDeviceMessageResponse) SetResult(v string) *PushDeviceMessageResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -35172,7 +35307,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.1"),
+				"sdk_version":      tea.String("1.12.3"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -39771,6 +39906,40 @@ func (client *Client) ExecDeviceUsertopicEx(request *ExecDeviceUsertopicRequest,
 	}
 	_result = &ExecDeviceUsertopicResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.usertopic.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 主动往设备下发消息
+ * Summary: 主动往设备下发消息
+ */
+func (client *Client) PushDeviceMessage(request *PushDeviceMessageRequest) (_result *PushDeviceMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushDeviceMessageResponse{}
+	_body, _err := client.PushDeviceMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 主动往设备下发消息
+ * Summary: 主动往设备下发消息
+ */
+func (client *Client) PushDeviceMessageEx(request *PushDeviceMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushDeviceMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushDeviceMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.message.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
