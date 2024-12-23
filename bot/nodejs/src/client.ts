@@ -13487,6 +13487,8 @@ export class CreateDevicecorpDeviceRequest extends $tea.Model {
   nickName?: string;
   // 设备扩展信息（json字符串，车架号等信息）
   deviceExt?: string;
+  // 安全认证ID
+  secId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13499,6 +13501,7 @@ export class CreateDevicecorpDeviceRequest extends $tea.Model {
       deviceSn: 'device_sn',
       nickName: 'nick_name',
       deviceExt: 'device_ext',
+      secId: 'sec_id',
     };
   }
 
@@ -13514,6 +13517,7 @@ export class CreateDevicecorpDeviceRequest extends $tea.Model {
       deviceSn: 'string',
       nickName: 'string',
       deviceExt: 'string',
+      secId: 'string',
     };
   }
 
@@ -27117,7 +27121,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.3",
+          sdk_version: "1.12.4",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
