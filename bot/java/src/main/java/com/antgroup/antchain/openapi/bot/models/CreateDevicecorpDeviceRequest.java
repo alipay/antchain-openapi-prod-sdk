@@ -49,6 +49,10 @@ public class CreateDevicecorpDeviceRequest extends TeaModel {
     @NameInMap("device_ext")
     public String deviceExt;
 
+    // 安全认证ID
+    @NameInMap("sec_id")
+    public String secId;
+
     public static CreateDevicecorpDeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateDevicecorpDeviceRequest self = new CreateDevicecorpDeviceRequest();
         return TeaModel.build(map, self);
@@ -132,6 +136,14 @@ public class CreateDevicecorpDeviceRequest extends TeaModel {
     }
     public String getDeviceExt() {
         return this.deviceExt;
+    }
+
+    public CreateDevicecorpDeviceRequest setSecId(String secId) {
+        this.secId = secId;
+        return this;
+    }
+    public String getSecId() {
+        return this.secId;
     }
 
 }
