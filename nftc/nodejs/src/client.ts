@@ -765,7 +765,7 @@ export class QueryOauthUserinfoRequest extends $tea.Model {
   productInstanceId?: string;
   // accessToken请求
   accessToken: string;
-  // 查询信息范围
+  // 查询信息范围,user_base_info-查询头像、昵称
   scope?: string;
   static names(): { [key: string]: string } {
     return {
@@ -911,7 +911,7 @@ export class QueryOauthRealnameinfoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 访问token
+  // token
   accessToken: string;
   static names(): { [key: string]: string } {
     return {
@@ -962,6 +962,69 @@ export class QueryOauthRealnameinfoResponse extends $tea.Model {
       resultMsg: 'string',
       realName: 'string',
       idCard: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendSmsMessageRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 短信模版Id
+  templateId: string;
+  // 手机号
+  phone: string;
+  // 参数键值对
+  templateArgs: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      templateId: 'template_id',
+      phone: 'phone',
+      templateArgs: 'template_args',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      templateId: 'string',
+      phone: 'string',
+      templateArgs: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SendSmsMessageResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
     };
   }
 
@@ -2173,7 +2236,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.28",
+          sdk_version: "1.0.29",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
@@ -2371,6 +2434,25 @@ export default class Client {
   async queryOauthRealnameinfoEx(request: QueryOauthRealnameinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOauthRealnameinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryOauthRealnameinfoResponse>(await this.doRequest("1.0", "antchain.nftc.oauth.realnameinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOauthRealnameinfoResponse({}));
+  }
+
+  /**
+   * Description: 短信发送
+   * Summary: 短信发送
+   */
+  async sendSmsMessage(request: SendSmsMessageRequest): Promise<SendSmsMessageResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.sendSmsMessageEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 短信发送
+   * Summary: 短信发送
+   */
+  async sendSmsMessageEx(request: SendSmsMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendSmsMessageResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SendSmsMessageResponse>(await this.doRequest("1.0", "antchain.nftc.sms.message.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendSmsMessageResponse({}));
   }
 
   /**
