@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.1',
+                    'sdk_version': '1.12.3',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.1',
+                    'sdk_version': '1.12.3',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -7737,6 +7737,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.ExecDeviceUsertopicResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.device.usertopic.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_device_message(
+        self,
+        request: bot_models.PushDeviceMessageRequest,
+    ) -> bot_models.PushDeviceMessageResponse:
+        """
+        Description: 主动往设备下发消息
+        Summary: 主动往设备下发消息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_device_message_ex(request, headers, runtime)
+
+    async def push_device_message_async(
+        self,
+        request: bot_models.PushDeviceMessageRequest,
+    ) -> bot_models.PushDeviceMessageResponse:
+        """
+        Description: 主动往设备下发消息
+        Summary: 主动往设备下发消息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_device_message_ex_async(request, headers, runtime)
+
+    def push_device_message_ex(
+        self,
+        request: bot_models.PushDeviceMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushDeviceMessageResponse:
+        """
+        Description: 主动往设备下发消息
+        Summary: 主动往设备下发消息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushDeviceMessageResponse(),
+            self.do_request('1.0', 'blockchain.bot.device.message.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_device_message_ex_async(
+        self,
+        request: bot_models.PushDeviceMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.PushDeviceMessageResponse:
+        """
+        Description: 主动往设备下发消息
+        Summary: 主动往设备下发消息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.PushDeviceMessageResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.device.message.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_iotplatform_purchaseorder(
