@@ -11,7 +11,7 @@ public class QueryOauthRealnameinfoRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 访问token
+    // token
     @NameInMap("access_token")
     @Validation(required = true)
     public String accessToken;

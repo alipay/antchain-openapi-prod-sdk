@@ -16,7 +16,7 @@ public class QueryOauthUserinfoRequest extends TeaModel {
     @Validation(required = true)
     public String accessToken;
 
-    // 查询信息范围
+    // 查询信息范围,user_base_info-查询头像、昵称
     @NameInMap("scope")
     public String scope;
 
