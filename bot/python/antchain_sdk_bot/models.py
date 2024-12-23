@@ -22144,6 +22144,7 @@ class CreateDevicecorpDeviceRequest(TeaModel):
         device_sn: str = None,
         nick_name: str = None,
         device_ext: str = None,
+        sec_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22164,6 +22165,8 @@ class CreateDevicecorpDeviceRequest(TeaModel):
         self.nick_name = nick_name
         # 设备扩展信息（json字符串，车架号等信息）
         self.device_ext = device_ext
+        # 安全认证ID
+        self.sec_id = sec_id
 
     def validate(self):
         self.validate_required(self.project_code, 'project_code')
@@ -22199,6 +22202,8 @@ class CreateDevicecorpDeviceRequest(TeaModel):
             result['nick_name'] = self.nick_name
         if self.device_ext is not None:
             result['device_ext'] = self.device_ext
+        if self.sec_id is not None:
+            result['sec_id'] = self.sec_id
         return result
 
     def from_map(self, m: dict = None):
@@ -22223,6 +22228,8 @@ class CreateDevicecorpDeviceRequest(TeaModel):
             self.nick_name = m.get('nick_name')
         if m.get('device_ext') is not None:
             self.device_ext = m.get('device_ext')
+        if m.get('sec_id') is not None:
+            self.sec_id = m.get('sec_id')
         return self
 
 
