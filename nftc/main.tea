@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.28',
+    sdk_version = '1.0.29',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -530,7 +530,7 @@ model QueryOauthUserinfoRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // accessToken请求
   accessToken: string(name='access_token'),
-  // 查询信息范围
+  // 查询信息范围,user_base_info-查询头像、昵称
   scope?: string(name='scope'),
 }
 
@@ -620,7 +620,7 @@ model QueryOauthRealnameinfoRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
-  // 访问token
+  // token
   accessToken: string(name='access_token'),
 }
 
@@ -654,6 +654,46 @@ async function queryOauthRealnameinfo(request: QueryOauthRealnameinfoRequest): Q
 async function queryOauthRealnameinfoEx(request: QueryOauthRealnameinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryOauthRealnameinfoResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.nftc.oauth.realnameinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendSmsMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 短信模版Id
+  templateId: string(name='template_id'),
+  // 手机号
+  phone: string(name='phone'),
+  // 参数键值对
+  templateArgs: string(name='template_args'),
+}
+
+model SendSmsMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 短信发送
+ * Summary: 短信发送
+ */
+async function sendSmsMessage(request: SendSmsMessageRequest): SendSmsMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendSmsMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 短信发送
+ * Summary: 短信发送
+ */
+async function sendSmsMessageEx(request: SendSmsMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendSmsMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.nftc.sms.message.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PublishMerchantDiyskuRequest = {

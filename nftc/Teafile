@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "NFTC",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-nftc:1.0.28",
-    "go": "github.com/antchain-openapi-sdk-go/nftc/client:v1.0.28",
-    "csharp": "AntChain.SDK.NFTC:1.0.28",
-    "ts": "@antchain/nftc:1.0.28",
-    "php": "antchain/nftc:1.0.28",
-    "python": "antchain_sdk_nftc:1.0.28"
+    "java": "com.antgroup.antchain.openapi:openapi-nftc:1.0.29",
+    "go": "github.com/antchain-openapi-sdk-go/nftc/client:v1.0.29",
+    "csharp": "AntChain.SDK.NFTC:1.0.29",
+    "ts": "@antchain/nftc:1.0.29",
+    "php": "antchain/nftc:1.0.29",
+    "python": "antchain_sdk_nftc:1.0.29"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
