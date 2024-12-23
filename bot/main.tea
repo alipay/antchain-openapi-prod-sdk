@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.1',
+    sdk_version = '1.12.3',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -9145,6 +9145,64 @@ async function execDeviceUsertopic(request: ExecDeviceUsertopicRequest): ExecDev
 async function execDeviceUsertopicEx(request: ExecDeviceUsertopicRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ExecDeviceUsertopicResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.device.usertopic.exec', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model PushDeviceMessageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 设备序列化
+  deviceSn?: string(name='device_sn'),
+  // 设备厂商
+  deviceCorp?: string(name='device_corp'),
+  // 推送消息 主题
+  topicIdentifer: string(name='topic_identifer'),
+  // 推送消息类型
+  mesageType: string(name='mesage_type'),
+  // 消息内容
+  messageContent: string(name='message_content'),
+  // 业务场景-项目
+  bizScene: string(name='biz_scene'),
+  // 设备唯一ID，蚂蚁IoT平台生成
+  deviceDid?: string(name='device_did'),
+  // iffaa 硬件唯一ID
+  tuid?: string(name='tuid'),
+}
+
+model PushDeviceMessageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  // 
+  success?: boolean(name='success'),
+  // 云端向设备下发服务调用的消息ID
+  // 
+  messageId?: string(name='message_id'),
+  // 指令执行 响应结果
+  result?: string(name='result'),
+}
+
+/**
+ * Description: 主动往设备下发消息
+ * Summary: 主动往设备下发消息
+ */
+async function pushDeviceMessage(request: PushDeviceMessageRequest): PushDeviceMessageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return pushDeviceMessageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 主动往设备下发消息
+ * Summary: 主动往设备下发消息
+ */
+async function pushDeviceMessageEx(request: PushDeviceMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushDeviceMessageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.device.message.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
