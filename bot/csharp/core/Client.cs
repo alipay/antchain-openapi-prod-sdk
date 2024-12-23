@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.1"},
+                        {"sdk_version", "1.12.3"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.1"},
+                        {"sdk_version", "1.12.3"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -5959,6 +5959,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecDeviceUsertopicResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.usertopic.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 主动往设备下发消息
+         * Summary: 主动往设备下发消息
+         */
+        public PushDeviceMessageResponse PushDeviceMessage(PushDeviceMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushDeviceMessageEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 主动往设备下发消息
+         * Summary: 主动往设备下发消息
+         */
+        public async Task<PushDeviceMessageResponse> PushDeviceMessageAsync(PushDeviceMessageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushDeviceMessageExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 主动往设备下发消息
+         * Summary: 主动往设备下发消息
+         */
+        public PushDeviceMessageResponse PushDeviceMessageEx(PushDeviceMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushDeviceMessageResponse>(DoRequest("1.0", "blockchain.bot.device.message.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 主动往设备下发消息
+         * Summary: 主动往设备下发消息
+         */
+        public async Task<PushDeviceMessageResponse> PushDeviceMessageExAsync(PushDeviceMessageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushDeviceMessageResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.message.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
