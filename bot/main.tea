@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.3',
+    sdk_version = '1.12.4',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -7116,6 +7116,8 @@ model CreateDevicecorpDeviceRequest = {
   nickName?: string(name='nick_name'),
   // 设备扩展信息（json字符串，车架号等信息）
   deviceExt?: string(name='device_ext'),
+  // 安全认证ID
+  secId?: string(name='sec_id'),
 }
 
 model CreateDevicecorpDeviceResponse = {
