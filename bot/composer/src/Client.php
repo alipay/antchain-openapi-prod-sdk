@@ -317,6 +317,8 @@ use AntChain\BOT\Models\PullConsumerDatasourceRequest;
 use AntChain\BOT\Models\PullConsumerDatasourceResponse;
 use AntChain\BOT\Models\PushCollectotBychainidRequest;
 use AntChain\BOT\Models\PushCollectotBychainidResponse;
+use AntChain\BOT\Models\PushDeviceMessageRequest;
+use AntChain\BOT\Models\PushDeviceMessageResponse;
 use AntChain\BOT\Models\PushIotbasicMeterdataRequest;
 use AntChain\BOT\Models\PushIotbasicMeterdataResponse;
 use AntChain\BOT\Models\PushMeterdataOrderRequest;
@@ -690,7 +692,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.1',
+                    'sdk_version'      => '1.12.3',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5130,6 +5132,39 @@ class Client
         Utils::validateModel($request);
 
         return ExecDeviceUsertopicResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.usertopic.exec', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 主动往设备下发消息
+     * Summary: 主动往设备下发消息.
+     *
+     * @param PushDeviceMessageRequest $request
+     *
+     * @return PushDeviceMessageResponse
+     */
+    public function pushDeviceMessage($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->pushDeviceMessageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 主动往设备下发消息
+     * Summary: 主动往设备下发消息.
+     *
+     * @param PushDeviceMessageRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return PushDeviceMessageResponse
+     */
+    public function pushDeviceMessageEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return PushDeviceMessageResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.message.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
