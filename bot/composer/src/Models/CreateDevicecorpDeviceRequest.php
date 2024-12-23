@@ -66,6 +66,12 @@ class CreateDevicecorpDeviceRequest extends Model
      * @var string
      */
     public $deviceExt;
+
+    // 安全认证ID
+    /**
+     * @var string
+     */
+    public $secId;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -77,6 +83,7 @@ class CreateDevicecorpDeviceRequest extends Model
         'deviceSn'          => 'device_sn',
         'nickName'          => 'nick_name',
         'deviceExt'         => 'device_ext',
+        'secId'             => 'sec_id',
     ];
 
     public function validate()
@@ -122,6 +129,9 @@ class CreateDevicecorpDeviceRequest extends Model
         if (null !== $this->deviceExt) {
             $res['device_ext'] = $this->deviceExt;
         }
+        if (null !== $this->secId) {
+            $res['sec_id'] = $this->secId;
+        }
 
         return $res;
     }
@@ -163,6 +173,9 @@ class CreateDevicecorpDeviceRequest extends Model
         }
         if (isset($map['device_ext'])) {
             $model->deviceExt = $map['device_ext'];
+        }
+        if (isset($map['sec_id'])) {
+            $model->secId = $map['sec_id'];
         }
 
         return $model;
