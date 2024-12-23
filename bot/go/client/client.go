@@ -17698,6 +17698,8 @@ type CreateDevicecorpDeviceRequest struct {
 	NickName *string `json:"nick_name,omitempty" xml:"nick_name,omitempty"`
 	// 设备扩展信息（json字符串，车架号等信息）
 	DeviceExt *string `json:"device_ext,omitempty" xml:"device_ext,omitempty"`
+	// 安全认证ID
+	SecId *string `json:"sec_id,omitempty" xml:"sec_id,omitempty"`
 }
 
 func (s CreateDevicecorpDeviceRequest) String() string {
@@ -17755,6 +17757,11 @@ func (s *CreateDevicecorpDeviceRequest) SetNickName(v string) *CreateDevicecorpD
 
 func (s *CreateDevicecorpDeviceRequest) SetDeviceExt(v string) *CreateDevicecorpDeviceRequest {
 	s.DeviceExt = &v
+	return s
+}
+
+func (s *CreateDevicecorpDeviceRequest) SetSecId(v string) *CreateDevicecorpDeviceRequest {
+	s.SecId = &v
 	return s
 }
 
@@ -35307,7 +35314,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.3"),
+				"sdk_version":      tea.String("1.12.4"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
