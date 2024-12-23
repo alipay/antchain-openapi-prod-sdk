@@ -1065,7 +1065,7 @@ type QueryOauthUserinfoRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// accessToken请求
 	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
-	// 查询信息范围
+	// 查询信息范围,user_base_info-查询头像、昵称
 	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
 }
 
@@ -1254,7 +1254,7 @@ type QueryOauthRealnameinfoRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 访问token
+	// token
 	AccessToken *string `json:"access_token,omitempty" xml:"access_token,omitempty" require:"true"`
 }
 
@@ -1324,6 +1324,83 @@ func (s *QueryOauthRealnameinfoResponse) SetRealName(v string) *QueryOauthRealna
 
 func (s *QueryOauthRealnameinfoResponse) SetIdCard(v string) *QueryOauthRealnameinfoResponse {
 	s.IdCard = &v
+	return s
+}
+
+type SendSmsMessageRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 短信模版Id
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+	// 手机号
+	Phone *string `json:"phone,omitempty" xml:"phone,omitempty" require:"true"`
+	// 参数键值对
+	TemplateArgs *string `json:"template_args,omitempty" xml:"template_args,omitempty" require:"true"`
+}
+
+func (s SendSmsMessageRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendSmsMessageRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SendSmsMessageRequest) SetAuthToken(v string) *SendSmsMessageRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SendSmsMessageRequest) SetProductInstanceId(v string) *SendSmsMessageRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SendSmsMessageRequest) SetTemplateId(v string) *SendSmsMessageRequest {
+	s.TemplateId = &v
+	return s
+}
+
+func (s *SendSmsMessageRequest) SetPhone(v string) *SendSmsMessageRequest {
+	s.Phone = &v
+	return s
+}
+
+func (s *SendSmsMessageRequest) SetTemplateArgs(v string) *SendSmsMessageRequest {
+	s.TemplateArgs = &v
+	return s
+}
+
+type SendSmsMessageResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s SendSmsMessageResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SendSmsMessageResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SendSmsMessageResponse) SetReqMsgId(v string) *SendSmsMessageResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SendSmsMessageResponse) SetResultCode(v string) *SendSmsMessageResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SendSmsMessageResponse) SetResultMsg(v string) *SendSmsMessageResponse {
+	s.ResultMsg = &v
 	return s
 }
 
@@ -2876,7 +2953,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.28"),
+				"sdk_version":      tea.String("1.0.29"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3199,6 +3276,40 @@ func (client *Client) QueryOauthRealnameinfoEx(request *QueryOauthRealnameinfoRe
 	}
 	_result = &QueryOauthRealnameinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.oauth.realnameinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 短信发送
+ * Summary: 短信发送
+ */
+func (client *Client) SendSmsMessage(request *SendSmsMessageRequest) (_result *SendSmsMessageResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SendSmsMessageResponse{}
+	_body, _err := client.SendSmsMessageEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 短信发送
+ * Summary: 短信发送
+ */
+func (client *Client) SendSmsMessageEx(request *SendSmsMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SendSmsMessageResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SendSmsMessageResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.sms.message.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
