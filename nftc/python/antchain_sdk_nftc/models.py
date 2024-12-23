@@ -1366,7 +1366,7 @@ class QueryOauthUserinfoRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # accessToken请求
         self.access_token = access_token
-        # 查询信息范围
+        # 查询信息范围,user_base_info-查询头像、昵称
         self.scope = scope
 
     def validate(self):
@@ -1595,7 +1595,7 @@ class QueryOauthRealnameinfoRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 访问token
+        # token
         self.access_token = access_token
 
     def validate(self):
@@ -1679,6 +1679,105 @@ class QueryOauthRealnameinfoResponse(TeaModel):
             self.real_name = m.get('real_name')
         if m.get('id_card') is not None:
             self.id_card = m.get('id_card')
+        return self
+
+
+class SendSmsMessageRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        template_id: str = None,
+        phone: str = None,
+        template_args: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 短信模版Id
+        self.template_id = template_id
+        # 手机号
+        self.phone = phone
+        # 参数键值对
+        self.template_args = template_args
+
+    def validate(self):
+        self.validate_required(self.template_id, 'template_id')
+        self.validate_required(self.phone, 'phone')
+        self.validate_required(self.template_args, 'template_args')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.template_args is not None:
+            result['template_args'] = self.template_args
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('template_args') is not None:
+            self.template_args = m.get('template_args')
+        return self
+
+
+class SendSmsMessageResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.28',
+                    'sdk_version': '1.0.29',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.28',
+                    'sdk_version': '1.0.29',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -721,6 +721,62 @@ class Client:
         return TeaCore.from_map(
             nftc_models.QueryOauthRealnameinfoResponse(),
             await self.do_request_async('1.0', 'antchain.nftc.oauth.realnameinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def send_sms_message(
+        self,
+        request: nftc_models.SendSmsMessageRequest,
+    ) -> nftc_models.SendSmsMessageResponse:
+        """
+        Description: 短信发送
+        Summary: 短信发送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.send_sms_message_ex(request, headers, runtime)
+
+    async def send_sms_message_async(
+        self,
+        request: nftc_models.SendSmsMessageRequest,
+    ) -> nftc_models.SendSmsMessageResponse:
+        """
+        Description: 短信发送
+        Summary: 短信发送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.send_sms_message_ex_async(request, headers, runtime)
+
+    def send_sms_message_ex(
+        self,
+        request: nftc_models.SendSmsMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.SendSmsMessageResponse:
+        """
+        Description: 短信发送
+        Summary: 短信发送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.SendSmsMessageResponse(),
+            self.do_request('1.0', 'antchain.nftc.sms.message.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def send_sms_message_ex_async(
+        self,
+        request: nftc_models.SendSmsMessageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.SendSmsMessageResponse:
+        """
+        Description: 短信发送
+        Summary: 短信发送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.SendSmsMessageResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.sms.message.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def publish_merchant_diysku(
