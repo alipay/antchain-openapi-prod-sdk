@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.29"},
+                        {"sdk_version", "1.0.30"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.29"},
+                        {"sdk_version", "1.0.30"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -319,6 +319,90 @@ namespace AntChain.SDK.NFTC
             }
 
             throw new TeaUnretryableException(_lastRequest, _lastException);
+        }
+
+        /**
+         * Description: ASO排重
+         * Summary: ASO排重
+         */
+        public QueryAsoDistinctResponse QueryAsoDistinct(QueryAsoDistinctRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAsoDistinctEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: ASO排重
+         * Summary: ASO排重
+         */
+        public async Task<QueryAsoDistinctResponse> QueryAsoDistinctAsync(QueryAsoDistinctRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAsoDistinctExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: ASO排重
+         * Summary: ASO排重
+         */
+        public QueryAsoDistinctResponse QueryAsoDistinctEx(QueryAsoDistinctRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAsoDistinctResponse>(DoRequest("1.0", "antchain.nftc.aso.distinct.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ASO排重
+         * Summary: ASO排重
+         */
+        public async Task<QueryAsoDistinctResponse> QueryAsoDistinctExAsync(QueryAsoDistinctRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAsoDistinctResponse>(await DoRequestAsync("1.0", "antchain.nftc.aso.distinct.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ASO点击
+         * Summary: ASO点击
+         */
+        public SubmitAsoClickResponse SubmitAsoClick(SubmitAsoClickRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitAsoClickEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: ASO点击
+         * Summary: ASO点击
+         */
+        public async Task<SubmitAsoClickResponse> SubmitAsoClickAsync(SubmitAsoClickRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitAsoClickExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: ASO点击
+         * Summary: ASO点击
+         */
+        public SubmitAsoClickResponse SubmitAsoClickEx(SubmitAsoClickRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAsoClickResponse>(DoRequest("1.0", "antchain.nftc.aso.click.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: ASO点击
+         * Summary: ASO点击
+         */
+        public async Task<SubmitAsoClickResponse> SubmitAsoClickExAsync(SubmitAsoClickRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitAsoClickResponse>(await DoRequestAsync("1.0", "antchain.nftc.aso.click.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
