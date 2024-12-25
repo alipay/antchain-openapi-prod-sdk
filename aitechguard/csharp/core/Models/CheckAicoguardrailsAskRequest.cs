@@ -49,6 +49,11 @@ namespace AntChain.SDK.AITECHGUARD.Models
         [Validation(Required=false)]
         public string UserId { get; set; }
 
+        // 多轮对话最后一次回答
+        [NameInMap("last_answer")]
+        [Validation(Required=false)]
+        public string LastAnswer { get; set; }
+
     }
 
 }
