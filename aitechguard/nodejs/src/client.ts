@@ -136,6 +136,8 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
   questionFormat: string;
   // 加密的uid，仅用于唯一标示调用方
   userId?: string;
+  // 多轮对话最后一次回答
+  lastAnswer?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -146,6 +148,7 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
       question: 'question',
       questionFormat: 'question_format',
       userId: 'user_id',
+      lastAnswer: 'last_answer',
     };
   }
 
@@ -159,6 +162,7 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
       question: 'string',
       questionFormat: 'string',
       userId: 'string',
+      lastAnswer: 'string',
     };
   }
 
@@ -472,7 +476,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.20",
+          sdk_version: "1.0.21",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
