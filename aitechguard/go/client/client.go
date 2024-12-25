@@ -203,6 +203,8 @@ type CheckAicoguardrailsAskRequest struct {
 	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty" require:"true"`
 	// 加密的uid，仅用于唯一标示调用方
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 多轮对话最后一次回答
+	LastAnswer *string `json:"last_answer,omitempty" xml:"last_answer,omitempty"`
 }
 
 func (s CheckAicoguardrailsAskRequest) String() string {
@@ -250,6 +252,11 @@ func (s *CheckAicoguardrailsAskRequest) SetQuestionFormat(v string) *CheckAicogu
 
 func (s *CheckAicoguardrailsAskRequest) SetUserId(v string) *CheckAicoguardrailsAskRequest {
 	s.UserId = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAskRequest) SetLastAnswer(v string) *CheckAicoguardrailsAskRequest {
+	s.LastAnswer = &v
 	return s
 }
 
@@ -654,7 +661,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.20"),
+				"sdk_version":      tea.String("1.0.21"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
