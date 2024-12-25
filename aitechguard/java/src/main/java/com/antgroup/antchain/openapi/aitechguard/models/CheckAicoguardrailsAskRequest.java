@@ -42,6 +42,10 @@ public class CheckAicoguardrailsAskRequest extends TeaModel {
     @NameInMap("user_id")
     public String userId;
 
+    // 多轮对话最后一次回答
+    @NameInMap("last_answer")
+    public String lastAnswer;
+
     public static CheckAicoguardrailsAskRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckAicoguardrailsAskRequest self = new CheckAicoguardrailsAskRequest();
         return TeaModel.build(map, self);
@@ -109,6 +113,14 @@ public class CheckAicoguardrailsAskRequest extends TeaModel {
     }
     public String getUserId() {
         return this.userId;
+    }
+
+    public CheckAicoguardrailsAskRequest setLastAnswer(String lastAnswer) {
+        this.lastAnswer = lastAnswer;
+        return this;
+    }
+    public String getLastAnswer() {
+        return this.lastAnswer;
     }
 
 }
