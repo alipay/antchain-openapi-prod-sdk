@@ -55,6 +55,12 @@ class CheckAicoguardrailsAskRequest extends Model
      * @var string
      */
     public $userId;
+
+    // 多轮对话最后一次回答
+    /**
+     * @var string
+     */
+    public $lastAnswer;
     protected $_name = [
         'authToken'      => 'auth_token',
         'requestId'      => 'request_id',
@@ -64,6 +70,7 @@ class CheckAicoguardrailsAskRequest extends Model
         'question'       => 'question',
         'questionFormat' => 'question_format',
         'userId'         => 'user_id',
+        'lastAnswer'     => 'last_answer',
     ];
 
     public function validate()
@@ -103,6 +110,9 @@ class CheckAicoguardrailsAskRequest extends Model
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
         }
+        if (null !== $this->lastAnswer) {
+            $res['last_answer'] = $this->lastAnswer;
+        }
 
         return $res;
     }
@@ -138,6 +148,9 @@ class CheckAicoguardrailsAskRequest extends Model
         }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];
+        }
+        if (isset($map['last_answer'])) {
+            $model->lastAnswer = $map['last_answer'];
         }
 
         return $model;
