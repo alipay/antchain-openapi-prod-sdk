@@ -119,6 +119,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithhol
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UnbindAntchainAtoWithholdSignResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoMerchantexpandMerchantRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoMerchantexpandMerchantResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeOrderRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeOrderResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeUserpromiseRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UpdateAntchainAtoTradeUserpromiseResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\UploadAntchainAtoFundCreditRequest;
@@ -280,7 +282,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.10',
+                    'sdk_version'      => '1.3.11',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -2367,6 +2369,39 @@ class Client
         Utils::validateModel($request);
 
         return TransferAntchainAtoTradeFinanceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新订单信息
+     * Summary: 更新订单信息.
+     *
+     * @param UpdateAntchainAtoTradeOrderRequest $request
+     *
+     * @return UpdateAntchainAtoTradeOrderResponse
+     */
+    public function updateAntchainAtoTradeOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateAntchainAtoTradeOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新订单信息
+     * Summary: 更新订单信息.
+     *
+     * @param UpdateAntchainAtoTradeOrderRequest $request
+     * @param string[]                           $headers
+     * @param RuntimeOptions                     $runtime
+     *
+     * @return UpdateAntchainAtoTradeOrderResponse
+     */
+    public function updateAntchainAtoTradeOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateAntchainAtoTradeOrderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.order.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
