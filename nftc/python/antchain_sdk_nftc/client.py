@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.29',
+                    'sdk_version': '1.0.30',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.29',
+                    'sdk_version': '1.0.30',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -274,6 +274,118 @@ class Client:
                     continue
                 raise e
         raise UnretryableException(_last_request, _last_exception)
+
+    def query_aso_distinct(
+        self,
+        request: nftc_models.QueryAsoDistinctRequest,
+    ) -> nftc_models.QueryAsoDistinctResponse:
+        """
+        Description: ASO排重
+        Summary: ASO排重
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_aso_distinct_ex(request, headers, runtime)
+
+    async def query_aso_distinct_async(
+        self,
+        request: nftc_models.QueryAsoDistinctRequest,
+    ) -> nftc_models.QueryAsoDistinctResponse:
+        """
+        Description: ASO排重
+        Summary: ASO排重
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_aso_distinct_ex_async(request, headers, runtime)
+
+    def query_aso_distinct_ex(
+        self,
+        request: nftc_models.QueryAsoDistinctRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryAsoDistinctResponse:
+        """
+        Description: ASO排重
+        Summary: ASO排重
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryAsoDistinctResponse(),
+            self.do_request('1.0', 'antchain.nftc.aso.distinct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_aso_distinct_ex_async(
+        self,
+        request: nftc_models.QueryAsoDistinctRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.QueryAsoDistinctResponse:
+        """
+        Description: ASO排重
+        Summary: ASO排重
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.QueryAsoDistinctResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.aso.distinct.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_aso_click(
+        self,
+        request: nftc_models.SubmitAsoClickRequest,
+    ) -> nftc_models.SubmitAsoClickResponse:
+        """
+        Description: ASO点击
+        Summary: ASO点击
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_aso_click_ex(request, headers, runtime)
+
+    async def submit_aso_click_async(
+        self,
+        request: nftc_models.SubmitAsoClickRequest,
+    ) -> nftc_models.SubmitAsoClickResponse:
+        """
+        Description: ASO点击
+        Summary: ASO点击
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_aso_click_ex_async(request, headers, runtime)
+
+    def submit_aso_click_ex(
+        self,
+        request: nftc_models.SubmitAsoClickRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.SubmitAsoClickResponse:
+        """
+        Description: ASO点击
+        Summary: ASO点击
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.SubmitAsoClickResponse(),
+            self.do_request('1.0', 'antchain.nftc.aso.click.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_aso_click_ex_async(
+        self,
+        request: nftc_models.SubmitAsoClickRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> nftc_models.SubmitAsoClickResponse:
+        """
+        Description: ASO点击
+        Summary: ASO点击
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            nftc_models.SubmitAsoClickResponse(),
+            await self.do_request_async('1.0', 'antchain.nftc.aso.click.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
 
     def query_avatar_profile(
         self,

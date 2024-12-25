@@ -780,6 +780,248 @@ class UserAsset(TeaModel):
         return self
 
 
+class QueryAsoDistinctRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        appid: str = None,
+        idfa: str = None,
+        source: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # App ID
+        self.appid = appid
+        # 苹果设备的 IDFA
+        self.idfa = idfa
+        # 渠道标识(默认 qimai )
+        self.source = source
+
+    def validate(self):
+        self.validate_required(self.appid, 'appid')
+        self.validate_required(self.idfa, 'idfa')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.appid is not None:
+            result['appid'] = self.appid
+        if self.idfa is not None:
+            result['idfa'] = self.idfa
+        if self.source is not None:
+            result['source'] = self.source
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('appid') is not None:
+            self.appid = m.get('appid')
+        if m.get('idfa') is not None:
+            self.idfa = m.get('idfa')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        return self
+
+
+class QueryAsoDistinctResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        idfa: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否激活
+        # -1: 失败; 0: 未激活; 1:已激活
+        self.idfa = idfa
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.idfa is not None:
+            result['idfa'] = self.idfa
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('idfa') is not None:
+            self.idfa = m.get('idfa')
+        return self
+
+
+class SubmitAsoClickRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        appid: str = None,
+        idfa: str = None,
+        ip: str = None,
+        ua: str = None,
+        source: str = None,
+        callback: str = None,
+        model: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # App ID
+        self.appid = appid
+        # 苹果设备的 IDFA
+        self.idfa = idfa
+        # 用户终端的公网IP地址
+        self.ip = ip
+        # 用户代理(User Agent)
+        self.ua = ua
+        # 渠道标识(默认 qimai )
+        self.source = source
+        # urlencode后的回调地址
+        self.callback = callback
+        # 手机型号 iphone10,3
+        self.model = model
+
+    def validate(self):
+        self.validate_required(self.appid, 'appid')
+        self.validate_required(self.idfa, 'idfa')
+        self.validate_required(self.ip, 'ip')
+        self.validate_required(self.ua, 'ua')
+        self.validate_required(self.callback, 'callback')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.appid is not None:
+            result['appid'] = self.appid
+        if self.idfa is not None:
+            result['idfa'] = self.idfa
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.ua is not None:
+            result['ua'] = self.ua
+        if self.source is not None:
+            result['source'] = self.source
+        if self.callback is not None:
+            result['callback'] = self.callback
+        if self.model is not None:
+            result['model'] = self.model
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('appid') is not None:
+            self.appid = m.get('appid')
+        if m.get('idfa') is not None:
+            self.idfa = m.get('idfa')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('ua') is not None:
+            self.ua = m.get('ua')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('callback') is not None:
+            self.callback = m.get('callback')
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        return self
+
+
+class SubmitAsoClickResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 是否成功 0: 失败; 1:成功
+        self.result = result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result is not None:
+            result['result'] = self.result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result') is not None:
+            self.result = m.get('result')
+        return self
+
+
 class QueryAvatarProfileRequest(TeaModel):
     def __init__(
         self,
