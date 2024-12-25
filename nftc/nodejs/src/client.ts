@@ -397,6 +397,157 @@ export class UserAsset extends $tea.Model {
   }
 }
 
+export class QueryAsoDistinctRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // App ID
+  appid: string;
+  // 苹果设备的 IDFA
+  idfa: string;
+  // 渠道标识(默认 qimai )
+  source?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appid: 'appid',
+      idfa: 'idfa',
+      source: 'source',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appid: 'string',
+      idfa: 'string',
+      source: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAsoDistinctResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否激活
+  // -1: 失败; 0: 未激活; 1:已激活
+  idfa?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      idfa: 'idfa',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      idfa: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAsoClickRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // App ID
+  appid: string;
+  // 苹果设备的 IDFA
+  idfa: string;
+  // 用户终端的公网IP地址
+  ip: string;
+  // 用户代理(User Agent)
+  ua: string;
+  // 渠道标识(默认 qimai )
+  source?: string;
+  // urlencode后的回调地址
+  callback: string;
+  // 手机型号 iphone10,3
+  model?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      appid: 'appid',
+      idfa: 'idfa',
+      ip: 'ip',
+      ua: 'ua',
+      source: 'source',
+      callback: 'callback',
+      model: 'model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      appid: 'string',
+      idfa: 'string',
+      ip: 'string',
+      ua: 'string',
+      source: 'string',
+      callback: 'string',
+      model: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitAsoClickResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 是否成功 0: 失败; 1:成功
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryAvatarProfileRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2236,7 +2387,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.29",
+          sdk_version: "1.0.30",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
@@ -2282,6 +2433,44 @@ export default class Client {
     }
 
     throw $tea.newUnretryableError(_lastRequest);
+  }
+
+  /**
+   * Description: ASO排重
+   * Summary: ASO排重
+   */
+  async queryAsoDistinct(request: QueryAsoDistinctRequest): Promise<QueryAsoDistinctResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAsoDistinctEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ASO排重
+   * Summary: ASO排重
+   */
+  async queryAsoDistinctEx(request: QueryAsoDistinctRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAsoDistinctResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAsoDistinctResponse>(await this.doRequest("1.0", "antchain.nftc.aso.distinct.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAsoDistinctResponse({}));
+  }
+
+  /**
+   * Description: ASO点击
+   * Summary: ASO点击
+   */
+  async submitAsoClick(request: SubmitAsoClickRequest): Promise<SubmitAsoClickResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitAsoClickEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ASO点击
+   * Summary: ASO点击
+   */
+  async submitAsoClickEx(request: SubmitAsoClickRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAsoClickResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitAsoClickResponse>(await this.doRequest("1.0", "antchain.nftc.aso.click.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitAsoClickResponse({}));
   }
 
   /**
