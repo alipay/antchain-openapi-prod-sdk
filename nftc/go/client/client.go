@@ -597,6 +597,203 @@ func (s *UserAsset) SetMiniImagePath(v string) *UserAsset {
 	return s
 }
 
+type QueryAsoDistinctRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// App ID
+	Appid *string `json:"appid,omitempty" xml:"appid,omitempty" require:"true"`
+	// 苹果设备的 IDFA
+	Idfa *string `json:"idfa,omitempty" xml:"idfa,omitempty" require:"true"`
+	// 渠道标识(默认 qimai )
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+}
+
+func (s QueryAsoDistinctRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAsoDistinctRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAsoDistinctRequest) SetAuthToken(v string) *QueryAsoDistinctRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAsoDistinctRequest) SetProductInstanceId(v string) *QueryAsoDistinctRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryAsoDistinctRequest) SetAppid(v string) *QueryAsoDistinctRequest {
+	s.Appid = &v
+	return s
+}
+
+func (s *QueryAsoDistinctRequest) SetIdfa(v string) *QueryAsoDistinctRequest {
+	s.Idfa = &v
+	return s
+}
+
+func (s *QueryAsoDistinctRequest) SetSource(v string) *QueryAsoDistinctRequest {
+	s.Source = &v
+	return s
+}
+
+type QueryAsoDistinctResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否激活
+	// -1: 失败; 0: 未激活; 1:已激活
+	Idfa *string `json:"idfa,omitempty" xml:"idfa,omitempty"`
+}
+
+func (s QueryAsoDistinctResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAsoDistinctResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAsoDistinctResponse) SetReqMsgId(v string) *QueryAsoDistinctResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAsoDistinctResponse) SetResultCode(v string) *QueryAsoDistinctResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAsoDistinctResponse) SetResultMsg(v string) *QueryAsoDistinctResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAsoDistinctResponse) SetIdfa(v string) *QueryAsoDistinctResponse {
+	s.Idfa = &v
+	return s
+}
+
+type SubmitAsoClickRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// App ID
+	Appid *string `json:"appid,omitempty" xml:"appid,omitempty" require:"true"`
+	// 苹果设备的 IDFA
+	Idfa *string `json:"idfa,omitempty" xml:"idfa,omitempty" require:"true"`
+	// 用户终端的公网IP地址
+	Ip *string `json:"ip,omitempty" xml:"ip,omitempty" require:"true"`
+	// 用户代理(User Agent)
+	Ua *string `json:"ua,omitempty" xml:"ua,omitempty" require:"true"`
+	// 渠道标识(默认 qimai )
+	Source *string `json:"source,omitempty" xml:"source,omitempty"`
+	// urlencode后的回调地址
+	Callback *string `json:"callback,omitempty" xml:"callback,omitempty" require:"true"`
+	// 手机型号 iphone10,3
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+}
+
+func (s SubmitAsoClickRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAsoClickRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAsoClickRequest) SetAuthToken(v string) *SubmitAsoClickRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SubmitAsoClickRequest) SetProductInstanceId(v string) *SubmitAsoClickRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SubmitAsoClickRequest) SetAppid(v string) *SubmitAsoClickRequest {
+	s.Appid = &v
+	return s
+}
+
+func (s *SubmitAsoClickRequest) SetIdfa(v string) *SubmitAsoClickRequest {
+	s.Idfa = &v
+	return s
+}
+
+func (s *SubmitAsoClickRequest) SetIp(v string) *SubmitAsoClickRequest {
+	s.Ip = &v
+	return s
+}
+
+func (s *SubmitAsoClickRequest) SetUa(v string) *SubmitAsoClickRequest {
+	s.Ua = &v
+	return s
+}
+
+func (s *SubmitAsoClickRequest) SetSource(v string) *SubmitAsoClickRequest {
+	s.Source = &v
+	return s
+}
+
+func (s *SubmitAsoClickRequest) SetCallback(v string) *SubmitAsoClickRequest {
+	s.Callback = &v
+	return s
+}
+
+func (s *SubmitAsoClickRequest) SetModel(v string) *SubmitAsoClickRequest {
+	s.Model = &v
+	return s
+}
+
+type SubmitAsoClickResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 是否成功 0: 失败; 1:成功
+	Result *string `json:"result,omitempty" xml:"result,omitempty"`
+}
+
+func (s SubmitAsoClickResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SubmitAsoClickResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SubmitAsoClickResponse) SetReqMsgId(v string) *SubmitAsoClickResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SubmitAsoClickResponse) SetResultCode(v string) *SubmitAsoClickResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SubmitAsoClickResponse) SetResultMsg(v string) *SubmitAsoClickResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SubmitAsoClickResponse) SetResult(v string) *SubmitAsoClickResponse {
+	s.Result = &v
+	return s
+}
+
 type QueryAvatarProfileRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -2953,7 +3150,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.29"),
+				"sdk_version":      tea.String("1.0.30"),
 				"_prod_code":       tea.String("NFTC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -3009,6 +3206,74 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 	}
 
 	return _resp, _err
+}
+
+/**
+ * Description: ASO排重
+ * Summary: ASO排重
+ */
+func (client *Client) QueryAsoDistinct(request *QueryAsoDistinctRequest) (_result *QueryAsoDistinctResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAsoDistinctResponse{}
+	_body, _err := client.QueryAsoDistinctEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: ASO排重
+ * Summary: ASO排重
+ */
+func (client *Client) QueryAsoDistinctEx(request *QueryAsoDistinctRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAsoDistinctResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAsoDistinctResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.aso.distinct.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: ASO点击
+ * Summary: ASO点击
+ */
+func (client *Client) SubmitAsoClick(request *SubmitAsoClickRequest) (_result *SubmitAsoClickResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SubmitAsoClickResponse{}
+	_body, _err := client.SubmitAsoClickEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: ASO点击
+ * Summary: ASO点击
+ */
+func (client *Client) SubmitAsoClickEx(request *SubmitAsoClickRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SubmitAsoClickResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SubmitAsoClickResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.nftc.aso.click.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
 }
 
 /**
