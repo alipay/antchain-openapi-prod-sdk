@@ -14564,6 +14564,97 @@ func (s *TransferTradeFinanceResponse) SetTransferResult(v string) *TransferTrad
 	return s
 }
 
+type UpdateTradeOrderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// order_id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" minLength:"1"`
+	// merchant_id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true" minLength:"1"`
+	// json字符串
+	UpdateOrderInfo *string `json:"update_order_info,omitempty" xml:"update_order_info,omitempty" require:"true" minLength:"1"`
+}
+
+func (s UpdateTradeOrderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateTradeOrderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateTradeOrderRequest) SetAuthToken(v string) *UpdateTradeOrderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *UpdateTradeOrderRequest) SetProductInstanceId(v string) *UpdateTradeOrderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *UpdateTradeOrderRequest) SetOrderId(v string) *UpdateTradeOrderRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *UpdateTradeOrderRequest) SetMerchantId(v string) *UpdateTradeOrderRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *UpdateTradeOrderRequest) SetUpdateOrderInfo(v string) *UpdateTradeOrderRequest {
+	s.UpdateOrderInfo = &v
+	return s
+}
+
+type UpdateTradeOrderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// order_id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// merchant_id
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+}
+
+func (s UpdateTradeOrderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s UpdateTradeOrderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *UpdateTradeOrderResponse) SetReqMsgId(v string) *UpdateTradeOrderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *UpdateTradeOrderResponse) SetResultCode(v string) *UpdateTradeOrderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *UpdateTradeOrderResponse) SetResultMsg(v string) *UpdateTradeOrderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *UpdateTradeOrderResponse) SetOrderId(v string) *UpdateTradeOrderResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *UpdateTradeOrderResponse) SetMerchantId(v string) *UpdateTradeOrderResponse {
+	s.MerchantId = &v
+	return s
+}
+
 type CreateWithholdSignRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -16120,7 +16211,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.11.2"),
+				"sdk_version":      tea.String("1.11.3"),
 				"_prod_code":       tea.String("ATO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -20411,6 +20502,40 @@ func (client *Client) TransferTradeFinanceEx(request *TransferTradeFinanceReques
 	}
 	_result = &TransferTradeFinanceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.finance.transfer"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 更新订单信息
+ * Summary: 更新订单信息
+ */
+func (client *Client) UpdateTradeOrder(request *UpdateTradeOrderRequest) (_result *UpdateTradeOrderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &UpdateTradeOrderResponse{}
+	_body, _err := client.UpdateTradeOrderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 更新订单信息
+ * Summary: 更新订单信息
+ */
+func (client *Client) UpdateTradeOrderEx(request *UpdateTradeOrderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UpdateTradeOrderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &UpdateTradeOrderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.order.update"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
