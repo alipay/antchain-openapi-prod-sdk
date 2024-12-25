@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.10"},
+                        {"sdk_version", "1.3.11"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.3.10"},
+                        {"sdk_version", "1.3.11"},
                         {"_prod_code", "ak_195dff03d395462ea294bafdba69df3f"},
                         {"_prod_channel", "saas"},
                     };
@@ -2991,6 +2991,48 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<TransferAntchainAtoTradeFinanceResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.finance.transfer", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新订单信息
+         * Summary: 更新订单信息
+         */
+        public UpdateAntchainAtoTradeOrderResponse UpdateAntchainAtoTradeOrder(UpdateAntchainAtoTradeOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateAntchainAtoTradeOrderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新订单信息
+         * Summary: 更新订单信息
+         */
+        public async Task<UpdateAntchainAtoTradeOrderResponse> UpdateAntchainAtoTradeOrderAsync(UpdateAntchainAtoTradeOrderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateAntchainAtoTradeOrderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 更新订单信息
+         * Summary: 更新订单信息
+         */
+        public UpdateAntchainAtoTradeOrderResponse UpdateAntchainAtoTradeOrderEx(UpdateAntchainAtoTradeOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAntchainAtoTradeOrderResponse>(DoRequest("1.0", "antchain.ato.trade.order.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 更新订单信息
+         * Summary: 更新订单信息
+         */
+        public async Task<UpdateAntchainAtoTradeOrderResponse> UpdateAntchainAtoTradeOrderExAsync(UpdateAntchainAtoTradeOrderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateAntchainAtoTradeOrderResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.order.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
