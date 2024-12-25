@@ -220,6 +220,7 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         question: str = None,
         question_format: str = None,
         user_id: str = None,
+        last_answer: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -237,6 +238,8 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         self.question_format = question_format
         # 加密的uid，仅用于唯一标示调用方
         self.user_id = user_id
+        # 多轮对话最后一次回答
+        self.last_answer = last_answer
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
@@ -268,6 +271,8 @@ class CheckAicoguardrailsAskRequest(TeaModel):
             result['question_format'] = self.question_format
         if self.user_id is not None:
             result['user_id'] = self.user_id
+        if self.last_answer is not None:
+            result['last_answer'] = self.last_answer
         return result
 
     def from_map(self, m: dict = None):
@@ -288,6 +293,8 @@ class CheckAicoguardrailsAskRequest(TeaModel):
             self.question_format = m.get('question_format')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
+        if m.get('last_answer') is not None:
+            self.last_answer = m.get('last_answer')
         return self
 
 
