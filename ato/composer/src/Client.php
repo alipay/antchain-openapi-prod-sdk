@@ -267,6 +267,8 @@ use AntChain\ATO\Models\UpdateInnerTemplateRequest;
 use AntChain\ATO\Models\UpdateInnerTemplateResponse;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantResponse;
+use AntChain\ATO\Models\UpdateTradeOrderRequest;
+use AntChain\ATO\Models\UpdateTradeOrderResponse;
 use AntChain\ATO\Models\UpdateTradeUserpromiseRequest;
 use AntChain\ATO\Models\UpdateTradeUserpromiseResponse;
 use AntChain\ATO\Models\UploadFundCreditRequest;
@@ -430,7 +432,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.2',
+                    'sdk_version'      => '1.11.3',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4561,6 +4563,39 @@ class Client
         Utils::validateModel($request);
 
         return TransferTradeFinanceResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新订单信息
+     * Summary: 更新订单信息.
+     *
+     * @param UpdateTradeOrderRequest $request
+     *
+     * @return UpdateTradeOrderResponse
+     */
+    public function updateTradeOrder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateTradeOrderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新订单信息
+     * Summary: 更新订单信息.
+     *
+     * @param UpdateTradeOrderRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return UpdateTradeOrderResponse
+     */
+    public function updateTradeOrderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateTradeOrderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.order.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
