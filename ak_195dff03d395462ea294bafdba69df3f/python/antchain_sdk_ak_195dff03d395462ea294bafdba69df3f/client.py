@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.10',
+                    'sdk_version': '1.3.11',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.10',
+                    'sdk_version': '1.3.11',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -3749,6 +3749,62 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.TransferAntchainAtoTradeFinanceResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.finance.transfer', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_antchain_ato_trade_order(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderResponse:
+        """
+        Description: 更新订单信息
+        Summary: 更新订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_antchain_ato_trade_order_ex(request, headers, runtime)
+
+    async def update_antchain_ato_trade_order_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderResponse:
+        """
+        Description: 更新订单信息
+        Summary: 更新订单信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_antchain_ato_trade_order_ex_async(request, headers, runtime)
+
+    def update_antchain_ato_trade_order_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderResponse:
+        """
+        Description: 更新订单信息
+        Summary: 更新订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.order.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_antchain_ato_trade_order_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderResponse:
+        """
+        Description: 更新订单信息
+        Summary: 更新订单信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.order.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
