@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.30',
+    sdk_version = '1.0.32',
     _prod_code = 'NFTC',
     _prod_channel = 'undefined'
   };
@@ -372,7 +372,7 @@ model SubmitAsoClickResponse = {
 }
 
 /**
- * Description: ASO点击
+ * Description: ASO点击数据上报
  * Summary: ASO点击
  */
 async function submitAsoClick(request: SubmitAsoClickRequest): SubmitAsoClickResponse {
@@ -382,7 +382,7 @@ async function submitAsoClick(request: SubmitAsoClickRequest): SubmitAsoClickRes
 }
 
 /**
- * Description: ASO点击
+ * Description: ASO点击数据上报
  * Summary: ASO点击
  */
 async function submitAsoClickEx(request: SubmitAsoClickRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitAsoClickResponse {
