@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.21',
+    sdk_version = '1.0.22',
     _prod_code = 'AITECHGUARD',
     _prod_channel = 'default'
   };
@@ -165,6 +165,16 @@ api doRequest(version: string, action: string, protocol: string, method: string,
 model Map {
 }
 
+// 标签个性化
+model PersonalLabelCustomization {
+  // 标签需求类型。0,1-只需要这些标签，2-不需要这些标签，默认0
+  filterType?: long(name='filter_type', example='1'),
+  // 需要个性化处理的一级标签
+  customLabelV1?: [ string ](name='custom_label_v1', example=''),
+  // 需要个性化处理的二级标签
+  customLabelV2?: [ string ](name='custom_label_v2', example=''),
+}
+
 // 键值对
 model AiMap {
   // 键
@@ -192,6 +202,8 @@ model CheckAicoguardrailsAskRequest = {
   userId?: string(name='user_id'),
   // 多轮对话最后一次回答
   lastAnswer?: string(name='last_answer'),
+  // 需要个性化处理的标签
+  personalLabelCustomization?: PersonalLabelCustomization(name='personal_label_customization'),
 }
 
 model CheckAicoguardrailsAskResponse = {
