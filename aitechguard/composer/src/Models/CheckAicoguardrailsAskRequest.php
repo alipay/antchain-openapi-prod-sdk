@@ -61,16 +61,23 @@ class CheckAicoguardrailsAskRequest extends Model
      * @var string
      */
     public $lastAnswer;
+
+    // 需要个性化处理的标签
+    /**
+     * @var PersonalLabelCustomization
+     */
+    public $personalLabelCustomization;
     protected $_name = [
-        'authToken'      => 'auth_token',
-        'requestId'      => 'request_id',
-        'sessionId'      => 'session_id',
-        'appCode'        => 'app_code',
-        'sceneCode'      => 'scene_code',
-        'question'       => 'question',
-        'questionFormat' => 'question_format',
-        'userId'         => 'user_id',
-        'lastAnswer'     => 'last_answer',
+        'authToken'                  => 'auth_token',
+        'requestId'                  => 'request_id',
+        'sessionId'                  => 'session_id',
+        'appCode'                    => 'app_code',
+        'sceneCode'                  => 'scene_code',
+        'question'                   => 'question',
+        'questionFormat'             => 'question_format',
+        'userId'                     => 'user_id',
+        'lastAnswer'                 => 'last_answer',
+        'personalLabelCustomization' => 'personal_label_customization',
     ];
 
     public function validate()
@@ -113,6 +120,9 @@ class CheckAicoguardrailsAskRequest extends Model
         if (null !== $this->lastAnswer) {
             $res['last_answer'] = $this->lastAnswer;
         }
+        if (null !== $this->personalLabelCustomization) {
+            $res['personal_label_customization'] = null !== $this->personalLabelCustomization ? $this->personalLabelCustomization->toMap() : null;
+        }
 
         return $res;
     }
@@ -151,6 +161,9 @@ class CheckAicoguardrailsAskRequest extends Model
         }
         if (isset($map['last_answer'])) {
             $model->lastAnswer = $map['last_answer'];
+        }
+        if (isset($map['personal_label_customization'])) {
+            $model->personalLabelCustomization = PersonalLabelCustomization::fromMap($map['personal_label_customization']);
         }
 
         return $model;
