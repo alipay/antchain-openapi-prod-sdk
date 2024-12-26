@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.30',
+                    'sdk_version': '1.0.32',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.30',
+                    'sdk_version': '1.0.32',
                     '_prod_code': 'NFTC',
                     '_prod_channel': 'undefined'
                 }
@@ -336,7 +336,7 @@ class Client:
         request: nftc_models.SubmitAsoClickRequest,
     ) -> nftc_models.SubmitAsoClickResponse:
         """
-        Description: ASO点击
+        Description: ASO点击数据上报
         Summary: ASO点击
         """
         runtime = util_models.RuntimeOptions()
@@ -348,7 +348,7 @@ class Client:
         request: nftc_models.SubmitAsoClickRequest,
     ) -> nftc_models.SubmitAsoClickResponse:
         """
-        Description: ASO点击
+        Description: ASO点击数据上报
         Summary: ASO点击
         """
         runtime = util_models.RuntimeOptions()
@@ -362,7 +362,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> nftc_models.SubmitAsoClickResponse:
         """
-        Description: ASO点击
+        Description: ASO点击数据上报
         Summary: ASO点击
         """
         UtilClient.validate_model(request)
@@ -378,7 +378,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> nftc_models.SubmitAsoClickResponse:
         """
-        Description: ASO点击
+        Description: ASO点击数据上报
         Summary: ASO点击
         """
         UtilClient.validate_model(request)
