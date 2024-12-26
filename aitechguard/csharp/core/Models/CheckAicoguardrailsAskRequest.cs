@@ -54,6 +54,11 @@ namespace AntChain.SDK.AITECHGUARD.Models
         [Validation(Required=false)]
         public string LastAnswer { get; set; }
 
+        // 需要个性化处理的标签
+        [NameInMap("personal_label_customization")]
+        [Validation(Required=false)]
+        public PersonalLabelCustomization PersonalLabelCustomization { get; set; }
+
     }
 
 }
