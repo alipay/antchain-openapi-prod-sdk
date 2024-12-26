@@ -2387,7 +2387,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.30",
+          sdk_version: "1.0.32",
           _prod_code: "NFTC",
           _prod_channel: "undefined",
         };
@@ -2455,7 +2455,7 @@ export default class Client {
   }
 
   /**
-   * Description: ASO点击
+   * Description: ASO点击数据上报
    * Summary: ASO点击
    */
   async submitAsoClick(request: SubmitAsoClickRequest): Promise<SubmitAsoClickResponse> {
@@ -2465,7 +2465,7 @@ export default class Client {
   }
 
   /**
-   * Description: ASO点击
+   * Description: ASO点击数据上报
    * Summary: ASO点击
    */
   async submitAsoClickEx(request: SubmitAsoClickRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitAsoClickResponse> {
