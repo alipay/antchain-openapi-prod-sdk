@@ -160,6 +160,39 @@ func (s Map) GoString() string {
 	return s.String()
 }
 
+// 标签个性化
+type PersonalLabelCustomization struct {
+	// 标签需求类型。0,1-只需要这些标签，2-不需要这些标签，默认0
+	FilterType *int64 `json:"filter_type,omitempty" xml:"filter_type,omitempty"`
+	// 需要个性化处理的一级标签
+	CustomLabelV1 []*string `json:"custom_label_v1,omitempty" xml:"custom_label_v1,omitempty" type:"Repeated"`
+	// 需要个性化处理的二级标签
+	CustomLabelV2 []*string `json:"custom_label_v2,omitempty" xml:"custom_label_v2,omitempty" type:"Repeated"`
+}
+
+func (s PersonalLabelCustomization) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PersonalLabelCustomization) GoString() string {
+	return s.String()
+}
+
+func (s *PersonalLabelCustomization) SetFilterType(v int64) *PersonalLabelCustomization {
+	s.FilterType = &v
+	return s
+}
+
+func (s *PersonalLabelCustomization) SetCustomLabelV1(v []*string) *PersonalLabelCustomization {
+	s.CustomLabelV1 = v
+	return s
+}
+
+func (s *PersonalLabelCustomization) SetCustomLabelV2(v []*string) *PersonalLabelCustomization {
+	s.CustomLabelV2 = v
+	return s
+}
+
 // 键值对
 type AiMap struct {
 	// 键
@@ -205,6 +238,8 @@ type CheckAicoguardrailsAskRequest struct {
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 	// 多轮对话最后一次回答
 	LastAnswer *string `json:"last_answer,omitempty" xml:"last_answer,omitempty"`
+	// 需要个性化处理的标签
+	PersonalLabelCustomization *PersonalLabelCustomization `json:"personal_label_customization,omitempty" xml:"personal_label_customization,omitempty"`
 }
 
 func (s CheckAicoguardrailsAskRequest) String() string {
@@ -257,6 +292,11 @@ func (s *CheckAicoguardrailsAskRequest) SetUserId(v string) *CheckAicoguardrails
 
 func (s *CheckAicoguardrailsAskRequest) SetLastAnswer(v string) *CheckAicoguardrailsAskRequest {
 	s.LastAnswer = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAskRequest) SetPersonalLabelCustomization(v *PersonalLabelCustomization) *CheckAicoguardrailsAskRequest {
+	s.PersonalLabelCustomization = v
 	return s
 }
 
@@ -661,7 +701,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.21"),
+				"sdk_version":      tea.String("1.0.22"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
