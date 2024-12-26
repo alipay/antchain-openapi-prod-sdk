@@ -174,6 +174,48 @@ class Map(TeaModel):
         return self
 
 
+class PersonalLabelCustomization(TeaModel):
+    def __init__(
+        self,
+        filter_type: int = None,
+        custom_label_v1: List[str] = None,
+        custom_label_v2: List[str] = None,
+    ):
+        # 标签需求类型。0,1-只需要这些标签，2-不需要这些标签，默认0
+        self.filter_type = filter_type
+        # 需要个性化处理的一级标签
+        self.custom_label_v1 = custom_label_v1
+        # 需要个性化处理的二级标签
+        self.custom_label_v2 = custom_label_v2
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_type is not None:
+            result['filter_type'] = self.filter_type
+        if self.custom_label_v1 is not None:
+            result['custom_label_v1'] = self.custom_label_v1
+        if self.custom_label_v2 is not None:
+            result['custom_label_v2'] = self.custom_label_v2
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('filter_type') is not None:
+            self.filter_type = m.get('filter_type')
+        if m.get('custom_label_v1') is not None:
+            self.custom_label_v1 = m.get('custom_label_v1')
+        if m.get('custom_label_v2') is not None:
+            self.custom_label_v2 = m.get('custom_label_v2')
+        return self
+
+
 class AiMap(TeaModel):
     def __init__(
         self,
@@ -221,6 +263,7 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         question_format: str = None,
         user_id: str = None,
         last_answer: str = None,
+        personal_label_customization: PersonalLabelCustomization = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -240,6 +283,8 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         self.user_id = user_id
         # 多轮对话最后一次回答
         self.last_answer = last_answer
+        # 需要个性化处理的标签
+        self.personal_label_customization = personal_label_customization
 
     def validate(self):
         self.validate_required(self.request_id, 'request_id')
@@ -248,6 +293,8 @@ class CheckAicoguardrailsAskRequest(TeaModel):
         self.validate_required(self.scene_code, 'scene_code')
         self.validate_required(self.question, 'question')
         self.validate_required(self.question_format, 'question_format')
+        if self.personal_label_customization:
+            self.personal_label_customization.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -273,6 +320,8 @@ class CheckAicoguardrailsAskRequest(TeaModel):
             result['user_id'] = self.user_id
         if self.last_answer is not None:
             result['last_answer'] = self.last_answer
+        if self.personal_label_customization is not None:
+            result['personal_label_customization'] = self.personal_label_customization.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -295,6 +344,9 @@ class CheckAicoguardrailsAskRequest(TeaModel):
             self.user_id = m.get('user_id')
         if m.get('last_answer') is not None:
             self.last_answer = m.get('last_answer')
+        if m.get('personal_label_customization') is not None:
+            temp_model = PersonalLabelCustomization()
+            self.personal_label_customization = temp_model.from_map(m['personal_label_customization'])
         return self
 
 
