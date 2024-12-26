@@ -208,7 +208,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.30',
+                    'sdk_version'      => '1.0.32',
                     '_prod_code'       => 'NFTC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -290,7 +290,7 @@ class Client
     }
 
     /**
-     * Description: ASO点击
+     * Description: ASO点击数据上报
      * Summary: ASO点击.
      *
      * @param SubmitAsoClickRequest $request
@@ -306,7 +306,7 @@ class Client
     }
 
     /**
-     * Description: ASO点击
+     * Description: ASO点击数据上报
      * Summary: ASO点击.
      *
      * @param SubmitAsoClickRequest $request
