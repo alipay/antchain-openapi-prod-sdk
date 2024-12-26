@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.30"),
+                    new TeaPair("sdk_version", "1.0.32"),
                     new TeaPair("_prod_code", "NFTC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -204,7 +204,7 @@ public class Client {
     }
 
     /**
-     * Description: ASO点击
+     * Description: ASO点击数据上报
      * Summary: ASO点击
      */
     public SubmitAsoClickResponse submitAsoClick(SubmitAsoClickRequest request) throws Exception {
@@ -214,7 +214,7 @@ public class Client {
     }
 
     /**
-     * Description: ASO点击
+     * Description: ASO点击数据上报
      * Summary: ASO点击
      */
     public SubmitAsoClickResponse submitAsoClickEx(SubmitAsoClickRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
