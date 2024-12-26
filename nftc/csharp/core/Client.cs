@@ -137,7 +137,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.30"},
+                        {"sdk_version", "1.0.32"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.NFTC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.30"},
+                        {"sdk_version", "1.0.32"},
                         {"_prod_code", "NFTC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -364,7 +364,7 @@ namespace AntChain.SDK.NFTC
         }
 
         /**
-         * Description: ASO点击
+         * Description: ASO点击数据上报
          * Summary: ASO点击
          */
         public SubmitAsoClickResponse SubmitAsoClick(SubmitAsoClickRequest request)
@@ -375,7 +375,7 @@ namespace AntChain.SDK.NFTC
         }
 
         /**
-         * Description: ASO点击
+         * Description: ASO点击数据上报
          * Summary: ASO点击
          */
         public async Task<SubmitAsoClickResponse> SubmitAsoClickAsync(SubmitAsoClickRequest request)
@@ -386,7 +386,7 @@ namespace AntChain.SDK.NFTC
         }
 
         /**
-         * Description: ASO点击
+         * Description: ASO点击数据上报
          * Summary: ASO点击
          */
         public SubmitAsoClickResponse SubmitAsoClickEx(SubmitAsoClickRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
@@ -396,7 +396,7 @@ namespace AntChain.SDK.NFTC
         }
 
         /**
-         * Description: ASO点击
+         * Description: ASO点击数据上报
          * Summary: ASO点击
          */
         public async Task<SubmitAsoClickResponse> SubmitAsoClickExAsync(SubmitAsoClickRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
