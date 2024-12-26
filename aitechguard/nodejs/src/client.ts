@@ -94,6 +94,35 @@ export class Map extends $tea.Model {
   }
 }
 
+// 标签个性化
+export class PersonalLabelCustomization extends $tea.Model {
+  // 标签需求类型。0,1-只需要这些标签，2-不需要这些标签，默认0
+  filterType?: number;
+  // 需要个性化处理的一级标签
+  customLabelV1?: string[];
+  // 需要个性化处理的二级标签
+  customLabelV2?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      filterType: 'filter_type',
+      customLabelV1: 'custom_label_v1',
+      customLabelV2: 'custom_label_v2',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      filterType: 'number',
+      customLabelV1: { 'type': 'array', 'itemType': 'string' },
+      customLabelV2: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 键值对
 export class AiMap extends $tea.Model {
   // 键
@@ -138,6 +167,8 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
   userId?: string;
   // 多轮对话最后一次回答
   lastAnswer?: string;
+  // 需要个性化处理的标签
+  personalLabelCustomization?: PersonalLabelCustomization;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -149,6 +180,7 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
       questionFormat: 'question_format',
       userId: 'user_id',
       lastAnswer: 'last_answer',
+      personalLabelCustomization: 'personal_label_customization',
     };
   }
 
@@ -163,6 +195,7 @@ export class CheckAicoguardrailsAskRequest extends $tea.Model {
       questionFormat: 'string',
       userId: 'string',
       lastAnswer: 'string',
+      personalLabelCustomization: PersonalLabelCustomization,
     };
   }
 
@@ -476,7 +509,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.21",
+          sdk_version: "1.0.22",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
