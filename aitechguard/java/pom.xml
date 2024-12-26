@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.antgroup.antchain.openapi</groupId>
   <artifactId>openapi-aitechguard</artifactId>
-  <version>1.0.21</version>
+  <version>1.0.22</version>
   <packaging>jar</packaging>
   <name>openapi-aitechguard</name>
   <description>Ant Chain AITECHGUARD SDK for Java

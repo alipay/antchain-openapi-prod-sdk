@@ -46,6 +46,10 @@ public class CheckAicoguardrailsAskRequest extends TeaModel {
     @NameInMap("last_answer")
     public String lastAnswer;
 
+    // 需要个性化处理的标签
+    @NameInMap("personal_label_customization")
+    public PersonalLabelCustomization personalLabelCustomization;
+
     public static CheckAicoguardrailsAskRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckAicoguardrailsAskRequest self = new CheckAicoguardrailsAskRequest();
         return TeaModel.build(map, self);
@@ -121,6 +125,14 @@ public class CheckAicoguardrailsAskRequest extends TeaModel {
     }
     public String getLastAnswer() {
         return this.lastAnswer;
+    }
+
+    public CheckAicoguardrailsAskRequest setPersonalLabelCustomization(PersonalLabelCustomization personalLabelCustomization) {
+        this.personalLabelCustomization = personalLabelCustomization;
+        return this;
+    }
+    public PersonalLabelCustomization getPersonalLabelCustomization() {
+        return this.personalLabelCustomization;
     }
 
 }
