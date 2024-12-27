@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.1"),
+                    new TeaPair("sdk_version", "1.2.2"),
                     new TeaPair("_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"),
                     new TeaPair("_prod_channel", "saas")
                 );
