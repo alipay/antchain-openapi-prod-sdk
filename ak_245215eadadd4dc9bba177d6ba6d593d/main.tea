@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.2',
+    sdk_version = '1.2.3',
     _prod_code = 'ak_245215eadadd4dc9bba177d6ba6d593d',
     _prod_channel = 'saas'
   };
@@ -234,6 +234,16 @@ model AvatarProfileResult {
   pageIndex?: long(name='page_index', example='0'),
   // 数字人形象列表
   itemList: [ AvatarProfile ](name='item_list', example=''),
+}
+
+// 噪音检测结果
+model NoiseResult {
+  // success/failed/queuing/processing
+  state: string(name='state', example='音色检测任务状态'),
+  // 声音大小
+  speakerDb?: string(name='speaker_db', example='-19.43278193473816'),
+  // 噪音值
+  noiseDb?: string(name='noise_db', example='-62.71892070770264'),
 }
 
 // 视频贴片信息
@@ -901,5 +911,85 @@ async function submitUniversalsaasDigitalhumanOrder(request: SubmitUniversalsaas
 async function submitUniversalsaasDigitalhumanOrderEx(request: SubmitUniversalsaasDigitalhumanOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitUniversalsaasDigitalhumanOrderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'universalsaas.digitalhuman.order.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CountUniversalsaasDigitalhumanVoiceNoiseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 音视频文件url
+  mediaUrl: string(name='media_url'),
+}
+
+model CountUniversalsaasDigitalhumanVoiceNoiseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果状态
+  status?: boolean(name='status'),
+  // taskId
+  data?: string(name='data'),
+}
+
+/**
+ * Description: 音色检测任务创建
+ * Summary: 音色检测任务创建
+ */
+async function countUniversalsaasDigitalhumanVoiceNoise(request: CountUniversalsaasDigitalhumanVoiceNoiseRequest): CountUniversalsaasDigitalhumanVoiceNoiseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return countUniversalsaasDigitalhumanVoiceNoiseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音色检测任务创建
+ * Summary: 音色检测任务创建
+ */
+async function countUniversalsaasDigitalhumanVoiceNoiseEx(request: CountUniversalsaasDigitalhumanVoiceNoiseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CountUniversalsaasDigitalhumanVoiceNoiseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.voice.noise.count', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryUniversalsaasDigitalhumanVoiceNoiseRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 音频检测任务taskId
+  taskId: string(name='task_id'),
+}
+
+model QueryUniversalsaasDigitalhumanVoiceNoiseResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 结果状态
+  status?: boolean(name='status'),
+  // 音色检测结果
+  data?: NoiseResult(name='data'),
+}
+
+/**
+ * Description: 音色检测任务查询接口
+ * Summary: 音色检测任务查询接口
+ */
+async function queryUniversalsaasDigitalhumanVoiceNoise(request: QueryUniversalsaasDigitalhumanVoiceNoiseRequest): QueryUniversalsaasDigitalhumanVoiceNoiseResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryUniversalsaasDigitalhumanVoiceNoiseEx(request, headers, runtime);
+}
+
+/**
+ * Description: 音色检测任务查询接口
+ * Summary: 音色检测任务查询接口
+ */
+async function queryUniversalsaasDigitalhumanVoiceNoiseEx(request: QueryUniversalsaasDigitalhumanVoiceNoiseRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryUniversalsaasDigitalhumanVoiceNoiseResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'universalsaas.digitalhuman.voice.noise.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 

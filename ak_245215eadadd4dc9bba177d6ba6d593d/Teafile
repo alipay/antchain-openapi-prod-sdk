@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "ak_245215eadadd4dc9bba177d6ba6d593d",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-ak_245215eadadd4dc9bba177d6ba6d593d:1.2.2",
-    "go": "github.com/antchain-openapi-sdk-go/ak_245215eadadd4dc9bba177d6ba6d593d/client:v1.2.2",
-    "csharp": "AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d:1.2.2",
-    "ts": "@antchain/ak_245215eadadd4dc9bba177d6ba6d593d:1.2.2",
-    "php": "antchain/ak_245215eadadd4dc9bba177d6ba6d593d:1.2.2",
-    "python": "antchain_sdk_ak_245215eadadd4dc9bba177d6ba6d593d:1.2.2"
+    "java": "com.antgroup.antchain.openapi:openapi-ak_245215eadadd4dc9bba177d6ba6d593d:1.2.3",
+    "go": "github.com/antchain-openapi-sdk-go/ak_245215eadadd4dc9bba177d6ba6d593d/client:v1.2.3",
+    "csharp": "AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d:1.2.3",
+    "ts": "@antchain/ak_245215eadadd4dc9bba177d6ba6d593d:1.2.3",
+    "php": "antchain/ak_245215eadadd4dc9bba177d6ba6d593d:1.2.3",
+    "python": "antchain_sdk_ak_245215eadadd4dc9bba177d6ba6d593d:1.2.3"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
