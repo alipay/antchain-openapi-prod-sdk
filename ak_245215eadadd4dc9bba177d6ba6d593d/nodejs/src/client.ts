@@ -271,6 +271,35 @@ export class AvatarProfileResult extends $tea.Model {
   }
 }
 
+// 噪音检测结果
+export class NoiseResult extends $tea.Model {
+  // success/failed/queuing/processing
+  state: string;
+  // 声音大小
+  speakerDb?: string;
+  // 噪音值
+  noiseDb?: string;
+  static names(): { [key: string]: string } {
+    return {
+      state: 'state',
+      speakerDb: 'speaker_db',
+      noiseDb: 'noise_db',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      state: 'string',
+      speakerDb: 'string',
+      noiseDb: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 视频贴片信息
 export class Paster extends $tea.Model {
   //  贴片元素离画面位置x坐标
@@ -1480,6 +1509,132 @@ export class SubmitUniversalsaasDigitalhumanOrderResponse extends $tea.Model {
   }
 }
 
+export class CountUniversalsaasDigitalhumanVoiceNoiseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 音视频文件url
+  mediaUrl: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      mediaUrl: 'media_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      mediaUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CountUniversalsaasDigitalhumanVoiceNoiseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果状态
+  status?: boolean;
+  // taskId
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'boolean',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUniversalsaasDigitalhumanVoiceNoiseRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 音频检测任务taskId
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryUniversalsaasDigitalhumanVoiceNoiseResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果状态
+  status?: boolean;
+  // 音色检测结果
+  data?: NoiseResult;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'boolean',
+      data: NoiseResult,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1593,7 +1748,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.2",
+          sdk_version: "1.2.3",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
@@ -1867,6 +2022,44 @@ export default class Client {
   async submitUniversalsaasDigitalhumanOrderEx(request: SubmitUniversalsaasDigitalhumanOrderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitUniversalsaasDigitalhumanOrderResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitUniversalsaasDigitalhumanOrderResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.order.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitUniversalsaasDigitalhumanOrderResponse({}));
+  }
+
+  /**
+   * Description: 音色检测任务创建
+   * Summary: 音色检测任务创建
+   */
+  async countUniversalsaasDigitalhumanVoiceNoise(request: CountUniversalsaasDigitalhumanVoiceNoiseRequest): Promise<CountUniversalsaasDigitalhumanVoiceNoiseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.countUniversalsaasDigitalhumanVoiceNoiseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 音色检测任务创建
+   * Summary: 音色检测任务创建
+   */
+  async countUniversalsaasDigitalhumanVoiceNoiseEx(request: CountUniversalsaasDigitalhumanVoiceNoiseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CountUniversalsaasDigitalhumanVoiceNoiseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CountUniversalsaasDigitalhumanVoiceNoiseResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.voice.noise.count", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CountUniversalsaasDigitalhumanVoiceNoiseResponse({}));
+  }
+
+  /**
+   * Description: 音色检测任务查询接口
+   * Summary: 音色检测任务查询接口
+   */
+  async queryUniversalsaasDigitalhumanVoiceNoise(request: QueryUniversalsaasDigitalhumanVoiceNoiseRequest): Promise<QueryUniversalsaasDigitalhumanVoiceNoiseResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryUniversalsaasDigitalhumanVoiceNoiseEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 音色检测任务查询接口
+   * Summary: 音色检测任务查询接口
+   */
+  async queryUniversalsaasDigitalhumanVoiceNoiseEx(request: QueryUniversalsaasDigitalhumanVoiceNoiseRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryUniversalsaasDigitalhumanVoiceNoiseResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryUniversalsaasDigitalhumanVoiceNoiseResponse>(await this.doRequest("1.0", "universalsaas.digitalhuman.voice.noise.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryUniversalsaasDigitalhumanVoiceNoiseResponse({}));
   }
 
 }
