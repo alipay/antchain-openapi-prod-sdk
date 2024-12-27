@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.2',
+                    'sdk_version': '1.2.3',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.2',
+                    'sdk_version': '1.2.3',
                     '_prod_code': 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel': 'saas'
                 }
@@ -945,4 +945,116 @@ class Client:
         return TeaCore.from_map(
             ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.SubmitUniversalsaasDigitalhumanOrderResponse(),
             await self.do_request_async('1.0', 'universalsaas.digitalhuman.order.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def count_universalsaas_digitalhuman_voice_noise(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseResponse:
+        """
+        Description: 音色检测任务创建
+        Summary: 音色检测任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.count_universalsaas_digitalhuman_voice_noise_ex(request, headers, runtime)
+
+    async def count_universalsaas_digitalhuman_voice_noise_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseResponse:
+        """
+        Description: 音色检测任务创建
+        Summary: 音色检测任务创建
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.count_universalsaas_digitalhuman_voice_noise_ex_async(request, headers, runtime)
+
+    def count_universalsaas_digitalhuman_voice_noise_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseResponse:
+        """
+        Description: 音色检测任务创建
+        Summary: 音色检测任务创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.voice.noise.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def count_universalsaas_digitalhuman_voice_noise_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseResponse:
+        """
+        Description: 音色检测任务创建
+        Summary: 音色检测任务创建
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.CountUniversalsaasDigitalhumanVoiceNoiseResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.voice.noise.count', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_universalsaas_digitalhuman_voice_noise(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseResponse:
+        """
+        Description: 音色检测任务查询接口
+        Summary: 音色检测任务查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_universalsaas_digitalhuman_voice_noise_ex(request, headers, runtime)
+
+    async def query_universalsaas_digitalhuman_voice_noise_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseRequest,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseResponse:
+        """
+        Description: 音色检测任务查询接口
+        Summary: 音色检测任务查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_universalsaas_digitalhuman_voice_noise_ex_async(request, headers, runtime)
+
+    def query_universalsaas_digitalhuman_voice_noise_ex(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseResponse:
+        """
+        Description: 音色检测任务查询接口
+        Summary: 音色检测任务查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseResponse(),
+            self.do_request('1.0', 'universalsaas.digitalhuman.voice.noise.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_universalsaas_digitalhuman_voice_noise_ex_async(
+        self,
+        request: ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseResponse:
+        """
+        Description: 音色检测任务查询接口
+        Summary: 音色检测任务查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__245215eadadd_4dc_9bba_177d_6ba_6d_593d_models.QueryUniversalsaasDigitalhumanVoiceNoiseResponse(),
+            await self.do_request_async('1.0', 'universalsaas.digitalhuman.voice.noise.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
