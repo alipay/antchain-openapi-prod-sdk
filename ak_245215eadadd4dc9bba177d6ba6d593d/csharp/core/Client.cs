@@ -137,7 +137,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.2"},
+                        {"sdk_version", "1.2.3"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.2"},
+                        {"sdk_version", "1.2.3"},
                         {"_prod_code", "ak_245215eadadd4dc9bba177d6ba6d593d"},
                         {"_prod_channel", "saas"},
                     };
@@ -823,6 +823,90 @@ namespace AntChain.SDK.Ak_245215eadadd4dc9bba177d6ba6d593d
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitUniversalsaasDigitalhumanOrderResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.order.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音色检测任务创建
+         * Summary: 音色检测任务创建
+         */
+        public CountUniversalsaasDigitalhumanVoiceNoiseResponse CountUniversalsaasDigitalhumanVoiceNoise(CountUniversalsaasDigitalhumanVoiceNoiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CountUniversalsaasDigitalhumanVoiceNoiseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音色检测任务创建
+         * Summary: 音色检测任务创建
+         */
+        public async Task<CountUniversalsaasDigitalhumanVoiceNoiseResponse> CountUniversalsaasDigitalhumanVoiceNoiseAsync(CountUniversalsaasDigitalhumanVoiceNoiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CountUniversalsaasDigitalhumanVoiceNoiseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音色检测任务创建
+         * Summary: 音色检测任务创建
+         */
+        public CountUniversalsaasDigitalhumanVoiceNoiseResponse CountUniversalsaasDigitalhumanVoiceNoiseEx(CountUniversalsaasDigitalhumanVoiceNoiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountUniversalsaasDigitalhumanVoiceNoiseResponse>(DoRequest("1.0", "universalsaas.digitalhuman.voice.noise.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音色检测任务创建
+         * Summary: 音色检测任务创建
+         */
+        public async Task<CountUniversalsaasDigitalhumanVoiceNoiseResponse> CountUniversalsaasDigitalhumanVoiceNoiseExAsync(CountUniversalsaasDigitalhumanVoiceNoiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CountUniversalsaasDigitalhumanVoiceNoiseResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.voice.noise.count", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音色检测任务查询接口
+         * Summary: 音色检测任务查询接口
+         */
+        public QueryUniversalsaasDigitalhumanVoiceNoiseResponse QueryUniversalsaasDigitalhumanVoiceNoise(QueryUniversalsaasDigitalhumanVoiceNoiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryUniversalsaasDigitalhumanVoiceNoiseEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音色检测任务查询接口
+         * Summary: 音色检测任务查询接口
+         */
+        public async Task<QueryUniversalsaasDigitalhumanVoiceNoiseResponse> QueryUniversalsaasDigitalhumanVoiceNoiseAsync(QueryUniversalsaasDigitalhumanVoiceNoiseRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryUniversalsaasDigitalhumanVoiceNoiseExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 音色检测任务查询接口
+         * Summary: 音色检测任务查询接口
+         */
+        public QueryUniversalsaasDigitalhumanVoiceNoiseResponse QueryUniversalsaasDigitalhumanVoiceNoiseEx(QueryUniversalsaasDigitalhumanVoiceNoiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanVoiceNoiseResponse>(DoRequest("1.0", "universalsaas.digitalhuman.voice.noise.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 音色检测任务查询接口
+         * Summary: 音色检测任务查询接口
+         */
+        public async Task<QueryUniversalsaasDigitalhumanVoiceNoiseResponse> QueryUniversalsaasDigitalhumanVoiceNoiseExAsync(QueryUniversalsaasDigitalhumanVoiceNoiseRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryUniversalsaasDigitalhumanVoiceNoiseResponse>(await DoRequestAsync("1.0", "universalsaas.digitalhuman.voice.noise.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
