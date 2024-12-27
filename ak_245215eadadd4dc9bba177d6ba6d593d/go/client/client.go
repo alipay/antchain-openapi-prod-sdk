@@ -398,6 +398,39 @@ func (s *AvatarProfileResult) SetItemList(v []*AvatarProfile) *AvatarProfileResu
 	return s
 }
 
+// 噪音检测结果
+type NoiseResult struct {
+	// success/failed/queuing/processing
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// 声音大小
+	SpeakerDb *string `json:"speaker_db,omitempty" xml:"speaker_db,omitempty"`
+	// 噪音值
+	NoiseDb *string `json:"noise_db,omitempty" xml:"noise_db,omitempty"`
+}
+
+func (s NoiseResult) String() string {
+	return tea.Prettify(s)
+}
+
+func (s NoiseResult) GoString() string {
+	return s.String()
+}
+
+func (s *NoiseResult) SetState(v string) *NoiseResult {
+	s.State = &v
+	return s
+}
+
+func (s *NoiseResult) SetSpeakerDb(v string) *NoiseResult {
+	s.SpeakerDb = &v
+	return s
+}
+
+func (s *NoiseResult) SetNoiseDb(v string) *NoiseResult {
+	s.NoiseDb = &v
+	return s
+}
+
 // 视频贴片信息
 type Paster struct {
 	//  贴片元素离画面位置x坐标
@@ -1929,6 +1962,160 @@ func (s *SubmitUniversalsaasDigitalhumanOrderResponse) SetStatus(v bool) *Submit
 	return s
 }
 
+type CountUniversalsaasDigitalhumanVoiceNoiseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 音视频文件url
+	MediaUrl *string `json:"media_url,omitempty" xml:"media_url,omitempty" require:"true"`
+}
+
+func (s CountUniversalsaasDigitalhumanVoiceNoiseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountUniversalsaasDigitalhumanVoiceNoiseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CountUniversalsaasDigitalhumanVoiceNoiseRequest) SetAuthToken(v string) *CountUniversalsaasDigitalhumanVoiceNoiseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CountUniversalsaasDigitalhumanVoiceNoiseRequest) SetProductInstanceId(v string) *CountUniversalsaasDigitalhumanVoiceNoiseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *CountUniversalsaasDigitalhumanVoiceNoiseRequest) SetMediaUrl(v string) *CountUniversalsaasDigitalhumanVoiceNoiseRequest {
+	s.MediaUrl = &v
+	return s
+}
+
+type CountUniversalsaasDigitalhumanVoiceNoiseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// taskId
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s CountUniversalsaasDigitalhumanVoiceNoiseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CountUniversalsaasDigitalhumanVoiceNoiseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CountUniversalsaasDigitalhumanVoiceNoiseResponse) SetReqMsgId(v string) *CountUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CountUniversalsaasDigitalhumanVoiceNoiseResponse) SetResultCode(v string) *CountUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CountUniversalsaasDigitalhumanVoiceNoiseResponse) SetResultMsg(v string) *CountUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CountUniversalsaasDigitalhumanVoiceNoiseResponse) SetStatus(v bool) *CountUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *CountUniversalsaasDigitalhumanVoiceNoiseResponse) SetData(v string) *CountUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.Data = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanVoiceNoiseRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 音频检测任务taskId
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryUniversalsaasDigitalhumanVoiceNoiseRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanVoiceNoiseRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceNoiseRequest) SetAuthToken(v string) *QueryUniversalsaasDigitalhumanVoiceNoiseRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceNoiseRequest) SetProductInstanceId(v string) *QueryUniversalsaasDigitalhumanVoiceNoiseRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceNoiseRequest) SetTaskId(v string) *QueryUniversalsaasDigitalhumanVoiceNoiseRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryUniversalsaasDigitalhumanVoiceNoiseResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果状态
+	Status *bool `json:"status,omitempty" xml:"status,omitempty"`
+	// 音色检测结果
+	Data *NoiseResult `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryUniversalsaasDigitalhumanVoiceNoiseResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryUniversalsaasDigitalhumanVoiceNoiseResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceNoiseResponse) SetReqMsgId(v string) *QueryUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceNoiseResponse) SetResultCode(v string) *QueryUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceNoiseResponse) SetResultMsg(v string) *QueryUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceNoiseResponse) SetStatus(v bool) *QueryUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryUniversalsaasDigitalhumanVoiceNoiseResponse) SetData(v *NoiseResult) *QueryUniversalsaasDigitalhumanVoiceNoiseResponse {
+	s.Data = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2051,7 +2238,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.2"),
+				"sdk_version":      tea.String("1.2.3"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -2510,6 +2697,74 @@ func (client *Client) SubmitUniversalsaasDigitalhumanOrderEx(request *SubmitUniv
 	}
 	_result = &SubmitUniversalsaasDigitalhumanOrderResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.order.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音色检测任务创建
+ * Summary: 音色检测任务创建
+ */
+func (client *Client) CountUniversalsaasDigitalhumanVoiceNoise(request *CountUniversalsaasDigitalhumanVoiceNoiseRequest) (_result *CountUniversalsaasDigitalhumanVoiceNoiseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CountUniversalsaasDigitalhumanVoiceNoiseResponse{}
+	_body, _err := client.CountUniversalsaasDigitalhumanVoiceNoiseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音色检测任务创建
+ * Summary: 音色检测任务创建
+ */
+func (client *Client) CountUniversalsaasDigitalhumanVoiceNoiseEx(request *CountUniversalsaasDigitalhumanVoiceNoiseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountUniversalsaasDigitalhumanVoiceNoiseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CountUniversalsaasDigitalhumanVoiceNoiseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.noise.count"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 音色检测任务查询接口
+ * Summary: 音色检测任务查询接口
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanVoiceNoise(request *QueryUniversalsaasDigitalhumanVoiceNoiseRequest) (_result *QueryUniversalsaasDigitalhumanVoiceNoiseResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryUniversalsaasDigitalhumanVoiceNoiseResponse{}
+	_body, _err := client.QueryUniversalsaasDigitalhumanVoiceNoiseEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 音色检测任务查询接口
+ * Summary: 音色检测任务查询接口
+ */
+func (client *Client) QueryUniversalsaasDigitalhumanVoiceNoiseEx(request *QueryUniversalsaasDigitalhumanVoiceNoiseRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryUniversalsaasDigitalhumanVoiceNoiseResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryUniversalsaasDigitalhumanVoiceNoiseResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("universalsaas.digitalhuman.voice.noise.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
