@@ -15,6 +15,8 @@ use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CloneUniversalsaasDigita
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CloneUniversalsaasDigitalhumanAvatarResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CloneUniversalsaasDigitalhumanAvatarVoiceRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CloneUniversalsaasDigitalhumanAvatarVoiceResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CountUniversalsaasDigitalhumanVoiceNoiseRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CountUniversalsaasDigitalhumanVoiceNoiseResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVideoTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVideoTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\CreateUniversalsaasDigitalhumanVoiceRequest;
@@ -31,6 +33,8 @@ use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigita
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanCloneTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVideoTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVideoTaskResponse;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceNoiseRequest;
+use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceNoiseResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceTaskRequest;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\QueryUniversalsaasDigitalhumanVoiceTaskResponse;
 use AntChain\Ak_245215eadadd4dc9bba177d6ba6d593d\Models\SubmitUniversalsaasDigitalhumanOrderRequest;
@@ -182,7 +186,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.2.2',
+                    'sdk_version'      => '1.2.3',
                     '_prod_code'       => 'ak_245215eadadd4dc9bba177d6ba6d593d',
                     '_prod_channel'    => 'saas',
                 ];
@@ -624,5 +628,71 @@ class Client
         Utils::validateModel($request);
 
         return SubmitUniversalsaasDigitalhumanOrderResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.order.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音色检测任务创建
+     * Summary: 音色检测任务创建.
+     *
+     * @param CountUniversalsaasDigitalhumanVoiceNoiseRequest $request
+     *
+     * @return CountUniversalsaasDigitalhumanVoiceNoiseResponse
+     */
+    public function countUniversalsaasDigitalhumanVoiceNoise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->countUniversalsaasDigitalhumanVoiceNoiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音色检测任务创建
+     * Summary: 音色检测任务创建.
+     *
+     * @param CountUniversalsaasDigitalhumanVoiceNoiseRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return CountUniversalsaasDigitalhumanVoiceNoiseResponse
+     */
+    public function countUniversalsaasDigitalhumanVoiceNoiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return CountUniversalsaasDigitalhumanVoiceNoiseResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.noise.count', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 音色检测任务查询接口
+     * Summary: 音色检测任务查询接口.
+     *
+     * @param QueryUniversalsaasDigitalhumanVoiceNoiseRequest $request
+     *
+     * @return QueryUniversalsaasDigitalhumanVoiceNoiseResponse
+     */
+    public function queryUniversalsaasDigitalhumanVoiceNoise($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryUniversalsaasDigitalhumanVoiceNoiseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 音色检测任务查询接口
+     * Summary: 音色检测任务查询接口.
+     *
+     * @param QueryUniversalsaasDigitalhumanVoiceNoiseRequest $request
+     * @param string[]                                        $headers
+     * @param RuntimeOptions                                  $runtime
+     *
+     * @return QueryUniversalsaasDigitalhumanVoiceNoiseResponse
+     */
+    public function queryUniversalsaasDigitalhumanVoiceNoiseEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryUniversalsaasDigitalhumanVoiceNoiseResponse::fromMap($this->doRequest('1.0', 'universalsaas.digitalhuman.voice.noise.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
