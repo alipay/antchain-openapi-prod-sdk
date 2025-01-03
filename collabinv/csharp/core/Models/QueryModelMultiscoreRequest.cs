@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.COLLABINV.Models
 {
-    public class BatchqueryModelCommonscoreRequest : TeaModel {
+    public class QueryModelMultiscoreRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,21 @@ namespace AntChain.SDK.COLLABINV.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 用户ID
-        [NameInMap("user_ids")]
+        // 用户授权编码（授权渠道）
+        // 
+        [NameInMap("auth_no")]
         [Validation(Required=true)]
-        public List<string> UserIds { get; set; }
+        public string AuthNo { get; set; }
 
-        // 用户授权编码
-        [NameInMap("auth_nos")]
-        [Validation(Required=false)]
-        public List<string> AuthNos { get; set; }
-
-        // 模型编码
-        [NameInMap("model_code")]
+        // 规格编码(相应对接人负责)
+        [NameInMap("spec_code")]
         [Validation(Required=true)]
-        public string ModelCode { get; set; }
+        public string SpecCode { get; set; }
+
+        // 用户id（客户身份证号/手机号的md5/sha256散列值）
+        [NameInMap("user_id")]
+        [Validation(Required=true)]
+        public string UserId { get; set; }
 
         // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
         [NameInMap("user_id_type")]
@@ -44,6 +45,7 @@ namespace AntChain.SDK.COLLABINV.Models
         public string HashType { get; set; }
 
         // 客户编码
+        // 
         [NameInMap("customer_code")]
         [Validation(Required=true)]
         public string CustomerCode { get; set; }

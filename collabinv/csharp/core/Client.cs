@@ -137,7 +137,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.12"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.COLLABINV
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.9"},
+                        {"sdk_version", "1.0.12"},
                         {"_prod_code", "COLLABINV"},
                         {"_prod_channel", "default"},
                     };
@@ -700,8 +700,8 @@ namespace AntChain.SDK.COLLABINV
         }
 
         /**
-         * Description: 模型分
-         * Summary: 模型分
+         * Description: 通用查询批次，仅针对外部使用PIR场景
+         * Summary: 通用查询批次
          */
         public BatchqueryModelCommonscoreResponse BatchqueryModelCommonscore(BatchqueryModelCommonscoreRequest request)
         {
@@ -711,8 +711,8 @@ namespace AntChain.SDK.COLLABINV
         }
 
         /**
-         * Description: 模型分
-         * Summary: 模型分
+         * Description: 通用查询批次，仅针对外部使用PIR场景
+         * Summary: 通用查询批次
          */
         public async Task<BatchqueryModelCommonscoreResponse> BatchqueryModelCommonscoreAsync(BatchqueryModelCommonscoreRequest request)
         {
@@ -722,8 +722,8 @@ namespace AntChain.SDK.COLLABINV
         }
 
         /**
-         * Description: 模型分
-         * Summary: 模型分
+         * Description: 通用查询批次，仅针对外部使用PIR场景
+         * Summary: 通用查询批次
          */
         public BatchqueryModelCommonscoreResponse BatchqueryModelCommonscoreEx(BatchqueryModelCommonscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -732,13 +732,55 @@ namespace AntChain.SDK.COLLABINV
         }
 
         /**
-         * Description: 模型分
-         * Summary: 模型分
+         * Description: 通用查询批次，仅针对外部使用PIR场景
+         * Summary: 通用查询批次
          */
         public async Task<BatchqueryModelCommonscoreResponse> BatchqueryModelCommonscoreExAsync(BatchqueryModelCommonscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<BatchqueryModelCommonscoreResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.model.commonscore.batchquery", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 多模型预测值
+         * Summary: 多模型预测值
+         */
+        public QueryModelMultiscoreResponse QueryModelMultiscore(QueryModelMultiscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryModelMultiscoreEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 多模型预测值
+         * Summary: 多模型预测值
+         */
+        public async Task<QueryModelMultiscoreResponse> QueryModelMultiscoreAsync(QueryModelMultiscoreRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryModelMultiscoreExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 多模型预测值
+         * Summary: 多模型预测值
+         */
+        public QueryModelMultiscoreResponse QueryModelMultiscoreEx(QueryModelMultiscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelMultiscoreResponse>(DoRequest("1.0", "antchain.zkcollabinv.model.multiscore.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 多模型预测值
+         * Summary: 多模型预测值
+         */
+        public async Task<QueryModelMultiscoreResponse> QueryModelMultiscoreExAsync(QueryModelMultiscoreRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryModelMultiscoreResponse>(await DoRequestAsync("1.0", "antchain.zkcollabinv.model.multiscore.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
