@@ -6,7 +6,7 @@ namespace AntChain\COLLABINV\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class BatchqueryModelCommonscoreRequest extends Model
+class QueryModelMultiscoreRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,23 +19,24 @@ class BatchqueryModelCommonscoreRequest extends Model
      */
     public $productInstanceId;
 
-    // 用户ID
-    /**
-     * @var string[]
-     */
-    public $userIds;
-
-    // 用户授权编码
-    /**
-     * @var string[]
-     */
-    public $authNos;
-
-    // 模型编码
+    // 用户授权编码（授权渠道）
+    //
     /**
      * @var string
      */
-    public $modelCode;
+    public $authNo;
+
+    // 规格编码(相应对接人负责)
+    /**
+     * @var string
+     */
+    public $specCode;
+
+    // 用户id（客户身份证号/手机号的md5/sha256散列值）
+    /**
+     * @var string
+     */
+    public $userId;
 
     // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
     /**
@@ -50,6 +51,7 @@ class BatchqueryModelCommonscoreRequest extends Model
     public $hashType;
 
     // 客户编码
+    //
     /**
      * @var string
      */
@@ -69,9 +71,9 @@ class BatchqueryModelCommonscoreRequest extends Model
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'userIds'           => 'user_ids',
-        'authNos'           => 'auth_nos',
-        'modelCode'         => 'model_code',
+        'authNo'            => 'auth_no',
+        'specCode'          => 'spec_code',
+        'userId'            => 'user_id',
         'userIdType'        => 'user_id_type',
         'hashType'          => 'hash_type',
         'customerCode'      => 'customer_code',
@@ -81,8 +83,9 @@ class BatchqueryModelCommonscoreRequest extends Model
 
     public function validate()
     {
-        Model::validateRequired('userIds', $this->userIds, true);
-        Model::validateRequired('modelCode', $this->modelCode, true);
+        Model::validateRequired('authNo', $this->authNo, true);
+        Model::validateRequired('specCode', $this->specCode, true);
+        Model::validateRequired('userId', $this->userId, true);
         Model::validateRequired('userIdType', $this->userIdType, true);
         Model::validateRequired('hashType', $this->hashType, true);
         Model::validateRequired('customerCode', $this->customerCode, true);
@@ -97,14 +100,14 @@ class BatchqueryModelCommonscoreRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->userIds) {
-            $res['user_ids'] = $this->userIds;
+        if (null !== $this->authNo) {
+            $res['auth_no'] = $this->authNo;
         }
-        if (null !== $this->authNos) {
-            $res['auth_nos'] = $this->authNos;
+        if (null !== $this->specCode) {
+            $res['spec_code'] = $this->specCode;
         }
-        if (null !== $this->modelCode) {
-            $res['model_code'] = $this->modelCode;
+        if (null !== $this->userId) {
+            $res['user_id'] = $this->userId;
         }
         if (null !== $this->userIdType) {
             $res['user_id_type'] = $this->userIdType;
@@ -128,7 +131,7 @@ class BatchqueryModelCommonscoreRequest extends Model
     /**
      * @param array $map
      *
-     * @return BatchqueryModelCommonscoreRequest
+     * @return QueryModelMultiscoreRequest
      */
     public static function fromMap($map = [])
     {
@@ -139,18 +142,14 @@ class BatchqueryModelCommonscoreRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['user_ids'])) {
-            if (!empty($map['user_ids'])) {
-                $model->userIds = $map['user_ids'];
-            }
+        if (isset($map['auth_no'])) {
+            $model->authNo = $map['auth_no'];
         }
-        if (isset($map['auth_nos'])) {
-            if (!empty($map['auth_nos'])) {
-                $model->authNos = $map['auth_nos'];
-            }
+        if (isset($map['spec_code'])) {
+            $model->specCode = $map['spec_code'];
         }
-        if (isset($map['model_code'])) {
-            $model->modelCode = $map['model_code'];
+        if (isset($map['user_id'])) {
+            $model->userId = $map['user_id'];
         }
         if (isset($map['user_id_type'])) {
             $model->userIdType = $map['user_id_type'];

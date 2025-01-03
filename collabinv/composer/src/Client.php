@@ -25,6 +25,8 @@ use AntChain\COLLABINV\Models\QueryModelCommonscoreRequest;
 use AntChain\COLLABINV\Models\QueryModelCommonscoreResponse;
 use AntChain\COLLABINV\Models\QueryModelFeaturesetRequest;
 use AntChain\COLLABINV\Models\QueryModelFeaturesetResponse;
+use AntChain\COLLABINV\Models\QueryModelMultiscoreRequest;
+use AntChain\COLLABINV\Models\QueryModelMultiscoreResponse;
 use AntChain\COLLABINV\Models\QueryModelSampletaskRequest;
 use AntChain\COLLABINV\Models\QueryModelSampletaskResponse;
 use AntChain\COLLABINV\Models\QueryModelStatsRequest;
@@ -178,7 +180,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.0.9',
+                    'sdk_version'      => '1.0.12',
                     '_prod_code'       => 'COLLABINV',
                     '_prod_channel'    => 'default',
                 ];
@@ -524,8 +526,8 @@ class Client
     }
 
     /**
-     * Description: 模型分
-     * Summary: 模型分.
+     * Description: 通用查询批次，仅针对外部使用PIR场景
+     * Summary: 通用查询批次
      *
      * @param BatchqueryModelCommonscoreRequest $request
      *
@@ -540,8 +542,8 @@ class Client
     }
 
     /**
-     * Description: 模型分
-     * Summary: 模型分.
+     * Description: 通用查询批次，仅针对外部使用PIR场景
+     * Summary: 通用查询批次
      *
      * @param BatchqueryModelCommonscoreRequest $request
      * @param string[]                          $headers
@@ -554,5 +556,38 @@ class Client
         Utils::validateModel($request);
 
         return BatchqueryModelCommonscoreResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.model.commonscore.batchquery', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 多模型预测值
+     * Summary: 多模型预测值
+     *
+     * @param QueryModelMultiscoreRequest $request
+     *
+     * @return QueryModelMultiscoreResponse
+     */
+    public function queryModelMultiscore($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryModelMultiscoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 多模型预测值
+     * Summary: 多模型预测值
+     *
+     * @param QueryModelMultiscoreRequest $request
+     * @param string[]                    $headers
+     * @param RuntimeOptions              $runtime
+     *
+     * @return QueryModelMultiscoreResponse
+     */
+    public function queryModelMultiscoreEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryModelMultiscoreResponse::fromMap($this->doRequest('1.0', 'antchain.zkcollabinv.model.multiscore.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 }
