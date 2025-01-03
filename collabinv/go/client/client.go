@@ -1218,7 +1218,7 @@ type BatchqueryModelCommonscoreRequest struct {
 	// 用户ID
 	UserIds []*string `json:"user_ids,omitempty" xml:"user_ids,omitempty" require:"true" type:"Repeated"`
 	// 用户授权编码
-	AuthNos []*string `json:"auth_nos,omitempty" xml:"auth_nos,omitempty" require:"true" type:"Repeated"`
+	AuthNos []*string `json:"auth_nos,omitempty" xml:"auth_nos,omitempty" type:"Repeated"`
 	// 模型编码
 	ModelCode *string `json:"model_code,omitempty" xml:"model_code,omitempty" require:"true"`
 	// 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
@@ -1340,6 +1340,134 @@ func (s *BatchqueryModelCommonscoreResponse) SetRatings(v []*string) *Batchquery
 }
 
 func (s *BatchqueryModelCommonscoreResponse) SetTransNo(v string) *BatchqueryModelCommonscoreResponse {
+	s.TransNo = &v
+	return s
+}
+
+type QueryModelMultiscoreRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户授权编码（授权渠道）
+	//
+	AuthNo *string `json:"auth_no,omitempty" xml:"auth_no,omitempty" require:"true"`
+	// 规格编码(相应对接人负责)
+	SpecCode *string `json:"spec_code,omitempty" xml:"spec_code,omitempty" require:"true"`
+	// 用户id（客户身份证号/手机号的md5/sha256散列值）
+	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty" require:"true"`
+	// 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+	UserIdType *string `json:"user_id_type,omitempty" xml:"user_id_type,omitempty" require:"true"`
+	// user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+	HashType *string `json:"hash_type,omitempty" xml:"hash_type,omitempty" require:"true"`
+	// 客户编码
+	//
+	CustomerCode *string `json:"customer_code,omitempty" xml:"customer_code,omitempty" require:"true"`
+	// 流水号，串联链路用，非必填
+	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty"`
+	// hash_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+	UserIdEncryptType *string `json:"user_id_encrypt_type,omitempty" xml:"user_id_encrypt_type,omitempty"`
+}
+
+func (s QueryModelMultiscoreRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryModelMultiscoreRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryModelMultiscoreRequest) SetAuthToken(v string) *QueryModelMultiscoreRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetProductInstanceId(v string) *QueryModelMultiscoreRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetAuthNo(v string) *QueryModelMultiscoreRequest {
+	s.AuthNo = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetSpecCode(v string) *QueryModelMultiscoreRequest {
+	s.SpecCode = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetUserId(v string) *QueryModelMultiscoreRequest {
+	s.UserId = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetUserIdType(v string) *QueryModelMultiscoreRequest {
+	s.UserIdType = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetHashType(v string) *QueryModelMultiscoreRequest {
+	s.HashType = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetCustomerCode(v string) *QueryModelMultiscoreRequest {
+	s.CustomerCode = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetTransNo(v string) *QueryModelMultiscoreRequest {
+	s.TransNo = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreRequest) SetUserIdEncryptType(v string) *QueryModelMultiscoreRequest {
+	s.UserIdEncryptType = &v
+	return s
+}
+
+type QueryModelMultiscoreResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 模型分
+	Score *string `json:"score,omitempty" xml:"score,omitempty"`
+	// 流水号
+	TransNo *string `json:"trans_no,omitempty" xml:"trans_no,omitempty"`
+}
+
+func (s QueryModelMultiscoreResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryModelMultiscoreResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryModelMultiscoreResponse) SetReqMsgId(v string) *QueryModelMultiscoreResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreResponse) SetResultCode(v string) *QueryModelMultiscoreResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreResponse) SetResultMsg(v string) *QueryModelMultiscoreResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreResponse) SetScore(v string) *QueryModelMultiscoreResponse {
+	s.Score = &v
+	return s
+}
+
+func (s *QueryModelMultiscoreResponse) SetTransNo(v string) *QueryModelMultiscoreResponse {
 	s.TransNo = &v
 	return s
 }
@@ -1466,7 +1594,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.9"),
+				"sdk_version":      tea.String("1.0.12"),
 				"_prod_code":       tea.String("COLLABINV"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -1831,8 +1959,8 @@ func (client *Client) QueryModelCommonscoreEx(request *QueryModelCommonscoreRequ
 }
 
 /**
- * Description: 模型分
- * Summary: 模型分
+ * Description: 通用查询批次，仅针对外部使用PIR场景
+ * Summary: 通用查询批次
  */
 func (client *Client) BatchqueryModelCommonscore(request *BatchqueryModelCommonscoreRequest) (_result *BatchqueryModelCommonscoreResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -1847,8 +1975,8 @@ func (client *Client) BatchqueryModelCommonscore(request *BatchqueryModelCommons
 }
 
 /**
- * Description: 模型分
- * Summary: 模型分
+ * Description: 通用查询批次，仅针对外部使用PIR场景
+ * Summary: 通用查询批次
  */
 func (client *Client) BatchqueryModelCommonscoreEx(request *BatchqueryModelCommonscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *BatchqueryModelCommonscoreResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -1857,6 +1985,40 @@ func (client *Client) BatchqueryModelCommonscoreEx(request *BatchqueryModelCommo
 	}
 	_result = &BatchqueryModelCommonscoreResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.model.commonscore.batchquery"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 多模型预测值
+ * Summary: 多模型预测值
+ */
+func (client *Client) QueryModelMultiscore(request *QueryModelMultiscoreRequest) (_result *QueryModelMultiscoreResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryModelMultiscoreResponse{}
+	_body, _err := client.QueryModelMultiscoreEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 多模型预测值
+ * Summary: 多模型预测值
+ */
+func (client *Client) QueryModelMultiscoreEx(request *QueryModelMultiscoreRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryModelMultiscoreResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryModelMultiscoreResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.zkcollabinv.model.multiscore.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
