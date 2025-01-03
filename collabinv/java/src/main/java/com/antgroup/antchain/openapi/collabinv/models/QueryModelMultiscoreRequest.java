@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.collabinv.models;
 
 import com.aliyun.tea.*;
 
-public class BatchqueryModelCommonscoreRequest extends TeaModel {
+public class QueryModelMultiscoreRequest extends TeaModel {
     // OAuth模式下的授权token
     @NameInMap("auth_token")
     public String authToken;
@@ -11,19 +11,21 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 用户ID
-    @NameInMap("user_ids")
+    // 用户授权编码（授权渠道）
+    // 
+    @NameInMap("auth_no")
     @Validation(required = true)
-    public java.util.List<String> userIds;
+    public String authNo;
 
-    // 用户授权编码
-    @NameInMap("auth_nos")
-    public java.util.List<String> authNos;
-
-    // 模型编码
-    @NameInMap("model_code")
+    // 规格编码(相应对接人负责)
+    @NameInMap("spec_code")
     @Validation(required = true)
-    public String modelCode;
+    public String specCode;
+
+    // 用户id（客户身份证号/手机号的md5/sha256散列值）
+    @NameInMap("user_id")
+    @Validation(required = true)
+    public String userId;
 
     // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
     @NameInMap("user_id_type")
@@ -36,6 +38,7 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
     public String hashType;
 
     // 客户编码
+    // 
     @NameInMap("customer_code")
     @Validation(required = true)
     public String customerCode;
@@ -48,12 +51,12 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
     @NameInMap("user_id_encrypt_type")
     public String userIdEncryptType;
 
-    public static BatchqueryModelCommonscoreRequest build(java.util.Map<String, ?> map) throws Exception {
-        BatchqueryModelCommonscoreRequest self = new BatchqueryModelCommonscoreRequest();
+    public static QueryModelMultiscoreRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryModelMultiscoreRequest self = new QueryModelMultiscoreRequest();
         return TeaModel.build(map, self);
     }
 
-    public BatchqueryModelCommonscoreRequest setAuthToken(String authToken) {
+    public QueryModelMultiscoreRequest setAuthToken(String authToken) {
         this.authToken = authToken;
         return this;
     }
@@ -61,7 +64,7 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
         return this.authToken;
     }
 
-    public BatchqueryModelCommonscoreRequest setProductInstanceId(String productInstanceId) {
+    public QueryModelMultiscoreRequest setProductInstanceId(String productInstanceId) {
         this.productInstanceId = productInstanceId;
         return this;
     }
@@ -69,31 +72,31 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
         return this.productInstanceId;
     }
 
-    public BatchqueryModelCommonscoreRequest setUserIds(java.util.List<String> userIds) {
-        this.userIds = userIds;
+    public QueryModelMultiscoreRequest setAuthNo(String authNo) {
+        this.authNo = authNo;
         return this;
     }
-    public java.util.List<String> getUserIds() {
-        return this.userIds;
+    public String getAuthNo() {
+        return this.authNo;
     }
 
-    public BatchqueryModelCommonscoreRequest setAuthNos(java.util.List<String> authNos) {
-        this.authNos = authNos;
+    public QueryModelMultiscoreRequest setSpecCode(String specCode) {
+        this.specCode = specCode;
         return this;
     }
-    public java.util.List<String> getAuthNos() {
-        return this.authNos;
+    public String getSpecCode() {
+        return this.specCode;
     }
 
-    public BatchqueryModelCommonscoreRequest setModelCode(String modelCode) {
-        this.modelCode = modelCode;
+    public QueryModelMultiscoreRequest setUserId(String userId) {
+        this.userId = userId;
         return this;
     }
-    public String getModelCode() {
-        return this.modelCode;
+    public String getUserId() {
+        return this.userId;
     }
 
-    public BatchqueryModelCommonscoreRequest setUserIdType(String userIdType) {
+    public QueryModelMultiscoreRequest setUserIdType(String userIdType) {
         this.userIdType = userIdType;
         return this;
     }
@@ -101,7 +104,7 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
         return this.userIdType;
     }
 
-    public BatchqueryModelCommonscoreRequest setHashType(String hashType) {
+    public QueryModelMultiscoreRequest setHashType(String hashType) {
         this.hashType = hashType;
         return this;
     }
@@ -109,7 +112,7 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
         return this.hashType;
     }
 
-    public BatchqueryModelCommonscoreRequest setCustomerCode(String customerCode) {
+    public QueryModelMultiscoreRequest setCustomerCode(String customerCode) {
         this.customerCode = customerCode;
         return this;
     }
@@ -117,7 +120,7 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
         return this.customerCode;
     }
 
-    public BatchqueryModelCommonscoreRequest setTransNo(String transNo) {
+    public QueryModelMultiscoreRequest setTransNo(String transNo) {
         this.transNo = transNo;
         return this;
     }
@@ -125,7 +128,7 @@ public class BatchqueryModelCommonscoreRequest extends TeaModel {
         return this.transNo;
     }
 
-    public BatchqueryModelCommonscoreRequest setUserIdEncryptType(String userIdEncryptType) {
+    public QueryModelMultiscoreRequest setUserIdEncryptType(String userIdEncryptType) {
         this.userIdEncryptType = userIdEncryptType;
         return this;
     }

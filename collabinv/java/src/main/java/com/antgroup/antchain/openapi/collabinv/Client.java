@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.9"),
+                    new TeaPair("sdk_version", "1.0.12"),
                     new TeaPair("_prod_code", "COLLABINV"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -356,8 +356,8 @@ public class Client {
     }
 
     /**
-     * Description: 模型分
-     * Summary: 模型分
+     * Description: 通用查询批次，仅针对外部使用PIR场景
+     * Summary: 通用查询批次
      */
     public BatchqueryModelCommonscoreResponse batchqueryModelCommonscore(BatchqueryModelCommonscoreRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -366,11 +366,30 @@ public class Client {
     }
 
     /**
-     * Description: 模型分
-     * Summary: 模型分
+     * Description: 通用查询批次，仅针对外部使用PIR场景
+     * Summary: 通用查询批次
      */
     public BatchqueryModelCommonscoreResponse batchqueryModelCommonscoreEx(BatchqueryModelCommonscoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.model.commonscore.batchquery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BatchqueryModelCommonscoreResponse());
+    }
+
+    /**
+     * Description: 多模型预测值
+     * Summary: 多模型预测值
+     */
+    public QueryModelMultiscoreResponse queryModelMultiscore(QueryModelMultiscoreRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryModelMultiscoreEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 多模型预测值
+     * Summary: 多模型预测值
+     */
+    public QueryModelMultiscoreResponse queryModelMultiscoreEx(QueryModelMultiscoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.zkcollabinv.model.multiscore.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryModelMultiscoreResponse());
     }
 }
