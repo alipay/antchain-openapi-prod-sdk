@@ -1528,7 +1528,6 @@ class BatchqueryModelCommonscoreRequest(TeaModel):
 
     def validate(self):
         self.validate_required(self.user_ids, 'user_ids')
-        self.validate_required(self.auth_nos, 'auth_nos')
         self.validate_required(self.model_code, 'model_code')
         self.validate_required(self.user_id_type, 'user_id_type')
         self.validate_required(self.hash_type, 'hash_type')
@@ -1645,6 +1644,159 @@ class BatchqueryModelCommonscoreResponse(TeaModel):
             self.scores = m.get('scores')
         if m.get('ratings') is not None:
             self.ratings = m.get('ratings')
+        if m.get('trans_no') is not None:
+            self.trans_no = m.get('trans_no')
+        return self
+
+
+class QueryModelMultiscoreRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        auth_no: str = None,
+        spec_code: str = None,
+        user_id: str = None,
+        user_id_type: str = None,
+        hash_type: str = None,
+        customer_code: str = None,
+        trans_no: str = None,
+        user_id_encrypt_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户授权编码（授权渠道）
+        # 
+        self.auth_no = auth_no
+        # 规格编码(相应对接人负责)
+        self.spec_code = spec_code
+        # 用户id（客户身份证号/手机号的md5/sha256散列值）
+        self.user_id = user_id
+        # 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+        self.user_id_type = user_id_type
+        # user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+        self.hash_type = hash_type
+        # 客户编码
+        # 
+        self.customer_code = customer_code
+        # 流水号，串联链路用，非必填
+        self.trans_no = trans_no
+        # hash_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+        self.user_id_encrypt_type = user_id_encrypt_type
+
+    def validate(self):
+        self.validate_required(self.auth_no, 'auth_no')
+        self.validate_required(self.spec_code, 'spec_code')
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.user_id_type, 'user_id_type')
+        self.validate_required(self.hash_type, 'hash_type')
+        self.validate_required(self.customer_code, 'customer_code')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.auth_no is not None:
+            result['auth_no'] = self.auth_no
+        if self.spec_code is not None:
+            result['spec_code'] = self.spec_code
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.user_id_type is not None:
+            result['user_id_type'] = self.user_id_type
+        if self.hash_type is not None:
+            result['hash_type'] = self.hash_type
+        if self.customer_code is not None:
+            result['customer_code'] = self.customer_code
+        if self.trans_no is not None:
+            result['trans_no'] = self.trans_no
+        if self.user_id_encrypt_type is not None:
+            result['user_id_encrypt_type'] = self.user_id_encrypt_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('auth_no') is not None:
+            self.auth_no = m.get('auth_no')
+        if m.get('spec_code') is not None:
+            self.spec_code = m.get('spec_code')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('user_id_type') is not None:
+            self.user_id_type = m.get('user_id_type')
+        if m.get('hash_type') is not None:
+            self.hash_type = m.get('hash_type')
+        if m.get('customer_code') is not None:
+            self.customer_code = m.get('customer_code')
+        if m.get('trans_no') is not None:
+            self.trans_no = m.get('trans_no')
+        if m.get('user_id_encrypt_type') is not None:
+            self.user_id_encrypt_type = m.get('user_id_encrypt_type')
+        return self
+
+
+class QueryModelMultiscoreResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        score: str = None,
+        trans_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模型分
+        self.score = score
+        # 流水号
+        self.trans_no = trans_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.score is not None:
+            result['score'] = self.score
+        if self.trans_no is not None:
+            result['trans_no'] = self.trans_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('score') is not None:
+            self.score = m.get('score')
         if m.get('trans_no') is not None:
             self.trans_no = m.get('trans_no')
         return self

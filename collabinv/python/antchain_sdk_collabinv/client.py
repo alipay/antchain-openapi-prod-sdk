@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.12',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.9',
+                    'sdk_version': '1.0.12',
                     '_prod_code': 'COLLABINV',
                     '_prod_channel': 'default'
                 }
@@ -784,8 +784,8 @@ class Client:
         request: collabinv_models.BatchqueryModelCommonscoreRequest,
     ) -> collabinv_models.BatchqueryModelCommonscoreResponse:
         """
-        Description: 模型分
-        Summary: 模型分
+        Description: 通用查询批次，仅针对外部使用PIR场景
+        Summary: 通用查询批次
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -796,8 +796,8 @@ class Client:
         request: collabinv_models.BatchqueryModelCommonscoreRequest,
     ) -> collabinv_models.BatchqueryModelCommonscoreResponse:
         """
-        Description: 模型分
-        Summary: 模型分
+        Description: 通用查询批次，仅针对外部使用PIR场景
+        Summary: 通用查询批次
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -810,8 +810,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> collabinv_models.BatchqueryModelCommonscoreResponse:
         """
-        Description: 模型分
-        Summary: 模型分
+        Description: 通用查询批次，仅针对外部使用PIR场景
+        Summary: 通用查询批次
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -826,11 +826,67 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> collabinv_models.BatchqueryModelCommonscoreResponse:
         """
-        Description: 模型分
-        Summary: 模型分
+        Description: 通用查询批次，仅针对外部使用PIR场景
+        Summary: 通用查询批次
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
             collabinv_models.BatchqueryModelCommonscoreResponse(),
             await self.do_request_async('1.0', 'antchain.zkcollabinv.model.commonscore.batchquery', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_model_multiscore(
+        self,
+        request: collabinv_models.QueryModelMultiscoreRequest,
+    ) -> collabinv_models.QueryModelMultiscoreResponse:
+        """
+        Description: 多模型预测值
+        Summary: 多模型预测值
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_model_multiscore_ex(request, headers, runtime)
+
+    async def query_model_multiscore_async(
+        self,
+        request: collabinv_models.QueryModelMultiscoreRequest,
+    ) -> collabinv_models.QueryModelMultiscoreResponse:
+        """
+        Description: 多模型预测值
+        Summary: 多模型预测值
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_model_multiscore_ex_async(request, headers, runtime)
+
+    def query_model_multiscore_ex(
+        self,
+        request: collabinv_models.QueryModelMultiscoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryModelMultiscoreResponse:
+        """
+        Description: 多模型预测值
+        Summary: 多模型预测值
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryModelMultiscoreResponse(),
+            self.do_request('1.0', 'antchain.zkcollabinv.model.multiscore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_model_multiscore_ex_async(
+        self,
+        request: collabinv_models.QueryModelMultiscoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> collabinv_models.QueryModelMultiscoreResponse:
+        """
+        Description: 多模型预测值
+        Summary: 多模型预测值
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            collabinv_models.QueryModelMultiscoreResponse(),
+            await self.do_request_async('1.0', 'antchain.zkcollabinv.model.multiscore.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
