@@ -1,6 +1,6 @@
 {
   "name": "@antchain/collabinv",
-  "version": "1.0.9",
+  "version": "1.0.12",
   "description": "",
   "main": "dist/client.js",
   "scripts": {

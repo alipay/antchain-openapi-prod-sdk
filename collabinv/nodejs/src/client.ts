@@ -895,7 +895,7 @@ export class BatchqueryModelCommonscoreRequest extends $tea.Model {
   // 用户ID
   userIds: string[];
   // 用户授权编码
-  authNos: string[];
+  authNos?: string[];
   // 模型编码
   modelCode: string;
   // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
@@ -974,6 +974,99 @@ export class BatchqueryModelCommonscoreResponse extends $tea.Model {
       resultMsg: 'string',
       scores: { 'type': 'array', 'itemType': 'string' },
       ratings: { 'type': 'array', 'itemType': 'string' },
+      transNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryModelMultiscoreRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户授权编码（授权渠道）
+  // 
+  authNo: string;
+  // 规格编码(相应对接人负责)
+  specCode: string;
+  // 用户id（客户身份证号/手机号的md5/sha256散列值）
+  userId: string;
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string;
+  // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+  hashType: string;
+  // 客户编码
+  // 
+  customerCode: string;
+  // 流水号，串联链路用，非必填
+  transNo?: string;
+  // hash_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+  userIdEncryptType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      authNo: 'auth_no',
+      specCode: 'spec_code',
+      userId: 'user_id',
+      userIdType: 'user_id_type',
+      hashType: 'hash_type',
+      customerCode: 'customer_code',
+      transNo: 'trans_no',
+      userIdEncryptType: 'user_id_encrypt_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      authNo: 'string',
+      specCode: 'string',
+      userId: 'string',
+      userIdType: 'string',
+      hashType: 'string',
+      customerCode: 'string',
+      transNo: 'string',
+      userIdEncryptType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryModelMultiscoreResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 模型分
+  score?: string;
+  // 流水号
+  transNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      score: 'score',
+      transNo: 'trans_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      score: 'string',
       transNo: 'string',
     };
   }
@@ -1096,7 +1189,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.9",
+          sdk_version: "1.0.12",
           _prod_code: "COLLABINV",
           _prod_channel: "default",
         };
@@ -1316,8 +1409,8 @@ export default class Client {
   }
 
   /**
-   * Description: 模型分
-   * Summary: 模型分
+   * Description: 通用查询批次，仅针对外部使用PIR场景
+   * Summary: 通用查询批次
    */
   async batchqueryModelCommonscore(request: BatchqueryModelCommonscoreRequest): Promise<BatchqueryModelCommonscoreResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -1326,12 +1419,31 @@ export default class Client {
   }
 
   /**
-   * Description: 模型分
-   * Summary: 模型分
+   * Description: 通用查询批次，仅针对外部使用PIR场景
+   * Summary: 通用查询批次
    */
   async batchqueryModelCommonscoreEx(request: BatchqueryModelCommonscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<BatchqueryModelCommonscoreResponse> {
     Util.validateModel(request);
     return $tea.cast<BatchqueryModelCommonscoreResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.model.commonscore.batchquery", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new BatchqueryModelCommonscoreResponse({}));
+  }
+
+  /**
+   * Description: 多模型预测值
+   * Summary: 多模型预测值
+   */
+  async queryModelMultiscore(request: QueryModelMultiscoreRequest): Promise<QueryModelMultiscoreResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryModelMultiscoreEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 多模型预测值
+   * Summary: 多模型预测值
+   */
+  async queryModelMultiscoreEx(request: QueryModelMultiscoreRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryModelMultiscoreResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryModelMultiscoreResponse>(await this.doRequest("1.0", "antchain.zkcollabinv.model.multiscore.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryModelMultiscoreResponse({}));
   }
 
 }
