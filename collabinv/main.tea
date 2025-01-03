@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.9',
+    sdk_version = '1.0.12',
     _prod_code = 'COLLABINV',
     _prod_channel = 'default'
   };
@@ -639,7 +639,7 @@ model BatchqueryModelCommonscoreRequest = {
   // 用户ID
   userIds: [ string ](name='user_ids'),
   // 用户授权编码
-  authNos: [ string ](name='auth_nos'),
+  authNos?: [ string ](name='auth_nos'),
   // 模型编码
   modelCode: string(name='model_code'),
   // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
@@ -670,8 +670,8 @@ model BatchqueryModelCommonscoreResponse = {
 }
 
 /**
- * Description: 模型分
- * Summary: 模型分
+ * Description: 通用查询批次，仅针对外部使用PIR场景
+ * Summary: 通用查询批次
  */
 async function batchqueryModelCommonscore(request: BatchqueryModelCommonscoreRequest): BatchqueryModelCommonscoreResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -680,11 +680,67 @@ async function batchqueryModelCommonscore(request: BatchqueryModelCommonscoreReq
 }
 
 /**
- * Description: 模型分
- * Summary: 模型分
+ * Description: 通用查询批次，仅针对外部使用PIR场景
+ * Summary: 通用查询批次
  */
 async function batchqueryModelCommonscoreEx(request: BatchqueryModelCommonscoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): BatchqueryModelCommonscoreResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.zkcollabinv.model.commonscore.batchquery', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryModelMultiscoreRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户授权编码（授权渠道）
+  // 
+  authNo: string(name='auth_no'),
+  // 规格编码(相应对接人负责)
+  specCode: string(name='spec_code'),
+  // 用户id（客户身份证号/手机号的md5/sha256散列值）
+  userId: string(name='user_id'),
+  // 用户id类型（身份证号：ID_NO；手机号：MOBILE_NO）
+  userIdType: string(name='user_id_type'),
+  // user_id 散列类型: "MD5"：MD5（小写）, "SHA256" ： SHA256（小写）， "SM3"： SM3（小写）
+  hashType: string(name='hash_type'),
+  // 客户编码
+  // 
+  customerCode: string(name='customer_code'),
+  // 流水号，串联链路用，非必填
+  transNo?: string(name='trans_no'),
+  // hash_type类型的散列后的操作，默认为空不加密。 如启用，需要对散列后的user_id 加密，可选用如下算法，类型1、AES/ECB/PKCS5PADDING 在加密后的二进制需要以字符集UTF-8，编码base64 方式赋值给user_id传输。 示例：AES秘钥：base64_aes_key = "CZqWzQ5JL8s5Zx2XVpGZGw=="，报文：plaintext = "Hello, 蚂蚁。" ，使用算法： AES/ECB/PKCS5PADDING ；密文：SI1wU1ePSFoMy5YzuxclFkbZ/FIXUHPRDbKBW85WolY=，配置了此项user_id应该传输此密文。
+  userIdEncryptType?: string(name='user_id_encrypt_type'),
+}
+
+model QueryModelMultiscoreResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模型分
+  score?: string(name='score'),
+  // 流水号
+  transNo?: string(name='trans_no'),
+}
+
+/**
+ * Description: 多模型预测值
+ * Summary: 多模型预测值
+ */
+async function queryModelMultiscore(request: QueryModelMultiscoreRequest): QueryModelMultiscoreResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryModelMultiscoreEx(request, headers, runtime);
+}
+
+/**
+ * Description: 多模型预测值
+ * Summary: 多模型预测值
+ */
+async function queryModelMultiscoreEx(request: QueryModelMultiscoreRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryModelMultiscoreResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.zkcollabinv.model.multiscore.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
