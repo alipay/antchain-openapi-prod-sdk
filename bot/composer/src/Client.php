@@ -403,6 +403,8 @@ use AntChain\BOT\Models\QueryOnlinepressuretestDataRequest;
 use AntChain\BOT\Models\QueryOnlinepressuretestDataResponse;
 use AntChain\BOT\Models\QueryOnlinepressuretestRequest;
 use AntChain\BOT\Models\QueryOnlinepressuretestResponse;
+use AntChain\BOT\Models\QueryOssDownloadjoburlRequest;
+use AntChain\BOT\Models\QueryOssDownloadjoburlResponse;
 use AntChain\BOT\Models\QueryScfleaseEqpinfoRequest;
 use AntChain\BOT\Models\QueryScfleaseEqpinfoResponse;
 use AntChain\BOT\Models\QueryTaskRequest;
@@ -692,7 +694,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.4',
+                    'sdk_version'      => '1.12.6',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5135,7 +5137,7 @@ class Client
     }
 
     /**
-     * Description: 主动往设备下发消息
+     * Description: 主动往设备下发消息，提供给数科上游业务系统使用
      * Summary: 主动往设备下发消息.
      *
      * @param PushDeviceMessageRequest $request
@@ -5151,7 +5153,7 @@ class Client
     }
 
     /**
-     * Description: 主动往设备下发消息
+     * Description: 主动往设备下发消息，提供给数科上游业务系统使用
      * Summary: 主动往设备下发消息.
      *
      * @param PushDeviceMessageRequest $request
@@ -5696,8 +5698,8 @@ class Client
     }
 
     /**
-     * Description: 通过deviceId发行设备
-     * Summary: 通过deviceId发行设备.
+     * Description: 免签名注册设备
+     * Summary: 免签名注册设备.
      *
      * @param CreateDistributedeviceBydeviceidRequest $request
      *
@@ -5712,8 +5714,8 @@ class Client
     }
 
     /**
-     * Description: 通过deviceId发行设备
-     * Summary: 通过deviceId发行设备.
+     * Description: 免签名注册设备
+     * Summary: 免签名注册设备.
      *
      * @param CreateDistributedeviceBydeviceidRequest $request
      * @param string[]                                $headers
@@ -9026,6 +9028,39 @@ class Client
         Utils::validateModel($request);
 
         return SendEventDataResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.event.data.send', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取定时任务保存至oss的文件链接
+     * Summary: 获取定时任务保存至oss的文件链接.
+     *
+     * @param QueryOssDownloadjoburlRequest $request
+     *
+     * @return QueryOssDownloadjoburlResponse
+     */
+    public function queryOssDownloadjoburl($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryOssDownloadjoburlEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取定时任务保存至oss的文件链接
+     * Summary: 获取定时任务保存至oss的文件链接.
+     *
+     * @param QueryOssDownloadjoburlRequest $request
+     * @param string[]                      $headers
+     * @param RuntimeOptions                $runtime
+     *
+     * @return QueryOssDownloadjoburlResponse
+     */
+    public function queryOssDownloadjoburlEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryOssDownloadjoburlResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.oss.downloadjoburl.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
