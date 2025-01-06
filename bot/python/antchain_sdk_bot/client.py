@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.4',
+                    'sdk_version': '1.12.6',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.4',
+                    'sdk_version': '1.12.6',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -7744,7 +7744,7 @@ class Client:
         request: bot_models.PushDeviceMessageRequest,
     ) -> bot_models.PushDeviceMessageResponse:
         """
-        Description: 主动往设备下发消息
+        Description: 主动往设备下发消息，提供给数科上游业务系统使用
         Summary: 主动往设备下发消息
         """
         runtime = util_models.RuntimeOptions()
@@ -7756,7 +7756,7 @@ class Client:
         request: bot_models.PushDeviceMessageRequest,
     ) -> bot_models.PushDeviceMessageResponse:
         """
-        Description: 主动往设备下发消息
+        Description: 主动往设备下发消息，提供给数科上游业务系统使用
         Summary: 主动往设备下发消息
         """
         runtime = util_models.RuntimeOptions()
@@ -7770,7 +7770,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.PushDeviceMessageResponse:
         """
-        Description: 主动往设备下发消息
+        Description: 主动往设备下发消息，提供给数科上游业务系统使用
         Summary: 主动往设备下发消息
         """
         UtilClient.validate_model(request)
@@ -7786,7 +7786,7 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.PushDeviceMessageResponse:
         """
-        Description: 主动往设备下发消息
+        Description: 主动往设备下发消息，提供给数科上游业务系统使用
         Summary: 主动往设备下发消息
         """
         UtilClient.validate_model(request)
@@ -8696,8 +8696,8 @@ class Client:
         request: bot_models.CreateDistributedeviceBydeviceidRequest,
     ) -> bot_models.CreateDistributedeviceBydeviceidResponse:
         """
-        Description: 通过deviceId发行设备
-        Summary: 通过deviceId发行设备
+        Description: 免签名注册设备
+        Summary: 免签名注册设备
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -8708,8 +8708,8 @@ class Client:
         request: bot_models.CreateDistributedeviceBydeviceidRequest,
     ) -> bot_models.CreateDistributedeviceBydeviceidResponse:
         """
-        Description: 通过deviceId发行设备
-        Summary: 通过deviceId发行设备
+        Description: 免签名注册设备
+        Summary: 免签名注册设备
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -8722,8 +8722,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.CreateDistributedeviceBydeviceidResponse:
         """
-        Description: 通过deviceId发行设备
-        Summary: 通过deviceId发行设备
+        Description: 免签名注册设备
+        Summary: 免签名注册设备
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -8738,8 +8738,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.CreateDistributedeviceBydeviceidResponse:
         """
-        Description: 通过deviceId发行设备
-        Summary: 通过deviceId发行设备
+        Description: 免签名注册设备
+        Summary: 免签名注册设备
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -14345,6 +14345,62 @@ class Client:
         return TeaCore.from_map(
             bot_models.SendEventDataResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.event.data.send', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_oss_downloadjoburl(
+        self,
+        request: bot_models.QueryOssDownloadjoburlRequest,
+    ) -> bot_models.QueryOssDownloadjoburlResponse:
+        """
+        Description: 获取定时任务保存至oss的文件链接
+        Summary: 获取定时任务保存至oss的文件链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_oss_downloadjoburl_ex(request, headers, runtime)
+
+    async def query_oss_downloadjoburl_async(
+        self,
+        request: bot_models.QueryOssDownloadjoburlRequest,
+    ) -> bot_models.QueryOssDownloadjoburlResponse:
+        """
+        Description: 获取定时任务保存至oss的文件链接
+        Summary: 获取定时任务保存至oss的文件链接
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_oss_downloadjoburl_ex_async(request, headers, runtime)
+
+    def query_oss_downloadjoburl_ex(
+        self,
+        request: bot_models.QueryOssDownloadjoburlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryOssDownloadjoburlResponse:
+        """
+        Description: 获取定时任务保存至oss的文件链接
+        Summary: 获取定时任务保存至oss的文件链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryOssDownloadjoburlResponse(),
+            self.do_request('1.0', 'blockchain.bot.oss.downloadjoburl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_oss_downloadjoburl_ex_async(
+        self,
+        request: bot_models.QueryOssDownloadjoburlRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryOssDownloadjoburlResponse:
+        """
+        Description: 获取定时任务保存至oss的文件链接
+        Summary: 获取定时任务保存至oss的文件链接
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryOssDownloadjoburlResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.oss.downloadjoburl.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
