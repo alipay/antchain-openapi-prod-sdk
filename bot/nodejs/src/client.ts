@@ -25739,6 +25739,73 @@ export class SendEventDataResponse extends $tea.Model {
   }
 }
 
+export class QueryOssDownloadjoburlRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 获取文件类型：DEVICE_INFO（设备信息）、DEVICE_DATA（状态数据）
+  type: string;
+  // 文件所属日期，yyyymmdd
+  date: string;
+  // 请求状态数据是，若导出周期为小时级，则必填；文件所属小时
+  hour?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      type: 'type',
+      date: 'date',
+      hour: 'hour',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      type: 'string',
+      date: 'string',
+      hour: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryOssDownloadjoburlResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 文件下载路径，链接有效期一个小时
+  url?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      url: 'url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      url: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class ExecThingsdidOneapiRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -27121,7 +27188,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.4",
+          sdk_version: "1.12.6",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -29722,7 +29789,7 @@ export default class Client {
   }
 
   /**
-   * Description: 主动往设备下发消息
+   * Description: 主动往设备下发消息，提供给数科上游业务系统使用
    * Summary: 主动往设备下发消息
    */
   async pushDeviceMessage(request: PushDeviceMessageRequest): Promise<PushDeviceMessageResponse> {
@@ -29732,7 +29799,7 @@ export default class Client {
   }
 
   /**
-   * Description: 主动往设备下发消息
+   * Description: 主动往设备下发消息，提供给数科上游业务系统使用
    * Summary: 主动往设备下发消息
    */
   async pushDeviceMessageEx(request: PushDeviceMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushDeviceMessageResponse> {
@@ -30045,8 +30112,8 @@ export default class Client {
   }
 
   /**
-   * Description: 通过deviceId发行设备
-   * Summary: 通过deviceId发行设备
+   * Description: 免签名注册设备
+   * Summary: 免签名注册设备
    */
   async createDistributedeviceBydeviceid(request: CreateDistributedeviceBydeviceidRequest): Promise<CreateDistributedeviceBydeviceidResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -30055,8 +30122,8 @@ export default class Client {
   }
 
   /**
-   * Description: 通过deviceId发行设备
-   * Summary: 通过deviceId发行设备
+   * Description: 免签名注册设备
+   * Summary: 免签名注册设备
    */
   async createDistributedeviceBydeviceidEx(request: CreateDistributedeviceBydeviceidRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateDistributedeviceBydeviceidResponse> {
     Util.validateModel(request);
@@ -31961,6 +32028,25 @@ export default class Client {
   async sendEventDataEx(request: SendEventDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SendEventDataResponse> {
     Util.validateModel(request);
     return $tea.cast<SendEventDataResponse>(await this.doRequest("1.0", "blockchain.bot.event.data.send", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SendEventDataResponse({}));
+  }
+
+  /**
+   * Description: 获取定时任务保存至oss的文件链接
+   * Summary: 获取定时任务保存至oss的文件链接
+   */
+  async queryOssDownloadjoburl(request: QueryOssDownloadjoburlRequest): Promise<QueryOssDownloadjoburlResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryOssDownloadjoburlEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 获取定时任务保存至oss的文件链接
+   * Summary: 获取定时任务保存至oss的文件链接
+   */
+  async queryOssDownloadjoburlEx(request: QueryOssDownloadjoburlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryOssDownloadjoburlResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryOssDownloadjoburlResponse>(await this.doRequest("1.0", "blockchain.bot.oss.downloadjoburl.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryOssDownloadjoburlResponse({}));
   }
 
   /**
