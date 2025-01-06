@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.4"),
+                    new TeaPair("sdk_version", "1.12.6"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2737,7 +2737,7 @@ public class Client {
     }
 
     /**
-     * Description: 主动往设备下发消息
+     * Description: 主动往设备下发消息，提供给数科上游业务系统使用
      * Summary: 主动往设备下发消息
      */
     public PushDeviceMessageResponse pushDeviceMessage(PushDeviceMessageRequest request) throws Exception {
@@ -2747,7 +2747,7 @@ public class Client {
     }
 
     /**
-     * Description: 主动往设备下发消息
+     * Description: 主动往设备下发消息，提供给数科上游业务系统使用
      * Summary: 主动往设备下发消息
      */
     public PushDeviceMessageResponse pushDeviceMessageEx(PushDeviceMessageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
@@ -3060,8 +3060,8 @@ public class Client {
     }
 
     /**
-     * Description: 通过deviceId发行设备
-     * Summary: 通过deviceId发行设备
+     * Description: 免签名注册设备
+     * Summary: 免签名注册设备
      */
     public CreateDistributedeviceBydeviceidResponse createDistributedeviceBydeviceid(CreateDistributedeviceBydeviceidRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -3070,8 +3070,8 @@ public class Client {
     }
 
     /**
-     * Description: 通过deviceId发行设备
-     * Summary: 通过deviceId发行设备
+     * Description: 免签名注册设备
+     * Summary: 免签名注册设备
      */
     public CreateDistributedeviceBydeviceidResponse createDistributedeviceBydeviceidEx(CreateDistributedeviceBydeviceidRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -4976,6 +4976,25 @@ public class Client {
     public SendEventDataResponse sendEventDataEx(SendEventDataRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.event.data.send", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SendEventDataResponse());
+    }
+
+    /**
+     * Description: 获取定时任务保存至oss的文件链接
+     * Summary: 获取定时任务保存至oss的文件链接
+     */
+    public QueryOssDownloadjoburlResponse queryOssDownloadjoburl(QueryOssDownloadjoburlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOssDownloadjoburlEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 获取定时任务保存至oss的文件链接
+     * Summary: 获取定时任务保存至oss的文件链接
+     */
+    public QueryOssDownloadjoburlResponse queryOssDownloadjoburlEx(QueryOssDownloadjoburlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.oss.downloadjoburl.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOssDownloadjoburlResponse());
     }
 
     /**
