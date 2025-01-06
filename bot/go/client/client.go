@@ -33544,6 +33544,90 @@ func (s *SendEventDataResponse) SetResultList(v []*SendCollectorResult) *SendEve
 	return s
 }
 
+type QueryOssDownloadjoburlRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 获取文件类型：DEVICE_INFO（设备信息）、DEVICE_DATA（状态数据）
+	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 文件所属日期，yyyymmdd
+	Date *string `json:"date,omitempty" xml:"date,omitempty" require:"true"`
+	// 请求状态数据是，若导出周期为小时级，则必填；文件所属小时
+	Hour *string `json:"hour,omitempty" xml:"hour,omitempty"`
+}
+
+func (s QueryOssDownloadjoburlRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOssDownloadjoburlRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOssDownloadjoburlRequest) SetAuthToken(v string) *QueryOssDownloadjoburlRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryOssDownloadjoburlRequest) SetProductInstanceId(v string) *QueryOssDownloadjoburlRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryOssDownloadjoburlRequest) SetType(v string) *QueryOssDownloadjoburlRequest {
+	s.Type = &v
+	return s
+}
+
+func (s *QueryOssDownloadjoburlRequest) SetDate(v string) *QueryOssDownloadjoburlRequest {
+	s.Date = &v
+	return s
+}
+
+func (s *QueryOssDownloadjoburlRequest) SetHour(v string) *QueryOssDownloadjoburlRequest {
+	s.Hour = &v
+	return s
+}
+
+type QueryOssDownloadjoburlResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 文件下载路径，链接有效期一个小时
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+}
+
+func (s QueryOssDownloadjoburlResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryOssDownloadjoburlResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryOssDownloadjoburlResponse) SetReqMsgId(v string) *QueryOssDownloadjoburlResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryOssDownloadjoburlResponse) SetResultCode(v string) *QueryOssDownloadjoburlResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryOssDownloadjoburlResponse) SetResultMsg(v string) *QueryOssDownloadjoburlResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryOssDownloadjoburlResponse) SetUrl(v string) *QueryOssDownloadjoburlResponse {
+	s.Url = &v
+	return s
+}
+
 type ExecThingsdidOneapiRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -35314,7 +35398,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.4"),
+				"sdk_version":      tea.String("1.12.6"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -39921,7 +40005,7 @@ func (client *Client) ExecDeviceUsertopicEx(request *ExecDeviceUsertopicRequest,
 }
 
 /**
- * Description: 主动往设备下发消息
+ * Description: 主动往设备下发消息，提供给数科上游业务系统使用
  * Summary: 主动往设备下发消息
  */
 func (client *Client) PushDeviceMessage(request *PushDeviceMessageRequest) (_result *PushDeviceMessageResponse, _err error) {
@@ -39937,7 +40021,7 @@ func (client *Client) PushDeviceMessage(request *PushDeviceMessageRequest) (_res
 }
 
 /**
- * Description: 主动往设备下发消息
+ * Description: 主动往设备下发消息，提供给数科上游业务系统使用
  * Summary: 主动往设备下发消息
  */
 func (client *Client) PushDeviceMessageEx(request *PushDeviceMessageRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushDeviceMessageResponse, _err error) {
@@ -40499,8 +40583,8 @@ func (client *Client) UpdateDeviceInfoEx(request *UpdateDeviceInfoRequest, heade
 }
 
 /**
- * Description: 通过deviceId发行设备
- * Summary: 通过deviceId发行设备
+ * Description: 免签名注册设备
+ * Summary: 免签名注册设备
  */
 func (client *Client) CreateDistributedeviceBydeviceid(request *CreateDistributedeviceBydeviceidRequest) (_result *CreateDistributedeviceBydeviceidResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
@@ -40515,8 +40599,8 @@ func (client *Client) CreateDistributedeviceBydeviceid(request *CreateDistribute
 }
 
 /**
- * Description: 通过deviceId发行设备
- * Summary: 通过deviceId发行设备
+ * Description: 免签名注册设备
+ * Summary: 免签名注册设备
  */
 func (client *Client) CreateDistributedeviceBydeviceidEx(request *CreateDistributedeviceBydeviceidRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateDistributedeviceBydeviceidResponse, _err error) {
 	_err = util.ValidateModel(request)
@@ -43925,6 +44009,40 @@ func (client *Client) SendEventDataEx(request *SendEventDataRequest, headers map
 	}
 	_result = &SendEventDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.event.data.send"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 获取定时任务保存至oss的文件链接
+ * Summary: 获取定时任务保存至oss的文件链接
+ */
+func (client *Client) QueryOssDownloadjoburl(request *QueryOssDownloadjoburlRequest) (_result *QueryOssDownloadjoburlResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryOssDownloadjoburlResponse{}
+	_body, _err := client.QueryOssDownloadjoburlEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 获取定时任务保存至oss的文件链接
+ * Summary: 获取定时任务保存至oss的文件链接
+ */
+func (client *Client) QueryOssDownloadjoburlEx(request *QueryOssDownloadjoburlRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryOssDownloadjoburlResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryOssDownloadjoburlResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.oss.downloadjoburl.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
