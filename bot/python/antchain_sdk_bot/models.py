@@ -1997,6 +1997,93 @@ class IotbasicAppManagerPageInfo(TeaModel):
         return self
 
 
+class FourWheelerCarEvent(TeaModel):
+    def __init__(
+        self,
+        event_type: str = None,
+        end_time: int = None,
+        lng: str = None,
+        lat: str = None,
+        start_speed: str = None,
+        end_speed: str = None,
+        average_speed: str = None,
+        turning_angle: str = None,
+        duration: str = None,
+    ):
+        # 驾驶事件的类型，如正常驾驶、碰撞、急转弯、启动熄火等。
+        self.event_type = event_type
+        # 驾驶事件的结束时间
+        self.end_time = end_time
+        # 驾驶事件发生地点的经度坐标
+        self.lng = lng
+        # 驾驶事件发生地点的纬度坐标
+        self.lat = lat
+        # 驾驶事件开始的速度
+        self.start_speed = start_speed
+        # 驾驶事件结束时的速度
+        self.end_speed = end_speed
+        # 驾驶过程中的平均速度
+        self.average_speed = average_speed
+        # 驾驶过程中车辆的转弯角度
+        self.turning_angle = turning_angle
+        # 驾驶事件的持续时间（以秒为单位)
+        self.duration = duration
+
+    def validate(self):
+        self.validate_required(self.event_type, 'event_type')
+        self.validate_required(self.end_time, 'end_time')
+        self.validate_required(self.lng, 'lng')
+        self.validate_required(self.lat, 'lat')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_type is not None:
+            result['event_type'] = self.event_type
+        if self.end_time is not None:
+            result['end_time'] = self.end_time
+        if self.lng is not None:
+            result['lng'] = self.lng
+        if self.lat is not None:
+            result['lat'] = self.lat
+        if self.start_speed is not None:
+            result['start_speed'] = self.start_speed
+        if self.end_speed is not None:
+            result['end_speed'] = self.end_speed
+        if self.average_speed is not None:
+            result['average_speed'] = self.average_speed
+        if self.turning_angle is not None:
+            result['turning_angle'] = self.turning_angle
+        if self.duration is not None:
+            result['duration'] = self.duration
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('event_type') is not None:
+            self.event_type = m.get('event_type')
+        if m.get('end_time') is not None:
+            self.end_time = m.get('end_time')
+        if m.get('lng') is not None:
+            self.lng = m.get('lng')
+        if m.get('lat') is not None:
+            self.lat = m.get('lat')
+        if m.get('start_speed') is not None:
+            self.start_speed = m.get('start_speed')
+        if m.get('end_speed') is not None:
+            self.end_speed = m.get('end_speed')
+        if m.get('average_speed') is not None:
+            self.average_speed = m.get('average_speed')
+        if m.get('turning_angle') is not None:
+            self.turning_angle = m.get('turning_angle')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        return self
+
+
 class IotBasicDeviceQueryResponse(TeaModel):
     def __init__(
         self,
@@ -27644,6 +27731,129 @@ class PushDeviceMessageResponse(TeaModel):
             self.message_id = m.get('message_id')
         if m.get('result') is not None:
             self.result = m.get('result')
+        return self
+
+
+class SyncFourwheelerCareventRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        device_did: str = None,
+        device_sn: str = None,
+        device_corp: str = None,
+        items: List[FourWheelerCarEvent] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 注册到蚂蚁IoT返回的唯一ID
+        # 注：deviceDid有值时，deviceSn 和 cordeviceCorp 可以为空
+        self.device_did = device_did
+        # 设备序列号
+        # 注:当deviceSn 和 cordeviceCorp有值时，deviceDid 可以为空。
+        self.device_sn = device_sn
+        # 设备厂商
+        # 注:当deviceSn 和 cordeviceCorp有值时，deviceDid 可以为空。
+        self.device_corp = device_corp
+        # 车辆事件集合
+        self.items = items
+
+    def validate(self):
+        self.validate_required(self.items, 'items')
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.device_did is not None:
+            result['device_did'] = self.device_did
+        if self.device_sn is not None:
+            result['device_sn'] = self.device_sn
+        if self.device_corp is not None:
+            result['device_corp'] = self.device_corp
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('device_did') is not None:
+            self.device_did = m.get('device_did')
+        if m.get('device_sn') is not None:
+            self.device_sn = m.get('device_sn')
+        if m.get('device_corp') is not None:
+            self.device_corp = m.get('device_corp')
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = FourWheelerCarEvent()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class SyncFourwheelerCareventResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        success: bool = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 接口调用结果
+        self.success = success
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('success') is not None:
+            self.success = m.get('success')
         return self
 
 
