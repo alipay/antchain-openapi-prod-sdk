@@ -493,6 +493,8 @@ use AntChain\BOT\Models\StopIotplantformProductRequest;
 use AntChain\BOT\Models\StopIotplantformProductResponse;
 use AntChain\BOT\Models\SyncDeviceScreenstatusRequest;
 use AntChain\BOT\Models\SyncDeviceScreenstatusResponse;
+use AntChain\BOT\Models\SyncFourwheelerCareventRequest;
+use AntChain\BOT\Models\SyncFourwheelerCareventResponse;
 use AntChain\BOT\Models\SyncIotbasicDevicegenerateRequest;
 use AntChain\BOT\Models\SyncIotbasicDevicegenerateResponse;
 use AntChain\BOT\Models\SyncIotbasicDevicestatusRequest;
@@ -694,7 +696,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.12.6',
+                    'sdk_version'      => '1.12.7',
                     '_prod_code'       => 'BOT',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5167,6 +5169,39 @@ class Client
         Utils::validateModel($request);
 
         return PushDeviceMessageResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.device.message.push', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: iotbasic-四轮车安全驾驶事件同步
+     * Summary: iotbasic-四轮车安全驾驶事件同步.
+     *
+     * @param SyncFourwheelerCareventRequest $request
+     *
+     * @return SyncFourwheelerCareventResponse
+     */
+    public function syncFourwheelerCarevent($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->syncFourwheelerCareventEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: iotbasic-四轮车安全驾驶事件同步
+     * Summary: iotbasic-四轮车安全驾驶事件同步.
+     *
+     * @param SyncFourwheelerCareventRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return SyncFourwheelerCareventResponse
+     */
+    public function syncFourwheelerCareventEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SyncFourwheelerCareventResponse::fromMap($this->doRequest('1.0', 'blockchain.bot.fourwheeler.carevent.sync', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
