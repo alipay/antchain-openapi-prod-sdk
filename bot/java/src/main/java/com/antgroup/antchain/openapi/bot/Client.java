@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.12.6"),
+                    new TeaPair("sdk_version", "1.12.7"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2753,6 +2753,25 @@ public class Client {
     public PushDeviceMessageResponse pushDeviceMessageEx(PushDeviceMessageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.device.message.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushDeviceMessageResponse());
+    }
+
+    /**
+     * Description: iotbasic-四轮车安全驾驶事件同步
+     * Summary: iotbasic-四轮车安全驾驶事件同步
+     */
+    public SyncFourwheelerCareventResponse syncFourwheelerCarevent(SyncFourwheelerCareventRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncFourwheelerCareventEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: iotbasic-四轮车安全驾驶事件同步
+     * Summary: iotbasic-四轮车安全驾驶事件同步
+     */
+    public SyncFourwheelerCareventResponse syncFourwheelerCareventEx(SyncFourwheelerCareventRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.fourwheeler.carevent.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncFourwheelerCareventResponse());
     }
 
     /**
