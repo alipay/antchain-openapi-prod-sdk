@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.12.6',
+    sdk_version = '1.12.7',
     _prod_code = 'BOT',
     _prod_channel = 'undefined'
   };
@@ -621,6 +621,28 @@ model IotbasicAppManagerPageInfo {
   installCount: long(name='install_count', example='0'),
   // 设备型号
   deviceModel?: string(name='device_model', example='model'),
+}
+
+// 四轮车驾驶事件
+model FourWheelerCarEvent {
+  // 驾驶事件的类型，如正常驾驶、碰撞、急转弯、启动熄火等。
+  eventType: string(name='event_type', example='1'),
+  // 驾驶事件的结束时间
+  endTime: long(name='end_time', example='1736152040551'),
+  // 驾驶事件发生地点的经度坐标
+  lng: string(name='lng', example='121.4737'),
+  // 驾驶事件发生地点的纬度坐标
+  lat: string(name='lat', example='31.2304'),
+  // 驾驶事件开始的速度
+  startSpeed?: string(name='start_speed', example='60'),
+  // 驾驶事件结束时的速度
+  endSpeed?: string(name='end_speed', example='45'),
+  // 驾驶过程中的平均速度
+  averageSpeed?: string(name='average_speed', example='52.5'),
+  // 驾驶过程中车辆的转弯角度
+  turningAngle?: string(name='turning_angle', example='90'),
+  // 驾驶事件的持续时间（以秒为单位)
+  duration?: string(name='duration', example='10'),
 }
 
 // 查询设备列表结构体
@@ -9205,6 +9227,53 @@ async function pushDeviceMessage(request: PushDeviceMessageRequest): PushDeviceM
 async function pushDeviceMessageEx(request: PushDeviceMessageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): PushDeviceMessageResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'blockchain.bot.device.message.push', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncFourwheelerCareventRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 注册到蚂蚁IoT返回的唯一ID
+  // 注：deviceDid有值时，deviceSn 和 cordeviceCorp 可以为空
+  deviceDid?: string(name='device_did'),
+  // 设备序列号
+  // 注:当deviceSn 和 cordeviceCorp有值时，deviceDid 可以为空。
+  deviceSn?: string(name='device_sn'),
+  // 设备厂商
+  // 注:当deviceSn 和 cordeviceCorp有值时，deviceDid 可以为空。
+  deviceCorp?: string(name='device_corp'),
+  // 车辆事件集合
+  items: [ FourWheelerCarEvent ](name='items'),
+}
+
+model SyncFourwheelerCareventResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 接口调用结果
+  success?: boolean(name='success'),
+}
+
+/**
+ * Description: iotbasic-四轮车安全驾驶事件同步
+ * Summary: iotbasic-四轮车安全驾驶事件同步
+ */
+async function syncFourwheelerCarevent(request: SyncFourwheelerCareventRequest): SyncFourwheelerCareventResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncFourwheelerCareventEx(request, headers, runtime);
+}
+
+/**
+ * Description: iotbasic-四轮车安全驾驶事件同步
+ * Summary: iotbasic-四轮车安全驾驶事件同步
+ */
+async function syncFourwheelerCareventEx(request: SyncFourwheelerCareventRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncFourwheelerCareventResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'blockchain.bot.fourwheeler.carevent.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model QueryIotplatformPurchaseorderRequest = {
