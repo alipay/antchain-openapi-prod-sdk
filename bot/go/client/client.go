@@ -1631,6 +1631,81 @@ func (s *IotbasicAppManagerPageInfo) SetDeviceModel(v string) *IotbasicAppManage
 	return s
 }
 
+// 四轮车驾驶事件
+type FourWheelerCarEvent struct {
+	// 驾驶事件的类型，如正常驾驶、碰撞、急转弯、启动熄火等。
+	EventType *string `json:"event_type,omitempty" xml:"event_type,omitempty" require:"true"`
+	// 驾驶事件的结束时间
+	EndTime *int64 `json:"end_time,omitempty" xml:"end_time,omitempty" require:"true"`
+	// 驾驶事件发生地点的经度坐标
+	Lng *string `json:"lng,omitempty" xml:"lng,omitempty" require:"true"`
+	// 驾驶事件发生地点的纬度坐标
+	Lat *string `json:"lat,omitempty" xml:"lat,omitempty" require:"true"`
+	// 驾驶事件开始的速度
+	StartSpeed *string `json:"start_speed,omitempty" xml:"start_speed,omitempty"`
+	// 驾驶事件结束时的速度
+	EndSpeed *string `json:"end_speed,omitempty" xml:"end_speed,omitempty"`
+	// 驾驶过程中的平均速度
+	AverageSpeed *string `json:"average_speed,omitempty" xml:"average_speed,omitempty"`
+	// 驾驶过程中车辆的转弯角度
+	TurningAngle *string `json:"turning_angle,omitempty" xml:"turning_angle,omitempty"`
+	// 驾驶事件的持续时间（以秒为单位)
+	Duration *string `json:"duration,omitempty" xml:"duration,omitempty"`
+}
+
+func (s FourWheelerCarEvent) String() string {
+	return tea.Prettify(s)
+}
+
+func (s FourWheelerCarEvent) GoString() string {
+	return s.String()
+}
+
+func (s *FourWheelerCarEvent) SetEventType(v string) *FourWheelerCarEvent {
+	s.EventType = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetEndTime(v int64) *FourWheelerCarEvent {
+	s.EndTime = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetLng(v string) *FourWheelerCarEvent {
+	s.Lng = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetLat(v string) *FourWheelerCarEvent {
+	s.Lat = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetStartSpeed(v string) *FourWheelerCarEvent {
+	s.StartSpeed = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetEndSpeed(v string) *FourWheelerCarEvent {
+	s.EndSpeed = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetAverageSpeed(v string) *FourWheelerCarEvent {
+	s.AverageSpeed = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetTurningAngle(v string) *FourWheelerCarEvent {
+	s.TurningAngle = &v
+	return s
+}
+
+func (s *FourWheelerCarEvent) SetDuration(v string) *FourWheelerCarEvent {
+	s.Duration = &v
+	return s
+}
+
 // 查询设备列表结构体
 type IotBasicDeviceQueryResponse struct {
 	// 设备名称
@@ -22109,6 +22184,100 @@ func (s *PushDeviceMessageResponse) SetResult(v string) *PushDeviceMessageRespon
 	return s
 }
 
+type SyncFourwheelerCareventRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 注册到蚂蚁IoT返回的唯一ID
+	// 注：deviceDid有值时，deviceSn 和 cordeviceCorp 可以为空
+	DeviceDid *string `json:"device_did,omitempty" xml:"device_did,omitempty"`
+	// 设备序列号
+	// 注:当deviceSn 和 cordeviceCorp有值时，deviceDid 可以为空。
+	DeviceSn *string `json:"device_sn,omitempty" xml:"device_sn,omitempty"`
+	// 设备厂商
+	// 注:当deviceSn 和 cordeviceCorp有值时，deviceDid 可以为空。
+	DeviceCorp *string `json:"device_corp,omitempty" xml:"device_corp,omitempty"`
+	// 车辆事件集合
+	Items []*FourWheelerCarEvent `json:"items,omitempty" xml:"items,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s SyncFourwheelerCareventRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncFourwheelerCareventRequest) GoString() string {
+	return s.String()
+}
+
+func (s *SyncFourwheelerCareventRequest) SetAuthToken(v string) *SyncFourwheelerCareventRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *SyncFourwheelerCareventRequest) SetProductInstanceId(v string) *SyncFourwheelerCareventRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *SyncFourwheelerCareventRequest) SetDeviceDid(v string) *SyncFourwheelerCareventRequest {
+	s.DeviceDid = &v
+	return s
+}
+
+func (s *SyncFourwheelerCareventRequest) SetDeviceSn(v string) *SyncFourwheelerCareventRequest {
+	s.DeviceSn = &v
+	return s
+}
+
+func (s *SyncFourwheelerCareventRequest) SetDeviceCorp(v string) *SyncFourwheelerCareventRequest {
+	s.DeviceCorp = &v
+	return s
+}
+
+func (s *SyncFourwheelerCareventRequest) SetItems(v []*FourWheelerCarEvent) *SyncFourwheelerCareventRequest {
+	s.Items = v
+	return s
+}
+
+type SyncFourwheelerCareventResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 接口调用结果
+	Success *bool `json:"success,omitempty" xml:"success,omitempty"`
+}
+
+func (s SyncFourwheelerCareventResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s SyncFourwheelerCareventResponse) GoString() string {
+	return s.String()
+}
+
+func (s *SyncFourwheelerCareventResponse) SetReqMsgId(v string) *SyncFourwheelerCareventResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *SyncFourwheelerCareventResponse) SetResultCode(v string) *SyncFourwheelerCareventResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *SyncFourwheelerCareventResponse) SetResultMsg(v string) *SyncFourwheelerCareventResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *SyncFourwheelerCareventResponse) SetSuccess(v bool) *SyncFourwheelerCareventResponse {
+	s.Success = &v
+	return s
+}
+
 type QueryIotplatformPurchaseorderRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -35398,7 +35567,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.6"),
+				"sdk_version":      tea.String("1.12.7"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -40031,6 +40200,40 @@ func (client *Client) PushDeviceMessageEx(request *PushDeviceMessageRequest, hea
 	}
 	_result = &PushDeviceMessageResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.device.message.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-四轮车安全驾驶事件同步
+ * Summary: iotbasic-四轮车安全驾驶事件同步
+ */
+func (client *Client) SyncFourwheelerCarevent(request *SyncFourwheelerCareventRequest) (_result *SyncFourwheelerCareventResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &SyncFourwheelerCareventResponse{}
+	_body, _err := client.SyncFourwheelerCareventEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: iotbasic-四轮车安全驾驶事件同步
+ * Summary: iotbasic-四轮车安全驾驶事件同步
+ */
+func (client *Client) SyncFourwheelerCareventEx(request *SyncFourwheelerCareventRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *SyncFourwheelerCareventResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &SyncFourwheelerCareventResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.fourwheeler.carevent.sync"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
