@@ -137,7 +137,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.6"},
+                        {"sdk_version", "1.12.7"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.12.6"},
+                        {"sdk_version", "1.12.7"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6001,6 +6001,48 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<PushDeviceMessageResponse>(await DoRequestAsync("1.0", "blockchain.bot.device.message.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-四轮车安全驾驶事件同步
+         * Summary: iotbasic-四轮车安全驾驶事件同步
+         */
+        public SyncFourwheelerCareventResponse SyncFourwheelerCarevent(SyncFourwheelerCareventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SyncFourwheelerCareventEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-四轮车安全驾驶事件同步
+         * Summary: iotbasic-四轮车安全驾驶事件同步
+         */
+        public async Task<SyncFourwheelerCareventResponse> SyncFourwheelerCareventAsync(SyncFourwheelerCareventRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SyncFourwheelerCareventExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: iotbasic-四轮车安全驾驶事件同步
+         * Summary: iotbasic-四轮车安全驾驶事件同步
+         */
+        public SyncFourwheelerCareventResponse SyncFourwheelerCareventEx(SyncFourwheelerCareventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncFourwheelerCareventResponse>(DoRequest("1.0", "blockchain.bot.fourwheeler.carevent.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: iotbasic-四轮车安全驾驶事件同步
+         * Summary: iotbasic-四轮车安全驾驶事件同步
+         */
+        public async Task<SyncFourwheelerCareventResponse> SyncFourwheelerCareventExAsync(SyncFourwheelerCareventRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SyncFourwheelerCareventResponse>(await DoRequestAsync("1.0", "blockchain.bot.fourwheeler.carevent.sync", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
