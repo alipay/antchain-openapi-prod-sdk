@@ -1193,6 +1193,59 @@ export class IotbasicAppManagerPageInfo extends $tea.Model {
   }
 }
 
+// 四轮车驾驶事件
+export class FourWheelerCarEvent extends $tea.Model {
+  // 驾驶事件的类型，如正常驾驶、碰撞、急转弯、启动熄火等。
+  eventType: string;
+  // 驾驶事件的结束时间
+  endTime: number;
+  // 驾驶事件发生地点的经度坐标
+  lng: string;
+  // 驾驶事件发生地点的纬度坐标
+  lat: string;
+  // 驾驶事件开始的速度
+  startSpeed?: string;
+  // 驾驶事件结束时的速度
+  endSpeed?: string;
+  // 驾驶过程中的平均速度
+  averageSpeed?: string;
+  // 驾驶过程中车辆的转弯角度
+  turningAngle?: string;
+  // 驾驶事件的持续时间（以秒为单位)
+  duration?: string;
+  static names(): { [key: string]: string } {
+    return {
+      eventType: 'event_type',
+      endTime: 'end_time',
+      lng: 'lng',
+      lat: 'lat',
+      startSpeed: 'start_speed',
+      endSpeed: 'end_speed',
+      averageSpeed: 'average_speed',
+      turningAngle: 'turning_angle',
+      duration: 'duration',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      eventType: 'string',
+      endTime: 'number',
+      lng: 'string',
+      lat: 'string',
+      startSpeed: 'string',
+      endSpeed: 'string',
+      averageSpeed: 'string',
+      turningAngle: 'string',
+      duration: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询设备列表结构体
 export class IotBasicDeviceQueryResponse extends $tea.Model {
   // 设备名称	
@@ -16854,6 +16907,80 @@ export class PushDeviceMessageResponse extends $tea.Model {
   }
 }
 
+export class SyncFourwheelerCareventRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 注册到蚂蚁IoT返回的唯一ID
+  // 注：deviceDid有值时，deviceSn 和 cordeviceCorp 可以为空
+  deviceDid?: string;
+  // 设备序列号
+  // 注:当deviceSn 和 cordeviceCorp有值时，deviceDid 可以为空。
+  deviceSn?: string;
+  // 设备厂商
+  // 注:当deviceSn 和 cordeviceCorp有值时，deviceDid 可以为空。
+  deviceCorp?: string;
+  // 车辆事件集合
+  items: FourWheelerCarEvent[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      deviceDid: 'device_did',
+      deviceSn: 'device_sn',
+      deviceCorp: 'device_corp',
+      items: 'items',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      deviceDid: 'string',
+      deviceSn: 'string',
+      deviceCorp: 'string',
+      items: { 'type': 'array', 'itemType': FourWheelerCarEvent },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SyncFourwheelerCareventResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 接口调用结果
+  success?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      success: 'success',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      success: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryIotplatformPurchaseorderRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -27188,7 +27315,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.6",
+          sdk_version: "1.12.7",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
@@ -29805,6 +29932,25 @@ export default class Client {
   async pushDeviceMessageEx(request: PushDeviceMessageRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushDeviceMessageResponse> {
     Util.validateModel(request);
     return $tea.cast<PushDeviceMessageResponse>(await this.doRequest("1.0", "blockchain.bot.device.message.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushDeviceMessageResponse({}));
+  }
+
+  /**
+   * Description: iotbasic-四轮车安全驾驶事件同步
+   * Summary: iotbasic-四轮车安全驾驶事件同步
+   */
+  async syncFourwheelerCarevent(request: SyncFourwheelerCareventRequest): Promise<SyncFourwheelerCareventResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.syncFourwheelerCareventEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: iotbasic-四轮车安全驾驶事件同步
+   * Summary: iotbasic-四轮车安全驾驶事件同步
+   */
+  async syncFourwheelerCareventEx(request: SyncFourwheelerCareventRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SyncFourwheelerCareventResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SyncFourwheelerCareventResponse>(await this.doRequest("1.0", "blockchain.bot.fourwheeler.carevent.sync", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SyncFourwheelerCareventResponse({}));
   }
 
   /**
