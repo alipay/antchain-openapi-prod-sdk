@@ -19,6 +19,10 @@ public class EventSpecs extends TeaModel {
     @NameInMap("submit_date")
     public String submitDate;
 
+    // 冗余字段，请忽略
+    @NameInMap("return_hash")
+    public Boolean returnHash;
+
     public static EventSpecs build(java.util.Map<String, ?> map) throws Exception {
         EventSpecs self = new EventSpecs();
         return TeaModel.build(map, self);
@@ -46,6 +50,14 @@ public class EventSpecs extends TeaModel {
     }
     public String getSubmitDate() {
         return this.submitDate;
+    }
+
+    public EventSpecs setReturnHash(Boolean returnHash) {
+        this.returnHash = returnHash;
+        return this;
+    }
+    public Boolean getReturnHash() {
+        return this.returnHash;
     }
 
 }
