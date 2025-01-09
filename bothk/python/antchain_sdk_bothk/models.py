@@ -216,6 +216,7 @@ class EventSpecs(TeaModel):
         event_model_id: str = None,
         biz_type: str = None,
         submit_date: str = None,
+        return_hash: bool = None,
     ):
         # 物模型事件ID
         self.event_model_id = event_model_id
@@ -225,6 +226,8 @@ class EventSpecs(TeaModel):
         # submit_date	STRING	否	2024-08-15
         # 
         self.submit_date = submit_date
+        # 冗余字段，请忽略
+        self.return_hash = return_hash
 
     def validate(self):
         self.validate_required(self.event_model_id, 'event_model_id')
@@ -241,6 +244,8 @@ class EventSpecs(TeaModel):
             result['biz_type'] = self.biz_type
         if self.submit_date is not None:
             result['submit_date'] = self.submit_date
+        if self.return_hash is not None:
+            result['return_hash'] = self.return_hash
         return result
 
     def from_map(self, m: dict = None):
@@ -251,6 +256,8 @@ class EventSpecs(TeaModel):
             self.biz_type = m.get('biz_type')
         if m.get('submit_date') is not None:
             self.submit_date = m.get('submit_date')
+        if m.get('return_hash') is not None:
+            self.return_hash = m.get('return_hash')
         return self
 
 
