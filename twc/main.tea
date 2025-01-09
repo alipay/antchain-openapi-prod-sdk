@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.13.1',
+    sdk_version = '1.13.6',
     _prod_code = 'TWC',
     _prod_channel = 'undefined'
   };
@@ -1471,6 +1471,28 @@ model BclCertifyInfo {
   // 2.认证成功：PASS 
   // 3.认证失败：FAIL
   status: string(name='status', example='INIT'),
+}
+
+// 代扣订单信息
+model DeductOrderInfo {
+  // 订单id
+  orderId: string(name='order_id', example='9d3057dfdcad494fb2d9033130'),
+  // 商户统一社会信用代码
+  merchantId: string(name='merchant_id', example='91310101MA1FPODA3G'),
+  // 租户id
+  tenantId: string(name='tenant_id', example='CYRMAXCZ'),
+  // 用户支付宝uid
+  alipayUserId: string(name='alipay_user_id', example='2088xxxxxxxx8721'),
+  // 商品名称
+  productName?: string(name='product_name', example='iPhone19 Pro Max'),
+  // 订单创建时间
+  orderCreateDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='order_create_date', example='2024-01-01 00:00:00'),
+  // 订单状态
+  orderStatusCode?: string(name='order_status_code', example='OPEN'),
+  // 订单子状态,ORDER_FULFILLMENT: 履约中;ORDER_FULFILLMENT_COMPLETED:履约完成;
+  orderSubStatusCode: string(name='order_sub_status_code', example='ORDER_FULFILLMENT'),
+  // 总金额，单位为分
+  totalRentMoney: long(name='total_rent_money', example='100'),
 }
 
 // 合同流程信息
@@ -7361,18 +7383,8 @@ model CreateContractOnestepflowRequest = {
   signPlatform?: string(name='sign_platform'),
   // 签署有效截止日期，毫秒，默认3天失效
   signValidity?: long(name='sign_validity'),
-  // 是否强制代扣
-  autoDeductionForce?: boolean(name='auto_deduction_force'),
-  // 代扣规则详情
-  repaymentOrderInfo?: [ RepaymentOrderRequest ](name='repayment_order_info'),
-  // 付款方ID（个人）
-  payerTuid?: string(name='payer_tuid'),
-  // 收款方ID(机构)
-  payeeTuid?: string(name='payee_tuid'),
-  // 租赁订单Id
-  bclOrderId?: string(maxLength=32, name='bcl_order_id'),
-  // 代理客户时，实际用户的租户ID
-  subTenantId?: string(name='sub_tenant_id'),
+  // 是否合并签署，默认不是（false）
+  combineSignModel?: boolean(name='combine_sign_model'),
 }
 
 model CreateContractOnestepflowResponse = {
@@ -9877,6 +9889,150 @@ async function submitContractArchive(request: SubmitContractArchiveRequest): Sub
 async function submitContractArchiveEx(request: SubmitContractArchiveRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitContractArchiveResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'twc.notary.contract.archive.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model ListContractDeductorderRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 用户支付宝2088uid
+  alipayUserId: string(name='alipay_user_id'),
+}
+
+model ListContractDeductorderResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 代扣期数列表
+  orderList?: [ DeductOrderInfo ](name='order_list'),
+}
+
+/**
+ * Description: 区块链合同代扣订单列表
+ * Summary: 代扣订单列表
+ */
+async function listContractDeductorder(request: ListContractDeductorderRequest): ListContractDeductorderResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return listContractDeductorderEx(request, headers, runtime);
+}
+
+/**
+ * Description: 区块链合同代扣订单列表
+ * Summary: 代扣订单列表
+ */
+async function listContractDeductorderEx(request: ListContractDeductorderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ListContractDeductorderResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.deductorder.list', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractDeductdetailRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 租户id
+  tenantId: string(name='tenant_id'),
+  // 订单id
+  orderId: string(name='order_id'),
+}
+
+model QueryContractDeductdetailResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 租户id
+  tenantId?: string(name='tenant_id'),
+  // 订单id
+  orderId?: string(name='order_id'),
+  // 用户支付宝uid
+  alipayUserId?: string(name='alipay_user_id'),
+  // 商户统一社会信用代码
+  merchantId?: string(name='merchant_id'),
+  // 商品名称
+  productName?: string(name='product_name'),
+  // 订单创建时间
+  orderCreateDate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='order_create_date'),
+  // 订单状态
+  orderStatusCode?: string(name='order_status_code'),
+  // 订单子状态
+  orderSubStatusCode?: string(name='order_sub_status_code'),
+  // 总金额，单位为分
+  totalRentMoney?: long(name='total_rent_money'),
+  // 商户smid
+  alipaySmid?: string(name='alipay_smid'),
+  // 商户名称
+  merchantName?: string(name='merchant_name'),
+  // 用户支付宝代扣签约协议号
+  alipayAgreementNo?: string(name='alipay_agreement_no'),
+  // 履约记录
+  fulfillmentList?: [ string ](name='fulfillment_list'),
+}
+
+/**
+ * Description: 代扣订单详情
+ * Summary: 代扣订单详情
+ */
+async function queryContractDeductdetail(request: QueryContractDeductdetailRequest): QueryContractDeductdetailResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractDeductdetailEx(request, headers, runtime);
+}
+
+/**
+ * Description: 代扣订单详情
+ * Summary: 代扣订单详情
+ */
+async function queryContractDeductdetailEx(request: QueryContractDeductdetailRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractDeductdetailResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.deductdetail.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryContractDedcutpayinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 支付宝外部交易号
+  outOrderNo: string(name='out_order_no'),
+}
+
+model QueryContractDedcutpayinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 平台租户id
+  tenantId?: string(name='tenant_id'),
+  // 订单id
+  flowId?: string(name='flow_id'),
+  // 付款人支付宝2088uid
+  payerUserId?: string(name='payer_user_id'),
+}
+
+/**
+ * Description: 根据支付宝商家订单号查询交易单
+ * Summary: 根据交易号查询订单
+ */
+async function queryContractDedcutpayinfo(request: QueryContractDedcutpayinfoRequest): QueryContractDedcutpayinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryContractDedcutpayinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据支付宝商家订单号查询交易单
+ * Summary: 根据交易号查询订单
+ */
+async function queryContractDedcutpayinfoEx(request: QueryContractDedcutpayinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryContractDedcutpayinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'twc.notary.contract.dedcutpayinfo.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushDigitalcontentUsageRequest = {
