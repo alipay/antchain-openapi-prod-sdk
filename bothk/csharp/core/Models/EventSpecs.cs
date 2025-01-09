@@ -27,6 +27,11 @@ namespace AntChain.SDK.BOTHK.Models
         [Validation(Required=false)]
         public string SubmitDate { get; set; }
 
+        // 冗余字段，请忽略
+        [NameInMap("return_hash")]
+        [Validation(Required=false)]
+        public bool? ReturnHash { get; set; }
+
     }
 
 }
