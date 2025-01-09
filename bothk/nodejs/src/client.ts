@@ -124,11 +124,14 @@ export class EventSpecs extends $tea.Model {
   // submit_date	STRING	否	2024-08-15		
   // 
   submitDate?: string;
+  // 冗余字段，请忽略
+  returnHash?: boolean;
   static names(): { [key: string]: string } {
     return {
       eventModelId: 'event_model_id',
       bizType: 'biz_type',
       submitDate: 'submit_date',
+      returnHash: 'return_hash',
     };
   }
 
@@ -137,6 +140,7 @@ export class EventSpecs extends $tea.Model {
       eventModelId: 'string',
       bizType: 'string',
       submitDate: 'string',
+      returnHash: 'boolean',
     };
   }
 
@@ -800,7 +804,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.0",
+          sdk_version: "1.0.1",
           _prod_code: "BOTHK",
           _prod_channel: "default",
         };
