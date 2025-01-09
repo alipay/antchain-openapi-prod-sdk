@@ -56,30 +56,9 @@ public class CreateContractOnestepflowRequest extends TeaModel {
     @NameInMap("sign_validity")
     public Long signValidity;
 
-    // 是否强制代扣
-    @NameInMap("auto_deduction_force")
-    public Boolean autoDeductionForce;
-
-    // 代扣规则详情
-    @NameInMap("repayment_order_info")
-    public java.util.List<RepaymentOrderRequest> repaymentOrderInfo;
-
-    // 付款方ID（个人）
-    @NameInMap("payer_tuid")
-    public String payerTuid;
-
-    // 收款方ID(机构)
-    @NameInMap("payee_tuid")
-    public String payeeTuid;
-
-    // 租赁订单Id
-    @NameInMap("bcl_order_id")
-    @Validation(maxLength = 32)
-    public String bclOrderId;
-
-    // 代理客户时，实际用户的租户ID
-    @NameInMap("sub_tenant_id")
-    public String subTenantId;
+    // 是否合并签署，默认不是（false）
+    @NameInMap("combine_sign_model")
+    public Boolean combineSignModel;
 
     public static CreateContractOnestepflowRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateContractOnestepflowRequest self = new CreateContractOnestepflowRequest();
@@ -190,52 +169,12 @@ public class CreateContractOnestepflowRequest extends TeaModel {
         return this.signValidity;
     }
 
-    public CreateContractOnestepflowRequest setAutoDeductionForce(Boolean autoDeductionForce) {
-        this.autoDeductionForce = autoDeductionForce;
+    public CreateContractOnestepflowRequest setCombineSignModel(Boolean combineSignModel) {
+        this.combineSignModel = combineSignModel;
         return this;
     }
-    public Boolean getAutoDeductionForce() {
-        return this.autoDeductionForce;
-    }
-
-    public CreateContractOnestepflowRequest setRepaymentOrderInfo(java.util.List<RepaymentOrderRequest> repaymentOrderInfo) {
-        this.repaymentOrderInfo = repaymentOrderInfo;
-        return this;
-    }
-    public java.util.List<RepaymentOrderRequest> getRepaymentOrderInfo() {
-        return this.repaymentOrderInfo;
-    }
-
-    public CreateContractOnestepflowRequest setPayerTuid(String payerTuid) {
-        this.payerTuid = payerTuid;
-        return this;
-    }
-    public String getPayerTuid() {
-        return this.payerTuid;
-    }
-
-    public CreateContractOnestepflowRequest setPayeeTuid(String payeeTuid) {
-        this.payeeTuid = payeeTuid;
-        return this;
-    }
-    public String getPayeeTuid() {
-        return this.payeeTuid;
-    }
-
-    public CreateContractOnestepflowRequest setBclOrderId(String bclOrderId) {
-        this.bclOrderId = bclOrderId;
-        return this;
-    }
-    public String getBclOrderId() {
-        return this.bclOrderId;
-    }
-
-    public CreateContractOnestepflowRequest setSubTenantId(String subTenantId) {
-        this.subTenantId = subTenantId;
-        return this;
-    }
-    public String getSubTenantId() {
-        return this.subTenantId;
+    public Boolean getCombineSignModel() {
+        return this.combineSignModel;
     }
 
 }

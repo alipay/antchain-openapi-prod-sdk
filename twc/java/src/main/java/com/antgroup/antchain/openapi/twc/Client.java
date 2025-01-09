@@ -122,7 +122,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.13.1"),
+                    new TeaPair("sdk_version", "1.13.6"),
                     new TeaPair("_prod_code", "TWC"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -2884,6 +2884,63 @@ public class Client {
     public SubmitContractArchiveResponse submitContractArchiveEx(SubmitContractArchiveRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.archive.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitContractArchiveResponse());
+    }
+
+    /**
+     * Description: 区块链合同代扣订单列表
+     * Summary: 代扣订单列表
+     */
+    public ListContractDeductorderResponse listContractDeductorder(ListContractDeductorderRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listContractDeductorderEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 区块链合同代扣订单列表
+     * Summary: 代扣订单列表
+     */
+    public ListContractDeductorderResponse listContractDeductorderEx(ListContractDeductorderRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.deductorder.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListContractDeductorderResponse());
+    }
+
+    /**
+     * Description: 代扣订单详情
+     * Summary: 代扣订单详情
+     */
+    public QueryContractDeductdetailResponse queryContractDeductdetail(QueryContractDeductdetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractDeductdetailEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 代扣订单详情
+     * Summary: 代扣订单详情
+     */
+    public QueryContractDeductdetailResponse queryContractDeductdetailEx(QueryContractDeductdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.deductdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractDeductdetailResponse());
+    }
+
+    /**
+     * Description: 根据支付宝商家订单号查询交易单
+     * Summary: 根据交易号查询订单
+     */
+    public QueryContractDedcutpayinfoResponse queryContractDedcutpayinfo(QueryContractDedcutpayinfoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryContractDedcutpayinfoEx(request, headers, runtime);
+    }
+
+    /**
+     * Description: 根据支付宝商家订单号查询交易单
+     * Summary: 根据交易号查询订单
+     */
+    public QueryContractDedcutpayinfoResponse queryContractDedcutpayinfoEx(QueryContractDedcutpayinfoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "twc.notary.contract.dedcutpayinfo.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryContractDedcutpayinfoResponse());
     }
 
     /**
