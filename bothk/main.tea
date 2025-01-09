@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.0.0',
+    sdk_version = '1.0.1',
     _prod_code = 'BOTHK',
     _prod_channel = 'default'
   };
@@ -185,6 +185,8 @@ model EventSpecs {
   // submit_date	STRING	否	2024-08-15		
   // 
   submitDate?: string(name='submit_date', example='2024-08-15'),
+  // 冗余字段，请忽略
+  returnHash?: boolean(name='return_hash', example='true, false'),
 }
 
 // 可信设备ID及其关联的设备ID
