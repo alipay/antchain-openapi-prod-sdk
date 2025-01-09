@@ -3245,6 +3245,59 @@ export class BclCertifyInfo extends $tea.Model {
   }
 }
 
+// 代扣订单信息
+export class DeductOrderInfo extends $tea.Model {
+  // 订单id
+  orderId: string;
+  // 商户统一社会信用代码
+  merchantId: string;
+  // 租户id
+  tenantId: string;
+  // 用户支付宝uid
+  alipayUserId: string;
+  // 商品名称
+  productName?: string;
+  // 订单创建时间
+  orderCreateDate: string;
+  // 订单状态
+  orderStatusCode?: string;
+  // 订单子状态,ORDER_FULFILLMENT: 履约中;ORDER_FULFILLMENT_COMPLETED:履约完成;
+  orderSubStatusCode: string;
+  // 总金额，单位为分
+  totalRentMoney: number;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      tenantId: 'tenant_id',
+      alipayUserId: 'alipay_user_id',
+      productName: 'product_name',
+      orderCreateDate: 'order_create_date',
+      orderStatusCode: 'order_status_code',
+      orderSubStatusCode: 'order_sub_status_code',
+      totalRentMoney: 'total_rent_money',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      merchantId: 'string',
+      tenantId: 'string',
+      alipayUserId: 'string',
+      productName: 'string',
+      orderCreateDate: 'string',
+      orderStatusCode: 'string',
+      orderSubStatusCode: 'string',
+      totalRentMoney: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 合同流程信息
 export class BclContractFlowInfo extends $tea.Model {
   // 合同主题
@@ -13838,18 +13891,8 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
   signPlatform?: string;
   // 签署有效截止日期，毫秒，默认3天失效
   signValidity?: number;
-  // 是否强制代扣
-  autoDeductionForce?: boolean;
-  // 代扣规则详情
-  repaymentOrderInfo?: RepaymentOrderRequest[];
-  // 付款方ID（个人）
-  payerTuid?: string;
-  // 收款方ID(机构)
-  payeeTuid?: string;
-  // 租赁订单Id
-  bclOrderId?: string;
-  // 代理客户时，实际用户的租户ID
-  subTenantId?: string;
+  // 是否合并签署，默认不是（false）
+  combineSignModel?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -13865,12 +13908,7 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
       signFields: 'sign_fields',
       signPlatform: 'sign_platform',
       signValidity: 'sign_validity',
-      autoDeductionForce: 'auto_deduction_force',
-      repaymentOrderInfo: 'repayment_order_info',
-      payerTuid: 'payer_tuid',
-      payeeTuid: 'payee_tuid',
-      bclOrderId: 'bcl_order_id',
-      subTenantId: 'sub_tenant_id',
+      combineSignModel: 'combine_sign_model',
     };
   }
 
@@ -13889,12 +13927,7 @@ export class CreateContractOnestepflowRequest extends $tea.Model {
       signFields: { 'type': 'array', 'itemType': OneStepSignField },
       signPlatform: 'string',
       signValidity: 'number',
-      autoDeductionForce: 'boolean',
-      repaymentOrderInfo: { 'type': 'array', 'itemType': RepaymentOrderRequest },
-      payerTuid: 'string',
-      payeeTuid: 'string',
-      bclOrderId: 'string',
-      subTenantId: 'string',
+      combineSignModel: 'boolean',
     };
   }
 
@@ -17949,6 +17982,243 @@ export class SubmitContractArchiveResponse extends $tea.Model {
       resultMsg: 'string',
       code: 'number',
       message: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListContractDeductorderRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户支付宝2088uid
+  alipayUserId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      alipayUserId: 'alipay_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      alipayUserId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ListContractDeductorderResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 代扣期数列表
+  orderList?: DeductOrderInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      orderList: 'order_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      orderList: { 'type': 'array', 'itemType': DeductOrderInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractDeductdetailRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 订单id
+  orderId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      orderId: 'order_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      orderId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractDeductdetailResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 租户id
+  tenantId?: string;
+  // 订单id
+  orderId?: string;
+  // 用户支付宝uid
+  alipayUserId?: string;
+  // 商户统一社会信用代码
+  merchantId?: string;
+  // 商品名称
+  productName?: string;
+  // 订单创建时间
+  orderCreateDate?: string;
+  // 订单状态
+  orderStatusCode?: string;
+  // 订单子状态
+  orderSubStatusCode?: string;
+  // 总金额，单位为分
+  totalRentMoney?: number;
+  // 商户smid
+  alipaySmid?: string;
+  // 商户名称
+  merchantName?: string;
+  // 用户支付宝代扣签约协议号
+  alipayAgreementNo?: string;
+  // 履约记录
+  fulfillmentList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tenantId: 'tenant_id',
+      orderId: 'order_id',
+      alipayUserId: 'alipay_user_id',
+      merchantId: 'merchant_id',
+      productName: 'product_name',
+      orderCreateDate: 'order_create_date',
+      orderStatusCode: 'order_status_code',
+      orderSubStatusCode: 'order_sub_status_code',
+      totalRentMoney: 'total_rent_money',
+      alipaySmid: 'alipay_smid',
+      merchantName: 'merchant_name',
+      alipayAgreementNo: 'alipay_agreement_no',
+      fulfillmentList: 'fulfillment_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tenantId: 'string',
+      orderId: 'string',
+      alipayUserId: 'string',
+      merchantId: 'string',
+      productName: 'string',
+      orderCreateDate: 'string',
+      orderStatusCode: 'string',
+      orderSubStatusCode: 'string',
+      totalRentMoney: 'number',
+      alipaySmid: 'string',
+      merchantName: 'string',
+      alipayAgreementNo: 'string',
+      fulfillmentList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractDedcutpayinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 支付宝外部交易号
+  outOrderNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      outOrderNo: 'out_order_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      outOrderNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryContractDedcutpayinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 平台租户id
+  tenantId?: string;
+  // 订单id
+  flowId?: string;
+  // 付款人支付宝2088uid
+  payerUserId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      tenantId: 'tenant_id',
+      flowId: 'flow_id',
+      payerUserId: 'payer_user_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      tenantId: 'string',
+      flowId: 'string',
+      payerUserId: 'string',
     };
   }
 
@@ -35994,7 +36264,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.1",
+          sdk_version: "1.13.6",
           _prod_code: "TWC",
           _prod_channel: "undefined",
         };
@@ -38742,6 +39012,63 @@ export default class Client {
   async submitContractArchiveEx(request: SubmitContractArchiveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitContractArchiveResponse> {
     Util.validateModel(request);
     return $tea.cast<SubmitContractArchiveResponse>(await this.doRequest("1.0", "twc.notary.contract.archive.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitContractArchiveResponse({}));
+  }
+
+  /**
+   * Description: 区块链合同代扣订单列表
+   * Summary: 代扣订单列表
+   */
+  async listContractDeductorder(request: ListContractDeductorderRequest): Promise<ListContractDeductorderResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.listContractDeductorderEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 区块链合同代扣订单列表
+   * Summary: 代扣订单列表
+   */
+  async listContractDeductorderEx(request: ListContractDeductorderRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ListContractDeductorderResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ListContractDeductorderResponse>(await this.doRequest("1.0", "twc.notary.contract.deductorder.list", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ListContractDeductorderResponse({}));
+  }
+
+  /**
+   * Description: 代扣订单详情
+   * Summary: 代扣订单详情
+   */
+  async queryContractDeductdetail(request: QueryContractDeductdetailRequest): Promise<QueryContractDeductdetailResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractDeductdetailEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 代扣订单详情
+   * Summary: 代扣订单详情
+   */
+  async queryContractDeductdetailEx(request: QueryContractDeductdetailRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractDeductdetailResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractDeductdetailResponse>(await this.doRequest("1.0", "twc.notary.contract.deductdetail.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractDeductdetailResponse({}));
+  }
+
+  /**
+   * Description: 根据支付宝商家订单号查询交易单
+   * Summary: 根据交易号查询订单
+   */
+  async queryContractDedcutpayinfo(request: QueryContractDedcutpayinfoRequest): Promise<QueryContractDedcutpayinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryContractDedcutpayinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 根据支付宝商家订单号查询交易单
+   * Summary: 根据交易号查询订单
+   */
+  async queryContractDedcutpayinfoEx(request: QueryContractDedcutpayinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryContractDedcutpayinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryContractDedcutpayinfoResponse>(await this.doRequest("1.0", "twc.notary.contract.dedcutpayinfo.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryContractDedcutpayinfoResponse({}));
   }
 
   /**
