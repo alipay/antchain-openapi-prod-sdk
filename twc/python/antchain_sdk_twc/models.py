@@ -5339,6 +5339,98 @@ class BclCertifyInfo(TeaModel):
         return self
 
 
+class DeductOrderInfo(TeaModel):
+    def __init__(
+        self,
+        order_id: str = None,
+        merchant_id: str = None,
+        tenant_id: str = None,
+        alipay_user_id: str = None,
+        product_name: str = None,
+        order_create_date: str = None,
+        order_status_code: str = None,
+        order_sub_status_code: str = None,
+        total_rent_money: int = None,
+    ):
+        # 订单id
+        self.order_id = order_id
+        # 商户统一社会信用代码
+        self.merchant_id = merchant_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 用户支付宝uid
+        self.alipay_user_id = alipay_user_id
+        # 商品名称
+        self.product_name = product_name
+        # 订单创建时间
+        self.order_create_date = order_create_date
+        # 订单状态
+        self.order_status_code = order_status_code
+        # 订单子状态,ORDER_FULFILLMENT: 履约中;ORDER_FULFILLMENT_COMPLETED:履约完成;
+        self.order_sub_status_code = order_sub_status_code
+        # 总金额，单位为分
+        self.total_rent_money = total_rent_money
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.alipay_user_id, 'alipay_user_id')
+        self.validate_required(self.order_create_date, 'order_create_date')
+        if self.order_create_date is not None:
+            self.validate_pattern(self.order_create_date, 'order_create_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.order_sub_status_code, 'order_sub_status_code')
+        self.validate_required(self.total_rent_money, 'total_rent_money')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.order_create_date is not None:
+            result['order_create_date'] = self.order_create_date
+        if self.order_status_code is not None:
+            result['order_status_code'] = self.order_status_code
+        if self.order_sub_status_code is not None:
+            result['order_sub_status_code'] = self.order_sub_status_code
+        if self.total_rent_money is not None:
+            result['total_rent_money'] = self.total_rent_money
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('order_create_date') is not None:
+            self.order_create_date = m.get('order_create_date')
+        if m.get('order_status_code') is not None:
+            self.order_status_code = m.get('order_status_code')
+        if m.get('order_sub_status_code') is not None:
+            self.order_sub_status_code = m.get('order_sub_status_code')
+        if m.get('total_rent_money') is not None:
+            self.total_rent_money = m.get('total_rent_money')
+        return self
+
+
 class BclContractFlowInfo(TeaModel):
     def __init__(
         self,
@@ -22859,12 +22951,7 @@ class CreateContractOnestepflowRequest(TeaModel):
         sign_fields: List[OneStepSignField] = None,
         sign_platform: str = None,
         sign_validity: int = None,
-        auto_deduction_force: bool = None,
-        repayment_order_info: List[RepaymentOrderRequest] = None,
-        payer_tuid: str = None,
-        payee_tuid: str = None,
-        bcl_order_id: str = None,
-        sub_tenant_id: str = None,
+        combine_sign_model: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -22891,18 +22978,8 @@ class CreateContractOnestepflowRequest(TeaModel):
         self.sign_platform = sign_platform
         # 签署有效截止日期，毫秒，默认3天失效
         self.sign_validity = sign_validity
-        # 是否强制代扣
-        self.auto_deduction_force = auto_deduction_force
-        # 代扣规则详情
-        self.repayment_order_info = repayment_order_info
-        # 付款方ID（个人）
-        self.payer_tuid = payer_tuid
-        # 收款方ID(机构)
-        self.payee_tuid = payee_tuid
-        # 租赁订单Id
-        self.bcl_order_id = bcl_order_id
-        # 代理客户时，实际用户的租户ID
-        self.sub_tenant_id = sub_tenant_id
+        # 是否合并签署，默认不是（false）
+        self.combine_sign_model = combine_sign_model
 
     def validate(self):
         self.validate_required(self.business_scene, 'business_scene')
@@ -22916,12 +22993,6 @@ class CreateContractOnestepflowRequest(TeaModel):
             for k in self.sign_fields:
                 if k:
                     k.validate()
-        if self.repayment_order_info:
-            for k in self.repayment_order_info:
-                if k:
-                    k.validate()
-        if self.bcl_order_id is not None:
-            self.validate_max_length(self.bcl_order_id, 'bcl_order_id', 32)
 
     def to_map(self):
         _map = super().to_map()
@@ -22959,20 +23030,8 @@ class CreateContractOnestepflowRequest(TeaModel):
             result['sign_platform'] = self.sign_platform
         if self.sign_validity is not None:
             result['sign_validity'] = self.sign_validity
-        if self.auto_deduction_force is not None:
-            result['auto_deduction_force'] = self.auto_deduction_force
-        result['repayment_order_info'] = []
-        if self.repayment_order_info is not None:
-            for k in self.repayment_order_info:
-                result['repayment_order_info'].append(k.to_map() if k else None)
-        if self.payer_tuid is not None:
-            result['payer_tuid'] = self.payer_tuid
-        if self.payee_tuid is not None:
-            result['payee_tuid'] = self.payee_tuid
-        if self.bcl_order_id is not None:
-            result['bcl_order_id'] = self.bcl_order_id
-        if self.sub_tenant_id is not None:
-            result['sub_tenant_id'] = self.sub_tenant_id
+        if self.combine_sign_model is not None:
+            result['combine_sign_model'] = self.combine_sign_model
         return result
 
     def from_map(self, m: dict = None):
@@ -23010,21 +23069,8 @@ class CreateContractOnestepflowRequest(TeaModel):
             self.sign_platform = m.get('sign_platform')
         if m.get('sign_validity') is not None:
             self.sign_validity = m.get('sign_validity')
-        if m.get('auto_deduction_force') is not None:
-            self.auto_deduction_force = m.get('auto_deduction_force')
-        self.repayment_order_info = []
-        if m.get('repayment_order_info') is not None:
-            for k in m.get('repayment_order_info'):
-                temp_model = RepaymentOrderRequest()
-                self.repayment_order_info.append(temp_model.from_map(k))
-        if m.get('payer_tuid') is not None:
-            self.payer_tuid = m.get('payer_tuid')
-        if m.get('payee_tuid') is not None:
-            self.payee_tuid = m.get('payee_tuid')
-        if m.get('bcl_order_id') is not None:
-            self.bcl_order_id = m.get('bcl_order_id')
-        if m.get('sub_tenant_id') is not None:
-            self.sub_tenant_id = m.get('sub_tenant_id')
+        if m.get('combine_sign_model') is not None:
+            self.combine_sign_model = m.get('combine_sign_model')
         return self
 
 
@@ -29577,6 +29623,391 @@ class SubmitContractArchiveResponse(TeaModel):
             self.code = m.get('code')
         if m.get('message') is not None:
             self.message = m.get('message')
+        return self
+
+
+class ListContractDeductorderRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        alipay_user_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户支付宝2088uid
+        self.alipay_user_id = alipay_user_id
+
+    def validate(self):
+        self.validate_required(self.alipay_user_id, 'alipay_user_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        return self
+
+
+class ListContractDeductorderResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        order_list: List[DeductOrderInfo] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 代扣期数列表
+        self.order_list = order_list
+
+    def validate(self):
+        if self.order_list:
+            for k in self.order_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        result['order_list'] = []
+        if self.order_list is not None:
+            for k in self.order_list:
+                result['order_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        self.order_list = []
+        if m.get('order_list') is not None:
+            for k in m.get('order_list'):
+                temp_model = DeductOrderInfo()
+                self.order_list.append(temp_model.from_map(k))
+        return self
+
+
+class QueryContractDeductdetailRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        order_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 订单id
+        self.order_id = order_id
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.order_id, 'order_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class QueryContractDeductdetailResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tenant_id: str = None,
+        order_id: str = None,
+        alipay_user_id: str = None,
+        merchant_id: str = None,
+        product_name: str = None,
+        order_create_date: str = None,
+        order_status_code: str = None,
+        order_sub_status_code: str = None,
+        total_rent_money: int = None,
+        alipay_smid: str = None,
+        merchant_name: str = None,
+        alipay_agreement_no: str = None,
+        fulfillment_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 租户id
+        self.tenant_id = tenant_id
+        # 订单id
+        self.order_id = order_id
+        # 用户支付宝uid
+        self.alipay_user_id = alipay_user_id
+        # 商户统一社会信用代码
+        self.merchant_id = merchant_id
+        # 商品名称
+        self.product_name = product_name
+        # 订单创建时间
+        self.order_create_date = order_create_date
+        # 订单状态
+        self.order_status_code = order_status_code
+        # 订单子状态
+        self.order_sub_status_code = order_sub_status_code
+        # 总金额，单位为分
+        self.total_rent_money = total_rent_money
+        # 商户smid
+        self.alipay_smid = alipay_smid
+        # 商户名称
+        self.merchant_name = merchant_name
+        # 用户支付宝代扣签约协议号
+        self.alipay_agreement_no = alipay_agreement_no
+        # 履约记录
+        self.fulfillment_list = fulfillment_list
+
+    def validate(self):
+        if self.order_create_date is not None:
+            self.validate_pattern(self.order_create_date, 'order_create_date', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.alipay_user_id is not None:
+            result['alipay_user_id'] = self.alipay_user_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.order_create_date is not None:
+            result['order_create_date'] = self.order_create_date
+        if self.order_status_code is not None:
+            result['order_status_code'] = self.order_status_code
+        if self.order_sub_status_code is not None:
+            result['order_sub_status_code'] = self.order_sub_status_code
+        if self.total_rent_money is not None:
+            result['total_rent_money'] = self.total_rent_money
+        if self.alipay_smid is not None:
+            result['alipay_smid'] = self.alipay_smid
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        if self.alipay_agreement_no is not None:
+            result['alipay_agreement_no'] = self.alipay_agreement_no
+        if self.fulfillment_list is not None:
+            result['fulfillment_list'] = self.fulfillment_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('alipay_user_id') is not None:
+            self.alipay_user_id = m.get('alipay_user_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('order_create_date') is not None:
+            self.order_create_date = m.get('order_create_date')
+        if m.get('order_status_code') is not None:
+            self.order_status_code = m.get('order_status_code')
+        if m.get('order_sub_status_code') is not None:
+            self.order_sub_status_code = m.get('order_sub_status_code')
+        if m.get('total_rent_money') is not None:
+            self.total_rent_money = m.get('total_rent_money')
+        if m.get('alipay_smid') is not None:
+            self.alipay_smid = m.get('alipay_smid')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        if m.get('alipay_agreement_no') is not None:
+            self.alipay_agreement_no = m.get('alipay_agreement_no')
+        if m.get('fulfillment_list') is not None:
+            self.fulfillment_list = m.get('fulfillment_list')
+        return self
+
+
+class QueryContractDedcutpayinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        out_order_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 支付宝外部交易号
+        self.out_order_no = out_order_no
+
+    def validate(self):
+        self.validate_required(self.out_order_no, 'out_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        return self
+
+
+class QueryContractDedcutpayinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        tenant_id: str = None,
+        flow_id: str = None,
+        payer_user_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 平台租户id
+        self.tenant_id = tenant_id
+        # 订单id
+        self.flow_id = flow_id
+        # 付款人支付宝2088uid
+        self.payer_user_id = payer_user_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        if self.payer_user_id is not None:
+            result['payer_user_id'] = self.payer_user_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        if m.get('payer_user_id') is not None:
+            self.payer_user_id = m.get('payer_user_id')
         return self
 
 

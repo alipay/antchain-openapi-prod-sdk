@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.1',
+                    'sdk_version': '1.13.6',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.13.1',
+                    'sdk_version': '1.13.6',
                     '_prod_code': 'TWC',
                     '_prod_channel': 'undefined'
                 }
@@ -8233,6 +8233,174 @@ class Client:
         return TeaCore.from_map(
             twc_models.SubmitContractArchiveResponse(),
             await self.do_request_async('1.0', 'twc.notary.contract.archive.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_contract_deductorder(
+        self,
+        request: twc_models.ListContractDeductorderRequest,
+    ) -> twc_models.ListContractDeductorderResponse:
+        """
+        Description: 区块链合同代扣订单列表
+        Summary: 代扣订单列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_contract_deductorder_ex(request, headers, runtime)
+
+    async def list_contract_deductorder_async(
+        self,
+        request: twc_models.ListContractDeductorderRequest,
+    ) -> twc_models.ListContractDeductorderResponse:
+        """
+        Description: 区块链合同代扣订单列表
+        Summary: 代扣订单列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_contract_deductorder_ex_async(request, headers, runtime)
+
+    def list_contract_deductorder_ex(
+        self,
+        request: twc_models.ListContractDeductorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ListContractDeductorderResponse:
+        """
+        Description: 区块链合同代扣订单列表
+        Summary: 代扣订单列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ListContractDeductorderResponse(),
+            self.do_request('1.0', 'twc.notary.contract.deductorder.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_contract_deductorder_ex_async(
+        self,
+        request: twc_models.ListContractDeductorderRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.ListContractDeductorderResponse:
+        """
+        Description: 区块链合同代扣订单列表
+        Summary: 代扣订单列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.ListContractDeductorderResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.deductorder.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_deductdetail(
+        self,
+        request: twc_models.QueryContractDeductdetailRequest,
+    ) -> twc_models.QueryContractDeductdetailResponse:
+        """
+        Description: 代扣订单详情
+        Summary: 代扣订单详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_deductdetail_ex(request, headers, runtime)
+
+    async def query_contract_deductdetail_async(
+        self,
+        request: twc_models.QueryContractDeductdetailRequest,
+    ) -> twc_models.QueryContractDeductdetailResponse:
+        """
+        Description: 代扣订单详情
+        Summary: 代扣订单详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_deductdetail_ex_async(request, headers, runtime)
+
+    def query_contract_deductdetail_ex(
+        self,
+        request: twc_models.QueryContractDeductdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractDeductdetailResponse:
+        """
+        Description: 代扣订单详情
+        Summary: 代扣订单详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractDeductdetailResponse(),
+            self.do_request('1.0', 'twc.notary.contract.deductdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_deductdetail_ex_async(
+        self,
+        request: twc_models.QueryContractDeductdetailRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractDeductdetailResponse:
+        """
+        Description: 代扣订单详情
+        Summary: 代扣订单详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractDeductdetailResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.deductdetail.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_contract_dedcutpayinfo(
+        self,
+        request: twc_models.QueryContractDedcutpayinfoRequest,
+    ) -> twc_models.QueryContractDedcutpayinfoResponse:
+        """
+        Description: 根据支付宝商家订单号查询交易单
+        Summary: 根据交易号查询订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_contract_dedcutpayinfo_ex(request, headers, runtime)
+
+    async def query_contract_dedcutpayinfo_async(
+        self,
+        request: twc_models.QueryContractDedcutpayinfoRequest,
+    ) -> twc_models.QueryContractDedcutpayinfoResponse:
+        """
+        Description: 根据支付宝商家订单号查询交易单
+        Summary: 根据交易号查询订单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_contract_dedcutpayinfo_ex_async(request, headers, runtime)
+
+    def query_contract_dedcutpayinfo_ex(
+        self,
+        request: twc_models.QueryContractDedcutpayinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractDedcutpayinfoResponse:
+        """
+        Description: 根据支付宝商家订单号查询交易单
+        Summary: 根据交易号查询订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractDedcutpayinfoResponse(),
+            self.do_request('1.0', 'twc.notary.contract.dedcutpayinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_contract_dedcutpayinfo_ex_async(
+        self,
+        request: twc_models.QueryContractDedcutpayinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> twc_models.QueryContractDedcutpayinfoResponse:
+        """
+        Description: 根据支付宝商家订单号查询交易单
+        Summary: 根据交易号查询订单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            twc_models.QueryContractDedcutpayinfoResponse(),
+            await self.do_request_async('1.0', 'twc.notary.contract.dedcutpayinfo.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def push_digitalcontent_usage(
