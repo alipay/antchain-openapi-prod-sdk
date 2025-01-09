@@ -205,6 +205,8 @@ type EventSpecs struct {
 	// submit_date	STRING	否	2024-08-15
 	//
 	SubmitDate *string `json:"submit_date,omitempty" xml:"submit_date,omitempty"`
+	// 冗余字段，请忽略
+	ReturnHash *bool `json:"return_hash,omitempty" xml:"return_hash,omitempty"`
 }
 
 func (s EventSpecs) String() string {
@@ -227,6 +229,11 @@ func (s *EventSpecs) SetBizType(v string) *EventSpecs {
 
 func (s *EventSpecs) SetSubmitDate(v string) *EventSpecs {
 	s.SubmitDate = &v
+	return s
+}
+
+func (s *EventSpecs) SetReturnHash(v bool) *EventSpecs {
+	s.ReturnHash = &v
 	return s
 }
 
@@ -1078,7 +1085,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.0"),
+				"sdk_version":      tea.String("1.0.1"),
 				"_prod_code":       tea.String("BOTHK"),
 				"_prod_channel":    tea.String("default"),
 			}
