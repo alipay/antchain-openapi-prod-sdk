@@ -4287,6 +4287,81 @@ func (s *BclCertifyInfo) SetStatus(v string) *BclCertifyInfo {
 	return s
 }
 
+// 代扣订单信息
+type DeductOrderInfo struct {
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 用户支付宝uid
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true"`
+	// 商品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 订单创建时间
+	OrderCreateDate *string `json:"order_create_date,omitempty" xml:"order_create_date,omitempty" require:"true" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 订单状态
+	OrderStatusCode *string `json:"order_status_code,omitempty" xml:"order_status_code,omitempty"`
+	// 订单子状态,ORDER_FULFILLMENT: 履约中;ORDER_FULFILLMENT_COMPLETED:履约完成;
+	OrderSubStatusCode *string `json:"order_sub_status_code,omitempty" xml:"order_sub_status_code,omitempty" require:"true"`
+	// 总金额，单位为分
+	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty" require:"true"`
+}
+
+func (s DeductOrderInfo) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeductOrderInfo) GoString() string {
+	return s.String()
+}
+
+func (s *DeductOrderInfo) SetOrderId(v string) *DeductOrderInfo {
+	s.OrderId = &v
+	return s
+}
+
+func (s *DeductOrderInfo) SetMerchantId(v string) *DeductOrderInfo {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *DeductOrderInfo) SetTenantId(v string) *DeductOrderInfo {
+	s.TenantId = &v
+	return s
+}
+
+func (s *DeductOrderInfo) SetAlipayUserId(v string) *DeductOrderInfo {
+	s.AlipayUserId = &v
+	return s
+}
+
+func (s *DeductOrderInfo) SetProductName(v string) *DeductOrderInfo {
+	s.ProductName = &v
+	return s
+}
+
+func (s *DeductOrderInfo) SetOrderCreateDate(v string) *DeductOrderInfo {
+	s.OrderCreateDate = &v
+	return s
+}
+
+func (s *DeductOrderInfo) SetOrderStatusCode(v string) *DeductOrderInfo {
+	s.OrderStatusCode = &v
+	return s
+}
+
+func (s *DeductOrderInfo) SetOrderSubStatusCode(v string) *DeductOrderInfo {
+	s.OrderSubStatusCode = &v
+	return s
+}
+
+func (s *DeductOrderInfo) SetTotalRentMoney(v int64) *DeductOrderInfo {
+	s.TotalRentMoney = &v
+	return s
+}
+
 // 合同流程信息
 type BclContractFlowInfo struct {
 	// 合同主题
@@ -18453,18 +18528,8 @@ type CreateContractOnestepflowRequest struct {
 	SignPlatform *string `json:"sign_platform,omitempty" xml:"sign_platform,omitempty"`
 	// 签署有效截止日期，毫秒，默认3天失效
 	SignValidity *int64 `json:"sign_validity,omitempty" xml:"sign_validity,omitempty"`
-	// 是否强制代扣
-	AutoDeductionForce *bool `json:"auto_deduction_force,omitempty" xml:"auto_deduction_force,omitempty"`
-	// 代扣规则详情
-	RepaymentOrderInfo []*RepaymentOrderRequest `json:"repayment_order_info,omitempty" xml:"repayment_order_info,omitempty" type:"Repeated"`
-	// 付款方ID（个人）
-	PayerTuid *string `json:"payer_tuid,omitempty" xml:"payer_tuid,omitempty"`
-	// 收款方ID(机构)
-	PayeeTuid *string `json:"payee_tuid,omitempty" xml:"payee_tuid,omitempty"`
-	// 租赁订单Id
-	BclOrderId *string `json:"bcl_order_id,omitempty" xml:"bcl_order_id,omitempty" maxLength:"32"`
-	// 代理客户时，实际用户的租户ID
-	SubTenantId *string `json:"sub_tenant_id,omitempty" xml:"sub_tenant_id,omitempty"`
+	// 是否合并签署，默认不是（false）
+	CombineSignModel *bool `json:"combine_sign_model,omitempty" xml:"combine_sign_model,omitempty"`
 }
 
 func (s CreateContractOnestepflowRequest) String() string {
@@ -18540,33 +18605,8 @@ func (s *CreateContractOnestepflowRequest) SetSignValidity(v int64) *CreateContr
 	return s
 }
 
-func (s *CreateContractOnestepflowRequest) SetAutoDeductionForce(v bool) *CreateContractOnestepflowRequest {
-	s.AutoDeductionForce = &v
-	return s
-}
-
-func (s *CreateContractOnestepflowRequest) SetRepaymentOrderInfo(v []*RepaymentOrderRequest) *CreateContractOnestepflowRequest {
-	s.RepaymentOrderInfo = v
-	return s
-}
-
-func (s *CreateContractOnestepflowRequest) SetPayerTuid(v string) *CreateContractOnestepflowRequest {
-	s.PayerTuid = &v
-	return s
-}
-
-func (s *CreateContractOnestepflowRequest) SetPayeeTuid(v string) *CreateContractOnestepflowRequest {
-	s.PayeeTuid = &v
-	return s
-}
-
-func (s *CreateContractOnestepflowRequest) SetBclOrderId(v string) *CreateContractOnestepflowRequest {
-	s.BclOrderId = &v
-	return s
-}
-
-func (s *CreateContractOnestepflowRequest) SetSubTenantId(v string) *CreateContractOnestepflowRequest {
-	s.SubTenantId = &v
+func (s *CreateContractOnestepflowRequest) SetCombineSignModel(v bool) *CreateContractOnestepflowRequest {
+	s.CombineSignModel = &v
 	return s
 }
 
@@ -23884,6 +23924,321 @@ func (s *SubmitContractArchiveResponse) SetCode(v int64) *SubmitContractArchiveR
 
 func (s *SubmitContractArchiveResponse) SetMessage(v string) *SubmitContractArchiveResponse {
 	s.Message = &v
+	return s
+}
+
+type ListContractDeductorderRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户支付宝2088uid
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty" require:"true"`
+}
+
+func (s ListContractDeductorderRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListContractDeductorderRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ListContractDeductorderRequest) SetAuthToken(v string) *ListContractDeductorderRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ListContractDeductorderRequest) SetProductInstanceId(v string) *ListContractDeductorderRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ListContractDeductorderRequest) SetAlipayUserId(v string) *ListContractDeductorderRequest {
+	s.AlipayUserId = &v
+	return s
+}
+
+type ListContractDeductorderResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 代扣期数列表
+	OrderList []*DeductOrderInfo `json:"order_list,omitempty" xml:"order_list,omitempty" type:"Repeated"`
+}
+
+func (s ListContractDeductorderResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ListContractDeductorderResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ListContractDeductorderResponse) SetReqMsgId(v string) *ListContractDeductorderResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ListContractDeductorderResponse) SetResultCode(v string) *ListContractDeductorderResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ListContractDeductorderResponse) SetResultMsg(v string) *ListContractDeductorderResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ListContractDeductorderResponse) SetOrderList(v []*DeductOrderInfo) *ListContractDeductorderResponse {
+	s.OrderList = v
+	return s
+}
+
+type QueryContractDeductdetailRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty" require:"true"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+}
+
+func (s QueryContractDeductdetailRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractDeductdetailRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractDeductdetailRequest) SetAuthToken(v string) *QueryContractDeductdetailRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailRequest) SetProductInstanceId(v string) *QueryContractDeductdetailRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailRequest) SetTenantId(v string) *QueryContractDeductdetailRequest {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailRequest) SetOrderId(v string) *QueryContractDeductdetailRequest {
+	s.OrderId = &v
+	return s
+}
+
+type QueryContractDeductdetailResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 订单id
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty"`
+	// 用户支付宝uid
+	AlipayUserId *string `json:"alipay_user_id,omitempty" xml:"alipay_user_id,omitempty"`
+	// 商户统一社会信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 商品名称
+	ProductName *string `json:"product_name,omitempty" xml:"product_name,omitempty"`
+	// 订单创建时间
+	OrderCreateDate *string `json:"order_create_date,omitempty" xml:"order_create_date,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 订单状态
+	OrderStatusCode *string `json:"order_status_code,omitempty" xml:"order_status_code,omitempty"`
+	// 订单子状态
+	OrderSubStatusCode *string `json:"order_sub_status_code,omitempty" xml:"order_sub_status_code,omitempty"`
+	// 总金额，单位为分
+	TotalRentMoney *int64 `json:"total_rent_money,omitempty" xml:"total_rent_money,omitempty"`
+	// 商户smid
+	AlipaySmid *string `json:"alipay_smid,omitempty" xml:"alipay_smid,omitempty"`
+	// 商户名称
+	MerchantName *string `json:"merchant_name,omitempty" xml:"merchant_name,omitempty"`
+	// 用户支付宝代扣签约协议号
+	AlipayAgreementNo *string `json:"alipay_agreement_no,omitempty" xml:"alipay_agreement_no,omitempty"`
+	// 履约记录
+	FulfillmentList []*string `json:"fulfillment_list,omitempty" xml:"fulfillment_list,omitempty" type:"Repeated"`
+}
+
+func (s QueryContractDeductdetailResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractDeductdetailResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractDeductdetailResponse) SetReqMsgId(v string) *QueryContractDeductdetailResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetResultCode(v string) *QueryContractDeductdetailResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetResultMsg(v string) *QueryContractDeductdetailResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetTenantId(v string) *QueryContractDeductdetailResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetOrderId(v string) *QueryContractDeductdetailResponse {
+	s.OrderId = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetAlipayUserId(v string) *QueryContractDeductdetailResponse {
+	s.AlipayUserId = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetMerchantId(v string) *QueryContractDeductdetailResponse {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetProductName(v string) *QueryContractDeductdetailResponse {
+	s.ProductName = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetOrderCreateDate(v string) *QueryContractDeductdetailResponse {
+	s.OrderCreateDate = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetOrderStatusCode(v string) *QueryContractDeductdetailResponse {
+	s.OrderStatusCode = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetOrderSubStatusCode(v string) *QueryContractDeductdetailResponse {
+	s.OrderSubStatusCode = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetTotalRentMoney(v int64) *QueryContractDeductdetailResponse {
+	s.TotalRentMoney = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetAlipaySmid(v string) *QueryContractDeductdetailResponse {
+	s.AlipaySmid = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetMerchantName(v string) *QueryContractDeductdetailResponse {
+	s.MerchantName = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetAlipayAgreementNo(v string) *QueryContractDeductdetailResponse {
+	s.AlipayAgreementNo = &v
+	return s
+}
+
+func (s *QueryContractDeductdetailResponse) SetFulfillmentList(v []*string) *QueryContractDeductdetailResponse {
+	s.FulfillmentList = v
+	return s
+}
+
+type QueryContractDedcutpayinfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 支付宝外部交易号
+	OutOrderNo *string `json:"out_order_no,omitempty" xml:"out_order_no,omitempty" require:"true"`
+}
+
+func (s QueryContractDedcutpayinfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractDedcutpayinfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractDedcutpayinfoRequest) SetAuthToken(v string) *QueryContractDedcutpayinfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryContractDedcutpayinfoRequest) SetProductInstanceId(v string) *QueryContractDedcutpayinfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryContractDedcutpayinfoRequest) SetOutOrderNo(v string) *QueryContractDedcutpayinfoRequest {
+	s.OutOrderNo = &v
+	return s
+}
+
+type QueryContractDedcutpayinfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 平台租户id
+	TenantId *string `json:"tenant_id,omitempty" xml:"tenant_id,omitempty"`
+	// 订单id
+	FlowId *string `json:"flow_id,omitempty" xml:"flow_id,omitempty"`
+	// 付款人支付宝2088uid
+	PayerUserId *string `json:"payer_user_id,omitempty" xml:"payer_user_id,omitempty"`
+}
+
+func (s QueryContractDedcutpayinfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryContractDedcutpayinfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryContractDedcutpayinfoResponse) SetReqMsgId(v string) *QueryContractDedcutpayinfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryContractDedcutpayinfoResponse) SetResultCode(v string) *QueryContractDedcutpayinfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryContractDedcutpayinfoResponse) SetResultMsg(v string) *QueryContractDedcutpayinfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryContractDedcutpayinfoResponse) SetTenantId(v string) *QueryContractDedcutpayinfoResponse {
+	s.TenantId = &v
+	return s
+}
+
+func (s *QueryContractDedcutpayinfoResponse) SetFlowId(v string) *QueryContractDedcutpayinfoResponse {
+	s.FlowId = &v
+	return s
+}
+
+func (s *QueryContractDedcutpayinfoResponse) SetPayerUserId(v string) *QueryContractDedcutpayinfoResponse {
+	s.PayerUserId = &v
 	return s
 }
 
@@ -48316,7 +48671,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.1"),
+				"sdk_version":      tea.String("1.13.6"),
 				"_prod_code":       tea.String("TWC"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -53199,6 +53554,108 @@ func (client *Client) SubmitContractArchiveEx(request *SubmitContractArchiveRequ
 	}
 	_result = &SubmitContractArchiveResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.archive.submit"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 区块链合同代扣订单列表
+ * Summary: 代扣订单列表
+ */
+func (client *Client) ListContractDeductorder(request *ListContractDeductorderRequest) (_result *ListContractDeductorderResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ListContractDeductorderResponse{}
+	_body, _err := client.ListContractDeductorderEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 区块链合同代扣订单列表
+ * Summary: 代扣订单列表
+ */
+func (client *Client) ListContractDeductorderEx(request *ListContractDeductorderRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ListContractDeductorderResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ListContractDeductorderResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.deductorder.list"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 代扣订单详情
+ * Summary: 代扣订单详情
+ */
+func (client *Client) QueryContractDeductdetail(request *QueryContractDeductdetailRequest) (_result *QueryContractDeductdetailResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractDeductdetailResponse{}
+	_body, _err := client.QueryContractDeductdetailEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 代扣订单详情
+ * Summary: 代扣订单详情
+ */
+func (client *Client) QueryContractDeductdetailEx(request *QueryContractDeductdetailRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractDeductdetailResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractDeductdetailResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.deductdetail.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 根据支付宝商家订单号查询交易单
+ * Summary: 根据交易号查询订单
+ */
+func (client *Client) QueryContractDedcutpayinfo(request *QueryContractDedcutpayinfoRequest) (_result *QueryContractDedcutpayinfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryContractDedcutpayinfoResponse{}
+	_body, _err := client.QueryContractDedcutpayinfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 根据支付宝商家订单号查询交易单
+ * Summary: 根据交易号查询订单
+ */
+func (client *Client) QueryContractDedcutpayinfoEx(request *QueryContractDedcutpayinfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryContractDedcutpayinfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryContractDedcutpayinfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("twc.notary.contract.dedcutpayinfo.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
