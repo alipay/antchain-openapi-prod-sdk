@@ -85,41 +85,11 @@ class CreateContractOnestepflowRequest extends Model
      */
     public $signValidity;
 
-    // 是否强制代扣
+    // 是否合并签署，默认不是（false）
     /**
      * @var bool
      */
-    public $autoDeductionForce;
-
-    // 代扣规则详情
-    /**
-     * @var RepaymentOrderRequest[]
-     */
-    public $repaymentOrderInfo;
-
-    // 付款方ID（个人）
-    /**
-     * @var string
-     */
-    public $payerTuid;
-
-    // 收款方ID(机构)
-    /**
-     * @var string
-     */
-    public $payeeTuid;
-
-    // 租赁订单Id
-    /**
-     * @var string
-     */
-    public $bclOrderId;
-
-    // 代理客户时，实际用户的租户ID
-    /**
-     * @var string
-     */
-    public $subTenantId;
+    public $combineSignModel;
     protected $_name = [
         'authToken'                    => 'auth_token',
         'productInstanceId'            => 'product_instance_id',
@@ -134,18 +104,12 @@ class CreateContractOnestepflowRequest extends Model
         'signFields'                   => 'sign_fields',
         'signPlatform'                 => 'sign_platform',
         'signValidity'                 => 'sign_validity',
-        'autoDeductionForce'           => 'auto_deduction_force',
-        'repaymentOrderInfo'           => 'repayment_order_info',
-        'payerTuid'                    => 'payer_tuid',
-        'payeeTuid'                    => 'payee_tuid',
-        'bclOrderId'                   => 'bcl_order_id',
-        'subTenantId'                  => 'sub_tenant_id',
+        'combineSignModel'             => 'combine_sign_model',
     ];
 
     public function validate()
     {
         Model::validateRequired('businessScene', $this->businessScene, true);
-        Model::validateMaxLength('bclOrderId', $this->bclOrderId, 32);
     }
 
     public function toMap()
@@ -202,29 +166,8 @@ class CreateContractOnestepflowRequest extends Model
         if (null !== $this->signValidity) {
             $res['sign_validity'] = $this->signValidity;
         }
-        if (null !== $this->autoDeductionForce) {
-            $res['auto_deduction_force'] = $this->autoDeductionForce;
-        }
-        if (null !== $this->repaymentOrderInfo) {
-            $res['repayment_order_info'] = [];
-            if (null !== $this->repaymentOrderInfo && \is_array($this->repaymentOrderInfo)) {
-                $n = 0;
-                foreach ($this->repaymentOrderInfo as $item) {
-                    $res['repayment_order_info'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->payerTuid) {
-            $res['payer_tuid'] = $this->payerTuid;
-        }
-        if (null !== $this->payeeTuid) {
-            $res['payee_tuid'] = $this->payeeTuid;
-        }
-        if (null !== $this->bclOrderId) {
-            $res['bcl_order_id'] = $this->bclOrderId;
-        }
-        if (null !== $this->subTenantId) {
-            $res['sub_tenant_id'] = $this->subTenantId;
+        if (null !== $this->combineSignModel) {
+            $res['combine_sign_model'] = $this->combineSignModel;
         }
 
         return $res;
@@ -289,29 +232,8 @@ class CreateContractOnestepflowRequest extends Model
         if (isset($map['sign_validity'])) {
             $model->signValidity = $map['sign_validity'];
         }
-        if (isset($map['auto_deduction_force'])) {
-            $model->autoDeductionForce = $map['auto_deduction_force'];
-        }
-        if (isset($map['repayment_order_info'])) {
-            if (!empty($map['repayment_order_info'])) {
-                $model->repaymentOrderInfo = [];
-                $n                         = 0;
-                foreach ($map['repayment_order_info'] as $item) {
-                    $model->repaymentOrderInfo[$n++] = null !== $item ? RepaymentOrderRequest::fromMap($item) : $item;
-                }
-            }
-        }
-        if (isset($map['payer_tuid'])) {
-            $model->payerTuid = $map['payer_tuid'];
-        }
-        if (isset($map['payee_tuid'])) {
-            $model->payeeTuid = $map['payee_tuid'];
-        }
-        if (isset($map['bcl_order_id'])) {
-            $model->bclOrderId = $map['bcl_order_id'];
-        }
-        if (isset($map['sub_tenant_id'])) {
-            $model->subTenantId = $map['sub_tenant_id'];
+        if (isset($map['combine_sign_model'])) {
+            $model->combineSignModel = $map['combine_sign_model'];
         }
 
         return $model;

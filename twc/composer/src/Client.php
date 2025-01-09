@@ -413,6 +413,8 @@ use AntChain\TWC\Models\InitLeaseSupplierRequest;
 use AntChain\TWC\Models\InitLeaseSupplierResponse;
 use AntChain\TWC\Models\InitPrivatecontractIntanceRequest;
 use AntChain\TWC\Models\InitPrivatecontractIntanceResponse;
+use AntChain\TWC\Models\ListContractDeductorderRequest;
+use AntChain\TWC\Models\ListContractDeductorderResponse;
 use AntChain\TWC\Models\ListContractOuttradeidRequest;
 use AntChain\TWC\Models\ListContractOuttradeidResponse;
 use AntChain\TWC\Models\ListContractPayruleRequest;
@@ -463,6 +465,10 @@ use AntChain\TWC\Models\QueryContractComplaineventidsRequest;
 use AntChain\TWC\Models\QueryContractComplaineventidsResponse;
 use AntChain\TWC\Models\QueryContractComplainRequest;
 use AntChain\TWC\Models\QueryContractComplainResponse;
+use AntChain\TWC\Models\QueryContractDedcutpayinfoRequest;
+use AntChain\TWC\Models\QueryContractDedcutpayinfoResponse;
+use AntChain\TWC\Models\QueryContractDeductdetailRequest;
+use AntChain\TWC\Models\QueryContractDeductdetailResponse;
 use AntChain\TWC\Models\QueryContractFlowRequest;
 use AntChain\TWC\Models\QueryContractFlowResponse;
 use AntChain\TWC\Models\QueryContractFlowsignerRequest;
@@ -858,7 +864,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.13.1',
+                    'sdk_version'      => '1.13.6',
                     '_prod_code'       => 'TWC',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -5594,6 +5600,105 @@ class Client
         Utils::validateModel($request);
 
         return SubmitContractArchiveResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.archive.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 区块链合同代扣订单列表
+     * Summary: 代扣订单列表.
+     *
+     * @param ListContractDeductorderRequest $request
+     *
+     * @return ListContractDeductorderResponse
+     */
+    public function listContractDeductorder($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->listContractDeductorderEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 区块链合同代扣订单列表
+     * Summary: 代扣订单列表.
+     *
+     * @param ListContractDeductorderRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return ListContractDeductorderResponse
+     */
+    public function listContractDeductorderEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return ListContractDeductorderResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.deductorder.list', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 代扣订单详情
+     * Summary: 代扣订单详情.
+     *
+     * @param QueryContractDeductdetailRequest $request
+     *
+     * @return QueryContractDeductdetailResponse
+     */
+    public function queryContractDeductdetail($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractDeductdetailEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 代扣订单详情
+     * Summary: 代扣订单详情.
+     *
+     * @param QueryContractDeductdetailRequest $request
+     * @param string[]                         $headers
+     * @param RuntimeOptions                   $runtime
+     *
+     * @return QueryContractDeductdetailResponse
+     */
+    public function queryContractDeductdetailEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractDeductdetailResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.deductdetail.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据支付宝商家订单号查询交易单
+     * Summary: 根据交易号查询订单.
+     *
+     * @param QueryContractDedcutpayinfoRequest $request
+     *
+     * @return QueryContractDedcutpayinfoResponse
+     */
+    public function queryContractDedcutpayinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryContractDedcutpayinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据支付宝商家订单号查询交易单
+     * Summary: 根据交易号查询订单.
+     *
+     * @param QueryContractDedcutpayinfoRequest $request
+     * @param string[]                          $headers
+     * @param RuntimeOptions                    $runtime
+     *
+     * @return QueryContractDedcutpayinfoResponse
+     */
+    public function queryContractDedcutpayinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryContractDedcutpayinfoResponse::fromMap($this->doRequest('1.0', 'twc.notary.contract.dedcutpayinfo.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
