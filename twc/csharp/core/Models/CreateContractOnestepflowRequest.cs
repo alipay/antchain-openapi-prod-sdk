@@ -73,35 +73,10 @@ namespace AntChain.SDK.TWC.Models
         [Validation(Required=false)]
         public long? SignValidity { get; set; }
 
-        // 是否强制代扣
-        [NameInMap("auto_deduction_force")]
+        // 是否合并签署，默认不是（false）
+        [NameInMap("combine_sign_model")]
         [Validation(Required=false)]
-        public bool? AutoDeductionForce { get; set; }
-
-        // 代扣规则详情
-        [NameInMap("repayment_order_info")]
-        [Validation(Required=false)]
-        public List<RepaymentOrderRequest> RepaymentOrderInfo { get; set; }
-
-        // 付款方ID（个人）
-        [NameInMap("payer_tuid")]
-        [Validation(Required=false)]
-        public string PayerTuid { get; set; }
-
-        // 收款方ID(机构)
-        [NameInMap("payee_tuid")]
-        [Validation(Required=false)]
-        public string PayeeTuid { get; set; }
-
-        // 租赁订单Id
-        [NameInMap("bcl_order_id")]
-        [Validation(Required=false, MaxLength=32)]
-        public string BclOrderId { get; set; }
-
-        // 代理客户时，实际用户的租户ID
-        [NameInMap("sub_tenant_id")]
-        [Validation(Required=false)]
-        public string SubTenantId { get; set; }
+        public bool? CombineSignModel { get; set; }
 
     }
 

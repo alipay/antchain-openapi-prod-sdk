@@ -137,7 +137,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.1"},
+                        {"sdk_version", "1.13.6"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.TWC
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.13.1"},
+                        {"sdk_version", "1.13.6"},
                         {"_prod_code", "TWC"},
                         {"_prod_channel", "undefined"},
                     };
@@ -6291,6 +6291,132 @@ namespace AntChain.SDK.TWC
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<SubmitContractArchiveResponse>(await DoRequestAsync("1.0", "twc.notary.contract.archive.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链合同代扣订单列表
+         * Summary: 代扣订单列表
+         */
+        public ListContractDeductorderResponse ListContractDeductorder(ListContractDeductorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ListContractDeductorderEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链合同代扣订单列表
+         * Summary: 代扣订单列表
+         */
+        public async Task<ListContractDeductorderResponse> ListContractDeductorderAsync(ListContractDeductorderRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ListContractDeductorderExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 区块链合同代扣订单列表
+         * Summary: 代扣订单列表
+         */
+        public ListContractDeductorderResponse ListContractDeductorderEx(ListContractDeductorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListContractDeductorderResponse>(DoRequest("1.0", "twc.notary.contract.deductorder.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 区块链合同代扣订单列表
+         * Summary: 代扣订单列表
+         */
+        public async Task<ListContractDeductorderResponse> ListContractDeductorderExAsync(ListContractDeductorderRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ListContractDeductorderResponse>(await DoRequestAsync("1.0", "twc.notary.contract.deductorder.list", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣订单详情
+         * Summary: 代扣订单详情
+         */
+        public QueryContractDeductdetailResponse QueryContractDeductdetail(QueryContractDeductdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractDeductdetailEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣订单详情
+         * Summary: 代扣订单详情
+         */
+        public async Task<QueryContractDeductdetailResponse> QueryContractDeductdetailAsync(QueryContractDeductdetailRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractDeductdetailExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 代扣订单详情
+         * Summary: 代扣订单详情
+         */
+        public QueryContractDeductdetailResponse QueryContractDeductdetailEx(QueryContractDeductdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractDeductdetailResponse>(DoRequest("1.0", "twc.notary.contract.deductdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 代扣订单详情
+         * Summary: 代扣订单详情
+         */
+        public async Task<QueryContractDeductdetailResponse> QueryContractDeductdetailExAsync(QueryContractDeductdetailRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractDeductdetailResponse>(await DoRequestAsync("1.0", "twc.notary.contract.deductdetail.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据支付宝商家订单号查询交易单
+         * Summary: 根据交易号查询订单
+         */
+        public QueryContractDedcutpayinfoResponse QueryContractDedcutpayinfo(QueryContractDedcutpayinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryContractDedcutpayinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据支付宝商家订单号查询交易单
+         * Summary: 根据交易号查询订单
+         */
+        public async Task<QueryContractDedcutpayinfoResponse> QueryContractDedcutpayinfoAsync(QueryContractDedcutpayinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryContractDedcutpayinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 根据支付宝商家订单号查询交易单
+         * Summary: 根据交易号查询订单
+         */
+        public QueryContractDedcutpayinfoResponse QueryContractDedcutpayinfoEx(QueryContractDedcutpayinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractDedcutpayinfoResponse>(DoRequest("1.0", "twc.notary.contract.dedcutpayinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 根据支付宝商家订单号查询交易单
+         * Summary: 根据交易号查询订单
+         */
+        public async Task<QueryContractDedcutpayinfoResponse> QueryContractDedcutpayinfoExAsync(QueryContractDedcutpayinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryContractDedcutpayinfoResponse>(await DoRequestAsync("1.0", "twc.notary.contract.dedcutpayinfo.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
