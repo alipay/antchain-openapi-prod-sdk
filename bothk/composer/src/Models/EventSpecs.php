@@ -33,10 +33,19 @@ class EventSpecs extends Model
      * @var string
      */
     public $submitDate;
+
+    // 冗余字段，请忽略
+    /**
+     * @example true, false
+     *
+     * @var bool
+     */
+    public $returnHash;
     protected $_name = [
         'eventModelId' => 'event_model_id',
         'bizType'      => 'biz_type',
         'submitDate'   => 'submit_date',
+        'returnHash'   => 'return_hash',
     ];
 
     public function validate()
@@ -55,6 +64,9 @@ class EventSpecs extends Model
         }
         if (null !== $this->submitDate) {
             $res['submit_date'] = $this->submitDate;
+        }
+        if (null !== $this->returnHash) {
+            $res['return_hash'] = $this->returnHash;
         }
 
         return $res;
@@ -76,6 +88,9 @@ class EventSpecs extends Model
         }
         if (isset($map['submit_date'])) {
             $model->submitDate = $map['submit_date'];
+        }
+        if (isset($map['return_hash'])) {
+            $model->returnHash = $map['return_hash'];
         }
 
         return $model;
