@@ -298,7 +298,7 @@ export class CheckAicoguardrailsAnswerRequest extends $tea.Model {
   // 场景code，走SOP流程申请
   sceneCode: string;
   // 当前提问内容，最大长度800个字符。
-  question: string;
+  question?: string;
   // 当前提问内容格式, 默认值:PLAINTEXT
   questionFormat?: string;
   // 当前回答内容，最大长度800个字符。
@@ -509,7 +509,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.22",
+          sdk_version: "1.0.23",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
