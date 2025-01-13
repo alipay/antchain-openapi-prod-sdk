@@ -36,7 +36,7 @@ namespace AntChain.SDK.AITECHGUARD.Models
 
         // 当前提问内容，最大长度800个字符。
         [NameInMap("question")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Question { get; set; }
 
         // 当前提问内容格式, 默认值:PLAINTEXT
