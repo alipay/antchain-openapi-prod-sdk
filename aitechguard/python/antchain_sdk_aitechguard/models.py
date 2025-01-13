@@ -522,7 +522,6 @@ class CheckAicoguardrailsAnswerRequest(TeaModel):
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.app_code, 'app_code')
         self.validate_required(self.scene_code, 'scene_code')
-        self.validate_required(self.question, 'question')
         self.validate_required(self.answer, 'answer')
 
     def to_map(self):
