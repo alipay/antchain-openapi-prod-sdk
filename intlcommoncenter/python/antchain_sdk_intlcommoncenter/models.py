@@ -169,6 +169,9 @@ class ImportProductRequest(TeaModel):
         dev: str = None,
         description: str = None,
         operator: str = None,
+        business_line: str = None,
+        product_line: str = None,
+        product_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -195,6 +198,12 @@ class ImportProductRequest(TeaModel):
         self.description = description
         # 操作员
         self.operator = operator
+        # 业务线id
+        self.business_line = business_line
+        # 产品线id
+        self.product_line = product_line
+        # 产品code
+        self.product_code = product_code
 
     def validate(self):
         self.validate_required(self.business_status, 'business_status')
@@ -208,6 +217,8 @@ class ImportProductRequest(TeaModel):
         self.validate_required(self.pd_leader, 'pd_leader')
         self.validate_required(self.description, 'description')
         self.validate_required(self.operator, 'operator')
+        self.validate_required(self.business_line, 'business_line')
+        self.validate_required(self.product_line, 'product_line')
 
     def to_map(self):
         _map = super().to_map()
@@ -241,6 +252,12 @@ class ImportProductRequest(TeaModel):
             result['description'] = self.description
         if self.operator is not None:
             result['operator'] = self.operator
+        if self.business_line is not None:
+            result['business_line'] = self.business_line
+        if self.product_line is not None:
+            result['product_line'] = self.product_line
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
         return result
 
     def from_map(self, m: dict = None):
@@ -271,6 +288,12 @@ class ImportProductRequest(TeaModel):
             self.description = m.get('description')
         if m.get('operator') is not None:
             self.operator = m.get('operator')
+        if m.get('business_line') is not None:
+            self.business_line = m.get('business_line')
+        if m.get('product_line') is not None:
+            self.product_line = m.get('product_line')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         return self
 
 

@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2',
+                    'sdk_version': '1.1.5',
                     '_prod_code': 'INTLCOMMONCENTER',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.2',
+                    'sdk_version': '1.1.5',
                     '_prod_code': 'INTLCOMMONCENTER',
                     '_prod_channel': 'default'
                 }
