@@ -86,7 +86,6 @@ class CheckAicoguardrailsAnswerRequest extends Model
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('appCode', $this->appCode, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
-        Model::validateRequired('question', $this->question, true);
         Model::validateRequired('answer', $this->answer, true);
     }
 
