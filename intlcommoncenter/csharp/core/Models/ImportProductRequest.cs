@@ -73,6 +73,21 @@ namespace AntChain.SDK.INTLCOMMONCENTER.Models
         [Validation(Required=true)]
         public string Operator { get; set; }
 
+        // 业务线id
+        [NameInMap("business_line")]
+        [Validation(Required=true)]
+        public string BusinessLine { get; set; }
+
+        // 产品线id
+        [NameInMap("product_line")]
+        [Validation(Required=true)]
+        public string ProductLine { get; set; }
+
+        // 产品code
+        [NameInMap("product_code")]
+        [Validation(Required=false)]
+        public string ProductCode { get; set; }
+
     }
 
 }
