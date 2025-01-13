@@ -434,7 +434,7 @@ type CheckAicoguardrailsAnswerRequest struct {
 	// 场景code，走SOP流程申请
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 当前提问内容，最大长度800个字符。
-	Question *string `json:"question,omitempty" xml:"question,omitempty" require:"true"`
+	Question *string `json:"question,omitempty" xml:"question,omitempty"`
 	// 当前提问内容格式, 默认值:PLAINTEXT
 	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty"`
 	// 当前回答内容，最大长度800个字符。
@@ -701,7 +701,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.22"),
+				"sdk_version":      tea.String("1.0.23"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
