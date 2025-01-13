@@ -174,6 +174,12 @@ type ImportProductRequest struct {
 	Description *string `json:"description,omitempty" xml:"description,omitempty" require:"true"`
 	// 操作员
 	Operator *string `json:"operator,omitempty" xml:"operator,omitempty" require:"true"`
+	// 业务线id
+	BusinessLine *string `json:"business_line,omitempty" xml:"business_line,omitempty" require:"true"`
+	// 产品线id
+	ProductLine *string `json:"product_line,omitempty" xml:"product_line,omitempty" require:"true"`
+	// 产品code
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty"`
 }
 
 func (s ImportProductRequest) String() string {
@@ -246,6 +252,21 @@ func (s *ImportProductRequest) SetDescription(v string) *ImportProductRequest {
 
 func (s *ImportProductRequest) SetOperator(v string) *ImportProductRequest {
 	s.Operator = &v
+	return s
+}
+
+func (s *ImportProductRequest) SetBusinessLine(v string) *ImportProductRequest {
+	s.BusinessLine = &v
+	return s
+}
+
+func (s *ImportProductRequest) SetProductLine(v string) *ImportProductRequest {
+	s.ProductLine = &v
+	return s
+}
+
+func (s *ImportProductRequest) SetProductCode(v string) *ImportProductRequest {
+	s.ProductCode = &v
 	return s
 }
 
@@ -599,7 +620,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.2"),
+				"sdk_version":      tea.String("1.1.5"),
 				"_prod_code":       tea.String("INTLCOMMONCENTER"),
 				"_prod_channel":    tea.String("default"),
 			}
