@@ -84,6 +84,24 @@ class ImportProductRequest extends Model
      * @var string
      */
     public $operator;
+
+    // 业务线id
+    /**
+     * @var string
+     */
+    public $businessLine;
+
+    // 产品线id
+    /**
+     * @var string
+     */
+    public $productLine;
+
+    // 产品code
+    /**
+     * @var string
+     */
+    public $productCode;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -98,6 +116,9 @@ class ImportProductRequest extends Model
         'dev'                   => 'dev',
         'description'           => 'description',
         'operator'              => 'operator',
+        'businessLine'          => 'business_line',
+        'productLine'           => 'product_line',
+        'productCode'           => 'product_code',
     ];
 
     public function validate()
@@ -111,6 +132,8 @@ class ImportProductRequest extends Model
         Model::validateRequired('pdLeader', $this->pdLeader, true);
         Model::validateRequired('description', $this->description, true);
         Model::validateRequired('operator', $this->operator, true);
+        Model::validateRequired('businessLine', $this->businessLine, true);
+        Model::validateRequired('productLine', $this->productLine, true);
         Model::validatePattern('startTime', $this->startTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
     }
 
@@ -155,6 +178,15 @@ class ImportProductRequest extends Model
         }
         if (null !== $this->operator) {
             $res['operator'] = $this->operator;
+        }
+        if (null !== $this->businessLine) {
+            $res['business_line'] = $this->businessLine;
+        }
+        if (null !== $this->productLine) {
+            $res['product_line'] = $this->productLine;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
         }
 
         return $res;
@@ -206,6 +238,15 @@ class ImportProductRequest extends Model
         }
         if (isset($map['operator'])) {
             $model->operator = $map['operator'];
+        }
+        if (isset($map['business_line'])) {
+            $model->businessLine = $map['business_line'];
+        }
+        if (isset($map['product_line'])) {
+            $model->productLine = $map['product_line'];
+        }
+        if (isset($map['product_code'])) {
+            $model->productCode = $map['product_code'];
         }
 
         return $model;
