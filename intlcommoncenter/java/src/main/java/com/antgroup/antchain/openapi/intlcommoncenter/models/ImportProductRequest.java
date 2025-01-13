@@ -64,6 +64,20 @@ public class ImportProductRequest extends TeaModel {
     @Validation(required = true)
     public String operator;
 
+    // 业务线id
+    @NameInMap("business_line")
+    @Validation(required = true)
+    public String businessLine;
+
+    // 产品线id
+    @NameInMap("product_line")
+    @Validation(required = true)
+    public String productLine;
+
+    // 产品code
+    @NameInMap("product_code")
+    public String productCode;
+
     public static ImportProductRequest build(java.util.Map<String, ?> map) throws Exception {
         ImportProductRequest self = new ImportProductRequest();
         return TeaModel.build(map, self);
@@ -171,6 +185,30 @@ public class ImportProductRequest extends TeaModel {
     }
     public String getOperator() {
         return this.operator;
+    }
+
+    public ImportProductRequest setBusinessLine(String businessLine) {
+        this.businessLine = businessLine;
+        return this;
+    }
+    public String getBusinessLine() {
+        return this.businessLine;
+    }
+
+    public ImportProductRequest setProductLine(String productLine) {
+        this.productLine = productLine;
+        return this;
+    }
+    public String getProductLine() {
+        return this.productLine;
+    }
+
+    public ImportProductRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
     }
 
 }
