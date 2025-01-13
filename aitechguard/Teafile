@@ -1,7 +1,7 @@
 {
   "scope": "antchain",
   "name": "AITECHGUARD",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "main": "./main.tea",
   "maintainers": [
     {
@@ -10,12 +10,12 @@
     }
   ],
   "releases": {
-    "java": "com.antgroup.antchain.openapi:openapi-aitechguard:1.0.22",
-    "go": "github.com/antchain-openapi-sdk-go/aitechguard/client:v1.0.22",
-    "csharp": "AntChain.SDK.AITECHGUARD:1.0.22",
-    "ts": "@antchain/aitechguard:1.0.22",
-    "php": "antchain/aitechguard:1.0.22",
-    "python": "antchain_sdk_aitechguard:1.0.22"
+    "java": "com.antgroup.antchain.openapi:openapi-aitechguard:1.0.23",
+    "go": "github.com/antchain-openapi-sdk-go/aitechguard/client:v1.0.23",
+    "csharp": "AntChain.SDK.AITECHGUARD:1.0.23",
+    "ts": "@antchain/aitechguard:1.0.23",
+    "php": "antchain/aitechguard:1.0.23",
+    "python": "antchain_sdk_aitechguard:1.0.23"
   },
   "libraries": {
     "Util": "darabonba:Util:*",
