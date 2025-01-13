@@ -30,7 +30,6 @@ public class CheckAicoguardrailsAnswerRequest extends TeaModel {
 
     // 当前提问内容，最大长度800个字符。
     @NameInMap("question")
-    @Validation(required = true)
     public String question;
 
     // 当前提问内容格式, 默认值:PLAINTEXT
