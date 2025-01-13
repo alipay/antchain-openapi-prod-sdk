@@ -103,6 +103,12 @@ export class ImportProductRequest extends $tea.Model {
   description: string;
   // 操作员
   operator: string;
+  // 业务线id
+  businessLine: string;
+  // 产品线id
+  productLine: string;
+  // 产品code
+  productCode?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -118,6 +124,9 @@ export class ImportProductRequest extends $tea.Model {
       dev: 'dev',
       description: 'description',
       operator: 'operator',
+      businessLine: 'business_line',
+      productLine: 'product_line',
+      productCode: 'product_code',
     };
   }
 
@@ -136,6 +145,9 @@ export class ImportProductRequest extends $tea.Model {
       dev: 'string',
       description: 'string',
       operator: 'string',
+      businessLine: 'string',
+      productLine: 'string',
+      productCode: 'string',
     };
   }
 
@@ -435,7 +447,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.2",
+          sdk_version: "1.1.5",
           _prod_code: "INTLCOMMONCENTER",
           _prod_channel: "default",
         };
