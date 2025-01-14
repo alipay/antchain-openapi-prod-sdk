@@ -253,6 +253,8 @@ type CaptionsInfo struct {
 	CustomCaptions *bool `json:"custom_captions,omitempty" xml:"custom_captions,omitempty"`
 	// 字幕自定义样式
 	CaptionsStyle *CaptionsStyle `json:"captions_style,omitempty" xml:"captions_style,omitempty" require:"true"`
+	// 字幕拆分字数，默认为单句在画面中不拆分。
+	SplitWords *int64 `json:"split_words,omitempty" xml:"split_words,omitempty"`
 }
 
 func (s CaptionsInfo) String() string {
@@ -300,6 +302,11 @@ func (s *CaptionsInfo) SetCustomCaptions(v bool) *CaptionsInfo {
 
 func (s *CaptionsInfo) SetCaptionsStyle(v *CaptionsStyle) *CaptionsInfo {
 	s.CaptionsStyle = v
+	return s
+}
+
+func (s *CaptionsInfo) SetSplitWords(v int64) *CaptionsInfo {
+	s.SplitWords = &v
 	return s
 }
 
@@ -2238,7 +2245,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.3"),
+				"sdk_version":      tea.String("1.2.4"),
 				"_prod_code":       tea.String("ak_245215eadadd4dc9bba177d6ba6d593d"),
 				"_prod_channel":    tea.String("saas"),
 			}
