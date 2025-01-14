@@ -71,6 +71,14 @@ class CaptionsInfo extends Model
      * @var CaptionsStyle
      */
     public $captionsStyle;
+
+    // 字幕拆分字数，默认为单句在画面中不拆分。
+    /**
+     * @example 12
+     *
+     * @var int
+     */
+    public $splitWords;
     protected $_name = [
         'x'              => 'x',
         'y'              => 'y',
@@ -80,6 +88,7 @@ class CaptionsInfo extends Model
         'sentences'      => 'sentences',
         'customCaptions' => 'custom_captions',
         'captionsStyle'  => 'captions_style',
+        'splitWords'     => 'split_words',
     ];
 
     public function validate()
@@ -125,6 +134,9 @@ class CaptionsInfo extends Model
         if (null !== $this->captionsStyle) {
             $res['captions_style'] = null !== $this->captionsStyle ? $this->captionsStyle->toMap() : null;
         }
+        if (null !== $this->splitWords) {
+            $res['split_words'] = $this->splitWords;
+        }
 
         return $res;
     }
@@ -166,6 +178,9 @@ class CaptionsInfo extends Model
         }
         if (isset($map['captions_style'])) {
             $model->captionsStyle = CaptionsStyle::fromMap($map['captions_style']);
+        }
+        if (isset($map['split_words'])) {
+            $model->splitWords = $map['split_words'];
         }
 
         return $model;
