@@ -274,6 +274,7 @@ class CaptionsInfo(TeaModel):
         sentences: List[Sentence] = None,
         custom_captions: bool = None,
         captions_style: CaptionsStyle = None,
+        split_words: int = None,
     ):
         # 字幕画面位置x坐标，距左侧
         self.x = x
@@ -291,6 +292,8 @@ class CaptionsInfo(TeaModel):
         self.custom_captions = custom_captions
         # 字幕自定义样式
         self.captions_style = captions_style
+        # 字幕拆分字数，默认为单句在画面中不拆分。
+        self.split_words = split_words
 
     def validate(self):
         self.validate_required(self.x, 'x')
@@ -330,6 +333,8 @@ class CaptionsInfo(TeaModel):
             result['custom_captions'] = self.custom_captions
         if self.captions_style is not None:
             result['captions_style'] = self.captions_style.to_map()
+        if self.split_words is not None:
+            result['split_words'] = self.split_words
         return result
 
     def from_map(self, m: dict = None):
@@ -354,6 +359,8 @@ class CaptionsInfo(TeaModel):
         if m.get('captions_style') is not None:
             temp_model = CaptionsStyle()
             self.captions_style = temp_model.from_map(m['captions_style'])
+        if m.get('split_words') is not None:
+            self.split_words = m.get('split_words')
         return self
 
 
