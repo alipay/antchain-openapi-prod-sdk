@@ -42,6 +42,10 @@ public class CaptionsInfo extends TeaModel {
     @Validation(required = true)
     public CaptionsStyle captionsStyle;
 
+    // 字幕拆分字数，默认为单句在画面中不拆分。
+    @NameInMap("split_words")
+    public Long splitWords;
+
     public static CaptionsInfo build(java.util.Map<String, ?> map) throws Exception {
         CaptionsInfo self = new CaptionsInfo();
         return TeaModel.build(map, self);
@@ -109,6 +113,14 @@ public class CaptionsInfo extends TeaModel {
     }
     public CaptionsStyle getCaptionsStyle() {
         return this.captionsStyle;
+    }
+
+    public CaptionsInfo setSplitWords(Long splitWords) {
+        this.splitWords = splitWords;
+        return this;
+    }
+    public Long getSplitWords() {
+        return this.splitWords;
     }
 
 }
