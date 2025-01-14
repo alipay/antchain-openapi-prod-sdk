@@ -165,6 +165,8 @@ export class CaptionsInfo extends $tea.Model {
   customCaptions?: boolean;
   // 字幕自定义样式
   captionsStyle: CaptionsStyle;
+  // 字幕拆分字数，默认为单句在画面中不拆分。
+  splitWords?: number;
   static names(): { [key: string]: string } {
     return {
       x: 'x',
@@ -175,6 +177,7 @@ export class CaptionsInfo extends $tea.Model {
       sentences: 'sentences',
       customCaptions: 'custom_captions',
       captionsStyle: 'captions_style',
+      splitWords: 'split_words',
     };
   }
 
@@ -188,6 +191,7 @@ export class CaptionsInfo extends $tea.Model {
       sentences: { 'type': 'array', 'itemType': Sentence },
       customCaptions: 'boolean',
       captionsStyle: CaptionsStyle,
+      splitWords: 'number',
     };
   }
 
@@ -1748,7 +1752,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.3",
+          sdk_version: "1.2.4",
           _prod_code: "ak_245215eadadd4dc9bba177d6ba6d593d",
           _prod_channel: "saas",
         };
