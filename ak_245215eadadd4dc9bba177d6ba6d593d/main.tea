@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.2.3',
+    sdk_version = '1.2.4',
     _prod_code = 'ak_245215eadadd4dc9bba177d6ba6d593d',
     _prod_channel = 'saas'
   };
@@ -205,6 +205,8 @@ model CaptionsInfo {
   customCaptions?: boolean(name='custom_captions', example='true, false'),
   // 字幕自定义样式
   captionsStyle: CaptionsStyle(name='captions_style', example=''),
+  // 字幕拆分字数，默认为单句在画面中不拆分。
+  splitWords?: long(name='split_words', example='12'),
 }
 
 // 数字人形象
