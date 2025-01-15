@@ -1,0 +1,1099 @@
+import AntchainUtil;
+import Util;
+import RPCUtil;
+
+type @endpoint = string
+type @regionId = string
+type @accessKeyId = string
+type @accessKeySecret = string
+type @protocol = string
+type @userAgent = string
+type @readTimeout = number
+type @connectTimeout = number
+type @httpProxy = string
+type @httpsProxy = string
+type @socks5Proxy = string
+type @socks5NetWork = string
+type @noProxy = string
+type @maxIdleConns = number
+type @securityToken = string
+type @maxIdleTimeMillis = number
+type @keepAliveDurationMillis = number
+type @maxRequests = number
+type @maxRequestsPerHost = number
+
+/**
+ * Model for initing client
+ */
+model Config {
+  accessKeyId?: string(description='accesskey id',default=''),
+  accessKeySecret?: string(description='accesskey secret',default=''),
+  securityToken?: string(description='security token',default=''),
+  protocol?: string(description='http protocol',example='http',default='http'),
+  readTimeout?: number(description='read timeout',example='10',default=''),
+  connectTimeout?: number(description='connect timeout',example='10',default=''),
+  httpProxy?: string(description='http proxy',example='http://localhost',default=''),
+  httpsProxy?: string(description='https proxy',example='https://localhost',default=''),
+  endpoint?: string(description='endpoint',example='cs.aliyuncs.com',default=''),
+  noProxy?: string(description='proxy white list',example='http://localhost',default=''),
+  maxIdleConns?: number(description='max idle conns',example='3',default=''),
+  userAgent?: string(description='user agent',example='Alibabacloud/1',default=''),
+  socks5Proxy?: string(description='socks5 proxy',default=''),
+  socks5NetWork?: string(description='socks5 network',example='TCP',default=''),
+  maxIdleTimeMillis?: number(description='长链接最大空闲时长',default='60 * 1000L'),
+  keepAliveDurationMillis?: number(description='长链接最大连接时长',default='5000'),
+  maxRequests?: number(description='最大连接数（长链接最大总数）',default='100'),
+  maxRequestsPerHost?: number(description='每个目标主机的最大连接数（分主机域名的长链接最大总数',default='100'),
+}
+
+/**
+ * Init client with Config
+ * @param config config contains the necessary information to create a client
+ */
+init(config: Config) {
+  if (Util.isUnset(config)) {
+    throw {
+      code = 'ParameterMissing',
+      message = '\'config\' can not be unset'
+    };
+  }
+
+  @accessKeyId = config.accessKeyId;
+  @accessKeySecret = config.accessKeySecret;
+  @securityToken = config.securityToken;
+  @endpoint = config.endpoint;
+  @protocol = config.protocol;
+  @userAgent = config.userAgent;
+  @readTimeout = Util.defaultNumber(config.readTimeout, 20000);
+  @connectTimeout = Util.defaultNumber(config.connectTimeout, 20000);
+  @httpProxy = config.httpProxy;
+  @httpsProxy = config.httpsProxy;
+  @noProxy = config.noProxy;
+  @socks5Proxy = config.socks5Proxy;
+  @socks5NetWork = config.socks5NetWork;
+  @maxIdleConns = Util.defaultNumber(config.maxIdleConns, 60000);
+  @maxIdleTimeMillis = Util.defaultNumber(config.maxIdleTimeMillis, 5);
+  @keepAliveDurationMillis = Util.defaultNumber(config.keepAliveDurationMillis, 5000);
+  @maxRequests = Util.defaultNumber(config.maxRequests, 100);
+  @maxRequestsPerHost = Util.defaultNumber(config.maxRequestsPerHost, 100);
+}
+
+/**
+ * Encapsulate the request and invoke the network
+ * @param action api name
+ * @param protocol http or https
+ * @param method e.g. GET
+ * @param pathname pathname of every api
+ * @param request which contains request params
+ * @param runtime which controls some details of call api, such as retry times
+ * @return the response
+ */
+api doRequest(version: string, action: string, protocol: string, method: string, pathname: string, request: object, headers: map[string]string, runtime: Util.RuntimeOptions): object {
+  __request.protocol = Util.defaultString(@protocol, protocol);
+  __request.method = method;
+  __request.pathname = pathname;
+  __request.query = {
+    method = action,
+    version = version,
+    sign_type = 'HmacSHA1',
+    req_time = AntchainUtil.getTimestamp(),
+    req_msg_id = AntchainUtil.getNonce(),
+    access_key = @accessKeyId,
+    base_sdk_version = 'TeaSDK-2.0',
+    sdk_version = '1.2.0',
+    _prod_code = 'MARKETING',
+    _prod_channel = 'undefined'
+  };
+
+  if (!Util.empty(@securityToken)) {
+    __request.query.security_token = @securityToken;
+  }
+
+  __request.headers = {
+    host = Util.defaultString(@endpoint, 'openapi.antchain.antgroup.com'),
+    user-agent = Util.getUserAgent(@userAgent),
+    ...headers
+  };
+
+  var tmp = Util.anyifyMapValue(RPCUtil.query(request));
+  __request.body = Util.toFormString(tmp);
+  __request.headers.content-type = 'application/x-www-form-urlencoded';
+
+  var signedParam = {
+    ...__request.query,
+    ...RPCUtil.query(request)
+  };
+  __request.query.sign = AntchainUtil.getSignature(signedParam, @accessKeySecret);
+} returns {
+  var raw = Util.readAsString(__response.body);
+  var obj = Util.parseJSON(raw);
+  var res = Util.assertAsMap(obj);
+  var resp = Util.assertAsMap(res.response);
+
+  if (AntchainUtil.hasError(raw, @accessKeySecret)) {
+    throw {
+      message = resp.result_msg,
+      data = resp,
+      code = resp.result_code
+    };
+  }
+  return resp;
+} runtime {
+  timeouted = 'retry',
+  readTimeout = Util.defaultNumber(runtime.readTimeout, @readTimeout),
+  connectTimeout = Util.defaultNumber(runtime.connectTimeout, @connectTimeout),
+  httpProxy = Util.defaultString(runtime.httpProxy, @httpProxy),
+  httpsProxy = Util.defaultString(runtime.httpsProxy, @httpsProxy),
+  noProxy = Util.defaultString(runtime.noProxy, @noProxy),
+  maxIdleConns = Util.defaultNumber(runtime.maxIdleConns, @maxIdleConns),
+  maxIdleTimeMillis = @maxIdleTimeMillis,
+  keepAliveDuration = @keepAliveDurationMillis,
+  maxRequests = @maxRequests,
+  maxRequestsPerHost = @maxRequestsPerHost,
+  retry = {
+    retryable = runtime.autoretry,
+    maxAttempts = Util.defaultNumber(runtime.maxAttempts, 3)
+  },
+  backoff = {
+    policy = Util.defaultString(runtime.backoffPolicy, 'no'),
+    period = Util.defaultNumber(runtime.backoffPeriod, 1)
+  },
+  ignoreSSL = runtime.ignoreSSL
+}
+
+// 目录对象
+model CategoryVO {
+  // 内部id
+  id?: long(name='id', example=''),
+  // 内容库id
+  siteId?: long(name='site_id', example=''),
+  // 站点
+  site?: string(name='site', example='""'),
+  // language
+  language?: string(name='language', example='""'),
+  // title
+  title?: string(name='title', example='""'),
+  // 类型
+  type?: long(name='type', example=''),
+  // 展示类型 1为左侧展示2为列表展示
+  showType?: long(name='show_type', example=''),
+  // 排序
+  sort?: long(name='sort', example=''),
+  // 目录层级
+  level?: long(name='level', example=''),
+  // 外标id
+  extId?: string(name='ext_id', example='""'),
+  // 父id
+  parentId?: string(name='parent_id', example='""'),
+  // 来源类型
+  sourceType?: long(name='source_type', example=''),
+  // 版本
+  version?: string(name='version', example='""'),
+  // 语雀目录有无数据判定
+  catalogueType?: long(name='catalogue_type', example=''),
+}
+
+// NoviceMustSee
+model NoviceMustSee {
+  // novice_must_see_explain
+  noviceMustSeeExplain?: string(name='novice_must_see_explain', example='""'),
+  // novice_must_see_title1
+  noviceMustSeeTitle1?: string(name='novice_must_see_title1', example='""'),
+  // novice_must_see_address1
+  noviceMustSeeAddress1?: string(name='novice_must_see_address1', example='12'),
+  // novice_must_see_title2
+  noviceMustSeeTitle2?: string(name='novice_must_see_title2', example='""'),
+  // novice_must_see_address2
+  noviceMustSeeAddress2?: string(name='novice_must_see_address2', example='""'),
+  // novice_must_see_title3
+  noviceMustSeeTitle3?: string(name='novice_must_see_title3', example='""'),
+  // novice_must_see_address3
+  noviceMustSeeAddress3?: string(name='novice_must_see_address3', example='""'),
+}
+
+// 公司联系人
+model CorporateContacts {
+  // 职务
+  jobTitle?: string(name='job_title', example='总经理'),
+  // 姓名
+  realName: string(name='real_name', example='XXX'),
+  // 电话
+  mobilePhone?: string(name='mobile_phone', example='15888888888'),
+  // 邮箱
+  email?: string(name='email', example='XXX@XXX.COM'),
+}
+
+// PopularDocument
+model PopularDocument {
+  // popular_document_title
+  popularDocumentTitle?: string(name='popular_document_title', example='""'),
+  // popular_document_id
+  popularDocumentId?: string(name='popular_document_id', example='""'),
+  // popular_document_info
+  popularDocumentInfo?: string(name='popular_document_info', example='""'),
+  // children
+  children: [ CategoryVO ](name='children', example=''),
+}
+
+// 商机信息
+model BusinessRequest {
+  // 客户名称
+  customerName: string(name='customer_name', example='XXX公司'),
+  // 客户id
+  customerId: string(name='customer_id', example='XXX'),
+  // 商机名称
+  businessName: string(name='business_name', example='XXX'),
+  // 商机ID
+  businessId: string(name='business_id', example='xxx'),
+  // 未开通(INIT)/开通中(OPENING/已开通(OPEN)/使用中(USING)/闲置中(IDLE)/已关闭(CLOSE)
+  businessStatus: string(name='business_status', example='INIT'),
+  // 商机说明
+  businessExplain?: string(name='business_explain', example='XXX'),
+  // 线索来源
+  source: string(name='source', example=' '),
+  // 商机时间
+  businessDate: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='business_date', example='2018-10-10T10:10:00Z'),
+  // 租户
+  tenant: string(name='tenant', example='BCC'),
+  // 创建人工号
+  creator: string(name='creator', example='132'),
+  // 创建人花名
+  creatorNick: string(name='creator_nick', example='XX'),
+}
+
+// 用于传输附件链接
+model Attachment {
+  // 文件唯一标识，作为幂等字段
+  fileId: string(name='file_id', example='10100000219487'),
+  // 文件名称，用作展示
+  filename?: string(name='filename', example='exmaple.pdf'),
+  // 访问地址
+  url: string(name='url', example='文件链接'),
+}
+
+// 页面上下文
+model PageContext {
+  // 页面di
+  pageId?: string(name='page_id', example='12'),
+  // 页面标题
+  pageTitle?: string(name='page_title', example='12'),
+}
+
+// 情报资产详情
+model Asset {
+  // 资产标识，作为幂等单号
+  assetId: string(name='asset_id', example='2024112900876318'),
+  // VALID - 生效；INVALID - 作废
+  status: string(name='status', example='资产状态'),
+  // 资产详情，自定义展示
+  assetInfo: string(name='asset_info', example='"{\"company\":\"alpha\",\"name\":\"beta\",\"phone\":\"18812345678\",\"email\":\"hello@example.com\",\"position\":\"gamma\",\"industry\":\"zeta\",\"content\":\"delta\"}"'),
+}
+
+// CategoryLocalVO
+model CategoryLocalVO {
+  // id
+  id?: long(name='id', example=''),
+  // siteId
+  siteId?: long(name='site_id', example=''),
+  // title
+  title?: string(name='title', example='""'),
+  // type
+  type?: long(name='type', example=''),
+  // sort
+  sort?: long(name='sort', example=''),
+  // level
+  level?: long(name='level', example=''),
+  // parent_id
+  parentId?: string(name='parent_id', example='""'),
+  // sourceType
+  sourceType?: long(name='source_type', example=''),
+  // show_type
+  showType?: long(name='show_type', example=''),
+  // ext_id
+  extId?: string(name='ext_id', example='""'),
+  // shield
+  shieId?: long(name='shie_id', example=''),
+  // status
+  status?: long(name='status', example=''),
+  // deleted
+  deleted?: long(name='deleted', example=''),
+  // tree
+  tree?: string(name='tree', example='""'),
+  // green
+  green?: long(name='green', example=''),
+  // site_code
+  siteCode?: string(name='site_code', example='""'),
+  // created_time
+  createdTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='created_time', example='2018-10-10T10:10:00Z'),
+  // modified_time
+  modifiedTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='modified_time', example='2018-10-10T10:10:00Z'),
+  // isCatalogue
+  isCatalogue?: boolean(name='is_catalogue', example='true, false'),
+}
+
+// 线索信息请求
+model ClueInformationReq {
+  // 线索标题
+  title: string(name='title', example='标题'),
+  // 线索跟进状态   INIT:待确认 CONTACTED:跟进中 CLOSED:线索终止 TRANSFER:已转交 BUSINESS:转商机
+  status: string(name='status', example=' INIT '),
+  // 线索跟进人  工号
+  createdUserNick: string(name='created_user_nick', example='123132'),
+  // 线索描述
+  description: string(name='description', example='线索描述'),
+  // 客户名称
+  customerName: string(name='customer_name', example='XXX公司'),
+  // 业务线
+  bizLine: string(name='biz_line', example='XXX'),
+  // 客户地址
+  customerLocation: string(name='customer_location', example='XX省XX市XX区XXX'),
+  // 公司联系人
+  corporateContacts?: [ CorporateContacts ](name='corporate_contacts', example='{           "jobTitle": "经理",           "realName": "张三",           "mobilePhone": "15888888888",           "email": "lisi@lisi.com"         }'),
+  // 客户所在行业
+  customerIndustry: string(name='customer_industry', example='金融'),
+  // 客户营收规模
+  revenueScale?: string(name='revenue_scale', example=' '),
+  // 社会信用代码
+  socialCreditCode?: string(name='social_credit_code', example='914XXXXXXXXXXXXXXX'),
+  // 线索来源
+  source: string(name='source', example='LAOJIAO'),
+  // 客户ID
+  customerId?: string(name='customer_id', example='203434343'),
+  // 多租户模型。线索服务化的租户模型。请联系线索服务管理员提供。固定值。
+  tenant: string(name='tenant', example='BCC'),
+}
+
+// 内容对象
+model ContentObjVO {
+  // novice_must_sees
+  noviceMustSees?: [ NoviceMustSee ](name='novice_must_sees', example=''),
+  // popular_document
+  popularDocument?: [ PopularDocument ](name='popular_document', example=''),
+  // product_presentation
+  productPresentation?: string(name='product_presentation', example='12'),
+}
+
+// 优惠券模型
+model Coupon {
+  // 优惠券ID
+  id: long(name='id', example='1231313'),
+  // 优惠券名称,前端展示
+  displayName: string(name='display_name', example='XX优惠券'),
+  // 优惠券模板名称
+  name: string(name='name', example='XXXX'),
+  // 优惠券类型，VOUCHER：抵用券;CERTAIN：满减券；DISCOUNT：折扣券
+  type: string(name='type', example='VOUCHER'),
+  // 优惠券总金额，单位（分）。可使用优惠金额为amount-used_amount
+  amount?: string(name='amount', example='10000'),
+  // 已使用金额，单位（分）。
+  usedAmount?: string(name='used_amount', example='10000'),
+  // 状态，AVAILABLE-有效/EXPIRED-已过期/EXHAUSTED-已用完/ABANDONED-已作废
+  status: string(name='status', example='AVAILABLE'),
+  // 有效期开始时间
+  startTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='start_time', example='2018-10-10T10:10:00Z'),
+  // 有效期结束时间
+  endTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='end_time', example='2018-10-10T10:10:00Z'),
+  // 模板id
+  youhuiTemplateId: long(name='youhui_template_id', example='111'),
+  // 优惠券=折扣券时使用，如0.75
+  discountRate?: string(name='discount_rate', example='0.75'),
+  // 优惠券类型=满减券时使用，如满2000元
+  fullAmount?: string(name='full_amount', example='2000.00'),
+  // 可以使用的总次数
+  usageCount: long(name='usage_count', example='5'),
+  // 已使用次数（冻结次数）
+  usedCount: long(name='used_count', example='5'),
+  // 适用产品：通用/ECS/RDS
+  productList: string(name='product_list', example='通用'),
+  // 适用订单类型
+  orderTypeList: string(name='order_type_list', example='BUY'),
+  //  币种CurrencyCode CNY 代表人民币 USD代表美元
+  currency: string(name='currency', example='CNY'),
+  // 高精度总金额，单位元。可用金额 high_precision_available_amount = 总金额 high_precision_amount - 已使用金额 high_precision_used_amount
+  highPrecisionAmount: string(name='high_precision_amount', example='100.00'),
+  // 单位元
+  highPrecisionUsedAmount: string(name='high_precision_used_amount', example='0.001'),
+  // 单位元
+  highPrecisionAvailableAmount: string(name='high_precision_available_amount', example='100.001'),
+}
+
+model QueryCouponRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 优惠券模板ID
+  templateId: string(name='template_id'),
+  // 查询范围，有效：AVAILABLE / 全部: ALL；不传默认查询有效
+  scope?: string(name='scope'),
+}
+
+model QueryCouponResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券列表
+  couponList?: [ Coupon ](name='coupon_list'),
+}
+
+/**
+ * Description: 优惠券列表查询接口
+ * Summary: 优惠券列表查询接口
+ */
+async function queryCoupon(request: QueryCouponRequest): QueryCouponResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCouponEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠券列表查询接口
+ * Summary: 优惠券列表查询接口
+ */
+async function queryCouponEx(request: QueryCouponRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCouponResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.coupon.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendCouponRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 外部业务流水号，用于幂等判断
+  bizNo: string(name='biz_no'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 优惠券模板ID，营销后台申请获取
+  templateId: string(name='template_id'),
+}
+
+model SendCouponResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券id
+  couponId?: long(name='coupon_id'),
+}
+
+/**
+ * Description: 优惠券发放接口，基于模板ID发送优惠券
+ * Summary: 优惠券发放接口
+ */
+async function sendCoupon(request: SendCouponRequest): SendCouponResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendCouponEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠券发放接口，基于模板ID发送优惠券
+ * Summary: 优惠券发放接口
+ */
+async function sendCouponEx(request: SendCouponRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendCouponResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.coupon.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model CreateLeadClueRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 补登线索,客户信息
+  request: ClueInformationReq(name='request'),
+  // 线索来源
+  source: string(name='source'),
+  // 企业名称
+  customerName: string(name='customer_name'),
+  // 多租户模型。线索服务化的租户模型。请联系线索服务管理员提供。固定值。
+  // tenant+source+customerName唯一确定一条线索。
+  tenantName: string(name='tenant_name'),
+}
+
+model CreateLeadClueResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 成功与否
+  result?: boolean(name='result'),
+  // 客户id，行业线自己的会员id
+  customerId?: string(name='customer_id'),
+  // 线索id，中台侧线索唯一号
+  leadId?: string(name='lead_id'),
+}
+
+/**
+ * Description: 会员信息首次创建
+ * Summary: 线索数据同步
+ */
+async function createLeadClue(request: CreateLeadClueRequest): CreateLeadClueResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return createLeadClueEx(request, headers, runtime);
+}
+
+/**
+ * Description: 会员信息首次创建
+ * Summary: 线索数据同步
+ */
+async function createLeadClueEx(request: CreateLeadClueRequest, headers: map[string]string, runtime: Util.RuntimeOptions): CreateLeadClueResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.lead.clue.create', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddLeadBusinessRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 商机信息
+  request: [ BusinessRequest ](name='request'),
+  // 线索服务化，多租户模型
+  tenantName: string(name='tenant_name'),
+}
+
+model AddLeadBusinessResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  //  
+  result?: boolean(name='result'),
+  // 新增的商机列表。正常情况下会返回新增的商机列表
+  businessIds?: [ string ](name='business_ids'),
+}
+
+/**
+ * Description: 更新/添加商机
+ * Summary: 添加商机
+ */
+async function addLeadBusiness(request: AddLeadBusinessRequest): AddLeadBusinessResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addLeadBusinessEx(request, headers, runtime);
+}
+
+/**
+ * Description: 更新/添加商机
+ * Summary: 添加商机
+ */
+async function addLeadBusinessEx(request: AddLeadBusinessRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddLeadBusinessResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.lead.business.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCouponPageRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID	
+  tenantId: string(name='tenant_id'),
+  // 商品code	
+  productCodes: string(name='product_codes'),
+  // 优惠券类型:VOUCHER 抵用券, CERTAIN 满减券,DISCOUNT 折扣券	
+  // 
+  couponType?: string(name='coupon_type'),
+  // 当前页，默认第一页
+  pageNo?: long(name='page_no'),
+  // 每页显示数量，默认10条
+  pageSize?: long(name='page_size'),
+}
+
+model QueryCouponPageResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券列表
+  couponList?: [ Coupon ](name='coupon_list'),
+  // 当前页
+  currentPage?: long(name='current_page'),
+  // 每页显示行数
+  pageSize?: long(name='page_size'),
+  // 总数量
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 优惠券查询(不区分可用与不可用)
+先查询客户的优惠券列表，然后再内存中过滤商品，会导致每页数量不同
+ * Summary: 分页查询优惠券列表
+ */
+async function queryCouponPage(request: QueryCouponPageRequest): QueryCouponPageResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCouponPageEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠券查询(不区分可用与不可用)
+先查询客户的优惠券列表，然后再内存中过滤商品，会导致每页数量不同
+ * Summary: 分页查询优惠券列表
+ */
+async function queryCouponPageEx(request: QueryCouponPageRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCouponPageResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.coupon.page.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCouponPagelistRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID	
+  tenantId: string(name='tenant_id'),
+  // 商品code	
+  // 可多选 多个产品间用 , 分隔  如
+  // ABC,DEF,GHI
+  productCodes: string(name='product_codes'),
+  // 优惠券类型:VOUCHER 抵用券, CERTAIN 满减券,DISCOUNT 折扣券	
+  // 
+  couponType?: string(name='coupon_type'),
+  // 当前页，默认第一页
+  pageNo?: long(name='page_no'),
+  // 每页显示数量，默认10条	
+  // 
+  pageSize?: long(name='page_size'),
+  // 币种，不传默认CNY人民币。
+  currency?: string(name='currency'),
+}
+
+model QueryCouponPagelistResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券列表
+  couponList?: [ Coupon ](name='coupon_list'),
+  // 当前页	
+  // 
+  currentPage?: long(name='current_page'),
+  // 每页显示行数	
+  // 
+  pageSize?: long(name='page_size'),
+  // 总数量	
+  // 
+  totalCount?: long(name='total_count'),
+}
+
+/**
+ * Description: 优惠券查询(不区分可用与不可用)
+商品过滤放在SQL里面，从而每页数量一样
+ * Summary: 分页查询优惠券列表V2
+ */
+async function queryCouponPagelist(request: QueryCouponPagelistRequest): QueryCouponPagelistResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCouponPagelistEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠券查询(不区分可用与不可用)
+商品过滤放在SQL里面，从而每页数量一样
+ * Summary: 分页查询优惠券列表V2
+ */
+async function queryCouponPagelistEx(request: QueryCouponPagelistRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCouponPagelistResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.coupon.pagelist.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryYouhuiTemplateRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 优惠券模板ID
+  youhuiTemplateId: string(name='youhui_template_id'),
+}
+
+model QueryYouhuiTemplateResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 模板类型:APPLY, NORMAL
+  tType?: string(name='t_type'),
+  // 币种
+  currency?: string(name='currency'),
+  // 模板ID
+  id?: long(name='id'),
+  // 模板名称
+  tName?: string(name='t_name'),
+  // 使用场景
+  tUseScene?: string(name='t_use_scene'),
+  // 模板开始时间
+  tStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='t_start_time'),
+  // 模板有效结束时间
+  tEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='t_end_time'),
+  // 优惠券允许发放的总数量
+  yhMaxRelease?: string(name='yh_max_release'),
+  // 券类型
+  yhType?: string(name='yh_type'),
+  // 满减条件金额(单位:元)， 如满200
+  yhCertainMoney?: string(name='yh_certain_money'),
+  // 生成券的面额(单位:元)
+  yhAmount?: string(name='yh_amount'),
+  // 折扣， 如: 0.75 取值范围(0, 1)
+  yhDiscountRate?: string(name='yh_discount_rate'),
+  // 优惠券使用次数 , 0表示无限制
+  yhUsageCount?: string(name='yh_usage_count'),
+  // 相对时间，绝对时间ABSOLUTE/RELATIVE
+  yhValidityType?: string(name='yh_validity_type'),
+  // 优惠券开始时间 yhValidityType=ABSOLUTE 不能为空, 精确到秒
+  yhStartTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='yh_start_time'),
+  // 有效期结束时间， yhValidityType=ABSOLUTE 不能为空, 精确到秒
+  yhEndTime?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='yh_end_time'),
+  // 有效时间——相对（单位秒），如果start_time为空，优惠券的有效期从生成的当天开始计算， 如果start_time不为空，优惠关的有效期从start_time开始算
+  yhRelativeSecond?: long(name='yh_relative_second'),
+  // 每人限领数量
+  yhPerLimitNum?: long(name='yh_per_limit_num'),
+  // 优惠券通用类型，UNIVERSAL通用券；NONUNIVERSAL非通用券
+  yhUniversalType?: string(name='yh_universal_type'),
+  // 模板状态 APPROVED审批通过，生效中
+  tStatus?: string(name='t_status'),
+  // 优惠券发券总额、总数量控制
+  yhControlType?: string(name='yh_control_type'),
+  // 申请原因
+  tReason?: string(name='t_reason'),
+  // 优惠条件备注，显示用
+  yhDescription?: string(name='yh_description'),
+  // 创建人, 系统操作为 应用名, 员工操作设置为工号
+  tCreator?: string(name='t_creator'),
+  // 最后修改人, 系统操作为 应用名, 员工操作设置为工号
+  tModifier?: string(name='t_modifier'),
+  // 创建时间
+  tGmtCreate?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='t_gmt_create'),
+  // 最后修改时间
+  tGmtModified?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='t_gmt_modified'),
+  // 商品规格CODE。 限定商品类型时， 适用的商品集合， 通用券( yhUniversalType=NONUNIVERSAL)不能为空
+  itemCodeSet?: [ string ](name='item_code_set'),
+}
+
+/**
+ * Description: 优惠模板详情
+ * Summary: 优惠模板详情
+ */
+async function queryYouhuiTemplate(request: QueryYouhuiTemplateRequest): QueryYouhuiTemplateResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryYouhuiTemplateEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠模板详情
+ * Summary: 优惠模板详情
+ */
+async function queryYouhuiTemplateEx(request: QueryYouhuiTemplateRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryYouhuiTemplateResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.youhui.template.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SendCouponAnnotatedRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 优惠券模板ID
+  templateId: string(name='template_id'),
+  // 幂等号
+  bizNo: string(name='biz_no'),
+}
+
+model SendCouponAnnotatedResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券id
+  couponId?: string(name='coupon_id'),
+}
+
+/**
+ * Description: 优惠券发放接口，基于模板ID发送优惠券
+ * Summary: 优惠券发放接口,含错误返回
+ */
+async function sendCouponAnnotated(request: SendCouponAnnotatedRequest): SendCouponAnnotatedResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return sendCouponAnnotatedEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠券发放接口，基于模板ID发送优惠券
+ * Summary: 优惠券发放接口,含错误返回
+ */
+async function sendCouponAnnotatedEx(request: SendCouponAnnotatedRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SendCouponAnnotatedResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.coupon.annotated.send', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDocRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 文档id
+  id: string(name='id'),
+  // 内容id
+  siteId: string(name='site_id'),
+}
+
+model QueryDocResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 内部id
+  id?: long(name='id'),
+  // 文档id
+  docId?: string(name='doc_id'),
+  // 文档标题
+  title?: string(name='title'),
+  // 站点
+  site?: string(name='site'),
+  // 语言code
+  language?: string(name='language'),
+  // 内容
+  content?: string(name='content'),
+  // 类型
+  sourceType?: long(name='source_type'),
+  // 最后修改时间
+  extModifiedTime?: long(name='ext_modified_time'),
+  // 关键字
+  keyWords?: string(name='key_words'),
+  // 显示类型
+  showType?: long(name='show_type'),
+  // 页面上下文
+  pageContext?: [ PageContext ](name='page_context'),
+  // 内容对象
+  // 
+  // 
+  contentObj?: [ ContentObjVO ](name='content_obj'),
+}
+
+/**
+ * Description: 获取文档内容
+ * Summary: 获取文档内容
+ */
+async function queryDoc(request: QueryDocRequest): QueryDocResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDocEx(request, headers, runtime);
+}
+
+/**
+ * Description: 获取文档内容
+ * Summary: 获取文档内容
+ */
+async function queryDocEx(request: QueryDocRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDocResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.doc.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryDocChildRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 文档id
+  id: string(name='id'),
+  // 目录id
+  siteId: string(name='site_id'),
+}
+
+model QueryDocChildResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 内部id
+  id?: long(name='id'),
+  // 内容库id
+  siteId?: long(name='site_id'),
+  // 站点
+  site?: string(name='site'),
+  // 语言code
+  language?: string(name='language'),
+  // 名称
+  title?: string(name='title'),
+  // 类型
+  type?: long(name='type'),
+  // 展示类型 1为左侧展示2为列表展示
+  showType?: long(name='show_type'),
+  // 排序
+  sort?: long(name='sort'),
+  // 目录层级
+  level?: long(name='level'),
+  // 外标id
+  extId?: string(name='ext_id'),
+  // 父id
+  parentId?: string(name='parent_id'),
+  // 来源类型
+  sourceType?: long(name='source_type'),
+  // 版本
+  version?: string(name='version'),
+  // 语雀目录有无数据判定
+  catalogueType?: long(name='catalogue_type'),
+  // children
+  children?: [ CategoryVO ](name='children'),
+}
+
+/**
+ * Description: 根据内容库id和目录id查询子目录
+ * Summary: 根据内容库id和目录id查询子目录
+ */
+async function queryDocChild(request: QueryDocChildRequest): QueryDocChildResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryDocChildEx(request, headers, runtime);
+}
+
+/**
+ * Description: 根据内容库id和目录id查询子目录
+ * Summary: 根据内容库id和目录id查询子目录
+ */
+async function queryDocChildEx(request: QueryDocChildRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryDocChildResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.doc.child.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryCouponAvaliableRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 租户ID
+  tenantId: string(name='tenant_id'),
+  // 商品code
+  productCodes: [ string ](name='product_codes'),
+  // 优惠券类型:VOUCHER 抵用券, CERTAIN 满减券,DISCOUNT 折扣券
+  couponType?: string(name='coupon_type'),
+  // 业务发生时间
+  bizTime: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='biz_time'),
+  // 交易币种 CNY 人民币 USD美元
+  currency: string(name='currency'),
+}
+
+model QueryCouponAvaliableResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 优惠券列表
+  couponList?: [ Coupon ](name='coupon_list'),
+}
+
+/**
+ * Description: 优惠券查询(只查询可用优惠券，提供给收银台使用)
+ * Summary: 查询所有可用优惠券列表
+ */
+async function queryCouponAvaliable(request: QueryCouponAvaliableRequest): QueryCouponAvaliableResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryCouponAvaliableEx(request, headers, runtime);
+}
+
+/**
+ * Description: 优惠券查询(只查询可用优惠券，提供给收银台使用)
+ * Summary: 查询所有可用优惠券列表
+ */
+async function queryCouponAvaliableEx(request: QueryCouponAvaliableRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryCouponAvaliableResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.coupon.avaliable.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SubmitActivityInformationRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 活动标识
+  activityId: string(name='activity_id'),
+  // 渠道编码
+  activityChannel: string(name='activity_channel'),
+  // 活动表单
+  activityFormData: string(name='activity_form_data'),
+  // 提交时间，ISO_DATE_TIME 时间格式
+  submitDate?: string(name='submit_date'),
+  // 情报标识，存在则更新
+  informationId?: string(name='information_id'),
+  // 可选附件
+  attachments?: [ Attachment ](name='attachments'),
+}
+
+model SubmitActivityInformationResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 情报标识
+  informationId?: string(name='information_id'),
+}
+
+/**
+ * Description: 提交活动情报数据
+ * Summary: 提交活动情报数据
+ */
+async function submitActivityInformation(request: SubmitActivityInformationRequest): SubmitActivityInformationResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return submitActivityInformationEx(request, headers, runtime);
+}
+
+/**
+ * Description: 提交活动情报数据
+ * Summary: 提交活动情报数据
+ */
+async function submitActivityInformationEx(request: SubmitActivityInformationRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SubmitActivityInformationResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.activity.information.submit', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model SyncActivityAssetsRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  // 情报标识
+  informationId: string(name='information_id'),
+  // 附件信息
+  attachments: [ Attachment ](name='attachments'),
+  // 资产详情列表
+  assets: [ Asset ](name='assets'),
+}
+
+model SyncActivityAssetsResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+}
+
+/**
+ * Description: 同步活动资产信息
+ * Summary: 同步活动资产信息
+ */
+async function syncActivityAssets(request: SyncActivityAssetsRequest): SyncActivityAssetsResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return syncActivityAssetsEx(request, headers, runtime);
+}
+
+/**
+ * Description: 同步活动资产信息
+ * Summary: 同步活动资产信息
+ */
+async function syncActivityAssetsEx(request: SyncActivityAssetsRequest, headers: map[string]string, runtime: Util.RuntimeOptions): SyncActivityAssetsResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antcloud.marketing.activity.assets.sync', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
