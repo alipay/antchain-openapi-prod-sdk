@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class AllSignTemplateResponse extends TeaModel {
+public class SubmitInnerTemplatesyncreviewResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class AllSignTemplateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // List<JSONObject>格式内容
-    @NameInMap("template_list")
-    public String templateList;
+    // 提交同步上线审核的模板code
+    @NameInMap("source_template_code")
+    public String sourceTemplateCode;
 
-    public static AllSignTemplateResponse build(java.util.Map<String, ?> map) throws Exception {
-        AllSignTemplateResponse self = new AllSignTemplateResponse();
+    public static SubmitInnerTemplatesyncreviewResponse build(java.util.Map<String, ?> map) throws Exception {
+        SubmitInnerTemplatesyncreviewResponse self = new SubmitInnerTemplatesyncreviewResponse();
         return TeaModel.build(map, self);
     }
 
-    public AllSignTemplateResponse setReqMsgId(String reqMsgId) {
+    public SubmitInnerTemplatesyncreviewResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public AllSignTemplateResponse setResultCode(String resultCode) {
+    public SubmitInnerTemplatesyncreviewResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public AllSignTemplateResponse setResultMsg(String resultMsg) {
+    public SubmitInnerTemplatesyncreviewResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AllSignTemplateResponse setTemplateList(String templateList) {
-        this.templateList = templateList;
+    public SubmitInnerTemplatesyncreviewResponse setSourceTemplateCode(String sourceTemplateCode) {
+        this.sourceTemplateCode = sourceTemplateCode;
         return this;
     }
-    public String getTemplateList() {
-        return this.templateList;
+    public String getSourceTemplateCode() {
+        return this.sourceTemplateCode;
     }
 
 }

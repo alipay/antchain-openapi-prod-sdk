@@ -20,6 +20,14 @@ public class SyncInnerTemplateResponse extends TeaModel {
     @NameInMap("target_template_code")
     public String targetTemplateCode;
 
+    // 模板同步上线时(强管控字段)校验结果
+    @NameInMap("valid_result")
+    public Boolean validResult;
+
+    // 校验结果明细JSONStr
+    @NameInMap("valid_field_detail")
+    public String validFieldDetail;
+
     public static SyncInnerTemplateResponse build(java.util.Map<String, ?> map) throws Exception {
         SyncInnerTemplateResponse self = new SyncInnerTemplateResponse();
         return TeaModel.build(map, self);
@@ -55,6 +63,22 @@ public class SyncInnerTemplateResponse extends TeaModel {
     }
     public String getTargetTemplateCode() {
         return this.targetTemplateCode;
+    }
+
+    public SyncInnerTemplateResponse setValidResult(Boolean validResult) {
+        this.validResult = validResult;
+        return this;
+    }
+    public Boolean getValidResult() {
+        return this.validResult;
+    }
+
+    public SyncInnerTemplateResponse setValidFieldDetail(String validFieldDetail) {
+        this.validFieldDetail = validFieldDetail;
+        return this;
+    }
+    public String getValidFieldDetail() {
+        return this.validFieldDetail;
     }
 
 }

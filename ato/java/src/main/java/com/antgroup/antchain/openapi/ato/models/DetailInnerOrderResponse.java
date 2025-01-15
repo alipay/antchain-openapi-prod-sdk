@@ -48,6 +48,10 @@ public class DetailInnerOrderResponse extends TeaModel {
     @NameInMap("order_product_info_list")
     public java.util.List<OrderProductInfo> orderProductInfoList;
 
+    // 经营分账信息
+    @NameInMap("operate_divide_info_list")
+    public java.util.List<OperateDivideInfo> operateDivideInfoList;
+
     public static DetailInnerOrderResponse build(java.util.Map<String, ?> map) throws Exception {
         DetailInnerOrderResponse self = new DetailInnerOrderResponse();
         return TeaModel.build(map, self);
@@ -139,6 +143,14 @@ public class DetailInnerOrderResponse extends TeaModel {
     }
     public java.util.List<OrderProductInfo> getOrderProductInfoList() {
         return this.orderProductInfoList;
+    }
+
+    public DetailInnerOrderResponse setOperateDivideInfoList(java.util.List<OperateDivideInfo> operateDivideInfoList) {
+        this.operateDivideInfoList = operateDivideInfoList;
+        return this;
+    }
+    public java.util.List<OperateDivideInfo> getOperateDivideInfoList() {
+        return this.operateDivideInfoList;
     }
 
 }

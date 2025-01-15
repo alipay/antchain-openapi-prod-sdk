@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class AllSignTemplateResponse extends TeaModel {
+public class GetTradeOrderfinanceinfoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class AllSignTemplateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // List<JSONObject>格式内容
-    @NameInMap("template_list")
-    public String templateList;
+    // 订单融资信息
+    @NameInMap("response_data")
+    public String responseData;
 
-    public static AllSignTemplateResponse build(java.util.Map<String, ?> map) throws Exception {
-        AllSignTemplateResponse self = new AllSignTemplateResponse();
+    public static GetTradeOrderfinanceinfoResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetTradeOrderfinanceinfoResponse self = new GetTradeOrderfinanceinfoResponse();
         return TeaModel.build(map, self);
     }
 
-    public AllSignTemplateResponse setReqMsgId(String reqMsgId) {
+    public GetTradeOrderfinanceinfoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public AllSignTemplateResponse setResultCode(String resultCode) {
+    public GetTradeOrderfinanceinfoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public AllSignTemplateResponse setResultMsg(String resultMsg) {
+    public GetTradeOrderfinanceinfoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AllSignTemplateResponse setTemplateList(String templateList) {
-        this.templateList = templateList;
+    public GetTradeOrderfinanceinfoResponse setResponseData(String responseData) {
+        this.responseData = responseData;
         return this;
     }
-    public String getTemplateList() {
-        return this.templateList;
+    public String getResponseData() {
+        return this.responseData;
     }
 
 }

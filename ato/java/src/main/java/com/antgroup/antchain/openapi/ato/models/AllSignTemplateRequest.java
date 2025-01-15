@@ -20,14 +20,9 @@ public class AllSignTemplateRequest extends TeaModel {
     @Validation(maxLength = 42)
     public String merchantId;
 
-    // ● FINANCE 融资
-    // ● NON_FINANCE 非融资
-    @NameInMap("fund_type")
-    public String fundType;
-
-    // 查询融资类型时，需要传入资方统一社会信用代码
-    @NameInMap("fund_id")
-    public String fundId;
+    // 模板id
+    @NameInMap("template_id")
+    public String templateId;
 
     public static AllSignTemplateRequest build(java.util.Map<String, ?> map) throws Exception {
         AllSignTemplateRequest self = new AllSignTemplateRequest();
@@ -66,20 +61,12 @@ public class AllSignTemplateRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public AllSignTemplateRequest setFundType(String fundType) {
-        this.fundType = fundType;
+    public AllSignTemplateRequest setTemplateId(String templateId) {
+        this.templateId = templateId;
         return this;
     }
-    public String getFundType() {
-        return this.fundType;
-    }
-
-    public AllSignTemplateRequest setFundId(String fundId) {
-        this.fundId = fundId;
-        return this;
-    }
-    public String getFundId() {
-        return this.fundId;
+    public String getTemplateId() {
+        return this.templateId;
     }
 
 }

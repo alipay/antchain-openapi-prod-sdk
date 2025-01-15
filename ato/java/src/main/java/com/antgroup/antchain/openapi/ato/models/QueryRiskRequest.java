@@ -36,10 +36,16 @@ public class QueryRiskRequest extends TeaModel {
     @Validation(maxLength = 20)
     public String alipayUserId;
 
-    // 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+    // 下单渠道，智租版必选。枚举值：支付宝-ALIPAY；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
     @NameInMap("source")
     @Validation(maxLength = 10)
     public String source;
+
+    // 风险业务场景，智租版选填。默认值：PRE_RENT。
+    // PRE_RENT - 3c租赁；PRE_RENT_3C - 3c租赁定制；PRE_RENT_PET - 宠物；PRE_RENT_EDU - 教培；PRE_RENT_BEAUTY - 美业；
+    @NameInMap("risk_biz_scene")
+    @Validation(maxLength = 100, minLength = 1)
+    public String riskBizScene;
 
     // 商品详情，智租版可选
     @NameInMap("item_detail")
@@ -120,6 +126,14 @@ public class QueryRiskRequest extends TeaModel {
     }
     public String getSource() {
         return this.source;
+    }
+
+    public QueryRiskRequest setRiskBizScene(String riskBizScene) {
+        this.riskBizScene = riskBizScene;
+        return this;
+    }
+    public String getRiskBizScene() {
+        return this.riskBizScene;
     }
 
     public QueryRiskRequest setItemDetail(ItemDetail itemDetail) {

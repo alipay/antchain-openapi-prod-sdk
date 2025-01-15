@@ -145,6 +145,10 @@ public class SubmitFrontSignRequest extends TeaModel {
     @NameInMap("user_org_name")
     public String userOrgName;
 
+    // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+    @NameInMap("need_face")
+    public Boolean needFace;
+
     public static SubmitFrontSignRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitFrontSignRequest self = new SubmitFrontSignRequest();
         return TeaModel.build(map, self);
@@ -380,6 +384,14 @@ public class SubmitFrontSignRequest extends TeaModel {
     }
     public String getUserOrgName() {
         return this.userOrgName;
+    }
+
+    public SubmitFrontSignRequest setNeedFace(Boolean needFace) {
+        this.needFace = needFace;
+        return this;
+    }
+    public Boolean getNeedFace() {
+        return this.needFace;
     }
 
 }

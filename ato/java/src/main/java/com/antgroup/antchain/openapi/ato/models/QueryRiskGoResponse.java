@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ato.models;
 
 import com.aliyun.tea.*;
 
-public class AllSignTemplateResponse extends TeaModel {
+public class QueryRiskGoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class AllSignTemplateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // List<JSONObject>格式内容
-    @NameInMap("template_list")
-    public String templateList;
+    // 风险查询结果
+    @NameInMap("model")
+    public RiskGoModel model;
 
-    public static AllSignTemplateResponse build(java.util.Map<String, ?> map) throws Exception {
-        AllSignTemplateResponse self = new AllSignTemplateResponse();
+    public static QueryRiskGoResponse build(java.util.Map<String, ?> map) throws Exception {
+        QueryRiskGoResponse self = new QueryRiskGoResponse();
         return TeaModel.build(map, self);
     }
 
-    public AllSignTemplateResponse setReqMsgId(String reqMsgId) {
+    public QueryRiskGoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public AllSignTemplateResponse setResultCode(String resultCode) {
+    public QueryRiskGoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public AllSignTemplateResponse setResultMsg(String resultMsg) {
+    public QueryRiskGoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class AllSignTemplateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AllSignTemplateResponse setTemplateList(String templateList) {
-        this.templateList = templateList;
+    public QueryRiskGoResponse setModel(RiskGoModel model) {
+        this.model = model;
         return this;
     }
-    public String getTemplateList() {
-        return this.templateList;
+    public RiskGoModel getModel() {
+        return this.model;
     }
 
 }

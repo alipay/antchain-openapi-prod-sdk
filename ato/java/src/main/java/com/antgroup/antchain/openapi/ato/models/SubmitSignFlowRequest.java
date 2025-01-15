@@ -137,6 +137,10 @@ public class SubmitSignFlowRequest extends TeaModel {
     @NameInMap("user_org_id_number")
     public String userOrgIdNumber;
 
+    // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+    @NameInMap("need_face")
+    public Boolean needFace;
+
     public static SubmitSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitSignFlowRequest self = new SubmitSignFlowRequest();
         return TeaModel.build(map, self);
@@ -372,6 +376,14 @@ public class SubmitSignFlowRequest extends TeaModel {
     }
     public String getUserOrgIdNumber() {
         return this.userOrgIdNumber;
+    }
+
+    public SubmitSignFlowRequest setNeedFace(Boolean needFace) {
+        this.needFace = needFace;
+        return this;
+    }
+    public Boolean getNeedFace() {
+        return this.needFace;
     }
 
 }

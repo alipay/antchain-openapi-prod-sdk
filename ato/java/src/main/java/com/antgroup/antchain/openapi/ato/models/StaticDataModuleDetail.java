@@ -14,6 +14,14 @@ public class StaticDataModuleDetail extends TeaModel {
     @Validation(required = true)
     public String propertyValue;
 
+    // 图标
+    @NameInMap("icon")
+    public String icon;
+
+    // 置灰图标
+    @NameInMap("grey_icon")
+    public String greyIcon;
+
     // 叶子结点，目前存的一级类目下的二级类目
     @NameInMap("children_detail_list")
     public String childrenDetailList;
@@ -41,6 +49,22 @@ public class StaticDataModuleDetail extends TeaModel {
     }
     public String getPropertyValue() {
         return this.propertyValue;
+    }
+
+    public StaticDataModuleDetail setIcon(String icon) {
+        this.icon = icon;
+        return this;
+    }
+    public String getIcon() {
+        return this.icon;
+    }
+
+    public StaticDataModuleDetail setGreyIcon(String greyIcon) {
+        this.greyIcon = greyIcon;
+        return this;
+    }
+    public String getGreyIcon() {
+        return this.greyIcon;
     }
 
     public StaticDataModuleDetail setChildrenDetailList(String childrenDetailList) {
