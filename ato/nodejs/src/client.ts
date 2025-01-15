@@ -103,6 +103,75 @@ export class FileInfo extends $tea.Model {
   }
 }
 
+// 订单所有商品信息模型
+export class ScalperQueryOrderItem extends $tea.Model {
+  // 订单商品名称
+  orderItemsName?: string;
+  // 订单商品数量
+  orderItemsQuantity?: number;
+  // 订单商品价格，单位：分
+  orderItemsPrice?: number;
+  static names(): { [key: string]: string } {
+    return {
+      orderItemsName: 'order_items_name',
+      orderItemsQuantity: 'order_items_quantity',
+      orderItemsPrice: 'order_items_price',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderItemsName: 'string',
+      orderItemsQuantity: 'number',
+      orderItemsPrice: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 经营分账收入方详情信息(商户控制台订单详情用)
+export class OperationDivideTransInDetailInfo extends $tea.Model {
+  // 分账收入方名称
+  transInName?: string;
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId?: string;
+  // 分账金额，单位为分
+  divideAmount?: number;
+  // 分账描述
+  desc?: string;
+  // INIT("INIT", "初始化"),
+  // PROCESSING("PROCESSING", "处理中"),
+  // FAILED("FAILED", "失败"),
+  // SUCCESS("SUCCESS", "分账成功");
+  divideStatus?: string;
+  static names(): { [key: string]: string } {
+    return {
+      transInName: 'trans_in_name',
+      transInUserId: 'trans_in_user_id',
+      divideAmount: 'divide_amount',
+      desc: 'desc',
+      divideStatus: 'divide_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transInName: 'string',
+      transInUserId: 'string',
+      divideAmount: 'number',
+      desc: 'string',
+      divideStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 智租风控-子风险项
 export class SubRentRiskItem extends $tea.Model {
   // 风险名称。枚举值：BASE_PERFORMANCE - 基础履约风险；OVERDUE - 逾期风险；MULTI_RENT - 共租风险。
@@ -167,6 +236,10 @@ export class StaticDataModuleDetail extends $tea.Model {
   propertyText: string;
   // 商户类型
   propertyValue: string;
+  // 图标
+  icon?: string;
+  // 置灰图标
+  greyIcon?: string;
   // 叶子结点，目前存的一级类目下的二级类目
   childrenDetailList?: string;
   // 是否有叶子结点
@@ -175,6 +248,8 @@ export class StaticDataModuleDetail extends $tea.Model {
     return {
       propertyText: 'property_text',
       propertyValue: 'property_value',
+      icon: 'icon',
+      greyIcon: 'grey_icon',
       childrenDetailList: 'children_detail_list',
       hasChildren: 'has_children',
     };
@@ -184,6 +259,8 @@ export class StaticDataModuleDetail extends $tea.Model {
     return {
       propertyText: 'string',
       propertyValue: 'string',
+      icon: 'string',
+      greyIcon: 'string',
       childrenDetailList: 'string',
       hasChildren: 'boolean',
     };
@@ -280,6 +357,1116 @@ export class AppletRiskModel extends $tea.Model {
       flowId: 'string',
       subRiskResultList: { 'type': 'array', 'itemType': SubRentRiskItem },
       errorMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 投保商品信息
+export class InsureProductInfo extends $tea.Model {
+  // 商品库id
+  productId: string;
+  // 商品设备编号
+  productImeiId: string;
+  // 商品采购价，单位：分
+  purchaseAmount: number;
+  static names(): { [key: string]: string } {
+    return {
+      productId: 'product_id',
+      productImeiId: 'product_imei_id',
+      purchaseAmount: 'purchase_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      productId: 'string',
+      productImeiId: 'string',
+      purchaseAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 模板组件（文本域）
+export class TemplateComponent extends $tea.Model {
+  // 模板编码
+  templateCode: string;
+  // 组件（文本域）id
+  id: string;
+  // 组件（文本域）名称
+  name: string;
+  // 组件（文本域）的唯一标识
+  uk?: string;
+  // 占位符，组件（文本域）的展示样式值
+  placeholder?: string;
+  // 组件（文本域）是否可以编辑。取值：Y/N
+  enableEdit?: string;
+  // 是否必填，取值：Y/N
+  required?: string;
+  // 组件（文本域）类型，INPUT:单行文本 TEXTAREA:多行文本
+  type?: string;
+  // 组件（文本域）值
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      templateCode: 'template_code',
+      id: 'id',
+      name: 'name',
+      uk: 'uk',
+      placeholder: 'placeholder',
+      enableEdit: 'enable_edit',
+      required: 'required',
+      type: 'type',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      templateCode: 'string',
+      id: 'string',
+      name: 'string',
+      uk: 'string',
+      placeholder: 'string',
+      enableEdit: 'string',
+      required: 'string',
+      type: 'string',
+      value: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 静态数据
+export class StaticData extends $tea.Model {
+  // 商户类型
+  moduleName: string;
+  // 静态数据详情
+  moduleDetailList: StaticDataModuleDetail[];
+  static names(): { [key: string]: string } {
+    return {
+      moduleName: 'module_name',
+      moduleDetailList: 'module_detail_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      moduleName: 'string',
+      moduleDetailList: { 'type': 'array', 'itemType': StaticDataModuleDetail },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 进件分页对象
+export class MerchantAgentPage extends $tea.Model {
+  // 进件id
+  payExpandId: string;
+  // 	
+  // 代理企业名称
+  agentName: string;
+  // 租户8位id
+  tenantId: string;
+  // 业务类型
+  bizType: string;
+  // 进件审核状态 枚举
+  payExpandStatus: string;
+  static names(): { [key: string]: string } {
+    return {
+      payExpandId: 'pay_expand_id',
+      agentName: 'agent_name',
+      tenantId: 'tenant_id',
+      bizType: 'biz_type',
+      payExpandStatus: 'pay_expand_status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      payExpandId: 'string',
+      agentName: 'string',
+      tenantId: 'string',
+      bizType: 'string',
+      payExpandStatus: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 主订单信息
+export class OrderInfo extends $tea.Model {
+  // 订单id
+  orderId?: string;
+  // 订单创建时间
+  orderCreateTime?: string;
+  // 订单支付时间
+  orderPayTime?: string;
+  // 租金总额(分)
+  totalRentMoney?: number;
+  // 租期
+  rentTerm?: number;
+  // 租期单位
+  rentUnit?: string;
+  // 订单状态
+  orderStatus?: string;
+  // 订单子状态
+  orderSubStatus?: string;
+  // 免押金额（分）
+  depositPrice?: number;
+  // 到期买断价(分)
+  buyOutPrice?: number;
+  // 物流方案
+  logisticType?: string;
+  // 到期形式
+  // NA(0, "无意义"),
+  // BUYOUT(1, "到期买断或归还"),
+  // FREE_ON_RENT(2, "租满即送"),
+  // RENEW_LEASE(3, "续租"),;
+  dueMode?: number;
+  // 首付款金额(分)
+  downPayment?: number;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      orderCreateTime: 'order_create_time',
+      orderPayTime: 'order_pay_time',
+      totalRentMoney: 'total_rent_money',
+      rentTerm: 'rent_term',
+      rentUnit: 'rent_unit',
+      orderStatus: 'order_status',
+      orderSubStatus: 'order_sub_status',
+      depositPrice: 'deposit_price',
+      buyOutPrice: 'buy_out_price',
+      logisticType: 'logistic_type',
+      dueMode: 'due_mode',
+      downPayment: 'down_payment',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      orderCreateTime: 'string',
+      orderPayTime: 'string',
+      totalRentMoney: 'number',
+      rentTerm: 'number',
+      rentUnit: 'string',
+      orderStatus: 'string',
+      orderSubStatus: 'string',
+      depositPrice: 'number',
+      buyOutPrice: 'number',
+      logisticType: 'string',
+      dueMode: 'number',
+      downPayment: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单还款承诺
+export class OrderPromiseInfo extends $tea.Model {
+  // 订单还款策略
+  repayStrategyList?: OrderRepayStrategy[];
+  static names(): { [key: string]: string } {
+    return {
+      repayStrategyList: 'repay_strategy_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      repayStrategyList: { 'type': 'array', 'itemType': OrderRepayStrategy },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 通知信息
+export class NoticeInfo extends $tea.Model {
+  // 通知id
+  noticeId?: number;
+  // 通知标题
+  title?: string;
+  // 通知创建时间
+  noticeCreateTime?: string;
+  // 是否未读
+  unread?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      noticeId: 'notice_id',
+      title: 'title',
+      noticeCreateTime: 'notice_create_time',
+      unread: 'unread',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      noticeId: 'number',
+      title: 'string',
+      noticeCreateTime: 'string',
+      unread: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 审核信息
+export class AuditInfo extends $tea.Model {
+  // 审核步骤
+  stage: string;
+  // 审核主体
+  auditSubject: string;
+  // 审核状态
+  status: string;
+  // 审核时间
+  applyDateStr: string;
+  // 审核失败描述
+  failReason: string;
+  static names(): { [key: string]: string } {
+    return {
+      stage: 'stage',
+      auditSubject: 'audit_subject',
+      status: 'status',
+      applyDateStr: 'apply_date_str',
+      failReason: 'fail_reason',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      stage: 'string',
+      auditSubject: 'string',
+      status: 'string',
+      applyDateStr: 'string',
+      failReason: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 商品信息
+export class ProductInfo extends $tea.Model {
+  // 商家社会统一信用代码
+  merchantId?: string;
+  // 商品名称
+  productName?: string;
+  // 商品id
+  productId?: string;
+  // 商品规格
+  productModel?: string;
+  // 商品版本
+  productVersion?: string;
+  // 指导价(单位分)
+  productPrice?: number;
+  // 一级类目
+  mainClass?: string;
+  // 二级类目
+  subClass?: string;
+  // 品牌
+  productBrand?: string;
+  static names(): { [key: string]: string } {
+    return {
+      merchantId: 'merchant_id',
+      productName: 'product_name',
+      productId: 'product_id',
+      productModel: 'product_model',
+      productVersion: 'product_version',
+      productPrice: 'product_price',
+      mainClass: 'main_class',
+      subClass: 'sub_class',
+      productBrand: 'product_brand',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      merchantId: 'string',
+      productName: 'string',
+      productId: 'string',
+      productModel: 'string',
+      productVersion: 'string',
+      productPrice: 'number',
+      mainClass: 'string',
+      subClass: 'string',
+      productBrand: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 法人信息修改
+export class LegalInfoUpdate extends $tea.Model {
+  // 法人名称
+  legalName?: string;
+  // 法人证件号
+  legalCertNo?: string;
+  // 法人证件正面
+  legalCertFrontFile?: FileInfo;
+  // 法人证件反面
+  legalCertBackFile?: FileInfo;
+  static names(): { [key: string]: string } {
+    return {
+      legalName: 'legal_name',
+      legalCertNo: 'legal_cert_no',
+      legalCertFrontFile: 'legal_cert_front_file',
+      legalCertBackFile: 'legal_cert_back_file',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      legalName: 'string',
+      legalCertNo: 'string',
+      legalCertFrontFile: FileInfo,
+      legalCertBackFile: FileInfo,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单还款计划
+export class PromiseInfo extends $tea.Model {
+  static names(): { [key: string]: string } {
+    return {
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 客服信息
+export class CustomerServiceInfo extends $tea.Model {
+  // 公司社会统一信息代码
+  merchantId?: string;
+  // 公司名称
+  merchantName?: string;
+  // 处理类型:
+  // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+  // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
+  processType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      merchantId: 'merchant_id',
+      merchantName: 'merchant_name',
+      processType: 'process_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      merchantId: 'string',
+      merchantName: 'string',
+      processType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 经营分账收入模型
+export class OperationDivideTransInModel extends $tea.Model {
+  // 分账收入方支付宝用户id, 支付宝2088id
+  transInUserId: string;
+  // 分账金额，单位为分
+  // 
+  divideAmount: number;
+  // 分账描述
+  desc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      transInUserId: 'trans_in_user_id',
+      divideAmount: 'divide_amount',
+      desc: 'desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      transInUserId: 'string',
+      divideAmount: 'number',
+      desc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 营销抢购风险识别入参模型
+export class PurchaseQueryModel extends $tea.Model {
+  // 支付宝外部交易号
+  outOrderNo?: string;
+  // 支付宝内部生成的交易号
+  orderNo?: string;
+  // 银行卡号
+  bankCardNo?: string;
+  // 公司名称
+  companyName?: string;
+  // 金额，用户购买或使用服务时产生的具体金额，单位：分
+  salesAmount?: number;
+  static names(): { [key: string]: string } {
+    return {
+      outOrderNo: 'out_order_no',
+      orderNo: 'order_no',
+      bankCardNo: 'bank_card_no',
+      companyName: 'company_name',
+      salesAmount: 'sales_amount',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      outOrderNo: 'string',
+      orderNo: 'string',
+      bankCardNo: 'string',
+      companyName: 'string',
+      salesAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 经营分账信息
+export class OperateDivideInfo extends $tea.Model {
+  // 当前用户履约的租期编号
+  periodNum?: number;
+  // 经营分账收入方结果信息
+  operationDivideTransInList?: OperationDivideTransInDetailInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      periodNum: 'period_num',
+      operationDivideTransInList: 'operation_divide_trans_in_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      periodNum: 'number',
+      operationDivideTransInList: { 'type': 'array', 'itemType': OperationDivideTransInDetailInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单履约
+export class OrderFulfillmentInfo extends $tea.Model {
+  // 租期编号
+  leaseTermIndex?: number;
+  // 租期归还状态
+  rentalReturnState?: string;
+  // 实际还款金额(分)
+  realRepayMoney?: number;
+  // 租金(分)
+  rentalMoney?: number;
+  // 每期实付时间
+  returnTime?: string;
+  static names(): { [key: string]: string } {
+    return {
+      leaseTermIndex: 'lease_term_index',
+      rentalReturnState: 'rental_return_state',
+      realRepayMoney: 'real_repay_money',
+      rentalMoney: 'rental_money',
+      returnTime: 'return_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      leaseTermIndex: 'number',
+      rentalReturnState: 'string',
+      realRepayMoney: 'number',
+      rentalMoney: 'number',
+      returnTime: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 风险场景的决策结果
+export class RiskScene extends $tea.Model {
+  // 风险场景编码
+  sceneCode: string;
+  // 该场景的风险决策结果
+  decision: string;
+  static names(): { [key: string]: string } {
+    return {
+      sceneCode: 'scene_code',
+      decision: 'decision',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneCode: 'string',
+      decision: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 分账关系页对象
+export class RelationPage extends $tea.Model {
+  // 分账关系id
+  relationId: string;
+  // 分账公司名称
+  companyName: string;
+  // 分账公司名称统一社会信用代码
+  merchantId: string;
+  // 审核状态
+  status: string;
+  // 商户公司统一社会信用代码
+  subjectMerchantId: string;
+  // 商户公司名称
+  subjectCompanyName: string;
+  static names(): { [key: string]: string } {
+    return {
+      relationId: 'relation_id',
+      companyName: 'company_name',
+      merchantId: 'merchant_id',
+      status: 'status',
+      subjectMerchantId: 'subject_merchant_id',
+      subjectCompanyName: 'subject_company_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      relationId: 'string',
+      companyName: 'string',
+      merchantId: 'string',
+      status: 'string',
+      subjectMerchantId: 'string',
+      subjectCompanyName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行业履约风险识别入参模型
+export class BaddebtQueryModel extends $tea.Model {
+  // 服务分类，服务二级分类
+  serviceCategory?: string;
+  // 总金额，用户购买或使用服务时产生的具体金额
+  totalAmount?: number;
+  // 商品数量，用户购买或使用服务时产生的具体商品数量
+  totalQuantity?: number;
+  // 用户姓名
+  userName?: string;
+  // 服务商 pid
+  isvPid?: string;
+  // 终端唯一标识
+  apdid?: string;
+  static names(): { [key: string]: string } {
+    return {
+      serviceCategory: 'service_category',
+      totalAmount: 'total_amount',
+      totalQuantity: 'total_quantity',
+      userName: 'user_name',
+      isvPid: 'isv_pid',
+      apdid: 'apdid',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      serviceCategory: 'string',
+      totalAmount: 'number',
+      totalQuantity: 'number',
+      userName: 'string',
+      isvPid: 'string',
+      apdid: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+//  公司信息修改
+export class CompanyInfoUpdate extends $tea.Model {
+  // 营业执照文件信息
+  businessLicenseFile?: FileInfo;
+  // 业务类型 枚举
+  productMainClass?: string;
+  // 公司名称
+  companyName?: string;
+  // 公司别名
+  companyAliasName?: string;
+  // 公司数科租户id
+  tenantId?: string;
+  // 公司联系电话
+  companyMobile?: string;
+  // 公司联系地址
+  companyAddress?: string;
+  // 联系人姓名
+  contactName?: string;
+  // 联系人手机号码
+  contactMobile?: string;
+  // 商户类型： 01：企业；07：个体工商户 默认不填为01
+  merchantType?: string;
+  static names(): { [key: string]: string } {
+    return {
+      businessLicenseFile: 'business_license_file',
+      productMainClass: 'product_main_class',
+      companyName: 'company_name',
+      companyAliasName: 'company_alias_name',
+      tenantId: 'tenant_id',
+      companyMobile: 'company_mobile',
+      companyAddress: 'company_address',
+      contactName: 'contact_name',
+      contactMobile: 'contact_mobile',
+      merchantType: 'merchant_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      businessLicenseFile: FileInfo,
+      productMainClass: 'string',
+      companyName: 'string',
+      companyAliasName: 'string',
+      tenantId: 'string',
+      companyMobile: 'string',
+      companyAddress: 'string',
+      contactName: 'string',
+      contactMobile: 'string',
+      merchantType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 订单搜索信息
+export class OrderSearchInfo extends $tea.Model {
+  // 订单id
+  orderId?: string;
+  // 支付宝代扣协议号
+  agreementNo?: string;
+  // 订单创建时间
+  orderCreateTime?: string;
+  // 租金总额（单位分）
+  totalRentMoney?: number;
+  // 租期
+  rentTerm?: number;
+  // 租期单位
+  rentUnit?: string;
+  // 订单状态
+  orderStatus?: string;
+  // 承租人名称
+  userName?: string;
+  // 承租人手机号
+  userPhoneNumber?: string;
+  static names(): { [key: string]: string } {
+    return {
+      orderId: 'order_id',
+      agreementNo: 'agreement_no',
+      orderCreateTime: 'order_create_time',
+      totalRentMoney: 'total_rent_money',
+      rentTerm: 'rent_term',
+      rentUnit: 'rent_unit',
+      orderStatus: 'order_status',
+      userName: 'user_name',
+      userPhoneNumber: 'user_phone_number',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      orderId: 'string',
+      agreementNo: 'string',
+      orderCreateTime: 'string',
+      totalRentMoney: 'number',
+      rentTerm: 'number',
+      rentUnit: 'string',
+      orderStatus: 'string',
+      userName: 'string',
+      userPhoneNumber: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 应用信息
+export class ApplicationInfo extends $tea.Model {
+  // 应用场景
+  // MINI_APP 小程序
+  // APP 自有app
+  // ALL 两种都有
+  applicationScene: string;
+  // 小程序id
+  tinyAppId: string;
+  // 小程序名称
+  siteName: string;
+  // 网站地址
+  sitUrl: string;
+  // 商户名称。
+  // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+  merchantName: string;
+  // 商户服务名称。
+  // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+  merchantServiceName: string;
+  // 商户服务描述。
+  // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+  merchantServiceDesc: string;
+  // 站点信息
+  siteInfo?: SiteInfo[];
+  static names(): { [key: string]: string } {
+    return {
+      applicationScene: 'application_scene',
+      tinyAppId: 'tiny_app_id',
+      siteName: 'site_name',
+      sitUrl: 'sit_url',
+      merchantName: 'merchant_name',
+      merchantServiceName: 'merchant_service_name',
+      merchantServiceDesc: 'merchant_service_desc',
+      siteInfo: 'site_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      applicationScene: 'string',
+      tinyAppId: 'string',
+      siteName: 'string',
+      sitUrl: 'string',
+      merchantName: 'string',
+      merchantServiceName: 'string',
+      merchantServiceDesc: 'string',
+      siteInfo: { 'type': 'array', 'itemType': SiteInfo },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 智租风控-商品详情
+export class ItemDetail extends $tea.Model {
+  // 租赁商品类目，可选类型：
+  // RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
+  goodsCategory?: string;
+  // 租赁商品名称
+  itemName?: string;
+  // 租赁商品数量
+  quantity?: number;
+  static names(): { [key: string]: string } {
+    return {
+      goodsCategory: 'goods_category',
+      itemName: 'item_name',
+      quantity: 'quantity',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      goodsCategory: 'string',
+      itemName: 'string',
+      quantity: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 云 api 风控查询响应
+export class RiskGoModel extends $tea.Model {
+  // 风险类型。
+  // 枚举值：MARKETING_PURCHASE_COMMON 营销抢购风险识别；INDUSTRY_SCALPER_COMMON 行业黄牛风险识别；MARKETING_AWARDING_COMMON 营销发奖风险识别；INDUSTRY_FARMING_COMMON 行业刷单风险识别；INDUSTRY_BADDEBT_COMMON 履约坏账风险识别
+  riskType: string;
+  // 风险等级。
+  // 枚举：rank0 无法判断；rank1 极低风险；rank2 较低风险；rank3 中风险；rank4 高风险；rank5 极高风险
+  riskValue: string;
+  // 风险描述
+  riskDesc: string;
+  // 风险标签
+  infoCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      riskType: 'risk_type',
+      riskValue: 'risk_value',
+      riskDesc: 'risk_desc',
+      infoCode: 'info_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      riskType: 'string',
+      riskValue: 'string',
+      riskDesc: 'string',
+      infoCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 单期取消模型
+export class SingleCancelModel extends $tea.Model {
+  // 第几期
+  periodNum: number;
+  // 其他方式还款的时间
+  gmtPay: string;
+  // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
+  payOffAmount: number;
+  // 变更其他方式还款WECHAT:微信; BANK:银行
+  // ALIPAY:支付宝
+  // CASH:现金
+  payOffType?: string;
+  // 通过其他方式还款单号;例如银行流水号或微信流水号
+  payOffNo?: string;
+  // 其他方式还款银行名称，还款方式为银行时必填
+  payOffBankName?: string;
+  static names(): { [key: string]: string } {
+    return {
+      periodNum: 'period_num',
+      gmtPay: 'gmt_pay',
+      payOffAmount: 'pay_off_amount',
+      payOffType: 'pay_off_type',
+      payOffNo: 'pay_off_no',
+      payOffBankName: 'pay_off_bank_name',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      periodNum: 'number',
+      gmtPay: 'string',
+      payOffAmount: 'number',
+      payOffType: 'string',
+      payOffNo: 'string',
+      payOffBankName: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 模型结果详情
+export class RiskModel extends $tea.Model {
+  // 风险场景编码
+  sceneCode: string;
+  // 该风险场景的风险分值
+  score: string;
+  // 逾期率
+  delinquencyRate?: string;
+  // 风险建议
+  riskAdvice?: string;
+  // 风险等级
+  riskRank?: string;
+  // 流程id
+  flowId: string;
+  static names(): { [key: string]: string } {
+    return {
+      sceneCode: 'scene_code',
+      score: 'score',
+      delinquencyRate: 'delinquency_rate',
+      riskAdvice: 'risk_advice',
+      riskRank: 'risk_rank',
+      flowId: 'flow_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sceneCode: 'string',
+      score: 'string',
+      delinquencyRate: 'string',
+      riskAdvice: 'string',
+      riskRank: 'string',
+      flowId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 行业黄牛风险识别入参模型
+export class ScalperQueryModel extends $tea.Model {
+  // 注册手机号，填写咨询对象所关联的注册手机号
+  registrationPhone?: string;
+  // 认证时间，填写风险咨询对象所关联的账号的真实身份认证时间
+  certificateDate?: string;
+  // 登录手机号，填写风险咨询对象关联账号的登录手机号
+  loginPhone?: string;
+  // 注册账号身份证，填写风险咨询对象所关联账号的注册身份证信息
+  registrationCert?: string;
+  // 登录账号身份证，登录账号的身份证号码
+  loginCert?: string;
+  // 注册时间，填写风险咨询对象所关联的账号的注册时间
+  registrationDate?: string;
+  // 证件类型；枚举值：1 - 身份证；2 - 护照
+  certType?: number;
+  // 银行卡号
+  bankCardNo?: string;
+  // 用户邮箱
+  emailAddress?: string;
+  // 手机序列号
+  imei?: string;
+  // 国际移动用户识别码
+  imsi?: string;
+  // mac 地址或设备唯一标识
+  macAddress?: string;
+  // 设备号，设备唯一号码
+  apdid?: string;
+  // 支付宝外部交易号
+  outOrderNo?: string;
+  // 所咨询的唯一支付宝交易号
+  orderNo?: string;
+  // 用户购买或使用服务时产生的具体金额总数，单位：分
+  salesAmount?: number;
+  // 用户姓名
+  userName?: string;
+  // 收货手机号，用于区分 mobile_no 所填的手机号
+  mailingPhone?: string;
+  // 收货地址
+  mailingAddress?: string;
+  // 是否为员工账号，枚举值：1 - 是
+  isEmployee?: string;
+  // 渠道，枚举值：alipay - 支付宝；app - 自有app；pc - 电脑端
+  channel?: string;
+  // 服务商 pid
+  isvPid?: string;
+  // 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+  storeMccDesc?: string;
+  // 消费者 id，外部会员账号
+  customerId?: string;
+  // 订单所有商品信息列表
+  orderItemsInfoList?: ScalperQueryOrderItem[];
+  static names(): { [key: string]: string } {
+    return {
+      registrationPhone: 'registration_phone',
+      certificateDate: 'certificate_date',
+      loginPhone: 'login_phone',
+      registrationCert: 'registration_cert',
+      loginCert: 'login_cert',
+      registrationDate: 'registration_date',
+      certType: 'cert_type',
+      bankCardNo: 'bank_card_no',
+      emailAddress: 'email_address',
+      imei: 'imei',
+      imsi: 'imsi',
+      macAddress: 'mac_address',
+      apdid: 'apdid',
+      outOrderNo: 'out_order_no',
+      orderNo: 'order_no',
+      salesAmount: 'sales_amount',
+      userName: 'user_name',
+      mailingPhone: 'mailing_phone',
+      mailingAddress: 'mailing_address',
+      isEmployee: 'is_employee',
+      channel: 'channel',
+      isvPid: 'isv_pid',
+      storeMccDesc: 'store_mcc_desc',
+      customerId: 'customer_id',
+      orderItemsInfoList: 'order_items_info_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      registrationPhone: 'string',
+      certificateDate: 'string',
+      loginPhone: 'string',
+      registrationCert: 'string',
+      loginCert: 'string',
+      registrationDate: 'string',
+      certType: 'number',
+      bankCardNo: 'string',
+      emailAddress: 'string',
+      imei: 'string',
+      imsi: 'string',
+      macAddress: 'string',
+      apdid: 'string',
+      outOrderNo: 'string',
+      orderNo: 'string',
+      salesAmount: 'number',
+      userName: 'string',
+      mailingPhone: 'string',
+      mailingAddress: 'string',
+      isEmployee: 'string',
+      channel: 'string',
+      isvPid: 'string',
+      storeMccDesc: 'string',
+      customerId: 'string',
+      orderItemsInfoList: { 'type': 'array', 'itemType': ScalperQueryOrderItem },
     };
   }
 
@@ -430,35 +1617,6 @@ export class MarketingScoreQueryInfo extends $tea.Model {
   }
 }
 
-// 投保商品信息
-export class InsureProductInfo extends $tea.Model {
-  // 商品库id
-  productId: string;
-  // 商品设备编号
-  productImeiId: string;
-  // 商品采购价，单位：分
-  purchaseAmount: number;
-  static names(): { [key: string]: string } {
-    return {
-      productId: 'product_id',
-      productImeiId: 'product_imei_id',
-      purchaseAmount: 'purchase_amount',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      productId: 'string',
-      productImeiId: 'string',
-      purchaseAmount: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 策略结果详情
 export class RiskStrategy extends $tea.Model {
   // 策略ID
@@ -484,59 +1642,6 @@ export class RiskStrategy extends $tea.Model {
       name: 'string',
       decision: 'string',
       sceneCode: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 模板组件（文本域）
-export class TemplateComponent extends $tea.Model {
-  // 模板编码
-  templateCode: string;
-  // 组件（文本域）id
-  id: string;
-  // 组件（文本域）名称
-  name: string;
-  // 组件（文本域）的唯一标识
-  uk?: string;
-  // 占位符，组件（文本域）的展示样式值
-  placeholder?: string;
-  // 组件（文本域）是否可以编辑。取值：Y/N
-  enableEdit?: string;
-  // 是否必填，取值：Y/N
-  required?: string;
-  // 组件（文本域）类型，INPUT:单行文本 TEXTAREA:多行文本
-  type?: string;
-  // 组件（文本域）值
-  value: string;
-  static names(): { [key: string]: string } {
-    return {
-      templateCode: 'template_code',
-      id: 'id',
-      name: 'name',
-      uk: 'uk',
-      placeholder: 'placeholder',
-      enableEdit: 'enable_edit',
-      required: 'required',
-      type: 'type',
-      value: 'value',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      templateCode: 'string',
-      id: 'string',
-      name: 'string',
-      uk: 'string',
-      placeholder: 'string',
-      enableEdit: 'string',
-      required: 'string',
-      type: 'string',
-      value: 'string',
     };
   }
 
@@ -619,69 +1724,6 @@ export class MarketingScoreInfo extends $tea.Model {
     return {
       phoneNum: 'string',
       score: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 静态数据
-export class StaticData extends $tea.Model {
-  // 商户类型
-  moduleName: string;
-  // 静态数据详情
-  moduleDetailList: StaticDataModuleDetail[];
-  static names(): { [key: string]: string } {
-    return {
-      moduleName: 'module_name',
-      moduleDetailList: 'module_detail_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      moduleName: 'string',
-      moduleDetailList: { 'type': 'array', 'itemType': StaticDataModuleDetail },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 进件分页对象
-export class MerchantAgentPage extends $tea.Model {
-  // 进件id
-  payExpandId: string;
-  // 	
-  // 代理企业名称
-  agentName: string;
-  // 租户8位id
-  tenantId: string;
-  // 业务类型
-  bizType: string;
-  // 进件审核状态 枚举
-  payExpandStatus: string;
-  static names(): { [key: string]: string } {
-    return {
-      payExpandId: 'pay_expand_id',
-      agentName: 'agent_name',
-      tenantId: 'tenant_id',
-      bizType: 'biz_type',
-      payExpandStatus: 'pay_expand_status',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      payExpandId: 'string',
-      agentName: 'string',
-      tenantId: 'string',
-      bizType: 'string',
-      payExpandStatus: 'string',
     };
   }
 
@@ -781,125 +1823,63 @@ export class OrderMsgInfo extends $tea.Model {
   }
 }
 
-// 主订单信息
-export class OrderInfo extends $tea.Model {
-  // 订单id
-  orderId?: string;
-  // 订单创建时间
-  orderCreateTime?: string;
-  // 订单支付时间
-  orderPayTime?: string;
-  // 租金总额(分)
-  totalRentMoney?: number;
-  // 租期
-  rentTerm?: number;
-  // 租期单位
-  rentUnit?: string;
-  // 订单状态
-  orderStatus?: string;
-  // 订单子状态
-  orderSubStatus?: string;
-  // 免押金额（分）
-  depositPrice?: number;
-  // 到期买断价(分)
-  buyOutPrice?: number;
-  // 物流方案
-  logisticType?: string;
-  // 到期形式
-  // NA(0, "无意义"),
-  // BUYOUT(1, "到期买断或归还"),
-  // FREE_ON_RENT(2, "租满即送"),
-  // RENEW_LEASE(3, "续租"),;
-  dueMode?: number;
-  // 首付款金额(分)
-  downPayment?: number;
+// 营销发奖风险识别入参模型
+export class AwardingQueryModel extends $tea.Model {
+  // 对方支付宝账户 uid，用于表示两个账户在业务交互中的对方账户，如人传人活动用户A会拉用户B来注册领奖，其中用户B为对方账户
+  opposingUserid?: string;
+  // 对方支付宝账户openid，营销发奖风险识别场景，userid 与 open_id 至少传入一个
+  opposingOpenId?: string;
+  // 服务二级分类
+  serviceCategory?: string;
+  // 服务商 pid
+  isvPid?: string;
+  // 银行卡号
+  bankCardNo?: string;
+  // 手机序列号
+  imei?: string;
+  // 国际移动用户识别码
+  imsi?: string;
+  // 金额，用户购买或使用服务时产生的具体金额，单位：分
+  salesAmount?: number;
+  // 用户姓名
+  userName?: string;
+  // 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+  storeMccDesc?: string;
+  // 消费者 id，外部会员账号
+  customerId: string;
+  // 填入想要咨询风控的二维码值，需为唯一值
+  qrCode?: string;
   static names(): { [key: string]: string } {
     return {
-      orderId: 'order_id',
-      orderCreateTime: 'order_create_time',
-      orderPayTime: 'order_pay_time',
-      totalRentMoney: 'total_rent_money',
-      rentTerm: 'rent_term',
-      rentUnit: 'rent_unit',
-      orderStatus: 'order_status',
-      orderSubStatus: 'order_sub_status',
-      depositPrice: 'deposit_price',
-      buyOutPrice: 'buy_out_price',
-      logisticType: 'logistic_type',
-      dueMode: 'due_mode',
-      downPayment: 'down_payment',
+      opposingUserid: 'opposing_userid',
+      opposingOpenId: 'opposing_open_id',
+      serviceCategory: 'service_category',
+      isvPid: 'isv_pid',
+      bankCardNo: 'bank_card_no',
+      imei: 'imei',
+      imsi: 'imsi',
+      salesAmount: 'sales_amount',
+      userName: 'user_name',
+      storeMccDesc: 'store_mcc_desc',
+      customerId: 'customer_id',
+      qrCode: 'qr_code',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      orderId: 'string',
-      orderCreateTime: 'string',
-      orderPayTime: 'string',
-      totalRentMoney: 'number',
-      rentTerm: 'number',
-      rentUnit: 'string',
-      orderStatus: 'string',
-      orderSubStatus: 'string',
-      depositPrice: 'number',
-      buyOutPrice: 'number',
-      logisticType: 'string',
-      dueMode: 'number',
-      downPayment: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 订单还款承诺
-export class OrderPromiseInfo extends $tea.Model {
-  // 订单还款策略
-  repayStrategyList?: OrderRepayStrategy[];
-  static names(): { [key: string]: string } {
-    return {
-      repayStrategyList: 'repay_strategy_list',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      repayStrategyList: { 'type': 'array', 'itemType': OrderRepayStrategy },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 通知信息
-export class NoticeInfo extends $tea.Model {
-  // 通知id
-  noticeId?: number;
-  // 通知标题
-  title?: string;
-  // 通知创建时间
-  noticeCreateTime?: string;
-  // 是否未读
-  unread?: boolean;
-  static names(): { [key: string]: string } {
-    return {
-      noticeId: 'notice_id',
-      title: 'title',
-      noticeCreateTime: 'notice_create_time',
-      unread: 'unread',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      noticeId: 'number',
-      title: 'string',
-      noticeCreateTime: 'string',
-      unread: 'boolean',
+      opposingUserid: 'string',
+      opposingOpenId: 'string',
+      serviceCategory: 'string',
+      isvPid: 'string',
+      bankCardNo: 'string',
+      imei: 'string',
+      imsi: 'string',
+      salesAmount: 'number',
+      userName: 'string',
+      storeMccDesc: 'string',
+      customerId: 'string',
+      qrCode: 'string',
     };
   }
 
@@ -953,43 +1933,6 @@ export class ApplicationInfoUpdate extends $tea.Model {
   }
 }
 
-// 审核信息
-export class AuditInfo extends $tea.Model {
-  // 审核步骤
-  stage: string;
-  // 审核主体
-  auditSubject: string;
-  // 审核状态
-  status: string;
-  // 审核时间
-  applyDateStr: string;
-  // 审核失败描述
-  failReason: string;
-  static names(): { [key: string]: string } {
-    return {
-      stage: 'stage',
-      auditSubject: 'audit_subject',
-      status: 'status',
-      applyDateStr: 'apply_date_str',
-      failReason: 'fail_reason',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      stage: 'string',
-      auditSubject: 'string',
-      status: 'string',
-      applyDateStr: 'string',
-      failReason: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 订单用户信息
 export class OrderUserInfo extends $tea.Model {
   // 承租人名称
@@ -1033,111 +1976,8 @@ export class OrderUserInfo extends $tea.Model {
   }
 }
 
-// 商品信息
-export class ProductInfo extends $tea.Model {
-  // 商家社会统一信用代码
-  merchantId?: string;
-  // 商品名称
-  productName?: string;
-  // 商品id
-  productId?: string;
-  // 商品规格
-  productModel?: string;
-  // 商品版本
-  productVersion?: string;
-  // 指导价(单位分)
-  productPrice?: number;
-  // 一级类目
-  mainClass?: string;
-  // 二级类目
-  subClass?: string;
-  // 品牌
-  productBrand?: string;
-  static names(): { [key: string]: string } {
-    return {
-      merchantId: 'merchant_id',
-      productName: 'product_name',
-      productId: 'product_id',
-      productModel: 'product_model',
-      productVersion: 'product_version',
-      productPrice: 'product_price',
-      mainClass: 'main_class',
-      subClass: 'sub_class',
-      productBrand: 'product_brand',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      merchantId: 'string',
-      productName: 'string',
-      productId: 'string',
-      productModel: 'string',
-      productVersion: 'string',
-      productPrice: 'number',
-      mainClass: 'string',
-      subClass: 'string',
-      productBrand: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 订单包含的单个商品模型
 export class OrderGoodsModel extends $tea.Model {
-  static names(): { [key: string]: string } {
-    return {
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 法人信息修改
-export class LegalInfoUpdate extends $tea.Model {
-  // 法人名称
-  legalName?: string;
-  // 法人证件号
-  legalCertNo?: string;
-  // 法人证件正面
-  legalCertFrontFile?: FileInfo;
-  // 法人证件反面
-  legalCertBackFile?: FileInfo;
-  static names(): { [key: string]: string } {
-    return {
-      legalName: 'legal_name',
-      legalCertNo: 'legal_cert_no',
-      legalCertFrontFile: 'legal_cert_front_file',
-      legalCertBackFile: 'legal_cert_back_file',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      legalName: 'string',
-      legalCertNo: 'string',
-      legalCertFrontFile: FileInfo,
-      legalCertBackFile: FileInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 订单还款计划
-export class PromiseInfo extends $tea.Model {
   static names(): { [key: string]: string } {
     return {
     };
@@ -1174,67 +2014,6 @@ export class DeliveryDetail extends $tea.Model {
       receiverName: 'string',
       receiverMobile: 'string',
       receiverAddress: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 客服信息
-export class CustomerServiceInfo extends $tea.Model {
-  // 公司社会统一信息代码
-  merchantId?: string;
-  // 公司名称
-  merchantName?: string;
-  // 处理类型:
-  // MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
-  // PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
-  processType?: string;
-  static names(): { [key: string]: string } {
-    return {
-      merchantId: 'merchant_id',
-      merchantName: 'merchant_name',
-      processType: 'process_type',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      merchantId: 'string',
-      merchantName: 'string',
-      processType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 经营分账收入模型
-export class OperationDivideTransInModel extends $tea.Model {
-  // 分账收入方支付宝用户id, 支付宝2088id
-  transInUserId: string;
-  // 分账金额，单位为分
-  // 
-  divideAmount: number;
-  // 分账描述
-  desc?: string;
-  static names(): { [key: string]: string } {
-    return {
-      transInUserId: 'trans_in_user_id',
-      divideAmount: 'divide_amount',
-      desc: 'desc',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      transInUserId: 'string',
-      divideAmount: 'number',
-      desc: 'string',
     };
   }
 
@@ -1284,211 +2063,51 @@ export class AgreementPage extends $tea.Model {
   }
 }
 
-// 订单履约
-export class OrderFulfillmentInfo extends $tea.Model {
-  // 租期编号
-  leaseTermIndex?: number;
-  // 租期归还状态
-  rentalReturnState?: string;
-  // 实际还款金额(分)
-  realRepayMoney?: number;
-  // 租金(分)
-  rentalMoney?: number;
-  // 每期实付时间
-  returnTime?: string;
-  static names(): { [key: string]: string } {
-    return {
-      leaseTermIndex: 'lease_term_index',
-      rentalReturnState: 'rental_return_state',
-      realRepayMoney: 'real_repay_money',
-      rentalMoney: 'rental_money',
-      returnTime: 'return_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      leaseTermIndex: 'number',
-      rentalReturnState: 'string',
-      realRepayMoney: 'number',
-      rentalMoney: 'number',
-      returnTime: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 风险场景的决策结果
-export class RiskScene extends $tea.Model {
-  // 风险场景编码
-  sceneCode: string;
-  // 该场景的风险决策结果
-  decision: string;
-  static names(): { [key: string]: string } {
-    return {
-      sceneCode: 'scene_code',
-      decision: 'decision',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sceneCode: 'string',
-      decision: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 分账关系页对象
-export class RelationPage extends $tea.Model {
-  // 分账关系id
-  relationId: string;
-  // 分账公司名称
-  companyName: string;
-  // 分账公司名称统一社会信用代码
-  merchantId: string;
-  // 审核状态
-  status: string;
-  // 商户公司统一社会信用代码
-  subjectMerchantId: string;
-  // 商户公司名称
-  subjectCompanyName: string;
-  static names(): { [key: string]: string } {
-    return {
-      relationId: 'relation_id',
-      companyName: 'company_name',
-      merchantId: 'merchant_id',
-      status: 'status',
-      subjectMerchantId: 'subject_merchant_id',
-      subjectCompanyName: 'subject_company_name',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      relationId: 'string',
-      companyName: 'string',
-      merchantId: 'string',
-      status: 'string',
-      subjectMerchantId: 'string',
-      subjectCompanyName: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-//  公司信息修改
-export class CompanyInfoUpdate extends $tea.Model {
-  // 营业执照文件信息
-  businessLicenseFile?: FileInfo;
-  // 业务类型 枚举
-  productMainClass?: string;
+// 行业刷单风险识别入参模型
+export class FarmingQueryModel extends $tea.Model {
+  // 支付宝外部交易号
+  outOrderNo?: string;
+  // 支付宝内部交易号
+  orderNo?: string;
+  // 金额，用户购买或使用服务时产生的具体金额，单位：分
+  salesAmount?: number;
+  // 银行卡号
+  bankCardNo?: string;
+  // 服务商 pid
+  isvPid?: string;
+  // 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+  storeMccDesc?: string;
+  // 门店地址；不需要传城市和行政区
+  outletAddress?: string;
   // 公司名称
   companyName?: string;
-  // 公司别名
-  companyAliasName?: string;
-  // 公司数科租户id
-  tenantId?: string;
-  // 公司联系电话
-  companyMobile?: string;
-  // 公司联系地址
-  companyAddress?: string;
-  // 联系人姓名
-  contactName?: string;
-  // 联系人手机号码
-  contactMobile?: string;
-  // 商户类型： 01：企业；07：个体工商户 默认不填为01
-  merchantType?: string;
+  // 店铺名称
+  storeName?: string;
   static names(): { [key: string]: string } {
     return {
-      businessLicenseFile: 'business_license_file',
-      productMainClass: 'product_main_class',
+      outOrderNo: 'out_order_no',
+      orderNo: 'order_no',
+      salesAmount: 'sales_amount',
+      bankCardNo: 'bank_card_no',
+      isvPid: 'isv_pid',
+      storeMccDesc: 'store_mcc_desc',
+      outletAddress: 'outlet_address',
       companyName: 'company_name',
-      companyAliasName: 'company_alias_name',
-      tenantId: 'tenant_id',
-      companyMobile: 'company_mobile',
-      companyAddress: 'company_address',
-      contactName: 'contact_name',
-      contactMobile: 'contact_mobile',
-      merchantType: 'merchant_type',
+      storeName: 'store_name',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
-      businessLicenseFile: FileInfo,
-      productMainClass: 'string',
+      outOrderNo: 'string',
+      orderNo: 'string',
+      salesAmount: 'number',
+      bankCardNo: 'string',
+      isvPid: 'string',
+      storeMccDesc: 'string',
+      outletAddress: 'string',
       companyName: 'string',
-      companyAliasName: 'string',
-      tenantId: 'string',
-      companyMobile: 'string',
-      companyAddress: 'string',
-      contactName: 'string',
-      contactMobile: 'string',
-      merchantType: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 订单搜索信息
-export class OrderSearchInfo extends $tea.Model {
-  // 订单id
-  orderId?: string;
-  // 支付宝代扣协议号
-  agreementNo?: string;
-  // 订单创建时间
-  orderCreateTime?: string;
-  // 租金总额（单位分）
-  totalRentMoney?: number;
-  // 租期
-  rentTerm?: number;
-  // 租期单位
-  rentUnit?: string;
-  // 订单状态
-  orderStatus?: string;
-  // 承租人名称
-  userName?: string;
-  // 承租人手机号
-  userPhoneNumber?: string;
-  static names(): { [key: string]: string } {
-    return {
-      orderId: 'order_id',
-      agreementNo: 'agreement_no',
-      orderCreateTime: 'order_create_time',
-      totalRentMoney: 'total_rent_money',
-      rentTerm: 'rent_term',
-      rentUnit: 'rent_unit',
-      orderStatus: 'order_status',
-      userName: 'user_name',
-      userPhoneNumber: 'user_phone_number',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      orderId: 'string',
-      agreementNo: 'string',
-      orderCreateTime: 'string',
-      totalRentMoney: 'number',
-      rentTerm: 'number',
-      rentUnit: 'string',
-      orderStatus: 'string',
-      userName: 'string',
-      userPhoneNumber: 'string',
+      storeName: 'string',
     };
   }
 
@@ -1582,61 +2201,6 @@ export class ActivePayOrder extends $tea.Model {
   }
 }
 
-// 应用信息
-export class ApplicationInfo extends $tea.Model {
-  // 应用场景
-  // MINI_APP 小程序
-  // APP 自有app
-  // ALL 两种都有
-  applicationScene: string;
-  // 小程序id
-  tinyAppId: string;
-  // 小程序名称
-  siteName: string;
-  // 网站地址
-  sitUrl: string;
-  // 商户名称。
-  // 修改后的商户名称，将同步支付宝代扣签约页面字段展示
-  merchantName: string;
-  // 商户服务名称。
-  // 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
-  merchantServiceName: string;
-  // 商户服务描述。
-  // 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
-  merchantServiceDesc: string;
-  // 站点信息
-  siteInfo?: SiteInfo[];
-  static names(): { [key: string]: string } {
-    return {
-      applicationScene: 'application_scene',
-      tinyAppId: 'tiny_app_id',
-      siteName: 'site_name',
-      sitUrl: 'sit_url',
-      merchantName: 'merchant_name',
-      merchantServiceName: 'merchant_service_name',
-      merchantServiceDesc: 'merchant_service_desc',
-      siteInfo: 'site_info',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      applicationScene: 'string',
-      tinyAppId: 'string',
-      siteName: 'string',
-      sitUrl: 'string',
-      merchantName: 'string',
-      merchantServiceName: 'string',
-      merchantServiceDesc: 'string',
-      siteInfo: { 'type': 'array', 'itemType': SiteInfo },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 订单商品信息
 export class GoodsInfo extends $tea.Model {
   static names(): { [key: string]: string } {
@@ -1679,36 +2243,6 @@ export class PageQuery extends $tea.Model {
   }
 }
 
-// 智租风控-商品详情
-export class ItemDetail extends $tea.Model {
-  // 租赁商品类目，可选类型：
-  // RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
-  goodsCategory?: string;
-  // 租赁商品名称
-  itemName?: string;
-  // 租赁商品数量
-  quantity?: number;
-  static names(): { [key: string]: string } {
-    return {
-      goodsCategory: 'goods_category',
-      itemName: 'item_name',
-      quantity: 'quantity',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      goodsCategory: 'string',
-      itemName: 'string',
-      quantity: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 法人信息
 export class LegalInfo extends $tea.Model {
   // 法人名称
@@ -1734,47 +2268,6 @@ export class LegalInfo extends $tea.Model {
       legalCertNo: 'string',
       legalCertFrontFile: FileInfo,
       legalCertBackFile: FileInfo,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 模型结果详情
-export class RiskModel extends $tea.Model {
-  // 风险场景编码
-  sceneCode: string;
-  // 该风险场景的风险分值
-  score: string;
-  // 逾期率
-  delinquencyRate?: string;
-  // 风险建议
-  riskAdvice?: string;
-  // 风险等级
-  riskRank?: string;
-  // 流程id
-  flowId: string;
-  static names(): { [key: string]: string } {
-    return {
-      sceneCode: 'scene_code',
-      score: 'score',
-      delinquencyRate: 'delinquency_rate',
-      riskAdvice: 'risk_advice',
-      riskRank: 'risk_rank',
-      flowId: 'flow_id',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sceneCode: 'string',
-      score: 'string',
-      delinquencyRate: 'string',
-      riskAdvice: 'string',
-      riskRank: 'string',
-      flowId: 'string',
     };
   }
 
@@ -3464,6 +3957,73 @@ export class QueryFundCompensateaccountResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       availableAmount: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetFundOrderfinanceinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // order_id
+  orderId: string;
+  // merchant_id
+  merchantId: string;
+  // fund_id
+  fundId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      fundId: 'fund_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+      fundId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetFundOrderfinanceinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {}
+  responseData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseData: 'response_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseData: 'string',
     };
   }
 
@@ -5964,12 +6524,18 @@ export class SyncInnerTemplateResponse extends $tea.Model {
   resultMsg?: string;
   // 同步后的新模板code
   targetTemplateCode?: string;
+  // 模板同步上线时(强管控字段)校验结果
+  validResult?: boolean;
+  // 校验结果明细JSONStr
+  validFieldDetail?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
       resultCode: 'result_code',
       resultMsg: 'result_msg',
       targetTemplateCode: 'target_template_code',
+      validResult: 'valid_result',
+      validFieldDetail: 'valid_field_detail',
     };
   }
 
@@ -5979,6 +6545,8 @@ export class SyncInnerTemplateResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       targetTemplateCode: 'string',
+      validResult: 'boolean',
+      validFieldDetail: 'string',
     };
   }
 
@@ -7664,6 +8232,8 @@ export class DetailInnerOrderResponse extends $tea.Model {
   orderPromiseInfo?: OrderPromiseInfo;
   // 订单商品信息
   orderProductInfoList?: OrderProductInfo[];
+  // 经营分账信息
+  operateDivideInfoList?: OperateDivideInfo[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -7677,6 +8247,7 @@ export class DetailInnerOrderResponse extends $tea.Model {
       orderFulfillmentInfoList: 'order_fulfillment_info_list',
       orderPromiseInfo: 'order_promise_info',
       orderProductInfoList: 'order_product_info_list',
+      operateDivideInfoList: 'operate_divide_info_list',
     };
   }
 
@@ -7693,6 +8264,7 @@ export class DetailInnerOrderResponse extends $tea.Model {
       orderFulfillmentInfoList: { 'type': 'array', 'itemType': OrderFulfillmentInfo },
       orderPromiseInfo: OrderPromiseInfo,
       orderProductInfoList: { 'type': 'array', 'itemType': OrderProductInfo },
+      operateDivideInfoList: { 'type': 'array', 'itemType': OperateDivideInfo },
     };
   }
 
@@ -8386,6 +8958,220 @@ export class QueryInnerTemplateinstanceResponse extends $tea.Model {
       resultCode: 'string',
       resultMsg: 'string',
       data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerTenantindirectmainclassRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryInnerTenantindirectmainclassResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 当前开通类目
+  currentIndirectMainClassList?: string[];
+  // 开通说明
+  desc?: string;
+  // 状态
+  // INIT:初始化
+  // AUDIT:审批中 
+  // AUDIT_PASSED:审批通过
+  // AUDIT_NOT_PASSED:审批不通过
+  status?: string;
+  // 审核拒绝原因
+  failReason?: string;
+  // 申请开通的类目
+  changingIndirectMainClassList?: string[];
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      currentIndirectMainClassList: 'current_indirect_main_class_list',
+      desc: 'desc',
+      status: 'status',
+      failReason: 'fail_reason',
+      changingIndirectMainClassList: 'changing_indirect_main_class_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      currentIndirectMainClassList: { 'type': 'array', 'itemType': 'string' },
+      desc: 'string',
+      status: 'string',
+      failReason: 'string',
+      changingIndirectMainClassList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateInnerTenantindirectmainclassRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 租户id
+  tenantId: string;
+  // 开通类目
+  indirectMainClassList: string[];
+  // 开通说明
+  // 
+  desc?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      indirectMainClassList: 'indirect_main_class_list',
+      desc: 'desc',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      indirectMainClassList: { 'type': 'array', 'itemType': 'string' },
+      desc: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class UpdateInnerTenantindirectmainclassResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitInnerTemplatesyncreviewRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 商户对应租户ID
+  tenantId: string;
+  // 来源魔法库模板code
+  sourceTemplateCode: string;
+  // 目标魔法库模板名称
+  targetTemplateName: string;
+  // 魔法库来源模板版本
+  sourceTemplateVersion: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      tenantId: 'tenant_id',
+      sourceTemplateCode: 'source_template_code',
+      targetTemplateName: 'target_template_name',
+      sourceTemplateVersion: 'source_template_version',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      tenantId: 'string',
+      sourceTemplateCode: 'string',
+      targetTemplateName: 'string',
+      sourceTemplateVersion: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class SubmitInnerTemplatesyncreviewResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 提交同步上线审核的模板code
+  sourceTemplateCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      sourceTemplateCode: 'source_template_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      sourceTemplateCode: 'string',
     };
   }
 
@@ -9124,8 +9910,11 @@ export class QueryRiskRequest extends $tea.Model {
   mobile: string;
   // 支付宝账户 UserId，智租版可选
   alipayUserId?: string;
-  // 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+  // 下单渠道，智租版必选。枚举值：支付宝-ALIPAY；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
   source?: string;
+  // 风险业务场景，智租版选填。默认值：PRE_RENT。
+  // PRE_RENT - 3c租赁；PRE_RENT_3C - 3c租赁定制；PRE_RENT_PET - 宠物；PRE_RENT_EDU - 教培；PRE_RENT_BEAUTY - 美业；
+  riskBizScene?: string;
   // 商品详情，智租版可选
   itemDetail?: ItemDetail;
   // 价格详情，智租版可选
@@ -9142,6 +9931,7 @@ export class QueryRiskRequest extends $tea.Model {
       mobile: 'mobile',
       alipayUserId: 'alipay_user_id',
       source: 'source',
+      riskBizScene: 'risk_biz_scene',
       itemDetail: 'item_detail',
       priceDetail: 'price_detail',
       deliveryDetail: 'delivery_detail',
@@ -9158,6 +9948,7 @@ export class QueryRiskRequest extends $tea.Model {
       mobile: 'string',
       alipayUserId: 'string',
       source: 'string',
+      riskBizScene: 'string',
       itemDetail: ItemDetail,
       priceDetail: PriceDetail,
       deliveryDetail: DeliveryDetail,
@@ -9205,6 +9996,131 @@ export class QueryRiskResponse extends $tea.Model {
   }
 }
 
+export class QueryRiskGoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 风险类型。枚举值：MARKETING_PURCHASE_COMMON 营销抢购风险识别；INDUSTRY_SCALPER_COMMON 行业黄牛风险识别；MARKETING_AWARDING_COMMON 营销发奖风险识别；INDUSTRY_FARMING_COMMON 行业刷单风险识别；INDUSTRY_BADDEBT_COMMON 履约坏账风险识别
+  riskType: string;
+  // 调用行业，枚举值：
+  // insurance 保险；retail 零售；finance 金融行业；logistics 物流行业；city_services 城市服务；medical 医疗服务；digital_media 数媒行业；recycle 回收行业；payment 缴费行业；vehicle 汽车；travel 旅游；air_travel 航旅行业；FMCG 快消零售；education 教育行业；fashion_retail 时尚零售；game_industry 文体行业；rental 租赁；advertisement 广告行业；restaurants 餐饮行业；ticket 票务行业；complexes 综合体行业
+  businessCode: string;
+  // 风险咨询对应的自身业务场景/环节，枚举值：
+  // register 注册；order 下单；payment 支付；login 登录；offline_query 离线查询；inquery 查询；reserve 预约；invitation 邀请；other 其他
+  scene: string;
+  // 支付宝用户 2088 账号
+  userId?: string;
+  // 支付宝用户 open_id 账号。需要注意，user_id 和 open_id 不可同时为空，同时传入时，以 user_id 为准
+  openId?: string;
+  // 支付宝商家 pid，如果风险咨询对象是支付宝商家，则填写pid
+  merPid?: string;
+  // 手机号码，用于直接输入风险咨询对象的手机号码
+  mobileNo?: string;
+  // 身份证号码
+  certNo?: string;
+  // 账户登录 ip
+  ip?: string;
+  // 地理位置，用于输入用户产生交易时的地理位置信息
+  lbs?: string;
+  // 咨询方类型，填写风险咨询中对应的商户或服务商对于蚂蚁的类型。枚举值：direct_isv 直连服务商；indirect_isv 间连服务商；unconn_isv 无关服务商；direct_mer 直连商户；indirect_mer 间连商户；unconn_mer 无关联商户；unknown 其他
+  role?: string;
+  // 可填入活动id唯一值，或其他活动信息
+  activityInfo?: string;
+  // 营销抢购风险识别入参模型
+  purchaseQueryModel?: PurchaseQueryModel;
+  // 行业黄牛风险识别入参模型
+  scalperQueryModel?: ScalperQueryModel;
+  // 营销发奖风险识别入参模型
+  awardingQueryModel?: AwardingQueryModel;
+  // 行业刷单风险识别入参模型
+  farmingQueryModel?: FarmingQueryModel;
+  // 行业履约风险识别入参模型
+  baddebtQueryModel?: BaddebtQueryModel;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      riskType: 'risk_type',
+      businessCode: 'business_code',
+      scene: 'scene',
+      userId: 'user_id',
+      openId: 'open_id',
+      merPid: 'mer_pid',
+      mobileNo: 'mobile_no',
+      certNo: 'cert_no',
+      ip: 'ip',
+      lbs: 'lbs',
+      role: 'role',
+      activityInfo: 'activity_info',
+      purchaseQueryModel: 'purchase_query_model',
+      scalperQueryModel: 'scalper_query_model',
+      awardingQueryModel: 'awarding_query_model',
+      farmingQueryModel: 'farming_query_model',
+      baddebtQueryModel: 'baddebt_query_model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      riskType: 'string',
+      businessCode: 'string',
+      scene: 'string',
+      userId: 'string',
+      openId: 'string',
+      merPid: 'string',
+      mobileNo: 'string',
+      certNo: 'string',
+      ip: 'string',
+      lbs: 'string',
+      role: 'string',
+      activityInfo: 'string',
+      purchaseQueryModel: PurchaseQueryModel,
+      scalperQueryModel: ScalperQueryModel,
+      awardingQueryModel: AwardingQueryModel,
+      farmingQueryModel: FarmingQueryModel,
+      baddebtQueryModel: BaddebtQueryModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryRiskGoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 风险查询结果
+  model?: RiskGoModel;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      model: 'model',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      model: RiskGoModel,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class AllSignTemplateRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -9213,19 +10129,15 @@ export class AllSignTemplateRequest extends $tea.Model {
   contractType?: string;
   // 商户统一社会信用代码，SIT环境，非融必填
   merchantId?: string;
-  // ● FINANCE 融资
-  // ● NON_FINANCE 非融资
-  fundType?: string;
-  // 查询融资类型时，需要传入资方统一社会信用代码
-  fundId?: string;
+  // 模板id
+  templateId?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       contractType: 'contract_type',
       merchantId: 'merchant_id',
-      fundType: 'fund_type',
-      fundId: 'fund_id',
+      templateId: 'template_id',
     };
   }
 
@@ -9235,8 +10147,7 @@ export class AllSignTemplateRequest extends $tea.Model {
       productInstanceId: 'string',
       contractType: 'string',
       merchantId: 'string',
-      fundType: 'string',
-      fundId: 'string',
+      templateId: 'string',
     };
   }
 
@@ -9252,19 +10163,7 @@ export class AllSignTemplateResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // List<Object>格式，详细参考：
-  // [
-  //         {
-  //             "templateCode": "TEST_001",
-  //             "tenantId": "BIPCCOQY",
-  //             "agreementType": "SERVICE_LEASE",
-  //             "fileName": "测试模板之协议签署证明",
-  //             "templateId": "f28038577d664015bfc1034c4a125121",
-  //             "fieldArgs": "{\"sceneName\":\"测试协议合同签署\",\"title\":\"这是一份证明协议\"}",
-  //             "userPos": "[{\"required\":true,\"posPage\":\"1\",\"posX\":\"162.44\",\"posY\":\"425\"}]",
-  //             "orgPos": "[{\"required\":true,\"posPage\":\"1\",\"posX\":\"449.99\",\"posY\":\"420.03\"}]"
-  //         }
-  //     ]
+  // List<JSONObject>格式内容
   templateList?: string;
   static names(): { [key: string]: string } {
     return {
@@ -9351,6 +10250,8 @@ export class SubmitSignFlowRequest extends $tea.Model {
   userOrgIdType?: string;
   // (企业作为消费者时)公司证件号，无需加密
   userOrgIdNumber?: string;
+  // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+  needFace?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9382,6 +10283,7 @@ export class SubmitSignFlowRequest extends $tea.Model {
       userOrgName: 'user_org_name',
       userOrgIdType: 'user_org_id_type',
       userOrgIdNumber: 'user_org_id_number',
+      needFace: 'need_face',
     };
   }
 
@@ -9416,6 +10318,7 @@ export class SubmitSignFlowRequest extends $tea.Model {
       userOrgName: 'string',
       userOrgIdType: 'string',
       userOrgIdNumber: 'string',
+      needFace: 'boolean',
     };
   }
 
@@ -9707,6 +10610,8 @@ export class SubmitFrontSignRequest extends $tea.Model {
   userOrgIdType?: string;
   // (企业作为消费者时)公司名称
   userOrgName?: string;
+  // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+  needFace?: boolean;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -9738,6 +10643,7 @@ export class SubmitFrontSignRequest extends $tea.Model {
       userOrgIdNumber: 'user_org_id_number',
       userOrgIdType: 'user_org_id_type',
       userOrgName: 'user_org_name',
+      needFace: 'need_face',
     };
   }
 
@@ -9772,6 +10678,7 @@ export class SubmitFrontSignRequest extends $tea.Model {
       userOrgIdNumber: 'string',
       userOrgIdType: 'string',
       userOrgName: 'string',
+      needFace: 'boolean',
     };
   }
 
@@ -11255,6 +12162,145 @@ export class UpdateTradeOrderResponse extends $tea.Model {
   }
 }
 
+export class AddTradeFinanceprecheckRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // order_id
+  orderId: string;
+  // merchant_id
+  merchantId: string;
+  // ["1","2"]
+  fundIdList: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+      fundIdList: 'fund_id_list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+      fundIdList: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class AddTradeFinanceprecheckResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // merchant_id
+  merchantId?: string;
+  // order_id
+  orderId?: string;
+  // fund_candidates
+  // List<FundCompanyInfo> 的jsonArray.toString
+  fundCandidates?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      merchantId: 'merchant_id',
+      orderId: 'order_id',
+      fundCandidates: 'fund_candidates',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      merchantId: 'string',
+      orderId: 'string',
+      fundCandidates: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetTradeOrderfinanceinfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 订单Id
+  orderId: string;
+  // 商户社会信用代码
+  merchantId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      orderId: 'order_id',
+      merchantId: 'merchant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      orderId: 'string',
+      merchantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class GetTradeOrderfinanceinfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 订单融资信息
+  responseData?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseData: 'response_data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseData: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateWithholdSignRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -11552,12 +12598,12 @@ export class RepayWithholdPlanRequest extends $tea.Model {
   productInstanceId?: string;
   // 订单id 长度不可超过50
   orderId: string;
-  // 第几期
-  periodNum: number;
-  // 其他方式还款的时间
-  gmtPay: string;
+  // 第几期，单期取消必填
+  periodNum?: number;
+  // 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
+  gmtPay?: string;
   // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
-  payOffAmount: number;
+  payOffAmount?: number;
   // 变更其他方式还款
   // WECHAT:微信;
   // BANK:银行
@@ -11567,6 +12613,12 @@ export class RepayWithholdPlanRequest extends $tea.Model {
   payOffNo?: string;
   // 其他方式还款银行名称，还款方式为银行时必填
   payOffBankName?: string;
+  // 操作，默认为单期取消；
+  // 多期取消：MULTI_CANCEL
+  // 单期取消：SINGLE_CANCEL
+  operation?: string;
+  // 取消列表，多期取消必填
+  cancelList?: SingleCancelModel[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -11578,6 +12630,8 @@ export class RepayWithholdPlanRequest extends $tea.Model {
       payOffType: 'pay_off_type',
       payOffNo: 'pay_off_no',
       payOffBankName: 'pay_off_bank_name',
+      operation: 'operation',
+      cancelList: 'cancel_list',
     };
   }
 
@@ -11592,6 +12646,8 @@ export class RepayWithholdPlanRequest extends $tea.Model {
       payOffType: 'string',
       payOffNo: 'string',
       payOffBankName: 'string',
+      operation: 'string',
+      cancelList: { 'type': 'array', 'itemType': SingleCancelModel },
     };
   }
 
@@ -12468,7 +13524,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.11.3",
+          sdk_version: "1.12.11",
           _prod_code: "ATO",
           _prod_channel: "undefined",
         };
@@ -12954,6 +14010,25 @@ export default class Client {
   async queryFundCompensateaccountEx(request: QueryFundCompensateaccountRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryFundCompensateaccountResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryFundCompensateaccountResponse>(await this.doRequest("1.0", "antchain.ato.fund.compensateaccount.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryFundCompensateaccountResponse({}));
+  }
+
+  /**
+   * Description: 资方查询订单融资信息
+   * Summary: 资方查询订单融资信息
+   */
+  async getFundOrderfinanceinfo(request: GetFundOrderfinanceinfoRequest): Promise<GetFundOrderfinanceinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getFundOrderfinanceinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 资方查询订单融资信息
+   * Summary: 资方查询订单融资信息
+   */
+  async getFundOrderfinanceinfoEx(request: GetFundOrderfinanceinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetFundOrderfinanceinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetFundOrderfinanceinfoResponse>(await this.doRequest("1.0", "antchain.ato.fund.orderfinanceinfo.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetFundOrderfinanceinfoResponse({}));
   }
 
   /**
@@ -14213,6 +15288,63 @@ export default class Client {
   }
 
   /**
+   * Description: 查询租户类目信息详情
+   * Summary: 查询租户类目信息详情
+   */
+  async queryInnerTenantindirectmainclass(request: QueryInnerTenantindirectmainclassRequest): Promise<QueryInnerTenantindirectmainclassResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryInnerTenantindirectmainclassEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 查询租户类目信息详情
+   * Summary: 查询租户类目信息详情
+   */
+  async queryInnerTenantindirectmainclassEx(request: QueryInnerTenantindirectmainclassRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryInnerTenantindirectmainclassResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryInnerTenantindirectmainclassResponse>(await this.doRequest("1.0", "antchain.ato.inner.tenantindirectmainclass.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryInnerTenantindirectmainclassResponse({}));
+  }
+
+  /**
+   * Description: 修改租户间联类目类目信息
+   * Summary: 修改租户间联类目类目信息
+   */
+  async updateInnerTenantindirectmainclass(request: UpdateInnerTenantindirectmainclassRequest): Promise<UpdateInnerTenantindirectmainclassResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.updateInnerTenantindirectmainclassEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 修改租户间联类目类目信息
+   * Summary: 修改租户间联类目类目信息
+   */
+  async updateInnerTenantindirectmainclassEx(request: UpdateInnerTenantindirectmainclassRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<UpdateInnerTenantindirectmainclassResponse> {
+    Util.validateModel(request);
+    return $tea.cast<UpdateInnerTenantindirectmainclassResponse>(await this.doRequest("1.0", "antchain.ato.inner.tenantindirectmainclass.update", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new UpdateInnerTenantindirectmainclassResponse({}));
+  }
+
+  /**
+   * Description: 模板同步上线时强管控字段校验未通过提交后台审核
+   * Summary: 模板同步上线审核提交
+   */
+  async submitInnerTemplatesyncreview(request: SubmitInnerTemplatesyncreviewRequest): Promise<SubmitInnerTemplatesyncreviewResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.submitInnerTemplatesyncreviewEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 模板同步上线时强管控字段校验未通过提交后台审核
+   * Summary: 模板同步上线审核提交
+   */
+  async submitInnerTemplatesyncreviewEx(request: SubmitInnerTemplatesyncreviewRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<SubmitInnerTemplatesyncreviewResponse> {
+    Util.validateModel(request);
+    return $tea.cast<SubmitInnerTemplatesyncreviewResponse>(await this.doRequest("1.0", "antchain.ato.inner.templatesyncreview.submit", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new SubmitInnerTemplatesyncreviewResponse({}));
+  }
+
+  /**
    * Description: 一键投保
    * Summary: 投保
    */
@@ -14400,6 +15532,25 @@ export default class Client {
   async queryRiskEx(request: QueryRiskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRiskResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRiskResponse>(await this.doRequest("1.0", "antchain.ato.risk.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRiskResponse({}));
+  }
+
+  /**
+   * Description: 云 api 发起风控分析，获取风险评估
+   * Summary: 云 api 发起风控分析，获取风险评估
+   */
+  async queryRiskGo(request: QueryRiskGoRequest): Promise<QueryRiskGoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryRiskGoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 云 api 发起风控分析，获取风险评估
+   * Summary: 云 api 发起风控分析，获取风险评估
+   */
+  async queryRiskGoEx(request: QueryRiskGoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRiskGoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryRiskGoResponse>(await this.doRequest("1.0", "antchain.ato.risk.go.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRiskGoResponse({}));
   }
 
   /**
@@ -14922,6 +16073,44 @@ export default class Client {
   }
 
   /**
+   * Description: 融资订单追加预审资金方
+   * Summary: 融资订单追加预审资金方
+   */
+  async addTradeFinanceprecheck(request: AddTradeFinanceprecheckRequest): Promise<AddTradeFinanceprecheckResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.addTradeFinanceprecheckEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 融资订单追加预审资金方
+   * Summary: 融资订单追加预审资金方
+   */
+  async addTradeFinanceprecheckEx(request: AddTradeFinanceprecheckRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<AddTradeFinanceprecheckResponse> {
+    Util.validateModel(request);
+    return $tea.cast<AddTradeFinanceprecheckResponse>(await this.doRequest("1.0", "antchain.ato.trade.financeprecheck.add", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new AddTradeFinanceprecheckResponse({}));
+  }
+
+  /**
+   * Description: 订单融资信息查询接口
+   * Summary: 订单融资信息查询接口
+   */
+  async getTradeOrderfinanceinfo(request: GetTradeOrderfinanceinfoRequest): Promise<GetTradeOrderfinanceinfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.getTradeOrderfinanceinfoEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 订单融资信息查询接口
+   * Summary: 订单融资信息查询接口
+   */
+  async getTradeOrderfinanceinfoEx(request: GetTradeOrderfinanceinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetTradeOrderfinanceinfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<GetTradeOrderfinanceinfoResponse>(await this.doRequest("1.0", "antchain.ato.trade.orderfinanceinfo.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetTradeOrderfinanceinfoResponse({}));
+  }
+
+  /**
    * Description: 代扣签约创建
    * Summary: 代扣签约
    */
@@ -14999,9 +16188,9 @@ export default class Client {
 
   /**
    * Description: 重要说明：
-      1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+      1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
       2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-   * Summary: 单期代扣取消
+   * Summary: 单期多期代扣取消
    */
   async repayWithholdPlan(request: RepayWithholdPlanRequest): Promise<RepayWithholdPlanResponse> {
     let runtime = new $Util.RuntimeOptions({ });
@@ -15011,9 +16200,9 @@ export default class Client {
 
   /**
    * Description: 重要说明：
-      1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+      1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
       2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-   * Summary: 单期代扣取消
+   * Summary: 单期多期代扣取消
    */
   async repayWithholdPlanEx(request: RepayWithholdPlanRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<RepayWithholdPlanResponse> {
     Util.validateModel(request);
