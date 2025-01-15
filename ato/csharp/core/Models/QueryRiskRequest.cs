@@ -43,10 +43,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false, MaxLength=20)]
         public string AlipayUserId { get; set; }
 
-        // 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+        // 下单渠道，智租版必选。枚举值：支付宝-ALIPAY；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
         [NameInMap("source")]
         [Validation(Required=false, MaxLength=10)]
         public string Source { get; set; }
+
+        // 风险业务场景，智租版选填。默认值：PRE_RENT。
+        // PRE_RENT - 3c租赁；PRE_RENT_3C - 3c租赁定制；PRE_RENT_PET - 宠物；PRE_RENT_EDU - 教培；PRE_RENT_BEAUTY - 美业；
+        [NameInMap("risk_biz_scene")]
+        [Validation(Required=false, MaxLength=100)]
+        public string RiskBizScene { get; set; }
 
         // 商品详情，智租版可选
         [NameInMap("item_detail")]

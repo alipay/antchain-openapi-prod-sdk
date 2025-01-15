@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class SyncInnerTemplateResponse : TeaModel {
+    public class AddTradeFinanceprecheckResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,21 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 同步后的新模板code
-        [NameInMap("target_template_code")]
+        // merchant_id
+        [NameInMap("merchant_id")]
         [Validation(Required=false)]
-        public string TargetTemplateCode { get; set; }
+        public string MerchantId { get; set; }
 
-        // 模板同步上线时(强管控字段)校验结果
-        [NameInMap("valid_result")]
+        // order_id
+        [NameInMap("order_id")]
         [Validation(Required=false)]
-        public bool? ValidResult { get; set; }
+        public string OrderId { get; set; }
 
-        // 校验结果明细JSONStr
-        [NameInMap("valid_field_detail")]
+        // fund_candidates
+        // List<FundCompanyInfo> 的jsonArray.toString
+        [NameInMap("fund_candidates")]
         [Validation(Required=false)]
-        public string ValidFieldDetail { get; set; }
+        public string FundCandidates { get; set; }
 
     }
 

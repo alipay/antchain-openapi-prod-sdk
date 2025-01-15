@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class SyncInnerTemplateResponse : TeaModel {
+    public class GetFundOrderfinanceinfoResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,20 +24,10 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 同步后的新模板code
-        [NameInMap("target_template_code")]
+        // {}
+        [NameInMap("response_data")]
         [Validation(Required=false)]
-        public string TargetTemplateCode { get; set; }
-
-        // 模板同步上线时(强管控字段)校验结果
-        [NameInMap("valid_result")]
-        [Validation(Required=false)]
-        public bool? ValidResult { get; set; }
-
-        // 校验结果明细JSONStr
-        [NameInMap("valid_field_detail")]
-        [Validation(Required=false)]
-        public string ValidFieldDetail { get; set; }
+        public string ResponseData { get; set; }
 
     }
 

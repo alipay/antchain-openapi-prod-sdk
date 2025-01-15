@@ -20,6 +20,16 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=true)]
         public string PropertyValue { get; set; }
 
+        // 图标
+        [NameInMap("icon")]
+        [Validation(Required=false)]
+        public string Icon { get; set; }
+
+        // 置灰图标
+        [NameInMap("grey_icon")]
+        [Validation(Required=false)]
+        public string GreyIcon { get; set; }
+
         // 叶子结点，目前存的一级类目下的二级类目
         [NameInMap("children_detail_list")]
         [Validation(Required=false)]

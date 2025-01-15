@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.ATO.Models
 {
-    public class AllSignTemplateRequest : TeaModel {
+    public class GetTradeOrderfinanceinfoRequest : TeaModel {
         // OAuth模式下的授权token
         [NameInMap("auth_token")]
         [Validation(Required=false)]
@@ -18,20 +18,15 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 合同类型，如果不传则返回所有
-        [NameInMap("contract_type")]
-        [Validation(Required=false)]
-        public string ContractType { get; set; }
+        // 订单Id
+        [NameInMap("order_id")]
+        [Validation(Required=true)]
+        public string OrderId { get; set; }
 
-        // 商户统一社会信用代码，SIT环境，非融必填
+        // 商户社会信用代码
         [NameInMap("merchant_id")]
-        [Validation(Required=false, MaxLength=42)]
+        [Validation(Required=true)]
         public string MerchantId { get; set; }
-
-        // 模板id
-        [NameInMap("template_id")]
-        [Validation(Required=false)]
-        public string TemplateId { get; set; }
 
     }
 

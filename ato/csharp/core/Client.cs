@@ -137,7 +137,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.3"},
+                        {"sdk_version", "1.12.11"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.ATO
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.11.3"},
+                        {"sdk_version", "1.12.11"},
                         {"_prod_code", "ATO"},
                         {"_prod_channel", "undefined"},
                     };
@@ -1291,6 +1291,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryFundCompensateaccountResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.compensateaccount.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方查询订单融资信息
+         * Summary: 资方查询订单融资信息
+         */
+        public GetFundOrderfinanceinfoResponse GetFundOrderfinanceinfo(GetFundOrderfinanceinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetFundOrderfinanceinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方查询订单融资信息
+         * Summary: 资方查询订单融资信息
+         */
+        public async Task<GetFundOrderfinanceinfoResponse> GetFundOrderfinanceinfoAsync(GetFundOrderfinanceinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetFundOrderfinanceinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 资方查询订单融资信息
+         * Summary: 资方查询订单融资信息
+         */
+        public GetFundOrderfinanceinfoResponse GetFundOrderfinanceinfoEx(GetFundOrderfinanceinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetFundOrderfinanceinfoResponse>(DoRequest("1.0", "antchain.ato.fund.orderfinanceinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 资方查询订单融资信息
+         * Summary: 资方查询订单融资信息
+         */
+        public async Task<GetFundOrderfinanceinfoResponse> GetFundOrderfinanceinfoExAsync(GetFundOrderfinanceinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetFundOrderfinanceinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.fund.orderfinanceinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -4070,6 +4112,132 @@ namespace AntChain.SDK.ATO
         }
 
         /**
+         * Description: 查询租户类目信息详情
+         * Summary: 查询租户类目信息详情
+         */
+        public QueryInnerTenantindirectmainclassResponse QueryInnerTenantindirectmainclass(QueryInnerTenantindirectmainclassRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryInnerTenantindirectmainclassEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询租户类目信息详情
+         * Summary: 查询租户类目信息详情
+         */
+        public async Task<QueryInnerTenantindirectmainclassResponse> QueryInnerTenantindirectmainclassAsync(QueryInnerTenantindirectmainclassRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryInnerTenantindirectmainclassExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 查询租户类目信息详情
+         * Summary: 查询租户类目信息详情
+         */
+        public QueryInnerTenantindirectmainclassResponse QueryInnerTenantindirectmainclassEx(QueryInnerTenantindirectmainclassRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerTenantindirectmainclassResponse>(DoRequest("1.0", "antchain.ato.inner.tenantindirectmainclass.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 查询租户类目信息详情
+         * Summary: 查询租户类目信息详情
+         */
+        public async Task<QueryInnerTenantindirectmainclassResponse> QueryInnerTenantindirectmainclassExAsync(QueryInnerTenantindirectmainclassRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryInnerTenantindirectmainclassResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.tenantindirectmainclass.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改租户间联类目类目信息
+         * Summary: 修改租户间联类目类目信息
+         */
+        public UpdateInnerTenantindirectmainclassResponse UpdateInnerTenantindirectmainclass(UpdateInnerTenantindirectmainclassRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateInnerTenantindirectmainclassEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改租户间联类目类目信息
+         * Summary: 修改租户间联类目类目信息
+         */
+        public async Task<UpdateInnerTenantindirectmainclassResponse> UpdateInnerTenantindirectmainclassAsync(UpdateInnerTenantindirectmainclassRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateInnerTenantindirectmainclassExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 修改租户间联类目类目信息
+         * Summary: 修改租户间联类目类目信息
+         */
+        public UpdateInnerTenantindirectmainclassResponse UpdateInnerTenantindirectmainclassEx(UpdateInnerTenantindirectmainclassRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerTenantindirectmainclassResponse>(DoRequest("1.0", "antchain.ato.inner.tenantindirectmainclass.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 修改租户间联类目类目信息
+         * Summary: 修改租户间联类目类目信息
+         */
+        public async Task<UpdateInnerTenantindirectmainclassResponse> UpdateInnerTenantindirectmainclassExAsync(UpdateInnerTenantindirectmainclassRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInnerTenantindirectmainclassResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.tenantindirectmainclass.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 模板同步上线时强管控字段校验未通过提交后台审核
+         * Summary: 模板同步上线审核提交
+         */
+        public SubmitInnerTemplatesyncreviewResponse SubmitInnerTemplatesyncreview(SubmitInnerTemplatesyncreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return SubmitInnerTemplatesyncreviewEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 模板同步上线时强管控字段校验未通过提交后台审核
+         * Summary: 模板同步上线审核提交
+         */
+        public async Task<SubmitInnerTemplatesyncreviewResponse> SubmitInnerTemplatesyncreviewAsync(SubmitInnerTemplatesyncreviewRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await SubmitInnerTemplatesyncreviewExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 模板同步上线时强管控字段校验未通过提交后台审核
+         * Summary: 模板同步上线审核提交
+         */
+        public SubmitInnerTemplatesyncreviewResponse SubmitInnerTemplatesyncreviewEx(SubmitInnerTemplatesyncreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInnerTemplatesyncreviewResponse>(DoRequest("1.0", "antchain.ato.inner.templatesyncreview.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 模板同步上线时强管控字段校验未通过提交后台审核
+         * Summary: 模板同步上线审核提交
+         */
+        public async Task<SubmitInnerTemplatesyncreviewResponse> SubmitInnerTemplatesyncreviewExAsync(SubmitInnerTemplatesyncreviewRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<SubmitInnerTemplatesyncreviewResponse>(await DoRequestAsync("1.0", "antchain.ato.inner.templatesyncreview.submit", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 一键投保
          * Summary: 投保
          */
@@ -4487,6 +4655,48 @@ namespace AntChain.SDK.ATO
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryRiskResponse>(await DoRequestAsync("1.0", "antchain.ato.risk.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 云 api 发起风控分析，获取风险评估
+         * Summary: 云 api 发起风控分析，获取风险评估
+         */
+        public QueryRiskGoResponse QueryRiskGo(QueryRiskGoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryRiskGoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 云 api 发起风控分析，获取风险评估
+         * Summary: 云 api 发起风控分析，获取风险评估
+         */
+        public async Task<QueryRiskGoResponse> QueryRiskGoAsync(QueryRiskGoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryRiskGoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 云 api 发起风控分析，获取风险评估
+         * Summary: 云 api 发起风控分析，获取风险评估
+         */
+        public QueryRiskGoResponse QueryRiskGoEx(QueryRiskGoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRiskGoResponse>(DoRequest("1.0", "antchain.ato.risk.go.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 云 api 发起风控分析，获取风险评估
+         * Summary: 云 api 发起风控分析，获取风险评估
+         */
+        public async Task<QueryRiskGoResponse> QueryRiskGoExAsync(QueryRiskGoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryRiskGoResponse>(await DoRequestAsync("1.0", "antchain.ato.risk.go.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**
@@ -5636,6 +5846,90 @@ namespace AntChain.SDK.ATO
         }
 
         /**
+         * Description: 融资订单追加预审资金方
+         * Summary: 融资订单追加预审资金方
+         */
+        public AddTradeFinanceprecheckResponse AddTradeFinanceprecheck(AddTradeFinanceprecheckRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return AddTradeFinanceprecheckEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资订单追加预审资金方
+         * Summary: 融资订单追加预审资金方
+         */
+        public async Task<AddTradeFinanceprecheckResponse> AddTradeFinanceprecheckAsync(AddTradeFinanceprecheckRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await AddTradeFinanceprecheckExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 融资订单追加预审资金方
+         * Summary: 融资订单追加预审资金方
+         */
+        public AddTradeFinanceprecheckResponse AddTradeFinanceprecheckEx(AddTradeFinanceprecheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddTradeFinanceprecheckResponse>(DoRequest("1.0", "antchain.ato.trade.financeprecheck.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 融资订单追加预审资金方
+         * Summary: 融资订单追加预审资金方
+         */
+        public async Task<AddTradeFinanceprecheckResponse> AddTradeFinanceprecheckExAsync(AddTradeFinanceprecheckRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<AddTradeFinanceprecheckResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.financeprecheck.add", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单融资信息查询接口
+         * Summary: 订单融资信息查询接口
+         */
+        public GetTradeOrderfinanceinfoResponse GetTradeOrderfinanceinfo(GetTradeOrderfinanceinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return GetTradeOrderfinanceinfoEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单融资信息查询接口
+         * Summary: 订单融资信息查询接口
+         */
+        public async Task<GetTradeOrderfinanceinfoResponse> GetTradeOrderfinanceinfoAsync(GetTradeOrderfinanceinfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await GetTradeOrderfinanceinfoExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 订单融资信息查询接口
+         * Summary: 订单融资信息查询接口
+         */
+        public GetTradeOrderfinanceinfoResponse GetTradeOrderfinanceinfoEx(GetTradeOrderfinanceinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetTradeOrderfinanceinfoResponse>(DoRequest("1.0", "antchain.ato.trade.orderfinanceinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 订单融资信息查询接口
+         * Summary: 订单融资信息查询接口
+         */
+        public async Task<GetTradeOrderfinanceinfoResponse> GetTradeOrderfinanceinfoExAsync(GetTradeOrderfinanceinfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<GetTradeOrderfinanceinfoResponse>(await DoRequestAsync("1.0", "antchain.ato.trade.orderfinanceinfo.get", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
          * Description: 代扣签约创建
          * Summary: 代扣签约
          */
@@ -5805,9 +6099,9 @@ namespace AntChain.SDK.ATO
 
         /**
          * Description: 重要说明：
-            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
             2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-         * Summary: 单期代扣取消
+         * Summary: 单期多期代扣取消
          */
         public RepayWithholdPlanResponse RepayWithholdPlan(RepayWithholdPlanRequest request)
         {
@@ -5818,9 +6112,9 @@ namespace AntChain.SDK.ATO
 
         /**
          * Description: 重要说明：
-            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
             2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-         * Summary: 单期代扣取消
+         * Summary: 单期多期代扣取消
          */
         public async Task<RepayWithholdPlanResponse> RepayWithholdPlanAsync(RepayWithholdPlanRequest request)
         {
@@ -5831,9 +6125,9 @@ namespace AntChain.SDK.ATO
 
         /**
          * Description: 重要说明：
-            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
             2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-         * Summary: 单期代扣取消
+         * Summary: 单期多期代扣取消
          */
         public RepayWithholdPlanResponse RepayWithholdPlanEx(RepayWithholdPlanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {
@@ -5843,9 +6137,9 @@ namespace AntChain.SDK.ATO
 
         /**
          * Description: 重要说明：
-            1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+            1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
             2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-         * Summary: 单期代扣取消
+         * Summary: 单期多期代扣取消
          */
         public async Task<RepayWithholdPlanResponse> RepayWithholdPlanExAsync(RepayWithholdPlanRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
         {

@@ -24,19 +24,7 @@ namespace AntChain.SDK.ATO.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // List<Object>格式，详细参考：
-        // [
-        //         {
-        //             "templateCode": "TEST_001",
-        //             "tenantId": "BIPCCOQY",
-        //             "agreementType": "SERVICE_LEASE",
-        //             "fileName": "测试模板之协议签署证明",
-        //             "templateId": "f28038577d664015bfc1034c4a125121",
-        //             "fieldArgs": "{\"sceneName\":\"测试协议合同签署\",\"title\":\"这是一份证明协议\"}",
-        //             "userPos": "[{\"required\":true,\"posPage\":\"1\",\"posX\":\"162.44\",\"posY\":\"425\"}]",
-        //             "orgPos": "[{\"required\":true,\"posPage\":\"1\",\"posX\":\"449.99\",\"posY\":\"420.03\"}]"
-        //         }
-        //     ]
+        // List<JSONObject>格式内容
         [NameInMap("template_list")]
         [Validation(Required=false)]
         public string TemplateList { get; set; }
