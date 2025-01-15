@@ -24,6 +24,22 @@ class StaticDataModuleDetail extends Model
      */
     public $propertyValue;
 
+    // 图标
+    /**
+     * @example 图标
+     *
+     * @var string
+     */
+    public $icon;
+
+    // 置灰图标
+    /**
+     * @example 置灰图标
+     *
+     * @var string
+     */
+    public $greyIcon;
+
     // 叶子结点，目前存的一级类目下的二级类目
     /**
      * @example [{"propertyText":"123","propertyValue":"123"}]
@@ -42,6 +58,8 @@ class StaticDataModuleDetail extends Model
     protected $_name = [
         'propertyText'       => 'property_text',
         'propertyValue'      => 'property_value',
+        'icon'               => 'icon',
+        'greyIcon'           => 'grey_icon',
         'childrenDetailList' => 'children_detail_list',
         'hasChildren'        => 'has_children',
     ];
@@ -60,6 +78,12 @@ class StaticDataModuleDetail extends Model
         }
         if (null !== $this->propertyValue) {
             $res['property_value'] = $this->propertyValue;
+        }
+        if (null !== $this->icon) {
+            $res['icon'] = $this->icon;
+        }
+        if (null !== $this->greyIcon) {
+            $res['grey_icon'] = $this->greyIcon;
         }
         if (null !== $this->childrenDetailList) {
             $res['children_detail_list'] = $this->childrenDetailList;
@@ -84,6 +108,12 @@ class StaticDataModuleDetail extends Model
         }
         if (isset($map['property_value'])) {
             $model->propertyValue = $map['property_value'];
+        }
+        if (isset($map['icon'])) {
+            $model->icon = $map['icon'];
+        }
+        if (isset($map['grey_icon'])) {
+            $model->greyIcon = $map['grey_icon'];
         }
         if (isset($map['children_detail_list'])) {
             $model->childrenDetailList = $map['children_detail_list'];

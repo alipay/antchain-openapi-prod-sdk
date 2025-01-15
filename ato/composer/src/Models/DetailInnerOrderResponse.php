@@ -73,6 +73,12 @@ class DetailInnerOrderResponse extends Model
      * @var OrderProductInfo[]
      */
     public $orderProductInfoList;
+
+    // 经营分账信息
+    /**
+     * @var OperateDivideInfo[]
+     */
+    public $operateDivideInfoList;
     protected $_name = [
         'reqMsgId'                 => 'req_msg_id',
         'resultCode'               => 'result_code',
@@ -85,6 +91,7 @@ class DetailInnerOrderResponse extends Model
         'orderFulfillmentInfoList' => 'order_fulfillment_info_list',
         'orderPromiseInfo'         => 'order_promise_info',
         'orderProductInfoList'     => 'order_product_info_list',
+        'operateDivideInfoList'    => 'operate_divide_info_list',
     ];
 
     public function validate()
@@ -136,6 +143,15 @@ class DetailInnerOrderResponse extends Model
                 $n = 0;
                 foreach ($this->orderProductInfoList as $item) {
                     $res['order_product_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        if (null !== $this->operateDivideInfoList) {
+            $res['operate_divide_info_list'] = [];
+            if (null !== $this->operateDivideInfoList && \is_array($this->operateDivideInfoList)) {
+                $n = 0;
+                foreach ($this->operateDivideInfoList as $item) {
+                    $res['operate_divide_info_list'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
         }
@@ -193,6 +209,15 @@ class DetailInnerOrderResponse extends Model
                 $n                           = 0;
                 foreach ($map['order_product_info_list'] as $item) {
                     $model->orderProductInfoList[$n++] = null !== $item ? OrderProductInfo::fromMap($item) : $item;
+                }
+            }
+        }
+        if (isset($map['operate_divide_info_list'])) {
+            if (!empty($map['operate_divide_info_list'])) {
+                $model->operateDivideInfoList = [];
+                $n                            = 0;
+                foreach ($map['operate_divide_info_list'] as $item) {
+                    $model->operateDivideInfoList[$n++] = null !== $item ? OperateDivideInfo::fromMap($item) : $item;
                 }
             }
         }

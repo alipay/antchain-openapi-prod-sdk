@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncInnerTemplateResponse extends Model
+class GetTradeOrderfinanceinfoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,16 @@ class SyncInnerTemplateResponse extends Model
      */
     public $resultMsg;
 
-    // 同步后的新模板code
+    // 订单融资信息
     /**
      * @var string
      */
-    public $targetTemplateCode;
-
-    // 模板同步上线时(强管控字段)校验结果
-    /**
-     * @var bool
-     */
-    public $validResult;
-
-    // 校验结果明细JSONStr
-    /**
-     * @var string
-     */
-    public $validFieldDetail;
+    public $responseData;
     protected $_name = [
-        'reqMsgId'           => 'req_msg_id',
-        'resultCode'         => 'result_code',
-        'resultMsg'          => 'result_msg',
-        'targetTemplateCode' => 'target_template_code',
-        'validResult'        => 'valid_result',
-        'validFieldDetail'   => 'valid_field_detail',
+        'reqMsgId'     => 'req_msg_id',
+        'resultCode'   => 'result_code',
+        'resultMsg'    => 'result_msg',
+        'responseData' => 'response_data',
     ];
 
     public function validate()
@@ -68,14 +54,8 @@ class SyncInnerTemplateResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->targetTemplateCode) {
-            $res['target_template_code'] = $this->targetTemplateCode;
-        }
-        if (null !== $this->validResult) {
-            $res['valid_result'] = $this->validResult;
-        }
-        if (null !== $this->validFieldDetail) {
-            $res['valid_field_detail'] = $this->validFieldDetail;
+        if (null !== $this->responseData) {
+            $res['response_data'] = $this->responseData;
         }
 
         return $res;
@@ -84,7 +64,7 @@ class SyncInnerTemplateResponse extends Model
     /**
      * @param array $map
      *
-     * @return SyncInnerTemplateResponse
+     * @return GetTradeOrderfinanceinfoResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +78,8 @@ class SyncInnerTemplateResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['target_template_code'])) {
-            $model->targetTemplateCode = $map['target_template_code'];
-        }
-        if (isset($map['valid_result'])) {
-            $model->validResult = $map['valid_result'];
-        }
-        if (isset($map['valid_field_detail'])) {
-            $model->validFieldDetail = $map['valid_field_detail'];
+        if (isset($map['response_data'])) {
+            $model->responseData = $map['response_data'];
         }
 
         return $model;

@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncInnerTemplateResponse extends Model
+class AddTradeFinanceprecheckResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,30 +26,31 @@ class SyncInnerTemplateResponse extends Model
      */
     public $resultMsg;
 
-    // 同步后的新模板code
+    // merchant_id
     /**
      * @var string
      */
-    public $targetTemplateCode;
+    public $merchantId;
 
-    // 模板同步上线时(强管控字段)校验结果
-    /**
-     * @var bool
-     */
-    public $validResult;
-
-    // 校验结果明细JSONStr
+    // order_id
     /**
      * @var string
      */
-    public $validFieldDetail;
+    public $orderId;
+
+    // fund_candidates
+    // List<FundCompanyInfo> 的jsonArray.toString
+    /**
+     * @var string
+     */
+    public $fundCandidates;
     protected $_name = [
-        'reqMsgId'           => 'req_msg_id',
-        'resultCode'         => 'result_code',
-        'resultMsg'          => 'result_msg',
-        'targetTemplateCode' => 'target_template_code',
-        'validResult'        => 'valid_result',
-        'validFieldDetail'   => 'valid_field_detail',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'merchantId'     => 'merchant_id',
+        'orderId'        => 'order_id',
+        'fundCandidates' => 'fund_candidates',
     ];
 
     public function validate()
@@ -68,14 +69,14 @@ class SyncInnerTemplateResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->targetTemplateCode) {
-            $res['target_template_code'] = $this->targetTemplateCode;
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->validResult) {
-            $res['valid_result'] = $this->validResult;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
-        if (null !== $this->validFieldDetail) {
-            $res['valid_field_detail'] = $this->validFieldDetail;
+        if (null !== $this->fundCandidates) {
+            $res['fund_candidates'] = $this->fundCandidates;
         }
 
         return $res;
@@ -84,7 +85,7 @@ class SyncInnerTemplateResponse extends Model
     /**
      * @param array $map
      *
-     * @return SyncInnerTemplateResponse
+     * @return AddTradeFinanceprecheckResponse
      */
     public static function fromMap($map = [])
     {
@@ -98,14 +99,14 @@ class SyncInnerTemplateResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['target_template_code'])) {
-            $model->targetTemplateCode = $map['target_template_code'];
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
         }
-        if (isset($map['valid_result'])) {
-            $model->validResult = $map['valid_result'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
-        if (isset($map['valid_field_detail'])) {
-            $model->validFieldDetail = $map['valid_field_detail'];
+        if (isset($map['fund_candidates'])) {
+            $model->fundCandidates = $map['fund_candidates'];
         }
 
         return $model;

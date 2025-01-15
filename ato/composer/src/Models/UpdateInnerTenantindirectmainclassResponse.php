@@ -6,7 +6,7 @@ namespace AntChain\ATO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AllSignTemplateResponse extends Model
+class UpdateInnerTenantindirectmainclassResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -25,17 +25,10 @@ class AllSignTemplateResponse extends Model
      * @var string
      */
     public $resultMsg;
-
-    // List<JSONObject>格式内容
-    /**
-     * @var string
-     */
-    public $templateList;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'templateList' => 'template_list',
+        'reqMsgId'   => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg'  => 'result_msg',
     ];
 
     public function validate()
@@ -54,9 +47,6 @@ class AllSignTemplateResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->templateList) {
-            $res['template_list'] = $this->templateList;
-        }
 
         return $res;
     }
@@ -64,7 +54,7 @@ class AllSignTemplateResponse extends Model
     /**
      * @param array $map
      *
-     * @return AllSignTemplateResponse
+     * @return UpdateInnerTenantindirectmainclassResponse
      */
     public static function fromMap($map = [])
     {
@@ -77,9 +67,6 @@ class AllSignTemplateResponse extends Model
         }
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['template_list'])) {
-            $model->templateList = $map['template_list'];
         }
 
         return $model;

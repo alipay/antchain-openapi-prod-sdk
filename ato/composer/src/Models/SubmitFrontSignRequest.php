@@ -193,6 +193,12 @@ class SubmitFrontSignRequest extends Model
      * @var string
      */
     public $userOrgName;
+
+    // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+    /**
+     * @var bool
+     */
+    public $needFace;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -223,6 +229,7 @@ class SubmitFrontSignRequest extends Model
         'userOrgIdNumber'       => 'user_org_id_number',
         'userOrgIdType'         => 'user_org_id_type',
         'userOrgName'           => 'user_org_name',
+        'needFace'              => 'need_face',
     ];
 
     public function validate()
@@ -343,6 +350,9 @@ class SubmitFrontSignRequest extends Model
         if (null !== $this->userOrgName) {
             $res['user_org_name'] = $this->userOrgName;
         }
+        if (null !== $this->needFace) {
+            $res['need_face'] = $this->needFace;
+        }
 
         return $res;
     }
@@ -441,6 +451,9 @@ class SubmitFrontSignRequest extends Model
         }
         if (isset($map['user_org_name'])) {
             $model->userOrgName = $map['user_org_name'];
+        }
+        if (isset($map['need_face'])) {
+            $model->needFace = $map['need_face'];
         }
 
         return $model;

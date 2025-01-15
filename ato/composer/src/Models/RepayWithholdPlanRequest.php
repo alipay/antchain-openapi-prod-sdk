@@ -25,13 +25,13 @@ class RepayWithholdPlanRequest extends Model
      */
     public $orderId;
 
-    // 第几期
+    // 第几期，单期取消必填
     /**
      * @var int
      */
     public $periodNum;
 
-    // 其他方式还款的时间
+    // 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
     /**
      * @var string
      */
@@ -63,6 +63,20 @@ class RepayWithholdPlanRequest extends Model
      * @var string
      */
     public $payOffBankName;
+
+    // 操作，默认为单期取消；
+    // 多期取消：MULTI_CANCEL
+    // 单期取消：SINGLE_CANCEL
+    /**
+     * @var string
+     */
+    public $operation;
+
+    // 取消列表，多期取消必填
+    /**
+     * @var SingleCancelModel[]
+     */
+    public $cancelList;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -73,21 +87,22 @@ class RepayWithholdPlanRequest extends Model
         'payOffType'        => 'pay_off_type',
         'payOffNo'          => 'pay_off_no',
         'payOffBankName'    => 'pay_off_bank_name',
+        'operation'         => 'operation',
+        'cancelList'        => 'cancel_list',
     ];
 
     public function validate()
     {
         Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('periodNum', $this->periodNum, true);
-        Model::validateRequired('gmtPay', $this->gmtPay, true);
-        Model::validateRequired('payOffAmount', $this->payOffAmount, true);
         Model::validateMaxLength('orderId', $this->orderId, 50);
         Model::validateMaxLength('payOffType', $this->payOffType, 64);
         Model::validateMaxLength('payOffNo', $this->payOffNo, 64);
         Model::validateMaxLength('payOffBankName', $this->payOffBankName, 64);
+        Model::validateMaxLength('operation', $this->operation, 64);
         Model::validateMinimum('periodNum', $this->periodNum, 1);
         Model::validateMinimum('payOffAmount', $this->payOffAmount, 0);
         Model::validatePattern('gmtPay', $this->gmtPay, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateMinLength('operation', $this->operation, 0);
     }
 
     public function toMap()
@@ -119,6 +134,18 @@ class RepayWithholdPlanRequest extends Model
         }
         if (null !== $this->payOffBankName) {
             $res['pay_off_bank_name'] = $this->payOffBankName;
+        }
+        if (null !== $this->operation) {
+            $res['operation'] = $this->operation;
+        }
+        if (null !== $this->cancelList) {
+            $res['cancel_list'] = [];
+            if (null !== $this->cancelList && \is_array($this->cancelList)) {
+                $n = 0;
+                foreach ($this->cancelList as $item) {
+                    $res['cancel_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
 
         return $res;
@@ -158,6 +185,18 @@ class RepayWithholdPlanRequest extends Model
         }
         if (isset($map['pay_off_bank_name'])) {
             $model->payOffBankName = $map['pay_off_bank_name'];
+        }
+        if (isset($map['operation'])) {
+            $model->operation = $map['operation'];
+        }
+        if (isset($map['cancel_list'])) {
+            if (!empty($map['cancel_list'])) {
+                $model->cancelList = [];
+                $n                 = 0;
+                foreach ($map['cancel_list'] as $item) {
+                    $model->cancelList[$n++] = null !== $item ? SingleCancelModel::fromMap($item) : $item;
+                }
+            }
         }
 
         return $model;

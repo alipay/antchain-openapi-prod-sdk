@@ -49,11 +49,18 @@ class QueryRiskRequest extends Model
      */
     public $alipayUserId;
 
-    // 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+    // 下单渠道，智租版必选。枚举值：支付宝-ALIPAY；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
     /**
      * @var string
      */
     public $source;
+
+    // 风险业务场景，智租版选填。默认值：PRE_RENT。
+    // PRE_RENT - 3c租赁；PRE_RENT_3C - 3c租赁定制；PRE_RENT_PET - 宠物；PRE_RENT_EDU - 教培；PRE_RENT_BEAUTY - 美业；
+    /**
+     * @var string
+     */
+    public $riskBizScene;
 
     // 商品详情，智租版可选
     /**
@@ -81,6 +88,7 @@ class QueryRiskRequest extends Model
         'mobile'            => 'mobile',
         'alipayUserId'      => 'alipay_user_id',
         'source'            => 'source',
+        'riskBizScene'      => 'risk_biz_scene',
         'itemDetail'        => 'item_detail',
         'priceDetail'       => 'price_detail',
         'deliveryDetail'    => 'delivery_detail',
@@ -95,6 +103,8 @@ class QueryRiskRequest extends Model
         Model::validateMaxLength('userName', $this->userName, 2000);
         Model::validateMaxLength('alipayUserId', $this->alipayUserId, 20);
         Model::validateMaxLength('source', $this->source, 10);
+        Model::validateMaxLength('riskBizScene', $this->riskBizScene, 100);
+        Model::validateMinLength('riskBizScene', $this->riskBizScene, 1);
     }
 
     public function toMap()
@@ -123,6 +133,9 @@ class QueryRiskRequest extends Model
         }
         if (null !== $this->source) {
             $res['source'] = $this->source;
+        }
+        if (null !== $this->riskBizScene) {
+            $res['risk_biz_scene'] = $this->riskBizScene;
         }
         if (null !== $this->itemDetail) {
             $res['item_detail'] = null !== $this->itemDetail ? $this->itemDetail->toMap() : null;
@@ -168,6 +181,9 @@ class QueryRiskRequest extends Model
         }
         if (isset($map['source'])) {
             $model->source = $map['source'];
+        }
+        if (isset($map['risk_biz_scene'])) {
+            $model->riskBizScene = $map['risk_biz_scene'];
         }
         if (isset($map['item_detail'])) {
             $model->itemDetail = ItemDetail::fromMap($map['item_detail']);

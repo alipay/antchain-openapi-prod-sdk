@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\ATO\Models\AddTradeFinanceprecheckRequest;
+use AntChain\ATO\Models\AddTradeFinanceprecheckResponse;
 use AntChain\ATO\Models\AllInnerTemplateRequest;
 use AntChain\ATO\Models\AllInnerTemplateResponse;
 use AntChain\ATO\Models\AllSignTemplateRequest;
@@ -83,6 +85,8 @@ use AntChain\ATO\Models\GetFundFlowRequest;
 use AntChain\ATO\Models\GetFundFlowResponse;
 use AntChain\ATO\Models\GetFundMerchantperformanceRequest;
 use AntChain\ATO\Models\GetFundMerchantperformanceResponse;
+use AntChain\ATO\Models\GetFundOrderfinanceinfoRequest;
+use AntChain\ATO\Models\GetFundOrderfinanceinfoResponse;
 use AntChain\ATO\Models\GetFundOrderfulfillmentRequest;
 use AntChain\ATO\Models\GetFundOrderfulfillmentResponse;
 use AntChain\ATO\Models\GetFundOrderfullinfoRequest;
@@ -113,6 +117,8 @@ use AntChain\ATO\Models\GetTradeMerchantfulfillmentRequest;
 use AntChain\ATO\Models\GetTradeMerchantfulfillmentResponse;
 use AntChain\ATO\Models\GetTradeMerchantperformanceRequest;
 use AntChain\ATO\Models\GetTradeMerchantperformanceResponse;
+use AntChain\ATO\Models\GetTradeOrderfinanceinfoRequest;
+use AntChain\ATO\Models\GetTradeOrderfinanceinfoResponse;
 use AntChain\ATO\Models\GetTradeRequest;
 use AntChain\ATO\Models\GetTradeResponse;
 use AntChain\ATO\Models\GetTradeUserperformanceRequest;
@@ -171,6 +177,8 @@ use AntChain\ATO\Models\QueryInnerTemplateRequest;
 use AntChain\ATO\Models\QueryInnerTemplateResponse;
 use AntChain\ATO\Models\QueryInnerTemplateversionRequest;
 use AntChain\ATO\Models\QueryInnerTemplateversionResponse;
+use AntChain\ATO\Models\QueryInnerTenantindirectmainclassRequest;
+use AntChain\ATO\Models\QueryInnerTenantindirectmainclassResponse;
 use AntChain\ATO\Models\QueryInnerWithholdplanRequest;
 use AntChain\ATO\Models\QueryInnerWithholdplanResponse;
 use AntChain\ATO\Models\QueryInnerWithholdsignRequest;
@@ -181,6 +189,8 @@ use AntChain\ATO\Models\QueryMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\QueryMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\QueryRealpersonFacevrfRequest;
 use AntChain\ATO\Models\QueryRealpersonFacevrfResponse;
+use AntChain\ATO\Models\QueryRiskGoRequest;
+use AntChain\ATO\Models\QueryRiskGoResponse;
 use AntChain\ATO\Models\QueryRiskRequest;
 use AntChain\ATO\Models\QueryRiskResponse;
 use AntChain\ATO\Models\QuerySignCreditRequest;
@@ -225,6 +235,8 @@ use AntChain\ATO\Models\SubmitInnerFunddividerelationRequest;
 use AntChain\ATO\Models\SubmitInnerFunddividerelationResponse;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandRequest;
 use AntChain\ATO\Models\SubmitInnerMerchantpayexpandResponse;
+use AntChain\ATO\Models\SubmitInnerTemplatesyncreviewRequest;
+use AntChain\ATO\Models\SubmitInnerTemplatesyncreviewResponse;
 use AntChain\ATO\Models\SubmitSignFlowRequest;
 use AntChain\ATO\Models\SubmitSignFlowResponse;
 use AntChain\ATO\Models\SyncFrontIndirectorderRequest;
@@ -265,6 +277,8 @@ use AntChain\ATO\Models\UpdateInnerCustomerserviceRequest;
 use AntChain\ATO\Models\UpdateInnerCustomerserviceResponse;
 use AntChain\ATO\Models\UpdateInnerTemplateRequest;
 use AntChain\ATO\Models\UpdateInnerTemplateResponse;
+use AntChain\ATO\Models\UpdateInnerTenantindirectmainclassRequest;
+use AntChain\ATO\Models\UpdateInnerTenantindirectmainclassResponse;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantRequest;
 use AntChain\ATO\Models\UpdateMerchantexpandMerchantResponse;
 use AntChain\ATO\Models\UpdateTradeOrderRequest;
@@ -432,7 +446,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.11.3',
+                    'sdk_version'      => '1.12.11',
                     '_prod_code'       => 'ATO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1223,6 +1237,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryFundCompensateaccountResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.compensateaccount.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方查询订单融资信息
+     * Summary: 资方查询订单融资信息.
+     *
+     * @param GetFundOrderfinanceinfoRequest $request
+     *
+     * @return GetFundOrderfinanceinfoResponse
+     */
+    public function getFundOrderfinanceinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getFundOrderfinanceinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方查询订单融资信息
+     * Summary: 资方查询订单融资信息.
+     *
+     * @param GetFundOrderfinanceinfoRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return GetFundOrderfinanceinfoResponse
+     */
+    public function getFundOrderfinanceinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetFundOrderfinanceinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -3406,6 +3453,105 @@ class Client
     }
 
     /**
+     * Description: 查询租户类目信息详情
+     * Summary: 查询租户类目信息详情.
+     *
+     * @param QueryInnerTenantindirectmainclassRequest $request
+     *
+     * @return QueryInnerTenantindirectmainclassResponse
+     */
+    public function queryInnerTenantindirectmainclass($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryInnerTenantindirectmainclassEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询租户类目信息详情
+     * Summary: 查询租户类目信息详情.
+     *
+     * @param QueryInnerTenantindirectmainclassRequest $request
+     * @param string[]                                 $headers
+     * @param RuntimeOptions                           $runtime
+     *
+     * @return QueryInnerTenantindirectmainclassResponse
+     */
+    public function queryInnerTenantindirectmainclassEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryInnerTenantindirectmainclassResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.tenantindirectmainclass.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 修改租户间联类目类目信息
+     * Summary: 修改租户间联类目类目信息.
+     *
+     * @param UpdateInnerTenantindirectmainclassRequest $request
+     *
+     * @return UpdateInnerTenantindirectmainclassResponse
+     */
+    public function updateInnerTenantindirectmainclass($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInnerTenantindirectmainclassEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 修改租户间联类目类目信息
+     * Summary: 修改租户间联类目类目信息.
+     *
+     * @param UpdateInnerTenantindirectmainclassRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return UpdateInnerTenantindirectmainclassResponse
+     */
+    public function updateInnerTenantindirectmainclassEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInnerTenantindirectmainclassResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.tenantindirectmainclass.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 模板同步上线时强管控字段校验未通过提交后台审核
+     * Summary: 模板同步上线审核提交.
+     *
+     * @param SubmitInnerTemplatesyncreviewRequest $request
+     *
+     * @return SubmitInnerTemplatesyncreviewResponse
+     */
+    public function submitInnerTemplatesyncreview($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->submitInnerTemplatesyncreviewEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 模板同步上线时强管控字段校验未通过提交后台审核
+     * Summary: 模板同步上线审核提交.
+     *
+     * @param SubmitInnerTemplatesyncreviewRequest $request
+     * @param string[]                             $headers
+     * @param RuntimeOptions                       $runtime
+     *
+     * @return SubmitInnerTemplatesyncreviewResponse
+     */
+    public function submitInnerTemplatesyncreviewEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return SubmitInnerTemplatesyncreviewResponse::fromMap($this->doRequest('1.0', 'antchain.ato.inner.templatesyncreview.submit', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 一键投保
      * Summary: 投保.
      *
@@ -3733,6 +3879,39 @@ class Client
         Utils::validateModel($request);
 
         return QueryRiskResponse::fromMap($this->doRequest('1.0', 'antchain.ato.risk.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 云 api 发起风控分析，获取风险评估
+     * Summary: 云 api 发起风控分析，获取风险评估.
+     *
+     * @param QueryRiskGoRequest $request
+     *
+     * @return QueryRiskGoResponse
+     */
+    public function queryRiskGo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryRiskGoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 云 api 发起风控分析，获取风险评估
+     * Summary: 云 api 发起风控分析，获取风险评估.
+     *
+     * @param QueryRiskGoRequest $request
+     * @param string[]           $headers
+     * @param RuntimeOptions     $runtime
+     *
+     * @return QueryRiskGoResponse
+     */
+    public function queryRiskGoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryRiskGoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.risk.go.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -4599,6 +4778,72 @@ class Client
     }
 
     /**
+     * Description: 融资订单追加预审资金方
+     * Summary: 融资订单追加预审资金方.
+     *
+     * @param AddTradeFinanceprecheckRequest $request
+     *
+     * @return AddTradeFinanceprecheckResponse
+     */
+    public function addTradeFinanceprecheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addTradeFinanceprecheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资订单追加预审资金方
+     * Summary: 融资订单追加预审资金方.
+     *
+     * @param AddTradeFinanceprecheckRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return AddTradeFinanceprecheckResponse
+     */
+    public function addTradeFinanceprecheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddTradeFinanceprecheckResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.financeprecheck.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单融资信息查询接口
+     * Summary: 订单融资信息查询接口.
+     *
+     * @param GetTradeOrderfinanceinfoRequest $request
+     *
+     * @return GetTradeOrderfinanceinfoResponse
+     */
+    public function getTradeOrderfinanceinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getTradeOrderfinanceinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单融资信息查询接口
+     * Summary: 订单融资信息查询接口.
+     *
+     * @param GetTradeOrderfinanceinfoRequest $request
+     * @param string[]                        $headers
+     * @param RuntimeOptions                  $runtime
+     *
+     * @return GetTradeOrderfinanceinfoResponse
+     */
+    public function getTradeOrderfinanceinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetTradeOrderfinanceinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 代扣签约创建
      * Summary: 代扣签约.
      *
@@ -4732,9 +4977,9 @@ class Client
 
     /**
      * Description: 重要说明：
-     *     1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
      *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-     * Summary: 单期代扣取消.
+     * Summary: 单期多期代扣取消.
      *
      * @param RepayWithholdPlanRequest $request
      *
@@ -4750,9 +4995,9 @@ class Client
 
     /**
      * Description: 重要说明：
-     *     1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
      *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-     * Summary: 单期代扣取消.
+     * Summary: 单期多期代扣取消.
      *
      * @param RepayWithholdPlanRequest $request
      * @param string[]                 $headers
