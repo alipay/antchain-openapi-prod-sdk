@@ -190,6 +190,114 @@ class FileInfo(TeaModel):
         return self
 
 
+class ScalperQueryOrderItem(TeaModel):
+    def __init__(
+        self,
+        order_items_name: str = None,
+        order_items_quantity: int = None,
+        order_items_price: int = None,
+    ):
+        # 订单商品名称
+        self.order_items_name = order_items_name
+        # 订单商品数量
+        self.order_items_quantity = order_items_quantity
+        # 订单商品价格，单位：分
+        self.order_items_price = order_items_price
+
+    def validate(self):
+        if self.order_items_name is not None:
+            self.validate_max_length(self.order_items_name, 'order_items_name', 256)
+        if self.order_items_quantity is not None:
+            self.validate_maximum(self.order_items_quantity, 'order_items_quantity', 100000)
+            self.validate_minimum(self.order_items_quantity, 'order_items_quantity', 1)
+        if self.order_items_price is not None:
+            self.validate_maximum(self.order_items_price, 'order_items_price', 10000000)
+            self.validate_minimum(self.order_items_price, 'order_items_price', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_items_name is not None:
+            result['order_items_name'] = self.order_items_name
+        if self.order_items_quantity is not None:
+            result['order_items_quantity'] = self.order_items_quantity
+        if self.order_items_price is not None:
+            result['order_items_price'] = self.order_items_price
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_items_name') is not None:
+            self.order_items_name = m.get('order_items_name')
+        if m.get('order_items_quantity') is not None:
+            self.order_items_quantity = m.get('order_items_quantity')
+        if m.get('order_items_price') is not None:
+            self.order_items_price = m.get('order_items_price')
+        return self
+
+
+class OperationDivideTransInDetailInfo(TeaModel):
+    def __init__(
+        self,
+        trans_in_name: str = None,
+        trans_in_user_id: str = None,
+        divide_amount: int = None,
+        desc: str = None,
+        divide_status: str = None,
+    ):
+        # 分账收入方名称
+        self.trans_in_name = trans_in_name
+        # 分账收入方支付宝用户id, 支付宝2088id
+        self.trans_in_user_id = trans_in_user_id
+        # 分账金额，单位为分
+        self.divide_amount = divide_amount
+        # 分账描述
+        self.desc = desc
+        # INIT("INIT", "初始化"),
+        # PROCESSING("PROCESSING", "处理中"),
+        # FAILED("FAILED", "失败"),
+        # SUCCESS("SUCCESS", "分账成功");
+        self.divide_status = divide_status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.trans_in_name is not None:
+            result['trans_in_name'] = self.trans_in_name
+        if self.trans_in_user_id is not None:
+            result['trans_in_user_id'] = self.trans_in_user_id
+        if self.divide_amount is not None:
+            result['divide_amount'] = self.divide_amount
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.divide_status is not None:
+            result['divide_status'] = self.divide_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('trans_in_name') is not None:
+            self.trans_in_name = m.get('trans_in_name')
+        if m.get('trans_in_user_id') is not None:
+            self.trans_in_user_id = m.get('trans_in_user_id')
+        if m.get('divide_amount') is not None:
+            self.divide_amount = m.get('divide_amount')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('divide_status') is not None:
+            self.divide_status = m.get('divide_status')
+        return self
+
+
 class SubRentRiskItem(TeaModel):
     def __init__(
         self,
@@ -281,6 +389,8 @@ class StaticDataModuleDetail(TeaModel):
         self,
         property_text: str = None,
         property_value: str = None,
+        icon: str = None,
+        grey_icon: str = None,
         children_detail_list: str = None,
         has_children: bool = None,
     ):
@@ -288,6 +398,10 @@ class StaticDataModuleDetail(TeaModel):
         self.property_text = property_text
         # 商户类型
         self.property_value = property_value
+        # 图标
+        self.icon = icon
+        # 置灰图标
+        self.grey_icon = grey_icon
         # 叶子结点，目前存的一级类目下的二级类目
         self.children_detail_list = children_detail_list
         # 是否有叶子结点
@@ -307,6 +421,10 @@ class StaticDataModuleDetail(TeaModel):
             result['property_text'] = self.property_text
         if self.property_value is not None:
             result['property_value'] = self.property_value
+        if self.icon is not None:
+            result['icon'] = self.icon
+        if self.grey_icon is not None:
+            result['grey_icon'] = self.grey_icon
         if self.children_detail_list is not None:
             result['children_detail_list'] = self.children_detail_list
         if self.has_children is not None:
@@ -319,6 +437,10 @@ class StaticDataModuleDetail(TeaModel):
             self.property_text = m.get('property_text')
         if m.get('property_value') is not None:
             self.property_value = m.get('property_value')
+        if m.get('icon') is not None:
+            self.icon = m.get('icon')
+        if m.get('grey_icon') is not None:
+            self.grey_icon = m.get('grey_icon')
         if m.get('children_detail_list') is not None:
             self.children_detail_list = m.get('children_detail_list')
         if m.get('has_children') is not None:
@@ -480,6 +602,1881 @@ class AppletRiskModel(TeaModel):
                 self.sub_risk_result_list.append(temp_model.from_map(k))
         if m.get('error_msg') is not None:
             self.error_msg = m.get('error_msg')
+        return self
+
+
+class InsureProductInfo(TeaModel):
+    def __init__(
+        self,
+        product_id: str = None,
+        product_imei_id: str = None,
+        purchase_amount: int = None,
+    ):
+        # 商品库id
+        self.product_id = product_id
+        # 商品设备编号
+        self.product_imei_id = product_imei_id
+        # 商品采购价，单位：分
+        self.purchase_amount = purchase_amount
+
+    def validate(self):
+        self.validate_required(self.product_id, 'product_id')
+        if self.product_id is not None:
+            self.validate_max_length(self.product_id, 'product_id', 128)
+        self.validate_required(self.product_imei_id, 'product_imei_id')
+        if self.product_imei_id is not None:
+            self.validate_max_length(self.product_imei_id, 'product_imei_id', 256)
+        self.validate_required(self.purchase_amount, 'purchase_amount')
+        if self.purchase_amount is not None:
+            self.validate_maximum(self.purchase_amount, 'purchase_amount', 100000000)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.product_imei_id is not None:
+            result['product_imei_id'] = self.product_imei_id
+        if self.purchase_amount is not None:
+            result['purchase_amount'] = self.purchase_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('product_imei_id') is not None:
+            self.product_imei_id = m.get('product_imei_id')
+        if m.get('purchase_amount') is not None:
+            self.purchase_amount = m.get('purchase_amount')
+        return self
+
+
+class TemplateComponent(TeaModel):
+    def __init__(
+        self,
+        template_code: str = None,
+        id: str = None,
+        name: str = None,
+        uk: str = None,
+        placeholder: str = None,
+        enable_edit: str = None,
+        required: str = None,
+        type: str = None,
+        value: str = None,
+    ):
+        # 模板编码
+        self.template_code = template_code
+        # 组件（文本域）id
+        self.id = id
+        # 组件（文本域）名称
+        self.name = name
+        # 组件（文本域）的唯一标识
+        self.uk = uk
+        # 占位符，组件（文本域）的展示样式值
+        self.placeholder = placeholder
+        # 组件（文本域）是否可以编辑。取值：Y/N
+        self.enable_edit = enable_edit
+        # 是否必填，取值：Y/N
+        self.required = required
+        # 组件（文本域）类型，INPUT:单行文本 TEXTAREA:多行文本
+        self.type = type
+        # 组件（文本域）值
+        self.value = value
+
+    def validate(self):
+        self.validate_required(self.template_code, 'template_code')
+        self.validate_required(self.id, 'id')
+        self.validate_required(self.name, 'name')
+        self.validate_required(self.value, 'value')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.template_code is not None:
+            result['template_code'] = self.template_code
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.uk is not None:
+            result['uk'] = self.uk
+        if self.placeholder is not None:
+            result['placeholder'] = self.placeholder
+        if self.enable_edit is not None:
+            result['enable_edit'] = self.enable_edit
+        if self.required is not None:
+            result['required'] = self.required
+        if self.type is not None:
+            result['type'] = self.type
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('template_code') is not None:
+            self.template_code = m.get('template_code')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('uk') is not None:
+            self.uk = m.get('uk')
+        if m.get('placeholder') is not None:
+            self.placeholder = m.get('placeholder')
+        if m.get('enable_edit') is not None:
+            self.enable_edit = m.get('enable_edit')
+        if m.get('required') is not None:
+            self.required = m.get('required')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class StaticData(TeaModel):
+    def __init__(
+        self,
+        module_name: str = None,
+        module_detail_list: List[StaticDataModuleDetail] = None,
+    ):
+        # 商户类型
+        self.module_name = module_name
+        # 静态数据详情
+        self.module_detail_list = module_detail_list
+
+    def validate(self):
+        self.validate_required(self.module_name, 'module_name')
+        self.validate_required(self.module_detail_list, 'module_detail_list')
+        if self.module_detail_list:
+            for k in self.module_detail_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_name is not None:
+            result['module_name'] = self.module_name
+        result['module_detail_list'] = []
+        if self.module_detail_list is not None:
+            for k in self.module_detail_list:
+                result['module_detail_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('module_name') is not None:
+            self.module_name = m.get('module_name')
+        self.module_detail_list = []
+        if m.get('module_detail_list') is not None:
+            for k in m.get('module_detail_list'):
+                temp_model = StaticDataModuleDetail()
+                self.module_detail_list.append(temp_model.from_map(k))
+        return self
+
+
+class MerchantAgentPage(TeaModel):
+    def __init__(
+        self,
+        pay_expand_id: str = None,
+        agent_name: str = None,
+        tenant_id: str = None,
+        biz_type: str = None,
+        pay_expand_status: str = None,
+    ):
+        # 进件id
+        self.pay_expand_id = pay_expand_id
+        # 
+        # 代理企业名称
+        self.agent_name = agent_name
+        # 租户8位id
+        self.tenant_id = tenant_id
+        # 业务类型
+        self.biz_type = biz_type
+        # 进件审核状态 枚举
+        self.pay_expand_status = pay_expand_status
+
+    def validate(self):
+        self.validate_required(self.pay_expand_id, 'pay_expand_id')
+        self.validate_required(self.agent_name, 'agent_name')
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.pay_expand_status, 'pay_expand_status')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pay_expand_id is not None:
+            result['pay_expand_id'] = self.pay_expand_id
+        if self.agent_name is not None:
+            result['agent_name'] = self.agent_name
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.pay_expand_status is not None:
+            result['pay_expand_status'] = self.pay_expand_status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('pay_expand_id') is not None:
+            self.pay_expand_id = m.get('pay_expand_id')
+        if m.get('agent_name') is not None:
+            self.agent_name = m.get('agent_name')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('pay_expand_status') is not None:
+            self.pay_expand_status = m.get('pay_expand_status')
+        return self
+
+
+class OrderInfo(TeaModel):
+    def __init__(
+        self,
+        order_id: str = None,
+        order_create_time: str = None,
+        order_pay_time: str = None,
+        total_rent_money: int = None,
+        rent_term: int = None,
+        rent_unit: str = None,
+        order_status: str = None,
+        order_sub_status: str = None,
+        deposit_price: int = None,
+        buy_out_price: int = None,
+        logistic_type: str = None,
+        due_mode: int = None,
+        down_payment: int = None,
+    ):
+        # 订单id
+        self.order_id = order_id
+        # 订单创建时间
+        self.order_create_time = order_create_time
+        # 订单支付时间
+        self.order_pay_time = order_pay_time
+        # 租金总额(分)
+        self.total_rent_money = total_rent_money
+        # 租期
+        self.rent_term = rent_term
+        # 租期单位
+        self.rent_unit = rent_unit
+        # 订单状态
+        self.order_status = order_status
+        # 订单子状态
+        self.order_sub_status = order_sub_status
+        # 免押金额（分）
+        self.deposit_price = deposit_price
+        # 到期买断价(分)
+        self.buy_out_price = buy_out_price
+        # 物流方案
+        self.logistic_type = logistic_type
+        # 到期形式
+        # NA(0, "无意义"),
+        # BUYOUT(1, "到期买断或归还"),
+        # FREE_ON_RENT(2, "租满即送"),
+        # RENEW_LEASE(3, "续租"),;
+        self.due_mode = due_mode
+        # 首付款金额(分)
+        self.down_payment = down_payment
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.order_create_time is not None:
+            result['order_create_time'] = self.order_create_time
+        if self.order_pay_time is not None:
+            result['order_pay_time'] = self.order_pay_time
+        if self.total_rent_money is not None:
+            result['total_rent_money'] = self.total_rent_money
+        if self.rent_term is not None:
+            result['rent_term'] = self.rent_term
+        if self.rent_unit is not None:
+            result['rent_unit'] = self.rent_unit
+        if self.order_status is not None:
+            result['order_status'] = self.order_status
+        if self.order_sub_status is not None:
+            result['order_sub_status'] = self.order_sub_status
+        if self.deposit_price is not None:
+            result['deposit_price'] = self.deposit_price
+        if self.buy_out_price is not None:
+            result['buy_out_price'] = self.buy_out_price
+        if self.logistic_type is not None:
+            result['logistic_type'] = self.logistic_type
+        if self.due_mode is not None:
+            result['due_mode'] = self.due_mode
+        if self.down_payment is not None:
+            result['down_payment'] = self.down_payment
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('order_create_time') is not None:
+            self.order_create_time = m.get('order_create_time')
+        if m.get('order_pay_time') is not None:
+            self.order_pay_time = m.get('order_pay_time')
+        if m.get('total_rent_money') is not None:
+            self.total_rent_money = m.get('total_rent_money')
+        if m.get('rent_term') is not None:
+            self.rent_term = m.get('rent_term')
+        if m.get('rent_unit') is not None:
+            self.rent_unit = m.get('rent_unit')
+        if m.get('order_status') is not None:
+            self.order_status = m.get('order_status')
+        if m.get('order_sub_status') is not None:
+            self.order_sub_status = m.get('order_sub_status')
+        if m.get('deposit_price') is not None:
+            self.deposit_price = m.get('deposit_price')
+        if m.get('buy_out_price') is not None:
+            self.buy_out_price = m.get('buy_out_price')
+        if m.get('logistic_type') is not None:
+            self.logistic_type = m.get('logistic_type')
+        if m.get('due_mode') is not None:
+            self.due_mode = m.get('due_mode')
+        if m.get('down_payment') is not None:
+            self.down_payment = m.get('down_payment')
+        return self
+
+
+class OrderPromiseInfo(TeaModel):
+    def __init__(
+        self,
+        repay_strategy_list: List[OrderRepayStrategy] = None,
+    ):
+        # 订单还款策略
+        self.repay_strategy_list = repay_strategy_list
+
+    def validate(self):
+        if self.repay_strategy_list:
+            for k in self.repay_strategy_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['repay_strategy_list'] = []
+        if self.repay_strategy_list is not None:
+            for k in self.repay_strategy_list:
+                result['repay_strategy_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.repay_strategy_list = []
+        if m.get('repay_strategy_list') is not None:
+            for k in m.get('repay_strategy_list'):
+                temp_model = OrderRepayStrategy()
+                self.repay_strategy_list.append(temp_model.from_map(k))
+        return self
+
+
+class NoticeInfo(TeaModel):
+    def __init__(
+        self,
+        notice_id: int = None,
+        title: str = None,
+        notice_create_time: str = None,
+        unread: bool = None,
+    ):
+        # 通知id
+        self.notice_id = notice_id
+        # 通知标题
+        self.title = title
+        # 通知创建时间
+        self.notice_create_time = notice_create_time
+        # 是否未读
+        self.unread = unread
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.notice_id is not None:
+            result['notice_id'] = self.notice_id
+        if self.title is not None:
+            result['title'] = self.title
+        if self.notice_create_time is not None:
+            result['notice_create_time'] = self.notice_create_time
+        if self.unread is not None:
+            result['unread'] = self.unread
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('notice_id') is not None:
+            self.notice_id = m.get('notice_id')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('notice_create_time') is not None:
+            self.notice_create_time = m.get('notice_create_time')
+        if m.get('unread') is not None:
+            self.unread = m.get('unread')
+        return self
+
+
+class AuditInfo(TeaModel):
+    def __init__(
+        self,
+        stage: str = None,
+        audit_subject: str = None,
+        status: str = None,
+        apply_date_str: str = None,
+        fail_reason: str = None,
+    ):
+        # 审核步骤
+        self.stage = stage
+        # 审核主体
+        self.audit_subject = audit_subject
+        # 审核状态
+        self.status = status
+        # 审核时间
+        self.apply_date_str = apply_date_str
+        # 审核失败描述
+        self.fail_reason = fail_reason
+
+    def validate(self):
+        self.validate_required(self.stage, 'stage')
+        self.validate_required(self.audit_subject, 'audit_subject')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.apply_date_str, 'apply_date_str')
+        self.validate_required(self.fail_reason, 'fail_reason')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.stage is not None:
+            result['stage'] = self.stage
+        if self.audit_subject is not None:
+            result['audit_subject'] = self.audit_subject
+        if self.status is not None:
+            result['status'] = self.status
+        if self.apply_date_str is not None:
+            result['apply_date_str'] = self.apply_date_str
+        if self.fail_reason is not None:
+            result['fail_reason'] = self.fail_reason
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('stage') is not None:
+            self.stage = m.get('stage')
+        if m.get('audit_subject') is not None:
+            self.audit_subject = m.get('audit_subject')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('apply_date_str') is not None:
+            self.apply_date_str = m.get('apply_date_str')
+        if m.get('fail_reason') is not None:
+            self.fail_reason = m.get('fail_reason')
+        return self
+
+
+class ProductInfo(TeaModel):
+    def __init__(
+        self,
+        merchant_id: str = None,
+        product_name: str = None,
+        product_id: str = None,
+        product_model: str = None,
+        product_version: str = None,
+        product_price: int = None,
+        main_class: str = None,
+        sub_class: str = None,
+        product_brand: str = None,
+    ):
+        # 商家社会统一信用代码
+        self.merchant_id = merchant_id
+        # 商品名称
+        self.product_name = product_name
+        # 商品id
+        self.product_id = product_id
+        # 商品规格
+        self.product_model = product_model
+        # 商品版本
+        self.product_version = product_version
+        # 指导价(单位分)
+        self.product_price = product_price
+        # 一级类目
+        self.main_class = main_class
+        # 二级类目
+        self.sub_class = sub_class
+        # 品牌
+        self.product_brand = product_brand
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.product_name is not None:
+            result['product_name'] = self.product_name
+        if self.product_id is not None:
+            result['product_id'] = self.product_id
+        if self.product_model is not None:
+            result['product_model'] = self.product_model
+        if self.product_version is not None:
+            result['product_version'] = self.product_version
+        if self.product_price is not None:
+            result['product_price'] = self.product_price
+        if self.main_class is not None:
+            result['main_class'] = self.main_class
+        if self.sub_class is not None:
+            result['sub_class'] = self.sub_class
+        if self.product_brand is not None:
+            result['product_brand'] = self.product_brand
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('product_name') is not None:
+            self.product_name = m.get('product_name')
+        if m.get('product_id') is not None:
+            self.product_id = m.get('product_id')
+        if m.get('product_model') is not None:
+            self.product_model = m.get('product_model')
+        if m.get('product_version') is not None:
+            self.product_version = m.get('product_version')
+        if m.get('product_price') is not None:
+            self.product_price = m.get('product_price')
+        if m.get('main_class') is not None:
+            self.main_class = m.get('main_class')
+        if m.get('sub_class') is not None:
+            self.sub_class = m.get('sub_class')
+        if m.get('product_brand') is not None:
+            self.product_brand = m.get('product_brand')
+        return self
+
+
+class LegalInfoUpdate(TeaModel):
+    def __init__(
+        self,
+        legal_name: str = None,
+        legal_cert_no: str = None,
+        legal_cert_front_file: FileInfo = None,
+        legal_cert_back_file: FileInfo = None,
+    ):
+        # 法人名称
+        self.legal_name = legal_name
+        # 法人证件号
+        self.legal_cert_no = legal_cert_no
+        # 法人证件正面
+        self.legal_cert_front_file = legal_cert_front_file
+        # 法人证件反面
+        self.legal_cert_back_file = legal_cert_back_file
+
+    def validate(self):
+        if self.legal_cert_front_file:
+            self.legal_cert_front_file.validate()
+        if self.legal_cert_back_file:
+            self.legal_cert_back_file.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.legal_name is not None:
+            result['legal_name'] = self.legal_name
+        if self.legal_cert_no is not None:
+            result['legal_cert_no'] = self.legal_cert_no
+        if self.legal_cert_front_file is not None:
+            result['legal_cert_front_file'] = self.legal_cert_front_file.to_map()
+        if self.legal_cert_back_file is not None:
+            result['legal_cert_back_file'] = self.legal_cert_back_file.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('legal_name') is not None:
+            self.legal_name = m.get('legal_name')
+        if m.get('legal_cert_no') is not None:
+            self.legal_cert_no = m.get('legal_cert_no')
+        if m.get('legal_cert_front_file') is not None:
+            temp_model = FileInfo()
+            self.legal_cert_front_file = temp_model.from_map(m['legal_cert_front_file'])
+        if m.get('legal_cert_back_file') is not None:
+            temp_model = FileInfo()
+            self.legal_cert_back_file = temp_model.from_map(m['legal_cert_back_file'])
+        return self
+
+
+class PromiseInfo(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        return self
+
+
+class CustomerServiceInfo(TeaModel):
+    def __init__(
+        self,
+        merchant_id: str = None,
+        merchant_name: str = None,
+        process_type: str = None,
+    ):
+        # 公司社会统一信息代码
+        self.merchant_id = merchant_id
+        # 公司名称
+        self.merchant_name = merchant_name
+        # 处理类型:
+        # MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
+        # PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
+        self.process_type = process_type
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        if self.process_type is not None:
+            result['process_type'] = self.process_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        if m.get('process_type') is not None:
+            self.process_type = m.get('process_type')
+        return self
+
+
+class OperationDivideTransInModel(TeaModel):
+    def __init__(
+        self,
+        trans_in_user_id: str = None,
+        divide_amount: int = None,
+        desc: str = None,
+    ):
+        # 分账收入方支付宝用户id, 支付宝2088id
+        self.trans_in_user_id = trans_in_user_id
+        # 分账金额，单位为分
+        # 
+        self.divide_amount = divide_amount
+        # 分账描述
+        self.desc = desc
+
+    def validate(self):
+        self.validate_required(self.trans_in_user_id, 'trans_in_user_id')
+        if self.trans_in_user_id is not None:
+            self.validate_max_length(self.trans_in_user_id, 'trans_in_user_id', 64)
+        self.validate_required(self.divide_amount, 'divide_amount')
+        if self.divide_amount is not None:
+            self.validate_minimum(self.divide_amount, 'divide_amount', 1)
+        if self.desc is not None:
+            self.validate_max_length(self.desc, 'desc', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.trans_in_user_id is not None:
+            result['trans_in_user_id'] = self.trans_in_user_id
+        if self.divide_amount is not None:
+            result['divide_amount'] = self.divide_amount
+        if self.desc is not None:
+            result['desc'] = self.desc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('trans_in_user_id') is not None:
+            self.trans_in_user_id = m.get('trans_in_user_id')
+        if m.get('divide_amount') is not None:
+            self.divide_amount = m.get('divide_amount')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        return self
+
+
+class PurchaseQueryModel(TeaModel):
+    def __init__(
+        self,
+        out_order_no: str = None,
+        order_no: str = None,
+        bank_card_no: str = None,
+        company_name: str = None,
+        sales_amount: int = None,
+    ):
+        # 支付宝外部交易号
+        self.out_order_no = out_order_no
+        # 支付宝内部生成的交易号
+        self.order_no = order_no
+        # 银行卡号
+        self.bank_card_no = bank_card_no
+        # 公司名称
+        self.company_name = company_name
+        # 金额，用户购买或使用服务时产生的具体金额，单位：分
+        self.sales_amount = sales_amount
+
+    def validate(self):
+        if self.out_order_no is not None:
+            self.validate_max_length(self.out_order_no, 'out_order_no', 128)
+        if self.order_no is not None:
+            self.validate_max_length(self.order_no, 'order_no', 50)
+        if self.bank_card_no is not None:
+            self.validate_max_length(self.bank_card_no, 'bank_card_no', 52)
+        if self.company_name is not None:
+            self.validate_max_length(self.company_name, 'company_name', 50)
+        if self.sales_amount is not None:
+            self.validate_maximum(self.sales_amount, 'sales_amount', 10000000)
+            self.validate_minimum(self.sales_amount, 'sales_amount', 1)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.sales_amount is not None:
+            result['sales_amount'] = self.sales_amount
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('sales_amount') is not None:
+            self.sales_amount = m.get('sales_amount')
+        return self
+
+
+class OperateDivideInfo(TeaModel):
+    def __init__(
+        self,
+        period_num: int = None,
+        operation_divide_trans_in_list: List[OperationDivideTransInDetailInfo] = None,
+    ):
+        # 当前用户履约的租期编号
+        self.period_num = period_num
+        # 经营分账收入方结果信息
+        self.operation_divide_trans_in_list = operation_divide_trans_in_list
+
+    def validate(self):
+        if self.operation_divide_trans_in_list:
+            for k in self.operation_divide_trans_in_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.period_num is not None:
+            result['period_num'] = self.period_num
+        result['operation_divide_trans_in_list'] = []
+        if self.operation_divide_trans_in_list is not None:
+            for k in self.operation_divide_trans_in_list:
+                result['operation_divide_trans_in_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('period_num') is not None:
+            self.period_num = m.get('period_num')
+        self.operation_divide_trans_in_list = []
+        if m.get('operation_divide_trans_in_list') is not None:
+            for k in m.get('operation_divide_trans_in_list'):
+                temp_model = OperationDivideTransInDetailInfo()
+                self.operation_divide_trans_in_list.append(temp_model.from_map(k))
+        return self
+
+
+class OrderFulfillmentInfo(TeaModel):
+    def __init__(
+        self,
+        lease_term_index: int = None,
+        rental_return_state: str = None,
+        real_repay_money: int = None,
+        rental_money: int = None,
+        return_time: str = None,
+    ):
+        # 租期编号
+        self.lease_term_index = lease_term_index
+        # 租期归还状态
+        self.rental_return_state = rental_return_state
+        # 实际还款金额(分)
+        self.real_repay_money = real_repay_money
+        # 租金(分)
+        self.rental_money = rental_money
+        # 每期实付时间
+        self.return_time = return_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lease_term_index is not None:
+            result['lease_term_index'] = self.lease_term_index
+        if self.rental_return_state is not None:
+            result['rental_return_state'] = self.rental_return_state
+        if self.real_repay_money is not None:
+            result['real_repay_money'] = self.real_repay_money
+        if self.rental_money is not None:
+            result['rental_money'] = self.rental_money
+        if self.return_time is not None:
+            result['return_time'] = self.return_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('lease_term_index') is not None:
+            self.lease_term_index = m.get('lease_term_index')
+        if m.get('rental_return_state') is not None:
+            self.rental_return_state = m.get('rental_return_state')
+        if m.get('real_repay_money') is not None:
+            self.real_repay_money = m.get('real_repay_money')
+        if m.get('rental_money') is not None:
+            self.rental_money = m.get('rental_money')
+        if m.get('return_time') is not None:
+            self.return_time = m.get('return_time')
+        return self
+
+
+class RiskScene(TeaModel):
+    def __init__(
+        self,
+        scene_code: str = None,
+        decision: str = None,
+    ):
+        # 风险场景编码
+        self.scene_code = scene_code
+        # 该场景的风险决策结果
+        self.decision = decision
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.decision, 'decision')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.decision is not None:
+            result['decision'] = self.decision
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('decision') is not None:
+            self.decision = m.get('decision')
+        return self
+
+
+class RelationPage(TeaModel):
+    def __init__(
+        self,
+        relation_id: str = None,
+        company_name: str = None,
+        merchant_id: str = None,
+        status: str = None,
+        subject_merchant_id: str = None,
+        subject_company_name: str = None,
+    ):
+        # 分账关系id
+        self.relation_id = relation_id
+        # 分账公司名称
+        self.company_name = company_name
+        # 分账公司名称统一社会信用代码
+        self.merchant_id = merchant_id
+        # 审核状态
+        self.status = status
+        # 商户公司统一社会信用代码
+        self.subject_merchant_id = subject_merchant_id
+        # 商户公司名称
+        self.subject_company_name = subject_company_name
+
+    def validate(self):
+        self.validate_required(self.relation_id, 'relation_id')
+        self.validate_required(self.company_name, 'company_name')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.status, 'status')
+        self.validate_required(self.subject_merchant_id, 'subject_merchant_id')
+        self.validate_required(self.subject_company_name, 'subject_company_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.relation_id is not None:
+            result['relation_id'] = self.relation_id
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.subject_merchant_id is not None:
+            result['subject_merchant_id'] = self.subject_merchant_id
+        if self.subject_company_name is not None:
+            result['subject_company_name'] = self.subject_company_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('relation_id') is not None:
+            self.relation_id = m.get('relation_id')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('subject_merchant_id') is not None:
+            self.subject_merchant_id = m.get('subject_merchant_id')
+        if m.get('subject_company_name') is not None:
+            self.subject_company_name = m.get('subject_company_name')
+        return self
+
+
+class BaddebtQueryModel(TeaModel):
+    def __init__(
+        self,
+        service_category: str = None,
+        total_amount: int = None,
+        total_quantity: int = None,
+        user_name: str = None,
+        isv_pid: str = None,
+        apdid: str = None,
+    ):
+        # 服务分类，服务二级分类
+        self.service_category = service_category
+        # 总金额，用户购买或使用服务时产生的具体金额
+        self.total_amount = total_amount
+        # 商品数量，用户购买或使用服务时产生的具体商品数量
+        self.total_quantity = total_quantity
+        # 用户姓名
+        self.user_name = user_name
+        # 服务商 pid
+        self.isv_pid = isv_pid
+        # 终端唯一标识
+        self.apdid = apdid
+
+    def validate(self):
+        if self.service_category is not None:
+            self.validate_max_length(self.service_category, 'service_category', 128)
+        if self.total_amount is not None:
+            self.validate_maximum(self.total_amount, 'total_amount', 10000000)
+            self.validate_minimum(self.total_amount, 'total_amount', 1)
+        if self.total_quantity is not None:
+            self.validate_maximum(self.total_quantity, 'total_quantity', 10000)
+            self.validate_minimum(self.total_quantity, 'total_quantity', 1)
+        if self.user_name is not None:
+            self.validate_max_length(self.user_name, 'user_name', 128)
+        if self.isv_pid is not None:
+            self.validate_max_length(self.isv_pid, 'isv_pid', 128)
+        if self.apdid is not None:
+            self.validate_max_length(self.apdid, 'apdid', 128)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.service_category is not None:
+            result['service_category'] = self.service_category
+        if self.total_amount is not None:
+            result['total_amount'] = self.total_amount
+        if self.total_quantity is not None:
+            result['total_quantity'] = self.total_quantity
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.isv_pid is not None:
+            result['isv_pid'] = self.isv_pid
+        if self.apdid is not None:
+            result['apdid'] = self.apdid
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('service_category') is not None:
+            self.service_category = m.get('service_category')
+        if m.get('total_amount') is not None:
+            self.total_amount = m.get('total_amount')
+        if m.get('total_quantity') is not None:
+            self.total_quantity = m.get('total_quantity')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('isv_pid') is not None:
+            self.isv_pid = m.get('isv_pid')
+        if m.get('apdid') is not None:
+            self.apdid = m.get('apdid')
+        return self
+
+
+class CompanyInfoUpdate(TeaModel):
+    def __init__(
+        self,
+        business_license_file: FileInfo = None,
+        product_main_class: str = None,
+        company_name: str = None,
+        company_alias_name: str = None,
+        tenant_id: str = None,
+        company_mobile: str = None,
+        company_address: str = None,
+        contact_name: str = None,
+        contact_mobile: str = None,
+        merchant_type: str = None,
+    ):
+        # 营业执照文件信息
+        self.business_license_file = business_license_file
+        # 业务类型 枚举
+        self.product_main_class = product_main_class
+        # 公司名称
+        self.company_name = company_name
+        # 公司别名
+        self.company_alias_name = company_alias_name
+        # 公司数科租户id
+        self.tenant_id = tenant_id
+        # 公司联系电话
+        self.company_mobile = company_mobile
+        # 公司联系地址
+        self.company_address = company_address
+        # 联系人姓名
+        self.contact_name = contact_name
+        # 联系人手机号码
+        self.contact_mobile = contact_mobile
+        # 商户类型： 01：企业；07：个体工商户 默认不填为01
+        self.merchant_type = merchant_type
+
+    def validate(self):
+        if self.business_license_file:
+            self.business_license_file.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_license_file is not None:
+            result['business_license_file'] = self.business_license_file.to_map()
+        if self.product_main_class is not None:
+            result['product_main_class'] = self.product_main_class
+        if self.company_name is not None:
+            result['company_name'] = self.company_name
+        if self.company_alias_name is not None:
+            result['company_alias_name'] = self.company_alias_name
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.company_mobile is not None:
+            result['company_mobile'] = self.company_mobile
+        if self.company_address is not None:
+            result['company_address'] = self.company_address
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_mobile is not None:
+            result['contact_mobile'] = self.contact_mobile
+        if self.merchant_type is not None:
+            result['merchant_type'] = self.merchant_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('business_license_file') is not None:
+            temp_model = FileInfo()
+            self.business_license_file = temp_model.from_map(m['business_license_file'])
+        if m.get('product_main_class') is not None:
+            self.product_main_class = m.get('product_main_class')
+        if m.get('company_name') is not None:
+            self.company_name = m.get('company_name')
+        if m.get('company_alias_name') is not None:
+            self.company_alias_name = m.get('company_alias_name')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('company_mobile') is not None:
+            self.company_mobile = m.get('company_mobile')
+        if m.get('company_address') is not None:
+            self.company_address = m.get('company_address')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_mobile') is not None:
+            self.contact_mobile = m.get('contact_mobile')
+        if m.get('merchant_type') is not None:
+            self.merchant_type = m.get('merchant_type')
+        return self
+
+
+class OrderSearchInfo(TeaModel):
+    def __init__(
+        self,
+        order_id: str = None,
+        agreement_no: str = None,
+        order_create_time: str = None,
+        total_rent_money: int = None,
+        rent_term: int = None,
+        rent_unit: str = None,
+        order_status: str = None,
+        user_name: str = None,
+        user_phone_number: str = None,
+    ):
+        # 订单id
+        self.order_id = order_id
+        # 支付宝代扣协议号
+        self.agreement_no = agreement_no
+        # 订单创建时间
+        self.order_create_time = order_create_time
+        # 租金总额（单位分）
+        self.total_rent_money = total_rent_money
+        # 租期
+        self.rent_term = rent_term
+        # 租期单位
+        self.rent_unit = rent_unit
+        # 订单状态
+        self.order_status = order_status
+        # 承租人名称
+        self.user_name = user_name
+        # 承租人手机号
+        self.user_phone_number = user_phone_number
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.agreement_no is not None:
+            result['agreement_no'] = self.agreement_no
+        if self.order_create_time is not None:
+            result['order_create_time'] = self.order_create_time
+        if self.total_rent_money is not None:
+            result['total_rent_money'] = self.total_rent_money
+        if self.rent_term is not None:
+            result['rent_term'] = self.rent_term
+        if self.rent_unit is not None:
+            result['rent_unit'] = self.rent_unit
+        if self.order_status is not None:
+            result['order_status'] = self.order_status
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.user_phone_number is not None:
+            result['user_phone_number'] = self.user_phone_number
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('agreement_no') is not None:
+            self.agreement_no = m.get('agreement_no')
+        if m.get('order_create_time') is not None:
+            self.order_create_time = m.get('order_create_time')
+        if m.get('total_rent_money') is not None:
+            self.total_rent_money = m.get('total_rent_money')
+        if m.get('rent_term') is not None:
+            self.rent_term = m.get('rent_term')
+        if m.get('rent_unit') is not None:
+            self.rent_unit = m.get('rent_unit')
+        if m.get('order_status') is not None:
+            self.order_status = m.get('order_status')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('user_phone_number') is not None:
+            self.user_phone_number = m.get('user_phone_number')
+        return self
+
+
+class ApplicationInfo(TeaModel):
+    def __init__(
+        self,
+        application_scene: str = None,
+        tiny_app_id: str = None,
+        site_name: str = None,
+        sit_url: str = None,
+        merchant_name: str = None,
+        merchant_service_name: str = None,
+        merchant_service_desc: str = None,
+        site_info: List[SiteInfo] = None,
+    ):
+        # 应用场景
+        # MINI_APP 小程序
+        # APP 自有app
+        # ALL 两种都有
+        self.application_scene = application_scene
+        # 小程序id
+        self.tiny_app_id = tiny_app_id
+        # 小程序名称
+        self.site_name = site_name
+        # 网站地址
+        self.sit_url = sit_url
+        # 商户名称。
+        # 修改后的商户名称，将同步支付宝代扣签约页面字段展示
+        self.merchant_name = merchant_name
+        # 商户服务名称。
+        # 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
+        self.merchant_service_name = merchant_service_name
+        # 商户服务描述。
+        # 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
+        self.merchant_service_desc = merchant_service_desc
+        # 站点信息
+        self.site_info = site_info
+
+    def validate(self):
+        self.validate_required(self.application_scene, 'application_scene')
+        self.validate_required(self.tiny_app_id, 'tiny_app_id')
+        self.validate_required(self.site_name, 'site_name')
+        self.validate_required(self.sit_url, 'sit_url')
+        self.validate_required(self.merchant_name, 'merchant_name')
+        self.validate_required(self.merchant_service_name, 'merchant_service_name')
+        self.validate_required(self.merchant_service_desc, 'merchant_service_desc')
+        if self.site_info:
+            for k in self.site_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_scene is not None:
+            result['application_scene'] = self.application_scene
+        if self.tiny_app_id is not None:
+            result['tiny_app_id'] = self.tiny_app_id
+        if self.site_name is not None:
+            result['site_name'] = self.site_name
+        if self.sit_url is not None:
+            result['sit_url'] = self.sit_url
+        if self.merchant_name is not None:
+            result['merchant_name'] = self.merchant_name
+        if self.merchant_service_name is not None:
+            result['merchant_service_name'] = self.merchant_service_name
+        if self.merchant_service_desc is not None:
+            result['merchant_service_desc'] = self.merchant_service_desc
+        result['site_info'] = []
+        if self.site_info is not None:
+            for k in self.site_info:
+                result['site_info'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('application_scene') is not None:
+            self.application_scene = m.get('application_scene')
+        if m.get('tiny_app_id') is not None:
+            self.tiny_app_id = m.get('tiny_app_id')
+        if m.get('site_name') is not None:
+            self.site_name = m.get('site_name')
+        if m.get('sit_url') is not None:
+            self.sit_url = m.get('sit_url')
+        if m.get('merchant_name') is not None:
+            self.merchant_name = m.get('merchant_name')
+        if m.get('merchant_service_name') is not None:
+            self.merchant_service_name = m.get('merchant_service_name')
+        if m.get('merchant_service_desc') is not None:
+            self.merchant_service_desc = m.get('merchant_service_desc')
+        self.site_info = []
+        if m.get('site_info') is not None:
+            for k in m.get('site_info'):
+                temp_model = SiteInfo()
+                self.site_info.append(temp_model.from_map(k))
+        return self
+
+
+class ItemDetail(TeaModel):
+    def __init__(
+        self,
+        goods_category: str = None,
+        item_name: str = None,
+        quantity: int = None,
+    ):
+        # 租赁商品类目，可选类型：
+        # RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
+        self.goods_category = goods_category
+        # 租赁商品名称
+        self.item_name = item_name
+        # 租赁商品数量
+        self.quantity = quantity
+
+    def validate(self):
+        if self.goods_category is not None:
+            self.validate_max_length(self.goods_category, 'goods_category', 30)
+        if self.item_name is not None:
+            self.validate_max_length(self.item_name, 'item_name', 128)
+        if self.quantity is not None:
+            self.validate_maximum(self.quantity, 'quantity', 10000)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.goods_category is not None:
+            result['goods_category'] = self.goods_category
+        if self.item_name is not None:
+            result['item_name'] = self.item_name
+        if self.quantity is not None:
+            result['quantity'] = self.quantity
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('goods_category') is not None:
+            self.goods_category = m.get('goods_category')
+        if m.get('item_name') is not None:
+            self.item_name = m.get('item_name')
+        if m.get('quantity') is not None:
+            self.quantity = m.get('quantity')
+        return self
+
+
+class RiskGoModel(TeaModel):
+    def __init__(
+        self,
+        risk_type: str = None,
+        risk_value: str = None,
+        risk_desc: str = None,
+        info_code: str = None,
+    ):
+        # 风险类型。
+        # 枚举值：MARKETING_PURCHASE_COMMON 营销抢购风险识别；INDUSTRY_SCALPER_COMMON 行业黄牛风险识别；MARKETING_AWARDING_COMMON 营销发奖风险识别；INDUSTRY_FARMING_COMMON 行业刷单风险识别；INDUSTRY_BADDEBT_COMMON 履约坏账风险识别
+        self.risk_type = risk_type
+        # 风险等级。
+        # 枚举：rank0 无法判断；rank1 极低风险；rank2 较低风险；rank3 中风险；rank4 高风险；rank5 极高风险
+        self.risk_value = risk_value
+        # 风险描述
+        self.risk_desc = risk_desc
+        # 风险标签
+        self.info_code = info_code
+
+    def validate(self):
+        self.validate_required(self.risk_type, 'risk_type')
+        self.validate_required(self.risk_value, 'risk_value')
+        self.validate_required(self.risk_desc, 'risk_desc')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.risk_type is not None:
+            result['risk_type'] = self.risk_type
+        if self.risk_value is not None:
+            result['risk_value'] = self.risk_value
+        if self.risk_desc is not None:
+            result['risk_desc'] = self.risk_desc
+        if self.info_code is not None:
+            result['info_code'] = self.info_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('risk_type') is not None:
+            self.risk_type = m.get('risk_type')
+        if m.get('risk_value') is not None:
+            self.risk_value = m.get('risk_value')
+        if m.get('risk_desc') is not None:
+            self.risk_desc = m.get('risk_desc')
+        if m.get('info_code') is not None:
+            self.info_code = m.get('info_code')
+        return self
+
+
+class SingleCancelModel(TeaModel):
+    def __init__(
+        self,
+        period_num: int = None,
+        gmt_pay: str = None,
+        pay_off_amount: int = None,
+        pay_off_type: str = None,
+        pay_off_no: str = None,
+        pay_off_bank_name: str = None,
+    ):
+        # 第几期
+        self.period_num = period_num
+        # 其他方式还款的时间
+        self.gmt_pay = gmt_pay
+        # 取消订单某一期代扣计划中以其他方式还款金额，单位为分
+        self.pay_off_amount = pay_off_amount
+        # 变更其他方式还款WECHAT:微信; BANK:银行
+        # ALIPAY:支付宝
+        # CASH:现金
+        self.pay_off_type = pay_off_type
+        # 通过其他方式还款单号;例如银行流水号或微信流水号
+        self.pay_off_no = pay_off_no
+        # 其他方式还款银行名称，还款方式为银行时必填
+        self.pay_off_bank_name = pay_off_bank_name
+
+    def validate(self):
+        self.validate_required(self.period_num, 'period_num')
+        if self.period_num is not None:
+            self.validate_minimum(self.period_num, 'period_num', 1)
+        self.validate_required(self.gmt_pay, 'gmt_pay')
+        if self.gmt_pay is not None:
+            self.validate_pattern(self.gmt_pay, 'gmt_pay', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
+        self.validate_required(self.pay_off_amount, 'pay_off_amount')
+        if self.pay_off_amount is not None:
+            self.validate_minimum(self.pay_off_amount, 'pay_off_amount', 0)
+        if self.pay_off_type is not None:
+            self.validate_max_length(self.pay_off_type, 'pay_off_type', 64)
+        if self.pay_off_no is not None:
+            self.validate_max_length(self.pay_off_no, 'pay_off_no', 64)
+        if self.pay_off_bank_name is not None:
+            self.validate_max_length(self.pay_off_bank_name, 'pay_off_bank_name', 64)
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.period_num is not None:
+            result['period_num'] = self.period_num
+        if self.gmt_pay is not None:
+            result['gmt_pay'] = self.gmt_pay
+        if self.pay_off_amount is not None:
+            result['pay_off_amount'] = self.pay_off_amount
+        if self.pay_off_type is not None:
+            result['pay_off_type'] = self.pay_off_type
+        if self.pay_off_no is not None:
+            result['pay_off_no'] = self.pay_off_no
+        if self.pay_off_bank_name is not None:
+            result['pay_off_bank_name'] = self.pay_off_bank_name
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('period_num') is not None:
+            self.period_num = m.get('period_num')
+        if m.get('gmt_pay') is not None:
+            self.gmt_pay = m.get('gmt_pay')
+        if m.get('pay_off_amount') is not None:
+            self.pay_off_amount = m.get('pay_off_amount')
+        if m.get('pay_off_type') is not None:
+            self.pay_off_type = m.get('pay_off_type')
+        if m.get('pay_off_no') is not None:
+            self.pay_off_no = m.get('pay_off_no')
+        if m.get('pay_off_bank_name') is not None:
+            self.pay_off_bank_name = m.get('pay_off_bank_name')
+        return self
+
+
+class RiskModel(TeaModel):
+    def __init__(
+        self,
+        scene_code: str = None,
+        score: str = None,
+        delinquency_rate: str = None,
+        risk_advice: str = None,
+        risk_rank: str = None,
+        flow_id: str = None,
+    ):
+        # 风险场景编码
+        self.scene_code = scene_code
+        # 该风险场景的风险分值
+        self.score = score
+        # 逾期率
+        self.delinquency_rate = delinquency_rate
+        # 风险建议
+        self.risk_advice = risk_advice
+        # 风险等级
+        self.risk_rank = risk_rank
+        # 流程id
+        self.flow_id = flow_id
+
+    def validate(self):
+        self.validate_required(self.scene_code, 'scene_code')
+        self.validate_required(self.score, 'score')
+        self.validate_required(self.flow_id, 'flow_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_code is not None:
+            result['scene_code'] = self.scene_code
+        if self.score is not None:
+            result['score'] = self.score
+        if self.delinquency_rate is not None:
+            result['delinquency_rate'] = self.delinquency_rate
+        if self.risk_advice is not None:
+            result['risk_advice'] = self.risk_advice
+        if self.risk_rank is not None:
+            result['risk_rank'] = self.risk_rank
+        if self.flow_id is not None:
+            result['flow_id'] = self.flow_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('scene_code') is not None:
+            self.scene_code = m.get('scene_code')
+        if m.get('score') is not None:
+            self.score = m.get('score')
+        if m.get('delinquency_rate') is not None:
+            self.delinquency_rate = m.get('delinquency_rate')
+        if m.get('risk_advice') is not None:
+            self.risk_advice = m.get('risk_advice')
+        if m.get('risk_rank') is not None:
+            self.risk_rank = m.get('risk_rank')
+        if m.get('flow_id') is not None:
+            self.flow_id = m.get('flow_id')
+        return self
+
+
+class ScalperQueryModel(TeaModel):
+    def __init__(
+        self,
+        registration_phone: str = None,
+        certificate_date: str = None,
+        login_phone: str = None,
+        registration_cert: str = None,
+        login_cert: str = None,
+        registration_date: str = None,
+        cert_type: int = None,
+        bank_card_no: str = None,
+        email_address: str = None,
+        imei: str = None,
+        imsi: str = None,
+        mac_address: str = None,
+        apdid: str = None,
+        out_order_no: str = None,
+        order_no: str = None,
+        sales_amount: int = None,
+        user_name: str = None,
+        mailing_phone: str = None,
+        mailing_address: str = None,
+        is_employee: str = None,
+        channel: str = None,
+        isv_pid: str = None,
+        store_mcc_desc: str = None,
+        customer_id: str = None,
+        order_items_info_list: List[ScalperQueryOrderItem] = None,
+    ):
+        # 注册手机号，填写咨询对象所关联的注册手机号
+        self.registration_phone = registration_phone
+        # 认证时间，填写风险咨询对象所关联的账号的真实身份认证时间
+        self.certificate_date = certificate_date
+        # 登录手机号，填写风险咨询对象关联账号的登录手机号
+        self.login_phone = login_phone
+        # 注册账号身份证，填写风险咨询对象所关联账号的注册身份证信息
+        self.registration_cert = registration_cert
+        # 登录账号身份证，登录账号的身份证号码
+        self.login_cert = login_cert
+        # 注册时间，填写风险咨询对象所关联的账号的注册时间
+        self.registration_date = registration_date
+        # 证件类型；枚举值：1 - 身份证；2 - 护照
+        self.cert_type = cert_type
+        # 银行卡号
+        self.bank_card_no = bank_card_no
+        # 用户邮箱
+        self.email_address = email_address
+        # 手机序列号
+        self.imei = imei
+        # 国际移动用户识别码
+        self.imsi = imsi
+        # mac 地址或设备唯一标识
+        self.mac_address = mac_address
+        # 设备号，设备唯一号码
+        self.apdid = apdid
+        # 支付宝外部交易号
+        self.out_order_no = out_order_no
+        # 所咨询的唯一支付宝交易号
+        self.order_no = order_no
+        # 用户购买或使用服务时产生的具体金额总数，单位：分
+        self.sales_amount = sales_amount
+        # 用户姓名
+        self.user_name = user_name
+        # 收货手机号，用于区分 mobile_no 所填的手机号
+        self.mailing_phone = mailing_phone
+        # 收货地址
+        self.mailing_address = mailing_address
+        # 是否为员工账号，枚举值：1 - 是
+        self.is_employee = is_employee
+        # 渠道，枚举值：alipay - 支付宝；app - 自有app；pc - 电脑端
+        self.channel = channel
+        # 服务商 pid
+        self.isv_pid = isv_pid
+        # 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+        self.store_mcc_desc = store_mcc_desc
+        # 消费者 id，外部会员账号
+        self.customer_id = customer_id
+        # 订单所有商品信息列表
+        self.order_items_info_list = order_items_info_list
+
+    def validate(self):
+        if self.registration_phone is not None:
+            self.validate_max_length(self.registration_phone, 'registration_phone', 20)
+        if self.certificate_date is not None:
+            self.validate_max_length(self.certificate_date, 'certificate_date', 20)
+        if self.login_phone is not None:
+            self.validate_max_length(self.login_phone, 'login_phone', 20)
+        if self.registration_cert is not None:
+            self.validate_max_length(self.registration_cert, 'registration_cert', 30)
+        if self.login_cert is not None:
+            self.validate_max_length(self.login_cert, 'login_cert', 30)
+        if self.registration_date is not None:
+            self.validate_max_length(self.registration_date, 'registration_date', 20)
+        if self.cert_type is not None:
+            self.validate_maximum(self.cert_type, 'cert_type', 2)
+            self.validate_minimum(self.cert_type, 'cert_type', 1)
+        if self.bank_card_no is not None:
+            self.validate_max_length(self.bank_card_no, 'bank_card_no', 50)
+        if self.email_address is not None:
+            self.validate_max_length(self.email_address, 'email_address', 35)
+        if self.imei is not None:
+            self.validate_max_length(self.imei, 'imei', 100)
+        if self.imsi is not None:
+            self.validate_max_length(self.imsi, 'imsi', 100)
+        if self.mac_address is not None:
+            self.validate_max_length(self.mac_address, 'mac_address', 30)
+        if self.apdid is not None:
+            self.validate_max_length(self.apdid, 'apdid', 128)
+        if self.out_order_no is not None:
+            self.validate_max_length(self.out_order_no, 'out_order_no', 128)
+        if self.order_no is not None:
+            self.validate_max_length(self.order_no, 'order_no', 128)
+        if self.sales_amount is not None:
+            self.validate_maximum(self.sales_amount, 'sales_amount', 1000000)
+            self.validate_minimum(self.sales_amount, 'sales_amount', 1)
+        if self.user_name is not None:
+            self.validate_max_length(self.user_name, 'user_name', 50)
+        if self.mailing_phone is not None:
+            self.validate_max_length(self.mailing_phone, 'mailing_phone', 20)
+        if self.mailing_address is not None:
+            self.validate_max_length(self.mailing_address, 'mailing_address', 128)
+        if self.is_employee is not None:
+            self.validate_max_length(self.is_employee, 'is_employee', 10)
+        if self.channel is not None:
+            self.validate_max_length(self.channel, 'channel', 10)
+        if self.isv_pid is not None:
+            self.validate_max_length(self.isv_pid, 'isv_pid', 128)
+        if self.store_mcc_desc is not None:
+            self.validate_max_length(self.store_mcc_desc, 'store_mcc_desc', 20)
+        if self.customer_id is not None:
+            self.validate_max_length(self.customer_id, 'customer_id', 128)
+        if self.order_items_info_list:
+            for k in self.order_items_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.registration_phone is not None:
+            result['registration_phone'] = self.registration_phone
+        if self.certificate_date is not None:
+            result['certificate_date'] = self.certificate_date
+        if self.login_phone is not None:
+            result['login_phone'] = self.login_phone
+        if self.registration_cert is not None:
+            result['registration_cert'] = self.registration_cert
+        if self.login_cert is not None:
+            result['login_cert'] = self.login_cert
+        if self.registration_date is not None:
+            result['registration_date'] = self.registration_date
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
+        if self.email_address is not None:
+            result['email_address'] = self.email_address
+        if self.imei is not None:
+            result['imei'] = self.imei
+        if self.imsi is not None:
+            result['imsi'] = self.imsi
+        if self.mac_address is not None:
+            result['mac_address'] = self.mac_address
+        if self.apdid is not None:
+            result['apdid'] = self.apdid
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.sales_amount is not None:
+            result['sales_amount'] = self.sales_amount
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.mailing_phone is not None:
+            result['mailing_phone'] = self.mailing_phone
+        if self.mailing_address is not None:
+            result['mailing_address'] = self.mailing_address
+        if self.is_employee is not None:
+            result['is_employee'] = self.is_employee
+        if self.channel is not None:
+            result['channel'] = self.channel
+        if self.isv_pid is not None:
+            result['isv_pid'] = self.isv_pid
+        if self.store_mcc_desc is not None:
+            result['store_mcc_desc'] = self.store_mcc_desc
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        result['order_items_info_list'] = []
+        if self.order_items_info_list is not None:
+            for k in self.order_items_info_list:
+                result['order_items_info_list'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('registration_phone') is not None:
+            self.registration_phone = m.get('registration_phone')
+        if m.get('certificate_date') is not None:
+            self.certificate_date = m.get('certificate_date')
+        if m.get('login_phone') is not None:
+            self.login_phone = m.get('login_phone')
+        if m.get('registration_cert') is not None:
+            self.registration_cert = m.get('registration_cert')
+        if m.get('login_cert') is not None:
+            self.login_cert = m.get('login_cert')
+        if m.get('registration_date') is not None:
+            self.registration_date = m.get('registration_date')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
+        if m.get('email_address') is not None:
+            self.email_address = m.get('email_address')
+        if m.get('imei') is not None:
+            self.imei = m.get('imei')
+        if m.get('imsi') is not None:
+            self.imsi = m.get('imsi')
+        if m.get('mac_address') is not None:
+            self.mac_address = m.get('mac_address')
+        if m.get('apdid') is not None:
+            self.apdid = m.get('apdid')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('sales_amount') is not None:
+            self.sales_amount = m.get('sales_amount')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('mailing_phone') is not None:
+            self.mailing_phone = m.get('mailing_phone')
+        if m.get('mailing_address') is not None:
+            self.mailing_address = m.get('mailing_address')
+        if m.get('is_employee') is not None:
+            self.is_employee = m.get('is_employee')
+        if m.get('channel') is not None:
+            self.channel = m.get('channel')
+        if m.get('isv_pid') is not None:
+            self.isv_pid = m.get('isv_pid')
+        if m.get('store_mcc_desc') is not None:
+            self.store_mcc_desc = m.get('store_mcc_desc')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        self.order_items_info_list = []
+        if m.get('order_items_info_list') is not None:
+            for k in m.get('order_items_info_list'):
+                temp_model = ScalperQueryOrderItem()
+                self.order_items_info_list.append(temp_model.from_map(k))
         return self
 
 
@@ -710,56 +2707,6 @@ class MarketingScoreQueryInfo(TeaModel):
         return self
 
 
-class InsureProductInfo(TeaModel):
-    def __init__(
-        self,
-        product_id: str = None,
-        product_imei_id: str = None,
-        purchase_amount: int = None,
-    ):
-        # 商品库id
-        self.product_id = product_id
-        # 商品设备编号
-        self.product_imei_id = product_imei_id
-        # 商品采购价，单位：分
-        self.purchase_amount = purchase_amount
-
-    def validate(self):
-        self.validate_required(self.product_id, 'product_id')
-        if self.product_id is not None:
-            self.validate_max_length(self.product_id, 'product_id', 128)
-        self.validate_required(self.product_imei_id, 'product_imei_id')
-        if self.product_imei_id is not None:
-            self.validate_max_length(self.product_imei_id, 'product_imei_id', 256)
-        self.validate_required(self.purchase_amount, 'purchase_amount')
-        if self.purchase_amount is not None:
-            self.validate_maximum(self.purchase_amount, 'purchase_amount', 100000000)
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.product_id is not None:
-            result['product_id'] = self.product_id
-        if self.product_imei_id is not None:
-            result['product_imei_id'] = self.product_imei_id
-        if self.purchase_amount is not None:
-            result['purchase_amount'] = self.purchase_amount
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('product_id') is not None:
-            self.product_id = m.get('product_id')
-        if m.get('product_imei_id') is not None:
-            self.product_imei_id = m.get('product_imei_id')
-        if m.get('purchase_amount') is not None:
-            self.purchase_amount = m.get('purchase_amount')
-        return self
-
-
 class RiskStrategy(TeaModel):
     def __init__(
         self,
@@ -809,93 +2756,6 @@ class RiskStrategy(TeaModel):
             self.decision = m.get('decision')
         if m.get('scene_code') is not None:
             self.scene_code = m.get('scene_code')
-        return self
-
-
-class TemplateComponent(TeaModel):
-    def __init__(
-        self,
-        template_code: str = None,
-        id: str = None,
-        name: str = None,
-        uk: str = None,
-        placeholder: str = None,
-        enable_edit: str = None,
-        required: str = None,
-        type: str = None,
-        value: str = None,
-    ):
-        # 模板编码
-        self.template_code = template_code
-        # 组件（文本域）id
-        self.id = id
-        # 组件（文本域）名称
-        self.name = name
-        # 组件（文本域）的唯一标识
-        self.uk = uk
-        # 占位符，组件（文本域）的展示样式值
-        self.placeholder = placeholder
-        # 组件（文本域）是否可以编辑。取值：Y/N
-        self.enable_edit = enable_edit
-        # 是否必填，取值：Y/N
-        self.required = required
-        # 组件（文本域）类型，INPUT:单行文本 TEXTAREA:多行文本
-        self.type = type
-        # 组件（文本域）值
-        self.value = value
-
-    def validate(self):
-        self.validate_required(self.template_code, 'template_code')
-        self.validate_required(self.id, 'id')
-        self.validate_required(self.name, 'name')
-        self.validate_required(self.value, 'value')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.template_code is not None:
-            result['template_code'] = self.template_code
-        if self.id is not None:
-            result['id'] = self.id
-        if self.name is not None:
-            result['name'] = self.name
-        if self.uk is not None:
-            result['uk'] = self.uk
-        if self.placeholder is not None:
-            result['placeholder'] = self.placeholder
-        if self.enable_edit is not None:
-            result['enable_edit'] = self.enable_edit
-        if self.required is not None:
-            result['required'] = self.required
-        if self.type is not None:
-            result['type'] = self.type
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('template_code') is not None:
-            self.template_code = m.get('template_code')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('uk') is not None:
-            self.uk = m.get('uk')
-        if m.get('placeholder') is not None:
-            self.placeholder = m.get('placeholder')
-        if m.get('enable_edit') is not None:
-            self.enable_edit = m.get('enable_edit')
-        if m.get('required') is not None:
-            self.required = m.get('required')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('value') is not None:
-            self.value = m.get('value')
         return self
 
 
@@ -1022,112 +2882,6 @@ class MarketingScoreInfo(TeaModel):
             self.phone_num = m.get('phone_num')
         if m.get('score') is not None:
             self.score = m.get('score')
-        return self
-
-
-class StaticData(TeaModel):
-    def __init__(
-        self,
-        module_name: str = None,
-        module_detail_list: List[StaticDataModuleDetail] = None,
-    ):
-        # 商户类型
-        self.module_name = module_name
-        # 静态数据详情
-        self.module_detail_list = module_detail_list
-
-    def validate(self):
-        self.validate_required(self.module_name, 'module_name')
-        self.validate_required(self.module_detail_list, 'module_detail_list')
-        if self.module_detail_list:
-            for k in self.module_detail_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.module_name is not None:
-            result['module_name'] = self.module_name
-        result['module_detail_list'] = []
-        if self.module_detail_list is not None:
-            for k in self.module_detail_list:
-                result['module_detail_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('module_name') is not None:
-            self.module_name = m.get('module_name')
-        self.module_detail_list = []
-        if m.get('module_detail_list') is not None:
-            for k in m.get('module_detail_list'):
-                temp_model = StaticDataModuleDetail()
-                self.module_detail_list.append(temp_model.from_map(k))
-        return self
-
-
-class MerchantAgentPage(TeaModel):
-    def __init__(
-        self,
-        pay_expand_id: str = None,
-        agent_name: str = None,
-        tenant_id: str = None,
-        biz_type: str = None,
-        pay_expand_status: str = None,
-    ):
-        # 进件id
-        self.pay_expand_id = pay_expand_id
-        # 
-        # 代理企业名称
-        self.agent_name = agent_name
-        # 租户8位id
-        self.tenant_id = tenant_id
-        # 业务类型
-        self.biz_type = biz_type
-        # 进件审核状态 枚举
-        self.pay_expand_status = pay_expand_status
-
-    def validate(self):
-        self.validate_required(self.pay_expand_id, 'pay_expand_id')
-        self.validate_required(self.agent_name, 'agent_name')
-        self.validate_required(self.tenant_id, 'tenant_id')
-        self.validate_required(self.biz_type, 'biz_type')
-        self.validate_required(self.pay_expand_status, 'pay_expand_status')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.pay_expand_id is not None:
-            result['pay_expand_id'] = self.pay_expand_id
-        if self.agent_name is not None:
-            result['agent_name'] = self.agent_name
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.biz_type is not None:
-            result['biz_type'] = self.biz_type
-        if self.pay_expand_status is not None:
-            result['pay_expand_status'] = self.pay_expand_status
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('pay_expand_id') is not None:
-            self.pay_expand_id = m.get('pay_expand_id')
-        if m.get('agent_name') is not None:
-            self.agent_name = m.get('agent_name')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('biz_type') is not None:
-            self.biz_type = m.get('biz_type')
-        if m.get('pay_expand_status') is not None:
-            self.pay_expand_status = m.get('pay_expand_status')
         return self
 
 
@@ -1290,56 +3044,74 @@ class OrderMsgInfo(TeaModel):
         return self
 
 
-class OrderInfo(TeaModel):
+class AwardingQueryModel(TeaModel):
     def __init__(
         self,
-        order_id: str = None,
-        order_create_time: str = None,
-        order_pay_time: str = None,
-        total_rent_money: int = None,
-        rent_term: int = None,
-        rent_unit: str = None,
-        order_status: str = None,
-        order_sub_status: str = None,
-        deposit_price: int = None,
-        buy_out_price: int = None,
-        logistic_type: str = None,
-        due_mode: int = None,
-        down_payment: int = None,
+        opposing_userid: str = None,
+        opposing_open_id: str = None,
+        service_category: str = None,
+        isv_pid: str = None,
+        bank_card_no: str = None,
+        imei: str = None,
+        imsi: str = None,
+        sales_amount: int = None,
+        user_name: str = None,
+        store_mcc_desc: str = None,
+        customer_id: str = None,
+        qr_code: str = None,
     ):
-        # 订单id
-        self.order_id = order_id
-        # 订单创建时间
-        self.order_create_time = order_create_time
-        # 订单支付时间
-        self.order_pay_time = order_pay_time
-        # 租金总额(分)
-        self.total_rent_money = total_rent_money
-        # 租期
-        self.rent_term = rent_term
-        # 租期单位
-        self.rent_unit = rent_unit
-        # 订单状态
-        self.order_status = order_status
-        # 订单子状态
-        self.order_sub_status = order_sub_status
-        # 免押金额（分）
-        self.deposit_price = deposit_price
-        # 到期买断价(分)
-        self.buy_out_price = buy_out_price
-        # 物流方案
-        self.logistic_type = logistic_type
-        # 到期形式
-        # NA(0, "无意义"),
-        # BUYOUT(1, "到期买断或归还"),
-        # FREE_ON_RENT(2, "租满即送"),
-        # RENEW_LEASE(3, "续租"),;
-        self.due_mode = due_mode
-        # 首付款金额(分)
-        self.down_payment = down_payment
+        # 对方支付宝账户 uid，用于表示两个账户在业务交互中的对方账户，如人传人活动用户A会拉用户B来注册领奖，其中用户B为对方账户
+        self.opposing_userid = opposing_userid
+        # 对方支付宝账户openid，营销发奖风险识别场景，userid 与 open_id 至少传入一个
+        self.opposing_open_id = opposing_open_id
+        # 服务二级分类
+        self.service_category = service_category
+        # 服务商 pid
+        self.isv_pid = isv_pid
+        # 银行卡号
+        self.bank_card_no = bank_card_no
+        # 手机序列号
+        self.imei = imei
+        # 国际移动用户识别码
+        self.imsi = imsi
+        # 金额，用户购买或使用服务时产生的具体金额，单位：分
+        self.sales_amount = sales_amount
+        # 用户姓名
+        self.user_name = user_name
+        # 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+        self.store_mcc_desc = store_mcc_desc
+        # 消费者 id，外部会员账号
+        self.customer_id = customer_id
+        # 填入想要咨询风控的二维码值，需为唯一值
+        self.qr_code = qr_code
 
     def validate(self):
-        pass
+        if self.opposing_userid is not None:
+            self.validate_max_length(self.opposing_userid, 'opposing_userid', 128)
+        if self.opposing_open_id is not None:
+            self.validate_max_length(self.opposing_open_id, 'opposing_open_id', 128)
+        if self.service_category is not None:
+            self.validate_max_length(self.service_category, 'service_category', 128)
+        if self.isv_pid is not None:
+            self.validate_max_length(self.isv_pid, 'isv_pid', 128)
+        if self.bank_card_no is not None:
+            self.validate_max_length(self.bank_card_no, 'bank_card_no', 128)
+        if self.imei is not None:
+            self.validate_max_length(self.imei, 'imei', 128)
+        if self.imsi is not None:
+            self.validate_max_length(self.imsi, 'imsi', 128)
+        if self.sales_amount is not None:
+            self.validate_maximum(self.sales_amount, 'sales_amount', 10000000)
+            self.validate_minimum(self.sales_amount, 'sales_amount', 1)
+        if self.user_name is not None:
+            self.validate_max_length(self.user_name, 'user_name', 128)
+        if self.store_mcc_desc is not None:
+            self.validate_max_length(self.store_mcc_desc, 'store_mcc_desc', 30)
+        self.validate_required(self.customer_id, 'customer_id')
+        if self.customer_id is not None:
+            self.validate_max_length(self.customer_id, 'customer_id', 128)
+        if self.qr_code is not None:
+            self.validate_max_length(self.qr_code, 'qr_code', 256)
 
     def to_map(self):
         _map = super().to_map()
@@ -1347,147 +3119,58 @@ class OrderInfo(TeaModel):
             return _map
 
         result = dict()
-        if self.order_id is not None:
-            result['order_id'] = self.order_id
-        if self.order_create_time is not None:
-            result['order_create_time'] = self.order_create_time
-        if self.order_pay_time is not None:
-            result['order_pay_time'] = self.order_pay_time
-        if self.total_rent_money is not None:
-            result['total_rent_money'] = self.total_rent_money
-        if self.rent_term is not None:
-            result['rent_term'] = self.rent_term
-        if self.rent_unit is not None:
-            result['rent_unit'] = self.rent_unit
-        if self.order_status is not None:
-            result['order_status'] = self.order_status
-        if self.order_sub_status is not None:
-            result['order_sub_status'] = self.order_sub_status
-        if self.deposit_price is not None:
-            result['deposit_price'] = self.deposit_price
-        if self.buy_out_price is not None:
-            result['buy_out_price'] = self.buy_out_price
-        if self.logistic_type is not None:
-            result['logistic_type'] = self.logistic_type
-        if self.due_mode is not None:
-            result['due_mode'] = self.due_mode
-        if self.down_payment is not None:
-            result['down_payment'] = self.down_payment
+        if self.opposing_userid is not None:
+            result['opposing_userid'] = self.opposing_userid
+        if self.opposing_open_id is not None:
+            result['opposing_open_id'] = self.opposing_open_id
+        if self.service_category is not None:
+            result['service_category'] = self.service_category
+        if self.isv_pid is not None:
+            result['isv_pid'] = self.isv_pid
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
+        if self.imei is not None:
+            result['imei'] = self.imei
+        if self.imsi is not None:
+            result['imsi'] = self.imsi
+        if self.sales_amount is not None:
+            result['sales_amount'] = self.sales_amount
+        if self.user_name is not None:
+            result['user_name'] = self.user_name
+        if self.store_mcc_desc is not None:
+            result['store_mcc_desc'] = self.store_mcc_desc
+        if self.customer_id is not None:
+            result['customer_id'] = self.customer_id
+        if self.qr_code is not None:
+            result['qr_code'] = self.qr_code
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('order_id') is not None:
-            self.order_id = m.get('order_id')
-        if m.get('order_create_time') is not None:
-            self.order_create_time = m.get('order_create_time')
-        if m.get('order_pay_time') is not None:
-            self.order_pay_time = m.get('order_pay_time')
-        if m.get('total_rent_money') is not None:
-            self.total_rent_money = m.get('total_rent_money')
-        if m.get('rent_term') is not None:
-            self.rent_term = m.get('rent_term')
-        if m.get('rent_unit') is not None:
-            self.rent_unit = m.get('rent_unit')
-        if m.get('order_status') is not None:
-            self.order_status = m.get('order_status')
-        if m.get('order_sub_status') is not None:
-            self.order_sub_status = m.get('order_sub_status')
-        if m.get('deposit_price') is not None:
-            self.deposit_price = m.get('deposit_price')
-        if m.get('buy_out_price') is not None:
-            self.buy_out_price = m.get('buy_out_price')
-        if m.get('logistic_type') is not None:
-            self.logistic_type = m.get('logistic_type')
-        if m.get('due_mode') is not None:
-            self.due_mode = m.get('due_mode')
-        if m.get('down_payment') is not None:
-            self.down_payment = m.get('down_payment')
-        return self
-
-
-class OrderPromiseInfo(TeaModel):
-    def __init__(
-        self,
-        repay_strategy_list: List[OrderRepayStrategy] = None,
-    ):
-        # 订单还款策略
-        self.repay_strategy_list = repay_strategy_list
-
-    def validate(self):
-        if self.repay_strategy_list:
-            for k in self.repay_strategy_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['repay_strategy_list'] = []
-        if self.repay_strategy_list is not None:
-            for k in self.repay_strategy_list:
-                result['repay_strategy_list'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        self.repay_strategy_list = []
-        if m.get('repay_strategy_list') is not None:
-            for k in m.get('repay_strategy_list'):
-                temp_model = OrderRepayStrategy()
-                self.repay_strategy_list.append(temp_model.from_map(k))
-        return self
-
-
-class NoticeInfo(TeaModel):
-    def __init__(
-        self,
-        notice_id: int = None,
-        title: str = None,
-        notice_create_time: str = None,
-        unread: bool = None,
-    ):
-        # 通知id
-        self.notice_id = notice_id
-        # 通知标题
-        self.title = title
-        # 通知创建时间
-        self.notice_create_time = notice_create_time
-        # 是否未读
-        self.unread = unread
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.notice_id is not None:
-            result['notice_id'] = self.notice_id
-        if self.title is not None:
-            result['title'] = self.title
-        if self.notice_create_time is not None:
-            result['notice_create_time'] = self.notice_create_time
-        if self.unread is not None:
-            result['unread'] = self.unread
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('notice_id') is not None:
-            self.notice_id = m.get('notice_id')
-        if m.get('title') is not None:
-            self.title = m.get('title')
-        if m.get('notice_create_time') is not None:
-            self.notice_create_time = m.get('notice_create_time')
-        if m.get('unread') is not None:
-            self.unread = m.get('unread')
+        if m.get('opposing_userid') is not None:
+            self.opposing_userid = m.get('opposing_userid')
+        if m.get('opposing_open_id') is not None:
+            self.opposing_open_id = m.get('opposing_open_id')
+        if m.get('service_category') is not None:
+            self.service_category = m.get('service_category')
+        if m.get('isv_pid') is not None:
+            self.isv_pid = m.get('isv_pid')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
+        if m.get('imei') is not None:
+            self.imei = m.get('imei')
+        if m.get('imsi') is not None:
+            self.imsi = m.get('imsi')
+        if m.get('sales_amount') is not None:
+            self.sales_amount = m.get('sales_amount')
+        if m.get('user_name') is not None:
+            self.user_name = m.get('user_name')
+        if m.get('store_mcc_desc') is not None:
+            self.store_mcc_desc = m.get('store_mcc_desc')
+        if m.get('customer_id') is not None:
+            self.customer_id = m.get('customer_id')
+        if m.get('qr_code') is not None:
+            self.qr_code = m.get('qr_code')
         return self
 
 
@@ -1561,66 +3244,6 @@ class ApplicationInfoUpdate(TeaModel):
         return self
 
 
-class AuditInfo(TeaModel):
-    def __init__(
-        self,
-        stage: str = None,
-        audit_subject: str = None,
-        status: str = None,
-        apply_date_str: str = None,
-        fail_reason: str = None,
-    ):
-        # 审核步骤
-        self.stage = stage
-        # 审核主体
-        self.audit_subject = audit_subject
-        # 审核状态
-        self.status = status
-        # 审核时间
-        self.apply_date_str = apply_date_str
-        # 审核失败描述
-        self.fail_reason = fail_reason
-
-    def validate(self):
-        self.validate_required(self.stage, 'stage')
-        self.validate_required(self.audit_subject, 'audit_subject')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.apply_date_str, 'apply_date_str')
-        self.validate_required(self.fail_reason, 'fail_reason')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.stage is not None:
-            result['stage'] = self.stage
-        if self.audit_subject is not None:
-            result['audit_subject'] = self.audit_subject
-        if self.status is not None:
-            result['status'] = self.status
-        if self.apply_date_str is not None:
-            result['apply_date_str'] = self.apply_date_str
-        if self.fail_reason is not None:
-            result['fail_reason'] = self.fail_reason
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('stage') is not None:
-            self.stage = m.get('stage')
-        if m.get('audit_subject') is not None:
-            self.audit_subject = m.get('audit_subject')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('apply_date_str') is not None:
-            self.apply_date_str = m.get('apply_date_str')
-        if m.get('fail_reason') is not None:
-            self.fail_reason = m.get('fail_reason')
-        return self
-
-
 class OrderUserInfo(TeaModel):
     def __init__(
         self,
@@ -1686,165 +3309,7 @@ class OrderUserInfo(TeaModel):
         return self
 
 
-class ProductInfo(TeaModel):
-    def __init__(
-        self,
-        merchant_id: str = None,
-        product_name: str = None,
-        product_id: str = None,
-        product_model: str = None,
-        product_version: str = None,
-        product_price: int = None,
-        main_class: str = None,
-        sub_class: str = None,
-        product_brand: str = None,
-    ):
-        # 商家社会统一信用代码
-        self.merchant_id = merchant_id
-        # 商品名称
-        self.product_name = product_name
-        # 商品id
-        self.product_id = product_id
-        # 商品规格
-        self.product_model = product_model
-        # 商品版本
-        self.product_version = product_version
-        # 指导价(单位分)
-        self.product_price = product_price
-        # 一级类目
-        self.main_class = main_class
-        # 二级类目
-        self.sub_class = sub_class
-        # 品牌
-        self.product_brand = product_brand
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.merchant_id is not None:
-            result['merchant_id'] = self.merchant_id
-        if self.product_name is not None:
-            result['product_name'] = self.product_name
-        if self.product_id is not None:
-            result['product_id'] = self.product_id
-        if self.product_model is not None:
-            result['product_model'] = self.product_model
-        if self.product_version is not None:
-            result['product_version'] = self.product_version
-        if self.product_price is not None:
-            result['product_price'] = self.product_price
-        if self.main_class is not None:
-            result['main_class'] = self.main_class
-        if self.sub_class is not None:
-            result['sub_class'] = self.sub_class
-        if self.product_brand is not None:
-            result['product_brand'] = self.product_brand
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('merchant_id') is not None:
-            self.merchant_id = m.get('merchant_id')
-        if m.get('product_name') is not None:
-            self.product_name = m.get('product_name')
-        if m.get('product_id') is not None:
-            self.product_id = m.get('product_id')
-        if m.get('product_model') is not None:
-            self.product_model = m.get('product_model')
-        if m.get('product_version') is not None:
-            self.product_version = m.get('product_version')
-        if m.get('product_price') is not None:
-            self.product_price = m.get('product_price')
-        if m.get('main_class') is not None:
-            self.main_class = m.get('main_class')
-        if m.get('sub_class') is not None:
-            self.sub_class = m.get('sub_class')
-        if m.get('product_brand') is not None:
-            self.product_brand = m.get('product_brand')
-        return self
-
-
 class OrderGoodsModel(TeaModel):
-    def __init__(self):
-        pass
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        return self
-
-
-class LegalInfoUpdate(TeaModel):
-    def __init__(
-        self,
-        legal_name: str = None,
-        legal_cert_no: str = None,
-        legal_cert_front_file: FileInfo = None,
-        legal_cert_back_file: FileInfo = None,
-    ):
-        # 法人名称
-        self.legal_name = legal_name
-        # 法人证件号
-        self.legal_cert_no = legal_cert_no
-        # 法人证件正面
-        self.legal_cert_front_file = legal_cert_front_file
-        # 法人证件反面
-        self.legal_cert_back_file = legal_cert_back_file
-
-    def validate(self):
-        if self.legal_cert_front_file:
-            self.legal_cert_front_file.validate()
-        if self.legal_cert_back_file:
-            self.legal_cert_back_file.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.legal_name is not None:
-            result['legal_name'] = self.legal_name
-        if self.legal_cert_no is not None:
-            result['legal_cert_no'] = self.legal_cert_no
-        if self.legal_cert_front_file is not None:
-            result['legal_cert_front_file'] = self.legal_cert_front_file.to_map()
-        if self.legal_cert_back_file is not None:
-            result['legal_cert_back_file'] = self.legal_cert_back_file.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('legal_name') is not None:
-            self.legal_name = m.get('legal_name')
-        if m.get('legal_cert_no') is not None:
-            self.legal_cert_no = m.get('legal_cert_no')
-        if m.get('legal_cert_front_file') is not None:
-            temp_model = FileInfo()
-            self.legal_cert_front_file = temp_model.from_map(m['legal_cert_front_file'])
-        if m.get('legal_cert_back_file') is not None:
-            temp_model = FileInfo()
-            self.legal_cert_back_file = temp_model.from_map(m['legal_cert_back_file'])
-        return self
-
-
-class PromiseInfo(TeaModel):
     def __init__(self):
         pass
 
@@ -1908,100 +3373,6 @@ class DeliveryDetail(TeaModel):
             self.receiver_mobile = m.get('receiver_mobile')
         if m.get('receiver_address') is not None:
             self.receiver_address = m.get('receiver_address')
-        return self
-
-
-class CustomerServiceInfo(TeaModel):
-    def __init__(
-        self,
-        merchant_id: str = None,
-        merchant_name: str = None,
-        process_type: str = None,
-    ):
-        # 公司社会统一信息代码
-        self.merchant_id = merchant_id
-        # 公司名称
-        self.merchant_name = merchant_name
-        # 处理类型:
-        # MERCHANT_PROCESS("MERCHANT_PROCESS", "商家处理"),
-        # PROXY_PROCESS("PROXY_PROCESS", "服务商代处理"),
-        self.process_type = process_type
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.merchant_id is not None:
-            result['merchant_id'] = self.merchant_id
-        if self.merchant_name is not None:
-            result['merchant_name'] = self.merchant_name
-        if self.process_type is not None:
-            result['process_type'] = self.process_type
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('merchant_id') is not None:
-            self.merchant_id = m.get('merchant_id')
-        if m.get('merchant_name') is not None:
-            self.merchant_name = m.get('merchant_name')
-        if m.get('process_type') is not None:
-            self.process_type = m.get('process_type')
-        return self
-
-
-class OperationDivideTransInModel(TeaModel):
-    def __init__(
-        self,
-        trans_in_user_id: str = None,
-        divide_amount: int = None,
-        desc: str = None,
-    ):
-        # 分账收入方支付宝用户id, 支付宝2088id
-        self.trans_in_user_id = trans_in_user_id
-        # 分账金额，单位为分
-        # 
-        self.divide_amount = divide_amount
-        # 分账描述
-        self.desc = desc
-
-    def validate(self):
-        self.validate_required(self.trans_in_user_id, 'trans_in_user_id')
-        if self.trans_in_user_id is not None:
-            self.validate_max_length(self.trans_in_user_id, 'trans_in_user_id', 64)
-        self.validate_required(self.divide_amount, 'divide_amount')
-        if self.divide_amount is not None:
-            self.validate_minimum(self.divide_amount, 'divide_amount', 1)
-        if self.desc is not None:
-            self.validate_max_length(self.desc, 'desc', 64)
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.trans_in_user_id is not None:
-            result['trans_in_user_id'] = self.trans_in_user_id
-        if self.divide_amount is not None:
-            result['divide_amount'] = self.divide_amount
-        if self.desc is not None:
-            result['desc'] = self.desc
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('trans_in_user_id') is not None:
-            self.trans_in_user_id = m.get('trans_in_user_id')
-        if m.get('divide_amount') is not None:
-            self.divide_amount = m.get('divide_amount')
-        if m.get('desc') is not None:
-            self.desc = m.get('desc')
         return self
 
 
@@ -2073,204 +3444,58 @@ class AgreementPage(TeaModel):
         return self
 
 
-class OrderFulfillmentInfo(TeaModel):
+class FarmingQueryModel(TeaModel):
     def __init__(
         self,
-        lease_term_index: int = None,
-        rental_return_state: str = None,
-        real_repay_money: int = None,
-        rental_money: int = None,
-        return_time: str = None,
-    ):
-        # 租期编号
-        self.lease_term_index = lease_term_index
-        # 租期归还状态
-        self.rental_return_state = rental_return_state
-        # 实际还款金额(分)
-        self.real_repay_money = real_repay_money
-        # 租金(分)
-        self.rental_money = rental_money
-        # 每期实付时间
-        self.return_time = return_time
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.lease_term_index is not None:
-            result['lease_term_index'] = self.lease_term_index
-        if self.rental_return_state is not None:
-            result['rental_return_state'] = self.rental_return_state
-        if self.real_repay_money is not None:
-            result['real_repay_money'] = self.real_repay_money
-        if self.rental_money is not None:
-            result['rental_money'] = self.rental_money
-        if self.return_time is not None:
-            result['return_time'] = self.return_time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('lease_term_index') is not None:
-            self.lease_term_index = m.get('lease_term_index')
-        if m.get('rental_return_state') is not None:
-            self.rental_return_state = m.get('rental_return_state')
-        if m.get('real_repay_money') is not None:
-            self.real_repay_money = m.get('real_repay_money')
-        if m.get('rental_money') is not None:
-            self.rental_money = m.get('rental_money')
-        if m.get('return_time') is not None:
-            self.return_time = m.get('return_time')
-        return self
-
-
-class RiskScene(TeaModel):
-    def __init__(
-        self,
-        scene_code: str = None,
-        decision: str = None,
-    ):
-        # 风险场景编码
-        self.scene_code = scene_code
-        # 该场景的风险决策结果
-        self.decision = decision
-
-    def validate(self):
-        self.validate_required(self.scene_code, 'scene_code')
-        self.validate_required(self.decision, 'decision')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.scene_code is not None:
-            result['scene_code'] = self.scene_code
-        if self.decision is not None:
-            result['decision'] = self.decision
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('scene_code') is not None:
-            self.scene_code = m.get('scene_code')
-        if m.get('decision') is not None:
-            self.decision = m.get('decision')
-        return self
-
-
-class RelationPage(TeaModel):
-    def __init__(
-        self,
-        relation_id: str = None,
+        out_order_no: str = None,
+        order_no: str = None,
+        sales_amount: int = None,
+        bank_card_no: str = None,
+        isv_pid: str = None,
+        store_mcc_desc: str = None,
+        outlet_address: str = None,
         company_name: str = None,
-        merchant_id: str = None,
-        status: str = None,
-        subject_merchant_id: str = None,
-        subject_company_name: str = None,
+        store_name: str = None,
     ):
-        # 分账关系id
-        self.relation_id = relation_id
-        # 分账公司名称
-        self.company_name = company_name
-        # 分账公司名称统一社会信用代码
-        self.merchant_id = merchant_id
-        # 审核状态
-        self.status = status
-        # 商户公司统一社会信用代码
-        self.subject_merchant_id = subject_merchant_id
-        # 商户公司名称
-        self.subject_company_name = subject_company_name
-
-    def validate(self):
-        self.validate_required(self.relation_id, 'relation_id')
-        self.validate_required(self.company_name, 'company_name')
-        self.validate_required(self.merchant_id, 'merchant_id')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.subject_merchant_id, 'subject_merchant_id')
-        self.validate_required(self.subject_company_name, 'subject_company_name')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.relation_id is not None:
-            result['relation_id'] = self.relation_id
-        if self.company_name is not None:
-            result['company_name'] = self.company_name
-        if self.merchant_id is not None:
-            result['merchant_id'] = self.merchant_id
-        if self.status is not None:
-            result['status'] = self.status
-        if self.subject_merchant_id is not None:
-            result['subject_merchant_id'] = self.subject_merchant_id
-        if self.subject_company_name is not None:
-            result['subject_company_name'] = self.subject_company_name
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('relation_id') is not None:
-            self.relation_id = m.get('relation_id')
-        if m.get('company_name') is not None:
-            self.company_name = m.get('company_name')
-        if m.get('merchant_id') is not None:
-            self.merchant_id = m.get('merchant_id')
-        if m.get('status') is not None:
-            self.status = m.get('status')
-        if m.get('subject_merchant_id') is not None:
-            self.subject_merchant_id = m.get('subject_merchant_id')
-        if m.get('subject_company_name') is not None:
-            self.subject_company_name = m.get('subject_company_name')
-        return self
-
-
-class CompanyInfoUpdate(TeaModel):
-    def __init__(
-        self,
-        business_license_file: FileInfo = None,
-        product_main_class: str = None,
-        company_name: str = None,
-        company_alias_name: str = None,
-        tenant_id: str = None,
-        company_mobile: str = None,
-        company_address: str = None,
-        contact_name: str = None,
-        contact_mobile: str = None,
-        merchant_type: str = None,
-    ):
-        # 营业执照文件信息
-        self.business_license_file = business_license_file
-        # 业务类型 枚举
-        self.product_main_class = product_main_class
+        # 支付宝外部交易号
+        self.out_order_no = out_order_no
+        # 支付宝内部交易号
+        self.order_no = order_no
+        # 金额，用户购买或使用服务时产生的具体金额，单位：分
+        self.sales_amount = sales_amount
+        # 银行卡号
+        self.bank_card_no = bank_card_no
+        # 服务商 pid
+        self.isv_pid = isv_pid
+        # 门店行业类目，枚举值：CATERING - 餐饮；LEISURE - 休闲；MEDICAL - 医疗
+        self.store_mcc_desc = store_mcc_desc
+        # 门店地址；不需要传城市和行政区
+        self.outlet_address = outlet_address
         # 公司名称
         self.company_name = company_name
-        # 公司别名
-        self.company_alias_name = company_alias_name
-        # 公司数科租户id
-        self.tenant_id = tenant_id
-        # 公司联系电话
-        self.company_mobile = company_mobile
-        # 公司联系地址
-        self.company_address = company_address
-        # 联系人姓名
-        self.contact_name = contact_name
-        # 联系人手机号码
-        self.contact_mobile = contact_mobile
-        # 商户类型： 01：企业；07：个体工商户 默认不填为01
-        self.merchant_type = merchant_type
+        # 店铺名称
+        self.store_name = store_name
 
     def validate(self):
-        if self.business_license_file:
-            self.business_license_file.validate()
+        if self.out_order_no is not None:
+            self.validate_max_length(self.out_order_no, 'out_order_no', 128)
+        if self.order_no is not None:
+            self.validate_max_length(self.order_no, 'order_no', 128)
+        if self.sales_amount is not None:
+            self.validate_maximum(self.sales_amount, 'sales_amount', 10000000)
+            self.validate_minimum(self.sales_amount, 'sales_amount', 1)
+        if self.bank_card_no is not None:
+            self.validate_max_length(self.bank_card_no, 'bank_card_no', 128)
+        if self.isv_pid is not None:
+            self.validate_max_length(self.isv_pid, 'isv_pid', 128)
+        if self.store_mcc_desc is not None:
+            self.validate_max_length(self.store_mcc_desc, 'store_mcc_desc', 30)
+        if self.outlet_address is not None:
+            self.validate_max_length(self.outlet_address, 'outlet_address', 128)
+        if self.company_name is not None:
+            self.validate_max_length(self.company_name, 'company_name', 128)
+        if self.store_name is not None:
+            self.validate_max_length(self.store_name, 'store_name', 128)
 
     def to_map(self):
         _map = super().to_map()
@@ -2278,135 +3503,46 @@ class CompanyInfoUpdate(TeaModel):
             return _map
 
         result = dict()
-        if self.business_license_file is not None:
-            result['business_license_file'] = self.business_license_file.to_map()
-        if self.product_main_class is not None:
-            result['product_main_class'] = self.product_main_class
+        if self.out_order_no is not None:
+            result['out_order_no'] = self.out_order_no
+        if self.order_no is not None:
+            result['order_no'] = self.order_no
+        if self.sales_amount is not None:
+            result['sales_amount'] = self.sales_amount
+        if self.bank_card_no is not None:
+            result['bank_card_no'] = self.bank_card_no
+        if self.isv_pid is not None:
+            result['isv_pid'] = self.isv_pid
+        if self.store_mcc_desc is not None:
+            result['store_mcc_desc'] = self.store_mcc_desc
+        if self.outlet_address is not None:
+            result['outlet_address'] = self.outlet_address
         if self.company_name is not None:
             result['company_name'] = self.company_name
-        if self.company_alias_name is not None:
-            result['company_alias_name'] = self.company_alias_name
-        if self.tenant_id is not None:
-            result['tenant_id'] = self.tenant_id
-        if self.company_mobile is not None:
-            result['company_mobile'] = self.company_mobile
-        if self.company_address is not None:
-            result['company_address'] = self.company_address
-        if self.contact_name is not None:
-            result['contact_name'] = self.contact_name
-        if self.contact_mobile is not None:
-            result['contact_mobile'] = self.contact_mobile
-        if self.merchant_type is not None:
-            result['merchant_type'] = self.merchant_type
+        if self.store_name is not None:
+            result['store_name'] = self.store_name
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
-        if m.get('business_license_file') is not None:
-            temp_model = FileInfo()
-            self.business_license_file = temp_model.from_map(m['business_license_file'])
-        if m.get('product_main_class') is not None:
-            self.product_main_class = m.get('product_main_class')
+        if m.get('out_order_no') is not None:
+            self.out_order_no = m.get('out_order_no')
+        if m.get('order_no') is not None:
+            self.order_no = m.get('order_no')
+        if m.get('sales_amount') is not None:
+            self.sales_amount = m.get('sales_amount')
+        if m.get('bank_card_no') is not None:
+            self.bank_card_no = m.get('bank_card_no')
+        if m.get('isv_pid') is not None:
+            self.isv_pid = m.get('isv_pid')
+        if m.get('store_mcc_desc') is not None:
+            self.store_mcc_desc = m.get('store_mcc_desc')
+        if m.get('outlet_address') is not None:
+            self.outlet_address = m.get('outlet_address')
         if m.get('company_name') is not None:
             self.company_name = m.get('company_name')
-        if m.get('company_alias_name') is not None:
-            self.company_alias_name = m.get('company_alias_name')
-        if m.get('tenant_id') is not None:
-            self.tenant_id = m.get('tenant_id')
-        if m.get('company_mobile') is not None:
-            self.company_mobile = m.get('company_mobile')
-        if m.get('company_address') is not None:
-            self.company_address = m.get('company_address')
-        if m.get('contact_name') is not None:
-            self.contact_name = m.get('contact_name')
-        if m.get('contact_mobile') is not None:
-            self.contact_mobile = m.get('contact_mobile')
-        if m.get('merchant_type') is not None:
-            self.merchant_type = m.get('merchant_type')
-        return self
-
-
-class OrderSearchInfo(TeaModel):
-    def __init__(
-        self,
-        order_id: str = None,
-        agreement_no: str = None,
-        order_create_time: str = None,
-        total_rent_money: int = None,
-        rent_term: int = None,
-        rent_unit: str = None,
-        order_status: str = None,
-        user_name: str = None,
-        user_phone_number: str = None,
-    ):
-        # 订单id
-        self.order_id = order_id
-        # 支付宝代扣协议号
-        self.agreement_no = agreement_no
-        # 订单创建时间
-        self.order_create_time = order_create_time
-        # 租金总额（单位分）
-        self.total_rent_money = total_rent_money
-        # 租期
-        self.rent_term = rent_term
-        # 租期单位
-        self.rent_unit = rent_unit
-        # 订单状态
-        self.order_status = order_status
-        # 承租人名称
-        self.user_name = user_name
-        # 承租人手机号
-        self.user_phone_number = user_phone_number
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.order_id is not None:
-            result['order_id'] = self.order_id
-        if self.agreement_no is not None:
-            result['agreement_no'] = self.agreement_no
-        if self.order_create_time is not None:
-            result['order_create_time'] = self.order_create_time
-        if self.total_rent_money is not None:
-            result['total_rent_money'] = self.total_rent_money
-        if self.rent_term is not None:
-            result['rent_term'] = self.rent_term
-        if self.rent_unit is not None:
-            result['rent_unit'] = self.rent_unit
-        if self.order_status is not None:
-            result['order_status'] = self.order_status
-        if self.user_name is not None:
-            result['user_name'] = self.user_name
-        if self.user_phone_number is not None:
-            result['user_phone_number'] = self.user_phone_number
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('order_id') is not None:
-            self.order_id = m.get('order_id')
-        if m.get('agreement_no') is not None:
-            self.agreement_no = m.get('agreement_no')
-        if m.get('order_create_time') is not None:
-            self.order_create_time = m.get('order_create_time')
-        if m.get('total_rent_money') is not None:
-            self.total_rent_money = m.get('total_rent_money')
-        if m.get('rent_term') is not None:
-            self.rent_term = m.get('rent_term')
-        if m.get('rent_unit') is not None:
-            self.rent_unit = m.get('rent_unit')
-        if m.get('order_status') is not None:
-            self.order_status = m.get('order_status')
-        if m.get('user_name') is not None:
-            self.user_name = m.get('user_name')
-        if m.get('user_phone_number') is not None:
-            self.user_phone_number = m.get('user_phone_number')
+        if m.get('store_name') is not None:
+            self.store_name = m.get('store_name')
         return self
 
 
@@ -2549,104 +3685,6 @@ class ActivePayOrder(TeaModel):
         return self
 
 
-class ApplicationInfo(TeaModel):
-    def __init__(
-        self,
-        application_scene: str = None,
-        tiny_app_id: str = None,
-        site_name: str = None,
-        sit_url: str = None,
-        merchant_name: str = None,
-        merchant_service_name: str = None,
-        merchant_service_desc: str = None,
-        site_info: List[SiteInfo] = None,
-    ):
-        # 应用场景
-        # MINI_APP 小程序
-        # APP 自有app
-        # ALL 两种都有
-        self.application_scene = application_scene
-        # 小程序id
-        self.tiny_app_id = tiny_app_id
-        # 小程序名称
-        self.site_name = site_name
-        # 网站地址
-        self.sit_url = sit_url
-        # 商户名称。
-        # 修改后的商户名称，将同步支付宝代扣签约页面字段展示
-        self.merchant_name = merchant_name
-        # 商户服务名称。
-        # 修改后的商户服务名称，将同步支付宝代扣签约页面字段展示
-        self.merchant_service_name = merchant_service_name
-        # 商户服务描述。
-        # 修改后的商户服务描述，将同步支付宝代扣签约页面字段展示
-        self.merchant_service_desc = merchant_service_desc
-        # 站点信息
-        self.site_info = site_info
-
-    def validate(self):
-        self.validate_required(self.application_scene, 'application_scene')
-        self.validate_required(self.tiny_app_id, 'tiny_app_id')
-        self.validate_required(self.site_name, 'site_name')
-        self.validate_required(self.sit_url, 'sit_url')
-        self.validate_required(self.merchant_name, 'merchant_name')
-        self.validate_required(self.merchant_service_name, 'merchant_service_name')
-        self.validate_required(self.merchant_service_desc, 'merchant_service_desc')
-        if self.site_info:
-            for k in self.site_info:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.application_scene is not None:
-            result['application_scene'] = self.application_scene
-        if self.tiny_app_id is not None:
-            result['tiny_app_id'] = self.tiny_app_id
-        if self.site_name is not None:
-            result['site_name'] = self.site_name
-        if self.sit_url is not None:
-            result['sit_url'] = self.sit_url
-        if self.merchant_name is not None:
-            result['merchant_name'] = self.merchant_name
-        if self.merchant_service_name is not None:
-            result['merchant_service_name'] = self.merchant_service_name
-        if self.merchant_service_desc is not None:
-            result['merchant_service_desc'] = self.merchant_service_desc
-        result['site_info'] = []
-        if self.site_info is not None:
-            for k in self.site_info:
-                result['site_info'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('application_scene') is not None:
-            self.application_scene = m.get('application_scene')
-        if m.get('tiny_app_id') is not None:
-            self.tiny_app_id = m.get('tiny_app_id')
-        if m.get('site_name') is not None:
-            self.site_name = m.get('site_name')
-        if m.get('sit_url') is not None:
-            self.sit_url = m.get('sit_url')
-        if m.get('merchant_name') is not None:
-            self.merchant_name = m.get('merchant_name')
-        if m.get('merchant_service_name') is not None:
-            self.merchant_service_name = m.get('merchant_service_name')
-        if m.get('merchant_service_desc') is not None:
-            self.merchant_service_desc = m.get('merchant_service_desc')
-        self.site_info = []
-        if m.get('site_info') is not None:
-            for k in m.get('site_info'):
-                temp_model = SiteInfo()
-                self.site_info.append(temp_model.from_map(k))
-        return self
-
-
 class GoodsInfo(TeaModel):
     def __init__(self):
         pass
@@ -2700,54 +3738,6 @@ class PageQuery(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('page_index') is not None:
             self.page_index = m.get('page_index')
-        return self
-
-
-class ItemDetail(TeaModel):
-    def __init__(
-        self,
-        goods_category: str = None,
-        item_name: str = None,
-        quantity: int = None,
-    ):
-        # 租赁商品类目，可选类型：
-        # RENT_PHONE - 手机租赁；RENT_COMPUTER - 电脑/平板租赁；RENT_CAMERA - 数码摄像租赁；RENT_DIGITAL - 数码其他租赁；RENT_STATIONERY - 电子词典/电纸书/文化用品租赁；RENT_CLOTHING - 服装租赁
-        self.goods_category = goods_category
-        # 租赁商品名称
-        self.item_name = item_name
-        # 租赁商品数量
-        self.quantity = quantity
-
-    def validate(self):
-        if self.goods_category is not None:
-            self.validate_max_length(self.goods_category, 'goods_category', 30)
-        if self.item_name is not None:
-            self.validate_max_length(self.item_name, 'item_name', 128)
-        if self.quantity is not None:
-            self.validate_maximum(self.quantity, 'quantity', 10000)
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.goods_category is not None:
-            result['goods_category'] = self.goods_category
-        if self.item_name is not None:
-            result['item_name'] = self.item_name
-        if self.quantity is not None:
-            result['quantity'] = self.quantity
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('goods_category') is not None:
-            self.goods_category = m.get('goods_category')
-        if m.get('item_name') is not None:
-            self.item_name = m.get('item_name')
-        if m.get('quantity') is not None:
-            self.quantity = m.get('quantity')
         return self
 
 
@@ -2806,71 +3796,6 @@ class LegalInfo(TeaModel):
         if m.get('legal_cert_back_file') is not None:
             temp_model = FileInfo()
             self.legal_cert_back_file = temp_model.from_map(m['legal_cert_back_file'])
-        return self
-
-
-class RiskModel(TeaModel):
-    def __init__(
-        self,
-        scene_code: str = None,
-        score: str = None,
-        delinquency_rate: str = None,
-        risk_advice: str = None,
-        risk_rank: str = None,
-        flow_id: str = None,
-    ):
-        # 风险场景编码
-        self.scene_code = scene_code
-        # 该风险场景的风险分值
-        self.score = score
-        # 逾期率
-        self.delinquency_rate = delinquency_rate
-        # 风险建议
-        self.risk_advice = risk_advice
-        # 风险等级
-        self.risk_rank = risk_rank
-        # 流程id
-        self.flow_id = flow_id
-
-    def validate(self):
-        self.validate_required(self.scene_code, 'scene_code')
-        self.validate_required(self.score, 'score')
-        self.validate_required(self.flow_id, 'flow_id')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.scene_code is not None:
-            result['scene_code'] = self.scene_code
-        if self.score is not None:
-            result['score'] = self.score
-        if self.delinquency_rate is not None:
-            result['delinquency_rate'] = self.delinquency_rate
-        if self.risk_advice is not None:
-            result['risk_advice'] = self.risk_advice
-        if self.risk_rank is not None:
-            result['risk_rank'] = self.risk_rank
-        if self.flow_id is not None:
-            result['flow_id'] = self.flow_id
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('scene_code') is not None:
-            self.scene_code = m.get('scene_code')
-        if m.get('score') is not None:
-            self.score = m.get('score')
-        if m.get('delinquency_rate') is not None:
-            self.delinquency_rate = m.get('delinquency_rate')
-        if m.get('risk_advice') is not None:
-            self.risk_advice = m.get('risk_advice')
-        if m.get('risk_rank') is not None:
-            self.risk_rank = m.get('risk_rank')
-        if m.get('flow_id') is not None:
-            self.flow_id = m.get('flow_id')
         return self
 
 
@@ -5660,6 +6585,112 @@ class QueryFundCompensateaccountResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('available_amount') is not None:
             self.available_amount = m.get('available_amount')
+        return self
+
+
+class GetFundOrderfinanceinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        fund_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # order_id
+        self.order_id = order_id
+        # merchant_id
+        self.merchant_id = merchant_id
+        # fund_id
+        self.fund_id = fund_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.fund_id, 'fund_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        return self
+
+
+class GetFundOrderfinanceinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        response_data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # {}
+        self.response_data = response_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.response_data is not None:
+            result['response_data'] = self.response_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('response_data') is not None:
+            self.response_data = m.get('response_data')
         return self
 
 
@@ -9766,6 +10797,8 @@ class SyncInnerTemplateResponse(TeaModel):
         result_code: str = None,
         result_msg: str = None,
         target_template_code: str = None,
+        valid_result: bool = None,
+        valid_field_detail: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -9775,6 +10808,10 @@ class SyncInnerTemplateResponse(TeaModel):
         self.result_msg = result_msg
         # 同步后的新模板code
         self.target_template_code = target_template_code
+        # 模板同步上线时(强管控字段)校验结果
+        self.valid_result = valid_result
+        # 校验结果明细JSONStr
+        self.valid_field_detail = valid_field_detail
 
     def validate(self):
         pass
@@ -9793,6 +10830,10 @@ class SyncInnerTemplateResponse(TeaModel):
             result['result_msg'] = self.result_msg
         if self.target_template_code is not None:
             result['target_template_code'] = self.target_template_code
+        if self.valid_result is not None:
+            result['valid_result'] = self.valid_result
+        if self.valid_field_detail is not None:
+            result['valid_field_detail'] = self.valid_field_detail
         return result
 
     def from_map(self, m: dict = None):
@@ -9805,6 +10846,10 @@ class SyncInnerTemplateResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('target_template_code') is not None:
             self.target_template_code = m.get('target_template_code')
+        if m.get('valid_result') is not None:
+            self.valid_result = m.get('valid_result')
+        if m.get('valid_field_detail') is not None:
+            self.valid_field_detail = m.get('valid_field_detail')
         return self
 
 
@@ -12522,6 +13567,7 @@ class DetailInnerOrderResponse(TeaModel):
         order_fulfillment_info_list: List[OrderFulfillmentInfo] = None,
         order_promise_info: OrderPromiseInfo = None,
         order_product_info_list: List[OrderProductInfo] = None,
+        operate_divide_info_list: List[OperateDivideInfo] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -12545,6 +13591,8 @@ class DetailInnerOrderResponse(TeaModel):
         self.order_promise_info = order_promise_info
         # 订单商品信息
         self.order_product_info_list = order_product_info_list
+        # 经营分账信息
+        self.operate_divide_info_list = operate_divide_info_list
 
     def validate(self):
         if self.order_info:
@@ -12559,6 +13607,10 @@ class DetailInnerOrderResponse(TeaModel):
             self.order_promise_info.validate()
         if self.order_product_info_list:
             for k in self.order_product_info_list:
+                if k:
+                    k.validate()
+        if self.operate_divide_info_list:
+            for k in self.operate_divide_info_list:
                 if k:
                     k.validate()
 
@@ -12594,6 +13646,10 @@ class DetailInnerOrderResponse(TeaModel):
         if self.order_product_info_list is not None:
             for k in self.order_product_info_list:
                 result['order_product_info_list'].append(k.to_map() if k else None)
+        result['operate_divide_info_list'] = []
+        if self.operate_divide_info_list is not None:
+            for k in self.operate_divide_info_list:
+                result['operate_divide_info_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -12629,6 +13685,11 @@ class DetailInnerOrderResponse(TeaModel):
             for k in m.get('order_product_info_list'):
                 temp_model = OrderProductInfo()
                 self.order_product_info_list.append(temp_model.from_map(k))
+        self.operate_divide_info_list = []
+        if m.get('operate_divide_info_list') is not None:
+            for k in m.get('operate_divide_info_list'):
+                temp_model = OperateDivideInfo()
+                self.operate_divide_info_list.append(temp_model.from_map(k))
         return self
 
 
@@ -13786,6 +14847,341 @@ class QueryInnerTemplateinstanceResponse(TeaModel):
             self.result_msg = m.get('result_msg')
         if m.get('data') is not None:
             self.data = m.get('data')
+        return self
+
+
+class QueryInnerTenantindirectmainclassRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        return self
+
+
+class QueryInnerTenantindirectmainclassResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        current_indirect_main_class_list: List[str] = None,
+        desc: str = None,
+        status: str = None,
+        fail_reason: str = None,
+        changing_indirect_main_class_list: List[str] = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 当前开通类目
+        self.current_indirect_main_class_list = current_indirect_main_class_list
+        # 开通说明
+        self.desc = desc
+        # 状态
+        # INIT:初始化
+        # AUDIT:审批中
+        # AUDIT_PASSED:审批通过
+        # AUDIT_NOT_PASSED:审批不通过
+        self.status = status
+        # 审核拒绝原因
+        self.fail_reason = fail_reason
+        # 申请开通的类目
+        self.changing_indirect_main_class_list = changing_indirect_main_class_list
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.current_indirect_main_class_list is not None:
+            result['current_indirect_main_class_list'] = self.current_indirect_main_class_list
+        if self.desc is not None:
+            result['desc'] = self.desc
+        if self.status is not None:
+            result['status'] = self.status
+        if self.fail_reason is not None:
+            result['fail_reason'] = self.fail_reason
+        if self.changing_indirect_main_class_list is not None:
+            result['changing_indirect_main_class_list'] = self.changing_indirect_main_class_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('current_indirect_main_class_list') is not None:
+            self.current_indirect_main_class_list = m.get('current_indirect_main_class_list')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('fail_reason') is not None:
+            self.fail_reason = m.get('fail_reason')
+        if m.get('changing_indirect_main_class_list') is not None:
+            self.changing_indirect_main_class_list = m.get('changing_indirect_main_class_list')
+        return self
+
+
+class UpdateInnerTenantindirectmainclassRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        indirect_main_class_list: List[str] = None,
+        desc: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 租户id
+        self.tenant_id = tenant_id
+        # 开通类目
+        self.indirect_main_class_list = indirect_main_class_list
+        # 开通说明
+        # 
+        self.desc = desc
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.indirect_main_class_list, 'indirect_main_class_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.indirect_main_class_list is not None:
+            result['indirect_main_class_list'] = self.indirect_main_class_list
+        if self.desc is not None:
+            result['desc'] = self.desc
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('indirect_main_class_list') is not None:
+            self.indirect_main_class_list = m.get('indirect_main_class_list')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
+        return self
+
+
+class UpdateInnerTenantindirectmainclassResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
+class SubmitInnerTemplatesyncreviewRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        tenant_id: str = None,
+        source_template_code: str = None,
+        target_template_name: str = None,
+        source_template_version: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 商户对应租户ID
+        self.tenant_id = tenant_id
+        # 来源魔法库模板code
+        self.source_template_code = source_template_code
+        # 目标魔法库模板名称
+        self.target_template_name = target_template_name
+        # 魔法库来源模板版本
+        self.source_template_version = source_template_version
+
+    def validate(self):
+        self.validate_required(self.tenant_id, 'tenant_id')
+        self.validate_required(self.source_template_code, 'source_template_code')
+        self.validate_required(self.target_template_name, 'target_template_name')
+        self.validate_required(self.source_template_version, 'source_template_version')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.tenant_id is not None:
+            result['tenant_id'] = self.tenant_id
+        if self.source_template_code is not None:
+            result['source_template_code'] = self.source_template_code
+        if self.target_template_name is not None:
+            result['target_template_name'] = self.target_template_name
+        if self.source_template_version is not None:
+            result['source_template_version'] = self.source_template_version
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('tenant_id') is not None:
+            self.tenant_id = m.get('tenant_id')
+        if m.get('source_template_code') is not None:
+            self.source_template_code = m.get('source_template_code')
+        if m.get('target_template_name') is not None:
+            self.target_template_name = m.get('target_template_name')
+        if m.get('source_template_version') is not None:
+            self.source_template_version = m.get('source_template_version')
+        return self
+
+
+class SubmitInnerTemplatesyncreviewResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        source_template_code: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 提交同步上线审核的模板code
+        self.source_template_code = source_template_code
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.source_template_code is not None:
+            result['source_template_code'] = self.source_template_code
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('source_template_code') is not None:
+            self.source_template_code = m.get('source_template_code')
         return self
 
 
@@ -14983,6 +16379,7 @@ class QueryRiskRequest(TeaModel):
         mobile: str = None,
         alipay_user_id: str = None,
         source: str = None,
+        risk_biz_scene: str = None,
         item_detail: ItemDetail = None,
         price_detail: PriceDetail = None,
         delivery_detail: DeliveryDetail = None,
@@ -15000,8 +16397,11 @@ class QueryRiskRequest(TeaModel):
         self.mobile = mobile
         # 支付宝账户 UserId，智租版可选
         self.alipay_user_id = alipay_user_id
-        # 下单渠道，智租版必选。枚举值：ALIPAY-支付宝；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
+        # 下单渠道，智租版必选。枚举值：支付宝-ALIPAY；微信-WECHAT；独立APP-APP；抖音-DOUYIN；美团-MEITUAN；其他:-OTHER
         self.source = source
+        # 风险业务场景，智租版选填。默认值：PRE_RENT。
+        # PRE_RENT - 3c租赁；PRE_RENT_3C - 3c租赁定制；PRE_RENT_PET - 宠物；PRE_RENT_EDU - 教培；PRE_RENT_BEAUTY - 美业；
+        self.risk_biz_scene = risk_biz_scene
         # 商品详情，智租版可选
         self.item_detail = item_detail
         # 价格详情，智租版可选
@@ -15020,6 +16420,8 @@ class QueryRiskRequest(TeaModel):
             self.validate_max_length(self.alipay_user_id, 'alipay_user_id', 20)
         if self.source is not None:
             self.validate_max_length(self.source, 'source', 10)
+        if self.risk_biz_scene is not None:
+            self.validate_max_length(self.risk_biz_scene, 'risk_biz_scene', 100)
         if self.item_detail:
             self.item_detail.validate()
         if self.price_detail:
@@ -15049,6 +16451,8 @@ class QueryRiskRequest(TeaModel):
             result['alipay_user_id'] = self.alipay_user_id
         if self.source is not None:
             result['source'] = self.source
+        if self.risk_biz_scene is not None:
+            result['risk_biz_scene'] = self.risk_biz_scene
         if self.item_detail is not None:
             result['item_detail'] = self.item_detail.to_map()
         if self.price_detail is not None:
@@ -15075,6 +16479,8 @@ class QueryRiskRequest(TeaModel):
             self.alipay_user_id = m.get('alipay_user_id')
         if m.get('source') is not None:
             self.source = m.get('source')
+        if m.get('risk_biz_scene') is not None:
+            self.risk_biz_scene = m.get('risk_biz_scene')
         if m.get('item_detail') is not None:
             temp_model = ItemDetail()
             self.item_detail = temp_model.from_map(m['item_detail'])
@@ -15154,6 +16560,253 @@ class QueryRiskResponse(TeaModel):
         return self
 
 
+class QueryRiskGoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        risk_type: str = None,
+        business_code: str = None,
+        scene: str = None,
+        user_id: str = None,
+        open_id: str = None,
+        mer_pid: str = None,
+        mobile_no: str = None,
+        cert_no: str = None,
+        ip: str = None,
+        lbs: str = None,
+        role: str = None,
+        activity_info: str = None,
+        purchase_query_model: PurchaseQueryModel = None,
+        scalper_query_model: ScalperQueryModel = None,
+        awarding_query_model: AwardingQueryModel = None,
+        farming_query_model: FarmingQueryModel = None,
+        baddebt_query_model: BaddebtQueryModel = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 风险类型。枚举值：MARKETING_PURCHASE_COMMON 营销抢购风险识别；INDUSTRY_SCALPER_COMMON 行业黄牛风险识别；MARKETING_AWARDING_COMMON 营销发奖风险识别；INDUSTRY_FARMING_COMMON 行业刷单风险识别；INDUSTRY_BADDEBT_COMMON 履约坏账风险识别
+        self.risk_type = risk_type
+        # 调用行业，枚举值：
+        # insurance 保险；retail 零售；finance 金融行业；logistics 物流行业；city_services 城市服务；medical 医疗服务；digital_media 数媒行业；recycle 回收行业；payment 缴费行业；vehicle 汽车；travel 旅游；air_travel 航旅行业；FMCG 快消零售；education 教育行业；fashion_retail 时尚零售；game_industry 文体行业；rental 租赁；advertisement 广告行业；restaurants 餐饮行业；ticket 票务行业；complexes 综合体行业
+        self.business_code = business_code
+        # 风险咨询对应的自身业务场景/环节，枚举值：
+        # register 注册；order 下单；payment 支付；login 登录；offline_query 离线查询；inquery 查询；reserve 预约；invitation 邀请；other 其他
+        self.scene = scene
+        # 支付宝用户 2088 账号
+        self.user_id = user_id
+        # 支付宝用户 open_id 账号。需要注意，user_id 和 open_id 不可同时为空，同时传入时，以 user_id 为准
+        self.open_id = open_id
+        # 支付宝商家 pid，如果风险咨询对象是支付宝商家，则填写pid
+        self.mer_pid = mer_pid
+        # 手机号码，用于直接输入风险咨询对象的手机号码
+        self.mobile_no = mobile_no
+        # 身份证号码
+        self.cert_no = cert_no
+        # 账户登录 ip
+        self.ip = ip
+        # 地理位置，用于输入用户产生交易时的地理位置信息
+        self.lbs = lbs
+        # 咨询方类型，填写风险咨询中对应的商户或服务商对于蚂蚁的类型。枚举值：direct_isv 直连服务商；indirect_isv 间连服务商；unconn_isv 无关服务商；direct_mer 直连商户；indirect_mer 间连商户；unconn_mer 无关联商户；unknown 其他
+        self.role = role
+        # 可填入活动id唯一值，或其他活动信息
+        self.activity_info = activity_info
+        # 营销抢购风险识别入参模型
+        self.purchase_query_model = purchase_query_model
+        # 行业黄牛风险识别入参模型
+        self.scalper_query_model = scalper_query_model
+        # 营销发奖风险识别入参模型
+        self.awarding_query_model = awarding_query_model
+        # 行业刷单风险识别入参模型
+        self.farming_query_model = farming_query_model
+        # 行业履约风险识别入参模型
+        self.baddebt_query_model = baddebt_query_model
+
+    def validate(self):
+        self.validate_required(self.risk_type, 'risk_type')
+        if self.risk_type is not None:
+            self.validate_max_length(self.risk_type, 'risk_type', 50)
+        self.validate_required(self.business_code, 'business_code')
+        if self.business_code is not None:
+            self.validate_max_length(self.business_code, 'business_code', 30)
+        self.validate_required(self.scene, 'scene')
+        if self.scene is not None:
+            self.validate_max_length(self.scene, 'scene', 50)
+        if self.user_id is not None:
+            self.validate_max_length(self.user_id, 'user_id', 50)
+        if self.open_id is not None:
+            self.validate_max_length(self.open_id, 'open_id', 128)
+        if self.mer_pid is not None:
+            self.validate_max_length(self.mer_pid, 'mer_pid', 50)
+        if self.mobile_no is not None:
+            self.validate_max_length(self.mobile_no, 'mobile_no', 50)
+        if self.cert_no is not None:
+            self.validate_max_length(self.cert_no, 'cert_no', 50)
+        if self.ip is not None:
+            self.validate_max_length(self.ip, 'ip', 32)
+        if self.lbs is not None:
+            self.validate_max_length(self.lbs, 'lbs', 50)
+        if self.role is not None:
+            self.validate_max_length(self.role, 'role', 128)
+        if self.activity_info is not None:
+            self.validate_max_length(self.activity_info, 'activity_info', 100)
+        if self.purchase_query_model:
+            self.purchase_query_model.validate()
+        if self.scalper_query_model:
+            self.scalper_query_model.validate()
+        if self.awarding_query_model:
+            self.awarding_query_model.validate()
+        if self.farming_query_model:
+            self.farming_query_model.validate()
+        if self.baddebt_query_model:
+            self.baddebt_query_model.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.risk_type is not None:
+            result['risk_type'] = self.risk_type
+        if self.business_code is not None:
+            result['business_code'] = self.business_code
+        if self.scene is not None:
+            result['scene'] = self.scene
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.open_id is not None:
+            result['open_id'] = self.open_id
+        if self.mer_pid is not None:
+            result['mer_pid'] = self.mer_pid
+        if self.mobile_no is not None:
+            result['mobile_no'] = self.mobile_no
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.ip is not None:
+            result['ip'] = self.ip
+        if self.lbs is not None:
+            result['lbs'] = self.lbs
+        if self.role is not None:
+            result['role'] = self.role
+        if self.activity_info is not None:
+            result['activity_info'] = self.activity_info
+        if self.purchase_query_model is not None:
+            result['purchase_query_model'] = self.purchase_query_model.to_map()
+        if self.scalper_query_model is not None:
+            result['scalper_query_model'] = self.scalper_query_model.to_map()
+        if self.awarding_query_model is not None:
+            result['awarding_query_model'] = self.awarding_query_model.to_map()
+        if self.farming_query_model is not None:
+            result['farming_query_model'] = self.farming_query_model.to_map()
+        if self.baddebt_query_model is not None:
+            result['baddebt_query_model'] = self.baddebt_query_model.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('risk_type') is not None:
+            self.risk_type = m.get('risk_type')
+        if m.get('business_code') is not None:
+            self.business_code = m.get('business_code')
+        if m.get('scene') is not None:
+            self.scene = m.get('scene')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('open_id') is not None:
+            self.open_id = m.get('open_id')
+        if m.get('mer_pid') is not None:
+            self.mer_pid = m.get('mer_pid')
+        if m.get('mobile_no') is not None:
+            self.mobile_no = m.get('mobile_no')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('ip') is not None:
+            self.ip = m.get('ip')
+        if m.get('lbs') is not None:
+            self.lbs = m.get('lbs')
+        if m.get('role') is not None:
+            self.role = m.get('role')
+        if m.get('activity_info') is not None:
+            self.activity_info = m.get('activity_info')
+        if m.get('purchase_query_model') is not None:
+            temp_model = PurchaseQueryModel()
+            self.purchase_query_model = temp_model.from_map(m['purchase_query_model'])
+        if m.get('scalper_query_model') is not None:
+            temp_model = ScalperQueryModel()
+            self.scalper_query_model = temp_model.from_map(m['scalper_query_model'])
+        if m.get('awarding_query_model') is not None:
+            temp_model = AwardingQueryModel()
+            self.awarding_query_model = temp_model.from_map(m['awarding_query_model'])
+        if m.get('farming_query_model') is not None:
+            temp_model = FarmingQueryModel()
+            self.farming_query_model = temp_model.from_map(m['farming_query_model'])
+        if m.get('baddebt_query_model') is not None:
+            temp_model = BaddebtQueryModel()
+            self.baddebt_query_model = temp_model.from_map(m['baddebt_query_model'])
+        return self
+
+
+class QueryRiskGoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        model: RiskGoModel = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 风险查询结果
+        self.model = model
+
+    def validate(self):
+        if self.model:
+            self.model.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.model is not None:
+            result['model'] = self.model.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('model') is not None:
+            temp_model = RiskGoModel()
+            self.model = temp_model.from_map(m['model'])
+        return self
+
+
 class AllSignTemplateRequest(TeaModel):
     def __init__(
         self,
@@ -15161,8 +16814,7 @@ class AllSignTemplateRequest(TeaModel):
         product_instance_id: str = None,
         contract_type: str = None,
         merchant_id: str = None,
-        fund_type: str = None,
-        fund_id: str = None,
+        template_id: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -15171,11 +16823,8 @@ class AllSignTemplateRequest(TeaModel):
         self.contract_type = contract_type
         # 商户统一社会信用代码，SIT环境，非融必填
         self.merchant_id = merchant_id
-        # ● FINANCE 融资
-        # ● NON_FINANCE 非融资
-        self.fund_type = fund_type
-        # 查询融资类型时，需要传入资方统一社会信用代码
-        self.fund_id = fund_id
+        # 模板id
+        self.template_id = template_id
 
     def validate(self):
         if self.merchant_id is not None:
@@ -15195,10 +16844,8 @@ class AllSignTemplateRequest(TeaModel):
             result['contract_type'] = self.contract_type
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
-        if self.fund_type is not None:
-            result['fund_type'] = self.fund_type
-        if self.fund_id is not None:
-            result['fund_id'] = self.fund_id
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
         return result
 
     def from_map(self, m: dict = None):
@@ -15211,10 +16858,8 @@ class AllSignTemplateRequest(TeaModel):
             self.contract_type = m.get('contract_type')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
-        if m.get('fund_type') is not None:
-            self.fund_type = m.get('fund_type')
-        if m.get('fund_id') is not None:
-            self.fund_id = m.get('fund_id')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
         return self
 
 
@@ -15232,19 +16877,7 @@ class AllSignTemplateResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # List<Object>格式，详细参考：
-        # [
-        # {
-        # "templateCode": "TEST_001",
-        # "tenantId": "BIPCCOQY",
-        # "agreementType": "SERVICE_LEASE",
-        # "fileName": "测试模板之协议签署证明",
-        # "templateId": "f28038577d664015bfc1034c4a125121",
-        # "fieldArgs": "{\"sceneName\":\"测试协议合同签署\",\"title\":\"这是一份证明协议\"}",
-        # "userPos": "[{\"required\":true,\"posPage\":\"1\",\"posX\":\"162.44\",\"posY\":\"425\"}]",
-        # "orgPos": "[{\"required\":true,\"posPage\":\"1\",\"posX\":\"449.99\",\"posY\":\"420.03\"}]"
-        # }
-        # ]
+        # List<JSONObject>格式内容
         self.template_list = template_list
 
     def validate(self):
@@ -15311,6 +16944,7 @@ class SubmitSignFlowRequest(TeaModel):
         user_org_name: str = None,
         user_org_id_type: str = None,
         user_org_id_number: str = None,
+        need_face: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -15373,6 +17007,8 @@ class SubmitSignFlowRequest(TeaModel):
         self.user_org_id_type = user_org_id_type
         # (企业作为消费者时)公司证件号，无需加密
         self.user_org_id_number = user_org_id_number
+        # 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+        self.need_face = need_face
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -15466,6 +17102,8 @@ class SubmitSignFlowRequest(TeaModel):
             result['user_org_id_type'] = self.user_org_id_type
         if self.user_org_id_number is not None:
             result['user_org_id_number'] = self.user_org_id_number
+        if self.need_face is not None:
+            result['need_face'] = self.need_face
         return result
 
     def from_map(self, m: dict = None):
@@ -15528,6 +17166,8 @@ class SubmitSignFlowRequest(TeaModel):
             self.user_org_id_type = m.get('user_org_id_type')
         if m.get('user_org_id_number') is not None:
             self.user_org_id_number = m.get('user_org_id_number')
+        if m.get('need_face') is not None:
+            self.need_face = m.get('need_face')
         return self
 
 
@@ -15907,6 +17547,7 @@ class SubmitFrontSignRequest(TeaModel):
         user_org_id_number: str = None,
         user_org_id_type: str = None,
         user_org_name: str = None,
+        need_face: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -15978,6 +17619,8 @@ class SubmitFrontSignRequest(TeaModel):
         self.user_org_id_type = user_org_id_type
         # (企业作为消费者时)公司名称
         self.user_org_name = user_org_name
+        # 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+        self.need_face = need_face
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
@@ -16070,6 +17713,8 @@ class SubmitFrontSignRequest(TeaModel):
             result['user_org_id_type'] = self.user_org_id_type
         if self.user_org_name is not None:
             result['user_org_name'] = self.user_org_name
+        if self.need_face is not None:
+            result['need_face'] = self.need_face
         return result
 
     def from_map(self, m: dict = None):
@@ -16132,6 +17777,8 @@ class SubmitFrontSignRequest(TeaModel):
             self.user_org_id_type = m.get('user_org_id_type')
         if m.get('user_org_name') is not None:
             self.user_org_name = m.get('user_org_name')
+        if m.get('need_face') is not None:
+            self.need_face = m.get('need_face')
         return self
 
 
@@ -18508,6 +20155,225 @@ class UpdateTradeOrderResponse(TeaModel):
         return self
 
 
+class AddTradeFinanceprecheckRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+        fund_id_list: List[str] = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # order_id
+        self.order_id = order_id
+        # merchant_id
+        self.merchant_id = merchant_id
+        # ["1","2"]
+        self.fund_id_list = fund_id_list
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.fund_id_list, 'fund_id_list')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.fund_id_list is not None:
+            result['fund_id_list'] = self.fund_id_list
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('fund_id_list') is not None:
+            self.fund_id_list = m.get('fund_id_list')
+        return self
+
+
+class AddTradeFinanceprecheckResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        merchant_id: str = None,
+        order_id: str = None,
+        fund_candidates: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # merchant_id
+        self.merchant_id = merchant_id
+        # order_id
+        self.order_id = order_id
+        # fund_candidates
+        # List<FundCompanyInfo> 的jsonArray.toString
+        self.fund_candidates = fund_candidates
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.fund_candidates is not None:
+            result['fund_candidates'] = self.fund_candidates
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('fund_candidates') is not None:
+            self.fund_candidates = m.get('fund_candidates')
+        return self
+
+
+class GetTradeOrderfinanceinfoRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        merchant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单Id
+        self.order_id = order_id
+        # 商户社会信用代码
+        self.merchant_id = merchant_id
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        return self
+
+
+class GetTradeOrderfinanceinfoResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        response_data: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 订单融资信息
+        self.response_data = response_data
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.response_data is not None:
+            result['response_data'] = self.response_data
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('response_data') is not None:
+            self.response_data = m.get('response_data')
+        return self
+
+
 class CreateWithholdSignRequest(TeaModel):
     def __init__(
         self,
@@ -19003,15 +20869,17 @@ class RepayWithholdPlanRequest(TeaModel):
         pay_off_type: str = None,
         pay_off_no: str = None,
         pay_off_bank_name: str = None,
+        operation: str = None,
+        cancel_list: List[SingleCancelModel] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 订单id 长度不可超过50
         self.order_id = order_id
-        # 第几期
+        # 第几期，单期取消必填
         self.period_num = period_num
-        # 其他方式还款的时间
+        # 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
         self.gmt_pay = gmt_pay
         # 取消订单某一期代扣计划中以其他方式还款金额，单位为分
         self.pay_off_amount = pay_off_amount
@@ -19024,18 +20892,21 @@ class RepayWithholdPlanRequest(TeaModel):
         self.pay_off_no = pay_off_no
         # 其他方式还款银行名称，还款方式为银行时必填
         self.pay_off_bank_name = pay_off_bank_name
+        # 操作，默认为单期取消；
+        # 多期取消：MULTI_CANCEL
+        # 单期取消：SINGLE_CANCEL
+        self.operation = operation
+        # 取消列表，多期取消必填
+        self.cancel_list = cancel_list
 
     def validate(self):
         self.validate_required(self.order_id, 'order_id')
         if self.order_id is not None:
             self.validate_max_length(self.order_id, 'order_id', 50)
-        self.validate_required(self.period_num, 'period_num')
         if self.period_num is not None:
             self.validate_minimum(self.period_num, 'period_num', 1)
-        self.validate_required(self.gmt_pay, 'gmt_pay')
         if self.gmt_pay is not None:
             self.validate_pattern(self.gmt_pay, 'gmt_pay', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        self.validate_required(self.pay_off_amount, 'pay_off_amount')
         if self.pay_off_amount is not None:
             self.validate_minimum(self.pay_off_amount, 'pay_off_amount', 0)
         if self.pay_off_type is not None:
@@ -19044,6 +20915,12 @@ class RepayWithholdPlanRequest(TeaModel):
             self.validate_max_length(self.pay_off_no, 'pay_off_no', 64)
         if self.pay_off_bank_name is not None:
             self.validate_max_length(self.pay_off_bank_name, 'pay_off_bank_name', 64)
+        if self.operation is not None:
+            self.validate_max_length(self.operation, 'operation', 64)
+        if self.cancel_list:
+            for k in self.cancel_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -19069,6 +20946,12 @@ class RepayWithholdPlanRequest(TeaModel):
             result['pay_off_no'] = self.pay_off_no
         if self.pay_off_bank_name is not None:
             result['pay_off_bank_name'] = self.pay_off_bank_name
+        if self.operation is not None:
+            result['operation'] = self.operation
+        result['cancel_list'] = []
+        if self.cancel_list is not None:
+            for k in self.cancel_list:
+                result['cancel_list'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -19091,6 +20974,13 @@ class RepayWithholdPlanRequest(TeaModel):
             self.pay_off_no = m.get('pay_off_no')
         if m.get('pay_off_bank_name') is not None:
             self.pay_off_bank_name = m.get('pay_off_bank_name')
+        if m.get('operation') is not None:
+            self.operation = m.get('operation')
+        self.cancel_list = []
+        if m.get('cancel_list') is not None:
+            for k in m.get('cancel_list'):
+                temp_model = SingleCancelModel()
+                self.cancel_list.append(temp_model.from_map(k))
         return self
 
 

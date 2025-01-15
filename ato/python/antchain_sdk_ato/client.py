@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.3',
+                    'sdk_version': '1.12.11',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.11.3',
+                    'sdk_version': '1.12.11',
                     '_prod_code': 'ATO',
                     '_prod_channel': 'undefined'
                 }
@@ -1541,6 +1541,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryFundCompensateaccountResponse(),
             await self.do_request_async('1.0', 'antchain.ato.fund.compensateaccount.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_fund_orderfinanceinfo(
+        self,
+        request: ato_models.GetFundOrderfinanceinfoRequest,
+    ) -> ato_models.GetFundOrderfinanceinfoResponse:
+        """
+        Description: 资方查询订单融资信息
+        Summary: 资方查询订单融资信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_fund_orderfinanceinfo_ex(request, headers, runtime)
+
+    async def get_fund_orderfinanceinfo_async(
+        self,
+        request: ato_models.GetFundOrderfinanceinfoRequest,
+    ) -> ato_models.GetFundOrderfinanceinfoResponse:
+        """
+        Description: 资方查询订单融资信息
+        Summary: 资方查询订单融资信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_fund_orderfinanceinfo_ex_async(request, headers, runtime)
+
+    def get_fund_orderfinanceinfo_ex(
+        self,
+        request: ato_models.GetFundOrderfinanceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetFundOrderfinanceinfoResponse:
+        """
+        Description: 资方查询订单融资信息
+        Summary: 资方查询订单融资信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetFundOrderfinanceinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_fund_orderfinanceinfo_ex_async(
+        self,
+        request: ato_models.GetFundOrderfinanceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetFundOrderfinanceinfoResponse:
+        """
+        Description: 资方查询订单融资信息
+        Summary: 资方查询订单融资信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetFundOrderfinanceinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_inner_product(
@@ -5243,6 +5299,174 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.inner.templateinstance.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def query_inner_tenantindirectmainclass(
+        self,
+        request: ato_models.QueryInnerTenantindirectmainclassRequest,
+    ) -> ato_models.QueryInnerTenantindirectmainclassResponse:
+        """
+        Description: 查询租户类目信息详情
+        Summary: 查询租户类目信息详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_inner_tenantindirectmainclass_ex(request, headers, runtime)
+
+    async def query_inner_tenantindirectmainclass_async(
+        self,
+        request: ato_models.QueryInnerTenantindirectmainclassRequest,
+    ) -> ato_models.QueryInnerTenantindirectmainclassResponse:
+        """
+        Description: 查询租户类目信息详情
+        Summary: 查询租户类目信息详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_inner_tenantindirectmainclass_ex_async(request, headers, runtime)
+
+    def query_inner_tenantindirectmainclass_ex(
+        self,
+        request: ato_models.QueryInnerTenantindirectmainclassRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerTenantindirectmainclassResponse:
+        """
+        Description: 查询租户类目信息详情
+        Summary: 查询租户类目信息详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerTenantindirectmainclassResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.tenantindirectmainclass.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_inner_tenantindirectmainclass_ex_async(
+        self,
+        request: ato_models.QueryInnerTenantindirectmainclassRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryInnerTenantindirectmainclassResponse:
+        """
+        Description: 查询租户类目信息详情
+        Summary: 查询租户类目信息详情
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryInnerTenantindirectmainclassResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.tenantindirectmainclass.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_inner_tenantindirectmainclass(
+        self,
+        request: ato_models.UpdateInnerTenantindirectmainclassRequest,
+    ) -> ato_models.UpdateInnerTenantindirectmainclassResponse:
+        """
+        Description: 修改租户间联类目类目信息
+        Summary: 修改租户间联类目类目信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_inner_tenantindirectmainclass_ex(request, headers, runtime)
+
+    async def update_inner_tenantindirectmainclass_async(
+        self,
+        request: ato_models.UpdateInnerTenantindirectmainclassRequest,
+    ) -> ato_models.UpdateInnerTenantindirectmainclassResponse:
+        """
+        Description: 修改租户间联类目类目信息
+        Summary: 修改租户间联类目类目信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_inner_tenantindirectmainclass_ex_async(request, headers, runtime)
+
+    def update_inner_tenantindirectmainclass_ex(
+        self,
+        request: ato_models.UpdateInnerTenantindirectmainclassRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerTenantindirectmainclassResponse:
+        """
+        Description: 修改租户间联类目类目信息
+        Summary: 修改租户间联类目类目信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerTenantindirectmainclassResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.tenantindirectmainclass.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_inner_tenantindirectmainclass_ex_async(
+        self,
+        request: ato_models.UpdateInnerTenantindirectmainclassRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.UpdateInnerTenantindirectmainclassResponse:
+        """
+        Description: 修改租户间联类目类目信息
+        Summary: 修改租户间联类目类目信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.UpdateInnerTenantindirectmainclassResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.tenantindirectmainclass.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_inner_templatesyncreview(
+        self,
+        request: ato_models.SubmitInnerTemplatesyncreviewRequest,
+    ) -> ato_models.SubmitInnerTemplatesyncreviewResponse:
+        """
+        Description: 模板同步上线时强管控字段校验未通过提交后台审核
+        Summary: 模板同步上线审核提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_inner_templatesyncreview_ex(request, headers, runtime)
+
+    async def submit_inner_templatesyncreview_async(
+        self,
+        request: ato_models.SubmitInnerTemplatesyncreviewRequest,
+    ) -> ato_models.SubmitInnerTemplatesyncreviewResponse:
+        """
+        Description: 模板同步上线时强管控字段校验未通过提交后台审核
+        Summary: 模板同步上线审核提交
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_inner_templatesyncreview_ex_async(request, headers, runtime)
+
+    def submit_inner_templatesyncreview_ex(
+        self,
+        request: ato_models.SubmitInnerTemplatesyncreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerTemplatesyncreviewResponse:
+        """
+        Description: 模板同步上线时强管控字段校验未通过提交后台审核
+        Summary: 模板同步上线审核提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerTemplatesyncreviewResponse(),
+            self.do_request('1.0', 'antchain.ato.inner.templatesyncreview.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_inner_templatesyncreview_ex_async(
+        self,
+        request: ato_models.SubmitInnerTemplatesyncreviewRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.SubmitInnerTemplatesyncreviewResponse:
+        """
+        Description: 模板同步上线时强管控字段校验未通过提交后台审核
+        Summary: 模板同步上线审核提交
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.SubmitInnerTemplatesyncreviewResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.inner.templatesyncreview.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_insure(
         self,
         request: ato_models.CreateInsureRequest,
@@ -5801,6 +6025,62 @@ class Client:
         return TeaCore.from_map(
             ato_models.QueryRiskResponse(),
             await self.do_request_async('1.0', 'antchain.ato.risk.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_risk_go(
+        self,
+        request: ato_models.QueryRiskGoRequest,
+    ) -> ato_models.QueryRiskGoResponse:
+        """
+        Description: 云 api 发起风控分析，获取风险评估
+        Summary: 云 api 发起风控分析，获取风险评估
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_risk_go_ex(request, headers, runtime)
+
+    async def query_risk_go_async(
+        self,
+        request: ato_models.QueryRiskGoRequest,
+    ) -> ato_models.QueryRiskGoResponse:
+        """
+        Description: 云 api 发起风控分析，获取风险评估
+        Summary: 云 api 发起风控分析，获取风险评估
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_risk_go_ex_async(request, headers, runtime)
+
+    def query_risk_go_ex(
+        self,
+        request: ato_models.QueryRiskGoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryRiskGoResponse:
+        """
+        Description: 云 api 发起风控分析，获取风险评估
+        Summary: 云 api 发起风控分析，获取风险评估
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryRiskGoResponse(),
+            self.do_request('1.0', 'antchain.ato.risk.go.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_risk_go_ex_async(
+        self,
+        request: ato_models.QueryRiskGoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.QueryRiskGoResponse:
+        """
+        Description: 云 api 发起风控分析，获取风险评估
+        Summary: 云 api 发起风控分析，获取风险评估
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.QueryRiskGoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.risk.go.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def all_sign_template(
@@ -7275,6 +7555,118 @@ class Client:
             await self.do_request_async('1.0', 'antchain.ato.trade.order.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def add_trade_financeprecheck(
+        self,
+        request: ato_models.AddTradeFinanceprecheckRequest,
+    ) -> ato_models.AddTradeFinanceprecheckResponse:
+        """
+        Description: 融资订单追加预审资金方
+        Summary: 融资订单追加预审资金方
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_trade_financeprecheck_ex(request, headers, runtime)
+
+    async def add_trade_financeprecheck_async(
+        self,
+        request: ato_models.AddTradeFinanceprecheckRequest,
+    ) -> ato_models.AddTradeFinanceprecheckResponse:
+        """
+        Description: 融资订单追加预审资金方
+        Summary: 融资订单追加预审资金方
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_trade_financeprecheck_ex_async(request, headers, runtime)
+
+    def add_trade_financeprecheck_ex(
+        self,
+        request: ato_models.AddTradeFinanceprecheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddTradeFinanceprecheckResponse:
+        """
+        Description: 融资订单追加预审资金方
+        Summary: 融资订单追加预审资金方
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddTradeFinanceprecheckResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.financeprecheck.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_trade_financeprecheck_ex_async(
+        self,
+        request: ato_models.AddTradeFinanceprecheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.AddTradeFinanceprecheckResponse:
+        """
+        Description: 融资订单追加预审资金方
+        Summary: 融资订单追加预审资金方
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.AddTradeFinanceprecheckResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.financeprecheck.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_trade_orderfinanceinfo(
+        self,
+        request: ato_models.GetTradeOrderfinanceinfoRequest,
+    ) -> ato_models.GetTradeOrderfinanceinfoResponse:
+        """
+        Description: 订单融资信息查询接口
+        Summary: 订单融资信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_trade_orderfinanceinfo_ex(request, headers, runtime)
+
+    async def get_trade_orderfinanceinfo_async(
+        self,
+        request: ato_models.GetTradeOrderfinanceinfoRequest,
+    ) -> ato_models.GetTradeOrderfinanceinfoResponse:
+        """
+        Description: 订单融资信息查询接口
+        Summary: 订单融资信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_trade_orderfinanceinfo_ex_async(request, headers, runtime)
+
+    def get_trade_orderfinanceinfo_ex(
+        self,
+        request: ato_models.GetTradeOrderfinanceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetTradeOrderfinanceinfoResponse:
+        """
+        Description: 订单融资信息查询接口
+        Summary: 订单融资信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetTradeOrderfinanceinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_trade_orderfinanceinfo_ex_async(
+        self,
+        request: ato_models.GetTradeOrderfinanceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ato_models.GetTradeOrderfinanceinfoResponse:
+        """
+        Description: 订单融资信息查询接口
+        Summary: 订单融资信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ato_models.GetTradeOrderfinanceinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_withhold_sign(
         self,
         request: ato_models.CreateWithholdSignRequest,
@@ -7505,9 +7897,9 @@ class Client:
     ) -> ato_models.RepayWithholdPlanResponse:
         """
         Description: 重要说明：
-        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期代扣取消
+        Summary: 单期多期代扣取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -7519,9 +7911,9 @@ class Client:
     ) -> ato_models.RepayWithholdPlanResponse:
         """
         Description: 重要说明：
-        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期代扣取消
+        Summary: 单期多期代扣取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -7535,9 +7927,9 @@ class Client:
     ) -> ato_models.RepayWithholdPlanResponse:
         """
         Description: 重要说明：
-        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期代扣取消
+        Summary: 单期多期代扣取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -7553,9 +7945,9 @@ class Client:
     ) -> ato_models.RepayWithholdPlanResponse:
         """
         Description: 重要说明：
-        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期代扣取消
+        Summary: 单期多期代扣取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
