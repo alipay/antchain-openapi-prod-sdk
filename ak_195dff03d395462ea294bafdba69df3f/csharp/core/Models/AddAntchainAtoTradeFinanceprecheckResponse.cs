@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
 {
-    public class AllAntchainAtoSignTemplateResponse : TeaModel {
+    public class AddAntchainAtoTradeFinanceprecheckResponse : TeaModel {
         // 请求唯一ID，用于链路跟踪和问题排查
         [NameInMap("req_msg_id")]
         [Validation(Required=false)]
@@ -24,10 +24,21 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // List<JSONObject>格式内容
-        [NameInMap("template_list")]
+        // merchant_id
+        [NameInMap("merchant_id")]
         [Validation(Required=false)]
-        public string TemplateList { get; set; }
+        public string MerchantId { get; set; }
+
+        // order_id
+        [NameInMap("order_id")]
+        [Validation(Required=false)]
+        public string OrderId { get; set; }
+
+        // fund_candidates
+        // List<FundCompanyInfo> 的jsonArray.toString
+        [NameInMap("fund_candidates")]
+        [Validation(Required=false)]
+        public string FundCandidates { get; set; }
 
     }
 

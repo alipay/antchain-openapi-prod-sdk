@@ -157,6 +157,11 @@ namespace AntChain.SDK.Ak_195dff03d395462ea294bafdba69df3f.Models
         [Validation(Required=false)]
         public string UserOrgIdNumber { get; set; }
 
+        // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+        [NameInMap("need_face")]
+        [Validation(Required=false)]
+        public bool? NeedFace { get; set; }
+
     }
 
 }
