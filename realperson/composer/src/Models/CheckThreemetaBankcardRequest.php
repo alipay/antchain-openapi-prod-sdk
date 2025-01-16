@@ -25,6 +25,18 @@ class CheckThreemetaBankcardRequest extends Model
      */
     public $outerOrderNo;
 
+    // 要素入参模式： 1：银行卡号+姓名+证件号 2：银行卡号+姓名+手机号 3：银行卡号+证件号+手机号，默认为1
+    /**
+     * @var string
+     */
+    public $metaMode;
+
+    // 银行卡号
+    /**
+     * @var string
+     */
+    public $bankCard;
+
     // 姓名
     /**
      * @var string
@@ -37,39 +49,39 @@ class CheckThreemetaBankcardRequest extends Model
      */
     public $certNo;
 
-    // 银行卡号
+    // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
     /**
      * @var string
      */
-    public $bankCard;
+    public $certType;
+
+    // 手机号码
+    /**
+     * @var string
+     */
+    public $mobile;
 
     // 扩展信息，Map的json格式
     /**
      * @var string
      */
     public $externParam;
-
-    // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
-    /**
-     * @var string
-     */
-    public $certType;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
         'outerOrderNo'      => 'outer_order_no',
+        'metaMode'          => 'meta_mode',
+        'bankCard'          => 'bank_card',
         'certName'          => 'cert_name',
         'certNo'            => 'cert_no',
-        'bankCard'          => 'bank_card',
-        'externParam'       => 'extern_param',
         'certType'          => 'cert_type',
+        'mobile'            => 'mobile',
+        'externParam'       => 'extern_param',
     ];
 
     public function validate()
     {
         Model::validateRequired('outerOrderNo', $this->outerOrderNo, true);
-        Model::validateRequired('certName', $this->certName, true);
-        Model::validateRequired('certNo', $this->certNo, true);
         Model::validateRequired('bankCard', $this->bankCard, true);
     }
 
@@ -85,20 +97,26 @@ class CheckThreemetaBankcardRequest extends Model
         if (null !== $this->outerOrderNo) {
             $res['outer_order_no'] = $this->outerOrderNo;
         }
+        if (null !== $this->metaMode) {
+            $res['meta_mode'] = $this->metaMode;
+        }
+        if (null !== $this->bankCard) {
+            $res['bank_card'] = $this->bankCard;
+        }
         if (null !== $this->certName) {
             $res['cert_name'] = $this->certName;
         }
         if (null !== $this->certNo) {
             $res['cert_no'] = $this->certNo;
         }
-        if (null !== $this->bankCard) {
-            $res['bank_card'] = $this->bankCard;
+        if (null !== $this->certType) {
+            $res['cert_type'] = $this->certType;
+        }
+        if (null !== $this->mobile) {
+            $res['mobile'] = $this->mobile;
         }
         if (null !== $this->externParam) {
             $res['extern_param'] = $this->externParam;
-        }
-        if (null !== $this->certType) {
-            $res['cert_type'] = $this->certType;
         }
 
         return $res;
@@ -121,20 +139,26 @@ class CheckThreemetaBankcardRequest extends Model
         if (isset($map['outer_order_no'])) {
             $model->outerOrderNo = $map['outer_order_no'];
         }
+        if (isset($map['meta_mode'])) {
+            $model->metaMode = $map['meta_mode'];
+        }
+        if (isset($map['bank_card'])) {
+            $model->bankCard = $map['bank_card'];
+        }
         if (isset($map['cert_name'])) {
             $model->certName = $map['cert_name'];
         }
         if (isset($map['cert_no'])) {
             $model->certNo = $map['cert_no'];
         }
-        if (isset($map['bank_card'])) {
-            $model->bankCard = $map['bank_card'];
+        if (isset($map['cert_type'])) {
+            $model->certType = $map['cert_type'];
+        }
+        if (isset($map['mobile'])) {
+            $model->mobile = $map['mobile'];
         }
         if (isset($map['extern_param'])) {
             $model->externParam = $map['extern_param'];
-        }
-        if (isset($map['cert_type'])) {
-            $model->certType = $map['cert_type'];
         }
 
         return $model;
