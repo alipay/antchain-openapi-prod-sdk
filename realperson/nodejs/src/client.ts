@@ -1922,26 +1922,32 @@ export class CheckThreemetaBankcardRequest extends $tea.Model {
   productInstanceId?: string;
   // 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
   outerOrderNo: string;
-  // 姓名
-  certName: string;
-  // 身份证号
-  certNo: string;
+  // 要素入参模式： 1：银行卡号+姓名+证件号 2：银行卡号+姓名+手机号 3：银行卡号+证件号+手机号，默认为1
+  metaMode?: string;
   // 银行卡号
   bankCard: string;
-  // 扩展信息，Map的json格式
-  externParam?: string;
+  // 姓名
+  certName?: string;
+  // 身份证号
+  certNo?: string;
   // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
   certType?: string;
+  // 手机号码
+  mobile?: string;
+  // 扩展信息，Map的json格式
+  externParam?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
       outerOrderNo: 'outer_order_no',
+      metaMode: 'meta_mode',
+      bankCard: 'bank_card',
       certName: 'cert_name',
       certNo: 'cert_no',
-      bankCard: 'bank_card',
-      externParam: 'extern_param',
       certType: 'cert_type',
+      mobile: 'mobile',
+      externParam: 'extern_param',
     };
   }
 
@@ -1950,11 +1956,13 @@ export class CheckThreemetaBankcardRequest extends $tea.Model {
       authToken: 'string',
       productInstanceId: 'string',
       outerOrderNo: 'string',
+      metaMode: 'string',
+      bankCard: 'string',
       certName: 'string',
       certNo: 'string',
-      bankCard: 'string',
-      externParam: 'string',
       certType: 'string',
+      mobile: 'string',
+      externParam: 'string',
     };
   }
 
@@ -3608,7 +3616,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.15.32",
+          sdk_version: "1.15.33",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
