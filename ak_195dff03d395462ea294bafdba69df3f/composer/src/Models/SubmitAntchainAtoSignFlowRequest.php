@@ -184,6 +184,12 @@ class SubmitAntchainAtoSignFlowRequest extends Model
      * @var string
      */
     public $userOrgIdNumber;
+
+    // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+    /**
+     * @var bool
+     */
+    public $needFace;
     protected $_name = [
         'authToken'             => 'auth_token',
         'productInstanceId'     => 'product_instance_id',
@@ -214,6 +220,7 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         'userOrgName'           => 'user_org_name',
         'userOrgIdType'         => 'user_org_id_type',
         'userOrgIdNumber'       => 'user_org_id_number',
+        'needFace'              => 'need_face',
     ];
 
     public function validate()
@@ -335,6 +342,9 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         if (null !== $this->userOrgIdNumber) {
             $res['user_org_id_number'] = $this->userOrgIdNumber;
         }
+        if (null !== $this->needFace) {
+            $res['need_face'] = $this->needFace;
+        }
 
         return $res;
     }
@@ -433,6 +443,9 @@ class SubmitAntchainAtoSignFlowRequest extends Model
         }
         if (isset($map['user_org_id_number'])) {
             $model->userOrgIdNumber = $map['user_org_id_number'];
+        }
+        if (isset($map['need_face'])) {
+            $model->needFace = $map['need_face'];
         }
 
         return $model;

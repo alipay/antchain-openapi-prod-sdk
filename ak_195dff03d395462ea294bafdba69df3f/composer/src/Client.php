@@ -11,6 +11,8 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Utils\Utils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoTradeFinanceprecheckRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AddAntchainAtoTradeFinanceprecheckResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\AllAntchainAtoSignTemplateResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\ApplyAntchainAtoTradeFinanceprecheckRequest;
@@ -45,6 +47,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundFlowRe
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundFlowResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundMerchantperformanceRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundMerchantperformanceResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundOrderfinanceinfoRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundOrderfinanceinfoResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundOrderfullinfoRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundOrderfullinfoResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoFundUserperformanceRequest;
@@ -59,6 +63,8 @@ use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerch
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerchantfulfillmentResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerchantperformanceRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeMerchantperformanceResponse;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeOrderfinanceinfoRequest;
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeOrderfinanceinfoResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeRequest;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeResponse;
 use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\GetAntchainAtoTradeUserperformanceRequest;
@@ -282,7 +288,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.3.11',
+                    'sdk_version'      => '1.3.12',
                     '_prod_code'       => 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel'    => 'saas',
                 ];
@@ -728,9 +734,9 @@ class Client
 
     /**
      * Description: 重要说明：
-     *     1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
      *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-     * Summary: 单期代扣取消.
+     * Summary: 单期多期代扣取消.
      *
      * @param RepayAntchainAtoWithholdPlanRequest $request
      *
@@ -746,9 +752,9 @@ class Client
 
     /**
      * Description: 重要说明：
-     *     1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     *     1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
      *     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-     * Summary: 单期代扣取消.
+     * Summary: 单期多期代扣取消.
      *
      * @param RepayAntchainAtoWithholdPlanRequest $request
      * @param string[]                            $headers
@@ -2402,6 +2408,105 @@ class Client
         Utils::validateModel($request);
 
         return UpdateAntchainAtoTradeOrderResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.order.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 融资订单追加预审资金方
+     * Summary: 融资订单追加预审资金方.
+     *
+     * @param AddAntchainAtoTradeFinanceprecheckRequest $request
+     *
+     * @return AddAntchainAtoTradeFinanceprecheckResponse
+     */
+    public function addAntchainAtoTradeFinanceprecheck($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->addAntchainAtoTradeFinanceprecheckEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 融资订单追加预审资金方
+     * Summary: 融资订单追加预审资金方.
+     *
+     * @param AddAntchainAtoTradeFinanceprecheckRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return AddAntchainAtoTradeFinanceprecheckResponse
+     */
+    public function addAntchainAtoTradeFinanceprecheckEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return AddAntchainAtoTradeFinanceprecheckResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.financeprecheck.add', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 订单融资信息查询接口
+     * Summary: 订单融资信息查询接口.
+     *
+     * @param GetAntchainAtoTradeOrderfinanceinfoRequest $request
+     *
+     * @return GetAntchainAtoTradeOrderfinanceinfoResponse
+     */
+    public function getAntchainAtoTradeOrderfinanceinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoTradeOrderfinanceinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 订单融资信息查询接口
+     * Summary: 订单融资信息查询接口.
+     *
+     * @param GetAntchainAtoTradeOrderfinanceinfoRequest $request
+     * @param string[]                                   $headers
+     * @param RuntimeOptions                             $runtime
+     *
+     * @return GetAntchainAtoTradeOrderfinanceinfoResponse
+     */
+    public function getAntchainAtoTradeOrderfinanceinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoTradeOrderfinanceinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 资方查询订单融资信息
+     * Summary: 资方查询订单融资信息.
+     *
+     * @param GetAntchainAtoFundOrderfinanceinfoRequest $request
+     *
+     * @return GetAntchainAtoFundOrderfinanceinfoResponse
+     */
+    public function getAntchainAtoFundOrderfinanceinfo($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->getAntchainAtoFundOrderfinanceinfoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 资方查询订单融资信息
+     * Summary: 资方查询订单融资信息.
+     *
+     * @param GetAntchainAtoFundOrderfinanceinfoRequest $request
+     * @param string[]                                  $headers
+     * @param RuntimeOptions                            $runtime
+     *
+     * @return GetAntchainAtoFundOrderfinanceinfoResponse
+     */
+    public function getAntchainAtoFundOrderfinanceinfoEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return GetAntchainAtoFundOrderfinanceinfoResponse::fromMap($this->doRequest('1.0', 'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

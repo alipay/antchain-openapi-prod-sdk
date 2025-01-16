@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AllAntchainAtoSignTemplateResponse extends Model
+class AddAntchainAtoTradeFinanceprecheckResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,31 @@ class AllAntchainAtoSignTemplateResponse extends Model
      */
     public $resultMsg;
 
-    // List<JSONObject>格式内容
+    // merchant_id
     /**
      * @var string
      */
-    public $templateList;
+    public $merchantId;
+
+    // order_id
+    /**
+     * @var string
+     */
+    public $orderId;
+
+    // fund_candidates
+    // List<FundCompanyInfo> 的jsonArray.toString
+    /**
+     * @var string
+     */
+    public $fundCandidates;
     protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'templateList' => 'template_list',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'merchantId'     => 'merchant_id',
+        'orderId'        => 'order_id',
+        'fundCandidates' => 'fund_candidates',
     ];
 
     public function validate()
@@ -54,8 +69,14 @@ class AllAntchainAtoSignTemplateResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->templateList) {
-            $res['template_list'] = $this->templateList;
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->fundCandidates) {
+            $res['fund_candidates'] = $this->fundCandidates;
         }
 
         return $res;
@@ -64,7 +85,7 @@ class AllAntchainAtoSignTemplateResponse extends Model
     /**
      * @param array $map
      *
-     * @return AllAntchainAtoSignTemplateResponse
+     * @return AddAntchainAtoTradeFinanceprecheckResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +99,14 @@ class AllAntchainAtoSignTemplateResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['template_list'])) {
-            $model->templateList = $map['template_list'];
+        if (isset($map['merchant_id'])) {
+            $model->merchantId = $map['merchant_id'];
+        }
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
+        }
+        if (isset($map['fund_candidates'])) {
+            $model->fundCandidates = $map['fund_candidates'];
         }
 
         return $model;

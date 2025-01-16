@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AllAntchainAtoSignTemplateResponse extends Model
+class GetAntchainAtoFundOrderfinanceinfoResponse extends Model
 {
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
@@ -26,16 +26,16 @@ class AllAntchainAtoSignTemplateResponse extends Model
      */
     public $resultMsg;
 
-    // List<JSONObject>格式内容
+    // {}
     /**
      * @var string
      */
-    public $templateList;
+    public $responseData;
     protected $_name = [
         'reqMsgId'     => 'req_msg_id',
         'resultCode'   => 'result_code',
         'resultMsg'    => 'result_msg',
-        'templateList' => 'template_list',
+        'responseData' => 'response_data',
     ];
 
     public function validate()
@@ -54,8 +54,8 @@ class AllAntchainAtoSignTemplateResponse extends Model
         if (null !== $this->resultMsg) {
             $res['result_msg'] = $this->resultMsg;
         }
-        if (null !== $this->templateList) {
-            $res['template_list'] = $this->templateList;
+        if (null !== $this->responseData) {
+            $res['response_data'] = $this->responseData;
         }
 
         return $res;
@@ -64,7 +64,7 @@ class AllAntchainAtoSignTemplateResponse extends Model
     /**
      * @param array $map
      *
-     * @return AllAntchainAtoSignTemplateResponse
+     * @return GetAntchainAtoFundOrderfinanceinfoResponse
      */
     public static function fromMap($map = [])
     {
@@ -78,8 +78,8 @@ class AllAntchainAtoSignTemplateResponse extends Model
         if (isset($map['result_msg'])) {
             $model->resultMsg = $map['result_msg'];
         }
-        if (isset($map['template_list'])) {
-            $model->templateList = $map['template_list'];
+        if (isset($map['response_data'])) {
+            $model->responseData = $map['response_data'];
         }
 
         return $model;

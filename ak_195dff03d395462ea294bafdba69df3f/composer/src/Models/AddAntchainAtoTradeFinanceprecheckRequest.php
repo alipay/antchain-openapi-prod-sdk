@@ -6,7 +6,7 @@ namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AllAntchainAtoSignTemplateRequest extends Model
+class AddAntchainAtoTradeFinanceprecheckRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,34 +19,38 @@ class AllAntchainAtoSignTemplateRequest extends Model
      */
     public $productInstanceId;
 
-    // 合同类型，如果不传则返回所有
+    // order_id
     /**
      * @var string
      */
-    public $contractType;
+    public $orderId;
 
-    // 商户统一社会信用代码，SIT环境，非融必填
+    // merchant_id
     /**
      * @var string
      */
     public $merchantId;
 
-    // 模板id
+    // ["1","2"]
     /**
-     * @var string
+     * @var string[]
      */
-    public $templateId;
+    public $fundIdList;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'contractType'      => 'contract_type',
+        'orderId'           => 'order_id',
         'merchantId'        => 'merchant_id',
-        'templateId'        => 'template_id',
+        'fundIdList'        => 'fund_id_list',
     ];
 
     public function validate()
     {
-        Model::validateMaxLength('merchantId', $this->merchantId, 42);
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('fundIdList', $this->fundIdList, true);
+        Model::validateMinLength('orderId', $this->orderId, 1);
+        Model::validateMinLength('merchantId', $this->merchantId, 1);
     }
 
     public function toMap()
@@ -58,14 +62,14 @@ class AllAntchainAtoSignTemplateRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->contractType) {
-            $res['contract_type'] = $this->contractType;
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
         }
         if (null !== $this->merchantId) {
             $res['merchant_id'] = $this->merchantId;
         }
-        if (null !== $this->templateId) {
-            $res['template_id'] = $this->templateId;
+        if (null !== $this->fundIdList) {
+            $res['fund_id_list'] = $this->fundIdList;
         }
 
         return $res;
@@ -74,7 +78,7 @@ class AllAntchainAtoSignTemplateRequest extends Model
     /**
      * @param array $map
      *
-     * @return AllAntchainAtoSignTemplateRequest
+     * @return AddAntchainAtoTradeFinanceprecheckRequest
      */
     public static function fromMap($map = [])
     {
@@ -85,14 +89,16 @@ class AllAntchainAtoSignTemplateRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['contract_type'])) {
-            $model->contractType = $map['contract_type'];
+        if (isset($map['order_id'])) {
+            $model->orderId = $map['order_id'];
         }
         if (isset($map['merchant_id'])) {
             $model->merchantId = $map['merchant_id'];
         }
-        if (isset($map['template_id'])) {
-            $model->templateId = $map['template_id'];
+        if (isset($map['fund_id_list'])) {
+            if (!empty($map['fund_id_list'])) {
+                $model->fundIdList = $map['fund_id_list'];
+            }
         }
 
         return $model;
