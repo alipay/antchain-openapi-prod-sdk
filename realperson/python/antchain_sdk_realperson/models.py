@@ -3140,32 +3140,36 @@ class CheckThreemetaBankcardRequest(TeaModel):
         auth_token: str = None,
         product_instance_id: str = None,
         outer_order_no: str = None,
+        meta_mode: str = None,
+        bank_card: str = None,
         cert_name: str = None,
         cert_no: str = None,
-        bank_card: str = None,
-        extern_param: str = None,
         cert_type: str = None,
+        mobile: str = None,
+        extern_param: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
         # 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
         self.outer_order_no = outer_order_no
+        # 要素入参模式： 1：银行卡号+姓名+证件号 2：银行卡号+姓名+手机号 3：银行卡号+证件号+手机号，默认为1
+        self.meta_mode = meta_mode
+        # 银行卡号
+        self.bank_card = bank_card
         # 姓名
         self.cert_name = cert_name
         # 身份证号
         self.cert_no = cert_no
-        # 银行卡号
-        self.bank_card = bank_card
-        # 扩展信息，Map的json格式
-        self.extern_param = extern_param
         # 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
         self.cert_type = cert_type
+        # 手机号码
+        self.mobile = mobile
+        # 扩展信息，Map的json格式
+        self.extern_param = extern_param
 
     def validate(self):
         self.validate_required(self.outer_order_no, 'outer_order_no')
-        self.validate_required(self.cert_name, 'cert_name')
-        self.validate_required(self.cert_no, 'cert_no')
         self.validate_required(self.bank_card, 'bank_card')
 
     def to_map(self):
@@ -3180,16 +3184,20 @@ class CheckThreemetaBankcardRequest(TeaModel):
             result['product_instance_id'] = self.product_instance_id
         if self.outer_order_no is not None:
             result['outer_order_no'] = self.outer_order_no
+        if self.meta_mode is not None:
+            result['meta_mode'] = self.meta_mode
+        if self.bank_card is not None:
+            result['bank_card'] = self.bank_card
         if self.cert_name is not None:
             result['cert_name'] = self.cert_name
         if self.cert_no is not None:
             result['cert_no'] = self.cert_no
-        if self.bank_card is not None:
-            result['bank_card'] = self.bank_card
-        if self.extern_param is not None:
-            result['extern_param'] = self.extern_param
         if self.cert_type is not None:
             result['cert_type'] = self.cert_type
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        if self.extern_param is not None:
+            result['extern_param'] = self.extern_param
         return result
 
     def from_map(self, m: dict = None):
@@ -3200,16 +3208,20 @@ class CheckThreemetaBankcardRequest(TeaModel):
             self.product_instance_id = m.get('product_instance_id')
         if m.get('outer_order_no') is not None:
             self.outer_order_no = m.get('outer_order_no')
+        if m.get('meta_mode') is not None:
+            self.meta_mode = m.get('meta_mode')
+        if m.get('bank_card') is not None:
+            self.bank_card = m.get('bank_card')
         if m.get('cert_name') is not None:
             self.cert_name = m.get('cert_name')
         if m.get('cert_no') is not None:
             self.cert_no = m.get('cert_no')
-        if m.get('bank_card') is not None:
-            self.bank_card = m.get('bank_card')
-        if m.get('extern_param') is not None:
-            self.extern_param = m.get('extern_param')
         if m.get('cert_type') is not None:
             self.cert_type = m.get('cert_type')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        if m.get('extern_param') is not None:
+            self.extern_param = m.get('extern_param')
         return self
 
 
