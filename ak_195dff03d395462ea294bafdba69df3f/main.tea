@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.3.11',
+    sdk_version = '1.3.12',
     _prod_code = 'ak_195dff03d395462ea294bafdba69df3f',
     _prod_channel = 'saas'
   };
@@ -316,6 +316,24 @@ model LegalInfo {
   legalCertFrontFile: FileInfo(name='legal_cert_front_file', example=''),
   // 法人证件反面
   legalCertBackFile: FileInfo(name='legal_cert_back_file', example=''),
+}
+
+// 单期取消模型
+model SingleCancelModel {
+  // 第几期
+  periodNum: long(minimum=1, name='period_num', example='1'),
+  // 其他方式还款的时间
+  gmtPay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay', example='2018-10-10T10:10:00Z'),
+  // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
+  payOffAmount: long(minimum=0, name='pay_off_amount', example='100'),
+  // 变更其他方式还款WECHAT:微信; BANK:银行
+  // ALIPAY:支付宝
+  // CASH:现金
+  payOffType?: string(maxLength=64, name='pay_off_type', example='WECHAT'),
+  // 通过其他方式还款单号;例如银行流水号或微信流水号
+  payOffNo?: string(maxLength=64, name='pay_off_no', example='1234'),
+  // 其他方式还款银行名称，还款方式为银行时必填
+  payOffBankName?: string(maxLength=64, name='pay_off_bank_name', example='中国银行'),
 }
 
 //  公司信息修改
@@ -558,11 +576,8 @@ model AllAntchainAtoSignTemplateRequest = {
   contractType?: string(name='contract_type'),
   // 商户统一社会信用代码，SIT环境，非融必填
   merchantId?: string(maxLength=42, name='merchant_id'),
-  // ● FINANCE 融资
-  // ● NON_FINANCE 非融资
-  fundType?: string(name='fund_type'),
-  // 查询融资类型时，需要传入资方统一社会信用代码
-  fundId?: string(name='fund_id'),
+  // 模板id
+  templateId?: string(name='template_id'),
 }
 
 model AllAntchainAtoSignTemplateResponse = {
@@ -572,19 +587,7 @@ model AllAntchainAtoSignTemplateResponse = {
   resultCode?: string(name='result_code'),
   // 异常信息的文本描述
   resultMsg?: string(name='result_msg'),
-  // List<Object>格式，详细参考：
-  // [
-  //         {
-  //             "templateCode": "TEST_001",
-  //             "tenantId": "BIPCCOQY",
-  //             "agreementType": "SERVICE_LEASE",
-  //             "fileName": "测试模板之协议签署证明",
-  //             "templateId": "f28038577d664015bfc1034c4a125121",
-  //             "fieldArgs": "{\"sceneName\":\"测试协议合同签署\",\"title\":\"这是一份证明协议\"}",
-  //             "userPos": "[{\"required\":true,\"posPage\":\"1\",\"posX\":\"162.44\",\"posY\":\"425\"}]",
-  //             "orgPos": "[{\"required\":true,\"posPage\":\"1\",\"posX\":\"449.99\",\"posY\":\"420.03\"}]"
-  //         }
-  //     ]
+  // List<JSONObject>格式内容
   templateList?: string(name='template_list'),
 }
 
@@ -669,6 +672,8 @@ model SubmitAntchainAtoSignFlowRequest = {
   userOrgIdType?: string(name='user_org_id_type'),
   // (企业作为消费者时)公司证件号，无需加密
   userOrgIdNumber?: string(name='user_org_id_number'),
+  // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+  needFace?: boolean(name='need_face'),
 }
 
 model SubmitAntchainAtoSignFlowResponse = {
@@ -998,12 +1003,12 @@ model RepayAntchainAtoWithholdPlanRequest = {
   productInstanceId?: string(name='product_instance_id'),
   // 订单id 长度不可超过50
   orderId: string(maxLength=50, name='order_id'),
-  // 第几期
-  periodNum: long(minimum=1, name='period_num'),
-  // 其他方式还款的时间
-  gmtPay: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay'),
+  // 第几期，单期取消必填
+  periodNum?: long(minimum=1, name='period_num'),
+  // 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
+  gmtPay?: string(pattern='\\\\d{4}[-]\\\\d{1,2}[-]\\\\d{1,2}[T]\\\\d{2}:\\\\d{2}:\\\\d{2}([Z]|([\\\\.]\\\\d{1,9})?[\\\\+]\\\\d{2}[\\\\:]?\\\\d{2})', name='gmt_pay'),
   // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
-  payOffAmount: long(minimum=0, name='pay_off_amount'),
+  payOffAmount?: long(minimum=0, name='pay_off_amount'),
   // 变更其他方式还款
   // WECHAT:微信;
   // BANK:银行
@@ -1013,6 +1018,12 @@ model RepayAntchainAtoWithholdPlanRequest = {
   payOffNo?: string(maxLength=64, name='pay_off_no'),
   // 其他方式还款银行名称，还款方式为银行时必填
   payOffBankName?: string(maxLength=64, name='pay_off_bank_name'),
+  // 操作，默认为单期取消；
+  // 多期取消：MULTI_CANCEL
+  // 单期取消：SINGLE_CANCEL
+  operation?: string(maxLength=64, minLength=0, name='operation'),
+  // 取消列表，多期取消必填
+  cancelList?: [ SingleCancelModel ](name='cancel_list'),
 }
 
 model RepayAntchainAtoWithholdPlanResponse = {
@@ -1026,9 +1037,9 @@ model RepayAntchainAtoWithholdPlanResponse = {
 
 /**
  * Description: 重要说明：
-    1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+    1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
- * Summary: 单期代扣取消
+ * Summary: 单期多期代扣取消
  */
 async function repayAntchainAtoWithholdPlan(request: RepayAntchainAtoWithholdPlanRequest): RepayAntchainAtoWithholdPlanResponse {
   var runtime = new Util.RuntimeOptions{};
@@ -1038,9 +1049,9 @@ async function repayAntchainAtoWithholdPlan(request: RepayAntchainAtoWithholdPla
 
 /**
  * Description: 重要说明：
-    1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+    1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
     2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
- * Summary: 单期代扣取消
+ * Summary: 单期多期代扣取消
  */
 async function repayAntchainAtoWithholdPlanEx(request: RepayAntchainAtoWithholdPlanRequest, headers: map[string]string, runtime: Util.RuntimeOptions): RepayAntchainAtoWithholdPlanResponse {
   Util.validateModel(request);
@@ -1118,6 +1129,8 @@ model SubmitAntchainAtoFrontSignRequest = {
   userOrgIdType?: string(name='user_org_id_type'),
   // (企业作为消费者时)公司名称
   userOrgName?: string(name='user_org_name'),
+  // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+  needFace?: boolean(name='need_face'),
 }
 
 model SubmitAntchainAtoFrontSignResponse = {
@@ -3365,6 +3378,135 @@ async function updateAntchainAtoTradeOrder(request: UpdateAntchainAtoTradeOrderR
 async function updateAntchainAtoTradeOrderEx(request: UpdateAntchainAtoTradeOrderRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateAntchainAtoTradeOrderResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'antchain.ato.trade.order.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model AddAntchainAtoTradeFinanceprecheckRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // order_id
+  orderId: string(minLength=1, name='order_id'),
+  // merchant_id
+  merchantId: string(minLength=1, name='merchant_id'),
+  // ["1","2"]
+  fundIdList: [ string ](name='fund_id_list'),
+}
+
+model AddAntchainAtoTradeFinanceprecheckResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // merchant_id
+  merchantId?: string(name='merchant_id'),
+  // order_id
+  orderId?: string(name='order_id'),
+  // fund_candidates
+  // List<FundCompanyInfo> 的jsonArray.toString
+  fundCandidates?: string(name='fund_candidates'),
+}
+
+/**
+ * Description: 融资订单追加预审资金方
+ * Summary: 融资订单追加预审资金方
+ */
+async function addAntchainAtoTradeFinanceprecheck(request: AddAntchainAtoTradeFinanceprecheckRequest): AddAntchainAtoTradeFinanceprecheckResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return addAntchainAtoTradeFinanceprecheckEx(request, headers, runtime);
+}
+
+/**
+ * Description: 融资订单追加预审资金方
+ * Summary: 融资订单追加预审资金方
+ */
+async function addAntchainAtoTradeFinanceprecheckEx(request: AddAntchainAtoTradeFinanceprecheckRequest, headers: map[string]string, runtime: Util.RuntimeOptions): AddAntchainAtoTradeFinanceprecheckResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.trade.financeprecheck.add', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAntchainAtoTradeOrderfinanceinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 订单Id
+  orderId: string(minLength=1, name='order_id'),
+  // 商户社会信用代码
+  merchantId: string(minLength=1, name='merchant_id'),
+}
+
+model GetAntchainAtoTradeOrderfinanceinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 订单融资信息
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 订单融资信息查询接口
+ * Summary: 订单融资信息查询接口
+ */
+async function getAntchainAtoTradeOrderfinanceinfo(request: GetAntchainAtoTradeOrderfinanceinfoRequest): GetAntchainAtoTradeOrderfinanceinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAntchainAtoTradeOrderfinanceinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 订单融资信息查询接口
+ * Summary: 订单融资信息查询接口
+ */
+async function getAntchainAtoTradeOrderfinanceinfoEx(request: GetAntchainAtoTradeOrderfinanceinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainAtoTradeOrderfinanceinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model GetAntchainAtoFundOrderfinanceinfoRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // order_id
+  orderId: string(minLength=1, name='order_id'),
+  // merchant_id
+  merchantId: string(minLength=1, name='merchant_id'),
+  // fund_id
+  fundId: string(minLength=1, name='fund_id'),
+}
+
+model GetAntchainAtoFundOrderfinanceinfoResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // {}
+  responseData?: string(name='response_data'),
+}
+
+/**
+ * Description: 资方查询订单融资信息
+ * Summary: 资方查询订单融资信息
+ */
+async function getAntchainAtoFundOrderfinanceinfo(request: GetAntchainAtoFundOrderfinanceinfoRequest): GetAntchainAtoFundOrderfinanceinfoResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return getAntchainAtoFundOrderfinanceinfoEx(request, headers, runtime);
+}
+
+/**
+ * Description: 资方查询订单融资信息
+ * Summary: 资方查询订单融资信息
+ */
+async function getAntchainAtoFundOrderfinanceinfoEx(request: GetAntchainAtoFundOrderfinanceinfoRequest, headers: map[string]string, runtime: Util.RuntimeOptions): GetAntchainAtoFundOrderfinanceinfoResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model CreateAntcloudGatewayxFileUploadRequest = {
