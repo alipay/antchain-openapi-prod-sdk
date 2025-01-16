@@ -16,28 +16,34 @@ public class CheckThreemetaBankcardRequest extends TeaModel {
     @Validation(required = true)
     public String outerOrderNo;
 
-    // 姓名
-    @NameInMap("cert_name")
-    @Validation(required = true)
-    public String certName;
-
-    // 身份证号
-    @NameInMap("cert_no")
-    @Validation(required = true)
-    public String certNo;
+    // 要素入参模式： 1：银行卡号+姓名+证件号 2：银行卡号+姓名+手机号 3：银行卡号+证件号+手机号，默认为1
+    @NameInMap("meta_mode")
+    public String metaMode;
 
     // 银行卡号
     @NameInMap("bank_card")
     @Validation(required = true)
     public String bankCard;
 
-    // 扩展信息，Map的json格式
-    @NameInMap("extern_param")
-    public String externParam;
+    // 姓名
+    @NameInMap("cert_name")
+    public String certName;
+
+    // 身份证号
+    @NameInMap("cert_no")
+    public String certNo;
 
     // 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
     @NameInMap("cert_type")
     public String certType;
+
+    // 手机号码
+    @NameInMap("mobile")
+    public String mobile;
+
+    // 扩展信息，Map的json格式
+    @NameInMap("extern_param")
+    public String externParam;
 
     public static CheckThreemetaBankcardRequest build(java.util.Map<String, ?> map) throws Exception {
         CheckThreemetaBankcardRequest self = new CheckThreemetaBankcardRequest();
@@ -68,6 +74,22 @@ public class CheckThreemetaBankcardRequest extends TeaModel {
         return this.outerOrderNo;
     }
 
+    public CheckThreemetaBankcardRequest setMetaMode(String metaMode) {
+        this.metaMode = metaMode;
+        return this;
+    }
+    public String getMetaMode() {
+        return this.metaMode;
+    }
+
+    public CheckThreemetaBankcardRequest setBankCard(String bankCard) {
+        this.bankCard = bankCard;
+        return this;
+    }
+    public String getBankCard() {
+        return this.bankCard;
+    }
+
     public CheckThreemetaBankcardRequest setCertName(String certName) {
         this.certName = certName;
         return this;
@@ -84,12 +106,20 @@ public class CheckThreemetaBankcardRequest extends TeaModel {
         return this.certNo;
     }
 
-    public CheckThreemetaBankcardRequest setBankCard(String bankCard) {
-        this.bankCard = bankCard;
+    public CheckThreemetaBankcardRequest setCertType(String certType) {
+        this.certType = certType;
         return this;
     }
-    public String getBankCard() {
-        return this.bankCard;
+    public String getCertType() {
+        return this.certType;
+    }
+
+    public CheckThreemetaBankcardRequest setMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+    public String getMobile() {
+        return this.mobile;
     }
 
     public CheckThreemetaBankcardRequest setExternParam(String externParam) {
@@ -98,14 +128,6 @@ public class CheckThreemetaBankcardRequest extends TeaModel {
     }
     public String getExternParam() {
         return this.externParam;
-    }
-
-    public CheckThreemetaBankcardRequest setCertType(String certType) {
-        this.certType = certType;
-        return this;
-    }
-    public String getCertType() {
-        return this.certType;
     }
 
 }
