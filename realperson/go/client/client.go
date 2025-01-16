@@ -2666,16 +2666,20 @@ type CheckThreemetaBankcardRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 外部请求ID，由调用方自行生成并自行保证唯一，以便问题定位。
 	OuterOrderNo *string `json:"outer_order_no,omitempty" xml:"outer_order_no,omitempty" require:"true"`
-	// 姓名
-	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty" require:"true"`
-	// 身份证号
-	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty" require:"true"`
+	// 要素入参模式： 1：银行卡号+姓名+证件号 2：银行卡号+姓名+手机号 3：银行卡号+证件号+手机号，默认为1
+	MetaMode *string `json:"meta_mode,omitempty" xml:"meta_mode,omitempty"`
 	// 银行卡号
 	BankCard *string `json:"bank_card,omitempty" xml:"bank_card,omitempty" require:"true"`
-	// 扩展信息，Map的json格式
-	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
+	// 姓名
+	CertName *string `json:"cert_name,omitempty" xml:"cert_name,omitempty"`
+	// 身份证号
+	CertNo *string `json:"cert_no,omitempty" xml:"cert_no,omitempty"`
 	// 证件类型： 1：居民身份证（默认值） 2：军官证 3：护照 4：回乡证 5：台胞证 6：警官证 7：士兵证 99：其他
 	CertType *string `json:"cert_type,omitempty" xml:"cert_type,omitempty"`
+	// 手机号码
+	Mobile *string `json:"mobile,omitempty" xml:"mobile,omitempty"`
+	// 扩展信息，Map的json格式
+	ExternParam *string `json:"extern_param,omitempty" xml:"extern_param,omitempty"`
 }
 
 func (s CheckThreemetaBankcardRequest) String() string {
@@ -2701,6 +2705,16 @@ func (s *CheckThreemetaBankcardRequest) SetOuterOrderNo(v string) *CheckThreemet
 	return s
 }
 
+func (s *CheckThreemetaBankcardRequest) SetMetaMode(v string) *CheckThreemetaBankcardRequest {
+	s.MetaMode = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetBankCard(v string) *CheckThreemetaBankcardRequest {
+	s.BankCard = &v
+	return s
+}
+
 func (s *CheckThreemetaBankcardRequest) SetCertName(v string) *CheckThreemetaBankcardRequest {
 	s.CertName = &v
 	return s
@@ -2711,18 +2725,18 @@ func (s *CheckThreemetaBankcardRequest) SetCertNo(v string) *CheckThreemetaBankc
 	return s
 }
 
-func (s *CheckThreemetaBankcardRequest) SetBankCard(v string) *CheckThreemetaBankcardRequest {
-	s.BankCard = &v
+func (s *CheckThreemetaBankcardRequest) SetCertType(v string) *CheckThreemetaBankcardRequest {
+	s.CertType = &v
+	return s
+}
+
+func (s *CheckThreemetaBankcardRequest) SetMobile(v string) *CheckThreemetaBankcardRequest {
+	s.Mobile = &v
 	return s
 }
 
 func (s *CheckThreemetaBankcardRequest) SetExternParam(v string) *CheckThreemetaBankcardRequest {
 	s.ExternParam = &v
-	return s
-}
-
-func (s *CheckThreemetaBankcardRequest) SetCertType(v string) *CheckThreemetaBankcardRequest {
-	s.CertType = &v
 	return s
 }
 
@@ -4933,7 +4947,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.15.32"),
+				"sdk_version":      tea.String("1.15.33"),
 				"_prod_code":       tea.String("REALPERSON"),
 				"_prod_channel":    tea.String("undefined"),
 			}
