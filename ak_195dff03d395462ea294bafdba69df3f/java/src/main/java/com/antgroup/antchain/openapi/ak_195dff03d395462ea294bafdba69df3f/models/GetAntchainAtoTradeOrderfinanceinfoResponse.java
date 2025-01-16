@@ -3,7 +3,7 @@ package com.antgroup.antchain.openapi.ak_195dff03d395462ea294bafdba69df3f.models
 
 import com.aliyun.tea.*;
 
-public class AllAntchainAtoSignTemplateResponse extends TeaModel {
+public class GetAntchainAtoTradeOrderfinanceinfoResponse extends TeaModel {
     // 请求唯一ID，用于链路跟踪和问题排查
     @NameInMap("req_msg_id")
     public String reqMsgId;
@@ -16,16 +16,16 @@ public class AllAntchainAtoSignTemplateResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // List<JSONObject>格式内容
-    @NameInMap("template_list")
-    public String templateList;
+    // 订单融资信息
+    @NameInMap("response_data")
+    public String responseData;
 
-    public static AllAntchainAtoSignTemplateResponse build(java.util.Map<String, ?> map) throws Exception {
-        AllAntchainAtoSignTemplateResponse self = new AllAntchainAtoSignTemplateResponse();
+    public static GetAntchainAtoTradeOrderfinanceinfoResponse build(java.util.Map<String, ?> map) throws Exception {
+        GetAntchainAtoTradeOrderfinanceinfoResponse self = new GetAntchainAtoTradeOrderfinanceinfoResponse();
         return TeaModel.build(map, self);
     }
 
-    public AllAntchainAtoSignTemplateResponse setReqMsgId(String reqMsgId) {
+    public GetAntchainAtoTradeOrderfinanceinfoResponse setReqMsgId(String reqMsgId) {
         this.reqMsgId = reqMsgId;
         return this;
     }
@@ -33,7 +33,7 @@ public class AllAntchainAtoSignTemplateResponse extends TeaModel {
         return this.reqMsgId;
     }
 
-    public AllAntchainAtoSignTemplateResponse setResultCode(String resultCode) {
+    public GetAntchainAtoTradeOrderfinanceinfoResponse setResultCode(String resultCode) {
         this.resultCode = resultCode;
         return this;
     }
@@ -41,7 +41,7 @@ public class AllAntchainAtoSignTemplateResponse extends TeaModel {
         return this.resultCode;
     }
 
-    public AllAntchainAtoSignTemplateResponse setResultMsg(String resultMsg) {
+    public GetAntchainAtoTradeOrderfinanceinfoResponse setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
         return this;
     }
@@ -49,12 +49,12 @@ public class AllAntchainAtoSignTemplateResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public AllAntchainAtoSignTemplateResponse setTemplateList(String templateList) {
-        this.templateList = templateList;
+    public GetAntchainAtoTradeOrderfinanceinfoResponse setResponseData(String responseData) {
+        this.responseData = responseData;
         return this;
     }
-    public String getTemplateList() {
-        return this.templateList;
+    public String getResponseData() {
+        return this.responseData;
     }
 
 }

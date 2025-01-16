@@ -16,19 +16,17 @@ public class RepayAntchainAtoWithholdPlanRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String orderId;
 
-    // 第几期
+    // 第几期，单期取消必填
     @NameInMap("period_num")
-    @Validation(required = true, minimum = 1)
     public Long periodNum;
 
-    // 其他方式还款的时间
+    // 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
     @NameInMap("gmt_pay")
-    @Validation(required = true, pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
+    @Validation(pattern = "\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})")
     public String gmtPay;
 
     // 取消订单某一期代扣计划中以其他方式还款金额，单位为分
     @NameInMap("pay_off_amount")
-    @Validation(required = true)
     public Long payOffAmount;
 
     // 变更其他方式还款
@@ -48,6 +46,17 @@ public class RepayAntchainAtoWithholdPlanRequest extends TeaModel {
     @NameInMap("pay_off_bank_name")
     @Validation(maxLength = 64)
     public String payOffBankName;
+
+    // 操作，默认为单期取消；
+    // 多期取消：MULTI_CANCEL
+    // 单期取消：SINGLE_CANCEL
+    @NameInMap("operation")
+    @Validation(maxLength = 64)
+    public String operation;
+
+    // 取消列表，多期取消必填
+    @NameInMap("cancel_list")
+    public java.util.List<SingleCancelModel> cancelList;
 
     public static RepayAntchainAtoWithholdPlanRequest build(java.util.Map<String, ?> map) throws Exception {
         RepayAntchainAtoWithholdPlanRequest self = new RepayAntchainAtoWithholdPlanRequest();
@@ -124,6 +133,22 @@ public class RepayAntchainAtoWithholdPlanRequest extends TeaModel {
     }
     public String getPayOffBankName() {
         return this.payOffBankName;
+    }
+
+    public RepayAntchainAtoWithholdPlanRequest setOperation(String operation) {
+        this.operation = operation;
+        return this;
+    }
+    public String getOperation() {
+        return this.operation;
+    }
+
+    public RepayAntchainAtoWithholdPlanRequest setCancelList(java.util.List<SingleCancelModel> cancelList) {
+        this.cancelList = cancelList;
+        return this;
+    }
+    public java.util.List<SingleCancelModel> getCancelList() {
+        return this.cancelList;
     }
 
 }

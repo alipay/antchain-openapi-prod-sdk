@@ -137,6 +137,10 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
     @NameInMap("user_org_id_number")
     public String userOrgIdNumber;
 
+    // 合并签署是否开启人脸识别（默认true-开启）,非合并签署无需设值
+    @NameInMap("need_face")
+    public Boolean needFace;
+
     public static SubmitAntchainAtoSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         SubmitAntchainAtoSignFlowRequest self = new SubmitAntchainAtoSignFlowRequest();
         return TeaModel.build(map, self);
@@ -372,6 +376,14 @@ public class SubmitAntchainAtoSignFlowRequest extends TeaModel {
     }
     public String getUserOrgIdNumber() {
         return this.userOrgIdNumber;
+    }
+
+    public SubmitAntchainAtoSignFlowRequest setNeedFace(Boolean needFace) {
+        this.needFace = needFace;
+        return this;
+    }
+    public Boolean getNeedFace() {
+        return this.needFace;
     }
 
 }
