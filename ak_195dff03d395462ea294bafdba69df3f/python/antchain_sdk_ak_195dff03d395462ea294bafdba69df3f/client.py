@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.11',
+                    'sdk_version': '1.3.12',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.3.11',
+                    'sdk_version': '1.3.12',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -953,9 +953,9 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
         Description: 重要说明：
-        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期代扣取消
+        Summary: 单期多期代扣取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -967,9 +967,9 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
         Description: 重要说明：
-        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期代扣取消
+        Summary: 单期多期代扣取消
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -983,9 +983,9 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
         Description: 重要说明：
-        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期代扣取消
+        Summary: 单期多期代扣取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1001,9 +1001,9 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.RepayAntchainAtoWithholdPlanResponse:
         """
         Description: 重要说明：
-        1. 这个接口是取消订单某一期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期代扣取消
+        Summary: 单期多期代扣取消
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3805,6 +3805,174 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UpdateAntchainAtoTradeOrderResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.order.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def add_antchain_ato_trade_financeprecheck(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckResponse:
+        """
+        Description: 融资订单追加预审资金方
+        Summary: 融资订单追加预审资金方
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_antchain_ato_trade_financeprecheck_ex(request, headers, runtime)
+
+    async def add_antchain_ato_trade_financeprecheck_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckResponse:
+        """
+        Description: 融资订单追加预审资金方
+        Summary: 融资订单追加预审资金方
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.add_antchain_ato_trade_financeprecheck_ex_async(request, headers, runtime)
+
+    def add_antchain_ato_trade_financeprecheck_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckResponse:
+        """
+        Description: 融资订单追加预审资金方
+        Summary: 融资订单追加预审资金方
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.financeprecheck.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def add_antchain_ato_trade_financeprecheck_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckResponse:
+        """
+        Description: 融资订单追加预审资金方
+        Summary: 融资订单追加预审资金方
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.AddAntchainAtoTradeFinanceprecheckResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.financeprecheck.add', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_antchain_ato_trade_orderfinanceinfo(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoResponse:
+        """
+        Description: 订单融资信息查询接口
+        Summary: 订单融资信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_antchain_ato_trade_orderfinanceinfo_ex(request, headers, runtime)
+
+    async def get_antchain_ato_trade_orderfinanceinfo_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoResponse:
+        """
+        Description: 订单融资信息查询接口
+        Summary: 订单融资信息查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_antchain_ato_trade_orderfinanceinfo_ex_async(request, headers, runtime)
+
+    def get_antchain_ato_trade_orderfinanceinfo_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoResponse:
+        """
+        Description: 订单融资信息查询接口
+        Summary: 订单融资信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_antchain_ato_trade_orderfinanceinfo_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoResponse:
+        """
+        Description: 订单融资信息查询接口
+        Summary: 订单融资信息查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoTradeOrderfinanceinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.trade.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def get_antchain_ato_fund_orderfinanceinfo(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoResponse:
+        """
+        Description: 资方查询订单融资信息
+        Summary: 资方查询订单融资信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_antchain_ato_fund_orderfinanceinfo_ex(request, headers, runtime)
+
+    async def get_antchain_ato_fund_orderfinanceinfo_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoResponse:
+        """
+        Description: 资方查询订单融资信息
+        Summary: 资方查询订单融资信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.get_antchain_ato_fund_orderfinanceinfo_ex_async(request, headers, runtime)
+
+    def get_antchain_ato_fund_orderfinanceinfo_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoResponse:
+        """
+        Description: 资方查询订单融资信息
+        Summary: 资方查询订单融资信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def get_antchain_ato_fund_orderfinanceinfo_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoResponse:
+        """
+        Description: 资方查询订单融资信息
+        Summary: 资方查询订单融资信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.GetAntchainAtoFundOrderfinanceinfoResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.orderfinanceinfo.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
