@@ -39,20 +39,10 @@ namespace AntChain.SDK.AITECHGUARD.Models
         [Validation(Required=false)]
         public string Question { get; set; }
 
-        // 当前提问内容格式, 默认值:PLAINTEXT
-        [NameInMap("question_format")]
-        [Validation(Required=false)]
-        public string QuestionFormat { get; set; }
-
-        // 当前回答内容，最大长度800个字符。
-        [NameInMap("answer")]
+        // 当前回答内容，最大长度10000个字符。
+        [NameInMap("content")]
         [Validation(Required=true)]
-        public string Answer { get; set; }
-
-        // 当前回答内容格式, 默认取PLAINTEXT
-        [NameInMap("answer_format")]
-        [Validation(Required=false)]
-        public string AnswerFormat { get; set; }
+        public string Content { get; set; }
 
         // 用户ID，用于主体风险判断
         [NameInMap("user_id")]
