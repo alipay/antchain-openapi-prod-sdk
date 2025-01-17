@@ -44,23 +44,11 @@ class CheckAicoguardrailsAnswerRequest extends Model
      */
     public $question;
 
-    // 当前提问内容格式, 默认值:PLAINTEXT
+    // 当前回答内容，最大长度10000个字符。
     /**
      * @var string
      */
-    public $questionFormat;
-
-    // 当前回答内容，最大长度800个字符。
-    /**
-     * @var string
-     */
-    public $answer;
-
-    // 当前回答内容格式, 默认取PLAINTEXT
-    /**
-     * @var string
-     */
-    public $answerFormat;
+    public $content;
 
     // 用户ID，用于主体风险判断
     /**
@@ -68,16 +56,14 @@ class CheckAicoguardrailsAnswerRequest extends Model
      */
     public $userId;
     protected $_name = [
-        'authToken'      => 'auth_token',
-        'sessionId'      => 'session_id',
-        'requestId'      => 'request_id',
-        'appCode'        => 'app_code',
-        'sceneCode'      => 'scene_code',
-        'question'       => 'question',
-        'questionFormat' => 'question_format',
-        'answer'         => 'answer',
-        'answerFormat'   => 'answer_format',
-        'userId'         => 'user_id',
+        'authToken' => 'auth_token',
+        'sessionId' => 'session_id',
+        'requestId' => 'request_id',
+        'appCode'   => 'app_code',
+        'sceneCode' => 'scene_code',
+        'question'  => 'question',
+        'content'   => 'content',
+        'userId'    => 'user_id',
     ];
 
     public function validate()
@@ -86,7 +72,7 @@ class CheckAicoguardrailsAnswerRequest extends Model
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('appCode', $this->appCode, true);
         Model::validateRequired('sceneCode', $this->sceneCode, true);
-        Model::validateRequired('answer', $this->answer, true);
+        Model::validateRequired('content', $this->content, true);
     }
 
     public function toMap()
@@ -110,14 +96,8 @@ class CheckAicoguardrailsAnswerRequest extends Model
         if (null !== $this->question) {
             $res['question'] = $this->question;
         }
-        if (null !== $this->questionFormat) {
-            $res['question_format'] = $this->questionFormat;
-        }
-        if (null !== $this->answer) {
-            $res['answer'] = $this->answer;
-        }
-        if (null !== $this->answerFormat) {
-            $res['answer_format'] = $this->answerFormat;
+        if (null !== $this->content) {
+            $res['content'] = $this->content;
         }
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
@@ -152,14 +132,8 @@ class CheckAicoguardrailsAnswerRequest extends Model
         if (isset($map['question'])) {
             $model->question = $map['question'];
         }
-        if (isset($map['question_format'])) {
-            $model->questionFormat = $map['question_format'];
-        }
-        if (isset($map['answer'])) {
-            $model->answer = $map['answer'];
-        }
-        if (isset($map['answer_format'])) {
-            $model->answerFormat = $map['answer_format'];
+        if (isset($map['content'])) {
+            $model->content = $map['content'];
         }
         if (isset($map['user_id'])) {
             $model->userId = $map['user_id'];

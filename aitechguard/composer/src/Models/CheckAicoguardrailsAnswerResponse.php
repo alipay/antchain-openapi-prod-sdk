@@ -44,35 +44,47 @@ class CheckAicoguardrailsAnswerResponse extends Model
      */
     public $safe;
 
-    // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
+    // 风险一级分类标签
     /**
      * @var string
      */
-    public $actionCode;
+    public $riskCategory;
 
-    // 会话动作
-    // END_SESSION：终止会话
-    // RECALL_QUERY：撤回提问
+    // 风险二级分类标签
     /**
      * @var string
      */
-    public $sessionAction;
+    public $riskLabel;
 
-    // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
+    // 风险等级分数，百分之，分数越高风险等级越高
     /**
-     * @var string
+     * @var int
      */
-    public $actionMsg;
+    public $riskScore;
+
+    // 风险关键词列表
+    /**
+     * @var string[]
+     */
+    public $riskWords;
+
+    // 风险关键词位置，逗号分割左右下标，左闭右开区间
+    /**
+     * @var string[]
+     */
+    public $riskWordsIndex;
     protected $_name = [
-        'reqMsgId'      => 'req_msg_id',
-        'resultCode'    => 'result_code',
-        'resultMsg'     => 'result_msg',
-        'sessionId'     => 'session_id',
-        'requestId'     => 'request_id',
-        'safe'          => 'safe',
-        'actionCode'    => 'action_code',
-        'sessionAction' => 'session_action',
-        'actionMsg'     => 'action_msg',
+        'reqMsgId'       => 'req_msg_id',
+        'resultCode'     => 'result_code',
+        'resultMsg'      => 'result_msg',
+        'sessionId'      => 'session_id',
+        'requestId'      => 'request_id',
+        'safe'           => 'safe',
+        'riskCategory'   => 'risk_category',
+        'riskLabel'      => 'risk_label',
+        'riskScore'      => 'risk_score',
+        'riskWords'      => 'risk_words',
+        'riskWordsIndex' => 'risk_words_index',
     ];
 
     public function validate()
@@ -100,14 +112,20 @@ class CheckAicoguardrailsAnswerResponse extends Model
         if (null !== $this->safe) {
             $res['safe'] = $this->safe;
         }
-        if (null !== $this->actionCode) {
-            $res['action_code'] = $this->actionCode;
+        if (null !== $this->riskCategory) {
+            $res['risk_category'] = $this->riskCategory;
         }
-        if (null !== $this->sessionAction) {
-            $res['session_action'] = $this->sessionAction;
+        if (null !== $this->riskLabel) {
+            $res['risk_label'] = $this->riskLabel;
         }
-        if (null !== $this->actionMsg) {
-            $res['action_msg'] = $this->actionMsg;
+        if (null !== $this->riskScore) {
+            $res['risk_score'] = $this->riskScore;
+        }
+        if (null !== $this->riskWords) {
+            $res['risk_words'] = $this->riskWords;
+        }
+        if (null !== $this->riskWordsIndex) {
+            $res['risk_words_index'] = $this->riskWordsIndex;
         }
 
         return $res;
@@ -139,14 +157,24 @@ class CheckAicoguardrailsAnswerResponse extends Model
         if (isset($map['safe'])) {
             $model->safe = $map['safe'];
         }
-        if (isset($map['action_code'])) {
-            $model->actionCode = $map['action_code'];
+        if (isset($map['risk_category'])) {
+            $model->riskCategory = $map['risk_category'];
         }
-        if (isset($map['session_action'])) {
-            $model->sessionAction = $map['session_action'];
+        if (isset($map['risk_label'])) {
+            $model->riskLabel = $map['risk_label'];
         }
-        if (isset($map['action_msg'])) {
-            $model->actionMsg = $map['action_msg'];
+        if (isset($map['risk_score'])) {
+            $model->riskScore = $map['risk_score'];
+        }
+        if (isset($map['risk_words'])) {
+            if (!empty($map['risk_words'])) {
+                $model->riskWords = $map['risk_words'];
+            }
+        }
+        if (isset($map['risk_words_index'])) {
+            if (!empty($map['risk_words_index'])) {
+                $model->riskWordsIndex = $map['risk_words_index'];
+            }
         }
 
         return $model;
