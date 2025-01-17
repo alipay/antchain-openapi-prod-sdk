@@ -299,12 +299,8 @@ export class CheckAicoguardrailsAnswerRequest extends $tea.Model {
   sceneCode: string;
   // 当前提问内容，最大长度800个字符。
   question?: string;
-  // 当前提问内容格式, 默认值:PLAINTEXT
-  questionFormat?: string;
-  // 当前回答内容，最大长度800个字符。
-  answer: string;
-  // 当前回答内容格式, 默认取PLAINTEXT
-  answerFormat?: string;
+  // 当前回答内容，最大长度10000个字符。
+  content: string;
   // 用户ID，用于主体风险判断
   userId?: string;
   static names(): { [key: string]: string } {
@@ -315,9 +311,7 @@ export class CheckAicoguardrailsAnswerRequest extends $tea.Model {
       appCode: 'app_code',
       sceneCode: 'scene_code',
       question: 'question',
-      questionFormat: 'question_format',
-      answer: 'answer',
-      answerFormat: 'answer_format',
+      content: 'content',
       userId: 'user_id',
     };
   }
@@ -330,9 +324,7 @@ export class CheckAicoguardrailsAnswerRequest extends $tea.Model {
       appCode: 'string',
       sceneCode: 'string',
       question: 'string',
-      questionFormat: 'string',
-      answer: 'string',
-      answerFormat: 'string',
+      content: 'string',
       userId: 'string',
     };
   }
@@ -355,14 +347,16 @@ export class CheckAicoguardrailsAnswerResponse extends $tea.Model {
   requestId?: string;
   // 是否安全无风险
   safe?: boolean;
-  // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
-  actionCode?: string;
-  // 会话动作
-  // END_SESSION：终止会话
-  // RECALL_QUERY：撤回提问
-  sessionAction?: string;
-  // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
-  actionMsg?: string;
+  // 风险一级分类标签
+  riskCategory?: string;
+  // 风险二级分类标签
+  riskLabel?: string;
+  // 风险等级分数，百分之，分数越高风险等级越高
+  riskScore?: number;
+  // 风险关键词列表
+  riskWords?: string[];
+  // 风险关键词位置，逗号分割左右下标，左闭右开区间
+  riskWordsIndex?: string[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -371,9 +365,11 @@ export class CheckAicoguardrailsAnswerResponse extends $tea.Model {
       sessionId: 'session_id',
       requestId: 'request_id',
       safe: 'safe',
-      actionCode: 'action_code',
-      sessionAction: 'session_action',
-      actionMsg: 'action_msg',
+      riskCategory: 'risk_category',
+      riskLabel: 'risk_label',
+      riskScore: 'risk_score',
+      riskWords: 'risk_words',
+      riskWordsIndex: 'risk_words_index',
     };
   }
 
@@ -385,9 +381,11 @@ export class CheckAicoguardrailsAnswerResponse extends $tea.Model {
       sessionId: 'string',
       requestId: 'string',
       safe: 'boolean',
-      actionCode: 'string',
-      sessionAction: 'string',
-      actionMsg: 'string',
+      riskCategory: 'string',
+      riskLabel: 'string',
+      riskScore: 'number',
+      riskWords: { 'type': 'array', 'itemType': 'string' },
+      riskWordsIndex: { 'type': 'array', 'itemType': 'string' },
     };
   }
 
@@ -509,7 +507,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.23",
+          sdk_version: "1.0.24",
           _prod_code: "AITECHGUARD",
           _prod_channel: "default",
         };
