@@ -491,9 +491,7 @@ class CheckAicoguardrailsAnswerRequest(TeaModel):
         app_code: str = None,
         scene_code: str = None,
         question: str = None,
-        question_format: str = None,
-        answer: str = None,
-        answer_format: str = None,
+        content: str = None,
         user_id: str = None,
     ):
         # OAuth模式下的授权token
@@ -508,12 +506,8 @@ class CheckAicoguardrailsAnswerRequest(TeaModel):
         self.scene_code = scene_code
         # 当前提问内容，最大长度800个字符。
         self.question = question
-        # 当前提问内容格式, 默认值:PLAINTEXT
-        self.question_format = question_format
-        # 当前回答内容，最大长度800个字符。
-        self.answer = answer
-        # 当前回答内容格式, 默认取PLAINTEXT
-        self.answer_format = answer_format
+        # 当前回答内容，最大长度10000个字符。
+        self.content = content
         # 用户ID，用于主体风险判断
         self.user_id = user_id
 
@@ -522,7 +516,7 @@ class CheckAicoguardrailsAnswerRequest(TeaModel):
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.app_code, 'app_code')
         self.validate_required(self.scene_code, 'scene_code')
-        self.validate_required(self.answer, 'answer')
+        self.validate_required(self.content, 'content')
 
     def to_map(self):
         _map = super().to_map()
@@ -542,12 +536,8 @@ class CheckAicoguardrailsAnswerRequest(TeaModel):
             result['scene_code'] = self.scene_code
         if self.question is not None:
             result['question'] = self.question
-        if self.question_format is not None:
-            result['question_format'] = self.question_format
-        if self.answer is not None:
-            result['answer'] = self.answer
-        if self.answer_format is not None:
-            result['answer_format'] = self.answer_format
+        if self.content is not None:
+            result['content'] = self.content
         if self.user_id is not None:
             result['user_id'] = self.user_id
         return result
@@ -566,12 +556,8 @@ class CheckAicoguardrailsAnswerRequest(TeaModel):
             self.scene_code = m.get('scene_code')
         if m.get('question') is not None:
             self.question = m.get('question')
-        if m.get('question_format') is not None:
-            self.question_format = m.get('question_format')
-        if m.get('answer') is not None:
-            self.answer = m.get('answer')
-        if m.get('answer_format') is not None:
-            self.answer_format = m.get('answer_format')
+        if m.get('content') is not None:
+            self.content = m.get('content')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         return self
@@ -586,9 +572,11 @@ class CheckAicoguardrailsAnswerResponse(TeaModel):
         session_id: str = None,
         request_id: str = None,
         safe: bool = None,
-        action_code: str = None,
-        session_action: str = None,
-        action_msg: str = None,
+        risk_category: str = None,
+        risk_label: str = None,
+        risk_score: int = None,
+        risk_words: List[str] = None,
+        risk_words_index: List[str] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -602,14 +590,16 @@ class CheckAicoguardrailsAnswerResponse(TeaModel):
         self.request_id = request_id
         # 是否安全无风险
         self.safe = safe
-        # 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
-        self.action_code = action_code
-        # 会话动作
-        # END_SESSION：终止会话
-        # RECALL_QUERY：撤回提问
-        self.session_action = session_action
-        # 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
-        self.action_msg = action_msg
+        # 风险一级分类标签
+        self.risk_category = risk_category
+        # 风险二级分类标签
+        self.risk_label = risk_label
+        # 风险等级分数，百分之，分数越高风险等级越高
+        self.risk_score = risk_score
+        # 风险关键词列表
+        self.risk_words = risk_words
+        # 风险关键词位置，逗号分割左右下标，左闭右开区间
+        self.risk_words_index = risk_words_index
 
     def validate(self):
         pass
@@ -632,12 +622,16 @@ class CheckAicoguardrailsAnswerResponse(TeaModel):
             result['request_id'] = self.request_id
         if self.safe is not None:
             result['safe'] = self.safe
-        if self.action_code is not None:
-            result['action_code'] = self.action_code
-        if self.session_action is not None:
-            result['session_action'] = self.session_action
-        if self.action_msg is not None:
-            result['action_msg'] = self.action_msg
+        if self.risk_category is not None:
+            result['risk_category'] = self.risk_category
+        if self.risk_label is not None:
+            result['risk_label'] = self.risk_label
+        if self.risk_score is not None:
+            result['risk_score'] = self.risk_score
+        if self.risk_words is not None:
+            result['risk_words'] = self.risk_words
+        if self.risk_words_index is not None:
+            result['risk_words_index'] = self.risk_words_index
         return result
 
     def from_map(self, m: dict = None):
@@ -654,12 +648,16 @@ class CheckAicoguardrailsAnswerResponse(TeaModel):
             self.request_id = m.get('request_id')
         if m.get('safe') is not None:
             self.safe = m.get('safe')
-        if m.get('action_code') is not None:
-            self.action_code = m.get('action_code')
-        if m.get('session_action') is not None:
-            self.session_action = m.get('session_action')
-        if m.get('action_msg') is not None:
-            self.action_msg = m.get('action_msg')
+        if m.get('risk_category') is not None:
+            self.risk_category = m.get('risk_category')
+        if m.get('risk_label') is not None:
+            self.risk_label = m.get('risk_label')
+        if m.get('risk_score') is not None:
+            self.risk_score = m.get('risk_score')
+        if m.get('risk_words') is not None:
+            self.risk_words = m.get('risk_words')
+        if m.get('risk_words_index') is not None:
+            self.risk_words_index = m.get('risk_words_index')
         return self
 
 
