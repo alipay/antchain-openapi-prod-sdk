@@ -435,12 +435,8 @@ type CheckAicoguardrailsAnswerRequest struct {
 	SceneCode *string `json:"scene_code,omitempty" xml:"scene_code,omitempty" require:"true"`
 	// 当前提问内容，最大长度800个字符。
 	Question *string `json:"question,omitempty" xml:"question,omitempty"`
-	// 当前提问内容格式, 默认值:PLAINTEXT
-	QuestionFormat *string `json:"question_format,omitempty" xml:"question_format,omitempty"`
-	// 当前回答内容，最大长度800个字符。
-	Answer *string `json:"answer,omitempty" xml:"answer,omitempty" require:"true"`
-	// 当前回答内容格式, 默认取PLAINTEXT
-	AnswerFormat *string `json:"answer_format,omitempty" xml:"answer_format,omitempty"`
+	// 当前回答内容，最大长度10000个字符。
+	Content *string `json:"content,omitempty" xml:"content,omitempty" require:"true"`
 	// 用户ID，用于主体风险判断
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
 }
@@ -483,18 +479,8 @@ func (s *CheckAicoguardrailsAnswerRequest) SetQuestion(v string) *CheckAicoguard
 	return s
 }
 
-func (s *CheckAicoguardrailsAnswerRequest) SetQuestionFormat(v string) *CheckAicoguardrailsAnswerRequest {
-	s.QuestionFormat = &v
-	return s
-}
-
-func (s *CheckAicoguardrailsAnswerRequest) SetAnswer(v string) *CheckAicoguardrailsAnswerRequest {
-	s.Answer = &v
-	return s
-}
-
-func (s *CheckAicoguardrailsAnswerRequest) SetAnswerFormat(v string) *CheckAicoguardrailsAnswerRequest {
-	s.AnswerFormat = &v
+func (s *CheckAicoguardrailsAnswerRequest) SetContent(v string) *CheckAicoguardrailsAnswerRequest {
+	s.Content = &v
 	return s
 }
 
@@ -516,14 +502,16 @@ type CheckAicoguardrailsAnswerResponse struct {
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
 	// 是否安全无风险
 	Safe *bool `json:"safe,omitempty" xml:"safe,omitempty"`
-	// 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
-	ActionCode *string `json:"action_code,omitempty" xml:"action_code,omitempty"`
-	// 会话动作
-	// END_SESSION：终止会话
-	// RECALL_QUERY：撤回提问
-	SessionAction *string `json:"session_action,omitempty" xml:"session_action,omitempty"`
-	// 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
-	ActionMsg *string `json:"action_msg,omitempty" xml:"action_msg,omitempty"`
+	// 风险一级分类标签
+	RiskCategory *string `json:"risk_category,omitempty" xml:"risk_category,omitempty"`
+	// 风险二级分类标签
+	RiskLabel *string `json:"risk_label,omitempty" xml:"risk_label,omitempty"`
+	// 风险等级分数，百分之，分数越高风险等级越高
+	RiskScore *int64 `json:"risk_score,omitempty" xml:"risk_score,omitempty"`
+	// 风险关键词列表
+	RiskWords []*string `json:"risk_words,omitempty" xml:"risk_words,omitempty" type:"Repeated"`
+	// 风险关键词位置，逗号分割左右下标，左闭右开区间
+	RiskWordsIndex []*string `json:"risk_words_index,omitempty" xml:"risk_words_index,omitempty" type:"Repeated"`
 }
 
 func (s CheckAicoguardrailsAnswerResponse) String() string {
@@ -564,18 +552,28 @@ func (s *CheckAicoguardrailsAnswerResponse) SetSafe(v bool) *CheckAicoguardrails
 	return s
 }
 
-func (s *CheckAicoguardrailsAnswerResponse) SetActionCode(v string) *CheckAicoguardrailsAnswerResponse {
-	s.ActionCode = &v
+func (s *CheckAicoguardrailsAnswerResponse) SetRiskCategory(v string) *CheckAicoguardrailsAnswerResponse {
+	s.RiskCategory = &v
 	return s
 }
 
-func (s *CheckAicoguardrailsAnswerResponse) SetSessionAction(v string) *CheckAicoguardrailsAnswerResponse {
-	s.SessionAction = &v
+func (s *CheckAicoguardrailsAnswerResponse) SetRiskLabel(v string) *CheckAicoguardrailsAnswerResponse {
+	s.RiskLabel = &v
 	return s
 }
 
-func (s *CheckAicoguardrailsAnswerResponse) SetActionMsg(v string) *CheckAicoguardrailsAnswerResponse {
-	s.ActionMsg = &v
+func (s *CheckAicoguardrailsAnswerResponse) SetRiskScore(v int64) *CheckAicoguardrailsAnswerResponse {
+	s.RiskScore = &v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetRiskWords(v []*string) *CheckAicoguardrailsAnswerResponse {
+	s.RiskWords = v
+	return s
+}
+
+func (s *CheckAicoguardrailsAnswerResponse) SetRiskWordsIndex(v []*string) *CheckAicoguardrailsAnswerResponse {
+	s.RiskWordsIndex = v
 	return s
 }
 
@@ -701,7 +699,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.23"),
+				"sdk_version":      tea.String("1.0.24"),
 				"_prod_code":       tea.String("AITECHGUARD"),
 				"_prod_channel":    tea.String("default"),
 			}
