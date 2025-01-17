@@ -32,18 +32,10 @@ public class CheckAicoguardrailsAnswerRequest extends TeaModel {
     @NameInMap("question")
     public String question;
 
-    // 当前提问内容格式, 默认值:PLAINTEXT
-    @NameInMap("question_format")
-    public String questionFormat;
-
-    // 当前回答内容，最大长度800个字符。
-    @NameInMap("answer")
+    // 当前回答内容，最大长度10000个字符。
+    @NameInMap("content")
     @Validation(required = true)
-    public String answer;
-
-    // 当前回答内容格式, 默认取PLAINTEXT
-    @NameInMap("answer_format")
-    public String answerFormat;
+    public String content;
 
     // 用户ID，用于主体风险判断
     @NameInMap("user_id")
@@ -102,28 +94,12 @@ public class CheckAicoguardrailsAnswerRequest extends TeaModel {
         return this.question;
     }
 
-    public CheckAicoguardrailsAnswerRequest setQuestionFormat(String questionFormat) {
-        this.questionFormat = questionFormat;
+    public CheckAicoguardrailsAnswerRequest setContent(String content) {
+        this.content = content;
         return this;
     }
-    public String getQuestionFormat() {
-        return this.questionFormat;
-    }
-
-    public CheckAicoguardrailsAnswerRequest setAnswer(String answer) {
-        this.answer = answer;
-        return this;
-    }
-    public String getAnswer() {
-        return this.answer;
-    }
-
-    public CheckAicoguardrailsAnswerRequest setAnswerFormat(String answerFormat) {
-        this.answerFormat = answerFormat;
-        return this;
-    }
-    public String getAnswerFormat() {
-        return this.answerFormat;
+    public String getContent() {
+        return this.content;
     }
 
     public CheckAicoguardrailsAnswerRequest setUserId(String userId) {

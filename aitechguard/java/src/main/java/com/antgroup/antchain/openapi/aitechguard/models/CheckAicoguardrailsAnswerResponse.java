@@ -28,19 +28,25 @@ public class CheckAicoguardrailsAnswerResponse extends TeaModel {
     @NameInMap("safe")
     public Boolean safe;
 
-    // 有风险时的安全动作, BLOCK: 拦截; SECURITY_ANSWER:安全代答;SECURITY_PROMPT:安全提示增强
-    @NameInMap("action_code")
-    public String actionCode;
+    // 风险一级分类标签
+    @NameInMap("risk_category")
+    public String riskCategory;
 
-    // 会话动作
-    // END_SESSION：终止会话
-    // RECALL_QUERY：撤回提问
-    @NameInMap("session_action")
-    public String sessionAction;
+    // 风险二级分类标签
+    @NameInMap("risk_label")
+    public String riskLabel;
 
-    // 安全动作相关文案，比如安全提示增强的文案、安全代答的回答、回答里补充的安全提示
-    @NameInMap("action_msg")
-    public String actionMsg;
+    // 风险等级分数，百分之，分数越高风险等级越高
+    @NameInMap("risk_score")
+    public Long riskScore;
+
+    // 风险关键词列表
+    @NameInMap("risk_words")
+    public java.util.List<String> riskWords;
+
+    // 风险关键词位置，逗号分割左右下标，左闭右开区间
+    @NameInMap("risk_words_index")
+    public java.util.List<String> riskWordsIndex;
 
     public static CheckAicoguardrailsAnswerResponse build(java.util.Map<String, ?> map) throws Exception {
         CheckAicoguardrailsAnswerResponse self = new CheckAicoguardrailsAnswerResponse();
@@ -95,28 +101,44 @@ public class CheckAicoguardrailsAnswerResponse extends TeaModel {
         return this.safe;
     }
 
-    public CheckAicoguardrailsAnswerResponse setActionCode(String actionCode) {
-        this.actionCode = actionCode;
+    public CheckAicoguardrailsAnswerResponse setRiskCategory(String riskCategory) {
+        this.riskCategory = riskCategory;
         return this;
     }
-    public String getActionCode() {
-        return this.actionCode;
+    public String getRiskCategory() {
+        return this.riskCategory;
     }
 
-    public CheckAicoguardrailsAnswerResponse setSessionAction(String sessionAction) {
-        this.sessionAction = sessionAction;
+    public CheckAicoguardrailsAnswerResponse setRiskLabel(String riskLabel) {
+        this.riskLabel = riskLabel;
         return this;
     }
-    public String getSessionAction() {
-        return this.sessionAction;
+    public String getRiskLabel() {
+        return this.riskLabel;
     }
 
-    public CheckAicoguardrailsAnswerResponse setActionMsg(String actionMsg) {
-        this.actionMsg = actionMsg;
+    public CheckAicoguardrailsAnswerResponse setRiskScore(Long riskScore) {
+        this.riskScore = riskScore;
         return this;
     }
-    public String getActionMsg() {
-        return this.actionMsg;
+    public Long getRiskScore() {
+        return this.riskScore;
+    }
+
+    public CheckAicoguardrailsAnswerResponse setRiskWords(java.util.List<String> riskWords) {
+        this.riskWords = riskWords;
+        return this;
+    }
+    public java.util.List<String> getRiskWords() {
+        return this.riskWords;
+    }
+
+    public CheckAicoguardrailsAnswerResponse setRiskWordsIndex(java.util.List<String> riskWordsIndex) {
+        this.riskWordsIndex = riskWordsIndex;
+        return this;
+    }
+    public java.util.List<String> getRiskWordsIndex() {
+        return this.riskWordsIndex;
     }
 
 }
