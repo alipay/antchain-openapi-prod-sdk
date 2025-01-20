@@ -23151,6 +23151,9 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         site_id: str = None,
         cargo_name: str = None,
         cargo_weight: str = None,
+        cargo_type: str = None,
+        cargo_quantity: str = None,
+        cargo_amount: str = None,
         start_place: str = None,
         destination: str = None,
         iso_country: str = None,
@@ -23171,7 +23174,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         # 其他编码建议为随机值。
         # 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
-        # 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
+        # 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
         self.external_channel_code = external_channel_code
         # 险种编码
         # 04--海外邮包险
@@ -23204,10 +23207,16 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.sell_id = sell_id
         # 站点/仓储ID，站点/仓储的脱敏唯一标识
         self.site_id = site_id
-        # 货物名称，实际的货物名称
+        # 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
         self.cargo_name = cargo_name
         # 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
         self.cargo_weight = cargo_weight
+        # 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
+        self.cargo_type = cargo_type
+        # 货物数量，支持多组传递，逗号分割，格式：1,1,1
+        self.cargo_quantity = cargo_quantity
+        # 货物重量，支持多组传递，逗号分隔，格式：3800,5400,3200
+        self.cargo_amount = cargo_amount
         # 出发地地址，货物的出发地地址
         self.start_place = start_place
         # 目的地地址，货物的目的地地址
@@ -23270,9 +23279,15 @@ class ApplyInsuranceOspireportRequest(TeaModel):
             self.validate_max_length(self.site_id, 'site_id', 100)
         self.validate_required(self.cargo_name, 'cargo_name')
         if self.cargo_name is not None:
-            self.validate_max_length(self.cargo_name, 'cargo_name', 200)
+            self.validate_max_length(self.cargo_name, 'cargo_name', 256)
         if self.cargo_weight is not None:
-            self.validate_max_length(self.cargo_weight, 'cargo_weight', 20)
+            self.validate_max_length(self.cargo_weight, 'cargo_weight', 256)
+        if self.cargo_type is not None:
+            self.validate_max_length(self.cargo_type, 'cargo_type', 256)
+        if self.cargo_quantity is not None:
+            self.validate_max_length(self.cargo_quantity, 'cargo_quantity', 256)
+        if self.cargo_amount is not None:
+            self.validate_max_length(self.cargo_amount, 'cargo_amount', 256)
         self.validate_required(self.start_place, 'start_place')
         if self.start_place is not None:
             self.validate_max_length(self.start_place, 'start_place', 500)
@@ -23346,6 +23361,12 @@ class ApplyInsuranceOspireportRequest(TeaModel):
             result['cargo_name'] = self.cargo_name
         if self.cargo_weight is not None:
             result['cargo_weight'] = self.cargo_weight
+        if self.cargo_type is not None:
+            result['cargo_type'] = self.cargo_type
+        if self.cargo_quantity is not None:
+            result['cargo_quantity'] = self.cargo_quantity
+        if self.cargo_amount is not None:
+            result['cargo_amount'] = self.cargo_amount
         if self.start_place is not None:
             result['start_place'] = self.start_place
         if self.destination is not None:
@@ -23412,6 +23433,12 @@ class ApplyInsuranceOspireportRequest(TeaModel):
             self.cargo_name = m.get('cargo_name')
         if m.get('cargo_weight') is not None:
             self.cargo_weight = m.get('cargo_weight')
+        if m.get('cargo_type') is not None:
+            self.cargo_type = m.get('cargo_type')
+        if m.get('cargo_quantity') is not None:
+            self.cargo_quantity = m.get('cargo_quantity')
+        if m.get('cargo_amount') is not None:
+            self.cargo_amount = m.get('cargo_amount')
         if m.get('start_place') is not None:
             self.start_place = m.get('start_place')
         if m.get('destination') is not None:
@@ -24062,6 +24089,7 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         cargo_type: str = None,
         cargo_name: str = None,
         cargo_quantity: str = None,
+        cargo_weight: str = None,
         buy_id: str = None,
         sell_id: str = None,
         start_place: str = None,
@@ -24070,7 +24098,6 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         cargo_worth: str = None,
         consignee_name: str = None,
         quote_mark: str = None,
-        cargo_info: List[CargoInfo] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24081,7 +24108,7 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         # 其他编码建议为随机值。
         # 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；
         self.trade_no = trade_no
-        # 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
+        # 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
         self.external_channel_code = external_channel_code
         # 险种编码，06--跨境邮包险，07--平台责任险
         self.external_product_code = external_product_code
@@ -24131,6 +24158,8 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         self.cargo_name = cargo_name
         # 货物数量
         self.cargo_quantity = cargo_quantity
+        # 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
+        self.cargo_weight = cargo_weight
         # 买家ID,买家的脱敏唯一标识
         self.buy_id = buy_id
         # 卖家ID,卖家的脱敏唯一标识
@@ -24141,14 +24170,12 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         self.destination = destination
         # ISO到达国别,包裹业务实际发生的国家
         self.iso_country = iso_country
-        # 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+        # 货物申报总价值，单位（元），最多支持2位小数，超过2位拒绝
         self.cargo_worth = cargo_worth
         # 收货人名称
         self.consignee_name = consignee_name
         # 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
         self.quote_mark = quote_mark
-        # 标的列表
-        self.cargo_info = cargo_info
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -24207,11 +24234,13 @@ class ApplyInsuranceCbpiRequest(TeaModel):
             self.validate_max_length(self.courier_number, 'courier_number', 100)
         self.validate_required(self.cargo_type, 'cargo_type')
         if self.cargo_type is not None:
-            self.validate_max_length(self.cargo_type, 'cargo_type', 100)
+            self.validate_max_length(self.cargo_type, 'cargo_type', 256)
         self.validate_required(self.cargo_name, 'cargo_name')
         if self.cargo_name is not None:
-            self.validate_max_length(self.cargo_name, 'cargo_name', 200)
+            self.validate_max_length(self.cargo_name, 'cargo_name', 256)
         self.validate_required(self.cargo_quantity, 'cargo_quantity')
+        if self.cargo_weight is not None:
+            self.validate_max_length(self.cargo_weight, 'cargo_weight', 256)
         self.validate_required(self.buy_id, 'buy_id')
         if self.buy_id is not None:
             self.validate_max_length(self.buy_id, 'buy_id', 100)
@@ -24232,10 +24261,6 @@ class ApplyInsuranceCbpiRequest(TeaModel):
             self.validate_max_length(self.consignee_name, 'consignee_name', 100)
         if self.quote_mark is not None:
             self.validate_max_length(self.quote_mark, 'quote_mark', 100)
-        if self.cargo_info:
-            for k in self.cargo_info:
-                if k:
-                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -24293,6 +24318,8 @@ class ApplyInsuranceCbpiRequest(TeaModel):
             result['cargo_name'] = self.cargo_name
         if self.cargo_quantity is not None:
             result['cargo_quantity'] = self.cargo_quantity
+        if self.cargo_weight is not None:
+            result['cargo_weight'] = self.cargo_weight
         if self.buy_id is not None:
             result['buy_id'] = self.buy_id
         if self.sell_id is not None:
@@ -24309,10 +24336,6 @@ class ApplyInsuranceCbpiRequest(TeaModel):
             result['consignee_name'] = self.consignee_name
         if self.quote_mark is not None:
             result['quote_mark'] = self.quote_mark
-        result['cargo_info'] = []
-        if self.cargo_info is not None:
-            for k in self.cargo_info:
-                result['cargo_info'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -24367,6 +24390,8 @@ class ApplyInsuranceCbpiRequest(TeaModel):
             self.cargo_name = m.get('cargo_name')
         if m.get('cargo_quantity') is not None:
             self.cargo_quantity = m.get('cargo_quantity')
+        if m.get('cargo_weight') is not None:
+            self.cargo_weight = m.get('cargo_weight')
         if m.get('buy_id') is not None:
             self.buy_id = m.get('buy_id')
         if m.get('sell_id') is not None:
@@ -24383,11 +24408,6 @@ class ApplyInsuranceCbpiRequest(TeaModel):
             self.consignee_name = m.get('consignee_name')
         if m.get('quote_mark') is not None:
             self.quote_mark = m.get('quote_mark')
-        self.cargo_info = []
-        if m.get('cargo_info') is not None:
-            for k in m.get('cargo_info'):
-                temp_model = CargoInfo()
-                self.cargo_info.append(temp_model.from_map(k))
         return self
 
 
@@ -24522,6 +24542,7 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         bbr_id_no: str = None,
         insure_start: str = None,
         insure_end: str = None,
+        product_package_type: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -24602,6 +24623,8 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
         self.insure_start = insure_start
         # 保险止期，格式：yyyy-MM-dd HH:mm:ss
         self.insure_end = insure_end
+        # 套餐编码， 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467） 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
+        self.product_package_type = product_package_type
 
     def validate(self):
         self.validate_required(self.trade_no, 'trade_no')
@@ -24761,6 +24784,8 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
             result['insure_start'] = self.insure_start
         if self.insure_end is not None:
             result['insure_end'] = self.insure_end
+        if self.product_package_type is not None:
+            result['product_package_type'] = self.product_package_type
         return result
 
     def from_map(self, m: dict = None):
@@ -24848,6 +24873,8 @@ class ApplyInsuranceYzbreportRequest(TeaModel):
             self.insure_start = m.get('insure_start')
         if m.get('insure_end') is not None:
             self.insure_end = m.get('insure_end')
+        if m.get('product_package_type') is not None:
+            self.product_package_type = m.get('product_package_type')
         return self
 
 
@@ -27032,6 +27059,171 @@ class ApplyInsurancePiprereportResponse(TeaModel):
             self.trade_no = m.get('trade_no')
         if m.get('pre_report_no') is not None:
             self.pre_report_no = m.get('pre_report_no')
+        return self
+
+
+class UpdateInsuranceMaterialRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        trade_no: str = None,
+        external_channel_code: str = None,
+        external_product_code: str = None,
+        report_no: str = None,
+        policy_no: str = None,
+        document_update_mode: str = None,
+        documents: List[Document] = None,
+        payment_info: PaymentInfo = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 交易流水号，调用方生成的唯一编码，格式
+        # 为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+        self.trade_no = trade_no
+        # 保司编码，PAIC---平安、CPIC---太保
+        self.external_channel_code = external_channel_code
+        # 险种编码：05-驿站宝
+        self.external_product_code = external_product_code
+        # 保司报案所返回的案件号
+        self.report_no = report_no
+        # 案件所关联的保单号信息
+        self.policy_no = policy_no
+        # 客诉材料-更新状态集 UPDATE-更新/覆盖、INCREASE-增加
+        self.document_update_mode = document_update_mode
+        # 案件材料
+        self.documents = documents
+        # 收款人账户信息
+        self.payment_info = payment_info
+
+    def validate(self):
+        self.validate_required(self.trade_no, 'trade_no')
+        self.validate_required(self.external_channel_code, 'external_channel_code')
+        self.validate_required(self.external_product_code, 'external_product_code')
+        self.validate_required(self.report_no, 'report_no')
+        self.validate_required(self.document_update_mode, 'document_update_mode')
+        self.validate_required(self.documents, 'documents')
+        if self.documents:
+            for k in self.documents:
+                if k:
+                    k.validate()
+        if self.payment_info:
+            self.payment_info.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.external_channel_code is not None:
+            result['external_channel_code'] = self.external_channel_code
+        if self.external_product_code is not None:
+            result['external_product_code'] = self.external_product_code
+        if self.report_no is not None:
+            result['report_no'] = self.report_no
+        if self.policy_no is not None:
+            result['policy_no'] = self.policy_no
+        if self.document_update_mode is not None:
+            result['document_update_mode'] = self.document_update_mode
+        result['documents'] = []
+        if self.documents is not None:
+            for k in self.documents:
+                result['documents'].append(k.to_map() if k else None)
+        if self.payment_info is not None:
+            result['payment_info'] = self.payment_info.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('external_channel_code') is not None:
+            self.external_channel_code = m.get('external_channel_code')
+        if m.get('external_product_code') is not None:
+            self.external_product_code = m.get('external_product_code')
+        if m.get('report_no') is not None:
+            self.report_no = m.get('report_no')
+        if m.get('policy_no') is not None:
+            self.policy_no = m.get('policy_no')
+        if m.get('document_update_mode') is not None:
+            self.document_update_mode = m.get('document_update_mode')
+        self.documents = []
+        if m.get('documents') is not None:
+            for k in m.get('documents'):
+                temp_model = Document()
+                self.documents.append(temp_model.from_map(k))
+        if m.get('payment_info') is not None:
+            temp_model = PaymentInfo()
+            self.payment_info = temp_model.from_map(m['payment_info'])
+        return self
+
+
+class UpdateInsuranceMaterialResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        trade_no: str = None,
+        report_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 交易流水
+        self.trade_no = trade_no
+        # 报案号
+        # 
+        self.report_no = report_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.trade_no is not None:
+            result['trade_no'] = self.trade_no
+        if self.report_no is not None:
+            result['report_no'] = self.report_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('trade_no') is not None:
+            self.trade_no = m.get('trade_no')
+        if m.get('report_no') is not None:
+            self.report_no = m.get('report_no')
         return self
 
 
