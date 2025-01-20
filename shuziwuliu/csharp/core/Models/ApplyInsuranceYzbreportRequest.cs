@@ -202,6 +202,11 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false)]
         public string InsureEnd { get; set; }
 
+        // 套餐编码， 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467） 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
+        [NameInMap("product_package_type")]
+        [Validation(Required=false)]
+        public string ProductPackageType { get; set; }
+
     }
 
 }

@@ -137,7 +137,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.7"},
+                        {"sdk_version", "1.7.11"},
                         {"_prod_code", "SHUZIWULIU"},
                         {"_prod_channel", "undefined"},
                     };
@@ -263,7 +263,7 @@ namespace AntChain.SDK.SHUZIWULIU
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.7"},
+                        {"sdk_version", "1.7.11"},
                         {"_prod_code", "SHUZIWULIU"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4989,6 +4989,48 @@ namespace AntChain.SDK.SHUZIWULIU
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ApplyInsurancePiprereportResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.piprereport.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 保险案件材料更新
+         * Summary: 保险案件材料更新
+         */
+        public UpdateInsuranceMaterialResponse UpdateInsuranceMaterial(UpdateInsuranceMaterialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UpdateInsuranceMaterialEx(request, headers, runtime);
+        }
+
+        /**
+         * Description: 保险案件材料更新
+         * Summary: 保险案件材料更新
+         */
+        public async Task<UpdateInsuranceMaterialResponse> UpdateInsuranceMaterialAsync(UpdateInsuranceMaterialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UpdateInsuranceMaterialExAsync(request, headers, runtime);
+        }
+
+        /**
+         * Description: 保险案件材料更新
+         * Summary: 保险案件材料更新
+         */
+        public UpdateInsuranceMaterialResponse UpdateInsuranceMaterialEx(UpdateInsuranceMaterialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInsuranceMaterialResponse>(DoRequest("1.0", "digital.logistic.insurance.material.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /**
+         * Description: 保险案件材料更新
+         * Summary: 保险案件材料更新
+         */
+        public async Task<UpdateInsuranceMaterialResponse> UpdateInsuranceMaterialExAsync(UpdateInsuranceMaterialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UpdateInsuranceMaterialResponse>(await DoRequestAsync("1.0", "digital.logistic.insurance.material.update", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /**

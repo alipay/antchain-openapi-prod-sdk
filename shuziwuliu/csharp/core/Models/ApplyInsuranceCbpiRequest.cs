@@ -27,7 +27,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
 
-        // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
+        // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
         [NameInMap("external_channel_code")]
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }
@@ -130,18 +130,23 @@ namespace AntChain.SDK.SHUZIWULIU.Models
 
         // 货物类型,货物类型的大类
         [NameInMap("cargo_type")]
-        [Validation(Required=true, MaxLength=100)]
+        [Validation(Required=true, MaxLength=256)]
         public string CargoType { get; set; }
 
         // 货物名称,实际的货物名称
         [NameInMap("cargo_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=256)]
         public string CargoName { get; set; }
 
         // 货物数量
         [NameInMap("cargo_quantity")]
         [Validation(Required=true)]
         public string CargoQuantity { get; set; }
+
+        // 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
+        [NameInMap("cargo_weight")]
+        [Validation(Required=false, MaxLength=256)]
+        public string CargoWeight { get; set; }
 
         // 买家ID,买家的脱敏唯一标识
         [NameInMap("buy_id")]
@@ -168,7 +173,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=10)]
         public string IsoCountry { get; set; }
 
-        // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+        // 货物申报总价值，单位（元），最多支持2位小数，超过2位拒绝
         [NameInMap("cargo_worth")]
         [Validation(Required=true)]
         public string CargoWorth { get; set; }
@@ -182,11 +187,6 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [NameInMap("quote_mark")]
         [Validation(Required=false, MaxLength=100)]
         public string QuoteMark { get; set; }
-
-        // 标的列表
-        [NameInMap("cargo_info")]
-        [Validation(Required=false)]
-        public List<CargoInfo> CargoInfo { get; set; }
 
     }
 

@@ -27,7 +27,7 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=50)]
         public string TradeNo { get; set; }
 
-        // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
+        // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
         [NameInMap("external_channel_code")]
         [Validation(Required=true, MaxLength=10)]
         public string ExternalChannelCode { get; set; }
@@ -105,15 +105,30 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=false, MaxLength=100)]
         public string SiteId { get; set; }
 
-        // 货物名称，实际的货物名称
+        // 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
         [NameInMap("cargo_name")]
-        [Validation(Required=true, MaxLength=200)]
+        [Validation(Required=true, MaxLength=256)]
         public string CargoName { get; set; }
 
         // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
         [NameInMap("cargo_weight")]
-        [Validation(Required=false, MaxLength=20)]
+        [Validation(Required=false, MaxLength=256)]
         public string CargoWeight { get; set; }
+
+        // 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
+        [NameInMap("cargo_type")]
+        [Validation(Required=false, MaxLength=256)]
+        public string CargoType { get; set; }
+
+        // 货物数量，支持多组传递，逗号分割，格式：1,1,1
+        [NameInMap("cargo_quantity")]
+        [Validation(Required=false, MaxLength=256)]
+        public string CargoQuantity { get; set; }
+
+        // 货物重量，支持多组传递，逗号分隔，格式：3800,5400,3200
+        [NameInMap("cargo_amount")]
+        [Validation(Required=false, MaxLength=256)]
+        public string CargoAmount { get; set; }
 
         // 出发地地址，货物的出发地地址
         [NameInMap("start_place")]
