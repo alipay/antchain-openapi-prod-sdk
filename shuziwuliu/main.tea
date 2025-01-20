@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.7',
+    sdk_version = '1.7.11',
     _prod_code = 'SHUZIWULIU',
     _prod_channel = 'undefined'
   };
@@ -7558,7 +7558,7 @@ model ApplyInsuranceOspireportRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
+  // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码
   // 04--海外邮包险
@@ -7591,10 +7591,16 @@ model ApplyInsuranceOspireportRequest = {
   sellId: string(maxLength=100, name='sell_id'),
   // 站点/仓储ID，站点/仓储的脱敏唯一标识
   siteId?: string(maxLength=100, name='site_id'),
-  // 货物名称，实际的货物名称
-  cargoName: string(maxLength=200, name='cargo_name'),
+  // 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
+  cargoName: string(maxLength=256, name='cargo_name'),
   // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
-  cargoWeight?: string(maxLength=20, name='cargo_weight'),
+  cargoWeight?: string(maxLength=256, name='cargo_weight'),
+  // 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
+  cargoType?: string(maxLength=256, name='cargo_type'),
+  // 货物数量，支持多组传递，逗号分割，格式：1,1,1
+  cargoQuantity?: string(maxLength=256, name='cargo_quantity'),
+  // 货物重量，支持多组传递，逗号分隔，格式：3800,5400,3200
+  cargoAmount?: string(maxLength=256, name='cargo_amount'),
   // 出发地地址，货物的出发地地址
   startPlace: string(maxLength=500, name='start_place'),
   // 目的地地址，货物的目的地地址
@@ -7818,7 +7824,7 @@ model ApplyInsuranceCbpiRequest = {
   // 其他编码建议为随机值。
   // 当极端场景中，系统会返回处理中，错误码为2222，客户端应该保持该流水号不变，并使用原来的请求再次发送请求，系统会根据幂等逻辑返回处理结果；	
   tradeNo: string(maxLength=50, name='trade_no'),
-  // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
+  // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
   externalChannelCode: string(maxLength=10, name='external_channel_code'),
   // 险种编码，06--跨境邮包险，07--平台责任险
   externalProductCode: string(maxLength=2, name='external_product_code'),
@@ -7863,11 +7869,13 @@ model ApplyInsuranceCbpiRequest = {
   // 
   courierNumber: string(maxLength=100, name='courier_number'),
   // 货物类型,货物类型的大类
-  cargoType: string(maxLength=100, name='cargo_type'),
+  cargoType: string(maxLength=256, name='cargo_type'),
   // 货物名称,实际的货物名称
-  cargoName: string(maxLength=200, name='cargo_name'),
+  cargoName: string(maxLength=256, name='cargo_name'),
   // 货物数量
   cargoQuantity: string(name='cargo_quantity'),
+  // 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
+  cargoWeight?: string(maxLength=256, name='cargo_weight'),
   // 买家ID,买家的脱敏唯一标识
   buyId: string(maxLength=100, name='buy_id'),
   // 卖家ID,卖家的脱敏唯一标识
@@ -7878,14 +7886,12 @@ model ApplyInsuranceCbpiRequest = {
   destination: string(maxLength=500, name='destination'),
   // ISO到达国别,包裹业务实际发生的国家
   isoCountry: string(maxLength=10, name='iso_country'),
-  // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+  // 货物申报总价值，单位（元），最多支持2位小数，超过2位拒绝
   cargoWorth: string(name='cargo_worth'),
   // 收货人名称
   consigneeName?: string(maxLength=100, name='consignee_name'),
   // 平安询价code,当客户向平安进行保险投递时，请填写上平安询价code字段
   quoteMark?: string(maxLength=100, name='quote_mark'),
-  // 标的列表
-  cargoInfo?: [ CargoInfo ](name='cargo_info'),
 }
 
 model ApplyInsuranceCbpiResponse = {
@@ -8014,6 +8020,8 @@ model ApplyInsuranceYzbreportRequest = {
   insureStart?: string(name='insure_start'),
   // 保险止期，格式：yyyy-MM-dd HH:mm:ss
   insureEnd?: string(name='insure_end'),
+  // 套餐编码， 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467） 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
+  productPackageType?: string(name='product_package_type'),
 }
 
 model ApplyInsuranceYzbreportResponse = {
@@ -8700,6 +8708,62 @@ async function applyInsurancePiprereport(request: ApplyInsurancePiprereportReque
 async function applyInsurancePiprereportEx(request: ApplyInsurancePiprereportRequest, headers: map[string]string, runtime: Util.RuntimeOptions): ApplyInsurancePiprereportResponse {
   Util.validateModel(request);
   return doRequest('1.0' ,'digital.logistic.insurance.piprereport.apply', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model UpdateInsuranceMaterialRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 交易流水号，调用方生成的唯一编码，格式
+  // 为 yyyyMMdd_身份标识_其他编码，系统会根据该流水号做防重、幂等判断逻辑。
+  tradeNo: string(name='trade_no'),
+  // 保司编码，PAIC---平安、CPIC---太保
+  externalChannelCode: string(name='external_channel_code'),
+  // 险种编码：05-驿站宝
+  externalProductCode: string(name='external_product_code'),
+  // 保司报案所返回的案件号
+  reportNo: string(name='report_no'),
+  // 案件所关联的保单号信息
+  policyNo?: string(name='policy_no'),
+  // 客诉材料-更新状态集 UPDATE-更新/覆盖、INCREASE-增加
+  documentUpdateMode: string(name='document_update_mode'),
+  // 案件材料
+  documents: [ Document ](name='documents'),
+  // 收款人账户信息
+  paymentInfo?: PaymentInfo(name='payment_info'),
+}
+
+model UpdateInsuranceMaterialResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 交易流水
+  tradeNo?: string(name='trade_no'),
+  // 报案号
+  // 
+  reportNo?: string(name='report_no'),
+}
+
+/**
+ * Description: 保险案件材料更新
+ * Summary: 保险案件材料更新
+ */
+async function updateInsuranceMaterial(request: UpdateInsuranceMaterialRequest): UpdateInsuranceMaterialResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return updateInsuranceMaterialEx(request, headers, runtime);
+}
+
+/**
+ * Description: 保险案件材料更新
+ * Summary: 保险案件材料更新
+ */
+async function updateInsuranceMaterialEx(request: UpdateInsuranceMaterialRequest, headers: map[string]string, runtime: Util.RuntimeOptions): UpdateInsuranceMaterialResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'digital.logistic.insurance.material.update', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
 model PushAuthSigninfoRequest = {
