@@ -183,6 +183,10 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     @NameInMap("insure_end")
     public String insureEnd;
 
+    // 套餐编码， 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467） 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
+    @NameInMap("product_package_type")
+    public String productPackageType;
+
     public static ApplyInsuranceYzbreportRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceYzbreportRequest self = new ApplyInsuranceYzbreportRequest();
         return TeaModel.build(map, self);
@@ -490,6 +494,14 @@ public class ApplyInsuranceYzbreportRequest extends TeaModel {
     }
     public String getInsureEnd() {
         return this.insureEnd;
+    }
+
+    public ApplyInsuranceYzbreportRequest setProductPackageType(String productPackageType) {
+        this.productPackageType = productPackageType;
+        return this;
+    }
+    public String getProductPackageType() {
+        return this.productPackageType;
     }
 
 }

@@ -20,7 +20,7 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String tradeNo;
 
-    // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
+    // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
     @NameInMap("external_channel_code")
     @Validation(required = true, maxLength = 10)
     public String externalChannelCode;
@@ -97,15 +97,30 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(maxLength = 100)
     public String siteId;
 
-    // 货物名称，实际的货物名称
+    // 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
     @NameInMap("cargo_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 256)
     public String cargoName;
 
     // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
     @NameInMap("cargo_weight")
-    @Validation(maxLength = 20)
+    @Validation(maxLength = 256)
     public String cargoWeight;
+
+    // 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
+    @NameInMap("cargo_type")
+    @Validation(maxLength = 256)
+    public String cargoType;
+
+    // 货物数量，支持多组传递，逗号分割，格式：1,1,1
+    @NameInMap("cargo_quantity")
+    @Validation(maxLength = 256)
+    public String cargoQuantity;
+
+    // 货物重量，支持多组传递，逗号分隔，格式：3800,5400,3200
+    @NameInMap("cargo_amount")
+    @Validation(maxLength = 256)
+    public String cargoAmount;
 
     // 出发地地址，货物的出发地地址
     @NameInMap("start_place")
@@ -318,6 +333,30 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     }
     public String getCargoWeight() {
         return this.cargoWeight;
+    }
+
+    public ApplyInsuranceOspireportRequest setCargoType(String cargoType) {
+        this.cargoType = cargoType;
+        return this;
+    }
+    public String getCargoType() {
+        return this.cargoType;
+    }
+
+    public ApplyInsuranceOspireportRequest setCargoQuantity(String cargoQuantity) {
+        this.cargoQuantity = cargoQuantity;
+        return this;
+    }
+    public String getCargoQuantity() {
+        return this.cargoQuantity;
+    }
+
+    public ApplyInsuranceOspireportRequest setCargoAmount(String cargoAmount) {
+        this.cargoAmount = cargoAmount;
+        return this;
+    }
+    public String getCargoAmount() {
+        return this.cargoAmount;
     }
 
     public ApplyInsuranceOspireportRequest setStartPlace(String startPlace) {

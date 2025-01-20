@@ -20,7 +20,7 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     @Validation(required = true, maxLength = 50)
     public String tradeNo;
 
-    // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
+    // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
     @NameInMap("external_channel_code")
     @Validation(required = true, maxLength = 10)
     public String externalChannelCode;
@@ -123,18 +123,23 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
 
     // 货物类型,货物类型的大类
     @NameInMap("cargo_type")
-    @Validation(required = true, maxLength = 100)
+    @Validation(required = true, maxLength = 256)
     public String cargoType;
 
     // 货物名称,实际的货物名称
     @NameInMap("cargo_name")
-    @Validation(required = true, maxLength = 200)
+    @Validation(required = true, maxLength = 256)
     public String cargoName;
 
     // 货物数量
     @NameInMap("cargo_quantity")
     @Validation(required = true)
     public String cargoQuantity;
+
+    // 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
+    @NameInMap("cargo_weight")
+    @Validation(maxLength = 256)
+    public String cargoWeight;
 
     // 买家ID,买家的脱敏唯一标识
     @NameInMap("buy_id")
@@ -161,7 +166,7 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     @Validation(required = true, maxLength = 10)
     public String isoCountry;
 
-    // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+    // 货物申报总价值，单位（元），最多支持2位小数，超过2位拒绝
     @NameInMap("cargo_worth")
     @Validation(required = true)
     public String cargoWorth;
@@ -175,10 +180,6 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     @NameInMap("quote_mark")
     @Validation(maxLength = 100)
     public String quoteMark;
-
-    // 标的列表
-    @NameInMap("cargo_info")
-    public java.util.List<CargoInfo> cargoInfo;
 
     public static ApplyInsuranceCbpiRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyInsuranceCbpiRequest self = new ApplyInsuranceCbpiRequest();
@@ -385,6 +386,14 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
         return this.cargoQuantity;
     }
 
+    public ApplyInsuranceCbpiRequest setCargoWeight(String cargoWeight) {
+        this.cargoWeight = cargoWeight;
+        return this;
+    }
+    public String getCargoWeight() {
+        return this.cargoWeight;
+    }
+
     public ApplyInsuranceCbpiRequest setBuyId(String buyId) {
         this.buyId = buyId;
         return this;
@@ -447,14 +456,6 @@ public class ApplyInsuranceCbpiRequest extends TeaModel {
     }
     public String getQuoteMark() {
         return this.quoteMark;
-    }
-
-    public ApplyInsuranceCbpiRequest setCargoInfo(java.util.List<CargoInfo> cargoInfo) {
-        this.cargoInfo = cargoInfo;
-        return this;
-    }
-    public java.util.List<CargoInfo> getCargoInfo() {
-        return this.cargoInfo;
     }
 
 }
