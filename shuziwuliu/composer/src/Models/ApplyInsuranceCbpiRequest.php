@@ -29,7 +29,7 @@ class ApplyInsuranceCbpiRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳
+    // 保司编码.，PAIC---平安，PICC-人保，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
     /**
      * @var string
      */
@@ -167,6 +167,12 @@ class ApplyInsuranceCbpiRequest extends Model
      */
     public $cargoQuantity;
 
+    // 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
+    /**
+     * @var string
+     */
+    public $cargoWeight;
+
     // 买家ID,买家的脱敏唯一标识
     /**
      * @var string
@@ -197,7 +203,7 @@ class ApplyInsuranceCbpiRequest extends Model
      */
     public $isoCountry;
 
-    // 货物申报价值，单位（元），最多支持2位小数，超过2位拒绝
+    // 货物申报总价值，单位（元），最多支持2位小数，超过2位拒绝
     /**
      * @var string
      */
@@ -214,12 +220,6 @@ class ApplyInsuranceCbpiRequest extends Model
      * @var string
      */
     public $quoteMark;
-
-    // 标的列表
-    /**
-     * @var CargoInfo[]
-     */
-    public $cargoInfo;
     protected $_name = [
         'authToken'           => 'auth_token',
         'productInstanceId'   => 'product_instance_id',
@@ -246,6 +246,7 @@ class ApplyInsuranceCbpiRequest extends Model
         'cargoType'           => 'cargo_type',
         'cargoName'           => 'cargo_name',
         'cargoQuantity'       => 'cargo_quantity',
+        'cargoWeight'         => 'cargo_weight',
         'buyId'               => 'buy_id',
         'sellId'              => 'sell_id',
         'startPlace'          => 'start_place',
@@ -254,7 +255,6 @@ class ApplyInsuranceCbpiRequest extends Model
         'cargoWorth'          => 'cargo_worth',
         'consigneeName'       => 'consignee_name',
         'quoteMark'           => 'quote_mark',
-        'cargoInfo'           => 'cargo_info',
     ];
 
     public function validate()
@@ -305,8 +305,9 @@ class ApplyInsuranceCbpiRequest extends Model
         Model::validateMaxLength('relatedOrderNo', $this->relatedOrderNo, 100);
         Model::validateMaxLength('courierCompany', $this->courierCompany, 200);
         Model::validateMaxLength('courierNumber', $this->courierNumber, 100);
-        Model::validateMaxLength('cargoType', $this->cargoType, 100);
-        Model::validateMaxLength('cargoName', $this->cargoName, 200);
+        Model::validateMaxLength('cargoType', $this->cargoType, 256);
+        Model::validateMaxLength('cargoName', $this->cargoName, 256);
+        Model::validateMaxLength('cargoWeight', $this->cargoWeight, 256);
         Model::validateMaxLength('buyId', $this->buyId, 100);
         Model::validateMaxLength('sellId', $this->sellId, 100);
         Model::validateMaxLength('startPlace', $this->startPlace, 500);
@@ -394,6 +395,9 @@ class ApplyInsuranceCbpiRequest extends Model
         if (null !== $this->cargoQuantity) {
             $res['cargo_quantity'] = $this->cargoQuantity;
         }
+        if (null !== $this->cargoWeight) {
+            $res['cargo_weight'] = $this->cargoWeight;
+        }
         if (null !== $this->buyId) {
             $res['buy_id'] = $this->buyId;
         }
@@ -417,15 +421,6 @@ class ApplyInsuranceCbpiRequest extends Model
         }
         if (null !== $this->quoteMark) {
             $res['quote_mark'] = $this->quoteMark;
-        }
-        if (null !== $this->cargoInfo) {
-            $res['cargo_info'] = [];
-            if (null !== $this->cargoInfo && \is_array($this->cargoInfo)) {
-                $n = 0;
-                foreach ($this->cargoInfo as $item) {
-                    $res['cargo_info'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
         }
 
         return $res;
@@ -514,6 +509,9 @@ class ApplyInsuranceCbpiRequest extends Model
         if (isset($map['cargo_quantity'])) {
             $model->cargoQuantity = $map['cargo_quantity'];
         }
+        if (isset($map['cargo_weight'])) {
+            $model->cargoWeight = $map['cargo_weight'];
+        }
         if (isset($map['buy_id'])) {
             $model->buyId = $map['buy_id'];
         }
@@ -537,15 +535,6 @@ class ApplyInsuranceCbpiRequest extends Model
         }
         if (isset($map['quote_mark'])) {
             $model->quoteMark = $map['quote_mark'];
-        }
-        if (isset($map['cargo_info'])) {
-            if (!empty($map['cargo_info'])) {
-                $model->cargoInfo = [];
-                $n                = 0;
-                foreach ($map['cargo_info'] as $item) {
-                    $model->cargoInfo[$n++] = null !== $item ? CargoInfo::fromMap($item) : $item;
-                }
-            }
         }
 
         return $model;

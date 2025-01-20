@@ -238,6 +238,12 @@ class ApplyInsuranceYzbreportRequest extends Model
      * @var string
      */
     public $insureEnd;
+
+    // 套餐编码， 平安（PK00053022、PK00053025、PK00053026、PK00125463、PK00125467） 太保（xjbdbnd01、pssmyd02、xnfayd03、xnfayd04、xnfayd05）
+    /**
+     * @var string
+     */
+    public $productPackageType;
     protected $_name = [
         'authToken'               => 'auth_token',
         'productInstanceId'       => 'product_instance_id',
@@ -277,6 +283,7 @@ class ApplyInsuranceYzbreportRequest extends Model
         'bbrIdNo'                 => 'bbr_id_no',
         'insureStart'             => 'insure_start',
         'insureEnd'               => 'insure_end',
+        'productPackageType'      => 'product_package_type',
     ];
 
     public function validate()
@@ -444,6 +451,9 @@ class ApplyInsuranceYzbreportRequest extends Model
         if (null !== $this->insureEnd) {
             $res['insure_end'] = $this->insureEnd;
         }
+        if (null !== $this->productPackageType) {
+            $res['product_package_type'] = $this->productPackageType;
+        }
 
         return $res;
     }
@@ -575,6 +585,9 @@ class ApplyInsuranceYzbreportRequest extends Model
         }
         if (isset($map['insure_end'])) {
             $model->insureEnd = $map['insure_end'];
+        }
+        if (isset($map['product_package_type'])) {
+            $model->productPackageType = $map['product_package_type'];
         }
 
         return $model;

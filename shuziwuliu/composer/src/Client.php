@@ -301,6 +301,8 @@ use AntChain\SHUZIWULIU\Models\UpdateCargowaybillBillRequest;
 use AntChain\SHUZIWULIU\Models\UpdateCargowaybillBillResponse;
 use AntChain\SHUZIWULIU\Models\UpdateFinanceWaybillRequest;
 use AntChain\SHUZIWULIU\Models\UpdateFinanceWaybillResponse;
+use AntChain\SHUZIWULIU\Models\UpdateInsuranceMaterialRequest;
+use AntChain\SHUZIWULIU\Models\UpdateInsuranceMaterialResponse;
 use AntChain\SHUZIWULIU\Models\UpdateInsuranceOlpRequest;
 use AntChain\SHUZIWULIU\Models\UpdateInsuranceOlpResponse;
 use AntChain\SHUZIWULIU\Models\UpdateReceivablebillStatusRequest;
@@ -490,7 +492,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.7.7',
+                    'sdk_version'      => '1.7.11',
                     '_prod_code'       => 'SHUZIWULIU',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -4203,6 +4205,39 @@ class Client
         Utils::validateModel($request);
 
         return ApplyInsurancePiprereportResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.piprereport.apply', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 保险案件材料更新
+     * Summary: 保险案件材料更新.
+     *
+     * @param UpdateInsuranceMaterialRequest $request
+     *
+     * @return UpdateInsuranceMaterialResponse
+     */
+    public function updateInsuranceMaterial($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->updateInsuranceMaterialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 保险案件材料更新
+     * Summary: 保险案件材料更新.
+     *
+     * @param UpdateInsuranceMaterialRequest $request
+     * @param string[]                       $headers
+     * @param RuntimeOptions                 $runtime
+     *
+     * @return UpdateInsuranceMaterialResponse
+     */
+    public function updateInsuranceMaterialEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return UpdateInsuranceMaterialResponse::fromMap($this->doRequest('1.0', 'digital.logistic.insurance.material.update', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

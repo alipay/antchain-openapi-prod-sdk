@@ -29,7 +29,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $tradeNo;
 
-    // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳
+    // 保司编码，PAIC---平安，CICP-中华财险，CPIC--太保，PICC_SHENZHEN--人保深圳，CPIC_SUZHOU--太保苏州
     /**
      * @var string
      */
@@ -122,7 +122,7 @@ class ApplyInsuranceOspireportRequest extends Model
      */
     public $siteId;
 
-    // 货物名称，实际的货物名称
+    // 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
     /**
      * @var string
      */
@@ -133,6 +133,24 @@ class ApplyInsuranceOspireportRequest extends Model
      * @var string
      */
     public $cargoWeight;
+
+    // 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
+    /**
+     * @var string
+     */
+    public $cargoType;
+
+    // 货物数量，支持多组传递，逗号分割，格式：1,1,1
+    /**
+     * @var string
+     */
+    public $cargoQuantity;
+
+    // 货物重量，支持多组传递，逗号分隔，格式：3800,5400,3200
+    /**
+     * @var string
+     */
+    public $cargoAmount;
 
     // 出发地地址，货物的出发地地址
     /**
@@ -214,6 +232,9 @@ class ApplyInsuranceOspireportRequest extends Model
         'siteId'              => 'site_id',
         'cargoName'           => 'cargo_name',
         'cargoWeight'         => 'cargo_weight',
+        'cargoType'           => 'cargo_type',
+        'cargoQuantity'       => 'cargo_quantity',
+        'cargoAmount'         => 'cargo_amount',
         'startPlace'          => 'start_place',
         'destination'         => 'destination',
         'isoCountry'          => 'iso_country',
@@ -260,8 +281,11 @@ class ApplyInsuranceOspireportRequest extends Model
         Model::validateMaxLength('buyId', $this->buyId, 100);
         Model::validateMaxLength('sellId', $this->sellId, 100);
         Model::validateMaxLength('siteId', $this->siteId, 100);
-        Model::validateMaxLength('cargoName', $this->cargoName, 200);
-        Model::validateMaxLength('cargoWeight', $this->cargoWeight, 20);
+        Model::validateMaxLength('cargoName', $this->cargoName, 256);
+        Model::validateMaxLength('cargoWeight', $this->cargoWeight, 256);
+        Model::validateMaxLength('cargoType', $this->cargoType, 256);
+        Model::validateMaxLength('cargoQuantity', $this->cargoQuantity, 256);
+        Model::validateMaxLength('cargoAmount', $this->cargoAmount, 256);
         Model::validateMaxLength('startPlace', $this->startPlace, 500);
         Model::validateMaxLength('destination', $this->destination, 500);
         Model::validateMaxLength('isoCountry', $this->isoCountry, 10);
@@ -333,6 +357,15 @@ class ApplyInsuranceOspireportRequest extends Model
         }
         if (null !== $this->cargoWeight) {
             $res['cargo_weight'] = $this->cargoWeight;
+        }
+        if (null !== $this->cargoType) {
+            $res['cargo_type'] = $this->cargoType;
+        }
+        if (null !== $this->cargoQuantity) {
+            $res['cargo_quantity'] = $this->cargoQuantity;
+        }
+        if (null !== $this->cargoAmount) {
+            $res['cargo_amount'] = $this->cargoAmount;
         }
         if (null !== $this->startPlace) {
             $res['start_place'] = $this->startPlace;
@@ -441,6 +474,15 @@ class ApplyInsuranceOspireportRequest extends Model
         }
         if (isset($map['cargo_weight'])) {
             $model->cargoWeight = $map['cargo_weight'];
+        }
+        if (isset($map['cargo_type'])) {
+            $model->cargoType = $map['cargo_type'];
+        }
+        if (isset($map['cargo_quantity'])) {
+            $model->cargoQuantity = $map['cargo_quantity'];
+        }
+        if (isset($map['cargo_amount'])) {
+            $model->cargoAmount = $map['cargo_amount'];
         }
         if (isset($map['start_place'])) {
             $model->startPlace = $map['start_place'];
