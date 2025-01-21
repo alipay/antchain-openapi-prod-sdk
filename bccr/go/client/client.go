@@ -11875,26 +11875,33 @@ type CreateEvidenceLiveRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 幂等字段
+	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 	// 取证用户id
 	EvidenceUserId *string `json:"evidence_user_id,omitempty" xml:"evidence_user_id,omitempty" require:"true"`
 	// 取证公证处
 	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
-	// 取证类型（通用直播取证：DEFAULT）
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
-	// 取证网址信息
-	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty"`
-	// 幂等字段
-	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
-	// 主播 ID
-	ProfileId *string `json:"profile_id,omitempty" xml:"profile_id,omitempty"`
+	// 取证平台：2：陌陌4：比心，5：小红书，6：lespark
+	ObtainPlatform *int64 `json:"obtain_platform,omitempty" xml:"obtain_platform,omitempty" require:"true"`
+	// 1：PC、2：移动设备
+	ObtainDeviceType *string `json:"obtain_device_type,omitempty" xml:"obtain_device_type,omitempty" require:"true"`
+	// 直播取证标题（自定义）
+	Title *string `json:"title,omitempty" xml:"title,omitempty"`
 	// 预定时间：分钟，建议传值范围5-20分钟
 	ExpectedDuration *int64 `json:"expected_duration,omitempty" xml:"expected_duration,omitempty"`
-	// 主播名称
-	AnchorName *string `json:"anchor_name,omitempty" xml:"anchor_name,omitempty"`
-	// 1：视频点播，2：视频直播，3：背景音乐
+	// json字符串，取证平台动态参数，其参数取决于type，具体参数见
+	// 附录
+	PlatformDynamicParams *string `json:"platform_dynamic_params,omitempty" xml:"platform_dynamic_params,omitempty"`
+	// 取证类型（通用直播取证：DEFAULT）（过期，后续版本逐步删除）
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 取证网址信息（过期，后续版本逐步删除）
+	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty"`
+	// 主播 ID（过期，后续版本逐步删除）
+	ProfileId *string `json:"profile_id,omitempty" xml:"profile_id,omitempty"`
+	// 1：视频点播，2：视频直播，3：背景音乐（过期，后续版本逐步删除）
 	ObtainType *string `json:"obtain_type,omitempty" xml:"obtain_type,omitempty"`
-	// 1：PC、2：移动设备
-	ObtainDeviceType *string `json:"obtain_device_type,omitempty" xml:"obtain_device_type,omitempty"`
+	// 主播名称（过期，后续版本逐步删除）
+	AnchorName *string `json:"anchor_name,omitempty" xml:"anchor_name,omitempty"`
 }
 
 func (s CreateEvidenceLiveRequest) String() string {
@@ -11915,6 +11922,11 @@ func (s *CreateEvidenceLiveRequest) SetProductInstanceId(v string) *CreateEviden
 	return s
 }
 
+func (s *CreateEvidenceLiveRequest) SetClientToken(v string) *CreateEvidenceLiveRequest {
+	s.ClientToken = &v
+	return s
+}
+
 func (s *CreateEvidenceLiveRequest) SetEvidenceUserId(v string) *CreateEvidenceLiveRequest {
 	s.EvidenceUserId = &v
 	return s
@@ -11922,6 +11934,31 @@ func (s *CreateEvidenceLiveRequest) SetEvidenceUserId(v string) *CreateEvidenceL
 
 func (s *CreateEvidenceLiveRequest) SetNotaryOffice(v string) *CreateEvidenceLiveRequest {
 	s.NotaryOffice = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetObtainPlatform(v int64) *CreateEvidenceLiveRequest {
+	s.ObtainPlatform = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetObtainDeviceType(v string) *CreateEvidenceLiveRequest {
+	s.ObtainDeviceType = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetTitle(v string) *CreateEvidenceLiveRequest {
+	s.Title = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetExpectedDuration(v int64) *CreateEvidenceLiveRequest {
+	s.ExpectedDuration = &v
+	return s
+}
+
+func (s *CreateEvidenceLiveRequest) SetPlatformDynamicParams(v string) *CreateEvidenceLiveRequest {
+	s.PlatformDynamicParams = &v
 	return s
 }
 
@@ -11935,23 +11972,8 @@ func (s *CreateEvidenceLiveRequest) SetWebUrl(v *EvidenceWebUrlInfo) *CreateEvid
 	return s
 }
 
-func (s *CreateEvidenceLiveRequest) SetClientToken(v string) *CreateEvidenceLiveRequest {
-	s.ClientToken = &v
-	return s
-}
-
 func (s *CreateEvidenceLiveRequest) SetProfileId(v string) *CreateEvidenceLiveRequest {
 	s.ProfileId = &v
-	return s
-}
-
-func (s *CreateEvidenceLiveRequest) SetExpectedDuration(v int64) *CreateEvidenceLiveRequest {
-	s.ExpectedDuration = &v
-	return s
-}
-
-func (s *CreateEvidenceLiveRequest) SetAnchorName(v string) *CreateEvidenceLiveRequest {
-	s.AnchorName = &v
 	return s
 }
 
@@ -11960,8 +11982,8 @@ func (s *CreateEvidenceLiveRequest) SetObtainType(v string) *CreateEvidenceLiveR
 	return s
 }
 
-func (s *CreateEvidenceLiveRequest) SetObtainDeviceType(v string) *CreateEvidenceLiveRequest {
-	s.ObtainDeviceType = &v
+func (s *CreateEvidenceLiveRequest) SetAnchorName(v string) *CreateEvidenceLiveRequest {
+	s.AnchorName = &v
 	return s
 }
 
@@ -12013,11 +12035,13 @@ type CreateEvidenceVodRequest struct {
 	// 公证处code
 	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
 	// 取证类型（通用点播取证：DEFAULT，快手点播取证：KUAISHOU）
-	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
 	// 待取证点播网站网址
 	WebUrl *EvidenceWebUrlInfo `json:"web_url,omitempty" xml:"web_url,omitempty" require:"true"`
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
+	// 取证平台
+	ObtainPlatform *int64 `json:"obtain_platform,omitempty" xml:"obtain_platform,omitempty" require:"true"`
 }
 
 func (s CreateEvidenceVodRequest) String() string {
@@ -12060,6 +12084,11 @@ func (s *CreateEvidenceVodRequest) SetWebUrl(v *EvidenceWebUrlInfo) *CreateEvide
 
 func (s *CreateEvidenceVodRequest) SetClientToken(v string) *CreateEvidenceVodRequest {
 	s.ClientToken = &v
+	return s
+}
+
+func (s *CreateEvidenceVodRequest) SetObtainPlatform(v int64) *CreateEvidenceVodRequest {
+	s.ObtainPlatform = &v
 	return s
 }
 
@@ -12260,6 +12289,8 @@ type GetEvidenceInfoResponse struct {
 	StartTime *int64 `json:"start_time,omitempty" xml:"start_time,omitempty"`
 	// 取证结束时间
 	FinishTime *int64 `json:"finish_time,omitempty" xml:"finish_time,omitempty"`
+	// 取证动态参数
+	PlatformDynamicParams *string `json:"platform_dynamic_params,omitempty" xml:"platform_dynamic_params,omitempty"`
 }
 
 func (s GetEvidenceInfoResponse) String() string {
@@ -12337,6 +12368,11 @@ func (s *GetEvidenceInfoResponse) SetStartTime(v int64) *GetEvidenceInfoResponse
 
 func (s *GetEvidenceInfoResponse) SetFinishTime(v int64) *GetEvidenceInfoResponse {
 	s.FinishTime = &v
+	return s
+}
+
+func (s *GetEvidenceInfoResponse) SetPlatformDynamicParams(v string) *GetEvidenceInfoResponse {
+	s.PlatformDynamicParams = &v
 	return s
 }
 
@@ -13911,7 +13947,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.22"),
+				"sdk_version":      tea.String("1.19.36"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
