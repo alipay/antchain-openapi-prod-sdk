@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.7.11',
+    sdk_version = '1.7.13',
     _prod_code = 'SHUZIWULIU',
     _prod_channel = 'undefined'
   };
@@ -7593,7 +7593,7 @@ model ApplyInsuranceOspireportRequest = {
   siteId?: string(maxLength=100, name='site_id'),
   // 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
   cargoName: string(maxLength=256, name='cargo_name'),
-  // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
+  // 货物的重量，单位(kg)，最多支持6位小数。支持多组传递，逗号分隔，格式：1.0,2.0,3.0,平台责任险可不填
   cargoWeight?: string(maxLength=256, name='cargo_weight'),
   // 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
   cargoType?: string(maxLength=256, name='cargo_type'),
@@ -7868,12 +7868,12 @@ model ApplyInsuranceCbpiRequest = {
   // 快递单号，实际的派送快递单号
   // 
   courierNumber: string(maxLength=100, name='courier_number'),
-  // 货物类型,货物类型的大类
+  // 货物类型,货物类型的大类,支持多组值的传入，英文逗号分割，格式：Computer & Office,Computer & Office,Computer & Office
   cargoType: string(maxLength=256, name='cargo_type'),
-  // 货物名称,实际的货物名称
+  // 货物名称,实际的货物名称,支持多组值的传入，英文逗号分割，格式：3D Printing,3D Printing,3D Printing
   cargoName: string(maxLength=256, name='cargo_name'),
-  // 货物数量
-  cargoQuantity: string(name='cargo_quantity'),
+  // 货物数量,支持多组值的传入，英文逗号分割，格式：1,1,1
+  cargoQuantity: string(maxLength=256, name='cargo_quantity'),
   // 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
   cargoWeight?: string(maxLength=256, name='cargo_weight'),
   // 买家ID,买家的脱敏唯一标识
