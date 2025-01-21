@@ -128,19 +128,19 @@ namespace AntChain.SDK.SHUZIWULIU.Models
         [Validation(Required=true, MaxLength=100)]
         public string CourierNumber { get; set; }
 
-        // 货物类型,货物类型的大类
+        // 货物类型,货物类型的大类,支持多组值的传入，英文逗号分割，格式：Computer & Office,Computer & Office,Computer & Office
         [NameInMap("cargo_type")]
         [Validation(Required=true, MaxLength=256)]
         public string CargoType { get; set; }
 
-        // 货物名称,实际的货物名称
+        // 货物名称,实际的货物名称,支持多组值的传入，英文逗号分割，格式：3D Printing,3D Printing,3D Printing
         [NameInMap("cargo_name")]
         [Validation(Required=true, MaxLength=256)]
         public string CargoName { get; set; }
 
-        // 货物数量
+        // 货物数量,支持多组值的传入，英文逗号分割，格式：1,1,1
         [NameInMap("cargo_quantity")]
-        [Validation(Required=true)]
+        [Validation(Required=true, MaxLength=256)]
         public string CargoQuantity { get; set; }
 
         // 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
