@@ -60,6 +60,10 @@ public class GetEvidenceInfoResponse extends TeaModel {
     @NameInMap("finish_time")
     public Long finishTime;
 
+    // 取证动态参数
+    @NameInMap("platform_dynamic_params")
+    public String platformDynamicParams;
+
     public static GetEvidenceInfoResponse build(java.util.Map<String, ?> map) throws Exception {
         GetEvidenceInfoResponse self = new GetEvidenceInfoResponse();
         return TeaModel.build(map, self);
@@ -175,6 +179,14 @@ public class GetEvidenceInfoResponse extends TeaModel {
     }
     public Long getFinishTime() {
         return this.finishTime;
+    }
+
+    public GetEvidenceInfoResponse setPlatformDynamicParams(String platformDynamicParams) {
+        this.platformDynamicParams = platformDynamicParams;
+        return this;
+    }
+    public String getPlatformDynamicParams() {
+        return this.platformDynamicParams;
     }
 
 }

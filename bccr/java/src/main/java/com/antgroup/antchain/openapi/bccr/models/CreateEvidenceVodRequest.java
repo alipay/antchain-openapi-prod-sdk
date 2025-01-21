@@ -23,7 +23,6 @@ public class CreateEvidenceVodRequest extends TeaModel {
 
     // 取证类型（通用点播取证：DEFAULT，快手点播取证：KUAISHOU）
     @NameInMap("type")
-    @Validation(required = true)
     public String type;
 
     // 待取证点播网站网址
@@ -35,6 +34,11 @@ public class CreateEvidenceVodRequest extends TeaModel {
     @NameInMap("client_token")
     @Validation(required = true)
     public String clientToken;
+
+    // 取证平台
+    @NameInMap("obtain_platform")
+    @Validation(required = true)
+    public Long obtainPlatform;
 
     public static CreateEvidenceVodRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateEvidenceVodRequest self = new CreateEvidenceVodRequest();
@@ -95,6 +99,14 @@ public class CreateEvidenceVodRequest extends TeaModel {
     }
     public String getClientToken() {
         return this.clientToken;
+    }
+
+    public CreateEvidenceVodRequest setObtainPlatform(Long obtainPlatform) {
+        this.obtainPlatform = obtainPlatform;
+        return this;
+    }
+    public Long getObtainPlatform() {
+        return this.obtainPlatform;
     }
 
 }
