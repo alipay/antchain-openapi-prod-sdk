@@ -13509,7 +13509,7 @@ export class ApplyInsuranceOspireportRequest extends $tea.Model {
   siteId?: string;
   // 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
   cargoName: string;
-  // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
+  // 货物的重量，单位(kg)，最多支持6位小数。支持多组传递，逗号分隔，格式：1.0,2.0,3.0,平台责任险可不填
   cargoWeight?: string;
   // 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
   cargoType?: string;
@@ -13985,11 +13985,11 @@ export class ApplyInsuranceCbpiRequest extends $tea.Model {
   // 快递单号，实际的派送快递单号
   // 
   courierNumber: string;
-  // 货物类型,货物类型的大类
+  // 货物类型,货物类型的大类,支持多组值的传入，英文逗号分割，格式：Computer & Office,Computer & Office,Computer & Office
   cargoType: string;
-  // 货物名称,实际的货物名称
+  // 货物名称,实际的货物名称,支持多组值的传入，英文逗号分割，格式：3D Printing,3D Printing,3D Printing
   cargoName: string;
-  // 货物数量
+  // 货物数量,支持多组值的传入，英文逗号分割，格式：1,1,1
   cargoQuantity: string;
   // 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
   cargoWeight?: string;
@@ -21650,7 +21650,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.11",
+          sdk_version: "1.7.13",
           _prod_code: "SHUZIWULIU",
           _prod_channel: "undefined",
         };
