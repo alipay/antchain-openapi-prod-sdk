@@ -18956,7 +18956,7 @@ type ApplyInsuranceOspireportRequest struct {
 	SiteId *string `json:"site_id,omitempty" xml:"site_id,omitempty" maxLength:"100"`
 	// 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
 	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"256"`
-	// 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
+	// 货物的重量，单位(kg)，最多支持6位小数。支持多组传递，逗号分隔，格式：1.0,2.0,3.0,平台责任险可不填
 	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"256"`
 	// 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
 	CargoType *string `json:"cargo_type,omitempty" xml:"cargo_type,omitempty" maxLength:"256"`
@@ -19672,12 +19672,12 @@ type ApplyInsuranceCbpiRequest struct {
 	// 快递单号，实际的派送快递单号
 	//
 	CourierNumber *string `json:"courier_number,omitempty" xml:"courier_number,omitempty" require:"true" maxLength:"100"`
-	// 货物类型,货物类型的大类
+	// 货物类型,货物类型的大类,支持多组值的传入，英文逗号分割，格式：Computer & Office,Computer & Office,Computer & Office
 	CargoType *string `json:"cargo_type,omitempty" xml:"cargo_type,omitempty" require:"true" maxLength:"256"`
-	// 货物名称,实际的货物名称
+	// 货物名称,实际的货物名称,支持多组值的传入，英文逗号分割，格式：3D Printing,3D Printing,3D Printing
 	CargoName *string `json:"cargo_name,omitempty" xml:"cargo_name,omitempty" require:"true" maxLength:"256"`
-	// 货物数量
-	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true"`
+	// 货物数量,支持多组值的传入，英文逗号分割，格式：1,1,1
+	CargoQuantity *string `json:"cargo_quantity,omitempty" xml:"cargo_quantity,omitempty" require:"true" maxLength:"256"`
 	// 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
 	CargoWeight *string `json:"cargo_weight,omitempty" xml:"cargo_weight,omitempty" maxLength:"256"`
 	// 买家ID,买家的脱敏唯一标识
@@ -30648,7 +30648,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.11"),
+				"sdk_version":      tea.String("1.7.13"),
 				"_prod_code":       tea.String("SHUZIWULIU"),
 				"_prod_channel":    tea.String("undefined"),
 			}
