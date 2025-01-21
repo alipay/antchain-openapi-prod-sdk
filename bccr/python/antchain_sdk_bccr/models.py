@@ -14655,48 +14655,59 @@ class CreateEvidenceLiveRequest(TeaModel):
         self,
         auth_token: str = None,
         product_instance_id: str = None,
+        client_token: str = None,
         evidence_user_id: str = None,
         notary_office: str = None,
+        obtain_platform: int = None,
+        obtain_device_type: str = None,
+        title: str = None,
+        expected_duration: int = None,
+        platform_dynamic_params: str = None,
         type: str = None,
         web_url: EvidenceWebUrlInfo = None,
-        client_token: str = None,
         profile_id: str = None,
-        expected_duration: int = None,
-        anchor_name: str = None,
         obtain_type: str = None,
-        obtain_device_type: str = None,
+        anchor_name: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
+        # 幂等字段
+        self.client_token = client_token
         # 取证用户id
         self.evidence_user_id = evidence_user_id
         # 取证公证处
         self.notary_office = notary_office
-        # 取证类型（通用直播取证：DEFAULT）
-        self.type = type
-        # 取证网址信息
-        self.web_url = web_url
-        # 幂等字段
-        self.client_token = client_token
-        # 主播 ID
-        self.profile_id = profile_id
-        # 预定时间：分钟，建议传值范围5-20分钟
-        self.expected_duration = expected_duration
-        # 主播名称
-        self.anchor_name = anchor_name
-        # 1：视频点播，2：视频直播，3：背景音乐
-        self.obtain_type = obtain_type
+        # 取证平台：2：陌陌4：比心，5：小红书，6：lespark
+        self.obtain_platform = obtain_platform
         # 1：PC、2：移动设备
         self.obtain_device_type = obtain_device_type
+        # 直播取证标题（自定义）
+        self.title = title
+        # 预定时间：分钟，建议传值范围5-20分钟
+        self.expected_duration = expected_duration
+        # json字符串，取证平台动态参数，其参数取决于type，具体参数见
+        # 附录
+        self.platform_dynamic_params = platform_dynamic_params
+        # 取证类型（通用直播取证：DEFAULT）（过期，后续版本逐步删除）
+        self.type = type
+        # 取证网址信息（过期，后续版本逐步删除）
+        self.web_url = web_url
+        # 主播 ID（过期，后续版本逐步删除）
+        self.profile_id = profile_id
+        # 1：视频点播，2：视频直播，3：背景音乐（过期，后续版本逐步删除）
+        self.obtain_type = obtain_type
+        # 主播名称（过期，后续版本逐步删除）
+        self.anchor_name = anchor_name
 
     def validate(self):
+        self.validate_required(self.client_token, 'client_token')
         self.validate_required(self.evidence_user_id, 'evidence_user_id')
         self.validate_required(self.notary_office, 'notary_office')
-        self.validate_required(self.type, 'type')
+        self.validate_required(self.obtain_platform, 'obtain_platform')
+        self.validate_required(self.obtain_device_type, 'obtain_device_type')
         if self.web_url:
             self.web_url.validate()
-        self.validate_required(self.client_token, 'client_token')
 
     def to_map(self):
         _map = super().to_map()
@@ -14708,26 +14719,32 @@ class CreateEvidenceLiveRequest(TeaModel):
             result['auth_token'] = self.auth_token
         if self.product_instance_id is not None:
             result['product_instance_id'] = self.product_instance_id
+        if self.client_token is not None:
+            result['client_token'] = self.client_token
         if self.evidence_user_id is not None:
             result['evidence_user_id'] = self.evidence_user_id
         if self.notary_office is not None:
             result['notary_office'] = self.notary_office
+        if self.obtain_platform is not None:
+            result['obtain_platform'] = self.obtain_platform
+        if self.obtain_device_type is not None:
+            result['obtain_device_type'] = self.obtain_device_type
+        if self.title is not None:
+            result['title'] = self.title
+        if self.expected_duration is not None:
+            result['expected_duration'] = self.expected_duration
+        if self.platform_dynamic_params is not None:
+            result['platform_dynamic_params'] = self.platform_dynamic_params
         if self.type is not None:
             result['type'] = self.type
         if self.web_url is not None:
             result['web_url'] = self.web_url.to_map()
-        if self.client_token is not None:
-            result['client_token'] = self.client_token
         if self.profile_id is not None:
             result['profile_id'] = self.profile_id
-        if self.expected_duration is not None:
-            result['expected_duration'] = self.expected_duration
-        if self.anchor_name is not None:
-            result['anchor_name'] = self.anchor_name
         if self.obtain_type is not None:
             result['obtain_type'] = self.obtain_type
-        if self.obtain_device_type is not None:
-            result['obtain_device_type'] = self.obtain_device_type
+        if self.anchor_name is not None:
+            result['anchor_name'] = self.anchor_name
         return result
 
     def from_map(self, m: dict = None):
@@ -14736,27 +14753,33 @@ class CreateEvidenceLiveRequest(TeaModel):
             self.auth_token = m.get('auth_token')
         if m.get('product_instance_id') is not None:
             self.product_instance_id = m.get('product_instance_id')
+        if m.get('client_token') is not None:
+            self.client_token = m.get('client_token')
         if m.get('evidence_user_id') is not None:
             self.evidence_user_id = m.get('evidence_user_id')
         if m.get('notary_office') is not None:
             self.notary_office = m.get('notary_office')
+        if m.get('obtain_platform') is not None:
+            self.obtain_platform = m.get('obtain_platform')
+        if m.get('obtain_device_type') is not None:
+            self.obtain_device_type = m.get('obtain_device_type')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('expected_duration') is not None:
+            self.expected_duration = m.get('expected_duration')
+        if m.get('platform_dynamic_params') is not None:
+            self.platform_dynamic_params = m.get('platform_dynamic_params')
         if m.get('type') is not None:
             self.type = m.get('type')
         if m.get('web_url') is not None:
             temp_model = EvidenceWebUrlInfo()
             self.web_url = temp_model.from_map(m['web_url'])
-        if m.get('client_token') is not None:
-            self.client_token = m.get('client_token')
         if m.get('profile_id') is not None:
             self.profile_id = m.get('profile_id')
-        if m.get('expected_duration') is not None:
-            self.expected_duration = m.get('expected_duration')
-        if m.get('anchor_name') is not None:
-            self.anchor_name = m.get('anchor_name')
         if m.get('obtain_type') is not None:
             self.obtain_type = m.get('obtain_type')
-        if m.get('obtain_device_type') is not None:
-            self.obtain_device_type = m.get('obtain_device_type')
+        if m.get('anchor_name') is not None:
+            self.anchor_name = m.get('anchor_name')
         return self
 
 
@@ -14819,6 +14842,7 @@ class CreateEvidenceVodRequest(TeaModel):
         type: str = None,
         web_url: EvidenceWebUrlInfo = None,
         client_token: str = None,
+        obtain_platform: int = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -14833,15 +14857,17 @@ class CreateEvidenceVodRequest(TeaModel):
         self.web_url = web_url
         # 幂等字段
         self.client_token = client_token
+        # 取证平台
+        self.obtain_platform = obtain_platform
 
     def validate(self):
         self.validate_required(self.evidence_user_id, 'evidence_user_id')
         self.validate_required(self.notary_office, 'notary_office')
-        self.validate_required(self.type, 'type')
         self.validate_required(self.web_url, 'web_url')
         if self.web_url:
             self.web_url.validate()
         self.validate_required(self.client_token, 'client_token')
+        self.validate_required(self.obtain_platform, 'obtain_platform')
 
     def to_map(self):
         _map = super().to_map()
@@ -14863,6 +14889,8 @@ class CreateEvidenceVodRequest(TeaModel):
             result['web_url'] = self.web_url.to_map()
         if self.client_token is not None:
             result['client_token'] = self.client_token
+        if self.obtain_platform is not None:
+            result['obtain_platform'] = self.obtain_platform
         return result
 
     def from_map(self, m: dict = None):
@@ -14882,6 +14910,8 @@ class CreateEvidenceVodRequest(TeaModel):
             self.web_url = temp_model.from_map(m['web_url'])
         if m.get('client_token') is not None:
             self.client_token = m.get('client_token')
+        if m.get('obtain_platform') is not None:
+            self.obtain_platform = m.get('obtain_platform')
         return self
 
 
@@ -15111,6 +15141,7 @@ class GetEvidenceInfoResponse(TeaModel):
         evidence_error_msg: str = None,
         start_time: int = None,
         finish_time: int = None,
+        platform_dynamic_params: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -15140,6 +15171,8 @@ class GetEvidenceInfoResponse(TeaModel):
         self.start_time = start_time
         # 取证结束时间
         self.finish_time = finish_time
+        # 取证动态参数
+        self.platform_dynamic_params = platform_dynamic_params
 
     def validate(self):
         if self.evidence_url:
@@ -15181,6 +15214,8 @@ class GetEvidenceInfoResponse(TeaModel):
             result['start_time'] = self.start_time
         if self.finish_time is not None:
             result['finish_time'] = self.finish_time
+        if self.platform_dynamic_params is not None:
+            result['platform_dynamic_params'] = self.platform_dynamic_params
         return result
 
     def from_map(self, m: dict = None):
@@ -15215,6 +15250,8 @@ class GetEvidenceInfoResponse(TeaModel):
             self.start_time = m.get('start_time')
         if m.get('finish_time') is not None:
             self.finish_time = m.get('finish_time')
+        if m.get('platform_dynamic_params') is not None:
+            self.platform_dynamic_params = m.get('platform_dynamic_params')
         return self
 
 
