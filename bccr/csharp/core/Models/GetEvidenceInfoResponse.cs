@@ -79,6 +79,11 @@ namespace AntChain.SDK.BCCR.Models
         [Validation(Required=false)]
         public long? FinishTime { get; set; }
 
+        // 取证动态参数
+        [NameInMap("platform_dynamic_params")]
+        [Validation(Required=false)]
+        public string PlatformDynamicParams { get; set; }
+
     }
 
 }

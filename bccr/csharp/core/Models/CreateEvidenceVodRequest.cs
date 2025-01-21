@@ -30,7 +30,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 取证类型（通用点播取证：DEFAULT，快手点播取证：KUAISHOU）
         [NameInMap("type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string Type { get; set; }
 
         // 待取证点播网站网址
@@ -42,6 +42,11 @@ namespace AntChain.SDK.BCCR.Models
         [NameInMap("client_token")]
         [Validation(Required=true)]
         public string ClientToken { get; set; }
+
+        // 取证平台
+        [NameInMap("obtain_platform")]
+        [Validation(Required=true)]
+        public long? ObtainPlatform { get; set; }
 
     }
 
