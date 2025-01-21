@@ -91,21 +91,28 @@ class GetEvidenceInfoResponse extends Model
      * @var int
      */
     public $finishTime;
+
+    // 取证动态参数
+    /**
+     * @var string
+     */
+    public $platformDynamicParams;
     protected $_name = [
-        'reqMsgId'          => 'req_msg_id',
-        'resultCode'        => 'result_code',
-        'resultMsg'         => 'result_msg',
-        'evidenceId'        => 'evidence_id',
-        'evidenceType'      => 'evidence_type',
-        'status'            => 'status',
-        'notaryOffice'      => 'notary_office',
-        'evidenceUrl'       => 'evidence_url',
-        'evidenceResultUrl' => 'evidence_result_url',
-        'certificateInfo'   => 'certificate_info',
-        'evidenceErrorCode' => 'evidence_error_code',
-        'evidenceErrorMsg'  => 'evidence_error_msg',
-        'startTime'         => 'start_time',
-        'finishTime'        => 'finish_time',
+        'reqMsgId'              => 'req_msg_id',
+        'resultCode'            => 'result_code',
+        'resultMsg'             => 'result_msg',
+        'evidenceId'            => 'evidence_id',
+        'evidenceType'          => 'evidence_type',
+        'status'                => 'status',
+        'notaryOffice'          => 'notary_office',
+        'evidenceUrl'           => 'evidence_url',
+        'evidenceResultUrl'     => 'evidence_result_url',
+        'certificateInfo'       => 'certificate_info',
+        'evidenceErrorCode'     => 'evidence_error_code',
+        'evidenceErrorMsg'      => 'evidence_error_msg',
+        'startTime'             => 'start_time',
+        'finishTime'            => 'finish_time',
+        'platformDynamicParams' => 'platform_dynamic_params',
     ];
 
     public function validate()
@@ -156,6 +163,9 @@ class GetEvidenceInfoResponse extends Model
         }
         if (null !== $this->finishTime) {
             $res['finish_time'] = $this->finishTime;
+        }
+        if (null !== $this->platformDynamicParams) {
+            $res['platform_dynamic_params'] = $this->platformDynamicParams;
         }
 
         return $res;
@@ -210,6 +220,9 @@ class GetEvidenceInfoResponse extends Model
         }
         if (isset($map['finish_time'])) {
             $model->finishTime = $map['finish_time'];
+        }
+        if (isset($map['platform_dynamic_params'])) {
+            $model->platformDynamicParams = $map['platform_dynamic_params'];
         }
 
         return $model;

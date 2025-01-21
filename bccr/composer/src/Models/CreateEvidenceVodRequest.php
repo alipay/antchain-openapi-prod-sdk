@@ -48,6 +48,12 @@ class CreateEvidenceVodRequest extends Model
      * @var string
      */
     public $clientToken;
+
+    // 取证平台
+    /**
+     * @var int
+     */
+    public $obtainPlatform;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
@@ -56,15 +62,16 @@ class CreateEvidenceVodRequest extends Model
         'type'              => 'type',
         'webUrl'            => 'web_url',
         'clientToken'       => 'client_token',
+        'obtainPlatform'    => 'obtain_platform',
     ];
 
     public function validate()
     {
         Model::validateRequired('evidenceUserId', $this->evidenceUserId, true);
         Model::validateRequired('notaryOffice', $this->notaryOffice, true);
-        Model::validateRequired('type', $this->type, true);
         Model::validateRequired('webUrl', $this->webUrl, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
+        Model::validateRequired('obtainPlatform', $this->obtainPlatform, true);
     }
 
     public function toMap()
@@ -90,6 +97,9 @@ class CreateEvidenceVodRequest extends Model
         }
         if (null !== $this->clientToken) {
             $res['client_token'] = $this->clientToken;
+        }
+        if (null !== $this->obtainPlatform) {
+            $res['obtain_platform'] = $this->obtainPlatform;
         }
 
         return $res;
@@ -123,6 +133,9 @@ class CreateEvidenceVodRequest extends Model
         }
         if (isset($map['client_token'])) {
             $model->clientToken = $map['client_token'];
+        }
+        if (isset($map['obtain_platform'])) {
+            $model->obtainPlatform = $map['obtain_platform'];
         }
 
         return $model;
