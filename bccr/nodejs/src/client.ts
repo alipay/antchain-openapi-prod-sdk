@@ -8788,40 +8788,50 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
+  // 幂等字段
+  clientToken: string;
   // 取证用户id
   evidenceUserId: string;
   // 取证公证处
   notaryOffice: string;
-  // 取证类型（通用直播取证：DEFAULT）
-  type: string;
-  // 取证网址信息
-  webUrl?: EvidenceWebUrlInfo;
-  // 幂等字段
-  clientToken: string;
-  // 主播 ID
-  profileId?: string;
+  // 取证平台：2：陌陌4：比心，5：小红书，6：lespark
+  obtainPlatform: number;
+  // 1：PC、2：移动设备
+  obtainDeviceType: string;
+  // 直播取证标题（自定义）
+  title?: string;
   // 预定时间：分钟，建议传值范围5-20分钟
   expectedDuration?: number;
-  // 主播名称
-  anchorName?: string;
-  // 1：视频点播，2：视频直播，3：背景音乐
+  // json字符串，取证平台动态参数，其参数取决于type，具体参数见
+  // 附录
+  platformDynamicParams?: string;
+  // 取证类型（通用直播取证：DEFAULT）（过期，后续版本逐步删除）
+  type?: string;
+  // 取证网址信息（过期，后续版本逐步删除）
+  webUrl?: EvidenceWebUrlInfo;
+  // 主播 ID（过期，后续版本逐步删除）
+  profileId?: string;
+  // 1：视频点播，2：视频直播，3：背景音乐（过期，后续版本逐步删除）
   obtainType?: string;
-  // 1：PC、2：移动设备
-  obtainDeviceType?: string;
+  // 主播名称（过期，后续版本逐步删除）
+  anchorName?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      clientToken: 'client_token',
       evidenceUserId: 'evidence_user_id',
       notaryOffice: 'notary_office',
+      obtainPlatform: 'obtain_platform',
+      obtainDeviceType: 'obtain_device_type',
+      title: 'title',
+      expectedDuration: 'expected_duration',
+      platformDynamicParams: 'platform_dynamic_params',
       type: 'type',
       webUrl: 'web_url',
-      clientToken: 'client_token',
       profileId: 'profile_id',
-      expectedDuration: 'expected_duration',
-      anchorName: 'anchor_name',
       obtainType: 'obtain_type',
-      obtainDeviceType: 'obtain_device_type',
+      anchorName: 'anchor_name',
     };
   }
 
@@ -8829,16 +8839,19 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      clientToken: 'string',
       evidenceUserId: 'string',
       notaryOffice: 'string',
+      obtainPlatform: 'number',
+      obtainDeviceType: 'string',
+      title: 'string',
+      expectedDuration: 'number',
+      platformDynamicParams: 'string',
       type: 'string',
       webUrl: EvidenceWebUrlInfo,
-      clientToken: 'string',
       profileId: 'string',
-      expectedDuration: 'number',
-      anchorName: 'string',
       obtainType: 'string',
-      obtainDeviceType: 'string',
+      anchorName: 'string',
     };
   }
 
@@ -8888,11 +8901,13 @@ export class CreateEvidenceVodRequest extends $tea.Model {
   // 公证处code
   notaryOffice: string;
   // 取证类型（通用点播取证：DEFAULT，快手点播取证：KUAISHOU）
-  type: string;
+  type?: string;
   // 待取证点播网站网址
   webUrl: EvidenceWebUrlInfo;
   // 幂等字段
   clientToken: string;
+  // 取证平台
+  obtainPlatform: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -8902,6 +8917,7 @@ export class CreateEvidenceVodRequest extends $tea.Model {
       type: 'type',
       webUrl: 'web_url',
       clientToken: 'client_token',
+      obtainPlatform: 'obtain_platform',
     };
   }
 
@@ -8914,6 +8930,7 @@ export class CreateEvidenceVodRequest extends $tea.Model {
       type: 'string',
       webUrl: EvidenceWebUrlInfo,
       clientToken: 'string',
+      obtainPlatform: 'number',
     };
   }
 
@@ -9085,6 +9102,8 @@ export class GetEvidenceInfoResponse extends $tea.Model {
   startTime?: number;
   // 取证结束时间
   finishTime?: number;
+  // 取证动态参数
+  platformDynamicParams?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -9101,6 +9120,7 @@ export class GetEvidenceInfoResponse extends $tea.Model {
       evidenceErrorMsg: 'evidence_error_msg',
       startTime: 'start_time',
       finishTime: 'finish_time',
+      platformDynamicParams: 'platform_dynamic_params',
     };
   }
 
@@ -9120,6 +9140,7 @@ export class GetEvidenceInfoResponse extends $tea.Model {
       evidenceErrorMsg: 'string',
       startTime: 'number',
       finishTime: 'number',
+      platformDynamicParams: 'string',
     };
   }
 
@@ -10335,7 +10356,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.22",
+          sdk_version: "1.19.36",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
