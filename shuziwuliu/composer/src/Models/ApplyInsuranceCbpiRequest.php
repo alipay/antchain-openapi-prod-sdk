@@ -149,19 +149,19 @@ class ApplyInsuranceCbpiRequest extends Model
      */
     public $courierNumber;
 
-    // 货物类型,货物类型的大类
+    // 货物类型,货物类型的大类,支持多组值的传入，英文逗号分割，格式：Computer & Office,Computer & Office,Computer & Office
     /**
      * @var string
      */
     public $cargoType;
 
-    // 货物名称,实际的货物名称
+    // 货物名称,实际的货物名称,支持多组值的传入，英文逗号分割，格式：3D Printing,3D Printing,3D Printing
     /**
      * @var string
      */
     public $cargoName;
 
-    // 货物数量
+    // 货物数量,支持多组值的传入，英文逗号分割，格式：1,1,1
     /**
      * @var string
      */
@@ -307,6 +307,7 @@ class ApplyInsuranceCbpiRequest extends Model
         Model::validateMaxLength('courierNumber', $this->courierNumber, 100);
         Model::validateMaxLength('cargoType', $this->cargoType, 256);
         Model::validateMaxLength('cargoName', $this->cargoName, 256);
+        Model::validateMaxLength('cargoQuantity', $this->cargoQuantity, 256);
         Model::validateMaxLength('cargoWeight', $this->cargoWeight, 256);
         Model::validateMaxLength('buyId', $this->buyId, 100);
         Model::validateMaxLength('sellId', $this->sellId, 100);
