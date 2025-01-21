@@ -23209,7 +23209,7 @@ class ApplyInsuranceOspireportRequest(TeaModel):
         self.site_id = site_id
         # 货物名称，实际的货物名称,支持多组传递，逗号分隔，格式：xiaomi14pro 12G+256G,xiaomi15 12G+256G,xiaomi14 12G+256G
         self.cargo_name = cargo_name
-        # 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
+        # 货物的重量，单位(kg)，最多支持6位小数。支持多组传递，逗号分隔，格式：1.0,2.0,3.0,平台责任险可不填
         self.cargo_weight = cargo_weight
         # 货物类型，支持多组传递，逗号分隔，格式：Electronic 3C Digital,Electronic 3C Digital,Electronic 3C Digital
         self.cargo_type = cargo_type
@@ -24152,11 +24152,11 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         # 快递单号，实际的派送快递单号
         # 
         self.courier_number = courier_number
-        # 货物类型,货物类型的大类
+        # 货物类型,货物类型的大类,支持多组值的传入，英文逗号分割，格式：Computer & Office,Computer & Office,Computer & Office
         self.cargo_type = cargo_type
-        # 货物名称,实际的货物名称
+        # 货物名称,实际的货物名称,支持多组值的传入，英文逗号分割，格式：3D Printing,3D Printing,3D Printing
         self.cargo_name = cargo_name
-        # 货物数量
+        # 货物数量,支持多组值的传入，英文逗号分割，格式：1,1,1
         self.cargo_quantity = cargo_quantity
         # 货物重量，支持多组值的传入，英文逗号分割，格式：1,2,3
         self.cargo_weight = cargo_weight
@@ -24239,6 +24239,8 @@ class ApplyInsuranceCbpiRequest(TeaModel):
         if self.cargo_name is not None:
             self.validate_max_length(self.cargo_name, 'cargo_name', 256)
         self.validate_required(self.cargo_quantity, 'cargo_quantity')
+        if self.cargo_quantity is not None:
+            self.validate_max_length(self.cargo_quantity, 'cargo_quantity', 256)
         if self.cargo_weight is not None:
             self.validate_max_length(self.cargo_weight, 'cargo_weight', 256)
         self.validate_required(self.buy_id, 'buy_id')
