@@ -102,7 +102,7 @@ public class ApplyInsuranceOspireportRequest extends TeaModel {
     @Validation(required = true, maxLength = 256)
     public String cargoName;
 
-    // 货物的重量，单位(kg)，最多支持6位小数。平台责任险可不填
+    // 货物的重量，单位(kg)，最多支持6位小数。支持多组传递，逗号分隔，格式：1.0,2.0,3.0,平台责任险可不填
     @NameInMap("cargo_weight")
     @Validation(maxLength = 256)
     public String cargoWeight;
