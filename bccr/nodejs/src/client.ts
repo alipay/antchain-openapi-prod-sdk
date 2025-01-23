@@ -8795,9 +8795,9 @@ export class CreateEvidenceLiveRequest extends $tea.Model {
   // 取证公证处
   notaryOffice: string;
   // 取证平台：2：陌陌4：比心，5：小红书，6：lespark
-  obtainPlatform: number;
+  obtainPlatform?: number;
   // 1：PC、2：移动设备
-  obtainDeviceType: string;
+  obtainDeviceType?: string;
   // 直播取证标题（自定义）
   title?: string;
   // 预定时间：分钟，建议传值范围5-20分钟
@@ -8907,7 +8907,7 @@ export class CreateEvidenceVodRequest extends $tea.Model {
   // 幂等字段
   clientToken: string;
   // 取证平台
-  obtainPlatform: number;
+  obtainPlatform?: number;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -10356,7 +10356,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.19.36",
+          sdk_version: "1.19.37",
           _prod_code: "BCCR",
           _prod_channel: "undefined",
         };
