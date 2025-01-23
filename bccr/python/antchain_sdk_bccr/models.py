@@ -14704,8 +14704,6 @@ class CreateEvidenceLiveRequest(TeaModel):
         self.validate_required(self.client_token, 'client_token')
         self.validate_required(self.evidence_user_id, 'evidence_user_id')
         self.validate_required(self.notary_office, 'notary_office')
-        self.validate_required(self.obtain_platform, 'obtain_platform')
-        self.validate_required(self.obtain_device_type, 'obtain_device_type')
         if self.web_url:
             self.web_url.validate()
 
@@ -14867,7 +14865,6 @@ class CreateEvidenceVodRequest(TeaModel):
         if self.web_url:
             self.web_url.validate()
         self.validate_required(self.client_token, 'client_token')
-        self.validate_required(self.obtain_platform, 'obtain_platform')
 
     def to_map(self):
         _map = super().to_map()
