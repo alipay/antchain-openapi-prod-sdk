@@ -120,8 +120,6 @@ class CreateEvidenceLiveRequest extends Model
         Model::validateRequired('clientToken', $this->clientToken, true);
         Model::validateRequired('evidenceUserId', $this->evidenceUserId, true);
         Model::validateRequired('notaryOffice', $this->notaryOffice, true);
-        Model::validateRequired('obtainPlatform', $this->obtainPlatform, true);
-        Model::validateRequired('obtainDeviceType', $this->obtainDeviceType, true);
     }
 
     public function toMap()

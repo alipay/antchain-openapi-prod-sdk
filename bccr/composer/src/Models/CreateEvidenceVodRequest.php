@@ -71,7 +71,6 @@ class CreateEvidenceVodRequest extends Model
         Model::validateRequired('notaryOffice', $this->notaryOffice, true);
         Model::validateRequired('webUrl', $this->webUrl, true);
         Model::validateRequired('clientToken', $this->clientToken, true);
-        Model::validateRequired('obtainPlatform', $this->obtainPlatform, true);
     }
 
     public function toMap()
