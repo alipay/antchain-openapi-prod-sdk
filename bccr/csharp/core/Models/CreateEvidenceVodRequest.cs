@@ -45,7 +45,7 @@ namespace AntChain.SDK.BCCR.Models
 
         // 取证平台
         [NameInMap("obtain_platform")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? ObtainPlatform { get; set; }
 
     }

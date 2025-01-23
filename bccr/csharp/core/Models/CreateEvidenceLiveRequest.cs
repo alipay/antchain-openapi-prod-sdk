@@ -35,12 +35,12 @@ namespace AntChain.SDK.BCCR.Models
 
         // 取证平台：2：陌陌4：比心，5：小红书，6：lespark
         [NameInMap("obtain_platform")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public long? ObtainPlatform { get; set; }
 
         // 1：PC、2：移动设备
         [NameInMap("obtain_device_type")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public string ObtainDeviceType { get; set; }
 
         // 直播取证标题（自定义）
