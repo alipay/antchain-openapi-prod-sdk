@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.19.36',
+    sdk_version = '1.19.37',
     _prod_code = 'BCCR',
     _prod_channel = 'undefined'
   };
@@ -4766,9 +4766,9 @@ model CreateEvidenceLiveRequest = {
   // 取证公证处
   notaryOffice: string(name='notary_office'),
   // 取证平台：2：陌陌4：比心，5：小红书，6：lespark
-  obtainPlatform: long(name='obtain_platform'),
+  obtainPlatform?: long(name='obtain_platform'),
   // 1：PC、2：移动设备
-  obtainDeviceType: string(name='obtain_device_type'),
+  obtainDeviceType?: string(name='obtain_device_type'),
   // 直播取证标题（自定义）
   title?: string(name='title'),
   // 预定时间：分钟，建议传值范围5-20分钟
@@ -4833,7 +4833,7 @@ model CreateEvidenceVodRequest = {
   // 幂等字段
   clientToken: string(name='client_token'),
   // 取证平台
-  obtainPlatform: long(name='obtain_platform'),
+  obtainPlatform?: long(name='obtain_platform'),
 }
 
 model CreateEvidenceVodResponse = {
