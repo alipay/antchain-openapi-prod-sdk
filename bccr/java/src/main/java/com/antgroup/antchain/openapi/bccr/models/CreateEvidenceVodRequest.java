@@ -37,7 +37,6 @@ public class CreateEvidenceVodRequest extends TeaModel {
 
     // 取证平台
     @NameInMap("obtain_platform")
-    @Validation(required = true)
     public Long obtainPlatform;
 
     public static CreateEvidenceVodRequest build(java.util.Map<String, ?> map) throws Exception {

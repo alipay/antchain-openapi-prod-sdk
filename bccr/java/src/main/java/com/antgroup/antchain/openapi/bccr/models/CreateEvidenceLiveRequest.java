@@ -28,12 +28,10 @@ public class CreateEvidenceLiveRequest extends TeaModel {
 
     // 取证平台：2：陌陌4：比心，5：小红书，6：lespark
     @NameInMap("obtain_platform")
-    @Validation(required = true)
     public Long obtainPlatform;
 
     // 1：PC、2：移动设备
     @NameInMap("obtain_device_type")
-    @Validation(required = true)
     public String obtainDeviceType;
 
     // 直播取证标题（自定义）
