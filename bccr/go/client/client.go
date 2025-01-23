@@ -11882,9 +11882,9 @@ type CreateEvidenceLiveRequest struct {
 	// 取证公证处
 	NotaryOffice *string `json:"notary_office,omitempty" xml:"notary_office,omitempty" require:"true"`
 	// 取证平台：2：陌陌4：比心，5：小红书，6：lespark
-	ObtainPlatform *int64 `json:"obtain_platform,omitempty" xml:"obtain_platform,omitempty" require:"true"`
+	ObtainPlatform *int64 `json:"obtain_platform,omitempty" xml:"obtain_platform,omitempty"`
 	// 1：PC、2：移动设备
-	ObtainDeviceType *string `json:"obtain_device_type,omitempty" xml:"obtain_device_type,omitempty" require:"true"`
+	ObtainDeviceType *string `json:"obtain_device_type,omitempty" xml:"obtain_device_type,omitempty"`
 	// 直播取证标题（自定义）
 	Title *string `json:"title,omitempty" xml:"title,omitempty"`
 	// 预定时间：分钟，建议传值范围5-20分钟
@@ -12041,7 +12041,7 @@ type CreateEvidenceVodRequest struct {
 	// 幂等字段
 	ClientToken *string `json:"client_token,omitempty" xml:"client_token,omitempty" require:"true"`
 	// 取证平台
-	ObtainPlatform *int64 `json:"obtain_platform,omitempty" xml:"obtain_platform,omitempty" require:"true"`
+	ObtainPlatform *int64 `json:"obtain_platform,omitempty" xml:"obtain_platform,omitempty"`
 }
 
 func (s CreateEvidenceVodRequest) String() string {
@@ -13947,7 +13947,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.19.36"),
+				"sdk_version":      tea.String("1.19.37"),
 				"_prod_code":       tea.String("BCCR"),
 				"_prod_channel":    tea.String("undefined"),
 			}
