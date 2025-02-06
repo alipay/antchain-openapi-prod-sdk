@@ -37,6 +37,10 @@ use AntChain\DEMO\Models\QueryABCRequest;
 use AntChain\DEMO\Models\QueryABCResponse;
 use AntChain\DEMO\Models\QueryAdAsdAsdRequest;
 use AntChain\DEMO\Models\QueryAdAsdAsdResponse;
+use AntChain\DEMO\Models\QueryApiBlackListRequest;
+use AntChain\DEMO\Models\QueryApiBlackListResponse;
+use AntChain\DEMO\Models\QueryApiWhiteListRequest;
+use AntChain\DEMO\Models\QueryApiWhiteListResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenRequest;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotenResponse;
 use AntChain\DEMO\Models\QueryGatewayCheckEchotimeoutokRequest;
@@ -51,6 +55,12 @@ use AntChain\DEMO\Models\QueryGatewayRoadRequest;
 use AntChain\DEMO\Models\QueryGatewayRoadResponse;
 use AntChain\DEMO\Models\QueryInstanceidRuleRequest;
 use AntChain\DEMO\Models\QueryInstanceidRuleResponse;
+use AntChain\DEMO\Models\QueryIpBlackListRequest;
+use AntChain\DEMO\Models\QueryIpBlackListResponse;
+use AntChain\DEMO\Models\QueryIpRetryRequest;
+use AntChain\DEMO\Models\QueryIpRetryResponse;
+use AntChain\DEMO\Models\QueryIpWhiteListRequest;
+use AntChain\DEMO\Models\QueryIpWhiteListResponse;
 use AntChain\DEMO\Models\QueryLoadtestTimeFiveRequest;
 use AntChain\DEMO\Models\QueryLoadtestTimeFiveResponse;
 use AntChain\DEMO\Models\QueryLoadtestTimeFourRequest;
@@ -232,7 +242,7 @@ class Client
                     'req_msg_id'       => UtilClient::getNonce(),
                     'access_key'       => $this->_accessKeyId,
                     'base_sdk_version' => 'TeaSDK-2.0',
-                    'sdk_version'      => '1.1.15',
+                    'sdk_version'      => '1.1.20',
                     '_prod_code'       => 'DEMO',
                     '_prod_channel'    => 'undefined',
                 ];
@@ -1023,6 +1033,171 @@ class Client
         Utils::validateModel($request);
 
         return QueryAasSaSaResponse::fromMap($this->doRequest('1.0', 'demo.aas.sa.sa.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】.
+     *
+     * @param QueryApiWhiteListRequest $request
+     *
+     * @return QueryApiWhiteListResponse
+     */
+    public function queryApiWhiteList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiWhiteListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】.
+     *
+     * @param QueryApiWhiteListRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryApiWhiteListResponse
+     */
+    public function queryApiWhiteListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiWhiteListResponse::fromMap($this->doRequest('1.0', 'demo.api.white.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】.
+     *
+     * @param QueryApiBlackListRequest $request
+     *
+     * @return QueryApiBlackListResponse
+     */
+    public function queryApiBlackList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryApiBlackListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+     * Summary: 自动化测试需要，【请勿做任何改动！】.
+     *
+     * @param QueryApiBlackListRequest $request
+     * @param string[]                 $headers
+     * @param RuntimeOptions           $runtime
+     *
+     * @return QueryApiBlackListResponse
+     */
+    public function queryApiBlackListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryApiBlackListResponse::fromMap($this->doRequest('1.0', 'demo.api.black.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问白名单测试.
+     *
+     * @param QueryIpWhiteListRequest $request
+     *
+     * @return QueryIpWhiteListResponse
+     */
+    public function queryIpWhiteList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpWhiteListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问白名单测试.
+     *
+     * @param QueryIpWhiteListRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryIpWhiteListResponse
+     */
+    public function queryIpWhiteListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpWhiteListResponse::fromMap($this->doRequest('1.0', 'demo.ip.white.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问黑名单测试.
+     *
+     * @param QueryIpBlackListRequest $request
+     *
+     * @return QueryIpBlackListResponse
+     */
+    public function queryIpBlackList($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpBlackListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: ip访问白名单测试
+     * Summary: 【自动化】ip访问黑名单测试.
+     *
+     * @param QueryIpBlackListRequest $request
+     * @param string[]                $headers
+     * @param RuntimeOptions          $runtime
+     *
+     * @return QueryIpBlackListResponse
+     */
+    public function queryIpBlackListEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpBlackListResponse::fromMap($this->doRequest('1.0', 'demo.ip.black.list.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 重试策略
+     * Summary: 【自动化】重试策略.
+     *
+     * @param QueryIpRetryRequest $request
+     *
+     * @return QueryIpRetryResponse
+     */
+    public function queryIpRetry($request)
+    {
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+
+        return $this->queryIpRetryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 重试策略
+     * Summary: 【自动化】重试策略.
+     *
+     * @param QueryIpRetryRequest $request
+     * @param string[]            $headers
+     * @param RuntimeOptions      $runtime
+     *
+     * @return QueryIpRetryResponse
+     */
+    public function queryIpRetryEx($request, $headers, $runtime)
+    {
+        Utils::validateModel($request);
+
+        return QueryIpRetryResponse::fromMap($this->doRequest('1.0', 'demo.ip.retry.query', 'HTTPS', 'POST', '/gateway.do', Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -21,7 +21,7 @@ class QueryLoadtestTimeFourRequest extends Model
 
     // 毫秒值
     /**
-     * @var int
+     * @var string
      */
     public $timeout;
     protected $_name = [

@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryLoadtestTimeOneRequest extends Model
+class QueryIpBlackListRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,7 +19,7 @@ class QueryLoadtestTimeOneRequest extends Model
      */
     public $productInstanceId;
 
-    // 毫秒值
+    // 超时时间
     /**
      * @var string
      */
@@ -54,7 +54,7 @@ class QueryLoadtestTimeOneRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryLoadtestTimeOneRequest
+     * @return QueryIpBlackListRequest
      */
     public static function fromMap($map = [])
     {

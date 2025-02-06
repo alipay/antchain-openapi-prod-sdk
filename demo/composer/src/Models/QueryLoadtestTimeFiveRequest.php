@@ -21,7 +21,7 @@ class QueryLoadtestTimeFiveRequest extends Model
 
     // 超时时间
     /**
-     * @var int
+     * @var string
      */
     public $timeout;
     protected $_name = [

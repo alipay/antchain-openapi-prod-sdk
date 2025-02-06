@@ -21,7 +21,7 @@ class QueryLoadtestTimeThreeRequest extends Model
 
     // ms
     /**
-     * @var int
+     * @var string
      */
     public $timeout;
     protected $_name = [

@@ -6,7 +6,7 @@ namespace AntChain\DEMO\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryLoadtestTimeOneRequest extends Model
+class QueryApiBlackListRequest extends Model
 {
     // OAuth模式下的授权token
     /**
@@ -19,20 +19,20 @@ class QueryLoadtestTimeOneRequest extends Model
      */
     public $productInstanceId;
 
-    // 毫秒值
+    // 查询输入
     /**
      * @var string
      */
-    public $timeout;
+    public $data;
     protected $_name = [
         'authToken'         => 'auth_token',
         'productInstanceId' => 'product_instance_id',
-        'timeout'           => 'timeout',
+        'data'              => 'data',
     ];
 
     public function validate()
     {
-        Model::validateRequired('timeout', $this->timeout, true);
+        Model::validateRequired('data', $this->data, true);
     }
 
     public function toMap()
@@ -44,8 +44,8 @@ class QueryLoadtestTimeOneRequest extends Model
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
         }
-        if (null !== $this->timeout) {
-            $res['timeout'] = $this->timeout;
+        if (null !== $this->data) {
+            $res['data'] = $this->data;
         }
 
         return $res;
@@ -54,7 +54,7 @@ class QueryLoadtestTimeOneRequest extends Model
     /**
      * @param array $map
      *
-     * @return QueryLoadtestTimeOneRequest
+     * @return QueryApiBlackListRequest
      */
     public static function fromMap($map = [])
     {
@@ -65,8 +65,8 @@ class QueryLoadtestTimeOneRequest extends Model
         if (isset($map['product_instance_id'])) {
             $model->productInstanceId = $map['product_instance_id'];
         }
-        if (isset($map['timeout'])) {
-            $model->timeout = $map['timeout'];
+        if (isset($map['data'])) {
+            $model->data = $map['data'];
         }
 
         return $model;
