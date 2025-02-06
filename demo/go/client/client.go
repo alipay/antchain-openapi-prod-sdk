@@ -2128,7 +2128,7 @@ type QueryLoadtestTimeThreeRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// ms
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
 }
 
 func (s QueryLoadtestTimeThreeRequest) String() string {
@@ -2149,7 +2149,7 @@ func (s *QueryLoadtestTimeThreeRequest) SetProductInstanceId(v string) *QueryLoa
 	return s
 }
 
-func (s *QueryLoadtestTimeThreeRequest) SetTimeout(v int64) *QueryLoadtestTimeThreeRequest {
+func (s *QueryLoadtestTimeThreeRequest) SetTimeout(v string) *QueryLoadtestTimeThreeRequest {
 	s.Timeout = &v
 	return s
 }
@@ -2872,6 +2872,377 @@ func (s *QueryAasSaSaResponse) SetResultMsg(v string) *QueryAasSaSaResponse {
 	return s
 }
 
+type QueryApiWhiteListRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询输入
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryApiWhiteListRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiWhiteListRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiWhiteListRequest) SetAuthToken(v string) *QueryApiWhiteListRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiWhiteListRequest) SetProductInstanceId(v string) *QueryApiWhiteListRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiWhiteListRequest) SetData(v string) *QueryApiWhiteListRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryApiWhiteListResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询返回
+	QueryResult *string `json:"query_result,omitempty" xml:"query_result,omitempty"`
+}
+
+func (s QueryApiWhiteListResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiWhiteListResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiWhiteListResponse) SetReqMsgId(v string) *QueryApiWhiteListResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiWhiteListResponse) SetResultCode(v string) *QueryApiWhiteListResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiWhiteListResponse) SetResultMsg(v string) *QueryApiWhiteListResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApiWhiteListResponse) SetQueryResult(v string) *QueryApiWhiteListResponse {
+	s.QueryResult = &v
+	return s
+}
+
+type QueryApiBlackListRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 查询输入
+	Data *string `json:"data,omitempty" xml:"data,omitempty" require:"true"`
+}
+
+func (s QueryApiBlackListRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiBlackListRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiBlackListRequest) SetAuthToken(v string) *QueryApiBlackListRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryApiBlackListRequest) SetProductInstanceId(v string) *QueryApiBlackListRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryApiBlackListRequest) SetData(v string) *QueryApiBlackListRequest {
+	s.Data = &v
+	return s
+}
+
+type QueryApiBlackListResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 查询返回
+	QueryResult *string `json:"query_result,omitempty" xml:"query_result,omitempty"`
+}
+
+func (s QueryApiBlackListResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryApiBlackListResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryApiBlackListResponse) SetReqMsgId(v string) *QueryApiBlackListResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryApiBlackListResponse) SetResultCode(v string) *QueryApiBlackListResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryApiBlackListResponse) SetResultMsg(v string) *QueryApiBlackListResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryApiBlackListResponse) SetQueryResult(v string) *QueryApiBlackListResponse {
+	s.QueryResult = &v
+	return s
+}
+
+type QueryIpWhiteListRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s QueryIpWhiteListRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpWhiteListRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpWhiteListRequest) SetAuthToken(v string) *QueryIpWhiteListRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpWhiteListRequest) SetProductInstanceId(v string) *QueryIpWhiteListRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpWhiteListRequest) SetTimeout(v string) *QueryIpWhiteListRequest {
+	s.Timeout = &v
+	return s
+}
+
+type QueryIpWhiteListResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// ok
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// SUCCESS
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryIpWhiteListResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpWhiteListResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpWhiteListResponse) SetReqMsgId(v string) *QueryIpWhiteListResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpWhiteListResponse) SetResultCode(v string) *QueryIpWhiteListResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpWhiteListResponse) SetResultMsg(v string) *QueryIpWhiteListResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpWhiteListResponse) SetStatus(v string) *QueryIpWhiteListResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryIpWhiteListResponse) SetMsg(v string) *QueryIpWhiteListResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryIpBlackListRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s QueryIpBlackListRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpBlackListRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpBlackListRequest) SetAuthToken(v string) *QueryIpBlackListRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpBlackListRequest) SetProductInstanceId(v string) *QueryIpBlackListRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpBlackListRequest) SetTimeout(v string) *QueryIpBlackListRequest {
+	s.Timeout = &v
+	return s
+}
+
+type QueryIpBlackListResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// OK
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// SUCCESS
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryIpBlackListResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpBlackListResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpBlackListResponse) SetReqMsgId(v string) *QueryIpBlackListResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpBlackListResponse) SetResultCode(v string) *QueryIpBlackListResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpBlackListResponse) SetResultMsg(v string) *QueryIpBlackListResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpBlackListResponse) SetStatus(v string) *QueryIpBlackListResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryIpBlackListResponse) SetMsg(v string) *QueryIpBlackListResponse {
+	s.Msg = &v
+	return s
+}
+
+type QueryIpRetryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 超时时间
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+}
+
+func (s QueryIpRetryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpRetryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpRetryRequest) SetAuthToken(v string) *QueryIpRetryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryIpRetryRequest) SetProductInstanceId(v string) *QueryIpRetryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryIpRetryRequest) SetTimeout(v string) *QueryIpRetryRequest {
+	s.Timeout = &v
+	return s
+}
+
+type QueryIpRetryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// OK
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// SUCCESS
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+}
+
+func (s QueryIpRetryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryIpRetryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryIpRetryResponse) SetReqMsgId(v string) *QueryIpRetryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryIpRetryResponse) SetResultCode(v string) *QueryIpRetryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryIpRetryResponse) SetResultMsg(v string) *QueryIpRetryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryIpRetryResponse) SetStatus(v string) *QueryIpRetryResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryIpRetryResponse) SetMsg(v string) *QueryIpRetryResponse {
+	s.Msg = &v
+	return s
+}
+
 type QueryStreamTestmethodRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -3192,7 +3563,7 @@ type QueryLoadtestTimeOneRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 毫秒值
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
 }
 
 func (s QueryLoadtestTimeOneRequest) String() string {
@@ -3213,7 +3584,7 @@ func (s *QueryLoadtestTimeOneRequest) SetProductInstanceId(v string) *QueryLoadt
 	return s
 }
 
-func (s *QueryLoadtestTimeOneRequest) SetTimeout(v int64) *QueryLoadtestTimeOneRequest {
+func (s *QueryLoadtestTimeOneRequest) SetTimeout(v string) *QueryLoadtestTimeOneRequest {
 	s.Timeout = &v
 	return s
 }
@@ -3269,7 +3640,7 @@ type QueryLoadtestTimeTwoRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 毫秒
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
 }
 
 func (s QueryLoadtestTimeTwoRequest) String() string {
@@ -3290,7 +3661,7 @@ func (s *QueryLoadtestTimeTwoRequest) SetProductInstanceId(v string) *QueryLoadt
 	return s
 }
 
-func (s *QueryLoadtestTimeTwoRequest) SetTimeout(v int64) *QueryLoadtestTimeTwoRequest {
+func (s *QueryLoadtestTimeTwoRequest) SetTimeout(v string) *QueryLoadtestTimeTwoRequest {
 	s.Timeout = &v
 	return s
 }
@@ -3346,7 +3717,7 @@ type QueryLoadtestTimeFourRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 毫秒值
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
 }
 
 func (s QueryLoadtestTimeFourRequest) String() string {
@@ -3367,7 +3738,7 @@ func (s *QueryLoadtestTimeFourRequest) SetProductInstanceId(v string) *QueryLoad
 	return s
 }
 
-func (s *QueryLoadtestTimeFourRequest) SetTimeout(v int64) *QueryLoadtestTimeFourRequest {
+func (s *QueryLoadtestTimeFourRequest) SetTimeout(v string) *QueryLoadtestTimeFourRequest {
 	s.Timeout = &v
 	return s
 }
@@ -3423,7 +3794,7 @@ type QueryLoadtestTimeFiveRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 超时时间
-	Timeout *int64 `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
+	Timeout *string `json:"timeout,omitempty" xml:"timeout,omitempty" require:"true"`
 }
 
 func (s QueryLoadtestTimeFiveRequest) String() string {
@@ -3444,7 +3815,7 @@ func (s *QueryLoadtestTimeFiveRequest) SetProductInstanceId(v string) *QueryLoad
 	return s
 }
 
-func (s *QueryLoadtestTimeFiveRequest) SetTimeout(v int64) *QueryLoadtestTimeFiveRequest {
+func (s *QueryLoadtestTimeFiveRequest) SetTimeout(v string) *QueryLoadtestTimeFiveRequest {
 	s.Timeout = &v
 	return s
 }
@@ -4143,7 +4514,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.15"),
+				"sdk_version":      tea.String("1.1.20"),
 				"_prod_code":       tea.String("DEMO"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -4972,6 +5343,176 @@ func (client *Client) QueryAasSaSaEx(request *QueryAasSaSaRequest, headers map[s
 	}
 	_result = &QueryAasSaSaResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.aas.sa.sa.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+ * Summary: 自动化测试需要，【请勿做任何改动！】
+ */
+func (client *Client) QueryApiWhiteList(request *QueryApiWhiteListRequest) (_result *QueryApiWhiteListResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiWhiteListResponse{}
+	_body, _err := client.QueryApiWhiteListEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+ * Summary: 自动化测试需要，【请勿做任何改动！】
+ */
+func (client *Client) QueryApiWhiteListEx(request *QueryApiWhiteListRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiWhiteListResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiWhiteListResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.api.white.list.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+ * Summary: 自动化测试需要，【请勿做任何改动！】
+ */
+func (client *Client) QueryApiBlackList(request *QueryApiBlackListRequest) (_result *QueryApiBlackListResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryApiBlackListResponse{}
+	_body, _err := client.QueryApiBlackListEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+ * Summary: 自动化测试需要，【请勿做任何改动！】
+ */
+func (client *Client) QueryApiBlackListEx(request *QueryApiBlackListRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryApiBlackListResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryApiBlackListResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.api.black.list.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: ip访问白名单测试
+ * Summary: 【自动化】ip访问白名单测试
+ */
+func (client *Client) QueryIpWhiteList(request *QueryIpWhiteListRequest) (_result *QueryIpWhiteListResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpWhiteListResponse{}
+	_body, _err := client.QueryIpWhiteListEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: ip访问白名单测试
+ * Summary: 【自动化】ip访问白名单测试
+ */
+func (client *Client) QueryIpWhiteListEx(request *QueryIpWhiteListRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpWhiteListResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpWhiteListResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.ip.white.list.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: ip访问白名单测试
+ * Summary: 【自动化】ip访问黑名单测试
+ */
+func (client *Client) QueryIpBlackList(request *QueryIpBlackListRequest) (_result *QueryIpBlackListResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpBlackListResponse{}
+	_body, _err := client.QueryIpBlackListEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: ip访问白名单测试
+ * Summary: 【自动化】ip访问黑名单测试
+ */
+func (client *Client) QueryIpBlackListEx(request *QueryIpBlackListRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpBlackListResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpBlackListResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.ip.black.list.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+/**
+ * Description: 重试策略
+ * Summary: 【自动化】重试策略
+ */
+func (client *Client) QueryIpRetry(request *QueryIpRetryRequest) (_result *QueryIpRetryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryIpRetryResponse{}
+	_body, _err := client.QueryIpRetryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+/**
+ * Description: 重试策略
+ * Summary: 【自动化】重试策略
+ */
+func (client *Client) QueryIpRetryEx(request *QueryIpRetryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryIpRetryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryIpRetryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("demo.ip.retry.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
