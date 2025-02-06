@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.15',
+                    'sdk_version': '1.1.20',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.15',
+                    'sdk_version': '1.1.20',
                     '_prod_code': 'DEMO',
                     '_prod_channel': 'undefined'
                 }
@@ -1541,6 +1541,286 @@ class Client:
         return TeaCore.from_map(
             demo_models.QueryAasSaSaResponse(),
             await self.do_request_async('1.0', 'demo.aas.sa.sa.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_api_white_list(
+        self,
+        request: demo_models.QueryApiWhiteListRequest,
+    ) -> demo_models.QueryApiWhiteListResponse:
+        """
+        Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+        Summary: 自动化测试需要，【请勿做任何改动！】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_white_list_ex(request, headers, runtime)
+
+    async def query_api_white_list_async(
+        self,
+        request: demo_models.QueryApiWhiteListRequest,
+    ) -> demo_models.QueryApiWhiteListResponse:
+        """
+        Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+        Summary: 自动化测试需要，【请勿做任何改动！】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_white_list_ex_async(request, headers, runtime)
+
+    def query_api_white_list_ex(
+        self,
+        request: demo_models.QueryApiWhiteListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryApiWhiteListResponse:
+        """
+        Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+        Summary: 自动化测试需要，【请勿做任何改动！】
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryApiWhiteListResponse(),
+            self.do_request('1.0', 'demo.api.white.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_white_list_ex_async(
+        self,
+        request: demo_models.QueryApiWhiteListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryApiWhiteListResponse:
+        """
+        Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+        Summary: 自动化测试需要，【请勿做任何改动！】
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryApiWhiteListResponse(),
+            await self.do_request_async('1.0', 'demo.api.white.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_api_black_list(
+        self,
+        request: demo_models.QueryApiBlackListRequest,
+    ) -> demo_models.QueryApiBlackListResponse:
+        """
+        Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+        Summary: 自动化测试需要，【请勿做任何改动！】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_api_black_list_ex(request, headers, runtime)
+
+    async def query_api_black_list_async(
+        self,
+        request: demo_models.QueryApiBlackListRequest,
+    ) -> demo_models.QueryApiBlackListResponse:
+        """
+        Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+        Summary: 自动化测试需要，【请勿做任何改动！】
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_api_black_list_ex_async(request, headers, runtime)
+
+    def query_api_black_list_ex(
+        self,
+        request: demo_models.QueryApiBlackListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryApiBlackListResponse:
+        """
+        Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+        Summary: 自动化测试需要，【请勿做任何改动！】
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryApiBlackListResponse(),
+            self.do_request('1.0', 'demo.api.black.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_api_black_list_ex_async(
+        self,
+        request: demo_models.QueryApiBlackListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryApiBlackListResponse:
+        """
+        Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+        Summary: 自动化测试需要，【请勿做任何改动！】
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryApiBlackListResponse(),
+            await self.do_request_async('1.0', 'demo.api.black.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_white_list(
+        self,
+        request: demo_models.QueryIpWhiteListRequest,
+    ) -> demo_models.QueryIpWhiteListResponse:
+        """
+        Description: ip访问白名单测试
+        Summary: 【自动化】ip访问白名单测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_white_list_ex(request, headers, runtime)
+
+    async def query_ip_white_list_async(
+        self,
+        request: demo_models.QueryIpWhiteListRequest,
+    ) -> demo_models.QueryIpWhiteListResponse:
+        """
+        Description: ip访问白名单测试
+        Summary: 【自动化】ip访问白名单测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_white_list_ex_async(request, headers, runtime)
+
+    def query_ip_white_list_ex(
+        self,
+        request: demo_models.QueryIpWhiteListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryIpWhiteListResponse:
+        """
+        Description: ip访问白名单测试
+        Summary: 【自动化】ip访问白名单测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryIpWhiteListResponse(),
+            self.do_request('1.0', 'demo.ip.white.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_white_list_ex_async(
+        self,
+        request: demo_models.QueryIpWhiteListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryIpWhiteListResponse:
+        """
+        Description: ip访问白名单测试
+        Summary: 【自动化】ip访问白名单测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryIpWhiteListResponse(),
+            await self.do_request_async('1.0', 'demo.ip.white.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_black_list(
+        self,
+        request: demo_models.QueryIpBlackListRequest,
+    ) -> demo_models.QueryIpBlackListResponse:
+        """
+        Description: ip访问白名单测试
+        Summary: 【自动化】ip访问黑名单测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_black_list_ex(request, headers, runtime)
+
+    async def query_ip_black_list_async(
+        self,
+        request: demo_models.QueryIpBlackListRequest,
+    ) -> demo_models.QueryIpBlackListResponse:
+        """
+        Description: ip访问白名单测试
+        Summary: 【自动化】ip访问黑名单测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_black_list_ex_async(request, headers, runtime)
+
+    def query_ip_black_list_ex(
+        self,
+        request: demo_models.QueryIpBlackListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryIpBlackListResponse:
+        """
+        Description: ip访问白名单测试
+        Summary: 【自动化】ip访问黑名单测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryIpBlackListResponse(),
+            self.do_request('1.0', 'demo.ip.black.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_black_list_ex_async(
+        self,
+        request: demo_models.QueryIpBlackListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryIpBlackListResponse:
+        """
+        Description: ip访问白名单测试
+        Summary: 【自动化】ip访问黑名单测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryIpBlackListResponse(),
+            await self.do_request_async('1.0', 'demo.ip.black.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_ip_retry(
+        self,
+        request: demo_models.QueryIpRetryRequest,
+    ) -> demo_models.QueryIpRetryResponse:
+        """
+        Description: 重试策略
+        Summary: 【自动化】重试策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_ip_retry_ex(request, headers, runtime)
+
+    async def query_ip_retry_async(
+        self,
+        request: demo_models.QueryIpRetryRequest,
+    ) -> demo_models.QueryIpRetryResponse:
+        """
+        Description: 重试策略
+        Summary: 【自动化】重试策略
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_ip_retry_ex_async(request, headers, runtime)
+
+    def query_ip_retry_ex(
+        self,
+        request: demo_models.QueryIpRetryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryIpRetryResponse:
+        """
+        Description: 重试策略
+        Summary: 【自动化】重试策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryIpRetryResponse(),
+            self.do_request('1.0', 'demo.ip.retry.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_ip_retry_ex_async(
+        self,
+        request: demo_models.QueryIpRetryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> demo_models.QueryIpRetryResponse:
+        """
+        Description: 重试策略
+        Summary: 【自动化】重试策略
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            demo_models.QueryIpRetryResponse(),
+            await self.do_request_async('1.0', 'demo.ip.retry.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_stream_testmethod(
