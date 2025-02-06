@@ -1773,7 +1773,7 @@ export class QueryLoadtestTimeThreeRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // ms
-  timeout: number;
+  timeout: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1786,7 +1786,7 @@ export class QueryLoadtestTimeThreeRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      timeout: 'number',
+      timeout: 'string',
     };
   }
 
@@ -2405,6 +2405,313 @@ export class QueryAasSaSaResponse extends $tea.Model {
   }
 }
 
+export class QueryApiWhiteListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询输入
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiWhiteListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询返回
+  queryResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResult: 'query_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiBlackListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 查询输入
+  data: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryApiBlackListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询返回
+  queryResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      queryResult: 'query_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      queryResult: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpWhiteListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpWhiteListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // ok
+  status?: string;
+  // SUCCESS
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpBlackListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpBlackListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // OK
+  status?: string;
+  // SUCCESS
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpRetryRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 超时时间
+  timeout: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      timeout: 'timeout',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      timeout: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryIpRetryResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // OK
+  status?: string;
+  // SUCCESS
+  msg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      status: 'status',
+      msg: 'msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      status: 'string',
+      msg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class QueryStreamTestmethodRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -2685,7 +2992,7 @@ export class QueryLoadtestTimeOneRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 毫秒值
-  timeout: number;
+  timeout: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2698,7 +3005,7 @@ export class QueryLoadtestTimeOneRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      timeout: 'number',
+      timeout: 'string',
     };
   }
 
@@ -2748,7 +3055,7 @@ export class QueryLoadtestTimeTwoRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 毫秒
-  timeout: number;
+  timeout: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2761,7 +3068,7 @@ export class QueryLoadtestTimeTwoRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      timeout: 'number',
+      timeout: 'string',
     };
   }
 
@@ -2811,7 +3118,7 @@ export class QueryLoadtestTimeFourRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 毫秒值
-  timeout: number;
+  timeout: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2824,7 +3131,7 @@ export class QueryLoadtestTimeFourRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      timeout: 'number',
+      timeout: 'string',
     };
   }
 
@@ -2874,7 +3181,7 @@ export class QueryLoadtestTimeFiveRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 超时时间
-  timeout: number;
+  timeout: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2887,7 +3194,7 @@ export class QueryLoadtestTimeFiveRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      timeout: 'number',
+      timeout: 'string',
     };
   }
 
@@ -3460,7 +3767,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.15",
+          sdk_version: "1.1.20",
           _prod_code: "DEMO",
           _prod_channel: "undefined",
         };
@@ -3946,6 +4253,101 @@ export default class Client {
   async queryAasSaSaEx(request: QueryAasSaSaRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAasSaSaResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAasSaSaResponse>(await this.doRequest("1.0", "demo.aas.sa.sa.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAasSaSaResponse({}));
+  }
+
+  /**
+   * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+   * Summary: 自动化测试需要，【请勿做任何改动！】
+   */
+  async queryApiWhiteList(request: QueryApiWhiteListRequest): Promise<QueryApiWhiteListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApiWhiteListEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+   * Summary: 自动化测试需要，【请勿做任何改动！】
+   */
+  async queryApiWhiteListEx(request: QueryApiWhiteListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiWhiteListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApiWhiteListResponse>(await this.doRequest("1.0", "demo.api.white.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiWhiteListResponse({}));
+  }
+
+  /**
+   * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+   * Summary: 自动化测试需要，【请勿做任何改动！】
+   */
+  async queryApiBlackList(request: QueryApiBlackListRequest): Promise<QueryApiBlackListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryApiBlackListEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+   * Summary: 自动化测试需要，【请勿做任何改动！】
+   */
+  async queryApiBlackListEx(request: QueryApiBlackListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryApiBlackListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryApiBlackListResponse>(await this.doRequest("1.0", "demo.api.black.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryApiBlackListResponse({}));
+  }
+
+  /**
+   * Description: ip访问白名单测试
+   * Summary: 【自动化】ip访问白名单测试
+   */
+  async queryIpWhiteList(request: QueryIpWhiteListRequest): Promise<QueryIpWhiteListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpWhiteListEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ip访问白名单测试
+   * Summary: 【自动化】ip访问白名单测试
+   */
+  async queryIpWhiteListEx(request: QueryIpWhiteListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpWhiteListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpWhiteListResponse>(await this.doRequest("1.0", "demo.ip.white.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpWhiteListResponse({}));
+  }
+
+  /**
+   * Description: ip访问白名单测试
+   * Summary: 【自动化】ip访问黑名单测试
+   */
+  async queryIpBlackList(request: QueryIpBlackListRequest): Promise<QueryIpBlackListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpBlackListEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: ip访问白名单测试
+   * Summary: 【自动化】ip访问黑名单测试
+   */
+  async queryIpBlackListEx(request: QueryIpBlackListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpBlackListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpBlackListResponse>(await this.doRequest("1.0", "demo.ip.black.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpBlackListResponse({}));
+  }
+
+  /**
+   * Description: 重试策略
+   * Summary: 【自动化】重试策略
+   */
+  async queryIpRetry(request: QueryIpRetryRequest): Promise<QueryIpRetryResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryIpRetryEx(request, headers, runtime);
+  }
+
+  /**
+   * Description: 重试策略
+   * Summary: 【自动化】重试策略
+   */
+  async queryIpRetryEx(request: QueryIpRetryRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryIpRetryResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryIpRetryResponse>(await this.doRequest("1.0", "demo.ip.retry.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryIpRetryResponse({}));
   }
 
   /**
