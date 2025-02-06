@@ -100,7 +100,7 @@ api doRequest(version: string, action: string, protocol: string, method: string,
     req_msg_id = AntchainUtil.getNonce(),
     access_key = @accessKeyId,
     base_sdk_version = 'TeaSDK-2.0',
-    sdk_version = '1.1.15',
+    sdk_version = '1.1.20',
     _prod_code = 'DEMO',
     _prod_channel = 'undefined'
   };
@@ -966,7 +966,7 @@ model QueryLoadtestTimeThreeRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // ms
-  timeout: long(name='timeout'),
+  timeout: string(name='timeout'),
 }
 
 model QueryLoadtestTimeThreeResponse = {
@@ -1373,6 +1373,202 @@ async function queryAasSaSaEx(request: QueryAasSaSaRequest, headers: map[string]
   return doRequest('1.0' ,'demo.aas.sa.sa.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
 }
 
+model QueryApiWhiteListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询输入
+  data: string(name='data'),
+}
+
+model QueryApiWhiteListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询返回
+  queryResult?: string(name='query_result'),
+}
+
+/**
+ * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+ * Summary: 自动化测试需要，【请勿做任何改动！】
+ */
+async function queryApiWhiteList(request: QueryApiWhiteListRequest): QueryApiWhiteListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiWhiteListEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+ * Summary: 自动化测试需要，【请勿做任何改动！】
+ */
+async function queryApiWhiteListEx(request: QueryApiWhiteListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiWhiteListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.api.white.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryApiBlackListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 查询输入
+  data: string(name='data'),
+}
+
+model QueryApiBlackListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // 查询返回
+  queryResult?: string(name='query_result'),
+}
+
+/**
+ * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+ * Summary: 自动化测试需要，【请勿做任何改动！】
+ */
+async function queryApiBlackList(request: QueryApiBlackListRequest): QueryApiBlackListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryApiBlackListEx(request, headers, runtime);
+}
+
+/**
+ * Description: 用于自动化测试IP访问控制白名单测试需要，【请勿做任何改动！】
+ * Summary: 自动化测试需要，【请勿做任何改动！】
+ */
+async function queryApiBlackListEx(request: QueryApiBlackListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryApiBlackListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.api.black.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpWhiteListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout: string(name='timeout'),
+}
+
+model QueryIpWhiteListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // ok
+  status?: string(name='status'),
+  // SUCCESS
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: ip访问白名单测试
+ * Summary: 【自动化】ip访问白名单测试
+ */
+async function queryIpWhiteList(request: QueryIpWhiteListRequest): QueryIpWhiteListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpWhiteListEx(request, headers, runtime);
+}
+
+/**
+ * Description: ip访问白名单测试
+ * Summary: 【自动化】ip访问白名单测试
+ */
+async function queryIpWhiteListEx(request: QueryIpWhiteListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpWhiteListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.ip.white.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpBlackListRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout: string(name='timeout'),
+}
+
+model QueryIpBlackListResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // OK
+  status?: string(name='status'),
+  // SUCCESS
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: ip访问白名单测试
+ * Summary: 【自动化】ip访问黑名单测试
+ */
+async function queryIpBlackList(request: QueryIpBlackListRequest): QueryIpBlackListResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpBlackListEx(request, headers, runtime);
+}
+
+/**
+ * Description: ip访问白名单测试
+ * Summary: 【自动化】ip访问黑名单测试
+ */
+async function queryIpBlackListEx(request: QueryIpBlackListRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpBlackListResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.ip.black.list.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
+model QueryIpRetryRequest = {
+  // OAuth模式下的授权token
+  authToken?: string(name='auth_token'),
+  productInstanceId?: string(name='product_instance_id'),
+  // 超时时间
+  timeout: string(name='timeout'),
+}
+
+model QueryIpRetryResponse = {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string(name='req_msg_id'),
+  // 结果码，一般OK表示调用成功
+  resultCode?: string(name='result_code'),
+  // 异常信息的文本描述
+  resultMsg?: string(name='result_msg'),
+  // OK
+  status?: string(name='status'),
+  // SUCCESS
+  msg?: string(name='msg'),
+}
+
+/**
+ * Description: 重试策略
+ * Summary: 【自动化】重试策略
+ */
+async function queryIpRetry(request: QueryIpRetryRequest): QueryIpRetryResponse {
+  var runtime = new Util.RuntimeOptions{};
+  var headers : map[string]string= {};
+  return queryIpRetryEx(request, headers, runtime);
+}
+
+/**
+ * Description: 重试策略
+ * Summary: 【自动化】重试策略
+ */
+async function queryIpRetryEx(request: QueryIpRetryRequest, headers: map[string]string, runtime: Util.RuntimeOptions): QueryIpRetryResponse {
+  Util.validateModel(request);
+  return doRequest('1.0' ,'demo.ip.retry.query', 'HTTPS', 'POST', `/gateway.do`, request, headers, runtime);
+}
+
 model QueryStreamTestmethodRequest = {
   // OAuth模式下的授权token
   authToken?: string(name='auth_token'),
@@ -1558,7 +1754,7 @@ model QueryLoadtestTimeOneRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 毫秒值
-  timeout: long(name='timeout'),
+  timeout: string(name='timeout'),
 }
 
 model QueryLoadtestTimeOneResponse = {
@@ -1598,7 +1794,7 @@ model QueryLoadtestTimeTwoRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 毫秒
-  timeout: long(name='timeout'),
+  timeout: string(name='timeout'),
 }
 
 model QueryLoadtestTimeTwoResponse = {
@@ -1638,7 +1834,7 @@ model QueryLoadtestTimeFourRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 毫秒值
-  timeout: long(name='timeout'),
+  timeout: string(name='timeout'),
 }
 
 model QueryLoadtestTimeFourResponse = {
@@ -1678,7 +1874,7 @@ model QueryLoadtestTimeFiveRequest = {
   authToken?: string(name='auth_token'),
   productInstanceId?: string(name='product_instance_id'),
   // 超时时间
-  timeout: long(name='timeout'),
+  timeout: string(name='timeout'),
 }
 
 model QueryLoadtestTimeFiveResponse = {
